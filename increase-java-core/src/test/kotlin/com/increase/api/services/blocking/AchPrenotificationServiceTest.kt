@@ -1,0 +1,77 @@
+package com.increase.api.services.blocking
+
+import com.increase.api.TestServerExtension
+import com.increase.api.client.okhttp.IncreaseOkHttpClient
+import com.increase.api.models.*
+import com.increase.api.models.AchPrenotificationListParams
+import java.time.LocalDate
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+
+@ExtendWith(TestServerExtension::class)
+class AchPrenotificationServiceTest {
+
+    @Test
+    fun callCreate() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("test-api-key")
+                .build()
+        val achPrenotificationService = client.achPrenotifications()
+        val achPrenotification =
+            achPrenotificationService.create(
+                AchPrenotificationCreateParams.builder()
+                    .accountNumber("x")
+                    .addendum("x")
+                    .companyDescriptiveDate("x")
+                    .companyDiscretionaryData("x")
+                    .companyEntryDescription("x")
+                    .companyName("x")
+                    .creditDebitIndicator(
+                        AchPrenotificationCreateParams.CreditDebitIndicator.CREDIT
+                    )
+                    .effectiveDate(LocalDate.parse("2019-12-27"))
+                    .individualId("x")
+                    .individualName("x")
+                    .routingNumber("xxxxxxxxx")
+                    .standardEntryClassCode(
+                        AchPrenotificationCreateParams.StandardEntryClassCode
+                            .CORPORATE_CREDIT_OR_DEBIT
+                    )
+                    .build()
+            )
+        println(achPrenotification)
+        achPrenotification.validate()
+    }
+
+    @Test
+    fun callRetrieve() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("test-api-key")
+                .build()
+        val achPrenotificationService = client.achPrenotifications()
+        val achPrenotification =
+            achPrenotificationService.retrieve(
+                AchPrenotificationRetrieveParams.builder().achPrenotificationId("string").build()
+            )
+        println(achPrenotification)
+        achPrenotification.validate()
+    }
+
+    @Test
+    fun callList() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("test-api-key")
+                .build()
+        val achPrenotificationService = client.achPrenotifications()
+        val achPrenotificationList =
+            achPrenotificationService.list(AchPrenotificationListParams.builder().build())
+        println(achPrenotificationList)
+        achPrenotificationList.data().forEach { it.validate() }
+    }
+}
