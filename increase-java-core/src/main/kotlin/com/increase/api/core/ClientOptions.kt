@@ -12,6 +12,8 @@ private constructor(
     @get:JvmName("httpClient") val httpClient: HttpClient,
     @get:JvmName("jsonMapper") val jsonMapper: JsonMapper,
     @get:JvmName("clock") val clock: Clock,
+    @get:JvmName("baseUrl") val baseUrl: String,
+    @get:JvmName("apiKey") val apiKey: String,
     @get:JvmName("headers") val headers: ListMultimap<String, String>,
     @get:JvmName("responseValidation") val responseValidation: Boolean,
 ) {
@@ -32,6 +34,7 @@ private constructor(
         private var httpClient: HttpClient? = null
         private var jsonMapper: JsonMapper? = null
         private var clock: Clock = Clock.systemUTC()
+        private var baseUrl: String = PRODUCTION_URL
         private var headers: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var responseValidation: Boolean = false
         private var maxRetries: Int = 2
@@ -40,6 +43,8 @@ private constructor(
         fun httpClient(httpClient: HttpClient) = apply { this.httpClient = httpClient }
 
         fun jsonMapper(jsonMapper: JsonMapper) = apply { this.jsonMapper = jsonMapper }
+
+        fun baseUrl(baseUrl: String) = apply { this.baseUrl = baseUrl }
 
         fun clock(clock: Clock) = apply { this.clock = clock }
 
@@ -95,6 +100,8 @@ private constructor(
                     .build(),
                 jsonMapper ?: jsonMapper(),
                 clock,
+                baseUrl,
+                apiKey!!,
                 headers.toUnmodifiable(),
                 responseValidation,
             )
