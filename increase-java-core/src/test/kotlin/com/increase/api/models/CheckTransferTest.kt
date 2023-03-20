@@ -57,6 +57,13 @@ class CheckTransferTest {
                         .type(CheckTransfer.Deposit.Type.CHECK_TRANSFER_DEPOSIT)
                         .build()
                 )
+                .returnDetails(
+                    CheckTransfer.ReturnDetails.builder()
+                        .transferId("string")
+                        .fileId("string")
+                        .reason(CheckTransfer.ReturnDetails.Reason.MAIL_DELIVERY_FAILURE)
+                        .build()
+                )
                 .type(CheckTransfer.Type.CHECK_TRANSFER)
                 .build()
         assertThat(checkTransfer).isNotNull
@@ -109,6 +116,14 @@ class CheckTransferTest {
                     .frontImageFileId("string")
                     .backImageFileId("string")
                     .type(CheckTransfer.Deposit.Type.CHECK_TRANSFER_DEPOSIT)
+                    .build()
+            )
+        assertThat(checkTransfer.returnDetails())
+            .contains(
+                CheckTransfer.ReturnDetails.builder()
+                    .transferId("string")
+                    .fileId("string")
+                    .reason(CheckTransfer.ReturnDetails.Reason.MAIL_DELIVERY_FAILURE)
                     .build()
             )
         assertThat(checkTransfer.type()).isEqualTo(CheckTransfer.Type.CHECK_TRANSFER)

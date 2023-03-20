@@ -42,4 +42,23 @@ class CheckTransferServiceTest {
         println(checkTransfer)
         checkTransfer.validate()
     }
+
+    @Test
+    fun callReturn() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("test-api-key")
+                .build()
+        val checkTransferService = client.simulations().checkTransfers()
+        val checkTransfer =
+            checkTransferService.return_(
+                SimulationsCheckTransferReturnParams.builder()
+                    .checkTransferId("string")
+                    .reason(SimulationsCheckTransferReturnParams.Reason.MAIL_DELIVERY_FAILURE)
+                    .build()
+            )
+        println(checkTransfer)
+        checkTransfer.validate()
+    }
 }

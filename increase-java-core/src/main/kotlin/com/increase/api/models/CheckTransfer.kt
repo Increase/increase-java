@@ -43,6 +43,7 @@ private constructor(
     private val transactionId: JsonField<String>,
     private val stopPaymentRequest: JsonField<StopPaymentRequest>,
     private val deposit: JsonField<Deposit>,
+    private val returnDetails: JsonField<ReturnDetails>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -134,6 +135,14 @@ private constructor(
     fun deposit(): Optional<Deposit> = Optional.ofNullable(deposit.getNullable("deposit"))
 
     /**
+     * After a check transfer is returned, this will contain supplemental details. A check transfer
+     * is returned when the receiver mails a never deposited check back to the bank printed on the
+     * check.
+     */
+    fun returnDetails(): Optional<ReturnDetails> =
+        Optional.ofNullable(returnDetails.getNullable("return_details"))
+
+    /**
      * A constant representing the object's type. For this resource it will always be
      * `check_transfer`.
      */
@@ -217,6 +226,13 @@ private constructor(
     @JsonProperty("deposit") @ExcludeMissing fun _deposit() = deposit
 
     /**
+     * After a check transfer is returned, this will contain supplemental details. A check transfer
+     * is returned when the receiver mails a never deposited check back to the bank printed on the
+     * check.
+     */
+    @JsonProperty("return_details") @ExcludeMissing fun _returnDetails() = returnDetails
+
+    /**
      * A constant representing the object's type. For this resource it will always be
      * `check_transfer`.
      */
@@ -250,6 +266,7 @@ private constructor(
             transactionId()
             stopPaymentRequest().map { it.validate() }
             deposit().map { it.validate() }
+            returnDetails().map { it.validate() }
             type()
             validated = true
         }
@@ -285,6 +302,7 @@ private constructor(
             this.transactionId == other.transactionId &&
             this.stopPaymentRequest == other.stopPaymentRequest &&
             this.deposit == other.deposit &&
+            this.returnDetails == other.returnDetails &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -315,6 +333,7 @@ private constructor(
                     transactionId,
                     stopPaymentRequest,
                     deposit,
+                    returnDetails,
                     type,
                     additionalProperties,
                 )
@@ -323,7 +342,7 @@ private constructor(
     }
 
     override fun toString() =
-        "CheckTransfer{accountId=$accountId, addressLine1=$addressLine1, addressLine2=$addressLine2, addressCity=$addressCity, addressState=$addressState, addressZip=$addressZip, returnAddress=$returnAddress, amount=$amount, createdAt=$createdAt, currency=$currency, id=$id, mailedAt=$mailedAt, message=$message, note=$note, recipientName=$recipientName, status=$status, submittedAt=$submittedAt, submission=$submission, templateId=$templateId, transactionId=$transactionId, stopPaymentRequest=$stopPaymentRequest, deposit=$deposit, type=$type, additionalProperties=$additionalProperties}"
+        "CheckTransfer{accountId=$accountId, addressLine1=$addressLine1, addressLine2=$addressLine2, addressCity=$addressCity, addressState=$addressState, addressZip=$addressZip, returnAddress=$returnAddress, amount=$amount, createdAt=$createdAt, currency=$currency, id=$id, mailedAt=$mailedAt, message=$message, note=$note, recipientName=$recipientName, status=$status, submittedAt=$submittedAt, submission=$submission, templateId=$templateId, transactionId=$transactionId, stopPaymentRequest=$stopPaymentRequest, deposit=$deposit, returnDetails=$returnDetails, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -354,6 +373,7 @@ private constructor(
         private var transactionId: JsonField<String> = JsonMissing.of()
         private var stopPaymentRequest: JsonField<StopPaymentRequest> = JsonMissing.of()
         private var deposit: JsonField<Deposit> = JsonMissing.of()
+        private var returnDetails: JsonField<ReturnDetails> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -381,6 +401,7 @@ private constructor(
             this.transactionId = checkTransfer.transactionId
             this.stopPaymentRequest = checkTransfer.stopPaymentRequest
             this.deposit = checkTransfer.deposit
+            this.returnDetails = checkTransfer.returnDetails
             this.type = checkTransfer.type
             additionalProperties(checkTransfer.additionalProperties)
         }
@@ -599,6 +620,24 @@ private constructor(
         fun deposit(deposit: JsonField<Deposit>) = apply { this.deposit = deposit }
 
         /**
+         * After a check transfer is returned, this will contain supplemental details. A check
+         * transfer is returned when the receiver mails a never deposited check back to the bank
+         * printed on the check.
+         */
+        fun returnDetails(returnDetails: ReturnDetails) = returnDetails(JsonField.of(returnDetails))
+
+        /**
+         * After a check transfer is returned, this will contain supplemental details. A check
+         * transfer is returned when the receiver mails a never deposited check back to the bank
+         * printed on the check.
+         */
+        @JsonProperty("return_details")
+        @ExcludeMissing
+        fun returnDetails(returnDetails: JsonField<ReturnDetails>) = apply {
+            this.returnDetails = returnDetails
+        }
+
+        /**
          * A constant representing the object's type. For this resource it will always be
          * `check_transfer`.
          */
@@ -650,6 +689,7 @@ private constructor(
                 transactionId,
                 stopPaymentRequest,
                 deposit,
+                returnDetails,
                 type,
                 additionalProperties.toUnmodifiable(),
             )
@@ -1601,6 +1641,211 @@ private constructor(
                 when (this) {
                     CHECK_TRANSFER_DEPOSIT -> Known.CHECK_TRANSFER_DEPOSIT
                     else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
+    }
+
+    /**
+     * After a check transfer is returned, this will contain supplemental details. A check transfer
+     * is returned when the receiver mails a never deposited check back to the bank printed on the
+     * check.
+     */
+    @JsonDeserialize(builder = ReturnDetails.Builder::class)
+    @NoAutoDetect
+    class ReturnDetails
+    private constructor(
+        private val transferId: JsonField<String>,
+        private val fileId: JsonField<String>,
+        private val reason: JsonField<Reason>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        /** The identifier of the returned Check Transfer. */
+        fun transferId(): String = transferId.getRequired("transfer_id")
+
+        /** If available, a document with additional information about the return. */
+        fun fileId(): Optional<String> = Optional.ofNullable(fileId.getNullable("file_id"))
+
+        /** The reason why the check was returned. */
+        fun reason(): Reason = reason.getRequired("reason")
+
+        /** The identifier of the returned Check Transfer. */
+        @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
+
+        /** If available, a document with additional information about the return. */
+        @JsonProperty("file_id") @ExcludeMissing fun _fileId() = fileId
+
+        /** The reason why the check was returned. */
+        @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate() = apply {
+            if (!validated) {
+                transferId()
+                fileId()
+                reason()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ReturnDetails &&
+                this.transferId == other.transferId &&
+                this.fileId == other.fileId &&
+                this.reason == other.reason &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        transferId,
+                        fileId,
+                        reason,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "ReturnDetails{transferId=$transferId, fileId=$fileId, reason=$reason, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var transferId: JsonField<String> = JsonMissing.of()
+            private var fileId: JsonField<String> = JsonMissing.of()
+            private var reason: JsonField<Reason> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(returnDetails: ReturnDetails) = apply {
+                this.transferId = returnDetails.transferId
+                this.fileId = returnDetails.fileId
+                this.reason = returnDetails.reason
+                additionalProperties(returnDetails.additionalProperties)
+            }
+
+            /** The identifier of the returned Check Transfer. */
+            fun transferId(transferId: String) = transferId(JsonField.of(transferId))
+
+            /** The identifier of the returned Check Transfer. */
+            @JsonProperty("transfer_id")
+            @ExcludeMissing
+            fun transferId(transferId: JsonField<String>) = apply { this.transferId = transferId }
+
+            /** If available, a document with additional information about the return. */
+            fun fileId(fileId: String) = fileId(JsonField.of(fileId))
+
+            /** If available, a document with additional information about the return. */
+            @JsonProperty("file_id")
+            @ExcludeMissing
+            fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
+
+            /** The reason why the check was returned. */
+            fun reason(reason: Reason) = reason(JsonField.of(reason))
+
+            /** The reason why the check was returned. */
+            @JsonProperty("reason")
+            @ExcludeMissing
+            fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): ReturnDetails =
+                ReturnDetails(
+                    transferId,
+                    fileId,
+                    reason,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
+
+        class Reason
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Reason && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                @JvmField val MAIL_DELIVERY_FAILURE = Reason(JsonField.of("mail_delivery_failure"))
+
+                @JvmField val REFUSED_BY_RECIPIENT = Reason(JsonField.of("refused_by_recipient"))
+
+                @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
+            }
+
+            enum class Known {
+                MAIL_DELIVERY_FAILURE,
+                REFUSED_BY_RECIPIENT,
+            }
+
+            enum class Value {
+                MAIL_DELIVERY_FAILURE,
+                REFUSED_BY_RECIPIENT,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    MAIL_DELIVERY_FAILURE -> Value.MAIL_DELIVERY_FAILURE
+                    REFUSED_BY_RECIPIENT -> Value.REFUSED_BY_RECIPIENT
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    MAIL_DELIVERY_FAILURE -> Known.MAIL_DELIVERY_FAILURE
+                    REFUSED_BY_RECIPIENT -> Known.REFUSED_BY_RECIPIENT
+                    else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                 }
 
             fun asString(): String = _value().asStringOrThrow()

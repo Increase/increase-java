@@ -140,6 +140,10 @@ class TransactionTest {
                             Transaction.Source.CheckTransferReturn.builder()
                                 .transferId("string")
                                 .fileId("string")
+                                .reason(
+                                    Transaction.Source.CheckTransferReturn.Reason
+                                        .MAIL_DELIVERY_FAILURE
+                                )
                                 .build()
                         )
                         .checkTransferRejection(
@@ -525,6 +529,9 @@ class TransactionTest {
                         Transaction.Source.CheckTransferReturn.builder()
                             .transferId("string")
                             .fileId("string")
+                            .reason(
+                                Transaction.Source.CheckTransferReturn.Reason.MAIL_DELIVERY_FAILURE
+                            )
                             .build()
                     )
                     .checkTransferRejection(

@@ -15,6 +15,7 @@ import java.util.Optional
 class AccountCreateParams
 constructor(
     private val entityId: String?,
+    private val programId: String?,
     private val informationalEntityId: String?,
     private val name: String,
     private val additionalQueryParams: Map<String, List<String>>,
@@ -24,6 +25,8 @@ constructor(
 
     fun entityId(): Optional<String> = Optional.ofNullable(entityId)
 
+    fun programId(): Optional<String> = Optional.ofNullable(programId)
+
     fun informationalEntityId(): Optional<String> = Optional.ofNullable(informationalEntityId)
 
     fun name(): String = name
@@ -32,6 +35,7 @@ constructor(
     internal fun getBody(): AccountCreateBody {
         return AccountCreateBody(
             entityId,
+            programId,
             informationalEntityId,
             name,
             additionalBodyProperties,
@@ -47,6 +51,7 @@ constructor(
     class AccountCreateBody
     internal constructor(
         private val entityId: String?,
+        private val programId: String?,
         private val informationalEntityId: String?,
         private val name: String?,
         private val additionalProperties: Map<String, JsonValue>,
@@ -56,6 +61,9 @@ constructor(
 
         /** The identifier for the Entity that will own the Account. */
         @JsonProperty("entity_id") fun entityId(): String? = entityId
+
+        /** The identifier for the Program that this Account falls under. */
+        @JsonProperty("program_id") fun programId(): String? = programId
 
         /**
          * The identifier of an Entity that, while not owning the Account, is associated with its
@@ -80,6 +88,7 @@ constructor(
 
             return other is AccountCreateBody &&
                 this.entityId == other.entityId &&
+                this.programId == other.programId &&
                 this.informationalEntityId == other.informationalEntityId &&
                 this.name == other.name &&
                 this.additionalProperties == other.additionalProperties
@@ -90,6 +99,7 @@ constructor(
                 hashCode =
                     Objects.hash(
                         entityId,
+                        programId,
                         informationalEntityId,
                         name,
                         additionalProperties,
@@ -99,7 +109,7 @@ constructor(
         }
 
         override fun toString() =
-            "AccountCreateBody{entityId=$entityId, informationalEntityId=$informationalEntityId, name=$name, additionalProperties=$additionalProperties}"
+            "AccountCreateBody{entityId=$entityId, programId=$programId, informationalEntityId=$informationalEntityId, name=$name, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -109,6 +119,7 @@ constructor(
         class Builder {
 
             private var entityId: String? = null
+            private var programId: String? = null
             private var informationalEntityId: String? = null
             private var name: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -116,6 +127,7 @@ constructor(
             @JvmSynthetic
             internal fun from(accountCreateBody: AccountCreateBody) = apply {
                 this.entityId = accountCreateBody.entityId
+                this.programId = accountCreateBody.programId
                 this.informationalEntityId = accountCreateBody.informationalEntityId
                 this.name = accountCreateBody.name
                 additionalProperties(accountCreateBody.additionalProperties)
@@ -124,6 +136,10 @@ constructor(
             /** The identifier for the Entity that will own the Account. */
             @JsonProperty("entity_id")
             fun entityId(entityId: String) = apply { this.entityId = entityId }
+
+            /** The identifier for the Program that this Account falls under. */
+            @JsonProperty("program_id")
+            fun programId(programId: String) = apply { this.programId = programId }
 
             /**
              * The identifier of an Entity that, while not owning the Account, is associated with
@@ -154,6 +170,7 @@ constructor(
             fun build(): AccountCreateBody =
                 AccountCreateBody(
                     entityId,
+                    programId,
                     informationalEntityId,
                     checkNotNull(name) { "`name` is required but was not set" },
                     additionalProperties.toUnmodifiable(),
@@ -174,6 +191,7 @@ constructor(
 
         return other is AccountCreateParams &&
             this.entityId == other.entityId &&
+            this.programId == other.programId &&
             this.informationalEntityId == other.informationalEntityId &&
             this.name == other.name &&
             this.additionalQueryParams == other.additionalQueryParams &&
@@ -184,6 +202,7 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             entityId,
+            programId,
             informationalEntityId,
             name,
             additionalQueryParams,
@@ -193,7 +212,7 @@ constructor(
     }
 
     override fun toString() =
-        "AccountCreateParams{entityId=$entityId, informationalEntityId=$informationalEntityId, name=$name, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "AccountCreateParams{entityId=$entityId, programId=$programId, informationalEntityId=$informationalEntityId, name=$name, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -206,6 +225,7 @@ constructor(
     class Builder {
 
         private var entityId: String? = null
+        private var programId: String? = null
         private var informationalEntityId: String? = null
         private var name: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -215,6 +235,7 @@ constructor(
         @JvmSynthetic
         internal fun from(accountCreateParams: AccountCreateParams) = apply {
             this.entityId = accountCreateParams.entityId
+            this.programId = accountCreateParams.programId
             this.informationalEntityId = accountCreateParams.informationalEntityId
             this.name = accountCreateParams.name
             additionalQueryParams(accountCreateParams.additionalQueryParams)
@@ -224,6 +245,9 @@ constructor(
 
         /** The identifier for the Entity that will own the Account. */
         fun entityId(entityId: String) = apply { this.entityId = entityId }
+
+        /** The identifier for the Program that this Account falls under. */
+        fun programId(programId: String) = apply { this.programId = programId }
 
         /**
          * The identifier of an Entity that, while not owning the Account, is associated with its
@@ -293,6 +317,7 @@ constructor(
         fun build(): AccountCreateParams =
             AccountCreateParams(
                 entityId,
+                programId,
                 informationalEntityId,
                 checkNotNull(name) { "`name` is required but was not set" },
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),

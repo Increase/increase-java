@@ -342,6 +342,8 @@ private constructor(
             @JvmField
             val ENTITY_SUPPLEMENTAL_DOCUMENT = Purpose(JsonField.of("entity_supplemental_document"))
 
+            @JvmField val EXPORT = Purpose(JsonField.of("export"))
+
             @JvmStatic fun of(value: String) = Purpose(JsonField.of(value))
         }
 
@@ -357,6 +359,7 @@ private constructor(
             DIGITAL_WALLET_ARTWORK,
             DIGITAL_WALLET_APP_ICON,
             ENTITY_SUPPLEMENTAL_DOCUMENT,
+            EXPORT,
         }
 
         enum class Value {
@@ -371,6 +374,7 @@ private constructor(
             DIGITAL_WALLET_ARTWORK,
             DIGITAL_WALLET_APP_ICON,
             ENTITY_SUPPLEMENTAL_DOCUMENT,
+            EXPORT,
             _UNKNOWN,
         }
 
@@ -387,6 +391,7 @@ private constructor(
                 DIGITAL_WALLET_ARTWORK -> Value.DIGITAL_WALLET_ARTWORK
                 DIGITAL_WALLET_APP_ICON -> Value.DIGITAL_WALLET_APP_ICON
                 ENTITY_SUPPLEMENTAL_DOCUMENT -> Value.ENTITY_SUPPLEMENTAL_DOCUMENT
+                EXPORT -> Value.EXPORT
                 else -> Value._UNKNOWN
             }
 
@@ -403,6 +408,7 @@ private constructor(
                 DIGITAL_WALLET_ARTWORK -> Known.DIGITAL_WALLET_ARTWORK
                 DIGITAL_WALLET_APP_ICON -> Known.DIGITAL_WALLET_APP_ICON
                 ENTITY_SUPPLEMENTAL_DOCUMENT -> Known.ENTITY_SUPPLEMENTAL_DOCUMENT
+                EXPORT -> Known.EXPORT
                 else -> throw IncreaseInvalidDataException("Unknown Purpose: $value")
             }
 

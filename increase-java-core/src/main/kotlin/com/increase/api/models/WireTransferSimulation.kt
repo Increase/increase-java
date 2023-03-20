@@ -6186,6 +6186,7 @@ private constructor(
             private constructor(
                 private val transferId: JsonField<String>,
                 private val fileId: JsonField<String>,
+                private val reason: JsonField<Reason>,
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
 
@@ -6199,11 +6200,17 @@ private constructor(
                 /** If available, a document with additional information about the return. */
                 fun fileId(): Optional<String> = Optional.ofNullable(fileId.getNullable("file_id"))
 
+                /** The reason why the check was returned. */
+                fun reason(): Reason = reason.getRequired("reason")
+
                 /** The identifier of the returned Check Transfer. */
                 @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
 
                 /** If available, a document with additional information about the return. */
                 @JsonProperty("file_id") @ExcludeMissing fun _fileId() = fileId
+
+                /** The reason why the check was returned. */
+                @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
 
                 @JsonAnyGetter
                 @ExcludeMissing
@@ -6213,6 +6220,7 @@ private constructor(
                     if (!validated) {
                         transferId()
                         fileId()
+                        reason()
                         validated = true
                     }
                 }
@@ -6227,6 +6235,7 @@ private constructor(
                     return other is CheckTransferReturn &&
                         this.transferId == other.transferId &&
                         this.fileId == other.fileId &&
+                        this.reason == other.reason &&
                         this.additionalProperties == other.additionalProperties
                 }
 
@@ -6236,6 +6245,7 @@ private constructor(
                             Objects.hash(
                                 transferId,
                                 fileId,
+                                reason,
                                 additionalProperties,
                             )
                     }
@@ -6243,7 +6253,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "CheckTransferReturn{transferId=$transferId, fileId=$fileId, additionalProperties=$additionalProperties}"
+                    "CheckTransferReturn{transferId=$transferId, fileId=$fileId, reason=$reason, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -6254,12 +6264,14 @@ private constructor(
 
                     private var transferId: JsonField<String> = JsonMissing.of()
                     private var fileId: JsonField<String> = JsonMissing.of()
+                    private var reason: JsonField<Reason> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
                     internal fun from(checkTransferReturn: CheckTransferReturn) = apply {
                         this.transferId = checkTransferReturn.transferId
                         this.fileId = checkTransferReturn.fileId
+                        this.reason = checkTransferReturn.reason
                         additionalProperties(checkTransferReturn.additionalProperties)
                     }
 
@@ -6281,6 +6293,14 @@ private constructor(
                     @ExcludeMissing
                     fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
+                    /** The reason why the check was returned. */
+                    fun reason(reason: Reason) = reason(JsonField.of(reason))
+
+                    /** The reason why the check was returned. */
+                    @JsonProperty("reason")
+                    @ExcludeMissing
+                    fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
+
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
                         this.additionalProperties.putAll(additionalProperties)
@@ -6300,8 +6320,69 @@ private constructor(
                         CheckTransferReturn(
                             transferId,
                             fileId,
+                            reason,
                             additionalProperties.toUnmodifiable(),
                         )
+                }
+
+                class Reason
+                @JsonCreator
+                private constructor(
+                    private val value: JsonField<String>,
+                ) {
+
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Reason && this.value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+
+                    companion object {
+
+                        @JvmField
+                        val MAIL_DELIVERY_FAILURE = Reason(JsonField.of("mail_delivery_failure"))
+
+                        @JvmField
+                        val REFUSED_BY_RECIPIENT = Reason(JsonField.of("refused_by_recipient"))
+
+                        @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
+                    }
+
+                    enum class Known {
+                        MAIL_DELIVERY_FAILURE,
+                        REFUSED_BY_RECIPIENT,
+                    }
+
+                    enum class Value {
+                        MAIL_DELIVERY_FAILURE,
+                        REFUSED_BY_RECIPIENT,
+                        _UNKNOWN,
+                    }
+
+                    fun value(): Value =
+                        when (this) {
+                            MAIL_DELIVERY_FAILURE -> Value.MAIL_DELIVERY_FAILURE
+                            REFUSED_BY_RECIPIENT -> Value.REFUSED_BY_RECIPIENT
+                            else -> Value._UNKNOWN
+                        }
+
+                    fun known(): Known =
+                        when (this) {
+                            MAIL_DELIVERY_FAILURE -> Known.MAIL_DELIVERY_FAILURE
+                            REFUSED_BY_RECIPIENT -> Known.REFUSED_BY_RECIPIENT
+                            else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
+                        }
+
+                    fun asString(): String = _value().asStringOrThrow()
                 }
             }
 

@@ -61,6 +61,7 @@ class ServiceParamsTest {
         val params =
             AccountCreateParams.builder()
                 .entityId("string")
+                .programId("string")
                 .informationalEntityId("string")
                 .name("x")
                 .additionalHeaders(additionalHeaders)

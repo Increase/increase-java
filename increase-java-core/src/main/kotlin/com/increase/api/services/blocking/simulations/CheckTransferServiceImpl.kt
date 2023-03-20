@@ -9,6 +9,7 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.CheckTransfer
 import com.increase.api.models.SimulationsCheckTransferDepositParams
 import com.increase.api.models.SimulationsCheckTransferMailParams
+import com.increase.api.models.SimulationsCheckTransferReturnParams
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
@@ -81,6 +82,37 @@ constructor(
         return clientOptions.httpClient.execute(request).let { response ->
             response
                 .let { mailHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
+        }
+    }
+
+    private val returnHandler: Handler<CheckTransfer> =
+        jsonHandler<CheckTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+    /**
+     * Simulates a [Check Transfer](#check-transfers) being returned via USPS to Increase. This
+     * transfer must first have a `status` of `mailed`.
+     */
+    override fun return_(
+        params: SimulationsCheckTransferReturnParams,
+        requestOptions: RequestOptions
+    ): CheckTransfer {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.POST)
+                .addPathSegments("simulations", "check_transfers", params.getPathParam(0), "return")
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .body(json(clientOptions.jsonMapper, params.getBody()))
+                .build()
+        return clientOptions.httpClient.execute(request).let { response ->
+            response
+                .let { returnHandler.handle(it) }
                 .apply {
                     if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
                         validate()

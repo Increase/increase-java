@@ -203,6 +203,12 @@ class WireTransferSimulationTest {
                                         .builder()
                                         .transferId("string")
                                         .fileId("string")
+                                        .reason(
+                                            WireTransferSimulation.Transaction.Source
+                                                .CheckTransferReturn
+                                                .Reason
+                                                .MAIL_DELIVERY_FAILURE
+                                        )
                                         .build()
                                 )
                                 .checkTransferRejection(
@@ -723,6 +729,12 @@ class WireTransferSimulationTest {
                                     .builder()
                                     .transferId("string")
                                     .fileId("string")
+                                    .reason(
+                                        WireTransferSimulation.Transaction.Source
+                                            .CheckTransferReturn
+                                            .Reason
+                                            .MAIL_DELIVERY_FAILURE
+                                    )
                                     .build()
                             )
                             .checkTransferRejection(

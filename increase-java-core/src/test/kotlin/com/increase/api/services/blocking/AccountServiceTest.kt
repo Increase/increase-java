@@ -23,6 +23,7 @@ class AccountServiceTest {
             accountService.create(
                 AccountCreateParams.builder()
                     .entityId("string")
+                    .programId("string")
                     .informationalEntityId("string")
                     .name("x")
                     .build()

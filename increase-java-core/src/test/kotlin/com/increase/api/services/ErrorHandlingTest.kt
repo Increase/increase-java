@@ -61,6 +61,7 @@ class ErrorHandlingTest {
         val params =
             AccountCreateParams.builder()
                 .entityId("string")
+                .programId("string")
                 .informationalEntityId("string")
                 .name("x")
                 .build()
@@ -92,6 +93,7 @@ class ErrorHandlingTest {
         val params =
             AccountCreateParams.builder()
                 .entityId("string")
+                .programId("string")
                 .informationalEntityId("string")
                 .name("x")
                 .build()
@@ -112,6 +114,7 @@ class ErrorHandlingTest {
         val params =
             AccountCreateParams.builder()
                 .entityId("string")
+                .programId("string")
                 .informationalEntityId("string")
                 .name("x")
                 .build()
@@ -132,6 +135,7 @@ class ErrorHandlingTest {
         val params =
             AccountCreateParams.builder()
                 .entityId("string")
+                .programId("string")
                 .informationalEntityId("string")
                 .name("x")
                 .build()
@@ -152,6 +156,7 @@ class ErrorHandlingTest {
         val params =
             AccountCreateParams.builder()
                 .entityId("string")
+                .programId("string")
                 .informationalEntityId("string")
                 .name("x")
                 .build()
@@ -172,6 +177,7 @@ class ErrorHandlingTest {
         val params =
             AccountCreateParams.builder()
                 .entityId("string")
+                .programId("string")
                 .informationalEntityId("string")
                 .name("x")
                 .build()
@@ -192,6 +198,7 @@ class ErrorHandlingTest {
         val params =
             AccountCreateParams.builder()
                 .entityId("string")
+                .programId("string")
                 .informationalEntityId("string")
                 .name("x")
                 .build()
@@ -212,6 +219,7 @@ class ErrorHandlingTest {
         val params =
             AccountCreateParams.builder()
                 .entityId("string")
+                .programId("string")
                 .informationalEntityId("string")
                 .name("x")
                 .build()
@@ -232,6 +240,7 @@ class ErrorHandlingTest {
         val params =
             AccountCreateParams.builder()
                 .entityId("string")
+                .programId("string")
                 .informationalEntityId("string")
                 .name("x")
                 .build()
@@ -257,6 +266,7 @@ class ErrorHandlingTest {
         val params =
             AccountCreateParams.builder()
                 .entityId("string")
+                .programId("string")
                 .informationalEntityId("string")
                 .name("x")
                 .build()
@@ -276,6 +286,7 @@ class ErrorHandlingTest {
         val params =
             AccountCreateParams.builder()
                 .entityId("string")
+                .programId("string")
                 .informationalEntityId("string")
                 .name("x")
                 .build()

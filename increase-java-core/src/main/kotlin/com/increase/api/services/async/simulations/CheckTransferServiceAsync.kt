@@ -6,6 +6,7 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.models.CheckTransfer
 import com.increase.api.models.SimulationsCheckTransferDepositParams
 import com.increase.api.models.SimulationsCheckTransferMailParams
+import com.increase.api.models.SimulationsCheckTransferReturnParams
 import java.util.concurrent.CompletableFuture
 
 interface CheckTransferServiceAsync {
@@ -28,6 +29,16 @@ interface CheckTransferServiceAsync {
     @JvmOverloads
     fun mail(
         params: SimulationsCheckTransferMailParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): CompletableFuture<CheckTransfer>
+
+    /**
+     * Simulates a [Check Transfer](#check-transfers) being returned via USPS to Increase. This
+     * transfer must first have a `status` of `mailed`.
+     */
+    @JvmOverloads
+    fun return_(
+        params: SimulationsCheckTransferReturnParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<CheckTransfer>
 }

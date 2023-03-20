@@ -257,6 +257,14 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .builder()
                                         .transferId("string")
                                         .fileId("string")
+                                        .reason(
+                                            InboundRealTimePaymentsTransferSimulationResult
+                                                .Transaction
+                                                .Source
+                                                .CheckTransferReturn
+                                                .Reason
+                                                .MAIL_DELIVERY_FAILURE
+                                        )
                                         .build()
                                 )
                                 .checkTransferRejection(
@@ -1129,6 +1137,13 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .builder()
                                     .transferId("string")
                                     .fileId("string")
+                                    .reason(
+                                        InboundRealTimePaymentsTransferSimulationResult.Transaction
+                                            .Source
+                                            .CheckTransferReturn
+                                            .Reason
+                                            .MAIL_DELIVERY_FAILURE
+                                    )
                                     .build()
                             )
                             .checkTransferRejection(
