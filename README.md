@@ -1,5 +1,7 @@
 # Increase Java API Library
 
+[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-java)](https://central.sonatype.com/artifact/com.increase.api/increase-java/0.0.2)
+
 The Increase Java SDK provides convenient access to the Increase REST API from applications written in Java. It includes helper classes with helpful types and documentation for every request and response property.
 
 This package is currently in beta (pre-v1.0.0). We expect some breaking changes to rarely-used areas of the SDK, and appreciate your [feedback](mailto:dev-feedback@increase.com).
