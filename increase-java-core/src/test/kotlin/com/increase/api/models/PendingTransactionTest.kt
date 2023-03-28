@@ -17,7 +17,7 @@ class PendingTransactionTest {
                 .description("string")
                 .id("string")
                 .routeId("string")
-                .routeType("string")
+                .routeType(PendingTransaction.RouteType.ACCOUNT_NUMBER)
                 .source(
                     PendingTransaction.Source.builder()
                         .category(PendingTransaction.Source.Category.ACCOUNT_TRANSFER_INSTRUCTION)
@@ -150,7 +150,8 @@ class PendingTransactionTest {
         assertThat(pendingTransaction.description()).isEqualTo("string")
         assertThat(pendingTransaction.id()).isEqualTo("string")
         assertThat(pendingTransaction.routeId()).contains("string")
-        assertThat(pendingTransaction.routeType()).contains("string")
+        assertThat(pendingTransaction.routeType())
+            .contains(PendingTransaction.RouteType.ACCOUNT_NUMBER)
         assertThat(pendingTransaction.source())
             .isEqualTo(
                 PendingTransaction.Source.builder()

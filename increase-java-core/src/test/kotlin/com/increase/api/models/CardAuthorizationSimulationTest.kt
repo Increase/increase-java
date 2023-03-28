@@ -19,7 +19,9 @@ class CardAuthorizationSimulationTest {
                         .description("string")
                         .id("string")
                         .routeId("string")
-                        .routeType("string")
+                        .routeType(
+                            CardAuthorizationSimulation.PendingTransaction.RouteType.ACCOUNT_NUMBER
+                        )
                         .source(
                             CardAuthorizationSimulation.PendingTransaction.Source.builder()
                                 .category(
@@ -216,7 +218,9 @@ class CardAuthorizationSimulationTest {
                         .description("string")
                         .id("string")
                         .routeId("string")
-                        .routeType("string")
+                        .routeType(
+                            CardAuthorizationSimulation.DeclinedTransaction.RouteType.ACCOUNT_NUMBER
+                        )
                         .source(
                             CardAuthorizationSimulation.DeclinedTransaction.Source.builder()
                                 .category(
@@ -432,7 +436,9 @@ class CardAuthorizationSimulationTest {
                     .description("string")
                     .id("string")
                     .routeId("string")
-                    .routeType("string")
+                    .routeType(
+                        CardAuthorizationSimulation.PendingTransaction.RouteType.ACCOUNT_NUMBER
+                    )
                     .source(
                         CardAuthorizationSimulation.PendingTransaction.Source.builder()
                             .category(
@@ -626,7 +632,9 @@ class CardAuthorizationSimulationTest {
                     .description("string")
                     .id("string")
                     .routeId("string")
-                    .routeType("string")
+                    .routeType(
+                        CardAuthorizationSimulation.DeclinedTransaction.RouteType.ACCOUNT_NUMBER
+                    )
                     .source(
                         CardAuthorizationSimulation.DeclinedTransaction.Source.builder()
                             .category(

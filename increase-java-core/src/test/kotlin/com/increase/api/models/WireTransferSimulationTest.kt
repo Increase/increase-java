@@ -20,7 +20,7 @@ class WireTransferSimulationTest {
                         .description("string")
                         .id("string")
                         .routeId("string")
-                        .routeType("string")
+                        .routeType(WireTransferSimulation.Transaction.RouteType.ACCOUNT_NUMBER)
                         .source(
                             WireTransferSimulation.Transaction.Source.builder()
                                 .category(
@@ -557,7 +557,7 @@ class WireTransferSimulationTest {
                     .description("string")
                     .id("string")
                     .routeId("string")
-                    .routeType("string")
+                    .routeType(WireTransferSimulation.Transaction.RouteType.ACCOUNT_NUMBER)
                     .source(
                         WireTransferSimulation.Transaction.Source.builder()
                             .category(

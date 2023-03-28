@@ -1,5 +1,6 @@
 package com.increase.api.models
 
+import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -62,6 +63,7 @@ class AchTransferTest {
                 .funding(AchTransfer.Funding.CHECKING)
                 .individualId("string")
                 .individualName("string")
+                .effectiveDate(LocalDate.parse("2019-12-27"))
                 .standardEntryClassCode(
                     AchTransfer.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
                 )
@@ -126,6 +128,7 @@ class AchTransferTest {
         assertThat(achTransfer.funding()).isEqualTo(AchTransfer.Funding.CHECKING)
         assertThat(achTransfer.individualId()).contains("string")
         assertThat(achTransfer.individualName()).contains("string")
+        assertThat(achTransfer.effectiveDate()).contains(LocalDate.parse("2019-12-27"))
         assertThat(achTransfer.standardEntryClassCode())
             .isEqualTo(AchTransfer.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT)
         assertThat(achTransfer.type()).isEqualTo(AchTransfer.Type.ACH_TRANSFER)

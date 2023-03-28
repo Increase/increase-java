@@ -229,7 +229,7 @@ private constructor(
         private val description: JsonField<String>,
         private val id: JsonField<String>,
         private val routeId: JsonField<String>,
-        private val routeType: JsonField<String>,
+        private val routeType: JsonField<RouteType>,
         private val source: JsonField<Source>,
         private val type: JsonField<Type>,
         private val additionalProperties: Map<String, JsonValue>,
@@ -276,7 +276,8 @@ private constructor(
         fun routeId(): Optional<String> = Optional.ofNullable(routeId.getNullable("route_id"))
 
         /** The type of the route this Transaction came through. */
-        fun routeType(): Optional<String> = Optional.ofNullable(routeType.getNullable("route_type"))
+        fun routeType(): Optional<RouteType> =
+            Optional.ofNullable(routeType.getNullable("route_type"))
 
         /**
          * This is an object giving more details on the network-level event that caused the
@@ -423,7 +424,7 @@ private constructor(
             private var description: JsonField<String> = JsonMissing.of()
             private var id: JsonField<String> = JsonMissing.of()
             private var routeId: JsonField<String> = JsonMissing.of()
-            private var routeType: JsonField<String> = JsonMissing.of()
+            private var routeType: JsonField<RouteType> = JsonMissing.of()
             private var source: JsonField<Source> = JsonMissing.of()
             private var type: JsonField<Type> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -534,12 +535,12 @@ private constructor(
             fun routeId(routeId: JsonField<String>) = apply { this.routeId = routeId }
 
             /** The type of the route this Transaction came through. */
-            fun routeType(routeType: String) = routeType(JsonField.of(routeType))
+            fun routeType(routeType: RouteType) = routeType(JsonField.of(routeType))
 
             /** The type of the route this Transaction came through. */
             @JsonProperty("route_type")
             @ExcludeMissing
-            fun routeType(routeType: JsonField<String>) = apply { this.routeType = routeType }
+            fun routeType(routeType: JsonField<RouteType>) = apply { this.routeType = routeType }
 
             /**
              * This is an object giving more details on the network-level event that caused the
@@ -679,6 +680,63 @@ private constructor(
                     JPY -> Known.JPY
                     USD -> Known.USD
                     else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
+
+        class RouteType
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is RouteType && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                @JvmField val ACCOUNT_NUMBER = RouteType(JsonField.of("account_number"))
+
+                @JvmField val CARD = RouteType(JsonField.of("card"))
+
+                @JvmStatic fun of(value: String) = RouteType(JsonField.of(value))
+            }
+
+            enum class Known {
+                ACCOUNT_NUMBER,
+                CARD,
+            }
+
+            enum class Value {
+                ACCOUNT_NUMBER,
+                CARD,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    ACCOUNT_NUMBER -> Value.ACCOUNT_NUMBER
+                    CARD -> Value.CARD
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    ACCOUNT_NUMBER -> Known.ACCOUNT_NUMBER
+                    CARD -> Known.CARD
+                    else -> throw IncreaseInvalidDataException("Unknown RouteType: $value")
                 }
 
             fun asString(): String = _value().asStringOrThrow()
@@ -13376,7 +13434,7 @@ private constructor(
         private val description: JsonField<String>,
         private val id: JsonField<String>,
         private val routeId: JsonField<String>,
-        private val routeType: JsonField<String>,
+        private val routeType: JsonField<RouteType>,
         private val source: JsonField<Source>,
         private val type: JsonField<Type>,
         private val additionalProperties: Map<String, JsonValue>,
@@ -13421,7 +13479,8 @@ private constructor(
         fun routeId(): Optional<String> = Optional.ofNullable(routeId.getNullable("route_id"))
 
         /** The type of the route this Declined Transaction came through. */
-        fun routeType(): Optional<String> = Optional.ofNullable(routeType.getNullable("route_type"))
+        fun routeType(): Optional<RouteType> =
+            Optional.ofNullable(routeType.getNullable("route_type"))
 
         /**
          * This is an object giving more details on the network-level event that caused the Declined
@@ -13568,7 +13627,7 @@ private constructor(
             private var description: JsonField<String> = JsonMissing.of()
             private var id: JsonField<String> = JsonMissing.of()
             private var routeId: JsonField<String> = JsonMissing.of()
-            private var routeType: JsonField<String> = JsonMissing.of()
+            private var routeType: JsonField<RouteType> = JsonMissing.of()
             private var source: JsonField<Source> = JsonMissing.of()
             private var type: JsonField<Type> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -13675,12 +13734,12 @@ private constructor(
             fun routeId(routeId: JsonField<String>) = apply { this.routeId = routeId }
 
             /** The type of the route this Declined Transaction came through. */
-            fun routeType(routeType: String) = routeType(JsonField.of(routeType))
+            fun routeType(routeType: RouteType) = routeType(JsonField.of(routeType))
 
             /** The type of the route this Declined Transaction came through. */
             @JsonProperty("route_type")
             @ExcludeMissing
-            fun routeType(routeType: JsonField<String>) = apply { this.routeType = routeType }
+            fun routeType(routeType: JsonField<RouteType>) = apply { this.routeType = routeType }
 
             /**
              * This is an object giving more details on the network-level event that caused the
@@ -13822,6 +13881,63 @@ private constructor(
                     JPY -> Known.JPY
                     USD -> Known.USD
                     else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
+
+        class RouteType
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is RouteType && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                @JvmField val ACCOUNT_NUMBER = RouteType(JsonField.of("account_number"))
+
+                @JvmField val CARD = RouteType(JsonField.of("card"))
+
+                @JvmStatic fun of(value: String) = RouteType(JsonField.of(value))
+            }
+
+            enum class Known {
+                ACCOUNT_NUMBER,
+                CARD,
+            }
+
+            enum class Value {
+                ACCOUNT_NUMBER,
+                CARD,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    ACCOUNT_NUMBER -> Value.ACCOUNT_NUMBER
+                    CARD -> Value.CARD
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    ACCOUNT_NUMBER -> Known.ACCOUNT_NUMBER
+                    CARD -> Known.CARD
+                    else -> throw IncreaseInvalidDataException("Unknown RouteType: $value")
                 }
 
             fun asString(): String = _value().asStringOrThrow()
@@ -16095,6 +16211,9 @@ private constructor(
 
                         @JvmField val RETURNED = Reason(JsonField.of("returned"))
 
+                        @JvmField
+                        val DUPLICATE_PRESENTMENT = Reason(JsonField.of("duplicate_presentment"))
+
                         @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
                     }
 
@@ -16110,6 +16229,7 @@ private constructor(
                         REFER_TO_IMAGE,
                         STOP_PAYMENT_REQUESTED,
                         RETURNED,
+                        DUPLICATE_PRESENTMENT,
                     }
 
                     enum class Value {
@@ -16124,6 +16244,7 @@ private constructor(
                         REFER_TO_IMAGE,
                         STOP_PAYMENT_REQUESTED,
                         RETURNED,
+                        DUPLICATE_PRESENTMENT,
                         _UNKNOWN,
                     }
 
@@ -16140,6 +16261,7 @@ private constructor(
                             REFER_TO_IMAGE -> Value.REFER_TO_IMAGE
                             STOP_PAYMENT_REQUESTED -> Value.STOP_PAYMENT_REQUESTED
                             RETURNED -> Value.RETURNED
+                            DUPLICATE_PRESENTMENT -> Value.DUPLICATE_PRESENTMENT
                             else -> Value._UNKNOWN
                         }
 
@@ -16156,6 +16278,7 @@ private constructor(
                             REFER_TO_IMAGE -> Known.REFER_TO_IMAGE
                             STOP_PAYMENT_REQUESTED -> Known.STOP_PAYMENT_REQUESTED
                             RETURNED -> Known.RETURNED
+                            DUPLICATE_PRESENTMENT -> Known.DUPLICATE_PRESENTMENT
                             else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                         }
 

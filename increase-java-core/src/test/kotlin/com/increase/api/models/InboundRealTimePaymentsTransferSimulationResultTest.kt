@@ -22,7 +22,10 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                         .description("string")
                         .id("string")
                         .routeId("string")
-                        .routeType("string")
+                        .routeType(
+                            InboundRealTimePaymentsTransferSimulationResult.Transaction.RouteType
+                                .ACCOUNT_NUMBER
+                        )
                         .source(
                             InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
                                 .builder()
@@ -674,7 +677,11 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                         .description("string")
                         .id("string")
                         .routeId("string")
-                        .routeType("string")
+                        .routeType(
+                            InboundRealTimePaymentsTransferSimulationResult.DeclinedTransaction
+                                .RouteType
+                                .ACCOUNT_NUMBER
+                        )
                         .source(
                             InboundRealTimePaymentsTransferSimulationResult.DeclinedTransaction
                                 .Source
@@ -931,7 +938,10 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                     .description("string")
                     .id("string")
                     .routeId("string")
-                    .routeType("string")
+                    .routeType(
+                        InboundRealTimePaymentsTransferSimulationResult.Transaction.RouteType
+                            .ACCOUNT_NUMBER
+                    )
                     .source(
                         InboundRealTimePaymentsTransferSimulationResult.Transaction.Source.builder()
                             .category(
@@ -1506,7 +1516,11 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                     .description("string")
                     .id("string")
                     .routeId("string")
-                    .routeType("string")
+                    .routeType(
+                        InboundRealTimePaymentsTransferSimulationResult.DeclinedTransaction
+                            .RouteType
+                            .ACCOUNT_NUMBER
+                    )
                     .source(
                         InboundRealTimePaymentsTransferSimulationResult.DeclinedTransaction.Source
                             .builder()

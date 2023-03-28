@@ -17,7 +17,7 @@ class DeclinedTransactionTest {
                 .description("string")
                 .id("string")
                 .routeId("string")
-                .routeType("string")
+                .routeType(DeclinedTransaction.RouteType.ACCOUNT_NUMBER)
                 .source(
                     DeclinedTransaction.Source.builder()
                         .category(DeclinedTransaction.Source.Category.ACH_DECLINE)
@@ -173,7 +173,8 @@ class DeclinedTransactionTest {
         assertThat(declinedTransaction.description()).isEqualTo("string")
         assertThat(declinedTransaction.id()).isEqualTo("string")
         assertThat(declinedTransaction.routeId()).contains("string")
-        assertThat(declinedTransaction.routeType()).contains("string")
+        assertThat(declinedTransaction.routeType())
+            .contains(DeclinedTransaction.RouteType.ACCOUNT_NUMBER)
         assertThat(declinedTransaction.source())
             .isEqualTo(
                 DeclinedTransaction.Source.builder()

@@ -12,6 +12,7 @@ import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
@@ -50,6 +51,7 @@ private constructor(
     private val funding: JsonField<Funding>,
     private val individualId: JsonField<String>,
     private val individualName: JsonField<String>,
+    private val effectiveDate: JsonField<LocalDate>,
     private val standardEntryClassCode: JsonField<StandardEntryClassCode>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
@@ -169,6 +171,10 @@ private constructor(
      */
     fun individualName(): Optional<String> =
         Optional.ofNullable(individualName.getNullable("individual_name"))
+
+    /** The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
+    fun effectiveDate(): Optional<LocalDate> =
+        Optional.ofNullable(effectiveDate.getNullable("effective_date"))
 
     /** The Standard Entry Class (SEC) code to use for the transfer. */
     fun standardEntryClassCode(): StandardEntryClassCode =
@@ -292,6 +298,9 @@ private constructor(
      */
     @JsonProperty("individual_name") @ExcludeMissing fun _individualName() = individualName
 
+    /** The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
+    @JsonProperty("effective_date") @ExcludeMissing fun _effectiveDate() = effectiveDate
+
     /** The Standard Entry Class (SEC) code to use for the transfer. */
     @JsonProperty("standard_entry_class_code")
     @ExcludeMissing
@@ -335,6 +344,7 @@ private constructor(
             funding()
             individualId()
             individualName()
+            effectiveDate()
             standardEntryClassCode()
             type()
             validated = true
@@ -375,6 +385,7 @@ private constructor(
             this.funding == other.funding &&
             this.individualId == other.individualId &&
             this.individualName == other.individualName &&
+            this.effectiveDate == other.effectiveDate &&
             this.standardEntryClassCode == other.standardEntryClassCode &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
@@ -410,6 +421,7 @@ private constructor(
                     funding,
                     individualId,
                     individualName,
+                    effectiveDate,
                     standardEntryClassCode,
                     type,
                     additionalProperties,
@@ -419,7 +431,7 @@ private constructor(
     }
 
     override fun toString() =
-        "AchTransfer{accountId=$accountId, accountNumber=$accountNumber, addendum=$addendum, amount=$amount, currency=$currency, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, externalAccountId=$externalAccountId, id=$id, network=$network, notificationOfChange=$notificationOfChange, return_=$return_, routingNumber=$routingNumber, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, templateId=$templateId, transactionId=$transactionId, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, funding=$funding, individualId=$individualId, individualName=$individualName, standardEntryClassCode=$standardEntryClassCode, type=$type, additionalProperties=$additionalProperties}"
+        "AchTransfer{accountId=$accountId, accountNumber=$accountNumber, addendum=$addendum, amount=$amount, currency=$currency, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, externalAccountId=$externalAccountId, id=$id, network=$network, notificationOfChange=$notificationOfChange, return_=$return_, routingNumber=$routingNumber, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, templateId=$templateId, transactionId=$transactionId, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, funding=$funding, individualId=$individualId, individualName=$individualName, effectiveDate=$effectiveDate, standardEntryClassCode=$standardEntryClassCode, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -454,6 +466,7 @@ private constructor(
         private var funding: JsonField<Funding> = JsonMissing.of()
         private var individualId: JsonField<String> = JsonMissing.of()
         private var individualName: JsonField<String> = JsonMissing.of()
+        private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
         private var standardEntryClassCode: JsonField<StandardEntryClassCode> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -486,6 +499,7 @@ private constructor(
             this.funding = achTransfer.funding
             this.individualId = achTransfer.individualId
             this.individualName = achTransfer.individualName
+            this.effectiveDate = achTransfer.effectiveDate
             this.standardEntryClassCode = achTransfer.standardEntryClassCode
             this.type = achTransfer.type
             additionalProperties(achTransfer.additionalProperties)
@@ -771,6 +785,20 @@ private constructor(
             this.individualName = individualName
         }
 
+        /**
+         * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+         */
+        fun effectiveDate(effectiveDate: LocalDate) = effectiveDate(JsonField.of(effectiveDate))
+
+        /**
+         * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+         */
+        @JsonProperty("effective_date")
+        @ExcludeMissing
+        fun effectiveDate(effectiveDate: JsonField<LocalDate>) = apply {
+            this.effectiveDate = effectiveDate
+        }
+
         /** The Standard Entry Class (SEC) code to use for the transfer. */
         fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) =
             standardEntryClassCode(JsonField.of(standardEntryClassCode))
@@ -839,6 +867,7 @@ private constructor(
                 funding,
                 individualId,
                 individualName,
+                effectiveDate,
                 standardEntryClassCode,
                 type,
                 additionalProperties.toUnmodifiable(),

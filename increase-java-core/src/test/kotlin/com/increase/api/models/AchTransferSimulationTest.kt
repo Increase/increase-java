@@ -20,7 +20,7 @@ class AchTransferSimulationTest {
                         .description("string")
                         .id("string")
                         .routeId("string")
-                        .routeType("string")
+                        .routeType(AchTransferSimulation.Transaction.RouteType.ACCOUNT_NUMBER)
                         .source(
                             AchTransferSimulation.Transaction.Source.builder()
                                 .category(
@@ -550,7 +550,9 @@ class AchTransferSimulationTest {
                         .description("string")
                         .id("string")
                         .routeId("string")
-                        .routeType("string")
+                        .routeType(
+                            AchTransferSimulation.DeclinedTransaction.RouteType.ACCOUNT_NUMBER
+                        )
                         .source(
                             AchTransferSimulation.DeclinedTransaction.Source.builder()
                                 .category(
@@ -759,7 +761,7 @@ class AchTransferSimulationTest {
                     .description("string")
                     .id("string")
                     .routeId("string")
-                    .routeType("string")
+                    .routeType(AchTransferSimulation.Transaction.RouteType.ACCOUNT_NUMBER)
                     .source(
                         AchTransferSimulation.Transaction.Source.builder()
                             .category(
@@ -1253,7 +1255,7 @@ class AchTransferSimulationTest {
                     .description("string")
                     .id("string")
                     .routeId("string")
-                    .routeType("string")
+                    .routeType(AchTransferSimulation.DeclinedTransaction.RouteType.ACCOUNT_NUMBER)
                     .source(
                         AchTransferSimulation.DeclinedTransaction.Source.builder()
                             .category(
