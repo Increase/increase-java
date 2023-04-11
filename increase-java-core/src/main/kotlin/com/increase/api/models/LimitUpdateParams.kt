@@ -3,33 +3,25 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
+import java.util.Objects
 
-class LimitUpdateParams constructor(private val limitId: String,private val status: Status,private val additionalQueryParams: Map<String, List<String>>,private val additionalHeaders: Map<String, List<String>>,private val additionalBodyProperties: Map<String, JsonValue>,) {
+class LimitUpdateParams
+constructor(
+    private val limitId: String,
+    private val status: Status,
+    private val additionalQueryParams: Map<String, List<String>>,
+    private val additionalHeaders: Map<String, List<String>>,
+    private val additionalBodyProperties: Map<String, JsonValue>,
+) {
 
     fun limitId(): String = limitId
 
@@ -37,31 +29,32 @@ class LimitUpdateParams constructor(private val limitId: String,private val stat
 
     @JvmSynthetic
     internal fun getBody(): LimitUpdateBody {
-      return LimitUpdateBody(status, additionalBodyProperties)
+        return LimitUpdateBody(status, additionalBodyProperties)
     }
 
-    @JvmSynthetic
-    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
-    @JvmSynthetic
-    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     fun getPathParam(index: Int): String {
-      return when (index) {
-          0 -> limitId
-          else -> ""
-      }
+        return when (index) {
+            0 -> limitId
+            else -> ""
+        }
     }
 
     @JsonDeserialize(builder = LimitUpdateBody.Builder::class)
     @NoAutoDetect
-    class LimitUpdateBody internal constructor(private val status: Status?,private val additionalProperties: Map<String, JsonValue>,) {
+    class LimitUpdateBody
+    internal constructor(
+        private val status: Status?,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var hashCode: Int = 0
 
         /** The status to update the limit with. */
-        @JsonProperty("status")
-        fun status(): Status? = status
+        @JsonProperty("status") fun status(): Status? = status
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -70,28 +63,28 @@ class LimitUpdateParams constructor(private val limitId: String,private val stat
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is LimitUpdateBody &&
-              this.status == other.status &&
-              this.additionalProperties == other.additionalProperties
+            return other is LimitUpdateBody &&
+                this.status == other.status &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(status, additionalProperties)
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode = Objects.hash(status, additionalProperties)
+            }
+            return hashCode
         }
 
-        override fun toString() = "LimitUpdateBody{status=$status, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "LimitUpdateBody{status=$status, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -106,10 +99,7 @@ class LimitUpdateParams constructor(private val limitId: String,private val stat
             }
 
             /** The status to update the limit with. */
-            @JsonProperty("status")
-            fun status(status: Status) = apply {
-                this.status = status
-            }
+            @JsonProperty("status") fun status(status: Status) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -125,9 +115,11 @@ class LimitUpdateParams constructor(private val limitId: String,private val stat
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): LimitUpdateBody = LimitUpdateBody(checkNotNull(status) {
-                "`status` is required but was not set"
-            }, additionalProperties.toUnmodifiable())
+            fun build(): LimitUpdateBody =
+                LimitUpdateBody(
+                    checkNotNull(status) { "`status` is required but was not set" },
+                    additionalProperties.toUnmodifiable()
+                )
         }
     }
 
@@ -138,36 +130,36 @@ class LimitUpdateParams constructor(private val limitId: String,private val stat
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is LimitUpdateParams &&
-          this.limitId == other.limitId &&
-          this.status == other.status &&
-          this.additionalQueryParams == other.additionalQueryParams &&
-          this.additionalHeaders == other.additionalHeaders &&
-          this.additionalBodyProperties == other.additionalBodyProperties
+        return other is LimitUpdateParams &&
+            this.limitId == other.limitId &&
+            this.status == other.status &&
+            this.additionalQueryParams == other.additionalQueryParams &&
+            this.additionalHeaders == other.additionalHeaders &&
+            this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          limitId,
-          status,
-          additionalQueryParams,
-          additionalHeaders,
-          additionalBodyProperties,
-      )
+        return Objects.hash(
+            limitId,
+            status,
+            additionalQueryParams,
+            additionalHeaders,
+            additionalBodyProperties,
+        )
     }
 
-    override fun toString() = "LimitUpdateParams{limitId=$limitId, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() =
+        "LimitUpdateParams{limitId=$limitId, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -189,14 +181,10 @@ class LimitUpdateParams constructor(private val limitId: String,private val stat
         }
 
         /** The limit to update. */
-        fun limitId(limitId: String) = apply {
-            this.limitId = limitId
-        }
+        fun limitId(limitId: String) = apply { this.limitId = limitId }
 
         /** The status to update the limit with. */
-        fun status(status: Status) = apply {
-            this.status = status
-        }
+        fun status(status: Status) = apply { this.status = status }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -236,9 +224,7 @@ class LimitUpdateParams constructor(private val limitId: String,private val stat
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply {
-            this.additionalHeaders.put(name, mutableListOf())
-        }
+        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -249,35 +235,35 @@ class LimitUpdateParams constructor(private val limitId: String,private val stat
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.putAll(additionalBodyProperties)
-        }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
 
-        fun build(): LimitUpdateParams = LimitUpdateParams(
-            checkNotNull(limitId) {
-                "`limitId` is required but was not set"
-            },
-            checkNotNull(status) {
-                "`status` is required but was not set"
-            },
-            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalBodyProperties.toUnmodifiable(),
-        )
+        fun build(): LimitUpdateParams =
+            LimitUpdateParams(
+                checkNotNull(limitId) { "`limitId` is required but was not set" },
+                checkNotNull(status) { "`status` is required but was not set" },
+                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalBodyProperties.toUnmodifiable(),
+            )
     }
 
-    class Status @JsonCreator private constructor(private val value: JsonField<String>,) {
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Status &&
-              this.value == other.value
+            return other is Status && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -304,17 +290,19 @@ class LimitUpdateParams constructor(private val limitId: String,private val stat
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            INACTIVE -> Value.INACTIVE
-            ACTIVE -> Value.ACTIVE
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                INACTIVE -> Value.INACTIVE
+                ACTIVE -> Value.ACTIVE
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            INACTIVE -> Known.INACTIVE
-            ACTIVE -> Known.ACTIVE
-            else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                INACTIVE -> Known.INACTIVE
+                ACTIVE -> Known.ACTIVE
+                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }

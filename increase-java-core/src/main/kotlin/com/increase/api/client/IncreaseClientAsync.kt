@@ -2,26 +2,8 @@
 
 package com.increase.api.client
 
-import java.time.Duration
-import java.util.Base64
-import java.util.Optional
-import java.util.concurrent.CompletableFuture
-import com.increase.api.core.ClientOptions
-import com.increase.api.core.http.HttpMethod
-import com.increase.api.core.http.HttpRequest
-import com.increase.api.core.http.HttpResponse.Handler
-import com.increase.api.core.JsonField
-import com.increase.api.core.RequestOptions
-import com.increase.api.errors.IncreaseError
-import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
 import com.increase.api.services.async.*
-import com.increase.api.services.emptyHandler
-import com.increase.api.services.errorHandler
-import com.increase.api.services.json
-import com.increase.api.services.jsonHandler
-import com.increase.api.services.stringHandler
-import com.increase.api.services.withErrorHandler
 
 interface IncreaseClientAsync {
 

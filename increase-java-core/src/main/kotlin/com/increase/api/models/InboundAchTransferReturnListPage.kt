@@ -4,26 +4,24 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.util.Objects
-import java.util.Optional
-import java.util.Spliterator
-import java.util.Spliterators
-import java.util.UUID
-import java.util.concurrent.CompletableFuture
-import java.util.stream.Stream
-import java.util.stream.StreamSupport
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.JsonField
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
-import com.increase.api.models.InboundAchTransferReturn
 import com.increase.api.services.blocking.InboundAchTransferReturnService
+import java.util.Objects
+import java.util.Optional
+import java.util.stream.Stream
+import java.util.stream.StreamSupport
 
-class InboundAchTransferReturnListPage private constructor(private val inboundAchTransferReturnsService: InboundAchTransferReturnService,private val params: InboundAchTransferReturnListParams,private val response: Response,) {
+class InboundAchTransferReturnListPage
+private constructor(
+    private val inboundAchTransferReturnsService: InboundAchTransferReturnService,
+    private val params: InboundAchTransferReturnListParams,
+    private val response: Response,
+) {
 
     fun response(): Response = response
 
@@ -32,44 +30,47 @@ class InboundAchTransferReturnListPage private constructor(private val inboundAc
     fun nextCursor(): String = response().nextCursor()
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is InboundAchTransferReturnListPage &&
-          this.inboundAchTransferReturnsService == other.inboundAchTransferReturnsService &&
-          this.params == other.params &&
-          this.response == other.response
+        return other is InboundAchTransferReturnListPage &&
+            this.inboundAchTransferReturnsService == other.inboundAchTransferReturnsService &&
+            this.params == other.params &&
+            this.response == other.response
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          inboundAchTransferReturnsService,
-          params,
-          response,
-      )
+        return Objects.hash(
+            inboundAchTransferReturnsService,
+            params,
+            response,
+        )
     }
 
-    override fun toString() = "InboundAchTransferReturnListPage{inboundAchTransferReturnsService=$inboundAchTransferReturnsService, params=$params, response=$response}"
+    override fun toString() =
+        "InboundAchTransferReturnListPage{inboundAchTransferReturnsService=$inboundAchTransferReturnsService, params=$params, response=$response}"
 
     fun hasNextPage(): Boolean {
-      if (data().isEmpty()) {
-        return false
-      }
+        if (data().isEmpty()) {
+            return false
+        }
 
-      return nextCursor().isNotEmpty()
+        return nextCursor().isNotEmpty()
     }
 
     fun getNextPageParams(): Optional<InboundAchTransferReturnListParams> {
-      if (!hasNextPage()) {
-        return Optional.empty()
-      }
+        if (!hasNextPage()) {
+            return Optional.empty()
+        }
 
-      return Optional.of(InboundAchTransferReturnListParams.builder().from(params).cursor(nextCursor()).build())
+        return Optional.of(
+            InboundAchTransferReturnListParams.builder().from(params).cursor(nextCursor()).build()
+        )
     }
 
     fun getNextPage(): Optional<InboundAchTransferReturnListPage> {
-      return getNextPageParams().map { inboundAchTransferReturnsService.list(it) }
+        return getNextPageParams().map { inboundAchTransferReturnsService.list(it) }
     }
 
     fun autoPager(): AutoPager = AutoPager(this)
@@ -77,16 +78,26 @@ class InboundAchTransferReturnListPage private constructor(private val inboundAc
     companion object {
 
         @JvmStatic
-        fun of(inboundAchTransferReturnsService: InboundAchTransferReturnService, params: InboundAchTransferReturnListParams, response: Response) = InboundAchTransferReturnListPage(
-            inboundAchTransferReturnsService,
-            params,
-            response,
-        )
+        fun of(
+            inboundAchTransferReturnsService: InboundAchTransferReturnService,
+            params: InboundAchTransferReturnListParams,
+            response: Response
+        ) =
+            InboundAchTransferReturnListPage(
+                inboundAchTransferReturnsService,
+                params,
+                response,
+            )
     }
 
     @JsonDeserialize(builder = Response.Builder::class)
     @NoAutoDetect
-    class Response constructor(private val data: JsonField<List<InboundAchTransferReturn>>,private val nextCursor: JsonField<String>,private val additionalProperties: Map<String, JsonValue>,) {
+    class Response
+    constructor(
+        private val data: JsonField<List<InboundAchTransferReturn>>,
+        private val nextCursor: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var validated: Boolean = false
 
@@ -106,39 +117,39 @@ class InboundAchTransferReturnListPage private constructor(private val inboundAc
 
         fun validate() = apply {
             if (!validated) {
-              data().forEach { it.validate() }
-              nextCursor()
-              validated = true
+                data().forEach { it.validate() }
+                nextCursor()
+                validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Response &&
-              this.data == other.data &&
-              this.nextCursor == other.nextCursor &&
-              this.additionalProperties == other.additionalProperties
+            return other is Response &&
+                this.data == other.data &&
+                this.nextCursor == other.nextCursor &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          return Objects.hash(
-              data,
-              nextCursor,
-              additionalProperties,
-          )
+            return Objects.hash(
+                data,
+                nextCursor,
+                additionalProperties,
+            )
         }
 
-        override fun toString() = "InboundAchTransferReturnListPage.Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "InboundAchTransferReturnListPage.Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -169,31 +180,36 @@ class InboundAchTransferReturnListPage private constructor(private val inboundAc
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() = Response(
-                data,
-                nextCursor,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build() =
+                Response(
+                    data,
+                    nextCursor,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
-    class AutoPager constructor(private val firstPage: InboundAchTransferReturnListPage,) : Iterable<InboundAchTransferReturn> {
+    class AutoPager
+    constructor(
+        private val firstPage: InboundAchTransferReturnListPage,
+    ) : Iterable<InboundAchTransferReturn> {
 
-        override fun iterator(): Iterator<InboundAchTransferReturn> = sequence {
-            var page = firstPage
-            var index = 0
-            while (true) {
-              while (index >= page.data().size) {
-                page = page.getNextPage().orElse(null) ?: return@sequence
-                index = 0
-              }
-              yield(page.data()[index++])
-            }
-        }
-        .iterator()
+        override fun iterator(): Iterator<InboundAchTransferReturn> =
+            sequence {
+                    var page = firstPage
+                    var index = 0
+                    while (true) {
+                        while (index >= page.data().size) {
+                            page = page.getNextPage().orElse(null) ?: return@sequence
+                            index = 0
+                        }
+                        yield(page.data()[index++])
+                    }
+                }
+                .iterator()
 
         fun stream(): Stream<InboundAchTransferReturn> {
-          return StreamSupport.stream(spliterator(), false)
+            return StreamSupport.stream(spliterator(), false)
         }
     }
 }

@@ -4,26 +4,23 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.util.Objects
-import java.util.Optional
-import java.util.Spliterator
-import java.util.Spliterators
-import java.util.UUID
-import java.util.concurrent.CompletableFuture
-import java.util.stream.Stream
-import java.util.stream.StreamSupport
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.JsonField
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
-import com.increase.api.models.Account
 import com.increase.api.services.async.AccountServiceAsync
+import java.util.Objects
+import java.util.Optional
+import java.util.concurrent.CompletableFuture
 
-class AccountListPageAsync private constructor(private val accountsService: AccountServiceAsync,private val params: AccountListParams,private val response: Response,) {
+class AccountListPageAsync
+private constructor(
+    private val accountsService: AccountServiceAsync,
+    private val params: AccountListParams,
+    private val response: Response,
+) {
 
     fun response(): Response = response
 
@@ -32,63 +29,72 @@ class AccountListPageAsync private constructor(private val accountsService: Acco
     fun nextCursor(): String = response().nextCursor()
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is AccountListPageAsync &&
-          this.accountsService == other.accountsService &&
-          this.params == other.params &&
-          this.response == other.response
+        return other is AccountListPageAsync &&
+            this.accountsService == other.accountsService &&
+            this.params == other.params &&
+            this.response == other.response
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          accountsService,
-          params,
-          response,
-      )
-    }
-
-    override fun toString() = "AccountListPageAsync{accountsService=$accountsService, params=$params, response=$response}"
-
-    fun hasNextPage(): Boolean {
-      if (data().isEmpty()) {
-        return false
-      }
-
-      return nextCursor().isNotEmpty()
-    }
-
-    fun getNextPageParams(): Optional<AccountListParams> {
-      if (!hasNextPage()) {
-        return Optional.empty()
-      }
-
-      return Optional.of(AccountListParams.builder().from(params).cursor(nextCursor()).build())
-    }
-
-    fun getNextPage(): CompletableFuture<Optional<AccountListPageAsync>> {
-      return getNextPageParams().map {
-        accountsService.list(it).thenApply { Optional.of(it) }
-      }.orElseGet {
-          CompletableFuture.completedFuture(Optional.empty())
-      }
-    }
-
-    companion object {
-
-        @JvmStatic
-        fun of(accountsService: AccountServiceAsync, params: AccountListParams, response: Response) = AccountListPageAsync(
+        return Objects.hash(
             accountsService,
             params,
             response,
         )
     }
 
+    override fun toString() =
+        "AccountListPageAsync{accountsService=$accountsService, params=$params, response=$response}"
+
+    fun hasNextPage(): Boolean {
+        if (data().isEmpty()) {
+            return false
+        }
+
+        return nextCursor().isNotEmpty()
+    }
+
+    fun getNextPageParams(): Optional<AccountListParams> {
+        if (!hasNextPage()) {
+            return Optional.empty()
+        }
+
+        return Optional.of(AccountListParams.builder().from(params).cursor(nextCursor()).build())
+    }
+
+    fun getNextPage(): CompletableFuture<Optional<AccountListPageAsync>> {
+        return getNextPageParams()
+            .map { accountsService.list(it).thenApply { Optional.of(it) } }
+            .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
+    }
+
+    companion object {
+
+        @JvmStatic
+        fun of(
+            accountsService: AccountServiceAsync,
+            params: AccountListParams,
+            response: Response
+        ) =
+            AccountListPageAsync(
+                accountsService,
+                params,
+                response,
+            )
+    }
+
     @JsonDeserialize(builder = Response.Builder::class)
     @NoAutoDetect
-    class Response constructor(private val data: JsonField<List<Account>>,private val nextCursor: JsonField<String>,private val additionalProperties: Map<String, JsonValue>,) {
+    class Response
+    constructor(
+        private val data: JsonField<List<Account>>,
+        private val nextCursor: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var validated: Boolean = false
 
@@ -108,39 +114,39 @@ class AccountListPageAsync private constructor(private val accountsService: Acco
 
         fun validate() = apply {
             if (!validated) {
-              data().forEach { it.validate() }
-              nextCursor()
-              validated = true
+                data().forEach { it.validate() }
+                nextCursor()
+                validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Response &&
-              this.data == other.data &&
-              this.nextCursor == other.nextCursor &&
-              this.additionalProperties == other.additionalProperties
+            return other is Response &&
+                this.data == other.data &&
+                this.nextCursor == other.nextCursor &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          return Objects.hash(
-              data,
-              nextCursor,
-              additionalProperties,
-          )
+            return Objects.hash(
+                data,
+                nextCursor,
+                additionalProperties,
+            )
         }
 
-        override fun toString() = "AccountListPageAsync.Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "AccountListPageAsync.Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -171,11 +177,12 @@ class AccountListPageAsync private constructor(private val accountsService: Acco
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() = Response(
-                data,
-                nextCursor,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build() =
+                Response(
+                    data,
+                    nextCursor,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 }

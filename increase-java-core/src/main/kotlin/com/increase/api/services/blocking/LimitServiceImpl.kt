@@ -1,46 +1,31 @@
 package com.increase.api.services.blocking
 
-import com.fasterxml.jackson.databind.json.JsonMapper
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
-import kotlin.LazyThreadSafetyMode.PUBLICATION
-import java.time.LocalDate
-import java.time.Duration
-import java.time.OffsetDateTime
-import java.util.Base64
-import java.util.Optional
-import java.util.UUID
-import java.util.concurrent.CompletableFuture
-import java.util.stream.Stream
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.core.ClientOptions
+import com.increase.api.core.RequestOptions
+import com.increase.api.core.http.HttpMethod
+import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.errors.IncreaseError
 import com.increase.api.models.Limit
 import com.increase.api.models.LimitCreateParams
 import com.increase.api.models.LimitListPage
 import com.increase.api.models.LimitListParams
 import com.increase.api.models.LimitRetrieveParams
 import com.increase.api.models.LimitUpdateParams
-import com.increase.api.core.ClientOptions
-import com.increase.api.core.http.HttpMethod
-import com.increase.api.core.http.HttpRequest
-import com.increase.api.core.http.HttpResponse.Handler
-import com.increase.api.core.JsonField
-import com.increase.api.core.RequestOptions
-import com.increase.api.errors.IncreaseError
-import com.increase.api.services.emptyHandler
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
-import com.increase.api.services.stringHandler
 import com.increase.api.services.withErrorHandler
 
-class LimitServiceImpl constructor(private val clientOptions: ClientOptions,) : LimitService {
+class LimitServiceImpl
+constructor(
+    private val clientOptions: ClientOptions,
+) : LimitService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
     private val createHandler: Handler<Limit> =
-    jsonHandler<Limit>(clientOptions.jsonMapper)
-    .withErrorHandler(errorHandler)
+        jsonHandler<Limit>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** Create a Limit */
     override fun create(params: LimitCreateParams, requestOptions: RequestOptions): Limit {
@@ -65,8 +50,7 @@ class LimitServiceImpl constructor(private val clientOptions: ClientOptions,) : 
     }
 
     private val retrieveHandler: Handler<Limit> =
-    jsonHandler<Limit>(clientOptions.jsonMapper)
-    .withErrorHandler(errorHandler)
+        jsonHandler<Limit>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** Retrieve a Limit */
     override fun retrieve(params: LimitRetrieveParams, requestOptions: RequestOptions): Limit {
@@ -90,8 +74,7 @@ class LimitServiceImpl constructor(private val clientOptions: ClientOptions,) : 
     }
 
     private val updateHandler: Handler<Limit> =
-    jsonHandler<Limit>(clientOptions.jsonMapper)
-    .withErrorHandler(errorHandler)
+        jsonHandler<Limit>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** Update a Limit */
     override fun update(params: LimitUpdateParams, requestOptions: RequestOptions): Limit {
@@ -116,8 +99,7 @@ class LimitServiceImpl constructor(private val clientOptions: ClientOptions,) : 
     }
 
     private val listHandler: Handler<LimitListPage.Response> =
-    jsonHandler<LimitListPage.Response>(clientOptions.jsonMapper)
-    .withErrorHandler(errorHandler)
+        jsonHandler<LimitListPage.Response>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** List Limits */
     override fun list(params: LimitListParams, requestOptions: RequestOptions): LimitListPage {

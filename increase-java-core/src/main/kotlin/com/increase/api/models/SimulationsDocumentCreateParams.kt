@@ -2,57 +2,46 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
 import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.models.*
+import java.util.Objects
 
-class SimulationsDocumentCreateParams constructor(private val accountId: String,private val additionalQueryParams: Map<String, List<String>>,private val additionalHeaders: Map<String, List<String>>,private val additionalBodyProperties: Map<String, JsonValue>,) {
+class SimulationsDocumentCreateParams
+constructor(
+    private val accountId: String,
+    private val additionalQueryParams: Map<String, List<String>>,
+    private val additionalHeaders: Map<String, List<String>>,
+    private val additionalBodyProperties: Map<String, JsonValue>,
+) {
 
     fun accountId(): String = accountId
 
     @JvmSynthetic
     internal fun getBody(): SimulationsDocumentCreateBody {
-      return SimulationsDocumentCreateBody(accountId, additionalBodyProperties)
+        return SimulationsDocumentCreateBody(accountId, additionalBodyProperties)
     }
 
-    @JvmSynthetic
-    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
-    @JvmSynthetic
-    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     @JsonDeserialize(builder = SimulationsDocumentCreateBody.Builder::class)
     @NoAutoDetect
-    class SimulationsDocumentCreateBody internal constructor(private val accountId: String?,private val additionalProperties: Map<String, JsonValue>,) {
+    class SimulationsDocumentCreateBody
+    internal constructor(
+        private val accountId: String?,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var hashCode: Int = 0
 
         /** The identifier of the Account the tax document is for. */
-        @JsonProperty("account_id")
-        fun accountId(): String? = accountId
+        @JsonProperty("account_id") fun accountId(): String? = accountId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -61,28 +50,28 @@ class SimulationsDocumentCreateParams constructor(private val accountId: String,
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is SimulationsDocumentCreateBody &&
-              this.accountId == other.accountId &&
-              this.additionalProperties == other.additionalProperties
+            return other is SimulationsDocumentCreateBody &&
+                this.accountId == other.accountId &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(accountId, additionalProperties)
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode = Objects.hash(accountId, additionalProperties)
+            }
+            return hashCode
         }
 
-        override fun toString() = "SimulationsDocumentCreateBody{accountId=$accountId, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "SimulationsDocumentCreateBody{accountId=$accountId, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -91,16 +80,15 @@ class SimulationsDocumentCreateParams constructor(private val accountId: String,
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(simulationsDocumentCreateBody: SimulationsDocumentCreateBody) = apply {
-                this.accountId = simulationsDocumentCreateBody.accountId
-                additionalProperties(simulationsDocumentCreateBody.additionalProperties)
-            }
+            internal fun from(simulationsDocumentCreateBody: SimulationsDocumentCreateBody) =
+                apply {
+                    this.accountId = simulationsDocumentCreateBody.accountId
+                    additionalProperties(simulationsDocumentCreateBody.additionalProperties)
+                }
 
             /** The identifier of the Account the tax document is for. */
             @JsonProperty("account_id")
-            fun accountId(accountId: String) = apply {
-                this.accountId = accountId
-            }
+            fun accountId(accountId: String) = apply { this.accountId = accountId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -116,9 +104,11 @@ class SimulationsDocumentCreateParams constructor(private val accountId: String,
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): SimulationsDocumentCreateBody = SimulationsDocumentCreateBody(checkNotNull(accountId) {
-                "`accountId` is required but was not set"
-            }, additionalProperties.toUnmodifiable())
+            fun build(): SimulationsDocumentCreateBody =
+                SimulationsDocumentCreateBody(
+                    checkNotNull(accountId) { "`accountId` is required but was not set" },
+                    additionalProperties.toUnmodifiable()
+                )
         }
     }
 
@@ -129,34 +119,34 @@ class SimulationsDocumentCreateParams constructor(private val accountId: String,
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is SimulationsDocumentCreateParams &&
-          this.accountId == other.accountId &&
-          this.additionalQueryParams == other.additionalQueryParams &&
-          this.additionalHeaders == other.additionalHeaders &&
-          this.additionalBodyProperties == other.additionalBodyProperties
+        return other is SimulationsDocumentCreateParams &&
+            this.accountId == other.accountId &&
+            this.additionalQueryParams == other.additionalQueryParams &&
+            this.additionalHeaders == other.additionalHeaders &&
+            this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          accountId,
-          additionalQueryParams,
-          additionalHeaders,
-          additionalBodyProperties,
-      )
+        return Objects.hash(
+            accountId,
+            additionalQueryParams,
+            additionalHeaders,
+            additionalBodyProperties,
+        )
     }
 
-    override fun toString() = "SimulationsDocumentCreateParams{accountId=$accountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() =
+        "SimulationsDocumentCreateParams{accountId=$accountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -168,17 +158,16 @@ class SimulationsDocumentCreateParams constructor(private val accountId: String,
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(simulationsDocumentCreateParams: SimulationsDocumentCreateParams) = apply {
-            this.accountId = simulationsDocumentCreateParams.accountId
-            additionalQueryParams(simulationsDocumentCreateParams.additionalQueryParams)
-            additionalHeaders(simulationsDocumentCreateParams.additionalHeaders)
-            additionalBodyProperties(simulationsDocumentCreateParams.additionalBodyProperties)
-        }
+        internal fun from(simulationsDocumentCreateParams: SimulationsDocumentCreateParams) =
+            apply {
+                this.accountId = simulationsDocumentCreateParams.accountId
+                additionalQueryParams(simulationsDocumentCreateParams.additionalQueryParams)
+                additionalHeaders(simulationsDocumentCreateParams.additionalHeaders)
+                additionalBodyProperties(simulationsDocumentCreateParams.additionalBodyProperties)
+            }
 
         /** The identifier of the Account the tax document is for. */
-        fun accountId(accountId: String) = apply {
-            this.accountId = accountId
-        }
+        fun accountId(accountId: String) = apply { this.accountId = accountId }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -218,9 +207,7 @@ class SimulationsDocumentCreateParams constructor(private val accountId: String,
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply {
-            this.additionalHeaders.put(name, mutableListOf())
-        }
+        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -231,17 +218,17 @@ class SimulationsDocumentCreateParams constructor(private val accountId: String,
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.putAll(additionalBodyProperties)
-        }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
 
-        fun build(): SimulationsDocumentCreateParams = SimulationsDocumentCreateParams(
-            checkNotNull(accountId) {
-                "`accountId` is required but was not set"
-            },
-            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalBodyProperties.toUnmodifiable(),
-        )
+        fun build(): SimulationsDocumentCreateParams =
+            SimulationsDocumentCreateParams(
+                checkNotNull(accountId) { "`accountId` is required but was not set" },
+                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalBodyProperties.toUnmodifiable(),
+            )
     }
 }

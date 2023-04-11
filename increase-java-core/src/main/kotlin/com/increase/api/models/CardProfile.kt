@@ -3,39 +3,36 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import java.time.LocalDate
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.JsonField
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.errors.IncreaseInvalidDataException
 
 /**
- * This contains artwork and metadata relating to a Card's appearance in digital
- * wallet apps like Apple Pay and Google Pay. For more information, see our guide
- * on [digital card artwork](https://increase.com/documentation/card-art)
+ * This contains artwork and metadata relating to a Card's appearance in digital wallet apps like
+ * Apple Pay and Google Pay. For more information, see our guide on
+ * [digital card artwork](https://increase.com/documentation/card-art)
  */
 @JsonDeserialize(builder = CardProfile.Builder::class)
 @NoAutoDetect
-class CardProfile private constructor(private val id: JsonField<String>,private val createdAt: JsonField<OffsetDateTime>,private val status: JsonField<Status>,private val description: JsonField<String>,private val digitalWallets: JsonField<DigitalWallets>,private val type: JsonField<Type>,private val additionalProperties: Map<String, JsonValue>,) {
+class CardProfile
+private constructor(
+    private val id: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val status: JsonField<Status>,
+    private val description: JsonField<String>,
+    private val digitalWallets: JsonField<DigitalWallets>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: Map<String, JsonValue>,
+) {
 
     private var validated: Boolean = false
 
@@ -45,8 +42,8 @@ class CardProfile private constructor(private val id: JsonField<String>,private 
     fun id(): String = id.getRequired("id")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-     * the Card Dispute was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
+     * Dispute was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
@@ -57,8 +54,8 @@ class CardProfile private constructor(private val id: JsonField<String>,private 
     fun description(): String = description.getRequired("description")
 
     /**
-     * How Cards should appear in digital wallets such as Apple Pay. Different wallets
-     * will use these values to render card artwork appropriately for their app.
+     * How Cards should appear in digital wallets such as Apple Pay. Different wallets will use
+     * these values to render card artwork appropriately for their app.
      */
     fun digitalWallets(): DigitalWallets = digitalWallets.getRequired("digital_wallets")
 
@@ -69,43 +66,31 @@ class CardProfile private constructor(private val id: JsonField<String>,private 
     fun type(): Type = type.getRequired("type")
 
     /** The Card Profile identifier. */
-    @JsonProperty("id")
-    @ExcludeMissing
-    fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-     * the Card Dispute was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
+     * Dispute was created.
      */
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    fun _createdAt() = createdAt
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
     /** The status of the Card Profile. */
-    @JsonProperty("status")
-    @ExcludeMissing
-    fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
 
     /** A description you can use to identify the Card Profile. */
-    @JsonProperty("description")
-    @ExcludeMissing
-    fun _description() = description
+    @JsonProperty("description") @ExcludeMissing fun _description() = description
 
     /**
-     * How Cards should appear in digital wallets such as Apple Pay. Different wallets
-     * will use these values to render card artwork appropriately for their app.
+     * How Cards should appear in digital wallets such as Apple Pay. Different wallets will use
+     * these values to render card artwork appropriately for their app.
      */
-    @JsonProperty("digital_wallets")
-    @ExcludeMissing
-    fun _digitalWallets() = digitalWallets
+    @JsonProperty("digital_wallets") @ExcludeMissing fun _digitalWallets() = digitalWallets
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `card_profile`.
      */
-    @JsonProperty("type")
-    @ExcludeMissing
-    fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -113,54 +98,55 @@ class CardProfile private constructor(private val id: JsonField<String>,private 
 
     fun validate() = apply {
         if (!validated) {
-          id()
-          createdAt()
-          status()
-          description()
-          digitalWallets().validate()
-          type()
-          validated = true
+            id()
+            createdAt()
+            status()
+            description()
+            digitalWallets().validate()
+            type()
+            validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is CardProfile &&
-          this.id == other.id &&
-          this.createdAt == other.createdAt &&
-          this.status == other.status &&
-          this.description == other.description &&
-          this.digitalWallets == other.digitalWallets &&
-          this.type == other.type &&
-          this.additionalProperties == other.additionalProperties
+        return other is CardProfile &&
+            this.id == other.id &&
+            this.createdAt == other.createdAt &&
+            this.status == other.status &&
+            this.description == other.description &&
+            this.digitalWallets == other.digitalWallets &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-      if (hashCode == 0) {
-        hashCode = Objects.hash(
-            id,
-            createdAt,
-            status,
-            description,
-            digitalWallets,
-            type,
-            additionalProperties,
-        )
-      }
-      return hashCode
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    id,
+                    createdAt,
+                    status,
+                    description,
+                    digitalWallets,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
     }
 
-    override fun toString() = "CardProfile{id=$id, createdAt=$createdAt, status=$status, description=$description, digitalWallets=$digitalWallets, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() =
+        "CardProfile{id=$id, createdAt=$createdAt, status=$status, description=$description, digitalWallets=$digitalWallets, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     class Builder {
@@ -188,27 +174,21 @@ class CardProfile private constructor(private val id: JsonField<String>,private 
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Card Profile identifier. */
-        @JsonProperty("id")
-        @ExcludeMissing
-        fun id(id: JsonField<String>) = apply {
-            this.id = id
-        }
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * the Card Dispute was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
+         * Dispute was created.
          */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * the Card Dispute was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
+         * Dispute was created.
          */
         @JsonProperty("created_at")
         @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
-            this.createdAt = createdAt
-        }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The status of the Card Profile. */
         fun status(status: Status) = status(JsonField.of(status))
@@ -216,9 +196,7 @@ class CardProfile private constructor(private val id: JsonField<String>,private 
         /** The status of the Card Profile. */
         @JsonProperty("status")
         @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply {
-            this.status = status
-        }
+        fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /** A description you can use to identify the Card Profile. */
         fun description(description: String) = description(JsonField.of(description))
@@ -226,19 +204,18 @@ class CardProfile private constructor(private val id: JsonField<String>,private 
         /** A description you can use to identify the Card Profile. */
         @JsonProperty("description")
         @ExcludeMissing
-        fun description(description: JsonField<String>) = apply {
-            this.description = description
-        }
+        fun description(description: JsonField<String>) = apply { this.description = description }
 
         /**
-         * How Cards should appear in digital wallets such as Apple Pay. Different wallets
-         * will use these values to render card artwork appropriately for their app.
+         * How Cards should appear in digital wallets such as Apple Pay. Different wallets will use
+         * these values to render card artwork appropriately for their app.
          */
-        fun digitalWallets(digitalWallets: DigitalWallets) = digitalWallets(JsonField.of(digitalWallets))
+        fun digitalWallets(digitalWallets: DigitalWallets) =
+            digitalWallets(JsonField.of(digitalWallets))
 
         /**
-         * How Cards should appear in digital wallets such as Apple Pay. Different wallets
-         * will use these values to render card artwork appropriately for their app.
+         * How Cards should appear in digital wallets such as Apple Pay. Different wallets will use
+         * these values to render card artwork appropriately for their app.
          */
         @JsonProperty("digital_wallets")
         @ExcludeMissing
@@ -258,9 +235,7 @@ class CardProfile private constructor(private val id: JsonField<String>,private 
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply {
-            this.type = type
-        }
+        fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -276,29 +251,32 @@ class CardProfile private constructor(private val id: JsonField<String>,private 
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): CardProfile = CardProfile(
-            id,
-            createdAt,
-            status,
-            description,
-            digitalWallets,
-            type,
-            additionalProperties.toUnmodifiable(),
-        )
+        fun build(): CardProfile =
+            CardProfile(
+                id,
+                createdAt,
+                status,
+                description,
+                digitalWallets,
+                type,
+                additionalProperties.toUnmodifiable(),
+            )
     }
 
-    class Status @JsonCreator private constructor(private val value: JsonField<String>,) {
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Status &&
-              this.value == other.value
+            return other is Status && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -333,32 +311,45 @@ class CardProfile private constructor(private val id: JsonField<String>,private 
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            PENDING -> Value.PENDING
-            REJECTED -> Value.REJECTED
-            ACTIVE -> Value.ACTIVE
-            ARCHIVED -> Value.ARCHIVED
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                PENDING -> Value.PENDING
+                REJECTED -> Value.REJECTED
+                ACTIVE -> Value.ACTIVE
+                ARCHIVED -> Value.ARCHIVED
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            PENDING -> Known.PENDING
-            REJECTED -> Known.REJECTED
-            ACTIVE -> Known.ACTIVE
-            ARCHIVED -> Known.ARCHIVED
-            else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                PENDING -> Known.PENDING
+                REJECTED -> Known.REJECTED
+                ACTIVE -> Known.ACTIVE
+                ARCHIVED -> Known.ARCHIVED
+                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
     /**
-     * How Cards should appear in digital wallets such as Apple Pay. Different wallets
-     * will use these values to render card artwork appropriately for their app.
+     * How Cards should appear in digital wallets such as Apple Pay. Different wallets will use
+     * these values to render card artwork appropriately for their app.
      */
     @JsonDeserialize(builder = DigitalWallets.Builder::class)
     @NoAutoDetect
-    class DigitalWallets private constructor(private val textColor: JsonField<TextColor>,private val issuerName: JsonField<String>,private val cardDescription: JsonField<String>,private val contactWebsite: JsonField<String>,private val contactEmail: JsonField<String>,private val contactPhone: JsonField<String>,private val backgroundImageFileId: JsonField<String>,private val appIconFileId: JsonField<String>,private val additionalProperties: Map<String, JsonValue>,) {
+    class DigitalWallets
+    private constructor(
+        private val textColor: JsonField<TextColor>,
+        private val issuerName: JsonField<String>,
+        private val cardDescription: JsonField<String>,
+        private val contactWebsite: JsonField<String>,
+        private val contactEmail: JsonField<String>,
+        private val contactPhone: JsonField<String>,
+        private val backgroundImageFileId: JsonField<String>,
+        private val appIconFileId: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var validated: Boolean = false
 
@@ -374,49 +365,41 @@ class CardProfile private constructor(private val id: JsonField<String>,private 
         fun cardDescription(): String = cardDescription.getRequired("card_description")
 
         /** A website the user can visit to view and receive support for their card. */
-        fun contactWebsite(): Optional<String> = Optional.ofNullable(contactWebsite.getNullable("contact_website"))
+        fun contactWebsite(): Optional<String> =
+            Optional.ofNullable(contactWebsite.getNullable("contact_website"))
 
         /** An email address the user can contact to receive support for their card. */
-        fun contactEmail(): Optional<String> = Optional.ofNullable(contactEmail.getNullable("contact_email"))
+        fun contactEmail(): Optional<String> =
+            Optional.ofNullable(contactEmail.getNullable("contact_email"))
 
         /** A phone number the user can contact to receive support for their card. */
-        fun contactPhone(): Optional<String> = Optional.ofNullable(contactPhone.getNullable("contact_phone"))
+        fun contactPhone(): Optional<String> =
+            Optional.ofNullable(contactPhone.getNullable("contact_phone"))
 
         /** The identifier of the File containing the card's front image. */
-        fun backgroundImageFileId(): String = backgroundImageFileId.getRequired("background_image_file_id")
+        fun backgroundImageFileId(): String =
+            backgroundImageFileId.getRequired("background_image_file_id")
 
         /** The identifier of the File containing the card's icon image. */
         fun appIconFileId(): String = appIconFileId.getRequired("app_icon_file_id")
 
         /** The Card's text color, specified as an RGB triple. */
-        @JsonProperty("text_color")
-        @ExcludeMissing
-        fun _textColor() = textColor
+        @JsonProperty("text_color") @ExcludeMissing fun _textColor() = textColor
 
         /** A user-facing description for whoever is issuing the card. */
-        @JsonProperty("issuer_name")
-        @ExcludeMissing
-        fun _issuerName() = issuerName
+        @JsonProperty("issuer_name") @ExcludeMissing fun _issuerName() = issuerName
 
         /** A user-facing description for the card itself. */
-        @JsonProperty("card_description")
-        @ExcludeMissing
-        fun _cardDescription() = cardDescription
+        @JsonProperty("card_description") @ExcludeMissing fun _cardDescription() = cardDescription
 
         /** A website the user can visit to view and receive support for their card. */
-        @JsonProperty("contact_website")
-        @ExcludeMissing
-        fun _contactWebsite() = contactWebsite
+        @JsonProperty("contact_website") @ExcludeMissing fun _contactWebsite() = contactWebsite
 
         /** An email address the user can contact to receive support for their card. */
-        @JsonProperty("contact_email")
-        @ExcludeMissing
-        fun _contactEmail() = contactEmail
+        @JsonProperty("contact_email") @ExcludeMissing fun _contactEmail() = contactEmail
 
         /** A phone number the user can contact to receive support for their card. */
-        @JsonProperty("contact_phone")
-        @ExcludeMissing
-        fun _contactPhone() = contactPhone
+        @JsonProperty("contact_phone") @ExcludeMissing fun _contactPhone() = contactPhone
 
         /** The identifier of the File containing the card's front image. */
         @JsonProperty("background_image_file_id")
@@ -424,9 +407,7 @@ class CardProfile private constructor(private val id: JsonField<String>,private 
         fun _backgroundImageFileId() = backgroundImageFileId
 
         /** The identifier of the File containing the card's icon image. */
-        @JsonProperty("app_icon_file_id")
-        @ExcludeMissing
-        fun _appIconFileId() = appIconFileId
+        @JsonProperty("app_icon_file_id") @ExcludeMissing fun _appIconFileId() = appIconFileId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -434,60 +415,61 @@ class CardProfile private constructor(private val id: JsonField<String>,private 
 
         fun validate() = apply {
             if (!validated) {
-              textColor().validate()
-              issuerName()
-              cardDescription()
-              contactWebsite()
-              contactEmail()
-              contactPhone()
-              backgroundImageFileId()
-              appIconFileId()
-              validated = true
+                textColor().validate()
+                issuerName()
+                cardDescription()
+                contactWebsite()
+                contactEmail()
+                contactPhone()
+                backgroundImageFileId()
+                appIconFileId()
+                validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is DigitalWallets &&
-              this.textColor == other.textColor &&
-              this.issuerName == other.issuerName &&
-              this.cardDescription == other.cardDescription &&
-              this.contactWebsite == other.contactWebsite &&
-              this.contactEmail == other.contactEmail &&
-              this.contactPhone == other.contactPhone &&
-              this.backgroundImageFileId == other.backgroundImageFileId &&
-              this.appIconFileId == other.appIconFileId &&
-              this.additionalProperties == other.additionalProperties
+            return other is DigitalWallets &&
+                this.textColor == other.textColor &&
+                this.issuerName == other.issuerName &&
+                this.cardDescription == other.cardDescription &&
+                this.contactWebsite == other.contactWebsite &&
+                this.contactEmail == other.contactEmail &&
+                this.contactPhone == other.contactPhone &&
+                this.backgroundImageFileId == other.backgroundImageFileId &&
+                this.appIconFileId == other.appIconFileId &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                textColor,
-                issuerName,
-                cardDescription,
-                contactWebsite,
-                contactEmail,
-                contactPhone,
-                backgroundImageFileId,
-                appIconFileId,
-                additionalProperties,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        textColor,
+                        issuerName,
+                        cardDescription,
+                        contactWebsite,
+                        contactEmail,
+                        contactPhone,
+                        backgroundImageFileId,
+                        appIconFileId,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "DigitalWallets{textColor=$textColor, issuerName=$issuerName, cardDescription=$cardDescription, contactWebsite=$contactWebsite, contactEmail=$contactEmail, contactPhone=$contactPhone, backgroundImageFileId=$backgroundImageFileId, appIconFileId=$appIconFileId, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "DigitalWallets{textColor=$textColor, issuerName=$issuerName, cardDescription=$cardDescription, contactWebsite=$contactWebsite, contactEmail=$contactEmail, contactPhone=$contactPhone, backgroundImageFileId=$backgroundImageFileId, appIconFileId=$appIconFileId, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -521,9 +503,7 @@ class CardProfile private constructor(private val id: JsonField<String>,private 
             /** The Card's text color, specified as an RGB triple. */
             @JsonProperty("text_color")
             @ExcludeMissing
-            fun textColor(textColor: JsonField<TextColor>) = apply {
-                this.textColor = textColor
-            }
+            fun textColor(textColor: JsonField<TextColor>) = apply { this.textColor = textColor }
 
             /** A user-facing description for whoever is issuing the card. */
             fun issuerName(issuerName: String) = issuerName(JsonField.of(issuerName))
@@ -531,12 +511,11 @@ class CardProfile private constructor(private val id: JsonField<String>,private 
             /** A user-facing description for whoever is issuing the card. */
             @JsonProperty("issuer_name")
             @ExcludeMissing
-            fun issuerName(issuerName: JsonField<String>) = apply {
-                this.issuerName = issuerName
-            }
+            fun issuerName(issuerName: JsonField<String>) = apply { this.issuerName = issuerName }
 
             /** A user-facing description for the card itself. */
-            fun cardDescription(cardDescription: String) = cardDescription(JsonField.of(cardDescription))
+            fun cardDescription(cardDescription: String) =
+                cardDescription(JsonField.of(cardDescription))
 
             /** A user-facing description for the card itself. */
             @JsonProperty("card_description")
@@ -546,7 +525,8 @@ class CardProfile private constructor(private val id: JsonField<String>,private 
             }
 
             /** A website the user can visit to view and receive support for their card. */
-            fun contactWebsite(contactWebsite: String) = contactWebsite(JsonField.of(contactWebsite))
+            fun contactWebsite(contactWebsite: String) =
+                contactWebsite(JsonField.of(contactWebsite))
 
             /** A website the user can visit to view and receive support for their card. */
             @JsonProperty("contact_website")
@@ -576,7 +556,8 @@ class CardProfile private constructor(private val id: JsonField<String>,private 
             }
 
             /** The identifier of the File containing the card's front image. */
-            fun backgroundImageFileId(backgroundImageFileId: String) = backgroundImageFileId(JsonField.of(backgroundImageFileId))
+            fun backgroundImageFileId(backgroundImageFileId: String) =
+                backgroundImageFileId(JsonField.of(backgroundImageFileId))
 
             /** The identifier of the File containing the card's front image. */
             @JsonProperty("background_image_file_id")
@@ -609,23 +590,30 @@ class CardProfile private constructor(private val id: JsonField<String>,private 
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): DigitalWallets = DigitalWallets(
-                textColor,
-                issuerName,
-                cardDescription,
-                contactWebsite,
-                contactEmail,
-                contactPhone,
-                backgroundImageFileId,
-                appIconFileId,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build(): DigitalWallets =
+                DigitalWallets(
+                    textColor,
+                    issuerName,
+                    cardDescription,
+                    contactWebsite,
+                    contactEmail,
+                    contactPhone,
+                    backgroundImageFileId,
+                    appIconFileId,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
 
         /** The Card's text color, specified as an RGB triple. */
         @JsonDeserialize(builder = TextColor.Builder::class)
         @NoAutoDetect
-        class TextColor private constructor(private val red: JsonField<Long>,private val green: JsonField<Long>,private val blue: JsonField<Long>,private val additionalProperties: Map<String, JsonValue>,) {
+        class TextColor
+        private constructor(
+            private val red: JsonField<Long>,
+            private val green: JsonField<Long>,
+            private val blue: JsonField<Long>,
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
 
             private var validated: Boolean = false
 
@@ -641,19 +629,13 @@ class CardProfile private constructor(private val id: JsonField<String>,private 
             fun blue(): Long = blue.getRequired("blue")
 
             /** The value of the red channel in the RGB color. */
-            @JsonProperty("red")
-            @ExcludeMissing
-            fun _red() = red
+            @JsonProperty("red") @ExcludeMissing fun _red() = red
 
             /** The value of the green channel in the RGB color. */
-            @JsonProperty("green")
-            @ExcludeMissing
-            fun _green() = green
+            @JsonProperty("green") @ExcludeMissing fun _green() = green
 
             /** The value of the blue channel in the RGB color. */
-            @JsonProperty("blue")
-            @ExcludeMissing
-            fun _blue() = blue
+            @JsonProperty("blue") @ExcludeMissing fun _blue() = blue
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -661,45 +643,46 @@ class CardProfile private constructor(private val id: JsonField<String>,private 
 
             fun validate() = apply {
                 if (!validated) {
-                  red()
-                  green()
-                  blue()
-                  validated = true
+                    red()
+                    green()
+                    blue()
+                    validated = true
                 }
             }
 
             fun toBuilder() = Builder().from(this)
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return other is TextColor &&
-                  this.red == other.red &&
-                  this.green == other.green &&
-                  this.blue == other.blue &&
-                  this.additionalProperties == other.additionalProperties
+                return other is TextColor &&
+                    this.red == other.red &&
+                    this.green == other.green &&
+                    this.blue == other.blue &&
+                    this.additionalProperties == other.additionalProperties
             }
 
             override fun hashCode(): Int {
-              if (hashCode == 0) {
-                hashCode = Objects.hash(
-                    red,
-                    green,
-                    blue,
-                    additionalProperties,
-                )
-              }
-              return hashCode
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            red,
+                            green,
+                            blue,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
             }
 
-            override fun toString() = "TextColor{red=$red, green=$green, blue=$blue, additionalProperties=$additionalProperties}"
+            override fun toString() =
+                "TextColor{red=$red, green=$green, blue=$blue, additionalProperties=$additionalProperties}"
 
             companion object {
 
-                @JvmStatic
-                fun builder() = Builder()
+                @JvmStatic fun builder() = Builder()
             }
 
             class Builder {
@@ -723,9 +706,7 @@ class CardProfile private constructor(private val id: JsonField<String>,private 
                 /** The value of the red channel in the RGB color. */
                 @JsonProperty("red")
                 @ExcludeMissing
-                fun red(red: JsonField<Long>) = apply {
-                    this.red = red
-                }
+                fun red(red: JsonField<Long>) = apply { this.red = red }
 
                 /** The value of the green channel in the RGB color. */
                 fun green(green: Long) = green(JsonField.of(green))
@@ -733,9 +714,7 @@ class CardProfile private constructor(private val id: JsonField<String>,private 
                 /** The value of the green channel in the RGB color. */
                 @JsonProperty("green")
                 @ExcludeMissing
-                fun green(green: JsonField<Long>) = apply {
-                    this.green = green
-                }
+                fun green(green: JsonField<Long>) = apply { this.green = green }
 
                 /** The value of the blue channel in the RGB color. */
                 fun blue(blue: Long) = blue(JsonField.of(blue))
@@ -743,9 +722,7 @@ class CardProfile private constructor(private val id: JsonField<String>,private 
                 /** The value of the blue channel in the RGB color. */
                 @JsonProperty("blue")
                 @ExcludeMissing
-                fun blue(blue: JsonField<Long>) = apply {
-                    this.blue = blue
-                }
+                fun blue(blue: JsonField<Long>) = apply { this.blue = blue }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -757,32 +734,36 @@ class CardProfile private constructor(private val id: JsonField<String>,private 
                     this.additionalProperties.put(key, value)
                 }
 
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
 
-                fun build(): TextColor = TextColor(
-                    red,
-                    green,
-                    blue,
-                    additionalProperties.toUnmodifiable(),
-                )
+                fun build(): TextColor =
+                    TextColor(
+                        red,
+                        green,
+                        blue,
+                        additionalProperties.toUnmodifiable(),
+                    )
             }
         }
     }
 
-    class Type @JsonCreator private constructor(private val value: JsonField<String>,) {
+    class Type
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Type &&
-              this.value == other.value
+            return other is Type && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -805,15 +786,17 @@ class CardProfile private constructor(private val id: JsonField<String>,private 
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            CARD_PROFILE -> Value.CARD_PROFILE
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                CARD_PROFILE -> Value.CARD_PROFILE
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            CARD_PROFILE -> Known.CARD_PROFILE
-            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                CARD_PROFILE -> Known.CARD_PROFILE
+                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }

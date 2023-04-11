@@ -2,34 +2,25 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import java.time.LocalDate
-import java.time.OffsetDateTime
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.models.*
 import java.util.Objects
 import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.errors.IncreaseInvalidDataException
-import com.increase.api.models.*
 
-class SimulationsCardAuthorizeParams constructor(private val amount: Long,private val cardId: String?,private val digitalWalletTokenId: String?,private val additionalQueryParams: Map<String, List<String>>,private val additionalHeaders: Map<String, List<String>>,private val additionalBodyProperties: Map<String, JsonValue>,) {
+class SimulationsCardAuthorizeParams
+constructor(
+    private val amount: Long,
+    private val cardId: String?,
+    private val digitalWalletTokenId: String?,
+    private val additionalQueryParams: Map<String, List<String>>,
+    private val additionalHeaders: Map<String, List<String>>,
+    private val additionalBodyProperties: Map<String, JsonValue>,
+) {
 
     fun amount(): Long = amount
 
@@ -39,33 +30,35 @@ class SimulationsCardAuthorizeParams constructor(private val amount: Long,privat
 
     @JvmSynthetic
     internal fun getBody(): SimulationsCardAuthorizeBody {
-      return SimulationsCardAuthorizeBody(
-          amount,
-          cardId,
-          digitalWalletTokenId,
-          additionalBodyProperties,
-      )
+        return SimulationsCardAuthorizeBody(
+            amount,
+            cardId,
+            digitalWalletTokenId,
+            additionalBodyProperties,
+        )
     }
 
-    @JvmSynthetic
-    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
-    @JvmSynthetic
-    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     @JsonDeserialize(builder = SimulationsCardAuthorizeBody.Builder::class)
     @NoAutoDetect
-    class SimulationsCardAuthorizeBody internal constructor(private val amount: Long?,private val cardId: String?,private val digitalWalletTokenId: String?,private val additionalProperties: Map<String, JsonValue>,) {
+    class SimulationsCardAuthorizeBody
+    internal constructor(
+        private val amount: Long?,
+        private val cardId: String?,
+        private val digitalWalletTokenId: String?,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var hashCode: Int = 0
 
         /** The authorization amount in cents. */
-        @JsonProperty("amount")
-        fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Long? = amount
 
         /** The identifier of the Card to be authorized. */
-        @JsonProperty("card_id")
-        fun cardId(): String? = cardId
+        @JsonProperty("card_id") fun cardId(): String? = cardId
 
         /** The identifier of the Digital Wallet Token to be authorized. */
         @JsonProperty("digital_wallet_token_id")
@@ -78,35 +71,36 @@ class SimulationsCardAuthorizeParams constructor(private val amount: Long,privat
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is SimulationsCardAuthorizeBody &&
-              this.amount == other.amount &&
-              this.cardId == other.cardId &&
-              this.digitalWalletTokenId == other.digitalWalletTokenId &&
-              this.additionalProperties == other.additionalProperties
+            return other is SimulationsCardAuthorizeBody &&
+                this.amount == other.amount &&
+                this.cardId == other.cardId &&
+                this.digitalWalletTokenId == other.digitalWalletTokenId &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                amount,
-                cardId,
-                digitalWalletTokenId,
-                additionalProperties,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        amount,
+                        cardId,
+                        digitalWalletTokenId,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "SimulationsCardAuthorizeBody{amount=$amount, cardId=$cardId, digitalWalletTokenId=$digitalWalletTokenId, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "SimulationsCardAuthorizeBody{amount=$amount, cardId=$cardId, digitalWalletTokenId=$digitalWalletTokenId, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -125,16 +119,10 @@ class SimulationsCardAuthorizeParams constructor(private val amount: Long,privat
             }
 
             /** The authorization amount in cents. */
-            @JsonProperty("amount")
-            fun amount(amount: Long) = apply {
-                this.amount = amount
-            }
+            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
 
             /** The identifier of the Card to be authorized. */
-            @JsonProperty("card_id")
-            fun cardId(cardId: String) = apply {
-                this.cardId = cardId
-            }
+            @JsonProperty("card_id") fun cardId(cardId: String) = apply { this.cardId = cardId }
 
             /** The identifier of the Digital Wallet Token to be authorized. */
             @JsonProperty("digital_wallet_token_id")
@@ -156,14 +144,13 @@ class SimulationsCardAuthorizeParams constructor(private val amount: Long,privat
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): SimulationsCardAuthorizeBody = SimulationsCardAuthorizeBody(
-                checkNotNull(amount) {
-                    "`amount` is required but was not set"
-                },
-                cardId,
-                digitalWalletTokenId,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build(): SimulationsCardAuthorizeBody =
+                SimulationsCardAuthorizeBody(
+                    checkNotNull(amount) { "`amount` is required but was not set" },
+                    cardId,
+                    digitalWalletTokenId,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
@@ -174,38 +161,38 @@ class SimulationsCardAuthorizeParams constructor(private val amount: Long,privat
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is SimulationsCardAuthorizeParams &&
-          this.amount == other.amount &&
-          this.cardId == other.cardId &&
-          this.digitalWalletTokenId == other.digitalWalletTokenId &&
-          this.additionalQueryParams == other.additionalQueryParams &&
-          this.additionalHeaders == other.additionalHeaders &&
-          this.additionalBodyProperties == other.additionalBodyProperties
+        return other is SimulationsCardAuthorizeParams &&
+            this.amount == other.amount &&
+            this.cardId == other.cardId &&
+            this.digitalWalletTokenId == other.digitalWalletTokenId &&
+            this.additionalQueryParams == other.additionalQueryParams &&
+            this.additionalHeaders == other.additionalHeaders &&
+            this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          amount,
-          cardId,
-          digitalWalletTokenId,
-          additionalQueryParams,
-          additionalHeaders,
-          additionalBodyProperties,
-      )
+        return Objects.hash(
+            amount,
+            cardId,
+            digitalWalletTokenId,
+            additionalQueryParams,
+            additionalHeaders,
+            additionalBodyProperties,
+        )
     }
 
-    override fun toString() = "SimulationsCardAuthorizeParams{amount=$amount, cardId=$cardId, digitalWalletTokenId=$digitalWalletTokenId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() =
+        "SimulationsCardAuthorizeParams{amount=$amount, cardId=$cardId, digitalWalletTokenId=$digitalWalletTokenId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -229,14 +216,10 @@ class SimulationsCardAuthorizeParams constructor(private val amount: Long,privat
         }
 
         /** The authorization amount in cents. */
-        fun amount(amount: Long) = apply {
-            this.amount = amount
-        }
+        fun amount(amount: Long) = apply { this.amount = amount }
 
         /** The identifier of the Card to be authorized. */
-        fun cardId(cardId: String) = apply {
-            this.cardId = cardId
-        }
+        fun cardId(cardId: String) = apply { this.cardId = cardId }
 
         /** The identifier of the Digital Wallet Token to be authorized. */
         fun digitalWalletTokenId(digitalWalletTokenId: String) = apply {
@@ -281,9 +264,7 @@ class SimulationsCardAuthorizeParams constructor(private val amount: Long,privat
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply {
-            this.additionalHeaders.put(name, mutableListOf())
-        }
+        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -294,19 +275,19 @@ class SimulationsCardAuthorizeParams constructor(private val amount: Long,privat
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.putAll(additionalBodyProperties)
-        }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
 
-        fun build(): SimulationsCardAuthorizeParams = SimulationsCardAuthorizeParams(
-            checkNotNull(amount) {
-                "`amount` is required but was not set"
-            },
-            cardId,
-            digitalWalletTokenId,
-            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalBodyProperties.toUnmodifiable(),
-        )
+        fun build(): SimulationsCardAuthorizeParams =
+            SimulationsCardAuthorizeParams(
+                checkNotNull(amount) { "`amount` is required but was not set" },
+                cardId,
+                digitalWalletTokenId,
+                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalBodyProperties.toUnmodifiable(),
+            )
     }
 }

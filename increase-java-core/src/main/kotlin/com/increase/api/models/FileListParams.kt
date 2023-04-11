@@ -1,35 +1,26 @@
 package com.increase.api.models
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter
-import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import java.time.LocalDate
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonValue
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.models.*
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.errors.IncreaseInvalidDataException
-import com.increase.api.models.*
 
-class FileListParams constructor(private val cursor: String?,private val limit: Long?,private val createdAt: CreatedAt?,private val purpose: Purpose?,private val additionalQueryParams: Map<String, List<String>>,private val additionalHeaders: Map<String, List<String>>,) {
+class FileListParams
+constructor(
+    private val cursor: String?,
+    private val limit: Long?,
+    private val createdAt: CreatedAt?,
+    private val purpose: Purpose?,
+    private val additionalQueryParams: Map<String, List<String>>,
+    private val additionalHeaders: Map<String, List<String>>,
+) {
 
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
@@ -41,63 +32,54 @@ class FileListParams constructor(private val cursor: String?,private val limit: 
 
     @JvmSynthetic
     internal fun getQueryParams(): Map<String, List<String>> {
-      val params = mutableMapOf<String, List<String>>()
-      this.cursor?.let {
-          params.put("cursor", listOf(it.toString()))
-      }
-      this.limit?.let {
-          params.put("limit", listOf(it.toString()))
-      }
-      this.createdAt?.forEachQueryParam { key, values -> 
-          params.put("created_at.$key", values)
-      }
-      this.purpose?.forEachQueryParam { key, values -> 
-          params.put("purpose.$key", values)
-      }
-      params.putAll(additionalQueryParams)
-      return params.toUnmodifiable()
+        val params = mutableMapOf<String, List<String>>()
+        this.cursor?.let { params.put("cursor", listOf(it.toString())) }
+        this.limit?.let { params.put("limit", listOf(it.toString())) }
+        this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
+        this.purpose?.forEachQueryParam { key, values -> params.put("purpose.$key", values) }
+        params.putAll(additionalQueryParams)
+        return params.toUnmodifiable()
     }
 
-    @JvmSynthetic
-    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
 
     fun _additionalHeaders(): Map<String, List<String>> = additionalHeaders
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is FileListParams &&
-          this.cursor == other.cursor &&
-          this.limit == other.limit &&
-          this.createdAt == other.createdAt &&
-          this.purpose == other.purpose &&
-          this.additionalQueryParams == other.additionalQueryParams &&
-          this.additionalHeaders == other.additionalHeaders
+        return other is FileListParams &&
+            this.cursor == other.cursor &&
+            this.limit == other.limit &&
+            this.createdAt == other.createdAt &&
+            this.purpose == other.purpose &&
+            this.additionalQueryParams == other.additionalQueryParams &&
+            this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          cursor,
-          limit,
-          createdAt,
-          purpose,
-          additionalQueryParams,
-          additionalHeaders,
-      )
+        return Objects.hash(
+            cursor,
+            limit,
+            createdAt,
+            purpose,
+            additionalQueryParams,
+            additionalHeaders,
+        )
     }
 
-    override fun toString() = "FileListParams{cursor=$cursor, limit=$limit, createdAt=$createdAt, purpose=$purpose, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+    override fun toString() =
+        "FileListParams{cursor=$cursor, limit=$limit, createdAt=$createdAt, purpose=$purpose, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -121,25 +103,16 @@ class FileListParams constructor(private val cursor: String?,private val limit: 
         }
 
         /** Return the page of entries after this one. */
-        fun cursor(cursor: String) = apply {
-            this.cursor = cursor
-        }
+        fun cursor(cursor: String) = apply { this.cursor = cursor }
 
         /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100
-         * objects.
+         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
-        fun limit(limit: Long) = apply {
-            this.limit = limit
-        }
+        fun limit(limit: Long) = apply { this.limit = limit }
 
-        fun createdAt(createdAt: CreatedAt) = apply {
-            this.createdAt = createdAt
-        }
+        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
-        fun purpose(purpose: Purpose) = apply {
-            this.purpose = purpose
-        }
+        fun purpose(purpose: Purpose) = apply { this.purpose = purpose }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -179,47 +152,51 @@ class FileListParams constructor(private val cursor: String?,private val limit: 
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply {
-            this.additionalHeaders.put(name, mutableListOf())
-        }
+        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
-        fun build(): FileListParams = FileListParams(
-            cursor,
-            limit,
-            createdAt,
-            purpose,
-            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-        )
+        fun build(): FileListParams =
+            FileListParams(
+                cursor,
+                limit,
+                createdAt,
+                purpose,
+                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            )
     }
 
     @JsonDeserialize(builder = CreatedAt.Builder::class)
     @NoAutoDetect
-    class CreatedAt private constructor(private val after: OffsetDateTime?,private val before: OffsetDateTime?,private val onOrAfter: OffsetDateTime?,private val onOrBefore: OffsetDateTime?,private val additionalProperties: Map<String, List<String>>,) {
+    class CreatedAt
+    private constructor(
+        private val after: OffsetDateTime?,
+        private val before: OffsetDateTime?,
+        private val onOrAfter: OffsetDateTime?,
+        private val onOrBefore: OffsetDateTime?,
+        private val additionalProperties: Map<String, List<String>>,
+    ) {
 
         private var hashCode: Int = 0
 
         /**
-         * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-         * timestamp.
+         * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
          */
         fun after(): OffsetDateTime? = after
 
         /**
-         * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-         * timestamp.
+         * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
          */
         fun before(): OffsetDateTime? = before
 
         /**
-         * Return results on or after this
-         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+         * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+         * timestamp.
          */
         fun onOrAfter(): OffsetDateTime? = onOrAfter
 
         /**
-         * Return results on or before this
-         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+         * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+         * timestamp.
          */
         fun onOrBefore(): OffsetDateTime? = onOrBefore
 
@@ -227,57 +204,48 @@ class FileListParams constructor(private val cursor: String?,private val limit: 
 
         @JvmSynthetic
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-          this.after?.let {
-              putParam("after", listOf(it.toString()))
-          }
-          this.before?.let {
-              putParam("before", listOf(it.toString()))
-          }
-          this.onOrAfter?.let {
-              putParam("on_or_after", listOf(it.toString()))
-          }
-          this.onOrBefore?.let {
-              putParam("on_or_before", listOf(it.toString()))
-          }
-          this.additionalProperties.forEach { key, values -> 
-              putParam(key, values)
-          }
+            this.after?.let { putParam("after", listOf(it.toString())) }
+            this.before?.let { putParam("before", listOf(it.toString())) }
+            this.onOrAfter?.let { putParam("on_or_after", listOf(it.toString())) }
+            this.onOrBefore?.let { putParam("on_or_before", listOf(it.toString())) }
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is CreatedAt &&
-              this.after == other.after &&
-              this.before == other.before &&
-              this.onOrAfter == other.onOrAfter &&
-              this.onOrBefore == other.onOrBefore &&
-              this.additionalProperties == other.additionalProperties
+            return other is CreatedAt &&
+                this.after == other.after &&
+                this.before == other.before &&
+                this.onOrAfter == other.onOrAfter &&
+                this.onOrBefore == other.onOrBefore &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                after,
-                before,
-                onOrAfter,
-                onOrBefore,
-                additionalProperties,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        after,
+                        before,
+                        onOrAfter,
+                        onOrBefore,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -301,33 +269,25 @@ class FileListParams constructor(private val cursor: String?,private val limit: 
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun after(after: OffsetDateTime) = apply {
-                this.after = after
-            }
+            fun after(after: OffsetDateTime) = apply { this.after = after }
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun before(before: OffsetDateTime) = apply {
-                this.before = before
-            }
+            fun before(before: OffsetDateTime) = apply { this.before = before }
 
             /**
-             * Return results on or after this
-             * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+             * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
              */
-            fun onOrAfter(onOrAfter: OffsetDateTime) = apply {
-                this.onOrAfter = onOrAfter
-            }
+            fun onOrAfter(onOrAfter: OffsetDateTime) = apply { this.onOrAfter = onOrAfter }
 
             /**
-             * Return results on or before this
-             * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+             * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
              */
-            fun onOrBefore(onOrBefore: OffsetDateTime) = apply {
-                this.onOrBefore = onOrBefore
-            }
+            fun onOrBefore(onOrBefore: OffsetDateTime) = apply { this.onOrBefore = onOrBefore }
 
             fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
                 this.additionalProperties.clear()
@@ -338,29 +298,35 @@ class FileListParams constructor(private val cursor: String?,private val limit: 
                 this.additionalProperties.put(key, value)
             }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-            fun build(): CreatedAt = CreatedAt(
-                after,
-                before,
-                onOrAfter,
-                onOrBefore,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build(): CreatedAt =
+                CreatedAt(
+                    after,
+                    before,
+                    onOrAfter,
+                    onOrBefore,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
     @JsonDeserialize(builder = Purpose.Builder::class)
     @NoAutoDetect
-    class Purpose private constructor(private val in_: List<In>?,private val additionalProperties: Map<String, List<String>>,) {
+    class Purpose
+    private constructor(
+        private val in_: List<In>?,
+        private val additionalProperties: Map<String, List<String>>,
+    ) {
 
         private var hashCode: Int = 0
 
         /**
-         * Return results whose value is in the provided list. For GET requests, this
-         * should be encoded as a comma-delimited string, such as `?in=one,two,three`.
+         * Return results whose value is in the provided list. For GET requests, this should be
+         * encoded as a comma-delimited string, such as `?in=one,two,three`.
          */
         fun in_(): List<In>? = in_
 
@@ -368,39 +334,34 @@ class FileListParams constructor(private val cursor: String?,private val limit: 
 
         @JvmSynthetic
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-          this.in_?.let {
-              putParam("in", listOf(it.joinToString(separator = ",")))
-          }
-          this.additionalProperties.forEach { key, values -> 
-              putParam(key, values)
-          }
+            this.in_?.let { putParam("in", listOf(it.joinToString(separator = ","))) }
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Purpose &&
-              this.in_ == other.in_ &&
-              this.additionalProperties == other.additionalProperties
+            return other is Purpose &&
+                this.in_ == other.in_ &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(in_, additionalProperties)
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode = Objects.hash(in_, additionalProperties)
+            }
+            return hashCode
         }
 
         override fun toString() = "Purpose{in_=$in_, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -415,12 +376,10 @@ class FileListParams constructor(private val cursor: String?,private val limit: 
             }
 
             /**
-             * Return results whose value is in the provided list. For GET requests, this
-             * should be encoded as a comma-delimited string, such as `?in=one,two,three`.
+             * Return results whose value is in the provided list. For GET requests, this should be
+             * encoded as a comma-delimited string, such as `?in=one,two,three`.
              */
-            fun in_(in_: List<In>) = apply {
-                this.in_ = in_
-            }
+            fun in_(in_: List<In>) = apply { this.in_ = in_ }
 
             fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
                 this.additionalProperties.clear()
@@ -431,25 +390,29 @@ class FileListParams constructor(private val cursor: String?,private val limit: 
                 this.additionalProperties.put(key, value)
             }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-            fun build(): Purpose = Purpose(in_?.toUnmodifiable(), additionalProperties.toUnmodifiable())
+            fun build(): Purpose =
+                Purpose(in_?.toUnmodifiable(), additionalProperties.toUnmodifiable())
         }
 
-        class In @JsonCreator private constructor(private val value: JsonField<String>,) {
+        class In
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) {
 
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return other is In &&
-                  this.value == other.value
+                return other is In && this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -472,13 +435,15 @@ class FileListParams constructor(private val cursor: String?,private val limit: 
 
                 @JvmField val OTHER = In(JsonField.of("other"))
 
-                @JvmField val TRUST_FORMATION_DOCUMENT = In(JsonField.of("trust_formation_document"))
+                @JvmField
+                val TRUST_FORMATION_DOCUMENT = In(JsonField.of("trust_formation_document"))
 
                 @JvmField val DIGITAL_WALLET_ARTWORK = In(JsonField.of("digital_wallet_artwork"))
 
                 @JvmField val DIGITAL_WALLET_APP_ICON = In(JsonField.of("digital_wallet_app_icon"))
 
-                @JvmField val ENTITY_SUPPLEMENTAL_DOCUMENT = In(JsonField.of("entity_supplemental_document"))
+                @JvmField
+                val ENTITY_SUPPLEMENTAL_DOCUMENT = In(JsonField.of("entity_supplemental_document"))
 
                 @JvmField val EXPORT = In(JsonField.of("export"))
 
@@ -516,37 +481,39 @@ class FileListParams constructor(private val cursor: String?,private val limit: 
                 _UNKNOWN,
             }
 
-            fun value(): Value = when (this) {
-                CHECK_IMAGE_FRONT -> Value.CHECK_IMAGE_FRONT
-                CHECK_IMAGE_BACK -> Value.CHECK_IMAGE_BACK
-                FORM_1099_INT -> Value.FORM_1099_INT
-                FORM_SS_4 -> Value.FORM_SS_4
-                IDENTITY_DOCUMENT -> Value.IDENTITY_DOCUMENT
-                INCREASE_STATEMENT -> Value.INCREASE_STATEMENT
-                OTHER -> Value.OTHER
-                TRUST_FORMATION_DOCUMENT -> Value.TRUST_FORMATION_DOCUMENT
-                DIGITAL_WALLET_ARTWORK -> Value.DIGITAL_WALLET_ARTWORK
-                DIGITAL_WALLET_APP_ICON -> Value.DIGITAL_WALLET_APP_ICON
-                ENTITY_SUPPLEMENTAL_DOCUMENT -> Value.ENTITY_SUPPLEMENTAL_DOCUMENT
-                EXPORT -> Value.EXPORT
-                else -> Value._UNKNOWN
-            }
+            fun value(): Value =
+                when (this) {
+                    CHECK_IMAGE_FRONT -> Value.CHECK_IMAGE_FRONT
+                    CHECK_IMAGE_BACK -> Value.CHECK_IMAGE_BACK
+                    FORM_1099_INT -> Value.FORM_1099_INT
+                    FORM_SS_4 -> Value.FORM_SS_4
+                    IDENTITY_DOCUMENT -> Value.IDENTITY_DOCUMENT
+                    INCREASE_STATEMENT -> Value.INCREASE_STATEMENT
+                    OTHER -> Value.OTHER
+                    TRUST_FORMATION_DOCUMENT -> Value.TRUST_FORMATION_DOCUMENT
+                    DIGITAL_WALLET_ARTWORK -> Value.DIGITAL_WALLET_ARTWORK
+                    DIGITAL_WALLET_APP_ICON -> Value.DIGITAL_WALLET_APP_ICON
+                    ENTITY_SUPPLEMENTAL_DOCUMENT -> Value.ENTITY_SUPPLEMENTAL_DOCUMENT
+                    EXPORT -> Value.EXPORT
+                    else -> Value._UNKNOWN
+                }
 
-            fun known(): Known = when (this) {
-                CHECK_IMAGE_FRONT -> Known.CHECK_IMAGE_FRONT
-                CHECK_IMAGE_BACK -> Known.CHECK_IMAGE_BACK
-                FORM_1099_INT -> Known.FORM_1099_INT
-                FORM_SS_4 -> Known.FORM_SS_4
-                IDENTITY_DOCUMENT -> Known.IDENTITY_DOCUMENT
-                INCREASE_STATEMENT -> Known.INCREASE_STATEMENT
-                OTHER -> Known.OTHER
-                TRUST_FORMATION_DOCUMENT -> Known.TRUST_FORMATION_DOCUMENT
-                DIGITAL_WALLET_ARTWORK -> Known.DIGITAL_WALLET_ARTWORK
-                DIGITAL_WALLET_APP_ICON -> Known.DIGITAL_WALLET_APP_ICON
-                ENTITY_SUPPLEMENTAL_DOCUMENT -> Known.ENTITY_SUPPLEMENTAL_DOCUMENT
-                EXPORT -> Known.EXPORT
-                else -> throw IncreaseInvalidDataException("Unknown In: $value")
-            }
+            fun known(): Known =
+                when (this) {
+                    CHECK_IMAGE_FRONT -> Known.CHECK_IMAGE_FRONT
+                    CHECK_IMAGE_BACK -> Known.CHECK_IMAGE_BACK
+                    FORM_1099_INT -> Known.FORM_1099_INT
+                    FORM_SS_4 -> Known.FORM_SS_4
+                    IDENTITY_DOCUMENT -> Known.IDENTITY_DOCUMENT
+                    INCREASE_STATEMENT -> Known.INCREASE_STATEMENT
+                    OTHER -> Known.OTHER
+                    TRUST_FORMATION_DOCUMENT -> Known.TRUST_FORMATION_DOCUMENT
+                    DIGITAL_WALLET_ARTWORK -> Known.DIGITAL_WALLET_ARTWORK
+                    DIGITAL_WALLET_APP_ICON -> Known.DIGITAL_WALLET_APP_ICON
+                    ENTITY_SUPPLEMENTAL_DOCUMENT -> Known.ENTITY_SUPPLEMENTAL_DOCUMENT
+                    EXPORT -> Known.EXPORT
+                    else -> throw IncreaseInvalidDataException("Unknown In: $value")
+                }
 
             fun asString(): String = _value().asStringOrThrow()
         }

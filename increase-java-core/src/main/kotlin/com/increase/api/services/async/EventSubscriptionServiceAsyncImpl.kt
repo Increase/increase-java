@@ -1,46 +1,32 @@
 package com.increase.api.services.async
 
-import com.fasterxml.jackson.databind.json.JsonMapper
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
-import kotlin.LazyThreadSafetyMode.PUBLICATION
-import java.time.LocalDate
-import java.time.Duration
-import java.time.OffsetDateTime
-import java.util.Base64
-import java.util.Optional
-import java.util.UUID
-import java.util.concurrent.CompletableFuture
-import java.util.stream.Stream
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.core.ClientOptions
+import com.increase.api.core.RequestOptions
+import com.increase.api.core.http.HttpMethod
+import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.errors.IncreaseError
 import com.increase.api.models.EventSubscription
 import com.increase.api.models.EventSubscriptionCreateParams
 import com.increase.api.models.EventSubscriptionListPageAsync
 import com.increase.api.models.EventSubscriptionListParams
 import com.increase.api.models.EventSubscriptionRetrieveParams
 import com.increase.api.models.EventSubscriptionUpdateParams
-import com.increase.api.core.ClientOptions
-import com.increase.api.core.http.HttpMethod
-import com.increase.api.core.http.HttpRequest
-import com.increase.api.core.http.HttpResponse.Handler
-import com.increase.api.core.JsonField
-import com.increase.api.core.RequestOptions
-import com.increase.api.errors.IncreaseError
-import com.increase.api.services.emptyHandler
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
-import com.increase.api.services.stringHandler
 import com.increase.api.services.withErrorHandler
+import java.util.concurrent.CompletableFuture
 
-class EventSubscriptionServiceAsyncImpl constructor(private val clientOptions: ClientOptions,) : EventSubscriptionServiceAsync {
+class EventSubscriptionServiceAsyncImpl
+constructor(
+    private val clientOptions: ClientOptions,
+) : EventSubscriptionServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
     private val createHandler: Handler<EventSubscription> =
-    jsonHandler<EventSubscription>(clientOptions.jsonMapper)
-    .withErrorHandler(errorHandler)
+        jsonHandler<EventSubscription>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** Create an Event Subscription */
     override fun create(
@@ -69,8 +55,7 @@ class EventSubscriptionServiceAsyncImpl constructor(private val clientOptions: C
     }
 
     private val retrieveHandler: Handler<EventSubscription> =
-    jsonHandler<EventSubscription>(clientOptions.jsonMapper)
-    .withErrorHandler(errorHandler)
+        jsonHandler<EventSubscription>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** Retrieve an Event Subscription */
     override fun retrieve(
@@ -98,8 +83,7 @@ class EventSubscriptionServiceAsyncImpl constructor(private val clientOptions: C
     }
 
     private val updateHandler: Handler<EventSubscription> =
-    jsonHandler<EventSubscription>(clientOptions.jsonMapper)
-    .withErrorHandler(errorHandler)
+        jsonHandler<EventSubscription>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** Update an Event Subscription */
     override fun update(
@@ -128,8 +112,8 @@ class EventSubscriptionServiceAsyncImpl constructor(private val clientOptions: C
     }
 
     private val listHandler: Handler<EventSubscriptionListPageAsync.Response> =
-    jsonHandler<EventSubscriptionListPageAsync.Response>(clientOptions.jsonMapper)
-    .withErrorHandler(errorHandler)
+        jsonHandler<EventSubscriptionListPageAsync.Response>(clientOptions.jsonMapper)
+            .withErrorHandler(errorHandler)
 
     /** List Event Subscriptions */
     override fun list(

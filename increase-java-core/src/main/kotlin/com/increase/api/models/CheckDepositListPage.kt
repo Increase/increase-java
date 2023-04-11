@@ -4,26 +4,24 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.util.Objects
-import java.util.Optional
-import java.util.Spliterator
-import java.util.Spliterators
-import java.util.UUID
-import java.util.concurrent.CompletableFuture
-import java.util.stream.Stream
-import java.util.stream.StreamSupport
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.JsonField
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
-import com.increase.api.models.CheckDeposit
 import com.increase.api.services.blocking.CheckDepositService
+import java.util.Objects
+import java.util.Optional
+import java.util.stream.Stream
+import java.util.stream.StreamSupport
 
-class CheckDepositListPage private constructor(private val checkDepositsService: CheckDepositService,private val params: CheckDepositListParams,private val response: Response,) {
+class CheckDepositListPage
+private constructor(
+    private val checkDepositsService: CheckDepositService,
+    private val params: CheckDepositListParams,
+    private val response: Response,
+) {
 
     fun response(): Response = response
 
@@ -32,44 +30,47 @@ class CheckDepositListPage private constructor(private val checkDepositsService:
     fun nextCursor(): String = response().nextCursor()
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is CheckDepositListPage &&
-          this.checkDepositsService == other.checkDepositsService &&
-          this.params == other.params &&
-          this.response == other.response
+        return other is CheckDepositListPage &&
+            this.checkDepositsService == other.checkDepositsService &&
+            this.params == other.params &&
+            this.response == other.response
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          checkDepositsService,
-          params,
-          response,
-      )
+        return Objects.hash(
+            checkDepositsService,
+            params,
+            response,
+        )
     }
 
-    override fun toString() = "CheckDepositListPage{checkDepositsService=$checkDepositsService, params=$params, response=$response}"
+    override fun toString() =
+        "CheckDepositListPage{checkDepositsService=$checkDepositsService, params=$params, response=$response}"
 
     fun hasNextPage(): Boolean {
-      if (data().isEmpty()) {
-        return false
-      }
+        if (data().isEmpty()) {
+            return false
+        }
 
-      return nextCursor().isNotEmpty()
+        return nextCursor().isNotEmpty()
     }
 
     fun getNextPageParams(): Optional<CheckDepositListParams> {
-      if (!hasNextPage()) {
-        return Optional.empty()
-      }
+        if (!hasNextPage()) {
+            return Optional.empty()
+        }
 
-      return Optional.of(CheckDepositListParams.builder().from(params).cursor(nextCursor()).build())
+        return Optional.of(
+            CheckDepositListParams.builder().from(params).cursor(nextCursor()).build()
+        )
     }
 
     fun getNextPage(): Optional<CheckDepositListPage> {
-      return getNextPageParams().map { checkDepositsService.list(it) }
+        return getNextPageParams().map { checkDepositsService.list(it) }
     }
 
     fun autoPager(): AutoPager = AutoPager(this)
@@ -77,16 +78,26 @@ class CheckDepositListPage private constructor(private val checkDepositsService:
     companion object {
 
         @JvmStatic
-        fun of(checkDepositsService: CheckDepositService, params: CheckDepositListParams, response: Response) = CheckDepositListPage(
-            checkDepositsService,
-            params,
-            response,
-        )
+        fun of(
+            checkDepositsService: CheckDepositService,
+            params: CheckDepositListParams,
+            response: Response
+        ) =
+            CheckDepositListPage(
+                checkDepositsService,
+                params,
+                response,
+            )
     }
 
     @JsonDeserialize(builder = Response.Builder::class)
     @NoAutoDetect
-    class Response constructor(private val data: JsonField<List<CheckDeposit>>,private val nextCursor: JsonField<String>,private val additionalProperties: Map<String, JsonValue>,) {
+    class Response
+    constructor(
+        private val data: JsonField<List<CheckDeposit>>,
+        private val nextCursor: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var validated: Boolean = false
 
@@ -106,39 +117,39 @@ class CheckDepositListPage private constructor(private val checkDepositsService:
 
         fun validate() = apply {
             if (!validated) {
-              data().forEach { it.validate() }
-              nextCursor()
-              validated = true
+                data().forEach { it.validate() }
+                nextCursor()
+                validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Response &&
-              this.data == other.data &&
-              this.nextCursor == other.nextCursor &&
-              this.additionalProperties == other.additionalProperties
+            return other is Response &&
+                this.data == other.data &&
+                this.nextCursor == other.nextCursor &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          return Objects.hash(
-              data,
-              nextCursor,
-              additionalProperties,
-          )
+            return Objects.hash(
+                data,
+                nextCursor,
+                additionalProperties,
+            )
         }
 
-        override fun toString() = "CheckDepositListPage.Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "CheckDepositListPage.Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -169,31 +180,36 @@ class CheckDepositListPage private constructor(private val checkDepositsService:
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() = Response(
-                data,
-                nextCursor,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build() =
+                Response(
+                    data,
+                    nextCursor,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
-    class AutoPager constructor(private val firstPage: CheckDepositListPage,) : Iterable<CheckDeposit> {
+    class AutoPager
+    constructor(
+        private val firstPage: CheckDepositListPage,
+    ) : Iterable<CheckDeposit> {
 
-        override fun iterator(): Iterator<CheckDeposit> = sequence {
-            var page = firstPage
-            var index = 0
-            while (true) {
-              while (index >= page.data().size) {
-                page = page.getNextPage().orElse(null) ?: return@sequence
-                index = 0
-              }
-              yield(page.data()[index++])
-            }
-        }
-        .iterator()
+        override fun iterator(): Iterator<CheckDeposit> =
+            sequence {
+                    var page = firstPage
+                    var index = 0
+                    while (true) {
+                        while (index >= page.data().size) {
+                            page = page.getNextPage().orElse(null) ?: return@sequence
+                            index = 0
+                        }
+                        yield(page.data()[index++])
+                    }
+                }
+                .iterator()
 
         fun stream(): Stream<CheckDeposit> {
-          return StreamSupport.stream(spliterator(), false)
+            return StreamSupport.stream(spliterator(), false)
         }
     }
 }

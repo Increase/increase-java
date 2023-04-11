@@ -4,26 +4,23 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.util.Objects
-import java.util.Optional
-import java.util.Spliterator
-import java.util.Spliterators
-import java.util.UUID
-import java.util.concurrent.CompletableFuture
-import java.util.stream.Stream
-import java.util.stream.StreamSupport
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.JsonField
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
-import com.increase.api.models.WireTransfer
 import com.increase.api.services.async.WireTransferServiceAsync
+import java.util.Objects
+import java.util.Optional
+import java.util.concurrent.CompletableFuture
 
-class WireTransferListPageAsync private constructor(private val wireTransfersService: WireTransferServiceAsync,private val params: WireTransferListParams,private val response: Response,) {
+class WireTransferListPageAsync
+private constructor(
+    private val wireTransfersService: WireTransferServiceAsync,
+    private val params: WireTransferListParams,
+    private val response: Response,
+) {
 
     fun response(): Response = response
 
@@ -32,63 +29,74 @@ class WireTransferListPageAsync private constructor(private val wireTransfersSer
     fun nextCursor(): String = response().nextCursor()
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is WireTransferListPageAsync &&
-          this.wireTransfersService == other.wireTransfersService &&
-          this.params == other.params &&
-          this.response == other.response
+        return other is WireTransferListPageAsync &&
+            this.wireTransfersService == other.wireTransfersService &&
+            this.params == other.params &&
+            this.response == other.response
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          wireTransfersService,
-          params,
-          response,
-      )
-    }
-
-    override fun toString() = "WireTransferListPageAsync{wireTransfersService=$wireTransfersService, params=$params, response=$response}"
-
-    fun hasNextPage(): Boolean {
-      if (data().isEmpty()) {
-        return false
-      }
-
-      return nextCursor().isNotEmpty()
-    }
-
-    fun getNextPageParams(): Optional<WireTransferListParams> {
-      if (!hasNextPage()) {
-        return Optional.empty()
-      }
-
-      return Optional.of(WireTransferListParams.builder().from(params).cursor(nextCursor()).build())
-    }
-
-    fun getNextPage(): CompletableFuture<Optional<WireTransferListPageAsync>> {
-      return getNextPageParams().map {
-        wireTransfersService.list(it).thenApply { Optional.of(it) }
-      }.orElseGet {
-          CompletableFuture.completedFuture(Optional.empty())
-      }
-    }
-
-    companion object {
-
-        @JvmStatic
-        fun of(wireTransfersService: WireTransferServiceAsync, params: WireTransferListParams, response: Response) = WireTransferListPageAsync(
+        return Objects.hash(
             wireTransfersService,
             params,
             response,
         )
     }
 
+    override fun toString() =
+        "WireTransferListPageAsync{wireTransfersService=$wireTransfersService, params=$params, response=$response}"
+
+    fun hasNextPage(): Boolean {
+        if (data().isEmpty()) {
+            return false
+        }
+
+        return nextCursor().isNotEmpty()
+    }
+
+    fun getNextPageParams(): Optional<WireTransferListParams> {
+        if (!hasNextPage()) {
+            return Optional.empty()
+        }
+
+        return Optional.of(
+            WireTransferListParams.builder().from(params).cursor(nextCursor()).build()
+        )
+    }
+
+    fun getNextPage(): CompletableFuture<Optional<WireTransferListPageAsync>> {
+        return getNextPageParams()
+            .map { wireTransfersService.list(it).thenApply { Optional.of(it) } }
+            .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
+    }
+
+    companion object {
+
+        @JvmStatic
+        fun of(
+            wireTransfersService: WireTransferServiceAsync,
+            params: WireTransferListParams,
+            response: Response
+        ) =
+            WireTransferListPageAsync(
+                wireTransfersService,
+                params,
+                response,
+            )
+    }
+
     @JsonDeserialize(builder = Response.Builder::class)
     @NoAutoDetect
-    class Response constructor(private val data: JsonField<List<WireTransfer>>,private val nextCursor: JsonField<String>,private val additionalProperties: Map<String, JsonValue>,) {
+    class Response
+    constructor(
+        private val data: JsonField<List<WireTransfer>>,
+        private val nextCursor: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var validated: Boolean = false
 
@@ -108,39 +116,39 @@ class WireTransferListPageAsync private constructor(private val wireTransfersSer
 
         fun validate() = apply {
             if (!validated) {
-              data().forEach { it.validate() }
-              nextCursor()
-              validated = true
+                data().forEach { it.validate() }
+                nextCursor()
+                validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Response &&
-              this.data == other.data &&
-              this.nextCursor == other.nextCursor &&
-              this.additionalProperties == other.additionalProperties
+            return other is Response &&
+                this.data == other.data &&
+                this.nextCursor == other.nextCursor &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          return Objects.hash(
-              data,
-              nextCursor,
-              additionalProperties,
-          )
+            return Objects.hash(
+                data,
+                nextCursor,
+                additionalProperties,
+            )
         }
 
-        override fun toString() = "WireTransferListPageAsync.Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "WireTransferListPageAsync.Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -171,11 +179,12 @@ class WireTransferListPageAsync private constructor(private val wireTransfersSer
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() = Response(
-                data,
-                nextCursor,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build() =
+                Response(
+                    data,
+                    nextCursor,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 }

@@ -1,91 +1,126 @@
 package com.increase.api.client
 
-import java.time.Duration
-import java.util.Base64
-import java.util.Optional
-import java.util.concurrent.CompletableFuture
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.http.HttpMethod
-import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
-import com.increase.api.core.JsonField
-import com.increase.api.core.RequestOptions
 import com.increase.api.errors.IncreaseError
-import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
 import com.increase.api.services.async.*
-import com.increase.api.services.emptyHandler
 import com.increase.api.services.errorHandler
-import com.increase.api.services.json
-import com.increase.api.services.jsonHandler
-import com.increase.api.services.stringHandler
-import com.increase.api.services.withErrorHandler
 
-class IncreaseClientAsyncImpl constructor(private val clientOptions: ClientOptions,) : IncreaseClientAsync {
+class IncreaseClientAsyncImpl
+constructor(
+    private val clientOptions: ClientOptions,
+) : IncreaseClientAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
     private val accounts: AccountServiceAsync by lazy { AccountServiceAsyncImpl(clientOptions) }
 
-    private val accountNumbers: AccountNumberServiceAsync by lazy { AccountNumberServiceAsyncImpl(clientOptions) }
+    private val accountNumbers: AccountNumberServiceAsync by lazy {
+        AccountNumberServiceAsyncImpl(clientOptions)
+    }
 
-    private val realTimeDecisions: RealTimeDecisionServiceAsync by lazy { RealTimeDecisionServiceAsyncImpl(clientOptions) }
+    private val realTimeDecisions: RealTimeDecisionServiceAsync by lazy {
+        RealTimeDecisionServiceAsyncImpl(clientOptions)
+    }
 
     private val cards: CardServiceAsync by lazy { CardServiceAsyncImpl(clientOptions) }
 
-    private val cardDisputes: CardDisputeServiceAsync by lazy { CardDisputeServiceAsyncImpl(clientOptions) }
+    private val cardDisputes: CardDisputeServiceAsync by lazy {
+        CardDisputeServiceAsyncImpl(clientOptions)
+    }
 
-    private val cardProfiles: CardProfileServiceAsync by lazy { CardProfileServiceAsyncImpl(clientOptions) }
+    private val cardProfiles: CardProfileServiceAsync by lazy {
+        CardProfileServiceAsyncImpl(clientOptions)
+    }
 
-    private val externalAccounts: ExternalAccountServiceAsync by lazy { ExternalAccountServiceAsyncImpl(clientOptions) }
+    private val externalAccounts: ExternalAccountServiceAsync by lazy {
+        ExternalAccountServiceAsyncImpl(clientOptions)
+    }
 
-    private val digitalWalletTokens: DigitalWalletTokenServiceAsync by lazy { DigitalWalletTokenServiceAsyncImpl(clientOptions) }
+    private val digitalWalletTokens: DigitalWalletTokenServiceAsync by lazy {
+        DigitalWalletTokenServiceAsyncImpl(clientOptions)
+    }
 
-    private val transactions: TransactionServiceAsync by lazy { TransactionServiceAsyncImpl(clientOptions) }
+    private val transactions: TransactionServiceAsync by lazy {
+        TransactionServiceAsyncImpl(clientOptions)
+    }
 
-    private val pendingTransactions: PendingTransactionServiceAsync by lazy { PendingTransactionServiceAsyncImpl(clientOptions) }
+    private val pendingTransactions: PendingTransactionServiceAsync by lazy {
+        PendingTransactionServiceAsyncImpl(clientOptions)
+    }
 
-    private val declinedTransactions: DeclinedTransactionServiceAsync by lazy { DeclinedTransactionServiceAsyncImpl(clientOptions) }
+    private val declinedTransactions: DeclinedTransactionServiceAsync by lazy {
+        DeclinedTransactionServiceAsyncImpl(clientOptions)
+    }
 
     private val limits: LimitServiceAsync by lazy { LimitServiceAsyncImpl(clientOptions) }
 
-    private val accountTransfers: AccountTransferServiceAsync by lazy { AccountTransferServiceAsyncImpl(clientOptions) }
+    private val accountTransfers: AccountTransferServiceAsync by lazy {
+        AccountTransferServiceAsyncImpl(clientOptions)
+    }
 
-    private val achTransfers: AchTransferServiceAsync by lazy { AchTransferServiceAsyncImpl(clientOptions) }
+    private val achTransfers: AchTransferServiceAsync by lazy {
+        AchTransferServiceAsyncImpl(clientOptions)
+    }
 
-    private val inboundAchTransferReturns: InboundAchTransferReturnServiceAsync by lazy { InboundAchTransferReturnServiceAsyncImpl(clientOptions) }
+    private val inboundAchTransferReturns: InboundAchTransferReturnServiceAsync by lazy {
+        InboundAchTransferReturnServiceAsyncImpl(clientOptions)
+    }
 
-    private val achPrenotifications: AchPrenotificationServiceAsync by lazy { AchPrenotificationServiceAsyncImpl(clientOptions) }
+    private val achPrenotifications: AchPrenotificationServiceAsync by lazy {
+        AchPrenotificationServiceAsyncImpl(clientOptions)
+    }
 
     private val documents: DocumentServiceAsync by lazy { DocumentServiceAsyncImpl(clientOptions) }
 
-    private val wireTransfers: WireTransferServiceAsync by lazy { WireTransferServiceAsyncImpl(clientOptions) }
+    private val wireTransfers: WireTransferServiceAsync by lazy {
+        WireTransferServiceAsyncImpl(clientOptions)
+    }
 
-    private val checkTransfers: CheckTransferServiceAsync by lazy { CheckTransferServiceAsyncImpl(clientOptions) }
+    private val checkTransfers: CheckTransferServiceAsync by lazy {
+        CheckTransferServiceAsyncImpl(clientOptions)
+    }
 
     private val entities: EntityServiceAsync by lazy { EntityServiceAsyncImpl(clientOptions) }
 
-    private val inboundWireDrawdownRequests: InboundWireDrawdownRequestServiceAsync by lazy { InboundWireDrawdownRequestServiceAsyncImpl(clientOptions) }
+    private val inboundWireDrawdownRequests: InboundWireDrawdownRequestServiceAsync by lazy {
+        InboundWireDrawdownRequestServiceAsyncImpl(clientOptions)
+    }
 
-    private val wireDrawdownRequests: WireDrawdownRequestServiceAsync by lazy { WireDrawdownRequestServiceAsyncImpl(clientOptions) }
+    private val wireDrawdownRequests: WireDrawdownRequestServiceAsync by lazy {
+        WireDrawdownRequestServiceAsyncImpl(clientOptions)
+    }
 
     private val events: EventServiceAsync by lazy { EventServiceAsyncImpl(clientOptions) }
 
-    private val eventSubscriptions: EventSubscriptionServiceAsync by lazy { EventSubscriptionServiceAsyncImpl(clientOptions) }
+    private val eventSubscriptions: EventSubscriptionServiceAsync by lazy {
+        EventSubscriptionServiceAsyncImpl(clientOptions)
+    }
 
     private val files: FileServiceAsync by lazy { FileServiceAsyncImpl(clientOptions) }
 
     private val groups: GroupServiceAsync by lazy { GroupServiceAsyncImpl(clientOptions) }
 
-    private val oauthConnections: OauthConnectionServiceAsync by lazy { OauthConnectionServiceAsyncImpl(clientOptions) }
+    private val oauthConnections: OauthConnectionServiceAsync by lazy {
+        OauthConnectionServiceAsyncImpl(clientOptions)
+    }
 
-    private val checkDeposits: CheckDepositServiceAsync by lazy { CheckDepositServiceAsyncImpl(clientOptions) }
+    private val checkDeposits: CheckDepositServiceAsync by lazy {
+        CheckDepositServiceAsyncImpl(clientOptions)
+    }
 
-    private val routingNumbers: RoutingNumberServiceAsync by lazy { RoutingNumberServiceAsyncImpl(clientOptions) }
+    private val routingNumbers: RoutingNumberServiceAsync by lazy {
+        RoutingNumberServiceAsyncImpl(clientOptions)
+    }
 
-    private val accountStatements: AccountStatementServiceAsync by lazy { AccountStatementServiceAsyncImpl(clientOptions) }
+    private val accountStatements: AccountStatementServiceAsync by lazy {
+        AccountStatementServiceAsyncImpl(clientOptions)
+    }
 
-    private val simulations: SimulationServiceAsync by lazy { SimulationServiceAsyncImpl(clientOptions) }
+    private val simulations: SimulationServiceAsync by lazy {
+        SimulationServiceAsyncImpl(clientOptions)
+    }
 
     override fun accounts(): AccountServiceAsync = accounts
 
@@ -115,7 +150,8 @@ class IncreaseClientAsyncImpl constructor(private val clientOptions: ClientOptio
 
     override fun achTransfers(): AchTransferServiceAsync = achTransfers
 
-    override fun inboundAchTransferReturns(): InboundAchTransferReturnServiceAsync = inboundAchTransferReturns
+    override fun inboundAchTransferReturns(): InboundAchTransferReturnServiceAsync =
+        inboundAchTransferReturns
 
     override fun achPrenotifications(): AchPrenotificationServiceAsync = achPrenotifications
 
@@ -127,7 +163,8 @@ class IncreaseClientAsyncImpl constructor(private val clientOptions: ClientOptio
 
     override fun entities(): EntityServiceAsync = entities
 
-    override fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestServiceAsync = inboundWireDrawdownRequests
+    override fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestServiceAsync =
+        inboundWireDrawdownRequests
 
     override fun wireDrawdownRequests(): WireDrawdownRequestServiceAsync = wireDrawdownRequests
 

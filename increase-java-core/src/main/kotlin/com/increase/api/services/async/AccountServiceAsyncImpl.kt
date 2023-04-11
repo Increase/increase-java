@@ -1,19 +1,11 @@
 package com.increase.api.services.async
 
-import com.fasterxml.jackson.databind.json.JsonMapper
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
-import kotlin.LazyThreadSafetyMode.PUBLICATION
-import java.time.LocalDate
-import java.time.Duration
-import java.time.OffsetDateTime
-import java.util.Base64
-import java.util.Optional
-import java.util.UUID
-import java.util.concurrent.CompletableFuture
-import java.util.stream.Stream
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.core.ClientOptions
+import com.increase.api.core.RequestOptions
+import com.increase.api.core.http.HttpMethod
+import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.errors.IncreaseError
 import com.increase.api.models.Account
 import com.increase.api.models.AccountCloseParams
 import com.increase.api.models.AccountCreateParams
@@ -21,27 +13,21 @@ import com.increase.api.models.AccountListPageAsync
 import com.increase.api.models.AccountListParams
 import com.increase.api.models.AccountRetrieveParams
 import com.increase.api.models.AccountUpdateParams
-import com.increase.api.core.ClientOptions
-import com.increase.api.core.http.HttpMethod
-import com.increase.api.core.http.HttpRequest
-import com.increase.api.core.http.HttpResponse.Handler
-import com.increase.api.core.JsonField
-import com.increase.api.core.RequestOptions
-import com.increase.api.errors.IncreaseError
-import com.increase.api.services.emptyHandler
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
-import com.increase.api.services.stringHandler
 import com.increase.api.services.withErrorHandler
+import java.util.concurrent.CompletableFuture
 
-class AccountServiceAsyncImpl constructor(private val clientOptions: ClientOptions,) : AccountServiceAsync {
+class AccountServiceAsyncImpl
+constructor(
+    private val clientOptions: ClientOptions,
+) : AccountServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
     private val createHandler: Handler<Account> =
-    jsonHandler<Account>(clientOptions.jsonMapper)
-    .withErrorHandler(errorHandler)
+        jsonHandler<Account>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** Create an Account */
     override fun create(
@@ -70,8 +56,7 @@ class AccountServiceAsyncImpl constructor(private val clientOptions: ClientOptio
     }
 
     private val retrieveHandler: Handler<Account> =
-    jsonHandler<Account>(clientOptions.jsonMapper)
-    .withErrorHandler(errorHandler)
+        jsonHandler<Account>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** Retrieve an Account */
     override fun retrieve(
@@ -99,8 +84,7 @@ class AccountServiceAsyncImpl constructor(private val clientOptions: ClientOptio
     }
 
     private val updateHandler: Handler<Account> =
-    jsonHandler<Account>(clientOptions.jsonMapper)
-    .withErrorHandler(errorHandler)
+        jsonHandler<Account>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** Update an Account */
     override fun update(
@@ -129,8 +113,8 @@ class AccountServiceAsyncImpl constructor(private val clientOptions: ClientOptio
     }
 
     private val listHandler: Handler<AccountListPageAsync.Response> =
-    jsonHandler<AccountListPageAsync.Response>(clientOptions.jsonMapper)
-    .withErrorHandler(errorHandler)
+        jsonHandler<AccountListPageAsync.Response>(clientOptions.jsonMapper)
+            .withErrorHandler(errorHandler)
 
     /** List Accounts */
     override fun list(
@@ -159,8 +143,7 @@ class AccountServiceAsyncImpl constructor(private val clientOptions: ClientOptio
     }
 
     private val closeHandler: Handler<Account> =
-    jsonHandler<Account>(clientOptions.jsonMapper)
-    .withErrorHandler(errorHandler)
+        jsonHandler<Account>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** Close an Account */
     override fun close(
@@ -186,17 +169,5 @@ class AccountServiceAsyncImpl constructor(private val clientOptions: ClientOptio
                     }
                 }
         }
-        .build()
-      return clientOptions.httpClient.executeAsync(request, requestOptions)
-      .thenApply { response -> 
-          response.let {
-              closeHandler.handle(it)
-          }
-          .apply  {
-              if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                validate()
-              }
-          }
-      }
     }
 }

@@ -2,34 +2,26 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import java.time.LocalDate
-import java.time.OffsetDateTime
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.models.*
 import java.util.Objects
 import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.errors.IncreaseInvalidDataException
-import com.increase.api.models.*
 
-class AccountCreateParams constructor(private val entityId: String?,private val programId: String?,private val informationalEntityId: String?,private val name: String,private val additionalQueryParams: Map<String, List<String>>,private val additionalHeaders: Map<String, List<String>>,private val additionalBodyProperties: Map<String, JsonValue>,) {
+class AccountCreateParams
+constructor(
+    private val entityId: String?,
+    private val programId: String?,
+    private val informationalEntityId: String?,
+    private val name: String,
+    private val additionalQueryParams: Map<String, List<String>>,
+    private val additionalHeaders: Map<String, List<String>>,
+    private val additionalBodyProperties: Map<String, JsonValue>,
+) {
 
     fun entityId(): Optional<String> = Optional.ofNullable(entityId)
 
@@ -41,45 +33,47 @@ class AccountCreateParams constructor(private val entityId: String?,private val 
 
     @JvmSynthetic
     internal fun getBody(): AccountCreateBody {
-      return AccountCreateBody(
-          entityId,
-          programId,
-          informationalEntityId,
-          name,
-          additionalBodyProperties,
-      )
+        return AccountCreateBody(
+            entityId,
+            programId,
+            informationalEntityId,
+            name,
+            additionalBodyProperties,
+        )
     }
 
-    @JvmSynthetic
-    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
-    @JvmSynthetic
-    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     @JsonDeserialize(builder = AccountCreateBody.Builder::class)
     @NoAutoDetect
-    class AccountCreateBody internal constructor(private val entityId: String?,private val programId: String?,private val informationalEntityId: String?,private val name: String?,private val additionalProperties: Map<String, JsonValue>,) {
+    class AccountCreateBody
+    internal constructor(
+        private val entityId: String?,
+        private val programId: String?,
+        private val informationalEntityId: String?,
+        private val name: String?,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var hashCode: Int = 0
 
         /** The identifier for the Entity that will own the Account. */
-        @JsonProperty("entity_id")
-        fun entityId(): String? = entityId
+        @JsonProperty("entity_id") fun entityId(): String? = entityId
 
         /** The identifier for the Program that this Account falls under. */
-        @JsonProperty("program_id")
-        fun programId(): String? = programId
+        @JsonProperty("program_id") fun programId(): String? = programId
 
         /**
-         * The identifier of an Entity that, while not owning the Account, is associated
-         * with its activity. Its relationship to your group must be `informational`.
+         * The identifier of an Entity that, while not owning the Account, is associated with its
+         * activity. Its relationship to your group must be `informational`.
          */
         @JsonProperty("informational_entity_id")
         fun informationalEntityId(): String? = informationalEntityId
 
         /** The name you choose for the Account. */
-        @JsonProperty("name")
-        fun name(): String? = name
+        @JsonProperty("name") fun name(): String? = name
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -88,37 +82,38 @@ class AccountCreateParams constructor(private val entityId: String?,private val 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is AccountCreateBody &&
-              this.entityId == other.entityId &&
-              this.programId == other.programId &&
-              this.informationalEntityId == other.informationalEntityId &&
-              this.name == other.name &&
-              this.additionalProperties == other.additionalProperties
+            return other is AccountCreateBody &&
+                this.entityId == other.entityId &&
+                this.programId == other.programId &&
+                this.informationalEntityId == other.informationalEntityId &&
+                this.name == other.name &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                entityId,
-                programId,
-                informationalEntityId,
-                name,
-                additionalProperties,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        entityId,
+                        programId,
+                        informationalEntityId,
+                        name,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "AccountCreateBody{entityId=$entityId, programId=$programId, informationalEntityId=$informationalEntityId, name=$name, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "AccountCreateBody{entityId=$entityId, programId=$programId, informationalEntityId=$informationalEntityId, name=$name, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -140,19 +135,15 @@ class AccountCreateParams constructor(private val entityId: String?,private val 
 
             /** The identifier for the Entity that will own the Account. */
             @JsonProperty("entity_id")
-            fun entityId(entityId: String) = apply {
-                this.entityId = entityId
-            }
+            fun entityId(entityId: String) = apply { this.entityId = entityId }
 
             /** The identifier for the Program that this Account falls under. */
             @JsonProperty("program_id")
-            fun programId(programId: String) = apply {
-                this.programId = programId
-            }
+            fun programId(programId: String) = apply { this.programId = programId }
 
             /**
-             * The identifier of an Entity that, while not owning the Account, is associated
-             * with its activity. Its relationship to your group must be `informational`.
+             * The identifier of an Entity that, while not owning the Account, is associated with
+             * its activity. Its relationship to your group must be `informational`.
              */
             @JsonProperty("informational_entity_id")
             fun informationalEntityId(informationalEntityId: String) = apply {
@@ -160,10 +151,7 @@ class AccountCreateParams constructor(private val entityId: String?,private val 
             }
 
             /** The name you choose for the Account. */
-            @JsonProperty("name")
-            fun name(name: String) = apply {
-                this.name = name
-            }
+            @JsonProperty("name") fun name(name: String) = apply { this.name = name }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -179,15 +167,14 @@ class AccountCreateParams constructor(private val entityId: String?,private val 
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): AccountCreateBody = AccountCreateBody(
-                entityId,
-                programId,
-                informationalEntityId,
-                checkNotNull(name) {
-                    "`name` is required but was not set"
-                },
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build(): AccountCreateBody =
+                AccountCreateBody(
+                    entityId,
+                    programId,
+                    informationalEntityId,
+                    checkNotNull(name) { "`name` is required but was not set" },
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
@@ -198,40 +185,40 @@ class AccountCreateParams constructor(private val entityId: String?,private val 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is AccountCreateParams &&
-          this.entityId == other.entityId &&
-          this.programId == other.programId &&
-          this.informationalEntityId == other.informationalEntityId &&
-          this.name == other.name &&
-          this.additionalQueryParams == other.additionalQueryParams &&
-          this.additionalHeaders == other.additionalHeaders &&
-          this.additionalBodyProperties == other.additionalBodyProperties
+        return other is AccountCreateParams &&
+            this.entityId == other.entityId &&
+            this.programId == other.programId &&
+            this.informationalEntityId == other.informationalEntityId &&
+            this.name == other.name &&
+            this.additionalQueryParams == other.additionalQueryParams &&
+            this.additionalHeaders == other.additionalHeaders &&
+            this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          entityId,
-          programId,
-          informationalEntityId,
-          name,
-          additionalQueryParams,
-          additionalHeaders,
-          additionalBodyProperties,
-      )
+        return Objects.hash(
+            entityId,
+            programId,
+            informationalEntityId,
+            name,
+            additionalQueryParams,
+            additionalHeaders,
+            additionalBodyProperties,
+        )
     }
 
-    override fun toString() = "AccountCreateParams{entityId=$entityId, programId=$programId, informationalEntityId=$informationalEntityId, name=$name, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() =
+        "AccountCreateParams{entityId=$entityId, programId=$programId, informationalEntityId=$informationalEntityId, name=$name, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -257,27 +244,21 @@ class AccountCreateParams constructor(private val entityId: String?,private val 
         }
 
         /** The identifier for the Entity that will own the Account. */
-        fun entityId(entityId: String) = apply {
-            this.entityId = entityId
-        }
+        fun entityId(entityId: String) = apply { this.entityId = entityId }
 
         /** The identifier for the Program that this Account falls under. */
-        fun programId(programId: String) = apply {
-            this.programId = programId
-        }
+        fun programId(programId: String) = apply { this.programId = programId }
 
         /**
-         * The identifier of an Entity that, while not owning the Account, is associated
-         * with its activity. Its relationship to your group must be `informational`.
+         * The identifier of an Entity that, while not owning the Account, is associated with its
+         * activity. Its relationship to your group must be `informational`.
          */
         fun informationalEntityId(informationalEntityId: String) = apply {
             this.informationalEntityId = informationalEntityId
         }
 
         /** The name you choose for the Account. */
-        fun name(name: String) = apply {
-            this.name = name
-        }
+        fun name(name: String) = apply { this.name = name }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -317,9 +298,7 @@ class AccountCreateParams constructor(private val entityId: String?,private val 
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply {
-            this.additionalHeaders.put(name, mutableListOf())
-        }
+        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -330,20 +309,20 @@ class AccountCreateParams constructor(private val entityId: String?,private val 
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.putAll(additionalBodyProperties)
-        }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
 
-        fun build(): AccountCreateParams = AccountCreateParams(
-            entityId,
-            programId,
-            informationalEntityId,
-            checkNotNull(name) {
-                "`name` is required but was not set"
-            },
-            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalBodyProperties.toUnmodifiable(),
-        )
+        fun build(): AccountCreateParams =
+            AccountCreateParams(
+                entityId,
+                programId,
+                informationalEntityId,
+                checkNotNull(name) { "`name` is required but was not set" },
+                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalBodyProperties.toUnmodifiable(),
+            )
     }
 }

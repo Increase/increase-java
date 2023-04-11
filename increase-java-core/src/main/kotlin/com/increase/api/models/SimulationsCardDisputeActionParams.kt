@@ -3,33 +3,27 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
+import java.util.Objects
+import java.util.Optional
 
-class SimulationsCardDisputeActionParams constructor(private val cardDisputeId: String,private val status: Status,private val explanation: String?,private val additionalQueryParams: Map<String, List<String>>,private val additionalHeaders: Map<String, List<String>>,private val additionalBodyProperties: Map<String, JsonValue>,) {
+class SimulationsCardDisputeActionParams
+constructor(
+    private val cardDisputeId: String,
+    private val status: Status,
+    private val explanation: String?,
+    private val additionalQueryParams: Map<String, List<String>>,
+    private val additionalHeaders: Map<String, List<String>>,
+    private val additionalBodyProperties: Map<String, JsonValue>,
+) {
 
     fun cardDisputeId(): String = cardDisputeId
 
@@ -39,39 +33,40 @@ class SimulationsCardDisputeActionParams constructor(private val cardDisputeId: 
 
     @JvmSynthetic
     internal fun getBody(): SimulationsCardDisputeActionBody {
-      return SimulationsCardDisputeActionBody(
-          status,
-          explanation,
-          additionalBodyProperties,
-      )
+        return SimulationsCardDisputeActionBody(
+            status,
+            explanation,
+            additionalBodyProperties,
+        )
     }
 
-    @JvmSynthetic
-    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
-    @JvmSynthetic
-    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     fun getPathParam(index: Int): String {
-      return when (index) {
-          0 -> cardDisputeId
-          else -> ""
-      }
+        return when (index) {
+            0 -> cardDisputeId
+            else -> ""
+        }
     }
 
     @JsonDeserialize(builder = SimulationsCardDisputeActionBody.Builder::class)
     @NoAutoDetect
-    class SimulationsCardDisputeActionBody internal constructor(private val status: Status?,private val explanation: String?,private val additionalProperties: Map<String, JsonValue>,) {
+    class SimulationsCardDisputeActionBody
+    internal constructor(
+        private val status: Status?,
+        private val explanation: String?,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var hashCode: Int = 0
 
         /** The status to move the dispute to. */
-        @JsonProperty("status")
-        fun status(): Status? = status
+        @JsonProperty("status") fun status(): Status? = status
 
         /** Why the dispute was rejected. Not required for accepting disputes. */
-        @JsonProperty("explanation")
-        fun explanation(): String? = explanation
+        @JsonProperty("explanation") fun explanation(): String? = explanation
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -80,33 +75,34 @@ class SimulationsCardDisputeActionParams constructor(private val cardDisputeId: 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is SimulationsCardDisputeActionBody &&
-              this.status == other.status &&
-              this.explanation == other.explanation &&
-              this.additionalProperties == other.additionalProperties
+            return other is SimulationsCardDisputeActionBody &&
+                this.status == other.status &&
+                this.explanation == other.explanation &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                status,
-                explanation,
-                additionalProperties,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        status,
+                        explanation,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "SimulationsCardDisputeActionBody{status=$status, explanation=$explanation, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "SimulationsCardDisputeActionBody{status=$status, explanation=$explanation, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -116,23 +112,19 @@ class SimulationsCardDisputeActionParams constructor(private val cardDisputeId: 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(simulationsCardDisputeActionBody: SimulationsCardDisputeActionBody) = apply {
-                this.status = simulationsCardDisputeActionBody.status
-                this.explanation = simulationsCardDisputeActionBody.explanation
-                additionalProperties(simulationsCardDisputeActionBody.additionalProperties)
-            }
+            internal fun from(simulationsCardDisputeActionBody: SimulationsCardDisputeActionBody) =
+                apply {
+                    this.status = simulationsCardDisputeActionBody.status
+                    this.explanation = simulationsCardDisputeActionBody.explanation
+                    additionalProperties(simulationsCardDisputeActionBody.additionalProperties)
+                }
 
             /** The status to move the dispute to. */
-            @JsonProperty("status")
-            fun status(status: Status) = apply {
-                this.status = status
-            }
+            @JsonProperty("status") fun status(status: Status) = apply { this.status = status }
 
             /** Why the dispute was rejected. Not required for accepting disputes. */
             @JsonProperty("explanation")
-            fun explanation(explanation: String) = apply {
-                this.explanation = explanation
-            }
+            fun explanation(explanation: String) = apply { this.explanation = explanation }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -148,13 +140,12 @@ class SimulationsCardDisputeActionParams constructor(private val cardDisputeId: 
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): SimulationsCardDisputeActionBody = SimulationsCardDisputeActionBody(
-                checkNotNull(status) {
-                    "`status` is required but was not set"
-                },
-                explanation,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build(): SimulationsCardDisputeActionBody =
+                SimulationsCardDisputeActionBody(
+                    checkNotNull(status) { "`status` is required but was not set" },
+                    explanation,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
@@ -165,38 +156,38 @@ class SimulationsCardDisputeActionParams constructor(private val cardDisputeId: 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is SimulationsCardDisputeActionParams &&
-          this.cardDisputeId == other.cardDisputeId &&
-          this.status == other.status &&
-          this.explanation == other.explanation &&
-          this.additionalQueryParams == other.additionalQueryParams &&
-          this.additionalHeaders == other.additionalHeaders &&
-          this.additionalBodyProperties == other.additionalBodyProperties
+        return other is SimulationsCardDisputeActionParams &&
+            this.cardDisputeId == other.cardDisputeId &&
+            this.status == other.status &&
+            this.explanation == other.explanation &&
+            this.additionalQueryParams == other.additionalQueryParams &&
+            this.additionalHeaders == other.additionalHeaders &&
+            this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          cardDisputeId,
-          status,
-          explanation,
-          additionalQueryParams,
-          additionalHeaders,
-          additionalBodyProperties,
-      )
+        return Objects.hash(
+            cardDisputeId,
+            status,
+            explanation,
+            additionalQueryParams,
+            additionalHeaders,
+            additionalBodyProperties,
+        )
     }
 
-    override fun toString() = "SimulationsCardDisputeActionParams{cardDisputeId=$cardDisputeId, status=$status, explanation=$explanation, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() =
+        "SimulationsCardDisputeActionParams{cardDisputeId=$cardDisputeId, status=$status, explanation=$explanation, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -210,29 +201,26 @@ class SimulationsCardDisputeActionParams constructor(private val cardDisputeId: 
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(simulationsCardDisputeActionParams: SimulationsCardDisputeActionParams) = apply {
-            this.cardDisputeId = simulationsCardDisputeActionParams.cardDisputeId
-            this.status = simulationsCardDisputeActionParams.status
-            this.explanation = simulationsCardDisputeActionParams.explanation
-            additionalQueryParams(simulationsCardDisputeActionParams.additionalQueryParams)
-            additionalHeaders(simulationsCardDisputeActionParams.additionalHeaders)
-            additionalBodyProperties(simulationsCardDisputeActionParams.additionalBodyProperties)
-        }
+        internal fun from(simulationsCardDisputeActionParams: SimulationsCardDisputeActionParams) =
+            apply {
+                this.cardDisputeId = simulationsCardDisputeActionParams.cardDisputeId
+                this.status = simulationsCardDisputeActionParams.status
+                this.explanation = simulationsCardDisputeActionParams.explanation
+                additionalQueryParams(simulationsCardDisputeActionParams.additionalQueryParams)
+                additionalHeaders(simulationsCardDisputeActionParams.additionalHeaders)
+                additionalBodyProperties(
+                    simulationsCardDisputeActionParams.additionalBodyProperties
+                )
+            }
 
         /** The dispute you would like to action. */
-        fun cardDisputeId(cardDisputeId: String) = apply {
-            this.cardDisputeId = cardDisputeId
-        }
+        fun cardDisputeId(cardDisputeId: String) = apply { this.cardDisputeId = cardDisputeId }
 
         /** The status to move the dispute to. */
-        fun status(status: Status) = apply {
-            this.status = status
-        }
+        fun status(status: Status) = apply { this.status = status }
 
         /** Why the dispute was rejected. Not required for accepting disputes. */
-        fun explanation(explanation: String) = apply {
-            this.explanation = explanation
-        }
+        fun explanation(explanation: String) = apply { this.explanation = explanation }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -272,9 +260,7 @@ class SimulationsCardDisputeActionParams constructor(private val cardDisputeId: 
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply {
-            this.additionalHeaders.put(name, mutableListOf())
-        }
+        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -285,36 +271,36 @@ class SimulationsCardDisputeActionParams constructor(private val cardDisputeId: 
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.putAll(additionalBodyProperties)
-        }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
 
-        fun build(): SimulationsCardDisputeActionParams = SimulationsCardDisputeActionParams(
-            checkNotNull(cardDisputeId) {
-                "`cardDisputeId` is required but was not set"
-            },
-            checkNotNull(status) {
-                "`status` is required but was not set"
-            },
-            explanation,
-            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalBodyProperties.toUnmodifiable(),
-        )
+        fun build(): SimulationsCardDisputeActionParams =
+            SimulationsCardDisputeActionParams(
+                checkNotNull(cardDisputeId) { "`cardDisputeId` is required but was not set" },
+                checkNotNull(status) { "`status` is required but was not set" },
+                explanation,
+                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalBodyProperties.toUnmodifiable(),
+            )
     }
 
-    class Status @JsonCreator private constructor(private val value: JsonField<String>,) {
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Status &&
-              this.value == other.value
+            return other is Status && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -341,17 +327,19 @@ class SimulationsCardDisputeActionParams constructor(private val cardDisputeId: 
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            ACCEPTED -> Value.ACCEPTED
-            REJECTED -> Value.REJECTED
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                ACCEPTED -> Value.ACCEPTED
+                REJECTED -> Value.REJECTED
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            ACCEPTED -> Known.ACCEPTED
-            REJECTED -> Known.REJECTED
-            else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                ACCEPTED -> Known.ACCEPTED
+                REJECTED -> Known.REJECTED
+                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }

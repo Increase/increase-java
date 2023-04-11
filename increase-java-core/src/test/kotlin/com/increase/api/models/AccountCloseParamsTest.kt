@@ -1,30 +1,23 @@
 package com.increase.api.models
 
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.util.UUID
-import org.junit.jupiter.api.Test
-import org.assertj.core.api.Assertions.assertThat
 import com.increase.api.models.*
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
 
 class AccountCloseParamsTest {
 
     @Test
     fun createAccountCloseParams() {
-      AccountCloseParams.builder()
-          .accountId("string")
-          .build()
+        AccountCloseParams.builder().accountId("string").build()
     }
 
     @Test
     fun getPathParam() {
-      val params = AccountCloseParams.builder()
-          .accountId("string")
-          .build()
-      assertThat(params).isNotNull
-      // path param "accountId"
-      assertThat(params.getPathParam(0)).isEqualTo("string")
-      // out-of-bound path param
-      assertThat(params.getPathParam(1)).isEqualTo("")
+        val params = AccountCloseParams.builder().accountId("string").build()
+        assertThat(params).isNotNull
+        // path param "accountId"
+        assertThat(params.getPathParam(0)).isEqualTo("string")
+        // out-of-bound path param
+        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

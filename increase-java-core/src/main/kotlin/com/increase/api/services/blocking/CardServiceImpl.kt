@@ -1,19 +1,11 @@
 package com.increase.api.services.blocking
 
-import com.fasterxml.jackson.databind.json.JsonMapper
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
-import kotlin.LazyThreadSafetyMode.PUBLICATION
-import java.time.LocalDate
-import java.time.Duration
-import java.time.OffsetDateTime
-import java.util.Base64
-import java.util.Optional
-import java.util.UUID
-import java.util.concurrent.CompletableFuture
-import java.util.stream.Stream
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.core.ClientOptions
+import com.increase.api.core.RequestOptions
+import com.increase.api.core.http.HttpMethod
+import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.errors.IncreaseError
 import com.increase.api.models.Card
 import com.increase.api.models.CardCreateParams
 import com.increase.api.models.CardDetails
@@ -22,27 +14,20 @@ import com.increase.api.models.CardListParams
 import com.increase.api.models.CardRetrieveParams
 import com.increase.api.models.CardRetrieveSensitiveDetailsParams
 import com.increase.api.models.CardUpdateParams
-import com.increase.api.core.ClientOptions
-import com.increase.api.core.http.HttpMethod
-import com.increase.api.core.http.HttpRequest
-import com.increase.api.core.http.HttpResponse.Handler
-import com.increase.api.core.JsonField
-import com.increase.api.core.RequestOptions
-import com.increase.api.errors.IncreaseError
-import com.increase.api.services.emptyHandler
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
-import com.increase.api.services.stringHandler
 import com.increase.api.services.withErrorHandler
 
-class CardServiceImpl constructor(private val clientOptions: ClientOptions,) : CardService {
+class CardServiceImpl
+constructor(
+    private val clientOptions: ClientOptions,
+) : CardService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
     private val createHandler: Handler<Card> =
-    jsonHandler<Card>(clientOptions.jsonMapper)
-    .withErrorHandler(errorHandler)
+        jsonHandler<Card>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** Create a Card */
     override fun create(params: CardCreateParams, requestOptions: RequestOptions): Card {
@@ -67,8 +52,7 @@ class CardServiceImpl constructor(private val clientOptions: ClientOptions,) : C
     }
 
     private val retrieveHandler: Handler<Card> =
-    jsonHandler<Card>(clientOptions.jsonMapper)
-    .withErrorHandler(errorHandler)
+        jsonHandler<Card>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** Retrieve a Card */
     override fun retrieve(params: CardRetrieveParams, requestOptions: RequestOptions): Card {
@@ -92,8 +76,7 @@ class CardServiceImpl constructor(private val clientOptions: ClientOptions,) : C
     }
 
     private val updateHandler: Handler<Card> =
-    jsonHandler<Card>(clientOptions.jsonMapper)
-    .withErrorHandler(errorHandler)
+        jsonHandler<Card>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** Update a Card */
     override fun update(params: CardUpdateParams, requestOptions: RequestOptions): Card {
@@ -118,8 +101,7 @@ class CardServiceImpl constructor(private val clientOptions: ClientOptions,) : C
     }
 
     private val listHandler: Handler<CardListPage.Response> =
-    jsonHandler<CardListPage.Response>(clientOptions.jsonMapper)
-    .withErrorHandler(errorHandler)
+        jsonHandler<CardListPage.Response>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** List Cards */
     override fun list(params: CardListParams, requestOptions: RequestOptions): CardListPage {
@@ -144,8 +126,7 @@ class CardServiceImpl constructor(private val clientOptions: ClientOptions,) : C
     }
 
     private val retrieveSensitiveDetailsHandler: Handler<CardDetails> =
-    jsonHandler<CardDetails>(clientOptions.jsonMapper)
-    .withErrorHandler(errorHandler)
+        jsonHandler<CardDetails>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** Retrieve sensitive details for a Card */
     override fun retrieveSensitiveDetails(

@@ -1,35 +1,24 @@
 package com.increase.api.models
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter
-import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
-import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
+import java.util.Objects
+import java.util.Optional
 
-class AccountListParams constructor(private val cursor: String?,private val limit: Long?,private val entityId: String?,private val status: Status?,private val additionalQueryParams: Map<String, List<String>>,private val additionalHeaders: Map<String, List<String>>,) {
+class AccountListParams
+constructor(
+    private val cursor: String?,
+    private val limit: Long?,
+    private val entityId: String?,
+    private val status: Status?,
+    private val additionalQueryParams: Map<String, List<String>>,
+    private val additionalHeaders: Map<String, List<String>>,
+) {
 
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
@@ -41,63 +30,54 @@ class AccountListParams constructor(private val cursor: String?,private val limi
 
     @JvmSynthetic
     internal fun getQueryParams(): Map<String, List<String>> {
-      val params = mutableMapOf<String, List<String>>()
-      this.cursor?.let {
-          params.put("cursor", listOf(it.toString()))
-      }
-      this.limit?.let {
-          params.put("limit", listOf(it.toString()))
-      }
-      this.entityId?.let {
-          params.put("entity_id", listOf(it.toString()))
-      }
-      this.status?.let {
-          params.put("status", listOf(it.toString()))
-      }
-      params.putAll(additionalQueryParams)
-      return params.toUnmodifiable()
+        val params = mutableMapOf<String, List<String>>()
+        this.cursor?.let { params.put("cursor", listOf(it.toString())) }
+        this.limit?.let { params.put("limit", listOf(it.toString())) }
+        this.entityId?.let { params.put("entity_id", listOf(it.toString())) }
+        this.status?.let { params.put("status", listOf(it.toString())) }
+        params.putAll(additionalQueryParams)
+        return params.toUnmodifiable()
     }
 
-    @JvmSynthetic
-    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
 
     fun _additionalHeaders(): Map<String, List<String>> = additionalHeaders
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is AccountListParams &&
-          this.cursor == other.cursor &&
-          this.limit == other.limit &&
-          this.entityId == other.entityId &&
-          this.status == other.status &&
-          this.additionalQueryParams == other.additionalQueryParams &&
-          this.additionalHeaders == other.additionalHeaders
+        return other is AccountListParams &&
+            this.cursor == other.cursor &&
+            this.limit == other.limit &&
+            this.entityId == other.entityId &&
+            this.status == other.status &&
+            this.additionalQueryParams == other.additionalQueryParams &&
+            this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          cursor,
-          limit,
-          entityId,
-          status,
-          additionalQueryParams,
-          additionalHeaders,
-      )
+        return Objects.hash(
+            cursor,
+            limit,
+            entityId,
+            status,
+            additionalQueryParams,
+            additionalHeaders,
+        )
     }
 
-    override fun toString() = "AccountListParams{cursor=$cursor, limit=$limit, entityId=$entityId, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+    override fun toString() =
+        "AccountListParams{cursor=$cursor, limit=$limit, entityId=$entityId, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -121,27 +101,18 @@ class AccountListParams constructor(private val cursor: String?,private val limi
         }
 
         /** Return the page of entries after this one. */
-        fun cursor(cursor: String) = apply {
-            this.cursor = cursor
-        }
+        fun cursor(cursor: String) = apply { this.cursor = cursor }
 
         /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100
-         * objects.
+         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
-        fun limit(limit: Long) = apply {
-            this.limit = limit
-        }
+        fun limit(limit: Long) = apply { this.limit = limit }
 
         /** Filter Accounts for those belonging to the specified Entity. */
-        fun entityId(entityId: String) = apply {
-            this.entityId = entityId
-        }
+        fun entityId(entityId: String) = apply { this.entityId = entityId }
 
         /** Filter Accounts for those with the specified status. */
-        fun status(status: Status) = apply {
-            this.status = status
-        }
+        fun status(status: Status) = apply { this.status = status }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -181,32 +152,33 @@ class AccountListParams constructor(private val cursor: String?,private val limi
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply {
-            this.additionalHeaders.put(name, mutableListOf())
-        }
+        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
-        fun build(): AccountListParams = AccountListParams(
-            cursor,
-            limit,
-            entityId,
-            status,
-            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-        )
+        fun build(): AccountListParams =
+            AccountListParams(
+                cursor,
+                limit,
+                entityId,
+                status,
+                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            )
     }
 
-    class Status @JsonCreator private constructor(private val value: JsonField<String>,) {
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Status &&
-              this.value == other.value
+            return other is Status && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -233,17 +205,19 @@ class AccountListParams constructor(private val cursor: String?,private val limi
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            OPEN -> Value.OPEN
-            CLOSED -> Value.CLOSED
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                OPEN -> Value.OPEN
+                CLOSED -> Value.CLOSED
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            OPEN -> Known.OPEN
-            CLOSED -> Known.CLOSED
-            else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                OPEN -> Known.OPEN
+                CLOSED -> Known.CLOSED
+                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }

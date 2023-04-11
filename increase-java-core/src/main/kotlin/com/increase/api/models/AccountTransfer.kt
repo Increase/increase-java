@@ -3,35 +3,41 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import java.time.LocalDate
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.JsonField
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.errors.IncreaseInvalidDataException
 
 /** Account transfers move funds between your own accounts at Increase. */
 @JsonDeserialize(builder = AccountTransfer.Builder::class)
 @NoAutoDetect
-class AccountTransfer private constructor(private val id: JsonField<String>,private val amount: JsonField<Long>,private val accountId: JsonField<String>,private val currency: JsonField<Currency>,private val destinationAccountId: JsonField<String>,private val destinationTransactionId: JsonField<String>,private val createdAt: JsonField<OffsetDateTime>,private val description: JsonField<String>,private val network: JsonField<Network>,private val status: JsonField<Status>,private val templateId: JsonField<String>,private val transactionId: JsonField<String>,private val approval: JsonField<Approval>,private val cancellation: JsonField<Cancellation>,private val type: JsonField<Type>,private val additionalProperties: Map<String, JsonValue>,) {
+class AccountTransfer
+private constructor(
+    private val id: JsonField<String>,
+    private val amount: JsonField<Long>,
+    private val accountId: JsonField<String>,
+    private val currency: JsonField<Currency>,
+    private val destinationAccountId: JsonField<String>,
+    private val destinationTransactionId: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val description: JsonField<String>,
+    private val network: JsonField<Network>,
+    private val status: JsonField<Status>,
+    private val templateId: JsonField<String>,
+    private val transactionId: JsonField<String>,
+    private val approval: JsonField<Approval>,
+    private val cancellation: JsonField<Cancellation>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: Map<String, JsonValue>,
+) {
 
     private var validated: Boolean = false
 
@@ -41,8 +47,8 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
     fun id(): String = id.getRequired("id")
 
     /**
-     * The transfer amount in the minor unit of the destination account currency. For
-     * dollars, for example, this is cents.
+     * The transfer amount in the minor unit of the destination account currency. For dollars, for
+     * example, this is cents.
      */
     fun amount(): Long = amount.getRequired("amount")
 
@@ -50,8 +56,8 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
     fun accountId(): String = accountId.getRequired("account_id")
 
     /**
-     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination
-     * account currency.
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination account
+     * currency.
      */
     fun currency(): Currency = currency.getRequired("currency")
 
@@ -59,11 +65,12 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
     fun destinationAccountId(): String = destinationAccountId.getRequired("destination_account_id")
 
     /** The ID for the transaction receiving the transfer. */
-    fun destinationTransactionId(): Optional<String> = Optional.ofNullable(destinationTransactionId.getNullable("destination_transaction_id"))
+    fun destinationTransactionId(): Optional<String> =
+        Optional.ofNullable(destinationTransactionId.getNullable("destination_transaction_id"))
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-     * the transfer was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
+     * was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
@@ -80,19 +87,21 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
     fun templateId(): Optional<String> = Optional.ofNullable(templateId.getNullable("template_id"))
 
     /** The ID for the transaction funding the transfer. */
-    fun transactionId(): Optional<String> = Optional.ofNullable(transactionId.getNullable("transaction_id"))
+    fun transactionId(): Optional<String> =
+        Optional.ofNullable(transactionId.getNullable("transaction_id"))
 
     /**
-     * If your account requires approvals for transfers and the transfer was approved,
-     * this will contain details of the approval.
+     * If your account requires approvals for transfers and the transfer was approved, this will
+     * contain details of the approval.
      */
     fun approval(): Optional<Approval> = Optional.ofNullable(approval.getNullable("approval"))
 
     /**
-     * If your account requires approvals for transfers and the transfer was not
-     * approved, this will contain details of the cancellation.
+     * If your account requires approvals for transfers and the transfer was not approved, this will
+     * contain details of the cancellation.
      */
-    fun cancellation(): Optional<Cancellation> = Optional.ofNullable(cancellation.getNullable("cancellation"))
+    fun cancellation(): Optional<Cancellation> =
+        Optional.ofNullable(cancellation.getNullable("cancellation"))
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -101,30 +110,22 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
     fun type(): Type = type.getRequired("type")
 
     /** The account transfer's identifier. */
-    @JsonProperty("id")
-    @ExcludeMissing
-    fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
-     * The transfer amount in the minor unit of the destination account currency. For
-     * dollars, for example, this is cents.
+     * The transfer amount in the minor unit of the destination account currency. For dollars, for
+     * example, this is cents.
      */
-    @JsonProperty("amount")
-    @ExcludeMissing
-    fun _amount() = amount
+    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
     /** The Account to which the transfer belongs. */
-    @JsonProperty("account_id")
-    @ExcludeMissing
-    fun _accountId() = accountId
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
 
     /**
-     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination
-     * account currency.
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination account
+     * currency.
      */
-    @JsonProperty("currency")
-    @ExcludeMissing
-    fun _currency() = currency
+    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
 
     /** The destination account's identifier. */
     @JsonProperty("destination_account_id")
@@ -137,61 +138,43 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
     fun _destinationTransactionId() = destinationTransactionId
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-     * the transfer was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
+     * was created.
      */
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    fun _createdAt() = createdAt
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
     /** The description that will show on the transactions. */
-    @JsonProperty("description")
-    @ExcludeMissing
-    fun _description() = description
+    @JsonProperty("description") @ExcludeMissing fun _description() = description
 
     /** The transfer's network. */
-    @JsonProperty("network")
-    @ExcludeMissing
-    fun _network() = network
+    @JsonProperty("network") @ExcludeMissing fun _network() = network
 
     /** The lifecycle status of the transfer. */
-    @JsonProperty("status")
-    @ExcludeMissing
-    fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
 
     /** If the transfer was created from a template, this will be the template's ID. */
-    @JsonProperty("template_id")
-    @ExcludeMissing
-    fun _templateId() = templateId
+    @JsonProperty("template_id") @ExcludeMissing fun _templateId() = templateId
 
     /** The ID for the transaction funding the transfer. */
-    @JsonProperty("transaction_id")
-    @ExcludeMissing
-    fun _transactionId() = transactionId
+    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
     /**
-     * If your account requires approvals for transfers and the transfer was approved,
-     * this will contain details of the approval.
+     * If your account requires approvals for transfers and the transfer was approved, this will
+     * contain details of the approval.
      */
-    @JsonProperty("approval")
-    @ExcludeMissing
-    fun _approval() = approval
+    @JsonProperty("approval") @ExcludeMissing fun _approval() = approval
 
     /**
-     * If your account requires approvals for transfers and the transfer was not
-     * approved, this will contain details of the cancellation.
+     * If your account requires approvals for transfers and the transfer was not approved, this will
+     * contain details of the cancellation.
      */
-    @JsonProperty("cancellation")
-    @ExcludeMissing
-    fun _cancellation() = cancellation
+    @JsonProperty("cancellation") @ExcludeMissing fun _cancellation() = cancellation
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `account_transfer`.
      */
-    @JsonProperty("type")
-    @ExcludeMissing
-    fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -199,81 +182,82 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
 
     fun validate() = apply {
         if (!validated) {
-          id()
-          amount()
-          accountId()
-          currency()
-          destinationAccountId()
-          destinationTransactionId()
-          createdAt()
-          description()
-          network()
-          status()
-          templateId()
-          transactionId()
-          approval().map { it.validate() }
-          cancellation().map { it.validate() }
-          type()
-          validated = true
+            id()
+            amount()
+            accountId()
+            currency()
+            destinationAccountId()
+            destinationTransactionId()
+            createdAt()
+            description()
+            network()
+            status()
+            templateId()
+            transactionId()
+            approval().map { it.validate() }
+            cancellation().map { it.validate() }
+            type()
+            validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is AccountTransfer &&
-          this.id == other.id &&
-          this.amount == other.amount &&
-          this.accountId == other.accountId &&
-          this.currency == other.currency &&
-          this.destinationAccountId == other.destinationAccountId &&
-          this.destinationTransactionId == other.destinationTransactionId &&
-          this.createdAt == other.createdAt &&
-          this.description == other.description &&
-          this.network == other.network &&
-          this.status == other.status &&
-          this.templateId == other.templateId &&
-          this.transactionId == other.transactionId &&
-          this.approval == other.approval &&
-          this.cancellation == other.cancellation &&
-          this.type == other.type &&
-          this.additionalProperties == other.additionalProperties
+        return other is AccountTransfer &&
+            this.id == other.id &&
+            this.amount == other.amount &&
+            this.accountId == other.accountId &&
+            this.currency == other.currency &&
+            this.destinationAccountId == other.destinationAccountId &&
+            this.destinationTransactionId == other.destinationTransactionId &&
+            this.createdAt == other.createdAt &&
+            this.description == other.description &&
+            this.network == other.network &&
+            this.status == other.status &&
+            this.templateId == other.templateId &&
+            this.transactionId == other.transactionId &&
+            this.approval == other.approval &&
+            this.cancellation == other.cancellation &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-      if (hashCode == 0) {
-        hashCode = Objects.hash(
-            id,
-            amount,
-            accountId,
-            currency,
-            destinationAccountId,
-            destinationTransactionId,
-            createdAt,
-            description,
-            network,
-            status,
-            templateId,
-            transactionId,
-            approval,
-            cancellation,
-            type,
-            additionalProperties,
-        )
-      }
-      return hashCode
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    id,
+                    amount,
+                    accountId,
+                    currency,
+                    destinationAccountId,
+                    destinationTransactionId,
+                    createdAt,
+                    description,
+                    network,
+                    status,
+                    templateId,
+                    transactionId,
+                    approval,
+                    cancellation,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
     }
 
-    override fun toString() = "AccountTransfer{id=$id, amount=$amount, accountId=$accountId, currency=$currency, destinationAccountId=$destinationAccountId, destinationTransactionId=$destinationTransactionId, createdAt=$createdAt, description=$description, network=$network, status=$status, templateId=$templateId, transactionId=$transactionId, approval=$approval, cancellation=$cancellation, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() =
+        "AccountTransfer{id=$id, amount=$amount, accountId=$accountId, currency=$currency, destinationAccountId=$destinationAccountId, destinationTransactionId=$destinationTransactionId, createdAt=$createdAt, description=$description, network=$network, status=$status, templateId=$templateId, transactionId=$transactionId, approval=$approval, cancellation=$cancellation, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     class Builder {
@@ -319,27 +303,21 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
         fun id(id: String) = id(JsonField.of(id))
 
         /** The account transfer's identifier. */
-        @JsonProperty("id")
-        @ExcludeMissing
-        fun id(id: JsonField<String>) = apply {
-            this.id = id
-        }
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
-         * The transfer amount in the minor unit of the destination account currency. For
-         * dollars, for example, this is cents.
+         * The transfer amount in the minor unit of the destination account currency. For dollars,
+         * for example, this is cents.
          */
         fun amount(amount: Long) = amount(JsonField.of(amount))
 
         /**
-         * The transfer amount in the minor unit of the destination account currency. For
-         * dollars, for example, this is cents.
+         * The transfer amount in the minor unit of the destination account currency. For dollars,
+         * for example, this is cents.
          */
         @JsonProperty("amount")
         @ExcludeMissing
-        fun amount(amount: JsonField<Long>) = apply {
-            this.amount = amount
-        }
+        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /** The Account to which the transfer belongs. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
@@ -347,28 +325,25 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
         /** The Account to which the transfer belongs. */
         @JsonProperty("account_id")
         @ExcludeMissing
-        fun accountId(accountId: JsonField<String>) = apply {
-            this.accountId = accountId
-        }
+        fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination
-         * account currency.
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination account
+         * currency.
          */
         fun currency(currency: Currency) = currency(JsonField.of(currency))
 
         /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination
-         * account currency.
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination account
+         * currency.
          */
         @JsonProperty("currency")
         @ExcludeMissing
-        fun currency(currency: JsonField<Currency>) = apply {
-            this.currency = currency
-        }
+        fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /** The destination account's identifier. */
-        fun destinationAccountId(destinationAccountId: String) = destinationAccountId(JsonField.of(destinationAccountId))
+        fun destinationAccountId(destinationAccountId: String) =
+            destinationAccountId(JsonField.of(destinationAccountId))
 
         /** The destination account's identifier. */
         @JsonProperty("destination_account_id")
@@ -378,7 +353,8 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
         }
 
         /** The ID for the transaction receiving the transfer. */
-        fun destinationTransactionId(destinationTransactionId: String) = destinationTransactionId(JsonField.of(destinationTransactionId))
+        fun destinationTransactionId(destinationTransactionId: String) =
+            destinationTransactionId(JsonField.of(destinationTransactionId))
 
         /** The ID for the transaction receiving the transfer. */
         @JsonProperty("destination_transaction_id")
@@ -388,20 +364,18 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
         }
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * the transfer was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * transfer was created.
          */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * the transfer was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * transfer was created.
          */
         @JsonProperty("created_at")
         @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
-            this.createdAt = createdAt
-        }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The description that will show on the transactions. */
         fun description(description: String) = description(JsonField.of(description))
@@ -409,9 +383,7 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
         /** The description that will show on the transactions. */
         @JsonProperty("description")
         @ExcludeMissing
-        fun description(description: JsonField<String>) = apply {
-            this.description = description
-        }
+        fun description(description: JsonField<String>) = apply { this.description = description }
 
         /** The transfer's network. */
         fun network(network: Network) = network(JsonField.of(network))
@@ -419,9 +391,7 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
         /** The transfer's network. */
         @JsonProperty("network")
         @ExcludeMissing
-        fun network(network: JsonField<Network>) = apply {
-            this.network = network
-        }
+        fun network(network: JsonField<Network>) = apply { this.network = network }
 
         /** The lifecycle status of the transfer. */
         fun status(status: Status) = status(JsonField.of(status))
@@ -429,9 +399,7 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
         /** The lifecycle status of the transfer. */
         @JsonProperty("status")
         @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply {
-            this.status = status
-        }
+        fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /** If the transfer was created from a template, this will be the template's ID. */
         fun templateId(templateId: String) = templateId(JsonField.of(templateId))
@@ -439,9 +407,7 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
         /** If the transfer was created from a template, this will be the template's ID. */
         @JsonProperty("template_id")
         @ExcludeMissing
-        fun templateId(templateId: JsonField<String>) = apply {
-            this.templateId = templateId
-        }
+        fun templateId(templateId: JsonField<String>) = apply { this.templateId = templateId }
 
         /** The ID for the transaction funding the transfer. */
         fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
@@ -454,30 +420,28 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
         }
 
         /**
-         * If your account requires approvals for transfers and the transfer was approved,
-         * this will contain details of the approval.
+         * If your account requires approvals for transfers and the transfer was approved, this will
+         * contain details of the approval.
          */
         fun approval(approval: Approval) = approval(JsonField.of(approval))
 
         /**
-         * If your account requires approvals for transfers and the transfer was approved,
-         * this will contain details of the approval.
+         * If your account requires approvals for transfers and the transfer was approved, this will
+         * contain details of the approval.
          */
         @JsonProperty("approval")
         @ExcludeMissing
-        fun approval(approval: JsonField<Approval>) = apply {
-            this.approval = approval
-        }
+        fun approval(approval: JsonField<Approval>) = apply { this.approval = approval }
 
         /**
-         * If your account requires approvals for transfers and the transfer was not
-         * approved, this will contain details of the cancellation.
+         * If your account requires approvals for transfers and the transfer was not approved, this
+         * will contain details of the cancellation.
          */
         fun cancellation(cancellation: Cancellation) = cancellation(JsonField.of(cancellation))
 
         /**
-         * If your account requires approvals for transfers and the transfer was not
-         * approved, this will contain details of the cancellation.
+         * If your account requires approvals for transfers and the transfer was not approved, this
+         * will contain details of the cancellation.
          */
         @JsonProperty("cancellation")
         @ExcludeMissing
@@ -497,9 +461,7 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply {
-            this.type = type
-        }
+        fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -515,38 +477,41 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): AccountTransfer = AccountTransfer(
-            id,
-            amount,
-            accountId,
-            currency,
-            destinationAccountId,
-            destinationTransactionId,
-            createdAt,
-            description,
-            network,
-            status,
-            templateId,
-            transactionId,
-            approval,
-            cancellation,
-            type,
-            additionalProperties.toUnmodifiable(),
-        )
+        fun build(): AccountTransfer =
+            AccountTransfer(
+                id,
+                amount,
+                accountId,
+                currency,
+                destinationAccountId,
+                destinationTransactionId,
+                createdAt,
+                description,
+                network,
+                status,
+                templateId,
+                transactionId,
+                approval,
+                cancellation,
+                type,
+                additionalProperties.toUnmodifiable(),
+            )
     }
 
-    class Currency @JsonCreator private constructor(private val value: JsonField<String>,) {
+    class Currency
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Currency &&
-              this.value == other.value
+            return other is Currency && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -589,41 +554,45 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            CAD -> Value.CAD
-            CHF -> Value.CHF
-            EUR -> Value.EUR
-            GBP -> Value.GBP
-            JPY -> Value.JPY
-            USD -> Value.USD
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                CAD -> Value.CAD
+                CHF -> Value.CHF
+                EUR -> Value.EUR
+                GBP -> Value.GBP
+                JPY -> Value.JPY
+                USD -> Value.USD
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            CAD -> Known.CAD
-            CHF -> Known.CHF
-            EUR -> Known.EUR
-            GBP -> Known.GBP
-            JPY -> Known.JPY
-            USD -> Known.USD
-            else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                CAD -> Known.CAD
+                CHF -> Known.CHF
+                EUR -> Known.EUR
+                GBP -> Known.GBP
+                JPY -> Known.JPY
+                USD -> Known.USD
+                else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Network @JsonCreator private constructor(private val value: JsonField<String>,) {
+    class Network
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Network &&
-              this.value == other.value
+            return other is Network && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -646,31 +615,35 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            ACCOUNT -> Value.ACCOUNT
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                ACCOUNT -> Value.ACCOUNT
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            ACCOUNT -> Known.ACCOUNT
-            else -> throw IncreaseInvalidDataException("Unknown Network: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                ACCOUNT -> Known.ACCOUNT
+                else -> throw IncreaseInvalidDataException("Unknown Network: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Status @JsonCreator private constructor(private val value: JsonField<String>,) {
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Status &&
-              this.value == other.value
+            return other is Status && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -713,54 +686,58 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
-            PENDING_APPROVAL -> Value.PENDING_APPROVAL
-            CANCELED -> Value.CANCELED
-            REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
-            FLAGGED_BY_OPERATOR -> Value.FLAGGED_BY_OPERATOR
-            COMPLETE -> Value.COMPLETE
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
+                PENDING_APPROVAL -> Value.PENDING_APPROVAL
+                CANCELED -> Value.CANCELED
+                REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
+                FLAGGED_BY_OPERATOR -> Value.FLAGGED_BY_OPERATOR
+                COMPLETE -> Value.COMPLETE
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
-            PENDING_APPROVAL -> Known.PENDING_APPROVAL
-            CANCELED -> Known.CANCELED
-            REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
-            FLAGGED_BY_OPERATOR -> Known.FLAGGED_BY_OPERATOR
-            COMPLETE -> Known.COMPLETE
-            else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
+                PENDING_APPROVAL -> Known.PENDING_APPROVAL
+                CANCELED -> Known.CANCELED
+                REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
+                FLAGGED_BY_OPERATOR -> Known.FLAGGED_BY_OPERATOR
+                COMPLETE -> Known.COMPLETE
+                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
     /**
-     * If your account requires approvals for transfers and the transfer was approved,
-     * this will contain details of the approval.
+     * If your account requires approvals for transfers and the transfer was approved, this will
+     * contain details of the approval.
      */
     @JsonDeserialize(builder = Approval.Builder::class)
     @NoAutoDetect
-    class Approval private constructor(private val approvedAt: JsonField<OffsetDateTime>,private val additionalProperties: Map<String, JsonValue>,) {
+    class Approval
+    private constructor(
+        private val approvedAt: JsonField<OffsetDateTime>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * the transfer was approved.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * transfer was approved.
          */
         fun approvedAt(): OffsetDateTime = approvedAt.getRequired("approved_at")
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * the transfer was approved.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * transfer was approved.
          */
-        @JsonProperty("approved_at")
-        @ExcludeMissing
-        fun _approvedAt() = approvedAt
+        @JsonProperty("approved_at") @ExcludeMissing fun _approvedAt() = approvedAt
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -768,36 +745,36 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
 
         fun validate() = apply {
             if (!validated) {
-              approvedAt()
-              validated = true
+                approvedAt()
+                validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Approval &&
-              this.approvedAt == other.approvedAt &&
-              this.additionalProperties == other.additionalProperties
+            return other is Approval &&
+                this.approvedAt == other.approvedAt &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(approvedAt, additionalProperties)
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode = Objects.hash(approvedAt, additionalProperties)
+            }
+            return hashCode
         }
 
-        override fun toString() = "Approval{approvedAt=$approvedAt, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "Approval{approvedAt=$approvedAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -812,14 +789,14 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
             }
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-             * the transfer was approved.
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * transfer was approved.
              */
             fun approvedAt(approvedAt: OffsetDateTime) = approvedAt(JsonField.of(approvedAt))
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-             * the transfer was approved.
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * transfer was approved.
              */
             @JsonProperty("approved_at")
             @ExcludeMissing
@@ -846,30 +823,32 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
     }
 
     /**
-     * If your account requires approvals for transfers and the transfer was not
-     * approved, this will contain details of the cancellation.
+     * If your account requires approvals for transfers and the transfer was not approved, this will
+     * contain details of the cancellation.
      */
     @JsonDeserialize(builder = Cancellation.Builder::class)
     @NoAutoDetect
-    class Cancellation private constructor(private val canceledAt: JsonField<OffsetDateTime>,private val additionalProperties: Map<String, JsonValue>,) {
+    class Cancellation
+    private constructor(
+        private val canceledAt: JsonField<OffsetDateTime>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * the Transfer was canceled.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * Transfer was canceled.
          */
         fun canceledAt(): OffsetDateTime = canceledAt.getRequired("canceled_at")
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * the Transfer was canceled.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * Transfer was canceled.
          */
-        @JsonProperty("canceled_at")
-        @ExcludeMissing
-        fun _canceledAt() = canceledAt
+        @JsonProperty("canceled_at") @ExcludeMissing fun _canceledAt() = canceledAt
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -877,36 +856,36 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
 
         fun validate() = apply {
             if (!validated) {
-              canceledAt()
-              validated = true
+                canceledAt()
+                validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Cancellation &&
-              this.canceledAt == other.canceledAt &&
-              this.additionalProperties == other.additionalProperties
+            return other is Cancellation &&
+                this.canceledAt == other.canceledAt &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(canceledAt, additionalProperties)
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode = Objects.hash(canceledAt, additionalProperties)
+            }
+            return hashCode
         }
 
-        override fun toString() = "Cancellation{canceledAt=$canceledAt, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "Cancellation{canceledAt=$canceledAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -921,14 +900,14 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
             }
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-             * the Transfer was canceled.
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * Transfer was canceled.
              */
             fun canceledAt(canceledAt: OffsetDateTime) = canceledAt(JsonField.of(canceledAt))
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-             * the Transfer was canceled.
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * Transfer was canceled.
              */
             @JsonProperty("canceled_at")
             @ExcludeMissing
@@ -950,22 +929,25 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Cancellation = Cancellation(canceledAt, additionalProperties.toUnmodifiable())
+            fun build(): Cancellation =
+                Cancellation(canceledAt, additionalProperties.toUnmodifiable())
         }
     }
 
-    class Type @JsonCreator private constructor(private val value: JsonField<String>,) {
+    class Type
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Type &&
-              this.value == other.value
+            return other is Type && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -988,15 +970,17 @@ class AccountTransfer private constructor(private val id: JsonField<String>,priv
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            ACCOUNT_TRANSFER -> Value.ACCOUNT_TRANSFER
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                ACCOUNT_TRANSFER -> Value.ACCOUNT_TRANSFER
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            ACCOUNT_TRANSFER -> Known.ACCOUNT_TRANSFER
-            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                ACCOUNT_TRANSFER -> Known.ACCOUNT_TRANSFER
+                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }

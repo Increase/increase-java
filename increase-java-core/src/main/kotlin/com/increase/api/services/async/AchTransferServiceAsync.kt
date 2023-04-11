@@ -2,20 +2,7 @@
 
 package com.increase.api.services.async
 
-import com.fasterxml.jackson.databind.json.JsonMapper
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
-import kotlin.LazyThreadSafetyMode.PUBLICATION
-import java.time.LocalDate
-import java.time.Duration
-import java.time.OffsetDateTime
-import java.util.Base64
-import java.util.Optional
-import java.util.UUID
-import java.util.concurrent.CompletableFuture
-import java.util.stream.Stream
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.core.RequestOptions
 import com.increase.api.models.AchTransfer
 import com.increase.api.models.AchTransferApproveParams
 import com.increase.api.models.AchTransferCancelParams
@@ -23,39 +10,42 @@ import com.increase.api.models.AchTransferCreateParams
 import com.increase.api.models.AchTransferListPageAsync
 import com.increase.api.models.AchTransferListParams
 import com.increase.api.models.AchTransferRetrieveParams
-import com.increase.api.core.ClientOptions
-import com.increase.api.core.http.HttpMethod
-import com.increase.api.core.http.HttpRequest
-import com.increase.api.core.http.HttpResponse.Handler
-import com.increase.api.core.JsonField
-import com.increase.api.core.RequestOptions
-import com.increase.api.errors.IncreaseError
-import com.increase.api.services.emptyHandler
-import com.increase.api.services.errorHandler
-import com.increase.api.services.json
-import com.increase.api.services.jsonHandler
-import com.increase.api.services.stringHandler
-import com.increase.api.services.withErrorHandler
+import java.util.concurrent.CompletableFuture
 
 interface AchTransferServiceAsync {
 
     /** Create an ACH Transfer */
     @JvmOverloads
-    fun create(params: AchTransferCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<AchTransfer>
+    fun create(
+        params: AchTransferCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): CompletableFuture<AchTransfer>
 
     /** Retrieve an ACH Transfer */
     @JvmOverloads
-    fun retrieve(params: AchTransferRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<AchTransfer>
+    fun retrieve(
+        params: AchTransferRetrieveParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): CompletableFuture<AchTransfer>
 
     /** List ACH Transfers */
     @JvmOverloads
-    fun list(params: AchTransferListParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<AchTransferListPageAsync>
+    fun list(
+        params: AchTransferListParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): CompletableFuture<AchTransferListPageAsync>
 
     /** Approves an ACH Transfer in a pending_approval state. */
     @JvmOverloads
-    fun approve(params: AchTransferApproveParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<AchTransfer>
+    fun approve(
+        params: AchTransferApproveParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): CompletableFuture<AchTransfer>
 
     /** Cancels an ACH Transfer in a pending_approval state. */
     @JvmOverloads
-    fun cancel(params: AchTransferCancelParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<AchTransfer>
+    fun cancel(
+        params: AchTransferCancelParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): CompletableFuture<AchTransfer>
 }

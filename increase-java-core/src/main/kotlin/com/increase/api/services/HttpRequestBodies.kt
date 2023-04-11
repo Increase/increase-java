@@ -5,8 +5,8 @@ package com.increase.api.services
 import com.fasterxml.jackson.databind.json.JsonMapper
 import com.increase.api.core.http.HttpRequestBody
 import com.increase.api.errors.IncreaseException
-import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder
 import java.io.OutputStream
+import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder
 
 @JvmSynthetic
 internal inline fun <reified T> json(
@@ -35,9 +35,7 @@ internal fun multipartFormData(
     files: Map<String, ByteArray>,
 ): HttpRequestBody {
     val builder = MultipartEntityBuilder.create()
-    files.forEach { file, bytes ->
-        builder.addBinaryBody(file, bytes)
-    }
+    files.forEach { file, bytes -> builder.addBinaryBody(file, bytes) }
     val entity = builder.build()
 
     return object : HttpRequestBody {

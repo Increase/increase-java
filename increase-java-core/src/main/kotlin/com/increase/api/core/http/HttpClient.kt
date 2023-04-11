@@ -3,7 +3,6 @@ package com.increase.api.core.http
 import com.increase.api.core.RequestOptions
 import java.io.Closeable
 import java.util.concurrent.CompletableFuture
-import com.increase.api.core.RequestOptions
 
 interface HttpClient : Closeable {
 

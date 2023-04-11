@@ -3,38 +3,37 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.JsonField
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.time.OffsetDateTime
+import java.util.Objects
 
 /**
- * External Accounts represent accounts at financial institutions other than
- * Increase. You can use this API to store their details for reuse.
+ * External Accounts represent accounts at financial institutions other than Increase. You can use
+ * this API to store their details for reuse.
  */
 @JsonDeserialize(builder = ExternalAccount.Builder::class)
 @NoAutoDetect
-class ExternalAccount private constructor(private val id: JsonField<String>,private val createdAt: JsonField<OffsetDateTime>,private val description: JsonField<String>,private val status: JsonField<Status>,private val routingNumber: JsonField<String>,private val accountNumber: JsonField<String>,private val funding: JsonField<Funding>,private val verificationStatus: JsonField<VerificationStatus>,private val type: JsonField<Type>,private val additionalProperties: Map<String, JsonValue>,) {
+class ExternalAccount
+private constructor(
+    private val id: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val description: JsonField<String>,
+    private val status: JsonField<Status>,
+    private val routingNumber: JsonField<String>,
+    private val accountNumber: JsonField<String>,
+    private val funding: JsonField<Funding>,
+    private val verificationStatus: JsonField<VerificationStatus>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: Map<String, JsonValue>,
+) {
 
     private var validated: Boolean = false
 
@@ -44,8 +43,8 @@ class ExternalAccount private constructor(private val id: JsonField<String>,priv
     fun id(): String = id.getRequired("id")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-     * the External Account was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the External
+     * Account was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
@@ -65,7 +64,8 @@ class ExternalAccount private constructor(private val id: JsonField<String>,priv
     fun funding(): Funding = funding.getRequired("funding")
 
     /** If you have verified ownership of the External Account. */
-    fun verificationStatus(): VerificationStatus = verificationStatus.getRequired("verification_status")
+    fun verificationStatus(): VerificationStatus =
+        verificationStatus.getRequired("verification_status")
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -74,42 +74,28 @@ class ExternalAccount private constructor(private val id: JsonField<String>,priv
     fun type(): Type = type.getRequired("type")
 
     /** The External Account's identifier. */
-    @JsonProperty("id")
-    @ExcludeMissing
-    fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-     * the External Account was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the External
+     * Account was created.
      */
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    fun _createdAt() = createdAt
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
     /** The External Account's description for display purposes. */
-    @JsonProperty("description")
-    @ExcludeMissing
-    fun _description() = description
+    @JsonProperty("description") @ExcludeMissing fun _description() = description
 
     /** The External Account's status. */
-    @JsonProperty("status")
-    @ExcludeMissing
-    fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
 
     /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
-    @JsonProperty("routing_number")
-    @ExcludeMissing
-    fun _routingNumber() = routingNumber
+    @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
 
     /** The destination account number. */
-    @JsonProperty("account_number")
-    @ExcludeMissing
-    fun _accountNumber() = accountNumber
+    @JsonProperty("account_number") @ExcludeMissing fun _accountNumber() = accountNumber
 
     /** The type of the account to which the transfer will be sent. */
-    @JsonProperty("funding")
-    @ExcludeMissing
-    fun _funding() = funding
+    @JsonProperty("funding") @ExcludeMissing fun _funding() = funding
 
     /** If you have verified ownership of the External Account. */
     @JsonProperty("verification_status")
@@ -120,9 +106,7 @@ class ExternalAccount private constructor(private val id: JsonField<String>,priv
      * A constant representing the object's type. For this resource it will always be
      * `external_account`.
      */
-    @JsonProperty("type")
-    @ExcludeMissing
-    fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -130,63 +114,64 @@ class ExternalAccount private constructor(private val id: JsonField<String>,priv
 
     fun validate() = apply {
         if (!validated) {
-          id()
-          createdAt()
-          description()
-          status()
-          routingNumber()
-          accountNumber()
-          funding()
-          verificationStatus()
-          type()
-          validated = true
+            id()
+            createdAt()
+            description()
+            status()
+            routingNumber()
+            accountNumber()
+            funding()
+            verificationStatus()
+            type()
+            validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is ExternalAccount &&
-          this.id == other.id &&
-          this.createdAt == other.createdAt &&
-          this.description == other.description &&
-          this.status == other.status &&
-          this.routingNumber == other.routingNumber &&
-          this.accountNumber == other.accountNumber &&
-          this.funding == other.funding &&
-          this.verificationStatus == other.verificationStatus &&
-          this.type == other.type &&
-          this.additionalProperties == other.additionalProperties
+        return other is ExternalAccount &&
+            this.id == other.id &&
+            this.createdAt == other.createdAt &&
+            this.description == other.description &&
+            this.status == other.status &&
+            this.routingNumber == other.routingNumber &&
+            this.accountNumber == other.accountNumber &&
+            this.funding == other.funding &&
+            this.verificationStatus == other.verificationStatus &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-      if (hashCode == 0) {
-        hashCode = Objects.hash(
-            id,
-            createdAt,
-            description,
-            status,
-            routingNumber,
-            accountNumber,
-            funding,
-            verificationStatus,
-            type,
-            additionalProperties,
-        )
-      }
-      return hashCode
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    id,
+                    createdAt,
+                    description,
+                    status,
+                    routingNumber,
+                    accountNumber,
+                    funding,
+                    verificationStatus,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
     }
 
-    override fun toString() = "ExternalAccount{id=$id, createdAt=$createdAt, description=$description, status=$status, routingNumber=$routingNumber, accountNumber=$accountNumber, funding=$funding, verificationStatus=$verificationStatus, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() =
+        "ExternalAccount{id=$id, createdAt=$createdAt, description=$description, status=$status, routingNumber=$routingNumber, accountNumber=$accountNumber, funding=$funding, verificationStatus=$verificationStatus, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     class Builder {
@@ -220,27 +205,21 @@ class ExternalAccount private constructor(private val id: JsonField<String>,priv
         fun id(id: String) = id(JsonField.of(id))
 
         /** The External Account's identifier. */
-        @JsonProperty("id")
-        @ExcludeMissing
-        fun id(id: JsonField<String>) = apply {
-            this.id = id
-        }
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * the External Account was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * External Account was created.
          */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * the External Account was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * External Account was created.
          */
         @JsonProperty("created_at")
         @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
-            this.createdAt = createdAt
-        }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The External Account's description for display purposes. */
         fun description(description: String) = description(JsonField.of(description))
@@ -248,9 +227,7 @@ class ExternalAccount private constructor(private val id: JsonField<String>,priv
         /** The External Account's description for display purposes. */
         @JsonProperty("description")
         @ExcludeMissing
-        fun description(description: JsonField<String>) = apply {
-            this.description = description
-        }
+        fun description(description: JsonField<String>) = apply { this.description = description }
 
         /** The External Account's status. */
         fun status(status: Status) = status(JsonField.of(status))
@@ -258,9 +235,7 @@ class ExternalAccount private constructor(private val id: JsonField<String>,priv
         /** The External Account's status. */
         @JsonProperty("status")
         @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply {
-            this.status = status
-        }
+        fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
         fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
@@ -288,12 +263,11 @@ class ExternalAccount private constructor(private val id: JsonField<String>,priv
         /** The type of the account to which the transfer will be sent. */
         @JsonProperty("funding")
         @ExcludeMissing
-        fun funding(funding: JsonField<Funding>) = apply {
-            this.funding = funding
-        }
+        fun funding(funding: JsonField<Funding>) = apply { this.funding = funding }
 
         /** If you have verified ownership of the External Account. */
-        fun verificationStatus(verificationStatus: VerificationStatus) = verificationStatus(JsonField.of(verificationStatus))
+        fun verificationStatus(verificationStatus: VerificationStatus) =
+            verificationStatus(JsonField.of(verificationStatus))
 
         /** If you have verified ownership of the External Account. */
         @JsonProperty("verification_status")
@@ -314,9 +288,7 @@ class ExternalAccount private constructor(private val id: JsonField<String>,priv
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply {
-            this.type = type
-        }
+        fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -332,32 +304,35 @@ class ExternalAccount private constructor(private val id: JsonField<String>,priv
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): ExternalAccount = ExternalAccount(
-            id,
-            createdAt,
-            description,
-            status,
-            routingNumber,
-            accountNumber,
-            funding,
-            verificationStatus,
-            type,
-            additionalProperties.toUnmodifiable(),
-        )
+        fun build(): ExternalAccount =
+            ExternalAccount(
+                id,
+                createdAt,
+                description,
+                status,
+                routingNumber,
+                accountNumber,
+                funding,
+                verificationStatus,
+                type,
+                additionalProperties.toUnmodifiable(),
+            )
     }
 
-    class Status @JsonCreator private constructor(private val value: JsonField<String>,) {
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Status &&
-              this.value == other.value
+            return other is Status && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -384,33 +359,37 @@ class ExternalAccount private constructor(private val id: JsonField<String>,priv
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            ACTIVE -> Value.ACTIVE
-            ARCHIVED -> Value.ARCHIVED
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                ACTIVE -> Value.ACTIVE
+                ARCHIVED -> Value.ARCHIVED
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            ACTIVE -> Known.ACTIVE
-            ARCHIVED -> Known.ARCHIVED
-            else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                ACTIVE -> Known.ACTIVE
+                ARCHIVED -> Known.ARCHIVED
+                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Funding @JsonCreator private constructor(private val value: JsonField<String>,) {
+    class Funding
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Funding &&
-              this.value == other.value
+            return other is Funding && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -441,35 +420,39 @@ class ExternalAccount private constructor(private val id: JsonField<String>,priv
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            CHECKING -> Value.CHECKING
-            SAVINGS -> Value.SAVINGS
-            OTHER -> Value.OTHER
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                CHECKING -> Value.CHECKING
+                SAVINGS -> Value.SAVINGS
+                OTHER -> Value.OTHER
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            CHECKING -> Known.CHECKING
-            SAVINGS -> Known.SAVINGS
-            OTHER -> Known.OTHER
-            else -> throw IncreaseInvalidDataException("Unknown Funding: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                CHECKING -> Known.CHECKING
+                SAVINGS -> Known.SAVINGS
+                OTHER -> Known.OTHER
+                else -> throw IncreaseInvalidDataException("Unknown Funding: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class VerificationStatus @JsonCreator private constructor(private val value: JsonField<String>,) {
+    class VerificationStatus
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is VerificationStatus &&
-              this.value == other.value
+            return other is VerificationStatus && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -500,35 +483,39 @@ class ExternalAccount private constructor(private val id: JsonField<String>,priv
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            UNVERIFIED -> Value.UNVERIFIED
-            PENDING -> Value.PENDING
-            VERIFIED -> Value.VERIFIED
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                UNVERIFIED -> Value.UNVERIFIED
+                PENDING -> Value.PENDING
+                VERIFIED -> Value.VERIFIED
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            UNVERIFIED -> Known.UNVERIFIED
-            PENDING -> Known.PENDING
-            VERIFIED -> Known.VERIFIED
-            else -> throw IncreaseInvalidDataException("Unknown VerificationStatus: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                UNVERIFIED -> Known.UNVERIFIED
+                PENDING -> Known.PENDING
+                VERIFIED -> Known.VERIFIED
+                else -> throw IncreaseInvalidDataException("Unknown VerificationStatus: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Type @JsonCreator private constructor(private val value: JsonField<String>,) {
+    class Type
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Type &&
-              this.value == other.value
+            return other is Type && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -551,15 +538,17 @@ class ExternalAccount private constructor(private val id: JsonField<String>,priv
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            EXTERNAL_ACCOUNT -> Value.EXTERNAL_ACCOUNT
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                EXTERNAL_ACCOUNT -> Value.EXTERNAL_ACCOUNT
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            EXTERNAL_ACCOUNT -> Known.EXTERNAL_ACCOUNT
-            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                EXTERNAL_ACCOUNT -> Known.EXTERNAL_ACCOUNT
+                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }

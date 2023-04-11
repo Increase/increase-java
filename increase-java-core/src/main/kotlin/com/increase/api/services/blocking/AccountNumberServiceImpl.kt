@@ -1,46 +1,31 @@
 package com.increase.api.services.blocking
 
-import com.fasterxml.jackson.databind.json.JsonMapper
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
-import kotlin.LazyThreadSafetyMode.PUBLICATION
-import java.time.LocalDate
-import java.time.Duration
-import java.time.OffsetDateTime
-import java.util.Base64
-import java.util.Optional
-import java.util.UUID
-import java.util.concurrent.CompletableFuture
-import java.util.stream.Stream
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.core.ClientOptions
+import com.increase.api.core.RequestOptions
+import com.increase.api.core.http.HttpMethod
+import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.errors.IncreaseError
 import com.increase.api.models.AccountNumber
 import com.increase.api.models.AccountNumberCreateParams
 import com.increase.api.models.AccountNumberListPage
 import com.increase.api.models.AccountNumberListParams
 import com.increase.api.models.AccountNumberRetrieveParams
 import com.increase.api.models.AccountNumberUpdateParams
-import com.increase.api.core.ClientOptions
-import com.increase.api.core.http.HttpMethod
-import com.increase.api.core.http.HttpRequest
-import com.increase.api.core.http.HttpResponse.Handler
-import com.increase.api.core.JsonField
-import com.increase.api.core.RequestOptions
-import com.increase.api.errors.IncreaseError
-import com.increase.api.services.emptyHandler
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
-import com.increase.api.services.stringHandler
 import com.increase.api.services.withErrorHandler
 
-class AccountNumberServiceImpl constructor(private val clientOptions: ClientOptions,) : AccountNumberService {
+class AccountNumberServiceImpl
+constructor(
+    private val clientOptions: ClientOptions,
+) : AccountNumberService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
     private val createHandler: Handler<AccountNumber> =
-    jsonHandler<AccountNumber>(clientOptions.jsonMapper)
-    .withErrorHandler(errorHandler)
+        jsonHandler<AccountNumber>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** Create an Account Number */
     override fun create(
@@ -68,8 +53,7 @@ class AccountNumberServiceImpl constructor(private val clientOptions: ClientOpti
     }
 
     private val retrieveHandler: Handler<AccountNumber> =
-    jsonHandler<AccountNumber>(clientOptions.jsonMapper)
-    .withErrorHandler(errorHandler)
+        jsonHandler<AccountNumber>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** Retrieve an Account Number */
     override fun retrieve(
@@ -96,8 +80,7 @@ class AccountNumberServiceImpl constructor(private val clientOptions: ClientOpti
     }
 
     private val updateHandler: Handler<AccountNumber> =
-    jsonHandler<AccountNumber>(clientOptions.jsonMapper)
-    .withErrorHandler(errorHandler)
+        jsonHandler<AccountNumber>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** Update an Account Number */
     override fun update(
@@ -125,8 +108,8 @@ class AccountNumberServiceImpl constructor(private val clientOptions: ClientOpti
     }
 
     private val listHandler: Handler<AccountNumberListPage.Response> =
-    jsonHandler<AccountNumberListPage.Response>(clientOptions.jsonMapper)
-    .withErrorHandler(errorHandler)
+        jsonHandler<AccountNumberListPage.Response>(clientOptions.jsonMapper)
+            .withErrorHandler(errorHandler)
 
     /** List Account Numbers */
     override fun list(

@@ -3,33 +3,28 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
+import java.util.Objects
+import java.util.Optional
 
-class LimitCreateParams constructor(private val metric: Metric,private val interval: Interval?,private val modelId: String,private val value: Long,private val additionalQueryParams: Map<String, List<String>>,private val additionalHeaders: Map<String, List<String>>,private val additionalBodyProperties: Map<String, JsonValue>,) {
+class LimitCreateParams
+constructor(
+    private val metric: Metric,
+    private val interval: Interval?,
+    private val modelId: String,
+    private val value: Long,
+    private val additionalQueryParams: Map<String, List<String>>,
+    private val additionalHeaders: Map<String, List<String>>,
+    private val additionalBodyProperties: Map<String, JsonValue>,
+) {
 
     fun metric(): Metric = metric
 
@@ -41,45 +36,43 @@ class LimitCreateParams constructor(private val metric: Metric,private val inter
 
     @JvmSynthetic
     internal fun getBody(): LimitCreateBody {
-      return LimitCreateBody(
-          metric,
-          interval,
-          modelId,
-          value,
-          additionalBodyProperties,
-      )
+        return LimitCreateBody(
+            metric,
+            interval,
+            modelId,
+            value,
+            additionalBodyProperties,
+        )
     }
 
-    @JvmSynthetic
-    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
-    @JvmSynthetic
-    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     @JsonDeserialize(builder = LimitCreateBody.Builder::class)
     @NoAutoDetect
-    class LimitCreateBody internal constructor(private val metric: Metric?,private val interval: Interval?,private val modelId: String?,private val value: Long?,private val additionalProperties: Map<String, JsonValue>,) {
+    class LimitCreateBody
+    internal constructor(
+        private val metric: Metric?,
+        private val interval: Interval?,
+        private val modelId: String?,
+        private val value: Long?,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var hashCode: Int = 0
 
         /** The metric for the limit. */
-        @JsonProperty("metric")
-        fun metric(): Metric? = metric
+        @JsonProperty("metric") fun metric(): Metric? = metric
 
         /** The interval for the metric. Required if `metric` is `count` or `volume`. */
-        @JsonProperty("interval")
-        fun interval(): Interval? = interval
+        @JsonProperty("interval") fun interval(): Interval? = interval
 
-        /**
-         * The identifier of the Account or Account Number you wish to associate the limit
-         * with.
-         */
-        @JsonProperty("model_id")
-        fun modelId(): String? = modelId
+        /** The identifier of the Account or Account Number you wish to associate the limit with. */
+        @JsonProperty("model_id") fun modelId(): String? = modelId
 
         /** The value to test the limit against. */
-        @JsonProperty("value")
-        fun value(): Long? = value
+        @JsonProperty("value") fun value(): Long? = value
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -88,37 +81,38 @@ class LimitCreateParams constructor(private val metric: Metric,private val inter
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is LimitCreateBody &&
-              this.metric == other.metric &&
-              this.interval == other.interval &&
-              this.modelId == other.modelId &&
-              this.value == other.value &&
-              this.additionalProperties == other.additionalProperties
+            return other is LimitCreateBody &&
+                this.metric == other.metric &&
+                this.interval == other.interval &&
+                this.modelId == other.modelId &&
+                this.value == other.value &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                metric,
-                interval,
-                modelId,
-                value,
-                additionalProperties,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        metric,
+                        interval,
+                        modelId,
+                        value,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "LimitCreateBody{metric=$metric, interval=$interval, modelId=$modelId, value=$value, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "LimitCreateBody{metric=$metric, interval=$interval, modelId=$modelId, value=$value, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -139,31 +133,20 @@ class LimitCreateParams constructor(private val metric: Metric,private val inter
             }
 
             /** The metric for the limit. */
-            @JsonProperty("metric")
-            fun metric(metric: Metric) = apply {
-                this.metric = metric
-            }
+            @JsonProperty("metric") fun metric(metric: Metric) = apply { this.metric = metric }
 
             /** The interval for the metric. Required if `metric` is `count` or `volume`. */
             @JsonProperty("interval")
-            fun interval(interval: Interval) = apply {
-                this.interval = interval
-            }
+            fun interval(interval: Interval) = apply { this.interval = interval }
 
             /**
-             * The identifier of the Account or Account Number you wish to associate the limit
-             * with.
+             * The identifier of the Account or Account Number you wish to associate the limit with.
              */
             @JsonProperty("model_id")
-            fun modelId(modelId: String) = apply {
-                this.modelId = modelId
-            }
+            fun modelId(modelId: String) = apply { this.modelId = modelId }
 
             /** The value to test the limit against. */
-            @JsonProperty("value")
-            fun value(value: Long) = apply {
-                this.value = value
-            }
+            @JsonProperty("value") fun value(value: Long) = apply { this.value = value }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -179,19 +162,14 @@ class LimitCreateParams constructor(private val metric: Metric,private val inter
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): LimitCreateBody = LimitCreateBody(
-                checkNotNull(metric) {
-                    "`metric` is required but was not set"
-                },
-                interval,
-                checkNotNull(modelId) {
-                    "`modelId` is required but was not set"
-                },
-                checkNotNull(value) {
-                    "`value` is required but was not set"
-                },
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build(): LimitCreateBody =
+                LimitCreateBody(
+                    checkNotNull(metric) { "`metric` is required but was not set" },
+                    interval,
+                    checkNotNull(modelId) { "`modelId` is required but was not set" },
+                    checkNotNull(value) { "`value` is required but was not set" },
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
@@ -202,40 +180,40 @@ class LimitCreateParams constructor(private val metric: Metric,private val inter
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is LimitCreateParams &&
-          this.metric == other.metric &&
-          this.interval == other.interval &&
-          this.modelId == other.modelId &&
-          this.value == other.value &&
-          this.additionalQueryParams == other.additionalQueryParams &&
-          this.additionalHeaders == other.additionalHeaders &&
-          this.additionalBodyProperties == other.additionalBodyProperties
+        return other is LimitCreateParams &&
+            this.metric == other.metric &&
+            this.interval == other.interval &&
+            this.modelId == other.modelId &&
+            this.value == other.value &&
+            this.additionalQueryParams == other.additionalQueryParams &&
+            this.additionalHeaders == other.additionalHeaders &&
+            this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          metric,
-          interval,
-          modelId,
-          value,
-          additionalQueryParams,
-          additionalHeaders,
-          additionalBodyProperties,
-      )
+        return Objects.hash(
+            metric,
+            interval,
+            modelId,
+            value,
+            additionalQueryParams,
+            additionalHeaders,
+            additionalBodyProperties,
+        )
     }
 
-    override fun toString() = "LimitCreateParams{metric=$metric, interval=$interval, modelId=$modelId, value=$value, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() =
+        "LimitCreateParams{metric=$metric, interval=$interval, modelId=$modelId, value=$value, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -261,27 +239,16 @@ class LimitCreateParams constructor(private val metric: Metric,private val inter
         }
 
         /** The metric for the limit. */
-        fun metric(metric: Metric) = apply {
-            this.metric = metric
-        }
+        fun metric(metric: Metric) = apply { this.metric = metric }
 
         /** The interval for the metric. Required if `metric` is `count` or `volume`. */
-        fun interval(interval: Interval) = apply {
-            this.interval = interval
-        }
+        fun interval(interval: Interval) = apply { this.interval = interval }
 
-        /**
-         * The identifier of the Account or Account Number you wish to associate the limit
-         * with.
-         */
-        fun modelId(modelId: String) = apply {
-            this.modelId = modelId
-        }
+        /** The identifier of the Account or Account Number you wish to associate the limit with. */
+        fun modelId(modelId: String) = apply { this.modelId = modelId }
 
         /** The value to test the limit against. */
-        fun value(value: Long) = apply {
-            this.value = value
-        }
+        fun value(value: Long) = apply { this.value = value }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -321,9 +288,7 @@ class LimitCreateParams constructor(private val metric: Metric,private val inter
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply {
-            this.additionalHeaders.put(name, mutableListOf())
-        }
+        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -334,39 +299,37 @@ class LimitCreateParams constructor(private val metric: Metric,private val inter
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.putAll(additionalBodyProperties)
-        }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
 
-        fun build(): LimitCreateParams = LimitCreateParams(
-            checkNotNull(metric) {
-                "`metric` is required but was not set"
-            },
-            interval,
-            checkNotNull(modelId) {
-                "`modelId` is required but was not set"
-            },
-            checkNotNull(value) {
-                "`value` is required but was not set"
-            },
-            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalBodyProperties.toUnmodifiable(),
-        )
+        fun build(): LimitCreateParams =
+            LimitCreateParams(
+                checkNotNull(metric) { "`metric` is required but was not set" },
+                interval,
+                checkNotNull(modelId) { "`modelId` is required but was not set" },
+                checkNotNull(value) { "`value` is required but was not set" },
+                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalBodyProperties.toUnmodifiable(),
+            )
     }
 
-    class Metric @JsonCreator private constructor(private val value: JsonField<String>,) {
+    class Metric
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Metric &&
-              this.value == other.value
+            return other is Metric && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -393,33 +356,37 @@ class LimitCreateParams constructor(private val metric: Metric,private val inter
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            COUNT -> Value.COUNT
-            VOLUME -> Value.VOLUME
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                COUNT -> Value.COUNT
+                VOLUME -> Value.VOLUME
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            COUNT -> Known.COUNT
-            VOLUME -> Known.VOLUME
-            else -> throw IncreaseInvalidDataException("Unknown Metric: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                COUNT -> Known.COUNT
+                VOLUME -> Known.VOLUME
+                else -> throw IncreaseInvalidDataException("Unknown Metric: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Interval @JsonCreator private constructor(private val value: JsonField<String>,) {
+    class Interval
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Interval &&
-              this.value == other.value
+            return other is Interval && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -462,25 +429,27 @@ class LimitCreateParams constructor(private val metric: Metric,private val inter
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            TRANSACTION -> Value.TRANSACTION
-            DAY -> Value.DAY
-            WEEK -> Value.WEEK
-            MONTH -> Value.MONTH
-            YEAR -> Value.YEAR
-            ALL_TIME -> Value.ALL_TIME
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                TRANSACTION -> Value.TRANSACTION
+                DAY -> Value.DAY
+                WEEK -> Value.WEEK
+                MONTH -> Value.MONTH
+                YEAR -> Value.YEAR
+                ALL_TIME -> Value.ALL_TIME
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            TRANSACTION -> Known.TRANSACTION
-            DAY -> Known.DAY
-            WEEK -> Known.WEEK
-            MONTH -> Known.MONTH
-            YEAR -> Known.YEAR
-            ALL_TIME -> Known.ALL_TIME
-            else -> throw IncreaseInvalidDataException("Unknown Interval: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                TRANSACTION -> Known.TRANSACTION
+                DAY -> Known.DAY
+                WEEK -> Known.WEEK
+                MONTH -> Known.MONTH
+                YEAR -> Known.YEAR
+                ALL_TIME -> Known.ALL_TIME
+                else -> throw IncreaseInvalidDataException("Unknown Interval: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }

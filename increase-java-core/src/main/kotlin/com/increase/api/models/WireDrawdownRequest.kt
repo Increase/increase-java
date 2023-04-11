@@ -3,39 +3,43 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.JsonField
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.util.Objects
+import java.util.Optional
 
 /**
- * Wire drawdown requests enable you to request that someone else send you a wire.
- * This feature is in beta; reach out to
- * [support@increase.com](mailto:support@increase.com) to learn more.
+ * Wire drawdown requests enable you to request that someone else send you a wire. This feature is
+ * in beta; reach out to [support@increase.com](mailto:support@increase.com) to learn more.
  */
 @JsonDeserialize(builder = WireDrawdownRequest.Builder::class)
 @NoAutoDetect
-class WireDrawdownRequest private constructor(private val type: JsonField<Type>,private val id: JsonField<String>,private val accountNumberId: JsonField<String>,private val recipientAccountNumber: JsonField<String>,private val recipientRoutingNumber: JsonField<String>,private val amount: JsonField<Long>,private val currency: JsonField<String>,private val messageToRecipient: JsonField<String>,private val recipientName: JsonField<String>,private val recipientAddressLine1: JsonField<String>,private val recipientAddressLine2: JsonField<String>,private val recipientAddressLine3: JsonField<String>,private val submission: JsonField<Submission>,private val fulfillmentTransactionId: JsonField<String>,private val status: JsonField<Status>,private val additionalProperties: Map<String, JsonValue>,) {
+class WireDrawdownRequest
+private constructor(
+    private val type: JsonField<Type>,
+    private val id: JsonField<String>,
+    private val accountNumberId: JsonField<String>,
+    private val recipientAccountNumber: JsonField<String>,
+    private val recipientRoutingNumber: JsonField<String>,
+    private val amount: JsonField<Long>,
+    private val currency: JsonField<String>,
+    private val messageToRecipient: JsonField<String>,
+    private val recipientName: JsonField<String>,
+    private val recipientAddressLine1: JsonField<String>,
+    private val recipientAddressLine2: JsonField<String>,
+    private val recipientAddressLine3: JsonField<String>,
+    private val submission: JsonField<Submission>,
+    private val fulfillmentTransactionId: JsonField<String>,
+    private val status: JsonField<Status>,
+    private val additionalProperties: Map<String, JsonValue>,
+) {
 
     private var validated: Boolean = false
 
@@ -51,23 +55,24 @@ class WireDrawdownRequest private constructor(private val type: JsonField<Type>,
     fun id(): String = id.getRequired("id")
 
     /**
-     * The Account Number to which the recipient of this request is being requested to
-     * send funds.
+     * The Account Number to which the recipient of this request is being requested to send funds.
      */
     fun accountNumberId(): String = accountNumberId.getRequired("account_number_id")
 
     /** The drawdown request's recipient's account number. */
-    fun recipientAccountNumber(): String = recipientAccountNumber.getRequired("recipient_account_number")
+    fun recipientAccountNumber(): String =
+        recipientAccountNumber.getRequired("recipient_account_number")
 
     /** The drawdown request's recipient's routing number. */
-    fun recipientRoutingNumber(): String = recipientRoutingNumber.getRequired("recipient_routing_number")
+    fun recipientRoutingNumber(): String =
+        recipientRoutingNumber.getRequired("recipient_routing_number")
 
     /** The amount being requested in cents. */
     fun amount(): Long = amount.getRequired("amount")
 
     /**
-     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the amount being
-     * requested. Will always be "USD".
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the amount being requested.
+     * Will always be "USD".
      */
     fun currency(): String = currency.getRequired("currency")
 
@@ -75,28 +80,33 @@ class WireDrawdownRequest private constructor(private val type: JsonField<Type>,
     fun messageToRecipient(): String = messageToRecipient.getRequired("message_to_recipient")
 
     /** The drawdown request's recipient's name. */
-    fun recipientName(): Optional<String> = Optional.ofNullable(recipientName.getNullable("recipient_name"))
+    fun recipientName(): Optional<String> =
+        Optional.ofNullable(recipientName.getNullable("recipient_name"))
 
     /** Line 1 of the drawdown request's recipient's address. */
-    fun recipientAddressLine1(): Optional<String> = Optional.ofNullable(recipientAddressLine1.getNullable("recipient_address_line1"))
+    fun recipientAddressLine1(): Optional<String> =
+        Optional.ofNullable(recipientAddressLine1.getNullable("recipient_address_line1"))
 
     /** Line 2 of the drawdown request's recipient's address. */
-    fun recipientAddressLine2(): Optional<String> = Optional.ofNullable(recipientAddressLine2.getNullable("recipient_address_line2"))
+    fun recipientAddressLine2(): Optional<String> =
+        Optional.ofNullable(recipientAddressLine2.getNullable("recipient_address_line2"))
 
     /** Line 3 of the drawdown request's recipient's address. */
-    fun recipientAddressLine3(): Optional<String> = Optional.ofNullable(recipientAddressLine3.getNullable("recipient_address_line3"))
+    fun recipientAddressLine3(): Optional<String> =
+        Optional.ofNullable(recipientAddressLine3.getNullable("recipient_address_line3"))
 
     /**
-     * After the drawdown request is submitted to Fedwire, this will contain
-     * supplemental details.
+     * After the drawdown request is submitted to Fedwire, this will contain supplemental details.
      */
-    fun submission(): Optional<Submission> = Optional.ofNullable(submission.getNullable("submission"))
+    fun submission(): Optional<Submission> =
+        Optional.ofNullable(submission.getNullable("submission"))
 
     /**
-     * If the recipient fulfills the drawdown request by sending funds, then this will
-     * be the identifier of the corresponding Transaction.
+     * If the recipient fulfills the drawdown request by sending funds, then this will be the
+     * identifier of the corresponding Transaction.
      */
-    fun fulfillmentTransactionId(): Optional<String> = Optional.ofNullable(fulfillmentTransactionId.getNullable("fulfillment_transaction_id"))
+    fun fulfillmentTransactionId(): Optional<String> =
+        Optional.ofNullable(fulfillmentTransactionId.getNullable("fulfillment_transaction_id"))
 
     /** The lifecycle status of the drawdown request. */
     fun status(): Status = status.getRequired("status")
@@ -105,22 +115,15 @@ class WireDrawdownRequest private constructor(private val type: JsonField<Type>,
      * A constant representing the object's type. For this resource it will always be
      * `wire_drawdown_request`.
      */
-    @JsonProperty("type")
-    @ExcludeMissing
-    fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type() = type
 
     /** The Wire drawdown request identifier. */
-    @JsonProperty("id")
-    @ExcludeMissing
-    fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
-     * The Account Number to which the recipient of this request is being requested to
-     * send funds.
+     * The Account Number to which the recipient of this request is being requested to send funds.
      */
-    @JsonProperty("account_number_id")
-    @ExcludeMissing
-    fun _accountNumberId() = accountNumberId
+    @JsonProperty("account_number_id") @ExcludeMissing fun _accountNumberId() = accountNumberId
 
     /** The drawdown request's recipient's account number. */
     @JsonProperty("recipient_account_number")
@@ -133,17 +136,13 @@ class WireDrawdownRequest private constructor(private val type: JsonField<Type>,
     fun _recipientRoutingNumber() = recipientRoutingNumber
 
     /** The amount being requested in cents. */
-    @JsonProperty("amount")
-    @ExcludeMissing
-    fun _amount() = amount
+    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
     /**
-     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the amount being
-     * requested. Will always be "USD".
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the amount being requested.
+     * Will always be "USD".
      */
-    @JsonProperty("currency")
-    @ExcludeMissing
-    fun _currency() = currency
+    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
 
     /** The message the recipient will see as part of the drawdown request. */
     @JsonProperty("message_to_recipient")
@@ -151,9 +150,7 @@ class WireDrawdownRequest private constructor(private val type: JsonField<Type>,
     fun _messageToRecipient() = messageToRecipient
 
     /** The drawdown request's recipient's name. */
-    @JsonProperty("recipient_name")
-    @ExcludeMissing
-    fun _recipientName() = recipientName
+    @JsonProperty("recipient_name") @ExcludeMissing fun _recipientName() = recipientName
 
     /** Line 1 of the drawdown request's recipient's address. */
     @JsonProperty("recipient_address_line1")
@@ -171,25 +168,20 @@ class WireDrawdownRequest private constructor(private val type: JsonField<Type>,
     fun _recipientAddressLine3() = recipientAddressLine3
 
     /**
-     * After the drawdown request is submitted to Fedwire, this will contain
-     * supplemental details.
+     * After the drawdown request is submitted to Fedwire, this will contain supplemental details.
      */
-    @JsonProperty("submission")
-    @ExcludeMissing
-    fun _submission() = submission
+    @JsonProperty("submission") @ExcludeMissing fun _submission() = submission
 
     /**
-     * If the recipient fulfills the drawdown request by sending funds, then this will
-     * be the identifier of the corresponding Transaction.
+     * If the recipient fulfills the drawdown request by sending funds, then this will be the
+     * identifier of the corresponding Transaction.
      */
     @JsonProperty("fulfillment_transaction_id")
     @ExcludeMissing
     fun _fulfillmentTransactionId() = fulfillmentTransactionId
 
     /** The lifecycle status of the drawdown request. */
-    @JsonProperty("status")
-    @ExcludeMissing
-    fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -197,81 +189,82 @@ class WireDrawdownRequest private constructor(private val type: JsonField<Type>,
 
     fun validate() = apply {
         if (!validated) {
-          type()
-          id()
-          accountNumberId()
-          recipientAccountNumber()
-          recipientRoutingNumber()
-          amount()
-          currency()
-          messageToRecipient()
-          recipientName()
-          recipientAddressLine1()
-          recipientAddressLine2()
-          recipientAddressLine3()
-          submission().map { it.validate() }
-          fulfillmentTransactionId()
-          status()
-          validated = true
+            type()
+            id()
+            accountNumberId()
+            recipientAccountNumber()
+            recipientRoutingNumber()
+            amount()
+            currency()
+            messageToRecipient()
+            recipientName()
+            recipientAddressLine1()
+            recipientAddressLine2()
+            recipientAddressLine3()
+            submission().map { it.validate() }
+            fulfillmentTransactionId()
+            status()
+            validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is WireDrawdownRequest &&
-          this.type == other.type &&
-          this.id == other.id &&
-          this.accountNumberId == other.accountNumberId &&
-          this.recipientAccountNumber == other.recipientAccountNumber &&
-          this.recipientRoutingNumber == other.recipientRoutingNumber &&
-          this.amount == other.amount &&
-          this.currency == other.currency &&
-          this.messageToRecipient == other.messageToRecipient &&
-          this.recipientName == other.recipientName &&
-          this.recipientAddressLine1 == other.recipientAddressLine1 &&
-          this.recipientAddressLine2 == other.recipientAddressLine2 &&
-          this.recipientAddressLine3 == other.recipientAddressLine3 &&
-          this.submission == other.submission &&
-          this.fulfillmentTransactionId == other.fulfillmentTransactionId &&
-          this.status == other.status &&
-          this.additionalProperties == other.additionalProperties
+        return other is WireDrawdownRequest &&
+            this.type == other.type &&
+            this.id == other.id &&
+            this.accountNumberId == other.accountNumberId &&
+            this.recipientAccountNumber == other.recipientAccountNumber &&
+            this.recipientRoutingNumber == other.recipientRoutingNumber &&
+            this.amount == other.amount &&
+            this.currency == other.currency &&
+            this.messageToRecipient == other.messageToRecipient &&
+            this.recipientName == other.recipientName &&
+            this.recipientAddressLine1 == other.recipientAddressLine1 &&
+            this.recipientAddressLine2 == other.recipientAddressLine2 &&
+            this.recipientAddressLine3 == other.recipientAddressLine3 &&
+            this.submission == other.submission &&
+            this.fulfillmentTransactionId == other.fulfillmentTransactionId &&
+            this.status == other.status &&
+            this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-      if (hashCode == 0) {
-        hashCode = Objects.hash(
-            type,
-            id,
-            accountNumberId,
-            recipientAccountNumber,
-            recipientRoutingNumber,
-            amount,
-            currency,
-            messageToRecipient,
-            recipientName,
-            recipientAddressLine1,
-            recipientAddressLine2,
-            recipientAddressLine3,
-            submission,
-            fulfillmentTransactionId,
-            status,
-            additionalProperties,
-        )
-      }
-      return hashCode
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    type,
+                    id,
+                    accountNumberId,
+                    recipientAccountNumber,
+                    recipientRoutingNumber,
+                    amount,
+                    currency,
+                    messageToRecipient,
+                    recipientName,
+                    recipientAddressLine1,
+                    recipientAddressLine2,
+                    recipientAddressLine3,
+                    submission,
+                    fulfillmentTransactionId,
+                    status,
+                    additionalProperties,
+                )
+        }
+        return hashCode
     }
 
-    override fun toString() = "WireDrawdownRequest{type=$type, id=$id, accountNumberId=$accountNumberId, recipientAccountNumber=$recipientAccountNumber, recipientRoutingNumber=$recipientRoutingNumber, amount=$amount, currency=$currency, messageToRecipient=$messageToRecipient, recipientName=$recipientName, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, submission=$submission, fulfillmentTransactionId=$fulfillmentTransactionId, status=$status, additionalProperties=$additionalProperties}"
+    override fun toString() =
+        "WireDrawdownRequest{type=$type, id=$id, accountNumberId=$accountNumberId, recipientAccountNumber=$recipientAccountNumber, recipientRoutingNumber=$recipientRoutingNumber, amount=$amount, currency=$currency, messageToRecipient=$messageToRecipient, recipientName=$recipientName, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, submission=$submission, fulfillmentTransactionId=$fulfillmentTransactionId, status=$status, additionalProperties=$additionalProperties}"
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     class Builder {
@@ -325,29 +318,24 @@ class WireDrawdownRequest private constructor(private val type: JsonField<Type>,
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply {
-            this.type = type
-        }
+        fun type(type: JsonField<Type>) = apply { this.type = type }
 
         /** The Wire drawdown request identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Wire drawdown request identifier. */
-        @JsonProperty("id")
-        @ExcludeMissing
-        fun id(id: JsonField<String>) = apply {
-            this.id = id
-        }
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
-         * The Account Number to which the recipient of this request is being requested to
-         * send funds.
+         * The Account Number to which the recipient of this request is being requested to send
+         * funds.
          */
-        fun accountNumberId(accountNumberId: String) = accountNumberId(JsonField.of(accountNumberId))
+        fun accountNumberId(accountNumberId: String) =
+            accountNumberId(JsonField.of(accountNumberId))
 
         /**
-         * The Account Number to which the recipient of this request is being requested to
-         * send funds.
+         * The Account Number to which the recipient of this request is being requested to send
+         * funds.
          */
         @JsonProperty("account_number_id")
         @ExcludeMissing
@@ -356,7 +344,8 @@ class WireDrawdownRequest private constructor(private val type: JsonField<Type>,
         }
 
         /** The drawdown request's recipient's account number. */
-        fun recipientAccountNumber(recipientAccountNumber: String) = recipientAccountNumber(JsonField.of(recipientAccountNumber))
+        fun recipientAccountNumber(recipientAccountNumber: String) =
+            recipientAccountNumber(JsonField.of(recipientAccountNumber))
 
         /** The drawdown request's recipient's account number. */
         @JsonProperty("recipient_account_number")
@@ -366,7 +355,8 @@ class WireDrawdownRequest private constructor(private val type: JsonField<Type>,
         }
 
         /** The drawdown request's recipient's routing number. */
-        fun recipientRoutingNumber(recipientRoutingNumber: String) = recipientRoutingNumber(JsonField.of(recipientRoutingNumber))
+        fun recipientRoutingNumber(recipientRoutingNumber: String) =
+            recipientRoutingNumber(JsonField.of(recipientRoutingNumber))
 
         /** The drawdown request's recipient's routing number. */
         @JsonProperty("recipient_routing_number")
@@ -381,9 +371,7 @@ class WireDrawdownRequest private constructor(private val type: JsonField<Type>,
         /** The amount being requested in cents. */
         @JsonProperty("amount")
         @ExcludeMissing
-        fun amount(amount: JsonField<Long>) = apply {
-            this.amount = amount
-        }
+        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the amount being
@@ -397,12 +385,11 @@ class WireDrawdownRequest private constructor(private val type: JsonField<Type>,
          */
         @JsonProperty("currency")
         @ExcludeMissing
-        fun currency(currency: JsonField<String>) = apply {
-            this.currency = currency
-        }
+        fun currency(currency: JsonField<String>) = apply { this.currency = currency }
 
         /** The message the recipient will see as part of the drawdown request. */
-        fun messageToRecipient(messageToRecipient: String) = messageToRecipient(JsonField.of(messageToRecipient))
+        fun messageToRecipient(messageToRecipient: String) =
+            messageToRecipient(JsonField.of(messageToRecipient))
 
         /** The message the recipient will see as part of the drawdown request. */
         @JsonProperty("message_to_recipient")
@@ -422,7 +409,8 @@ class WireDrawdownRequest private constructor(private val type: JsonField<Type>,
         }
 
         /** Line 1 of the drawdown request's recipient's address. */
-        fun recipientAddressLine1(recipientAddressLine1: String) = recipientAddressLine1(JsonField.of(recipientAddressLine1))
+        fun recipientAddressLine1(recipientAddressLine1: String) =
+            recipientAddressLine1(JsonField.of(recipientAddressLine1))
 
         /** Line 1 of the drawdown request's recipient's address. */
         @JsonProperty("recipient_address_line1")
@@ -432,7 +420,8 @@ class WireDrawdownRequest private constructor(private val type: JsonField<Type>,
         }
 
         /** Line 2 of the drawdown request's recipient's address. */
-        fun recipientAddressLine2(recipientAddressLine2: String) = recipientAddressLine2(JsonField.of(recipientAddressLine2))
+        fun recipientAddressLine2(recipientAddressLine2: String) =
+            recipientAddressLine2(JsonField.of(recipientAddressLine2))
 
         /** Line 2 of the drawdown request's recipient's address. */
         @JsonProperty("recipient_address_line2")
@@ -442,7 +431,8 @@ class WireDrawdownRequest private constructor(private val type: JsonField<Type>,
         }
 
         /** Line 3 of the drawdown request's recipient's address. */
-        fun recipientAddressLine3(recipientAddressLine3: String) = recipientAddressLine3(JsonField.of(recipientAddressLine3))
+        fun recipientAddressLine3(recipientAddressLine3: String) =
+            recipientAddressLine3(JsonField.of(recipientAddressLine3))
 
         /** Line 3 of the drawdown request's recipient's address. */
         @JsonProperty("recipient_address_line3")
@@ -452,30 +442,29 @@ class WireDrawdownRequest private constructor(private val type: JsonField<Type>,
         }
 
         /**
-         * After the drawdown request is submitted to Fedwire, this will contain
-         * supplemental details.
+         * After the drawdown request is submitted to Fedwire, this will contain supplemental
+         * details.
          */
         fun submission(submission: Submission) = submission(JsonField.of(submission))
 
         /**
-         * After the drawdown request is submitted to Fedwire, this will contain
-         * supplemental details.
+         * After the drawdown request is submitted to Fedwire, this will contain supplemental
+         * details.
          */
         @JsonProperty("submission")
         @ExcludeMissing
-        fun submission(submission: JsonField<Submission>) = apply {
-            this.submission = submission
-        }
+        fun submission(submission: JsonField<Submission>) = apply { this.submission = submission }
 
         /**
-         * If the recipient fulfills the drawdown request by sending funds, then this will
-         * be the identifier of the corresponding Transaction.
+         * If the recipient fulfills the drawdown request by sending funds, then this will be the
+         * identifier of the corresponding Transaction.
          */
-        fun fulfillmentTransactionId(fulfillmentTransactionId: String) = fulfillmentTransactionId(JsonField.of(fulfillmentTransactionId))
+        fun fulfillmentTransactionId(fulfillmentTransactionId: String) =
+            fulfillmentTransactionId(JsonField.of(fulfillmentTransactionId))
 
         /**
-         * If the recipient fulfills the drawdown request by sending funds, then this will
-         * be the identifier of the corresponding Transaction.
+         * If the recipient fulfills the drawdown request by sending funds, then this will be the
+         * identifier of the corresponding Transaction.
          */
         @JsonProperty("fulfillment_transaction_id")
         @ExcludeMissing
@@ -489,9 +478,7 @@ class WireDrawdownRequest private constructor(private val type: JsonField<Type>,
         /** The lifecycle status of the drawdown request. */
         @JsonProperty("status")
         @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply {
-            this.status = status
-        }
+        fun status(status: JsonField<Status>) = apply { this.status = status }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -507,38 +494,41 @@ class WireDrawdownRequest private constructor(private val type: JsonField<Type>,
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): WireDrawdownRequest = WireDrawdownRequest(
-            type,
-            id,
-            accountNumberId,
-            recipientAccountNumber,
-            recipientRoutingNumber,
-            amount,
-            currency,
-            messageToRecipient,
-            recipientName,
-            recipientAddressLine1,
-            recipientAddressLine2,
-            recipientAddressLine3,
-            submission,
-            fulfillmentTransactionId,
-            status,
-            additionalProperties.toUnmodifiable(),
-        )
+        fun build(): WireDrawdownRequest =
+            WireDrawdownRequest(
+                type,
+                id,
+                accountNumberId,
+                recipientAccountNumber,
+                recipientRoutingNumber,
+                amount,
+                currency,
+                messageToRecipient,
+                recipientName,
+                recipientAddressLine1,
+                recipientAddressLine2,
+                recipientAddressLine3,
+                submission,
+                fulfillmentTransactionId,
+                status,
+                additionalProperties.toUnmodifiable(),
+            )
     }
 
-    class Type @JsonCreator private constructor(private val value: JsonField<String>,) {
+    class Type
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Type &&
-              this.value == other.value
+            return other is Type && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -561,40 +551,46 @@ class WireDrawdownRequest private constructor(private val type: JsonField<Type>,
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            WIRE_DRAWDOWN_REQUEST -> Value.WIRE_DRAWDOWN_REQUEST
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                WIRE_DRAWDOWN_REQUEST -> Value.WIRE_DRAWDOWN_REQUEST
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            WIRE_DRAWDOWN_REQUEST -> Known.WIRE_DRAWDOWN_REQUEST
-            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                WIRE_DRAWDOWN_REQUEST -> Known.WIRE_DRAWDOWN_REQUEST
+                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
     /**
-     * After the drawdown request is submitted to Fedwire, this will contain
-     * supplemental details.
+     * After the drawdown request is submitted to Fedwire, this will contain supplemental details.
      */
     @JsonDeserialize(builder = Submission.Builder::class)
     @NoAutoDetect
-    class Submission private constructor(private val inputMessageAccountabilityData: JsonField<String>,private val additionalProperties: Map<String, JsonValue>,) {
+    class Submission
+    private constructor(
+        private val inputMessageAccountabilityData: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
 
         /**
-         * The input message accountability data (IMAD) uniquely identifying the submission
-         * with Fedwire.
+         * The input message accountability data (IMAD) uniquely identifying the submission with
+         * Fedwire.
          */
-        fun inputMessageAccountabilityData(): String = inputMessageAccountabilityData.getRequired("input_message_accountability_data")
+        fun inputMessageAccountabilityData(): String =
+            inputMessageAccountabilityData.getRequired("input_message_accountability_data")
 
         /**
-         * The input message accountability data (IMAD) uniquely identifying the submission
-         * with Fedwire.
+         * The input message accountability data (IMAD) uniquely identifying the submission with
+         * Fedwire.
          */
         @JsonProperty("input_message_accountability_data")
         @ExcludeMissing
@@ -606,36 +602,36 @@ class WireDrawdownRequest private constructor(private val type: JsonField<Type>,
 
         fun validate() = apply {
             if (!validated) {
-              inputMessageAccountabilityData()
-              validated = true
+                inputMessageAccountabilityData()
+                validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Submission &&
-              this.inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
-              this.additionalProperties == other.additionalProperties
+            return other is Submission &&
+                this.inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(inputMessageAccountabilityData, additionalProperties)
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode = Objects.hash(inputMessageAccountabilityData, additionalProperties)
+            }
+            return hashCode
         }
 
-        override fun toString() = "Submission{inputMessageAccountabilityData=$inputMessageAccountabilityData, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "Submission{inputMessageAccountabilityData=$inputMessageAccountabilityData, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -650,20 +646,22 @@ class WireDrawdownRequest private constructor(private val type: JsonField<Type>,
             }
 
             /**
-             * The input message accountability data (IMAD) uniquely identifying the submission
-             * with Fedwire.
+             * The input message accountability data (IMAD) uniquely identifying the submission with
+             * Fedwire.
              */
-            fun inputMessageAccountabilityData(inputMessageAccountabilityData: String) = inputMessageAccountabilityData(JsonField.of(inputMessageAccountabilityData))
+            fun inputMessageAccountabilityData(inputMessageAccountabilityData: String) =
+                inputMessageAccountabilityData(JsonField.of(inputMessageAccountabilityData))
 
             /**
-             * The input message accountability data (IMAD) uniquely identifying the submission
-             * with Fedwire.
+             * The input message accountability data (IMAD) uniquely identifying the submission with
+             * Fedwire.
              */
             @JsonProperty("input_message_accountability_data")
             @ExcludeMissing
-            fun inputMessageAccountabilityData(inputMessageAccountabilityData: JsonField<String>) = apply {
-                this.inputMessageAccountabilityData = inputMessageAccountabilityData
-            }
+            fun inputMessageAccountabilityData(inputMessageAccountabilityData: JsonField<String>) =
+                apply {
+                    this.inputMessageAccountabilityData = inputMessageAccountabilityData
+                }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -679,22 +677,25 @@ class WireDrawdownRequest private constructor(private val type: JsonField<Type>,
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Submission = Submission(inputMessageAccountabilityData, additionalProperties.toUnmodifiable())
+            fun build(): Submission =
+                Submission(inputMessageAccountabilityData, additionalProperties.toUnmodifiable())
         }
     }
 
-    class Status @JsonCreator private constructor(private val value: JsonField<String>,) {
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Status &&
-              this.value == other.value
+            return other is Status && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -729,21 +730,23 @@ class WireDrawdownRequest private constructor(private val type: JsonField<Type>,
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
-            PENDING_RESPONSE -> Value.PENDING_RESPONSE
-            FULFILLED -> Value.FULFILLED
-            REFUSED -> Value.REFUSED
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
+                PENDING_RESPONSE -> Value.PENDING_RESPONSE
+                FULFILLED -> Value.FULFILLED
+                REFUSED -> Value.REFUSED
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
-            PENDING_RESPONSE -> Known.PENDING_RESPONSE
-            FULFILLED -> Known.FULFILLED
-            REFUSED -> Known.REFUSED
-            else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
+                PENDING_RESPONSE -> Known.PENDING_RESPONSE
+                FULFILLED -> Known.FULFILLED
+                REFUSED -> Known.REFUSED
+                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }
