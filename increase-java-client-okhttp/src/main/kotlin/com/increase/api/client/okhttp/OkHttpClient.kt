@@ -2,6 +2,7 @@ package com.increase.api.client.okhttp
 
 import com.google.common.collect.ListMultimap
 import com.google.common.collect.MultimapBuilder
+import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpClient
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
@@ -29,10 +30,16 @@ class OkHttpClient
 private constructor(private val okHttpClient: okhttp3.OkHttpClient, private val baseUrl: HttpUrl) :
     HttpClient {
 
+    private fun getClient(requestOptions: RequestOptions): okhttp3.OkHttpClient {
+        val timeout = requestOptions.timeout ?: return okHttpClient
+        return okHttpClient.newBuilder().callTimeout(timeout).build()
+    }
+
     override fun execute(
         request: HttpRequest,
+        requestOptions: RequestOptions,
     ): HttpResponse {
-        val call = okHttpClient.newCall(request.toRequest())
+        val call = getClient(requestOptions).newCall(request.toRequest())
 
         return try {
             call.execute().toResponse()
@@ -45,12 +52,13 @@ private constructor(private val okHttpClient: okhttp3.OkHttpClient, private val 
 
     override fun executeAsync(
         request: HttpRequest,
+        requestOptions: RequestOptions,
     ): CompletableFuture<HttpResponse> {
         val future = CompletableFuture<HttpResponse>()
 
         request.body?.run { future.whenComplete { _, _ -> close() } }
 
-        val call = okHttpClient.newCall(request.toRequest())
+        val call = getClient(requestOptions).newCall(request.toRequest())
 
         call.enqueue(
             object : Callback {

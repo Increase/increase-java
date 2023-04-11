@@ -3,35 +3,39 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.errors.IncreaseInvalidDataException
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.JsonField
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.errors.IncreaseInvalidDataException
 
 /**
- * Increase generates certain documents / forms automatically for your application; they can be
- * listed here. Currently the only supported document type is IRS Form 1099-INT.
+ * Increase generates certain documents / forms automatically for your application;
+ * they can be listed here. Currently the only supported document type is IRS Form
+ * 1099-INT.
  */
 @JsonDeserialize(builder = Document.Builder::class)
 @NoAutoDetect
-class Document
-private constructor(
-    private val id: JsonField<String>,
-    private val category: JsonField<Category>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val entityId: JsonField<String>,
-    private val fileId: JsonField<String>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
-) {
+class Document private constructor(private val id: JsonField<String>,private val category: JsonField<Category>,private val createdAt: JsonField<OffsetDateTime>,private val entityId: JsonField<String>,private val fileId: JsonField<String>,private val type: JsonField<Type>,private val additionalProperties: Map<String, JsonValue>,) {
 
     private var validated: Boolean = false
 
@@ -44,8 +48,8 @@ private constructor(
     fun category(): Category = category.getRequired("category")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Document was
-     * created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the
+     * Document was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
@@ -56,32 +60,46 @@ private constructor(
     fun fileId(): String = fileId.getRequired("file_id")
 
     /**
-     * A constant representing the object's type. For this resource it will always be `document`.
+     * A constant representing the object's type. For this resource it will always be
+     * `document`.
      */
     fun type(): Type = type.getRequired("type")
 
     /** The Document identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id")
+    @ExcludeMissing
+    fun _id() = id
 
     /** The type of document. */
-    @JsonProperty("category") @ExcludeMissing fun _category() = category
+    @JsonProperty("category")
+    @ExcludeMissing
+    fun _category() = category
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Document was
-     * created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the
+     * Document was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt() = createdAt
 
     /** The identifier of the Entity the document was generated for. */
-    @JsonProperty("entity_id") @ExcludeMissing fun _entityId() = entityId
+    @JsonProperty("entity_id")
+    @ExcludeMissing
+    fun _entityId() = entityId
 
     /** The identifier of the File containing the Document's contents. */
-    @JsonProperty("file_id") @ExcludeMissing fun _fileId() = fileId
+    @JsonProperty("file_id")
+    @ExcludeMissing
+    fun _fileId() = fileId
 
     /**
-     * A constant representing the object's type. For this resource it will always be `document`.
+     * A constant representing the object's type. For this resource it will always be
+     * `document`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type")
+    @ExcludeMissing
+    fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -89,55 +107,54 @@ private constructor(
 
     fun validate() = apply {
         if (!validated) {
-            id()
-            category()
-            createdAt()
-            entityId()
-            fileId()
-            type()
-            validated = true
+          id()
+          category()
+          createdAt()
+          entityId()
+          fileId()
+          type()
+          validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is Document &&
-            this.id == other.id &&
-            this.category == other.category &&
-            this.createdAt == other.createdAt &&
-            this.entityId == other.entityId &&
-            this.fileId == other.fileId &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
+      return other is Document &&
+          this.id == other.id &&
+          this.category == other.category &&
+          this.createdAt == other.createdAt &&
+          this.entityId == other.entityId &&
+          this.fileId == other.fileId &&
+          this.type == other.type &&
+          this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    category,
-                    createdAt,
-                    entityId,
-                    fileId,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
+      if (hashCode == 0) {
+        hashCode = Objects.hash(
+            id,
+            category,
+            createdAt,
+            entityId,
+            fileId,
+            type,
+            additionalProperties,
+        )
+      }
+      return hashCode
     }
 
-    override fun toString() =
-        "Document{id=$id, category=$category, createdAt=$createdAt, entityId=$entityId, fileId=$fileId, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() = "Document{id=$id, category=$category, createdAt=$createdAt, entityId=$entityId, fileId=$fileId, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     class Builder {
@@ -165,7 +182,11 @@ private constructor(
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Document identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        @JsonProperty("id")
+        @ExcludeMissing
+        fun id(id: JsonField<String>) = apply {
+            this.id = id
+        }
 
         /** The type of document. */
         fun category(category: Category) = category(JsonField.of(category))
@@ -173,21 +194,25 @@ private constructor(
         /** The type of document. */
         @JsonProperty("category")
         @ExcludeMissing
-        fun category(category: JsonField<Category>) = apply { this.category = category }
+        fun category(category: JsonField<Category>) = apply {
+            this.category = category
+        }
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Document was
-         * created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the
+         * Document was created.
          */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Document was
-         * created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the
+         * Document was created.
          */
         @JsonProperty("created_at")
         @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+            this.createdAt = createdAt
+        }
 
         /** The identifier of the Entity the document was generated for. */
         fun entityId(entityId: String) = entityId(JsonField.of(entityId))
@@ -195,7 +220,9 @@ private constructor(
         /** The identifier of the Entity the document was generated for. */
         @JsonProperty("entity_id")
         @ExcludeMissing
-        fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
+        fun entityId(entityId: JsonField<String>) = apply {
+            this.entityId = entityId
+        }
 
         /** The identifier of the File containing the Document's contents. */
         fun fileId(fileId: String) = fileId(JsonField.of(fileId))
@@ -203,7 +230,9 @@ private constructor(
         /** The identifier of the File containing the Document's contents. */
         @JsonProperty("file_id")
         @ExcludeMissing
-        fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
+        fun fileId(fileId: JsonField<String>) = apply {
+            this.fileId = fileId
+        }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -217,7 +246,9 @@ private constructor(
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        fun type(type: JsonField<Type>) = apply {
+            this.type = type
+        }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -233,32 +264,29 @@ private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): Document =
-            Document(
-                id,
-                category,
-                createdAt,
-                entityId,
-                fileId,
-                type,
-                additionalProperties.toUnmodifiable(),
-            )
+        fun build(): Document = Document(
+            id,
+            category,
+            createdAt,
+            entityId,
+            fileId,
+            type,
+            additionalProperties.toUnmodifiable(),
+        )
     }
 
-    class Category
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
+    class Category @JsonCreator private constructor(private val value: JsonField<String>,) {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Category && this.value == other.value
+          return other is Category &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -281,35 +309,31 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                FORM_1099_INT -> Value.FORM_1099_INT
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            FORM_1099_INT -> Value.FORM_1099_INT
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                FORM_1099_INT -> Known.FORM_1099_INT
-                else -> throw IncreaseInvalidDataException("Unknown Category: $value")
-            }
+        fun known(): Known = when (this) {
+            FORM_1099_INT -> Known.FORM_1099_INT
+            else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>,) {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Type && this.value == other.value
+          return other is Type &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -332,17 +356,15 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                DOCUMENT -> Value.DOCUMENT
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            DOCUMENT -> Value.DOCUMENT
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                DOCUMENT -> Known.DOCUMENT
-                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-            }
+        fun known(): Known = when (this) {
+            DOCUMENT -> Known.DOCUMENT
+            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }

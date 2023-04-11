@@ -3,30 +3,38 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.errors.IncreaseInvalidDataException
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.Objects
+import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.JsonField
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.errors.IncreaseInvalidDataException
 
-/** When a user authorizes your OAuth application, an OAuth Connection object is created. */
+/**
+ * When a user authorizes your OAuth application, an OAuth Connection object is
+ * created.
+ */
 @JsonDeserialize(builder = OauthConnection.Builder::class)
 @NoAutoDetect
-class OauthConnection
-private constructor(
-    private val id: JsonField<String>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val groupId: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
-) {
+class OauthConnection private constructor(private val id: JsonField<String>,private val createdAt: JsonField<OffsetDateTime>,private val groupId: JsonField<String>,private val status: JsonField<Status>,private val type: JsonField<Type>,private val additionalProperties: Map<String, JsonValue>,) {
 
     private var validated: Boolean = false
 
@@ -36,8 +44,8 @@ private constructor(
     fun id(): String = id.getRequired("id")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth Connection
-     * was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
+     * Connection was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
@@ -54,25 +62,35 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The OAuth Connection's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id")
+    @ExcludeMissing
+    fun _id() = id
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth Connection
-     * was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
+     * Connection was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt() = createdAt
 
     /** The identifier of the Group that has authorized your OAuth application. */
-    @JsonProperty("group_id") @ExcludeMissing fun _groupId() = groupId
+    @JsonProperty("group_id")
+    @ExcludeMissing
+    fun _groupId() = groupId
 
     /** Whether the connection is active. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status")
+    @ExcludeMissing
+    fun _status() = status
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `oauth_connection`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type")
+    @ExcludeMissing
+    fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -80,52 +98,51 @@ private constructor(
 
     fun validate() = apply {
         if (!validated) {
-            id()
-            createdAt()
-            groupId()
-            status()
-            type()
-            validated = true
+          id()
+          createdAt()
+          groupId()
+          status()
+          type()
+          validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is OauthConnection &&
-            this.id == other.id &&
-            this.createdAt == other.createdAt &&
-            this.groupId == other.groupId &&
-            this.status == other.status &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
+      return other is OauthConnection &&
+          this.id == other.id &&
+          this.createdAt == other.createdAt &&
+          this.groupId == other.groupId &&
+          this.status == other.status &&
+          this.type == other.type &&
+          this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    createdAt,
-                    groupId,
-                    status,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
+      if (hashCode == 0) {
+        hashCode = Objects.hash(
+            id,
+            createdAt,
+            groupId,
+            status,
+            type,
+            additionalProperties,
+        )
+      }
+      return hashCode
     }
 
-    override fun toString() =
-        "OauthConnection{id=$id, createdAt=$createdAt, groupId=$groupId, status=$status, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() = "OauthConnection{id=$id, createdAt=$createdAt, groupId=$groupId, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     class Builder {
@@ -151,7 +168,11 @@ private constructor(
         fun id(id: String) = id(JsonField.of(id))
 
         /** The OAuth Connection's identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        @JsonProperty("id")
+        @ExcludeMissing
+        fun id(id: JsonField<String>) = apply {
+            this.id = id
+        }
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
@@ -165,7 +186,9 @@ private constructor(
          */
         @JsonProperty("created_at")
         @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+            this.createdAt = createdAt
+        }
 
         /** The identifier of the Group that has authorized your OAuth application. */
         fun groupId(groupId: String) = groupId(JsonField.of(groupId))
@@ -173,7 +196,9 @@ private constructor(
         /** The identifier of the Group that has authorized your OAuth application. */
         @JsonProperty("group_id")
         @ExcludeMissing
-        fun groupId(groupId: JsonField<String>) = apply { this.groupId = groupId }
+        fun groupId(groupId: JsonField<String>) = apply {
+            this.groupId = groupId
+        }
 
         /** Whether the connection is active. */
         fun status(status: Status) = status(JsonField.of(status))
@@ -181,7 +206,9 @@ private constructor(
         /** Whether the connection is active. */
         @JsonProperty("status")
         @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply { this.status = status }
+        fun status(status: JsonField<Status>) = apply {
+            this.status = status
+        }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -195,7 +222,9 @@ private constructor(
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        fun type(type: JsonField<Type>) = apply {
+            this.type = type
+        }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -211,31 +240,28 @@ private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): OauthConnection =
-            OauthConnection(
-                id,
-                createdAt,
-                groupId,
-                status,
-                type,
-                additionalProperties.toUnmodifiable(),
-            )
+        fun build(): OauthConnection = OauthConnection(
+            id,
+            createdAt,
+            groupId,
+            status,
+            type,
+            additionalProperties.toUnmodifiable(),
+        )
     }
 
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>,) {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Status && this.value == other.value
+          return other is Status &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -262,37 +288,33 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                ACTIVE -> Value.ACTIVE
-                INACTIVE -> Value.INACTIVE
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            ACTIVE -> Value.ACTIVE
+            INACTIVE -> Value.INACTIVE
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                ACTIVE -> Known.ACTIVE
-                INACTIVE -> Known.INACTIVE
-                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-            }
+        fun known(): Known = when (this) {
+            ACTIVE -> Known.ACTIVE
+            INACTIVE -> Known.INACTIVE
+            else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>,) {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Type && this.value == other.value
+          return other is Type &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -315,17 +337,15 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                OAUTH_CONNECTION -> Value.OAUTH_CONNECTION
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            OAUTH_CONNECTION -> Value.OAUTH_CONNECTION
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                OAUTH_CONNECTION -> Known.OAUTH_CONNECTION
-                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-            }
+        fun known(): Known = when (this) {
+            OAUTH_CONNECTION -> Known.OAUTH_CONNECTION
+            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }

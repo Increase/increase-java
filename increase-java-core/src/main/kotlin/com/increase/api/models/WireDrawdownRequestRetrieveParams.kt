@@ -1,28 +1,49 @@
 package com.increase.api.models
 
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.models.*
+import com.fasterxml.jackson.annotation.JsonAnyGetter
+import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import java.time.LocalDate
+import java.time.OffsetDateTime
 import java.util.Objects
+import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.models.*
 
-class WireDrawdownRequestRetrieveParams
-constructor(
-    private val wireDrawdownRequestId: String,
-    private val additionalQueryParams: Map<String, List<String>>,
-    private val additionalHeaders: Map<String, List<String>>,
-) {
+class WireDrawdownRequestRetrieveParams constructor(private val wireDrawdownRequestId: String,private val additionalQueryParams: Map<String, List<String>>,private val additionalHeaders: Map<String, List<String>>,) {
 
     fun wireDrawdownRequestId(): String = wireDrawdownRequestId
 
-    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic
+    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
-    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic
+    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     fun getPathParam(index: Int): String {
-        return when (index) {
-            0 -> wireDrawdownRequestId
-            else -> ""
-        }
+      return when (index) {
+          0 -> wireDrawdownRequestId
+          else -> ""
+      }
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
@@ -30,32 +51,32 @@ constructor(
     fun _additionalHeaders(): Map<String, List<String>> = additionalHeaders
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is WireDrawdownRequestRetrieveParams &&
-            this.wireDrawdownRequestId == other.wireDrawdownRequestId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+      return other is WireDrawdownRequestRetrieveParams &&
+          this.wireDrawdownRequestId == other.wireDrawdownRequestId &&
+          this.additionalQueryParams == other.additionalQueryParams &&
+          this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            wireDrawdownRequestId,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+      return Objects.hash(
+          wireDrawdownRequestId,
+          additionalQueryParams,
+          additionalHeaders,
+      )
     }
 
-    override fun toString() =
-        "WireDrawdownRequestRetrieveParams{wireDrawdownRequestId=$wireDrawdownRequestId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+    override fun toString() = "WireDrawdownRequestRetrieveParams{wireDrawdownRequestId=$wireDrawdownRequestId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -66,12 +87,11 @@ constructor(
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(wireDrawdownRequestRetrieveParams: WireDrawdownRequestRetrieveParams) =
-            apply {
-                this.wireDrawdownRequestId = wireDrawdownRequestRetrieveParams.wireDrawdownRequestId
-                additionalQueryParams(wireDrawdownRequestRetrieveParams.additionalQueryParams)
-                additionalHeaders(wireDrawdownRequestRetrieveParams.additionalHeaders)
-            }
+        internal fun from(wireDrawdownRequestRetrieveParams: WireDrawdownRequestRetrieveParams) = apply {
+            this.wireDrawdownRequestId = wireDrawdownRequestRetrieveParams.wireDrawdownRequestId
+            additionalQueryParams(wireDrawdownRequestRetrieveParams.additionalQueryParams)
+            additionalHeaders(wireDrawdownRequestRetrieveParams.additionalHeaders)
+        }
 
         /** The identifier of the Wire Drawdown Request to retrieve. */
         fun wireDrawdownRequestId(wireDrawdownRequestId: String) = apply {
@@ -116,15 +136,16 @@ constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
+        fun removeHeader(name: String) = apply {
+            this.additionalHeaders.put(name, mutableListOf())
+        }
 
-        fun build(): WireDrawdownRequestRetrieveParams =
-            WireDrawdownRequestRetrieveParams(
-                checkNotNull(wireDrawdownRequestId) {
-                    "`wireDrawdownRequestId` is required but was not set"
-                },
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            )
+        fun build(): WireDrawdownRequestRetrieveParams = WireDrawdownRequestRetrieveParams(
+            checkNotNull(wireDrawdownRequestId) {
+                "`wireDrawdownRequestId` is required but was not set"
+            },
+            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+        )
     }
 }

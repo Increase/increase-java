@@ -3,38 +3,41 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.errors.IncreaseInvalidDataException
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import java.time.LocalDate
+import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.JsonField
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.errors.IncreaseInvalidDataException
 
 /**
- * You can set limits at the Account, Account Number, or Card level. Limits applied to Accounts will
- * apply to all Account Numbers and Cards in the Account. You can specify any number of Limits and
- * they will all be applied to inbound debits and card authorizations. Volume and count Limits are
- * designed to prevent unauthorized debits.
+ * You can set limits at the Account, Account Number, or Card level. Limits applied
+ * to Accounts will apply to all Account Numbers and Cards in the Account. You can
+ * specify any number of Limits and they will all be applied to inbound debits and
+ * card authorizations. Volume and count Limits are designed to prevent
+ * unauthorized debits.
  */
 @JsonDeserialize(builder = Limit.Builder::class)
 @NoAutoDetect
-class Limit
-private constructor(
-    private val id: JsonField<String>,
-    private val interval: JsonField<Interval>,
-    private val metric: JsonField<Metric>,
-    private val modelId: JsonField<String>,
-    private val modelType: JsonField<ModelType>,
-    private val status: JsonField<Status>,
-    private val type: JsonField<Type>,
-    private val value: JsonField<Long>,
-    private val additionalProperties: Map<String, JsonValue>,
-) {
+class Limit private constructor(private val id: JsonField<String>,private val interval: JsonField<Interval>,private val metric: JsonField<Metric>,private val modelId: JsonField<String>,private val modelType: JsonField<ModelType>,private val status: JsonField<Status>,private val type: JsonField<Type>,private val value: JsonField<Long>,private val additionalProperties: Map<String, JsonValue>,) {
 
     private var validated: Boolean = false
 
@@ -43,7 +46,10 @@ private constructor(
     /** The Limit identifier. */
     fun id(): String = id.getRequired("id")
 
-    /** The interval for the metric. This is required if `metric` is `count` or `volume`. */
+    /**
+     * The interval for the metric. This is required if `metric` is `count` or
+     * `volume`.
+     */
     fun interval(): Optional<Interval> = Optional.ofNullable(interval.getNullable("interval"))
 
     /** The metric for the Limit. */
@@ -58,35 +64,60 @@ private constructor(
     /** The current status of the Limit. */
     fun status(): Status = status.getRequired("status")
 
-    /** A constant representing the object's type. For this resource it will always be `limit`. */
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `limit`.
+     */
     fun type(): Type = type.getRequired("type")
 
     /** The value to evaluate the Limit against. */
     fun value(): Long = value.getRequired("value")
 
     /** The Limit identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id")
+    @ExcludeMissing
+    fun _id() = id
 
-    /** The interval for the metric. This is required if `metric` is `count` or `volume`. */
-    @JsonProperty("interval") @ExcludeMissing fun _interval() = interval
+    /**
+     * The interval for the metric. This is required if `metric` is `count` or
+     * `volume`.
+     */
+    @JsonProperty("interval")
+    @ExcludeMissing
+    fun _interval() = interval
 
     /** The metric for the Limit. */
-    @JsonProperty("metric") @ExcludeMissing fun _metric() = metric
+    @JsonProperty("metric")
+    @ExcludeMissing
+    fun _metric() = metric
 
     /** The identifier of the Account Number, Account, or Card the Limit applies to. */
-    @JsonProperty("model_id") @ExcludeMissing fun _modelId() = modelId
+    @JsonProperty("model_id")
+    @ExcludeMissing
+    fun _modelId() = modelId
 
     /** The type of the model you wish to associate the Limit with. */
-    @JsonProperty("model_type") @ExcludeMissing fun _modelType() = modelType
+    @JsonProperty("model_type")
+    @ExcludeMissing
+    fun _modelType() = modelType
 
     /** The current status of the Limit. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status")
+    @ExcludeMissing
+    fun _status() = status
 
-    /** A constant representing the object's type. For this resource it will always be `limit`. */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `limit`.
+     */
+    @JsonProperty("type")
+    @ExcludeMissing
+    fun _type() = type
 
     /** The value to evaluate the Limit against. */
-    @JsonProperty("value") @ExcludeMissing fun _value() = value
+    @JsonProperty("value")
+    @ExcludeMissing
+    fun _value() = value
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -94,61 +125,60 @@ private constructor(
 
     fun validate() = apply {
         if (!validated) {
-            id()
-            interval()
-            metric()
-            modelId()
-            modelType()
-            status()
-            type()
-            value()
-            validated = true
+          id()
+          interval()
+          metric()
+          modelId()
+          modelType()
+          status()
+          type()
+          value()
+          validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is Limit &&
-            this.id == other.id &&
-            this.interval == other.interval &&
-            this.metric == other.metric &&
-            this.modelId == other.modelId &&
-            this.modelType == other.modelType &&
-            this.status == other.status &&
-            this.type == other.type &&
-            this.value == other.value &&
-            this.additionalProperties == other.additionalProperties
+      return other is Limit &&
+          this.id == other.id &&
+          this.interval == other.interval &&
+          this.metric == other.metric &&
+          this.modelId == other.modelId &&
+          this.modelType == other.modelType &&
+          this.status == other.status &&
+          this.type == other.type &&
+          this.value == other.value &&
+          this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    interval,
-                    metric,
-                    modelId,
-                    modelType,
-                    status,
-                    type,
-                    value,
-                    additionalProperties,
-                )
-        }
-        return hashCode
+      if (hashCode == 0) {
+        hashCode = Objects.hash(
+            id,
+            interval,
+            metric,
+            modelId,
+            modelType,
+            status,
+            type,
+            value,
+            additionalProperties,
+        )
+      }
+      return hashCode
     }
 
-    override fun toString() =
-        "Limit{id=$id, interval=$interval, metric=$metric, modelId=$modelId, modelType=$modelType, status=$status, type=$type, value=$value, additionalProperties=$additionalProperties}"
+    override fun toString() = "Limit{id=$id, interval=$interval, metric=$metric, modelId=$modelId, modelType=$modelType, status=$status, type=$type, value=$value, additionalProperties=$additionalProperties}"
 
     companion object {
 
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     class Builder {
@@ -180,15 +210,27 @@ private constructor(
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Limit identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        @JsonProperty("id")
+        @ExcludeMissing
+        fun id(id: JsonField<String>) = apply {
+            this.id = id
+        }
 
-        /** The interval for the metric. This is required if `metric` is `count` or `volume`. */
+        /**
+         * The interval for the metric. This is required if `metric` is `count` or
+         * `volume`.
+         */
         fun interval(interval: Interval) = interval(JsonField.of(interval))
 
-        /** The interval for the metric. This is required if `metric` is `count` or `volume`. */
+        /**
+         * The interval for the metric. This is required if `metric` is `count` or
+         * `volume`.
+         */
         @JsonProperty("interval")
         @ExcludeMissing
-        fun interval(interval: JsonField<Interval>) = apply { this.interval = interval }
+        fun interval(interval: JsonField<Interval>) = apply {
+            this.interval = interval
+        }
 
         /** The metric for the Limit. */
         fun metric(metric: Metric) = metric(JsonField.of(metric))
@@ -196,7 +238,9 @@ private constructor(
         /** The metric for the Limit. */
         @JsonProperty("metric")
         @ExcludeMissing
-        fun metric(metric: JsonField<Metric>) = apply { this.metric = metric }
+        fun metric(metric: JsonField<Metric>) = apply {
+            this.metric = metric
+        }
 
         /** The identifier of the Account Number, Account, or Card the Limit applies to. */
         fun modelId(modelId: String) = modelId(JsonField.of(modelId))
@@ -204,7 +248,9 @@ private constructor(
         /** The identifier of the Account Number, Account, or Card the Limit applies to. */
         @JsonProperty("model_id")
         @ExcludeMissing
-        fun modelId(modelId: JsonField<String>) = apply { this.modelId = modelId }
+        fun modelId(modelId: JsonField<String>) = apply {
+            this.modelId = modelId
+        }
 
         /** The type of the model you wish to associate the Limit with. */
         fun modelType(modelType: ModelType) = modelType(JsonField.of(modelType))
@@ -212,7 +258,9 @@ private constructor(
         /** The type of the model you wish to associate the Limit with. */
         @JsonProperty("model_type")
         @ExcludeMissing
-        fun modelType(modelType: JsonField<ModelType>) = apply { this.modelType = modelType }
+        fun modelType(modelType: JsonField<ModelType>) = apply {
+            this.modelType = modelType
+        }
 
         /** The current status of the Limit. */
         fun status(status: Status) = status(JsonField.of(status))
@@ -220,19 +268,25 @@ private constructor(
         /** The current status of the Limit. */
         @JsonProperty("status")
         @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply { this.status = status }
+        fun status(status: JsonField<Status>) = apply {
+            this.status = status
+        }
 
         /**
-         * A constant representing the object's type. For this resource it will always be `limit`.
+         * A constant representing the object's type. For this resource it will always be
+         * `limit`.
          */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be `limit`.
+         * A constant representing the object's type. For this resource it will always be
+         * `limit`.
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        fun type(type: JsonField<Type>) = apply {
+            this.type = type
+        }
 
         /** The value to evaluate the Limit against. */
         fun value(value: Long) = value(JsonField.of(value))
@@ -240,7 +294,9 @@ private constructor(
         /** The value to evaluate the Limit against. */
         @JsonProperty("value")
         @ExcludeMissing
-        fun value(value: JsonField<Long>) = apply { this.value = value }
+        fun value(value: JsonField<Long>) = apply {
+            this.value = value
+        }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -256,34 +312,31 @@ private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): Limit =
-            Limit(
-                id,
-                interval,
-                metric,
-                modelId,
-                modelType,
-                status,
-                type,
-                value,
-                additionalProperties.toUnmodifiable(),
-            )
+        fun build(): Limit = Limit(
+            id,
+            interval,
+            metric,
+            modelId,
+            modelType,
+            status,
+            type,
+            value,
+            additionalProperties.toUnmodifiable(),
+        )
     }
 
-    class Interval
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
+    class Interval @JsonCreator private constructor(private val value: JsonField<String>,) {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Interval && this.value == other.value
+          return other is Interval &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -326,45 +379,41 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                TRANSACTION -> Value.TRANSACTION
-                DAY -> Value.DAY
-                WEEK -> Value.WEEK
-                MONTH -> Value.MONTH
-                YEAR -> Value.YEAR
-                ALL_TIME -> Value.ALL_TIME
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            TRANSACTION -> Value.TRANSACTION
+            DAY -> Value.DAY
+            WEEK -> Value.WEEK
+            MONTH -> Value.MONTH
+            YEAR -> Value.YEAR
+            ALL_TIME -> Value.ALL_TIME
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                TRANSACTION -> Known.TRANSACTION
-                DAY -> Known.DAY
-                WEEK -> Known.WEEK
-                MONTH -> Known.MONTH
-                YEAR -> Known.YEAR
-                ALL_TIME -> Known.ALL_TIME
-                else -> throw IncreaseInvalidDataException("Unknown Interval: $value")
-            }
+        fun known(): Known = when (this) {
+            TRANSACTION -> Known.TRANSACTION
+            DAY -> Known.DAY
+            WEEK -> Known.WEEK
+            MONTH -> Known.MONTH
+            YEAR -> Known.YEAR
+            ALL_TIME -> Known.ALL_TIME
+            else -> throw IncreaseInvalidDataException("Unknown Interval: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Metric
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
+    class Metric @JsonCreator private constructor(private val value: JsonField<String>,) {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Metric && this.value == other.value
+          return other is Metric &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -391,37 +440,33 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                COUNT -> Value.COUNT
-                VOLUME -> Value.VOLUME
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            COUNT -> Value.COUNT
+            VOLUME -> Value.VOLUME
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                COUNT -> Known.COUNT
-                VOLUME -> Known.VOLUME
-                else -> throw IncreaseInvalidDataException("Unknown Metric: $value")
-            }
+        fun known(): Known = when (this) {
+            COUNT -> Known.COUNT
+            VOLUME -> Known.VOLUME
+            else -> throw IncreaseInvalidDataException("Unknown Metric: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class ModelType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
+    class ModelType @JsonCreator private constructor(private val value: JsonField<String>,) {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is ModelType && this.value == other.value
+          return other is ModelType &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -452,39 +497,35 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                ACCOUNT -> Value.ACCOUNT
-                ACCOUNT_NUMBER -> Value.ACCOUNT_NUMBER
-                CARD -> Value.CARD
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            ACCOUNT -> Value.ACCOUNT
+            ACCOUNT_NUMBER -> Value.ACCOUNT_NUMBER
+            CARD -> Value.CARD
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                ACCOUNT -> Known.ACCOUNT
-                ACCOUNT_NUMBER -> Known.ACCOUNT_NUMBER
-                CARD -> Known.CARD
-                else -> throw IncreaseInvalidDataException("Unknown ModelType: $value")
-            }
+        fun known(): Known = when (this) {
+            ACCOUNT -> Known.ACCOUNT
+            ACCOUNT_NUMBER -> Known.ACCOUNT_NUMBER
+            CARD -> Known.CARD
+            else -> throw IncreaseInvalidDataException("Unknown ModelType: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>,) {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Status && this.value == other.value
+          return other is Status &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -511,37 +552,33 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                ACTIVE -> Value.ACTIVE
-                INACTIVE -> Value.INACTIVE
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            ACTIVE -> Value.ACTIVE
+            INACTIVE -> Value.INACTIVE
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                ACTIVE -> Known.ACTIVE
-                INACTIVE -> Known.INACTIVE
-                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-            }
+        fun known(): Known = when (this) {
+            ACTIVE -> Known.ACTIVE
+            INACTIVE -> Known.INACTIVE
+            else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>,) {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Type && this.value == other.value
+          return other is Type &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -564,17 +601,15 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                LIMIT -> Value.LIMIT
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            LIMIT -> Value.LIMIT
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                LIMIT -> Known.LIMIT
-                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-            }
+        fun known(): Known = when (this) {
+            LIMIT -> Known.LIMIT
+            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }

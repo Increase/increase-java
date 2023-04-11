@@ -1,29 +1,44 @@
 package com.increase.api.services.async
 
-import com.increase.api.core.ClientOptions
-import com.increase.api.core.RequestOptions
-import com.increase.api.core.http.HttpMethod
-import com.increase.api.core.http.HttpRequest
-import com.increase.api.core.http.HttpResponse.Handler
-import com.increase.api.errors.IncreaseError
+import com.fasterxml.jackson.databind.json.JsonMapper
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+import kotlin.LazyThreadSafetyMode.PUBLICATION
+import java.time.LocalDate
+import java.time.Duration
+import java.time.OffsetDateTime
+import java.util.Base64
+import java.util.Optional
+import java.util.UUID
+import java.util.concurrent.CompletableFuture
+import java.util.stream.Stream
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.Transaction
 import com.increase.api.models.TransactionListPageAsync
 import com.increase.api.models.TransactionListParams
 import com.increase.api.models.TransactionRetrieveParams
+import com.increase.api.core.ClientOptions
+import com.increase.api.core.http.HttpMethod
+import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.core.JsonField
+import com.increase.api.core.RequestOptions
+import com.increase.api.errors.IncreaseError
+import com.increase.api.services.emptyHandler
 import com.increase.api.services.errorHandler
+import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
+import com.increase.api.services.stringHandler
 import com.increase.api.services.withErrorHandler
-import java.util.concurrent.CompletableFuture
 
-class TransactionServiceAsyncImpl
-constructor(
-    private val clientOptions: ClientOptions,
-) : TransactionServiceAsync {
+class TransactionServiceAsyncImpl constructor(private val clientOptions: ClientOptions,) : TransactionServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
     private val retrieveHandler: Handler<Transaction> =
-        jsonHandler<Transaction>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+    jsonHandler<Transaction>(clientOptions.jsonMapper)
+    .withErrorHandler(errorHandler)
 
     /** Retrieve a Transaction */
     override fun retrieve(
@@ -38,7 +53,8 @@ constructor(
                 .putAllHeaders(clientOptions.headers)
                 .putAllHeaders(params.getHeaders())
                 .build()
-        return clientOptions.httpClient.executeAsync(request).thenApply { response ->
+        return clientOptions.httpClient.executeAsync(request, requestOptions).thenApply { response
+            ->
             response
                 .let { retrieveHandler.handle(it) }
                 .apply {
@@ -50,8 +66,8 @@ constructor(
     }
 
     private val listHandler: Handler<TransactionListPageAsync.Response> =
-        jsonHandler<TransactionListPageAsync.Response>(clientOptions.jsonMapper)
-            .withErrorHandler(errorHandler)
+    jsonHandler<TransactionListPageAsync.Response>(clientOptions.jsonMapper)
+    .withErrorHandler(errorHandler)
 
     /** List Transactions */
     override fun list(
@@ -66,7 +82,8 @@ constructor(
                 .putAllHeaders(clientOptions.headers)
                 .putAllHeaders(params.getHeaders())
                 .build()
-        return clientOptions.httpClient.executeAsync(request).thenApply { response ->
+        return clientOptions.httpClient.executeAsync(request, requestOptions).thenApply { response
+            ->
             response
                 .let { listHandler.handle(it) }
                 .apply {

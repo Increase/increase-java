@@ -2,37 +2,54 @@
 
 package com.increase.api.services.blocking
 
-import com.increase.api.core.RequestOptions
+import com.fasterxml.jackson.databind.json.JsonMapper
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+import kotlin.LazyThreadSafetyMode.PUBLICATION
+import java.time.LocalDate
+import java.time.Duration
+import java.time.OffsetDateTime
+import java.util.Base64
+import java.util.Optional
+import java.util.UUID
+import java.util.concurrent.CompletableFuture
+import java.util.stream.Stream
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.File
 import com.increase.api.models.FileCreateParams
 import com.increase.api.models.FileListPage
 import com.increase.api.models.FileListParams
 import com.increase.api.models.FileRetrieveParams
+import com.increase.api.core.ClientOptions
+import com.increase.api.core.http.HttpMethod
+import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.core.JsonField
+import com.increase.api.core.RequestOptions
+import com.increase.api.errors.IncreaseError
+import com.increase.api.services.emptyHandler
+import com.increase.api.services.errorHandler
+import com.increase.api.services.json
+import com.increase.api.services.jsonHandler
+import com.increase.api.services.stringHandler
+import com.increase.api.services.withErrorHandler
 
 interface FileService {
 
     /**
      * To upload a file to Increase, you'll need to send a request of Content-Type
-     * `multipart/form-data`. The request should contain the file you would like to upload, as well
-     * as the parameters for creating a file.
+     * `multipart/form-data`. The request should contain the file you would like to
+     * upload, as well as the parameters for creating a file.
      */
     @JvmOverloads
-    fun create(
-        params: FileCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
-    ): File
+    fun create(params: FileCreateParams, requestOptions: RequestOptions = RequestOptions.none()): File
 
     /** Retrieve a File */
     @JvmOverloads
-    fun retrieve(
-        params: FileRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
-    ): File
+    fun retrieve(params: FileRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): File
 
     /** List Files */
     @JvmOverloads
-    fun list(
-        params: FileListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
-    ): FileListPage
+    fun list(params: FileListParams, requestOptions: RequestOptions = RequestOptions.none()): FileListPage
 }

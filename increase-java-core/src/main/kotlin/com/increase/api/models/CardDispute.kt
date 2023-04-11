@@ -3,37 +3,38 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.errors.IncreaseInvalidDataException
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.JsonField
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.errors.IncreaseInvalidDataException
 
 /**
- * If unauthorized activity occurs on a card, you can create a Card Dispute and we'll return the
- * funds if appropriate.
+ * If unauthorized activity occurs on a card, you can create a Card Dispute and
+ * we'll return the funds if appropriate.
  */
 @JsonDeserialize(builder = CardDispute.Builder::class)
 @NoAutoDetect
-class CardDispute
-private constructor(
-    private val id: JsonField<String>,
-    private val explanation: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val disputedTransactionId: JsonField<String>,
-    private val acceptance: JsonField<Acceptance>,
-    private val rejection: JsonField<Rejection>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
-) {
+class CardDispute private constructor(private val id: JsonField<String>,private val explanation: JsonField<String>,private val status: JsonField<Status>,private val createdAt: JsonField<OffsetDateTime>,private val disputedTransactionId: JsonField<String>,private val acceptance: JsonField<Acceptance>,private val rejection: JsonField<Rejection>,private val type: JsonField<Type>,private val additionalProperties: Map<String, JsonValue>,) {
 
     private var validated: Boolean = false
 
@@ -49,25 +50,23 @@ private constructor(
     fun status(): Status = status.getRequired("status")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-     * Dispute was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+     * the Card Dispute was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /** The identifier of the Transaction that was disputed. */
-    fun disputedTransactionId(): String =
-        disputedTransactionId.getRequired("disputed_transaction_id")
+    fun disputedTransactionId(): String = disputedTransactionId.getRequired("disputed_transaction_id")
 
     /**
-     * If the Card Dispute's status is `accepted`, this will contain details of the successful
-     * dispute.
+     * If the Card Dispute's status is `accepted`, this will contain details of the
+     * successful dispute.
      */
-    fun acceptance(): Optional<Acceptance> =
-        Optional.ofNullable(acceptance.getNullable("acceptance"))
+    fun acceptance(): Optional<Acceptance> = Optional.ofNullable(acceptance.getNullable("acceptance"))
 
     /**
-     * If the Card Dispute's status is `rejected`, this will contain details of the unsuccessful
-     * dispute.
+     * If the Card Dispute's status is `rejected`, this will contain details of the
+     * unsuccessful dispute.
      */
     fun rejection(): Optional<Rejection> = Optional.ofNullable(rejection.getNullable("rejection"))
 
@@ -78,19 +77,27 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The Card Dispute identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id")
+    @ExcludeMissing
+    fun _id() = id
 
     /** Why you disputed the Transaction in question. */
-    @JsonProperty("explanation") @ExcludeMissing fun _explanation() = explanation
+    @JsonProperty("explanation")
+    @ExcludeMissing
+    fun _explanation() = explanation
 
     /** The results of the Dispute investigation. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status")
+    @ExcludeMissing
+    fun _status() = status
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-     * Dispute was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+     * the Card Dispute was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt() = createdAt
 
     /** The identifier of the Transaction that was disputed. */
     @JsonProperty("disputed_transaction_id")
@@ -98,22 +105,28 @@ private constructor(
     fun _disputedTransactionId() = disputedTransactionId
 
     /**
-     * If the Card Dispute's status is `accepted`, this will contain details of the successful
-     * dispute.
+     * If the Card Dispute's status is `accepted`, this will contain details of the
+     * successful dispute.
      */
-    @JsonProperty("acceptance") @ExcludeMissing fun _acceptance() = acceptance
+    @JsonProperty("acceptance")
+    @ExcludeMissing
+    fun _acceptance() = acceptance
 
     /**
-     * If the Card Dispute's status is `rejected`, this will contain details of the unsuccessful
-     * dispute.
+     * If the Card Dispute's status is `rejected`, this will contain details of the
+     * unsuccessful dispute.
      */
-    @JsonProperty("rejection") @ExcludeMissing fun _rejection() = rejection
+    @JsonProperty("rejection")
+    @ExcludeMissing
+    fun _rejection() = rejection
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `card_dispute`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type")
+    @ExcludeMissing
+    fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -121,61 +134,60 @@ private constructor(
 
     fun validate() = apply {
         if (!validated) {
-            id()
-            explanation()
-            status()
-            createdAt()
-            disputedTransactionId()
-            acceptance().map { it.validate() }
-            rejection().map { it.validate() }
-            type()
-            validated = true
+          id()
+          explanation()
+          status()
+          createdAt()
+          disputedTransactionId()
+          acceptance().map { it.validate() }
+          rejection().map { it.validate() }
+          type()
+          validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is CardDispute &&
-            this.id == other.id &&
-            this.explanation == other.explanation &&
-            this.status == other.status &&
-            this.createdAt == other.createdAt &&
-            this.disputedTransactionId == other.disputedTransactionId &&
-            this.acceptance == other.acceptance &&
-            this.rejection == other.rejection &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
+      return other is CardDispute &&
+          this.id == other.id &&
+          this.explanation == other.explanation &&
+          this.status == other.status &&
+          this.createdAt == other.createdAt &&
+          this.disputedTransactionId == other.disputedTransactionId &&
+          this.acceptance == other.acceptance &&
+          this.rejection == other.rejection &&
+          this.type == other.type &&
+          this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    id,
-                    explanation,
-                    status,
-                    createdAt,
-                    disputedTransactionId,
-                    acceptance,
-                    rejection,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
+      if (hashCode == 0) {
+        hashCode = Objects.hash(
+            id,
+            explanation,
+            status,
+            createdAt,
+            disputedTransactionId,
+            acceptance,
+            rejection,
+            type,
+            additionalProperties,
+        )
+      }
+      return hashCode
     }
 
-    override fun toString() =
-        "CardDispute{id=$id, explanation=$explanation, status=$status, createdAt=$createdAt, disputedTransactionId=$disputedTransactionId, acceptance=$acceptance, rejection=$rejection, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() = "CardDispute{id=$id, explanation=$explanation, status=$status, createdAt=$createdAt, disputedTransactionId=$disputedTransactionId, acceptance=$acceptance, rejection=$rejection, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     class Builder {
@@ -207,7 +219,11 @@ private constructor(
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Card Dispute identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        @JsonProperty("id")
+        @ExcludeMissing
+        fun id(id: JsonField<String>) = apply {
+            this.id = id
+        }
 
         /** Why you disputed the Transaction in question. */
         fun explanation(explanation: String) = explanation(JsonField.of(explanation))
@@ -215,7 +231,9 @@ private constructor(
         /** Why you disputed the Transaction in question. */
         @JsonProperty("explanation")
         @ExcludeMissing
-        fun explanation(explanation: JsonField<String>) = apply { this.explanation = explanation }
+        fun explanation(explanation: JsonField<String>) = apply {
+            this.explanation = explanation
+        }
 
         /** The results of the Dispute investigation. */
         fun status(status: Status) = status(JsonField.of(status))
@@ -223,25 +241,28 @@ private constructor(
         /** The results of the Dispute investigation. */
         @JsonProperty("status")
         @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply { this.status = status }
+        fun status(status: JsonField<Status>) = apply {
+            this.status = status
+        }
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-         * Dispute was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+         * the Card Dispute was created.
          */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-         * Dispute was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+         * the Card Dispute was created.
          */
         @JsonProperty("created_at")
         @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+            this.createdAt = createdAt
+        }
 
         /** The identifier of the Transaction that was disputed. */
-        fun disputedTransactionId(disputedTransactionId: String) =
-            disputedTransactionId(JsonField.of(disputedTransactionId))
+        fun disputedTransactionId(disputedTransactionId: String) = disputedTransactionId(JsonField.of(disputedTransactionId))
 
         /** The identifier of the Transaction that was disputed. */
         @JsonProperty("disputed_transaction_id")
@@ -251,32 +272,36 @@ private constructor(
         }
 
         /**
-         * If the Card Dispute's status is `accepted`, this will contain details of the successful
-         * dispute.
+         * If the Card Dispute's status is `accepted`, this will contain details of the
+         * successful dispute.
          */
         fun acceptance(acceptance: Acceptance) = acceptance(JsonField.of(acceptance))
 
         /**
-         * If the Card Dispute's status is `accepted`, this will contain details of the successful
-         * dispute.
+         * If the Card Dispute's status is `accepted`, this will contain details of the
+         * successful dispute.
          */
         @JsonProperty("acceptance")
         @ExcludeMissing
-        fun acceptance(acceptance: JsonField<Acceptance>) = apply { this.acceptance = acceptance }
+        fun acceptance(acceptance: JsonField<Acceptance>) = apply {
+            this.acceptance = acceptance
+        }
 
         /**
-         * If the Card Dispute's status is `rejected`, this will contain details of the unsuccessful
-         * dispute.
+         * If the Card Dispute's status is `rejected`, this will contain details of the
+         * unsuccessful dispute.
          */
         fun rejection(rejection: Rejection) = rejection(JsonField.of(rejection))
 
         /**
-         * If the Card Dispute's status is `rejected`, this will contain details of the unsuccessful
-         * dispute.
+         * If the Card Dispute's status is `rejected`, this will contain details of the
+         * unsuccessful dispute.
          */
         @JsonProperty("rejection")
         @ExcludeMissing
-        fun rejection(rejection: JsonField<Rejection>) = apply { this.rejection = rejection }
+        fun rejection(rejection: JsonField<Rejection>) = apply {
+            this.rejection = rejection
+        }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -290,7 +315,9 @@ private constructor(
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        fun type(type: JsonField<Type>) = apply {
+            this.type = type
+        }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -306,34 +333,31 @@ private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): CardDispute =
-            CardDispute(
-                id,
-                explanation,
-                status,
-                createdAt,
-                disputedTransactionId,
-                acceptance,
-                rejection,
-                type,
-                additionalProperties.toUnmodifiable(),
-            )
+        fun build(): CardDispute = CardDispute(
+            id,
+            explanation,
+            status,
+            createdAt,
+            disputedTransactionId,
+            acceptance,
+            rejection,
+            type,
+            additionalProperties.toUnmodifiable(),
+        )
     }
 
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>,) {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Status && this.value == other.value
+          return other is Status &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -364,46 +388,38 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                PENDING_REVIEWING -> Value.PENDING_REVIEWING
-                ACCEPTED -> Value.ACCEPTED
-                REJECTED -> Value.REJECTED
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            PENDING_REVIEWING -> Value.PENDING_REVIEWING
+            ACCEPTED -> Value.ACCEPTED
+            REJECTED -> Value.REJECTED
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                PENDING_REVIEWING -> Known.PENDING_REVIEWING
-                ACCEPTED -> Known.ACCEPTED
-                REJECTED -> Known.REJECTED
-                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-            }
+        fun known(): Known = when (this) {
+            PENDING_REVIEWING -> Known.PENDING_REVIEWING
+            ACCEPTED -> Known.ACCEPTED
+            REJECTED -> Known.REJECTED
+            else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
     /**
-     * If the Card Dispute's status is `accepted`, this will contain details of the successful
-     * dispute.
+     * If the Card Dispute's status is `accepted`, this will contain details of the
+     * successful dispute.
      */
     @JsonDeserialize(builder = Acceptance.Builder::class)
     @NoAutoDetect
-    class Acceptance
-    private constructor(
-        private val acceptedAt: JsonField<OffsetDateTime>,
-        private val cardDisputeId: JsonField<String>,
-        private val transactionId: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
+    class Acceptance private constructor(private val acceptedAt: JsonField<OffsetDateTime>,private val cardDisputeId: JsonField<String>,private val transactionId: JsonField<String>,private val additionalProperties: Map<String, JsonValue>,) {
 
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-         * Dispute was accepted.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+         * the Card Dispute was accepted.
          */
         fun acceptedAt(): OffsetDateTime = acceptedAt.getRequired("accepted_at")
 
@@ -411,26 +427,31 @@ private constructor(
         fun cardDisputeId(): String = cardDisputeId.getRequired("card_dispute_id")
 
         /**
-         * The identifier of the Transaction that was created to return the disputed funds to your
-         * account.
+         * The identifier of the Transaction that was created to return the disputed funds
+         * to your account.
          */
-        fun transactionId(): Optional<String> =
-            Optional.ofNullable(transactionId.getNullable("transaction_id"))
+        fun transactionId(): Optional<String> = Optional.ofNullable(transactionId.getNullable("transaction_id"))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-         * Dispute was accepted.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+         * the Card Dispute was accepted.
          */
-        @JsonProperty("accepted_at") @ExcludeMissing fun _acceptedAt() = acceptedAt
+        @JsonProperty("accepted_at")
+        @ExcludeMissing
+        fun _acceptedAt() = acceptedAt
 
         /** The identifier of the Card Dispute that was accepted. */
-        @JsonProperty("card_dispute_id") @ExcludeMissing fun _cardDisputeId() = cardDisputeId
+        @JsonProperty("card_dispute_id")
+        @ExcludeMissing
+        fun _cardDisputeId() = cardDisputeId
 
         /**
-         * The identifier of the Transaction that was created to return the disputed funds to your
-         * account.
+         * The identifier of the Transaction that was created to return the disputed funds
+         * to your account.
          */
-        @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+        @JsonProperty("transaction_id")
+        @ExcludeMissing
+        fun _transactionId() = transactionId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -438,46 +459,45 @@ private constructor(
 
         fun validate() = apply {
             if (!validated) {
-                acceptedAt()
-                cardDisputeId()
-                transactionId()
-                validated = true
+              acceptedAt()
+              cardDisputeId()
+              transactionId()
+              validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Acceptance &&
-                this.acceptedAt == other.acceptedAt &&
-                this.cardDisputeId == other.cardDisputeId &&
-                this.transactionId == other.transactionId &&
-                this.additionalProperties == other.additionalProperties
+          return other is Acceptance &&
+              this.acceptedAt == other.acceptedAt &&
+              this.cardDisputeId == other.cardDisputeId &&
+              this.transactionId == other.transactionId &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        acceptedAt,
-                        cardDisputeId,
-                        transactionId,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(
+                acceptedAt,
+                cardDisputeId,
+                transactionId,
+                additionalProperties,
+            )
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "Acceptance{acceptedAt=$acceptedAt, cardDisputeId=$cardDisputeId, transactionId=$transactionId, additionalProperties=$additionalProperties}"
+        override fun toString() = "Acceptance{acceptedAt=$acceptedAt, cardDisputeId=$cardDisputeId, transactionId=$transactionId, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         class Builder {
@@ -496,14 +516,14 @@ private constructor(
             }
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * Card Dispute was accepted.
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+             * the Card Dispute was accepted.
              */
             fun acceptedAt(acceptedAt: OffsetDateTime) = acceptedAt(JsonField.of(acceptedAt))
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * Card Dispute was accepted.
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+             * the Card Dispute was accepted.
              */
             @JsonProperty("accepted_at")
             @ExcludeMissing
@@ -522,14 +542,14 @@ private constructor(
             }
 
             /**
-             * The identifier of the Transaction that was created to return the disputed funds to
-             * your account.
+             * The identifier of the Transaction that was created to return the disputed funds
+             * to your account.
              */
             fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
 
             /**
-             * The identifier of the Transaction that was created to return the disputed funds to
-             * your account.
+             * The identifier of the Transaction that was created to return the disputed funds
+             * to your account.
              */
             @JsonProperty("transaction_id")
             @ExcludeMissing
@@ -551,29 +571,22 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Acceptance =
-                Acceptance(
-                    acceptedAt,
-                    cardDisputeId,
-                    transactionId,
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build(): Acceptance = Acceptance(
+                acceptedAt,
+                cardDisputeId,
+                transactionId,
+                additionalProperties.toUnmodifiable(),
+            )
         }
     }
 
     /**
-     * If the Card Dispute's status is `rejected`, this will contain details of the unsuccessful
-     * dispute.
+     * If the Card Dispute's status is `rejected`, this will contain details of the
+     * unsuccessful dispute.
      */
     @JsonDeserialize(builder = Rejection.Builder::class)
     @NoAutoDetect
-    class Rejection
-    private constructor(
-        private val explanation: JsonField<String>,
-        private val rejectedAt: JsonField<OffsetDateTime>,
-        private val cardDisputeId: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
+    class Rejection private constructor(private val explanation: JsonField<String>,private val rejectedAt: JsonField<OffsetDateTime>,private val cardDisputeId: JsonField<String>,private val additionalProperties: Map<String, JsonValue>,) {
 
         private var validated: Boolean = false
 
@@ -583,8 +596,8 @@ private constructor(
         fun explanation(): String = explanation.getRequired("explanation")
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-         * Dispute was rejected.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+         * the Card Dispute was rejected.
          */
         fun rejectedAt(): OffsetDateTime = rejectedAt.getRequired("rejected_at")
 
@@ -592,16 +605,22 @@ private constructor(
         fun cardDisputeId(): String = cardDisputeId.getRequired("card_dispute_id")
 
         /** Why the Card Dispute was rejected. */
-        @JsonProperty("explanation") @ExcludeMissing fun _explanation() = explanation
+        @JsonProperty("explanation")
+        @ExcludeMissing
+        fun _explanation() = explanation
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-         * Dispute was rejected.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+         * the Card Dispute was rejected.
          */
-        @JsonProperty("rejected_at") @ExcludeMissing fun _rejectedAt() = rejectedAt
+        @JsonProperty("rejected_at")
+        @ExcludeMissing
+        fun _rejectedAt() = rejectedAt
 
         /** The identifier of the Card Dispute that was rejected. */
-        @JsonProperty("card_dispute_id") @ExcludeMissing fun _cardDisputeId() = cardDisputeId
+        @JsonProperty("card_dispute_id")
+        @ExcludeMissing
+        fun _cardDisputeId() = cardDisputeId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -609,46 +628,45 @@ private constructor(
 
         fun validate() = apply {
             if (!validated) {
-                explanation()
-                rejectedAt()
-                cardDisputeId()
-                validated = true
+              explanation()
+              rejectedAt()
+              cardDisputeId()
+              validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Rejection &&
-                this.explanation == other.explanation &&
-                this.rejectedAt == other.rejectedAt &&
-                this.cardDisputeId == other.cardDisputeId &&
-                this.additionalProperties == other.additionalProperties
+          return other is Rejection &&
+              this.explanation == other.explanation &&
+              this.rejectedAt == other.rejectedAt &&
+              this.cardDisputeId == other.cardDisputeId &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        explanation,
-                        rejectedAt,
-                        cardDisputeId,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(
+                explanation,
+                rejectedAt,
+                cardDisputeId,
+                additionalProperties,
+            )
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "Rejection{explanation=$explanation, rejectedAt=$rejectedAt, cardDisputeId=$cardDisputeId, additionalProperties=$additionalProperties}"
+        override fun toString() = "Rejection{explanation=$explanation, rejectedAt=$rejectedAt, cardDisputeId=$cardDisputeId, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         class Builder {
@@ -677,14 +695,14 @@ private constructor(
             }
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * Card Dispute was rejected.
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+             * the Card Dispute was rejected.
              */
             fun rejectedAt(rejectedAt: OffsetDateTime) = rejectedAt(JsonField.of(rejectedAt))
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * Card Dispute was rejected.
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+             * the Card Dispute was rejected.
              */
             @JsonProperty("rejected_at")
             @ExcludeMissing
@@ -716,30 +734,27 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Rejection =
-                Rejection(
-                    explanation,
-                    rejectedAt,
-                    cardDisputeId,
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build(): Rejection = Rejection(
+                explanation,
+                rejectedAt,
+                cardDisputeId,
+                additionalProperties.toUnmodifiable(),
+            )
         }
     }
 
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>,) {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Type && this.value == other.value
+          return other is Type &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -762,17 +777,15 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                CARD_DISPUTE -> Value.CARD_DISPUTE
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            CARD_DISPUTE -> Value.CARD_DISPUTE
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                CARD_DISPUTE -> Known.CARD_DISPUTE
-                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-            }
+        fun known(): Known = when (this) {
+            CARD_DISPUTE -> Known.CARD_DISPUTE
+            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }

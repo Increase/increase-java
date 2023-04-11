@@ -1,33 +1,34 @@
 package com.increase.api.models
 
+import java.time.LocalDate
 import java.time.OffsetDateTime
-import org.assertj.core.api.Assertions.assertThat
+import java.util.UUID
 import org.junit.jupiter.api.Test
+import org.assertj.core.api.Assertions.assertThat
+import com.increase.api.models.AccountNumber
 
 class AccountNumberTest {
 
     @Test
     fun createAccountNumber() {
-        val accountNumber =
-            AccountNumber.builder()
-                .accountId("string")
-                .accountNumber("string")
-                .id("string")
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .name("string")
-                .routingNumber("string")
-                .status(AccountNumber.Status.ACTIVE)
-                .type(AccountNumber.Type.ACCOUNT_NUMBER)
-                .build()
-        assertThat(accountNumber).isNotNull
-        assertThat(accountNumber.accountId()).isEqualTo("string")
-        assertThat(accountNumber.accountNumber()).isEqualTo("string")
-        assertThat(accountNumber.id()).isEqualTo("string")
-        assertThat(accountNumber.createdAt())
-            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(accountNumber.name()).isEqualTo("string")
-        assertThat(accountNumber.routingNumber()).isEqualTo("string")
-        assertThat(accountNumber.status()).isEqualTo(AccountNumber.Status.ACTIVE)
-        assertThat(accountNumber.type()).isEqualTo(AccountNumber.Type.ACCOUNT_NUMBER)
+      val accountNumber = AccountNumber.builder()
+          .accountId("string")
+          .accountNumber("string")
+          .id("string")
+          .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+          .name("string")
+          .routingNumber("string")
+          .status(AccountNumber.Status.ACTIVE)
+          .type(AccountNumber.Type.ACCOUNT_NUMBER)
+          .build()
+      assertThat(accountNumber).isNotNull
+      assertThat(accountNumber.accountId()).isEqualTo("string")
+      assertThat(accountNumber.accountNumber()).isEqualTo("string")
+      assertThat(accountNumber.id()).isEqualTo("string")
+      assertThat(accountNumber.createdAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+      assertThat(accountNumber.name()).isEqualTo("string")
+      assertThat(accountNumber.routingNumber()).isEqualTo("string")
+      assertThat(accountNumber.status()).isEqualTo(AccountNumber.Status.ACTIVE)
+      assertThat(accountNumber.type()).isEqualTo(AccountNumber.Type.ACCOUNT_NUMBER)
     }
 }

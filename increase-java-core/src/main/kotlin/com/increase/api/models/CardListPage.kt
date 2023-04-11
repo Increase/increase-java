@@ -4,24 +4,26 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.services.blocking.CardService
+import java.time.LocalDate
+import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import java.util.Spliterator
+import java.util.Spliterators
+import java.util.UUID
+import java.util.concurrent.CompletableFuture
 import java.util.stream.Stream
 import java.util.stream.StreamSupport
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.JsonField
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.models.Card
+import com.increase.api.services.blocking.CardService
 
-class CardListPage
-private constructor(
-    private val cardsService: CardService,
-    private val params: CardListParams,
-    private val response: Response,
-) {
+class CardListPage private constructor(private val cardsService: CardService,private val params: CardListParams,private val response: Response,) {
 
     fun response(): Response = response
 
@@ -30,45 +32,44 @@ private constructor(
     fun nextCursor(): String = response().nextCursor()
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is CardListPage &&
-            this.cardsService == other.cardsService &&
-            this.params == other.params &&
-            this.response == other.response
+      return other is CardListPage &&
+          this.cardsService == other.cardsService &&
+          this.params == other.params &&
+          this.response == other.response
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            cardsService,
-            params,
-            response,
-        )
+      return Objects.hash(
+          cardsService,
+          params,
+          response,
+      )
     }
 
-    override fun toString() =
-        "CardListPage{cardsService=$cardsService, params=$params, response=$response}"
+    override fun toString() = "CardListPage{cardsService=$cardsService, params=$params, response=$response}"
 
     fun hasNextPage(): Boolean {
-        if (data().isEmpty()) {
-            return false
-        }
+      if (data().isEmpty()) {
+        return false
+      }
 
-        return nextCursor().isNotEmpty()
+      return nextCursor().isNotEmpty()
     }
 
     fun getNextPageParams(): Optional<CardListParams> {
-        if (!hasNextPage()) {
-            return Optional.empty()
-        }
+      if (!hasNextPage()) {
+        return Optional.empty()
+      }
 
-        return Optional.of(CardListParams.builder().from(params).cursor(nextCursor()).build())
+      return Optional.of(CardListParams.builder().from(params).cursor(nextCursor()).build())
     }
 
     fun getNextPage(): Optional<CardListPage> {
-        return getNextPageParams().map { cardsService.list(it) }
+      return getNextPageParams().map { cardsService.list(it) }
     }
 
     fun autoPager(): AutoPager = AutoPager(this)
@@ -76,22 +77,16 @@ private constructor(
     companion object {
 
         @JvmStatic
-        fun of(cardsService: CardService, params: CardListParams, response: Response) =
-            CardListPage(
-                cardsService,
-                params,
-                response,
-            )
+        fun of(cardsService: CardService, params: CardListParams, response: Response) = CardListPage(
+            cardsService,
+            params,
+            response,
+        )
     }
 
     @JsonDeserialize(builder = Response.Builder::class)
     @NoAutoDetect
-    class Response
-    constructor(
-        private val data: JsonField<List<Card>>,
-        private val nextCursor: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
+    class Response constructor(private val data: JsonField<List<Card>>,private val nextCursor: JsonField<String>,private val additionalProperties: Map<String, JsonValue>,) {
 
         private var validated: Boolean = false
 
@@ -111,39 +106,39 @@ private constructor(
 
         fun validate() = apply {
             if (!validated) {
-                data().forEach { it.validate() }
-                nextCursor()
-                validated = true
+              data().forEach { it.validate() }
+              nextCursor()
+              validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Response &&
-                this.data == other.data &&
-                this.nextCursor == other.nextCursor &&
-                this.additionalProperties == other.additionalProperties
+          return other is Response &&
+              this.data == other.data &&
+              this.nextCursor == other.nextCursor &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            return Objects.hash(
-                data,
-                nextCursor,
-                additionalProperties,
-            )
+          return Objects.hash(
+              data,
+              nextCursor,
+              additionalProperties,
+          )
         }
 
-        override fun toString() =
-            "CardListPage.Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
+        override fun toString() = "CardListPage.Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         class Builder {
@@ -161,7 +156,8 @@ private constructor(
 
             fun data(data: List<Card>) = data(JsonField.of(data))
 
-            @JsonProperty("data") fun data(data: JsonField<List<Card>>) = apply { this.data = data }
+            @JsonProperty("data")
+            fun data(data: JsonField<List<Card>>) = apply { this.data = data }
 
             fun nextCursor(nextCursor: String) = nextCursor(JsonField.of(nextCursor))
 
@@ -173,36 +169,31 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build() = Response(
+                data,
+                nextCursor,
+                additionalProperties.toUnmodifiable(),
+            )
         }
     }
 
-    class AutoPager
-    constructor(
-        private val firstPage: CardListPage,
-    ) : Iterable<Card> {
+    class AutoPager constructor(private val firstPage: CardListPage,) : Iterable<Card> {
 
-        override fun iterator(): Iterator<Card> =
-            sequence {
-                    var page = firstPage
-                    var index = 0
-                    while (true) {
-                        while (index >= page.data().size) {
-                            page = page.getNextPage().orElse(null) ?: return@sequence
-                            index = 0
-                        }
-                        yield(page.data()[index++])
-                    }
-                }
-                .iterator()
+        override fun iterator(): Iterator<Card> = sequence {
+            var page = firstPage
+            var index = 0
+            while (true) {
+              while (index >= page.data().size) {
+                page = page.getNextPage().orElse(null) ?: return@sequence
+                index = 0
+              }
+              yield(page.data()[index++])
+            }
+        }
+        .iterator()
 
         fun stream(): Stream<Card> {
-            return StreamSupport.stream(spliterator(), false)
+          return StreamSupport.stream(spliterator(), false)
         }
     }
 }

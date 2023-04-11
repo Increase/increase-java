@@ -2,31 +2,34 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.models.*
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import java.time.LocalDate
+import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.models.*
 
-class WireDrawdownRequestCreateParams
-constructor(
-    private val accountNumberId: String,
-    private val amount: Long,
-    private val messageToRecipient: String,
-    private val recipientAccountNumber: String,
-    private val recipientRoutingNumber: String,
-    private val recipientName: String,
-    private val recipientAddressLine1: String?,
-    private val recipientAddressLine2: String?,
-    private val recipientAddressLine3: String?,
-    private val additionalQueryParams: Map<String, List<String>>,
-    private val additionalHeaders: Map<String, List<String>>,
-    private val additionalBodyProperties: Map<String, JsonValue>,
-) {
+class WireDrawdownRequestCreateParams constructor(private val accountNumberId: String,private val amount: Long,private val messageToRecipient: String,private val recipientAccountNumber: String,private val recipientRoutingNumber: String,private val recipientName: String,private val recipientAddressLine1: String?,private val recipientAddressLine2: String?,private val recipientAddressLine3: String?,private val additionalQueryParams: Map<String, List<String>>,private val additionalHeaders: Map<String, List<String>>,private val additionalBodyProperties: Map<String, JsonValue>,) {
 
     fun accountNumberId(): String = accountNumberId
 
@@ -48,50 +51,43 @@ constructor(
 
     @JvmSynthetic
     internal fun getBody(): WireDrawdownRequestCreateBody {
-        return WireDrawdownRequestCreateBody(
-            accountNumberId,
-            amount,
-            messageToRecipient,
-            recipientAccountNumber,
-            recipientRoutingNumber,
-            recipientName,
-            recipientAddressLine1,
-            recipientAddressLine2,
-            recipientAddressLine3,
-            additionalBodyProperties,
-        )
+      return WireDrawdownRequestCreateBody(
+          accountNumberId,
+          amount,
+          messageToRecipient,
+          recipientAccountNumber,
+          recipientRoutingNumber,
+          recipientName,
+          recipientAddressLine1,
+          recipientAddressLine2,
+          recipientAddressLine3,
+          additionalBodyProperties,
+      )
     }
 
-    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic
+    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
-    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic
+    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     @JsonDeserialize(builder = WireDrawdownRequestCreateBody.Builder::class)
     @NoAutoDetect
-    class WireDrawdownRequestCreateBody
-    internal constructor(
-        private val accountNumberId: String?,
-        private val amount: Long?,
-        private val messageToRecipient: String?,
-        private val recipientAccountNumber: String?,
-        private val recipientRoutingNumber: String?,
-        private val recipientName: String?,
-        private val recipientAddressLine1: String?,
-        private val recipientAddressLine2: String?,
-        private val recipientAddressLine3: String?,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
+    class WireDrawdownRequestCreateBody internal constructor(private val accountNumberId: String?,private val amount: Long?,private val messageToRecipient: String?,private val recipientAccountNumber: String?,private val recipientRoutingNumber: String?,private val recipientName: String?,private val recipientAddressLine1: String?,private val recipientAddressLine2: String?,private val recipientAddressLine3: String?,private val additionalProperties: Map<String, JsonValue>,) {
 
         private var hashCode: Int = 0
 
         /** The Account Number to which the recipient should send funds. */
-        @JsonProperty("account_number_id") fun accountNumberId(): String? = accountNumberId
+        @JsonProperty("account_number_id")
+        fun accountNumberId(): String? = accountNumberId
 
         /** The amount requested from the recipient, in cents. */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount")
+        fun amount(): Long? = amount
 
         /** A message the recipient will see as part of the request. */
-        @JsonProperty("message_to_recipient") fun messageToRecipient(): String? = messageToRecipient
+        @JsonProperty("message_to_recipient")
+        fun messageToRecipient(): String? = messageToRecipient
 
         /** The drawdown request's recipient's account number. */
         @JsonProperty("recipient_account_number")
@@ -102,7 +98,8 @@ constructor(
         fun recipientRoutingNumber(): String? = recipientRoutingNumber
 
         /** The drawdown request's recipient's name. */
-        @JsonProperty("recipient_name") fun recipientName(): String? = recipientName
+        @JsonProperty("recipient_name")
+        fun recipientName(): String? = recipientName
 
         /** Line 1 of the drawdown request's recipient's address. */
         @JsonProperty("recipient_address_line1")
@@ -123,48 +120,47 @@ constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is WireDrawdownRequestCreateBody &&
-                this.accountNumberId == other.accountNumberId &&
-                this.amount == other.amount &&
-                this.messageToRecipient == other.messageToRecipient &&
-                this.recipientAccountNumber == other.recipientAccountNumber &&
-                this.recipientRoutingNumber == other.recipientRoutingNumber &&
-                this.recipientName == other.recipientName &&
-                this.recipientAddressLine1 == other.recipientAddressLine1 &&
-                this.recipientAddressLine2 == other.recipientAddressLine2 &&
-                this.recipientAddressLine3 == other.recipientAddressLine3 &&
-                this.additionalProperties == other.additionalProperties
+          return other is WireDrawdownRequestCreateBody &&
+              this.accountNumberId == other.accountNumberId &&
+              this.amount == other.amount &&
+              this.messageToRecipient == other.messageToRecipient &&
+              this.recipientAccountNumber == other.recipientAccountNumber &&
+              this.recipientRoutingNumber == other.recipientRoutingNumber &&
+              this.recipientName == other.recipientName &&
+              this.recipientAddressLine1 == other.recipientAddressLine1 &&
+              this.recipientAddressLine2 == other.recipientAddressLine2 &&
+              this.recipientAddressLine3 == other.recipientAddressLine3 &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountNumberId,
-                        amount,
-                        messageToRecipient,
-                        recipientAccountNumber,
-                        recipientRoutingNumber,
-                        recipientName,
-                        recipientAddressLine1,
-                        recipientAddressLine2,
-                        recipientAddressLine3,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(
+                accountNumberId,
+                amount,
+                messageToRecipient,
+                recipientAccountNumber,
+                recipientRoutingNumber,
+                recipientName,
+                recipientAddressLine1,
+                recipientAddressLine2,
+                recipientAddressLine3,
+                additionalProperties,
+            )
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "WireDrawdownRequestCreateBody{accountNumberId=$accountNumberId, amount=$amount, messageToRecipient=$messageToRecipient, recipientAccountNumber=$recipientAccountNumber, recipientRoutingNumber=$recipientRoutingNumber, recipientName=$recipientName, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, additionalProperties=$additionalProperties}"
+        override fun toString() = "WireDrawdownRequestCreateBody{accountNumberId=$accountNumberId, amount=$amount, messageToRecipient=$messageToRecipient, recipientAccountNumber=$recipientAccountNumber, recipientRoutingNumber=$recipientRoutingNumber, recipientName=$recipientName, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         class Builder {
@@ -181,21 +177,18 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(wireDrawdownRequestCreateBody: WireDrawdownRequestCreateBody) =
-                apply {
-                    this.accountNumberId = wireDrawdownRequestCreateBody.accountNumberId
-                    this.amount = wireDrawdownRequestCreateBody.amount
-                    this.messageToRecipient = wireDrawdownRequestCreateBody.messageToRecipient
-                    this.recipientAccountNumber =
-                        wireDrawdownRequestCreateBody.recipientAccountNumber
-                    this.recipientRoutingNumber =
-                        wireDrawdownRequestCreateBody.recipientRoutingNumber
-                    this.recipientName = wireDrawdownRequestCreateBody.recipientName
-                    this.recipientAddressLine1 = wireDrawdownRequestCreateBody.recipientAddressLine1
-                    this.recipientAddressLine2 = wireDrawdownRequestCreateBody.recipientAddressLine2
-                    this.recipientAddressLine3 = wireDrawdownRequestCreateBody.recipientAddressLine3
-                    additionalProperties(wireDrawdownRequestCreateBody.additionalProperties)
-                }
+            internal fun from(wireDrawdownRequestCreateBody: WireDrawdownRequestCreateBody) = apply {
+                this.accountNumberId = wireDrawdownRequestCreateBody.accountNumberId
+                this.amount = wireDrawdownRequestCreateBody.amount
+                this.messageToRecipient = wireDrawdownRequestCreateBody.messageToRecipient
+                this.recipientAccountNumber = wireDrawdownRequestCreateBody.recipientAccountNumber
+                this.recipientRoutingNumber = wireDrawdownRequestCreateBody.recipientRoutingNumber
+                this.recipientName = wireDrawdownRequestCreateBody.recipientName
+                this.recipientAddressLine1 = wireDrawdownRequestCreateBody.recipientAddressLine1
+                this.recipientAddressLine2 = wireDrawdownRequestCreateBody.recipientAddressLine2
+                this.recipientAddressLine3 = wireDrawdownRequestCreateBody.recipientAddressLine3
+                additionalProperties(wireDrawdownRequestCreateBody.additionalProperties)
+            }
 
             /** The Account Number to which the recipient should send funds. */
             @JsonProperty("account_number_id")
@@ -204,7 +197,10 @@ constructor(
             }
 
             /** The amount requested from the recipient, in cents. */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+            @JsonProperty("amount")
+            fun amount(amount: Long) = apply {
+                this.amount = amount
+            }
 
             /** A message the recipient will see as part of the request. */
             @JsonProperty("message_to_recipient")
@@ -226,7 +222,9 @@ constructor(
 
             /** The drawdown request's recipient's name. */
             @JsonProperty("recipient_name")
-            fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
+            fun recipientName(recipientName: String) = apply {
+                this.recipientName = recipientName
+            }
 
             /** Line 1 of the drawdown request's recipient's address. */
             @JsonProperty("recipient_address_line1")
@@ -260,27 +258,30 @@ constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): WireDrawdownRequestCreateBody =
-                WireDrawdownRequestCreateBody(
-                    checkNotNull(accountNumberId) {
-                        "`accountNumberId` is required but was not set"
-                    },
-                    checkNotNull(amount) { "`amount` is required but was not set" },
-                    checkNotNull(messageToRecipient) {
-                        "`messageToRecipient` is required but was not set"
-                    },
-                    checkNotNull(recipientAccountNumber) {
-                        "`recipientAccountNumber` is required but was not set"
-                    },
-                    checkNotNull(recipientRoutingNumber) {
-                        "`recipientRoutingNumber` is required but was not set"
-                    },
-                    checkNotNull(recipientName) { "`recipientName` is required but was not set" },
-                    recipientAddressLine1,
-                    recipientAddressLine2,
-                    recipientAddressLine3,
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build(): WireDrawdownRequestCreateBody = WireDrawdownRequestCreateBody(
+                checkNotNull(accountNumberId) {
+                    "`accountNumberId` is required but was not set"
+                },
+                checkNotNull(amount) {
+                    "`amount` is required but was not set"
+                },
+                checkNotNull(messageToRecipient) {
+                    "`messageToRecipient` is required but was not set"
+                },
+                checkNotNull(recipientAccountNumber) {
+                    "`recipientAccountNumber` is required but was not set"
+                },
+                checkNotNull(recipientRoutingNumber) {
+                    "`recipientRoutingNumber` is required but was not set"
+                },
+                checkNotNull(recipientName) {
+                    "`recipientName` is required but was not set"
+                },
+                recipientAddressLine1,
+                recipientAddressLine2,
+                recipientAddressLine3,
+                additionalProperties.toUnmodifiable(),
+            )
         }
     }
 
@@ -291,50 +292,50 @@ constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is WireDrawdownRequestCreateParams &&
-            this.accountNumberId == other.accountNumberId &&
-            this.amount == other.amount &&
-            this.messageToRecipient == other.messageToRecipient &&
-            this.recipientAccountNumber == other.recipientAccountNumber &&
-            this.recipientRoutingNumber == other.recipientRoutingNumber &&
-            this.recipientName == other.recipientName &&
-            this.recipientAddressLine1 == other.recipientAddressLine1 &&
-            this.recipientAddressLine2 == other.recipientAddressLine2 &&
-            this.recipientAddressLine3 == other.recipientAddressLine3 &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+      return other is WireDrawdownRequestCreateParams &&
+          this.accountNumberId == other.accountNumberId &&
+          this.amount == other.amount &&
+          this.messageToRecipient == other.messageToRecipient &&
+          this.recipientAccountNumber == other.recipientAccountNumber &&
+          this.recipientRoutingNumber == other.recipientRoutingNumber &&
+          this.recipientName == other.recipientName &&
+          this.recipientAddressLine1 == other.recipientAddressLine1 &&
+          this.recipientAddressLine2 == other.recipientAddressLine2 &&
+          this.recipientAddressLine3 == other.recipientAddressLine3 &&
+          this.additionalQueryParams == other.additionalQueryParams &&
+          this.additionalHeaders == other.additionalHeaders &&
+          this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            accountNumberId,
-            amount,
-            messageToRecipient,
-            recipientAccountNumber,
-            recipientRoutingNumber,
-            recipientName,
-            recipientAddressLine1,
-            recipientAddressLine2,
-            recipientAddressLine3,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+      return Objects.hash(
+          accountNumberId,
+          amount,
+          messageToRecipient,
+          recipientAccountNumber,
+          recipientRoutingNumber,
+          recipientName,
+          recipientAddressLine1,
+          recipientAddressLine2,
+          recipientAddressLine3,
+          additionalQueryParams,
+          additionalHeaders,
+          additionalBodyProperties,
+      )
     }
 
-    override fun toString() =
-        "WireDrawdownRequestCreateParams{accountNumberId=$accountNumberId, amount=$amount, messageToRecipient=$messageToRecipient, recipientAccountNumber=$recipientAccountNumber, recipientRoutingNumber=$recipientRoutingNumber, recipientName=$recipientName, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() = "WireDrawdownRequestCreateParams{accountNumberId=$accountNumberId, amount=$amount, messageToRecipient=$messageToRecipient, recipientAccountNumber=$recipientAccountNumber, recipientRoutingNumber=$recipientRoutingNumber, recipientName=$recipientName, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -354,21 +355,20 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(wireDrawdownRequestCreateParams: WireDrawdownRequestCreateParams) =
-            apply {
-                this.accountNumberId = wireDrawdownRequestCreateParams.accountNumberId
-                this.amount = wireDrawdownRequestCreateParams.amount
-                this.messageToRecipient = wireDrawdownRequestCreateParams.messageToRecipient
-                this.recipientAccountNumber = wireDrawdownRequestCreateParams.recipientAccountNumber
-                this.recipientRoutingNumber = wireDrawdownRequestCreateParams.recipientRoutingNumber
-                this.recipientName = wireDrawdownRequestCreateParams.recipientName
-                this.recipientAddressLine1 = wireDrawdownRequestCreateParams.recipientAddressLine1
-                this.recipientAddressLine2 = wireDrawdownRequestCreateParams.recipientAddressLine2
-                this.recipientAddressLine3 = wireDrawdownRequestCreateParams.recipientAddressLine3
-                additionalQueryParams(wireDrawdownRequestCreateParams.additionalQueryParams)
-                additionalHeaders(wireDrawdownRequestCreateParams.additionalHeaders)
-                additionalBodyProperties(wireDrawdownRequestCreateParams.additionalBodyProperties)
-            }
+        internal fun from(wireDrawdownRequestCreateParams: WireDrawdownRequestCreateParams) = apply {
+            this.accountNumberId = wireDrawdownRequestCreateParams.accountNumberId
+            this.amount = wireDrawdownRequestCreateParams.amount
+            this.messageToRecipient = wireDrawdownRequestCreateParams.messageToRecipient
+            this.recipientAccountNumber = wireDrawdownRequestCreateParams.recipientAccountNumber
+            this.recipientRoutingNumber = wireDrawdownRequestCreateParams.recipientRoutingNumber
+            this.recipientName = wireDrawdownRequestCreateParams.recipientName
+            this.recipientAddressLine1 = wireDrawdownRequestCreateParams.recipientAddressLine1
+            this.recipientAddressLine2 = wireDrawdownRequestCreateParams.recipientAddressLine2
+            this.recipientAddressLine3 = wireDrawdownRequestCreateParams.recipientAddressLine3
+            additionalQueryParams(wireDrawdownRequestCreateParams.additionalQueryParams)
+            additionalHeaders(wireDrawdownRequestCreateParams.additionalHeaders)
+            additionalBodyProperties(wireDrawdownRequestCreateParams.additionalBodyProperties)
+        }
 
         /** The Account Number to which the recipient should send funds. */
         fun accountNumberId(accountNumberId: String) = apply {
@@ -376,7 +376,9 @@ constructor(
         }
 
         /** The amount requested from the recipient, in cents. */
-        fun amount(amount: Long) = apply { this.amount = amount }
+        fun amount(amount: Long) = apply {
+            this.amount = amount
+        }
 
         /** A message the recipient will see as part of the request. */
         fun messageToRecipient(messageToRecipient: String) = apply {
@@ -394,7 +396,9 @@ constructor(
         }
 
         /** The drawdown request's recipient's name. */
-        fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
+        fun recipientName(recipientName: String) = apply {
+            this.recipientName = recipientName
+        }
 
         /** Line 1 of the drawdown request's recipient's address. */
         fun recipientAddressLine1(recipientAddressLine1: String) = apply {
@@ -449,7 +453,9 @@ constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
+        fun removeHeader(name: String) = apply {
+            this.additionalHeaders.put(name, mutableListOf())
+        }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -460,31 +466,35 @@ constructor(
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
-            }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            this.additionalBodyProperties.putAll(additionalBodyProperties)
+        }
 
-        fun build(): WireDrawdownRequestCreateParams =
-            WireDrawdownRequestCreateParams(
-                checkNotNull(accountNumberId) { "`accountNumberId` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(messageToRecipient) {
-                    "`messageToRecipient` is required but was not set"
-                },
-                checkNotNull(recipientAccountNumber) {
-                    "`recipientAccountNumber` is required but was not set"
-                },
-                checkNotNull(recipientRoutingNumber) {
-                    "`recipientRoutingNumber` is required but was not set"
-                },
-                checkNotNull(recipientName) { "`recipientName` is required but was not set" },
-                recipientAddressLine1,
-                recipientAddressLine2,
-                recipientAddressLine3,
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
-            )
+        fun build(): WireDrawdownRequestCreateParams = WireDrawdownRequestCreateParams(
+            checkNotNull(accountNumberId) {
+                "`accountNumberId` is required but was not set"
+            },
+            checkNotNull(amount) {
+                "`amount` is required but was not set"
+            },
+            checkNotNull(messageToRecipient) {
+                "`messageToRecipient` is required but was not set"
+            },
+            checkNotNull(recipientAccountNumber) {
+                "`recipientAccountNumber` is required but was not set"
+            },
+            checkNotNull(recipientRoutingNumber) {
+                "`recipientRoutingNumber` is required but was not set"
+            },
+            checkNotNull(recipientName) {
+                "`recipientName` is required but was not set"
+            },
+            recipientAddressLine1,
+            recipientAddressLine2,
+            recipientAddressLine3,
+            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            additionalBodyProperties.toUnmodifiable(),
+        )
     }
 }

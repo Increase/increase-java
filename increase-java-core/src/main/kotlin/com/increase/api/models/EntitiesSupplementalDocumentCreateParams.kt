@@ -2,23 +2,34 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.models.*
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import java.time.LocalDate
+import java.time.OffsetDateTime
 import java.util.Objects
+import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.models.*
 
-class EntitiesSupplementalDocumentCreateParams
-constructor(
-    private val entityId: String,
-    private val fileId: String,
-    private val additionalQueryParams: Map<String, List<String>>,
-    private val additionalHeaders: Map<String, List<String>>,
-    private val additionalBodyProperties: Map<String, JsonValue>,
-) {
+class EntitiesSupplementalDocumentCreateParams constructor(private val entityId: String,private val fileId: String,private val additionalQueryParams: Map<String, List<String>>,private val additionalHeaders: Map<String, List<String>>,private val additionalBodyProperties: Map<String, JsonValue>,) {
 
     fun entityId(): String = entityId
 
@@ -26,32 +37,31 @@ constructor(
 
     @JvmSynthetic
     internal fun getBody(): EntitiesSupplementalDocumentCreateBody {
-        return EntitiesSupplementalDocumentCreateBody(fileId, additionalBodyProperties)
+      return EntitiesSupplementalDocumentCreateBody(fileId, additionalBodyProperties)
     }
 
-    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic
+    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
-    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic
+    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     fun getPathParam(index: Int): String {
-        return when (index) {
-            0 -> entityId
-            else -> ""
-        }
+      return when (index) {
+          0 -> entityId
+          else -> ""
+      }
     }
 
     @JsonDeserialize(builder = EntitiesSupplementalDocumentCreateBody.Builder::class)
     @NoAutoDetect
-    class EntitiesSupplementalDocumentCreateBody
-    internal constructor(
-        private val fileId: String?,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
+    class EntitiesSupplementalDocumentCreateBody internal constructor(private val fileId: String?,private val additionalProperties: Map<String, JsonValue>,) {
 
         private var hashCode: Int = 0
 
         /** The identifier of the File containing the document. */
-        @JsonProperty("file_id") fun fileId(): String? = fileId
+        @JsonProperty("file_id")
+        fun fileId(): String? = fileId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -60,28 +70,28 @@ constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is EntitiesSupplementalDocumentCreateBody &&
-                this.fileId == other.fileId &&
-                this.additionalProperties == other.additionalProperties
+          return other is EntitiesSupplementalDocumentCreateBody &&
+              this.fileId == other.fileId &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(fileId, additionalProperties)
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(fileId, additionalProperties)
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "EntitiesSupplementalDocumentCreateBody{fileId=$fileId, additionalProperties=$additionalProperties}"
+        override fun toString() = "EntitiesSupplementalDocumentCreateBody{fileId=$fileId, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         class Builder {
@@ -90,15 +100,16 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(
-                entitiesSupplementalDocumentCreateBody: EntitiesSupplementalDocumentCreateBody
-            ) = apply {
+            internal fun from(entitiesSupplementalDocumentCreateBody: EntitiesSupplementalDocumentCreateBody) = apply {
                 this.fileId = entitiesSupplementalDocumentCreateBody.fileId
                 additionalProperties(entitiesSupplementalDocumentCreateBody.additionalProperties)
             }
 
             /** The identifier of the File containing the document. */
-            @JsonProperty("file_id") fun fileId(fileId: String) = apply { this.fileId = fileId }
+            @JsonProperty("file_id")
+            fun fileId(fileId: String) = apply {
+                this.fileId = fileId
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -114,11 +125,9 @@ constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): EntitiesSupplementalDocumentCreateBody =
-                EntitiesSupplementalDocumentCreateBody(
-                    checkNotNull(fileId) { "`fileId` is required but was not set" },
-                    additionalProperties.toUnmodifiable()
-                )
+            fun build(): EntitiesSupplementalDocumentCreateBody = EntitiesSupplementalDocumentCreateBody(checkNotNull(fileId) {
+                "`fileId` is required but was not set"
+            }, additionalProperties.toUnmodifiable())
         }
     }
 
@@ -129,36 +138,36 @@ constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is EntitiesSupplementalDocumentCreateParams &&
-            this.entityId == other.entityId &&
-            this.fileId == other.fileId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+      return other is EntitiesSupplementalDocumentCreateParams &&
+          this.entityId == other.entityId &&
+          this.fileId == other.fileId &&
+          this.additionalQueryParams == other.additionalQueryParams &&
+          this.additionalHeaders == other.additionalHeaders &&
+          this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            entityId,
-            fileId,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+      return Objects.hash(
+          entityId,
+          fileId,
+          additionalQueryParams,
+          additionalHeaders,
+          additionalBodyProperties,
+      )
     }
 
-    override fun toString() =
-        "EntitiesSupplementalDocumentCreateParams{entityId=$entityId, fileId=$fileId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() = "EntitiesSupplementalDocumentCreateParams{entityId=$entityId, fileId=$fileId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -171,23 +180,23 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(
-            entitiesSupplementalDocumentCreateParams: EntitiesSupplementalDocumentCreateParams
-        ) = apply {
+        internal fun from(entitiesSupplementalDocumentCreateParams: EntitiesSupplementalDocumentCreateParams) = apply {
             this.entityId = entitiesSupplementalDocumentCreateParams.entityId
             this.fileId = entitiesSupplementalDocumentCreateParams.fileId
             additionalQueryParams(entitiesSupplementalDocumentCreateParams.additionalQueryParams)
             additionalHeaders(entitiesSupplementalDocumentCreateParams.additionalHeaders)
-            additionalBodyProperties(
-                entitiesSupplementalDocumentCreateParams.additionalBodyProperties
-            )
+            additionalBodyProperties(entitiesSupplementalDocumentCreateParams.additionalBodyProperties)
         }
 
         /** The identifier of the Entity to retrieve. */
-        fun entityId(entityId: String) = apply { this.entityId = entityId }
+        fun entityId(entityId: String) = apply {
+            this.entityId = entityId
+        }
 
         /** The identifier of the File containing the document. */
-        fun fileId(fileId: String) = apply { this.fileId = fileId }
+        fun fileId(fileId: String) = apply {
+            this.fileId = fileId
+        }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -227,7 +236,9 @@ constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
+        fun removeHeader(name: String) = apply {
+            this.additionalHeaders.put(name, mutableListOf())
+        }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -238,18 +249,20 @@ constructor(
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
-            }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            this.additionalBodyProperties.putAll(additionalBodyProperties)
+        }
 
-        fun build(): EntitiesSupplementalDocumentCreateParams =
-            EntitiesSupplementalDocumentCreateParams(
-                checkNotNull(entityId) { "`entityId` is required but was not set" },
-                checkNotNull(fileId) { "`fileId` is required but was not set" },
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
-            )
+        fun build(): EntitiesSupplementalDocumentCreateParams = EntitiesSupplementalDocumentCreateParams(
+            checkNotNull(entityId) {
+                "`entityId` is required but was not set"
+            },
+            checkNotNull(fileId) {
+                "`fileId` is required but was not set"
+            },
+            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            additionalBodyProperties.toUnmodifiable(),
+        )
     }
 }

@@ -2,42 +2,34 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.models.*
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import java.time.LocalDate
+import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.models.*
 
-class SimulationsInboundWireDrawdownRequestCreateParams
-constructor(
-    private val recipientAccountNumberId: String,
-    private val originatorAccountNumber: String,
-    private val originatorRoutingNumber: String,
-    private val beneficiaryAccountNumber: String,
-    private val beneficiaryRoutingNumber: String,
-    private val amount: Long,
-    private val currency: String,
-    private val messageToRecipient: String,
-    private val originatorToBeneficiaryInformationLine1: String?,
-    private val originatorToBeneficiaryInformationLine2: String?,
-    private val originatorToBeneficiaryInformationLine3: String?,
-    private val originatorToBeneficiaryInformationLine4: String?,
-    private val originatorName: String?,
-    private val originatorAddressLine1: String?,
-    private val originatorAddressLine2: String?,
-    private val originatorAddressLine3: String?,
-    private val beneficiaryName: String?,
-    private val beneficiaryAddressLine1: String?,
-    private val beneficiaryAddressLine2: String?,
-    private val beneficiaryAddressLine3: String?,
-    private val additionalQueryParams: Map<String, List<String>>,
-    private val additionalHeaders: Map<String, List<String>>,
-    private val additionalBodyProperties: Map<String, JsonValue>,
-) {
+class SimulationsInboundWireDrawdownRequestCreateParams constructor(private val recipientAccountNumberId: String,private val originatorAccountNumber: String,private val originatorRoutingNumber: String,private val beneficiaryAccountNumber: String,private val beneficiaryRoutingNumber: String,private val amount: Long,private val currency: String,private val messageToRecipient: String,private val originatorToBeneficiaryInformationLine1: String?,private val originatorToBeneficiaryInformationLine2: String?,private val originatorToBeneficiaryInformationLine3: String?,private val originatorToBeneficiaryInformationLine4: String?,private val originatorName: String?,private val originatorAddressLine1: String?,private val originatorAddressLine2: String?,private val originatorAddressLine3: String?,private val beneficiaryName: String?,private val beneficiaryAddressLine1: String?,private val beneficiaryAddressLine2: String?,private val beneficiaryAddressLine3: String?,private val additionalQueryParams: Map<String, List<String>>,private val additionalHeaders: Map<String, List<String>>,private val additionalBodyProperties: Map<String, JsonValue>,) {
 
     fun recipientAccountNumberId(): String = recipientAccountNumberId
 
@@ -55,17 +47,13 @@ constructor(
 
     fun messageToRecipient(): String = messageToRecipient
 
-    fun originatorToBeneficiaryInformationLine1(): Optional<String> =
-        Optional.ofNullable(originatorToBeneficiaryInformationLine1)
+    fun originatorToBeneficiaryInformationLine1(): Optional<String> = Optional.ofNullable(originatorToBeneficiaryInformationLine1)
 
-    fun originatorToBeneficiaryInformationLine2(): Optional<String> =
-        Optional.ofNullable(originatorToBeneficiaryInformationLine2)
+    fun originatorToBeneficiaryInformationLine2(): Optional<String> = Optional.ofNullable(originatorToBeneficiaryInformationLine2)
 
-    fun originatorToBeneficiaryInformationLine3(): Optional<String> =
-        Optional.ofNullable(originatorToBeneficiaryInformationLine3)
+    fun originatorToBeneficiaryInformationLine3(): Optional<String> = Optional.ofNullable(originatorToBeneficiaryInformationLine3)
 
-    fun originatorToBeneficiaryInformationLine4(): Optional<String> =
-        Optional.ofNullable(originatorToBeneficiaryInformationLine4)
+    fun originatorToBeneficiaryInformationLine4(): Optional<String> = Optional.ofNullable(originatorToBeneficiaryInformationLine4)
 
     fun originatorName(): Optional<String> = Optional.ofNullable(originatorName)
 
@@ -85,67 +73,46 @@ constructor(
 
     @JvmSynthetic
     internal fun getBody(): SimulationsInboundWireDrawdownRequestCreateBody {
-        return SimulationsInboundWireDrawdownRequestCreateBody(
-            recipientAccountNumberId,
-            originatorAccountNumber,
-            originatorRoutingNumber,
-            beneficiaryAccountNumber,
-            beneficiaryRoutingNumber,
-            amount,
-            currency,
-            messageToRecipient,
-            originatorToBeneficiaryInformationLine1,
-            originatorToBeneficiaryInformationLine2,
-            originatorToBeneficiaryInformationLine3,
-            originatorToBeneficiaryInformationLine4,
-            originatorName,
-            originatorAddressLine1,
-            originatorAddressLine2,
-            originatorAddressLine3,
-            beneficiaryName,
-            beneficiaryAddressLine1,
-            beneficiaryAddressLine2,
-            beneficiaryAddressLine3,
-            additionalBodyProperties,
-        )
+      return SimulationsInboundWireDrawdownRequestCreateBody(
+          recipientAccountNumberId,
+          originatorAccountNumber,
+          originatorRoutingNumber,
+          beneficiaryAccountNumber,
+          beneficiaryRoutingNumber,
+          amount,
+          currency,
+          messageToRecipient,
+          originatorToBeneficiaryInformationLine1,
+          originatorToBeneficiaryInformationLine2,
+          originatorToBeneficiaryInformationLine3,
+          originatorToBeneficiaryInformationLine4,
+          originatorName,
+          originatorAddressLine1,
+          originatorAddressLine2,
+          originatorAddressLine3,
+          beneficiaryName,
+          beneficiaryAddressLine1,
+          beneficiaryAddressLine2,
+          beneficiaryAddressLine3,
+          additionalBodyProperties,
+      )
     }
 
-    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic
+    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
-    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic
+    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     @JsonDeserialize(builder = SimulationsInboundWireDrawdownRequestCreateBody.Builder::class)
     @NoAutoDetect
-    class SimulationsInboundWireDrawdownRequestCreateBody
-    internal constructor(
-        private val recipientAccountNumberId: String?,
-        private val originatorAccountNumber: String?,
-        private val originatorRoutingNumber: String?,
-        private val beneficiaryAccountNumber: String?,
-        private val beneficiaryRoutingNumber: String?,
-        private val amount: Long?,
-        private val currency: String?,
-        private val messageToRecipient: String?,
-        private val originatorToBeneficiaryInformationLine1: String?,
-        private val originatorToBeneficiaryInformationLine2: String?,
-        private val originatorToBeneficiaryInformationLine3: String?,
-        private val originatorToBeneficiaryInformationLine4: String?,
-        private val originatorName: String?,
-        private val originatorAddressLine1: String?,
-        private val originatorAddressLine2: String?,
-        private val originatorAddressLine3: String?,
-        private val beneficiaryName: String?,
-        private val beneficiaryAddressLine1: String?,
-        private val beneficiaryAddressLine2: String?,
-        private val beneficiaryAddressLine3: String?,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
+    class SimulationsInboundWireDrawdownRequestCreateBody internal constructor(private val recipientAccountNumberId: String?,private val originatorAccountNumber: String?,private val originatorRoutingNumber: String?,private val beneficiaryAccountNumber: String?,private val beneficiaryRoutingNumber: String?,private val amount: Long?,private val currency: String?,private val messageToRecipient: String?,private val originatorToBeneficiaryInformationLine1: String?,private val originatorToBeneficiaryInformationLine2: String?,private val originatorToBeneficiaryInformationLine3: String?,private val originatorToBeneficiaryInformationLine4: String?,private val originatorName: String?,private val originatorAddressLine1: String?,private val originatorAddressLine2: String?,private val originatorAddressLine3: String?,private val beneficiaryName: String?,private val beneficiaryAddressLine1: String?,private val beneficiaryAddressLine2: String?,private val beneficiaryAddressLine3: String?,private val additionalProperties: Map<String, JsonValue>,) {
 
         private var hashCode: Int = 0
 
         /**
-         * The Account Number to which the recipient of this request is being requested to send
-         * funds from.
+         * The Account Number to which the recipient of this request is being requested to
+         * send funds from.
          */
         @JsonProperty("recipient_account_number_id")
         fun recipientAccountNumberId(): String? = recipientAccountNumberId
@@ -167,47 +134,51 @@ constructor(
         fun beneficiaryRoutingNumber(): String? = beneficiaryRoutingNumber
 
         /** The amount being requested in cents. */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount")
+        fun amount(): Long? = amount
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the amount being
          * requested. Will always be "USD".
          */
-        @JsonProperty("currency") fun currency(): String? = currency
+        @JsonProperty("currency")
+        fun currency(): String? = currency
 
         /** A message from the drawdown request's originator. */
-        @JsonProperty("message_to_recipient") fun messageToRecipient(): String? = messageToRecipient
+        @JsonProperty("message_to_recipient")
+        fun messageToRecipient(): String? = messageToRecipient
 
         /**
-         * Line 1 of the information conveyed from the originator of the message to the beneficiary.
+         * Line 1 of the information conveyed from the originator of the message to the
+         * beneficiary.
          */
         @JsonProperty("originator_to_beneficiary_information_line1")
-        fun originatorToBeneficiaryInformationLine1(): String? =
-            originatorToBeneficiaryInformationLine1
+        fun originatorToBeneficiaryInformationLine1(): String? = originatorToBeneficiaryInformationLine1
 
         /**
-         * Line 2 of the information conveyed from the originator of the message to the beneficiary.
+         * Line 2 of the information conveyed from the originator of the message to the
+         * beneficiary.
          */
         @JsonProperty("originator_to_beneficiary_information_line2")
-        fun originatorToBeneficiaryInformationLine2(): String? =
-            originatorToBeneficiaryInformationLine2
+        fun originatorToBeneficiaryInformationLine2(): String? = originatorToBeneficiaryInformationLine2
 
         /**
-         * Line 3 of the information conveyed from the originator of the message to the beneficiary.
+         * Line 3 of the information conveyed from the originator of the message to the
+         * beneficiary.
          */
         @JsonProperty("originator_to_beneficiary_information_line3")
-        fun originatorToBeneficiaryInformationLine3(): String? =
-            originatorToBeneficiaryInformationLine3
+        fun originatorToBeneficiaryInformationLine3(): String? = originatorToBeneficiaryInformationLine3
 
         /**
-         * Line 4 of the information conveyed from the originator of the message to the beneficiary.
+         * Line 4 of the information conveyed from the originator of the message to the
+         * beneficiary.
          */
         @JsonProperty("originator_to_beneficiary_information_line4")
-        fun originatorToBeneficiaryInformationLine4(): String? =
-            originatorToBeneficiaryInformationLine4
+        fun originatorToBeneficiaryInformationLine4(): String? = originatorToBeneficiaryInformationLine4
 
         /** The drawdown request's originator's name. */
-        @JsonProperty("originator_name") fun originatorName(): String? = originatorName
+        @JsonProperty("originator_name")
+        fun originatorName(): String? = originatorName
 
         /** Line 1 of the drawdown request's originator's address. */
         @JsonProperty("originator_address_line1")
@@ -222,7 +193,8 @@ constructor(
         fun originatorAddressLine3(): String? = originatorAddressLine3
 
         /** The drawdown request's beneficiary's name. */
-        @JsonProperty("beneficiary_name") fun beneficiaryName(): String? = beneficiaryName
+        @JsonProperty("beneficiary_name")
+        fun beneficiaryName(): String? = beneficiaryName
 
         /** Line 1 of the drawdown request's beneficiary's address. */
         @JsonProperty("beneficiary_address_line1")
@@ -243,74 +215,69 @@ constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is SimulationsInboundWireDrawdownRequestCreateBody &&
-                this.recipientAccountNumberId == other.recipientAccountNumberId &&
-                this.originatorAccountNumber == other.originatorAccountNumber &&
-                this.originatorRoutingNumber == other.originatorRoutingNumber &&
-                this.beneficiaryAccountNumber == other.beneficiaryAccountNumber &&
-                this.beneficiaryRoutingNumber == other.beneficiaryRoutingNumber &&
-                this.amount == other.amount &&
-                this.currency == other.currency &&
-                this.messageToRecipient == other.messageToRecipient &&
-                this.originatorToBeneficiaryInformationLine1 ==
-                    other.originatorToBeneficiaryInformationLine1 &&
-                this.originatorToBeneficiaryInformationLine2 ==
-                    other.originatorToBeneficiaryInformationLine2 &&
-                this.originatorToBeneficiaryInformationLine3 ==
-                    other.originatorToBeneficiaryInformationLine3 &&
-                this.originatorToBeneficiaryInformationLine4 ==
-                    other.originatorToBeneficiaryInformationLine4 &&
-                this.originatorName == other.originatorName &&
-                this.originatorAddressLine1 == other.originatorAddressLine1 &&
-                this.originatorAddressLine2 == other.originatorAddressLine2 &&
-                this.originatorAddressLine3 == other.originatorAddressLine3 &&
-                this.beneficiaryName == other.beneficiaryName &&
-                this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
-                this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
-                this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
-                this.additionalProperties == other.additionalProperties
+          return other is SimulationsInboundWireDrawdownRequestCreateBody &&
+              this.recipientAccountNumberId == other.recipientAccountNumberId &&
+              this.originatorAccountNumber == other.originatorAccountNumber &&
+              this.originatorRoutingNumber == other.originatorRoutingNumber &&
+              this.beneficiaryAccountNumber == other.beneficiaryAccountNumber &&
+              this.beneficiaryRoutingNumber == other.beneficiaryRoutingNumber &&
+              this.amount == other.amount &&
+              this.currency == other.currency &&
+              this.messageToRecipient == other.messageToRecipient &&
+              this.originatorToBeneficiaryInformationLine1 == other.originatorToBeneficiaryInformationLine1 &&
+              this.originatorToBeneficiaryInformationLine2 == other.originatorToBeneficiaryInformationLine2 &&
+              this.originatorToBeneficiaryInformationLine3 == other.originatorToBeneficiaryInformationLine3 &&
+              this.originatorToBeneficiaryInformationLine4 == other.originatorToBeneficiaryInformationLine4 &&
+              this.originatorName == other.originatorName &&
+              this.originatorAddressLine1 == other.originatorAddressLine1 &&
+              this.originatorAddressLine2 == other.originatorAddressLine2 &&
+              this.originatorAddressLine3 == other.originatorAddressLine3 &&
+              this.beneficiaryName == other.beneficiaryName &&
+              this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
+              this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
+              this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        recipientAccountNumberId,
-                        originatorAccountNumber,
-                        originatorRoutingNumber,
-                        beneficiaryAccountNumber,
-                        beneficiaryRoutingNumber,
-                        amount,
-                        currency,
-                        messageToRecipient,
-                        originatorToBeneficiaryInformationLine1,
-                        originatorToBeneficiaryInformationLine2,
-                        originatorToBeneficiaryInformationLine3,
-                        originatorToBeneficiaryInformationLine4,
-                        originatorName,
-                        originatorAddressLine1,
-                        originatorAddressLine2,
-                        originatorAddressLine3,
-                        beneficiaryName,
-                        beneficiaryAddressLine1,
-                        beneficiaryAddressLine2,
-                        beneficiaryAddressLine3,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(
+                recipientAccountNumberId,
+                originatorAccountNumber,
+                originatorRoutingNumber,
+                beneficiaryAccountNumber,
+                beneficiaryRoutingNumber,
+                amount,
+                currency,
+                messageToRecipient,
+                originatorToBeneficiaryInformationLine1,
+                originatorToBeneficiaryInformationLine2,
+                originatorToBeneficiaryInformationLine3,
+                originatorToBeneficiaryInformationLine4,
+                originatorName,
+                originatorAddressLine1,
+                originatorAddressLine2,
+                originatorAddressLine3,
+                beneficiaryName,
+                beneficiaryAddressLine1,
+                beneficiaryAddressLine2,
+                beneficiaryAddressLine3,
+                additionalProperties,
+            )
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "SimulationsInboundWireDrawdownRequestCreateBody{recipientAccountNumberId=$recipientAccountNumberId, originatorAccountNumber=$originatorAccountNumber, originatorRoutingNumber=$originatorRoutingNumber, beneficiaryAccountNumber=$beneficiaryAccountNumber, beneficiaryRoutingNumber=$beneficiaryRoutingNumber, amount=$amount, currency=$currency, messageToRecipient=$messageToRecipient, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, originatorName=$originatorName, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, additionalProperties=$additionalProperties}"
+        override fun toString() = "SimulationsInboundWireDrawdownRequestCreateBody{recipientAccountNumberId=$recipientAccountNumberId, originatorAccountNumber=$originatorAccountNumber, originatorRoutingNumber=$originatorRoutingNumber, beneficiaryAccountNumber=$beneficiaryAccountNumber, beneficiaryRoutingNumber=$beneficiaryRoutingNumber, amount=$amount, currency=$currency, messageToRecipient=$messageToRecipient, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, originatorName=$originatorName, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         class Builder {
@@ -338,59 +305,33 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(
-                simulationsInboundWireDrawdownRequestCreateBody:
-                    SimulationsInboundWireDrawdownRequestCreateBody
-            ) = apply {
-                this.recipientAccountNumberId =
-                    simulationsInboundWireDrawdownRequestCreateBody.recipientAccountNumberId
-                this.originatorAccountNumber =
-                    simulationsInboundWireDrawdownRequestCreateBody.originatorAccountNumber
-                this.originatorRoutingNumber =
-                    simulationsInboundWireDrawdownRequestCreateBody.originatorRoutingNumber
-                this.beneficiaryAccountNumber =
-                    simulationsInboundWireDrawdownRequestCreateBody.beneficiaryAccountNumber
-                this.beneficiaryRoutingNumber =
-                    simulationsInboundWireDrawdownRequestCreateBody.beneficiaryRoutingNumber
+            internal fun from(simulationsInboundWireDrawdownRequestCreateBody: SimulationsInboundWireDrawdownRequestCreateBody) = apply {
+                this.recipientAccountNumberId = simulationsInboundWireDrawdownRequestCreateBody.recipientAccountNumberId
+                this.originatorAccountNumber = simulationsInboundWireDrawdownRequestCreateBody.originatorAccountNumber
+                this.originatorRoutingNumber = simulationsInboundWireDrawdownRequestCreateBody.originatorRoutingNumber
+                this.beneficiaryAccountNumber = simulationsInboundWireDrawdownRequestCreateBody.beneficiaryAccountNumber
+                this.beneficiaryRoutingNumber = simulationsInboundWireDrawdownRequestCreateBody.beneficiaryRoutingNumber
                 this.amount = simulationsInboundWireDrawdownRequestCreateBody.amount
                 this.currency = simulationsInboundWireDrawdownRequestCreateBody.currency
-                this.messageToRecipient =
-                    simulationsInboundWireDrawdownRequestCreateBody.messageToRecipient
-                this.originatorToBeneficiaryInformationLine1 =
-                    simulationsInboundWireDrawdownRequestCreateBody
-                        .originatorToBeneficiaryInformationLine1
-                this.originatorToBeneficiaryInformationLine2 =
-                    simulationsInboundWireDrawdownRequestCreateBody
-                        .originatorToBeneficiaryInformationLine2
-                this.originatorToBeneficiaryInformationLine3 =
-                    simulationsInboundWireDrawdownRequestCreateBody
-                        .originatorToBeneficiaryInformationLine3
-                this.originatorToBeneficiaryInformationLine4 =
-                    simulationsInboundWireDrawdownRequestCreateBody
-                        .originatorToBeneficiaryInformationLine4
+                this.messageToRecipient = simulationsInboundWireDrawdownRequestCreateBody.messageToRecipient
+                this.originatorToBeneficiaryInformationLine1 = simulationsInboundWireDrawdownRequestCreateBody.originatorToBeneficiaryInformationLine1
+                this.originatorToBeneficiaryInformationLine2 = simulationsInboundWireDrawdownRequestCreateBody.originatorToBeneficiaryInformationLine2
+                this.originatorToBeneficiaryInformationLine3 = simulationsInboundWireDrawdownRequestCreateBody.originatorToBeneficiaryInformationLine3
+                this.originatorToBeneficiaryInformationLine4 = simulationsInboundWireDrawdownRequestCreateBody.originatorToBeneficiaryInformationLine4
                 this.originatorName = simulationsInboundWireDrawdownRequestCreateBody.originatorName
-                this.originatorAddressLine1 =
-                    simulationsInboundWireDrawdownRequestCreateBody.originatorAddressLine1
-                this.originatorAddressLine2 =
-                    simulationsInboundWireDrawdownRequestCreateBody.originatorAddressLine2
-                this.originatorAddressLine3 =
-                    simulationsInboundWireDrawdownRequestCreateBody.originatorAddressLine3
-                this.beneficiaryName =
-                    simulationsInboundWireDrawdownRequestCreateBody.beneficiaryName
-                this.beneficiaryAddressLine1 =
-                    simulationsInboundWireDrawdownRequestCreateBody.beneficiaryAddressLine1
-                this.beneficiaryAddressLine2 =
-                    simulationsInboundWireDrawdownRequestCreateBody.beneficiaryAddressLine2
-                this.beneficiaryAddressLine3 =
-                    simulationsInboundWireDrawdownRequestCreateBody.beneficiaryAddressLine3
-                additionalProperties(
-                    simulationsInboundWireDrawdownRequestCreateBody.additionalProperties
-                )
+                this.originatorAddressLine1 = simulationsInboundWireDrawdownRequestCreateBody.originatorAddressLine1
+                this.originatorAddressLine2 = simulationsInboundWireDrawdownRequestCreateBody.originatorAddressLine2
+                this.originatorAddressLine3 = simulationsInboundWireDrawdownRequestCreateBody.originatorAddressLine3
+                this.beneficiaryName = simulationsInboundWireDrawdownRequestCreateBody.beneficiaryName
+                this.beneficiaryAddressLine1 = simulationsInboundWireDrawdownRequestCreateBody.beneficiaryAddressLine1
+                this.beneficiaryAddressLine2 = simulationsInboundWireDrawdownRequestCreateBody.beneficiaryAddressLine2
+                this.beneficiaryAddressLine3 = simulationsInboundWireDrawdownRequestCreateBody.beneficiaryAddressLine3
+                additionalProperties(simulationsInboundWireDrawdownRequestCreateBody.additionalProperties)
             }
 
             /**
-             * The Account Number to which the recipient of this request is being requested to send
-             * funds from.
+             * The Account Number to which the recipient of this request is being requested to
+             * send funds from.
              */
             @JsonProperty("recipient_account_number_id")
             fun recipientAccountNumberId(recipientAccountNumberId: String) = apply {
@@ -422,14 +363,19 @@ constructor(
             }
 
             /** The amount being requested in cents. */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+            @JsonProperty("amount")
+            fun amount(amount: Long) = apply {
+                this.amount = amount
+            }
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the amount being
              * requested. Will always be "USD".
              */
             @JsonProperty("currency")
-            fun currency(currency: String) = apply { this.currency = currency }
+            fun currency(currency: String) = apply {
+                this.currency = currency
+            }
 
             /** A message from the drawdown request's originator. */
             @JsonProperty("message_to_recipient")
@@ -442,11 +388,8 @@ constructor(
              * beneficiary.
              */
             @JsonProperty("originator_to_beneficiary_information_line1")
-            fun originatorToBeneficiaryInformationLine1(
-                originatorToBeneficiaryInformationLine1: String
-            ) = apply {
-                this.originatorToBeneficiaryInformationLine1 =
-                    originatorToBeneficiaryInformationLine1
+            fun originatorToBeneficiaryInformationLine1(originatorToBeneficiaryInformationLine1: String) = apply {
+                this.originatorToBeneficiaryInformationLine1 = originatorToBeneficiaryInformationLine1
             }
 
             /**
@@ -454,11 +397,8 @@ constructor(
              * beneficiary.
              */
             @JsonProperty("originator_to_beneficiary_information_line2")
-            fun originatorToBeneficiaryInformationLine2(
-                originatorToBeneficiaryInformationLine2: String
-            ) = apply {
-                this.originatorToBeneficiaryInformationLine2 =
-                    originatorToBeneficiaryInformationLine2
+            fun originatorToBeneficiaryInformationLine2(originatorToBeneficiaryInformationLine2: String) = apply {
+                this.originatorToBeneficiaryInformationLine2 = originatorToBeneficiaryInformationLine2
             }
 
             /**
@@ -466,11 +406,8 @@ constructor(
              * beneficiary.
              */
             @JsonProperty("originator_to_beneficiary_information_line3")
-            fun originatorToBeneficiaryInformationLine3(
-                originatorToBeneficiaryInformationLine3: String
-            ) = apply {
-                this.originatorToBeneficiaryInformationLine3 =
-                    originatorToBeneficiaryInformationLine3
+            fun originatorToBeneficiaryInformationLine3(originatorToBeneficiaryInformationLine3: String) = apply {
+                this.originatorToBeneficiaryInformationLine3 = originatorToBeneficiaryInformationLine3
             }
 
             /**
@@ -478,11 +415,8 @@ constructor(
              * beneficiary.
              */
             @JsonProperty("originator_to_beneficiary_information_line4")
-            fun originatorToBeneficiaryInformationLine4(
-                originatorToBeneficiaryInformationLine4: String
-            ) = apply {
-                this.originatorToBeneficiaryInformationLine4 =
-                    originatorToBeneficiaryInformationLine4
+            fun originatorToBeneficiaryInformationLine4(originatorToBeneficiaryInformationLine4: String) = apply {
+                this.originatorToBeneficiaryInformationLine4 = originatorToBeneficiaryInformationLine4
             }
 
             /** The drawdown request's originator's name. */
@@ -547,42 +481,45 @@ constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): SimulationsInboundWireDrawdownRequestCreateBody =
-                SimulationsInboundWireDrawdownRequestCreateBody(
-                    checkNotNull(recipientAccountNumberId) {
-                        "`recipientAccountNumberId` is required but was not set"
-                    },
-                    checkNotNull(originatorAccountNumber) {
-                        "`originatorAccountNumber` is required but was not set"
-                    },
-                    checkNotNull(originatorRoutingNumber) {
-                        "`originatorRoutingNumber` is required but was not set"
-                    },
-                    checkNotNull(beneficiaryAccountNumber) {
-                        "`beneficiaryAccountNumber` is required but was not set"
-                    },
-                    checkNotNull(beneficiaryRoutingNumber) {
-                        "`beneficiaryRoutingNumber` is required but was not set"
-                    },
-                    checkNotNull(amount) { "`amount` is required but was not set" },
-                    checkNotNull(currency) { "`currency` is required but was not set" },
-                    checkNotNull(messageToRecipient) {
-                        "`messageToRecipient` is required but was not set"
-                    },
-                    originatorToBeneficiaryInformationLine1,
-                    originatorToBeneficiaryInformationLine2,
-                    originatorToBeneficiaryInformationLine3,
-                    originatorToBeneficiaryInformationLine4,
-                    originatorName,
-                    originatorAddressLine1,
-                    originatorAddressLine2,
-                    originatorAddressLine3,
-                    beneficiaryName,
-                    beneficiaryAddressLine1,
-                    beneficiaryAddressLine2,
-                    beneficiaryAddressLine3,
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build(): SimulationsInboundWireDrawdownRequestCreateBody = SimulationsInboundWireDrawdownRequestCreateBody(
+                checkNotNull(recipientAccountNumberId) {
+                    "`recipientAccountNumberId` is required but was not set"
+                },
+                checkNotNull(originatorAccountNumber) {
+                    "`originatorAccountNumber` is required but was not set"
+                },
+                checkNotNull(originatorRoutingNumber) {
+                    "`originatorRoutingNumber` is required but was not set"
+                },
+                checkNotNull(beneficiaryAccountNumber) {
+                    "`beneficiaryAccountNumber` is required but was not set"
+                },
+                checkNotNull(beneficiaryRoutingNumber) {
+                    "`beneficiaryRoutingNumber` is required but was not set"
+                },
+                checkNotNull(amount) {
+                    "`amount` is required but was not set"
+                },
+                checkNotNull(currency) {
+                    "`currency` is required but was not set"
+                },
+                checkNotNull(messageToRecipient) {
+                    "`messageToRecipient` is required but was not set"
+                },
+                originatorToBeneficiaryInformationLine1,
+                originatorToBeneficiaryInformationLine2,
+                originatorToBeneficiaryInformationLine3,
+                originatorToBeneficiaryInformationLine4,
+                originatorName,
+                originatorAddressLine1,
+                originatorAddressLine2,
+                originatorAddressLine3,
+                beneficiaryName,
+                beneficiaryAddressLine1,
+                beneficiaryAddressLine2,
+                beneficiaryAddressLine3,
+                additionalProperties.toUnmodifiable(),
+            )
         }
     }
 
@@ -593,76 +530,72 @@ constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is SimulationsInboundWireDrawdownRequestCreateParams &&
-            this.recipientAccountNumberId == other.recipientAccountNumberId &&
-            this.originatorAccountNumber == other.originatorAccountNumber &&
-            this.originatorRoutingNumber == other.originatorRoutingNumber &&
-            this.beneficiaryAccountNumber == other.beneficiaryAccountNumber &&
-            this.beneficiaryRoutingNumber == other.beneficiaryRoutingNumber &&
-            this.amount == other.amount &&
-            this.currency == other.currency &&
-            this.messageToRecipient == other.messageToRecipient &&
-            this.originatorToBeneficiaryInformationLine1 ==
-                other.originatorToBeneficiaryInformationLine1 &&
-            this.originatorToBeneficiaryInformationLine2 ==
-                other.originatorToBeneficiaryInformationLine2 &&
-            this.originatorToBeneficiaryInformationLine3 ==
-                other.originatorToBeneficiaryInformationLine3 &&
-            this.originatorToBeneficiaryInformationLine4 ==
-                other.originatorToBeneficiaryInformationLine4 &&
-            this.originatorName == other.originatorName &&
-            this.originatorAddressLine1 == other.originatorAddressLine1 &&
-            this.originatorAddressLine2 == other.originatorAddressLine2 &&
-            this.originatorAddressLine3 == other.originatorAddressLine3 &&
-            this.beneficiaryName == other.beneficiaryName &&
-            this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
-            this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
-            this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+      return other is SimulationsInboundWireDrawdownRequestCreateParams &&
+          this.recipientAccountNumberId == other.recipientAccountNumberId &&
+          this.originatorAccountNumber == other.originatorAccountNumber &&
+          this.originatorRoutingNumber == other.originatorRoutingNumber &&
+          this.beneficiaryAccountNumber == other.beneficiaryAccountNumber &&
+          this.beneficiaryRoutingNumber == other.beneficiaryRoutingNumber &&
+          this.amount == other.amount &&
+          this.currency == other.currency &&
+          this.messageToRecipient == other.messageToRecipient &&
+          this.originatorToBeneficiaryInformationLine1 == other.originatorToBeneficiaryInformationLine1 &&
+          this.originatorToBeneficiaryInformationLine2 == other.originatorToBeneficiaryInformationLine2 &&
+          this.originatorToBeneficiaryInformationLine3 == other.originatorToBeneficiaryInformationLine3 &&
+          this.originatorToBeneficiaryInformationLine4 == other.originatorToBeneficiaryInformationLine4 &&
+          this.originatorName == other.originatorName &&
+          this.originatorAddressLine1 == other.originatorAddressLine1 &&
+          this.originatorAddressLine2 == other.originatorAddressLine2 &&
+          this.originatorAddressLine3 == other.originatorAddressLine3 &&
+          this.beneficiaryName == other.beneficiaryName &&
+          this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
+          this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
+          this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
+          this.additionalQueryParams == other.additionalQueryParams &&
+          this.additionalHeaders == other.additionalHeaders &&
+          this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            recipientAccountNumberId,
-            originatorAccountNumber,
-            originatorRoutingNumber,
-            beneficiaryAccountNumber,
-            beneficiaryRoutingNumber,
-            amount,
-            currency,
-            messageToRecipient,
-            originatorToBeneficiaryInformationLine1,
-            originatorToBeneficiaryInformationLine2,
-            originatorToBeneficiaryInformationLine3,
-            originatorToBeneficiaryInformationLine4,
-            originatorName,
-            originatorAddressLine1,
-            originatorAddressLine2,
-            originatorAddressLine3,
-            beneficiaryName,
-            beneficiaryAddressLine1,
-            beneficiaryAddressLine2,
-            beneficiaryAddressLine3,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+      return Objects.hash(
+          recipientAccountNumberId,
+          originatorAccountNumber,
+          originatorRoutingNumber,
+          beneficiaryAccountNumber,
+          beneficiaryRoutingNumber,
+          amount,
+          currency,
+          messageToRecipient,
+          originatorToBeneficiaryInformationLine1,
+          originatorToBeneficiaryInformationLine2,
+          originatorToBeneficiaryInformationLine3,
+          originatorToBeneficiaryInformationLine4,
+          originatorName,
+          originatorAddressLine1,
+          originatorAddressLine2,
+          originatorAddressLine3,
+          beneficiaryName,
+          beneficiaryAddressLine1,
+          beneficiaryAddressLine2,
+          beneficiaryAddressLine3,
+          additionalQueryParams,
+          additionalHeaders,
+          additionalBodyProperties,
+      )
     }
 
-    override fun toString() =
-        "SimulationsInboundWireDrawdownRequestCreateParams{recipientAccountNumberId=$recipientAccountNumberId, originatorAccountNumber=$originatorAccountNumber, originatorRoutingNumber=$originatorRoutingNumber, beneficiaryAccountNumber=$beneficiaryAccountNumber, beneficiaryRoutingNumber=$beneficiaryRoutingNumber, amount=$amount, currency=$currency, messageToRecipient=$messageToRecipient, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, originatorName=$originatorName, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() = "SimulationsInboundWireDrawdownRequestCreateParams{recipientAccountNumberId=$recipientAccountNumberId, originatorAccountNumber=$originatorAccountNumber, originatorRoutingNumber=$originatorRoutingNumber, beneficiaryAccountNumber=$beneficiaryAccountNumber, beneficiaryRoutingNumber=$beneficiaryRoutingNumber, amount=$amount, currency=$currency, messageToRecipient=$messageToRecipient, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, originatorName=$originatorName, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -693,62 +626,35 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(
-            simulationsInboundWireDrawdownRequestCreateParams:
-                SimulationsInboundWireDrawdownRequestCreateParams
-        ) = apply {
-            this.recipientAccountNumberId =
-                simulationsInboundWireDrawdownRequestCreateParams.recipientAccountNumberId
-            this.originatorAccountNumber =
-                simulationsInboundWireDrawdownRequestCreateParams.originatorAccountNumber
-            this.originatorRoutingNumber =
-                simulationsInboundWireDrawdownRequestCreateParams.originatorRoutingNumber
-            this.beneficiaryAccountNumber =
-                simulationsInboundWireDrawdownRequestCreateParams.beneficiaryAccountNumber
-            this.beneficiaryRoutingNumber =
-                simulationsInboundWireDrawdownRequestCreateParams.beneficiaryRoutingNumber
+        internal fun from(simulationsInboundWireDrawdownRequestCreateParams: SimulationsInboundWireDrawdownRequestCreateParams) = apply {
+            this.recipientAccountNumberId = simulationsInboundWireDrawdownRequestCreateParams.recipientAccountNumberId
+            this.originatorAccountNumber = simulationsInboundWireDrawdownRequestCreateParams.originatorAccountNumber
+            this.originatorRoutingNumber = simulationsInboundWireDrawdownRequestCreateParams.originatorRoutingNumber
+            this.beneficiaryAccountNumber = simulationsInboundWireDrawdownRequestCreateParams.beneficiaryAccountNumber
+            this.beneficiaryRoutingNumber = simulationsInboundWireDrawdownRequestCreateParams.beneficiaryRoutingNumber
             this.amount = simulationsInboundWireDrawdownRequestCreateParams.amount
             this.currency = simulationsInboundWireDrawdownRequestCreateParams.currency
-            this.messageToRecipient =
-                simulationsInboundWireDrawdownRequestCreateParams.messageToRecipient
-            this.originatorToBeneficiaryInformationLine1 =
-                simulationsInboundWireDrawdownRequestCreateParams
-                    .originatorToBeneficiaryInformationLine1
-            this.originatorToBeneficiaryInformationLine2 =
-                simulationsInboundWireDrawdownRequestCreateParams
-                    .originatorToBeneficiaryInformationLine2
-            this.originatorToBeneficiaryInformationLine3 =
-                simulationsInboundWireDrawdownRequestCreateParams
-                    .originatorToBeneficiaryInformationLine3
-            this.originatorToBeneficiaryInformationLine4 =
-                simulationsInboundWireDrawdownRequestCreateParams
-                    .originatorToBeneficiaryInformationLine4
+            this.messageToRecipient = simulationsInboundWireDrawdownRequestCreateParams.messageToRecipient
+            this.originatorToBeneficiaryInformationLine1 = simulationsInboundWireDrawdownRequestCreateParams.originatorToBeneficiaryInformationLine1
+            this.originatorToBeneficiaryInformationLine2 = simulationsInboundWireDrawdownRequestCreateParams.originatorToBeneficiaryInformationLine2
+            this.originatorToBeneficiaryInformationLine3 = simulationsInboundWireDrawdownRequestCreateParams.originatorToBeneficiaryInformationLine3
+            this.originatorToBeneficiaryInformationLine4 = simulationsInboundWireDrawdownRequestCreateParams.originatorToBeneficiaryInformationLine4
             this.originatorName = simulationsInboundWireDrawdownRequestCreateParams.originatorName
-            this.originatorAddressLine1 =
-                simulationsInboundWireDrawdownRequestCreateParams.originatorAddressLine1
-            this.originatorAddressLine2 =
-                simulationsInboundWireDrawdownRequestCreateParams.originatorAddressLine2
-            this.originatorAddressLine3 =
-                simulationsInboundWireDrawdownRequestCreateParams.originatorAddressLine3
+            this.originatorAddressLine1 = simulationsInboundWireDrawdownRequestCreateParams.originatorAddressLine1
+            this.originatorAddressLine2 = simulationsInboundWireDrawdownRequestCreateParams.originatorAddressLine2
+            this.originatorAddressLine3 = simulationsInboundWireDrawdownRequestCreateParams.originatorAddressLine3
             this.beneficiaryName = simulationsInboundWireDrawdownRequestCreateParams.beneficiaryName
-            this.beneficiaryAddressLine1 =
-                simulationsInboundWireDrawdownRequestCreateParams.beneficiaryAddressLine1
-            this.beneficiaryAddressLine2 =
-                simulationsInboundWireDrawdownRequestCreateParams.beneficiaryAddressLine2
-            this.beneficiaryAddressLine3 =
-                simulationsInboundWireDrawdownRequestCreateParams.beneficiaryAddressLine3
-            additionalQueryParams(
-                simulationsInboundWireDrawdownRequestCreateParams.additionalQueryParams
-            )
+            this.beneficiaryAddressLine1 = simulationsInboundWireDrawdownRequestCreateParams.beneficiaryAddressLine1
+            this.beneficiaryAddressLine2 = simulationsInboundWireDrawdownRequestCreateParams.beneficiaryAddressLine2
+            this.beneficiaryAddressLine3 = simulationsInboundWireDrawdownRequestCreateParams.beneficiaryAddressLine3
+            additionalQueryParams(simulationsInboundWireDrawdownRequestCreateParams.additionalQueryParams)
             additionalHeaders(simulationsInboundWireDrawdownRequestCreateParams.additionalHeaders)
-            additionalBodyProperties(
-                simulationsInboundWireDrawdownRequestCreateParams.additionalBodyProperties
-            )
+            additionalBodyProperties(simulationsInboundWireDrawdownRequestCreateParams.additionalBodyProperties)
         }
 
         /**
-         * The Account Number to which the recipient of this request is being requested to send
-         * funds from.
+         * The Account Number to which the recipient of this request is being requested to
+         * send funds from.
          */
         fun recipientAccountNumberId(recipientAccountNumberId: String) = apply {
             this.recipientAccountNumberId = recipientAccountNumberId
@@ -775,13 +681,17 @@ constructor(
         }
 
         /** The amount being requested in cents. */
-        fun amount(amount: Long) = apply { this.amount = amount }
+        fun amount(amount: Long) = apply {
+            this.amount = amount
+        }
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the amount being
          * requested. Will always be "USD".
          */
-        fun currency(currency: String) = apply { this.currency = currency }
+        fun currency(currency: String) = apply {
+            this.currency = currency
+        }
 
         /** A message from the drawdown request's originator. */
         fun messageToRecipient(messageToRecipient: String) = apply {
@@ -789,43 +699,41 @@ constructor(
         }
 
         /**
-         * Line 1 of the information conveyed from the originator of the message to the beneficiary.
+         * Line 1 of the information conveyed from the originator of the message to the
+         * beneficiary.
          */
-        fun originatorToBeneficiaryInformationLine1(
-            originatorToBeneficiaryInformationLine1: String
-        ) = apply {
+        fun originatorToBeneficiaryInformationLine1(originatorToBeneficiaryInformationLine1: String) = apply {
             this.originatorToBeneficiaryInformationLine1 = originatorToBeneficiaryInformationLine1
         }
 
         /**
-         * Line 2 of the information conveyed from the originator of the message to the beneficiary.
+         * Line 2 of the information conveyed from the originator of the message to the
+         * beneficiary.
          */
-        fun originatorToBeneficiaryInformationLine2(
-            originatorToBeneficiaryInformationLine2: String
-        ) = apply {
+        fun originatorToBeneficiaryInformationLine2(originatorToBeneficiaryInformationLine2: String) = apply {
             this.originatorToBeneficiaryInformationLine2 = originatorToBeneficiaryInformationLine2
         }
 
         /**
-         * Line 3 of the information conveyed from the originator of the message to the beneficiary.
+         * Line 3 of the information conveyed from the originator of the message to the
+         * beneficiary.
          */
-        fun originatorToBeneficiaryInformationLine3(
-            originatorToBeneficiaryInformationLine3: String
-        ) = apply {
+        fun originatorToBeneficiaryInformationLine3(originatorToBeneficiaryInformationLine3: String) = apply {
             this.originatorToBeneficiaryInformationLine3 = originatorToBeneficiaryInformationLine3
         }
 
         /**
-         * Line 4 of the information conveyed from the originator of the message to the beneficiary.
+         * Line 4 of the information conveyed from the originator of the message to the
+         * beneficiary.
          */
-        fun originatorToBeneficiaryInformationLine4(
-            originatorToBeneficiaryInformationLine4: String
-        ) = apply {
+        fun originatorToBeneficiaryInformationLine4(originatorToBeneficiaryInformationLine4: String) = apply {
             this.originatorToBeneficiaryInformationLine4 = originatorToBeneficiaryInformationLine4
         }
 
         /** The drawdown request's originator's name. */
-        fun originatorName(originatorName: String) = apply { this.originatorName = originatorName }
+        fun originatorName(originatorName: String) = apply {
+            this.originatorName = originatorName
+        }
 
         /** Line 1 of the drawdown request's originator's address. */
         fun originatorAddressLine1(originatorAddressLine1: String) = apply {
@@ -900,7 +808,9 @@ constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
+        fun removeHeader(name: String) = apply {
+            this.additionalHeaders.put(name, mutableListOf())
+        }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -911,48 +821,50 @@ constructor(
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
-            }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            this.additionalBodyProperties.putAll(additionalBodyProperties)
+        }
 
-        fun build(): SimulationsInboundWireDrawdownRequestCreateParams =
-            SimulationsInboundWireDrawdownRequestCreateParams(
-                checkNotNull(recipientAccountNumberId) {
-                    "`recipientAccountNumberId` is required but was not set"
-                },
-                checkNotNull(originatorAccountNumber) {
-                    "`originatorAccountNumber` is required but was not set"
-                },
-                checkNotNull(originatorRoutingNumber) {
-                    "`originatorRoutingNumber` is required but was not set"
-                },
-                checkNotNull(beneficiaryAccountNumber) {
-                    "`beneficiaryAccountNumber` is required but was not set"
-                },
-                checkNotNull(beneficiaryRoutingNumber) {
-                    "`beneficiaryRoutingNumber` is required but was not set"
-                },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(currency) { "`currency` is required but was not set" },
-                checkNotNull(messageToRecipient) {
-                    "`messageToRecipient` is required but was not set"
-                },
-                originatorToBeneficiaryInformationLine1,
-                originatorToBeneficiaryInformationLine2,
-                originatorToBeneficiaryInformationLine3,
-                originatorToBeneficiaryInformationLine4,
-                originatorName,
-                originatorAddressLine1,
-                originatorAddressLine2,
-                originatorAddressLine3,
-                beneficiaryName,
-                beneficiaryAddressLine1,
-                beneficiaryAddressLine2,
-                beneficiaryAddressLine3,
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
-            )
+        fun build(): SimulationsInboundWireDrawdownRequestCreateParams = SimulationsInboundWireDrawdownRequestCreateParams(
+            checkNotNull(recipientAccountNumberId) {
+                "`recipientAccountNumberId` is required but was not set"
+            },
+            checkNotNull(originatorAccountNumber) {
+                "`originatorAccountNumber` is required but was not set"
+            },
+            checkNotNull(originatorRoutingNumber) {
+                "`originatorRoutingNumber` is required but was not set"
+            },
+            checkNotNull(beneficiaryAccountNumber) {
+                "`beneficiaryAccountNumber` is required but was not set"
+            },
+            checkNotNull(beneficiaryRoutingNumber) {
+                "`beneficiaryRoutingNumber` is required but was not set"
+            },
+            checkNotNull(amount) {
+                "`amount` is required but was not set"
+            },
+            checkNotNull(currency) {
+                "`currency` is required but was not set"
+            },
+            checkNotNull(messageToRecipient) {
+                "`messageToRecipient` is required but was not set"
+            },
+            originatorToBeneficiaryInformationLine1,
+            originatorToBeneficiaryInformationLine2,
+            originatorToBeneficiaryInformationLine3,
+            originatorToBeneficiaryInformationLine4,
+            originatorName,
+            originatorAddressLine1,
+            originatorAddressLine2,
+            originatorAddressLine3,
+            beneficiaryName,
+            beneficiaryAddressLine1,
+            beneficiaryAddressLine2,
+            beneficiaryAddressLine3,
+            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            additionalBodyProperties.toUnmodifiable(),
+        )
     }
 }
