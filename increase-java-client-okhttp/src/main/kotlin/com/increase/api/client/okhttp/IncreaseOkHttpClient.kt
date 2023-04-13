@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.json.JsonMapper
 import com.increase.api.client.IncreaseClient
 import com.increase.api.client.IncreaseClientImpl
 import com.increase.api.core.ClientOptions
+import java.net.Proxy
 import java.time.Clock
 import java.time.Duration
 
@@ -21,7 +22,7 @@ class IncreaseOkHttpClient private constructor() {
         private var clientOptions: ClientOptions.Builder = ClientOptions.builder()
         private var baseUrl: String = ClientOptions.PRODUCTION_URL
         private var timeout: Duration = Duration.ofSeconds(60)
-        private var maxRetries: Int = 2
+        private var proxy: Proxy? = null
 
         fun sandbox() = apply { baseUrl(ClientOptions.SANDBOX_URL) }
 
@@ -56,6 +57,8 @@ class IncreaseOkHttpClient private constructor() {
 
         fun maxRetries(maxRetries: Int) = apply { clientOptions.maxRetries(maxRetries) }
 
+        fun proxy(proxy: Proxy) = apply { this.proxy = proxy }
+
         fun responseValidation(responseValidation: Boolean) = apply {
             clientOptions.responseValidation(responseValidation)
         }
@@ -65,7 +68,13 @@ class IncreaseOkHttpClient private constructor() {
         fun build(): IncreaseClient {
             return IncreaseClientImpl(
                 clientOptions
-                    .httpClient(OkHttpClient.builder().baseUrl(baseUrl).timeout(timeout).build())
+                    .httpClient(
+                        OkHttpClient.builder()
+                            .baseUrl(baseUrl)
+                            .timeout(timeout)
+                            .proxy(proxy)
+                            .build()
+                    )
                     .build()
             )
         }
