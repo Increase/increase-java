@@ -14,6 +14,8 @@ import com.increase.api.services.async.OauthConnectionServiceAsync
 import java.util.Objects
 import java.util.Optional
 import java.util.concurrent.CompletableFuture
+import java.util.concurrent.Executor
+import java.util.function.Predicate
 
 class OauthConnectionListPageAsync
 private constructor(
@@ -73,6 +75,8 @@ private constructor(
             .map { oauthConnectionsService.list(it).thenApply { Optional.of(it) } }
             .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
     }
+
+    fun autoPager(): AutoPager = AutoPager(this)
 
     companion object {
 
@@ -185,6 +189,38 @@ private constructor(
                     nextCursor,
                     additionalProperties.toUnmodifiable(),
                 )
+        }
+    }
+
+    class AutoPager
+    constructor(
+        private val firstPage: OauthConnectionListPageAsync,
+    ) {
+
+        fun forEach(
+            action: Predicate<OauthConnection>,
+            executor: Executor
+        ): CompletableFuture<Void> {
+            fun CompletableFuture<Optional<OauthConnectionListPageAsync>>.forEach(
+                action: (OauthConnection) -> Boolean,
+                executor: Executor
+            ): CompletableFuture<Void> =
+                thenComposeAsync(
+                    { page ->
+                        page
+                            .filter { it.data().all(action) }
+                            .map { it.getNextPage().forEach(action, executor) }
+                            .orElseGet { CompletableFuture.completedFuture(null) }
+                    },
+                    executor
+                )
+            return CompletableFuture.completedFuture(Optional.of(firstPage))
+                .forEach(action::test, executor)
+        }
+
+        fun toList(executor: Executor): CompletableFuture<List<OauthConnection>> {
+            val values = mutableListOf<OauthConnection>()
+            return forEach(values::add, executor).thenApply { values }
         }
     }
 }

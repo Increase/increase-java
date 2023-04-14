@@ -14,6 +14,8 @@ import com.increase.api.services.async.EntityServiceAsync
 import java.util.Objects
 import java.util.Optional
 import java.util.concurrent.CompletableFuture
+import java.util.concurrent.Executor
+import java.util.function.Predicate
 
 class EntityListPageAsync
 private constructor(
@@ -71,6 +73,8 @@ private constructor(
             .map { entitiesService.list(it).thenApply { Optional.of(it) } }
             .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
     }
+
+    fun autoPager(): AutoPager = AutoPager(this)
 
     companion object {
 
@@ -179,6 +183,35 @@ private constructor(
                     nextCursor,
                     additionalProperties.toUnmodifiable(),
                 )
+        }
+    }
+
+    class AutoPager
+    constructor(
+        private val firstPage: EntityListPageAsync,
+    ) {
+
+        fun forEach(action: Predicate<Entity>, executor: Executor): CompletableFuture<Void> {
+            fun CompletableFuture<Optional<EntityListPageAsync>>.forEach(
+                action: (Entity) -> Boolean,
+                executor: Executor
+            ): CompletableFuture<Void> =
+                thenComposeAsync(
+                    { page ->
+                        page
+                            .filter { it.data().all(action) }
+                            .map { it.getNextPage().forEach(action, executor) }
+                            .orElseGet { CompletableFuture.completedFuture(null) }
+                    },
+                    executor
+                )
+            return CompletableFuture.completedFuture(Optional.of(firstPage))
+                .forEach(action::test, executor)
+        }
+
+        fun toList(executor: Executor): CompletableFuture<List<Entity>> {
+            val values = mutableListOf<Entity>()
+            return forEach(values::add, executor).thenApply { values }
         }
     }
 }

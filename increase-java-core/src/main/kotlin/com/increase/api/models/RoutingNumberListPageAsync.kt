@@ -14,6 +14,8 @@ import com.increase.api.services.async.RoutingNumberServiceAsync
 import java.util.Objects
 import java.util.Optional
 import java.util.concurrent.CompletableFuture
+import java.util.concurrent.Executor
+import java.util.function.Predicate
 
 class RoutingNumberListPageAsync
 private constructor(
@@ -73,6 +75,8 @@ private constructor(
             .map { routingNumbersService.list(it).thenApply { Optional.of(it) } }
             .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
     }
+
+    fun autoPager(): AutoPager = AutoPager(this)
 
     companion object {
 
@@ -185,6 +189,35 @@ private constructor(
                     nextCursor,
                     additionalProperties.toUnmodifiable(),
                 )
+        }
+    }
+
+    class AutoPager
+    constructor(
+        private val firstPage: RoutingNumberListPageAsync,
+    ) {
+
+        fun forEach(action: Predicate<RoutingNumber>, executor: Executor): CompletableFuture<Void> {
+            fun CompletableFuture<Optional<RoutingNumberListPageAsync>>.forEach(
+                action: (RoutingNumber) -> Boolean,
+                executor: Executor
+            ): CompletableFuture<Void> =
+                thenComposeAsync(
+                    { page ->
+                        page
+                            .filter { it.data().all(action) }
+                            .map { it.getNextPage().forEach(action, executor) }
+                            .orElseGet { CompletableFuture.completedFuture(null) }
+                    },
+                    executor
+                )
+            return CompletableFuture.completedFuture(Optional.of(firstPage))
+                .forEach(action::test, executor)
+        }
+
+        fun toList(executor: Executor): CompletableFuture<List<RoutingNumber>> {
+            val values = mutableListOf<RoutingNumber>()
+            return forEach(values::add, executor).thenApply { values }
         }
     }
 }

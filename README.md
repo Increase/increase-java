@@ -145,6 +145,8 @@ the results either one page at a time, or item-by-item across all pages.
 To iterate through all results across all pages, you can use `autoPager`,
 which automatically handles fetching more pages for you:
 
+### Synchronous
+
 ```java
 // As an Iterable:
 AccountListPage page = client.accounts().list(params);
@@ -158,7 +160,13 @@ client.accounts().list(params).autoPager().stream()
     .forEach(account -> System.out.println(account));
 ```
 
-Note that fetching each page blocks the current thread.
+### Asynchronous
+
+```java
+// Using forEach, which returns CompletableFuture<Void>:
+asyncClient.accounts().list(params).autoPager()
+    .forEach(account -> System.out.println(account), executor);
+```
 
 ### Manual pagination
 

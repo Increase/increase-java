@@ -194,19 +194,17 @@ private constructor(
         private val firstPage: AccountTransferListPage,
     ) : Iterable<AccountTransfer> {
 
-        override fun iterator(): Iterator<AccountTransfer> =
-            sequence {
-                    var page = firstPage
-                    var index = 0
-                    while (true) {
-                        while (index >= page.data().size) {
-                            page = page.getNextPage().orElse(null) ?: return@sequence
-                            index = 0
-                        }
-                        yield(page.data()[index++])
-                    }
+        override fun iterator(): Iterator<AccountTransfer> = iterator {
+            var page = firstPage
+            var index = 0
+            while (true) {
+                while (index < page.data().size) {
+                    yield(page.data()[index++])
                 }
-                .iterator()
+                page = page.getNextPage().orElse(null) ?: break
+                index = 0
+            }
+        }
 
         fun stream(): Stream<AccountTransfer> {
             return StreamSupport.stream(spliterator(), false)

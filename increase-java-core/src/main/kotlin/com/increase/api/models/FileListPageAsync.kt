@@ -14,6 +14,8 @@ import com.increase.api.services.async.FileServiceAsync
 import java.util.Objects
 import java.util.Optional
 import java.util.concurrent.CompletableFuture
+import java.util.concurrent.Executor
+import java.util.function.Predicate
 
 class FileListPageAsync
 private constructor(
@@ -71,6 +73,8 @@ private constructor(
             .map { filesService.list(it).thenApply { Optional.of(it) } }
             .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
     }
+
+    fun autoPager(): AutoPager = AutoPager(this)
 
     companion object {
 
@@ -178,6 +182,35 @@ private constructor(
                     nextCursor,
                     additionalProperties.toUnmodifiable(),
                 )
+        }
+    }
+
+    class AutoPager
+    constructor(
+        private val firstPage: FileListPageAsync,
+    ) {
+
+        fun forEach(action: Predicate<File>, executor: Executor): CompletableFuture<Void> {
+            fun CompletableFuture<Optional<FileListPageAsync>>.forEach(
+                action: (File) -> Boolean,
+                executor: Executor
+            ): CompletableFuture<Void> =
+                thenComposeAsync(
+                    { page ->
+                        page
+                            .filter { it.data().all(action) }
+                            .map { it.getNextPage().forEach(action, executor) }
+                            .orElseGet { CompletableFuture.completedFuture(null) }
+                    },
+                    executor
+                )
+            return CompletableFuture.completedFuture(Optional.of(firstPage))
+                .forEach(action::test, executor)
+        }
+
+        fun toList(executor: Executor): CompletableFuture<List<File>> {
+            val values = mutableListOf<File>()
+            return forEach(values::add, executor).thenApply { values }
         }
     }
 }

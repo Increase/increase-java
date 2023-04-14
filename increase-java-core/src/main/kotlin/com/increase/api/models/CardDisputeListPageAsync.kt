@@ -14,6 +14,8 @@ import com.increase.api.services.async.CardDisputeServiceAsync
 import java.util.Objects
 import java.util.Optional
 import java.util.concurrent.CompletableFuture
+import java.util.concurrent.Executor
+import java.util.function.Predicate
 
 class CardDisputeListPageAsync
 private constructor(
@@ -73,6 +75,8 @@ private constructor(
             .map { cardDisputesService.list(it).thenApply { Optional.of(it) } }
             .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
     }
+
+    fun autoPager(): AutoPager = AutoPager(this)
 
     companion object {
 
@@ -185,6 +189,35 @@ private constructor(
                     nextCursor,
                     additionalProperties.toUnmodifiable(),
                 )
+        }
+    }
+
+    class AutoPager
+    constructor(
+        private val firstPage: CardDisputeListPageAsync,
+    ) {
+
+        fun forEach(action: Predicate<CardDispute>, executor: Executor): CompletableFuture<Void> {
+            fun CompletableFuture<Optional<CardDisputeListPageAsync>>.forEach(
+                action: (CardDispute) -> Boolean,
+                executor: Executor
+            ): CompletableFuture<Void> =
+                thenComposeAsync(
+                    { page ->
+                        page
+                            .filter { it.data().all(action) }
+                            .map { it.getNextPage().forEach(action, executor) }
+                            .orElseGet { CompletableFuture.completedFuture(null) }
+                    },
+                    executor
+                )
+            return CompletableFuture.completedFuture(Optional.of(firstPage))
+                .forEach(action::test, executor)
+        }
+
+        fun toList(executor: Executor): CompletableFuture<List<CardDispute>> {
+            val values = mutableListOf<CardDispute>()
+            return forEach(values::add, executor).thenApply { values }
         }
     }
 }

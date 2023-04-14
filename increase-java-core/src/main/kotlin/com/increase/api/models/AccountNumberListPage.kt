@@ -194,19 +194,17 @@ private constructor(
         private val firstPage: AccountNumberListPage,
     ) : Iterable<AccountNumber> {
 
-        override fun iterator(): Iterator<AccountNumber> =
-            sequence {
-                    var page = firstPage
-                    var index = 0
-                    while (true) {
-                        while (index >= page.data().size) {
-                            page = page.getNextPage().orElse(null) ?: return@sequence
-                            index = 0
-                        }
-                        yield(page.data()[index++])
-                    }
+        override fun iterator(): Iterator<AccountNumber> = iterator {
+            var page = firstPage
+            var index = 0
+            while (true) {
+                while (index < page.data().size) {
+                    yield(page.data()[index++])
                 }
-                .iterator()
+                page = page.getNextPage().orElse(null) ?: break
+                index = 0
+            }
+        }
 
         fun stream(): Stream<AccountNumber> {
             return StreamSupport.stream(spliterator(), false)

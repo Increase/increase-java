@@ -14,6 +14,8 @@ import com.increase.api.services.async.EventSubscriptionServiceAsync
 import java.util.Objects
 import java.util.Optional
 import java.util.concurrent.CompletableFuture
+import java.util.concurrent.Executor
+import java.util.function.Predicate
 
 class EventSubscriptionListPageAsync
 private constructor(
@@ -73,6 +75,8 @@ private constructor(
             .map { eventSubscriptionsService.list(it).thenApply { Optional.of(it) } }
             .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
     }
+
+    fun autoPager(): AutoPager = AutoPager(this)
 
     companion object {
 
@@ -185,6 +189,38 @@ private constructor(
                     nextCursor,
                     additionalProperties.toUnmodifiable(),
                 )
+        }
+    }
+
+    class AutoPager
+    constructor(
+        private val firstPage: EventSubscriptionListPageAsync,
+    ) {
+
+        fun forEach(
+            action: Predicate<EventSubscription>,
+            executor: Executor
+        ): CompletableFuture<Void> {
+            fun CompletableFuture<Optional<EventSubscriptionListPageAsync>>.forEach(
+                action: (EventSubscription) -> Boolean,
+                executor: Executor
+            ): CompletableFuture<Void> =
+                thenComposeAsync(
+                    { page ->
+                        page
+                            .filter { it.data().all(action) }
+                            .map { it.getNextPage().forEach(action, executor) }
+                            .orElseGet { CompletableFuture.completedFuture(null) }
+                    },
+                    executor
+                )
+            return CompletableFuture.completedFuture(Optional.of(firstPage))
+                .forEach(action::test, executor)
+        }
+
+        fun toList(executor: Executor): CompletableFuture<List<EventSubscription>> {
+            val values = mutableListOf<EventSubscription>()
+            return forEach(values::add, executor).thenApply { values }
         }
     }
 }

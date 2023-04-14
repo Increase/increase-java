@@ -188,19 +188,17 @@ private constructor(
         private val firstPage: DocumentListPage,
     ) : Iterable<Document> {
 
-        override fun iterator(): Iterator<Document> =
-            sequence {
-                    var page = firstPage
-                    var index = 0
-                    while (true) {
-                        while (index >= page.data().size) {
-                            page = page.getNextPage().orElse(null) ?: return@sequence
-                            index = 0
-                        }
-                        yield(page.data()[index++])
-                    }
+        override fun iterator(): Iterator<Document> = iterator {
+            var page = firstPage
+            var index = 0
+            while (true) {
+                while (index < page.data().size) {
+                    yield(page.data()[index++])
                 }
-                .iterator()
+                page = page.getNextPage().orElse(null) ?: break
+                index = 0
+            }
+        }
 
         fun stream(): Stream<Document> {
             return StreamSupport.stream(spliterator(), false)
