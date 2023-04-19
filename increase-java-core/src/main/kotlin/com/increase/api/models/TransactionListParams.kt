@@ -465,6 +465,8 @@ constructor(
 
                 @JvmField val CARD_SETTLEMENT = In(JsonField.of("card_settlement"))
 
+                @JvmField val CARD_REVENUE_PAYMENT = In(JsonField.of("card_revenue_payment"))
+
                 @JvmField
                 val CHECK_DEPOSIT_ACCEPTANCE = In(JsonField.of("check_deposit_acceptance"))
 
@@ -485,6 +487,8 @@ constructor(
                 @JvmField val DISPUTE_RESOLUTION = In(JsonField.of("dispute_resolution"))
 
                 @JvmField val EMPYREAL_CASH_DEPOSIT = In(JsonField.of("empyreal_cash_deposit"))
+
+                @JvmField val FEE_PAYMENT = In(JsonField.of("fee_payment"))
 
                 @JvmField val INBOUND_ACH_TRANSFER = In(JsonField.of("inbound_ach_transfer"))
 
@@ -559,6 +563,7 @@ constructor(
                 CARD_DISPUTE_ACCEPTANCE,
                 CARD_REFUND,
                 CARD_SETTLEMENT,
+                CARD_REVENUE_PAYMENT,
                 CHECK_DEPOSIT_ACCEPTANCE,
                 CHECK_DEPOSIT_RETURN,
                 CHECK_TRANSFER_INTENTION,
@@ -567,6 +572,7 @@ constructor(
                 CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
                 DISPUTE_RESOLUTION,
                 EMPYREAL_CASH_DEPOSIT,
+                FEE_PAYMENT,
                 INBOUND_ACH_TRANSFER,
                 INBOUND_ACH_TRANSFER_RETURN_INTENTION,
                 INBOUND_CHECK,
@@ -600,6 +606,7 @@ constructor(
                 CARD_DISPUTE_ACCEPTANCE,
                 CARD_REFUND,
                 CARD_SETTLEMENT,
+                CARD_REVENUE_PAYMENT,
                 CHECK_DEPOSIT_ACCEPTANCE,
                 CHECK_DEPOSIT_RETURN,
                 CHECK_TRANSFER_INTENTION,
@@ -608,6 +615,7 @@ constructor(
                 CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
                 DISPUTE_RESOLUTION,
                 EMPYREAL_CASH_DEPOSIT,
+                FEE_PAYMENT,
                 INBOUND_ACH_TRANSFER,
                 INBOUND_ACH_TRANSFER_RETURN_INTENTION,
                 INBOUND_CHECK,
@@ -643,6 +651,7 @@ constructor(
                     CARD_DISPUTE_ACCEPTANCE -> Value.CARD_DISPUTE_ACCEPTANCE
                     CARD_REFUND -> Value.CARD_REFUND
                     CARD_SETTLEMENT -> Value.CARD_SETTLEMENT
+                    CARD_REVENUE_PAYMENT -> Value.CARD_REVENUE_PAYMENT
                     CHECK_DEPOSIT_ACCEPTANCE -> Value.CHECK_DEPOSIT_ACCEPTANCE
                     CHECK_DEPOSIT_RETURN -> Value.CHECK_DEPOSIT_RETURN
                     CHECK_TRANSFER_INTENTION -> Value.CHECK_TRANSFER_INTENTION
@@ -651,6 +660,7 @@ constructor(
                     CHECK_TRANSFER_STOP_PAYMENT_REQUEST -> Value.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
                     DISPUTE_RESOLUTION -> Value.DISPUTE_RESOLUTION
                     EMPYREAL_CASH_DEPOSIT -> Value.EMPYREAL_CASH_DEPOSIT
+                    FEE_PAYMENT -> Value.FEE_PAYMENT
                     INBOUND_ACH_TRANSFER -> Value.INBOUND_ACH_TRANSFER
                     INBOUND_ACH_TRANSFER_RETURN_INTENTION ->
                         Value.INBOUND_ACH_TRANSFER_RETURN_INTENTION
@@ -690,6 +700,7 @@ constructor(
                     CARD_DISPUTE_ACCEPTANCE -> Known.CARD_DISPUTE_ACCEPTANCE
                     CARD_REFUND -> Known.CARD_REFUND
                     CARD_SETTLEMENT -> Known.CARD_SETTLEMENT
+                    CARD_REVENUE_PAYMENT -> Known.CARD_REVENUE_PAYMENT
                     CHECK_DEPOSIT_ACCEPTANCE -> Known.CHECK_DEPOSIT_ACCEPTANCE
                     CHECK_DEPOSIT_RETURN -> Known.CHECK_DEPOSIT_RETURN
                     CHECK_TRANSFER_INTENTION -> Known.CHECK_TRANSFER_INTENTION
@@ -698,6 +709,7 @@ constructor(
                     CHECK_TRANSFER_STOP_PAYMENT_REQUEST -> Known.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
                     DISPUTE_RESOLUTION -> Known.DISPUTE_RESOLUTION
                     EMPYREAL_CASH_DEPOSIT -> Known.EMPYREAL_CASH_DEPOSIT
+                    FEE_PAYMENT -> Known.FEE_PAYMENT
                     INBOUND_ACH_TRANSFER -> Known.INBOUND_ACH_TRANSFER
                     INBOUND_ACH_TRANSFER_RETURN_INTENTION ->
                         Known.INBOUND_ACH_TRANSFER_RETURN_INTENTION

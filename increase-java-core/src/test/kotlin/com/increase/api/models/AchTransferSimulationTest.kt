@@ -101,6 +101,7 @@ class AchTransferSimulationTest {
                                 )
                                 .cardRefund(
                                     AchTransferSimulation.Transaction.Source.CardRefund.builder()
+                                        .id("string")
                                         .amount(123L)
                                         .currency(
                                             AchTransferSimulation.Transaction.Source.CardRefund
@@ -108,6 +109,11 @@ class AchTransferSimulationTest {
                                                 .CAD
                                         )
                                         .cardSettlementTransactionId("string")
+                                        .merchantCity("string")
+                                        .merchantState("string")
+                                        .merchantCountry("string")
+                                        .merchantName("string")
+                                        .merchantCategoryCode("string")
                                         .type(
                                             AchTransferSimulation.Transaction.Source.CardRefund.Type
                                                 .CARD_REFUND
@@ -117,6 +123,8 @@ class AchTransferSimulationTest {
                                 .cardSettlement(
                                     AchTransferSimulation.Transaction.Source.CardSettlement
                                         .builder()
+                                        .id("string")
+                                        .cardAuthorization("string")
                                         .amount(123L)
                                         .currency(
                                             AchTransferSimulation.Transaction.Source.CardSettlement
@@ -126,16 +134,33 @@ class AchTransferSimulationTest {
                                         .presentmentAmount(123L)
                                         .presentmentCurrency("string")
                                         .merchantCity("string")
+                                        .merchantState("string")
                                         .merchantCountry("string")
                                         .merchantName("string")
                                         .merchantCategoryCode("string")
-                                        .merchantState("string")
                                         .pendingTransactionId("string")
                                         .type(
                                             AchTransferSimulation.Transaction.Source.CardSettlement
                                                 .Type
                                                 .CARD_SETTLEMENT
                                         )
+                                        .build()
+                                )
+                                .cardRevenuePayment(
+                                    AchTransferSimulation.Transaction.Source.CardRevenuePayment
+                                        .builder()
+                                        .amount(123L)
+                                        .currency(
+                                            AchTransferSimulation.Transaction.Source
+                                                .CardRevenuePayment
+                                                .Currency
+                                                .CAD
+                                        )
+                                        .periodStart(
+                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                        )
+                                        .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .transactedOnAccountId("string")
                                         .build()
                                 )
                                 .checkDepositAcceptance(
@@ -253,6 +278,16 @@ class AchTransferSimulationTest {
                                         .bagId("string")
                                         .depositDate(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                        )
+                                        .build()
+                                )
+                                .feePayment(
+                                    AchTransferSimulation.Transaction.Source.FeePayment.builder()
+                                        .amount(123L)
+                                        .currency(
+                                            AchTransferSimulation.Transaction.Source.FeePayment
+                                                .Currency
+                                                .CAD
                                         )
                                         .build()
                                 )
@@ -495,6 +530,17 @@ class AchTransferSimulationTest {
                                         .merchantDescriptor("string")
                                         .merchantState("string")
                                         .merchantCategoryCode("string")
+                                        .build()
+                                )
+                                .realTimePaymentsTransferAcknowledgement(
+                                    AchTransferSimulation.Transaction.Source
+                                        .RealTimePaymentsTransferAcknowledgement
+                                        .builder()
+                                        .amount(123L)
+                                        .destinationAccountNumber("string")
+                                        .destinationRoutingNumber("string")
+                                        .remittanceInformation("string")
+                                        .transferId("string")
                                         .build()
                                 )
                                 .sampleFunds(
@@ -836,12 +882,18 @@ class AchTransferSimulationTest {
                             )
                             .cardRefund(
                                 AchTransferSimulation.Transaction.Source.CardRefund.builder()
+                                    .id("string")
                                     .amount(123L)
                                     .currency(
                                         AchTransferSimulation.Transaction.Source.CardRefund.Currency
                                             .CAD
                                     )
                                     .cardSettlementTransactionId("string")
+                                    .merchantCity("string")
+                                    .merchantState("string")
+                                    .merchantCountry("string")
+                                    .merchantName("string")
+                                    .merchantCategoryCode("string")
                                     .type(
                                         AchTransferSimulation.Transaction.Source.CardRefund.Type
                                             .CARD_REFUND
@@ -850,6 +902,8 @@ class AchTransferSimulationTest {
                             )
                             .cardSettlement(
                                 AchTransferSimulation.Transaction.Source.CardSettlement.builder()
+                                    .id("string")
+                                    .cardAuthorization("string")
                                     .amount(123L)
                                     .currency(
                                         AchTransferSimulation.Transaction.Source.CardSettlement
@@ -859,15 +913,29 @@ class AchTransferSimulationTest {
                                     .presentmentAmount(123L)
                                     .presentmentCurrency("string")
                                     .merchantCity("string")
+                                    .merchantState("string")
                                     .merchantCountry("string")
                                     .merchantName("string")
                                     .merchantCategoryCode("string")
-                                    .merchantState("string")
                                     .pendingTransactionId("string")
                                     .type(
                                         AchTransferSimulation.Transaction.Source.CardSettlement.Type
                                             .CARD_SETTLEMENT
                                     )
+                                    .build()
+                            )
+                            .cardRevenuePayment(
+                                AchTransferSimulation.Transaction.Source.CardRevenuePayment
+                                    .builder()
+                                    .amount(123L)
+                                    .currency(
+                                        AchTransferSimulation.Transaction.Source.CardRevenuePayment
+                                            .Currency
+                                            .CAD
+                                    )
+                                    .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .transactedOnAccountId("string")
                                     .build()
                             )
                             .checkDepositAcceptance(
@@ -975,6 +1043,15 @@ class AchTransferSimulationTest {
                                     .amount(123L)
                                     .bagId("string")
                                     .depositDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .build()
+                            )
+                            .feePayment(
+                                AchTransferSimulation.Transaction.Source.FeePayment.builder()
+                                    .amount(123L)
+                                    .currency(
+                                        AchTransferSimulation.Transaction.Source.FeePayment.Currency
+                                            .CAD
+                                    )
                                     .build()
                             )
                             .inboundAchTransfer(
@@ -1199,6 +1276,17 @@ class AchTransferSimulationTest {
                                     .merchantDescriptor("string")
                                     .merchantState("string")
                                     .merchantCategoryCode("string")
+                                    .build()
+                            )
+                            .realTimePaymentsTransferAcknowledgement(
+                                AchTransferSimulation.Transaction.Source
+                                    .RealTimePaymentsTransferAcknowledgement
+                                    .builder()
+                                    .amount(123L)
+                                    .destinationAccountNumber("string")
+                                    .destinationRoutingNumber("string")
+                                    .remittanceInformation("string")
+                                    .transferId("string")
                                     .build()
                             )
                             .sampleFunds(

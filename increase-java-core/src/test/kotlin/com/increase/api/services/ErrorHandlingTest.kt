@@ -68,9 +68,6 @@ class ErrorHandlingTest {
 
         val expected =
             Account.builder()
-                .balances(
-                    Account.Balances.builder().currentBalance(123L).availableBalance(123L).build()
-                )
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .currency(Account.Currency.CAD)
                 .entityId("string")

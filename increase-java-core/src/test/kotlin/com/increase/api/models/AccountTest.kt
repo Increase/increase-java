@@ -11,9 +11,6 @@ class AccountTest {
     fun createAccount() {
         val account =
             Account.builder()
-                .balances(
-                    Account.Balances.builder().currentBalance(123L).availableBalance(123L).build()
-                )
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .currency(Account.Currency.CAD)
                 .entityId("string")
@@ -26,10 +23,6 @@ class AccountTest {
                 .type(Account.Type.ACCOUNT)
                 .build()
         assertThat(account).isNotNull
-        assertThat(account.balances())
-            .isEqualTo(
-                Account.Balances.builder().currentBalance(123L).availableBalance(123L).build()
-            )
         assertThat(account.createdAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(account.currency()).isEqualTo(Account.Currency.CAD)
         assertThat(account.entityId()).contains("string")

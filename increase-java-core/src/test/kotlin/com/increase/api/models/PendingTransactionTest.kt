@@ -13,6 +13,7 @@ class PendingTransactionTest {
                 .accountId("string")
                 .amount(123L)
                 .currency(PendingTransaction.Currency.CAD)
+                .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .description("string")
                 .id("string")
@@ -39,6 +40,7 @@ class PendingTransactionTest {
                         )
                         .cardAuthorization(
                             PendingTransaction.Source.CardAuthorization.builder()
+                                .id("string")
                                 .merchantAcceptorId("string")
                                 .merchantDescriptor("string")
                                 .merchantCategoryCode("string")
@@ -71,6 +73,10 @@ class PendingTransactionTest {
                                 .currency(PendingTransaction.Source.CardAuthorization.Currency.CAD)
                                 .realTimeDecisionId("string")
                                 .digitalWalletTokenId("string")
+                                .type(
+                                    PendingTransaction.Source.CardAuthorization.Type
+                                        .CARD_AUTHORIZATION
+                                )
                                 .build()
                         )
                         .checkDepositInstruction(
@@ -96,6 +102,7 @@ class PendingTransactionTest {
                         .inboundFundsHold(
                             PendingTransaction.Source.InboundFundsHold.builder()
                                 .amount(123L)
+                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .currency(PendingTransaction.Source.InboundFundsHold.Currency.CAD)
                                 .automaticallyReleasesAt(
                                     OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
@@ -103,6 +110,7 @@ class PendingTransactionTest {
                                 .releasedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .status(PendingTransaction.Source.InboundFundsHold.Status.HELD)
                                 .heldTransactionId("string")
+                                .pendingTransactionId("string")
                                 .build()
                         )
                         .cardRouteAuthorization(
@@ -117,6 +125,12 @@ class PendingTransactionTest {
                                 .merchantDescriptor("string")
                                 .merchantCategoryCode("string")
                                 .merchantState("string")
+                                .build()
+                        )
+                        .realTimePaymentsTransferInstruction(
+                            PendingTransaction.Source.RealTimePaymentsTransferInstruction.builder()
+                                .amount(123L)
+                                .transferId("string")
                                 .build()
                         )
                         .wireDrawdownPaymentInstruction(
@@ -145,6 +159,8 @@ class PendingTransactionTest {
         assertThat(pendingTransaction.accountId()).isEqualTo("string")
         assertThat(pendingTransaction.amount()).isEqualTo(123L)
         assertThat(pendingTransaction.currency()).isEqualTo(PendingTransaction.Currency.CAD)
+        assertThat(pendingTransaction.completedAt())
+            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(pendingTransaction.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(pendingTransaction.description()).isEqualTo("string")
@@ -173,6 +189,7 @@ class PendingTransactionTest {
                     )
                     .cardAuthorization(
                         PendingTransaction.Source.CardAuthorization.builder()
+                            .id("string")
                             .merchantAcceptorId("string")
                             .merchantDescriptor("string")
                             .merchantCategoryCode("string")
@@ -201,6 +218,9 @@ class PendingTransactionTest {
                             .currency(PendingTransaction.Source.CardAuthorization.Currency.CAD)
                             .realTimeDecisionId("string")
                             .digitalWalletTokenId("string")
+                            .type(
+                                PendingTransaction.Source.CardAuthorization.Type.CARD_AUTHORIZATION
+                            )
                             .build()
                     )
                     .checkDepositInstruction(
@@ -226,6 +246,7 @@ class PendingTransactionTest {
                     .inboundFundsHold(
                         PendingTransaction.Source.InboundFundsHold.builder()
                             .amount(123L)
+                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .currency(PendingTransaction.Source.InboundFundsHold.Currency.CAD)
                             .automaticallyReleasesAt(
                                 OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
@@ -233,6 +254,7 @@ class PendingTransactionTest {
                             .releasedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .status(PendingTransaction.Source.InboundFundsHold.Status.HELD)
                             .heldTransactionId("string")
+                            .pendingTransactionId("string")
                             .build()
                     )
                     .cardRouteAuthorization(
@@ -245,6 +267,12 @@ class PendingTransactionTest {
                             .merchantDescriptor("string")
                             .merchantCategoryCode("string")
                             .merchantState("string")
+                            .build()
+                    )
+                    .realTimePaymentsTransferInstruction(
+                        PendingTransaction.Source.RealTimePaymentsTransferInstruction.builder()
+                            .amount(123L)
+                            .transferId("string")
                             .build()
                     )
                     .wireDrawdownPaymentInstruction(

@@ -25,7 +25,6 @@ import java.util.Optional
 @NoAutoDetect
 class Account
 private constructor(
-    private val balances: JsonField<Balances>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val currency: JsonField<Currency>,
     private val entityId: JsonField<String>,
@@ -42,12 +41,6 @@ private constructor(
     private var validated: Boolean = false
 
     private var hashCode: Int = 0
-
-    /**
-     * The Account's balances in the minor unit of its currency. For dollars, for example, these
-     * values will represent cents.
-     */
-    fun balances(): Balances = balances.getRequired("balances")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was created.
@@ -91,12 +84,6 @@ private constructor(
 
     /** A constant representing the object's type. For this resource it will always be `account`. */
     fun type(): Type = type.getRequired("type")
-
-    /**
-     * The Account's balances in the minor unit of its currency. For dollars, for example, these
-     * values will represent cents.
-     */
-    @JsonProperty("balances") @ExcludeMissing fun _balances() = balances
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was created.
@@ -149,7 +136,6 @@ private constructor(
 
     fun validate() = apply {
         if (!validated) {
-            balances().validate()
             createdAt()
             currency()
             entityId()
@@ -172,7 +158,6 @@ private constructor(
         }
 
         return other is Account &&
-            this.balances == other.balances &&
             this.createdAt == other.createdAt &&
             this.currency == other.currency &&
             this.entityId == other.entityId &&
@@ -190,7 +175,6 @@ private constructor(
         if (hashCode == 0) {
             hashCode =
                 Objects.hash(
-                    balances,
                     createdAt,
                     currency,
                     entityId,
@@ -208,7 +192,7 @@ private constructor(
     }
 
     override fun toString() =
-        "Account{balances=$balances, createdAt=$createdAt, currency=$currency, entityId=$entityId, informationalEntityId=$informationalEntityId, id=$id, interestAccrued=$interestAccrued, interestAccruedAt=$interestAccruedAt, name=$name, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "Account{createdAt=$createdAt, currency=$currency, entityId=$entityId, informationalEntityId=$informationalEntityId, id=$id, interestAccrued=$interestAccrued, interestAccruedAt=$interestAccruedAt, name=$name, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -217,7 +201,6 @@ private constructor(
 
     class Builder {
 
-        private var balances: JsonField<Balances> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var currency: JsonField<Currency> = JsonMissing.of()
         private var entityId: JsonField<String> = JsonMissing.of()
@@ -232,7 +215,6 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(account: Account) = apply {
-            this.balances = account.balances
             this.createdAt = account.createdAt
             this.currency = account.currency
             this.entityId = account.entityId
@@ -245,20 +227,6 @@ private constructor(
             this.type = account.type
             additionalProperties(account.additionalProperties)
         }
-
-        /**
-         * The Account's balances in the minor unit of its currency. For dollars, for example, these
-         * values will represent cents.
-         */
-        fun balances(balances: Balances) = balances(JsonField.of(balances))
-
-        /**
-         * The Account's balances in the minor unit of its currency. For dollars, for example, these
-         * values will represent cents.
-         */
-        @JsonProperty("balances")
-        @ExcludeMissing
-        fun balances(balances: JsonField<Balances>) = apply { this.balances = balances }
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was
@@ -391,7 +359,6 @@ private constructor(
 
         fun build(): Account =
             Account(
-                balances,
                 createdAt,
                 currency,
                 entityId,
@@ -404,163 +371,6 @@ private constructor(
                 type,
                 additionalProperties.toUnmodifiable(),
             )
-    }
-
-    /**
-     * The Account's balances in the minor unit of its currency. For dollars, for example, these
-     * values will represent cents.
-     */
-    @JsonDeserialize(builder = Balances.Builder::class)
-    @NoAutoDetect
-    class Balances
-    private constructor(
-        private val currentBalance: JsonField<Long>,
-        private val availableBalance: JsonField<Long>,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
-
-        private var validated: Boolean = false
-
-        private var hashCode: Int = 0
-
-        /**
-         * The Account's current balance, representing the sum of all posted Transactions on the
-         * Account.
-         */
-        fun currentBalance(): Long = currentBalance.getRequired("current_balance")
-
-        /**
-         * The Account's available balance, representing the current balance less any open Pending
-         * Transactions on the Account.
-         */
-        fun availableBalance(): Long = availableBalance.getRequired("available_balance")
-
-        /**
-         * The Account's current balance, representing the sum of all posted Transactions on the
-         * Account.
-         */
-        @JsonProperty("current_balance") @ExcludeMissing fun _currentBalance() = currentBalance
-
-        /**
-         * The Account's available balance, representing the current balance less any open Pending
-         * Transactions on the Account.
-         */
-        @JsonProperty("available_balance")
-        @ExcludeMissing
-        fun _availableBalance() = availableBalance
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun validate() = apply {
-            if (!validated) {
-                currentBalance()
-                availableBalance()
-                validated = true
-            }
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Balances &&
-                this.currentBalance == other.currentBalance &&
-                this.availableBalance == other.availableBalance &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        currentBalance,
-                        availableBalance,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Balances{currentBalance=$currentBalance, availableBalance=$availableBalance, additionalProperties=$additionalProperties}"
-
-        companion object {
-
-            @JvmStatic fun builder() = Builder()
-        }
-
-        class Builder {
-
-            private var currentBalance: JsonField<Long> = JsonMissing.of()
-            private var availableBalance: JsonField<Long> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(balances: Balances) = apply {
-                this.currentBalance = balances.currentBalance
-                this.availableBalance = balances.availableBalance
-                additionalProperties(balances.additionalProperties)
-            }
-
-            /**
-             * The Account's current balance, representing the sum of all posted Transactions on the
-             * Account.
-             */
-            fun currentBalance(currentBalance: Long) = currentBalance(JsonField.of(currentBalance))
-
-            /**
-             * The Account's current balance, representing the sum of all posted Transactions on the
-             * Account.
-             */
-            @JsonProperty("current_balance")
-            @ExcludeMissing
-            fun currentBalance(currentBalance: JsonField<Long>) = apply {
-                this.currentBalance = currentBalance
-            }
-
-            /**
-             * The Account's available balance, representing the current balance less any open
-             * Pending Transactions on the Account.
-             */
-            fun availableBalance(availableBalance: Long) =
-                availableBalance(JsonField.of(availableBalance))
-
-            /**
-             * The Account's available balance, representing the current balance less any open
-             * Pending Transactions on the Account.
-             */
-            @JsonProperty("available_balance")
-            @ExcludeMissing
-            fun availableBalance(availableBalance: JsonField<Long>) = apply {
-                this.availableBalance = availableBalance
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            @JsonAnySetter
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun build(): Balances =
-                Balances(
-                    currentBalance,
-                    availableBalance,
-                    additionalProperties.toUnmodifiable(),
-                )
-        }
     }
 
     class Currency

@@ -25,6 +25,8 @@ import com.increase.api.services.blocking.simulations.DocumentService
 import com.increase.api.services.blocking.simulations.DocumentServiceImpl
 import com.increase.api.services.blocking.simulations.InboundWireDrawdownRequestService
 import com.increase.api.services.blocking.simulations.InboundWireDrawdownRequestServiceImpl
+import com.increase.api.services.blocking.simulations.InterestPaymentService
+import com.increase.api.services.blocking.simulations.InterestPaymentServiceImpl
 import com.increase.api.services.blocking.simulations.RealTimePaymentsTransferService
 import com.increase.api.services.blocking.simulations.RealTimePaymentsTransferServiceImpl
 import com.increase.api.services.blocking.simulations.WireTransferService
@@ -70,6 +72,10 @@ constructor(
         InboundWireDrawdownRequestServiceImpl(clientOptions)
     }
 
+    private val interestPayments: InterestPaymentService by lazy {
+        InterestPaymentServiceImpl(clientOptions)
+    }
+
     private val wireTransfers: WireTransferService by lazy {
         WireTransferServiceImpl(clientOptions)
     }
@@ -101,6 +107,8 @@ constructor(
 
     override fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestService =
         inboundWireDrawdownRequests
+
+    override fun interestPayments(): InterestPaymentService = interestPayments
 
     override fun wireTransfers(): WireTransferService = wireTransfers
 

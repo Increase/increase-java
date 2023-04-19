@@ -13,6 +13,10 @@ interface IncreaseClient {
 
     fun realTimeDecisions(): RealTimeDecisionService
 
+    fun realTimePaymentsTransfers(): RealTimePaymentsTransferService
+
+    fun balanceLookups(): BalanceLookupService
+
     fun cards(): CardService
 
     fun cardDisputes(): CardDisputeService
@@ -21,11 +25,15 @@ interface IncreaseClient {
 
     fun externalAccounts(): ExternalAccountService
 
+    fun exports(): ExportService
+
     fun digitalWalletTokens(): DigitalWalletTokenService
 
     fun transactions(): TransactionService
 
     fun pendingTransactions(): PendingTransactionService
+
+    fun programs(): ProgramService
 
     fun declinedTransactions(): DeclinedTransactionService
 

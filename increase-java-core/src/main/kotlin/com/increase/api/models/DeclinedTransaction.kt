@@ -1334,16 +1334,18 @@ private constructor(
 
                     @JvmField val ENTITY_NOT_ACTIVE = Reason(JsonField.of("entity_not_active"))
 
-                    @JvmField
-                    val TRANSACTION_NOT_ALLOWED = Reason(JsonField.of("transaction_not_allowed"))
-
                     @JvmField val GROUP_LOCKED = Reason(JsonField.of("group_locked"))
 
                     @JvmField val INSUFFICIENT_FUNDS = Reason(JsonField.of("insufficient_funds"))
 
+                    @JvmField val MISROUTED_RETURN = Reason(JsonField.of("misrouted_return"))
+
                     @JvmField val NO_ACH_ROUTE = Reason(JsonField.of("no_ach_route"))
 
                     @JvmField val ORIGINATOR_REQUEST = Reason(JsonField.of("originator_request"))
+
+                    @JvmField
+                    val TRANSACTION_NOT_ALLOWED = Reason(JsonField.of("transaction_not_allowed"))
 
                     @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
                 }
@@ -1355,11 +1357,12 @@ private constructor(
                     CREDIT_ENTRY_REFUSED_BY_RECEIVER,
                     DUPLICATE_RETURN,
                     ENTITY_NOT_ACTIVE,
-                    TRANSACTION_NOT_ALLOWED,
                     GROUP_LOCKED,
                     INSUFFICIENT_FUNDS,
+                    MISROUTED_RETURN,
                     NO_ACH_ROUTE,
                     ORIGINATOR_REQUEST,
+                    TRANSACTION_NOT_ALLOWED,
                 }
 
                 enum class Value {
@@ -1369,11 +1372,12 @@ private constructor(
                     CREDIT_ENTRY_REFUSED_BY_RECEIVER,
                     DUPLICATE_RETURN,
                     ENTITY_NOT_ACTIVE,
-                    TRANSACTION_NOT_ALLOWED,
                     GROUP_LOCKED,
                     INSUFFICIENT_FUNDS,
+                    MISROUTED_RETURN,
                     NO_ACH_ROUTE,
                     ORIGINATOR_REQUEST,
+                    TRANSACTION_NOT_ALLOWED,
                     _UNKNOWN,
                 }
 
@@ -1385,11 +1389,12 @@ private constructor(
                         CREDIT_ENTRY_REFUSED_BY_RECEIVER -> Value.CREDIT_ENTRY_REFUSED_BY_RECEIVER
                         DUPLICATE_RETURN -> Value.DUPLICATE_RETURN
                         ENTITY_NOT_ACTIVE -> Value.ENTITY_NOT_ACTIVE
-                        TRANSACTION_NOT_ALLOWED -> Value.TRANSACTION_NOT_ALLOWED
                         GROUP_LOCKED -> Value.GROUP_LOCKED
                         INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
+                        MISROUTED_RETURN -> Value.MISROUTED_RETURN
                         NO_ACH_ROUTE -> Value.NO_ACH_ROUTE
                         ORIGINATOR_REQUEST -> Value.ORIGINATOR_REQUEST
+                        TRANSACTION_NOT_ALLOWED -> Value.TRANSACTION_NOT_ALLOWED
                         else -> Value._UNKNOWN
                     }
 
@@ -1401,11 +1406,12 @@ private constructor(
                         CREDIT_ENTRY_REFUSED_BY_RECEIVER -> Known.CREDIT_ENTRY_REFUSED_BY_RECEIVER
                         DUPLICATE_RETURN -> Known.DUPLICATE_RETURN
                         ENTITY_NOT_ACTIVE -> Known.ENTITY_NOT_ACTIVE
-                        TRANSACTION_NOT_ALLOWED -> Known.TRANSACTION_NOT_ALLOWED
                         GROUP_LOCKED -> Known.GROUP_LOCKED
                         INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
+                        MISROUTED_RETURN -> Known.MISROUTED_RETURN
                         NO_ACH_ROUTE -> Known.NO_ACH_ROUTE
                         ORIGINATOR_REQUEST -> Known.ORIGINATOR_REQUEST
+                        TRANSACTION_NOT_ALLOWED -> Known.TRANSACTION_NOT_ALLOWED
                         else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                     }
 
@@ -2466,6 +2472,10 @@ private constructor(
                     @JvmField
                     val INVALID_PHYSICAL_CARD = Reason(JsonField.of("invalid_physical_card"))
 
+                    @JvmField
+                    val MISSING_ORIGINAL_AUTHORIZATION =
+                        Reason(JsonField.of("missing_original_authorization"))
+
                     @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
                 }
 
@@ -2481,6 +2491,7 @@ private constructor(
                     WEBHOOK_TIMED_OUT,
                     DECLINED_BY_STAND_IN_PROCESSING,
                     INVALID_PHYSICAL_CARD,
+                    MISSING_ORIGINAL_AUTHORIZATION,
                 }
 
                 enum class Value {
@@ -2495,6 +2506,7 @@ private constructor(
                     WEBHOOK_TIMED_OUT,
                     DECLINED_BY_STAND_IN_PROCESSING,
                     INVALID_PHYSICAL_CARD,
+                    MISSING_ORIGINAL_AUTHORIZATION,
                     _UNKNOWN,
                 }
 
@@ -2511,6 +2523,7 @@ private constructor(
                         WEBHOOK_TIMED_OUT -> Value.WEBHOOK_TIMED_OUT
                         DECLINED_BY_STAND_IN_PROCESSING -> Value.DECLINED_BY_STAND_IN_PROCESSING
                         INVALID_PHYSICAL_CARD -> Value.INVALID_PHYSICAL_CARD
+                        MISSING_ORIGINAL_AUTHORIZATION -> Value.MISSING_ORIGINAL_AUTHORIZATION
                         else -> Value._UNKNOWN
                     }
 
@@ -2527,6 +2540,7 @@ private constructor(
                         WEBHOOK_TIMED_OUT -> Known.WEBHOOK_TIMED_OUT
                         DECLINED_BY_STAND_IN_PROCESSING -> Known.DECLINED_BY_STAND_IN_PROCESSING
                         INVALID_PHYSICAL_CARD -> Known.INVALID_PHYSICAL_CARD
+                        MISSING_ORIGINAL_AUTHORIZATION -> Known.MISSING_ORIGINAL_AUTHORIZATION
                         else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                     }
 
@@ -2742,6 +2756,8 @@ private constructor(
                     @JvmField
                     val DUPLICATE_PRESENTMENT = Reason(JsonField.of("duplicate_presentment"))
 
+                    @JvmField val NOT_AUTHORIZED = Reason(JsonField.of("not_authorized"))
+
                     @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
                 }
 
@@ -2758,6 +2774,7 @@ private constructor(
                     STOP_PAYMENT_REQUESTED,
                     RETURNED,
                     DUPLICATE_PRESENTMENT,
+                    NOT_AUTHORIZED,
                 }
 
                 enum class Value {
@@ -2773,6 +2790,7 @@ private constructor(
                     STOP_PAYMENT_REQUESTED,
                     RETURNED,
                     DUPLICATE_PRESENTMENT,
+                    NOT_AUTHORIZED,
                     _UNKNOWN,
                 }
 
@@ -2790,6 +2808,7 @@ private constructor(
                         STOP_PAYMENT_REQUESTED -> Value.STOP_PAYMENT_REQUESTED
                         RETURNED -> Value.RETURNED
                         DUPLICATE_PRESENTMENT -> Value.DUPLICATE_PRESENTMENT
+                        NOT_AUTHORIZED -> Value.NOT_AUTHORIZED
                         else -> Value._UNKNOWN
                     }
 
@@ -2807,6 +2826,7 @@ private constructor(
                         STOP_PAYMENT_REQUESTED -> Known.STOP_PAYMENT_REQUESTED
                         RETURNED -> Known.RETURNED
                         DUPLICATE_PRESENTMENT -> Known.DUPLICATE_PRESENTMENT
+                        NOT_AUTHORIZED -> Known.NOT_AUTHORIZED
                         else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                     }
 

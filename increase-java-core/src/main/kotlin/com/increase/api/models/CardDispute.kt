@@ -414,8 +414,7 @@ private constructor(
          * The identifier of the Transaction that was created to return the disputed funds to your
          * account.
          */
-        fun transactionId(): Optional<String> =
-            Optional.ofNullable(transactionId.getNullable("transaction_id"))
+        fun transactionId(): String = transactionId.getRequired("transaction_id")
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card

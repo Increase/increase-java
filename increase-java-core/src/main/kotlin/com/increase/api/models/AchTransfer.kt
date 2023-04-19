@@ -42,7 +42,6 @@ private constructor(
     private val statementDescriptor: JsonField<String>,
     private val status: JsonField<Status>,
     private val submission: JsonField<Submission>,
-    private val templateId: JsonField<String>,
     private val transactionId: JsonField<String>,
     private val companyDescriptiveDate: JsonField<String>,
     private val companyDiscretionaryData: JsonField<String>,
@@ -134,9 +133,6 @@ private constructor(
     /** After the transfer is submitted to FedACH, this will contain supplemental details. */
     fun submission(): Optional<Submission> =
         Optional.ofNullable(submission.getNullable("submission"))
-
-    /** If the transfer was created from a template, this will be the template's ID. */
-    fun templateId(): Optional<String> = Optional.ofNullable(templateId.getNullable("template_id"))
 
     /** The ID for the transaction funding the transfer. */
     fun transactionId(): Optional<String> =
@@ -262,9 +258,6 @@ private constructor(
     /** After the transfer is submitted to FedACH, this will contain supplemental details. */
     @JsonProperty("submission") @ExcludeMissing fun _submission() = submission
 
-    /** If the transfer was created from a template, this will be the template's ID. */
-    @JsonProperty("template_id") @ExcludeMissing fun _templateId() = templateId
-
     /** The ID for the transaction funding the transfer. */
     @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
@@ -335,7 +328,6 @@ private constructor(
             statementDescriptor()
             status()
             submission().map { it.validate() }
-            templateId()
             transactionId()
             companyDescriptiveDate()
             companyDiscretionaryData()
@@ -376,7 +368,6 @@ private constructor(
             this.statementDescriptor == other.statementDescriptor &&
             this.status == other.status &&
             this.submission == other.submission &&
-            this.templateId == other.templateId &&
             this.transactionId == other.transactionId &&
             this.companyDescriptiveDate == other.companyDescriptiveDate &&
             this.companyDiscretionaryData == other.companyDiscretionaryData &&
@@ -412,7 +403,6 @@ private constructor(
                     statementDescriptor,
                     status,
                     submission,
-                    templateId,
                     transactionId,
                     companyDescriptiveDate,
                     companyDiscretionaryData,
@@ -431,7 +421,7 @@ private constructor(
     }
 
     override fun toString() =
-        "AchTransfer{accountId=$accountId, accountNumber=$accountNumber, addendum=$addendum, amount=$amount, currency=$currency, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, externalAccountId=$externalAccountId, id=$id, network=$network, notificationOfChange=$notificationOfChange, return_=$return_, routingNumber=$routingNumber, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, templateId=$templateId, transactionId=$transactionId, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, funding=$funding, individualId=$individualId, individualName=$individualName, effectiveDate=$effectiveDate, standardEntryClassCode=$standardEntryClassCode, type=$type, additionalProperties=$additionalProperties}"
+        "AchTransfer{accountId=$accountId, accountNumber=$accountNumber, addendum=$addendum, amount=$amount, currency=$currency, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, externalAccountId=$externalAccountId, id=$id, network=$network, notificationOfChange=$notificationOfChange, return_=$return_, routingNumber=$routingNumber, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, transactionId=$transactionId, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, funding=$funding, individualId=$individualId, individualName=$individualName, effectiveDate=$effectiveDate, standardEntryClassCode=$standardEntryClassCode, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -457,7 +447,6 @@ private constructor(
         private var statementDescriptor: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var submission: JsonField<Submission> = JsonMissing.of()
-        private var templateId: JsonField<String> = JsonMissing.of()
         private var transactionId: JsonField<String> = JsonMissing.of()
         private var companyDescriptiveDate: JsonField<String> = JsonMissing.of()
         private var companyDiscretionaryData: JsonField<String> = JsonMissing.of()
@@ -490,7 +479,6 @@ private constructor(
             this.statementDescriptor = achTransfer.statementDescriptor
             this.status = achTransfer.status
             this.submission = achTransfer.submission
-            this.templateId = achTransfer.templateId
             this.transactionId = achTransfer.transactionId
             this.companyDescriptiveDate = achTransfer.companyDescriptiveDate
             this.companyDiscretionaryData = achTransfer.companyDiscretionaryData
@@ -692,14 +680,6 @@ private constructor(
         @ExcludeMissing
         fun submission(submission: JsonField<Submission>) = apply { this.submission = submission }
 
-        /** If the transfer was created from a template, this will be the template's ID. */
-        fun templateId(templateId: String) = templateId(JsonField.of(templateId))
-
-        /** If the transfer was created from a template, this will be the template's ID. */
-        @JsonProperty("template_id")
-        @ExcludeMissing
-        fun templateId(templateId: JsonField<String>) = apply { this.templateId = templateId }
-
         /** The ID for the transaction funding the transfer. */
         fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
 
@@ -858,7 +838,6 @@ private constructor(
                 statementDescriptor,
                 status,
                 submission,
-                templateId,
                 transactionId,
                 companyDescriptiveDate,
                 companyDiscretionaryData,
@@ -964,6 +943,7 @@ private constructor(
     class Approval
     private constructor(
         private val approvedAt: JsonField<OffsetDateTime>,
+        private val approvedBy: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -978,10 +958,21 @@ private constructor(
         fun approvedAt(): OffsetDateTime = approvedAt.getRequired("approved_at")
 
         /**
+         * If the Transfer was approved by a user in the dashboard, the email address of that user.
+         */
+        fun approvedBy(): Optional<String> =
+            Optional.ofNullable(approvedBy.getNullable("approved_by"))
+
+        /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * transfer was approved.
          */
         @JsonProperty("approved_at") @ExcludeMissing fun _approvedAt() = approvedAt
+
+        /**
+         * If the Transfer was approved by a user in the dashboard, the email address of that user.
+         */
+        @JsonProperty("approved_by") @ExcludeMissing fun _approvedBy() = approvedBy
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -990,6 +981,7 @@ private constructor(
         fun validate() = apply {
             if (!validated) {
                 approvedAt()
+                approvedBy()
                 validated = true
             }
         }
@@ -1003,18 +995,24 @@ private constructor(
 
             return other is Approval &&
                 this.approvedAt == other.approvedAt &&
+                this.approvedBy == other.approvedBy &&
                 this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(approvedAt, additionalProperties)
+                hashCode =
+                    Objects.hash(
+                        approvedAt,
+                        approvedBy,
+                        additionalProperties,
+                    )
             }
             return hashCode
         }
 
         override fun toString() =
-            "Approval{approvedAt=$approvedAt, additionalProperties=$additionalProperties}"
+            "Approval{approvedAt=$approvedAt, approvedBy=$approvedBy, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1024,11 +1022,13 @@ private constructor(
         class Builder {
 
             private var approvedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var approvedBy: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(approval: Approval) = apply {
                 this.approvedAt = approval.approvedAt
+                this.approvedBy = approval.approvedBy
                 additionalProperties(approval.additionalProperties)
             }
 
@@ -1048,6 +1048,20 @@ private constructor(
                 this.approvedAt = approvedAt
             }
 
+            /**
+             * If the Transfer was approved by a user in the dashboard, the email address of that
+             * user.
+             */
+            fun approvedBy(approvedBy: String) = approvedBy(JsonField.of(approvedBy))
+
+            /**
+             * If the Transfer was approved by a user in the dashboard, the email address of that
+             * user.
+             */
+            @JsonProperty("approved_by")
+            @ExcludeMissing
+            fun approvedBy(approvedBy: JsonField<String>) = apply { this.approvedBy = approvedBy }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -1062,7 +1076,12 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Approval = Approval(approvedAt, additionalProperties.toUnmodifiable())
+            fun build(): Approval =
+                Approval(
+                    approvedAt,
+                    approvedBy,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
@@ -1075,6 +1094,7 @@ private constructor(
     class Cancellation
     private constructor(
         private val canceledAt: JsonField<OffsetDateTime>,
+        private val canceledBy: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -1089,10 +1109,21 @@ private constructor(
         fun canceledAt(): OffsetDateTime = canceledAt.getRequired("canceled_at")
 
         /**
+         * If the Transfer was canceled by a user in the dashboard, the email address of that user.
+         */
+        fun canceledBy(): Optional<String> =
+            Optional.ofNullable(canceledBy.getNullable("canceled_by"))
+
+        /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * Transfer was canceled.
          */
         @JsonProperty("canceled_at") @ExcludeMissing fun _canceledAt() = canceledAt
+
+        /**
+         * If the Transfer was canceled by a user in the dashboard, the email address of that user.
+         */
+        @JsonProperty("canceled_by") @ExcludeMissing fun _canceledBy() = canceledBy
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1101,6 +1132,7 @@ private constructor(
         fun validate() = apply {
             if (!validated) {
                 canceledAt()
+                canceledBy()
                 validated = true
             }
         }
@@ -1114,18 +1146,24 @@ private constructor(
 
             return other is Cancellation &&
                 this.canceledAt == other.canceledAt &&
+                this.canceledBy == other.canceledBy &&
                 this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(canceledAt, additionalProperties)
+                hashCode =
+                    Objects.hash(
+                        canceledAt,
+                        canceledBy,
+                        additionalProperties,
+                    )
             }
             return hashCode
         }
 
         override fun toString() =
-            "Cancellation{canceledAt=$canceledAt, additionalProperties=$additionalProperties}"
+            "Cancellation{canceledAt=$canceledAt, canceledBy=$canceledBy, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1135,11 +1173,13 @@ private constructor(
         class Builder {
 
             private var canceledAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var canceledBy: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(cancellation: Cancellation) = apply {
                 this.canceledAt = cancellation.canceledAt
+                this.canceledBy = cancellation.canceledBy
                 additionalProperties(cancellation.additionalProperties)
             }
 
@@ -1159,6 +1199,20 @@ private constructor(
                 this.canceledAt = canceledAt
             }
 
+            /**
+             * If the Transfer was canceled by a user in the dashboard, the email address of that
+             * user.
+             */
+            fun canceledBy(canceledBy: String) = canceledBy(JsonField.of(canceledBy))
+
+            /**
+             * If the Transfer was canceled by a user in the dashboard, the email address of that
+             * user.
+             */
+            @JsonProperty("canceled_by")
+            @ExcludeMissing
+            fun canceledBy(canceledBy: JsonField<String>) = apply { this.canceledBy = canceledBy }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -1174,7 +1228,11 @@ private constructor(
             }
 
             fun build(): Cancellation =
-                Cancellation(canceledAt, additionalProperties.toUnmodifiable())
+                Cancellation(
+                    canceledAt,
+                    canceledBy,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
@@ -1843,6 +1901,8 @@ private constructor(
 
             @JvmField val CANCELED = Status(JsonField.of("canceled"))
 
+            @JvmField val PENDING_REVIEWING = Status(JsonField.of("pending_reviewing"))
+
             @JvmField val PENDING_SUBMISSION = Status(JsonField.of("pending_submission"))
 
             @JvmField val SUBMITTED = Status(JsonField.of("submitted"))
@@ -1859,6 +1919,7 @@ private constructor(
         enum class Known {
             PENDING_APPROVAL,
             CANCELED,
+            PENDING_REVIEWING,
             PENDING_SUBMISSION,
             SUBMITTED,
             RETURNED,
@@ -1869,6 +1930,7 @@ private constructor(
         enum class Value {
             PENDING_APPROVAL,
             CANCELED,
+            PENDING_REVIEWING,
             PENDING_SUBMISSION,
             SUBMITTED,
             RETURNED,
@@ -1881,6 +1943,7 @@ private constructor(
             when (this) {
                 PENDING_APPROVAL -> Value.PENDING_APPROVAL
                 CANCELED -> Value.CANCELED
+                PENDING_REVIEWING -> Value.PENDING_REVIEWING
                 PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
                 SUBMITTED -> Value.SUBMITTED
                 RETURNED -> Value.RETURNED
@@ -1893,6 +1956,7 @@ private constructor(
             when (this) {
                 PENDING_APPROVAL -> Known.PENDING_APPROVAL
                 CANCELED -> Known.CANCELED
+                PENDING_REVIEWING -> Known.PENDING_REVIEWING
                 PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
                 SUBMITTED -> Known.SUBMITTED
                 RETURNED -> Known.RETURNED

@@ -24,6 +24,14 @@ constructor(
         RealTimeDecisionServiceAsyncImpl(clientOptions)
     }
 
+    private val realTimePaymentsTransfers: RealTimePaymentsTransferServiceAsync by lazy {
+        RealTimePaymentsTransferServiceAsyncImpl(clientOptions)
+    }
+
+    private val balanceLookups: BalanceLookupServiceAsync by lazy {
+        BalanceLookupServiceAsyncImpl(clientOptions)
+    }
+
     private val cards: CardServiceAsync by lazy { CardServiceAsyncImpl(clientOptions) }
 
     private val cardDisputes: CardDisputeServiceAsync by lazy {
@@ -38,6 +46,8 @@ constructor(
         ExternalAccountServiceAsyncImpl(clientOptions)
     }
 
+    private val exports: ExportServiceAsync by lazy { ExportServiceAsyncImpl(clientOptions) }
+
     private val digitalWalletTokens: DigitalWalletTokenServiceAsync by lazy {
         DigitalWalletTokenServiceAsyncImpl(clientOptions)
     }
@@ -49,6 +59,8 @@ constructor(
     private val pendingTransactions: PendingTransactionServiceAsync by lazy {
         PendingTransactionServiceAsyncImpl(clientOptions)
     }
+
+    private val programs: ProgramServiceAsync by lazy { ProgramServiceAsyncImpl(clientOptions) }
 
     private val declinedTransactions: DeclinedTransactionServiceAsync by lazy {
         DeclinedTransactionServiceAsyncImpl(clientOptions)
@@ -128,6 +140,11 @@ constructor(
 
     override fun realTimeDecisions(): RealTimeDecisionServiceAsync = realTimeDecisions
 
+    override fun realTimePaymentsTransfers(): RealTimePaymentsTransferServiceAsync =
+        realTimePaymentsTransfers
+
+    override fun balanceLookups(): BalanceLookupServiceAsync = balanceLookups
+
     override fun cards(): CardServiceAsync = cards
 
     override fun cardDisputes(): CardDisputeServiceAsync = cardDisputes
@@ -136,11 +153,15 @@ constructor(
 
     override fun externalAccounts(): ExternalAccountServiceAsync = externalAccounts
 
+    override fun exports(): ExportServiceAsync = exports
+
     override fun digitalWalletTokens(): DigitalWalletTokenServiceAsync = digitalWalletTokens
 
     override fun transactions(): TransactionServiceAsync = transactions
 
     override fun pendingTransactions(): PendingTransactionServiceAsync = pendingTransactions
+
+    override fun programs(): ProgramServiceAsync = programs
 
     override fun declinedTransactions(): DeclinedTransactionServiceAsync = declinedTransactions
 

@@ -10,6 +10,33 @@ import org.junit.jupiter.api.extension.ExtendWith
 class RealTimePaymentsTransferServiceTest {
 
     @Test
+    fun callComplete() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("test-api-key")
+                .build()
+        val realTimePaymentsTransferService = client.simulations().realTimePaymentsTransfers()
+        val realTimePaymentsTransfer =
+            realTimePaymentsTransferService.complete(
+                SimulationsRealTimePaymentsTransferCompleteParams.builder()
+                    .realTimePaymentsTransferId("string")
+                    .rejection(
+                        SimulationsRealTimePaymentsTransferCompleteParams.Rejection.builder()
+                            .rejectReasonCode(
+                                SimulationsRealTimePaymentsTransferCompleteParams.Rejection
+                                    .RejectReasonCode
+                                    .ACCOUNT_CLOSED
+                            )
+                            .build()
+                    )
+                    .build()
+            )
+        println(realTimePaymentsTransfer)
+        realTimePaymentsTransfer.validate()
+    }
+
+    @Test
     fun callCreateInbound() {
         val client =
             IncreaseOkHttpClient.builder()

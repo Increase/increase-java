@@ -26,11 +26,13 @@ class WireTransferTest {
                 .approval(
                     WireTransfer.Approval.builder()
                         .approvedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .approvedBy("string")
                         .build()
                 )
                 .cancellation(
                     WireTransfer.Cancellation.builder()
                         .canceledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .canceledBy("string")
                         .build()
                 )
                 .reversal(
@@ -58,7 +60,6 @@ class WireTransferTest {
                         .submittedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
-                .templateId("string")
                 .transactionId("string")
                 .type(WireTransfer.Type.WIRE_TRANSFER)
                 .build()
@@ -79,12 +80,14 @@ class WireTransferTest {
             .contains(
                 WireTransfer.Approval.builder()
                     .approvedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .approvedBy("string")
                     .build()
             )
         assertThat(wireTransfer.cancellation())
             .contains(
                 WireTransfer.Cancellation.builder()
                     .canceledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .canceledBy("string")
                     .build()
             )
         assertThat(wireTransfer.reversal())
@@ -115,7 +118,6 @@ class WireTransferTest {
                     .submittedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
-        assertThat(wireTransfer.templateId()).contains("string")
         assertThat(wireTransfer.transactionId()).contains("string")
         assertThat(wireTransfer.type()).isEqualTo(WireTransfer.Type.WIRE_TRANSFER)
     }

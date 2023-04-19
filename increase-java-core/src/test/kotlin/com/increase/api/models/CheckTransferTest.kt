@@ -37,7 +37,6 @@ class CheckTransferTest {
                 .status(CheckTransfer.Status.PENDING_APPROVAL)
                 .submittedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .submission(CheckTransfer.Submission.builder().checkNumber("string").build())
-                .templateId("string")
                 .transactionId("string")
                 .stopPaymentRequest(
                     CheckTransfer.StopPaymentRequest.builder()
@@ -99,7 +98,6 @@ class CheckTransferTest {
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(checkTransfer.submission())
             .contains(CheckTransfer.Submission.builder().checkNumber("string").build())
-        assertThat(checkTransfer.templateId()).contains("string")
         assertThat(checkTransfer.transactionId()).contains("string")
         assertThat(checkTransfer.stopPaymentRequest())
             .contains(

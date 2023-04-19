@@ -325,8 +325,8 @@ constructor(
         private var hashCode: Int = 0
 
         /**
-         * Return results whose value is in the provided list. For GET requests, this should be
-         * encoded as a comma-delimited string, such as `?in=one,two,three`.
+         * Filter Files for those with the specified purpose or purposes. For GET requests, this
+         * should be encoded as a comma-delimited string, such as `?in=one,two,three`.
          */
         fun in_(): List<In>? = in_
 
@@ -376,8 +376,8 @@ constructor(
             }
 
             /**
-             * Return results whose value is in the provided list. For GET requests, this should be
-             * encoded as a comma-delimited string, such as `?in=one,two,three`.
+             * Filter Files for those with the specified purpose or purposes. For GET requests, this
+             * should be encoded as a comma-delimited string, such as `?in=one,two,three`.
              */
             fun in_(in_: List<In>) = apply { this.in_ = in_ }
 
@@ -442,6 +442,8 @@ constructor(
 
                 @JvmField val DIGITAL_WALLET_APP_ICON = In(JsonField.of("digital_wallet_app_icon"))
 
+                @JvmField val DOCUMENT_REQUEST = In(JsonField.of("document_request"))
+
                 @JvmField
                 val ENTITY_SUPPLEMENTAL_DOCUMENT = In(JsonField.of("entity_supplemental_document"))
 
@@ -461,6 +463,7 @@ constructor(
                 TRUST_FORMATION_DOCUMENT,
                 DIGITAL_WALLET_ARTWORK,
                 DIGITAL_WALLET_APP_ICON,
+                DOCUMENT_REQUEST,
                 ENTITY_SUPPLEMENTAL_DOCUMENT,
                 EXPORT,
             }
@@ -476,6 +479,7 @@ constructor(
                 TRUST_FORMATION_DOCUMENT,
                 DIGITAL_WALLET_ARTWORK,
                 DIGITAL_WALLET_APP_ICON,
+                DOCUMENT_REQUEST,
                 ENTITY_SUPPLEMENTAL_DOCUMENT,
                 EXPORT,
                 _UNKNOWN,
@@ -493,6 +497,7 @@ constructor(
                     TRUST_FORMATION_DOCUMENT -> Value.TRUST_FORMATION_DOCUMENT
                     DIGITAL_WALLET_ARTWORK -> Value.DIGITAL_WALLET_ARTWORK
                     DIGITAL_WALLET_APP_ICON -> Value.DIGITAL_WALLET_APP_ICON
+                    DOCUMENT_REQUEST -> Value.DOCUMENT_REQUEST
                     ENTITY_SUPPLEMENTAL_DOCUMENT -> Value.ENTITY_SUPPLEMENTAL_DOCUMENT
                     EXPORT -> Value.EXPORT
                     else -> Value._UNKNOWN
@@ -510,6 +515,7 @@ constructor(
                     TRUST_FORMATION_DOCUMENT -> Known.TRUST_FORMATION_DOCUMENT
                     DIGITAL_WALLET_ARTWORK -> Known.DIGITAL_WALLET_ARTWORK
                     DIGITAL_WALLET_APP_ICON -> Known.DIGITAL_WALLET_APP_ICON
+                    DOCUMENT_REQUEST -> Known.DOCUMENT_REQUEST
                     ENTITY_SUPPLEMENTAL_DOCUMENT -> Known.ENTITY_SUPPLEMENTAL_DOCUMENT
                     EXPORT -> Known.EXPORT
                     else -> throw IncreaseInvalidDataException("Unknown In: $value")

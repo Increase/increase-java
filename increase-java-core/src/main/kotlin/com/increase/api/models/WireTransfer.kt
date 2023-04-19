@@ -44,7 +44,6 @@ private constructor(
     private val network: JsonField<Network>,
     private val status: JsonField<Status>,
     private val submission: JsonField<Submission>,
-    private val templateId: JsonField<String>,
     private val transactionId: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
@@ -130,9 +129,6 @@ private constructor(
     /** After the transfer is submitted to Fedwire, this will contain supplemental details. */
     fun submission(): Optional<Submission> =
         Optional.ofNullable(submission.getNullable("submission"))
-
-    /** If the transfer was created from a template, this will be the template's ID. */
-    fun templateId(): Optional<String> = Optional.ofNullable(templateId.getNullable("template_id"))
 
     /** The ID for the transaction funding the transfer. */
     fun transactionId(): Optional<String> =
@@ -223,9 +219,6 @@ private constructor(
     /** After the transfer is submitted to Fedwire, this will contain supplemental details. */
     @JsonProperty("submission") @ExcludeMissing fun _submission() = submission
 
-    /** If the transfer was created from a template, this will be the template's ID. */
-    @JsonProperty("template_id") @ExcludeMissing fun _templateId() = templateId
-
     /** The ID for the transaction funding the transfer. */
     @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
@@ -260,7 +253,6 @@ private constructor(
             network()
             status()
             submission().map { it.validate() }
-            templateId()
             transactionId()
             type()
             validated = true
@@ -294,7 +286,6 @@ private constructor(
             this.network == other.network &&
             this.status == other.status &&
             this.submission == other.submission &&
-            this.templateId == other.templateId &&
             this.transactionId == other.transactionId &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
@@ -323,7 +314,6 @@ private constructor(
                     network,
                     status,
                     submission,
-                    templateId,
                     transactionId,
                     type,
                     additionalProperties,
@@ -333,7 +323,7 @@ private constructor(
     }
 
     override fun toString() =
-        "WireTransfer{id=$id, messageToRecipient=$messageToRecipient, amount=$amount, currency=$currency, accountNumber=$accountNumber, beneficiaryName=$beneficiaryName, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, accountId=$accountId, externalAccountId=$externalAccountId, routingNumber=$routingNumber, approval=$approval, cancellation=$cancellation, reversal=$reversal, createdAt=$createdAt, network=$network, status=$status, submission=$submission, templateId=$templateId, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+        "WireTransfer{id=$id, messageToRecipient=$messageToRecipient, amount=$amount, currency=$currency, accountNumber=$accountNumber, beneficiaryName=$beneficiaryName, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, accountId=$accountId, externalAccountId=$externalAccountId, routingNumber=$routingNumber, approval=$approval, cancellation=$cancellation, reversal=$reversal, createdAt=$createdAt, network=$network, status=$status, submission=$submission, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -361,7 +351,6 @@ private constructor(
         private var network: JsonField<Network> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var submission: JsonField<Submission> = JsonMissing.of()
-        private var templateId: JsonField<String> = JsonMissing.of()
         private var transactionId: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -387,7 +376,6 @@ private constructor(
             this.network = wireTransfer.network
             this.status = wireTransfer.status
             this.submission = wireTransfer.submission
-            this.templateId = wireTransfer.templateId
             this.transactionId = wireTransfer.transactionId
             this.type = wireTransfer.type
             additionalProperties(wireTransfer.additionalProperties)
@@ -591,14 +579,6 @@ private constructor(
         @ExcludeMissing
         fun submission(submission: JsonField<Submission>) = apply { this.submission = submission }
 
-        /** If the transfer was created from a template, this will be the template's ID. */
-        fun templateId(templateId: String) = templateId(JsonField.of(templateId))
-
-        /** If the transfer was created from a template, this will be the template's ID. */
-        @JsonProperty("template_id")
-        @ExcludeMissing
-        fun templateId(templateId: JsonField<String>) = apply { this.templateId = templateId }
-
         /** The ID for the transaction funding the transfer. */
         fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
 
@@ -658,7 +638,6 @@ private constructor(
                 network,
                 status,
                 submission,
-                templateId,
                 transactionId,
                 type,
                 additionalProperties.toUnmodifiable(),
@@ -755,6 +734,7 @@ private constructor(
     class Approval
     private constructor(
         private val approvedAt: JsonField<OffsetDateTime>,
+        private val approvedBy: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -769,10 +749,21 @@ private constructor(
         fun approvedAt(): OffsetDateTime = approvedAt.getRequired("approved_at")
 
         /**
+         * If the Transfer was approved by a user in the dashboard, the email address of that user.
+         */
+        fun approvedBy(): Optional<String> =
+            Optional.ofNullable(approvedBy.getNullable("approved_by"))
+
+        /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * transfer was approved.
          */
         @JsonProperty("approved_at") @ExcludeMissing fun _approvedAt() = approvedAt
+
+        /**
+         * If the Transfer was approved by a user in the dashboard, the email address of that user.
+         */
+        @JsonProperty("approved_by") @ExcludeMissing fun _approvedBy() = approvedBy
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -781,6 +772,7 @@ private constructor(
         fun validate() = apply {
             if (!validated) {
                 approvedAt()
+                approvedBy()
                 validated = true
             }
         }
@@ -794,18 +786,24 @@ private constructor(
 
             return other is Approval &&
                 this.approvedAt == other.approvedAt &&
+                this.approvedBy == other.approvedBy &&
                 this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(approvedAt, additionalProperties)
+                hashCode =
+                    Objects.hash(
+                        approvedAt,
+                        approvedBy,
+                        additionalProperties,
+                    )
             }
             return hashCode
         }
 
         override fun toString() =
-            "Approval{approvedAt=$approvedAt, additionalProperties=$additionalProperties}"
+            "Approval{approvedAt=$approvedAt, approvedBy=$approvedBy, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -815,11 +813,13 @@ private constructor(
         class Builder {
 
             private var approvedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var approvedBy: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(approval: Approval) = apply {
                 this.approvedAt = approval.approvedAt
+                this.approvedBy = approval.approvedBy
                 additionalProperties(approval.additionalProperties)
             }
 
@@ -839,6 +839,20 @@ private constructor(
                 this.approvedAt = approvedAt
             }
 
+            /**
+             * If the Transfer was approved by a user in the dashboard, the email address of that
+             * user.
+             */
+            fun approvedBy(approvedBy: String) = approvedBy(JsonField.of(approvedBy))
+
+            /**
+             * If the Transfer was approved by a user in the dashboard, the email address of that
+             * user.
+             */
+            @JsonProperty("approved_by")
+            @ExcludeMissing
+            fun approvedBy(approvedBy: JsonField<String>) = apply { this.approvedBy = approvedBy }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -853,7 +867,12 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Approval = Approval(approvedAt, additionalProperties.toUnmodifiable())
+            fun build(): Approval =
+                Approval(
+                    approvedAt,
+                    approvedBy,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
@@ -866,6 +885,7 @@ private constructor(
     class Cancellation
     private constructor(
         private val canceledAt: JsonField<OffsetDateTime>,
+        private val canceledBy: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -880,10 +900,21 @@ private constructor(
         fun canceledAt(): OffsetDateTime = canceledAt.getRequired("canceled_at")
 
         /**
+         * If the Transfer was canceled by a user in the dashboard, the email address of that user.
+         */
+        fun canceledBy(): Optional<String> =
+            Optional.ofNullable(canceledBy.getNullable("canceled_by"))
+
+        /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * Transfer was canceled.
          */
         @JsonProperty("canceled_at") @ExcludeMissing fun _canceledAt() = canceledAt
+
+        /**
+         * If the Transfer was canceled by a user in the dashboard, the email address of that user.
+         */
+        @JsonProperty("canceled_by") @ExcludeMissing fun _canceledBy() = canceledBy
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -892,6 +923,7 @@ private constructor(
         fun validate() = apply {
             if (!validated) {
                 canceledAt()
+                canceledBy()
                 validated = true
             }
         }
@@ -905,18 +937,24 @@ private constructor(
 
             return other is Cancellation &&
                 this.canceledAt == other.canceledAt &&
+                this.canceledBy == other.canceledBy &&
                 this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(canceledAt, additionalProperties)
+                hashCode =
+                    Objects.hash(
+                        canceledAt,
+                        canceledBy,
+                        additionalProperties,
+                    )
             }
             return hashCode
         }
 
         override fun toString() =
-            "Cancellation{canceledAt=$canceledAt, additionalProperties=$additionalProperties}"
+            "Cancellation{canceledAt=$canceledAt, canceledBy=$canceledBy, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -926,11 +964,13 @@ private constructor(
         class Builder {
 
             private var canceledAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var canceledBy: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(cancellation: Cancellation) = apply {
                 this.canceledAt = cancellation.canceledAt
+                this.canceledBy = cancellation.canceledBy
                 additionalProperties(cancellation.additionalProperties)
             }
 
@@ -950,6 +990,20 @@ private constructor(
                 this.canceledAt = canceledAt
             }
 
+            /**
+             * If the Transfer was canceled by a user in the dashboard, the email address of that
+             * user.
+             */
+            fun canceledBy(canceledBy: String) = canceledBy(JsonField.of(canceledBy))
+
+            /**
+             * If the Transfer was canceled by a user in the dashboard, the email address of that
+             * user.
+             */
+            @JsonProperty("canceled_by")
+            @ExcludeMissing
+            fun canceledBy(canceledBy: JsonField<String>) = apply { this.canceledBy = canceledBy }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -965,7 +1019,11 @@ private constructor(
             }
 
             fun build(): Cancellation =
-                Cancellation(canceledAt, additionalProperties.toUnmodifiable())
+                Cancellation(
+                    canceledAt,
+                    canceledBy,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 

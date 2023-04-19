@@ -12,6 +12,7 @@ class SimulationsCardAuthorizeParamsTest {
             .amount(123L)
             .cardId("string")
             .digitalWalletTokenId("string")
+            .eventSubscriptionId("string")
             .build()
     }
 
@@ -22,12 +23,14 @@ class SimulationsCardAuthorizeParamsTest {
                 .amount(123L)
                 .cardId("string")
                 .digitalWalletTokenId("string")
+                .eventSubscriptionId("string")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.amount()).isEqualTo(123L)
         assertThat(body.cardId()).isEqualTo("string")
         assertThat(body.digitalWalletTokenId()).isEqualTo("string")
+        assertThat(body.eventSubscriptionId()).isEqualTo("string")
     }
 
     @Test

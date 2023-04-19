@@ -164,8 +164,9 @@ constructor(
         private var hashCode: Int = 0
 
         /**
-         * Return results whose value is in the provided list. For GET requests, this should be
-         * encoded as a comma-delimited string, such as `?in=one,two,three`.
+         * Filter External Accounts for those with the specified status or statuses. For GET
+         * requests, this should be encoded as a comma-delimited string, such as
+         * `?in=one,two,three`.
          */
         fun in_(): List<In>? = in_
 
@@ -215,8 +216,9 @@ constructor(
             }
 
             /**
-             * Return results whose value is in the provided list. For GET requests, this should be
-             * encoded as a comma-delimited string, such as `?in=one,two,three`.
+             * Filter External Accounts for those with the specified status or statuses. For GET
+             * requests, this should be encoded as a comma-delimited string, such as
+             * `?in=one,two,three`.
              */
             fun in_(in_: List<In>) = apply { this.in_ = in_ }
 

@@ -15,6 +15,7 @@ class CardAuthorizationSimulationTest {
                         .accountId("string")
                         .amount(123L)
                         .currency(CardAuthorizationSimulation.PendingTransaction.Currency.CAD)
+                        .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .description("string")
                         .id("string")
@@ -54,6 +55,7 @@ class CardAuthorizationSimulationTest {
                                     CardAuthorizationSimulation.PendingTransaction.Source
                                         .CardAuthorization
                                         .builder()
+                                        .id("string")
                                         .merchantAcceptorId("string")
                                         .merchantDescriptor("string")
                                         .merchantCategoryCode("string")
@@ -103,6 +105,12 @@ class CardAuthorizationSimulationTest {
                                         )
                                         .realTimeDecisionId("string")
                                         .digitalWalletTokenId("string")
+                                        .type(
+                                            CardAuthorizationSimulation.PendingTransaction.Source
+                                                .CardAuthorization
+                                                .Type
+                                                .CARD_AUTHORIZATION
+                                        )
                                         .build()
                                 )
                                 .checkDepositInstruction(
@@ -140,6 +148,7 @@ class CardAuthorizationSimulationTest {
                                         .InboundFundsHold
                                         .builder()
                                         .amount(123L)
+                                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .currency(
                                             CardAuthorizationSimulation.PendingTransaction.Source
                                                 .InboundFundsHold
@@ -159,6 +168,7 @@ class CardAuthorizationSimulationTest {
                                                 .HELD
                                         )
                                         .heldTransactionId("string")
+                                        .pendingTransactionId("string")
                                         .build()
                                 )
                                 .cardRouteAuthorization(
@@ -178,6 +188,14 @@ class CardAuthorizationSimulationTest {
                                         .merchantDescriptor("string")
                                         .merchantCategoryCode("string")
                                         .merchantState("string")
+                                        .build()
+                                )
+                                .realTimePaymentsTransferInstruction(
+                                    CardAuthorizationSimulation.PendingTransaction.Source
+                                        .RealTimePaymentsTransferInstruction
+                                        .builder()
+                                        .amount(123L)
+                                        .transferId("string")
                                         .build()
                                 )
                                 .wireDrawdownPaymentInstruction(
@@ -432,6 +450,7 @@ class CardAuthorizationSimulationTest {
                     .accountId("string")
                     .amount(123L)
                     .currency(CardAuthorizationSimulation.PendingTransaction.Currency.CAD)
+                    .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .description("string")
                     .id("string")
@@ -471,6 +490,7 @@ class CardAuthorizationSimulationTest {
                                 CardAuthorizationSimulation.PendingTransaction.Source
                                     .CardAuthorization
                                     .builder()
+                                    .id("string")
                                     .merchantAcceptorId("string")
                                     .merchantDescriptor("string")
                                     .merchantCategoryCode("string")
@@ -520,6 +540,12 @@ class CardAuthorizationSimulationTest {
                                     )
                                     .realTimeDecisionId("string")
                                     .digitalWalletTokenId("string")
+                                    .type(
+                                        CardAuthorizationSimulation.PendingTransaction.Source
+                                            .CardAuthorization
+                                            .Type
+                                            .CARD_AUTHORIZATION
+                                    )
                                     .build()
                             )
                             .checkDepositInstruction(
@@ -557,6 +583,7 @@ class CardAuthorizationSimulationTest {
                                     .InboundFundsHold
                                     .builder()
                                     .amount(123L)
+                                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .currency(
                                         CardAuthorizationSimulation.PendingTransaction.Source
                                             .InboundFundsHold
@@ -574,6 +601,7 @@ class CardAuthorizationSimulationTest {
                                             .HELD
                                     )
                                     .heldTransactionId("string")
+                                    .pendingTransactionId("string")
                                     .build()
                             )
                             .cardRouteAuthorization(
@@ -593,6 +621,14 @@ class CardAuthorizationSimulationTest {
                                     .merchantDescriptor("string")
                                     .merchantCategoryCode("string")
                                     .merchantState("string")
+                                    .build()
+                            )
+                            .realTimePaymentsTransferInstruction(
+                                CardAuthorizationSimulation.PendingTransaction.Source
+                                    .RealTimePaymentsTransferInstruction
+                                    .builder()
+                                    .amount(123L)
+                                    .transferId("string")
                                     .build()
                             )
                             .wireDrawdownPaymentInstruction(

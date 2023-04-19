@@ -8,6 +8,7 @@ import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
+import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
 
@@ -19,6 +20,7 @@ constructor(
     private val routeId: String?,
     private val sourceId: String?,
     private val status: Status?,
+    private val createdAt: CreatedAt?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
@@ -35,6 +37,8 @@ constructor(
 
     fun status(): Optional<Status> = Optional.ofNullable(status)
 
+    fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
+
     @JvmSynthetic
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
@@ -44,6 +48,7 @@ constructor(
         this.routeId?.let { params.put("route_id", listOf(it.toString())) }
         this.sourceId?.let { params.put("source_id", listOf(it.toString())) }
         this.status?.forEachQueryParam { key, values -> params.put("status.$key", values) }
+        this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -66,6 +71,7 @@ constructor(
             this.routeId == other.routeId &&
             this.sourceId == other.sourceId &&
             this.status == other.status &&
+            this.createdAt == other.createdAt &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
@@ -78,13 +84,14 @@ constructor(
             routeId,
             sourceId,
             status,
+            createdAt,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "PendingTransactionListParams{cursor=$cursor, limit=$limit, accountId=$accountId, routeId=$routeId, sourceId=$sourceId, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "PendingTransactionListParams{cursor=$cursor, limit=$limit, accountId=$accountId, routeId=$routeId, sourceId=$sourceId, status=$status, createdAt=$createdAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -102,6 +109,7 @@ constructor(
         private var routeId: String? = null
         private var sourceId: String? = null
         private var status: Status? = null
+        private var createdAt: CreatedAt? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
@@ -113,6 +121,7 @@ constructor(
             this.routeId = pendingTransactionListParams.routeId
             this.sourceId = pendingTransactionListParams.sourceId
             this.status = pendingTransactionListParams.status
+            this.createdAt = pendingTransactionListParams.createdAt
             additionalQueryParams(pendingTransactionListParams.additionalQueryParams)
             additionalHeaders(pendingTransactionListParams.additionalHeaders)
         }
@@ -135,6 +144,8 @@ constructor(
         fun sourceId(sourceId: String) = apply { this.sourceId = sourceId }
 
         fun status(status: Status) = apply { this.status = status }
+
+        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -184,6 +195,7 @@ constructor(
                 routeId,
                 sourceId,
                 status,
+                createdAt,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )
@@ -200,7 +212,8 @@ constructor(
         private var hashCode: Int = 0
 
         /**
-         * Return results whose value is in the provided list. For GET requests, this should be
+         * Filter Pending Transactions for those with the specified status. By default only Pending
+         * Transactions in with status `pending` will be returned. For GET requests, this should be
          * encoded as a comma-delimited string, such as `?in=one,two,three`.
          */
         fun in_(): List<In>? = in_
@@ -251,8 +264,9 @@ constructor(
             }
 
             /**
-             * Return results whose value is in the provided list. For GET requests, this should be
-             * encoded as a comma-delimited string, such as `?in=one,two,three`.
+             * Filter Pending Transactions for those with the specified status. By default only
+             * Pending Transactions in with status `pending` will be returned. For GET requests,
+             * this should be encoded as a comma-delimited string, such as `?in=one,two,three`.
              */
             fun in_(in_: List<In>) = apply { this.in_ = in_ }
 
@@ -329,6 +343,155 @@ constructor(
                 }
 
             fun asString(): String = _value().asStringOrThrow()
+        }
+    }
+
+    @JsonDeserialize(builder = CreatedAt.Builder::class)
+    @NoAutoDetect
+    class CreatedAt
+    private constructor(
+        private val after: OffsetDateTime?,
+        private val before: OffsetDateTime?,
+        private val onOrAfter: OffsetDateTime?,
+        private val onOrBefore: OffsetDateTime?,
+        private val additionalProperties: Map<String, List<String>>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        /**
+         * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+         */
+        fun after(): OffsetDateTime? = after
+
+        /**
+         * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+         */
+        fun before(): OffsetDateTime? = before
+
+        /**
+         * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+         * timestamp.
+         */
+        fun onOrAfter(): OffsetDateTime? = onOrAfter
+
+        /**
+         * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+         * timestamp.
+         */
+        fun onOrBefore(): OffsetDateTime? = onOrBefore
+
+        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
+
+        @JvmSynthetic
+        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
+            this.after?.let { putParam("after", listOf(it.toString())) }
+            this.before?.let { putParam("before", listOf(it.toString())) }
+            this.onOrAfter?.let { putParam("on_or_after", listOf(it.toString())) }
+            this.onOrBefore?.let { putParam("on_or_before", listOf(it.toString())) }
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is CreatedAt &&
+                this.after == other.after &&
+                this.before == other.before &&
+                this.onOrAfter == other.onOrAfter &&
+                this.onOrBefore == other.onOrBefore &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        after,
+                        before,
+                        onOrAfter,
+                        onOrBefore,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var after: OffsetDateTime? = null
+            private var before: OffsetDateTime? = null
+            private var onOrAfter: OffsetDateTime? = null
+            private var onOrBefore: OffsetDateTime? = null
+            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(createdAt: CreatedAt) = apply {
+                this.after = createdAt.after
+                this.before = createdAt.before
+                this.onOrAfter = createdAt.onOrAfter
+                this.onOrBefore = createdAt.onOrBefore
+                additionalProperties(createdAt.additionalProperties)
+            }
+
+            /**
+             * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            fun after(after: OffsetDateTime) = apply { this.after = after }
+
+            /**
+             * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            fun before(before: OffsetDateTime) = apply { this.before = before }
+
+            /**
+             * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            fun onOrAfter(onOrAfter: OffsetDateTime) = apply { this.onOrAfter = onOrAfter }
+
+            /**
+             * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            fun onOrBefore(onOrBefore: OffsetDateTime) = apply { this.onOrBefore = onOrBefore }
+
+            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: List<String>) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun build(): CreatedAt =
+                CreatedAt(
+                    after,
+                    before,
+                    onOrAfter,
+                    onOrBefore,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 }

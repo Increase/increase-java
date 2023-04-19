@@ -13,6 +13,10 @@ interface IncreaseClientAsync {
 
     fun realTimeDecisions(): RealTimeDecisionServiceAsync
 
+    fun realTimePaymentsTransfers(): RealTimePaymentsTransferServiceAsync
+
+    fun balanceLookups(): BalanceLookupServiceAsync
+
     fun cards(): CardServiceAsync
 
     fun cardDisputes(): CardDisputeServiceAsync
@@ -21,11 +25,15 @@ interface IncreaseClientAsync {
 
     fun externalAccounts(): ExternalAccountServiceAsync
 
+    fun exports(): ExportServiceAsync
+
     fun digitalWalletTokens(): DigitalWalletTokenServiceAsync
 
     fun transactions(): TransactionServiceAsync
 
     fun pendingTransactions(): PendingTransactionServiceAsync
+
+    fun programs(): ProgramServiceAsync
 
     fun declinedTransactions(): DeclinedTransactionServiceAsync
 

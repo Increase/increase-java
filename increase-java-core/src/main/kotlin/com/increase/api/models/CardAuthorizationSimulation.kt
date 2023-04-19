@@ -224,6 +224,7 @@ private constructor(
         private val accountId: JsonField<String>,
         private val amount: JsonField<Long>,
         private val currency: JsonField<Currency>,
+        private val completedAt: JsonField<OffsetDateTime>,
         private val createdAt: JsonField<OffsetDateTime>,
         private val description: JsonField<String>,
         private val id: JsonField<String>,
@@ -253,6 +254,13 @@ private constructor(
          * currency. This will match the currency on the Pending Transcation's Account.
          */
         fun currency(): Currency = currency.getRequired("currency")
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which the Pending
+         * Transaction was completed.
+         */
+        fun completedAt(): Optional<OffsetDateTime> =
+            Optional.ofNullable(completedAt.getNullable("completed_at"))
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which the Pending
@@ -312,6 +320,12 @@ private constructor(
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which the Pending
+         * Transaction was completed.
+         */
+        @JsonProperty("completed_at") @ExcludeMissing fun _completedAt() = completedAt
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which the Pending
          * Transaction occured.
          */
         @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
@@ -359,6 +373,7 @@ private constructor(
                 accountId()
                 amount()
                 currency()
+                completedAt()
                 createdAt()
                 description()
                 id()
@@ -382,6 +397,7 @@ private constructor(
                 this.accountId == other.accountId &&
                 this.amount == other.amount &&
                 this.currency == other.currency &&
+                this.completedAt == other.completedAt &&
                 this.createdAt == other.createdAt &&
                 this.description == other.description &&
                 this.id == other.id &&
@@ -400,6 +416,7 @@ private constructor(
                         accountId,
                         amount,
                         currency,
+                        completedAt,
                         createdAt,
                         description,
                         id,
@@ -415,7 +432,7 @@ private constructor(
         }
 
         override fun toString() =
-            "PendingTransaction{accountId=$accountId, amount=$amount, currency=$currency, createdAt=$createdAt, description=$description, id=$id, routeId=$routeId, routeType=$routeType, source=$source, status=$status, type=$type, additionalProperties=$additionalProperties}"
+            "PendingTransaction{accountId=$accountId, amount=$amount, currency=$currency, completedAt=$completedAt, createdAt=$createdAt, description=$description, id=$id, routeId=$routeId, routeType=$routeType, source=$source, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -427,6 +444,7 @@ private constructor(
             private var accountId: JsonField<String> = JsonMissing.of()
             private var amount: JsonField<Long> = JsonMissing.of()
             private var currency: JsonField<Currency> = JsonMissing.of()
+            private var completedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var description: JsonField<String> = JsonMissing.of()
             private var id: JsonField<String> = JsonMissing.of()
@@ -442,6 +460,7 @@ private constructor(
                 this.accountId = pendingTransaction.accountId
                 this.amount = pendingTransaction.amount
                 this.currency = pendingTransaction.currency
+                this.completedAt = pendingTransaction.completedAt
                 this.createdAt = pendingTransaction.createdAt
                 this.description = pendingTransaction.description
                 this.id = pendingTransaction.id
@@ -490,6 +509,22 @@ private constructor(
             @JsonProperty("currency")
             @ExcludeMissing
             fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which the Pending
+             * Transaction was completed.
+             */
+            fun completedAt(completedAt: OffsetDateTime) = completedAt(JsonField.of(completedAt))
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which the Pending
+             * Transaction was completed.
+             */
+            @JsonProperty("completed_at")
+            @ExcludeMissing
+            fun completedAt(completedAt: JsonField<OffsetDateTime>) = apply {
+                this.completedAt = completedAt
+            }
 
             /**
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which the Pending
@@ -616,6 +651,7 @@ private constructor(
                     accountId,
                     amount,
                     currency,
+                    completedAt,
                     createdAt,
                     description,
                     id,
@@ -783,6 +819,8 @@ private constructor(
             private val checkTransferInstruction: JsonField<CheckTransferInstruction>,
             private val inboundFundsHold: JsonField<InboundFundsHold>,
             private val cardRouteAuthorization: JsonField<CardRouteAuthorization>,
+            private val realTimePaymentsTransferInstruction:
+                JsonField<RealTimePaymentsTransferInstruction>,
             private val wireDrawdownPaymentInstruction: JsonField<WireDrawdownPaymentInstruction>,
             private val wireTransferInstruction: JsonField<WireTransferInstruction>,
             private val additionalProperties: Map<String, JsonValue>,
@@ -853,6 +891,19 @@ private constructor(
              */
             fun cardRouteAuthorization(): Optional<CardRouteAuthorization> =
                 Optional.ofNullable(cardRouteAuthorization.getNullable("card_route_authorization"))
+
+            /**
+             * A Real Time Payments Transfer Instruction object. This field will be present in the
+             * JSON response if and only if `category` is equal to
+             * `real_time_payments_transfer_instruction`.
+             */
+            fun realTimePaymentsTransferInstruction():
+                Optional<RealTimePaymentsTransferInstruction> =
+                Optional.ofNullable(
+                    realTimePaymentsTransferInstruction.getNullable(
+                        "real_time_payments_transfer_instruction"
+                    )
+                )
 
             /**
              * A Wire Drawdown Payment Instruction object. This field will be present in the JSON
@@ -936,6 +987,15 @@ private constructor(
             fun _cardRouteAuthorization() = cardRouteAuthorization
 
             /**
+             * A Real Time Payments Transfer Instruction object. This field will be present in the
+             * JSON response if and only if `category` is equal to
+             * `real_time_payments_transfer_instruction`.
+             */
+            @JsonProperty("real_time_payments_transfer_instruction")
+            @ExcludeMissing
+            fun _realTimePaymentsTransferInstruction() = realTimePaymentsTransferInstruction
+
+            /**
              * A Wire Drawdown Payment Instruction object. This field will be present in the JSON
              * response if and only if `category` is equal to `wire_drawdown_payment_instruction`.
              */
@@ -965,6 +1025,7 @@ private constructor(
                     checkTransferInstruction().map { it.validate() }
                     inboundFundsHold().map { it.validate() }
                     cardRouteAuthorization().map { it.validate() }
+                    realTimePaymentsTransferInstruction().map { it.validate() }
                     wireDrawdownPaymentInstruction().map { it.validate() }
                     wireTransferInstruction().map { it.validate() }
                     validated = true
@@ -987,6 +1048,8 @@ private constructor(
                     this.checkTransferInstruction == other.checkTransferInstruction &&
                     this.inboundFundsHold == other.inboundFundsHold &&
                     this.cardRouteAuthorization == other.cardRouteAuthorization &&
+                    this.realTimePaymentsTransferInstruction ==
+                        other.realTimePaymentsTransferInstruction &&
                     this.wireDrawdownPaymentInstruction == other.wireDrawdownPaymentInstruction &&
                     this.wireTransferInstruction == other.wireTransferInstruction &&
                     this.additionalProperties == other.additionalProperties
@@ -1004,6 +1067,7 @@ private constructor(
                             checkTransferInstruction,
                             inboundFundsHold,
                             cardRouteAuthorization,
+                            realTimePaymentsTransferInstruction,
                             wireDrawdownPaymentInstruction,
                             wireTransferInstruction,
                             additionalProperties,
@@ -1013,7 +1077,7 @@ private constructor(
             }
 
             override fun toString() =
-                "Source{category=$category, accountTransferInstruction=$accountTransferInstruction, achTransferInstruction=$achTransferInstruction, cardAuthorization=$cardAuthorization, checkDepositInstruction=$checkDepositInstruction, checkTransferInstruction=$checkTransferInstruction, inboundFundsHold=$inboundFundsHold, cardRouteAuthorization=$cardRouteAuthorization, wireDrawdownPaymentInstruction=$wireDrawdownPaymentInstruction, wireTransferInstruction=$wireTransferInstruction, additionalProperties=$additionalProperties}"
+                "Source{category=$category, accountTransferInstruction=$accountTransferInstruction, achTransferInstruction=$achTransferInstruction, cardAuthorization=$cardAuthorization, checkDepositInstruction=$checkDepositInstruction, checkTransferInstruction=$checkTransferInstruction, inboundFundsHold=$inboundFundsHold, cardRouteAuthorization=$cardRouteAuthorization, realTimePaymentsTransferInstruction=$realTimePaymentsTransferInstruction, wireDrawdownPaymentInstruction=$wireDrawdownPaymentInstruction, wireTransferInstruction=$wireTransferInstruction, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1035,6 +1099,9 @@ private constructor(
                 private var inboundFundsHold: JsonField<InboundFundsHold> = JsonMissing.of()
                 private var cardRouteAuthorization: JsonField<CardRouteAuthorization> =
                     JsonMissing.of()
+                private var realTimePaymentsTransferInstruction:
+                    JsonField<RealTimePaymentsTransferInstruction> =
+                    JsonMissing.of()
                 private var wireDrawdownPaymentInstruction:
                     JsonField<WireDrawdownPaymentInstruction> =
                     JsonMissing.of()
@@ -1052,6 +1119,8 @@ private constructor(
                     this.checkTransferInstruction = source.checkTransferInstruction
                     this.inboundFundsHold = source.inboundFundsHold
                     this.cardRouteAuthorization = source.cardRouteAuthorization
+                    this.realTimePaymentsTransferInstruction =
+                        source.realTimePaymentsTransferInstruction
                     this.wireDrawdownPaymentInstruction = source.wireDrawdownPaymentInstruction
                     this.wireTransferInstruction = source.wireTransferInstruction
                     additionalProperties(source.additionalProperties)
@@ -1194,6 +1263,32 @@ private constructor(
                 ) = apply { this.cardRouteAuthorization = cardRouteAuthorization }
 
                 /**
+                 * A Real Time Payments Transfer Instruction object. This field will be present in
+                 * the JSON response if and only if `category` is equal to
+                 * `real_time_payments_transfer_instruction`.
+                 */
+                fun realTimePaymentsTransferInstruction(
+                    realTimePaymentsTransferInstruction: RealTimePaymentsTransferInstruction
+                ) =
+                    realTimePaymentsTransferInstruction(
+                        JsonField.of(realTimePaymentsTransferInstruction)
+                    )
+
+                /**
+                 * A Real Time Payments Transfer Instruction object. This field will be present in
+                 * the JSON response if and only if `category` is equal to
+                 * `real_time_payments_transfer_instruction`.
+                 */
+                @JsonProperty("real_time_payments_transfer_instruction")
+                @ExcludeMissing
+                fun realTimePaymentsTransferInstruction(
+                    realTimePaymentsTransferInstruction:
+                        JsonField<RealTimePaymentsTransferInstruction>
+                ) = apply {
+                    this.realTimePaymentsTransferInstruction = realTimePaymentsTransferInstruction
+                }
+
+                /**
                  * A Wire Drawdown Payment Instruction object. This field will be present in the
                  * JSON response if and only if `category` is equal to
                  * `wire_drawdown_payment_instruction`.
@@ -1255,6 +1350,7 @@ private constructor(
                         checkTransferInstruction,
                         inboundFundsHold,
                         cardRouteAuthorization,
+                        realTimePaymentsTransferInstruction,
                         wireDrawdownPaymentInstruction,
                         wireTransferInstruction,
                         additionalProperties.toUnmodifiable(),
@@ -1800,6 +1896,7 @@ private constructor(
             @NoAutoDetect
             class CardAuthorization
             private constructor(
+                private val id: JsonField<String>,
                 private val merchantAcceptorId: JsonField<String>,
                 private val merchantDescriptor: JsonField<String>,
                 private val merchantCategoryCode: JsonField<String>,
@@ -1811,12 +1908,16 @@ private constructor(
                 private val currency: JsonField<Currency>,
                 private val realTimeDecisionId: JsonField<String>,
                 private val digitalWalletTokenId: JsonField<String>,
+                private val type: JsonField<Type>,
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
 
                 private var validated: Boolean = false
 
                 private var hashCode: Int = 0
+
+                /** The Card Authorization identifier. */
+                fun id(): String = id.getRequired("id")
 
                 /**
                  * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -1875,6 +1976,15 @@ private constructor(
                  */
                 fun digitalWalletTokenId(): Optional<String> =
                     Optional.ofNullable(digitalWalletTokenId.getNullable("digital_wallet_token_id"))
+
+                /**
+                 * A constant representing the object's type. For this resource it will always be
+                 * `card_authorization`.
+                 */
+                fun type(): Type = type.getRequired("type")
+
+                /** The Card Authorization identifier. */
+                @JsonProperty("id") @ExcludeMissing fun _id() = id
 
                 /**
                  * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -1941,12 +2051,19 @@ private constructor(
                 @ExcludeMissing
                 fun _digitalWalletTokenId() = digitalWalletTokenId
 
+                /**
+                 * A constant representing the object's type. For this resource it will always be
+                 * `card_authorization`.
+                 */
+                @JsonProperty("type") @ExcludeMissing fun _type() = type
+
                 @JsonAnyGetter
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
                 fun validate() = apply {
                     if (!validated) {
+                        id()
                         merchantAcceptorId()
                         merchantDescriptor()
                         merchantCategoryCode()
@@ -1958,6 +2075,7 @@ private constructor(
                         currency()
                         realTimeDecisionId()
                         digitalWalletTokenId()
+                        type()
                         validated = true
                     }
                 }
@@ -1970,6 +2088,7 @@ private constructor(
                     }
 
                     return other is CardAuthorization &&
+                        this.id == other.id &&
                         this.merchantAcceptorId == other.merchantAcceptorId &&
                         this.merchantDescriptor == other.merchantDescriptor &&
                         this.merchantCategoryCode == other.merchantCategoryCode &&
@@ -1981,6 +2100,7 @@ private constructor(
                         this.currency == other.currency &&
                         this.realTimeDecisionId == other.realTimeDecisionId &&
                         this.digitalWalletTokenId == other.digitalWalletTokenId &&
+                        this.type == other.type &&
                         this.additionalProperties == other.additionalProperties
                 }
 
@@ -1988,6 +2108,7 @@ private constructor(
                     if (hashCode == 0) {
                         hashCode =
                             Objects.hash(
+                                id,
                                 merchantAcceptorId,
                                 merchantDescriptor,
                                 merchantCategoryCode,
@@ -1999,6 +2120,7 @@ private constructor(
                                 currency,
                                 realTimeDecisionId,
                                 digitalWalletTokenId,
+                                type,
                                 additionalProperties,
                             )
                     }
@@ -2006,7 +2128,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "CardAuthorization{merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, network=$network, networkDetails=$networkDetails, amount=$amount, currency=$currency, realTimeDecisionId=$realTimeDecisionId, digitalWalletTokenId=$digitalWalletTokenId, additionalProperties=$additionalProperties}"
+                    "CardAuthorization{id=$id, merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, network=$network, networkDetails=$networkDetails, amount=$amount, currency=$currency, realTimeDecisionId=$realTimeDecisionId, digitalWalletTokenId=$digitalWalletTokenId, type=$type, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -2015,6 +2137,7 @@ private constructor(
 
                 class Builder {
 
+                    private var id: JsonField<String> = JsonMissing.of()
                     private var merchantAcceptorId: JsonField<String> = JsonMissing.of()
                     private var merchantDescriptor: JsonField<String> = JsonMissing.of()
                     private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
@@ -2026,10 +2149,12 @@ private constructor(
                     private var currency: JsonField<Currency> = JsonMissing.of()
                     private var realTimeDecisionId: JsonField<String> = JsonMissing.of()
                     private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
+                    private var type: JsonField<Type> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
                     internal fun from(cardAuthorization: CardAuthorization) = apply {
+                        this.id = cardAuthorization.id
                         this.merchantAcceptorId = cardAuthorization.merchantAcceptorId
                         this.merchantDescriptor = cardAuthorization.merchantDescriptor
                         this.merchantCategoryCode = cardAuthorization.merchantCategoryCode
@@ -2041,8 +2166,17 @@ private constructor(
                         this.currency = cardAuthorization.currency
                         this.realTimeDecisionId = cardAuthorization.realTimeDecisionId
                         this.digitalWalletTokenId = cardAuthorization.digitalWalletTokenId
+                        this.type = cardAuthorization.type
                         additionalProperties(cardAuthorization.additionalProperties)
                     }
+
+                    /** The Card Authorization identifier. */
+                    fun id(id: String) = id(JsonField.of(id))
+
+                    /** The Card Authorization identifier. */
+                    @JsonProperty("id")
+                    @ExcludeMissing
+                    fun id(id: JsonField<String>) = apply { this.id = id }
 
                     /**
                      * The merchant identifier (commonly abbreviated as MID) of the merchant the
@@ -2192,6 +2326,20 @@ private constructor(
                         this.digitalWalletTokenId = digitalWalletTokenId
                     }
 
+                    /**
+                     * A constant representing the object's type. For this resource it will always
+                     * be `card_authorization`.
+                     */
+                    fun type(type: Type) = type(JsonField.of(type))
+
+                    /**
+                     * A constant representing the object's type. For this resource it will always
+                     * be `card_authorization`.
+                     */
+                    @JsonProperty("type")
+                    @ExcludeMissing
+                    fun type(type: JsonField<Type>) = apply { this.type = type }
+
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
                         this.additionalProperties.putAll(additionalProperties)
@@ -2209,6 +2357,7 @@ private constructor(
 
                     fun build(): CardAuthorization =
                         CardAuthorization(
+                            id,
                             merchantAcceptorId,
                             merchantDescriptor,
                             merchantCategoryCode,
@@ -2220,6 +2369,7 @@ private constructor(
                             currency,
                             realTimeDecisionId,
                             digitalWalletTokenId,
+                            type,
                             additionalProperties.toUnmodifiable(),
                         )
                 }
@@ -2772,6 +2922,58 @@ private constructor(
                             JPY -> Known.JPY
                             USD -> Known.USD
                             else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+                        }
+
+                    fun asString(): String = _value().asStringOrThrow()
+                }
+
+                class Type
+                @JsonCreator
+                private constructor(
+                    private val value: JsonField<String>,
+                ) {
+
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Type && this.value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+
+                    companion object {
+
+                        @JvmField val CARD_AUTHORIZATION = Type(JsonField.of("card_authorization"))
+
+                        @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+                    }
+
+                    enum class Known {
+                        CARD_AUTHORIZATION,
+                    }
+
+                    enum class Value {
+                        CARD_AUTHORIZATION,
+                        _UNKNOWN,
+                    }
+
+                    fun value(): Value =
+                        when (this) {
+                            CARD_AUTHORIZATION -> Value.CARD_AUTHORIZATION
+                            else -> Value._UNKNOWN
+                        }
+
+                    fun known(): Known =
+                        when (this) {
+                            CARD_AUTHORIZATION -> Known.CARD_AUTHORIZATION
+                            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
                         }
 
                     fun asString(): String = _value().asStringOrThrow()
@@ -3384,11 +3586,13 @@ private constructor(
             class InboundFundsHold
             private constructor(
                 private val amount: JsonField<Long>,
+                private val createdAt: JsonField<OffsetDateTime>,
                 private val currency: JsonField<Currency>,
                 private val automaticallyReleasesAt: JsonField<OffsetDateTime>,
                 private val releasedAt: JsonField<OffsetDateTime>,
                 private val status: JsonField<Status>,
                 private val heldTransactionId: JsonField<String>,
+                private val pendingTransactionId: JsonField<String>,
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
 
@@ -3401,6 +3605,12 @@ private constructor(
                  * example, this is cents.
                  */
                 fun amount(): Long = amount.getRequired("amount")
+
+                /**
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the hold was
+                 * created.
+                 */
+                fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
                 /**
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's
@@ -3426,11 +3636,21 @@ private constructor(
                 fun heldTransactionId(): Optional<String> =
                     Optional.ofNullable(heldTransactionId.getNullable("held_transaction_id"))
 
+                /** The ID of the Pending Transaction representing the held funds. */
+                fun pendingTransactionId(): Optional<String> =
+                    Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
+
                 /**
                  * The held amount in the minor unit of the account's currency. For dollars, for
                  * example, this is cents.
                  */
                 @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+                /**
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the hold was
+                 * created.
+                 */
+                @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
                 /**
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's
@@ -3457,6 +3677,11 @@ private constructor(
                 @ExcludeMissing
                 fun _heldTransactionId() = heldTransactionId
 
+                /** The ID of the Pending Transaction representing the held funds. */
+                @JsonProperty("pending_transaction_id")
+                @ExcludeMissing
+                fun _pendingTransactionId() = pendingTransactionId
+
                 @JsonAnyGetter
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -3464,11 +3689,13 @@ private constructor(
                 fun validate() = apply {
                     if (!validated) {
                         amount()
+                        createdAt()
                         currency()
                         automaticallyReleasesAt()
                         releasedAt()
                         status()
                         heldTransactionId()
+                        pendingTransactionId()
                         validated = true
                     }
                 }
@@ -3482,11 +3709,13 @@ private constructor(
 
                     return other is InboundFundsHold &&
                         this.amount == other.amount &&
+                        this.createdAt == other.createdAt &&
                         this.currency == other.currency &&
                         this.automaticallyReleasesAt == other.automaticallyReleasesAt &&
                         this.releasedAt == other.releasedAt &&
                         this.status == other.status &&
                         this.heldTransactionId == other.heldTransactionId &&
+                        this.pendingTransactionId == other.pendingTransactionId &&
                         this.additionalProperties == other.additionalProperties
                 }
 
@@ -3495,11 +3724,13 @@ private constructor(
                         hashCode =
                             Objects.hash(
                                 amount,
+                                createdAt,
                                 currency,
                                 automaticallyReleasesAt,
                                 releasedAt,
                                 status,
                                 heldTransactionId,
+                                pendingTransactionId,
                                 additionalProperties,
                             )
                     }
@@ -3507,7 +3738,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "InboundFundsHold{amount=$amount, currency=$currency, automaticallyReleasesAt=$automaticallyReleasesAt, releasedAt=$releasedAt, status=$status, heldTransactionId=$heldTransactionId, additionalProperties=$additionalProperties}"
+                    "InboundFundsHold{amount=$amount, createdAt=$createdAt, currency=$currency, automaticallyReleasesAt=$automaticallyReleasesAt, releasedAt=$releasedAt, status=$status, heldTransactionId=$heldTransactionId, pendingTransactionId=$pendingTransactionId, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -3517,22 +3748,26 @@ private constructor(
                 class Builder {
 
                     private var amount: JsonField<Long> = JsonMissing.of()
+                    private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
                     private var currency: JsonField<Currency> = JsonMissing.of()
                     private var automaticallyReleasesAt: JsonField<OffsetDateTime> =
                         JsonMissing.of()
                     private var releasedAt: JsonField<OffsetDateTime> = JsonMissing.of()
                     private var status: JsonField<Status> = JsonMissing.of()
                     private var heldTransactionId: JsonField<String> = JsonMissing.of()
+                    private var pendingTransactionId: JsonField<String> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
                     internal fun from(inboundFundsHold: InboundFundsHold) = apply {
                         this.amount = inboundFundsHold.amount
+                        this.createdAt = inboundFundsHold.createdAt
                         this.currency = inboundFundsHold.currency
                         this.automaticallyReleasesAt = inboundFundsHold.automaticallyReleasesAt
                         this.releasedAt = inboundFundsHold.releasedAt
                         this.status = inboundFundsHold.status
                         this.heldTransactionId = inboundFundsHold.heldTransactionId
+                        this.pendingTransactionId = inboundFundsHold.pendingTransactionId
                         additionalProperties(inboundFundsHold.additionalProperties)
                     }
 
@@ -3549,6 +3784,22 @@ private constructor(
                     @JsonProperty("amount")
                     @ExcludeMissing
                     fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+                    /**
+                     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the hold
+                     * was created.
+                     */
+                    fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+                    /**
+                     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the hold
+                     * was created.
+                     */
+                    @JsonProperty("created_at")
+                    @ExcludeMissing
+                    fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                        this.createdAt = createdAt
+                    }
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's
@@ -3611,6 +3862,17 @@ private constructor(
                         this.heldTransactionId = heldTransactionId
                     }
 
+                    /** The ID of the Pending Transaction representing the held funds. */
+                    fun pendingTransactionId(pendingTransactionId: String) =
+                        pendingTransactionId(JsonField.of(pendingTransactionId))
+
+                    /** The ID of the Pending Transaction representing the held funds. */
+                    @JsonProperty("pending_transaction_id")
+                    @ExcludeMissing
+                    fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
+                        this.pendingTransactionId = pendingTransactionId
+                    }
+
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
                         this.additionalProperties.putAll(additionalProperties)
@@ -3629,11 +3891,13 @@ private constructor(
                     fun build(): InboundFundsHold =
                         InboundFundsHold(
                             amount,
+                            createdAt,
                             currency,
                             automaticallyReleasesAt,
                             releasedAt,
                             status,
                             heldTransactionId,
+                            pendingTransactionId,
                             additionalProperties.toUnmodifiable(),
                         )
                 }
@@ -4142,6 +4406,164 @@ private constructor(
                         }
 
                     fun asString(): String = _value().asStringOrThrow()
+                }
+            }
+
+            /**
+             * A Real Time Payments Transfer Instruction object. This field will be present in the
+             * JSON response if and only if `category` is equal to
+             * `real_time_payments_transfer_instruction`.
+             */
+            @JsonDeserialize(builder = RealTimePaymentsTransferInstruction.Builder::class)
+            @NoAutoDetect
+            class RealTimePaymentsTransferInstruction
+            private constructor(
+                private val amount: JsonField<Long>,
+                private val transferId: JsonField<String>,
+                private val additionalProperties: Map<String, JsonValue>,
+            ) {
+
+                private var validated: Boolean = false
+
+                private var hashCode: Int = 0
+
+                /**
+                 * The pending amount in the minor unit of the transaction's currency. For dollars,
+                 * for example, this is cents.
+                 */
+                fun amount(): Long = amount.getRequired("amount")
+
+                /**
+                 * The identifier of the Real Time Payments Transfer that led to this Pending
+                 * Transaction.
+                 */
+                fun transferId(): String = transferId.getRequired("transfer_id")
+
+                /**
+                 * The pending amount in the minor unit of the transaction's currency. For dollars,
+                 * for example, this is cents.
+                 */
+                @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+                /**
+                 * The identifier of the Real Time Payments Transfer that led to this Pending
+                 * Transaction.
+                 */
+                @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun validate() = apply {
+                    if (!validated) {
+                        amount()
+                        transferId()
+                        validated = true
+                    }
+                }
+
+                fun toBuilder() = Builder().from(this)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is RealTimePaymentsTransferInstruction &&
+                        this.amount == other.amount &&
+                        this.transferId == other.transferId &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode =
+                            Objects.hash(
+                                amount,
+                                transferId,
+                                additionalProperties,
+                            )
+                    }
+                    return hashCode
+                }
+
+                override fun toString() =
+                    "RealTimePaymentsTransferInstruction{amount=$amount, transferId=$transferId, additionalProperties=$additionalProperties}"
+
+                companion object {
+
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                class Builder {
+
+                    private var amount: JsonField<Long> = JsonMissing.of()
+                    private var transferId: JsonField<String> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(
+                        realTimePaymentsTransferInstruction: RealTimePaymentsTransferInstruction
+                    ) = apply {
+                        this.amount = realTimePaymentsTransferInstruction.amount
+                        this.transferId = realTimePaymentsTransferInstruction.transferId
+                        additionalProperties(
+                            realTimePaymentsTransferInstruction.additionalProperties
+                        )
+                    }
+
+                    /**
+                     * The pending amount in the minor unit of the transaction's currency. For
+                     * dollars, for example, this is cents.
+                     */
+                    fun amount(amount: Long) = amount(JsonField.of(amount))
+
+                    /**
+                     * The pending amount in the minor unit of the transaction's currency. For
+                     * dollars, for example, this is cents.
+                     */
+                    @JsonProperty("amount")
+                    @ExcludeMissing
+                    fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+                    /**
+                     * The identifier of the Real Time Payments Transfer that led to this Pending
+                     * Transaction.
+                     */
+                    fun transferId(transferId: String) = transferId(JsonField.of(transferId))
+
+                    /**
+                     * The identifier of the Real Time Payments Transfer that led to this Pending
+                     * Transaction.
+                     */
+                    @JsonProperty("transfer_id")
+                    @ExcludeMissing
+                    fun transferId(transferId: JsonField<String>) = apply {
+                        this.transferId = transferId
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    @JsonAnySetter
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        this.additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun build(): RealTimePaymentsTransferInstruction =
+                        RealTimePaymentsTransferInstruction(
+                            amount,
+                            transferId,
+                            additionalProperties.toUnmodifiable(),
+                        )
                 }
             }
 
@@ -5985,19 +6407,21 @@ private constructor(
 
                         @JvmField val ENTITY_NOT_ACTIVE = Reason(JsonField.of("entity_not_active"))
 
-                        @JvmField
-                        val TRANSACTION_NOT_ALLOWED =
-                            Reason(JsonField.of("transaction_not_allowed"))
-
                         @JvmField val GROUP_LOCKED = Reason(JsonField.of("group_locked"))
 
                         @JvmField
                         val INSUFFICIENT_FUNDS = Reason(JsonField.of("insufficient_funds"))
 
+                        @JvmField val MISROUTED_RETURN = Reason(JsonField.of("misrouted_return"))
+
                         @JvmField val NO_ACH_ROUTE = Reason(JsonField.of("no_ach_route"))
 
                         @JvmField
                         val ORIGINATOR_REQUEST = Reason(JsonField.of("originator_request"))
+
+                        @JvmField
+                        val TRANSACTION_NOT_ALLOWED =
+                            Reason(JsonField.of("transaction_not_allowed"))
 
                         @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
                     }
@@ -6009,11 +6433,12 @@ private constructor(
                         CREDIT_ENTRY_REFUSED_BY_RECEIVER,
                         DUPLICATE_RETURN,
                         ENTITY_NOT_ACTIVE,
-                        TRANSACTION_NOT_ALLOWED,
                         GROUP_LOCKED,
                         INSUFFICIENT_FUNDS,
+                        MISROUTED_RETURN,
                         NO_ACH_ROUTE,
                         ORIGINATOR_REQUEST,
+                        TRANSACTION_NOT_ALLOWED,
                     }
 
                     enum class Value {
@@ -6023,11 +6448,12 @@ private constructor(
                         CREDIT_ENTRY_REFUSED_BY_RECEIVER,
                         DUPLICATE_RETURN,
                         ENTITY_NOT_ACTIVE,
-                        TRANSACTION_NOT_ALLOWED,
                         GROUP_LOCKED,
                         INSUFFICIENT_FUNDS,
+                        MISROUTED_RETURN,
                         NO_ACH_ROUTE,
                         ORIGINATOR_REQUEST,
+                        TRANSACTION_NOT_ALLOWED,
                         _UNKNOWN,
                     }
 
@@ -6040,11 +6466,12 @@ private constructor(
                                 Value.CREDIT_ENTRY_REFUSED_BY_RECEIVER
                             DUPLICATE_RETURN -> Value.DUPLICATE_RETURN
                             ENTITY_NOT_ACTIVE -> Value.ENTITY_NOT_ACTIVE
-                            TRANSACTION_NOT_ALLOWED -> Value.TRANSACTION_NOT_ALLOWED
                             GROUP_LOCKED -> Value.GROUP_LOCKED
                             INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
+                            MISROUTED_RETURN -> Value.MISROUTED_RETURN
                             NO_ACH_ROUTE -> Value.NO_ACH_ROUTE
                             ORIGINATOR_REQUEST -> Value.ORIGINATOR_REQUEST
+                            TRANSACTION_NOT_ALLOWED -> Value.TRANSACTION_NOT_ALLOWED
                             else -> Value._UNKNOWN
                         }
 
@@ -6057,11 +6484,12 @@ private constructor(
                                 Known.CREDIT_ENTRY_REFUSED_BY_RECEIVER
                             DUPLICATE_RETURN -> Known.DUPLICATE_RETURN
                             ENTITY_NOT_ACTIVE -> Known.ENTITY_NOT_ACTIVE
-                            TRANSACTION_NOT_ALLOWED -> Known.TRANSACTION_NOT_ALLOWED
                             GROUP_LOCKED -> Known.GROUP_LOCKED
                             INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
+                            MISROUTED_RETURN -> Known.MISROUTED_RETURN
                             NO_ACH_ROUTE -> Known.NO_ACH_ROUTE
                             ORIGINATOR_REQUEST -> Known.ORIGINATOR_REQUEST
+                            TRANSACTION_NOT_ALLOWED -> Known.TRANSACTION_NOT_ALLOWED
                             else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                         }
 
@@ -7151,6 +7579,10 @@ private constructor(
                         @JvmField
                         val INVALID_PHYSICAL_CARD = Reason(JsonField.of("invalid_physical_card"))
 
+                        @JvmField
+                        val MISSING_ORIGINAL_AUTHORIZATION =
+                            Reason(JsonField.of("missing_original_authorization"))
+
                         @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
                     }
 
@@ -7166,6 +7598,7 @@ private constructor(
                         WEBHOOK_TIMED_OUT,
                         DECLINED_BY_STAND_IN_PROCESSING,
                         INVALID_PHYSICAL_CARD,
+                        MISSING_ORIGINAL_AUTHORIZATION,
                     }
 
                     enum class Value {
@@ -7180,6 +7613,7 @@ private constructor(
                         WEBHOOK_TIMED_OUT,
                         DECLINED_BY_STAND_IN_PROCESSING,
                         INVALID_PHYSICAL_CARD,
+                        MISSING_ORIGINAL_AUTHORIZATION,
                         _UNKNOWN,
                     }
 
@@ -7196,6 +7630,7 @@ private constructor(
                             WEBHOOK_TIMED_OUT -> Value.WEBHOOK_TIMED_OUT
                             DECLINED_BY_STAND_IN_PROCESSING -> Value.DECLINED_BY_STAND_IN_PROCESSING
                             INVALID_PHYSICAL_CARD -> Value.INVALID_PHYSICAL_CARD
+                            MISSING_ORIGINAL_AUTHORIZATION -> Value.MISSING_ORIGINAL_AUTHORIZATION
                             else -> Value._UNKNOWN
                         }
 
@@ -7212,6 +7647,7 @@ private constructor(
                             WEBHOOK_TIMED_OUT -> Known.WEBHOOK_TIMED_OUT
                             DECLINED_BY_STAND_IN_PROCESSING -> Known.DECLINED_BY_STAND_IN_PROCESSING
                             INVALID_PHYSICAL_CARD -> Known.INVALID_PHYSICAL_CARD
+                            MISSING_ORIGINAL_AUTHORIZATION -> Known.MISSING_ORIGINAL_AUTHORIZATION
                             else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                         }
 
@@ -7434,6 +7870,8 @@ private constructor(
                         @JvmField
                         val DUPLICATE_PRESENTMENT = Reason(JsonField.of("duplicate_presentment"))
 
+                        @JvmField val NOT_AUTHORIZED = Reason(JsonField.of("not_authorized"))
+
                         @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
                     }
 
@@ -7450,6 +7888,7 @@ private constructor(
                         STOP_PAYMENT_REQUESTED,
                         RETURNED,
                         DUPLICATE_PRESENTMENT,
+                        NOT_AUTHORIZED,
                     }
 
                     enum class Value {
@@ -7465,6 +7904,7 @@ private constructor(
                         STOP_PAYMENT_REQUESTED,
                         RETURNED,
                         DUPLICATE_PRESENTMENT,
+                        NOT_AUTHORIZED,
                         _UNKNOWN,
                     }
 
@@ -7482,6 +7922,7 @@ private constructor(
                             STOP_PAYMENT_REQUESTED -> Value.STOP_PAYMENT_REQUESTED
                             RETURNED -> Value.RETURNED
                             DUPLICATE_PRESENTMENT -> Value.DUPLICATE_PRESENTMENT
+                            NOT_AUTHORIZED -> Value.NOT_AUTHORIZED
                             else -> Value._UNKNOWN
                         }
 
@@ -7499,6 +7940,7 @@ private constructor(
                             STOP_PAYMENT_REQUESTED -> Known.STOP_PAYMENT_REQUESTED
                             RETURNED -> Known.RETURNED
                             DUPLICATE_PRESENTMENT -> Known.DUPLICATE_PRESENTMENT
+                            NOT_AUTHORIZED -> Known.NOT_AUTHORIZED
                             else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                         }
 

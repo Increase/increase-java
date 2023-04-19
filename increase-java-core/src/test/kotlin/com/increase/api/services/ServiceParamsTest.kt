@@ -71,9 +71,6 @@ class ServiceParamsTest {
 
         val apiResponse =
             Account.builder()
-                .balances(
-                    Account.Balances.builder().currentBalance(123L).availableBalance(123L).build()
-                )
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .currency(Account.Currency.CAD)
                 .entityId("string")
@@ -115,6 +112,14 @@ class ServiceParamsTest {
                 .limit(123L)
                 .entityId("string")
                 .status(AccountListParams.Status.OPEN)
+                .createdAt(
+                    AccountListParams.CreatedAt.builder()
+                        .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .build()
+                )
                 .additionalHeaders(additionalHeaders)
                 .additionalQueryParams(additionalQueryParams)
                 .build()
@@ -124,12 +129,6 @@ class ServiceParamsTest {
                 .data(
                     listOf(
                         Account.builder()
-                            .balances(
-                                Account.Balances.builder()
-                                    .currentBalance(123L)
-                                    .availableBalance(123L)
-                                    .build()
-                            )
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .currency(Account.Currency.CAD)
                             .entityId("string")

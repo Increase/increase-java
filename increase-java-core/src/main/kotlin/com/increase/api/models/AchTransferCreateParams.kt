@@ -149,7 +149,7 @@ constructor(
         @JsonProperty("amount") fun amount(): Long? = amount
 
         /**
-         * The description of the date of the transfer, usually in the format `YYYYMMDD`. This is
+         * The description of the date of the transfer, usually in the format `YYMMDD`. This is
          * included in the transfer data sent to the receiving bank.
          */
         @JsonProperty("company_descriptive_date")
@@ -355,8 +355,8 @@ constructor(
             @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
 
             /**
-             * The description of the date of the transfer, usually in the format `YYYYMMDD`. This
-             * is included in the transfer data sent to the receiving bank.
+             * The description of the date of the transfer, usually in the format `YYMMDD`. This is
+             * included in the transfer data sent to the receiving bank.
              */
             @JsonProperty("company_descriptive_date")
             fun companyDescriptiveDate(companyDescriptiveDate: String) = apply {
@@ -632,7 +632,7 @@ constructor(
         fun amount(amount: Long) = apply { this.amount = amount }
 
         /**
-         * The description of the date of the transfer, usually in the format `YYYYMMDD`. This is
+         * The description of the date of the transfer, usually in the format `YYMMDD`. This is
          * included in the transfer data sent to the receiving bank.
          */
         fun companyDescriptiveDate(companyDescriptiveDate: String) = apply {

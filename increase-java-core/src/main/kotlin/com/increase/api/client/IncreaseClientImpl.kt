@@ -24,6 +24,14 @@ constructor(
         RealTimeDecisionServiceImpl(clientOptions)
     }
 
+    private val realTimePaymentsTransfers: RealTimePaymentsTransferService by lazy {
+        RealTimePaymentsTransferServiceImpl(clientOptions)
+    }
+
+    private val balanceLookups: BalanceLookupService by lazy {
+        BalanceLookupServiceImpl(clientOptions)
+    }
+
     private val cards: CardService by lazy { CardServiceImpl(clientOptions) }
 
     private val cardDisputes: CardDisputeService by lazy { CardDisputeServiceImpl(clientOptions) }
@@ -34,6 +42,8 @@ constructor(
         ExternalAccountServiceImpl(clientOptions)
     }
 
+    private val exports: ExportService by lazy { ExportServiceImpl(clientOptions) }
+
     private val digitalWalletTokens: DigitalWalletTokenService by lazy {
         DigitalWalletTokenServiceImpl(clientOptions)
     }
@@ -43,6 +53,8 @@ constructor(
     private val pendingTransactions: PendingTransactionService by lazy {
         PendingTransactionServiceImpl(clientOptions)
     }
+
+    private val programs: ProgramService by lazy { ProgramServiceImpl(clientOptions) }
 
     private val declinedTransactions: DeclinedTransactionService by lazy {
         DeclinedTransactionServiceImpl(clientOptions)
@@ -118,6 +130,11 @@ constructor(
 
     override fun realTimeDecisions(): RealTimeDecisionService = realTimeDecisions
 
+    override fun realTimePaymentsTransfers(): RealTimePaymentsTransferService =
+        realTimePaymentsTransfers
+
+    override fun balanceLookups(): BalanceLookupService = balanceLookups
+
     override fun cards(): CardService = cards
 
     override fun cardDisputes(): CardDisputeService = cardDisputes
@@ -126,11 +143,15 @@ constructor(
 
     override fun externalAccounts(): ExternalAccountService = externalAccounts
 
+    override fun exports(): ExportService = exports
+
     override fun digitalWalletTokens(): DigitalWalletTokenService = digitalWalletTokens
 
     override fun transactions(): TransactionService = transactions
 
     override fun pendingTransactions(): PendingTransactionService = pendingTransactions
+
+    override fun programs(): ProgramService = programs
 
     override fun declinedTransactions(): DeclinedTransactionService = declinedTransactions
 

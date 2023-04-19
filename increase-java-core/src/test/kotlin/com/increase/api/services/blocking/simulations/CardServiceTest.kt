@@ -23,6 +23,7 @@ class CardServiceTest {
                     .amount(123L)
                     .cardId("string")
                     .digitalWalletTokenId("string")
+                    .eventSubscriptionId("string")
                     .build()
             )
         println(cardAuthorizationSimulation)

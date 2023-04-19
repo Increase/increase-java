@@ -13,6 +13,7 @@ import com.increase.api.services.blocking.simulations.CheckTransferService
 import com.increase.api.services.blocking.simulations.DigitalWalletTokenRequestService
 import com.increase.api.services.blocking.simulations.DocumentService
 import com.increase.api.services.blocking.simulations.InboundWireDrawdownRequestService
+import com.increase.api.services.blocking.simulations.InterestPaymentService
 import com.increase.api.services.blocking.simulations.RealTimePaymentsTransferService
 import com.increase.api.services.blocking.simulations.WireTransferService
 
@@ -37,6 +38,8 @@ interface SimulationService {
     fun checkDeposits(): CheckDepositService
 
     fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestService
+
+    fun interestPayments(): InterestPaymentService
 
     fun wireTransfers(): WireTransferService
 

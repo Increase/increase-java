@@ -13,6 +13,7 @@ import com.increase.api.services.async.simulations.CheckTransferServiceAsync
 import com.increase.api.services.async.simulations.DigitalWalletTokenRequestServiceAsync
 import com.increase.api.services.async.simulations.DocumentServiceAsync
 import com.increase.api.services.async.simulations.InboundWireDrawdownRequestServiceAsync
+import com.increase.api.services.async.simulations.InterestPaymentServiceAsync
 import com.increase.api.services.async.simulations.RealTimePaymentsTransferServiceAsync
 import com.increase.api.services.async.simulations.WireTransferServiceAsync
 
@@ -37,6 +38,8 @@ interface SimulationServiceAsync {
     fun checkDeposits(): CheckDepositServiceAsync
 
     fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestServiceAsync
+
+    fun interestPayments(): InterestPaymentServiceAsync
 
     fun wireTransfers(): WireTransferServiceAsync
 
