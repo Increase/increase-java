@@ -288,6 +288,9 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .CheckTransferReturn
                                         .builder()
                                         .transferId("string")
+                                        .returnedAt(
+                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                        )
                                         .fileId("string")
                                         .reason(
                                             InboundRealTimePaymentsTransferSimulationResult
@@ -297,6 +300,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .Reason
                                                 .MAIL_DELIVERY_FAILURE
                                         )
+                                        .transactionId("string")
                                         .build()
                                 )
                                 .checkTransferRejection(
@@ -523,6 +527,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .InboundWireReversal
                                         .builder()
                                         .amount(123L)
+                                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .description("string")
                                         .inputCycleDate(LocalDate.parse("2019-12-27"))
                                         .inputSequenceNumber("string")
@@ -538,6 +543,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .financialInstitutionToFinancialInstitutionInformation(
                                             "string"
                                         )
+                                        .transactionId("string")
                                         .build()
                                 )
                                 .inboundWireTransfer(
@@ -1228,6 +1234,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .CheckTransferReturn
                                     .builder()
                                     .transferId("string")
+                                    .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .fileId("string")
                                     .reason(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction
@@ -1236,6 +1243,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .Reason
                                             .MAIL_DELIVERY_FAILURE
                                     )
+                                    .transactionId("string")
                                     .build()
                             )
                             .checkTransferRejection(
@@ -1435,6 +1443,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .InboundWireReversal
                                     .builder()
                                     .amount(123L)
+                                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .description("string")
                                     .inputCycleDate(LocalDate.parse("2019-12-27"))
                                     .inputSequenceNumber("string")
@@ -1446,6 +1455,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .previousMessageInputSource("string")
                                     .receiverFinancialInstitutionInformation("string")
                                     .financialInstitutionToFinancialInstitutionInformation("string")
+                                    .transactionId("string")
                                     .build()
                             )
                             .inboundWireTransfer(

@@ -20,6 +20,18 @@ constructor(
         AccountNumberServiceAsyncImpl(clientOptions)
     }
 
+    private val bookkeepingAccounts: BookkeepingAccountServiceAsync by lazy {
+        BookkeepingAccountServiceAsyncImpl(clientOptions)
+    }
+
+    private val bookkeepingEntrySets: BookkeepingEntrySetServiceAsync by lazy {
+        BookkeepingEntrySetServiceAsyncImpl(clientOptions)
+    }
+
+    private val bookkeepingEntries: BookkeepingEntryServiceAsync by lazy {
+        BookkeepingEntryServiceAsyncImpl(clientOptions)
+    }
+
     private val realTimeDecisions: RealTimeDecisionServiceAsync by lazy {
         RealTimeDecisionServiceAsyncImpl(clientOptions)
     }
@@ -137,6 +149,12 @@ constructor(
     override fun accounts(): AccountServiceAsync = accounts
 
     override fun accountNumbers(): AccountNumberServiceAsync = accountNumbers
+
+    override fun bookkeepingAccounts(): BookkeepingAccountServiceAsync = bookkeepingAccounts
+
+    override fun bookkeepingEntrySets(): BookkeepingEntrySetServiceAsync = bookkeepingEntrySets
+
+    override fun bookkeepingEntries(): BookkeepingEntryServiceAsync = bookkeepingEntries
 
     override fun realTimeDecisions(): RealTimeDecisionServiceAsync = realTimeDecisions
 

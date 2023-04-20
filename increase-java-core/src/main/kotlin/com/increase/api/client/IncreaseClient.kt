@@ -11,6 +11,12 @@ interface IncreaseClient {
 
     fun accountNumbers(): AccountNumberService
 
+    fun bookkeepingAccounts(): BookkeepingAccountService
+
+    fun bookkeepingEntrySets(): BookkeepingEntrySetService
+
+    fun bookkeepingEntries(): BookkeepingEntryService
+
     fun realTimeDecisions(): RealTimeDecisionService
 
     fun realTimePaymentsTransfers(): RealTimePaymentsTransferService

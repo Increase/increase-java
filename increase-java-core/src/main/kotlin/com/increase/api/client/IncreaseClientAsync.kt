@@ -11,6 +11,12 @@ interface IncreaseClientAsync {
 
     fun accountNumbers(): AccountNumberServiceAsync
 
+    fun bookkeepingAccounts(): BookkeepingAccountServiceAsync
+
+    fun bookkeepingEntrySets(): BookkeepingEntrySetServiceAsync
+
+    fun bookkeepingEntries(): BookkeepingEntryServiceAsync
+
     fun realTimeDecisions(): RealTimeDecisionServiceAsync
 
     fun realTimePaymentsTransfers(): RealTimePaymentsTransferServiceAsync

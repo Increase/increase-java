@@ -38,6 +38,7 @@ class WireTransferTest {
                 .reversal(
                     WireTransfer.Reversal.builder()
                         .amount(123L)
+                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .description("string")
                         .inputCycleDate(LocalDate.parse("2019-12-27"))
                         .inputSequenceNumber("string")
@@ -49,6 +50,7 @@ class WireTransferTest {
                         .previousMessageInputSource("string")
                         .receiverFinancialInstitutionInformation("string")
                         .financialInstitutionToFinancialInstitutionInformation("string")
+                        .transactionId("string")
                         .build()
                 )
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -94,6 +96,7 @@ class WireTransferTest {
             .contains(
                 WireTransfer.Reversal.builder()
                     .amount(123L)
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .description("string")
                     .inputCycleDate(LocalDate.parse("2019-12-27"))
                     .inputSequenceNumber("string")
@@ -105,6 +108,7 @@ class WireTransferTest {
                     .previousMessageInputSource("string")
                     .receiverFinancialInstitutionInformation("string")
                     .financialInstitutionToFinancialInstitutionInformation("string")
+                    .transactionId("string")
                     .build()
             )
         assertThat(wireTransfer.createdAt())

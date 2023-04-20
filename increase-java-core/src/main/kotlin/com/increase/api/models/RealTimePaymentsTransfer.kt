@@ -26,6 +26,8 @@ class RealTimePaymentsTransfer
 private constructor(
     private val type: JsonField<Type>,
     private val id: JsonField<String>,
+    private val approval: JsonField<Approval>,
+    private val cancellation: JsonField<Cancellation>,
     private val status: JsonField<Status>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val accountId: JsonField<String>,
@@ -55,6 +57,19 @@ private constructor(
 
     /** The Real Time Payments Transfer's identifier. */
     fun id(): String = id.getRequired("id")
+
+    /**
+     * If your account requires approvals for transfers and the transfer was approved, this will
+     * contain details of the approval.
+     */
+    fun approval(): Optional<Approval> = Optional.ofNullable(approval.getNullable("approval"))
+
+    /**
+     * If your account requires approvals for transfers and the transfer was not approved, this will
+     * contain details of the cancellation.
+     */
+    fun cancellation(): Optional<Cancellation> =
+        Optional.ofNullable(cancellation.getNullable("cancellation"))
 
     /** The lifecycle status of the transfer. */
     fun status(): Status = status.getRequired("status")
@@ -125,6 +140,18 @@ private constructor(
 
     /** The Real Time Payments Transfer's identifier. */
     @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+    /**
+     * If your account requires approvals for transfers and the transfer was approved, this will
+     * contain details of the approval.
+     */
+    @JsonProperty("approval") @ExcludeMissing fun _approval() = approval
+
+    /**
+     * If your account requires approvals for transfers and the transfer was not approved, this will
+     * contain details of the cancellation.
+     */
+    @JsonProperty("cancellation") @ExcludeMissing fun _cancellation() = cancellation
 
     /** The lifecycle status of the transfer. */
     @JsonProperty("status") @ExcludeMissing fun _status() = status
@@ -198,6 +225,8 @@ private constructor(
         if (!validated) {
             type()
             id()
+            approval().map { it.validate() }
+            cancellation().map { it.validate() }
             status()
             createdAt()
             accountId()
@@ -226,6 +255,8 @@ private constructor(
         return other is RealTimePaymentsTransfer &&
             this.type == other.type &&
             this.id == other.id &&
+            this.approval == other.approval &&
+            this.cancellation == other.cancellation &&
             this.status == other.status &&
             this.createdAt == other.createdAt &&
             this.accountId == other.accountId &&
@@ -249,6 +280,8 @@ private constructor(
                 Objects.hash(
                     type,
                     id,
+                    approval,
+                    cancellation,
                     status,
                     createdAt,
                     accountId,
@@ -270,7 +303,7 @@ private constructor(
     }
 
     override fun toString() =
-        "RealTimePaymentsTransfer{type=$type, id=$id, status=$status, createdAt=$createdAt, accountId=$accountId, externalAccountId=$externalAccountId, sourceAccountNumberId=$sourceAccountNumberId, creditorName=$creditorName, remittanceInformation=$remittanceInformation, amount=$amount, currency=$currency, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, transactionId=$transactionId, submission=$submission, rejection=$rejection, additionalProperties=$additionalProperties}"
+        "RealTimePaymentsTransfer{type=$type, id=$id, approval=$approval, cancellation=$cancellation, status=$status, createdAt=$createdAt, accountId=$accountId, externalAccountId=$externalAccountId, sourceAccountNumberId=$sourceAccountNumberId, creditorName=$creditorName, remittanceInformation=$remittanceInformation, amount=$amount, currency=$currency, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, transactionId=$transactionId, submission=$submission, rejection=$rejection, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -281,6 +314,8 @@ private constructor(
 
         private var type: JsonField<Type> = JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
+        private var approval: JsonField<Approval> = JsonMissing.of()
+        private var cancellation: JsonField<Cancellation> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var accountId: JsonField<String> = JsonMissing.of()
@@ -301,6 +336,8 @@ private constructor(
         internal fun from(realTimePaymentsTransfer: RealTimePaymentsTransfer) = apply {
             this.type = realTimePaymentsTransfer.type
             this.id = realTimePaymentsTransfer.id
+            this.approval = realTimePaymentsTransfer.approval
+            this.cancellation = realTimePaymentsTransfer.cancellation
             this.status = realTimePaymentsTransfer.status
             this.createdAt = realTimePaymentsTransfer.createdAt
             this.accountId = realTimePaymentsTransfer.accountId
@@ -337,6 +374,36 @@ private constructor(
 
         /** The Real Time Payments Transfer's identifier. */
         @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /**
+         * If your account requires approvals for transfers and the transfer was approved, this will
+         * contain details of the approval.
+         */
+        fun approval(approval: Approval) = approval(JsonField.of(approval))
+
+        /**
+         * If your account requires approvals for transfers and the transfer was approved, this will
+         * contain details of the approval.
+         */
+        @JsonProperty("approval")
+        @ExcludeMissing
+        fun approval(approval: JsonField<Approval>) = apply { this.approval = approval }
+
+        /**
+         * If your account requires approvals for transfers and the transfer was not approved, this
+         * will contain details of the cancellation.
+         */
+        fun cancellation(cancellation: Cancellation) = cancellation(JsonField.of(cancellation))
+
+        /**
+         * If your account requires approvals for transfers and the transfer was not approved, this
+         * will contain details of the cancellation.
+         */
+        @JsonProperty("cancellation")
+        @ExcludeMissing
+        fun cancellation(cancellation: JsonField<Cancellation>) = apply {
+            this.cancellation = cancellation
+        }
 
         /** The lifecycle status of the transfer. */
         fun status(status: Status) = status(JsonField.of(status))
@@ -511,6 +578,8 @@ private constructor(
             RealTimePaymentsTransfer(
                 type,
                 id,
+                approval,
+                cancellation,
                 status,
                 createdAt,
                 accountId,
@@ -579,6 +648,308 @@ private constructor(
             }
 
         fun asString(): String = _value().asStringOrThrow()
+    }
+
+    /**
+     * If your account requires approvals for transfers and the transfer was approved, this will
+     * contain details of the approval.
+     */
+    @JsonDeserialize(builder = Approval.Builder::class)
+    @NoAutoDetect
+    class Approval
+    private constructor(
+        private val approvedAt: JsonField<OffsetDateTime>,
+        private val approvedBy: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * transfer was approved.
+         */
+        fun approvedAt(): OffsetDateTime = approvedAt.getRequired("approved_at")
+
+        /**
+         * If the Transfer was approved by a user in the dashboard, the email address of that user.
+         */
+        fun approvedBy(): Optional<String> =
+            Optional.ofNullable(approvedBy.getNullable("approved_by"))
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * transfer was approved.
+         */
+        @JsonProperty("approved_at") @ExcludeMissing fun _approvedAt() = approvedAt
+
+        /**
+         * If the Transfer was approved by a user in the dashboard, the email address of that user.
+         */
+        @JsonProperty("approved_by") @ExcludeMissing fun _approvedBy() = approvedBy
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate() = apply {
+            if (!validated) {
+                approvedAt()
+                approvedBy()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Approval &&
+                this.approvedAt == other.approvedAt &&
+                this.approvedBy == other.approvedBy &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        approvedAt,
+                        approvedBy,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Approval{approvedAt=$approvedAt, approvedBy=$approvedBy, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var approvedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var approvedBy: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(approval: Approval) = apply {
+                this.approvedAt = approval.approvedAt
+                this.approvedBy = approval.approvedBy
+                additionalProperties(approval.additionalProperties)
+            }
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * transfer was approved.
+             */
+            fun approvedAt(approvedAt: OffsetDateTime) = approvedAt(JsonField.of(approvedAt))
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * transfer was approved.
+             */
+            @JsonProperty("approved_at")
+            @ExcludeMissing
+            fun approvedAt(approvedAt: JsonField<OffsetDateTime>) = apply {
+                this.approvedAt = approvedAt
+            }
+
+            /**
+             * If the Transfer was approved by a user in the dashboard, the email address of that
+             * user.
+             */
+            fun approvedBy(approvedBy: String) = approvedBy(JsonField.of(approvedBy))
+
+            /**
+             * If the Transfer was approved by a user in the dashboard, the email address of that
+             * user.
+             */
+            @JsonProperty("approved_by")
+            @ExcludeMissing
+            fun approvedBy(approvedBy: JsonField<String>) = apply { this.approvedBy = approvedBy }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): Approval =
+                Approval(
+                    approvedAt,
+                    approvedBy,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
+    }
+
+    /**
+     * If your account requires approvals for transfers and the transfer was not approved, this will
+     * contain details of the cancellation.
+     */
+    @JsonDeserialize(builder = Cancellation.Builder::class)
+    @NoAutoDetect
+    class Cancellation
+    private constructor(
+        private val canceledAt: JsonField<OffsetDateTime>,
+        private val canceledBy: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * Transfer was canceled.
+         */
+        fun canceledAt(): OffsetDateTime = canceledAt.getRequired("canceled_at")
+
+        /**
+         * If the Transfer was canceled by a user in the dashboard, the email address of that user.
+         */
+        fun canceledBy(): Optional<String> =
+            Optional.ofNullable(canceledBy.getNullable("canceled_by"))
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * Transfer was canceled.
+         */
+        @JsonProperty("canceled_at") @ExcludeMissing fun _canceledAt() = canceledAt
+
+        /**
+         * If the Transfer was canceled by a user in the dashboard, the email address of that user.
+         */
+        @JsonProperty("canceled_by") @ExcludeMissing fun _canceledBy() = canceledBy
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate() = apply {
+            if (!validated) {
+                canceledAt()
+                canceledBy()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Cancellation &&
+                this.canceledAt == other.canceledAt &&
+                this.canceledBy == other.canceledBy &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        canceledAt,
+                        canceledBy,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Cancellation{canceledAt=$canceledAt, canceledBy=$canceledBy, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var canceledAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var canceledBy: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(cancellation: Cancellation) = apply {
+                this.canceledAt = cancellation.canceledAt
+                this.canceledBy = cancellation.canceledBy
+                additionalProperties(cancellation.additionalProperties)
+            }
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * Transfer was canceled.
+             */
+            fun canceledAt(canceledAt: OffsetDateTime) = canceledAt(JsonField.of(canceledAt))
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * Transfer was canceled.
+             */
+            @JsonProperty("canceled_at")
+            @ExcludeMissing
+            fun canceledAt(canceledAt: JsonField<OffsetDateTime>) = apply {
+                this.canceledAt = canceledAt
+            }
+
+            /**
+             * If the Transfer was canceled by a user in the dashboard, the email address of that
+             * user.
+             */
+            fun canceledBy(canceledBy: String) = canceledBy(JsonField.of(canceledBy))
+
+            /**
+             * If the Transfer was canceled by a user in the dashboard, the email address of that
+             * user.
+             */
+            @JsonProperty("canceled_by")
+            @ExcludeMissing
+            fun canceledBy(canceledBy: JsonField<String>) = apply { this.canceledBy = canceledBy }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): Cancellation =
+                Cancellation(
+                    canceledAt,
+                    canceledBy,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
     }
 
     class Status
@@ -757,6 +1128,7 @@ private constructor(
     @NoAutoDetect
     class Submission
     private constructor(
+        private val submittedAt: JsonField<OffsetDateTime>,
         private val transactionIdentification: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -765,9 +1137,22 @@ private constructor(
 
         private var hashCode: Int = 0
 
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * transfer was submitted to The Clearing House.
+         */
+        fun submittedAt(): Optional<OffsetDateTime> =
+            Optional.ofNullable(submittedAt.getNullable("submitted_at"))
+
         /** The Real Time Payments network identification of the transfer. */
         fun transactionIdentification(): String =
             transactionIdentification.getRequired("transaction_identification")
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * transfer was submitted to The Clearing House.
+         */
+        @JsonProperty("submitted_at") @ExcludeMissing fun _submittedAt() = submittedAt
 
         /** The Real Time Payments network identification of the transfer. */
         @JsonProperty("transaction_identification")
@@ -780,6 +1165,7 @@ private constructor(
 
         fun validate() = apply {
             if (!validated) {
+                submittedAt()
                 transactionIdentification()
                 validated = true
             }
@@ -793,19 +1179,25 @@ private constructor(
             }
 
             return other is Submission &&
+                this.submittedAt == other.submittedAt &&
                 this.transactionIdentification == other.transactionIdentification &&
                 this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(transactionIdentification, additionalProperties)
+                hashCode =
+                    Objects.hash(
+                        submittedAt,
+                        transactionIdentification,
+                        additionalProperties,
+                    )
             }
             return hashCode
         }
 
         override fun toString() =
-            "Submission{transactionIdentification=$transactionIdentification, additionalProperties=$additionalProperties}"
+            "Submission{submittedAt=$submittedAt, transactionIdentification=$transactionIdentification, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -814,13 +1206,31 @@ private constructor(
 
         class Builder {
 
+            private var submittedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var transactionIdentification: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(submission: Submission) = apply {
+                this.submittedAt = submission.submittedAt
                 this.transactionIdentification = submission.transactionIdentification
                 additionalProperties(submission.additionalProperties)
+            }
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * transfer was submitted to The Clearing House.
+             */
+            fun submittedAt(submittedAt: OffsetDateTime) = submittedAt(JsonField.of(submittedAt))
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * transfer was submitted to The Clearing House.
+             */
+            @JsonProperty("submitted_at")
+            @ExcludeMissing
+            fun submittedAt(submittedAt: JsonField<OffsetDateTime>) = apply {
+                this.submittedAt = submittedAt
             }
 
             /** The Real Time Payments network identification of the transfer. */
@@ -849,7 +1259,11 @@ private constructor(
             }
 
             fun build(): Submission =
-                Submission(transactionIdentification, additionalProperties.toUnmodifiable())
+                Submission(
+                    submittedAt,
+                    transactionIdentification,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
@@ -861,6 +1275,7 @@ private constructor(
     @NoAutoDetect
     class Rejection
     private constructor(
+        private val rejectedAt: JsonField<OffsetDateTime>,
         private val rejectReasonCode: JsonField<RejectReasonCode>,
         private val rejectReasonAdditionalInformation: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
@@ -869,6 +1284,13 @@ private constructor(
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * transfer was rejected.
+         */
+        fun rejectedAt(): Optional<OffsetDateTime> =
+            Optional.ofNullable(rejectedAt.getNullable("rejected_at"))
 
         /**
          * The reason the transfer was rejected as provided by the recipient bank or the Real Time
@@ -887,6 +1309,12 @@ private constructor(
                     "reject_reason_additional_information"
                 )
             )
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * transfer was rejected.
+         */
+        @JsonProperty("rejected_at") @ExcludeMissing fun _rejectedAt() = rejectedAt
 
         /**
          * The reason the transfer was rejected as provided by the recipient bank or the Real Time
@@ -910,6 +1338,7 @@ private constructor(
 
         fun validate() = apply {
             if (!validated) {
+                rejectedAt()
                 rejectReasonCode()
                 rejectReasonAdditionalInformation()
                 validated = true
@@ -924,6 +1353,7 @@ private constructor(
             }
 
             return other is Rejection &&
+                this.rejectedAt == other.rejectedAt &&
                 this.rejectReasonCode == other.rejectReasonCode &&
                 this.rejectReasonAdditionalInformation == other.rejectReasonAdditionalInformation &&
                 this.additionalProperties == other.additionalProperties
@@ -933,6 +1363,7 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
+                        rejectedAt,
                         rejectReasonCode,
                         rejectReasonAdditionalInformation,
                         additionalProperties,
@@ -942,7 +1373,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Rejection{rejectReasonCode=$rejectReasonCode, rejectReasonAdditionalInformation=$rejectReasonAdditionalInformation, additionalProperties=$additionalProperties}"
+            "Rejection{rejectedAt=$rejectedAt, rejectReasonCode=$rejectReasonCode, rejectReasonAdditionalInformation=$rejectReasonAdditionalInformation, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -951,15 +1382,33 @@ private constructor(
 
         class Builder {
 
+            private var rejectedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var rejectReasonCode: JsonField<RejectReasonCode> = JsonMissing.of()
             private var rejectReasonAdditionalInformation: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(rejection: Rejection) = apply {
+                this.rejectedAt = rejection.rejectedAt
                 this.rejectReasonCode = rejection.rejectReasonCode
                 this.rejectReasonAdditionalInformation = rejection.rejectReasonAdditionalInformation
                 additionalProperties(rejection.additionalProperties)
+            }
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * transfer was rejected.
+             */
+            fun rejectedAt(rejectedAt: OffsetDateTime) = rejectedAt(JsonField.of(rejectedAt))
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * transfer was rejected.
+             */
+            @JsonProperty("rejected_at")
+            @ExcludeMissing
+            fun rejectedAt(rejectedAt: JsonField<OffsetDateTime>) = apply {
+                this.rejectedAt = rejectedAt
             }
 
             /**
@@ -1012,6 +1461,7 @@ private constructor(
 
             fun build(): Rejection =
                 Rejection(
+                    rejectedAt,
                     rejectReasonCode,
                     rejectReasonAdditionalInformation,
                     additionalProperties.toUnmodifiable(),

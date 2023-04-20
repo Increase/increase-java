@@ -12,6 +12,18 @@ class RealTimePaymentsTransferTest {
             RealTimePaymentsTransfer.builder()
                 .type(RealTimePaymentsTransfer.Type.REAL_TIME_PAYMENTS_TRANSFER)
                 .id("string")
+                .approval(
+                    RealTimePaymentsTransfer.Approval.builder()
+                        .approvedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .approvedBy("string")
+                        .build()
+                )
+                .cancellation(
+                    RealTimePaymentsTransfer.Cancellation.builder()
+                        .canceledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .canceledBy("string")
+                        .build()
+                )
                 .status(RealTimePaymentsTransfer.Status.PENDING_APPROVAL)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .accountId("string")
@@ -26,11 +38,13 @@ class RealTimePaymentsTransferTest {
                 .transactionId("string")
                 .submission(
                     RealTimePaymentsTransfer.Submission.builder()
+                        .submittedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .transactionIdentification("string")
                         .build()
                 )
                 .rejection(
                     RealTimePaymentsTransfer.Rejection.builder()
+                        .rejectedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .rejectReasonCode(
                             RealTimePaymentsTransfer.Rejection.RejectReasonCode.ACCOUNT_CLOSED
                         )
@@ -42,6 +56,20 @@ class RealTimePaymentsTransferTest {
         assertThat(realTimePaymentsTransfer.type())
             .isEqualTo(RealTimePaymentsTransfer.Type.REAL_TIME_PAYMENTS_TRANSFER)
         assertThat(realTimePaymentsTransfer.id()).isEqualTo("string")
+        assertThat(realTimePaymentsTransfer.approval())
+            .contains(
+                RealTimePaymentsTransfer.Approval.builder()
+                    .approvedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .approvedBy("string")
+                    .build()
+            )
+        assertThat(realTimePaymentsTransfer.cancellation())
+            .contains(
+                RealTimePaymentsTransfer.Cancellation.builder()
+                    .canceledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .canceledBy("string")
+                    .build()
+            )
         assertThat(realTimePaymentsTransfer.status())
             .isEqualTo(RealTimePaymentsTransfer.Status.PENDING_APPROVAL)
         assertThat(realTimePaymentsTransfer.createdAt())
@@ -60,12 +88,14 @@ class RealTimePaymentsTransferTest {
         assertThat(realTimePaymentsTransfer.submission())
             .contains(
                 RealTimePaymentsTransfer.Submission.builder()
+                    .submittedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .transactionIdentification("string")
                     .build()
             )
         assertThat(realTimePaymentsTransfer.rejection())
             .contains(
                 RealTimePaymentsTransfer.Rejection.builder()
+                    .rejectedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .rejectReasonCode(
                         RealTimePaymentsTransfer.Rejection.RejectReasonCode.ACCOUNT_CLOSED
                     )

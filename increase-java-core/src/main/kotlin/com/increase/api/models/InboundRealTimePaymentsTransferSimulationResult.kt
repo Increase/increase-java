@@ -6979,8 +6979,10 @@ private constructor(
             class CheckTransferReturn
             private constructor(
                 private val transferId: JsonField<String>,
+                private val returnedAt: JsonField<OffsetDateTime>,
                 private val fileId: JsonField<String>,
                 private val reason: JsonField<Reason>,
+                private val transactionId: JsonField<String>,
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
 
@@ -6991,20 +6993,45 @@ private constructor(
                 /** The identifier of the returned Check Transfer. */
                 fun transferId(): String = transferId.getRequired("transfer_id")
 
+                /**
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+                 * check was returned.
+                 */
+                fun returnedAt(): OffsetDateTime = returnedAt.getRequired("returned_at")
+
                 /** If available, a document with additional information about the return. */
                 fun fileId(): Optional<String> = Optional.ofNullable(fileId.getNullable("file_id"))
 
                 /** The reason why the check was returned. */
                 fun reason(): Reason = reason.getRequired("reason")
 
+                /**
+                 * The identifier of the Transaction that was created to credit you for the returned
+                 * check.
+                 */
+                fun transactionId(): Optional<String> =
+                    Optional.ofNullable(transactionId.getNullable("transaction_id"))
+
                 /** The identifier of the returned Check Transfer. */
                 @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
+
+                /**
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+                 * check was returned.
+                 */
+                @JsonProperty("returned_at") @ExcludeMissing fun _returnedAt() = returnedAt
 
                 /** If available, a document with additional information about the return. */
                 @JsonProperty("file_id") @ExcludeMissing fun _fileId() = fileId
 
                 /** The reason why the check was returned. */
                 @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
+
+                /**
+                 * The identifier of the Transaction that was created to credit you for the returned
+                 * check.
+                 */
+                @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
                 @JsonAnyGetter
                 @ExcludeMissing
@@ -7013,8 +7040,10 @@ private constructor(
                 fun validate() = apply {
                     if (!validated) {
                         transferId()
+                        returnedAt()
                         fileId()
                         reason()
+                        transactionId()
                         validated = true
                     }
                 }
@@ -7028,8 +7057,10 @@ private constructor(
 
                     return other is CheckTransferReturn &&
                         this.transferId == other.transferId &&
+                        this.returnedAt == other.returnedAt &&
                         this.fileId == other.fileId &&
                         this.reason == other.reason &&
+                        this.transactionId == other.transactionId &&
                         this.additionalProperties == other.additionalProperties
                 }
 
@@ -7038,8 +7069,10 @@ private constructor(
                         hashCode =
                             Objects.hash(
                                 transferId,
+                                returnedAt,
                                 fileId,
                                 reason,
+                                transactionId,
                                 additionalProperties,
                             )
                     }
@@ -7047,7 +7080,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "CheckTransferReturn{transferId=$transferId, fileId=$fileId, reason=$reason, additionalProperties=$additionalProperties}"
+                    "CheckTransferReturn{transferId=$transferId, returnedAt=$returnedAt, fileId=$fileId, reason=$reason, transactionId=$transactionId, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -7057,15 +7090,19 @@ private constructor(
                 class Builder {
 
                     private var transferId: JsonField<String> = JsonMissing.of()
+                    private var returnedAt: JsonField<OffsetDateTime> = JsonMissing.of()
                     private var fileId: JsonField<String> = JsonMissing.of()
                     private var reason: JsonField<Reason> = JsonMissing.of()
+                    private var transactionId: JsonField<String> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
                     internal fun from(checkTransferReturn: CheckTransferReturn) = apply {
                         this.transferId = checkTransferReturn.transferId
+                        this.returnedAt = checkTransferReturn.returnedAt
                         this.fileId = checkTransferReturn.fileId
                         this.reason = checkTransferReturn.reason
+                        this.transactionId = checkTransferReturn.transactionId
                         additionalProperties(checkTransferReturn.additionalProperties)
                     }
 
@@ -7077,6 +7114,23 @@ private constructor(
                     @ExcludeMissing
                     fun transferId(transferId: JsonField<String>) = apply {
                         this.transferId = transferId
+                    }
+
+                    /**
+                     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+                     * the check was returned.
+                     */
+                    fun returnedAt(returnedAt: OffsetDateTime) =
+                        returnedAt(JsonField.of(returnedAt))
+
+                    /**
+                     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+                     * the check was returned.
+                     */
+                    @JsonProperty("returned_at")
+                    @ExcludeMissing
+                    fun returnedAt(returnedAt: JsonField<OffsetDateTime>) = apply {
+                        this.returnedAt = returnedAt
                     }
 
                     /** If available, a document with additional information about the return. */
@@ -7094,6 +7148,23 @@ private constructor(
                     @JsonProperty("reason")
                     @ExcludeMissing
                     fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
+
+                    /**
+                     * The identifier of the Transaction that was created to credit you for the
+                     * returned check.
+                     */
+                    fun transactionId(transactionId: String) =
+                        transactionId(JsonField.of(transactionId))
+
+                    /**
+                     * The identifier of the Transaction that was created to credit you for the
+                     * returned check.
+                     */
+                    @JsonProperty("transaction_id")
+                    @ExcludeMissing
+                    fun transactionId(transactionId: JsonField<String>) = apply {
+                        this.transactionId = transactionId
+                    }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -7113,8 +7184,10 @@ private constructor(
                     fun build(): CheckTransferReturn =
                         CheckTransferReturn(
                             transferId,
+                            returnedAt,
                             fileId,
                             reason,
+                            transactionId,
                             additionalProperties.toUnmodifiable(),
                         )
                 }
@@ -11157,6 +11230,7 @@ private constructor(
             class InboundWireReversal
             private constructor(
                 private val amount: JsonField<Long>,
+                private val createdAt: JsonField<OffsetDateTime>,
                 private val description: JsonField<String>,
                 private val inputCycleDate: JsonField<LocalDate>,
                 private val inputSequenceNumber: JsonField<String>,
@@ -11169,6 +11243,7 @@ private constructor(
                 private val receiverFinancialInstitutionInformation: JsonField<String>,
                 private val financialInstitutionToFinancialInstitutionInformation:
                     JsonField<String>,
+                private val transactionId: JsonField<String>,
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
 
@@ -11178,6 +11253,12 @@ private constructor(
 
                 /** The amount that was reversed. */
                 fun amount(): Long = amount.getRequired("amount")
+
+                /**
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+                 * reversal was created.
+                 */
+                fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
                 /** The description on the reversal message from Fedwire. */
                 fun description(): String = description.getRequired("description")
@@ -11235,8 +11316,18 @@ private constructor(
                         )
                     )
 
+                /** The ID for the Transaction associated with the transfer reversal. */
+                fun transactionId(): Optional<String> =
+                    Optional.ofNullable(transactionId.getNullable("transaction_id"))
+
                 /** The amount that was reversed. */
                 @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+                /**
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+                 * reversal was created.
+                 */
+                @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
                 /** The description on the reversal message from Fedwire. */
                 @JsonProperty("description") @ExcludeMissing fun _description() = description
@@ -11295,6 +11386,9 @@ private constructor(
                 fun _financialInstitutionToFinancialInstitutionInformation() =
                     financialInstitutionToFinancialInstitutionInformation
 
+                /** The ID for the Transaction associated with the transfer reversal. */
+                @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+
                 @JsonAnyGetter
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -11302,6 +11396,7 @@ private constructor(
                 fun validate() = apply {
                     if (!validated) {
                         amount()
+                        createdAt()
                         description()
                         inputCycleDate()
                         inputSequenceNumber()
@@ -11313,6 +11408,7 @@ private constructor(
                         previousMessageInputSource()
                         receiverFinancialInstitutionInformation()
                         financialInstitutionToFinancialInstitutionInformation()
+                        transactionId()
                         validated = true
                     }
                 }
@@ -11326,6 +11422,7 @@ private constructor(
 
                     return other is InboundWireReversal &&
                         this.amount == other.amount &&
+                        this.createdAt == other.createdAt &&
                         this.description == other.description &&
                         this.inputCycleDate == other.inputCycleDate &&
                         this.inputSequenceNumber == other.inputSequenceNumber &&
@@ -11342,6 +11439,7 @@ private constructor(
                             other.receiverFinancialInstitutionInformation &&
                         this.financialInstitutionToFinancialInstitutionInformation ==
                             other.financialInstitutionToFinancialInstitutionInformation &&
+                        this.transactionId == other.transactionId &&
                         this.additionalProperties == other.additionalProperties
                 }
 
@@ -11350,6 +11448,7 @@ private constructor(
                         hashCode =
                             Objects.hash(
                                 amount,
+                                createdAt,
                                 description,
                                 inputCycleDate,
                                 inputSequenceNumber,
@@ -11361,6 +11460,7 @@ private constructor(
                                 previousMessageInputSource,
                                 receiverFinancialInstitutionInformation,
                                 financialInstitutionToFinancialInstitutionInformation,
+                                transactionId,
                                 additionalProperties,
                             )
                     }
@@ -11368,7 +11468,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "InboundWireReversal{amount=$amount, description=$description, inputCycleDate=$inputCycleDate, inputSequenceNumber=$inputSequenceNumber, inputSource=$inputSource, inputMessageAccountabilityData=$inputMessageAccountabilityData, previousMessageInputMessageAccountabilityData=$previousMessageInputMessageAccountabilityData, previousMessageInputCycleDate=$previousMessageInputCycleDate, previousMessageInputSequenceNumber=$previousMessageInputSequenceNumber, previousMessageInputSource=$previousMessageInputSource, receiverFinancialInstitutionInformation=$receiverFinancialInstitutionInformation, financialInstitutionToFinancialInstitutionInformation=$financialInstitutionToFinancialInstitutionInformation, additionalProperties=$additionalProperties}"
+                    "InboundWireReversal{amount=$amount, createdAt=$createdAt, description=$description, inputCycleDate=$inputCycleDate, inputSequenceNumber=$inputSequenceNumber, inputSource=$inputSource, inputMessageAccountabilityData=$inputMessageAccountabilityData, previousMessageInputMessageAccountabilityData=$previousMessageInputMessageAccountabilityData, previousMessageInputCycleDate=$previousMessageInputCycleDate, previousMessageInputSequenceNumber=$previousMessageInputSequenceNumber, previousMessageInputSource=$previousMessageInputSource, receiverFinancialInstitutionInformation=$receiverFinancialInstitutionInformation, financialInstitutionToFinancialInstitutionInformation=$financialInstitutionToFinancialInstitutionInformation, transactionId=$transactionId, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -11378,6 +11478,7 @@ private constructor(
                 class Builder {
 
                     private var amount: JsonField<Long> = JsonMissing.of()
+                    private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
                     private var description: JsonField<String> = JsonMissing.of()
                     private var inputCycleDate: JsonField<LocalDate> = JsonMissing.of()
                     private var inputSequenceNumber: JsonField<String> = JsonMissing.of()
@@ -11395,11 +11496,13 @@ private constructor(
                     private var financialInstitutionToFinancialInstitutionInformation:
                         JsonField<String> =
                         JsonMissing.of()
+                    private var transactionId: JsonField<String> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
                     internal fun from(inboundWireReversal: InboundWireReversal) = apply {
                         this.amount = inboundWireReversal.amount
+                        this.createdAt = inboundWireReversal.createdAt
                         this.description = inboundWireReversal.description
                         this.inputCycleDate = inboundWireReversal.inputCycleDate
                         this.inputSequenceNumber = inboundWireReversal.inputSequenceNumber
@@ -11419,6 +11522,7 @@ private constructor(
                         this.financialInstitutionToFinancialInstitutionInformation =
                             inboundWireReversal
                                 .financialInstitutionToFinancialInstitutionInformation
+                        this.transactionId = inboundWireReversal.transactionId
                         additionalProperties(inboundWireReversal.additionalProperties)
                     }
 
@@ -11429,6 +11533,22 @@ private constructor(
                     @JsonProperty("amount")
                     @ExcludeMissing
                     fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+                    /**
+                     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+                     * the reversal was created.
+                     */
+                    fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+                    /**
+                     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+                     * the reversal was created.
+                     */
+                    @JsonProperty("created_at")
+                    @ExcludeMissing
+                    fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                        this.createdAt = createdAt
+                    }
 
                     /** The description on the reversal message from Fedwire. */
                     fun description(description: String) = description(JsonField.of(description))
@@ -11597,6 +11717,17 @@ private constructor(
                             financialInstitutionToFinancialInstitutionInformation
                     }
 
+                    /** The ID for the Transaction associated with the transfer reversal. */
+                    fun transactionId(transactionId: String) =
+                        transactionId(JsonField.of(transactionId))
+
+                    /** The ID for the Transaction associated with the transfer reversal. */
+                    @JsonProperty("transaction_id")
+                    @ExcludeMissing
+                    fun transactionId(transactionId: JsonField<String>) = apply {
+                        this.transactionId = transactionId
+                    }
+
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
                         this.additionalProperties.putAll(additionalProperties)
@@ -11615,6 +11746,7 @@ private constructor(
                     fun build(): InboundWireReversal =
                         InboundWireReversal(
                             amount,
+                            createdAt,
                             description,
                             inputCycleDate,
                             inputSequenceNumber,
@@ -11626,6 +11758,7 @@ private constructor(
                             previousMessageInputSource,
                             receiverFinancialInstitutionInformation,
                             financialInstitutionToFinancialInstitutionInformation,
+                            transactionId,
                             additionalProperties.toUnmodifiable(),
                         )
                 }

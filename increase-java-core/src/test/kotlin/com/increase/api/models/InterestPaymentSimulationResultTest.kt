@@ -245,6 +245,9 @@ class InterestPaymentSimulationResultTest {
                                         .CheckTransferReturn
                                         .builder()
                                         .transferId("string")
+                                        .returnedAt(
+                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                        )
                                         .fileId("string")
                                         .reason(
                                             InterestPaymentSimulationResult.Transaction.Source
@@ -252,6 +255,7 @@ class InterestPaymentSimulationResultTest {
                                                 .Reason
                                                 .MAIL_DELIVERY_FAILURE
                                         )
+                                        .transactionId("string")
                                         .build()
                                 )
                                 .checkTransferRejection(
@@ -454,6 +458,7 @@ class InterestPaymentSimulationResultTest {
                                         .InboundWireReversal
                                         .builder()
                                         .amount(123L)
+                                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .description("string")
                                         .inputCycleDate(LocalDate.parse("2019-12-27"))
                                         .inputSequenceNumber("string")
@@ -469,6 +474,7 @@ class InterestPaymentSimulationResultTest {
                                         .financialInstitutionToFinancialInstitutionInformation(
                                             "string"
                                         )
+                                        .transactionId("string")
                                         .build()
                                 )
                                 .inboundWireTransfer(
@@ -855,6 +861,7 @@ class InterestPaymentSimulationResultTest {
                                     .CheckTransferReturn
                                     .builder()
                                     .transferId("string")
+                                    .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .fileId("string")
                                     .reason(
                                         InterestPaymentSimulationResult.Transaction.Source
@@ -862,6 +869,7 @@ class InterestPaymentSimulationResultTest {
                                             .Reason
                                             .MAIL_DELIVERY_FAILURE
                                     )
+                                    .transactionId("string")
                                     .build()
                             )
                             .checkTransferRejection(
@@ -1053,6 +1061,7 @@ class InterestPaymentSimulationResultTest {
                                     .InboundWireReversal
                                     .builder()
                                     .amount(123L)
+                                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .description("string")
                                     .inputCycleDate(LocalDate.parse("2019-12-27"))
                                     .inputSequenceNumber("string")
@@ -1064,6 +1073,7 @@ class InterestPaymentSimulationResultTest {
                                     .previousMessageInputSource("string")
                                     .receiverFinancialInstitutionInformation("string")
                                     .financialInstitutionToFinancialInstitutionInformation("string")
+                                    .transactionId("string")
                                     .build()
                             )
                             .inboundWireTransfer(

@@ -227,6 +227,9 @@ class WireTransferSimulationTest {
                                     WireTransferSimulation.Transaction.Source.CheckTransferReturn
                                         .builder()
                                         .transferId("string")
+                                        .returnedAt(
+                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                        )
                                         .fileId("string")
                                         .reason(
                                             WireTransferSimulation.Transaction.Source
@@ -234,6 +237,7 @@ class WireTransferSimulationTest {
                                                 .Reason
                                                 .MAIL_DELIVERY_FAILURE
                                         )
+                                        .transactionId("string")
                                         .build()
                                 )
                                 .checkTransferRejection(
@@ -427,6 +431,7 @@ class WireTransferSimulationTest {
                                     WireTransferSimulation.Transaction.Source.InboundWireReversal
                                         .builder()
                                         .amount(123L)
+                                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .description("string")
                                         .inputCycleDate(LocalDate.parse("2019-12-27"))
                                         .inputSequenceNumber("string")
@@ -442,6 +447,7 @@ class WireTransferSimulationTest {
                                         .financialInstitutionToFinancialInstitutionInformation(
                                             "string"
                                         )
+                                        .transactionId("string")
                                         .build()
                                 )
                                 .inboundWireTransfer(
@@ -796,6 +802,7 @@ class WireTransferSimulationTest {
                                 WireTransferSimulation.Transaction.Source.CheckTransferReturn
                                     .builder()
                                     .transferId("string")
+                                    .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .fileId("string")
                                     .reason(
                                         WireTransferSimulation.Transaction.Source
@@ -803,6 +810,7 @@ class WireTransferSimulationTest {
                                             .Reason
                                             .MAIL_DELIVERY_FAILURE
                                     )
+                                    .transactionId("string")
                                     .build()
                             )
                             .checkTransferRejection(
@@ -984,6 +992,7 @@ class WireTransferSimulationTest {
                                 WireTransferSimulation.Transaction.Source.InboundWireReversal
                                     .builder()
                                     .amount(123L)
+                                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .description("string")
                                     .inputCycleDate(LocalDate.parse("2019-12-27"))
                                     .inputSequenceNumber("string")
@@ -995,6 +1004,7 @@ class WireTransferSimulationTest {
                                     .previousMessageInputSource("string")
                                     .receiverFinancialInstitutionInformation("string")
                                     .financialInstitutionToFinancialInstitutionInformation("string")
+                                    .transactionId("string")
                                     .build()
                             )
                             .inboundWireTransfer(

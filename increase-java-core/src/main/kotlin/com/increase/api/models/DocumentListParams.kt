@@ -286,6 +286,9 @@ constructor(
             companion object {
 
                 @JvmField
+                val ACCOUNT_OPENING_DISCLOSURES = In(JsonField.of("account_opening_disclosures"))
+
+                @JvmField
                 val ANTI_MONEY_LAUNDERING_POLICY = In(JsonField.of("anti_money_laundering_policy"))
 
                 @JvmField
@@ -308,8 +311,13 @@ constructor(
                 @JvmField val COMPLIANCE_REPORT = In(JsonField.of("compliance_report"))
 
                 @JvmField
+                val COMPLIANCE_STAFFING_PLAN = In(JsonField.of("compliance_staffing_plan"))
+
+                @JvmField
                 val COMPLIANCE_MANAGEMENT_SYSTEM_POLICY =
                     In(JsonField.of("compliance_management_system_policy"))
+
+                @JvmField val CONSUMER_PRIVACY_NOTICE = In(JsonField.of("consumer_privacy_notice"))
 
                 @JvmField
                 val CONSUMER_PROTECTION_POLICY = In(JsonField.of("consumer_protection_policy"))
@@ -324,10 +332,16 @@ constructor(
                 val CUSTOMER_INFORMATION_PROGRAM_POLICY =
                     In(JsonField.of("customer_information_program_policy"))
 
+                @JvmField
+                val ELECTRONIC_FUNDS_TRANFER_ACT_POLICY =
+                    In(JsonField.of("electronic_funds_tranfer_act_policy"))
+
                 @JvmField val EMPLOYEE_OVERVIEW = In(JsonField.of("employee_overview"))
 
                 @JvmField
                 val END_USER_TERMS_OF_SERVICE = In(JsonField.of("end_user_terms_of_service"))
+
+                @JvmField val E_SIGN_POLICY = In(JsonField.of("e_sign_policy"))
 
                 @JvmField val FINANCIAL_STATEMENT = In(JsonField.of("financial_statement"))
 
@@ -335,7 +349,18 @@ constructor(
 
                 @JvmField val FRAUD_PREVENTION_POLICY = In(JsonField.of("fraud_prevention_policy"))
 
+                @JvmField
+                val FUNDS_AVAILABILITY_POLICY = In(JsonField.of("funds_availability_policy"))
+
+                @JvmField
+                val FUNDS_AVAILABILITY_DISCLOSURE =
+                    In(JsonField.of("funds_availability_disclosure"))
+
                 @JvmField val FUNDS_FLOW_DIAGRAM = In(JsonField.of("funds_flow_diagram"))
+
+                @JvmField
+                val GRAMM_LEACH_BLILEY_ACT_POLICY =
+                    In(JsonField.of("gramm_leach_bliley_act_policy"))
 
                 @JvmField
                 val INFORMATION_SECURITY_POLICY = In(JsonField.of("information_security_policy"))
@@ -372,6 +397,9 @@ constructor(
                 val TRANSACTION_MONITORING_REPORT =
                     In(JsonField.of("transaction_monitoring_report"))
 
+                @JvmField
+                val TRUTH_IN_SAVINGS_ACT_POLICY = In(JsonField.of("truth_in_savings_act_policy"))
+
                 @JvmField val UNDERWRITING_POLICY = In(JsonField.of("underwriting_policy"))
 
                 @JvmField val VENDOR_LIST = In(JsonField.of("vendor_list"))
@@ -389,6 +417,7 @@ constructor(
             }
 
             enum class Known {
+                ACCOUNT_OPENING_DISCLOSURES,
                 ANTI_MONEY_LAUNDERING_POLICY,
                 ANTI_MONEY_LAUNDERING_PROCEDURES,
                 AUDIT_REPORT,
@@ -398,17 +427,24 @@ constructor(
                 COMPLAINTS_POLICY,
                 COMPLAINT_REPORT,
                 COMPLIANCE_REPORT,
+                COMPLIANCE_STAFFING_PLAN,
                 COMPLIANCE_MANAGEMENT_SYSTEM_POLICY,
+                CONSUMER_PRIVACY_NOTICE,
                 CONSUMER_PROTECTION_POLICY,
                 CORPORATE_FORMATION_DOCUMENT,
                 CREDIT_MONITORING_REPORT,
                 CUSTOMER_INFORMATION_PROGRAM_POLICY,
+                ELECTRONIC_FUNDS_TRANFER_ACT_POLICY,
                 EMPLOYEE_OVERVIEW,
                 END_USER_TERMS_OF_SERVICE,
+                E_SIGN_POLICY,
                 FINANCIAL_STATEMENT,
                 FORM_1099_INT,
                 FRAUD_PREVENTION_POLICY,
+                FUNDS_AVAILABILITY_POLICY,
+                FUNDS_AVAILABILITY_DISCLOSURE,
                 FUNDS_FLOW_DIAGRAM,
+                GRAMM_LEACH_BLILEY_ACT_POLICY,
                 INFORMATION_SECURITY_POLICY,
                 INSURANCE_POLICY,
                 INVESTOR_PRESENTATION,
@@ -422,6 +458,7 @@ constructor(
                 SECURITY_AUDIT_REPORT,
                 SERVICING_POLICY,
                 TRANSACTION_MONITORING_REPORT,
+                TRUTH_IN_SAVINGS_ACT_POLICY,
                 UNDERWRITING_POLICY,
                 VENDOR_LIST,
                 VENDOR_MANAGEMENT_POLICY,
@@ -430,6 +467,7 @@ constructor(
             }
 
             enum class Value {
+                ACCOUNT_OPENING_DISCLOSURES,
                 ANTI_MONEY_LAUNDERING_POLICY,
                 ANTI_MONEY_LAUNDERING_PROCEDURES,
                 AUDIT_REPORT,
@@ -439,17 +477,24 @@ constructor(
                 COMPLAINTS_POLICY,
                 COMPLAINT_REPORT,
                 COMPLIANCE_REPORT,
+                COMPLIANCE_STAFFING_PLAN,
                 COMPLIANCE_MANAGEMENT_SYSTEM_POLICY,
+                CONSUMER_PRIVACY_NOTICE,
                 CONSUMER_PROTECTION_POLICY,
                 CORPORATE_FORMATION_DOCUMENT,
                 CREDIT_MONITORING_REPORT,
                 CUSTOMER_INFORMATION_PROGRAM_POLICY,
+                ELECTRONIC_FUNDS_TRANFER_ACT_POLICY,
                 EMPLOYEE_OVERVIEW,
                 END_USER_TERMS_OF_SERVICE,
+                E_SIGN_POLICY,
                 FINANCIAL_STATEMENT,
                 FORM_1099_INT,
                 FRAUD_PREVENTION_POLICY,
+                FUNDS_AVAILABILITY_POLICY,
+                FUNDS_AVAILABILITY_DISCLOSURE,
                 FUNDS_FLOW_DIAGRAM,
+                GRAMM_LEACH_BLILEY_ACT_POLICY,
                 INFORMATION_SECURITY_POLICY,
                 INSURANCE_POLICY,
                 INVESTOR_PRESENTATION,
@@ -463,6 +508,7 @@ constructor(
                 SECURITY_AUDIT_REPORT,
                 SERVICING_POLICY,
                 TRANSACTION_MONITORING_REPORT,
+                TRUTH_IN_SAVINGS_ACT_POLICY,
                 UNDERWRITING_POLICY,
                 VENDOR_LIST,
                 VENDOR_MANAGEMENT_POLICY,
@@ -473,6 +519,7 @@ constructor(
 
             fun value(): Value =
                 when (this) {
+                    ACCOUNT_OPENING_DISCLOSURES -> Value.ACCOUNT_OPENING_DISCLOSURES
                     ANTI_MONEY_LAUNDERING_POLICY -> Value.ANTI_MONEY_LAUNDERING_POLICY
                     ANTI_MONEY_LAUNDERING_PROCEDURES -> Value.ANTI_MONEY_LAUNDERING_PROCEDURES
                     AUDIT_REPORT -> Value.AUDIT_REPORT
@@ -482,17 +529,24 @@ constructor(
                     COMPLAINTS_POLICY -> Value.COMPLAINTS_POLICY
                     COMPLAINT_REPORT -> Value.COMPLAINT_REPORT
                     COMPLIANCE_REPORT -> Value.COMPLIANCE_REPORT
+                    COMPLIANCE_STAFFING_PLAN -> Value.COMPLIANCE_STAFFING_PLAN
                     COMPLIANCE_MANAGEMENT_SYSTEM_POLICY -> Value.COMPLIANCE_MANAGEMENT_SYSTEM_POLICY
+                    CONSUMER_PRIVACY_NOTICE -> Value.CONSUMER_PRIVACY_NOTICE
                     CONSUMER_PROTECTION_POLICY -> Value.CONSUMER_PROTECTION_POLICY
                     CORPORATE_FORMATION_DOCUMENT -> Value.CORPORATE_FORMATION_DOCUMENT
                     CREDIT_MONITORING_REPORT -> Value.CREDIT_MONITORING_REPORT
                     CUSTOMER_INFORMATION_PROGRAM_POLICY -> Value.CUSTOMER_INFORMATION_PROGRAM_POLICY
+                    ELECTRONIC_FUNDS_TRANFER_ACT_POLICY -> Value.ELECTRONIC_FUNDS_TRANFER_ACT_POLICY
                     EMPLOYEE_OVERVIEW -> Value.EMPLOYEE_OVERVIEW
                     END_USER_TERMS_OF_SERVICE -> Value.END_USER_TERMS_OF_SERVICE
+                    E_SIGN_POLICY -> Value.E_SIGN_POLICY
                     FINANCIAL_STATEMENT -> Value.FINANCIAL_STATEMENT
                     FORM_1099_INT -> Value.FORM_1099_INT
                     FRAUD_PREVENTION_POLICY -> Value.FRAUD_PREVENTION_POLICY
+                    FUNDS_AVAILABILITY_POLICY -> Value.FUNDS_AVAILABILITY_POLICY
+                    FUNDS_AVAILABILITY_DISCLOSURE -> Value.FUNDS_AVAILABILITY_DISCLOSURE
                     FUNDS_FLOW_DIAGRAM -> Value.FUNDS_FLOW_DIAGRAM
+                    GRAMM_LEACH_BLILEY_ACT_POLICY -> Value.GRAMM_LEACH_BLILEY_ACT_POLICY
                     INFORMATION_SECURITY_POLICY -> Value.INFORMATION_SECURITY_POLICY
                     INSURANCE_POLICY -> Value.INSURANCE_POLICY
                     INVESTOR_PRESENTATION -> Value.INVESTOR_PRESENTATION
@@ -506,6 +560,7 @@ constructor(
                     SECURITY_AUDIT_REPORT -> Value.SECURITY_AUDIT_REPORT
                     SERVICING_POLICY -> Value.SERVICING_POLICY
                     TRANSACTION_MONITORING_REPORT -> Value.TRANSACTION_MONITORING_REPORT
+                    TRUTH_IN_SAVINGS_ACT_POLICY -> Value.TRUTH_IN_SAVINGS_ACT_POLICY
                     UNDERWRITING_POLICY -> Value.UNDERWRITING_POLICY
                     VENDOR_LIST -> Value.VENDOR_LIST
                     VENDOR_MANAGEMENT_POLICY -> Value.VENDOR_MANAGEMENT_POLICY
@@ -516,6 +571,7 @@ constructor(
 
             fun known(): Known =
                 when (this) {
+                    ACCOUNT_OPENING_DISCLOSURES -> Known.ACCOUNT_OPENING_DISCLOSURES
                     ANTI_MONEY_LAUNDERING_POLICY -> Known.ANTI_MONEY_LAUNDERING_POLICY
                     ANTI_MONEY_LAUNDERING_PROCEDURES -> Known.ANTI_MONEY_LAUNDERING_PROCEDURES
                     AUDIT_REPORT -> Known.AUDIT_REPORT
@@ -525,17 +581,24 @@ constructor(
                     COMPLAINTS_POLICY -> Known.COMPLAINTS_POLICY
                     COMPLAINT_REPORT -> Known.COMPLAINT_REPORT
                     COMPLIANCE_REPORT -> Known.COMPLIANCE_REPORT
+                    COMPLIANCE_STAFFING_PLAN -> Known.COMPLIANCE_STAFFING_PLAN
                     COMPLIANCE_MANAGEMENT_SYSTEM_POLICY -> Known.COMPLIANCE_MANAGEMENT_SYSTEM_POLICY
+                    CONSUMER_PRIVACY_NOTICE -> Known.CONSUMER_PRIVACY_NOTICE
                     CONSUMER_PROTECTION_POLICY -> Known.CONSUMER_PROTECTION_POLICY
                     CORPORATE_FORMATION_DOCUMENT -> Known.CORPORATE_FORMATION_DOCUMENT
                     CREDIT_MONITORING_REPORT -> Known.CREDIT_MONITORING_REPORT
                     CUSTOMER_INFORMATION_PROGRAM_POLICY -> Known.CUSTOMER_INFORMATION_PROGRAM_POLICY
+                    ELECTRONIC_FUNDS_TRANFER_ACT_POLICY -> Known.ELECTRONIC_FUNDS_TRANFER_ACT_POLICY
                     EMPLOYEE_OVERVIEW -> Known.EMPLOYEE_OVERVIEW
                     END_USER_TERMS_OF_SERVICE -> Known.END_USER_TERMS_OF_SERVICE
+                    E_SIGN_POLICY -> Known.E_SIGN_POLICY
                     FINANCIAL_STATEMENT -> Known.FINANCIAL_STATEMENT
                     FORM_1099_INT -> Known.FORM_1099_INT
                     FRAUD_PREVENTION_POLICY -> Known.FRAUD_PREVENTION_POLICY
+                    FUNDS_AVAILABILITY_POLICY -> Known.FUNDS_AVAILABILITY_POLICY
+                    FUNDS_AVAILABILITY_DISCLOSURE -> Known.FUNDS_AVAILABILITY_DISCLOSURE
                     FUNDS_FLOW_DIAGRAM -> Known.FUNDS_FLOW_DIAGRAM
+                    GRAMM_LEACH_BLILEY_ACT_POLICY -> Known.GRAMM_LEACH_BLILEY_ACT_POLICY
                     INFORMATION_SECURITY_POLICY -> Known.INFORMATION_SECURITY_POLICY
                     INSURANCE_POLICY -> Known.INSURANCE_POLICY
                     INVESTOR_PRESENTATION -> Known.INVESTOR_PRESENTATION
@@ -549,6 +612,7 @@ constructor(
                     SECURITY_AUDIT_REPORT -> Known.SECURITY_AUDIT_REPORT
                     SERVICING_POLICY -> Known.SERVICING_POLICY
                     TRANSACTION_MONITORING_REPORT -> Known.TRANSACTION_MONITORING_REPORT
+                    TRUTH_IN_SAVINGS_ACT_POLICY -> Known.TRUTH_IN_SAVINGS_ACT_POLICY
                     UNDERWRITING_POLICY -> Known.UNDERWRITING_POLICY
                     VENDOR_LIST -> Known.VENDOR_LIST
                     VENDOR_MANAGEMENT_POLICY -> Known.VENDOR_MANAGEMENT_POLICY
