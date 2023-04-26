@@ -118,6 +118,7 @@ class InterestPaymentSimulationResultTest {
                                                 .CAD
                                         )
                                         .cardSettlementTransactionId("string")
+                                        .merchantAcceptorId("string")
                                         .merchantCity("string")
                                         .merchantState("string")
                                         .merchantCountry("string")
@@ -146,6 +147,7 @@ class InterestPaymentSimulationResultTest {
                                         )
                                         .presentmentAmount(123L)
                                         .presentmentCurrency("string")
+                                        .merchantAcceptorId("string")
                                         .merchantCity("string")
                                         .merchantState("string")
                                         .merchantCountry("string")
@@ -739,6 +741,7 @@ class InterestPaymentSimulationResultTest {
                                             .CAD
                                     )
                                     .cardSettlementTransactionId("string")
+                                    .merchantAcceptorId("string")
                                     .merchantCity("string")
                                     .merchantState("string")
                                     .merchantCountry("string")
@@ -766,6 +769,7 @@ class InterestPaymentSimulationResultTest {
                                     )
                                     .presentmentAmount(123L)
                                     .presentmentCurrency("string")
+                                    .merchantAcceptorId("string")
                                     .merchantCity("string")
                                     .merchantState("string")
                                     .merchantCountry("string")

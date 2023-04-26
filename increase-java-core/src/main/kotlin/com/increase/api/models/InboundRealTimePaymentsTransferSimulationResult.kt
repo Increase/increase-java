@@ -4334,6 +4334,7 @@ private constructor(
                 private val amount: JsonField<Long>,
                 private val currency: JsonField<Currency>,
                 private val cardSettlementTransactionId: JsonField<String>,
+                private val merchantAcceptorId: JsonField<String>,
                 private val merchantCity: JsonField<String>,
                 private val merchantState: JsonField<String>,
                 private val merchantCountry: JsonField<String>,
@@ -4367,6 +4368,13 @@ private constructor(
                     Optional.ofNullable(
                         cardSettlementTransactionId.getNullable("card_settlement_transaction_id")
                     )
+
+                /**
+                 * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+                 * transacting with.
+                 */
+                fun merchantAcceptorId(): Optional<String> =
+                    Optional.ofNullable(merchantAcceptorId.getNullable("merchant_acceptor_id"))
 
                 /** The city the merchant resides in. */
                 fun merchantCity(): Optional<String> =
@@ -4413,6 +4421,14 @@ private constructor(
                 @ExcludeMissing
                 fun _cardSettlementTransactionId() = cardSettlementTransactionId
 
+                /**
+                 * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+                 * transacting with.
+                 */
+                @JsonProperty("merchant_acceptor_id")
+                @ExcludeMissing
+                fun _merchantAcceptorId() = merchantAcceptorId
+
                 /** The city the merchant resides in. */
                 @JsonProperty("merchant_city") @ExcludeMissing fun _merchantCity() = merchantCity
 
@@ -4448,6 +4464,7 @@ private constructor(
                         amount()
                         currency()
                         cardSettlementTransactionId()
+                        merchantAcceptorId()
                         merchantCity()
                         merchantState()
                         merchantCountry()
@@ -4470,6 +4487,7 @@ private constructor(
                         this.amount == other.amount &&
                         this.currency == other.currency &&
                         this.cardSettlementTransactionId == other.cardSettlementTransactionId &&
+                        this.merchantAcceptorId == other.merchantAcceptorId &&
                         this.merchantCity == other.merchantCity &&
                         this.merchantState == other.merchantState &&
                         this.merchantCountry == other.merchantCountry &&
@@ -4487,6 +4505,7 @@ private constructor(
                                 amount,
                                 currency,
                                 cardSettlementTransactionId,
+                                merchantAcceptorId,
                                 merchantCity,
                                 merchantState,
                                 merchantCountry,
@@ -4500,7 +4519,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "CardRefund{id=$id, amount=$amount, currency=$currency, cardSettlementTransactionId=$cardSettlementTransactionId, merchantCity=$merchantCity, merchantState=$merchantState, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantCategoryCode=$merchantCategoryCode, type=$type, additionalProperties=$additionalProperties}"
+                    "CardRefund{id=$id, amount=$amount, currency=$currency, cardSettlementTransactionId=$cardSettlementTransactionId, merchantAcceptorId=$merchantAcceptorId, merchantCity=$merchantCity, merchantState=$merchantState, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantCategoryCode=$merchantCategoryCode, type=$type, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -4513,6 +4532,7 @@ private constructor(
                     private var amount: JsonField<Long> = JsonMissing.of()
                     private var currency: JsonField<Currency> = JsonMissing.of()
                     private var cardSettlementTransactionId: JsonField<String> = JsonMissing.of()
+                    private var merchantAcceptorId: JsonField<String> = JsonMissing.of()
                     private var merchantCity: JsonField<String> = JsonMissing.of()
                     private var merchantState: JsonField<String> = JsonMissing.of()
                     private var merchantCountry: JsonField<String> = JsonMissing.of()
@@ -4527,6 +4547,7 @@ private constructor(
                         this.amount = cardRefund.amount
                         this.currency = cardRefund.currency
                         this.cardSettlementTransactionId = cardRefund.cardSettlementTransactionId
+                        this.merchantAcceptorId = cardRefund.merchantAcceptorId
                         this.merchantCity = cardRefund.merchantCity
                         this.merchantState = cardRefund.merchantState
                         this.merchantCountry = cardRefund.merchantCountry
@@ -4582,6 +4603,23 @@ private constructor(
                     fun cardSettlementTransactionId(
                         cardSettlementTransactionId: JsonField<String>
                     ) = apply { this.cardSettlementTransactionId = cardSettlementTransactionId }
+
+                    /**
+                     * The merchant identifier (commonly abbreviated as MID) of the merchant the
+                     * card is transacting with.
+                     */
+                    fun merchantAcceptorId(merchantAcceptorId: String) =
+                        merchantAcceptorId(JsonField.of(merchantAcceptorId))
+
+                    /**
+                     * The merchant identifier (commonly abbreviated as MID) of the merchant the
+                     * card is transacting with.
+                     */
+                    @JsonProperty("merchant_acceptor_id")
+                    @ExcludeMissing
+                    fun merchantAcceptorId(merchantAcceptorId: JsonField<String>) = apply {
+                        this.merchantAcceptorId = merchantAcceptorId
+                    }
 
                     /** The city the merchant resides in. */
                     fun merchantCity(merchantCity: String) =
@@ -4673,6 +4711,7 @@ private constructor(
                             amount,
                             currency,
                             cardSettlementTransactionId,
+                            merchantAcceptorId,
                             merchantCity,
                             merchantState,
                             merchantCountry,
@@ -4832,6 +4871,7 @@ private constructor(
                 private val currency: JsonField<Currency>,
                 private val presentmentAmount: JsonField<Long>,
                 private val presentmentCurrency: JsonField<String>,
+                private val merchantAcceptorId: JsonField<String>,
                 private val merchantCity: JsonField<String>,
                 private val merchantState: JsonField<String>,
                 private val merchantCountry: JsonField<String>,
@@ -4877,6 +4917,13 @@ private constructor(
                  */
                 fun presentmentCurrency(): String =
                     presentmentCurrency.getRequired("presentment_currency")
+
+                /**
+                 * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+                 * transacting with.
+                 */
+                fun merchantAcceptorId(): Optional<String> =
+                    Optional.ofNullable(merchantAcceptorId.getNullable("merchant_acceptor_id"))
 
                 /** The city the merchant resides in. */
                 fun merchantCity(): Optional<String> =
@@ -4943,6 +4990,14 @@ private constructor(
                 @ExcludeMissing
                 fun _presentmentCurrency() = presentmentCurrency
 
+                /**
+                 * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+                 * transacting with.
+                 */
+                @JsonProperty("merchant_acceptor_id")
+                @ExcludeMissing
+                fun _merchantAcceptorId() = merchantAcceptorId
+
                 /** The city the merchant resides in. */
                 @JsonProperty("merchant_city") @ExcludeMissing fun _merchantCity() = merchantCity
 
@@ -4985,6 +5040,7 @@ private constructor(
                         currency()
                         presentmentAmount()
                         presentmentCurrency()
+                        merchantAcceptorId()
                         merchantCity()
                         merchantState()
                         merchantCountry()
@@ -5010,6 +5066,7 @@ private constructor(
                         this.currency == other.currency &&
                         this.presentmentAmount == other.presentmentAmount &&
                         this.presentmentCurrency == other.presentmentCurrency &&
+                        this.merchantAcceptorId == other.merchantAcceptorId &&
                         this.merchantCity == other.merchantCity &&
                         this.merchantState == other.merchantState &&
                         this.merchantCountry == other.merchantCountry &&
@@ -5030,6 +5087,7 @@ private constructor(
                                 currency,
                                 presentmentAmount,
                                 presentmentCurrency,
+                                merchantAcceptorId,
                                 merchantCity,
                                 merchantState,
                                 merchantCountry,
@@ -5044,7 +5102,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "CardSettlement{id=$id, cardAuthorization=$cardAuthorization, amount=$amount, currency=$currency, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, merchantCity=$merchantCity, merchantState=$merchantState, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantCategoryCode=$merchantCategoryCode, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
+                    "CardSettlement{id=$id, cardAuthorization=$cardAuthorization, amount=$amount, currency=$currency, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, merchantAcceptorId=$merchantAcceptorId, merchantCity=$merchantCity, merchantState=$merchantState, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantCategoryCode=$merchantCategoryCode, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -5059,6 +5117,7 @@ private constructor(
                     private var currency: JsonField<Currency> = JsonMissing.of()
                     private var presentmentAmount: JsonField<Long> = JsonMissing.of()
                     private var presentmentCurrency: JsonField<String> = JsonMissing.of()
+                    private var merchantAcceptorId: JsonField<String> = JsonMissing.of()
                     private var merchantCity: JsonField<String> = JsonMissing.of()
                     private var merchantState: JsonField<String> = JsonMissing.of()
                     private var merchantCountry: JsonField<String> = JsonMissing.of()
@@ -5076,6 +5135,7 @@ private constructor(
                         this.currency = cardSettlement.currency
                         this.presentmentAmount = cardSettlement.presentmentAmount
                         this.presentmentCurrency = cardSettlement.presentmentCurrency
+                        this.merchantAcceptorId = cardSettlement.merchantAcceptorId
                         this.merchantCity = cardSettlement.merchantCity
                         this.merchantState = cardSettlement.merchantState
                         this.merchantCountry = cardSettlement.merchantCountry
@@ -5165,6 +5225,23 @@ private constructor(
                     @ExcludeMissing
                     fun presentmentCurrency(presentmentCurrency: JsonField<String>) = apply {
                         this.presentmentCurrency = presentmentCurrency
+                    }
+
+                    /**
+                     * The merchant identifier (commonly abbreviated as MID) of the merchant the
+                     * card is transacting with.
+                     */
+                    fun merchantAcceptorId(merchantAcceptorId: String) =
+                        merchantAcceptorId(JsonField.of(merchantAcceptorId))
+
+                    /**
+                     * The merchant identifier (commonly abbreviated as MID) of the merchant the
+                     * card is transacting with.
+                     */
+                    @JsonProperty("merchant_acceptor_id")
+                    @ExcludeMissing
+                    fun merchantAcceptorId(merchantAcceptorId: JsonField<String>) = apply {
+                        this.merchantAcceptorId = merchantAcceptorId
                     }
 
                     /** The city the merchant resides in. */
@@ -5274,6 +5351,7 @@ private constructor(
                             currency,
                             presentmentAmount,
                             presentmentCurrency,
+                            merchantAcceptorId,
                             merchantCity,
                             merchantState,
                             merchantCountry,
@@ -17217,6 +17295,10 @@ private constructor(
                         val TRANSACTION_NOT_ALLOWED =
                             Reason(JsonField.of("transaction_not_allowed"))
 
+                        @JvmField
+                        val BREACHES_INTERNAL_LIMIT =
+                            Reason(JsonField.of("breaches_internal_limit"))
+
                         @JvmField val BREACHES_LIMIT = Reason(JsonField.of("breaches_limit"))
 
                         @JvmField val WEBHOOK_DECLINED = Reason(JsonField.of("webhook_declined"))
@@ -17244,6 +17326,7 @@ private constructor(
                         INSUFFICIENT_FUNDS,
                         CVV2_MISMATCH,
                         TRANSACTION_NOT_ALLOWED,
+                        BREACHES_INTERNAL_LIMIT,
                         BREACHES_LIMIT,
                         WEBHOOK_DECLINED,
                         WEBHOOK_TIMED_OUT,
@@ -17259,6 +17342,7 @@ private constructor(
                         INSUFFICIENT_FUNDS,
                         CVV2_MISMATCH,
                         TRANSACTION_NOT_ALLOWED,
+                        BREACHES_INTERNAL_LIMIT,
                         BREACHES_LIMIT,
                         WEBHOOK_DECLINED,
                         WEBHOOK_TIMED_OUT,
@@ -17276,6 +17360,7 @@ private constructor(
                             INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
                             CVV2_MISMATCH -> Value.CVV2_MISMATCH
                             TRANSACTION_NOT_ALLOWED -> Value.TRANSACTION_NOT_ALLOWED
+                            BREACHES_INTERNAL_LIMIT -> Value.BREACHES_INTERNAL_LIMIT
                             BREACHES_LIMIT -> Value.BREACHES_LIMIT
                             WEBHOOK_DECLINED -> Value.WEBHOOK_DECLINED
                             WEBHOOK_TIMED_OUT -> Value.WEBHOOK_TIMED_OUT
@@ -17293,6 +17378,7 @@ private constructor(
                             INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
                             CVV2_MISMATCH -> Known.CVV2_MISMATCH
                             TRANSACTION_NOT_ALLOWED -> Known.TRANSACTION_NOT_ALLOWED
+                            BREACHES_INTERNAL_LIMIT -> Known.BREACHES_INTERNAL_LIMIT
                             BREACHES_LIMIT -> Known.BREACHES_LIMIT
                             WEBHOOK_DECLINED -> Known.WEBHOOK_DECLINED
                             WEBHOOK_TIMED_OUT -> Known.WEBHOOK_TIMED_OUT

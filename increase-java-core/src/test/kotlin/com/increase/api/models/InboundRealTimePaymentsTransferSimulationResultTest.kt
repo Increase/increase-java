@@ -139,6 +139,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .CAD
                                         )
                                         .cardSettlementTransactionId("string")
+                                        .merchantAcceptorId("string")
                                         .merchantCity("string")
                                         .merchantState("string")
                                         .merchantCountry("string")
@@ -172,6 +173,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         )
                                         .presentmentAmount(123L)
                                         .presentmentCurrency("string")
+                                        .merchantAcceptorId("string")
                                         .merchantCity("string")
                                         .merchantState("string")
                                         .merchantCountry("string")
@@ -1103,6 +1105,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .CAD
                                     )
                                     .cardSettlementTransactionId("string")
+                                    .merchantAcceptorId("string")
                                     .merchantCity("string")
                                     .merchantState("string")
                                     .merchantCountry("string")
@@ -1133,6 +1136,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     )
                                     .presentmentAmount(123L)
                                     .presentmentCurrency("string")
+                                    .merchantAcceptorId("string")
                                     .merchantCity("string")
                                     .merchantState("string")
                                     .merchantCountry("string")

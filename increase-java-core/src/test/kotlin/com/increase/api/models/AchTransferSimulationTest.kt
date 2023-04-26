@@ -109,6 +109,7 @@ class AchTransferSimulationTest {
                                                 .CAD
                                         )
                                         .cardSettlementTransactionId("string")
+                                        .merchantAcceptorId("string")
                                         .merchantCity("string")
                                         .merchantState("string")
                                         .merchantCountry("string")
@@ -133,6 +134,7 @@ class AchTransferSimulationTest {
                                         )
                                         .presentmentAmount(123L)
                                         .presentmentCurrency("string")
+                                        .merchantAcceptorId("string")
                                         .merchantCity("string")
                                         .merchantState("string")
                                         .merchantCountry("string")
@@ -895,6 +897,7 @@ class AchTransferSimulationTest {
                                             .CAD
                                     )
                                     .cardSettlementTransactionId("string")
+                                    .merchantAcceptorId("string")
                                     .merchantCity("string")
                                     .merchantState("string")
                                     .merchantCountry("string")
@@ -918,6 +921,7 @@ class AchTransferSimulationTest {
                                     )
                                     .presentmentAmount(123L)
                                     .presentmentCurrency("string")
+                                    .merchantAcceptorId("string")
                                     .merchantCity("string")
                                     .merchantState("string")
                                     .merchantCountry("string")

@@ -36,7 +36,7 @@ private constructor(
     private val externalAccountId: JsonField<String>,
     private val id: JsonField<String>,
     private val network: JsonField<Network>,
-    private val notificationOfChange: JsonField<NotificationOfChange>,
+    private val notificationsOfChange: JsonField<List<NotificationsOfChange>>,
     private val return_: JsonField<Return>,
     private val routingNumber: JsonField<String>,
     private val statementDescriptor: JsonField<String>,
@@ -115,8 +115,8 @@ private constructor(
      * If the receiving bank accepts the transfer but notifies that future transfers should use
      * different details, this will contain those details.
      */
-    fun notificationOfChange(): Optional<NotificationOfChange> =
-        Optional.ofNullable(notificationOfChange.getNullable("notification_of_change"))
+    fun notificationsOfChange(): List<NotificationsOfChange> =
+        notificationsOfChange.getRequired("notifications_of_change")
 
     /** If your transfer is returned, this will contain details of the return. */
     fun return_(): Optional<Return> = Optional.ofNullable(return_.getNullable("return"))
@@ -237,9 +237,9 @@ private constructor(
      * If the receiving bank accepts the transfer but notifies that future transfers should use
      * different details, this will contain those details.
      */
-    @JsonProperty("notification_of_change")
+    @JsonProperty("notifications_of_change")
     @ExcludeMissing
-    fun _notificationOfChange() = notificationOfChange
+    fun _notificationsOfChange() = notificationsOfChange
 
     /** If your transfer is returned, this will contain details of the return. */
     @JsonProperty("return") @ExcludeMissing fun _return_() = return_
@@ -322,7 +322,7 @@ private constructor(
             externalAccountId()
             id()
             network()
-            notificationOfChange().map { it.validate() }
+            notificationsOfChange().forEach { it.validate() }
             return_().map { it.validate() }
             routingNumber()
             statementDescriptor()
@@ -362,7 +362,7 @@ private constructor(
             this.externalAccountId == other.externalAccountId &&
             this.id == other.id &&
             this.network == other.network &&
-            this.notificationOfChange == other.notificationOfChange &&
+            this.notificationsOfChange == other.notificationsOfChange &&
             this.return_ == other.return_ &&
             this.routingNumber == other.routingNumber &&
             this.statementDescriptor == other.statementDescriptor &&
@@ -397,7 +397,7 @@ private constructor(
                     externalAccountId,
                     id,
                     network,
-                    notificationOfChange,
+                    notificationsOfChange,
                     return_,
                     routingNumber,
                     statementDescriptor,
@@ -421,7 +421,7 @@ private constructor(
     }
 
     override fun toString() =
-        "AchTransfer{accountId=$accountId, accountNumber=$accountNumber, addendum=$addendum, amount=$amount, currency=$currency, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, externalAccountId=$externalAccountId, id=$id, network=$network, notificationOfChange=$notificationOfChange, return_=$return_, routingNumber=$routingNumber, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, transactionId=$transactionId, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, funding=$funding, individualId=$individualId, individualName=$individualName, effectiveDate=$effectiveDate, standardEntryClassCode=$standardEntryClassCode, type=$type, additionalProperties=$additionalProperties}"
+        "AchTransfer{accountId=$accountId, accountNumber=$accountNumber, addendum=$addendum, amount=$amount, currency=$currency, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, externalAccountId=$externalAccountId, id=$id, network=$network, notificationsOfChange=$notificationsOfChange, return_=$return_, routingNumber=$routingNumber, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, transactionId=$transactionId, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, funding=$funding, individualId=$individualId, individualName=$individualName, effectiveDate=$effectiveDate, standardEntryClassCode=$standardEntryClassCode, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -441,7 +441,7 @@ private constructor(
         private var externalAccountId: JsonField<String> = JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
         private var network: JsonField<Network> = JsonMissing.of()
-        private var notificationOfChange: JsonField<NotificationOfChange> = JsonMissing.of()
+        private var notificationsOfChange: JsonField<List<NotificationsOfChange>> = JsonMissing.of()
         private var return_: JsonField<Return> = JsonMissing.of()
         private var routingNumber: JsonField<String> = JsonMissing.of()
         private var statementDescriptor: JsonField<String> = JsonMissing.of()
@@ -473,7 +473,7 @@ private constructor(
             this.externalAccountId = achTransfer.externalAccountId
             this.id = achTransfer.id
             this.network = achTransfer.network
-            this.notificationOfChange = achTransfer.notificationOfChange
+            this.notificationsOfChange = achTransfer.notificationsOfChange
             this.return_ = achTransfer.return_
             this.routingNumber = achTransfer.routingNumber
             this.statementDescriptor = achTransfer.statementDescriptor
@@ -622,18 +622,19 @@ private constructor(
          * If the receiving bank accepts the transfer but notifies that future transfers should use
          * different details, this will contain those details.
          */
-        fun notificationOfChange(notificationOfChange: NotificationOfChange) =
-            notificationOfChange(JsonField.of(notificationOfChange))
+        fun notificationsOfChange(notificationsOfChange: List<NotificationsOfChange>) =
+            notificationsOfChange(JsonField.of(notificationsOfChange))
 
         /**
          * If the receiving bank accepts the transfer but notifies that future transfers should use
          * different details, this will contain those details.
          */
-        @JsonProperty("notification_of_change")
+        @JsonProperty("notifications_of_change")
         @ExcludeMissing
-        fun notificationOfChange(notificationOfChange: JsonField<NotificationOfChange>) = apply {
-            this.notificationOfChange = notificationOfChange
-        }
+        fun notificationsOfChange(notificationsOfChange: JsonField<List<NotificationsOfChange>>) =
+            apply {
+                this.notificationsOfChange = notificationsOfChange
+            }
 
         /** If your transfer is returned, this will contain details of the return. */
         fun return_(return_: Return) = return_(JsonField.of(return_))
@@ -832,7 +833,7 @@ private constructor(
                 externalAccountId,
                 id,
                 network,
-                notificationOfChange,
+                notificationsOfChange.map { it.toUnmodifiable() },
                 return_,
                 routingNumber,
                 statementDescriptor,
@@ -1287,13 +1288,9 @@ private constructor(
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    /**
-     * If the receiving bank accepts the transfer but notifies that future transfers should use
-     * different details, this will contain those details.
-     */
-    @JsonDeserialize(builder = NotificationOfChange.Builder::class)
+    @JsonDeserialize(builder = NotificationsOfChange.Builder::class)
     @NoAutoDetect
-    class NotificationOfChange
+    class NotificationsOfChange
     private constructor(
         private val createdAt: JsonField<OffsetDateTime>,
         private val changeCode: JsonField<String>,
@@ -1349,7 +1346,7 @@ private constructor(
                 return true
             }
 
-            return other is NotificationOfChange &&
+            return other is NotificationsOfChange &&
                 this.createdAt == other.createdAt &&
                 this.changeCode == other.changeCode &&
                 this.correctedData == other.correctedData &&
@@ -1370,7 +1367,7 @@ private constructor(
         }
 
         override fun toString() =
-            "NotificationOfChange{createdAt=$createdAt, changeCode=$changeCode, correctedData=$correctedData, additionalProperties=$additionalProperties}"
+            "NotificationsOfChange{createdAt=$createdAt, changeCode=$changeCode, correctedData=$correctedData, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1385,11 +1382,11 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(notificationOfChange: NotificationOfChange) = apply {
-                this.createdAt = notificationOfChange.createdAt
-                this.changeCode = notificationOfChange.changeCode
-                this.correctedData = notificationOfChange.correctedData
-                additionalProperties(notificationOfChange.additionalProperties)
+            internal fun from(notificationsOfChange: NotificationsOfChange) = apply {
+                this.createdAt = notificationsOfChange.createdAt
+                this.changeCode = notificationsOfChange.changeCode
+                this.correctedData = notificationsOfChange.correctedData
+                additionalProperties(notificationsOfChange.additionalProperties)
             }
 
             /**
@@ -1440,8 +1437,8 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): NotificationOfChange =
-                NotificationOfChange(
+            fun build(): NotificationsOfChange =
+                NotificationsOfChange(
                     createdAt,
                     changeCode,
                     correctedData,
