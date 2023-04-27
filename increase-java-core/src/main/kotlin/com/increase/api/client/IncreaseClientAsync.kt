@@ -7,6 +7,8 @@ import com.increase.api.services.async.*
 
 interface IncreaseClientAsync {
 
+    fun sync(): IncreaseClient
+
     fun accounts(): AccountServiceAsync
 
     fun accountNumbers(): AccountNumberServiceAsync

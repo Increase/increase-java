@@ -7,6 +7,8 @@ import com.increase.api.services.blocking.*
 
 interface IncreaseClient {
 
+    fun async(): IncreaseClientAsync
+
     fun accounts(): AccountService
 
     fun accountNumbers(): AccountNumberService

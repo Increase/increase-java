@@ -14,6 +14,8 @@ constructor(
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
+    private val sync: IncreaseClient by lazy { IncreaseClientImpl(clientOptions) }
+
     private val accounts: AccountServiceAsync by lazy { AccountServiceAsyncImpl(clientOptions) }
 
     private val accountNumbers: AccountNumberServiceAsync by lazy {
@@ -145,6 +147,8 @@ constructor(
     private val simulations: SimulationServiceAsync by lazy {
         SimulationServiceAsyncImpl(clientOptions)
     }
+
+    override fun sync(): IncreaseClient = sync
 
     override fun accounts(): AccountServiceAsync = accounts
 
