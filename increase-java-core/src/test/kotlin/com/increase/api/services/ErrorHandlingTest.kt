@@ -57,7 +57,7 @@ class ErrorHandlingTest {
     }
 
     @Test
-    fun accountsCreate_200() {
+    fun accountsCreate200() {
         val params =
             AccountCreateParams.builder()
                 .entityId("string")
@@ -86,7 +86,7 @@ class ErrorHandlingTest {
     }
 
     @Test
-    fun accountsCreate_400() {
+    fun accountsCreate400() {
         val params =
             AccountCreateParams.builder()
                 .entityId("string")
@@ -107,7 +107,7 @@ class ErrorHandlingTest {
     }
 
     @Test
-    fun accountsCreate_401() {
+    fun accountsCreate401() {
         val params =
             AccountCreateParams.builder()
                 .entityId("string")
@@ -128,7 +128,7 @@ class ErrorHandlingTest {
     }
 
     @Test
-    fun accountsCreate_403() {
+    fun accountsCreate403() {
         val params =
             AccountCreateParams.builder()
                 .entityId("string")
@@ -149,7 +149,7 @@ class ErrorHandlingTest {
     }
 
     @Test
-    fun accountsCreate_404() {
+    fun accountsCreate404() {
         val params =
             AccountCreateParams.builder()
                 .entityId("string")
@@ -170,7 +170,7 @@ class ErrorHandlingTest {
     }
 
     @Test
-    fun accountsCreate_422() {
+    fun accountsCreate422() {
         val params =
             AccountCreateParams.builder()
                 .entityId("string")
@@ -191,7 +191,7 @@ class ErrorHandlingTest {
     }
 
     @Test
-    fun accountsCreate_429() {
+    fun accountsCreate429() {
         val params =
             AccountCreateParams.builder()
                 .entityId("string")
@@ -212,7 +212,7 @@ class ErrorHandlingTest {
     }
 
     @Test
-    fun accountsCreate_500() {
+    fun accountsCreate500() {
         val params =
             AccountCreateParams.builder()
                 .entityId("string")
