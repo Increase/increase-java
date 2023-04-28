@@ -108,7 +108,6 @@ class AchTransferSimulationTest {
                                                 .Currency
                                                 .CAD
                                         )
-                                        .cardSettlementTransactionId("string")
                                         .merchantAcceptorId("string")
                                         .merchantCity("string")
                                         .merchantState("string")
@@ -896,7 +895,6 @@ class AchTransferSimulationTest {
                                         AchTransferSimulation.Transaction.Source.CardRefund.Currency
                                             .CAD
                                     )
-                                    .cardSettlementTransactionId("string")
                                     .merchantAcceptorId("string")
                                     .merchantCity("string")
                                     .merchantState("string")

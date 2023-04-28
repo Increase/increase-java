@@ -108,7 +108,6 @@ class WireTransferSimulationTest {
                                                 .Currency
                                                 .CAD
                                         )
-                                        .cardSettlementTransactionId("string")
                                         .merchantAcceptorId("string")
                                         .merchantCity("string")
                                         .merchantState("string")
@@ -694,7 +693,6 @@ class WireTransferSimulationTest {
                                             .Currency
                                             .CAD
                                     )
-                                    .cardSettlementTransactionId("string")
                                     .merchantAcceptorId("string")
                                     .merchantCity("string")
                                     .merchantState("string")

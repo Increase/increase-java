@@ -1282,6 +1282,10 @@ private constructor(
                 val NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT =
                     Reason(JsonField.of("not_eligible_for_mobile_deposit"))
 
+                @JvmField
+                val MISSING_REQUIRED_DATA_ELEMENTS =
+                    Reason(JsonField.of("missing_required_data_elements"))
+
                 @JvmField val UNKNOWN = Reason(JsonField.of("unknown"))
 
                 @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
@@ -1294,6 +1298,7 @@ private constructor(
                 INCORRECT_AMOUNT,
                 INCORRECT_RECIPIENT,
                 NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT,
+                MISSING_REQUIRED_DATA_ELEMENTS,
                 UNKNOWN,
             }
 
@@ -1304,6 +1309,7 @@ private constructor(
                 INCORRECT_AMOUNT,
                 INCORRECT_RECIPIENT,
                 NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT,
+                MISSING_REQUIRED_DATA_ELEMENTS,
                 UNKNOWN,
                 _UNKNOWN,
             }
@@ -1316,6 +1322,7 @@ private constructor(
                     INCORRECT_AMOUNT -> Value.INCORRECT_AMOUNT
                     INCORRECT_RECIPIENT -> Value.INCORRECT_RECIPIENT
                     NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT -> Value.NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT
+                    MISSING_REQUIRED_DATA_ELEMENTS -> Value.MISSING_REQUIRED_DATA_ELEMENTS
                     UNKNOWN -> Value.UNKNOWN
                     else -> Value._UNKNOWN
                 }
@@ -1328,6 +1335,7 @@ private constructor(
                     INCORRECT_AMOUNT -> Known.INCORRECT_AMOUNT
                     INCORRECT_RECIPIENT -> Known.INCORRECT_RECIPIENT
                     NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT -> Known.NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT
+                    MISSING_REQUIRED_DATA_ELEMENTS -> Known.MISSING_REQUIRED_DATA_ELEMENTS
                     UNKNOWN -> Known.UNKNOWN
                     else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                 }

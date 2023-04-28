@@ -138,7 +138,6 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .Currency
                                                 .CAD
                                         )
-                                        .cardSettlementTransactionId("string")
                                         .merchantAcceptorId("string")
                                         .merchantCity("string")
                                         .merchantState("string")
@@ -1104,7 +1103,6 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .Currency
                                             .CAD
                                     )
-                                    .cardSettlementTransactionId("string")
                                     .merchantAcceptorId("string")
                                     .merchantCity("string")
                                     .merchantState("string")
