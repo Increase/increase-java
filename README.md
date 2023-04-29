@@ -130,7 +130,7 @@ this SDK. Each model property has a corresponding JSON version, with an undersco
 Sometimes, the server response may include additional properties that are not yet available in this library's types. You can access them using the model's `_additionalProperties` method:
 
 ```java
-String secret = account._additionalProperties().get("secret_field");
+JsonValue secret = account._additionalProperties().get("secret_field");
 ```
 
 ---
