@@ -545,6 +545,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             "string"
                                         )
                                         .transactionId("string")
+                                        .wireTransferId("string")
                                         .build()
                                 )
                                 .inboundWireTransfer(
@@ -1458,6 +1459,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .receiverFinancialInstitutionInformation("string")
                                     .financialInstitutionToFinancialInstitutionInformation("string")
                                     .transactionId("string")
+                                    .wireTransferId("string")
                                     .build()
                             )
                             .inboundWireTransfer(

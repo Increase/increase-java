@@ -8418,6 +8418,9 @@ private constructor(
                         val ACCOUNT_NUMBER_DISABLED =
                             Reason(JsonField.of("account_number_disabled"))
 
+                        @JvmField
+                        val ACCOUNT_RESTRICTED = Reason(JsonField.of("account_restricted"))
+
                         @JvmField val GROUP_LOCKED = Reason(JsonField.of("group_locked"))
 
                         @JvmField val ENTITY_NOT_ACTIVE = Reason(JsonField.of("entity_not_active"))
@@ -8432,6 +8435,7 @@ private constructor(
                     enum class Known {
                         ACCOUNT_NUMBER_CANCELED,
                         ACCOUNT_NUMBER_DISABLED,
+                        ACCOUNT_RESTRICTED,
                         GROUP_LOCKED,
                         ENTITY_NOT_ACTIVE,
                         REAL_TIME_PAYMENTS_NOT_ENABLED,
@@ -8440,6 +8444,7 @@ private constructor(
                     enum class Value {
                         ACCOUNT_NUMBER_CANCELED,
                         ACCOUNT_NUMBER_DISABLED,
+                        ACCOUNT_RESTRICTED,
                         GROUP_LOCKED,
                         ENTITY_NOT_ACTIVE,
                         REAL_TIME_PAYMENTS_NOT_ENABLED,
@@ -8450,6 +8455,7 @@ private constructor(
                         when (this) {
                             ACCOUNT_NUMBER_CANCELED -> Value.ACCOUNT_NUMBER_CANCELED
                             ACCOUNT_NUMBER_DISABLED -> Value.ACCOUNT_NUMBER_DISABLED
+                            ACCOUNT_RESTRICTED -> Value.ACCOUNT_RESTRICTED
                             GROUP_LOCKED -> Value.GROUP_LOCKED
                             ENTITY_NOT_ACTIVE -> Value.ENTITY_NOT_ACTIVE
                             REAL_TIME_PAYMENTS_NOT_ENABLED -> Value.REAL_TIME_PAYMENTS_NOT_ENABLED
@@ -8460,6 +8466,7 @@ private constructor(
                         when (this) {
                             ACCOUNT_NUMBER_CANCELED -> Known.ACCOUNT_NUMBER_CANCELED
                             ACCOUNT_NUMBER_DISABLED -> Known.ACCOUNT_NUMBER_DISABLED
+                            ACCOUNT_RESTRICTED -> Known.ACCOUNT_RESTRICTED
                             GROUP_LOCKED -> Known.GROUP_LOCKED
                             ENTITY_NOT_ACTIVE -> Known.ENTITY_NOT_ACTIVE
                             REAL_TIME_PAYMENTS_NOT_ENABLED -> Known.REAL_TIME_PAYMENTS_NOT_ENABLED

@@ -327,6 +327,7 @@ class TransactionTest {
                                 .receiverFinancialInstitutionInformation("string")
                                 .financialInstitutionToFinancialInstitutionInformation("string")
                                 .transactionId("string")
+                                .wireTransferId("string")
                                 .build()
                         )
                         .inboundWireTransfer(
@@ -752,6 +753,7 @@ class TransactionTest {
                             .receiverFinancialInstitutionInformation("string")
                             .financialInstitutionToFinancialInstitutionInformation("string")
                             .transactionId("string")
+                            .wireTransferId("string")
                             .build()
                     )
                     .inboundWireTransfer(

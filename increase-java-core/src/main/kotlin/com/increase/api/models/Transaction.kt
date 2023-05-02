@@ -10853,6 +10853,7 @@ private constructor(
             private val receiverFinancialInstitutionInformation: JsonField<String>,
             private val financialInstitutionToFinancialInstitutionInformation: JsonField<String>,
             private val transactionId: JsonField<String>,
+            private val wireTransferId: JsonField<String>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
@@ -10928,6 +10929,9 @@ private constructor(
             fun transactionId(): Optional<String> =
                 Optional.ofNullable(transactionId.getNullable("transaction_id"))
 
+            /** The ID for the Wire Transfer that is being reversed. */
+            fun wireTransferId(): String = wireTransferId.getRequired("wire_transfer_id")
+
             /** The amount that was reversed. */
             @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
@@ -10993,6 +10997,9 @@ private constructor(
             /** The ID for the Transaction associated with the transfer reversal. */
             @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
+            /** The ID for the Wire Transfer that is being reversed. */
+            @JsonProperty("wire_transfer_id") @ExcludeMissing fun _wireTransferId() = wireTransferId
+
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -11013,6 +11020,7 @@ private constructor(
                     receiverFinancialInstitutionInformation()
                     financialInstitutionToFinancialInstitutionInformation()
                     transactionId()
+                    wireTransferId()
                     validated = true
                 }
             }
@@ -11043,6 +11051,7 @@ private constructor(
                     this.financialInstitutionToFinancialInstitutionInformation ==
                         other.financialInstitutionToFinancialInstitutionInformation &&
                     this.transactionId == other.transactionId &&
+                    this.wireTransferId == other.wireTransferId &&
                     this.additionalProperties == other.additionalProperties
             }
 
@@ -11064,6 +11073,7 @@ private constructor(
                             receiverFinancialInstitutionInformation,
                             financialInstitutionToFinancialInstitutionInformation,
                             transactionId,
+                            wireTransferId,
                             additionalProperties,
                         )
                 }
@@ -11071,7 +11081,7 @@ private constructor(
             }
 
             override fun toString() =
-                "InboundWireReversal{amount=$amount, createdAt=$createdAt, description=$description, inputCycleDate=$inputCycleDate, inputSequenceNumber=$inputSequenceNumber, inputSource=$inputSource, inputMessageAccountabilityData=$inputMessageAccountabilityData, previousMessageInputMessageAccountabilityData=$previousMessageInputMessageAccountabilityData, previousMessageInputCycleDate=$previousMessageInputCycleDate, previousMessageInputSequenceNumber=$previousMessageInputSequenceNumber, previousMessageInputSource=$previousMessageInputSource, receiverFinancialInstitutionInformation=$receiverFinancialInstitutionInformation, financialInstitutionToFinancialInstitutionInformation=$financialInstitutionToFinancialInstitutionInformation, transactionId=$transactionId, additionalProperties=$additionalProperties}"
+                "InboundWireReversal{amount=$amount, createdAt=$createdAt, description=$description, inputCycleDate=$inputCycleDate, inputSequenceNumber=$inputSequenceNumber, inputSource=$inputSource, inputMessageAccountabilityData=$inputMessageAccountabilityData, previousMessageInputMessageAccountabilityData=$previousMessageInputMessageAccountabilityData, previousMessageInputCycleDate=$previousMessageInputCycleDate, previousMessageInputSequenceNumber=$previousMessageInputSequenceNumber, previousMessageInputSource=$previousMessageInputSource, receiverFinancialInstitutionInformation=$receiverFinancialInstitutionInformation, financialInstitutionToFinancialInstitutionInformation=$financialInstitutionToFinancialInstitutionInformation, transactionId=$transactionId, wireTransferId=$wireTransferId, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -11098,6 +11108,7 @@ private constructor(
                     JsonField<String> =
                     JsonMissing.of()
                 private var transactionId: JsonField<String> = JsonMissing.of()
+                private var wireTransferId: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -11122,6 +11133,7 @@ private constructor(
                     this.financialInstitutionToFinancialInstitutionInformation =
                         inboundWireReversal.financialInstitutionToFinancialInstitutionInformation
                     this.transactionId = inboundWireReversal.transactionId
+                    this.wireTransferId = inboundWireReversal.wireTransferId
                     additionalProperties(inboundWireReversal.additionalProperties)
                 }
 
@@ -11311,6 +11323,17 @@ private constructor(
                     this.transactionId = transactionId
                 }
 
+                /** The ID for the Wire Transfer that is being reversed. */
+                fun wireTransferId(wireTransferId: String) =
+                    wireTransferId(JsonField.of(wireTransferId))
+
+                /** The ID for the Wire Transfer that is being reversed. */
+                @JsonProperty("wire_transfer_id")
+                @ExcludeMissing
+                fun wireTransferId(wireTransferId: JsonField<String>) = apply {
+                    this.wireTransferId = wireTransferId
+                }
+
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
                     this.additionalProperties.putAll(additionalProperties)
@@ -11342,6 +11365,7 @@ private constructor(
                         receiverFinancialInstitutionInformation,
                         financialInstitutionToFinancialInstitutionInformation,
                         transactionId,
+                        wireTransferId,
                         additionalProperties.toUnmodifiable(),
                     )
             }
