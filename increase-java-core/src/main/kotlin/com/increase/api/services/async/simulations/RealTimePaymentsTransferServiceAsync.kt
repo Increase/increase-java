@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.InboundRealTimePaymentsTransferSimulationResult
 import com.increase.api.models.RealTimePaymentsTransfer
-import com.increase.api.models.SimulationsRealTimePaymentsTransferCompleteParams
-import com.increase.api.models.SimulationsRealTimePaymentsTransferCreateInboundParams
+import com.increase.api.models.SimulationRealTimePaymentsTransferCompleteParams
+import com.increase.api.models.SimulationRealTimePaymentsTransferCreateInboundParams
 import java.util.concurrent.CompletableFuture
 
 interface RealTimePaymentsTransferServiceAsync {
@@ -18,7 +18,7 @@ interface RealTimePaymentsTransferServiceAsync {
      */
     @JvmOverloads
     fun complete(
-        params: SimulationsRealTimePaymentsTransferCompleteParams,
+        params: SimulationRealTimePaymentsTransferCompleteParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<RealTimePaymentsTransfer>
 
@@ -28,7 +28,7 @@ interface RealTimePaymentsTransferServiceAsync {
      */
     @JvmOverloads
     fun createInbound(
-        params: SimulationsRealTimePaymentsTransferCreateInboundParams,
+        params: SimulationRealTimePaymentsTransferCreateInboundParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<InboundRealTimePaymentsTransferSimulationResult>
 }

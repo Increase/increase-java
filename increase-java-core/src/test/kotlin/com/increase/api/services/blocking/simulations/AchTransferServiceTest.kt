@@ -20,7 +20,7 @@ class AchTransferServiceTest {
         val achTransferService = client.simulations().achTransfers()
         val achTransferSimulation =
             achTransferService.createInbound(
-                SimulationsAchTransferCreateInboundParams.builder()
+                SimulationAchTransferCreateInboundParams.builder()
                     .accountNumberId("string")
                     .amount(123L)
                     .companyDescriptiveDate("x")
@@ -45,9 +45,9 @@ class AchTransferServiceTest {
         val achTransferService = client.simulations().achTransfers()
         val achTransfer =
             achTransferService.return_(
-                SimulationsAchTransferReturnParams.builder()
+                SimulationAchTransferReturnParams.builder()
                     .achTransferId("string")
-                    .reason(SimulationsAchTransferReturnParams.Reason.INSUFFICIENT_FUND)
+                    .reason(SimulationAchTransferReturnParams.Reason.INSUFFICIENT_FUND)
                     .build()
             )
         println(achTransfer)
@@ -65,7 +65,7 @@ class AchTransferServiceTest {
         val achTransferService = client.simulations().achTransfers()
         val achTransfer =
             achTransferService.submit(
-                SimulationsAchTransferSubmitParams.builder().achTransferId("string").build()
+                SimulationAchTransferSubmitParams.builder().achTransferId("string").build()
             )
         println(achTransfer)
         achTransfer.validate()

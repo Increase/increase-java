@@ -4,8 +4,8 @@ package com.increase.api.services.blocking.simulations
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.CardAuthorizationSimulation
-import com.increase.api.models.SimulationsCardAuthorizeParams
-import com.increase.api.models.SimulationsCardSettlementParams
+import com.increase.api.models.SimulationCardAuthorizeParams
+import com.increase.api.models.SimulationCardSettlementParams
 import com.increase.api.models.Transaction
 
 interface CardService {
@@ -20,7 +20,7 @@ interface CardService {
      */
     @JvmOverloads
     fun authorize(
-        params: SimulationsCardAuthorizeParams,
+        params: SimulationCardAuthorizeParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CardAuthorizationSimulation
 
@@ -32,7 +32,7 @@ interface CardService {
      */
     @JvmOverloads
     fun settlement(
-        params: SimulationsCardSettlementParams,
+        params: SimulationCardSettlementParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): Transaction
 }

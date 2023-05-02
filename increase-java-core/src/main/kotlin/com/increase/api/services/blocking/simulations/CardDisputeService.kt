@@ -4,7 +4,7 @@ package com.increase.api.services.blocking.simulations
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.CardDispute
-import com.increase.api.models.SimulationsCardDisputeActionParams
+import com.increase.api.models.SimulationCardDisputeActionParams
 
 interface CardDisputeService {
 
@@ -16,7 +16,7 @@ interface CardDisputeService {
      */
     @JvmOverloads
     fun action(
-        params: SimulationsCardDisputeActionParams,
+        params: SimulationCardDisputeActionParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CardDispute
 }

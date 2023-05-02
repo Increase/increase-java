@@ -4,9 +4,9 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.CheckDeposit
-import com.increase.api.models.SimulationsCheckDepositRejectParams
-import com.increase.api.models.SimulationsCheckDepositReturnParams
-import com.increase.api.models.SimulationsCheckDepositSubmitParams
+import com.increase.api.models.SimulationCheckDepositRejectParams
+import com.increase.api.models.SimulationCheckDepositReturnParams
+import com.increase.api.models.SimulationCheckDepositSubmitParams
 import java.util.concurrent.CompletableFuture
 
 interface CheckDepositServiceAsync {
@@ -17,7 +17,7 @@ interface CheckDepositServiceAsync {
      */
     @JvmOverloads
     fun reject(
-        params: SimulationsCheckDepositRejectParams,
+        params: SimulationCheckDepositRejectParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<CheckDeposit>
 
@@ -27,7 +27,7 @@ interface CheckDepositServiceAsync {
      */
     @JvmOverloads
     fun return_(
-        params: SimulationsCheckDepositReturnParams,
+        params: SimulationCheckDepositReturnParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<CheckDeposit>
 
@@ -37,7 +37,7 @@ interface CheckDepositServiceAsync {
      */
     @JvmOverloads
     fun submit(
-        params: SimulationsCheckDepositSubmitParams,
+        params: SimulationCheckDepositSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<CheckDeposit>
 }

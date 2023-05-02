@@ -4,14 +4,14 @@ package com.increase.api.services.blocking.simulations
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.Document
-import com.increase.api.models.SimulationsDocumentCreateParams
+import com.increase.api.models.SimulationDocumentCreateParams
 
 interface DocumentService {
 
     /** Simulates an tax document being created for an account. */
     @JvmOverloads
     fun create(
-        params: SimulationsDocumentCreateParams,
+        params: SimulationDocumentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): Document
 }

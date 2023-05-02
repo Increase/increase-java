@@ -21,7 +21,7 @@ class AccountTransferServiceTest {
         val accountTransferService = client.simulations().accountTransfers()
         val accountTransfer =
             accountTransferService.complete(
-                SimulationsAccountTransferCompleteParams.builder()
+                SimulationAccountTransferCompleteParams.builder()
                     .accountTransferId("string")
                     .build()
             )

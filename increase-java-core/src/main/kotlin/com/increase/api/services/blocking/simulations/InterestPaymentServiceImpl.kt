@@ -7,7 +7,7 @@ import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.InterestPaymentSimulationResult
-import com.increase.api.models.SimulationsInterestPaymentCreateParams
+import com.increase.api.models.SimulationInterestPaymentCreateParams
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
@@ -29,7 +29,7 @@ constructor(
      * the first of each month.
      */
     override fun create(
-        params: SimulationsInterestPaymentCreateParams,
+        params: SimulationInterestPaymentCreateParams,
         requestOptions: RequestOptions
     ): InterestPaymentSimulationResult {
         val request =

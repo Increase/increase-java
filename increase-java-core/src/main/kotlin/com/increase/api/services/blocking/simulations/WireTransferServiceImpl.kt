@@ -6,7 +6,7 @@ import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.SimulationsWireTransferCreateInboundParams
+import com.increase.api.models.SimulationWireTransferCreateInboundParams
 import com.increase.api.models.WireTransferSimulation
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
@@ -25,7 +25,7 @@ constructor(
 
     /** Simulates an inbound Wire Transfer to your account. */
     override fun createInbound(
-        params: SimulationsWireTransferCreateInboundParams,
+        params: SimulationWireTransferCreateInboundParams,
         requestOptions: RequestOptions
     ): WireTransferSimulation {
         val request =

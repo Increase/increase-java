@@ -4,7 +4,7 @@ package com.increase.api.services.blocking.simulations
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.AccountTransfer
-import com.increase.api.models.SimulationsAccountTransferCompleteParams
+import com.increase.api.models.SimulationAccountTransferCompleteParams
 
 interface AccountTransferService {
 
@@ -16,7 +16,7 @@ interface AccountTransferService {
      */
     @JvmOverloads
     fun complete(
-        params: SimulationsAccountTransferCompleteParams,
+        params: SimulationAccountTransferCompleteParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): AccountTransfer
 }

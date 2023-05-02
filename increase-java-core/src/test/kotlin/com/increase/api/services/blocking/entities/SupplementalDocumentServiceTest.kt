@@ -19,7 +19,7 @@ class SupplementalDocumentServiceTest {
         val supplementalDocumentService = client.entities().supplementalDocuments()
         val entity =
             supplementalDocumentService.create(
-                EntitiesSupplementalDocumentCreateParams.builder()
+                EntitySupplementalDocumentCreateParams.builder()
                     .entityId("string")
                     .fileId("string")
                     .build()

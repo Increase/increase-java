@@ -4,7 +4,7 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.CardDispute
-import com.increase.api.models.SimulationsCardDisputeActionParams
+import com.increase.api.models.SimulationCardDisputeActionParams
 import java.util.concurrent.CompletableFuture
 
 interface CardDisputeServiceAsync {
@@ -17,7 +17,7 @@ interface CardDisputeServiceAsync {
      */
     @JvmOverloads
     fun action(
-        params: SimulationsCardDisputeActionParams,
+        params: SimulationCardDisputeActionParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<CardDispute>
 }

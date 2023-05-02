@@ -19,7 +19,7 @@ class InboundWireDrawdownRequestServiceTest {
         val inboundWireDrawdownRequestService = client.simulations().inboundWireDrawdownRequests()
         val inboundWireDrawdownRequest =
             inboundWireDrawdownRequestService.create(
-                SimulationsInboundWireDrawdownRequestCreateParams.builder()
+                SimulationInboundWireDrawdownRequestCreateParams.builder()
                     .recipientAccountNumberId("string")
                     .originatorAccountNumber("x")
                     .originatorRoutingNumber("x")

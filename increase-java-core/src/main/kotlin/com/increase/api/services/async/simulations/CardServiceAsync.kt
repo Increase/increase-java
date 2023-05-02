@@ -4,8 +4,8 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.CardAuthorizationSimulation
-import com.increase.api.models.SimulationsCardAuthorizeParams
-import com.increase.api.models.SimulationsCardSettlementParams
+import com.increase.api.models.SimulationCardAuthorizeParams
+import com.increase.api.models.SimulationCardSettlementParams
 import com.increase.api.models.Transaction
 import java.util.concurrent.CompletableFuture
 
@@ -21,7 +21,7 @@ interface CardServiceAsync {
      */
     @JvmOverloads
     fun authorize(
-        params: SimulationsCardAuthorizeParams,
+        params: SimulationCardAuthorizeParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<CardAuthorizationSimulation>
 
@@ -33,7 +33,7 @@ interface CardServiceAsync {
      */
     @JvmOverloads
     fun settlement(
-        params: SimulationsCardSettlementParams,
+        params: SimulationCardSettlementParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<Transaction>
 }

@@ -19,7 +19,7 @@ class CardServiceTest {
         val cardService = client.simulations().cards()
         val cardAuthorizationSimulation =
             cardService.authorize(
-                SimulationsCardAuthorizeParams.builder()
+                SimulationCardAuthorizeParams.builder()
                     .amount(123L)
                     .cardId("string")
                     .digitalWalletTokenId("string")
@@ -40,7 +40,7 @@ class CardServiceTest {
         val cardService = client.simulations().cards()
         val transaction =
             cardService.settlement(
-                SimulationsCardSettlementParams.builder()
+                SimulationCardSettlementParams.builder()
                     .cardId("string")
                     .pendingTransactionId("string")
                     .amount(123L)

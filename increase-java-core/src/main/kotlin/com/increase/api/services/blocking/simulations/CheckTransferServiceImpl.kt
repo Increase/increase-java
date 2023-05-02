@@ -7,9 +7,9 @@ import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.CheckTransfer
-import com.increase.api.models.SimulationsCheckTransferDepositParams
-import com.increase.api.models.SimulationsCheckTransferMailParams
-import com.increase.api.models.SimulationsCheckTransferReturnParams
+import com.increase.api.models.SimulationCheckTransferDepositParams
+import com.increase.api.models.SimulationCheckTransferMailParams
+import com.increase.api.models.SimulationCheckTransferReturnParams
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
@@ -30,7 +30,7 @@ constructor(
      * first have a `status` of `mailed`.
      */
     override fun deposit(
-        params: SimulationsCheckTransferDepositParams,
+        params: SimulationCheckTransferDepositParams,
         requestOptions: RequestOptions
     ): CheckTransfer {
         val request =
@@ -67,7 +67,7 @@ constructor(
      * `pending_approval` or `pending_submission`.
      */
     override fun mail(
-        params: SimulationsCheckTransferMailParams,
+        params: SimulationCheckTransferMailParams,
         requestOptions: RequestOptions
     ): CheckTransfer {
         val request =
@@ -98,7 +98,7 @@ constructor(
      * transfer must first have a `status` of `mailed`.
      */
     override fun return_(
-        params: SimulationsCheckTransferReturnParams,
+        params: SimulationCheckTransferReturnParams,
         requestOptions: RequestOptions
     ): CheckTransfer {
         val request =

@@ -6,8 +6,8 @@ import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.EntitiesSupplementalDocumentCreateParams
 import com.increase.api.models.Entity
+import com.increase.api.models.EntitySupplementalDocumentCreateParams
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
@@ -26,7 +26,7 @@ constructor(
 
     /** Create a supplemental document for an Entity */
     override fun create(
-        params: EntitiesSupplementalDocumentCreateParams,
+        params: EntitySupplementalDocumentCreateParams,
         requestOptions: RequestOptions
     ): CompletableFuture<Entity> {
         val request =

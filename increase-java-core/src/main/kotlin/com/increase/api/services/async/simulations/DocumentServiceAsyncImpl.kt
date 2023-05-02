@@ -7,7 +7,7 @@ import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.Document
-import com.increase.api.models.SimulationsDocumentCreateParams
+import com.increase.api.models.SimulationDocumentCreateParams
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
@@ -26,7 +26,7 @@ constructor(
 
     /** Simulates an tax document being created for an account. */
     override fun create(
-        params: SimulationsDocumentCreateParams,
+        params: SimulationDocumentCreateParams,
         requestOptions: RequestOptions
     ): CompletableFuture<Document> {
         val request =

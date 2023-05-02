@@ -6,7 +6,7 @@ import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.SimulationsCardRefundCreateParams
+import com.increase.api.models.SimulationCardRefundCreateParams
 import com.increase.api.models.Transaction
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
@@ -29,7 +29,7 @@ constructor(
      * refunded.
      */
     override fun create(
-        params: SimulationsCardRefundCreateParams,
+        params: SimulationCardRefundCreateParams,
         requestOptions: RequestOptions
     ): CompletableFuture<Transaction> {
         val request =

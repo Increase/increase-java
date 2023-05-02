@@ -4,9 +4,9 @@ package com.increase.api.services.blocking.simulations
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.CheckTransfer
-import com.increase.api.models.SimulationsCheckTransferDepositParams
-import com.increase.api.models.SimulationsCheckTransferMailParams
-import com.increase.api.models.SimulationsCheckTransferReturnParams
+import com.increase.api.models.SimulationCheckTransferDepositParams
+import com.increase.api.models.SimulationCheckTransferMailParams
+import com.increase.api.models.SimulationCheckTransferReturnParams
 
 interface CheckTransferService {
 
@@ -16,7 +16,7 @@ interface CheckTransferService {
      */
     @JvmOverloads
     fun deposit(
-        params: SimulationsCheckTransferDepositParams,
+        params: SimulationCheckTransferDepositParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CheckTransfer
 
@@ -27,7 +27,7 @@ interface CheckTransferService {
      */
     @JvmOverloads
     fun mail(
-        params: SimulationsCheckTransferMailParams,
+        params: SimulationCheckTransferMailParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CheckTransfer
 
@@ -37,7 +37,7 @@ interface CheckTransferService {
      */
     @JvmOverloads
     fun return_(
-        params: SimulationsCheckTransferReturnParams,
+        params: SimulationCheckTransferReturnParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CheckTransfer
 }

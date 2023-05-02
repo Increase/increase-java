@@ -8,8 +8,8 @@ import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.InboundRealTimePaymentsTransferSimulationResult
 import com.increase.api.models.RealTimePaymentsTransfer
-import com.increase.api.models.SimulationsRealTimePaymentsTransferCompleteParams
-import com.increase.api.models.SimulationsRealTimePaymentsTransferCreateInboundParams
+import com.increase.api.models.SimulationRealTimePaymentsTransferCompleteParams
+import com.increase.api.models.SimulationRealTimePaymentsTransferCreateInboundParams
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
@@ -33,7 +33,7 @@ constructor(
      * `pending_submission`.
      */
     override fun complete(
-        params: SimulationsRealTimePaymentsTransferCompleteParams,
+        params: SimulationRealTimePaymentsTransferCompleteParams,
         requestOptions: RequestOptions
     ): CompletableFuture<RealTimePaymentsTransfer> {
         val request =
@@ -71,7 +71,7 @@ constructor(
      * beta feature.
      */
     override fun createInbound(
-        params: SimulationsRealTimePaymentsTransferCreateInboundParams,
+        params: SimulationRealTimePaymentsTransferCreateInboundParams,
         requestOptions: RequestOptions
     ): CompletableFuture<InboundRealTimePaymentsTransferSimulationResult> {
         val request =

@@ -5,9 +5,9 @@ package com.increase.api.services.blocking.simulations
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.AchTransfer
 import com.increase.api.models.AchTransferSimulation
-import com.increase.api.models.SimulationsAchTransferCreateInboundParams
-import com.increase.api.models.SimulationsAchTransferReturnParams
-import com.increase.api.models.SimulationsAchTransferSubmitParams
+import com.increase.api.models.SimulationAchTransferCreateInboundParams
+import com.increase.api.models.SimulationAchTransferReturnParams
+import com.increase.api.models.SimulationAchTransferSubmitParams
 
 interface AchTransferService {
 
@@ -21,7 +21,7 @@ interface AchTransferService {
      */
     @JvmOverloads
     fun createInbound(
-        params: SimulationsAchTransferCreateInboundParams,
+        params: SimulationAchTransferCreateInboundParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): AchTransferSimulation
 
@@ -32,7 +32,7 @@ interface AchTransferService {
      */
     @JvmOverloads
     fun return_(
-        params: SimulationsAchTransferReturnParams,
+        params: SimulationAchTransferReturnParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): AchTransfer
 
@@ -45,7 +45,7 @@ interface AchTransferService {
      */
     @JvmOverloads
     fun submit(
-        params: SimulationsAchTransferSubmitParams,
+        params: SimulationAchTransferSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): AchTransfer
 }

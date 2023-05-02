@@ -4,7 +4,7 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.AccountStatement
-import com.increase.api.models.SimulationsAccountStatementCreateParams
+import com.increase.api.models.SimulationAccountStatementCreateParams
 import java.util.concurrent.CompletableFuture
 
 interface AccountStatementServiceAsync {
@@ -15,7 +15,7 @@ interface AccountStatementServiceAsync {
      */
     @JvmOverloads
     fun create(
-        params: SimulationsAccountStatementCreateParams,
+        params: SimulationAccountStatementCreateParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<AccountStatement>
 }

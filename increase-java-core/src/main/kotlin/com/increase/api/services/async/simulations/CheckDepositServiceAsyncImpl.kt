@@ -7,9 +7,9 @@ import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.CheckDeposit
-import com.increase.api.models.SimulationsCheckDepositRejectParams
-import com.increase.api.models.SimulationsCheckDepositReturnParams
-import com.increase.api.models.SimulationsCheckDepositSubmitParams
+import com.increase.api.models.SimulationCheckDepositRejectParams
+import com.increase.api.models.SimulationCheckDepositReturnParams
+import com.increase.api.models.SimulationCheckDepositSubmitParams
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
@@ -31,7 +31,7 @@ constructor(
      * poor image quality. This Check Deposit must first have a `status` of `pending`.
      */
     override fun reject(
-        params: SimulationsCheckDepositRejectParams,
+        params: SimulationCheckDepositRejectParams,
         requestOptions: RequestOptions
     ): CompletableFuture<CheckDeposit> {
         val request =
@@ -63,7 +63,7 @@ constructor(
      * have a `status` of `submitted`.
      */
     override fun return_(
-        params: SimulationsCheckDepositReturnParams,
+        params: SimulationCheckDepositReturnParams,
         requestOptions: RequestOptions
     ): CompletableFuture<CheckDeposit> {
         val request =
@@ -95,7 +95,7 @@ constructor(
      * Check Deposit must first have a `status` of `pending`.
      */
     override fun submit(
-        params: SimulationsCheckDepositSubmitParams,
+        params: SimulationCheckDepositSubmitParams,
         requestOptions: RequestOptions
     ): CompletableFuture<CheckDeposit> {
         val request =

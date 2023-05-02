@@ -7,7 +7,7 @@ import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.AccountTransfer
-import com.increase.api.models.SimulationsAccountTransferCompleteParams
+import com.increase.api.models.SimulationAccountTransferCompleteParams
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
@@ -30,7 +30,7 @@ constructor(
      * `pending_approval`.
      */
     override fun complete(
-        params: SimulationsAccountTransferCompleteParams,
+        params: SimulationAccountTransferCompleteParams,
         requestOptions: RequestOptions
     ): AccountTransfer {
         val request =

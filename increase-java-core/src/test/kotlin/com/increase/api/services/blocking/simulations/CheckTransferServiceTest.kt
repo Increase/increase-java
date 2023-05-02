@@ -20,7 +20,7 @@ class CheckTransferServiceTest {
         val checkTransferService = client.simulations().checkTransfers()
         val checkTransfer =
             checkTransferService.deposit(
-                SimulationsCheckTransferDepositParams.builder().checkTransferId("string").build()
+                SimulationCheckTransferDepositParams.builder().checkTransferId("string").build()
             )
         println(checkTransfer)
         checkTransfer.validate()
@@ -37,7 +37,7 @@ class CheckTransferServiceTest {
         val checkTransferService = client.simulations().checkTransfers()
         val checkTransfer =
             checkTransferService.mail(
-                SimulationsCheckTransferMailParams.builder().checkTransferId("string").build()
+                SimulationCheckTransferMailParams.builder().checkTransferId("string").build()
             )
         println(checkTransfer)
         checkTransfer.validate()
@@ -53,9 +53,9 @@ class CheckTransferServiceTest {
         val checkTransferService = client.simulations().checkTransfers()
         val checkTransfer =
             checkTransferService.return_(
-                SimulationsCheckTransferReturnParams.builder()
+                SimulationCheckTransferReturnParams.builder()
                     .checkTransferId("string")
-                    .reason(SimulationsCheckTransferReturnParams.Reason.MAIL_DELIVERY_FAILURE)
+                    .reason(SimulationCheckTransferReturnParams.Reason.MAIL_DELIVERY_FAILURE)
                     .build()
             )
         println(checkTransfer)

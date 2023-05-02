@@ -19,9 +19,9 @@ class CardDisputeServiceTest {
         val cardDisputeService = client.simulations().cardDisputes()
         val cardDispute =
             cardDisputeService.action(
-                SimulationsCardDisputeActionParams.builder()
+                SimulationCardDisputeActionParams.builder()
                     .cardDisputeId("string")
-                    .status(SimulationsCardDisputeActionParams.Status.ACCEPTED)
+                    .status(SimulationCardDisputeActionParams.Status.ACCEPTED)
                     .explanation("x")
                     .build()
             )

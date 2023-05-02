@@ -5,9 +5,9 @@ package com.increase.api.services.async.simulations
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.AchTransfer
 import com.increase.api.models.AchTransferSimulation
-import com.increase.api.models.SimulationsAchTransferCreateInboundParams
-import com.increase.api.models.SimulationsAchTransferReturnParams
-import com.increase.api.models.SimulationsAchTransferSubmitParams
+import com.increase.api.models.SimulationAchTransferCreateInboundParams
+import com.increase.api.models.SimulationAchTransferReturnParams
+import com.increase.api.models.SimulationAchTransferSubmitParams
 import java.util.concurrent.CompletableFuture
 
 interface AchTransferServiceAsync {
@@ -22,7 +22,7 @@ interface AchTransferServiceAsync {
      */
     @JvmOverloads
     fun createInbound(
-        params: SimulationsAchTransferCreateInboundParams,
+        params: SimulationAchTransferCreateInboundParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<AchTransferSimulation>
 
@@ -33,7 +33,7 @@ interface AchTransferServiceAsync {
      */
     @JvmOverloads
     fun return_(
-        params: SimulationsAchTransferReturnParams,
+        params: SimulationAchTransferReturnParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<AchTransfer>
 
@@ -46,7 +46,7 @@ interface AchTransferServiceAsync {
      */
     @JvmOverloads
     fun submit(
-        params: SimulationsAchTransferSubmitParams,
+        params: SimulationAchTransferSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<AchTransfer>
 }

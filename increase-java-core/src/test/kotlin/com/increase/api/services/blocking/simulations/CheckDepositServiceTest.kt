@@ -21,7 +21,7 @@ class CheckDepositServiceTest {
         val checkDepositService = client.simulations().checkDeposits()
         val checkDeposit =
             checkDepositService.reject(
-                SimulationsCheckDepositRejectParams.builder().checkDepositId("string").build()
+                SimulationCheckDepositRejectParams.builder().checkDepositId("string").build()
             )
         println(checkDeposit)
         checkDeposit.validate()
@@ -37,7 +37,7 @@ class CheckDepositServiceTest {
         val checkDepositService = client.simulations().checkDeposits()
         val checkDeposit =
             checkDepositService.return_(
-                SimulationsCheckDepositReturnParams.builder().checkDepositId("string").build()
+                SimulationCheckDepositReturnParams.builder().checkDepositId("string").build()
             )
         println(checkDeposit)
         checkDeposit.validate()
@@ -54,7 +54,7 @@ class CheckDepositServiceTest {
         val checkDepositService = client.simulations().checkDeposits()
         val checkDeposit =
             checkDepositService.submit(
-                SimulationsCheckDepositSubmitParams.builder().checkDepositId("string").build()
+                SimulationCheckDepositSubmitParams.builder().checkDepositId("string").build()
             )
         println(checkDeposit)
         checkDeposit.validate()

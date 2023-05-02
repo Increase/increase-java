@@ -7,7 +7,7 @@ import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.AccountStatement
-import com.increase.api.models.SimulationsAccountStatementCreateParams
+import com.increase.api.models.SimulationAccountStatementCreateParams
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
@@ -28,7 +28,7 @@ constructor(
      * production, Account Statements are generated once per month.
      */
     override fun create(
-        params: SimulationsAccountStatementCreateParams,
+        params: SimulationAccountStatementCreateParams,
         requestOptions: RequestOptions
     ): AccountStatement {
         val request =

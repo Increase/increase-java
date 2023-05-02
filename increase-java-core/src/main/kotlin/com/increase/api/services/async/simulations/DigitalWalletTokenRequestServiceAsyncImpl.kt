@@ -7,7 +7,7 @@ import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.DigitalWalletTokenRequestCreateResponse
-import com.increase.api.models.SimulationsDigitalWalletTokenRequestCreateParams
+import com.increase.api.models.SimulationDigitalWalletTokenRequestCreateParams
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
@@ -27,7 +27,7 @@ constructor(
 
     /** Simulates a user attempting add a [Card](#cards) to a digital wallet such as Apple Pay. */
     override fun create(
-        params: SimulationsDigitalWalletTokenRequestCreateParams,
+        params: SimulationDigitalWalletTokenRequestCreateParams,
         requestOptions: RequestOptions
     ): CompletableFuture<DigitalWalletTokenRequestCreateResponse> {
         val request =

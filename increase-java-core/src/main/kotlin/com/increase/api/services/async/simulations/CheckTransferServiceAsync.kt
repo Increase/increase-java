@@ -4,9 +4,9 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.CheckTransfer
-import com.increase.api.models.SimulationsCheckTransferDepositParams
-import com.increase.api.models.SimulationsCheckTransferMailParams
-import com.increase.api.models.SimulationsCheckTransferReturnParams
+import com.increase.api.models.SimulationCheckTransferDepositParams
+import com.increase.api.models.SimulationCheckTransferMailParams
+import com.increase.api.models.SimulationCheckTransferReturnParams
 import java.util.concurrent.CompletableFuture
 
 interface CheckTransferServiceAsync {
@@ -17,7 +17,7 @@ interface CheckTransferServiceAsync {
      */
     @JvmOverloads
     fun deposit(
-        params: SimulationsCheckTransferDepositParams,
+        params: SimulationCheckTransferDepositParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<CheckTransfer>
 
@@ -28,7 +28,7 @@ interface CheckTransferServiceAsync {
      */
     @JvmOverloads
     fun mail(
-        params: SimulationsCheckTransferMailParams,
+        params: SimulationCheckTransferMailParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<CheckTransfer>
 
@@ -38,7 +38,7 @@ interface CheckTransferServiceAsync {
      */
     @JvmOverloads
     fun return_(
-        params: SimulationsCheckTransferReturnParams,
+        params: SimulationCheckTransferReturnParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<CheckTransfer>
 }

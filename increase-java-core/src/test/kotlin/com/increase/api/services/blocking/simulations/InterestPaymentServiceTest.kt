@@ -19,7 +19,7 @@ class InterestPaymentServiceTest {
         val interestPaymentService = client.simulations().interestPayments()
         val interestPaymentSimulationResult =
             interestPaymentService.create(
-                SimulationsInterestPaymentCreateParams.builder()
+                SimulationInterestPaymentCreateParams.builder()
                     .accountId("string")
                     .amount(123L)
                     .build()

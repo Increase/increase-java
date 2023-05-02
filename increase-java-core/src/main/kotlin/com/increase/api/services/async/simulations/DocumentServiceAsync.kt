@@ -4,7 +4,7 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.Document
-import com.increase.api.models.SimulationsDocumentCreateParams
+import com.increase.api.models.SimulationDocumentCreateParams
 import java.util.concurrent.CompletableFuture
 
 interface DocumentServiceAsync {
@@ -12,7 +12,7 @@ interface DocumentServiceAsync {
     /** Simulates an tax document being created for an account. */
     @JvmOverloads
     fun create(
-        params: SimulationsDocumentCreateParams,
+        params: SimulationDocumentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<Document>
 }

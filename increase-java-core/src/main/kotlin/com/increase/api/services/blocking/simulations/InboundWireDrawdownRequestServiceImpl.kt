@@ -7,7 +7,7 @@ import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.InboundWireDrawdownRequest
-import com.increase.api.models.SimulationsInboundWireDrawdownRequestCreateParams
+import com.increase.api.models.SimulationInboundWireDrawdownRequestCreateParams
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
@@ -29,7 +29,7 @@ constructor(
      * .
      */
     override fun create(
-        params: SimulationsInboundWireDrawdownRequestCreateParams,
+        params: SimulationInboundWireDrawdownRequestCreateParams,
         requestOptions: RequestOptions
     ): InboundWireDrawdownRequest {
         val request =

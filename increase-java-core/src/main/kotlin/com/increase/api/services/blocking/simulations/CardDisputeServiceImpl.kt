@@ -7,7 +7,7 @@ import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.CardDispute
-import com.increase.api.models.SimulationsCardDisputeActionParams
+import com.increase.api.models.SimulationCardDisputeActionParams
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
@@ -30,7 +30,7 @@ constructor(
      * a status of `pending_reviewing`.
      */
     override fun action(
-        params: SimulationsCardDisputeActionParams,
+        params: SimulationCardDisputeActionParams,
         requestOptions: RequestOptions
     ): CardDispute {
         val request =

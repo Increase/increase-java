@@ -7,8 +7,8 @@ import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.CardAuthorizationSimulation
-import com.increase.api.models.SimulationsCardAuthorizeParams
-import com.increase.api.models.SimulationsCardSettlementParams
+import com.increase.api.models.SimulationCardAuthorizeParams
+import com.increase.api.models.SimulationCardSettlementParams
 import com.increase.api.models.Transaction
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
@@ -35,7 +35,7 @@ constructor(
      * ways purchases can be made.
      */
     override fun authorize(
-        params: SimulationsCardAuthorizeParams,
+        params: SimulationCardAuthorizeParams,
         requestOptions: RequestOptions
     ): CardAuthorizationSimulation {
         val request =
@@ -68,7 +68,7 @@ constructor(
      * from the amount originally authorized, for example, when adding a tip to a restaurant bill.
      */
     override fun settlement(
-        params: SimulationsCardSettlementParams,
+        params: SimulationCardSettlementParams,
         requestOptions: RequestOptions
     ): Transaction {
         val request =

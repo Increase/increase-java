@@ -19,7 +19,7 @@ class WireTransferServiceTest {
         val wireTransferService = client.simulations().wireTransfers()
         val wireTransferSimulation =
             wireTransferService.createInbound(
-                SimulationsWireTransferCreateInboundParams.builder()
+                SimulationWireTransferCreateInboundParams.builder()
                     .accountNumberId("string")
                     .amount(123L)
                     .beneficiaryAddressLine1("x")

@@ -4,7 +4,7 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.AccountTransfer
-import com.increase.api.models.SimulationsAccountTransferCompleteParams
+import com.increase.api.models.SimulationAccountTransferCompleteParams
 import java.util.concurrent.CompletableFuture
 
 interface AccountTransferServiceAsync {
@@ -17,7 +17,7 @@ interface AccountTransferServiceAsync {
      */
     @JvmOverloads
     fun complete(
-        params: SimulationsAccountTransferCompleteParams,
+        params: SimulationAccountTransferCompleteParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<AccountTransfer>
 }

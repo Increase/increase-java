@@ -19,12 +19,12 @@ class RealTimePaymentsTransferServiceTest {
         val realTimePaymentsTransferService = client.simulations().realTimePaymentsTransfers()
         val realTimePaymentsTransfer =
             realTimePaymentsTransferService.complete(
-                SimulationsRealTimePaymentsTransferCompleteParams.builder()
+                SimulationRealTimePaymentsTransferCompleteParams.builder()
                     .realTimePaymentsTransferId("string")
                     .rejection(
-                        SimulationsRealTimePaymentsTransferCompleteParams.Rejection.builder()
+                        SimulationRealTimePaymentsTransferCompleteParams.Rejection.builder()
                             .rejectReasonCode(
-                                SimulationsRealTimePaymentsTransferCompleteParams.Rejection
+                                SimulationRealTimePaymentsTransferCompleteParams.Rejection
                                     .RejectReasonCode
                                     .ACCOUNT_CLOSED
                             )
@@ -46,7 +46,7 @@ class RealTimePaymentsTransferServiceTest {
         val realTimePaymentsTransferService = client.simulations().realTimePaymentsTransfers()
         val inboundRealTimePaymentsTransferSimulationResult =
             realTimePaymentsTransferService.createInbound(
-                SimulationsRealTimePaymentsTransferCreateInboundParams.builder()
+                SimulationRealTimePaymentsTransferCreateInboundParams.builder()
                     .accountNumberId("string")
                     .amount(123L)
                     .requestForPaymentId("string")
