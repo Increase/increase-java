@@ -7880,6 +7880,9 @@ private constructor(
 
                         @JvmField val NOT_AUTHORIZED = Reason(JsonField.of("not_authorized"))
 
+                        @JvmField
+                        val ALTERED_OR_FICTITIOUS = Reason(JsonField.of("altered_or_fictitious"))
+
                         @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
                     }
 
@@ -7897,6 +7900,7 @@ private constructor(
                         RETURNED,
                         DUPLICATE_PRESENTMENT,
                         NOT_AUTHORIZED,
+                        ALTERED_OR_FICTITIOUS,
                     }
 
                     enum class Value {
@@ -7913,6 +7917,7 @@ private constructor(
                         RETURNED,
                         DUPLICATE_PRESENTMENT,
                         NOT_AUTHORIZED,
+                        ALTERED_OR_FICTITIOUS,
                         _UNKNOWN,
                     }
 
@@ -7931,6 +7936,7 @@ private constructor(
                             RETURNED -> Value.RETURNED
                             DUPLICATE_PRESENTMENT -> Value.DUPLICATE_PRESENTMENT
                             NOT_AUTHORIZED -> Value.NOT_AUTHORIZED
+                            ALTERED_OR_FICTITIOUS -> Value.ALTERED_OR_FICTITIOUS
                             else -> Value._UNKNOWN
                         }
 
@@ -7949,6 +7955,7 @@ private constructor(
                             RETURNED -> Known.RETURNED
                             DUPLICATE_PRESENTMENT -> Known.DUPLICATE_PRESENTMENT
                             NOT_AUTHORIZED -> Known.NOT_AUTHORIZED
+                            ALTERED_OR_FICTITIOUS -> Known.ALTERED_OR_FICTITIOUS
                             else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                         }
 

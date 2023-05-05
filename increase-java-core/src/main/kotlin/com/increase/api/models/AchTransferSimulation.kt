@@ -7264,17 +7264,23 @@ private constructor(
                         @JvmField
                         val REFUSED_BY_RECIPIENT = Reason(JsonField.of("refused_by_recipient"))
 
+                        @JvmField
+                        val RETURNED_NOT_AUTHORIZED =
+                            Reason(JsonField.of("returned_not_authorized"))
+
                         @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
                     }
 
                     enum class Known {
                         MAIL_DELIVERY_FAILURE,
                         REFUSED_BY_RECIPIENT,
+                        RETURNED_NOT_AUTHORIZED,
                     }
 
                     enum class Value {
                         MAIL_DELIVERY_FAILURE,
                         REFUSED_BY_RECIPIENT,
+                        RETURNED_NOT_AUTHORIZED,
                         _UNKNOWN,
                     }
 
@@ -7282,6 +7288,7 @@ private constructor(
                         when (this) {
                             MAIL_DELIVERY_FAILURE -> Value.MAIL_DELIVERY_FAILURE
                             REFUSED_BY_RECIPIENT -> Value.REFUSED_BY_RECIPIENT
+                            RETURNED_NOT_AUTHORIZED -> Value.RETURNED_NOT_AUTHORIZED
                             else -> Value._UNKNOWN
                         }
 
@@ -7289,6 +7296,7 @@ private constructor(
                         when (this) {
                             MAIL_DELIVERY_FAILURE -> Known.MAIL_DELIVERY_FAILURE
                             REFUSED_BY_RECIPIENT -> Known.REFUSED_BY_RECIPIENT
+                            RETURNED_NOT_AUTHORIZED -> Known.RETURNED_NOT_AUTHORIZED
                             else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                         }
 
@@ -17600,6 +17608,9 @@ private constructor(
 
                         @JvmField val NOT_AUTHORIZED = Reason(JsonField.of("not_authorized"))
 
+                        @JvmField
+                        val ALTERED_OR_FICTITIOUS = Reason(JsonField.of("altered_or_fictitious"))
+
                         @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
                     }
 
@@ -17617,6 +17628,7 @@ private constructor(
                         RETURNED,
                         DUPLICATE_PRESENTMENT,
                         NOT_AUTHORIZED,
+                        ALTERED_OR_FICTITIOUS,
                     }
 
                     enum class Value {
@@ -17633,6 +17645,7 @@ private constructor(
                         RETURNED,
                         DUPLICATE_PRESENTMENT,
                         NOT_AUTHORIZED,
+                        ALTERED_OR_FICTITIOUS,
                         _UNKNOWN,
                     }
 
@@ -17651,6 +17664,7 @@ private constructor(
                             RETURNED -> Value.RETURNED
                             DUPLICATE_PRESENTMENT -> Value.DUPLICATE_PRESENTMENT
                             NOT_AUTHORIZED -> Value.NOT_AUTHORIZED
+                            ALTERED_OR_FICTITIOUS -> Value.ALTERED_OR_FICTITIOUS
                             else -> Value._UNKNOWN
                         }
 
@@ -17669,6 +17683,7 @@ private constructor(
                             RETURNED -> Known.RETURNED
                             DUPLICATE_PRESENTMENT -> Known.DUPLICATE_PRESENTMENT
                             NOT_AUTHORIZED -> Known.NOT_AUTHORIZED
+                            ALTERED_OR_FICTITIOUS -> Known.ALTERED_OR_FICTITIOUS
                             else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                         }
 

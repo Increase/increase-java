@@ -7216,17 +7216,23 @@ private constructor(
                         @JvmField
                         val REFUSED_BY_RECIPIENT = Reason(JsonField.of("refused_by_recipient"))
 
+                        @JvmField
+                        val RETURNED_NOT_AUTHORIZED =
+                            Reason(JsonField.of("returned_not_authorized"))
+
                         @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
                     }
 
                     enum class Known {
                         MAIL_DELIVERY_FAILURE,
                         REFUSED_BY_RECIPIENT,
+                        RETURNED_NOT_AUTHORIZED,
                     }
 
                     enum class Value {
                         MAIL_DELIVERY_FAILURE,
                         REFUSED_BY_RECIPIENT,
+                        RETURNED_NOT_AUTHORIZED,
                         _UNKNOWN,
                     }
 
@@ -7234,6 +7240,7 @@ private constructor(
                         when (this) {
                             MAIL_DELIVERY_FAILURE -> Value.MAIL_DELIVERY_FAILURE
                             REFUSED_BY_RECIPIENT -> Value.REFUSED_BY_RECIPIENT
+                            RETURNED_NOT_AUTHORIZED -> Value.RETURNED_NOT_AUTHORIZED
                             else -> Value._UNKNOWN
                         }
 
@@ -7241,6 +7248,7 @@ private constructor(
                         when (this) {
                             MAIL_DELIVERY_FAILURE -> Known.MAIL_DELIVERY_FAILURE
                             REFUSED_BY_RECIPIENT -> Known.REFUSED_BY_RECIPIENT
+                            RETURNED_NOT_AUTHORIZED -> Known.RETURNED_NOT_AUTHORIZED
                             else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                         }
 
