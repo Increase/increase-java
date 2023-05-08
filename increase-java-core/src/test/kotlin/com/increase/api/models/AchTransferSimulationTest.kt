@@ -797,6 +797,33 @@ class AchTransferSimulationTest {
                                         .merchantCategoryCode("string")
                                         .build()
                                 )
+                                .wireDecline(
+                                    AchTransferSimulation.DeclinedTransaction.Source.WireDecline
+                                        .builder()
+                                        .amount(123L)
+                                        .reason(
+                                            AchTransferSimulation.DeclinedTransaction.Source
+                                                .WireDecline
+                                                .Reason
+                                                .ACCOUNT_NUMBER_CANCELED
+                                        )
+                                        .description("string")
+                                        .beneficiaryAddressLine1("string")
+                                        .beneficiaryAddressLine2("string")
+                                        .beneficiaryAddressLine3("string")
+                                        .beneficiaryName("string")
+                                        .beneficiaryReference("string")
+                                        .inputMessageAccountabilityData("string")
+                                        .originatorAddressLine1("string")
+                                        .originatorAddressLine2("string")
+                                        .originatorAddressLine3("string")
+                                        .originatorName("string")
+                                        .originatorToBeneficiaryInformationLine1("string")
+                                        .originatorToBeneficiaryInformationLine2("string")
+                                        .originatorToBeneficiaryInformationLine3("string")
+                                        .originatorToBeneficiaryInformationLine4("string")
+                                        .build()
+                                )
                                 .build()
                         )
                         .type(AchTransferSimulation.DeclinedTransaction.Type.DECLINED_TRANSACTION)
@@ -1535,6 +1562,32 @@ class AchTransferSimulationTest {
                                     .merchantDescriptor("string")
                                     .merchantState("string")
                                     .merchantCategoryCode("string")
+                                    .build()
+                            )
+                            .wireDecline(
+                                AchTransferSimulation.DeclinedTransaction.Source.WireDecline
+                                    .builder()
+                                    .amount(123L)
+                                    .reason(
+                                        AchTransferSimulation.DeclinedTransaction.Source.WireDecline
+                                            .Reason
+                                            .ACCOUNT_NUMBER_CANCELED
+                                    )
+                                    .description("string")
+                                    .beneficiaryAddressLine1("string")
+                                    .beneficiaryAddressLine2("string")
+                                    .beneficiaryAddressLine3("string")
+                                    .beneficiaryName("string")
+                                    .beneficiaryReference("string")
+                                    .inputMessageAccountabilityData("string")
+                                    .originatorAddressLine1("string")
+                                    .originatorAddressLine2("string")
+                                    .originatorAddressLine3("string")
+                                    .originatorName("string")
+                                    .originatorToBeneficiaryInformationLine1("string")
+                                    .originatorToBeneficiaryInformationLine2("string")
+                                    .originatorToBeneficiaryInformationLine3("string")
+                                    .originatorToBeneficiaryInformationLine4("string")
                                     .build()
                             )
                             .build()

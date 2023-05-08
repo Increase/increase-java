@@ -549,6 +549,7 @@ private constructor(
             JsonField<InboundRealTimePaymentsTransferDecline>,
         private val internationalAchDecline: JsonField<InternationalAchDecline>,
         private val cardRouteDecline: JsonField<CardRouteDecline>,
+        private val wireDecline: JsonField<WireDecline>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -611,6 +612,13 @@ private constructor(
             Optional.ofNullable(cardRouteDecline.getNullable("card_route_decline"))
 
         /**
+         * A Wire Decline object. This field will be present in the JSON response if and only if
+         * `category` is equal to `wire_decline`.
+         */
+        fun wireDecline(): Optional<WireDecline> =
+            Optional.ofNullable(wireDecline.getNullable("wire_decline"))
+
+        /**
          * The type of decline that took place. We may add additional possible values for this enum
          * over time; your application should be able to handle such additions gracefully.
          */
@@ -659,6 +667,12 @@ private constructor(
         @ExcludeMissing
         fun _cardRouteDecline() = cardRouteDecline
 
+        /**
+         * A Wire Decline object. This field will be present in the JSON response if and only if
+         * `category` is equal to `wire_decline`.
+         */
+        @JsonProperty("wire_decline") @ExcludeMissing fun _wireDecline() = wireDecline
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -672,6 +686,7 @@ private constructor(
                 inboundRealTimePaymentsTransferDecline().map { it.validate() }
                 internationalAchDecline().map { it.validate() }
                 cardRouteDecline().map { it.validate() }
+                wireDecline().map { it.validate() }
                 validated = true
             }
         }
@@ -692,6 +707,7 @@ private constructor(
                     other.inboundRealTimePaymentsTransferDecline &&
                 this.internationalAchDecline == other.internationalAchDecline &&
                 this.cardRouteDecline == other.cardRouteDecline &&
+                this.wireDecline == other.wireDecline &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -706,6 +722,7 @@ private constructor(
                         inboundRealTimePaymentsTransferDecline,
                         internationalAchDecline,
                         cardRouteDecline,
+                        wireDecline,
                         additionalProperties,
                     )
             }
@@ -713,7 +730,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Source{category=$category, achDecline=$achDecline, cardDecline=$cardDecline, checkDecline=$checkDecline, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, internationalAchDecline=$internationalAchDecline, cardRouteDecline=$cardRouteDecline, additionalProperties=$additionalProperties}"
+            "Source{category=$category, achDecline=$achDecline, cardDecline=$cardDecline, checkDecline=$checkDecline, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, internationalAchDecline=$internationalAchDecline, cardRouteDecline=$cardRouteDecline, wireDecline=$wireDecline, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -732,6 +749,7 @@ private constructor(
             private var internationalAchDecline: JsonField<InternationalAchDecline> =
                 JsonMissing.of()
             private var cardRouteDecline: JsonField<CardRouteDecline> = JsonMissing.of()
+            private var wireDecline: JsonField<WireDecline> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -744,6 +762,7 @@ private constructor(
                     source.inboundRealTimePaymentsTransferDecline
                 this.internationalAchDecline = source.internationalAchDecline
                 this.cardRouteDecline = source.cardRouteDecline
+                this.wireDecline = source.wireDecline
                 additionalProperties(source.additionalProperties)
             }
 
@@ -869,6 +888,22 @@ private constructor(
                 this.cardRouteDecline = cardRouteDecline
             }
 
+            /**
+             * A Wire Decline object. This field will be present in the JSON response if and only if
+             * `category` is equal to `wire_decline`.
+             */
+            fun wireDecline(wireDecline: WireDecline) = wireDecline(JsonField.of(wireDecline))
+
+            /**
+             * A Wire Decline object. This field will be present in the JSON response if and only if
+             * `category` is equal to `wire_decline`.
+             */
+            @JsonProperty("wire_decline")
+            @ExcludeMissing
+            fun wireDecline(wireDecline: JsonField<WireDecline>) = apply {
+                this.wireDecline = wireDecline
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -892,6 +927,7 @@ private constructor(
                     inboundRealTimePaymentsTransferDecline,
                     internationalAchDecline,
                     cardRouteDecline,
+                    wireDecline,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -933,6 +969,8 @@ private constructor(
 
                 @JvmField val CARD_ROUTE_DECLINE = Category(JsonField.of("card_route_decline"))
 
+                @JvmField val WIRE_DECLINE = Category(JsonField.of("wire_decline"))
+
                 @JvmField val OTHER = Category(JsonField.of("other"))
 
                 @JvmStatic fun of(value: String) = Category(JsonField.of(value))
@@ -945,6 +983,7 @@ private constructor(
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
                 INTERNATIONAL_ACH_DECLINE,
                 CARD_ROUTE_DECLINE,
+                WIRE_DECLINE,
                 OTHER,
             }
 
@@ -955,6 +994,7 @@ private constructor(
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
                 INTERNATIONAL_ACH_DECLINE,
                 CARD_ROUTE_DECLINE,
+                WIRE_DECLINE,
                 OTHER,
                 _UNKNOWN,
             }
@@ -968,6 +1008,7 @@ private constructor(
                         Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
                     INTERNATIONAL_ACH_DECLINE -> Value.INTERNATIONAL_ACH_DECLINE
                     CARD_ROUTE_DECLINE -> Value.CARD_ROUTE_DECLINE
+                    WIRE_DECLINE -> Value.WIRE_DECLINE
                     OTHER -> Value.OTHER
                     else -> Value._UNKNOWN
                 }
@@ -981,6 +1022,7 @@ private constructor(
                         Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
                     INTERNATIONAL_ACH_DECLINE -> Known.INTERNATIONAL_ACH_DECLINE
                     CARD_ROUTE_DECLINE -> Known.CARD_ROUTE_DECLINE
+                    WIRE_DECLINE -> Known.WIRE_DECLINE
                     OTHER -> Known.OTHER
                     else -> throw IncreaseInvalidDataException("Unknown Category: $value")
                 }
@@ -4769,6 +4811,632 @@ private constructor(
                         JPY -> Known.JPY
                         USD -> Known.USD
                         else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+                    }
+
+                fun asString(): String = _value().asStringOrThrow()
+            }
+        }
+
+        /**
+         * A Wire Decline object. This field will be present in the JSON response if and only if
+         * `category` is equal to `wire_decline`.
+         */
+        @JsonDeserialize(builder = WireDecline.Builder::class)
+        @NoAutoDetect
+        class WireDecline
+        private constructor(
+            private val amount: JsonField<Long>,
+            private val reason: JsonField<Reason>,
+            private val description: JsonField<String>,
+            private val beneficiaryAddressLine1: JsonField<String>,
+            private val beneficiaryAddressLine2: JsonField<String>,
+            private val beneficiaryAddressLine3: JsonField<String>,
+            private val beneficiaryName: JsonField<String>,
+            private val beneficiaryReference: JsonField<String>,
+            private val inputMessageAccountabilityData: JsonField<String>,
+            private val originatorAddressLine1: JsonField<String>,
+            private val originatorAddressLine2: JsonField<String>,
+            private val originatorAddressLine3: JsonField<String>,
+            private val originatorName: JsonField<String>,
+            private val originatorToBeneficiaryInformationLine1: JsonField<String>,
+            private val originatorToBeneficiaryInformationLine2: JsonField<String>,
+            private val originatorToBeneficiaryInformationLine3: JsonField<String>,
+            private val originatorToBeneficiaryInformationLine4: JsonField<String>,
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
+
+            private var validated: Boolean = false
+
+            private var hashCode: Int = 0
+
+            /**
+             * The declined amount in the minor unit of the destination account currency. For
+             * dollars, for example, this is cents.
+             */
+            fun amount(): Long = amount.getRequired("amount")
+
+            /** Why the wire transfer was declined. */
+            fun reason(): Reason = reason.getRequired("reason")
+
+            fun description(): String = description.getRequired("description")
+
+            fun beneficiaryAddressLine1(): Optional<String> =
+                Optional.ofNullable(
+                    beneficiaryAddressLine1.getNullable("beneficiary_address_line1")
+                )
+
+            fun beneficiaryAddressLine2(): Optional<String> =
+                Optional.ofNullable(
+                    beneficiaryAddressLine2.getNullable("beneficiary_address_line2")
+                )
+
+            fun beneficiaryAddressLine3(): Optional<String> =
+                Optional.ofNullable(
+                    beneficiaryAddressLine3.getNullable("beneficiary_address_line3")
+                )
+
+            fun beneficiaryName(): Optional<String> =
+                Optional.ofNullable(beneficiaryName.getNullable("beneficiary_name"))
+
+            fun beneficiaryReference(): Optional<String> =
+                Optional.ofNullable(beneficiaryReference.getNullable("beneficiary_reference"))
+
+            fun inputMessageAccountabilityData(): Optional<String> =
+                Optional.ofNullable(
+                    inputMessageAccountabilityData.getNullable("input_message_accountability_data")
+                )
+
+            fun originatorAddressLine1(): Optional<String> =
+                Optional.ofNullable(originatorAddressLine1.getNullable("originator_address_line1"))
+
+            fun originatorAddressLine2(): Optional<String> =
+                Optional.ofNullable(originatorAddressLine2.getNullable("originator_address_line2"))
+
+            fun originatorAddressLine3(): Optional<String> =
+                Optional.ofNullable(originatorAddressLine3.getNullable("originator_address_line3"))
+
+            fun originatorName(): Optional<String> =
+                Optional.ofNullable(originatorName.getNullable("originator_name"))
+
+            fun originatorToBeneficiaryInformationLine1(): Optional<String> =
+                Optional.ofNullable(
+                    originatorToBeneficiaryInformationLine1.getNullable(
+                        "originator_to_beneficiary_information_line1"
+                    )
+                )
+
+            fun originatorToBeneficiaryInformationLine2(): Optional<String> =
+                Optional.ofNullable(
+                    originatorToBeneficiaryInformationLine2.getNullable(
+                        "originator_to_beneficiary_information_line2"
+                    )
+                )
+
+            fun originatorToBeneficiaryInformationLine3(): Optional<String> =
+                Optional.ofNullable(
+                    originatorToBeneficiaryInformationLine3.getNullable(
+                        "originator_to_beneficiary_information_line3"
+                    )
+                )
+
+            fun originatorToBeneficiaryInformationLine4(): Optional<String> =
+                Optional.ofNullable(
+                    originatorToBeneficiaryInformationLine4.getNullable(
+                        "originator_to_beneficiary_information_line4"
+                    )
+                )
+
+            /**
+             * The declined amount in the minor unit of the destination account currency. For
+             * dollars, for example, this is cents.
+             */
+            @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+            /** Why the wire transfer was declined. */
+            @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
+
+            @JsonProperty("description") @ExcludeMissing fun _description() = description
+
+            @JsonProperty("beneficiary_address_line1")
+            @ExcludeMissing
+            fun _beneficiaryAddressLine1() = beneficiaryAddressLine1
+
+            @JsonProperty("beneficiary_address_line2")
+            @ExcludeMissing
+            fun _beneficiaryAddressLine2() = beneficiaryAddressLine2
+
+            @JsonProperty("beneficiary_address_line3")
+            @ExcludeMissing
+            fun _beneficiaryAddressLine3() = beneficiaryAddressLine3
+
+            @JsonProperty("beneficiary_name")
+            @ExcludeMissing
+            fun _beneficiaryName() = beneficiaryName
+
+            @JsonProperty("beneficiary_reference")
+            @ExcludeMissing
+            fun _beneficiaryReference() = beneficiaryReference
+
+            @JsonProperty("input_message_accountability_data")
+            @ExcludeMissing
+            fun _inputMessageAccountabilityData() = inputMessageAccountabilityData
+
+            @JsonProperty("originator_address_line1")
+            @ExcludeMissing
+            fun _originatorAddressLine1() = originatorAddressLine1
+
+            @JsonProperty("originator_address_line2")
+            @ExcludeMissing
+            fun _originatorAddressLine2() = originatorAddressLine2
+
+            @JsonProperty("originator_address_line3")
+            @ExcludeMissing
+            fun _originatorAddressLine3() = originatorAddressLine3
+
+            @JsonProperty("originator_name") @ExcludeMissing fun _originatorName() = originatorName
+
+            @JsonProperty("originator_to_beneficiary_information_line1")
+            @ExcludeMissing
+            fun _originatorToBeneficiaryInformationLine1() = originatorToBeneficiaryInformationLine1
+
+            @JsonProperty("originator_to_beneficiary_information_line2")
+            @ExcludeMissing
+            fun _originatorToBeneficiaryInformationLine2() = originatorToBeneficiaryInformationLine2
+
+            @JsonProperty("originator_to_beneficiary_information_line3")
+            @ExcludeMissing
+            fun _originatorToBeneficiaryInformationLine3() = originatorToBeneficiaryInformationLine3
+
+            @JsonProperty("originator_to_beneficiary_information_line4")
+            @ExcludeMissing
+            fun _originatorToBeneficiaryInformationLine4() = originatorToBeneficiaryInformationLine4
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun validate() = apply {
+                if (!validated) {
+                    amount()
+                    reason()
+                    description()
+                    beneficiaryAddressLine1()
+                    beneficiaryAddressLine2()
+                    beneficiaryAddressLine3()
+                    beneficiaryName()
+                    beneficiaryReference()
+                    inputMessageAccountabilityData()
+                    originatorAddressLine1()
+                    originatorAddressLine2()
+                    originatorAddressLine3()
+                    originatorName()
+                    originatorToBeneficiaryInformationLine1()
+                    originatorToBeneficiaryInformationLine2()
+                    originatorToBeneficiaryInformationLine3()
+                    originatorToBeneficiaryInformationLine4()
+                    validated = true
+                }
+            }
+
+            fun toBuilder() = Builder().from(this)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is WireDecline &&
+                    this.amount == other.amount &&
+                    this.reason == other.reason &&
+                    this.description == other.description &&
+                    this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
+                    this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
+                    this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
+                    this.beneficiaryName == other.beneficiaryName &&
+                    this.beneficiaryReference == other.beneficiaryReference &&
+                    this.inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
+                    this.originatorAddressLine1 == other.originatorAddressLine1 &&
+                    this.originatorAddressLine2 == other.originatorAddressLine2 &&
+                    this.originatorAddressLine3 == other.originatorAddressLine3 &&
+                    this.originatorName == other.originatorName &&
+                    this.originatorToBeneficiaryInformationLine1 ==
+                        other.originatorToBeneficiaryInformationLine1 &&
+                    this.originatorToBeneficiaryInformationLine2 ==
+                        other.originatorToBeneficiaryInformationLine2 &&
+                    this.originatorToBeneficiaryInformationLine3 ==
+                        other.originatorToBeneficiaryInformationLine3 &&
+                    this.originatorToBeneficiaryInformationLine4 ==
+                        other.originatorToBeneficiaryInformationLine4 &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            amount,
+                            reason,
+                            description,
+                            beneficiaryAddressLine1,
+                            beneficiaryAddressLine2,
+                            beneficiaryAddressLine3,
+                            beneficiaryName,
+                            beneficiaryReference,
+                            inputMessageAccountabilityData,
+                            originatorAddressLine1,
+                            originatorAddressLine2,
+                            originatorAddressLine3,
+                            originatorName,
+                            originatorToBeneficiaryInformationLine1,
+                            originatorToBeneficiaryInformationLine2,
+                            originatorToBeneficiaryInformationLine3,
+                            originatorToBeneficiaryInformationLine4,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "WireDecline{amount=$amount, reason=$reason, description=$description, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, inputMessageAccountabilityData=$inputMessageAccountabilityData, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, additionalProperties=$additionalProperties}"
+
+            companion object {
+
+                @JvmStatic fun builder() = Builder()
+            }
+
+            class Builder {
+
+                private var amount: JsonField<Long> = JsonMissing.of()
+                private var reason: JsonField<Reason> = JsonMissing.of()
+                private var description: JsonField<String> = JsonMissing.of()
+                private var beneficiaryAddressLine1: JsonField<String> = JsonMissing.of()
+                private var beneficiaryAddressLine2: JsonField<String> = JsonMissing.of()
+                private var beneficiaryAddressLine3: JsonField<String> = JsonMissing.of()
+                private var beneficiaryName: JsonField<String> = JsonMissing.of()
+                private var beneficiaryReference: JsonField<String> = JsonMissing.of()
+                private var inputMessageAccountabilityData: JsonField<String> = JsonMissing.of()
+                private var originatorAddressLine1: JsonField<String> = JsonMissing.of()
+                private var originatorAddressLine2: JsonField<String> = JsonMissing.of()
+                private var originatorAddressLine3: JsonField<String> = JsonMissing.of()
+                private var originatorName: JsonField<String> = JsonMissing.of()
+                private var originatorToBeneficiaryInformationLine1: JsonField<String> =
+                    JsonMissing.of()
+                private var originatorToBeneficiaryInformationLine2: JsonField<String> =
+                    JsonMissing.of()
+                private var originatorToBeneficiaryInformationLine3: JsonField<String> =
+                    JsonMissing.of()
+                private var originatorToBeneficiaryInformationLine4: JsonField<String> =
+                    JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(wireDecline: WireDecline) = apply {
+                    this.amount = wireDecline.amount
+                    this.reason = wireDecline.reason
+                    this.description = wireDecline.description
+                    this.beneficiaryAddressLine1 = wireDecline.beneficiaryAddressLine1
+                    this.beneficiaryAddressLine2 = wireDecline.beneficiaryAddressLine2
+                    this.beneficiaryAddressLine3 = wireDecline.beneficiaryAddressLine3
+                    this.beneficiaryName = wireDecline.beneficiaryName
+                    this.beneficiaryReference = wireDecline.beneficiaryReference
+                    this.inputMessageAccountabilityData = wireDecline.inputMessageAccountabilityData
+                    this.originatorAddressLine1 = wireDecline.originatorAddressLine1
+                    this.originatorAddressLine2 = wireDecline.originatorAddressLine2
+                    this.originatorAddressLine3 = wireDecline.originatorAddressLine3
+                    this.originatorName = wireDecline.originatorName
+                    this.originatorToBeneficiaryInformationLine1 =
+                        wireDecline.originatorToBeneficiaryInformationLine1
+                    this.originatorToBeneficiaryInformationLine2 =
+                        wireDecline.originatorToBeneficiaryInformationLine2
+                    this.originatorToBeneficiaryInformationLine3 =
+                        wireDecline.originatorToBeneficiaryInformationLine3
+                    this.originatorToBeneficiaryInformationLine4 =
+                        wireDecline.originatorToBeneficiaryInformationLine4
+                    additionalProperties(wireDecline.additionalProperties)
+                }
+
+                /**
+                 * The declined amount in the minor unit of the destination account currency. For
+                 * dollars, for example, this is cents.
+                 */
+                fun amount(amount: Long) = amount(JsonField.of(amount))
+
+                /**
+                 * The declined amount in the minor unit of the destination account currency. For
+                 * dollars, for example, this is cents.
+                 */
+                @JsonProperty("amount")
+                @ExcludeMissing
+                fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+                /** Why the wire transfer was declined. */
+                fun reason(reason: Reason) = reason(JsonField.of(reason))
+
+                /** Why the wire transfer was declined. */
+                @JsonProperty("reason")
+                @ExcludeMissing
+                fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
+
+                fun description(description: String) = description(JsonField.of(description))
+
+                @JsonProperty("description")
+                @ExcludeMissing
+                fun description(description: JsonField<String>) = apply {
+                    this.description = description
+                }
+
+                fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) =
+                    beneficiaryAddressLine1(JsonField.of(beneficiaryAddressLine1))
+
+                @JsonProperty("beneficiary_address_line1")
+                @ExcludeMissing
+                fun beneficiaryAddressLine1(beneficiaryAddressLine1: JsonField<String>) = apply {
+                    this.beneficiaryAddressLine1 = beneficiaryAddressLine1
+                }
+
+                fun beneficiaryAddressLine2(beneficiaryAddressLine2: String) =
+                    beneficiaryAddressLine2(JsonField.of(beneficiaryAddressLine2))
+
+                @JsonProperty("beneficiary_address_line2")
+                @ExcludeMissing
+                fun beneficiaryAddressLine2(beneficiaryAddressLine2: JsonField<String>) = apply {
+                    this.beneficiaryAddressLine2 = beneficiaryAddressLine2
+                }
+
+                fun beneficiaryAddressLine3(beneficiaryAddressLine3: String) =
+                    beneficiaryAddressLine3(JsonField.of(beneficiaryAddressLine3))
+
+                @JsonProperty("beneficiary_address_line3")
+                @ExcludeMissing
+                fun beneficiaryAddressLine3(beneficiaryAddressLine3: JsonField<String>) = apply {
+                    this.beneficiaryAddressLine3 = beneficiaryAddressLine3
+                }
+
+                fun beneficiaryName(beneficiaryName: String) =
+                    beneficiaryName(JsonField.of(beneficiaryName))
+
+                @JsonProperty("beneficiary_name")
+                @ExcludeMissing
+                fun beneficiaryName(beneficiaryName: JsonField<String>) = apply {
+                    this.beneficiaryName = beneficiaryName
+                }
+
+                fun beneficiaryReference(beneficiaryReference: String) =
+                    beneficiaryReference(JsonField.of(beneficiaryReference))
+
+                @JsonProperty("beneficiary_reference")
+                @ExcludeMissing
+                fun beneficiaryReference(beneficiaryReference: JsonField<String>) = apply {
+                    this.beneficiaryReference = beneficiaryReference
+                }
+
+                fun inputMessageAccountabilityData(inputMessageAccountabilityData: String) =
+                    inputMessageAccountabilityData(JsonField.of(inputMessageAccountabilityData))
+
+                @JsonProperty("input_message_accountability_data")
+                @ExcludeMissing
+                fun inputMessageAccountabilityData(
+                    inputMessageAccountabilityData: JsonField<String>
+                ) = apply { this.inputMessageAccountabilityData = inputMessageAccountabilityData }
+
+                fun originatorAddressLine1(originatorAddressLine1: String) =
+                    originatorAddressLine1(JsonField.of(originatorAddressLine1))
+
+                @JsonProperty("originator_address_line1")
+                @ExcludeMissing
+                fun originatorAddressLine1(originatorAddressLine1: JsonField<String>) = apply {
+                    this.originatorAddressLine1 = originatorAddressLine1
+                }
+
+                fun originatorAddressLine2(originatorAddressLine2: String) =
+                    originatorAddressLine2(JsonField.of(originatorAddressLine2))
+
+                @JsonProperty("originator_address_line2")
+                @ExcludeMissing
+                fun originatorAddressLine2(originatorAddressLine2: JsonField<String>) = apply {
+                    this.originatorAddressLine2 = originatorAddressLine2
+                }
+
+                fun originatorAddressLine3(originatorAddressLine3: String) =
+                    originatorAddressLine3(JsonField.of(originatorAddressLine3))
+
+                @JsonProperty("originator_address_line3")
+                @ExcludeMissing
+                fun originatorAddressLine3(originatorAddressLine3: JsonField<String>) = apply {
+                    this.originatorAddressLine3 = originatorAddressLine3
+                }
+
+                fun originatorName(originatorName: String) =
+                    originatorName(JsonField.of(originatorName))
+
+                @JsonProperty("originator_name")
+                @ExcludeMissing
+                fun originatorName(originatorName: JsonField<String>) = apply {
+                    this.originatorName = originatorName
+                }
+
+                fun originatorToBeneficiaryInformationLine1(
+                    originatorToBeneficiaryInformationLine1: String
+                ) =
+                    originatorToBeneficiaryInformationLine1(
+                        JsonField.of(originatorToBeneficiaryInformationLine1)
+                    )
+
+                @JsonProperty("originator_to_beneficiary_information_line1")
+                @ExcludeMissing
+                fun originatorToBeneficiaryInformationLine1(
+                    originatorToBeneficiaryInformationLine1: JsonField<String>
+                ) = apply {
+                    this.originatorToBeneficiaryInformationLine1 =
+                        originatorToBeneficiaryInformationLine1
+                }
+
+                fun originatorToBeneficiaryInformationLine2(
+                    originatorToBeneficiaryInformationLine2: String
+                ) =
+                    originatorToBeneficiaryInformationLine2(
+                        JsonField.of(originatorToBeneficiaryInformationLine2)
+                    )
+
+                @JsonProperty("originator_to_beneficiary_information_line2")
+                @ExcludeMissing
+                fun originatorToBeneficiaryInformationLine2(
+                    originatorToBeneficiaryInformationLine2: JsonField<String>
+                ) = apply {
+                    this.originatorToBeneficiaryInformationLine2 =
+                        originatorToBeneficiaryInformationLine2
+                }
+
+                fun originatorToBeneficiaryInformationLine3(
+                    originatorToBeneficiaryInformationLine3: String
+                ) =
+                    originatorToBeneficiaryInformationLine3(
+                        JsonField.of(originatorToBeneficiaryInformationLine3)
+                    )
+
+                @JsonProperty("originator_to_beneficiary_information_line3")
+                @ExcludeMissing
+                fun originatorToBeneficiaryInformationLine3(
+                    originatorToBeneficiaryInformationLine3: JsonField<String>
+                ) = apply {
+                    this.originatorToBeneficiaryInformationLine3 =
+                        originatorToBeneficiaryInformationLine3
+                }
+
+                fun originatorToBeneficiaryInformationLine4(
+                    originatorToBeneficiaryInformationLine4: String
+                ) =
+                    originatorToBeneficiaryInformationLine4(
+                        JsonField.of(originatorToBeneficiaryInformationLine4)
+                    )
+
+                @JsonProperty("originator_to_beneficiary_information_line4")
+                @ExcludeMissing
+                fun originatorToBeneficiaryInformationLine4(
+                    originatorToBeneficiaryInformationLine4: JsonField<String>
+                ) = apply {
+                    this.originatorToBeneficiaryInformationLine4 =
+                        originatorToBeneficiaryInformationLine4
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                @JsonAnySetter
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    this.additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun build(): WireDecline =
+                    WireDecline(
+                        amount,
+                        reason,
+                        description,
+                        beneficiaryAddressLine1,
+                        beneficiaryAddressLine2,
+                        beneficiaryAddressLine3,
+                        beneficiaryName,
+                        beneficiaryReference,
+                        inputMessageAccountabilityData,
+                        originatorAddressLine1,
+                        originatorAddressLine2,
+                        originatorAddressLine3,
+                        originatorName,
+                        originatorToBeneficiaryInformationLine1,
+                        originatorToBeneficiaryInformationLine2,
+                        originatorToBeneficiaryInformationLine3,
+                        originatorToBeneficiaryInformationLine4,
+                        additionalProperties.toUnmodifiable(),
+                    )
+            }
+
+            class Reason
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) {
+
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Reason && this.value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+
+                companion object {
+
+                    @JvmField
+                    val ACCOUNT_NUMBER_CANCELED = Reason(JsonField.of("account_number_canceled"))
+
+                    @JvmField
+                    val ACCOUNT_NUMBER_DISABLED = Reason(JsonField.of("account_number_disabled"))
+
+                    @JvmField val ENTITY_NOT_ACTIVE = Reason(JsonField.of("entity_not_active"))
+
+                    @JvmField val GROUP_LOCKED = Reason(JsonField.of("group_locked"))
+
+                    @JvmField val NO_ACCOUNT_NUMBER = Reason(JsonField.of("no_account_number"))
+
+                    @JvmField
+                    val TRANSACTION_NOT_ALLOWED = Reason(JsonField.of("transaction_not_allowed"))
+
+                    @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
+                }
+
+                enum class Known {
+                    ACCOUNT_NUMBER_CANCELED,
+                    ACCOUNT_NUMBER_DISABLED,
+                    ENTITY_NOT_ACTIVE,
+                    GROUP_LOCKED,
+                    NO_ACCOUNT_NUMBER,
+                    TRANSACTION_NOT_ALLOWED,
+                }
+
+                enum class Value {
+                    ACCOUNT_NUMBER_CANCELED,
+                    ACCOUNT_NUMBER_DISABLED,
+                    ENTITY_NOT_ACTIVE,
+                    GROUP_LOCKED,
+                    NO_ACCOUNT_NUMBER,
+                    TRANSACTION_NOT_ALLOWED,
+                    _UNKNOWN,
+                }
+
+                fun value(): Value =
+                    when (this) {
+                        ACCOUNT_NUMBER_CANCELED -> Value.ACCOUNT_NUMBER_CANCELED
+                        ACCOUNT_NUMBER_DISABLED -> Value.ACCOUNT_NUMBER_DISABLED
+                        ENTITY_NOT_ACTIVE -> Value.ENTITY_NOT_ACTIVE
+                        GROUP_LOCKED -> Value.GROUP_LOCKED
+                        NO_ACCOUNT_NUMBER -> Value.NO_ACCOUNT_NUMBER
+                        TRANSACTION_NOT_ALLOWED -> Value.TRANSACTION_NOT_ALLOWED
+                        else -> Value._UNKNOWN
+                    }
+
+                fun known(): Known =
+                    when (this) {
+                        ACCOUNT_NUMBER_CANCELED -> Known.ACCOUNT_NUMBER_CANCELED
+                        ACCOUNT_NUMBER_DISABLED -> Known.ACCOUNT_NUMBER_DISABLED
+                        ENTITY_NOT_ACTIVE -> Known.ENTITY_NOT_ACTIVE
+                        GROUP_LOCKED -> Known.GROUP_LOCKED
+                        NO_ACCOUNT_NUMBER -> Known.NO_ACCOUNT_NUMBER
+                        TRANSACTION_NOT_ALLOWED -> Known.TRANSACTION_NOT_ALLOWED
+                        else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                     }
 
                 fun asString(): String = _value().asStringOrThrow()
