@@ -484,8 +484,6 @@ constructor(
                 val CHECK_TRANSFER_STOP_PAYMENT_REQUEST =
                     In(JsonField.of("check_transfer_stop_payment_request"))
 
-                @JvmField val COLLECTION_RECEIVABLE = In(JsonField.of("collection_receivable"))
-
                 @JvmField val DISPUTE_RESOLUTION = In(JsonField.of("dispute_resolution"))
 
                 @JvmField val EMPYREAL_CASH_DEPOSIT = In(JsonField.of("empyreal_cash_deposit"))
@@ -572,7 +570,6 @@ constructor(
                 CHECK_TRANSFER_RETURN,
                 CHECK_TRANSFER_REJECTION,
                 CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
-                COLLECTION_RECEIVABLE,
                 DISPUTE_RESOLUTION,
                 EMPYREAL_CASH_DEPOSIT,
                 FEE_PAYMENT,
@@ -616,7 +613,6 @@ constructor(
                 CHECK_TRANSFER_RETURN,
                 CHECK_TRANSFER_REJECTION,
                 CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
-                COLLECTION_RECEIVABLE,
                 DISPUTE_RESOLUTION,
                 EMPYREAL_CASH_DEPOSIT,
                 FEE_PAYMENT,
@@ -662,7 +658,6 @@ constructor(
                     CHECK_TRANSFER_RETURN -> Value.CHECK_TRANSFER_RETURN
                     CHECK_TRANSFER_REJECTION -> Value.CHECK_TRANSFER_REJECTION
                     CHECK_TRANSFER_STOP_PAYMENT_REQUEST -> Value.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
-                    COLLECTION_RECEIVABLE -> Value.COLLECTION_RECEIVABLE
                     DISPUTE_RESOLUTION -> Value.DISPUTE_RESOLUTION
                     EMPYREAL_CASH_DEPOSIT -> Value.EMPYREAL_CASH_DEPOSIT
                     FEE_PAYMENT -> Value.FEE_PAYMENT
@@ -712,7 +707,6 @@ constructor(
                     CHECK_TRANSFER_RETURN -> Known.CHECK_TRANSFER_RETURN
                     CHECK_TRANSFER_REJECTION -> Known.CHECK_TRANSFER_REJECTION
                     CHECK_TRANSFER_STOP_PAYMENT_REQUEST -> Known.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
-                    COLLECTION_RECEIVABLE -> Known.COLLECTION_RECEIVABLE
                     DISPUTE_RESOLUTION -> Known.DISPUTE_RESOLUTION
                     EMPYREAL_CASH_DEPOSIT -> Known.EMPYREAL_CASH_DEPOSIT
                     FEE_PAYMENT -> Known.FEE_PAYMENT

@@ -391,6 +391,10 @@ constructor(
                 val PLATFORM_COMPLIANCE_METRICS_SUBMISSION =
                     In(JsonField.of("platform_compliance_metrics_submission"))
 
+                @JvmField
+                val CONSUMER_PLATFORM_COMPLIANCE_METRICS_SUBMISSION =
+                    In(JsonField.of("consumer_platform_compliance_metrics_submission"))
+
                 @JvmField val PROGRAM_RISK_ASSESSMENT = In(JsonField.of("program_risk_assessment"))
 
                 @JvmField val SECURITY_AUDIT_REPORT = In(JsonField.of("security_audit_report"))
@@ -459,6 +463,7 @@ constructor(
                 ONBOARDING_QUESTIONNAIRE,
                 PENETRATION_TEST_REPORT,
                 PLATFORM_COMPLIANCE_METRICS_SUBMISSION,
+                CONSUMER_PLATFORM_COMPLIANCE_METRICS_SUBMISSION,
                 PROGRAM_RISK_ASSESSMENT,
                 SECURITY_AUDIT_REPORT,
                 SERVICING_POLICY,
@@ -510,6 +515,7 @@ constructor(
                 ONBOARDING_QUESTIONNAIRE,
                 PENETRATION_TEST_REPORT,
                 PLATFORM_COMPLIANCE_METRICS_SUBMISSION,
+                CONSUMER_PLATFORM_COMPLIANCE_METRICS_SUBMISSION,
                 PROGRAM_RISK_ASSESSMENT,
                 SECURITY_AUDIT_REPORT,
                 SERVICING_POLICY,
@@ -564,6 +570,8 @@ constructor(
                     PENETRATION_TEST_REPORT -> Value.PENETRATION_TEST_REPORT
                     PLATFORM_COMPLIANCE_METRICS_SUBMISSION ->
                         Value.PLATFORM_COMPLIANCE_METRICS_SUBMISSION
+                    CONSUMER_PLATFORM_COMPLIANCE_METRICS_SUBMISSION ->
+                        Value.CONSUMER_PLATFORM_COMPLIANCE_METRICS_SUBMISSION
                     PROGRAM_RISK_ASSESSMENT -> Value.PROGRAM_RISK_ASSESSMENT
                     SECURITY_AUDIT_REPORT -> Value.SECURITY_AUDIT_REPORT
                     SERVICING_POLICY -> Value.SERVICING_POLICY
@@ -618,6 +626,8 @@ constructor(
                     PENETRATION_TEST_REPORT -> Known.PENETRATION_TEST_REPORT
                     PLATFORM_COMPLIANCE_METRICS_SUBMISSION ->
                         Known.PLATFORM_COMPLIANCE_METRICS_SUBMISSION
+                    CONSUMER_PLATFORM_COMPLIANCE_METRICS_SUBMISSION ->
+                        Known.CONSUMER_PLATFORM_COMPLIANCE_METRICS_SUBMISSION
                     PROGRAM_RISK_ASSESSMENT -> Known.PROGRAM_RISK_ASSESSMENT
                     SECURITY_AUDIT_REPORT -> Known.SECURITY_AUDIT_REPORT
                     SERVICING_POLICY -> Known.SERVICING_POLICY
