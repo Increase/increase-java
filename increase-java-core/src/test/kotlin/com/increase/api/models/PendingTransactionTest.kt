@@ -73,6 +73,7 @@ class PendingTransactionTest {
                                 .currency(PendingTransaction.Source.CardAuthorization.Currency.CAD)
                                 .realTimeDecisionId("string")
                                 .digitalWalletTokenId("string")
+                                .pendingTransactionId("string")
                                 .type(
                                     PendingTransaction.Source.CardAuthorization.Type
                                         .CARD_AUTHORIZATION
@@ -218,6 +219,7 @@ class PendingTransactionTest {
                             .currency(PendingTransaction.Source.CardAuthorization.Currency.CAD)
                             .realTimeDecisionId("string")
                             .digitalWalletTokenId("string")
+                            .pendingTransactionId("string")
                             .type(
                                 PendingTransaction.Source.CardAuthorization.Type.CARD_AUTHORIZATION
                             )

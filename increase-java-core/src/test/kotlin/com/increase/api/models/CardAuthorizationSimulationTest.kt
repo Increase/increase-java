@@ -105,6 +105,7 @@ class CardAuthorizationSimulationTest {
                                         )
                                         .realTimeDecisionId("string")
                                         .digitalWalletTokenId("string")
+                                        .pendingTransactionId("string")
                                         .type(
                                             CardAuthorizationSimulation.PendingTransaction.Source
                                                 .CardAuthorization
@@ -568,6 +569,7 @@ class CardAuthorizationSimulationTest {
                                     )
                                     .realTimeDecisionId("string")
                                     .digitalWalletTokenId("string")
+                                    .pendingTransactionId("string")
                                     .type(
                                         CardAuthorizationSimulation.PendingTransaction.Source
                                             .CardAuthorization
