@@ -262,7 +262,7 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    fun validate() = apply {
+    fun validate(): CheckTransfer = apply {
         if (!validated) {
             accountId()
             addressLine1()
@@ -801,7 +801,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): ReturnAddress = apply {
             if (!validated) {
                 name()
                 line1()
@@ -1075,7 +1075,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): Approval = apply {
             if (!validated) {
                 approvedAt()
                 approvedBy()
@@ -1226,7 +1226,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): Cancellation = apply {
             if (!validated) {
                 canceledAt()
                 canceledBy()
@@ -1474,7 +1474,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): Submission = apply {
             if (!validated) {
                 submittedAt()
                 checkNumber()
@@ -1621,7 +1621,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): StopPaymentRequest = apply {
             if (!validated) {
                 transferId()
                 transactionId()
@@ -1859,7 +1859,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): Deposit = apply {
             if (!validated) {
                 depositedAt()
                 frontImageFileId()
@@ -2111,7 +2111,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): ReturnDetails = apply {
             if (!validated) {
                 transferId()
                 returnedAt()

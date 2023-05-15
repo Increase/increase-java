@@ -119,7 +119,7 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    fun validate() = apply {
+    fun validate(): CardDispute = apply {
         if (!validated) {
             id()
             explanation()
@@ -435,7 +435,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): Acceptance = apply {
             if (!validated) {
                 acceptedAt()
                 cardDisputeId()
@@ -606,7 +606,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): Rejection = apply {
             if (!validated) {
                 explanation()
                 rejectedAt()

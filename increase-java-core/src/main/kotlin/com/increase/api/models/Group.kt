@@ -74,7 +74,7 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    fun validate() = apply {
+    fun validate(): Group = apply {
         if (!validated) {
             activationStatus()
             achDebitStatus()

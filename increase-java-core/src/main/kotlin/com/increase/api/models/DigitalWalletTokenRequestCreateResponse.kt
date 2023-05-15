@@ -72,7 +72,7 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    fun validate() = apply {
+    fun validate(): DigitalWalletTokenRequestCreateResponse = apply {
         if (!validated) {
             declineReason()
             digitalWalletTokenId()

@@ -121,7 +121,7 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    fun validate() = apply {
+    fun validate(): Entity = apply {
         if (!validated) {
             id()
             structure()
@@ -495,7 +495,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): Corporation = apply {
             if (!validated) {
                 name()
                 website()
@@ -720,7 +720,7 @@ private constructor(
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-            fun validate() = apply {
+            fun validate(): Address = apply {
                 if (!validated) {
                     line1()
                     line2()
@@ -899,7 +899,7 @@ private constructor(
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-            fun validate() = apply {
+            fun validate(): BeneficialOwner = apply {
                 if (!validated) {
                     individual().validate()
                     companyTitle()
@@ -1056,7 +1056,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): Individual = apply {
                     if (!validated) {
                         name()
                         dateOfBirth()
@@ -1239,7 +1239,7 @@ private constructor(
                     @ExcludeMissing
                     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                    fun validate() = apply {
+                    fun validate(): Address = apply {
                         if (!validated) {
                             line1()
                             line2()
@@ -1418,7 +1418,7 @@ private constructor(
                     @ExcludeMissing
                     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                    fun validate() = apply {
+                    fun validate(): Identification = apply {
                         if (!validated) {
                             method()
                             numberLast4()
@@ -1711,7 +1711,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): NaturalPerson = apply {
             if (!validated) {
                 name()
                 dateOfBirth()
@@ -1893,7 +1893,7 @@ private constructor(
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-            fun validate() = apply {
+            fun validate(): Address = apply {
                 if (!validated) {
                     line1()
                     line2()
@@ -2071,7 +2071,7 @@ private constructor(
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-            fun validate() = apply {
+            fun validate(): Identification = apply {
                 if (!validated) {
                     method()
                     numberLast4()
@@ -2284,7 +2284,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): Joint = apply {
             if (!validated) {
                 name()
                 individuals().forEach { it.validate() }
@@ -2421,7 +2421,7 @@ private constructor(
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-            fun validate() = apply {
+            fun validate(): Individual = apply {
                 if (!validated) {
                     name()
                     dateOfBirth()
@@ -2604,7 +2604,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): Address = apply {
                     if (!validated) {
                         line1()
                         line2()
@@ -2782,7 +2782,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): Identification = apply {
                     if (!validated) {
                         method()
                         numberLast4()
@@ -3050,7 +3050,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): Trust = apply {
             if (!validated) {
                 name()
                 category()
@@ -3354,7 +3354,7 @@ private constructor(
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-            fun validate() = apply {
+            fun validate(): Address = apply {
                 if (!validated) {
                     line1()
                     line2()
@@ -3532,7 +3532,7 @@ private constructor(
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-            fun validate() = apply {
+            fun validate(): Trustee = apply {
                 if (!validated) {
                     structure()
                     individual().map { it.validate() }
@@ -3735,7 +3735,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): Individual = apply {
                     if (!validated) {
                         name()
                         dateOfBirth()
@@ -3918,7 +3918,7 @@ private constructor(
                     @ExcludeMissing
                     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                    fun validate() = apply {
+                    fun validate(): Address = apply {
                         if (!validated) {
                             line1()
                             line2()
@@ -4097,7 +4097,7 @@ private constructor(
                     @ExcludeMissing
                     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                    fun validate() = apply {
+                    fun validate(): Identification = apply {
                         if (!validated) {
                             method()
                             numberLast4()
@@ -4329,7 +4329,7 @@ private constructor(
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-            fun validate() = apply {
+            fun validate(): Grantor = apply {
                 if (!validated) {
                     name()
                     dateOfBirth()
@@ -4512,7 +4512,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): Address = apply {
                     if (!validated) {
                         line1()
                         line2()
@@ -4690,7 +4690,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): Identification = apply {
                     if (!validated) {
                         method()
                         numberLast4()
@@ -5011,7 +5011,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): SupplementalDocument = apply {
             if (!validated) {
                 fileId()
                 validated = true

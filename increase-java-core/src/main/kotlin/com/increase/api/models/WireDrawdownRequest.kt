@@ -187,7 +187,7 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    fun validate() = apply {
+    fun validate(): WireDrawdownRequest = apply {
         if (!validated) {
             type()
             id()
@@ -600,7 +600,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): Submission = apply {
             if (!validated) {
                 inputMessageAccountabilityData()
                 validated = true
