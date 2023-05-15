@@ -96,7 +96,7 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    fun validate() = apply {
+    fun validate(): InboundAchTransferReturn = apply {
         if (!validated) {
             id()
             inboundAchTransferTransactionId()
@@ -475,7 +475,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): Submission = apply {
             if (!validated) {
                 traceNumber()
                 submittedAt()

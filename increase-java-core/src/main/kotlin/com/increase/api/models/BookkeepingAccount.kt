@@ -82,7 +82,7 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    fun validate() = apply {
+    fun validate(): BookkeepingAccount = apply {
         if (!validated) {
             id()
             complianceCategory()

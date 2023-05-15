@@ -126,7 +126,7 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    fun validate() = apply {
+    fun validate(): RealTimeDecision = apply {
         if (!validated) {
             id()
             createdAt()
@@ -643,7 +643,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): CardAuthorization = apply {
             if (!validated) {
                 merchantAcceptorId()
                 merchantDescriptor()
@@ -1044,7 +1044,7 @@ private constructor(
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-            fun validate() = apply {
+            fun validate(): NetworkDetails = apply {
                 if (!validated) {
                     visa().validate()
                     validated = true
@@ -1170,7 +1170,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): Visa = apply {
                     if (!validated) {
                         electronicCommerceIndicator()
                         pointOfServiceEntryMode()
@@ -1528,7 +1528,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): DigitalWalletToken = apply {
             if (!validated) {
                 decision()
                 cardId()
@@ -1847,7 +1847,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): DigitalWalletAuthentication = apply {
             if (!validated) {
                 result()
                 cardId()

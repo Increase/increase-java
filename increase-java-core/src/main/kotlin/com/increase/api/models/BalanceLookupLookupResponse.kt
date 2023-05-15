@@ -76,7 +76,7 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    fun validate() = apply {
+    fun validate(): BalanceLookupLookupResponse = apply {
         if (!validated) {
             accountId()
             currentBalance()

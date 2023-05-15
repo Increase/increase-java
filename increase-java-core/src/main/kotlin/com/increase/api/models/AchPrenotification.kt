@@ -162,7 +162,7 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    fun validate() = apply {
+    fun validate(): AchPrenotification = apply {
         if (!validated) {
             id()
             accountNumber()
@@ -549,7 +549,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): PrenotificationReturn = apply {
             if (!validated) {
                 createdAt()
                 returnReasonCode()

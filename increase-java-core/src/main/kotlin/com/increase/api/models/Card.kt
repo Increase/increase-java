@@ -127,7 +127,7 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    fun validate() = apply {
+    fun validate(): Card = apply {
         if (!validated) {
             id()
             accountId()
@@ -483,7 +483,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): BillingAddress = apply {
             if (!validated) {
                 line1()
                 line2()
@@ -675,7 +675,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): DigitalWallet = apply {
             if (!validated) {
                 email()
                 phone()

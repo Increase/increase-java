@@ -270,7 +270,7 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    fun validate() = apply {
+    fun validate(): InboundWireDrawdownRequest = apply {
         if (!validated) {
             type()
             id()
