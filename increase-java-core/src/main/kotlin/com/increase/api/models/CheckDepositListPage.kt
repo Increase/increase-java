@@ -27,7 +27,7 @@ private constructor(
 
     fun data(): List<CheckDeposit> = response().data()
 
-    fun nextCursor(): String = response().nextCursor()
+    fun nextCursor(): Optional<String> = response().nextCursor()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -56,7 +56,7 @@ private constructor(
             return false
         }
 
-        return nextCursor().isNotEmpty()
+        return nextCursor().filter { it.isNotEmpty() }.isPresent
     }
 
     fun getNextPageParams(): Optional<CheckDepositListParams> {
@@ -65,7 +65,10 @@ private constructor(
         }
 
         return Optional.of(
-            CheckDepositListParams.builder().from(params).cursor(nextCursor()).build()
+            CheckDepositListParams.builder()
+                .from(params)
+                .apply { nextCursor().ifPresent { this.cursor(it) } }
+                .build()
         )
     }
 
@@ -101,9 +104,10 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun data(): List<CheckDeposit> = data.getRequired("data")
+        fun data(): List<CheckDeposit> = data.getNullable("data") ?: listOf()
 
-        fun nextCursor(): String = nextCursor.getRequired("next_cursor")
+        fun nextCursor(): Optional<String> =
+            Optional.ofNullable(nextCursor.getNullable("next_cursor"))
 
         @JsonProperty("data")
         fun _data(): Optional<JsonField<List<CheckDeposit>>> = Optional.ofNullable(data)
@@ -117,7 +121,7 @@ private constructor(
 
         fun validate(): Response = apply {
             if (!validated) {
-                data().forEach { it.validate() }
+                data().map { it.validate() }
                 nextCursor()
                 validated = true
             }
