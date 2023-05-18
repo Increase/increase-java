@@ -129,7 +129,10 @@ constructor(
         /** Filter Transactions for those belonging to the specified Account. */
         fun accountId(accountId: String) = apply { this.accountId = accountId }
 
-        /** Filter Transactions for those belonging to the specified route. */
+        /**
+         * Filter Transactions for those belonging to the specified route. This could be a Card ID
+         * or an Account Number ID.
+         */
         fun routeId(routeId: String) = apply { this.routeId = routeId }
 
         fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
