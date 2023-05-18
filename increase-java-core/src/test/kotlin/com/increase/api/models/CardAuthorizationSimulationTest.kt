@@ -103,6 +103,7 @@ class CardAuthorizationSimulationTest {
                                                 .Currency
                                                 .CAD
                                         )
+                                        .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .realTimeDecisionId("string")
                                         .digitalWalletTokenId("string")
                                         .pendingTransactionId("string")
@@ -567,6 +568,7 @@ class CardAuthorizationSimulationTest {
                                             .Currency
                                             .CAD
                                     )
+                                    .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .realTimeDecisionId("string")
                                     .digitalWalletTokenId("string")
                                     .pendingTransactionId("string")
