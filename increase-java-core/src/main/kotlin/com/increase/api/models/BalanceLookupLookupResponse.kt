@@ -14,7 +14,7 @@ import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
-/** Represents a request to lookup the balance of an Account. */
+/** Represents a request to lookup the balance of an Account at a given point in time. */
 @JsonDeserialize(builder = BalanceLookupLookupResponse.Builder::class)
 @NoAutoDetect
 class BalanceLookupLookupResponse

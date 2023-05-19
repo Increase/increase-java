@@ -9,11 +9,14 @@ import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
 import com.increase.api.models.*
+import java.time.OffsetDateTime
 import java.util.Objects
+import java.util.Optional
 
 class BalanceLookupLookupParams
 constructor(
     private val accountId: String,
+    private val atTime: OffsetDateTime?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -21,9 +24,15 @@ constructor(
 
     fun accountId(): String = accountId
 
+    fun atTime(): Optional<OffsetDateTime> = Optional.ofNullable(atTime)
+
     @JvmSynthetic
     internal fun getBody(): BalanceLookupLookupBody {
-        return BalanceLookupLookupBody(accountId, additionalBodyProperties)
+        return BalanceLookupLookupBody(
+            accountId,
+            atTime,
+            additionalBodyProperties,
+        )
     }
 
     @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
@@ -35,6 +44,7 @@ constructor(
     class BalanceLookupLookupBody
     internal constructor(
         private val accountId: String?,
+        private val atTime: OffsetDateTime?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -42,6 +52,9 @@ constructor(
 
         /** The Account to query the balance for. */
         @JsonProperty("account_id") fun accountId(): String? = accountId
+
+        /** The moment to query the balance at. If not set, returns the current balances. */
+        @JsonProperty("at_time") fun atTime(): OffsetDateTime? = atTime
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -56,18 +69,24 @@ constructor(
 
             return other is BalanceLookupLookupBody &&
                 this.accountId == other.accountId &&
+                this.atTime == other.atTime &&
                 this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(accountId, additionalProperties)
+                hashCode =
+                    Objects.hash(
+                        accountId,
+                        atTime,
+                        additionalProperties,
+                    )
             }
             return hashCode
         }
 
         override fun toString() =
-            "BalanceLookupLookupBody{accountId=$accountId, additionalProperties=$additionalProperties}"
+            "BalanceLookupLookupBody{accountId=$accountId, atTime=$atTime, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -77,17 +96,23 @@ constructor(
         class Builder {
 
             private var accountId: String? = null
+            private var atTime: OffsetDateTime? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(balanceLookupLookupBody: BalanceLookupLookupBody) = apply {
                 this.accountId = balanceLookupLookupBody.accountId
+                this.atTime = balanceLookupLookupBody.atTime
                 additionalProperties(balanceLookupLookupBody.additionalProperties)
             }
 
             /** The Account to query the balance for. */
             @JsonProperty("account_id")
             fun accountId(accountId: String) = apply { this.accountId = accountId }
+
+            /** The moment to query the balance at. If not set, returns the current balances. */
+            @JsonProperty("at_time")
+            fun atTime(atTime: OffsetDateTime) = apply { this.atTime = atTime }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -106,7 +131,8 @@ constructor(
             fun build(): BalanceLookupLookupBody =
                 BalanceLookupLookupBody(
                     checkNotNull(accountId) { "`accountId` is required but was not set" },
-                    additionalProperties.toUnmodifiable()
+                    atTime,
+                    additionalProperties.toUnmodifiable(),
                 )
         }
     }
@@ -124,6 +150,7 @@ constructor(
 
         return other is BalanceLookupLookupParams &&
             this.accountId == other.accountId &&
+            this.atTime == other.atTime &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -132,6 +159,7 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             accountId,
+            atTime,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -139,7 +167,7 @@ constructor(
     }
 
     override fun toString() =
-        "BalanceLookupLookupParams{accountId=$accountId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "BalanceLookupLookupParams{accountId=$accountId, atTime=$atTime, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -152,6 +180,7 @@ constructor(
     class Builder {
 
         private var accountId: String? = null
+        private var atTime: OffsetDateTime? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -159,6 +188,7 @@ constructor(
         @JvmSynthetic
         internal fun from(balanceLookupLookupParams: BalanceLookupLookupParams) = apply {
             this.accountId = balanceLookupLookupParams.accountId
+            this.atTime = balanceLookupLookupParams.atTime
             additionalQueryParams(balanceLookupLookupParams.additionalQueryParams)
             additionalHeaders(balanceLookupLookupParams.additionalHeaders)
             additionalBodyProperties(balanceLookupLookupParams.additionalBodyProperties)
@@ -166,6 +196,9 @@ constructor(
 
         /** The Account to query the balance for. */
         fun accountId(accountId: String) = apply { this.accountId = accountId }
+
+        /** The moment to query the balance at. If not set, returns the current balances. */
+        fun atTime(atTime: OffsetDateTime) = apply { this.atTime = atTime }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -224,6 +257,7 @@ constructor(
         fun build(): BalanceLookupLookupParams =
             BalanceLookupLookupParams(
                 checkNotNull(accountId) { "`accountId` is required but was not set" },
+                atTime,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),
