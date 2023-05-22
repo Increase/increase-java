@@ -56,7 +56,7 @@ private constructor(
             return false
         }
 
-        return nextCursor().filter { it.isNotEmpty() }.isPresent
+        return nextCursor().isPresent()
     }
 
     fun getNextPageParams(): Optional<TransactionListParams> {
