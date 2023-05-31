@@ -1,6 +1,10 @@
 # Increase Java API Library
 
+<!-- x-release-please-start-version -->
+
 [![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-java)](https://central.sonatype.com/artifact/com.increase.api/increase-java/0.2.0)
+
+<!-- x-release-please-end -->
 
 The Increase Java SDK provides convenient access to the Increase REST API from applications written in Java. It includes helper classes with helpful types and documentation for every request and response property.
 
@@ -20,6 +24,8 @@ The API documentation can be found [here](https://increase.com/documentation).
 
 #### Gradle
 
+<!-- x-release-please-start-version -->
+
 ```kotlin
 implementation("com.increase.api:increase-java:0.2.0")
 ```
@@ -33,6 +39,8 @@ implementation("com.increase.api:increase-java:0.2.0")
     <version>0.2.0</version>
 </dependency>
 ```
+
+<!-- x-release-please-end -->
 
 ### Configure the client
 
