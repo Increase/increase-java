@@ -3645,6 +3645,7 @@ private constructor(
             private constructor(
                 private val createdAt: JsonField<OffsetDateTime>,
                 private val returnReasonCode: JsonField<ReturnReasonCode>,
+                private val rawReturnReasonCode: JsonField<String>,
                 private val transferId: JsonField<String>,
                 private val transactionId: JsonField<String>,
                 private val additionalProperties: Map<String, JsonValue>,
@@ -3664,6 +3665,10 @@ private constructor(
                 fun returnReasonCode(): ReturnReasonCode =
                     returnReasonCode.getRequired("return_reason_code")
 
+                /** The three character ACH return code, in the range R01 to R85. */
+                fun rawReturnReasonCode(): String =
+                    rawReturnReasonCode.getRequired("raw_return_reason_code")
+
                 /** The identifier of the ACH Transfer associated with this return. */
                 fun transferId(): String = transferId.getRequired("transfer_id")
 
@@ -3681,6 +3686,11 @@ private constructor(
                 @ExcludeMissing
                 fun _returnReasonCode() = returnReasonCode
 
+                /** The three character ACH return code, in the range R01 to R85. */
+                @JsonProperty("raw_return_reason_code")
+                @ExcludeMissing
+                fun _rawReturnReasonCode() = rawReturnReasonCode
+
                 /** The identifier of the ACH Transfer associated with this return. */
                 @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
 
@@ -3695,6 +3705,7 @@ private constructor(
                     if (!validated) {
                         createdAt()
                         returnReasonCode()
+                        rawReturnReasonCode()
                         transferId()
                         transactionId()
                         validated = true
@@ -3711,6 +3722,7 @@ private constructor(
                     return other is AchTransferReturn &&
                         this.createdAt == other.createdAt &&
                         this.returnReasonCode == other.returnReasonCode &&
+                        this.rawReturnReasonCode == other.rawReturnReasonCode &&
                         this.transferId == other.transferId &&
                         this.transactionId == other.transactionId &&
                         this.additionalProperties == other.additionalProperties
@@ -3722,6 +3734,7 @@ private constructor(
                             Objects.hash(
                                 createdAt,
                                 returnReasonCode,
+                                rawReturnReasonCode,
                                 transferId,
                                 transactionId,
                                 additionalProperties,
@@ -3731,7 +3744,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "AchTransferReturn{createdAt=$createdAt, returnReasonCode=$returnReasonCode, transferId=$transferId, transactionId=$transactionId, additionalProperties=$additionalProperties}"
+                    "AchTransferReturn{createdAt=$createdAt, returnReasonCode=$returnReasonCode, rawReturnReasonCode=$rawReturnReasonCode, transferId=$transferId, transactionId=$transactionId, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -3742,6 +3755,7 @@ private constructor(
 
                     private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
                     private var returnReasonCode: JsonField<ReturnReasonCode> = JsonMissing.of()
+                    private var rawReturnReasonCode: JsonField<String> = JsonMissing.of()
                     private var transferId: JsonField<String> = JsonMissing.of()
                     private var transactionId: JsonField<String> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -3750,6 +3764,7 @@ private constructor(
                     internal fun from(achTransferReturn: AchTransferReturn) = apply {
                         this.createdAt = achTransferReturn.createdAt
                         this.returnReasonCode = achTransferReturn.returnReasonCode
+                        this.rawReturnReasonCode = achTransferReturn.rawReturnReasonCode
                         this.transferId = achTransferReturn.transferId
                         this.transactionId = achTransferReturn.transactionId
                         additionalProperties(achTransferReturn.additionalProperties)
@@ -3780,6 +3795,17 @@ private constructor(
                     @ExcludeMissing
                     fun returnReasonCode(returnReasonCode: JsonField<ReturnReasonCode>) = apply {
                         this.returnReasonCode = returnReasonCode
+                    }
+
+                    /** The three character ACH return code, in the range R01 to R85. */
+                    fun rawReturnReasonCode(rawReturnReasonCode: String) =
+                        rawReturnReasonCode(JsonField.of(rawReturnReasonCode))
+
+                    /** The three character ACH return code, in the range R01 to R85. */
+                    @JsonProperty("raw_return_reason_code")
+                    @ExcludeMissing
+                    fun rawReturnReasonCode(rawReturnReasonCode: JsonField<String>) = apply {
+                        this.rawReturnReasonCode = rawReturnReasonCode
                     }
 
                     /** The identifier of the ACH Transfer associated with this return. */
@@ -3822,6 +3848,7 @@ private constructor(
                         AchTransferReturn(
                             createdAt,
                             returnReasonCode,
+                            rawReturnReasonCode,
                             transferId,
                             transactionId,
                             additionalProperties.toUnmodifiable(),
@@ -3934,9 +3961,6 @@ private constructor(
                             ReturnReasonCode(JsonField.of("returned_per_odfi_request"))
 
                         @JvmField
-                        val ADDENDA_ERROR = ReturnReasonCode(JsonField.of("addenda_error"))
-
-                        @JvmField
                         val LIMITED_PARTICIPATION_DFI =
                             ReturnReasonCode(JsonField.of("limited_participation_dfi"))
 
@@ -3947,6 +3971,213 @@ private constructor(
                             )
 
                         @JvmField val OTHER = ReturnReasonCode(JsonField.of("other"))
+
+                        @JvmField
+                        val ACCOUNT_SOLD_TO_ANOTHER_DFI =
+                            ReturnReasonCode(JsonField.of("account_sold_to_another_dfi"))
+
+                        @JvmField
+                        val ADDENDA_ERROR = ReturnReasonCode(JsonField.of("addenda_error"))
+
+                        @JvmField
+                        val BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED =
+                            ReturnReasonCode(JsonField.of("beneficiary_or_account_holder_deceased"))
+
+                        @JvmField
+                        val CHECK_TRUNCATION_ENTRY_RETURN =
+                            ReturnReasonCode(JsonField.of("check_truncation_entry_return"))
+
+                        @JvmField
+                        val CORRECTED_RETURN = ReturnReasonCode(JsonField.of("corrected_return"))
+
+                        @JvmField
+                        val DUPLICATE_ENTRY = ReturnReasonCode(JsonField.of("duplicate_entry"))
+
+                        @JvmField
+                        val DUPLICATE_RETURN = ReturnReasonCode(JsonField.of("duplicate_return"))
+
+                        @JvmField
+                        val ENR_DUPLICATE_ENROLLMENT =
+                            ReturnReasonCode(JsonField.of("enr_duplicate_enrollment"))
+
+                        @JvmField
+                        val ENR_INVALID_DFI_ACCOUNT_NUMBER =
+                            ReturnReasonCode(JsonField.of("enr_invalid_dfi_account_number"))
+
+                        @JvmField
+                        val ENR_INVALID_INDIVIDUAL_ID_NUMBER =
+                            ReturnReasonCode(JsonField.of("enr_invalid_individual_id_number"))
+
+                        @JvmField
+                        val ENR_INVALID_REPRESENTATIVE_PAYEE_INDICATOR =
+                            ReturnReasonCode(
+                                JsonField.of("enr_invalid_representative_payee_indicator")
+                            )
+
+                        @JvmField
+                        val ENR_INVALID_TRANSACTION_CODE =
+                            ReturnReasonCode(JsonField.of("enr_invalid_transaction_code"))
+
+                        @JvmField
+                        val ENR_RETURN_OF_ENR_ENTRY =
+                            ReturnReasonCode(JsonField.of("enr_return_of_enr_entry"))
+
+                        @JvmField
+                        val ENR_ROUTING_NUMBER_CHECK_DIGIT_ERROR =
+                            ReturnReasonCode(JsonField.of("enr_routing_number_check_digit_error"))
+
+                        @JvmField
+                        val ENTRY_NOT_PROCESSED_BY_GATEWAY =
+                            ReturnReasonCode(JsonField.of("entry_not_processed_by_gateway"))
+
+                        @JvmField val FIELD_ERROR = ReturnReasonCode(JsonField.of("field_error"))
+
+                        @JvmField
+                        val FOREIGN_RECEIVING_DFI_UNABLE_TO_SETTLE =
+                            ReturnReasonCode(JsonField.of("foreign_receiving_dfi_unable_to_settle"))
+
+                        @JvmField
+                        val IAT_ENTRY_CODING_ERROR =
+                            ReturnReasonCode(JsonField.of("iat_entry_coding_error"))
+
+                        @JvmField
+                        val IMPROPER_EFFECTIVE_ENTRY_DATE =
+                            ReturnReasonCode(JsonField.of("improper_effective_entry_date"))
+
+                        @JvmField
+                        val IMPROPER_SOURCE_DOCUMENT_SOURCE_DOCUMENT_PRESENTED =
+                            ReturnReasonCode(
+                                JsonField.of("improper_source_document_source_document_presented")
+                            )
+
+                        @JvmField
+                        val INVALID_COMPANY_ID =
+                            ReturnReasonCode(JsonField.of("invalid_company_id"))
+
+                        @JvmField
+                        val INVALID_FOREIGN_RECEIVING_DFI_IDENTIFICATION =
+                            ReturnReasonCode(
+                                JsonField.of("invalid_foreign_receiving_dfi_identification")
+                            )
+
+                        @JvmField
+                        val INVALID_INDIVIDUAL_ID_NUMBER =
+                            ReturnReasonCode(JsonField.of("invalid_individual_id_number"))
+
+                        @JvmField
+                        val ITEM_AND_RCK_ENTRY_PRESENTED_FOR_PAYMENT =
+                            ReturnReasonCode(
+                                JsonField.of("item_and_rck_entry_presented_for_payment")
+                            )
+
+                        @JvmField
+                        val ITEM_RELATED_TO_RCK_ENTRY_IS_INELIGIBLE =
+                            ReturnReasonCode(
+                                JsonField.of("item_related_to_rck_entry_is_ineligible")
+                            )
+
+                        @JvmField
+                        val MANDATORY_FIELD_ERROR =
+                            ReturnReasonCode(JsonField.of("mandatory_field_error"))
+
+                        @JvmField
+                        val MISROUTED_DISHONORED_RETURN =
+                            ReturnReasonCode(JsonField.of("misrouted_dishonored_return"))
+
+                        @JvmField
+                        val MISROUTED_RETURN = ReturnReasonCode(JsonField.of("misrouted_return"))
+
+                        @JvmField
+                        val NO_ERRORS_FOUND = ReturnReasonCode(JsonField.of("no_errors_found"))
+
+                        @JvmField
+                        val NON_ACCEPTANCE_OF_R62_DISHONORED_RETURN =
+                            ReturnReasonCode(
+                                JsonField.of("non_acceptance_of_r62_dishonored_return")
+                            )
+
+                        @JvmField
+                        val NON_PARTICIPANT_IN_IAT_PROGRAM =
+                            ReturnReasonCode(JsonField.of("non_participant_in_iat_program"))
+
+                        @JvmField
+                        val PERMISSIBLE_RETURN_ENTRY =
+                            ReturnReasonCode(JsonField.of("permissible_return_entry"))
+
+                        @JvmField
+                        val PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED =
+                            ReturnReasonCode(JsonField.of("permissible_return_entry_not_accepted"))
+
+                        @JvmField
+                        val RDFI_NON_SETTLEMENT =
+                            ReturnReasonCode(JsonField.of("rdfi_non_settlement"))
+
+                        @JvmField
+                        val RDFI_PARTICIPANT_IN_CHECK_TRUNCATION_PROGRAM =
+                            ReturnReasonCode(
+                                JsonField.of("rdfi_participant_in_check_truncation_program")
+                            )
+
+                        @JvmField
+                        val REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY =
+                            ReturnReasonCode(
+                                JsonField.of(
+                                    "representative_payee_deceased_or_unable_to_continue_in_that_capacity"
+                                )
+                            )
+
+                        @JvmField
+                        val RETURN_NOT_A_DUPLICATE =
+                            ReturnReasonCode(JsonField.of("return_not_a_duplicate"))
+
+                        @JvmField
+                        val RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT =
+                            ReturnReasonCode(JsonField.of("return_of_erroneous_or_reversing_debit"))
+
+                        @JvmField
+                        val RETURN_OF_IMPROPER_CREDIT_ENTRY =
+                            ReturnReasonCode(JsonField.of("return_of_improper_credit_entry"))
+
+                        @JvmField
+                        val RETURN_OF_IMPROPER_DEBIT_ENTRY =
+                            ReturnReasonCode(JsonField.of("return_of_improper_debit_entry"))
+
+                        @JvmField
+                        val RETURN_OF_XCK_ENTRY =
+                            ReturnReasonCode(JsonField.of("return_of_xck_entry"))
+
+                        @JvmField
+                        val SOURCE_DOCUMENT_PRESENTED_FOR_PAYMENT =
+                            ReturnReasonCode(JsonField.of("source_document_presented_for_payment"))
+
+                        @JvmField
+                        val STATE_LAW_AFFECTING_RCK_ACCEPTANCE =
+                            ReturnReasonCode(JsonField.of("state_law_affecting_rck_acceptance"))
+
+                        @JvmField
+                        val STOP_PAYMENT_ON_ITEM_RELATED_TO_RCK_ENTRY =
+                            ReturnReasonCode(
+                                JsonField.of("stop_payment_on_item_related_to_rck_entry")
+                            )
+
+                        @JvmField
+                        val STOP_PAYMENT_ON_SOURCE_DOCUMENT =
+                            ReturnReasonCode(JsonField.of("stop_payment_on_source_document"))
+
+                        @JvmField
+                        val TIMELY_ORIGINAL_RETURN =
+                            ReturnReasonCode(JsonField.of("timely_original_return"))
+
+                        @JvmField
+                        val TRACE_NUMBER_ERROR =
+                            ReturnReasonCode(JsonField.of("trace_number_error"))
+
+                        @JvmField
+                        val UNTIMELY_DISHONORED_RETURN =
+                            ReturnReasonCode(JsonField.of("untimely_dishonored_return"))
+
+                        @JvmField
+                        val UNTIMELY_RETURN = ReturnReasonCode(JsonField.of("untimely_return"))
 
                         @JvmStatic fun of(value: String) = ReturnReasonCode(JsonField.of(value))
                     }
@@ -3971,10 +4202,58 @@ private constructor(
                         FILE_RECORD_EDIT_CRITERIA,
                         ENR_INVALID_INDIVIDUAL_NAME,
                         RETURNED_PER_ODFI_REQUEST,
-                        ADDENDA_ERROR,
                         LIMITED_PARTICIPATION_DFI,
                         INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT,
                         OTHER,
+                        ACCOUNT_SOLD_TO_ANOTHER_DFI,
+                        ADDENDA_ERROR,
+                        BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED,
+                        CHECK_TRUNCATION_ENTRY_RETURN,
+                        CORRECTED_RETURN,
+                        DUPLICATE_ENTRY,
+                        DUPLICATE_RETURN,
+                        ENR_DUPLICATE_ENROLLMENT,
+                        ENR_INVALID_DFI_ACCOUNT_NUMBER,
+                        ENR_INVALID_INDIVIDUAL_ID_NUMBER,
+                        ENR_INVALID_REPRESENTATIVE_PAYEE_INDICATOR,
+                        ENR_INVALID_TRANSACTION_CODE,
+                        ENR_RETURN_OF_ENR_ENTRY,
+                        ENR_ROUTING_NUMBER_CHECK_DIGIT_ERROR,
+                        ENTRY_NOT_PROCESSED_BY_GATEWAY,
+                        FIELD_ERROR,
+                        FOREIGN_RECEIVING_DFI_UNABLE_TO_SETTLE,
+                        IAT_ENTRY_CODING_ERROR,
+                        IMPROPER_EFFECTIVE_ENTRY_DATE,
+                        IMPROPER_SOURCE_DOCUMENT_SOURCE_DOCUMENT_PRESENTED,
+                        INVALID_COMPANY_ID,
+                        INVALID_FOREIGN_RECEIVING_DFI_IDENTIFICATION,
+                        INVALID_INDIVIDUAL_ID_NUMBER,
+                        ITEM_AND_RCK_ENTRY_PRESENTED_FOR_PAYMENT,
+                        ITEM_RELATED_TO_RCK_ENTRY_IS_INELIGIBLE,
+                        MANDATORY_FIELD_ERROR,
+                        MISROUTED_DISHONORED_RETURN,
+                        MISROUTED_RETURN,
+                        NO_ERRORS_FOUND,
+                        NON_ACCEPTANCE_OF_R62_DISHONORED_RETURN,
+                        NON_PARTICIPANT_IN_IAT_PROGRAM,
+                        PERMISSIBLE_RETURN_ENTRY,
+                        PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED,
+                        RDFI_NON_SETTLEMENT,
+                        RDFI_PARTICIPANT_IN_CHECK_TRUNCATION_PROGRAM,
+                        REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY,
+                        RETURN_NOT_A_DUPLICATE,
+                        RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT,
+                        RETURN_OF_IMPROPER_CREDIT_ENTRY,
+                        RETURN_OF_IMPROPER_DEBIT_ENTRY,
+                        RETURN_OF_XCK_ENTRY,
+                        SOURCE_DOCUMENT_PRESENTED_FOR_PAYMENT,
+                        STATE_LAW_AFFECTING_RCK_ACCEPTANCE,
+                        STOP_PAYMENT_ON_ITEM_RELATED_TO_RCK_ENTRY,
+                        STOP_PAYMENT_ON_SOURCE_DOCUMENT,
+                        TIMELY_ORIGINAL_RETURN,
+                        TRACE_NUMBER_ERROR,
+                        UNTIMELY_DISHONORED_RETURN,
+                        UNTIMELY_RETURN,
                     }
 
                     enum class Value {
@@ -3997,10 +4276,58 @@ private constructor(
                         FILE_RECORD_EDIT_CRITERIA,
                         ENR_INVALID_INDIVIDUAL_NAME,
                         RETURNED_PER_ODFI_REQUEST,
-                        ADDENDA_ERROR,
                         LIMITED_PARTICIPATION_DFI,
                         INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT,
                         OTHER,
+                        ACCOUNT_SOLD_TO_ANOTHER_DFI,
+                        ADDENDA_ERROR,
+                        BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED,
+                        CHECK_TRUNCATION_ENTRY_RETURN,
+                        CORRECTED_RETURN,
+                        DUPLICATE_ENTRY,
+                        DUPLICATE_RETURN,
+                        ENR_DUPLICATE_ENROLLMENT,
+                        ENR_INVALID_DFI_ACCOUNT_NUMBER,
+                        ENR_INVALID_INDIVIDUAL_ID_NUMBER,
+                        ENR_INVALID_REPRESENTATIVE_PAYEE_INDICATOR,
+                        ENR_INVALID_TRANSACTION_CODE,
+                        ENR_RETURN_OF_ENR_ENTRY,
+                        ENR_ROUTING_NUMBER_CHECK_DIGIT_ERROR,
+                        ENTRY_NOT_PROCESSED_BY_GATEWAY,
+                        FIELD_ERROR,
+                        FOREIGN_RECEIVING_DFI_UNABLE_TO_SETTLE,
+                        IAT_ENTRY_CODING_ERROR,
+                        IMPROPER_EFFECTIVE_ENTRY_DATE,
+                        IMPROPER_SOURCE_DOCUMENT_SOURCE_DOCUMENT_PRESENTED,
+                        INVALID_COMPANY_ID,
+                        INVALID_FOREIGN_RECEIVING_DFI_IDENTIFICATION,
+                        INVALID_INDIVIDUAL_ID_NUMBER,
+                        ITEM_AND_RCK_ENTRY_PRESENTED_FOR_PAYMENT,
+                        ITEM_RELATED_TO_RCK_ENTRY_IS_INELIGIBLE,
+                        MANDATORY_FIELD_ERROR,
+                        MISROUTED_DISHONORED_RETURN,
+                        MISROUTED_RETURN,
+                        NO_ERRORS_FOUND,
+                        NON_ACCEPTANCE_OF_R62_DISHONORED_RETURN,
+                        NON_PARTICIPANT_IN_IAT_PROGRAM,
+                        PERMISSIBLE_RETURN_ENTRY,
+                        PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED,
+                        RDFI_NON_SETTLEMENT,
+                        RDFI_PARTICIPANT_IN_CHECK_TRUNCATION_PROGRAM,
+                        REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY,
+                        RETURN_NOT_A_DUPLICATE,
+                        RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT,
+                        RETURN_OF_IMPROPER_CREDIT_ENTRY,
+                        RETURN_OF_IMPROPER_DEBIT_ENTRY,
+                        RETURN_OF_XCK_ENTRY,
+                        SOURCE_DOCUMENT_PRESENTED_FOR_PAYMENT,
+                        STATE_LAW_AFFECTING_RCK_ACCEPTANCE,
+                        STOP_PAYMENT_ON_ITEM_RELATED_TO_RCK_ENTRY,
+                        STOP_PAYMENT_ON_SOURCE_DOCUMENT,
+                        TIMELY_ORIGINAL_RETURN,
+                        TRACE_NUMBER_ERROR,
+                        UNTIMELY_DISHONORED_RETURN,
+                        UNTIMELY_RETURN,
                         _UNKNOWN,
                     }
 
@@ -4035,11 +4362,77 @@ private constructor(
                             FILE_RECORD_EDIT_CRITERIA -> Value.FILE_RECORD_EDIT_CRITERIA
                             ENR_INVALID_INDIVIDUAL_NAME -> Value.ENR_INVALID_INDIVIDUAL_NAME
                             RETURNED_PER_ODFI_REQUEST -> Value.RETURNED_PER_ODFI_REQUEST
-                            ADDENDA_ERROR -> Value.ADDENDA_ERROR
                             LIMITED_PARTICIPATION_DFI -> Value.LIMITED_PARTICIPATION_DFI
                             INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT ->
                                 Value.INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT
                             OTHER -> Value.OTHER
+                            ACCOUNT_SOLD_TO_ANOTHER_DFI -> Value.ACCOUNT_SOLD_TO_ANOTHER_DFI
+                            ADDENDA_ERROR -> Value.ADDENDA_ERROR
+                            BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED ->
+                                Value.BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED
+                            CHECK_TRUNCATION_ENTRY_RETURN -> Value.CHECK_TRUNCATION_ENTRY_RETURN
+                            CORRECTED_RETURN -> Value.CORRECTED_RETURN
+                            DUPLICATE_ENTRY -> Value.DUPLICATE_ENTRY
+                            DUPLICATE_RETURN -> Value.DUPLICATE_RETURN
+                            ENR_DUPLICATE_ENROLLMENT -> Value.ENR_DUPLICATE_ENROLLMENT
+                            ENR_INVALID_DFI_ACCOUNT_NUMBER -> Value.ENR_INVALID_DFI_ACCOUNT_NUMBER
+                            ENR_INVALID_INDIVIDUAL_ID_NUMBER ->
+                                Value.ENR_INVALID_INDIVIDUAL_ID_NUMBER
+                            ENR_INVALID_REPRESENTATIVE_PAYEE_INDICATOR ->
+                                Value.ENR_INVALID_REPRESENTATIVE_PAYEE_INDICATOR
+                            ENR_INVALID_TRANSACTION_CODE -> Value.ENR_INVALID_TRANSACTION_CODE
+                            ENR_RETURN_OF_ENR_ENTRY -> Value.ENR_RETURN_OF_ENR_ENTRY
+                            ENR_ROUTING_NUMBER_CHECK_DIGIT_ERROR ->
+                                Value.ENR_ROUTING_NUMBER_CHECK_DIGIT_ERROR
+                            ENTRY_NOT_PROCESSED_BY_GATEWAY -> Value.ENTRY_NOT_PROCESSED_BY_GATEWAY
+                            FIELD_ERROR -> Value.FIELD_ERROR
+                            FOREIGN_RECEIVING_DFI_UNABLE_TO_SETTLE ->
+                                Value.FOREIGN_RECEIVING_DFI_UNABLE_TO_SETTLE
+                            IAT_ENTRY_CODING_ERROR -> Value.IAT_ENTRY_CODING_ERROR
+                            IMPROPER_EFFECTIVE_ENTRY_DATE -> Value.IMPROPER_EFFECTIVE_ENTRY_DATE
+                            IMPROPER_SOURCE_DOCUMENT_SOURCE_DOCUMENT_PRESENTED ->
+                                Value.IMPROPER_SOURCE_DOCUMENT_SOURCE_DOCUMENT_PRESENTED
+                            INVALID_COMPANY_ID -> Value.INVALID_COMPANY_ID
+                            INVALID_FOREIGN_RECEIVING_DFI_IDENTIFICATION ->
+                                Value.INVALID_FOREIGN_RECEIVING_DFI_IDENTIFICATION
+                            INVALID_INDIVIDUAL_ID_NUMBER -> Value.INVALID_INDIVIDUAL_ID_NUMBER
+                            ITEM_AND_RCK_ENTRY_PRESENTED_FOR_PAYMENT ->
+                                Value.ITEM_AND_RCK_ENTRY_PRESENTED_FOR_PAYMENT
+                            ITEM_RELATED_TO_RCK_ENTRY_IS_INELIGIBLE ->
+                                Value.ITEM_RELATED_TO_RCK_ENTRY_IS_INELIGIBLE
+                            MANDATORY_FIELD_ERROR -> Value.MANDATORY_FIELD_ERROR
+                            MISROUTED_DISHONORED_RETURN -> Value.MISROUTED_DISHONORED_RETURN
+                            MISROUTED_RETURN -> Value.MISROUTED_RETURN
+                            NO_ERRORS_FOUND -> Value.NO_ERRORS_FOUND
+                            NON_ACCEPTANCE_OF_R62_DISHONORED_RETURN ->
+                                Value.NON_ACCEPTANCE_OF_R62_DISHONORED_RETURN
+                            NON_PARTICIPANT_IN_IAT_PROGRAM -> Value.NON_PARTICIPANT_IN_IAT_PROGRAM
+                            PERMISSIBLE_RETURN_ENTRY -> Value.PERMISSIBLE_RETURN_ENTRY
+                            PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED ->
+                                Value.PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED
+                            RDFI_NON_SETTLEMENT -> Value.RDFI_NON_SETTLEMENT
+                            RDFI_PARTICIPANT_IN_CHECK_TRUNCATION_PROGRAM ->
+                                Value.RDFI_PARTICIPANT_IN_CHECK_TRUNCATION_PROGRAM
+                            REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY ->
+                                Value
+                                    .REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY
+                            RETURN_NOT_A_DUPLICATE -> Value.RETURN_NOT_A_DUPLICATE
+                            RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT ->
+                                Value.RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT
+                            RETURN_OF_IMPROPER_CREDIT_ENTRY -> Value.RETURN_OF_IMPROPER_CREDIT_ENTRY
+                            RETURN_OF_IMPROPER_DEBIT_ENTRY -> Value.RETURN_OF_IMPROPER_DEBIT_ENTRY
+                            RETURN_OF_XCK_ENTRY -> Value.RETURN_OF_XCK_ENTRY
+                            SOURCE_DOCUMENT_PRESENTED_FOR_PAYMENT ->
+                                Value.SOURCE_DOCUMENT_PRESENTED_FOR_PAYMENT
+                            STATE_LAW_AFFECTING_RCK_ACCEPTANCE ->
+                                Value.STATE_LAW_AFFECTING_RCK_ACCEPTANCE
+                            STOP_PAYMENT_ON_ITEM_RELATED_TO_RCK_ENTRY ->
+                                Value.STOP_PAYMENT_ON_ITEM_RELATED_TO_RCK_ENTRY
+                            STOP_PAYMENT_ON_SOURCE_DOCUMENT -> Value.STOP_PAYMENT_ON_SOURCE_DOCUMENT
+                            TIMELY_ORIGINAL_RETURN -> Value.TIMELY_ORIGINAL_RETURN
+                            TRACE_NUMBER_ERROR -> Value.TRACE_NUMBER_ERROR
+                            UNTIMELY_DISHONORED_RETURN -> Value.UNTIMELY_DISHONORED_RETURN
+                            UNTIMELY_RETURN -> Value.UNTIMELY_RETURN
                             else -> Value._UNKNOWN
                         }
 
@@ -4074,11 +4467,77 @@ private constructor(
                             FILE_RECORD_EDIT_CRITERIA -> Known.FILE_RECORD_EDIT_CRITERIA
                             ENR_INVALID_INDIVIDUAL_NAME -> Known.ENR_INVALID_INDIVIDUAL_NAME
                             RETURNED_PER_ODFI_REQUEST -> Known.RETURNED_PER_ODFI_REQUEST
-                            ADDENDA_ERROR -> Known.ADDENDA_ERROR
                             LIMITED_PARTICIPATION_DFI -> Known.LIMITED_PARTICIPATION_DFI
                             INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT ->
                                 Known.INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT
                             OTHER -> Known.OTHER
+                            ACCOUNT_SOLD_TO_ANOTHER_DFI -> Known.ACCOUNT_SOLD_TO_ANOTHER_DFI
+                            ADDENDA_ERROR -> Known.ADDENDA_ERROR
+                            BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED ->
+                                Known.BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED
+                            CHECK_TRUNCATION_ENTRY_RETURN -> Known.CHECK_TRUNCATION_ENTRY_RETURN
+                            CORRECTED_RETURN -> Known.CORRECTED_RETURN
+                            DUPLICATE_ENTRY -> Known.DUPLICATE_ENTRY
+                            DUPLICATE_RETURN -> Known.DUPLICATE_RETURN
+                            ENR_DUPLICATE_ENROLLMENT -> Known.ENR_DUPLICATE_ENROLLMENT
+                            ENR_INVALID_DFI_ACCOUNT_NUMBER -> Known.ENR_INVALID_DFI_ACCOUNT_NUMBER
+                            ENR_INVALID_INDIVIDUAL_ID_NUMBER ->
+                                Known.ENR_INVALID_INDIVIDUAL_ID_NUMBER
+                            ENR_INVALID_REPRESENTATIVE_PAYEE_INDICATOR ->
+                                Known.ENR_INVALID_REPRESENTATIVE_PAYEE_INDICATOR
+                            ENR_INVALID_TRANSACTION_CODE -> Known.ENR_INVALID_TRANSACTION_CODE
+                            ENR_RETURN_OF_ENR_ENTRY -> Known.ENR_RETURN_OF_ENR_ENTRY
+                            ENR_ROUTING_NUMBER_CHECK_DIGIT_ERROR ->
+                                Known.ENR_ROUTING_NUMBER_CHECK_DIGIT_ERROR
+                            ENTRY_NOT_PROCESSED_BY_GATEWAY -> Known.ENTRY_NOT_PROCESSED_BY_GATEWAY
+                            FIELD_ERROR -> Known.FIELD_ERROR
+                            FOREIGN_RECEIVING_DFI_UNABLE_TO_SETTLE ->
+                                Known.FOREIGN_RECEIVING_DFI_UNABLE_TO_SETTLE
+                            IAT_ENTRY_CODING_ERROR -> Known.IAT_ENTRY_CODING_ERROR
+                            IMPROPER_EFFECTIVE_ENTRY_DATE -> Known.IMPROPER_EFFECTIVE_ENTRY_DATE
+                            IMPROPER_SOURCE_DOCUMENT_SOURCE_DOCUMENT_PRESENTED ->
+                                Known.IMPROPER_SOURCE_DOCUMENT_SOURCE_DOCUMENT_PRESENTED
+                            INVALID_COMPANY_ID -> Known.INVALID_COMPANY_ID
+                            INVALID_FOREIGN_RECEIVING_DFI_IDENTIFICATION ->
+                                Known.INVALID_FOREIGN_RECEIVING_DFI_IDENTIFICATION
+                            INVALID_INDIVIDUAL_ID_NUMBER -> Known.INVALID_INDIVIDUAL_ID_NUMBER
+                            ITEM_AND_RCK_ENTRY_PRESENTED_FOR_PAYMENT ->
+                                Known.ITEM_AND_RCK_ENTRY_PRESENTED_FOR_PAYMENT
+                            ITEM_RELATED_TO_RCK_ENTRY_IS_INELIGIBLE ->
+                                Known.ITEM_RELATED_TO_RCK_ENTRY_IS_INELIGIBLE
+                            MANDATORY_FIELD_ERROR -> Known.MANDATORY_FIELD_ERROR
+                            MISROUTED_DISHONORED_RETURN -> Known.MISROUTED_DISHONORED_RETURN
+                            MISROUTED_RETURN -> Known.MISROUTED_RETURN
+                            NO_ERRORS_FOUND -> Known.NO_ERRORS_FOUND
+                            NON_ACCEPTANCE_OF_R62_DISHONORED_RETURN ->
+                                Known.NON_ACCEPTANCE_OF_R62_DISHONORED_RETURN
+                            NON_PARTICIPANT_IN_IAT_PROGRAM -> Known.NON_PARTICIPANT_IN_IAT_PROGRAM
+                            PERMISSIBLE_RETURN_ENTRY -> Known.PERMISSIBLE_RETURN_ENTRY
+                            PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED ->
+                                Known.PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED
+                            RDFI_NON_SETTLEMENT -> Known.RDFI_NON_SETTLEMENT
+                            RDFI_PARTICIPANT_IN_CHECK_TRUNCATION_PROGRAM ->
+                                Known.RDFI_PARTICIPANT_IN_CHECK_TRUNCATION_PROGRAM
+                            REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY ->
+                                Known
+                                    .REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY
+                            RETURN_NOT_A_DUPLICATE -> Known.RETURN_NOT_A_DUPLICATE
+                            RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT ->
+                                Known.RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT
+                            RETURN_OF_IMPROPER_CREDIT_ENTRY -> Known.RETURN_OF_IMPROPER_CREDIT_ENTRY
+                            RETURN_OF_IMPROPER_DEBIT_ENTRY -> Known.RETURN_OF_IMPROPER_DEBIT_ENTRY
+                            RETURN_OF_XCK_ENTRY -> Known.RETURN_OF_XCK_ENTRY
+                            SOURCE_DOCUMENT_PRESENTED_FOR_PAYMENT ->
+                                Known.SOURCE_DOCUMENT_PRESENTED_FOR_PAYMENT
+                            STATE_LAW_AFFECTING_RCK_ACCEPTANCE ->
+                                Known.STATE_LAW_AFFECTING_RCK_ACCEPTANCE
+                            STOP_PAYMENT_ON_ITEM_RELATED_TO_RCK_ENTRY ->
+                                Known.STOP_PAYMENT_ON_ITEM_RELATED_TO_RCK_ENTRY
+                            STOP_PAYMENT_ON_SOURCE_DOCUMENT -> Known.STOP_PAYMENT_ON_SOURCE_DOCUMENT
+                            TIMELY_ORIGINAL_RETURN -> Known.TIMELY_ORIGINAL_RETURN
+                            TRACE_NUMBER_ERROR -> Known.TRACE_NUMBER_ERROR
+                            UNTIMELY_DISHONORED_RETURN -> Known.UNTIMELY_DISHONORED_RETURN
+                            UNTIMELY_RETURN -> Known.UNTIMELY_RETURN
                             else ->
                                 throw IncreaseInvalidDataException(
                                     "Unknown ReturnReasonCode: $value"
@@ -12954,6 +13413,8 @@ private constructor(
 
                     companion object {
 
+                        @JvmField val ACCOUNT_CLOSURE = Reason(JsonField.of("account_closure"))
+
                         @JvmField val BANK_MIGRATION = Reason(JsonField.of("bank_migration"))
 
                         @JvmField val CASHBACK = Reason(JsonField.of("cashback"))
@@ -12985,6 +13446,7 @@ private constructor(
                     }
 
                     enum class Known {
+                        ACCOUNT_CLOSURE,
                         BANK_MIGRATION,
                         CASHBACK,
                         COLLECTION_RECEIVABLE,
@@ -12999,6 +13461,7 @@ private constructor(
                     }
 
                     enum class Value {
+                        ACCOUNT_CLOSURE,
                         BANK_MIGRATION,
                         CASHBACK,
                         COLLECTION_RECEIVABLE,
@@ -13015,6 +13478,7 @@ private constructor(
 
                     fun value(): Value =
                         when (this) {
+                            ACCOUNT_CLOSURE -> Value.ACCOUNT_CLOSURE
                             BANK_MIGRATION -> Value.BANK_MIGRATION
                             CASHBACK -> Value.CASHBACK
                             COLLECTION_RECEIVABLE -> Value.COLLECTION_RECEIVABLE
@@ -13031,6 +13495,7 @@ private constructor(
 
                     fun known(): Known =
                         when (this) {
+                            ACCOUNT_CLOSURE -> Known.ACCOUNT_CLOSURE
                             BANK_MIGRATION -> Known.BANK_MIGRATION
                             CASHBACK -> Known.CASHBACK
                             COLLECTION_RECEIVABLE -> Known.COLLECTION_RECEIVABLE

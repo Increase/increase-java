@@ -13,6 +13,7 @@ class AccountListParamsTest {
             .cursor("string")
             .limit(123L)
             .entityId("string")
+            .informationalEntityId("string")
             .status(AccountListParams.Status.OPEN)
             .createdAt(
                 AccountListParams.CreatedAt.builder()
@@ -32,6 +33,7 @@ class AccountListParamsTest {
                 .cursor("string")
                 .limit(123L)
                 .entityId("string")
+                .informationalEntityId("string")
                 .status(AccountListParams.Status.OPEN)
                 .createdAt(
                     AccountListParams.CreatedAt.builder()
@@ -46,6 +48,7 @@ class AccountListParamsTest {
         expected.put("cursor", listOf("string"))
         expected.put("limit", listOf("123"))
         expected.put("entity_id", listOf("string"))
+        expected.put("informational_entity_id", listOf("string"))
         expected.put("status", listOf(AccountListParams.Status.OPEN.toString()))
         AccountListParams.CreatedAt.builder()
             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

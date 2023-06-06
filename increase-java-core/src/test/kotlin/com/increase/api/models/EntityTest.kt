@@ -1,6 +1,7 @@
 package com.increase.api.models
 
 import java.time.LocalDate
+import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -203,7 +204,13 @@ class EntityTest {
                 .description("string")
                 .relationship(Entity.Relationship.AFFILIATED)
                 .supplementalDocuments(
-                    listOf(Entity.SupplementalDocument.builder().fileId("string").build())
+                    listOf(
+                        Entity.SupplementalDocument.builder()
+                            .fileId("string")
+                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .type(Entity.SupplementalDocument.Type.ENTITY_SUPPLEMENTAL_DOCUMENT)
+                            .build()
+                    )
                 )
                 .build()
         assertThat(entity).isNotNull
@@ -399,6 +406,12 @@ class EntityTest {
         assertThat(entity.description()).contains("string")
         assertThat(entity.relationship()).isEqualTo(Entity.Relationship.AFFILIATED)
         assertThat(entity.supplementalDocuments())
-            .containsExactly(Entity.SupplementalDocument.builder().fileId("string").build())
+            .containsExactly(
+                Entity.SupplementalDocument.builder()
+                    .fileId("string")
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .type(Entity.SupplementalDocument.Type.ENTITY_SUPPLEMENTAL_DOCUMENT)
+                    .build()
+            )
     }
 }

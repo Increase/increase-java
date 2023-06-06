@@ -107,6 +107,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .ReturnReasonCode
                                                 .INSUFFICIENT_FUND
                                         )
+                                        .rawReturnReasonCode("string")
                                         .transferId("string")
                                         .transactionId("string")
                                         .build()
@@ -613,7 +614,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .Source
                                                 .InternalSource
                                                 .Reason
-                                                .BANK_MIGRATION
+                                                .ACCOUNT_CLOSURE
                                         )
                                         .build()
                                 )
@@ -1110,6 +1111,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .ReturnReasonCode
                                             .INSUFFICIENT_FUND
                                     )
+                                    .rawReturnReasonCode("string")
                                     .transferId("string")
                                     .transactionId("string")
                                     .build()
@@ -1551,7 +1553,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .Source
                                             .InternalSource
                                             .Reason
-                                            .BANK_MIGRATION
+                                            .ACCOUNT_CLOSURE
                                     )
                                     .build()
                             )
