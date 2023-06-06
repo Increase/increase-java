@@ -65,6 +65,7 @@ class TransactionTest {
                                     Transaction.Source.AchTransferReturn.ReturnReasonCode
                                         .INSUFFICIENT_FUND
                                 )
+                                .rawReturnReasonCode("string")
                                 .transferId("string")
                                 .transactionId("string")
                                 .build()
@@ -364,7 +365,7 @@ class TransactionTest {
                             Transaction.Source.InternalSource.builder()
                                 .amount(123L)
                                 .currency(Transaction.Source.InternalSource.Currency.CAD)
-                                .reason(Transaction.Source.InternalSource.Reason.BANK_MIGRATION)
+                                .reason(Transaction.Source.InternalSource.Reason.ACCOUNT_CLOSURE)
                                 .build()
                         )
                         .cardRouteRefund(
@@ -492,6 +493,7 @@ class TransactionTest {
                                 Transaction.Source.AchTransferReturn.ReturnReasonCode
                                     .INSUFFICIENT_FUND
                             )
+                            .rawReturnReasonCode("string")
                             .transferId("string")
                             .transactionId("string")
                             .build()
@@ -790,7 +792,7 @@ class TransactionTest {
                         Transaction.Source.InternalSource.builder()
                             .amount(123L)
                             .currency(Transaction.Source.InternalSource.Currency.CAD)
-                            .reason(Transaction.Source.InternalSource.Reason.BANK_MIGRATION)
+                            .reason(Transaction.Source.InternalSource.Reason.ACCOUNT_CLOSURE)
                             .build()
                     )
                     .cardRouteRefund(

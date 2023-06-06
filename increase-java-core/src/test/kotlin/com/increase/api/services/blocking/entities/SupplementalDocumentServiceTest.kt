@@ -3,6 +3,7 @@ package com.increase.api.services.blocking.entities
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.*
+import com.increase.api.models.EntitySupplementalDocumentListParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -26,5 +27,21 @@ class SupplementalDocumentServiceTest {
             )
         println(entity)
         entity.validate()
+    }
+
+    @Test
+    fun callList() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("test-api-key")
+                .build()
+        val supplementalDocumentService = client.entities().supplementalDocuments()
+        val supplementalDocumentList =
+            supplementalDocumentService.list(
+                EntitySupplementalDocumentListParams.builder().entityId("string").build()
+            )
+        println(supplementalDocumentList)
+        supplementalDocumentList.data().forEach { it.validate() }
     }
 }

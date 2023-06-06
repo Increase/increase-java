@@ -91,6 +91,7 @@ class InterestPaymentSimulationResultTest {
                                                 .ReturnReasonCode
                                                 .INSUFFICIENT_FUND
                                         )
+                                        .rawReturnReasonCode("string")
                                         .transferId("string")
                                         .transactionId("string")
                                         .build()
@@ -535,7 +536,7 @@ class InterestPaymentSimulationResultTest {
                                             InterestPaymentSimulationResult.Transaction.Source
                                                 .InternalSource
                                                 .Reason
-                                                .BANK_MIGRATION
+                                                .ACCOUNT_CLOSURE
                                         )
                                         .build()
                                 )
@@ -716,6 +717,7 @@ class InterestPaymentSimulationResultTest {
                                             .ReturnReasonCode
                                             .INSUFFICIENT_FUND
                                     )
+                                    .rawReturnReasonCode("string")
                                     .transferId("string")
                                     .transactionId("string")
                                     .build()
@@ -1132,7 +1134,7 @@ class InterestPaymentSimulationResultTest {
                                         InterestPaymentSimulationResult.Transaction.Source
                                             .InternalSource
                                             .Reason
-                                            .BANK_MIGRATION
+                                            .ACCOUNT_CLOSURE
                                     )
                                     .build()
                             )

@@ -78,6 +78,7 @@ class ServiceParamsTest {
                 .id("string")
                 .interestAccrued("string")
                 .interestAccruedAt(LocalDate.parse("2019-12-27"))
+                .interestRate("string")
                 .name("string")
                 .status(Account.Status.OPEN)
                 .type(Account.Type.ACCOUNT)
@@ -111,6 +112,7 @@ class ServiceParamsTest {
                 .cursor("string")
                 .limit(123L)
                 .entityId("string")
+                .informationalEntityId("string")
                 .status(AccountListParams.Status.OPEN)
                 .createdAt(
                     AccountListParams.CreatedAt.builder()
@@ -136,6 +138,7 @@ class ServiceParamsTest {
                             .id("string")
                             .interestAccrued("string")
                             .interestAccruedAt(LocalDate.parse("2019-12-27"))
+                            .interestRate("string")
                             .name("string")
                             .status(Account.Status.OPEN)
                             .type(Account.Type.ACCOUNT)

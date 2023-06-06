@@ -27,6 +27,8 @@ import com.increase.api.services.async.simulations.InboundWireDrawdownRequestSer
 import com.increase.api.services.async.simulations.InboundWireDrawdownRequestServiceAsyncImpl
 import com.increase.api.services.async.simulations.InterestPaymentServiceAsync
 import com.increase.api.services.async.simulations.InterestPaymentServiceAsyncImpl
+import com.increase.api.services.async.simulations.ProgramServiceAsync
+import com.increase.api.services.async.simulations.ProgramServiceAsyncImpl
 import com.increase.api.services.async.simulations.RealTimePaymentsTransferServiceAsync
 import com.increase.api.services.async.simulations.RealTimePaymentsTransferServiceAsyncImpl
 import com.increase.api.services.async.simulations.WireTransferServiceAsync
@@ -74,6 +76,8 @@ constructor(
         CheckDepositServiceAsyncImpl(clientOptions)
     }
 
+    private val programs: ProgramServiceAsync by lazy { ProgramServiceAsyncImpl(clientOptions) }
+
     private val inboundWireDrawdownRequests: InboundWireDrawdownRequestServiceAsync by lazy {
         InboundWireDrawdownRequestServiceAsyncImpl(clientOptions)
     }
@@ -110,6 +114,8 @@ constructor(
         digitalWalletTokenRequests
 
     override fun checkDeposits(): CheckDepositServiceAsync = checkDeposits
+
+    override fun programs(): ProgramServiceAsync = programs
 
     override fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestServiceAsync =
         inboundWireDrawdownRequests
