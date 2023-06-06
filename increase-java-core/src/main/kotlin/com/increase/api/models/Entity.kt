@@ -13,6 +13,7 @@ import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.LocalDate
+import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
 
@@ -76,7 +77,11 @@ private constructor(
     /** The relationship between your group and the entity. */
     fun relationship(): Relationship = relationship.getRequired("relationship")
 
-    /** Additional documentation associated with the entity. */
+    /**
+     * Additional documentation associated with the entity. This is limited to the first 10
+     * documents for an entity. If an entity has more than 10 documents, use the GET
+     * /entity_supplemental_documents list endpoint to retrieve them.
+     */
     fun supplementalDocuments(): List<SupplementalDocument> =
         supplementalDocuments.getRequired("supplemental_documents")
 
@@ -112,7 +117,11 @@ private constructor(
     /** The relationship between your group and the entity. */
     @JsonProperty("relationship") @ExcludeMissing fun _relationship() = relationship
 
-    /** Additional documentation associated with the entity. */
+    /**
+     * Additional documentation associated with the entity. This is limited to the first 10
+     * documents for an entity. If an entity has more than 10 documents, use the GET
+     * /entity_supplemental_documents list endpoint to retrieve them.
+     */
     @JsonProperty("supplemental_documents")
     @ExcludeMissing
     fun _supplementalDocuments() = supplementalDocuments
@@ -307,11 +316,19 @@ private constructor(
             this.relationship = relationship
         }
 
-        /** Additional documentation associated with the entity. */
+        /**
+         * Additional documentation associated with the entity. This is limited to the first 10
+         * documents for an entity. If an entity has more than 10 documents, use the GET
+         * /entity_supplemental_documents list endpoint to retrieve them.
+         */
         fun supplementalDocuments(supplementalDocuments: List<SupplementalDocument>) =
             supplementalDocuments(JsonField.of(supplementalDocuments))
 
-        /** Additional documentation associated with the entity. */
+        /**
+         * Additional documentation associated with the entity. This is limited to the first 10
+         * documents for an entity. If an entity has more than 10 documents, use the GET
+         * /entity_supplemental_documents list endpoint to retrieve them.
+         */
         @JsonProperty("supplemental_documents")
         @ExcludeMissing
         fun supplementalDocuments(supplementalDocuments: JsonField<List<SupplementalDocument>>) =
@@ -4989,11 +5006,14 @@ private constructor(
         fun asString(): String = _value().asStringOrThrow()
     }
 
+    /** Supplemental Documents are uploaded files connected to an Entity during onboarding. */
     @JsonDeserialize(builder = SupplementalDocument.Builder::class)
     @NoAutoDetect
     class SupplementalDocument
     private constructor(
         private val fileId: JsonField<String>,
+        private val createdAt: JsonField<OffsetDateTime>,
+        private val type: JsonField<Type>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -5004,8 +5024,32 @@ private constructor(
         /** The File containing the document. */
         fun fileId(): String = fileId.getRequired("file_id")
 
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Supplemental
+         * Document was created.
+         */
+        fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+        /**
+         * A constant representing the object's type. For this resource it will always be
+         * `entity_supplemental_document`.
+         */
+        fun type(): Type = type.getRequired("type")
+
         /** The File containing the document. */
         @JsonProperty("file_id") @ExcludeMissing fun _fileId() = fileId
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Supplemental
+         * Document was created.
+         */
+        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+        /**
+         * A constant representing the object's type. For this resource it will always be
+         * `entity_supplemental_document`.
+         */
+        @JsonProperty("type") @ExcludeMissing fun _type() = type
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -5014,6 +5058,8 @@ private constructor(
         fun validate(): SupplementalDocument = apply {
             if (!validated) {
                 fileId()
+                createdAt()
+                type()
                 validated = true
             }
         }
@@ -5027,18 +5073,26 @@ private constructor(
 
             return other is SupplementalDocument &&
                 this.fileId == other.fileId &&
+                this.createdAt == other.createdAt &&
+                this.type == other.type &&
                 this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(fileId, additionalProperties)
+                hashCode =
+                    Objects.hash(
+                        fileId,
+                        createdAt,
+                        type,
+                        additionalProperties,
+                    )
             }
             return hashCode
         }
 
         override fun toString() =
-            "SupplementalDocument{fileId=$fileId, additionalProperties=$additionalProperties}"
+            "SupplementalDocument{fileId=$fileId, createdAt=$createdAt, type=$type, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -5048,11 +5102,15 @@ private constructor(
         class Builder {
 
             private var fileId: JsonField<String> = JsonMissing.of()
+            private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var type: JsonField<Type> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(supplementalDocument: SupplementalDocument) = apply {
                 this.fileId = supplementalDocument.fileId
+                this.createdAt = supplementalDocument.createdAt
+                this.type = supplementalDocument.type
                 additionalProperties(supplementalDocument.additionalProperties)
             }
 
@@ -5063,6 +5121,36 @@ private constructor(
             @JsonProperty("file_id")
             @ExcludeMissing
             fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Supplemental
+             * Document was created.
+             */
+            fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Supplemental
+             * Document was created.
+             */
+            @JsonProperty("created_at")
+            @ExcludeMissing
+            fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                this.createdAt = createdAt
+            }
+
+            /**
+             * A constant representing the object's type. For this resource it will always be
+             * `entity_supplemental_document`.
+             */
+            fun type(type: Type) = type(JsonField.of(type))
+
+            /**
+             * A constant representing the object's type. For this resource it will always be
+             * `entity_supplemental_document`.
+             */
+            @JsonProperty("type")
+            @ExcludeMissing
+            fun type(type: JsonField<Type>) = apply { this.type = type }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -5079,7 +5167,65 @@ private constructor(
             }
 
             fun build(): SupplementalDocument =
-                SupplementalDocument(fileId, additionalProperties.toUnmodifiable())
+                SupplementalDocument(
+                    fileId,
+                    createdAt,
+                    type,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
+
+        class Type
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Type && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                @JvmField
+                val ENTITY_SUPPLEMENTAL_DOCUMENT =
+                    Type(JsonField.of("entity_supplemental_document"))
+
+                @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+            }
+
+            enum class Known {
+                ENTITY_SUPPLEMENTAL_DOCUMENT,
+            }
+
+            enum class Value {
+                ENTITY_SUPPLEMENTAL_DOCUMENT,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    ENTITY_SUPPLEMENTAL_DOCUMENT -> Value.ENTITY_SUPPLEMENTAL_DOCUMENT
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    ENTITY_SUPPLEMENTAL_DOCUMENT -> Known.ENTITY_SUPPLEMENTAL_DOCUMENT
+                    else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
         }
     }
 }

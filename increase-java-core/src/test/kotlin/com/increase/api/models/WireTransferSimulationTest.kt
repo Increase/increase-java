@@ -85,6 +85,7 @@ class WireTransferSimulationTest {
                                                 .ReturnReasonCode
                                                 .INSUFFICIENT_FUND
                                         )
+                                        .rawReturnReasonCode("string")
                                         .transferId("string")
                                         .transactionId("string")
                                         .build()
@@ -503,7 +504,7 @@ class WireTransferSimulationTest {
                                         .reason(
                                             WireTransferSimulation.Transaction.Source.InternalSource
                                                 .Reason
-                                                .BANK_MIGRATION
+                                                .ACCOUNT_CLOSURE
                                         )
                                         .build()
                                 )
@@ -673,6 +674,7 @@ class WireTransferSimulationTest {
                                             .ReturnReasonCode
                                             .INSUFFICIENT_FUND
                                     )
+                                    .rawReturnReasonCode("string")
                                     .transferId("string")
                                     .transactionId("string")
                                     .build()
@@ -1057,7 +1059,7 @@ class WireTransferSimulationTest {
                                     .reason(
                                         WireTransferSimulation.Transaction.Source.InternalSource
                                             .Reason
-                                            .BANK_MIGRATION
+                                            .ACCOUNT_CLOSURE
                                     )
                                     .build()
                             )

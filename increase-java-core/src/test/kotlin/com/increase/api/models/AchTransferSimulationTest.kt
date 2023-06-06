@@ -85,6 +85,7 @@ class AchTransferSimulationTest {
                                                 .ReturnReasonCode
                                                 .INSUFFICIENT_FUND
                                         )
+                                        .rawReturnReasonCode("string")
                                         .transferId("string")
                                         .transactionId("string")
                                         .build()
@@ -501,7 +502,7 @@ class AchTransferSimulationTest {
                                         .reason(
                                             AchTransferSimulation.Transaction.Source.InternalSource
                                                 .Reason
-                                                .BANK_MIGRATION
+                                                .ACCOUNT_CLOSURE
                                         )
                                         .build()
                                 )
@@ -903,6 +904,7 @@ class AchTransferSimulationTest {
                                             .ReturnReasonCode
                                             .INSUFFICIENT_FUND
                                     )
+                                    .rawReturnReasonCode("string")
                                     .transferId("string")
                                     .transactionId("string")
                                     .build()
@@ -1282,7 +1284,7 @@ class AchTransferSimulationTest {
                                     .reason(
                                         AchTransferSimulation.Transaction.Source.InternalSource
                                             .Reason
-                                            .BANK_MIGRATION
+                                            .ACCOUNT_CLOSURE
                                     )
                                     .build()
                             )

@@ -32,6 +32,7 @@ private constructor(
     private val id: JsonField<String>,
     private val interestAccrued: JsonField<String>,
     private val interestAccruedAt: JsonField<LocalDate>,
+    private val interestRate: JsonField<String>,
     private val name: JsonField<String>,
     private val status: JsonField<Status>,
     private val type: JsonField<Type>,
@@ -75,6 +76,12 @@ private constructor(
      */
     fun interestAccruedAt(): Optional<LocalDate> =
         Optional.ofNullable(interestAccruedAt.getNullable("interest_accrued_at"))
+
+    /**
+     * The Interest Rate currently being earned on the account, as a string containing a decimal
+     * number. For example, a 1% interest rate would be represented as "0.01".
+     */
+    fun interestRate(): String = interestRate.getRequired("interest_rate")
 
     /** The name you choose for the Account. */
     fun name(): String = name.getRequired("name")
@@ -121,6 +128,12 @@ private constructor(
     @ExcludeMissing
     fun _interestAccruedAt() = interestAccruedAt
 
+    /**
+     * The Interest Rate currently being earned on the account, as a string containing a decimal
+     * number. For example, a 1% interest rate would be represented as "0.01".
+     */
+    @JsonProperty("interest_rate") @ExcludeMissing fun _interestRate() = interestRate
+
     /** The name you choose for the Account. */
     @JsonProperty("name") @ExcludeMissing fun _name() = name
 
@@ -143,6 +156,7 @@ private constructor(
             id()
             interestAccrued()
             interestAccruedAt()
+            interestRate()
             name()
             status()
             type()
@@ -165,6 +179,7 @@ private constructor(
             this.id == other.id &&
             this.interestAccrued == other.interestAccrued &&
             this.interestAccruedAt == other.interestAccruedAt &&
+            this.interestRate == other.interestRate &&
             this.name == other.name &&
             this.status == other.status &&
             this.type == other.type &&
@@ -182,6 +197,7 @@ private constructor(
                     id,
                     interestAccrued,
                     interestAccruedAt,
+                    interestRate,
                     name,
                     status,
                     type,
@@ -192,7 +208,7 @@ private constructor(
     }
 
     override fun toString() =
-        "Account{createdAt=$createdAt, currency=$currency, entityId=$entityId, informationalEntityId=$informationalEntityId, id=$id, interestAccrued=$interestAccrued, interestAccruedAt=$interestAccruedAt, name=$name, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "Account{createdAt=$createdAt, currency=$currency, entityId=$entityId, informationalEntityId=$informationalEntityId, id=$id, interestAccrued=$interestAccrued, interestAccruedAt=$interestAccruedAt, interestRate=$interestRate, name=$name, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -208,6 +224,7 @@ private constructor(
         private var id: JsonField<String> = JsonMissing.of()
         private var interestAccrued: JsonField<String> = JsonMissing.of()
         private var interestAccruedAt: JsonField<LocalDate> = JsonMissing.of()
+        private var interestRate: JsonField<String> = JsonMissing.of()
         private var name: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
@@ -222,6 +239,7 @@ private constructor(
             this.id = account.id
             this.interestAccrued = account.interestAccrued
             this.interestAccruedAt = account.interestAccruedAt
+            this.interestRate = account.interestRate
             this.name = account.name
             this.status = account.status
             this.type = account.type
@@ -315,6 +333,22 @@ private constructor(
             this.interestAccruedAt = interestAccruedAt
         }
 
+        /**
+         * The Interest Rate currently being earned on the account, as a string containing a decimal
+         * number. For example, a 1% interest rate would be represented as "0.01".
+         */
+        fun interestRate(interestRate: String) = interestRate(JsonField.of(interestRate))
+
+        /**
+         * The Interest Rate currently being earned on the account, as a string containing a decimal
+         * number. For example, a 1% interest rate would be represented as "0.01".
+         */
+        @JsonProperty("interest_rate")
+        @ExcludeMissing
+        fun interestRate(interestRate: JsonField<String>) = apply {
+            this.interestRate = interestRate
+        }
+
         /** The name you choose for the Account. */
         fun name(name: String) = name(JsonField.of(name))
 
@@ -366,6 +400,7 @@ private constructor(
                 id,
                 interestAccrued,
                 interestAccruedAt,
+                interestRate,
                 name,
                 status,
                 type,

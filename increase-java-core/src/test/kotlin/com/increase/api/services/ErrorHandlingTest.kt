@@ -75,6 +75,7 @@ class ErrorHandlingTest {
                 .id("string")
                 .interestAccrued("string")
                 .interestAccruedAt(LocalDate.parse("2019-12-27"))
+                .interestRate("string")
                 .name("string")
                 .status(Account.Status.OPEN)
                 .type(Account.Type.ACCOUNT)

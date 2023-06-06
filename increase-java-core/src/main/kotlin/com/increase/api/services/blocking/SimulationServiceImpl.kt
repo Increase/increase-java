@@ -27,6 +27,8 @@ import com.increase.api.services.blocking.simulations.InboundWireDrawdownRequest
 import com.increase.api.services.blocking.simulations.InboundWireDrawdownRequestServiceImpl
 import com.increase.api.services.blocking.simulations.InterestPaymentService
 import com.increase.api.services.blocking.simulations.InterestPaymentServiceImpl
+import com.increase.api.services.blocking.simulations.ProgramService
+import com.increase.api.services.blocking.simulations.ProgramServiceImpl
 import com.increase.api.services.blocking.simulations.RealTimePaymentsTransferService
 import com.increase.api.services.blocking.simulations.RealTimePaymentsTransferServiceImpl
 import com.increase.api.services.blocking.simulations.WireTransferService
@@ -68,6 +70,8 @@ constructor(
         CheckDepositServiceImpl(clientOptions)
     }
 
+    private val programs: ProgramService by lazy { ProgramServiceImpl(clientOptions) }
+
     private val inboundWireDrawdownRequests: InboundWireDrawdownRequestService by lazy {
         InboundWireDrawdownRequestServiceImpl(clientOptions)
     }
@@ -104,6 +108,8 @@ constructor(
         digitalWalletTokenRequests
 
     override fun checkDeposits(): CheckDepositService = checkDeposits
+
+    override fun programs(): ProgramService = programs
 
     override fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestService =
         inboundWireDrawdownRequests
