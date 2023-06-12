@@ -4028,8 +4028,10 @@ private constructor(
                             ReturnReasonCode(JsonField.of("beneficiary_or_account_holder_deceased"))
 
                         @JvmField
-                        val CHECK_TRUNCATION_ENTRY_RETURN =
-                            ReturnReasonCode(JsonField.of("check_truncation_entry_return"))
+                        val CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS =
+                            ReturnReasonCode(
+                                JsonField.of("customer_advised_not_within_authorization_terms")
+                            )
 
                         @JvmField
                         val CORRECTED_RETURN = ReturnReasonCode(JsonField.of("corrected_return"))
@@ -4252,7 +4254,7 @@ private constructor(
                         ACCOUNT_SOLD_TO_ANOTHER_DFI,
                         ADDENDA_ERROR,
                         BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED,
-                        CHECK_TRUNCATION_ENTRY_RETURN,
+                        CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS,
                         CORRECTED_RETURN,
                         DUPLICATE_ENTRY,
                         DUPLICATE_RETURN,
@@ -4326,7 +4328,7 @@ private constructor(
                         ACCOUNT_SOLD_TO_ANOTHER_DFI,
                         ADDENDA_ERROR,
                         BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED,
-                        CHECK_TRUNCATION_ENTRY_RETURN,
+                        CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS,
                         CORRECTED_RETURN,
                         DUPLICATE_ENTRY,
                         DUPLICATE_RETURN,
@@ -4414,7 +4416,8 @@ private constructor(
                             ADDENDA_ERROR -> Value.ADDENDA_ERROR
                             BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED ->
                                 Value.BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED
-                            CHECK_TRUNCATION_ENTRY_RETURN -> Value.CHECK_TRUNCATION_ENTRY_RETURN
+                            CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS ->
+                                Value.CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS
                             CORRECTED_RETURN -> Value.CORRECTED_RETURN
                             DUPLICATE_ENTRY -> Value.DUPLICATE_ENTRY
                             DUPLICATE_RETURN -> Value.DUPLICATE_RETURN
@@ -4519,7 +4522,8 @@ private constructor(
                             ADDENDA_ERROR -> Known.ADDENDA_ERROR
                             BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED ->
                                 Known.BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED
-                            CHECK_TRUNCATION_ENTRY_RETURN -> Known.CHECK_TRUNCATION_ENTRY_RETURN
+                            CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS ->
+                                Known.CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS
                             CORRECTED_RETURN -> Known.CORRECTED_RETURN
                             DUPLICATE_ENTRY -> Known.DUPLICATE_ENTRY
                             DUPLICATE_RETURN -> Known.DUPLICATE_RETURN
