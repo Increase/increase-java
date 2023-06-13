@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.4.0](https://github.com/Increase/increase-java/compare/v0.3.1...v0.4.0) (2023-06-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** rename return reason enum member ([#13](https://github.com/Increase/increase-java/issues/13))
+
+### Refactors
+
+* **api:** rename return reason enum member ([#13](https://github.com/Increase/increase-java/issues/13)) ([22a3fd6](https://github.com/Increase/increase-java/commit/22a3fd63050eab68ff66c84b78968cbed97c8c93))
+
+
+### Documentation
+
+* point to github repo instead of email contact ([#14](https://github.com/Increase/increase-java/issues/14)) ([4ab211e](https://github.com/Increase/increase-java/commit/4ab211eef042fb09d11cafd25e1c0be5d7accb71))
+
 ## [0.3.1](https://github.com/Increase/increase-java/compare/v0.3.0...v0.3.1) (2023-06-12)
 
 
