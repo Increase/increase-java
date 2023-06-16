@@ -115,32 +115,10 @@ class PendingTransactionTest {
                                 .pendingTransactionId("string")
                                 .build()
                         )
-                        .cardRouteAuthorization(
-                            PendingTransaction.Source.CardRouteAuthorization.builder()
-                                .amount(123L)
-                                .currency(
-                                    PendingTransaction.Source.CardRouteAuthorization.Currency.CAD
-                                )
-                                .merchantAcceptorId("string")
-                                .merchantCity("string")
-                                .merchantCountry("string")
-                                .merchantDescriptor("string")
-                                .merchantCategoryCode("string")
-                                .merchantState("string")
-                                .build()
-                        )
                         .realTimePaymentsTransferInstruction(
                             PendingTransaction.Source.RealTimePaymentsTransferInstruction.builder()
                                 .amount(123L)
                                 .transferId("string")
-                                .build()
-                        )
-                        .wireDrawdownPaymentInstruction(
-                            PendingTransaction.Source.WireDrawdownPaymentInstruction.builder()
-                                .amount(123L)
-                                .accountNumber("string")
-                                .routingNumber("string")
-                                .messageToRecipient("string")
                                 .build()
                         )
                         .wireTransferInstruction(
@@ -261,30 +239,10 @@ class PendingTransactionTest {
                             .pendingTransactionId("string")
                             .build()
                     )
-                    .cardRouteAuthorization(
-                        PendingTransaction.Source.CardRouteAuthorization.builder()
-                            .amount(123L)
-                            .currency(PendingTransaction.Source.CardRouteAuthorization.Currency.CAD)
-                            .merchantAcceptorId("string")
-                            .merchantCity("string")
-                            .merchantCountry("string")
-                            .merchantDescriptor("string")
-                            .merchantCategoryCode("string")
-                            .merchantState("string")
-                            .build()
-                    )
                     .realTimePaymentsTransferInstruction(
                         PendingTransaction.Source.RealTimePaymentsTransferInstruction.builder()
                             .amount(123L)
                             .transferId("string")
-                            .build()
-                    )
-                    .wireDrawdownPaymentInstruction(
-                        PendingTransaction.Source.WireDrawdownPaymentInstruction.builder()
-                            .amount(123L)
-                            .accountNumber("string")
-                            .routingNumber("string")
-                            .messageToRecipient("string")
                             .build()
                     )
                     .wireTransferInstruction(
