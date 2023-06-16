@@ -32,18 +32,6 @@ class TransactionTest {
                                 .transferId("string")
                                 .build()
                         )
-                        .achCheckConversionReturn(
-                            Transaction.Source.AchCheckConversionReturn.builder()
-                                .amount(123L)
-                                .returnReasonCode("string")
-                                .build()
-                        )
-                        .achCheckConversion(
-                            Transaction.Source.AchCheckConversion.builder()
-                                .amount(123L)
-                                .fileId("string")
-                                .build()
-                        )
                         .achTransferIntention(
                             Transaction.Source.AchTransferIntention.builder()
                                 .amount(123L)
@@ -181,20 +169,6 @@ class TransactionTest {
                                     Transaction.Source.CheckTransferStopPaymentRequest.Type
                                         .CHECK_TRANSFER_STOP_PAYMENT_REQUEST
                                 )
-                                .build()
-                        )
-                        .disputeResolution(
-                            Transaction.Source.DisputeResolution.builder()
-                                .amount(123L)
-                                .currency(Transaction.Source.DisputeResolution.Currency.CAD)
-                                .disputedTransactionId("string")
-                                .build()
-                        )
-                        .empyrealCashDeposit(
-                            Transaction.Source.EmpyrealCashDeposit.builder()
-                                .amount(123L)
-                                .bagId("string")
-                                .depositDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .build()
                         )
                         .feePayment(
@@ -368,30 +342,6 @@ class TransactionTest {
                                 .reason(Transaction.Source.InternalSource.Reason.ACCOUNT_CLOSURE)
                                 .build()
                         )
-                        .cardRouteRefund(
-                            Transaction.Source.CardRouteRefund.builder()
-                                .amount(123L)
-                                .currency(Transaction.Source.CardRouteRefund.Currency.CAD)
-                                .merchantAcceptorId("string")
-                                .merchantCity("string")
-                                .merchantCountry("string")
-                                .merchantDescriptor("string")
-                                .merchantState("string")
-                                .merchantCategoryCode("string")
-                                .build()
-                        )
-                        .cardRouteSettlement(
-                            Transaction.Source.CardRouteSettlement.builder()
-                                .amount(123L)
-                                .currency(Transaction.Source.CardRouteSettlement.Currency.CAD)
-                                .merchantAcceptorId("string")
-                                .merchantCity("string")
-                                .merchantCountry("string")
-                                .merchantDescriptor("string")
-                                .merchantState("string")
-                                .merchantCategoryCode("string")
-                                .build()
-                        )
                         .realTimePaymentsTransferAcknowledgement(
                             Transaction.Source.RealTimePaymentsTransferAcknowledgement.builder()
                                 .amount(123L)
@@ -403,20 +353,6 @@ class TransactionTest {
                         )
                         .sampleFunds(
                             Transaction.Source.SampleFunds.builder().originator("string").build()
-                        )
-                        .wireDrawdownPaymentIntention(
-                            Transaction.Source.WireDrawdownPaymentIntention.builder()
-                                .amount(123L)
-                                .accountNumber("string")
-                                .routingNumber("string")
-                                .messageToRecipient("string")
-                                .transferId("string")
-                                .build()
-                        )
-                        .wireDrawdownPaymentRejection(
-                            Transaction.Source.WireDrawdownPaymentRejection.builder()
-                                .transferId("string")
-                                .build()
                         )
                         .wireTransferIntention(
                             Transaction.Source.WireTransferIntention.builder()
@@ -458,18 +394,6 @@ class TransactionTest {
                             .destinationAccountId("string")
                             .sourceAccountId("string")
                             .transferId("string")
-                            .build()
-                    )
-                    .achCheckConversionReturn(
-                        Transaction.Source.AchCheckConversionReturn.builder()
-                            .amount(123L)
-                            .returnReasonCode("string")
-                            .build()
-                    )
-                    .achCheckConversion(
-                        Transaction.Source.AchCheckConversion.builder()
-                            .amount(123L)
-                            .fileId("string")
                             .build()
                     )
                     .achTransferIntention(
@@ -608,20 +532,6 @@ class TransactionTest {
                                 Transaction.Source.CheckTransferStopPaymentRequest.Type
                                     .CHECK_TRANSFER_STOP_PAYMENT_REQUEST
                             )
-                            .build()
-                    )
-                    .disputeResolution(
-                        Transaction.Source.DisputeResolution.builder()
-                            .amount(123L)
-                            .currency(Transaction.Source.DisputeResolution.Currency.CAD)
-                            .disputedTransactionId("string")
-                            .build()
-                    )
-                    .empyrealCashDeposit(
-                        Transaction.Source.EmpyrealCashDeposit.builder()
-                            .amount(123L)
-                            .bagId("string")
-                            .depositDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .build()
                     )
                     .feePayment(
@@ -795,30 +705,6 @@ class TransactionTest {
                             .reason(Transaction.Source.InternalSource.Reason.ACCOUNT_CLOSURE)
                             .build()
                     )
-                    .cardRouteRefund(
-                        Transaction.Source.CardRouteRefund.builder()
-                            .amount(123L)
-                            .currency(Transaction.Source.CardRouteRefund.Currency.CAD)
-                            .merchantAcceptorId("string")
-                            .merchantCity("string")
-                            .merchantCountry("string")
-                            .merchantDescriptor("string")
-                            .merchantState("string")
-                            .merchantCategoryCode("string")
-                            .build()
-                    )
-                    .cardRouteSettlement(
-                        Transaction.Source.CardRouteSettlement.builder()
-                            .amount(123L)
-                            .currency(Transaction.Source.CardRouteSettlement.Currency.CAD)
-                            .merchantAcceptorId("string")
-                            .merchantCity("string")
-                            .merchantCountry("string")
-                            .merchantDescriptor("string")
-                            .merchantState("string")
-                            .merchantCategoryCode("string")
-                            .build()
-                    )
                     .realTimePaymentsTransferAcknowledgement(
                         Transaction.Source.RealTimePaymentsTransferAcknowledgement.builder()
                             .amount(123L)
@@ -830,20 +716,6 @@ class TransactionTest {
                     )
                     .sampleFunds(
                         Transaction.Source.SampleFunds.builder().originator("string").build()
-                    )
-                    .wireDrawdownPaymentIntention(
-                        Transaction.Source.WireDrawdownPaymentIntention.builder()
-                            .amount(123L)
-                            .accountNumber("string")
-                            .routingNumber("string")
-                            .messageToRecipient("string")
-                            .transferId("string")
-                            .build()
-                    )
-                    .wireDrawdownPaymentRejection(
-                        Transaction.Source.WireDrawdownPaymentRejection.builder()
-                            .transferId("string")
-                            .build()
                     )
                     .wireTransferIntention(
                         Transaction.Source.WireTransferIntention.builder()

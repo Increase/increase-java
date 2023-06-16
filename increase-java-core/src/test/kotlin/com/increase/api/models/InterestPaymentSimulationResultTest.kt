@@ -46,22 +46,6 @@ class InterestPaymentSimulationResultTest {
                                         .transferId("string")
                                         .build()
                                 )
-                                .achCheckConversionReturn(
-                                    InterestPaymentSimulationResult.Transaction.Source
-                                        .AchCheckConversionReturn
-                                        .builder()
-                                        .amount(123L)
-                                        .returnReasonCode("string")
-                                        .build()
-                                )
-                                .achCheckConversion(
-                                    InterestPaymentSimulationResult.Transaction.Source
-                                        .AchCheckConversion
-                                        .builder()
-                                        .amount(123L)
-                                        .fileId("string")
-                                        .build()
-                                )
                                 .achTransferIntention(
                                     InterestPaymentSimulationResult.Transaction.Source
                                         .AchTransferIntention
@@ -281,31 +265,6 @@ class InterestPaymentSimulationResultTest {
                                                 .CheckTransferStopPaymentRequest
                                                 .Type
                                                 .CHECK_TRANSFER_STOP_PAYMENT_REQUEST
-                                        )
-                                        .build()
-                                )
-                                .disputeResolution(
-                                    InterestPaymentSimulationResult.Transaction.Source
-                                        .DisputeResolution
-                                        .builder()
-                                        .amount(123L)
-                                        .currency(
-                                            InterestPaymentSimulationResult.Transaction.Source
-                                                .DisputeResolution
-                                                .Currency
-                                                .CAD
-                                        )
-                                        .disputedTransactionId("string")
-                                        .build()
-                                )
-                                .empyrealCashDeposit(
-                                    InterestPaymentSimulationResult.Transaction.Source
-                                        .EmpyrealCashDeposit
-                                        .builder()
-                                        .amount(123L)
-                                        .bagId("string")
-                                        .depositDate(
-                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
                                         .build()
                                 )
@@ -540,44 +499,6 @@ class InterestPaymentSimulationResultTest {
                                         )
                                         .build()
                                 )
-                                .cardRouteRefund(
-                                    InterestPaymentSimulationResult.Transaction.Source
-                                        .CardRouteRefund
-                                        .builder()
-                                        .amount(123L)
-                                        .currency(
-                                            InterestPaymentSimulationResult.Transaction.Source
-                                                .CardRouteRefund
-                                                .Currency
-                                                .CAD
-                                        )
-                                        .merchantAcceptorId("string")
-                                        .merchantCity("string")
-                                        .merchantCountry("string")
-                                        .merchantDescriptor("string")
-                                        .merchantState("string")
-                                        .merchantCategoryCode("string")
-                                        .build()
-                                )
-                                .cardRouteSettlement(
-                                    InterestPaymentSimulationResult.Transaction.Source
-                                        .CardRouteSettlement
-                                        .builder()
-                                        .amount(123L)
-                                        .currency(
-                                            InterestPaymentSimulationResult.Transaction.Source
-                                                .CardRouteSettlement
-                                                .Currency
-                                                .CAD
-                                        )
-                                        .merchantAcceptorId("string")
-                                        .merchantCity("string")
-                                        .merchantCountry("string")
-                                        .merchantDescriptor("string")
-                                        .merchantState("string")
-                                        .merchantCategoryCode("string")
-                                        .build()
-                                )
                                 .realTimePaymentsTransferAcknowledgement(
                                     InterestPaymentSimulationResult.Transaction.Source
                                         .RealTimePaymentsTransferAcknowledgement
@@ -593,24 +514,6 @@ class InterestPaymentSimulationResultTest {
                                     InterestPaymentSimulationResult.Transaction.Source.SampleFunds
                                         .builder()
                                         .originator("string")
-                                        .build()
-                                )
-                                .wireDrawdownPaymentIntention(
-                                    InterestPaymentSimulationResult.Transaction.Source
-                                        .WireDrawdownPaymentIntention
-                                        .builder()
-                                        .amount(123L)
-                                        .accountNumber("string")
-                                        .routingNumber("string")
-                                        .messageToRecipient("string")
-                                        .transferId("string")
-                                        .build()
-                                )
-                                .wireDrawdownPaymentRejection(
-                                    InterestPaymentSimulationResult.Transaction.Source
-                                        .WireDrawdownPaymentRejection
-                                        .builder()
-                                        .transferId("string")
                                         .build()
                                 )
                                 .wireTransferIntention(
@@ -671,22 +574,6 @@ class InterestPaymentSimulationResultTest {
                                     .destinationAccountId("string")
                                     .sourceAccountId("string")
                                     .transferId("string")
-                                    .build()
-                            )
-                            .achCheckConversionReturn(
-                                InterestPaymentSimulationResult.Transaction.Source
-                                    .AchCheckConversionReturn
-                                    .builder()
-                                    .amount(123L)
-                                    .returnReasonCode("string")
-                                    .build()
-                            )
-                            .achCheckConversion(
-                                InterestPaymentSimulationResult.Transaction.Source
-                                    .AchCheckConversion
-                                    .builder()
-                                    .amount(123L)
-                                    .fileId("string")
                                     .build()
                             )
                             .achTransferIntention(
@@ -897,28 +784,6 @@ class InterestPaymentSimulationResultTest {
                                             .Type
                                             .CHECK_TRANSFER_STOP_PAYMENT_REQUEST
                                     )
-                                    .build()
-                            )
-                            .disputeResolution(
-                                InterestPaymentSimulationResult.Transaction.Source.DisputeResolution
-                                    .builder()
-                                    .amount(123L)
-                                    .currency(
-                                        InterestPaymentSimulationResult.Transaction.Source
-                                            .DisputeResolution
-                                            .Currency
-                                            .CAD
-                                    )
-                                    .disputedTransactionId("string")
-                                    .build()
-                            )
-                            .empyrealCashDeposit(
-                                InterestPaymentSimulationResult.Transaction.Source
-                                    .EmpyrealCashDeposit
-                                    .builder()
-                                    .amount(123L)
-                                    .bagId("string")
-                                    .depositDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .build()
                             )
                             .feePayment(
@@ -1138,43 +1003,6 @@ class InterestPaymentSimulationResultTest {
                                     )
                                     .build()
                             )
-                            .cardRouteRefund(
-                                InterestPaymentSimulationResult.Transaction.Source.CardRouteRefund
-                                    .builder()
-                                    .amount(123L)
-                                    .currency(
-                                        InterestPaymentSimulationResult.Transaction.Source
-                                            .CardRouteRefund
-                                            .Currency
-                                            .CAD
-                                    )
-                                    .merchantAcceptorId("string")
-                                    .merchantCity("string")
-                                    .merchantCountry("string")
-                                    .merchantDescriptor("string")
-                                    .merchantState("string")
-                                    .merchantCategoryCode("string")
-                                    .build()
-                            )
-                            .cardRouteSettlement(
-                                InterestPaymentSimulationResult.Transaction.Source
-                                    .CardRouteSettlement
-                                    .builder()
-                                    .amount(123L)
-                                    .currency(
-                                        InterestPaymentSimulationResult.Transaction.Source
-                                            .CardRouteSettlement
-                                            .Currency
-                                            .CAD
-                                    )
-                                    .merchantAcceptorId("string")
-                                    .merchantCity("string")
-                                    .merchantCountry("string")
-                                    .merchantDescriptor("string")
-                                    .merchantState("string")
-                                    .merchantCategoryCode("string")
-                                    .build()
-                            )
                             .realTimePaymentsTransferAcknowledgement(
                                 InterestPaymentSimulationResult.Transaction.Source
                                     .RealTimePaymentsTransferAcknowledgement
@@ -1190,24 +1018,6 @@ class InterestPaymentSimulationResultTest {
                                 InterestPaymentSimulationResult.Transaction.Source.SampleFunds
                                     .builder()
                                     .originator("string")
-                                    .build()
-                            )
-                            .wireDrawdownPaymentIntention(
-                                InterestPaymentSimulationResult.Transaction.Source
-                                    .WireDrawdownPaymentIntention
-                                    .builder()
-                                    .amount(123L)
-                                    .accountNumber("string")
-                                    .routingNumber("string")
-                                    .messageToRecipient("string")
-                                    .transferId("string")
-                                    .build()
-                            )
-                            .wireDrawdownPaymentRejection(
-                                InterestPaymentSimulationResult.Transaction.Source
-                                    .WireDrawdownPaymentRejection
-                                    .builder()
-                                    .transferId("string")
                                     .build()
                             )
                             .wireTransferIntention(
