@@ -44,21 +44,6 @@ class AchTransferSimulationTest {
                                         .transferId("string")
                                         .build()
                                 )
-                                .achCheckConversionReturn(
-                                    AchTransferSimulation.Transaction.Source
-                                        .AchCheckConversionReturn
-                                        .builder()
-                                        .amount(123L)
-                                        .returnReasonCode("string")
-                                        .build()
-                                )
-                                .achCheckConversion(
-                                    AchTransferSimulation.Transaction.Source.AchCheckConversion
-                                        .builder()
-                                        .amount(123L)
-                                        .fileId("string")
-                                        .build()
-                                )
                                 .achTransferIntention(
                                     AchTransferSimulation.Transaction.Source.AchTransferIntention
                                         .builder()
@@ -261,29 +246,6 @@ class AchTransferSimulationTest {
                                                 .CheckTransferStopPaymentRequest
                                                 .Type
                                                 .CHECK_TRANSFER_STOP_PAYMENT_REQUEST
-                                        )
-                                        .build()
-                                )
-                                .disputeResolution(
-                                    AchTransferSimulation.Transaction.Source.DisputeResolution
-                                        .builder()
-                                        .amount(123L)
-                                        .currency(
-                                            AchTransferSimulation.Transaction.Source
-                                                .DisputeResolution
-                                                .Currency
-                                                .CAD
-                                        )
-                                        .disputedTransactionId("string")
-                                        .build()
-                                )
-                                .empyrealCashDeposit(
-                                    AchTransferSimulation.Transaction.Source.EmpyrealCashDeposit
-                                        .builder()
-                                        .amount(123L)
-                                        .bagId("string")
-                                        .depositDate(
-                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
                                         .build()
                                 )
@@ -506,41 +468,6 @@ class AchTransferSimulationTest {
                                         )
                                         .build()
                                 )
-                                .cardRouteRefund(
-                                    AchTransferSimulation.Transaction.Source.CardRouteRefund
-                                        .builder()
-                                        .amount(123L)
-                                        .currency(
-                                            AchTransferSimulation.Transaction.Source.CardRouteRefund
-                                                .Currency
-                                                .CAD
-                                        )
-                                        .merchantAcceptorId("string")
-                                        .merchantCity("string")
-                                        .merchantCountry("string")
-                                        .merchantDescriptor("string")
-                                        .merchantState("string")
-                                        .merchantCategoryCode("string")
-                                        .build()
-                                )
-                                .cardRouteSettlement(
-                                    AchTransferSimulation.Transaction.Source.CardRouteSettlement
-                                        .builder()
-                                        .amount(123L)
-                                        .currency(
-                                            AchTransferSimulation.Transaction.Source
-                                                .CardRouteSettlement
-                                                .Currency
-                                                .CAD
-                                        )
-                                        .merchantAcceptorId("string")
-                                        .merchantCity("string")
-                                        .merchantCountry("string")
-                                        .merchantDescriptor("string")
-                                        .merchantState("string")
-                                        .merchantCategoryCode("string")
-                                        .build()
-                                )
                                 .realTimePaymentsTransferAcknowledgement(
                                     AchTransferSimulation.Transaction.Source
                                         .RealTimePaymentsTransferAcknowledgement
@@ -555,24 +482,6 @@ class AchTransferSimulationTest {
                                 .sampleFunds(
                                     AchTransferSimulation.Transaction.Source.SampleFunds.builder()
                                         .originator("string")
-                                        .build()
-                                )
-                                .wireDrawdownPaymentIntention(
-                                    AchTransferSimulation.Transaction.Source
-                                        .WireDrawdownPaymentIntention
-                                        .builder()
-                                        .amount(123L)
-                                        .accountNumber("string")
-                                        .routingNumber("string")
-                                        .messageToRecipient("string")
-                                        .transferId("string")
-                                        .build()
-                                )
-                                .wireDrawdownPaymentRejection(
-                                    AchTransferSimulation.Transaction.Source
-                                        .WireDrawdownPaymentRejection
-                                        .builder()
-                                        .transferId("string")
                                         .build()
                                 )
                                 .wireTransferIntention(
@@ -779,25 +688,6 @@ class AchTransferSimulationTest {
                                         .traceNumber("string")
                                         .build()
                                 )
-                                .cardRouteDecline(
-                                    AchTransferSimulation.DeclinedTransaction.Source
-                                        .CardRouteDecline
-                                        .builder()
-                                        .amount(123L)
-                                        .currency(
-                                            AchTransferSimulation.DeclinedTransaction.Source
-                                                .CardRouteDecline
-                                                .Currency
-                                                .CAD
-                                        )
-                                        .merchantAcceptorId("string")
-                                        .merchantCity("string")
-                                        .merchantCountry("string")
-                                        .merchantDescriptor("string")
-                                        .merchantState("string")
-                                        .merchantCategoryCode("string")
-                                        .build()
-                                )
                                 .wireDecline(
                                     AchTransferSimulation.DeclinedTransaction.Source.WireDecline
                                         .builder()
@@ -864,20 +754,6 @@ class AchTransferSimulationTest {
                                     .destinationAccountId("string")
                                     .sourceAccountId("string")
                                     .transferId("string")
-                                    .build()
-                            )
-                            .achCheckConversionReturn(
-                                AchTransferSimulation.Transaction.Source.AchCheckConversionReturn
-                                    .builder()
-                                    .amount(123L)
-                                    .returnReasonCode("string")
-                                    .build()
-                            )
-                            .achCheckConversion(
-                                AchTransferSimulation.Transaction.Source.AchCheckConversion
-                                    .builder()
-                                    .amount(123L)
-                                    .fileId("string")
                                     .build()
                             )
                             .achTransferIntention(
@@ -1064,25 +940,6 @@ class AchTransferSimulationTest {
                                             .Type
                                             .CHECK_TRANSFER_STOP_PAYMENT_REQUEST
                                     )
-                                    .build()
-                            )
-                            .disputeResolution(
-                                AchTransferSimulation.Transaction.Source.DisputeResolution.builder()
-                                    .amount(123L)
-                                    .currency(
-                                        AchTransferSimulation.Transaction.Source.DisputeResolution
-                                            .Currency
-                                            .CAD
-                                    )
-                                    .disputedTransactionId("string")
-                                    .build()
-                            )
-                            .empyrealCashDeposit(
-                                AchTransferSimulation.Transaction.Source.EmpyrealCashDeposit
-                                    .builder()
-                                    .amount(123L)
-                                    .bagId("string")
-                                    .depositDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .build()
                             )
                             .feePayment(
@@ -1288,39 +1145,6 @@ class AchTransferSimulationTest {
                                     )
                                     .build()
                             )
-                            .cardRouteRefund(
-                                AchTransferSimulation.Transaction.Source.CardRouteRefund.builder()
-                                    .amount(123L)
-                                    .currency(
-                                        AchTransferSimulation.Transaction.Source.CardRouteRefund
-                                            .Currency
-                                            .CAD
-                                    )
-                                    .merchantAcceptorId("string")
-                                    .merchantCity("string")
-                                    .merchantCountry("string")
-                                    .merchantDescriptor("string")
-                                    .merchantState("string")
-                                    .merchantCategoryCode("string")
-                                    .build()
-                            )
-                            .cardRouteSettlement(
-                                AchTransferSimulation.Transaction.Source.CardRouteSettlement
-                                    .builder()
-                                    .amount(123L)
-                                    .currency(
-                                        AchTransferSimulation.Transaction.Source.CardRouteSettlement
-                                            .Currency
-                                            .CAD
-                                    )
-                                    .merchantAcceptorId("string")
-                                    .merchantCity("string")
-                                    .merchantCountry("string")
-                                    .merchantDescriptor("string")
-                                    .merchantState("string")
-                                    .merchantCategoryCode("string")
-                                    .build()
-                            )
                             .realTimePaymentsTransferAcknowledgement(
                                 AchTransferSimulation.Transaction.Source
                                     .RealTimePaymentsTransferAcknowledgement
@@ -1335,24 +1159,6 @@ class AchTransferSimulationTest {
                             .sampleFunds(
                                 AchTransferSimulation.Transaction.Source.SampleFunds.builder()
                                     .originator("string")
-                                    .build()
-                            )
-                            .wireDrawdownPaymentIntention(
-                                AchTransferSimulation.Transaction.Source
-                                    .WireDrawdownPaymentIntention
-                                    .builder()
-                                    .amount(123L)
-                                    .accountNumber("string")
-                                    .routingNumber("string")
-                                    .messageToRecipient("string")
-                                    .transferId("string")
-                                    .build()
-                            )
-                            .wireDrawdownPaymentRejection(
-                                AchTransferSimulation.Transaction.Source
-                                    .WireDrawdownPaymentRejection
-                                    .builder()
-                                    .transferId("string")
                                     .build()
                             )
                             .wireTransferIntention(
@@ -1546,24 +1352,6 @@ class AchTransferSimulationTest {
                                     .receivingDepositoryFinancialInstitutionId("string")
                                     .receivingDepositoryFinancialInstitutionCountry("string")
                                     .traceNumber("string")
-                                    .build()
-                            )
-                            .cardRouteDecline(
-                                AchTransferSimulation.DeclinedTransaction.Source.CardRouteDecline
-                                    .builder()
-                                    .amount(123L)
-                                    .currency(
-                                        AchTransferSimulation.DeclinedTransaction.Source
-                                            .CardRouteDecline
-                                            .Currency
-                                            .CAD
-                                    )
-                                    .merchantAcceptorId("string")
-                                    .merchantCity("string")
-                                    .merchantCountry("string")
-                                    .merchantDescriptor("string")
-                                    .merchantState("string")
-                                    .merchantCategoryCode("string")
                                     .build()
                             )
                             .wireDecline(

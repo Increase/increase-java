@@ -548,7 +548,6 @@ private constructor(
         private val inboundRealTimePaymentsTransferDecline:
             JsonField<InboundRealTimePaymentsTransferDecline>,
         private val internationalAchDecline: JsonField<InternationalAchDecline>,
-        private val cardRouteDecline: JsonField<CardRouteDecline>,
         private val wireDecline: JsonField<WireDecline>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -605,13 +604,6 @@ private constructor(
             Optional.ofNullable(internationalAchDecline.getNullable("international_ach_decline"))
 
         /**
-         * A Deprecated Card Decline object. This field will be present in the JSON response if and
-         * only if `category` is equal to `card_route_decline`.
-         */
-        fun cardRouteDecline(): Optional<CardRouteDecline> =
-            Optional.ofNullable(cardRouteDecline.getNullable("card_route_decline"))
-
-        /**
          * A Wire Decline object. This field will be present in the JSON response if and only if
          * `category` is equal to `wire_decline`.
          */
@@ -660,14 +652,6 @@ private constructor(
         fun _internationalAchDecline() = internationalAchDecline
 
         /**
-         * A Deprecated Card Decline object. This field will be present in the JSON response if and
-         * only if `category` is equal to `card_route_decline`.
-         */
-        @JsonProperty("card_route_decline")
-        @ExcludeMissing
-        fun _cardRouteDecline() = cardRouteDecline
-
-        /**
          * A Wire Decline object. This field will be present in the JSON response if and only if
          * `category` is equal to `wire_decline`.
          */
@@ -685,7 +669,6 @@ private constructor(
                 checkDecline().map { it.validate() }
                 inboundRealTimePaymentsTransferDecline().map { it.validate() }
                 internationalAchDecline().map { it.validate() }
-                cardRouteDecline().map { it.validate() }
                 wireDecline().map { it.validate() }
                 validated = true
             }
@@ -706,7 +689,6 @@ private constructor(
                 this.inboundRealTimePaymentsTransferDecline ==
                     other.inboundRealTimePaymentsTransferDecline &&
                 this.internationalAchDecline == other.internationalAchDecline &&
-                this.cardRouteDecline == other.cardRouteDecline &&
                 this.wireDecline == other.wireDecline &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -721,7 +703,6 @@ private constructor(
                         checkDecline,
                         inboundRealTimePaymentsTransferDecline,
                         internationalAchDecline,
-                        cardRouteDecline,
                         wireDecline,
                         additionalProperties,
                     )
@@ -730,7 +711,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Source{category=$category, achDecline=$achDecline, cardDecline=$cardDecline, checkDecline=$checkDecline, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, internationalAchDecline=$internationalAchDecline, cardRouteDecline=$cardRouteDecline, wireDecline=$wireDecline, additionalProperties=$additionalProperties}"
+            "Source{category=$category, achDecline=$achDecline, cardDecline=$cardDecline, checkDecline=$checkDecline, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, internationalAchDecline=$internationalAchDecline, wireDecline=$wireDecline, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -748,7 +729,6 @@ private constructor(
                 JsonMissing.of()
             private var internationalAchDecline: JsonField<InternationalAchDecline> =
                 JsonMissing.of()
-            private var cardRouteDecline: JsonField<CardRouteDecline> = JsonMissing.of()
             private var wireDecline: JsonField<WireDecline> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -761,7 +741,6 @@ private constructor(
                 this.inboundRealTimePaymentsTransferDecline =
                     source.inboundRealTimePaymentsTransferDecline
                 this.internationalAchDecline = source.internationalAchDecline
-                this.cardRouteDecline = source.cardRouteDecline
                 this.wireDecline = source.wireDecline
                 additionalProperties(source.additionalProperties)
             }
@@ -872,23 +851,6 @@ private constructor(
             ) = apply { this.internationalAchDecline = internationalAchDecline }
 
             /**
-             * A Deprecated Card Decline object. This field will be present in the JSON response if
-             * and only if `category` is equal to `card_route_decline`.
-             */
-            fun cardRouteDecline(cardRouteDecline: CardRouteDecline) =
-                cardRouteDecline(JsonField.of(cardRouteDecline))
-
-            /**
-             * A Deprecated Card Decline object. This field will be present in the JSON response if
-             * and only if `category` is equal to `card_route_decline`.
-             */
-            @JsonProperty("card_route_decline")
-            @ExcludeMissing
-            fun cardRouteDecline(cardRouteDecline: JsonField<CardRouteDecline>) = apply {
-                this.cardRouteDecline = cardRouteDecline
-            }
-
-            /**
              * A Wire Decline object. This field will be present in the JSON response if and only if
              * `category` is equal to `wire_decline`.
              */
@@ -926,7 +888,6 @@ private constructor(
                     checkDecline,
                     inboundRealTimePaymentsTransferDecline,
                     internationalAchDecline,
-                    cardRouteDecline,
                     wireDecline,
                     additionalProperties.toUnmodifiable(),
                 )
@@ -967,8 +928,6 @@ private constructor(
                 @JvmField
                 val INTERNATIONAL_ACH_DECLINE = Category(JsonField.of("international_ach_decline"))
 
-                @JvmField val CARD_ROUTE_DECLINE = Category(JsonField.of("card_route_decline"))
-
                 @JvmField val WIRE_DECLINE = Category(JsonField.of("wire_decline"))
 
                 @JvmField val OTHER = Category(JsonField.of("other"))
@@ -982,7 +941,6 @@ private constructor(
                 CHECK_DECLINE,
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
                 INTERNATIONAL_ACH_DECLINE,
-                CARD_ROUTE_DECLINE,
                 WIRE_DECLINE,
                 OTHER,
             }
@@ -993,7 +951,6 @@ private constructor(
                 CHECK_DECLINE,
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
                 INTERNATIONAL_ACH_DECLINE,
-                CARD_ROUTE_DECLINE,
                 WIRE_DECLINE,
                 OTHER,
                 _UNKNOWN,
@@ -1007,7 +964,6 @@ private constructor(
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE ->
                         Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
                     INTERNATIONAL_ACH_DECLINE -> Value.INTERNATIONAL_ACH_DECLINE
-                    CARD_ROUTE_DECLINE -> Value.CARD_ROUTE_DECLINE
                     WIRE_DECLINE -> Value.WIRE_DECLINE
                     OTHER -> Value.OTHER
                     else -> Value._UNKNOWN
@@ -1021,7 +977,6 @@ private constructor(
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE ->
                         Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
                     INTERNATIONAL_ACH_DECLINE -> Known.INTERNATIONAL_ACH_DECLINE
-                    CARD_ROUTE_DECLINE -> Known.CARD_ROUTE_DECLINE
                     WIRE_DECLINE -> Known.WIRE_DECLINE
                     OTHER -> Known.OTHER
                     else -> throw IncreaseInvalidDataException("Unknown Category: $value")
@@ -4457,369 +4412,6 @@ private constructor(
                         traceNumber,
                         additionalProperties.toUnmodifiable(),
                     )
-            }
-        }
-
-        /**
-         * A Deprecated Card Decline object. This field will be present in the JSON response if and
-         * only if `category` is equal to `card_route_decline`.
-         */
-        @JsonDeserialize(builder = CardRouteDecline.Builder::class)
-        @NoAutoDetect
-        class CardRouteDecline
-        private constructor(
-            private val amount: JsonField<Long>,
-            private val currency: JsonField<Currency>,
-            private val merchantAcceptorId: JsonField<String>,
-            private val merchantCity: JsonField<String>,
-            private val merchantCountry: JsonField<String>,
-            private val merchantDescriptor: JsonField<String>,
-            private val merchantState: JsonField<String>,
-            private val merchantCategoryCode: JsonField<String>,
-            private val additionalProperties: Map<String, JsonValue>,
-        ) {
-
-            private var validated: Boolean = false
-
-            private var hashCode: Int = 0
-
-            /**
-             * The declined amount in the minor unit of the destination account currency. For
-             * dollars, for example, this is cents.
-             */
-            fun amount(): Long = amount.getRequired("amount")
-
-            /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination
-             * account currency.
-             */
-            fun currency(): Currency = currency.getRequired("currency")
-
-            fun merchantAcceptorId(): String =
-                merchantAcceptorId.getRequired("merchant_acceptor_id")
-
-            fun merchantCity(): Optional<String> =
-                Optional.ofNullable(merchantCity.getNullable("merchant_city"))
-
-            fun merchantCountry(): String = merchantCountry.getRequired("merchant_country")
-
-            fun merchantDescriptor(): String = merchantDescriptor.getRequired("merchant_descriptor")
-
-            fun merchantState(): Optional<String> =
-                Optional.ofNullable(merchantState.getNullable("merchant_state"))
-
-            fun merchantCategoryCode(): Optional<String> =
-                Optional.ofNullable(merchantCategoryCode.getNullable("merchant_category_code"))
-
-            /**
-             * The declined amount in the minor unit of the destination account currency. For
-             * dollars, for example, this is cents.
-             */
-            @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
-
-            /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination
-             * account currency.
-             */
-            @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
-
-            @JsonProperty("merchant_acceptor_id")
-            @ExcludeMissing
-            fun _merchantAcceptorId() = merchantAcceptorId
-
-            @JsonProperty("merchant_city") @ExcludeMissing fun _merchantCity() = merchantCity
-
-            @JsonProperty("merchant_country")
-            @ExcludeMissing
-            fun _merchantCountry() = merchantCountry
-
-            @JsonProperty("merchant_descriptor")
-            @ExcludeMissing
-            fun _merchantDescriptor() = merchantDescriptor
-
-            @JsonProperty("merchant_state") @ExcludeMissing fun _merchantState() = merchantState
-
-            @JsonProperty("merchant_category_code")
-            @ExcludeMissing
-            fun _merchantCategoryCode() = merchantCategoryCode
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            fun validate(): CardRouteDecline = apply {
-                if (!validated) {
-                    amount()
-                    currency()
-                    merchantAcceptorId()
-                    merchantCity()
-                    merchantCountry()
-                    merchantDescriptor()
-                    merchantState()
-                    merchantCategoryCode()
-                    validated = true
-                }
-            }
-
-            fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is CardRouteDecline &&
-                    this.amount == other.amount &&
-                    this.currency == other.currency &&
-                    this.merchantAcceptorId == other.merchantAcceptorId &&
-                    this.merchantCity == other.merchantCity &&
-                    this.merchantCountry == other.merchantCountry &&
-                    this.merchantDescriptor == other.merchantDescriptor &&
-                    this.merchantState == other.merchantState &&
-                    this.merchantCategoryCode == other.merchantCategoryCode &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            amount,
-                            currency,
-                            merchantAcceptorId,
-                            merchantCity,
-                            merchantCountry,
-                            merchantDescriptor,
-                            merchantState,
-                            merchantCategoryCode,
-                            additionalProperties,
-                        )
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "CardRouteDecline{amount=$amount, currency=$currency, merchantAcceptorId=$merchantAcceptorId, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantState=$merchantState, merchantCategoryCode=$merchantCategoryCode, additionalProperties=$additionalProperties}"
-
-            companion object {
-
-                @JvmStatic fun builder() = Builder()
-            }
-
-            class Builder {
-
-                private var amount: JsonField<Long> = JsonMissing.of()
-                private var currency: JsonField<Currency> = JsonMissing.of()
-                private var merchantAcceptorId: JsonField<String> = JsonMissing.of()
-                private var merchantCity: JsonField<String> = JsonMissing.of()
-                private var merchantCountry: JsonField<String> = JsonMissing.of()
-                private var merchantDescriptor: JsonField<String> = JsonMissing.of()
-                private var merchantState: JsonField<String> = JsonMissing.of()
-                private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(cardRouteDecline: CardRouteDecline) = apply {
-                    this.amount = cardRouteDecline.amount
-                    this.currency = cardRouteDecline.currency
-                    this.merchantAcceptorId = cardRouteDecline.merchantAcceptorId
-                    this.merchantCity = cardRouteDecline.merchantCity
-                    this.merchantCountry = cardRouteDecline.merchantCountry
-                    this.merchantDescriptor = cardRouteDecline.merchantDescriptor
-                    this.merchantState = cardRouteDecline.merchantState
-                    this.merchantCategoryCode = cardRouteDecline.merchantCategoryCode
-                    additionalProperties(cardRouteDecline.additionalProperties)
-                }
-
-                /**
-                 * The declined amount in the minor unit of the destination account currency. For
-                 * dollars, for example, this is cents.
-                 */
-                fun amount(amount: Long) = amount(JsonField.of(amount))
-
-                /**
-                 * The declined amount in the minor unit of the destination account currency. For
-                 * dollars, for example, this is cents.
-                 */
-                @JsonProperty("amount")
-                @ExcludeMissing
-                fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-                /**
-                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination
-                 * account currency.
-                 */
-                fun currency(currency: Currency) = currency(JsonField.of(currency))
-
-                /**
-                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination
-                 * account currency.
-                 */
-                @JsonProperty("currency")
-                @ExcludeMissing
-                fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
-
-                fun merchantAcceptorId(merchantAcceptorId: String) =
-                    merchantAcceptorId(JsonField.of(merchantAcceptorId))
-
-                @JsonProperty("merchant_acceptor_id")
-                @ExcludeMissing
-                fun merchantAcceptorId(merchantAcceptorId: JsonField<String>) = apply {
-                    this.merchantAcceptorId = merchantAcceptorId
-                }
-
-                fun merchantCity(merchantCity: String) = merchantCity(JsonField.of(merchantCity))
-
-                @JsonProperty("merchant_city")
-                @ExcludeMissing
-                fun merchantCity(merchantCity: JsonField<String>) = apply {
-                    this.merchantCity = merchantCity
-                }
-
-                fun merchantCountry(merchantCountry: String) =
-                    merchantCountry(JsonField.of(merchantCountry))
-
-                @JsonProperty("merchant_country")
-                @ExcludeMissing
-                fun merchantCountry(merchantCountry: JsonField<String>) = apply {
-                    this.merchantCountry = merchantCountry
-                }
-
-                fun merchantDescriptor(merchantDescriptor: String) =
-                    merchantDescriptor(JsonField.of(merchantDescriptor))
-
-                @JsonProperty("merchant_descriptor")
-                @ExcludeMissing
-                fun merchantDescriptor(merchantDescriptor: JsonField<String>) = apply {
-                    this.merchantDescriptor = merchantDescriptor
-                }
-
-                fun merchantState(merchantState: String) =
-                    merchantState(JsonField.of(merchantState))
-
-                @JsonProperty("merchant_state")
-                @ExcludeMissing
-                fun merchantState(merchantState: JsonField<String>) = apply {
-                    this.merchantState = merchantState
-                }
-
-                fun merchantCategoryCode(merchantCategoryCode: String) =
-                    merchantCategoryCode(JsonField.of(merchantCategoryCode))
-
-                @JsonProperty("merchant_category_code")
-                @ExcludeMissing
-                fun merchantCategoryCode(merchantCategoryCode: JsonField<String>) = apply {
-                    this.merchantCategoryCode = merchantCategoryCode
-                }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
-                }
-
-                @JsonAnySetter
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun build(): CardRouteDecline =
-                    CardRouteDecline(
-                        amount,
-                        currency,
-                        merchantAcceptorId,
-                        merchantCity,
-                        merchantCountry,
-                        merchantDescriptor,
-                        merchantState,
-                        merchantCategoryCode,
-                        additionalProperties.toUnmodifiable(),
-                    )
-            }
-
-            class Currency
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) {
-
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Currency && this.value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-
-                companion object {
-
-                    @JvmField val CAD = Currency(JsonField.of("CAD"))
-
-                    @JvmField val CHF = Currency(JsonField.of("CHF"))
-
-                    @JvmField val EUR = Currency(JsonField.of("EUR"))
-
-                    @JvmField val GBP = Currency(JsonField.of("GBP"))
-
-                    @JvmField val JPY = Currency(JsonField.of("JPY"))
-
-                    @JvmField val USD = Currency(JsonField.of("USD"))
-
-                    @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
-                }
-
-                enum class Known {
-                    CAD,
-                    CHF,
-                    EUR,
-                    GBP,
-                    JPY,
-                    USD,
-                }
-
-                enum class Value {
-                    CAD,
-                    CHF,
-                    EUR,
-                    GBP,
-                    JPY,
-                    USD,
-                    _UNKNOWN,
-                }
-
-                fun value(): Value =
-                    when (this) {
-                        CAD -> Value.CAD
-                        CHF -> Value.CHF
-                        EUR -> Value.EUR
-                        GBP -> Value.GBP
-                        JPY -> Value.JPY
-                        USD -> Value.USD
-                        else -> Value._UNKNOWN
-                    }
-
-                fun known(): Known =
-                    when (this) {
-                        CAD -> Known.CAD
-                        CHF -> Known.CHF
-                        EUR -> Known.EUR
-                        GBP -> Known.GBP
-                        JPY -> Known.JPY
-                        USD -> Known.USD
-                        else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
-                    }
-
-                fun asString(): String = _value().asStringOrThrow()
             }
         }
 

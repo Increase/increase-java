@@ -44,21 +44,6 @@ class WireTransferSimulationTest {
                                         .transferId("string")
                                         .build()
                                 )
-                                .achCheckConversionReturn(
-                                    WireTransferSimulation.Transaction.Source
-                                        .AchCheckConversionReturn
-                                        .builder()
-                                        .amount(123L)
-                                        .returnReasonCode("string")
-                                        .build()
-                                )
-                                .achCheckConversion(
-                                    WireTransferSimulation.Transaction.Source.AchCheckConversion
-                                        .builder()
-                                        .amount(123L)
-                                        .fileId("string")
-                                        .build()
-                                )
                                 .achTransferIntention(
                                     WireTransferSimulation.Transaction.Source.AchTransferIntention
                                         .builder()
@@ -262,29 +247,6 @@ class WireTransferSimulationTest {
                                                 .CheckTransferStopPaymentRequest
                                                 .Type
                                                 .CHECK_TRANSFER_STOP_PAYMENT_REQUEST
-                                        )
-                                        .build()
-                                )
-                                .disputeResolution(
-                                    WireTransferSimulation.Transaction.Source.DisputeResolution
-                                        .builder()
-                                        .amount(123L)
-                                        .currency(
-                                            WireTransferSimulation.Transaction.Source
-                                                .DisputeResolution
-                                                .Currency
-                                                .CAD
-                                        )
-                                        .disputedTransactionId("string")
-                                        .build()
-                                )
-                                .empyrealCashDeposit(
-                                    WireTransferSimulation.Transaction.Source.EmpyrealCashDeposit
-                                        .builder()
-                                        .amount(123L)
-                                        .bagId("string")
-                                        .depositDate(
-                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
                                         .build()
                                 )
@@ -508,42 +470,6 @@ class WireTransferSimulationTest {
                                         )
                                         .build()
                                 )
-                                .cardRouteRefund(
-                                    WireTransferSimulation.Transaction.Source.CardRouteRefund
-                                        .builder()
-                                        .amount(123L)
-                                        .currency(
-                                            WireTransferSimulation.Transaction.Source
-                                                .CardRouteRefund
-                                                .Currency
-                                                .CAD
-                                        )
-                                        .merchantAcceptorId("string")
-                                        .merchantCity("string")
-                                        .merchantCountry("string")
-                                        .merchantDescriptor("string")
-                                        .merchantState("string")
-                                        .merchantCategoryCode("string")
-                                        .build()
-                                )
-                                .cardRouteSettlement(
-                                    WireTransferSimulation.Transaction.Source.CardRouteSettlement
-                                        .builder()
-                                        .amount(123L)
-                                        .currency(
-                                            WireTransferSimulation.Transaction.Source
-                                                .CardRouteSettlement
-                                                .Currency
-                                                .CAD
-                                        )
-                                        .merchantAcceptorId("string")
-                                        .merchantCity("string")
-                                        .merchantCountry("string")
-                                        .merchantDescriptor("string")
-                                        .merchantState("string")
-                                        .merchantCategoryCode("string")
-                                        .build()
-                                )
                                 .realTimePaymentsTransferAcknowledgement(
                                     WireTransferSimulation.Transaction.Source
                                         .RealTimePaymentsTransferAcknowledgement
@@ -558,24 +484,6 @@ class WireTransferSimulationTest {
                                 .sampleFunds(
                                     WireTransferSimulation.Transaction.Source.SampleFunds.builder()
                                         .originator("string")
-                                        .build()
-                                )
-                                .wireDrawdownPaymentIntention(
-                                    WireTransferSimulation.Transaction.Source
-                                        .WireDrawdownPaymentIntention
-                                        .builder()
-                                        .amount(123L)
-                                        .accountNumber("string")
-                                        .routingNumber("string")
-                                        .messageToRecipient("string")
-                                        .transferId("string")
-                                        .build()
-                                )
-                                .wireDrawdownPaymentRejection(
-                                    WireTransferSimulation.Transaction.Source
-                                        .WireDrawdownPaymentRejection
-                                        .builder()
-                                        .transferId("string")
                                         .build()
                                 )
                                 .wireTransferIntention(
@@ -633,20 +541,6 @@ class WireTransferSimulationTest {
                                     .destinationAccountId("string")
                                     .sourceAccountId("string")
                                     .transferId("string")
-                                    .build()
-                            )
-                            .achCheckConversionReturn(
-                                WireTransferSimulation.Transaction.Source.AchCheckConversionReturn
-                                    .builder()
-                                    .amount(123L)
-                                    .returnReasonCode("string")
-                                    .build()
-                            )
-                            .achCheckConversion(
-                                WireTransferSimulation.Transaction.Source.AchCheckConversion
-                                    .builder()
-                                    .amount(123L)
-                                    .fileId("string")
                                     .build()
                             )
                             .achTransferIntention(
@@ -837,26 +731,6 @@ class WireTransferSimulationTest {
                                             .Type
                                             .CHECK_TRANSFER_STOP_PAYMENT_REQUEST
                                     )
-                                    .build()
-                            )
-                            .disputeResolution(
-                                WireTransferSimulation.Transaction.Source.DisputeResolution
-                                    .builder()
-                                    .amount(123L)
-                                    .currency(
-                                        WireTransferSimulation.Transaction.Source.DisputeResolution
-                                            .Currency
-                                            .CAD
-                                    )
-                                    .disputedTransactionId("string")
-                                    .build()
-                            )
-                            .empyrealCashDeposit(
-                                WireTransferSimulation.Transaction.Source.EmpyrealCashDeposit
-                                    .builder()
-                                    .amount(123L)
-                                    .bagId("string")
-                                    .depositDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .build()
                             )
                             .feePayment(
@@ -1063,40 +937,6 @@ class WireTransferSimulationTest {
                                     )
                                     .build()
                             )
-                            .cardRouteRefund(
-                                WireTransferSimulation.Transaction.Source.CardRouteRefund.builder()
-                                    .amount(123L)
-                                    .currency(
-                                        WireTransferSimulation.Transaction.Source.CardRouteRefund
-                                            .Currency
-                                            .CAD
-                                    )
-                                    .merchantAcceptorId("string")
-                                    .merchantCity("string")
-                                    .merchantCountry("string")
-                                    .merchantDescriptor("string")
-                                    .merchantState("string")
-                                    .merchantCategoryCode("string")
-                                    .build()
-                            )
-                            .cardRouteSettlement(
-                                WireTransferSimulation.Transaction.Source.CardRouteSettlement
-                                    .builder()
-                                    .amount(123L)
-                                    .currency(
-                                        WireTransferSimulation.Transaction.Source
-                                            .CardRouteSettlement
-                                            .Currency
-                                            .CAD
-                                    )
-                                    .merchantAcceptorId("string")
-                                    .merchantCity("string")
-                                    .merchantCountry("string")
-                                    .merchantDescriptor("string")
-                                    .merchantState("string")
-                                    .merchantCategoryCode("string")
-                                    .build()
-                            )
                             .realTimePaymentsTransferAcknowledgement(
                                 WireTransferSimulation.Transaction.Source
                                     .RealTimePaymentsTransferAcknowledgement
@@ -1111,24 +951,6 @@ class WireTransferSimulationTest {
                             .sampleFunds(
                                 WireTransferSimulation.Transaction.Source.SampleFunds.builder()
                                     .originator("string")
-                                    .build()
-                            )
-                            .wireDrawdownPaymentIntention(
-                                WireTransferSimulation.Transaction.Source
-                                    .WireDrawdownPaymentIntention
-                                    .builder()
-                                    .amount(123L)
-                                    .accountNumber("string")
-                                    .routingNumber("string")
-                                    .messageToRecipient("string")
-                                    .transferId("string")
-                                    .build()
-                            )
-                            .wireDrawdownPaymentRejection(
-                                WireTransferSimulation.Transaction.Source
-                                    .WireDrawdownPaymentRejection
-                                    .builder()
-                                    .transferId("string")
                                     .build()
                             )
                             .wireTransferIntention(

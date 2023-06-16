@@ -173,41 +173,12 @@ class CardAuthorizationSimulationTest {
                                         .pendingTransactionId("string")
                                         .build()
                                 )
-                                .cardRouteAuthorization(
-                                    CardAuthorizationSimulation.PendingTransaction.Source
-                                        .CardRouteAuthorization
-                                        .builder()
-                                        .amount(123L)
-                                        .currency(
-                                            CardAuthorizationSimulation.PendingTransaction.Source
-                                                .CardRouteAuthorization
-                                                .Currency
-                                                .CAD
-                                        )
-                                        .merchantAcceptorId("string")
-                                        .merchantCity("string")
-                                        .merchantCountry("string")
-                                        .merchantDescriptor("string")
-                                        .merchantCategoryCode("string")
-                                        .merchantState("string")
-                                        .build()
-                                )
                                 .realTimePaymentsTransferInstruction(
                                     CardAuthorizationSimulation.PendingTransaction.Source
                                         .RealTimePaymentsTransferInstruction
                                         .builder()
                                         .amount(123L)
                                         .transferId("string")
-                                        .build()
-                                )
-                                .wireDrawdownPaymentInstruction(
-                                    CardAuthorizationSimulation.PendingTransaction.Source
-                                        .WireDrawdownPaymentInstruction
-                                        .builder()
-                                        .amount(123L)
-                                        .accountNumber("string")
-                                        .routingNumber("string")
-                                        .messageToRecipient("string")
                                         .build()
                                 )
                                 .wireTransferInstruction(
@@ -416,25 +387,6 @@ class CardAuthorizationSimulationTest {
                                         .traceNumber("string")
                                         .build()
                                 )
-                                .cardRouteDecline(
-                                    CardAuthorizationSimulation.DeclinedTransaction.Source
-                                        .CardRouteDecline
-                                        .builder()
-                                        .amount(123L)
-                                        .currency(
-                                            CardAuthorizationSimulation.DeclinedTransaction.Source
-                                                .CardRouteDecline
-                                                .Currency
-                                                .CAD
-                                        )
-                                        .merchantAcceptorId("string")
-                                        .merchantCity("string")
-                                        .merchantCountry("string")
-                                        .merchantDescriptor("string")
-                                        .merchantState("string")
-                                        .merchantCategoryCode("string")
-                                        .build()
-                                )
                                 .wireDecline(
                                     CardAuthorizationSimulation.DeclinedTransaction.Source
                                         .WireDecline
@@ -636,41 +588,12 @@ class CardAuthorizationSimulationTest {
                                     .pendingTransactionId("string")
                                     .build()
                             )
-                            .cardRouteAuthorization(
-                                CardAuthorizationSimulation.PendingTransaction.Source
-                                    .CardRouteAuthorization
-                                    .builder()
-                                    .amount(123L)
-                                    .currency(
-                                        CardAuthorizationSimulation.PendingTransaction.Source
-                                            .CardRouteAuthorization
-                                            .Currency
-                                            .CAD
-                                    )
-                                    .merchantAcceptorId("string")
-                                    .merchantCity("string")
-                                    .merchantCountry("string")
-                                    .merchantDescriptor("string")
-                                    .merchantCategoryCode("string")
-                                    .merchantState("string")
-                                    .build()
-                            )
                             .realTimePaymentsTransferInstruction(
                                 CardAuthorizationSimulation.PendingTransaction.Source
                                     .RealTimePaymentsTransferInstruction
                                     .builder()
                                     .amount(123L)
                                     .transferId("string")
-                                    .build()
-                            )
-                            .wireDrawdownPaymentInstruction(
-                                CardAuthorizationSimulation.PendingTransaction.Source
-                                    .WireDrawdownPaymentInstruction
-                                    .builder()
-                                    .amount(123L)
-                                    .accountNumber("string")
-                                    .routingNumber("string")
-                                    .messageToRecipient("string")
                                     .build()
                             )
                             .wireTransferInstruction(
@@ -869,25 +792,6 @@ class CardAuthorizationSimulationTest {
                                     .receivingDepositoryFinancialInstitutionId("string")
                                     .receivingDepositoryFinancialInstitutionCountry("string")
                                     .traceNumber("string")
-                                    .build()
-                            )
-                            .cardRouteDecline(
-                                CardAuthorizationSimulation.DeclinedTransaction.Source
-                                    .CardRouteDecline
-                                    .builder()
-                                    .amount(123L)
-                                    .currency(
-                                        CardAuthorizationSimulation.DeclinedTransaction.Source
-                                            .CardRouteDecline
-                                            .Currency
-                                            .CAD
-                                    )
-                                    .merchantAcceptorId("string")
-                                    .merchantCity("string")
-                                    .merchantCountry("string")
-                                    .merchantDescriptor("string")
-                                    .merchantState("string")
-                                    .merchantCategoryCode("string")
                                     .build()
                             )
                             .wireDecline(
