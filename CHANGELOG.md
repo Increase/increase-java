@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/Increase/increase-java/compare/v0.4.0...v0.4.1) (2023-06-19)
+
+
+### Refactors
+
+* **api:** remove unused properties and enum members ([#16](https://github.com/Increase/increase-java/issues/16)) ([4190d26](https://github.com/Increase/increase-java/commit/4190d26200176313ba4109b3f0a0236848ec5391))
+
 ## [0.4.0](https://github.com/Increase/increase-java/compare/v0.3.1...v0.4.0) (2023-06-13)
 
 
