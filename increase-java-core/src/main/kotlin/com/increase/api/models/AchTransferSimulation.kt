@@ -3339,8 +3339,6 @@ private constructor(
                                 JsonField.of("incorrectly_coded_outbound_international_payment")
                             )
 
-                        @JvmField val OTHER = ReturnReasonCode(JsonField.of("other"))
-
                         @JvmField
                         val ACCOUNT_SOLD_TO_ANOTHER_DFI =
                             ReturnReasonCode(JsonField.of("account_sold_to_another_dfi"))
@@ -3575,7 +3573,6 @@ private constructor(
                         RETURNED_PER_ODFI_REQUEST,
                         LIMITED_PARTICIPATION_DFI,
                         INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT,
-                        OTHER,
                         ACCOUNT_SOLD_TO_ANOTHER_DFI,
                         ADDENDA_ERROR,
                         BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED,
@@ -3649,7 +3646,6 @@ private constructor(
                         RETURNED_PER_ODFI_REQUEST,
                         LIMITED_PARTICIPATION_DFI,
                         INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT,
-                        OTHER,
                         ACCOUNT_SOLD_TO_ANOTHER_DFI,
                         ADDENDA_ERROR,
                         BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED,
@@ -3736,7 +3732,6 @@ private constructor(
                             LIMITED_PARTICIPATION_DFI -> Value.LIMITED_PARTICIPATION_DFI
                             INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT ->
                                 Value.INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT
-                            OTHER -> Value.OTHER
                             ACCOUNT_SOLD_TO_ANOTHER_DFI -> Value.ACCOUNT_SOLD_TO_ANOTHER_DFI
                             ADDENDA_ERROR -> Value.ADDENDA_ERROR
                             BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED ->
@@ -3842,7 +3837,6 @@ private constructor(
                             LIMITED_PARTICIPATION_DFI -> Known.LIMITED_PARTICIPATION_DFI
                             INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT ->
                                 Known.INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT
-                            OTHER -> Known.OTHER
                             ACCOUNT_SOLD_TO_ANOTHER_DFI -> Known.ACCOUNT_SOLD_TO_ANOTHER_DFI
                             ADDENDA_ERROR -> Known.ADDENDA_ERROR
                             BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED ->
