@@ -575,8 +575,8 @@ constructor(
         @JsonProperty("phone") fun phone(): String? = phone
 
         /**
-         * The card profile assigned to this digital card. Card profiles may also be assigned at the
-         * program level.
+         * The card profile assigned to this card. Card profiles may also be assigned at the program
+         * level.
          */
         @JsonProperty("card_profile_id") fun cardProfileId(): String? = cardProfileId
 
@@ -647,8 +647,8 @@ constructor(
             @JsonProperty("phone") fun phone(phone: String) = apply { this.phone = phone }
 
             /**
-             * The card profile assigned to this digital card. Card profiles may also be assigned at
-             * the program level.
+             * The card profile assigned to this card. Card profiles may also be assigned at the
+             * program level.
              */
             @JsonProperty("card_profile_id")
             fun cardProfileId(cardProfileId: String) = apply { this.cardProfileId = cardProfileId }
