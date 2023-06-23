@@ -6447,20 +6447,24 @@ private constructor(
                 private var hashCode: Int = 0
 
                 /** The street address of the check's destination. */
-                fun addressLine1(): String = addressLine1.getRequired("address_line1")
+                fun addressLine1(): Optional<String> =
+                    Optional.ofNullable(addressLine1.getNullable("address_line1"))
 
                 /** The second line of the address of the check's destination. */
                 fun addressLine2(): Optional<String> =
                     Optional.ofNullable(addressLine2.getNullable("address_line2"))
 
                 /** The city of the check's destination. */
-                fun addressCity(): String = addressCity.getRequired("address_city")
+                fun addressCity(): Optional<String> =
+                    Optional.ofNullable(addressCity.getNullable("address_city"))
 
                 /** The state of the check's destination. */
-                fun addressState(): String = addressState.getRequired("address_state")
+                fun addressState(): Optional<String> =
+                    Optional.ofNullable(addressState.getNullable("address_state"))
 
                 /** The postal code of the check's destination. */
-                fun addressZip(): String = addressZip.getRequired("address_zip")
+                fun addressZip(): Optional<String> =
+                    Optional.ofNullable(addressZip.getNullable("address_zip"))
 
                 /** The transfer amount in USD cents. */
                 fun amount(): Long = amount.getRequired("amount")
@@ -6472,7 +6476,8 @@ private constructor(
                 fun currency(): Currency = currency.getRequired("currency")
 
                 /** The name that will be printed on the check. */
-                fun recipientName(): String = recipientName.getRequired("recipient_name")
+                fun recipientName(): Optional<String> =
+                    Optional.ofNullable(recipientName.getNullable("recipient_name"))
 
                 /** The identifier of the Check Transfer with which this is associated. */
                 fun transferId(): String = transferId.getRequired("transfer_id")

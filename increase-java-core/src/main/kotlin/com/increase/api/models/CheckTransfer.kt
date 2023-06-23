@@ -57,20 +57,23 @@ private constructor(
     fun accountId(): String = accountId.getRequired("account_id")
 
     /** The street address of the check's destination. */
-    fun addressLine1(): String = addressLine1.getRequired("address_line1")
+    fun addressLine1(): Optional<String> =
+        Optional.ofNullable(addressLine1.getNullable("address_line1"))
 
     /** The second line of the address of the check's destination. */
     fun addressLine2(): Optional<String> =
         Optional.ofNullable(addressLine2.getNullable("address_line2"))
 
     /** The city of the check's destination. */
-    fun addressCity(): String = addressCity.getRequired("address_city")
+    fun addressCity(): Optional<String> =
+        Optional.ofNullable(addressCity.getNullable("address_city"))
 
     /** The state of the check's destination. */
-    fun addressState(): String = addressState.getRequired("address_state")
+    fun addressState(): Optional<String> =
+        Optional.ofNullable(addressState.getNullable("address_state"))
 
     /** The postal code of the check's destination. */
-    fun addressZip(): String = addressZip.getRequired("address_zip")
+    fun addressZip(): Optional<String> = Optional.ofNullable(addressZip.getNullable("address_zip"))
 
     /** The return address to be printed on the check. */
     fun returnAddress(): Optional<ReturnAddress> =
@@ -112,13 +115,14 @@ private constructor(
         Optional.ofNullable(mailedAt.getNullable("mailed_at"))
 
     /** The descriptor that will be printed on the memo field on the check. */
-    fun message(): String = message.getRequired("message")
+    fun message(): Optional<String> = Optional.ofNullable(message.getNullable("message"))
 
     /** The descriptor that will be printed on the letter included with the check. */
     fun note(): Optional<String> = Optional.ofNullable(note.getNullable("note"))
 
     /** The name that will be printed on the check. */
-    fun recipientName(): String = recipientName.getRequired("recipient_name")
+    fun recipientName(): Optional<String> =
+        Optional.ofNullable(recipientName.getNullable("recipient_name"))
 
     /** The lifecycle status of the transfer. */
     fun status(): Status = status.getRequired("status")
@@ -1363,9 +1367,6 @@ private constructor(
 
             @JvmField val PENDING_MAILING = Status(JsonField.of("pending_mailing"))
 
-            @JvmField
-            val STOPPED_AND_PENDING_MAILING = Status(JsonField.of("stopped_and_pending_mailing"))
-
             @JvmField val MAILED = Status(JsonField.of("mailed"))
 
             @JvmField val CANCELED = Status(JsonField.of("canceled"))
@@ -1388,7 +1389,6 @@ private constructor(
             PENDING_SUBMISSION,
             SUBMITTED,
             PENDING_MAILING,
-            STOPPED_AND_PENDING_MAILING,
             MAILED,
             CANCELED,
             DEPOSITED,
@@ -1403,7 +1403,6 @@ private constructor(
             PENDING_SUBMISSION,
             SUBMITTED,
             PENDING_MAILING,
-            STOPPED_AND_PENDING_MAILING,
             MAILED,
             CANCELED,
             DEPOSITED,
@@ -1420,7 +1419,6 @@ private constructor(
                 PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
                 SUBMITTED -> Value.SUBMITTED
                 PENDING_MAILING -> Value.PENDING_MAILING
-                STOPPED_AND_PENDING_MAILING -> Value.STOPPED_AND_PENDING_MAILING
                 MAILED -> Value.MAILED
                 CANCELED -> Value.CANCELED
                 DEPOSITED -> Value.DEPOSITED
@@ -1437,7 +1435,6 @@ private constructor(
                 PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
                 SUBMITTED -> Known.SUBMITTED
                 PENDING_MAILING -> Known.PENDING_MAILING
-                STOPPED_AND_PENDING_MAILING -> Known.STOPPED_AND_PENDING_MAILING
                 MAILED -> Known.MAILED
                 CANCELED -> Known.CANCELED
                 DEPOSITED -> Known.DEPOSITED
