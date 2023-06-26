@@ -11,7 +11,7 @@ class DocumentTest {
         val document =
             Document.builder()
                 .id("string")
-                .category(Document.Category.ACCOUNT_OPENING_DISCLOSURES)
+                .category(Document.Category.FORM_1099_INT)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .entityId("string")
                 .fileId("string")
@@ -19,7 +19,7 @@ class DocumentTest {
                 .build()
         assertThat(document).isNotNull
         assertThat(document.id()).isEqualTo("string")
-        assertThat(document.category()).isEqualTo(Document.Category.ACCOUNT_OPENING_DISCLOSURES)
+        assertThat(document.category()).isEqualTo(Document.Category.FORM_1099_INT)
         assertThat(document.createdAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(document.entityId()).contains("string")
         assertThat(document.fileId()).isEqualTo("string")

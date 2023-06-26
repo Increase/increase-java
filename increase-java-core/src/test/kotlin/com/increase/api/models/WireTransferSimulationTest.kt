@@ -107,6 +107,23 @@ class WireTransferSimulationTest {
                                         )
                                         .build()
                                 )
+                                .cardRevenuePayment(
+                                    WireTransferSimulation.Transaction.Source.CardRevenuePayment
+                                        .builder()
+                                        .amount(123L)
+                                        .currency(
+                                            WireTransferSimulation.Transaction.Source
+                                                .CardRevenuePayment
+                                                .Currency
+                                                .CAD
+                                        )
+                                        .periodStart(
+                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                        )
+                                        .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .transactedOnAccountId("string")
+                                        .build()
+                                )
                                 .cardSettlement(
                                     WireTransferSimulation.Transaction.Source.CardSettlement
                                         .builder()
@@ -132,23 +149,6 @@ class WireTransferSimulationTest {
                                                 .Type
                                                 .CARD_SETTLEMENT
                                         )
-                                        .build()
-                                )
-                                .cardRevenuePayment(
-                                    WireTransferSimulation.Transaction.Source.CardRevenuePayment
-                                        .builder()
-                                        .amount(123L)
-                                        .currency(
-                                            WireTransferSimulation.Transaction.Source
-                                                .CardRevenuePayment
-                                                .Currency
-                                                .CAD
-                                        )
-                                        .periodStart(
-                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
-                                        )
-                                        .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                        .transactedOnAccountId("string")
                                         .build()
                                 )
                                 .checkDepositAcceptance(
@@ -191,6 +191,22 @@ class WireTransferSimulationTest {
                                         )
                                         .build()
                                 )
+                                .checkTransferDeposit(
+                                    WireTransferSimulation.Transaction.Source.CheckTransferDeposit
+                                        .builder()
+                                        .depositedAt(
+                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                        )
+                                        .frontImageFileId("string")
+                                        .backImageFileId("string")
+                                        .type(
+                                            WireTransferSimulation.Transaction.Source
+                                                .CheckTransferDeposit
+                                                .Type
+                                                .CHECK_TRANSFER_DEPOSIT
+                                        )
+                                        .build()
+                                )
                                 .checkTransferIntention(
                                     WireTransferSimulation.Transaction.Source.CheckTransferIntention
                                         .builder()
@@ -210,6 +226,12 @@ class WireTransferSimulationTest {
                                         .transferId("string")
                                         .build()
                                 )
+                                .checkTransferRejection(
+                                    WireTransferSimulation.Transaction.Source.CheckTransferRejection
+                                        .builder()
+                                        .transferId("string")
+                                        .build()
+                                )
                                 .checkTransferReturn(
                                     WireTransferSimulation.Transaction.Source.CheckTransferReturn
                                         .builder()
@@ -225,12 +247,6 @@ class WireTransferSimulationTest {
                                                 .MAIL_DELIVERY_FAILURE
                                         )
                                         .transactionId("string")
-                                        .build()
-                                )
-                                .checkTransferRejection(
-                                    WireTransferSimulation.Transaction.Source.CheckTransferRejection
-                                        .builder()
-                                        .transferId("string")
                                         .build()
                                 )
                                 .checkTransferStopPaymentRequest(
@@ -354,24 +370,6 @@ class WireTransferSimulationTest {
                                         .remittanceInformation("string")
                                         .build()
                                 )
-                                .inboundWireDrawdownPaymentReversal(
-                                    WireTransferSimulation.Transaction.Source
-                                        .InboundWireDrawdownPaymentReversal
-                                        .builder()
-                                        .amount(123L)
-                                        .description("string")
-                                        .inputCycleDate(LocalDate.parse("2019-12-27"))
-                                        .inputSequenceNumber("string")
-                                        .inputSource("string")
-                                        .inputMessageAccountabilityData("string")
-                                        .previousMessageInputMessageAccountabilityData("string")
-                                        .previousMessageInputCycleDate(
-                                            LocalDate.parse("2019-12-27")
-                                        )
-                                        .previousMessageInputSequenceNumber("string")
-                                        .previousMessageInputSource("string")
-                                        .build()
-                                )
                                 .inboundWireDrawdownPayment(
                                     WireTransferSimulation.Transaction.Source
                                         .InboundWireDrawdownPayment
@@ -389,6 +387,24 @@ class WireTransferSimulationTest {
                                         .originatorAddressLine3("string")
                                         .originatorName("string")
                                         .originatorToBeneficiaryInformation("string")
+                                        .build()
+                                )
+                                .inboundWireDrawdownPaymentReversal(
+                                    WireTransferSimulation.Transaction.Source
+                                        .InboundWireDrawdownPaymentReversal
+                                        .builder()
+                                        .amount(123L)
+                                        .description("string")
+                                        .inputCycleDate(LocalDate.parse("2019-12-27"))
+                                        .inputSequenceNumber("string")
+                                        .inputSource("string")
+                                        .inputMessageAccountabilityData("string")
+                                        .previousMessageInputMessageAccountabilityData("string")
+                                        .previousMessageInputCycleDate(
+                                            LocalDate.parse("2019-12-27")
+                                        )
+                                        .previousMessageInputSequenceNumber("string")
+                                        .previousMessageInputSource("string")
                                         .build()
                                 )
                                 .inboundWireReversal(
@@ -602,6 +618,20 @@ class WireTransferSimulationTest {
                                     )
                                     .build()
                             )
+                            .cardRevenuePayment(
+                                WireTransferSimulation.Transaction.Source.CardRevenuePayment
+                                    .builder()
+                                    .amount(123L)
+                                    .currency(
+                                        WireTransferSimulation.Transaction.Source.CardRevenuePayment
+                                            .Currency
+                                            .CAD
+                                    )
+                                    .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .transactedOnAccountId("string")
+                                    .build()
+                            )
                             .cardSettlement(
                                 WireTransferSimulation.Transaction.Source.CardSettlement.builder()
                                     .id("string")
@@ -626,20 +656,6 @@ class WireTransferSimulationTest {
                                             .Type
                                             .CARD_SETTLEMENT
                                     )
-                                    .build()
-                            )
-                            .cardRevenuePayment(
-                                WireTransferSimulation.Transaction.Source.CardRevenuePayment
-                                    .builder()
-                                    .amount(123L)
-                                    .currency(
-                                        WireTransferSimulation.Transaction.Source.CardRevenuePayment
-                                            .Currency
-                                            .CAD
-                                    )
-                                    .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .transactedOnAccountId("string")
                                     .build()
                             )
                             .checkDepositAcceptance(
@@ -678,6 +694,20 @@ class WireTransferSimulationTest {
                                     )
                                     .build()
                             )
+                            .checkTransferDeposit(
+                                WireTransferSimulation.Transaction.Source.CheckTransferDeposit
+                                    .builder()
+                                    .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .frontImageFileId("string")
+                                    .backImageFileId("string")
+                                    .type(
+                                        WireTransferSimulation.Transaction.Source
+                                            .CheckTransferDeposit
+                                            .Type
+                                            .CHECK_TRANSFER_DEPOSIT
+                                    )
+                                    .build()
+                            )
                             .checkTransferIntention(
                                 WireTransferSimulation.Transaction.Source.CheckTransferIntention
                                     .builder()
@@ -697,6 +727,12 @@ class WireTransferSimulationTest {
                                     .transferId("string")
                                     .build()
                             )
+                            .checkTransferRejection(
+                                WireTransferSimulation.Transaction.Source.CheckTransferRejection
+                                    .builder()
+                                    .transferId("string")
+                                    .build()
+                            )
                             .checkTransferReturn(
                                 WireTransferSimulation.Transaction.Source.CheckTransferReturn
                                     .builder()
@@ -710,12 +746,6 @@ class WireTransferSimulationTest {
                                             .MAIL_DELIVERY_FAILURE
                                     )
                                     .transactionId("string")
-                                    .build()
-                            )
-                            .checkTransferRejection(
-                                WireTransferSimulation.Transaction.Source.CheckTransferRejection
-                                    .builder()
-                                    .transferId("string")
                                     .build()
                             )
                             .checkTransferStopPaymentRequest(
@@ -833,22 +863,6 @@ class WireTransferSimulationTest {
                                     .remittanceInformation("string")
                                     .build()
                             )
-                            .inboundWireDrawdownPaymentReversal(
-                                WireTransferSimulation.Transaction.Source
-                                    .InboundWireDrawdownPaymentReversal
-                                    .builder()
-                                    .amount(123L)
-                                    .description("string")
-                                    .inputCycleDate(LocalDate.parse("2019-12-27"))
-                                    .inputSequenceNumber("string")
-                                    .inputSource("string")
-                                    .inputMessageAccountabilityData("string")
-                                    .previousMessageInputMessageAccountabilityData("string")
-                                    .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
-                                    .previousMessageInputSequenceNumber("string")
-                                    .previousMessageInputSource("string")
-                                    .build()
-                            )
                             .inboundWireDrawdownPayment(
                                 WireTransferSimulation.Transaction.Source.InboundWireDrawdownPayment
                                     .builder()
@@ -865,6 +879,22 @@ class WireTransferSimulationTest {
                                     .originatorAddressLine3("string")
                                     .originatorName("string")
                                     .originatorToBeneficiaryInformation("string")
+                                    .build()
+                            )
+                            .inboundWireDrawdownPaymentReversal(
+                                WireTransferSimulation.Transaction.Source
+                                    .InboundWireDrawdownPaymentReversal
+                                    .builder()
+                                    .amount(123L)
+                                    .description("string")
+                                    .inputCycleDate(LocalDate.parse("2019-12-27"))
+                                    .inputSequenceNumber("string")
+                                    .inputSource("string")
+                                    .inputMessageAccountabilityData("string")
+                                    .previousMessageInputMessageAccountabilityData("string")
+                                    .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
+                                    .previousMessageInputSequenceNumber("string")
+                                    .previousMessageInputSource("string")
                                     .build()
                             )
                             .inboundWireReversal(

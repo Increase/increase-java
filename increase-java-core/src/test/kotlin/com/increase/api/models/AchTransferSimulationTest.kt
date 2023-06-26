@@ -106,6 +106,23 @@ class AchTransferSimulationTest {
                                         )
                                         .build()
                                 )
+                                .cardRevenuePayment(
+                                    AchTransferSimulation.Transaction.Source.CardRevenuePayment
+                                        .builder()
+                                        .amount(123L)
+                                        .currency(
+                                            AchTransferSimulation.Transaction.Source
+                                                .CardRevenuePayment
+                                                .Currency
+                                                .CAD
+                                        )
+                                        .periodStart(
+                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                        )
+                                        .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .transactedOnAccountId("string")
+                                        .build()
+                                )
                                 .cardSettlement(
                                     AchTransferSimulation.Transaction.Source.CardSettlement
                                         .builder()
@@ -131,23 +148,6 @@ class AchTransferSimulationTest {
                                                 .Type
                                                 .CARD_SETTLEMENT
                                         )
-                                        .build()
-                                )
-                                .cardRevenuePayment(
-                                    AchTransferSimulation.Transaction.Source.CardRevenuePayment
-                                        .builder()
-                                        .amount(123L)
-                                        .currency(
-                                            AchTransferSimulation.Transaction.Source
-                                                .CardRevenuePayment
-                                                .Currency
-                                                .CAD
-                                        )
-                                        .periodStart(
-                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
-                                        )
-                                        .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                        .transactedOnAccountId("string")
                                         .build()
                                 )
                                 .checkDepositAcceptance(
@@ -190,6 +190,22 @@ class AchTransferSimulationTest {
                                         )
                                         .build()
                                 )
+                                .checkTransferDeposit(
+                                    AchTransferSimulation.Transaction.Source.CheckTransferDeposit
+                                        .builder()
+                                        .depositedAt(
+                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                        )
+                                        .frontImageFileId("string")
+                                        .backImageFileId("string")
+                                        .type(
+                                            AchTransferSimulation.Transaction.Source
+                                                .CheckTransferDeposit
+                                                .Type
+                                                .CHECK_TRANSFER_DEPOSIT
+                                        )
+                                        .build()
+                                )
                                 .checkTransferIntention(
                                     AchTransferSimulation.Transaction.Source.CheckTransferIntention
                                         .builder()
@@ -209,6 +225,12 @@ class AchTransferSimulationTest {
                                         .transferId("string")
                                         .build()
                                 )
+                                .checkTransferRejection(
+                                    AchTransferSimulation.Transaction.Source.CheckTransferRejection
+                                        .builder()
+                                        .transferId("string")
+                                        .build()
+                                )
                                 .checkTransferReturn(
                                     AchTransferSimulation.Transaction.Source.CheckTransferReturn
                                         .builder()
@@ -224,12 +246,6 @@ class AchTransferSimulationTest {
                                                 .MAIL_DELIVERY_FAILURE
                                         )
                                         .transactionId("string")
-                                        .build()
-                                )
-                                .checkTransferRejection(
-                                    AchTransferSimulation.Transaction.Source.CheckTransferRejection
-                                        .builder()
-                                        .transferId("string")
                                         .build()
                                 )
                                 .checkTransferStopPaymentRequest(
@@ -353,24 +369,6 @@ class AchTransferSimulationTest {
                                         .remittanceInformation("string")
                                         .build()
                                 )
-                                .inboundWireDrawdownPaymentReversal(
-                                    AchTransferSimulation.Transaction.Source
-                                        .InboundWireDrawdownPaymentReversal
-                                        .builder()
-                                        .amount(123L)
-                                        .description("string")
-                                        .inputCycleDate(LocalDate.parse("2019-12-27"))
-                                        .inputSequenceNumber("string")
-                                        .inputSource("string")
-                                        .inputMessageAccountabilityData("string")
-                                        .previousMessageInputMessageAccountabilityData("string")
-                                        .previousMessageInputCycleDate(
-                                            LocalDate.parse("2019-12-27")
-                                        )
-                                        .previousMessageInputSequenceNumber("string")
-                                        .previousMessageInputSource("string")
-                                        .build()
-                                )
                                 .inboundWireDrawdownPayment(
                                     AchTransferSimulation.Transaction.Source
                                         .InboundWireDrawdownPayment
@@ -388,6 +386,24 @@ class AchTransferSimulationTest {
                                         .originatorAddressLine3("string")
                                         .originatorName("string")
                                         .originatorToBeneficiaryInformation("string")
+                                        .build()
+                                )
+                                .inboundWireDrawdownPaymentReversal(
+                                    AchTransferSimulation.Transaction.Source
+                                        .InboundWireDrawdownPaymentReversal
+                                        .builder()
+                                        .amount(123L)
+                                        .description("string")
+                                        .inputCycleDate(LocalDate.parse("2019-12-27"))
+                                        .inputSequenceNumber("string")
+                                        .inputSource("string")
+                                        .inputMessageAccountabilityData("string")
+                                        .previousMessageInputMessageAccountabilityData("string")
+                                        .previousMessageInputCycleDate(
+                                            LocalDate.parse("2019-12-27")
+                                        )
+                                        .previousMessageInputSequenceNumber("string")
+                                        .previousMessageInputSource("string")
                                         .build()
                                 )
                                 .inboundWireReversal(
@@ -813,6 +829,20 @@ class AchTransferSimulationTest {
                                     )
                                     .build()
                             )
+                            .cardRevenuePayment(
+                                AchTransferSimulation.Transaction.Source.CardRevenuePayment
+                                    .builder()
+                                    .amount(123L)
+                                    .currency(
+                                        AchTransferSimulation.Transaction.Source.CardRevenuePayment
+                                            .Currency
+                                            .CAD
+                                    )
+                                    .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .transactedOnAccountId("string")
+                                    .build()
+                            )
                             .cardSettlement(
                                 AchTransferSimulation.Transaction.Source.CardSettlement.builder()
                                     .id("string")
@@ -836,20 +866,6 @@ class AchTransferSimulationTest {
                                         AchTransferSimulation.Transaction.Source.CardSettlement.Type
                                             .CARD_SETTLEMENT
                                     )
-                                    .build()
-                            )
-                            .cardRevenuePayment(
-                                AchTransferSimulation.Transaction.Source.CardRevenuePayment
-                                    .builder()
-                                    .amount(123L)
-                                    .currency(
-                                        AchTransferSimulation.Transaction.Source.CardRevenuePayment
-                                            .Currency
-                                            .CAD
-                                    )
-                                    .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .transactedOnAccountId("string")
                                     .build()
                             )
                             .checkDepositAcceptance(
@@ -888,6 +904,20 @@ class AchTransferSimulationTest {
                                     )
                                     .build()
                             )
+                            .checkTransferDeposit(
+                                AchTransferSimulation.Transaction.Source.CheckTransferDeposit
+                                    .builder()
+                                    .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .frontImageFileId("string")
+                                    .backImageFileId("string")
+                                    .type(
+                                        AchTransferSimulation.Transaction.Source
+                                            .CheckTransferDeposit
+                                            .Type
+                                            .CHECK_TRANSFER_DEPOSIT
+                                    )
+                                    .build()
+                            )
                             .checkTransferIntention(
                                 AchTransferSimulation.Transaction.Source.CheckTransferIntention
                                     .builder()
@@ -907,6 +937,12 @@ class AchTransferSimulationTest {
                                     .transferId("string")
                                     .build()
                             )
+                            .checkTransferRejection(
+                                AchTransferSimulation.Transaction.Source.CheckTransferRejection
+                                    .builder()
+                                    .transferId("string")
+                                    .build()
+                            )
                             .checkTransferReturn(
                                 AchTransferSimulation.Transaction.Source.CheckTransferReturn
                                     .builder()
@@ -919,12 +955,6 @@ class AchTransferSimulationTest {
                                             .MAIL_DELIVERY_FAILURE
                                     )
                                     .transactionId("string")
-                                    .build()
-                            )
-                            .checkTransferRejection(
-                                AchTransferSimulation.Transaction.Source.CheckTransferRejection
-                                    .builder()
-                                    .transferId("string")
                                     .build()
                             )
                             .checkTransferStopPaymentRequest(
@@ -1041,22 +1071,6 @@ class AchTransferSimulationTest {
                                     .remittanceInformation("string")
                                     .build()
                             )
-                            .inboundWireDrawdownPaymentReversal(
-                                AchTransferSimulation.Transaction.Source
-                                    .InboundWireDrawdownPaymentReversal
-                                    .builder()
-                                    .amount(123L)
-                                    .description("string")
-                                    .inputCycleDate(LocalDate.parse("2019-12-27"))
-                                    .inputSequenceNumber("string")
-                                    .inputSource("string")
-                                    .inputMessageAccountabilityData("string")
-                                    .previousMessageInputMessageAccountabilityData("string")
-                                    .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
-                                    .previousMessageInputSequenceNumber("string")
-                                    .previousMessageInputSource("string")
-                                    .build()
-                            )
                             .inboundWireDrawdownPayment(
                                 AchTransferSimulation.Transaction.Source.InboundWireDrawdownPayment
                                     .builder()
@@ -1073,6 +1087,22 @@ class AchTransferSimulationTest {
                                     .originatorAddressLine3("string")
                                     .originatorName("string")
                                     .originatorToBeneficiaryInformation("string")
+                                    .build()
+                            )
+                            .inboundWireDrawdownPaymentReversal(
+                                AchTransferSimulation.Transaction.Source
+                                    .InboundWireDrawdownPaymentReversal
+                                    .builder()
+                                    .amount(123L)
+                                    .description("string")
+                                    .inputCycleDate(LocalDate.parse("2019-12-27"))
+                                    .inputSequenceNumber("string")
+                                    .inputSource("string")
+                                    .inputMessageAccountabilityData("string")
+                                    .previousMessageInputMessageAccountabilityData("string")
+                                    .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
+                                    .previousMessageInputSequenceNumber("string")
+                                    .previousMessageInputSource("string")
                                     .build()
                             )
                             .inboundWireReversal(

@@ -79,6 +79,15 @@ class TransactionTest {
                                 .type(Transaction.Source.CardRefund.Type.CARD_REFUND)
                                 .build()
                         )
+                        .cardRevenuePayment(
+                            Transaction.Source.CardRevenuePayment.builder()
+                                .amount(123L)
+                                .currency(Transaction.Source.CardRevenuePayment.Currency.CAD)
+                                .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .transactedOnAccountId("string")
+                                .build()
+                        )
                         .cardSettlement(
                             Transaction.Source.CardSettlement.builder()
                                 .id("string")
@@ -95,15 +104,6 @@ class TransactionTest {
                                 .merchantCategoryCode("string")
                                 .pendingTransactionId("string")
                                 .type(Transaction.Source.CardSettlement.Type.CARD_SETTLEMENT)
-                                .build()
-                        )
-                        .cardRevenuePayment(
-                            Transaction.Source.CardRevenuePayment.builder()
-                                .amount(123L)
-                                .currency(Transaction.Source.CardRevenuePayment.Currency.CAD)
-                                .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .transactedOnAccountId("string")
                                 .build()
                         )
                         .checkDepositAcceptance(
@@ -130,6 +130,17 @@ class TransactionTest {
                                 )
                                 .build()
                         )
+                        .checkTransferDeposit(
+                            Transaction.Source.CheckTransferDeposit.builder()
+                                .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .frontImageFileId("string")
+                                .backImageFileId("string")
+                                .type(
+                                    Transaction.Source.CheckTransferDeposit.Type
+                                        .CHECK_TRANSFER_DEPOSIT
+                                )
+                                .build()
+                        )
                         .checkTransferIntention(
                             Transaction.Source.CheckTransferIntention.builder()
                                 .addressLine1("string")
@@ -143,6 +154,11 @@ class TransactionTest {
                                 .transferId("string")
                                 .build()
                         )
+                        .checkTransferRejection(
+                            Transaction.Source.CheckTransferRejection.builder()
+                                .transferId("string")
+                                .build()
+                        )
                         .checkTransferReturn(
                             Transaction.Source.CheckTransferReturn.builder()
                                 .transferId("string")
@@ -153,11 +169,6 @@ class TransactionTest {
                                         .MAIL_DELIVERY_FAILURE
                                 )
                                 .transactionId("string")
-                                .build()
-                        )
-                        .checkTransferRejection(
-                            Transaction.Source.CheckTransferRejection.builder()
-                                .transferId("string")
                                 .build()
                         )
                         .checkTransferStopPaymentRequest(
@@ -255,20 +266,6 @@ class TransactionTest {
                                 .remittanceInformation("string")
                                 .build()
                         )
-                        .inboundWireDrawdownPaymentReversal(
-                            Transaction.Source.InboundWireDrawdownPaymentReversal.builder()
-                                .amount(123L)
-                                .description("string")
-                                .inputCycleDate(LocalDate.parse("2019-12-27"))
-                                .inputSequenceNumber("string")
-                                .inputSource("string")
-                                .inputMessageAccountabilityData("string")
-                                .previousMessageInputMessageAccountabilityData("string")
-                                .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
-                                .previousMessageInputSequenceNumber("string")
-                                .previousMessageInputSource("string")
-                                .build()
-                        )
                         .inboundWireDrawdownPayment(
                             Transaction.Source.InboundWireDrawdownPayment.builder()
                                 .amount(123L)
@@ -284,6 +281,20 @@ class TransactionTest {
                                 .originatorAddressLine3("string")
                                 .originatorName("string")
                                 .originatorToBeneficiaryInformation("string")
+                                .build()
+                        )
+                        .inboundWireDrawdownPaymentReversal(
+                            Transaction.Source.InboundWireDrawdownPaymentReversal.builder()
+                                .amount(123L)
+                                .description("string")
+                                .inputCycleDate(LocalDate.parse("2019-12-27"))
+                                .inputSequenceNumber("string")
+                                .inputSource("string")
+                                .inputMessageAccountabilityData("string")
+                                .previousMessageInputMessageAccountabilityData("string")
+                                .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
+                                .previousMessageInputSequenceNumber("string")
+                                .previousMessageInputSource("string")
                                 .build()
                         )
                         .inboundWireReversal(
@@ -443,6 +454,15 @@ class TransactionTest {
                             .type(Transaction.Source.CardRefund.Type.CARD_REFUND)
                             .build()
                     )
+                    .cardRevenuePayment(
+                        Transaction.Source.CardRevenuePayment.builder()
+                            .amount(123L)
+                            .currency(Transaction.Source.CardRevenuePayment.Currency.CAD)
+                            .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .transactedOnAccountId("string")
+                            .build()
+                    )
                     .cardSettlement(
                         Transaction.Source.CardSettlement.builder()
                             .id("string")
@@ -459,15 +479,6 @@ class TransactionTest {
                             .merchantCategoryCode("string")
                             .pendingTransactionId("string")
                             .type(Transaction.Source.CardSettlement.Type.CARD_SETTLEMENT)
-                            .build()
-                    )
-                    .cardRevenuePayment(
-                        Transaction.Source.CardRevenuePayment.builder()
-                            .amount(123L)
-                            .currency(Transaction.Source.CardRevenuePayment.Currency.CAD)
-                            .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .transactedOnAccountId("string")
                             .build()
                     )
                     .checkDepositAcceptance(
@@ -494,6 +505,16 @@ class TransactionTest {
                             )
                             .build()
                     )
+                    .checkTransferDeposit(
+                        Transaction.Source.CheckTransferDeposit.builder()
+                            .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .frontImageFileId("string")
+                            .backImageFileId("string")
+                            .type(
+                                Transaction.Source.CheckTransferDeposit.Type.CHECK_TRANSFER_DEPOSIT
+                            )
+                            .build()
+                    )
                     .checkTransferIntention(
                         Transaction.Source.CheckTransferIntention.builder()
                             .addressLine1("string")
@@ -507,6 +528,11 @@ class TransactionTest {
                             .transferId("string")
                             .build()
                     )
+                    .checkTransferRejection(
+                        Transaction.Source.CheckTransferRejection.builder()
+                            .transferId("string")
+                            .build()
+                    )
                     .checkTransferReturn(
                         Transaction.Source.CheckTransferReturn.builder()
                             .transferId("string")
@@ -516,11 +542,6 @@ class TransactionTest {
                                 Transaction.Source.CheckTransferReturn.Reason.MAIL_DELIVERY_FAILURE
                             )
                             .transactionId("string")
-                            .build()
-                    )
-                    .checkTransferRejection(
-                        Transaction.Source.CheckTransferRejection.builder()
-                            .transferId("string")
                             .build()
                     )
                     .checkTransferStopPaymentRequest(
@@ -618,20 +639,6 @@ class TransactionTest {
                             .remittanceInformation("string")
                             .build()
                     )
-                    .inboundWireDrawdownPaymentReversal(
-                        Transaction.Source.InboundWireDrawdownPaymentReversal.builder()
-                            .amount(123L)
-                            .description("string")
-                            .inputCycleDate(LocalDate.parse("2019-12-27"))
-                            .inputSequenceNumber("string")
-                            .inputSource("string")
-                            .inputMessageAccountabilityData("string")
-                            .previousMessageInputMessageAccountabilityData("string")
-                            .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
-                            .previousMessageInputSequenceNumber("string")
-                            .previousMessageInputSource("string")
-                            .build()
-                    )
                     .inboundWireDrawdownPayment(
                         Transaction.Source.InboundWireDrawdownPayment.builder()
                             .amount(123L)
@@ -647,6 +654,20 @@ class TransactionTest {
                             .originatorAddressLine3("string")
                             .originatorName("string")
                             .originatorToBeneficiaryInformation("string")
+                            .build()
+                    )
+                    .inboundWireDrawdownPaymentReversal(
+                        Transaction.Source.InboundWireDrawdownPaymentReversal.builder()
+                            .amount(123L)
+                            .description("string")
+                            .inputCycleDate(LocalDate.parse("2019-12-27"))
+                            .inputSequenceNumber("string")
+                            .inputSource("string")
+                            .inputMessageAccountabilityData("string")
+                            .previousMessageInputMessageAccountabilityData("string")
+                            .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
+                            .previousMessageInputSequenceNumber("string")
+                            .previousMessageInputSource("string")
                             .build()
                     )
                     .inboundWireReversal(
