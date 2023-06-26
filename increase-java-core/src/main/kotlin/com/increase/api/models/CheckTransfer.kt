@@ -1828,11 +1828,17 @@ private constructor(
         /** When the check was deposited. */
         fun depositedAt(): OffsetDateTime = depositedAt.getRequired("deposited_at")
 
-        /** The ID for the File containing the image of the front of the check. */
+        /**
+         * The identifier of the API File object containing an image of the front of the deposited
+         * check.
+         */
         fun frontImageFileId(): Optional<String> =
             Optional.ofNullable(frontImageFileId.getNullable("front_image_file_id"))
 
-        /** The ID for the File containing the image of the rear of the check. */
+        /**
+         * The identifier of the API File object containing an image of the back of the deposited
+         * check.
+         */
         fun backImageFileId(): Optional<String> =
             Optional.ofNullable(backImageFileId.getNullable("back_image_file_id"))
 
@@ -1845,12 +1851,18 @@ private constructor(
         /** When the check was deposited. */
         @JsonProperty("deposited_at") @ExcludeMissing fun _depositedAt() = depositedAt
 
-        /** The ID for the File containing the image of the front of the check. */
+        /**
+         * The identifier of the API File object containing an image of the front of the deposited
+         * check.
+         */
         @JsonProperty("front_image_file_id")
         @ExcludeMissing
         fun _frontImageFileId() = frontImageFileId
 
-        /** The ID for the File containing the image of the rear of the check. */
+        /**
+         * The identifier of the API File object containing an image of the back of the deposited
+         * check.
+         */
         @JsonProperty("back_image_file_id") @ExcludeMissing fun _backImageFileId() = backImageFileId
 
         /**
@@ -1937,22 +1949,34 @@ private constructor(
                 this.depositedAt = depositedAt
             }
 
-            /** The ID for the File containing the image of the front of the check. */
+            /**
+             * The identifier of the API File object containing an image of the front of the
+             * deposited check.
+             */
             fun frontImageFileId(frontImageFileId: String) =
                 frontImageFileId(JsonField.of(frontImageFileId))
 
-            /** The ID for the File containing the image of the front of the check. */
+            /**
+             * The identifier of the API File object containing an image of the front of the
+             * deposited check.
+             */
             @JsonProperty("front_image_file_id")
             @ExcludeMissing
             fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
                 this.frontImageFileId = frontImageFileId
             }
 
-            /** The ID for the File containing the image of the rear of the check. */
+            /**
+             * The identifier of the API File object containing an image of the back of the
+             * deposited check.
+             */
             fun backImageFileId(backImageFileId: String) =
                 backImageFileId(JsonField.of(backImageFileId))
 
-            /** The ID for the File containing the image of the rear of the check. */
+            /**
+             * The identifier of the API File object containing an image of the back of the
+             * deposited check.
+             */
             @JsonProperty("back_image_file_id")
             @ExcludeMissing
             fun backImageFileId(backImageFileId: JsonField<String>) = apply {

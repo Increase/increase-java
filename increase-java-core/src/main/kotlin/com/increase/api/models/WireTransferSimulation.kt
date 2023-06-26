@@ -715,13 +715,14 @@ private constructor(
             private val achTransferReturn: JsonField<AchTransferReturn>,
             private val cardDisputeAcceptance: JsonField<CardDisputeAcceptance>,
             private val cardRefund: JsonField<CardRefund>,
-            private val cardSettlement: JsonField<CardSettlement>,
             private val cardRevenuePayment: JsonField<CardRevenuePayment>,
+            private val cardSettlement: JsonField<CardSettlement>,
             private val checkDepositAcceptance: JsonField<CheckDepositAcceptance>,
             private val checkDepositReturn: JsonField<CheckDepositReturn>,
+            private val checkTransferDeposit: JsonField<CheckTransferDeposit>,
             private val checkTransferIntention: JsonField<CheckTransferIntention>,
-            private val checkTransferReturn: JsonField<CheckTransferReturn>,
             private val checkTransferRejection: JsonField<CheckTransferRejection>,
+            private val checkTransferReturn: JsonField<CheckTransferReturn>,
             private val checkTransferStopPaymentRequest: JsonField<CheckTransferStopPaymentRequest>,
             private val feePayment: JsonField<FeePayment>,
             private val inboundAchTransfer: JsonField<InboundAchTransfer>,
@@ -729,9 +730,9 @@ private constructor(
             private val inboundInternationalAchTransfer: JsonField<InboundInternationalAchTransfer>,
             private val inboundRealTimePaymentsTransferConfirmation:
                 JsonField<InboundRealTimePaymentsTransferConfirmation>,
+            private val inboundWireDrawdownPayment: JsonField<InboundWireDrawdownPayment>,
             private val inboundWireDrawdownPaymentReversal:
                 JsonField<InboundWireDrawdownPaymentReversal>,
-            private val inboundWireDrawdownPayment: JsonField<InboundWireDrawdownPayment>,
             private val inboundWireReversal: JsonField<InboundWireReversal>,
             private val inboundWireTransfer: JsonField<InboundWireTransfer>,
             private val interestPayment: JsonField<InterestPayment>,
@@ -800,18 +801,18 @@ private constructor(
                 Optional.ofNullable(cardRefund.getNullable("card_refund"))
 
             /**
-             * A Card Settlement object. This field will be present in the JSON response if and only
-             * if `category` is equal to `card_settlement`.
-             */
-            fun cardSettlement(): Optional<CardSettlement> =
-                Optional.ofNullable(cardSettlement.getNullable("card_settlement"))
-
-            /**
              * A Card Revenue Payment object. This field will be present in the JSON response if and
              * only if `category` is equal to `card_revenue_payment`.
              */
             fun cardRevenuePayment(): Optional<CardRevenuePayment> =
                 Optional.ofNullable(cardRevenuePayment.getNullable("card_revenue_payment"))
+
+            /**
+             * A Card Settlement object. This field will be present in the JSON response if and only
+             * if `category` is equal to `card_settlement`.
+             */
+            fun cardSettlement(): Optional<CardSettlement> =
+                Optional.ofNullable(cardSettlement.getNullable("card_settlement"))
 
             /**
              * A Check Deposit Acceptance object. This field will be present in the JSON response if
@@ -828,6 +829,13 @@ private constructor(
                 Optional.ofNullable(checkDepositReturn.getNullable("check_deposit_return"))
 
             /**
+             * A Check Transfer Deposit object. This field will be present in the JSON response if
+             * and only if `category` is equal to `check_transfer_deposit`.
+             */
+            fun checkTransferDeposit(): Optional<CheckTransferDeposit> =
+                Optional.ofNullable(checkTransferDeposit.getNullable("check_transfer_deposit"))
+
+            /**
              * A Check Transfer Intention object. This field will be present in the JSON response if
              * and only if `category` is equal to `check_transfer_intention`.
              */
@@ -835,18 +843,18 @@ private constructor(
                 Optional.ofNullable(checkTransferIntention.getNullable("check_transfer_intention"))
 
             /**
-             * A Check Transfer Return object. This field will be present in the JSON response if
-             * and only if `category` is equal to `check_transfer_return`.
-             */
-            fun checkTransferReturn(): Optional<CheckTransferReturn> =
-                Optional.ofNullable(checkTransferReturn.getNullable("check_transfer_return"))
-
-            /**
              * A Check Transfer Rejection object. This field will be present in the JSON response if
              * and only if `category` is equal to `check_transfer_rejection`.
              */
             fun checkTransferRejection(): Optional<CheckTransferRejection> =
                 Optional.ofNullable(checkTransferRejection.getNullable("check_transfer_rejection"))
+
+            /**
+             * A Check Transfer Return object. This field will be present in the JSON response if
+             * and only if `category` is equal to `check_transfer_return`.
+             */
+            fun checkTransferReturn(): Optional<CheckTransferReturn> =
+                Optional.ofNullable(checkTransferReturn.getNullable("check_transfer_return"))
 
             /**
              * A Check Transfer Stop Payment Request object. This field will be present in the JSON
@@ -905,6 +913,15 @@ private constructor(
                 )
 
             /**
+             * A Inbound Wire Drawdown Payment object. This field will be present in the JSON
+             * response if and only if `category` is equal to `inbound_wire_drawdown_payment`.
+             */
+            fun inboundWireDrawdownPayment(): Optional<InboundWireDrawdownPayment> =
+                Optional.ofNullable(
+                    inboundWireDrawdownPayment.getNullable("inbound_wire_drawdown_payment")
+                )
+
+            /**
              * A Inbound Wire Drawdown Payment Reversal object. This field will be present in the
              * JSON response if and only if `category` is equal to
              * `inbound_wire_drawdown_payment_reversal`.
@@ -914,15 +931,6 @@ private constructor(
                     inboundWireDrawdownPaymentReversal.getNullable(
                         "inbound_wire_drawdown_payment_reversal"
                     )
-                )
-
-            /**
-             * A Inbound Wire Drawdown Payment object. This field will be present in the JSON
-             * response if and only if `category` is equal to `inbound_wire_drawdown_payment`.
-             */
-            fun inboundWireDrawdownPayment(): Optional<InboundWireDrawdownPayment> =
-                Optional.ofNullable(
-                    inboundWireDrawdownPayment.getNullable("inbound_wire_drawdown_payment")
                 )
 
             /**
@@ -1041,18 +1049,18 @@ private constructor(
             @JsonProperty("card_refund") @ExcludeMissing fun _cardRefund() = cardRefund
 
             /**
-             * A Card Settlement object. This field will be present in the JSON response if and only
-             * if `category` is equal to `card_settlement`.
-             */
-            @JsonProperty("card_settlement") @ExcludeMissing fun _cardSettlement() = cardSettlement
-
-            /**
              * A Card Revenue Payment object. This field will be present in the JSON response if and
              * only if `category` is equal to `card_revenue_payment`.
              */
             @JsonProperty("card_revenue_payment")
             @ExcludeMissing
             fun _cardRevenuePayment() = cardRevenuePayment
+
+            /**
+             * A Card Settlement object. This field will be present in the JSON response if and only
+             * if `category` is equal to `card_settlement`.
+             */
+            @JsonProperty("card_settlement") @ExcludeMissing fun _cardSettlement() = cardSettlement
 
             /**
              * A Check Deposit Acceptance object. This field will be present in the JSON response if
@@ -1071,6 +1079,14 @@ private constructor(
             fun _checkDepositReturn() = checkDepositReturn
 
             /**
+             * A Check Transfer Deposit object. This field will be present in the JSON response if
+             * and only if `category` is equal to `check_transfer_deposit`.
+             */
+            @JsonProperty("check_transfer_deposit")
+            @ExcludeMissing
+            fun _checkTransferDeposit() = checkTransferDeposit
+
+            /**
              * A Check Transfer Intention object. This field will be present in the JSON response if
              * and only if `category` is equal to `check_transfer_intention`.
              */
@@ -1079,20 +1095,20 @@ private constructor(
             fun _checkTransferIntention() = checkTransferIntention
 
             /**
-             * A Check Transfer Return object. This field will be present in the JSON response if
-             * and only if `category` is equal to `check_transfer_return`.
-             */
-            @JsonProperty("check_transfer_return")
-            @ExcludeMissing
-            fun _checkTransferReturn() = checkTransferReturn
-
-            /**
              * A Check Transfer Rejection object. This field will be present in the JSON response if
              * and only if `category` is equal to `check_transfer_rejection`.
              */
             @JsonProperty("check_transfer_rejection")
             @ExcludeMissing
             fun _checkTransferRejection() = checkTransferRejection
+
+            /**
+             * A Check Transfer Return object. This field will be present in the JSON response if
+             * and only if `category` is equal to `check_transfer_return`.
+             */
+            @JsonProperty("check_transfer_return")
+            @ExcludeMissing
+            fun _checkTransferReturn() = checkTransferReturn
 
             /**
              * A Check Transfer Stop Payment Request object. This field will be present in the JSON
@@ -1141,6 +1157,14 @@ private constructor(
                 inboundRealTimePaymentsTransferConfirmation
 
             /**
+             * A Inbound Wire Drawdown Payment object. This field will be present in the JSON
+             * response if and only if `category` is equal to `inbound_wire_drawdown_payment`.
+             */
+            @JsonProperty("inbound_wire_drawdown_payment")
+            @ExcludeMissing
+            fun _inboundWireDrawdownPayment() = inboundWireDrawdownPayment
+
+            /**
              * A Inbound Wire Drawdown Payment Reversal object. This field will be present in the
              * JSON response if and only if `category` is equal to
              * `inbound_wire_drawdown_payment_reversal`.
@@ -1148,14 +1172,6 @@ private constructor(
             @JsonProperty("inbound_wire_drawdown_payment_reversal")
             @ExcludeMissing
             fun _inboundWireDrawdownPaymentReversal() = inboundWireDrawdownPaymentReversal
-
-            /**
-             * A Inbound Wire Drawdown Payment object. This field will be present in the JSON
-             * response if and only if `category` is equal to `inbound_wire_drawdown_payment`.
-             */
-            @JsonProperty("inbound_wire_drawdown_payment")
-            @ExcludeMissing
-            fun _inboundWireDrawdownPayment() = inboundWireDrawdownPayment
 
             /**
              * A Inbound Wire Reversal object. This field will be present in the JSON response if
@@ -1231,21 +1247,22 @@ private constructor(
                     achTransferReturn().map { it.validate() }
                     cardDisputeAcceptance().map { it.validate() }
                     cardRefund().map { it.validate() }
-                    cardSettlement().map { it.validate() }
                     cardRevenuePayment().map { it.validate() }
+                    cardSettlement().map { it.validate() }
                     checkDepositAcceptance().map { it.validate() }
                     checkDepositReturn().map { it.validate() }
+                    checkTransferDeposit().map { it.validate() }
                     checkTransferIntention().map { it.validate() }
-                    checkTransferReturn().map { it.validate() }
                     checkTransferRejection().map { it.validate() }
+                    checkTransferReturn().map { it.validate() }
                     checkTransferStopPaymentRequest().map { it.validate() }
                     feePayment().map { it.validate() }
                     inboundAchTransfer().map { it.validate() }
                     inboundCheck().map { it.validate() }
                     inboundInternationalAchTransfer().map { it.validate() }
                     inboundRealTimePaymentsTransferConfirmation().map { it.validate() }
-                    inboundWireDrawdownPaymentReversal().map { it.validate() }
                     inboundWireDrawdownPayment().map { it.validate() }
+                    inboundWireDrawdownPaymentReversal().map { it.validate() }
                     inboundWireReversal().map { it.validate() }
                     inboundWireTransfer().map { it.validate() }
                     interestPayment().map { it.validate() }
@@ -1273,13 +1290,14 @@ private constructor(
                     this.achTransferReturn == other.achTransferReturn &&
                     this.cardDisputeAcceptance == other.cardDisputeAcceptance &&
                     this.cardRefund == other.cardRefund &&
-                    this.cardSettlement == other.cardSettlement &&
                     this.cardRevenuePayment == other.cardRevenuePayment &&
+                    this.cardSettlement == other.cardSettlement &&
                     this.checkDepositAcceptance == other.checkDepositAcceptance &&
                     this.checkDepositReturn == other.checkDepositReturn &&
+                    this.checkTransferDeposit == other.checkTransferDeposit &&
                     this.checkTransferIntention == other.checkTransferIntention &&
-                    this.checkTransferReturn == other.checkTransferReturn &&
                     this.checkTransferRejection == other.checkTransferRejection &&
+                    this.checkTransferReturn == other.checkTransferReturn &&
                     this.checkTransferStopPaymentRequest == other.checkTransferStopPaymentRequest &&
                     this.feePayment == other.feePayment &&
                     this.inboundAchTransfer == other.inboundAchTransfer &&
@@ -1287,9 +1305,9 @@ private constructor(
                     this.inboundInternationalAchTransfer == other.inboundInternationalAchTransfer &&
                     this.inboundRealTimePaymentsTransferConfirmation ==
                         other.inboundRealTimePaymentsTransferConfirmation &&
+                    this.inboundWireDrawdownPayment == other.inboundWireDrawdownPayment &&
                     this.inboundWireDrawdownPaymentReversal ==
                         other.inboundWireDrawdownPaymentReversal &&
-                    this.inboundWireDrawdownPayment == other.inboundWireDrawdownPayment &&
                     this.inboundWireReversal == other.inboundWireReversal &&
                     this.inboundWireTransfer == other.inboundWireTransfer &&
                     this.interestPayment == other.interestPayment &&
@@ -1313,21 +1331,22 @@ private constructor(
                             achTransferReturn,
                             cardDisputeAcceptance,
                             cardRefund,
-                            cardSettlement,
                             cardRevenuePayment,
+                            cardSettlement,
                             checkDepositAcceptance,
                             checkDepositReturn,
+                            checkTransferDeposit,
                             checkTransferIntention,
-                            checkTransferReturn,
                             checkTransferRejection,
+                            checkTransferReturn,
                             checkTransferStopPaymentRequest,
                             feePayment,
                             inboundAchTransfer,
                             inboundCheck,
                             inboundInternationalAchTransfer,
                             inboundRealTimePaymentsTransferConfirmation,
-                            inboundWireDrawdownPaymentReversal,
                             inboundWireDrawdownPayment,
+                            inboundWireDrawdownPaymentReversal,
                             inboundWireReversal,
                             inboundWireTransfer,
                             interestPayment,
@@ -1343,7 +1362,7 @@ private constructor(
             }
 
             override fun toString() =
-                "Source{category=$category, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardRefund=$cardRefund, cardSettlement=$cardSettlement, cardRevenuePayment=$cardRevenuePayment, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferIntention=$checkTransferIntention, checkTransferReturn=$checkTransferReturn, checkTransferRejection=$checkTransferRejection, checkTransferStopPaymentRequest=$checkTransferStopPaymentRequest, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundCheck=$inboundCheck, inboundInternationalAchTransfer=$inboundInternationalAchTransfer, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireDrawdownPaymentReversal=$inboundWireDrawdownPaymentReversal, inboundWireDrawdownPayment=$inboundWireDrawdownPayment, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, interestPayment=$interestPayment, internalSource=$internalSource, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, wireTransferIntention=$wireTransferIntention, wireTransferRejection=$wireTransferRejection, additionalProperties=$additionalProperties}"
+                "Source{category=$category, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, checkTransferIntention=$checkTransferIntention, checkTransferRejection=$checkTransferRejection, checkTransferReturn=$checkTransferReturn, checkTransferStopPaymentRequest=$checkTransferStopPaymentRequest, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundCheck=$inboundCheck, inboundInternationalAchTransfer=$inboundInternationalAchTransfer, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireDrawdownPayment=$inboundWireDrawdownPayment, inboundWireDrawdownPaymentReversal=$inboundWireDrawdownPaymentReversal, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, interestPayment=$interestPayment, internalSource=$internalSource, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, wireTransferIntention=$wireTransferIntention, wireTransferRejection=$wireTransferRejection, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1361,16 +1380,17 @@ private constructor(
                 private var cardDisputeAcceptance: JsonField<CardDisputeAcceptance> =
                     JsonMissing.of()
                 private var cardRefund: JsonField<CardRefund> = JsonMissing.of()
-                private var cardSettlement: JsonField<CardSettlement> = JsonMissing.of()
                 private var cardRevenuePayment: JsonField<CardRevenuePayment> = JsonMissing.of()
+                private var cardSettlement: JsonField<CardSettlement> = JsonMissing.of()
                 private var checkDepositAcceptance: JsonField<CheckDepositAcceptance> =
                     JsonMissing.of()
                 private var checkDepositReturn: JsonField<CheckDepositReturn> = JsonMissing.of()
+                private var checkTransferDeposit: JsonField<CheckTransferDeposit> = JsonMissing.of()
                 private var checkTransferIntention: JsonField<CheckTransferIntention> =
                     JsonMissing.of()
-                private var checkTransferReturn: JsonField<CheckTransferReturn> = JsonMissing.of()
                 private var checkTransferRejection: JsonField<CheckTransferRejection> =
                     JsonMissing.of()
+                private var checkTransferReturn: JsonField<CheckTransferReturn> = JsonMissing.of()
                 private var checkTransferStopPaymentRequest:
                     JsonField<CheckTransferStopPaymentRequest> =
                     JsonMissing.of()
@@ -1383,10 +1403,10 @@ private constructor(
                 private var inboundRealTimePaymentsTransferConfirmation:
                     JsonField<InboundRealTimePaymentsTransferConfirmation> =
                     JsonMissing.of()
+                private var inboundWireDrawdownPayment: JsonField<InboundWireDrawdownPayment> =
+                    JsonMissing.of()
                 private var inboundWireDrawdownPaymentReversal:
                     JsonField<InboundWireDrawdownPaymentReversal> =
-                    JsonMissing.of()
-                private var inboundWireDrawdownPayment: JsonField<InboundWireDrawdownPayment> =
                     JsonMissing.of()
                 private var inboundWireReversal: JsonField<InboundWireReversal> = JsonMissing.of()
                 private var inboundWireTransfer: JsonField<InboundWireTransfer> = JsonMissing.of()
@@ -1411,13 +1431,14 @@ private constructor(
                     this.achTransferReturn = source.achTransferReturn
                     this.cardDisputeAcceptance = source.cardDisputeAcceptance
                     this.cardRefund = source.cardRefund
-                    this.cardSettlement = source.cardSettlement
                     this.cardRevenuePayment = source.cardRevenuePayment
+                    this.cardSettlement = source.cardSettlement
                     this.checkDepositAcceptance = source.checkDepositAcceptance
                     this.checkDepositReturn = source.checkDepositReturn
+                    this.checkTransferDeposit = source.checkTransferDeposit
                     this.checkTransferIntention = source.checkTransferIntention
-                    this.checkTransferReturn = source.checkTransferReturn
                     this.checkTransferRejection = source.checkTransferRejection
+                    this.checkTransferReturn = source.checkTransferReturn
                     this.checkTransferStopPaymentRequest = source.checkTransferStopPaymentRequest
                     this.feePayment = source.feePayment
                     this.inboundAchTransfer = source.inboundAchTransfer
@@ -1425,9 +1446,9 @@ private constructor(
                     this.inboundInternationalAchTransfer = source.inboundInternationalAchTransfer
                     this.inboundRealTimePaymentsTransferConfirmation =
                         source.inboundRealTimePaymentsTransferConfirmation
+                    this.inboundWireDrawdownPayment = source.inboundWireDrawdownPayment
                     this.inboundWireDrawdownPaymentReversal =
                         source.inboundWireDrawdownPaymentReversal
-                    this.inboundWireDrawdownPayment = source.inboundWireDrawdownPayment
                     this.inboundWireReversal = source.inboundWireReversal
                     this.inboundWireTransfer = source.inboundWireTransfer
                     this.interestPayment = source.interestPayment
@@ -1561,23 +1582,6 @@ private constructor(
                 }
 
                 /**
-                 * A Card Settlement object. This field will be present in the JSON response if and
-                 * only if `category` is equal to `card_settlement`.
-                 */
-                fun cardSettlement(cardSettlement: CardSettlement) =
-                    cardSettlement(JsonField.of(cardSettlement))
-
-                /**
-                 * A Card Settlement object. This field will be present in the JSON response if and
-                 * only if `category` is equal to `card_settlement`.
-                 */
-                @JsonProperty("card_settlement")
-                @ExcludeMissing
-                fun cardSettlement(cardSettlement: JsonField<CardSettlement>) = apply {
-                    this.cardSettlement = cardSettlement
-                }
-
-                /**
                  * A Card Revenue Payment object. This field will be present in the JSON response if
                  * and only if `category` is equal to `card_revenue_payment`.
                  */
@@ -1592,6 +1596,23 @@ private constructor(
                 @ExcludeMissing
                 fun cardRevenuePayment(cardRevenuePayment: JsonField<CardRevenuePayment>) = apply {
                     this.cardRevenuePayment = cardRevenuePayment
+                }
+
+                /**
+                 * A Card Settlement object. This field will be present in the JSON response if and
+                 * only if `category` is equal to `card_settlement`.
+                 */
+                fun cardSettlement(cardSettlement: CardSettlement) =
+                    cardSettlement(JsonField.of(cardSettlement))
+
+                /**
+                 * A Card Settlement object. This field will be present in the JSON response if and
+                 * only if `category` is equal to `card_settlement`.
+                 */
+                @JsonProperty("card_settlement")
+                @ExcludeMissing
+                fun cardSettlement(cardSettlement: JsonField<CardSettlement>) = apply {
+                    this.cardSettlement = cardSettlement
                 }
 
                 /**
@@ -1629,6 +1650,24 @@ private constructor(
                 }
 
                 /**
+                 * A Check Transfer Deposit object. This field will be present in the JSON response
+                 * if and only if `category` is equal to `check_transfer_deposit`.
+                 */
+                fun checkTransferDeposit(checkTransferDeposit: CheckTransferDeposit) =
+                    checkTransferDeposit(JsonField.of(checkTransferDeposit))
+
+                /**
+                 * A Check Transfer Deposit object. This field will be present in the JSON response
+                 * if and only if `category` is equal to `check_transfer_deposit`.
+                 */
+                @JsonProperty("check_transfer_deposit")
+                @ExcludeMissing
+                fun checkTransferDeposit(checkTransferDeposit: JsonField<CheckTransferDeposit>) =
+                    apply {
+                        this.checkTransferDeposit = checkTransferDeposit
+                    }
+
+                /**
                  * A Check Transfer Intention object. This field will be present in the JSON
                  * response if and only if `category` is equal to `check_transfer_intention`.
                  */
@@ -1644,6 +1683,23 @@ private constructor(
                 fun checkTransferIntention(
                     checkTransferIntention: JsonField<CheckTransferIntention>
                 ) = apply { this.checkTransferIntention = checkTransferIntention }
+
+                /**
+                 * A Check Transfer Rejection object. This field will be present in the JSON
+                 * response if and only if `category` is equal to `check_transfer_rejection`.
+                 */
+                fun checkTransferRejection(checkTransferRejection: CheckTransferRejection) =
+                    checkTransferRejection(JsonField.of(checkTransferRejection))
+
+                /**
+                 * A Check Transfer Rejection object. This field will be present in the JSON
+                 * response if and only if `category` is equal to `check_transfer_rejection`.
+                 */
+                @JsonProperty("check_transfer_rejection")
+                @ExcludeMissing
+                fun checkTransferRejection(
+                    checkTransferRejection: JsonField<CheckTransferRejection>
+                ) = apply { this.checkTransferRejection = checkTransferRejection }
 
                 /**
                  * A Check Transfer Return object. This field will be present in the JSON response
@@ -1662,23 +1718,6 @@ private constructor(
                     apply {
                         this.checkTransferReturn = checkTransferReturn
                     }
-
-                /**
-                 * A Check Transfer Rejection object. This field will be present in the JSON
-                 * response if and only if `category` is equal to `check_transfer_rejection`.
-                 */
-                fun checkTransferRejection(checkTransferRejection: CheckTransferRejection) =
-                    checkTransferRejection(JsonField.of(checkTransferRejection))
-
-                /**
-                 * A Check Transfer Rejection object. This field will be present in the JSON
-                 * response if and only if `category` is equal to `check_transfer_rejection`.
-                 */
-                @JsonProperty("check_transfer_rejection")
-                @ExcludeMissing
-                fun checkTransferRejection(
-                    checkTransferRejection: JsonField<CheckTransferRejection>
-                ) = apply { this.checkTransferRejection = checkTransferRejection }
 
                 /**
                  * A Check Transfer Stop Payment Request object. This field will be present in the
@@ -1799,6 +1838,24 @@ private constructor(
                 }
 
                 /**
+                 * A Inbound Wire Drawdown Payment object. This field will be present in the JSON
+                 * response if and only if `category` is equal to `inbound_wire_drawdown_payment`.
+                 */
+                fun inboundWireDrawdownPayment(
+                    inboundWireDrawdownPayment: InboundWireDrawdownPayment
+                ) = inboundWireDrawdownPayment(JsonField.of(inboundWireDrawdownPayment))
+
+                /**
+                 * A Inbound Wire Drawdown Payment object. This field will be present in the JSON
+                 * response if and only if `category` is equal to `inbound_wire_drawdown_payment`.
+                 */
+                @JsonProperty("inbound_wire_drawdown_payment")
+                @ExcludeMissing
+                fun inboundWireDrawdownPayment(
+                    inboundWireDrawdownPayment: JsonField<InboundWireDrawdownPayment>
+                ) = apply { this.inboundWireDrawdownPayment = inboundWireDrawdownPayment }
+
+                /**
                  * A Inbound Wire Drawdown Payment Reversal object. This field will be present in
                  * the JSON response if and only if `category` is equal to
                  * `inbound_wire_drawdown_payment_reversal`.
@@ -1823,24 +1880,6 @@ private constructor(
                 ) = apply {
                     this.inboundWireDrawdownPaymentReversal = inboundWireDrawdownPaymentReversal
                 }
-
-                /**
-                 * A Inbound Wire Drawdown Payment object. This field will be present in the JSON
-                 * response if and only if `category` is equal to `inbound_wire_drawdown_payment`.
-                 */
-                fun inboundWireDrawdownPayment(
-                    inboundWireDrawdownPayment: InboundWireDrawdownPayment
-                ) = inboundWireDrawdownPayment(JsonField.of(inboundWireDrawdownPayment))
-
-                /**
-                 * A Inbound Wire Drawdown Payment object. This field will be present in the JSON
-                 * response if and only if `category` is equal to `inbound_wire_drawdown_payment`.
-                 */
-                @JsonProperty("inbound_wire_drawdown_payment")
-                @ExcludeMissing
-                fun inboundWireDrawdownPayment(
-                    inboundWireDrawdownPayment: JsonField<InboundWireDrawdownPayment>
-                ) = apply { this.inboundWireDrawdownPayment = inboundWireDrawdownPayment }
 
                 /**
                  * A Inbound Wire Reversal object. This field will be present in the JSON response
@@ -2015,21 +2054,22 @@ private constructor(
                         achTransferReturn,
                         cardDisputeAcceptance,
                         cardRefund,
-                        cardSettlement,
                         cardRevenuePayment,
+                        cardSettlement,
                         checkDepositAcceptance,
                         checkDepositReturn,
+                        checkTransferDeposit,
                         checkTransferIntention,
-                        checkTransferReturn,
                         checkTransferRejection,
+                        checkTransferReturn,
                         checkTransferStopPaymentRequest,
                         feePayment,
                         inboundAchTransfer,
                         inboundCheck,
                         inboundInternationalAchTransfer,
                         inboundRealTimePaymentsTransferConfirmation,
-                        inboundWireDrawdownPaymentReversal,
                         inboundWireDrawdownPayment,
+                        inboundWireDrawdownPaymentReversal,
                         inboundWireReversal,
                         inboundWireTransfer,
                         interestPayment,
@@ -2082,10 +2122,10 @@ private constructor(
 
                     @JvmField val CARD_REFUND = Category(JsonField.of("card_refund"))
 
-                    @JvmField val CARD_SETTLEMENT = Category(JsonField.of("card_settlement"))
-
                     @JvmField
                     val CARD_REVENUE_PAYMENT = Category(JsonField.of("card_revenue_payment"))
+
+                    @JvmField val CARD_SETTLEMENT = Category(JsonField.of("card_settlement"))
 
                     @JvmField
                     val CHECK_DEPOSIT_ACCEPTANCE =
@@ -2095,15 +2135,18 @@ private constructor(
                     val CHECK_DEPOSIT_RETURN = Category(JsonField.of("check_deposit_return"))
 
                     @JvmField
+                    val CHECK_TRANSFER_DEPOSIT = Category(JsonField.of("check_transfer_deposit"))
+
+                    @JvmField
                     val CHECK_TRANSFER_INTENTION =
                         Category(JsonField.of("check_transfer_intention"))
 
                     @JvmField
-                    val CHECK_TRANSFER_RETURN = Category(JsonField.of("check_transfer_return"))
-
-                    @JvmField
                     val CHECK_TRANSFER_REJECTION =
                         Category(JsonField.of("check_transfer_rejection"))
+
+                    @JvmField
+                    val CHECK_TRANSFER_RETURN = Category(JsonField.of("check_transfer_return"))
 
                     @JvmField
                     val CHECK_TRANSFER_STOP_PAYMENT_REQUEST =
@@ -2129,12 +2172,12 @@ private constructor(
                         Category(JsonField.of("inbound_real_time_payments_transfer_confirmation"))
 
                     @JvmField
-                    val INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL =
-                        Category(JsonField.of("inbound_wire_drawdown_payment_reversal"))
-
-                    @JvmField
                     val INBOUND_WIRE_DRAWDOWN_PAYMENT =
                         Category(JsonField.of("inbound_wire_drawdown_payment"))
+
+                    @JvmField
+                    val INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL =
+                        Category(JsonField.of("inbound_wire_drawdown_payment_reversal"))
 
                     @JvmField
                     val INBOUND_WIRE_REVERSAL = Category(JsonField.of("inbound_wire_reversal"))
@@ -2170,13 +2213,14 @@ private constructor(
                     ACH_TRANSFER_RETURN,
                     CARD_DISPUTE_ACCEPTANCE,
                     CARD_REFUND,
-                    CARD_SETTLEMENT,
                     CARD_REVENUE_PAYMENT,
+                    CARD_SETTLEMENT,
                     CHECK_DEPOSIT_ACCEPTANCE,
                     CHECK_DEPOSIT_RETURN,
+                    CHECK_TRANSFER_DEPOSIT,
                     CHECK_TRANSFER_INTENTION,
-                    CHECK_TRANSFER_RETURN,
                     CHECK_TRANSFER_REJECTION,
+                    CHECK_TRANSFER_RETURN,
                     CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
                     FEE_PAYMENT,
                     INBOUND_ACH_TRANSFER,
@@ -2184,8 +2228,8 @@ private constructor(
                     INBOUND_CHECK,
                     INBOUND_INTERNATIONAL_ACH_TRANSFER,
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
-                    INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL,
                     INBOUND_WIRE_DRAWDOWN_PAYMENT,
+                    INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL,
                     INBOUND_WIRE_REVERSAL,
                     INBOUND_WIRE_TRANSFER,
                     INTEREST_PAYMENT,
@@ -2204,13 +2248,14 @@ private constructor(
                     ACH_TRANSFER_RETURN,
                     CARD_DISPUTE_ACCEPTANCE,
                     CARD_REFUND,
-                    CARD_SETTLEMENT,
                     CARD_REVENUE_PAYMENT,
+                    CARD_SETTLEMENT,
                     CHECK_DEPOSIT_ACCEPTANCE,
                     CHECK_DEPOSIT_RETURN,
+                    CHECK_TRANSFER_DEPOSIT,
                     CHECK_TRANSFER_INTENTION,
-                    CHECK_TRANSFER_RETURN,
                     CHECK_TRANSFER_REJECTION,
+                    CHECK_TRANSFER_RETURN,
                     CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
                     FEE_PAYMENT,
                     INBOUND_ACH_TRANSFER,
@@ -2218,8 +2263,8 @@ private constructor(
                     INBOUND_CHECK,
                     INBOUND_INTERNATIONAL_ACH_TRANSFER,
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
-                    INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL,
                     INBOUND_WIRE_DRAWDOWN_PAYMENT,
+                    INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL,
                     INBOUND_WIRE_REVERSAL,
                     INBOUND_WIRE_TRANSFER,
                     INTEREST_PAYMENT,
@@ -2240,13 +2285,14 @@ private constructor(
                         ACH_TRANSFER_RETURN -> Value.ACH_TRANSFER_RETURN
                         CARD_DISPUTE_ACCEPTANCE -> Value.CARD_DISPUTE_ACCEPTANCE
                         CARD_REFUND -> Value.CARD_REFUND
-                        CARD_SETTLEMENT -> Value.CARD_SETTLEMENT
                         CARD_REVENUE_PAYMENT -> Value.CARD_REVENUE_PAYMENT
+                        CARD_SETTLEMENT -> Value.CARD_SETTLEMENT
                         CHECK_DEPOSIT_ACCEPTANCE -> Value.CHECK_DEPOSIT_ACCEPTANCE
                         CHECK_DEPOSIT_RETURN -> Value.CHECK_DEPOSIT_RETURN
+                        CHECK_TRANSFER_DEPOSIT -> Value.CHECK_TRANSFER_DEPOSIT
                         CHECK_TRANSFER_INTENTION -> Value.CHECK_TRANSFER_INTENTION
-                        CHECK_TRANSFER_RETURN -> Value.CHECK_TRANSFER_RETURN
                         CHECK_TRANSFER_REJECTION -> Value.CHECK_TRANSFER_REJECTION
+                        CHECK_TRANSFER_RETURN -> Value.CHECK_TRANSFER_RETURN
                         CHECK_TRANSFER_STOP_PAYMENT_REQUEST ->
                             Value.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
                         FEE_PAYMENT -> Value.FEE_PAYMENT
@@ -2258,9 +2304,9 @@ private constructor(
                             Value.INBOUND_INTERNATIONAL_ACH_TRANSFER
                         INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                             Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
+                        INBOUND_WIRE_DRAWDOWN_PAYMENT -> Value.INBOUND_WIRE_DRAWDOWN_PAYMENT
                         INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL ->
                             Value.INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL
-                        INBOUND_WIRE_DRAWDOWN_PAYMENT -> Value.INBOUND_WIRE_DRAWDOWN_PAYMENT
                         INBOUND_WIRE_REVERSAL -> Value.INBOUND_WIRE_REVERSAL
                         INBOUND_WIRE_TRANSFER -> Value.INBOUND_WIRE_TRANSFER
                         INTEREST_PAYMENT -> Value.INTEREST_PAYMENT
@@ -2282,13 +2328,14 @@ private constructor(
                         ACH_TRANSFER_RETURN -> Known.ACH_TRANSFER_RETURN
                         CARD_DISPUTE_ACCEPTANCE -> Known.CARD_DISPUTE_ACCEPTANCE
                         CARD_REFUND -> Known.CARD_REFUND
-                        CARD_SETTLEMENT -> Known.CARD_SETTLEMENT
                         CARD_REVENUE_PAYMENT -> Known.CARD_REVENUE_PAYMENT
+                        CARD_SETTLEMENT -> Known.CARD_SETTLEMENT
                         CHECK_DEPOSIT_ACCEPTANCE -> Known.CHECK_DEPOSIT_ACCEPTANCE
                         CHECK_DEPOSIT_RETURN -> Known.CHECK_DEPOSIT_RETURN
+                        CHECK_TRANSFER_DEPOSIT -> Known.CHECK_TRANSFER_DEPOSIT
                         CHECK_TRANSFER_INTENTION -> Known.CHECK_TRANSFER_INTENTION
-                        CHECK_TRANSFER_RETURN -> Known.CHECK_TRANSFER_RETURN
                         CHECK_TRANSFER_REJECTION -> Known.CHECK_TRANSFER_REJECTION
+                        CHECK_TRANSFER_RETURN -> Known.CHECK_TRANSFER_RETURN
                         CHECK_TRANSFER_STOP_PAYMENT_REQUEST ->
                             Known.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
                         FEE_PAYMENT -> Known.FEE_PAYMENT
@@ -2300,9 +2347,9 @@ private constructor(
                             Known.INBOUND_INTERNATIONAL_ACH_TRANSFER
                         INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                             Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
+                        INBOUND_WIRE_DRAWDOWN_PAYMENT -> Known.INBOUND_WIRE_DRAWDOWN_PAYMENT
                         INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL ->
                             Known.INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL
-                        INBOUND_WIRE_DRAWDOWN_PAYMENT -> Known.INBOUND_WIRE_DRAWDOWN_PAYMENT
                         INBOUND_WIRE_REVERSAL -> Known.INBOUND_WIRE_REVERSAL
                         INBOUND_WIRE_TRANSFER -> Known.INBOUND_WIRE_TRANSFER
                         INTEREST_PAYMENT -> Known.INTEREST_PAYMENT
@@ -4561,6 +4608,315 @@ private constructor(
             }
 
             /**
+             * A Card Revenue Payment object. This field will be present in the JSON response if and
+             * only if `category` is equal to `card_revenue_payment`.
+             */
+            @JsonDeserialize(builder = CardRevenuePayment.Builder::class)
+            @NoAutoDetect
+            class CardRevenuePayment
+            private constructor(
+                private val amount: JsonField<Long>,
+                private val currency: JsonField<Currency>,
+                private val periodStart: JsonField<OffsetDateTime>,
+                private val periodEnd: JsonField<OffsetDateTime>,
+                private val transactedOnAccountId: JsonField<String>,
+                private val additionalProperties: Map<String, JsonValue>,
+            ) {
+
+                private var validated: Boolean = false
+
+                private var hashCode: Int = 0
+
+                /**
+                 * The amount in the minor unit of the transaction's currency. For dollars, for
+                 * example, this is cents.
+                 */
+                fun amount(): Long = amount.getRequired("amount")
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction
+                 * currency.
+                 */
+                fun currency(): Currency = currency.getRequired("currency")
+
+                /** The start of the period for which this transaction paid interest. */
+                fun periodStart(): OffsetDateTime = periodStart.getRequired("period_start")
+
+                /** The end of the period for which this transaction paid interest. */
+                fun periodEnd(): OffsetDateTime = periodEnd.getRequired("period_end")
+
+                /** The account the card belonged to. */
+                fun transactedOnAccountId(): Optional<String> =
+                    Optional.ofNullable(
+                        transactedOnAccountId.getNullable("transacted_on_account_id")
+                    )
+
+                /**
+                 * The amount in the minor unit of the transaction's currency. For dollars, for
+                 * example, this is cents.
+                 */
+                @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction
+                 * currency.
+                 */
+                @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+
+                /** The start of the period for which this transaction paid interest. */
+                @JsonProperty("period_start") @ExcludeMissing fun _periodStart() = periodStart
+
+                /** The end of the period for which this transaction paid interest. */
+                @JsonProperty("period_end") @ExcludeMissing fun _periodEnd() = periodEnd
+
+                /** The account the card belonged to. */
+                @JsonProperty("transacted_on_account_id")
+                @ExcludeMissing
+                fun _transactedOnAccountId() = transactedOnAccountId
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun validate(): CardRevenuePayment = apply {
+                    if (!validated) {
+                        amount()
+                        currency()
+                        periodStart()
+                        periodEnd()
+                        transactedOnAccountId()
+                        validated = true
+                    }
+                }
+
+                fun toBuilder() = Builder().from(this)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is CardRevenuePayment &&
+                        this.amount == other.amount &&
+                        this.currency == other.currency &&
+                        this.periodStart == other.periodStart &&
+                        this.periodEnd == other.periodEnd &&
+                        this.transactedOnAccountId == other.transactedOnAccountId &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode =
+                            Objects.hash(
+                                amount,
+                                currency,
+                                periodStart,
+                                periodEnd,
+                                transactedOnAccountId,
+                                additionalProperties,
+                            )
+                    }
+                    return hashCode
+                }
+
+                override fun toString() =
+                    "CardRevenuePayment{amount=$amount, currency=$currency, periodStart=$periodStart, periodEnd=$periodEnd, transactedOnAccountId=$transactedOnAccountId, additionalProperties=$additionalProperties}"
+
+                companion object {
+
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                class Builder {
+
+                    private var amount: JsonField<Long> = JsonMissing.of()
+                    private var currency: JsonField<Currency> = JsonMissing.of()
+                    private var periodStart: JsonField<OffsetDateTime> = JsonMissing.of()
+                    private var periodEnd: JsonField<OffsetDateTime> = JsonMissing.of()
+                    private var transactedOnAccountId: JsonField<String> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(cardRevenuePayment: CardRevenuePayment) = apply {
+                        this.amount = cardRevenuePayment.amount
+                        this.currency = cardRevenuePayment.currency
+                        this.periodStart = cardRevenuePayment.periodStart
+                        this.periodEnd = cardRevenuePayment.periodEnd
+                        this.transactedOnAccountId = cardRevenuePayment.transactedOnAccountId
+                        additionalProperties(cardRevenuePayment.additionalProperties)
+                    }
+
+                    /**
+                     * The amount in the minor unit of the transaction's currency. For dollars, for
+                     * example, this is cents.
+                     */
+                    fun amount(amount: Long) = amount(JsonField.of(amount))
+
+                    /**
+                     * The amount in the minor unit of the transaction's currency. For dollars, for
+                     * example, this is cents.
+                     */
+                    @JsonProperty("amount")
+                    @ExcludeMissing
+                    fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                     * transaction currency.
+                     */
+                    fun currency(currency: Currency) = currency(JsonField.of(currency))
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                     * transaction currency.
+                     */
+                    @JsonProperty("currency")
+                    @ExcludeMissing
+                    fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+                    /** The start of the period for which this transaction paid interest. */
+                    fun periodStart(periodStart: OffsetDateTime) =
+                        periodStart(JsonField.of(periodStart))
+
+                    /** The start of the period for which this transaction paid interest. */
+                    @JsonProperty("period_start")
+                    @ExcludeMissing
+                    fun periodStart(periodStart: JsonField<OffsetDateTime>) = apply {
+                        this.periodStart = periodStart
+                    }
+
+                    /** The end of the period for which this transaction paid interest. */
+                    fun periodEnd(periodEnd: OffsetDateTime) = periodEnd(JsonField.of(periodEnd))
+
+                    /** The end of the period for which this transaction paid interest. */
+                    @JsonProperty("period_end")
+                    @ExcludeMissing
+                    fun periodEnd(periodEnd: JsonField<OffsetDateTime>) = apply {
+                        this.periodEnd = periodEnd
+                    }
+
+                    /** The account the card belonged to. */
+                    fun transactedOnAccountId(transactedOnAccountId: String) =
+                        transactedOnAccountId(JsonField.of(transactedOnAccountId))
+
+                    /** The account the card belonged to. */
+                    @JsonProperty("transacted_on_account_id")
+                    @ExcludeMissing
+                    fun transactedOnAccountId(transactedOnAccountId: JsonField<String>) = apply {
+                        this.transactedOnAccountId = transactedOnAccountId
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    @JsonAnySetter
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        this.additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun build(): CardRevenuePayment =
+                        CardRevenuePayment(
+                            amount,
+                            currency,
+                            periodStart,
+                            periodEnd,
+                            transactedOnAccountId,
+                            additionalProperties.toUnmodifiable(),
+                        )
+                }
+
+                class Currency
+                @JsonCreator
+                private constructor(
+                    private val value: JsonField<String>,
+                ) {
+
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Currency && this.value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+
+                    companion object {
+
+                        @JvmField val CAD = Currency(JsonField.of("CAD"))
+
+                        @JvmField val CHF = Currency(JsonField.of("CHF"))
+
+                        @JvmField val EUR = Currency(JsonField.of("EUR"))
+
+                        @JvmField val GBP = Currency(JsonField.of("GBP"))
+
+                        @JvmField val JPY = Currency(JsonField.of("JPY"))
+
+                        @JvmField val USD = Currency(JsonField.of("USD"))
+
+                        @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
+                    }
+
+                    enum class Known {
+                        CAD,
+                        CHF,
+                        EUR,
+                        GBP,
+                        JPY,
+                        USD,
+                    }
+
+                    enum class Value {
+                        CAD,
+                        CHF,
+                        EUR,
+                        GBP,
+                        JPY,
+                        USD,
+                        _UNKNOWN,
+                    }
+
+                    fun value(): Value =
+                        when (this) {
+                            CAD -> Value.CAD
+                            CHF -> Value.CHF
+                            EUR -> Value.EUR
+                            GBP -> Value.GBP
+                            JPY -> Value.JPY
+                            USD -> Value.USD
+                            else -> Value._UNKNOWN
+                        }
+
+                    fun known(): Known =
+                        when (this) {
+                            CAD -> Known.CAD
+                            CHF -> Known.CHF
+                            EUR -> Known.EUR
+                            GBP -> Known.GBP
+                            JPY -> Known.JPY
+                            USD -> Known.USD
+                            else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+                        }
+
+                    fun asString(): String = _value().asStringOrThrow()
+                }
+            }
+
+            /**
              * A Card Settlement object. This field will be present in the JSON response if and only
              * if `category` is equal to `card_settlement`.
              */
@@ -5195,315 +5551,6 @@ private constructor(
                         when (this) {
                             CARD_SETTLEMENT -> Known.CARD_SETTLEMENT
                             else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-                        }
-
-                    fun asString(): String = _value().asStringOrThrow()
-                }
-            }
-
-            /**
-             * A Card Revenue Payment object. This field will be present in the JSON response if and
-             * only if `category` is equal to `card_revenue_payment`.
-             */
-            @JsonDeserialize(builder = CardRevenuePayment.Builder::class)
-            @NoAutoDetect
-            class CardRevenuePayment
-            private constructor(
-                private val amount: JsonField<Long>,
-                private val currency: JsonField<Currency>,
-                private val periodStart: JsonField<OffsetDateTime>,
-                private val periodEnd: JsonField<OffsetDateTime>,
-                private val transactedOnAccountId: JsonField<String>,
-                private val additionalProperties: Map<String, JsonValue>,
-            ) {
-
-                private var validated: Boolean = false
-
-                private var hashCode: Int = 0
-
-                /**
-                 * The amount in the minor unit of the transaction's currency. For dollars, for
-                 * example, this is cents.
-                 */
-                fun amount(): Long = amount.getRequired("amount")
-
-                /**
-                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction
-                 * currency.
-                 */
-                fun currency(): Currency = currency.getRequired("currency")
-
-                /** The start of the period for which this transaction paid interest. */
-                fun periodStart(): OffsetDateTime = periodStart.getRequired("period_start")
-
-                /** The end of the period for which this transaction paid interest. */
-                fun periodEnd(): OffsetDateTime = periodEnd.getRequired("period_end")
-
-                /** The account the card belonged to. */
-                fun transactedOnAccountId(): Optional<String> =
-                    Optional.ofNullable(
-                        transactedOnAccountId.getNullable("transacted_on_account_id")
-                    )
-
-                /**
-                 * The amount in the minor unit of the transaction's currency. For dollars, for
-                 * example, this is cents.
-                 */
-                @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
-
-                /**
-                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction
-                 * currency.
-                 */
-                @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
-
-                /** The start of the period for which this transaction paid interest. */
-                @JsonProperty("period_start") @ExcludeMissing fun _periodStart() = periodStart
-
-                /** The end of the period for which this transaction paid interest. */
-                @JsonProperty("period_end") @ExcludeMissing fun _periodEnd() = periodEnd
-
-                /** The account the card belonged to. */
-                @JsonProperty("transacted_on_account_id")
-                @ExcludeMissing
-                fun _transactedOnAccountId() = transactedOnAccountId
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                fun validate(): CardRevenuePayment = apply {
-                    if (!validated) {
-                        amount()
-                        currency()
-                        periodStart()
-                        periodEnd()
-                        transactedOnAccountId()
-                        validated = true
-                    }
-                }
-
-                fun toBuilder() = Builder().from(this)
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is CardRevenuePayment &&
-                        this.amount == other.amount &&
-                        this.currency == other.currency &&
-                        this.periodStart == other.periodStart &&
-                        this.periodEnd == other.periodEnd &&
-                        this.transactedOnAccountId == other.transactedOnAccountId &&
-                        this.additionalProperties == other.additionalProperties
-                }
-
-                override fun hashCode(): Int {
-                    if (hashCode == 0) {
-                        hashCode =
-                            Objects.hash(
-                                amount,
-                                currency,
-                                periodStart,
-                                periodEnd,
-                                transactedOnAccountId,
-                                additionalProperties,
-                            )
-                    }
-                    return hashCode
-                }
-
-                override fun toString() =
-                    "CardRevenuePayment{amount=$amount, currency=$currency, periodStart=$periodStart, periodEnd=$periodEnd, transactedOnAccountId=$transactedOnAccountId, additionalProperties=$additionalProperties}"
-
-                companion object {
-
-                    @JvmStatic fun builder() = Builder()
-                }
-
-                class Builder {
-
-                    private var amount: JsonField<Long> = JsonMissing.of()
-                    private var currency: JsonField<Currency> = JsonMissing.of()
-                    private var periodStart: JsonField<OffsetDateTime> = JsonMissing.of()
-                    private var periodEnd: JsonField<OffsetDateTime> = JsonMissing.of()
-                    private var transactedOnAccountId: JsonField<String> = JsonMissing.of()
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    @JvmSynthetic
-                    internal fun from(cardRevenuePayment: CardRevenuePayment) = apply {
-                        this.amount = cardRevenuePayment.amount
-                        this.currency = cardRevenuePayment.currency
-                        this.periodStart = cardRevenuePayment.periodStart
-                        this.periodEnd = cardRevenuePayment.periodEnd
-                        this.transactedOnAccountId = cardRevenuePayment.transactedOnAccountId
-                        additionalProperties(cardRevenuePayment.additionalProperties)
-                    }
-
-                    /**
-                     * The amount in the minor unit of the transaction's currency. For dollars, for
-                     * example, this is cents.
-                     */
-                    fun amount(amount: Long) = amount(JsonField.of(amount))
-
-                    /**
-                     * The amount in the minor unit of the transaction's currency. For dollars, for
-                     * example, this is cents.
-                     */
-                    @JsonProperty("amount")
-                    @ExcludeMissing
-                    fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-                    /**
-                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
-                     * transaction currency.
-                     */
-                    fun currency(currency: Currency) = currency(JsonField.of(currency))
-
-                    /**
-                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
-                     * transaction currency.
-                     */
-                    @JsonProperty("currency")
-                    @ExcludeMissing
-                    fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
-
-                    /** The start of the period for which this transaction paid interest. */
-                    fun periodStart(periodStart: OffsetDateTime) =
-                        periodStart(JsonField.of(periodStart))
-
-                    /** The start of the period for which this transaction paid interest. */
-                    @JsonProperty("period_start")
-                    @ExcludeMissing
-                    fun periodStart(periodStart: JsonField<OffsetDateTime>) = apply {
-                        this.periodStart = periodStart
-                    }
-
-                    /** The end of the period for which this transaction paid interest. */
-                    fun periodEnd(periodEnd: OffsetDateTime) = periodEnd(JsonField.of(periodEnd))
-
-                    /** The end of the period for which this transaction paid interest. */
-                    @JsonProperty("period_end")
-                    @ExcludeMissing
-                    fun periodEnd(periodEnd: JsonField<OffsetDateTime>) = apply {
-                        this.periodEnd = periodEnd
-                    }
-
-                    /** The account the card belonged to. */
-                    fun transactedOnAccountId(transactedOnAccountId: String) =
-                        transactedOnAccountId(JsonField.of(transactedOnAccountId))
-
-                    /** The account the card belonged to. */
-                    @JsonProperty("transacted_on_account_id")
-                    @ExcludeMissing
-                    fun transactedOnAccountId(transactedOnAccountId: JsonField<String>) = apply {
-                        this.transactedOnAccountId = transactedOnAccountId
-                    }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                    @JsonAnySetter
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        this.additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun build(): CardRevenuePayment =
-                        CardRevenuePayment(
-                            amount,
-                            currency,
-                            periodStart,
-                            periodEnd,
-                            transactedOnAccountId,
-                            additionalProperties.toUnmodifiable(),
-                        )
-                }
-
-                class Currency
-                @JsonCreator
-                private constructor(
-                    private val value: JsonField<String>,
-                ) {
-
-                    @com.fasterxml.jackson.annotation.JsonValue
-                    fun _value(): JsonField<String> = value
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is Currency && this.value == other.value
-                    }
-
-                    override fun hashCode() = value.hashCode()
-
-                    override fun toString() = value.toString()
-
-                    companion object {
-
-                        @JvmField val CAD = Currency(JsonField.of("CAD"))
-
-                        @JvmField val CHF = Currency(JsonField.of("CHF"))
-
-                        @JvmField val EUR = Currency(JsonField.of("EUR"))
-
-                        @JvmField val GBP = Currency(JsonField.of("GBP"))
-
-                        @JvmField val JPY = Currency(JsonField.of("JPY"))
-
-                        @JvmField val USD = Currency(JsonField.of("USD"))
-
-                        @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
-                    }
-
-                    enum class Known {
-                        CAD,
-                        CHF,
-                        EUR,
-                        GBP,
-                        JPY,
-                        USD,
-                    }
-
-                    enum class Value {
-                        CAD,
-                        CHF,
-                        EUR,
-                        GBP,
-                        JPY,
-                        USD,
-                        _UNKNOWN,
-                    }
-
-                    fun value(): Value =
-                        when (this) {
-                            CAD -> Value.CAD
-                            CHF -> Value.CHF
-                            EUR -> Value.EUR
-                            GBP -> Value.GBP
-                            JPY -> Value.JPY
-                            USD -> Value.USD
-                            else -> Value._UNKNOWN
-                        }
-
-                    fun known(): Known =
-                        when (this) {
-                            CAD -> Known.CAD
-                            CHF -> Known.CHF
-                            EUR -> Known.EUR
-                            GBP -> Known.GBP
-                            JPY -> Known.JPY
-                            USD -> Known.USD
-                            else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
                         }
 
                     fun asString(): String = _value().asStringOrThrow()
@@ -6373,6 +6420,279 @@ private constructor(
             }
 
             /**
+             * A Check Transfer Deposit object. This field will be present in the JSON response if
+             * and only if `category` is equal to `check_transfer_deposit`.
+             */
+            @JsonDeserialize(builder = CheckTransferDeposit.Builder::class)
+            @NoAutoDetect
+            class CheckTransferDeposit
+            private constructor(
+                private val depositedAt: JsonField<OffsetDateTime>,
+                private val frontImageFileId: JsonField<String>,
+                private val backImageFileId: JsonField<String>,
+                private val type: JsonField<Type>,
+                private val additionalProperties: Map<String, JsonValue>,
+            ) {
+
+                private var validated: Boolean = false
+
+                private var hashCode: Int = 0
+
+                /** When the check was deposited. */
+                fun depositedAt(): OffsetDateTime = depositedAt.getRequired("deposited_at")
+
+                /**
+                 * The identifier of the API File object containing an image of the front of the
+                 * deposited check.
+                 */
+                fun frontImageFileId(): Optional<String> =
+                    Optional.ofNullable(frontImageFileId.getNullable("front_image_file_id"))
+
+                /**
+                 * The identifier of the API File object containing an image of the back of the
+                 * deposited check.
+                 */
+                fun backImageFileId(): Optional<String> =
+                    Optional.ofNullable(backImageFileId.getNullable("back_image_file_id"))
+
+                /**
+                 * A constant representing the object's type. For this resource it will always be
+                 * `check_transfer_deposit`.
+                 */
+                fun type(): Type = type.getRequired("type")
+
+                /** When the check was deposited. */
+                @JsonProperty("deposited_at") @ExcludeMissing fun _depositedAt() = depositedAt
+
+                /**
+                 * The identifier of the API File object containing an image of the front of the
+                 * deposited check.
+                 */
+                @JsonProperty("front_image_file_id")
+                @ExcludeMissing
+                fun _frontImageFileId() = frontImageFileId
+
+                /**
+                 * The identifier of the API File object containing an image of the back of the
+                 * deposited check.
+                 */
+                @JsonProperty("back_image_file_id")
+                @ExcludeMissing
+                fun _backImageFileId() = backImageFileId
+
+                /**
+                 * A constant representing the object's type. For this resource it will always be
+                 * `check_transfer_deposit`.
+                 */
+                @JsonProperty("type") @ExcludeMissing fun _type() = type
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun validate(): CheckTransferDeposit = apply {
+                    if (!validated) {
+                        depositedAt()
+                        frontImageFileId()
+                        backImageFileId()
+                        type()
+                        validated = true
+                    }
+                }
+
+                fun toBuilder() = Builder().from(this)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is CheckTransferDeposit &&
+                        this.depositedAt == other.depositedAt &&
+                        this.frontImageFileId == other.frontImageFileId &&
+                        this.backImageFileId == other.backImageFileId &&
+                        this.type == other.type &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode =
+                            Objects.hash(
+                                depositedAt,
+                                frontImageFileId,
+                                backImageFileId,
+                                type,
+                                additionalProperties,
+                            )
+                    }
+                    return hashCode
+                }
+
+                override fun toString() =
+                    "CheckTransferDeposit{depositedAt=$depositedAt, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, type=$type, additionalProperties=$additionalProperties}"
+
+                companion object {
+
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                class Builder {
+
+                    private var depositedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+                    private var frontImageFileId: JsonField<String> = JsonMissing.of()
+                    private var backImageFileId: JsonField<String> = JsonMissing.of()
+                    private var type: JsonField<Type> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(checkTransferDeposit: CheckTransferDeposit) = apply {
+                        this.depositedAt = checkTransferDeposit.depositedAt
+                        this.frontImageFileId = checkTransferDeposit.frontImageFileId
+                        this.backImageFileId = checkTransferDeposit.backImageFileId
+                        this.type = checkTransferDeposit.type
+                        additionalProperties(checkTransferDeposit.additionalProperties)
+                    }
+
+                    /** When the check was deposited. */
+                    fun depositedAt(depositedAt: OffsetDateTime) =
+                        depositedAt(JsonField.of(depositedAt))
+
+                    /** When the check was deposited. */
+                    @JsonProperty("deposited_at")
+                    @ExcludeMissing
+                    fun depositedAt(depositedAt: JsonField<OffsetDateTime>) = apply {
+                        this.depositedAt = depositedAt
+                    }
+
+                    /**
+                     * The identifier of the API File object containing an image of the front of the
+                     * deposited check.
+                     */
+                    fun frontImageFileId(frontImageFileId: String) =
+                        frontImageFileId(JsonField.of(frontImageFileId))
+
+                    /**
+                     * The identifier of the API File object containing an image of the front of the
+                     * deposited check.
+                     */
+                    @JsonProperty("front_image_file_id")
+                    @ExcludeMissing
+                    fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
+                        this.frontImageFileId = frontImageFileId
+                    }
+
+                    /**
+                     * The identifier of the API File object containing an image of the back of the
+                     * deposited check.
+                     */
+                    fun backImageFileId(backImageFileId: String) =
+                        backImageFileId(JsonField.of(backImageFileId))
+
+                    /**
+                     * The identifier of the API File object containing an image of the back of the
+                     * deposited check.
+                     */
+                    @JsonProperty("back_image_file_id")
+                    @ExcludeMissing
+                    fun backImageFileId(backImageFileId: JsonField<String>) = apply {
+                        this.backImageFileId = backImageFileId
+                    }
+
+                    /**
+                     * A constant representing the object's type. For this resource it will always
+                     * be `check_transfer_deposit`.
+                     */
+                    fun type(type: Type) = type(JsonField.of(type))
+
+                    /**
+                     * A constant representing the object's type. For this resource it will always
+                     * be `check_transfer_deposit`.
+                     */
+                    @JsonProperty("type")
+                    @ExcludeMissing
+                    fun type(type: JsonField<Type>) = apply { this.type = type }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    @JsonAnySetter
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        this.additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun build(): CheckTransferDeposit =
+                        CheckTransferDeposit(
+                            depositedAt,
+                            frontImageFileId,
+                            backImageFileId,
+                            type,
+                            additionalProperties.toUnmodifiable(),
+                        )
+                }
+
+                class Type
+                @JsonCreator
+                private constructor(
+                    private val value: JsonField<String>,
+                ) {
+
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Type && this.value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+
+                    companion object {
+
+                        @JvmField
+                        val CHECK_TRANSFER_DEPOSIT = Type(JsonField.of("check_transfer_deposit"))
+
+                        @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+                    }
+
+                    enum class Known {
+                        CHECK_TRANSFER_DEPOSIT,
+                    }
+
+                    enum class Value {
+                        CHECK_TRANSFER_DEPOSIT,
+                        _UNKNOWN,
+                    }
+
+                    fun value(): Value =
+                        when (this) {
+                            CHECK_TRANSFER_DEPOSIT -> Value.CHECK_TRANSFER_DEPOSIT
+                            else -> Value._UNKNOWN
+                        }
+
+                    fun known(): Known =
+                        when (this) {
+                            CHECK_TRANSFER_DEPOSIT -> Known.CHECK_TRANSFER_DEPOSIT
+                            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+                        }
+
+                    fun asString(): String = _value().asStringOrThrow()
+                }
+            }
+
+            /**
              * A Check Transfer Intention object. This field will be present in the JSON response if
              * and only if `category` is equal to `check_transfer_intention`.
              */
@@ -6765,6 +7085,107 @@ private constructor(
             }
 
             /**
+             * A Check Transfer Rejection object. This field will be present in the JSON response if
+             * and only if `category` is equal to `check_transfer_rejection`.
+             */
+            @JsonDeserialize(builder = CheckTransferRejection.Builder::class)
+            @NoAutoDetect
+            class CheckTransferRejection
+            private constructor(
+                private val transferId: JsonField<String>,
+                private val additionalProperties: Map<String, JsonValue>,
+            ) {
+
+                private var validated: Boolean = false
+
+                private var hashCode: Int = 0
+
+                /** The identifier of the Check Transfer that led to this Transaction. */
+                fun transferId(): String = transferId.getRequired("transfer_id")
+
+                /** The identifier of the Check Transfer that led to this Transaction. */
+                @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun validate(): CheckTransferRejection = apply {
+                    if (!validated) {
+                        transferId()
+                        validated = true
+                    }
+                }
+
+                fun toBuilder() = Builder().from(this)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is CheckTransferRejection &&
+                        this.transferId == other.transferId &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode = Objects.hash(transferId, additionalProperties)
+                    }
+                    return hashCode
+                }
+
+                override fun toString() =
+                    "CheckTransferRejection{transferId=$transferId, additionalProperties=$additionalProperties}"
+
+                companion object {
+
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                class Builder {
+
+                    private var transferId: JsonField<String> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(checkTransferRejection: CheckTransferRejection) = apply {
+                        this.transferId = checkTransferRejection.transferId
+                        additionalProperties(checkTransferRejection.additionalProperties)
+                    }
+
+                    /** The identifier of the Check Transfer that led to this Transaction. */
+                    fun transferId(transferId: String) = transferId(JsonField.of(transferId))
+
+                    /** The identifier of the Check Transfer that led to this Transaction. */
+                    @JsonProperty("transfer_id")
+                    @ExcludeMissing
+                    fun transferId(transferId: JsonField<String>) = apply {
+                        this.transferId = transferId
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    @JsonAnySetter
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        this.additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun build(): CheckTransferRejection =
+                        CheckTransferRejection(transferId, additionalProperties.toUnmodifiable())
+                }
+            }
+
+            /**
              * A Check Transfer Return object. This field will be present in the JSON response if
              * and only if `category` is equal to `check_transfer_return`.
              */
@@ -7052,107 +7473,6 @@ private constructor(
                         }
 
                     fun asString(): String = _value().asStringOrThrow()
-                }
-            }
-
-            /**
-             * A Check Transfer Rejection object. This field will be present in the JSON response if
-             * and only if `category` is equal to `check_transfer_rejection`.
-             */
-            @JsonDeserialize(builder = CheckTransferRejection.Builder::class)
-            @NoAutoDetect
-            class CheckTransferRejection
-            private constructor(
-                private val transferId: JsonField<String>,
-                private val additionalProperties: Map<String, JsonValue>,
-            ) {
-
-                private var validated: Boolean = false
-
-                private var hashCode: Int = 0
-
-                /** The identifier of the Check Transfer that led to this Transaction. */
-                fun transferId(): String = transferId.getRequired("transfer_id")
-
-                /** The identifier of the Check Transfer that led to this Transaction. */
-                @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                fun validate(): CheckTransferRejection = apply {
-                    if (!validated) {
-                        transferId()
-                        validated = true
-                    }
-                }
-
-                fun toBuilder() = Builder().from(this)
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is CheckTransferRejection &&
-                        this.transferId == other.transferId &&
-                        this.additionalProperties == other.additionalProperties
-                }
-
-                override fun hashCode(): Int {
-                    if (hashCode == 0) {
-                        hashCode = Objects.hash(transferId, additionalProperties)
-                    }
-                    return hashCode
-                }
-
-                override fun toString() =
-                    "CheckTransferRejection{transferId=$transferId, additionalProperties=$additionalProperties}"
-
-                companion object {
-
-                    @JvmStatic fun builder() = Builder()
-                }
-
-                class Builder {
-
-                    private var transferId: JsonField<String> = JsonMissing.of()
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    @JvmSynthetic
-                    internal fun from(checkTransferRejection: CheckTransferRejection) = apply {
-                        this.transferId = checkTransferRejection.transferId
-                        additionalProperties(checkTransferRejection.additionalProperties)
-                    }
-
-                    /** The identifier of the Check Transfer that led to this Transaction. */
-                    fun transferId(transferId: String) = transferId(JsonField.of(transferId))
-
-                    /** The identifier of the Check Transfer that led to this Transaction. */
-                    @JsonProperty("transfer_id")
-                    @ExcludeMissing
-                    fun transferId(transferId: JsonField<String>) = apply {
-                        this.transferId = transferId
-                    }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                    @JsonAnySetter
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        this.additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun build(): CheckTransferRejection =
-                        CheckTransferRejection(transferId, additionalProperties.toUnmodifiable())
                 }
             }
 
@@ -9788,393 +10108,6 @@ private constructor(
             }
 
             /**
-             * A Inbound Wire Drawdown Payment Reversal object. This field will be present in the
-             * JSON response if and only if `category` is equal to
-             * `inbound_wire_drawdown_payment_reversal`.
-             */
-            @JsonDeserialize(builder = InboundWireDrawdownPaymentReversal.Builder::class)
-            @NoAutoDetect
-            class InboundWireDrawdownPaymentReversal
-            private constructor(
-                private val amount: JsonField<Long>,
-                private val description: JsonField<String>,
-                private val inputCycleDate: JsonField<LocalDate>,
-                private val inputSequenceNumber: JsonField<String>,
-                private val inputSource: JsonField<String>,
-                private val inputMessageAccountabilityData: JsonField<String>,
-                private val previousMessageInputMessageAccountabilityData: JsonField<String>,
-                private val previousMessageInputCycleDate: JsonField<LocalDate>,
-                private val previousMessageInputSequenceNumber: JsonField<String>,
-                private val previousMessageInputSource: JsonField<String>,
-                private val additionalProperties: Map<String, JsonValue>,
-            ) {
-
-                private var validated: Boolean = false
-
-                private var hashCode: Int = 0
-
-                /** The amount that was reversed. */
-                fun amount(): Long = amount.getRequired("amount")
-
-                /** The description on the reversal message from Fedwire. */
-                fun description(): String = description.getRequired("description")
-
-                /** The Fedwire cycle date for the wire reversal. */
-                fun inputCycleDate(): LocalDate = inputCycleDate.getRequired("input_cycle_date")
-
-                /** The Fedwire sequence number. */
-                fun inputSequenceNumber(): String =
-                    inputSequenceNumber.getRequired("input_sequence_number")
-
-                /** The Fedwire input source identifier. */
-                fun inputSource(): String = inputSource.getRequired("input_source")
-
-                /** The Fedwire transaction identifier. */
-                fun inputMessageAccountabilityData(): String =
-                    inputMessageAccountabilityData.getRequired("input_message_accountability_data")
-
-                /** The Fedwire transaction identifier for the wire transfer that was reversed. */
-                fun previousMessageInputMessageAccountabilityData(): String =
-                    previousMessageInputMessageAccountabilityData.getRequired(
-                        "previous_message_input_message_accountability_data"
-                    )
-
-                /** The Fedwire cycle date for the wire transfer that was reversed. */
-                fun previousMessageInputCycleDate(): LocalDate =
-                    previousMessageInputCycleDate.getRequired("previous_message_input_cycle_date")
-
-                /** The Fedwire sequence number for the wire transfer that was reversed. */
-                fun previousMessageInputSequenceNumber(): String =
-                    previousMessageInputSequenceNumber.getRequired(
-                        "previous_message_input_sequence_number"
-                    )
-
-                /** The Fedwire input source identifier for the wire transfer that was reversed. */
-                fun previousMessageInputSource(): String =
-                    previousMessageInputSource.getRequired("previous_message_input_source")
-
-                /** The amount that was reversed. */
-                @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
-
-                /** The description on the reversal message from Fedwire. */
-                @JsonProperty("description") @ExcludeMissing fun _description() = description
-
-                /** The Fedwire cycle date for the wire reversal. */
-                @JsonProperty("input_cycle_date")
-                @ExcludeMissing
-                fun _inputCycleDate() = inputCycleDate
-
-                /** The Fedwire sequence number. */
-                @JsonProperty("input_sequence_number")
-                @ExcludeMissing
-                fun _inputSequenceNumber() = inputSequenceNumber
-
-                /** The Fedwire input source identifier. */
-                @JsonProperty("input_source") @ExcludeMissing fun _inputSource() = inputSource
-
-                /** The Fedwire transaction identifier. */
-                @JsonProperty("input_message_accountability_data")
-                @ExcludeMissing
-                fun _inputMessageAccountabilityData() = inputMessageAccountabilityData
-
-                /** The Fedwire transaction identifier for the wire transfer that was reversed. */
-                @JsonProperty("previous_message_input_message_accountability_data")
-                @ExcludeMissing
-                fun _previousMessageInputMessageAccountabilityData() =
-                    previousMessageInputMessageAccountabilityData
-
-                /** The Fedwire cycle date for the wire transfer that was reversed. */
-                @JsonProperty("previous_message_input_cycle_date")
-                @ExcludeMissing
-                fun _previousMessageInputCycleDate() = previousMessageInputCycleDate
-
-                /** The Fedwire sequence number for the wire transfer that was reversed. */
-                @JsonProperty("previous_message_input_sequence_number")
-                @ExcludeMissing
-                fun _previousMessageInputSequenceNumber() = previousMessageInputSequenceNumber
-
-                /** The Fedwire input source identifier for the wire transfer that was reversed. */
-                @JsonProperty("previous_message_input_source")
-                @ExcludeMissing
-                fun _previousMessageInputSource() = previousMessageInputSource
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                fun validate(): InboundWireDrawdownPaymentReversal = apply {
-                    if (!validated) {
-                        amount()
-                        description()
-                        inputCycleDate()
-                        inputSequenceNumber()
-                        inputSource()
-                        inputMessageAccountabilityData()
-                        previousMessageInputMessageAccountabilityData()
-                        previousMessageInputCycleDate()
-                        previousMessageInputSequenceNumber()
-                        previousMessageInputSource()
-                        validated = true
-                    }
-                }
-
-                fun toBuilder() = Builder().from(this)
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is InboundWireDrawdownPaymentReversal &&
-                        this.amount == other.amount &&
-                        this.description == other.description &&
-                        this.inputCycleDate == other.inputCycleDate &&
-                        this.inputSequenceNumber == other.inputSequenceNumber &&
-                        this.inputSource == other.inputSource &&
-                        this.inputMessageAccountabilityData ==
-                            other.inputMessageAccountabilityData &&
-                        this.previousMessageInputMessageAccountabilityData ==
-                            other.previousMessageInputMessageAccountabilityData &&
-                        this.previousMessageInputCycleDate == other.previousMessageInputCycleDate &&
-                        this.previousMessageInputSequenceNumber ==
-                            other.previousMessageInputSequenceNumber &&
-                        this.previousMessageInputSource == other.previousMessageInputSource &&
-                        this.additionalProperties == other.additionalProperties
-                }
-
-                override fun hashCode(): Int {
-                    if (hashCode == 0) {
-                        hashCode =
-                            Objects.hash(
-                                amount,
-                                description,
-                                inputCycleDate,
-                                inputSequenceNumber,
-                                inputSource,
-                                inputMessageAccountabilityData,
-                                previousMessageInputMessageAccountabilityData,
-                                previousMessageInputCycleDate,
-                                previousMessageInputSequenceNumber,
-                                previousMessageInputSource,
-                                additionalProperties,
-                            )
-                    }
-                    return hashCode
-                }
-
-                override fun toString() =
-                    "InboundWireDrawdownPaymentReversal{amount=$amount, description=$description, inputCycleDate=$inputCycleDate, inputSequenceNumber=$inputSequenceNumber, inputSource=$inputSource, inputMessageAccountabilityData=$inputMessageAccountabilityData, previousMessageInputMessageAccountabilityData=$previousMessageInputMessageAccountabilityData, previousMessageInputCycleDate=$previousMessageInputCycleDate, previousMessageInputSequenceNumber=$previousMessageInputSequenceNumber, previousMessageInputSource=$previousMessageInputSource, additionalProperties=$additionalProperties}"
-
-                companion object {
-
-                    @JvmStatic fun builder() = Builder()
-                }
-
-                class Builder {
-
-                    private var amount: JsonField<Long> = JsonMissing.of()
-                    private var description: JsonField<String> = JsonMissing.of()
-                    private var inputCycleDate: JsonField<LocalDate> = JsonMissing.of()
-                    private var inputSequenceNumber: JsonField<String> = JsonMissing.of()
-                    private var inputSource: JsonField<String> = JsonMissing.of()
-                    private var inputMessageAccountabilityData: JsonField<String> = JsonMissing.of()
-                    private var previousMessageInputMessageAccountabilityData: JsonField<String> =
-                        JsonMissing.of()
-                    private var previousMessageInputCycleDate: JsonField<LocalDate> =
-                        JsonMissing.of()
-                    private var previousMessageInputSequenceNumber: JsonField<String> =
-                        JsonMissing.of()
-                    private var previousMessageInputSource: JsonField<String> = JsonMissing.of()
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    @JvmSynthetic
-                    internal fun from(
-                        inboundWireDrawdownPaymentReversal: InboundWireDrawdownPaymentReversal
-                    ) = apply {
-                        this.amount = inboundWireDrawdownPaymentReversal.amount
-                        this.description = inboundWireDrawdownPaymentReversal.description
-                        this.inputCycleDate = inboundWireDrawdownPaymentReversal.inputCycleDate
-                        this.inputSequenceNumber =
-                            inboundWireDrawdownPaymentReversal.inputSequenceNumber
-                        this.inputSource = inboundWireDrawdownPaymentReversal.inputSource
-                        this.inputMessageAccountabilityData =
-                            inboundWireDrawdownPaymentReversal.inputMessageAccountabilityData
-                        this.previousMessageInputMessageAccountabilityData =
-                            inboundWireDrawdownPaymentReversal
-                                .previousMessageInputMessageAccountabilityData
-                        this.previousMessageInputCycleDate =
-                            inboundWireDrawdownPaymentReversal.previousMessageInputCycleDate
-                        this.previousMessageInputSequenceNumber =
-                            inboundWireDrawdownPaymentReversal.previousMessageInputSequenceNumber
-                        this.previousMessageInputSource =
-                            inboundWireDrawdownPaymentReversal.previousMessageInputSource
-                        additionalProperties(
-                            inboundWireDrawdownPaymentReversal.additionalProperties
-                        )
-                    }
-
-                    /** The amount that was reversed. */
-                    fun amount(amount: Long) = amount(JsonField.of(amount))
-
-                    /** The amount that was reversed. */
-                    @JsonProperty("amount")
-                    @ExcludeMissing
-                    fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-                    /** The description on the reversal message from Fedwire. */
-                    fun description(description: String) = description(JsonField.of(description))
-
-                    /** The description on the reversal message from Fedwire. */
-                    @JsonProperty("description")
-                    @ExcludeMissing
-                    fun description(description: JsonField<String>) = apply {
-                        this.description = description
-                    }
-
-                    /** The Fedwire cycle date for the wire reversal. */
-                    fun inputCycleDate(inputCycleDate: LocalDate) =
-                        inputCycleDate(JsonField.of(inputCycleDate))
-
-                    /** The Fedwire cycle date for the wire reversal. */
-                    @JsonProperty("input_cycle_date")
-                    @ExcludeMissing
-                    fun inputCycleDate(inputCycleDate: JsonField<LocalDate>) = apply {
-                        this.inputCycleDate = inputCycleDate
-                    }
-
-                    /** The Fedwire sequence number. */
-                    fun inputSequenceNumber(inputSequenceNumber: String) =
-                        inputSequenceNumber(JsonField.of(inputSequenceNumber))
-
-                    /** The Fedwire sequence number. */
-                    @JsonProperty("input_sequence_number")
-                    @ExcludeMissing
-                    fun inputSequenceNumber(inputSequenceNumber: JsonField<String>) = apply {
-                        this.inputSequenceNumber = inputSequenceNumber
-                    }
-
-                    /** The Fedwire input source identifier. */
-                    fun inputSource(inputSource: String) = inputSource(JsonField.of(inputSource))
-
-                    /** The Fedwire input source identifier. */
-                    @JsonProperty("input_source")
-                    @ExcludeMissing
-                    fun inputSource(inputSource: JsonField<String>) = apply {
-                        this.inputSource = inputSource
-                    }
-
-                    /** The Fedwire transaction identifier. */
-                    fun inputMessageAccountabilityData(inputMessageAccountabilityData: String) =
-                        inputMessageAccountabilityData(JsonField.of(inputMessageAccountabilityData))
-
-                    /** The Fedwire transaction identifier. */
-                    @JsonProperty("input_message_accountability_data")
-                    @ExcludeMissing
-                    fun inputMessageAccountabilityData(
-                        inputMessageAccountabilityData: JsonField<String>
-                    ) = apply {
-                        this.inputMessageAccountabilityData = inputMessageAccountabilityData
-                    }
-
-                    /**
-                     * The Fedwire transaction identifier for the wire transfer that was reversed.
-                     */
-                    fun previousMessageInputMessageAccountabilityData(
-                        previousMessageInputMessageAccountabilityData: String
-                    ) =
-                        previousMessageInputMessageAccountabilityData(
-                            JsonField.of(previousMessageInputMessageAccountabilityData)
-                        )
-
-                    /**
-                     * The Fedwire transaction identifier for the wire transfer that was reversed.
-                     */
-                    @JsonProperty("previous_message_input_message_accountability_data")
-                    @ExcludeMissing
-                    fun previousMessageInputMessageAccountabilityData(
-                        previousMessageInputMessageAccountabilityData: JsonField<String>
-                    ) = apply {
-                        this.previousMessageInputMessageAccountabilityData =
-                            previousMessageInputMessageAccountabilityData
-                    }
-
-                    /** The Fedwire cycle date for the wire transfer that was reversed. */
-                    fun previousMessageInputCycleDate(previousMessageInputCycleDate: LocalDate) =
-                        previousMessageInputCycleDate(JsonField.of(previousMessageInputCycleDate))
-
-                    /** The Fedwire cycle date for the wire transfer that was reversed. */
-                    @JsonProperty("previous_message_input_cycle_date")
-                    @ExcludeMissing
-                    fun previousMessageInputCycleDate(
-                        previousMessageInputCycleDate: JsonField<LocalDate>
-                    ) = apply { this.previousMessageInputCycleDate = previousMessageInputCycleDate }
-
-                    /** The Fedwire sequence number for the wire transfer that was reversed. */
-                    fun previousMessageInputSequenceNumber(
-                        previousMessageInputSequenceNumber: String
-                    ) =
-                        previousMessageInputSequenceNumber(
-                            JsonField.of(previousMessageInputSequenceNumber)
-                        )
-
-                    /** The Fedwire sequence number for the wire transfer that was reversed. */
-                    @JsonProperty("previous_message_input_sequence_number")
-                    @ExcludeMissing
-                    fun previousMessageInputSequenceNumber(
-                        previousMessageInputSequenceNumber: JsonField<String>
-                    ) = apply {
-                        this.previousMessageInputSequenceNumber = previousMessageInputSequenceNumber
-                    }
-
-                    /**
-                     * The Fedwire input source identifier for the wire transfer that was reversed.
-                     */
-                    fun previousMessageInputSource(previousMessageInputSource: String) =
-                        previousMessageInputSource(JsonField.of(previousMessageInputSource))
-
-                    /**
-                     * The Fedwire input source identifier for the wire transfer that was reversed.
-                     */
-                    @JsonProperty("previous_message_input_source")
-                    @ExcludeMissing
-                    fun previousMessageInputSource(previousMessageInputSource: JsonField<String>) =
-                        apply {
-                            this.previousMessageInputSource = previousMessageInputSource
-                        }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                    @JsonAnySetter
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        this.additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun build(): InboundWireDrawdownPaymentReversal =
-                        InboundWireDrawdownPaymentReversal(
-                            amount,
-                            description,
-                            inputCycleDate,
-                            inputSequenceNumber,
-                            inputSource,
-                            inputMessageAccountabilityData,
-                            previousMessageInputMessageAccountabilityData,
-                            previousMessageInputCycleDate,
-                            previousMessageInputSequenceNumber,
-                            previousMessageInputSource,
-                            additionalProperties.toUnmodifiable(),
-                        )
-                }
-            }
-
-            /**
              * A Inbound Wire Drawdown Payment object. This field will be present in the JSON
              * response if and only if `category` is equal to `inbound_wire_drawdown_payment`.
              */
@@ -10603,6 +10536,393 @@ private constructor(
                             originatorAddressLine3,
                             originatorName,
                             originatorToBeneficiaryInformation,
+                            additionalProperties.toUnmodifiable(),
+                        )
+                }
+            }
+
+            /**
+             * A Inbound Wire Drawdown Payment Reversal object. This field will be present in the
+             * JSON response if and only if `category` is equal to
+             * `inbound_wire_drawdown_payment_reversal`.
+             */
+            @JsonDeserialize(builder = InboundWireDrawdownPaymentReversal.Builder::class)
+            @NoAutoDetect
+            class InboundWireDrawdownPaymentReversal
+            private constructor(
+                private val amount: JsonField<Long>,
+                private val description: JsonField<String>,
+                private val inputCycleDate: JsonField<LocalDate>,
+                private val inputSequenceNumber: JsonField<String>,
+                private val inputSource: JsonField<String>,
+                private val inputMessageAccountabilityData: JsonField<String>,
+                private val previousMessageInputMessageAccountabilityData: JsonField<String>,
+                private val previousMessageInputCycleDate: JsonField<LocalDate>,
+                private val previousMessageInputSequenceNumber: JsonField<String>,
+                private val previousMessageInputSource: JsonField<String>,
+                private val additionalProperties: Map<String, JsonValue>,
+            ) {
+
+                private var validated: Boolean = false
+
+                private var hashCode: Int = 0
+
+                /** The amount that was reversed. */
+                fun amount(): Long = amount.getRequired("amount")
+
+                /** The description on the reversal message from Fedwire. */
+                fun description(): String = description.getRequired("description")
+
+                /** The Fedwire cycle date for the wire reversal. */
+                fun inputCycleDate(): LocalDate = inputCycleDate.getRequired("input_cycle_date")
+
+                /** The Fedwire sequence number. */
+                fun inputSequenceNumber(): String =
+                    inputSequenceNumber.getRequired("input_sequence_number")
+
+                /** The Fedwire input source identifier. */
+                fun inputSource(): String = inputSource.getRequired("input_source")
+
+                /** The Fedwire transaction identifier. */
+                fun inputMessageAccountabilityData(): String =
+                    inputMessageAccountabilityData.getRequired("input_message_accountability_data")
+
+                /** The Fedwire transaction identifier for the wire transfer that was reversed. */
+                fun previousMessageInputMessageAccountabilityData(): String =
+                    previousMessageInputMessageAccountabilityData.getRequired(
+                        "previous_message_input_message_accountability_data"
+                    )
+
+                /** The Fedwire cycle date for the wire transfer that was reversed. */
+                fun previousMessageInputCycleDate(): LocalDate =
+                    previousMessageInputCycleDate.getRequired("previous_message_input_cycle_date")
+
+                /** The Fedwire sequence number for the wire transfer that was reversed. */
+                fun previousMessageInputSequenceNumber(): String =
+                    previousMessageInputSequenceNumber.getRequired(
+                        "previous_message_input_sequence_number"
+                    )
+
+                /** The Fedwire input source identifier for the wire transfer that was reversed. */
+                fun previousMessageInputSource(): String =
+                    previousMessageInputSource.getRequired("previous_message_input_source")
+
+                /** The amount that was reversed. */
+                @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+                /** The description on the reversal message from Fedwire. */
+                @JsonProperty("description") @ExcludeMissing fun _description() = description
+
+                /** The Fedwire cycle date for the wire reversal. */
+                @JsonProperty("input_cycle_date")
+                @ExcludeMissing
+                fun _inputCycleDate() = inputCycleDate
+
+                /** The Fedwire sequence number. */
+                @JsonProperty("input_sequence_number")
+                @ExcludeMissing
+                fun _inputSequenceNumber() = inputSequenceNumber
+
+                /** The Fedwire input source identifier. */
+                @JsonProperty("input_source") @ExcludeMissing fun _inputSource() = inputSource
+
+                /** The Fedwire transaction identifier. */
+                @JsonProperty("input_message_accountability_data")
+                @ExcludeMissing
+                fun _inputMessageAccountabilityData() = inputMessageAccountabilityData
+
+                /** The Fedwire transaction identifier for the wire transfer that was reversed. */
+                @JsonProperty("previous_message_input_message_accountability_data")
+                @ExcludeMissing
+                fun _previousMessageInputMessageAccountabilityData() =
+                    previousMessageInputMessageAccountabilityData
+
+                /** The Fedwire cycle date for the wire transfer that was reversed. */
+                @JsonProperty("previous_message_input_cycle_date")
+                @ExcludeMissing
+                fun _previousMessageInputCycleDate() = previousMessageInputCycleDate
+
+                /** The Fedwire sequence number for the wire transfer that was reversed. */
+                @JsonProperty("previous_message_input_sequence_number")
+                @ExcludeMissing
+                fun _previousMessageInputSequenceNumber() = previousMessageInputSequenceNumber
+
+                /** The Fedwire input source identifier for the wire transfer that was reversed. */
+                @JsonProperty("previous_message_input_source")
+                @ExcludeMissing
+                fun _previousMessageInputSource() = previousMessageInputSource
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun validate(): InboundWireDrawdownPaymentReversal = apply {
+                    if (!validated) {
+                        amount()
+                        description()
+                        inputCycleDate()
+                        inputSequenceNumber()
+                        inputSource()
+                        inputMessageAccountabilityData()
+                        previousMessageInputMessageAccountabilityData()
+                        previousMessageInputCycleDate()
+                        previousMessageInputSequenceNumber()
+                        previousMessageInputSource()
+                        validated = true
+                    }
+                }
+
+                fun toBuilder() = Builder().from(this)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is InboundWireDrawdownPaymentReversal &&
+                        this.amount == other.amount &&
+                        this.description == other.description &&
+                        this.inputCycleDate == other.inputCycleDate &&
+                        this.inputSequenceNumber == other.inputSequenceNumber &&
+                        this.inputSource == other.inputSource &&
+                        this.inputMessageAccountabilityData ==
+                            other.inputMessageAccountabilityData &&
+                        this.previousMessageInputMessageAccountabilityData ==
+                            other.previousMessageInputMessageAccountabilityData &&
+                        this.previousMessageInputCycleDate == other.previousMessageInputCycleDate &&
+                        this.previousMessageInputSequenceNumber ==
+                            other.previousMessageInputSequenceNumber &&
+                        this.previousMessageInputSource == other.previousMessageInputSource &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode =
+                            Objects.hash(
+                                amount,
+                                description,
+                                inputCycleDate,
+                                inputSequenceNumber,
+                                inputSource,
+                                inputMessageAccountabilityData,
+                                previousMessageInputMessageAccountabilityData,
+                                previousMessageInputCycleDate,
+                                previousMessageInputSequenceNumber,
+                                previousMessageInputSource,
+                                additionalProperties,
+                            )
+                    }
+                    return hashCode
+                }
+
+                override fun toString() =
+                    "InboundWireDrawdownPaymentReversal{amount=$amount, description=$description, inputCycleDate=$inputCycleDate, inputSequenceNumber=$inputSequenceNumber, inputSource=$inputSource, inputMessageAccountabilityData=$inputMessageAccountabilityData, previousMessageInputMessageAccountabilityData=$previousMessageInputMessageAccountabilityData, previousMessageInputCycleDate=$previousMessageInputCycleDate, previousMessageInputSequenceNumber=$previousMessageInputSequenceNumber, previousMessageInputSource=$previousMessageInputSource, additionalProperties=$additionalProperties}"
+
+                companion object {
+
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                class Builder {
+
+                    private var amount: JsonField<Long> = JsonMissing.of()
+                    private var description: JsonField<String> = JsonMissing.of()
+                    private var inputCycleDate: JsonField<LocalDate> = JsonMissing.of()
+                    private var inputSequenceNumber: JsonField<String> = JsonMissing.of()
+                    private var inputSource: JsonField<String> = JsonMissing.of()
+                    private var inputMessageAccountabilityData: JsonField<String> = JsonMissing.of()
+                    private var previousMessageInputMessageAccountabilityData: JsonField<String> =
+                        JsonMissing.of()
+                    private var previousMessageInputCycleDate: JsonField<LocalDate> =
+                        JsonMissing.of()
+                    private var previousMessageInputSequenceNumber: JsonField<String> =
+                        JsonMissing.of()
+                    private var previousMessageInputSource: JsonField<String> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(
+                        inboundWireDrawdownPaymentReversal: InboundWireDrawdownPaymentReversal
+                    ) = apply {
+                        this.amount = inboundWireDrawdownPaymentReversal.amount
+                        this.description = inboundWireDrawdownPaymentReversal.description
+                        this.inputCycleDate = inboundWireDrawdownPaymentReversal.inputCycleDate
+                        this.inputSequenceNumber =
+                            inboundWireDrawdownPaymentReversal.inputSequenceNumber
+                        this.inputSource = inboundWireDrawdownPaymentReversal.inputSource
+                        this.inputMessageAccountabilityData =
+                            inboundWireDrawdownPaymentReversal.inputMessageAccountabilityData
+                        this.previousMessageInputMessageAccountabilityData =
+                            inboundWireDrawdownPaymentReversal
+                                .previousMessageInputMessageAccountabilityData
+                        this.previousMessageInputCycleDate =
+                            inboundWireDrawdownPaymentReversal.previousMessageInputCycleDate
+                        this.previousMessageInputSequenceNumber =
+                            inboundWireDrawdownPaymentReversal.previousMessageInputSequenceNumber
+                        this.previousMessageInputSource =
+                            inboundWireDrawdownPaymentReversal.previousMessageInputSource
+                        additionalProperties(
+                            inboundWireDrawdownPaymentReversal.additionalProperties
+                        )
+                    }
+
+                    /** The amount that was reversed. */
+                    fun amount(amount: Long) = amount(JsonField.of(amount))
+
+                    /** The amount that was reversed. */
+                    @JsonProperty("amount")
+                    @ExcludeMissing
+                    fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+                    /** The description on the reversal message from Fedwire. */
+                    fun description(description: String) = description(JsonField.of(description))
+
+                    /** The description on the reversal message from Fedwire. */
+                    @JsonProperty("description")
+                    @ExcludeMissing
+                    fun description(description: JsonField<String>) = apply {
+                        this.description = description
+                    }
+
+                    /** The Fedwire cycle date for the wire reversal. */
+                    fun inputCycleDate(inputCycleDate: LocalDate) =
+                        inputCycleDate(JsonField.of(inputCycleDate))
+
+                    /** The Fedwire cycle date for the wire reversal. */
+                    @JsonProperty("input_cycle_date")
+                    @ExcludeMissing
+                    fun inputCycleDate(inputCycleDate: JsonField<LocalDate>) = apply {
+                        this.inputCycleDate = inputCycleDate
+                    }
+
+                    /** The Fedwire sequence number. */
+                    fun inputSequenceNumber(inputSequenceNumber: String) =
+                        inputSequenceNumber(JsonField.of(inputSequenceNumber))
+
+                    /** The Fedwire sequence number. */
+                    @JsonProperty("input_sequence_number")
+                    @ExcludeMissing
+                    fun inputSequenceNumber(inputSequenceNumber: JsonField<String>) = apply {
+                        this.inputSequenceNumber = inputSequenceNumber
+                    }
+
+                    /** The Fedwire input source identifier. */
+                    fun inputSource(inputSource: String) = inputSource(JsonField.of(inputSource))
+
+                    /** The Fedwire input source identifier. */
+                    @JsonProperty("input_source")
+                    @ExcludeMissing
+                    fun inputSource(inputSource: JsonField<String>) = apply {
+                        this.inputSource = inputSource
+                    }
+
+                    /** The Fedwire transaction identifier. */
+                    fun inputMessageAccountabilityData(inputMessageAccountabilityData: String) =
+                        inputMessageAccountabilityData(JsonField.of(inputMessageAccountabilityData))
+
+                    /** The Fedwire transaction identifier. */
+                    @JsonProperty("input_message_accountability_data")
+                    @ExcludeMissing
+                    fun inputMessageAccountabilityData(
+                        inputMessageAccountabilityData: JsonField<String>
+                    ) = apply {
+                        this.inputMessageAccountabilityData = inputMessageAccountabilityData
+                    }
+
+                    /**
+                     * The Fedwire transaction identifier for the wire transfer that was reversed.
+                     */
+                    fun previousMessageInputMessageAccountabilityData(
+                        previousMessageInputMessageAccountabilityData: String
+                    ) =
+                        previousMessageInputMessageAccountabilityData(
+                            JsonField.of(previousMessageInputMessageAccountabilityData)
+                        )
+
+                    /**
+                     * The Fedwire transaction identifier for the wire transfer that was reversed.
+                     */
+                    @JsonProperty("previous_message_input_message_accountability_data")
+                    @ExcludeMissing
+                    fun previousMessageInputMessageAccountabilityData(
+                        previousMessageInputMessageAccountabilityData: JsonField<String>
+                    ) = apply {
+                        this.previousMessageInputMessageAccountabilityData =
+                            previousMessageInputMessageAccountabilityData
+                    }
+
+                    /** The Fedwire cycle date for the wire transfer that was reversed. */
+                    fun previousMessageInputCycleDate(previousMessageInputCycleDate: LocalDate) =
+                        previousMessageInputCycleDate(JsonField.of(previousMessageInputCycleDate))
+
+                    /** The Fedwire cycle date for the wire transfer that was reversed. */
+                    @JsonProperty("previous_message_input_cycle_date")
+                    @ExcludeMissing
+                    fun previousMessageInputCycleDate(
+                        previousMessageInputCycleDate: JsonField<LocalDate>
+                    ) = apply { this.previousMessageInputCycleDate = previousMessageInputCycleDate }
+
+                    /** The Fedwire sequence number for the wire transfer that was reversed. */
+                    fun previousMessageInputSequenceNumber(
+                        previousMessageInputSequenceNumber: String
+                    ) =
+                        previousMessageInputSequenceNumber(
+                            JsonField.of(previousMessageInputSequenceNumber)
+                        )
+
+                    /** The Fedwire sequence number for the wire transfer that was reversed. */
+                    @JsonProperty("previous_message_input_sequence_number")
+                    @ExcludeMissing
+                    fun previousMessageInputSequenceNumber(
+                        previousMessageInputSequenceNumber: JsonField<String>
+                    ) = apply {
+                        this.previousMessageInputSequenceNumber = previousMessageInputSequenceNumber
+                    }
+
+                    /**
+                     * The Fedwire input source identifier for the wire transfer that was reversed.
+                     */
+                    fun previousMessageInputSource(previousMessageInputSource: String) =
+                        previousMessageInputSource(JsonField.of(previousMessageInputSource))
+
+                    /**
+                     * The Fedwire input source identifier for the wire transfer that was reversed.
+                     */
+                    @JsonProperty("previous_message_input_source")
+                    @ExcludeMissing
+                    fun previousMessageInputSource(previousMessageInputSource: JsonField<String>) =
+                        apply {
+                            this.previousMessageInputSource = previousMessageInputSource
+                        }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    @JsonAnySetter
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        this.additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun build(): InboundWireDrawdownPaymentReversal =
+                        InboundWireDrawdownPaymentReversal(
+                            amount,
+                            description,
+                            inputCycleDate,
+                            inputSequenceNumber,
+                            inputSource,
+                            inputMessageAccountabilityData,
+                            previousMessageInputMessageAccountabilityData,
+                            previousMessageInputCycleDate,
+                            previousMessageInputSequenceNumber,
+                            previousMessageInputSource,
                             additionalProperties.toUnmodifiable(),
                         )
                 }
