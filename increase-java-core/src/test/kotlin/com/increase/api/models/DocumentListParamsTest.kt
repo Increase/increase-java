@@ -15,7 +15,7 @@ class DocumentListParamsTest {
             .entityId("string")
             .category(
                 DocumentListParams.Category.builder()
-                    .in_(listOf(DocumentListParams.Category.In.ACCOUNT_OPENING_DISCLOSURES))
+                    .in_(listOf(DocumentListParams.Category.In.FORM_1099_INT))
                     .build()
             )
             .createdAt(
@@ -38,7 +38,7 @@ class DocumentListParamsTest {
                 .entityId("string")
                 .category(
                     DocumentListParams.Category.builder()
-                        .in_(listOf(DocumentListParams.Category.In.ACCOUNT_OPENING_DISCLOSURES))
+                        .in_(listOf(DocumentListParams.Category.In.FORM_1099_INT))
                         .build()
                 )
                 .createdAt(
@@ -55,7 +55,7 @@ class DocumentListParamsTest {
         expected.put("limit", listOf("123"))
         expected.put("entity_id", listOf("string"))
         DocumentListParams.Category.builder()
-            .in_(listOf(DocumentListParams.Category.In.ACCOUNT_OPENING_DISCLOSURES))
+            .in_(listOf(DocumentListParams.Category.In.FORM_1099_INT))
             .build()
             .forEachQueryParam { key, values -> expected.put("category.$key", values) }
         DocumentListParams.CreatedAt.builder()

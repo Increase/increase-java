@@ -137,6 +137,27 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         )
                                         .build()
                                 )
+                                .cardRevenuePayment(
+                                    InboundRealTimePaymentsTransferSimulationResult.Transaction
+                                        .Source
+                                        .CardRevenuePayment
+                                        .builder()
+                                        .amount(123L)
+                                        .currency(
+                                            InboundRealTimePaymentsTransferSimulationResult
+                                                .Transaction
+                                                .Source
+                                                .CardRevenuePayment
+                                                .Currency
+                                                .CAD
+                                        )
+                                        .periodStart(
+                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                        )
+                                        .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .transactedOnAccountId("string")
+                                        .build()
+                                )
                                 .cardSettlement(
                                     InboundRealTimePaymentsTransferSimulationResult.Transaction
                                         .Source
@@ -170,27 +191,6 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .Type
                                                 .CARD_SETTLEMENT
                                         )
-                                        .build()
-                                )
-                                .cardRevenuePayment(
-                                    InboundRealTimePaymentsTransferSimulationResult.Transaction
-                                        .Source
-                                        .CardRevenuePayment
-                                        .builder()
-                                        .amount(123L)
-                                        .currency(
-                                            InboundRealTimePaymentsTransferSimulationResult
-                                                .Transaction
-                                                .Source
-                                                .CardRevenuePayment
-                                                .Currency
-                                                .CAD
-                                        )
-                                        .periodStart(
-                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
-                                        )
-                                        .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                        .transactedOnAccountId("string")
                                         .build()
                                 )
                                 .checkDepositAcceptance(
@@ -243,6 +243,26 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         )
                                         .build()
                                 )
+                                .checkTransferDeposit(
+                                    InboundRealTimePaymentsTransferSimulationResult.Transaction
+                                        .Source
+                                        .CheckTransferDeposit
+                                        .builder()
+                                        .depositedAt(
+                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                        )
+                                        .frontImageFileId("string")
+                                        .backImageFileId("string")
+                                        .type(
+                                            InboundRealTimePaymentsTransferSimulationResult
+                                                .Transaction
+                                                .Source
+                                                .CheckTransferDeposit
+                                                .Type
+                                                .CHECK_TRANSFER_DEPOSIT
+                                        )
+                                        .build()
+                                )
                                 .checkTransferIntention(
                                     InboundRealTimePaymentsTransferSimulationResult.Transaction
                                         .Source
@@ -266,6 +286,14 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .transferId("string")
                                         .build()
                                 )
+                                .checkTransferRejection(
+                                    InboundRealTimePaymentsTransferSimulationResult.Transaction
+                                        .Source
+                                        .CheckTransferRejection
+                                        .builder()
+                                        .transferId("string")
+                                        .build()
+                                )
                                 .checkTransferReturn(
                                     InboundRealTimePaymentsTransferSimulationResult.Transaction
                                         .Source
@@ -285,14 +313,6 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .MAIL_DELIVERY_FAILURE
                                         )
                                         .transactionId("string")
-                                        .build()
-                                )
-                                .checkTransferRejection(
-                                    InboundRealTimePaymentsTransferSimulationResult.Transaction
-                                        .Source
-                                        .CheckTransferRejection
-                                        .builder()
-                                        .transferId("string")
                                         .build()
                                 )
                                 .checkTransferStopPaymentRequest(
@@ -437,25 +457,6 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .remittanceInformation("string")
                                         .build()
                                 )
-                                .inboundWireDrawdownPaymentReversal(
-                                    InboundRealTimePaymentsTransferSimulationResult.Transaction
-                                        .Source
-                                        .InboundWireDrawdownPaymentReversal
-                                        .builder()
-                                        .amount(123L)
-                                        .description("string")
-                                        .inputCycleDate(LocalDate.parse("2019-12-27"))
-                                        .inputSequenceNumber("string")
-                                        .inputSource("string")
-                                        .inputMessageAccountabilityData("string")
-                                        .previousMessageInputMessageAccountabilityData("string")
-                                        .previousMessageInputCycleDate(
-                                            LocalDate.parse("2019-12-27")
-                                        )
-                                        .previousMessageInputSequenceNumber("string")
-                                        .previousMessageInputSource("string")
-                                        .build()
-                                )
                                 .inboundWireDrawdownPayment(
                                     InboundRealTimePaymentsTransferSimulationResult.Transaction
                                         .Source
@@ -474,6 +475,25 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .originatorAddressLine3("string")
                                         .originatorName("string")
                                         .originatorToBeneficiaryInformation("string")
+                                        .build()
+                                )
+                                .inboundWireDrawdownPaymentReversal(
+                                    InboundRealTimePaymentsTransferSimulationResult.Transaction
+                                        .Source
+                                        .InboundWireDrawdownPaymentReversal
+                                        .builder()
+                                        .amount(123L)
+                                        .description("string")
+                                        .inputCycleDate(LocalDate.parse("2019-12-27"))
+                                        .inputSequenceNumber("string")
+                                        .inputSource("string")
+                                        .inputMessageAccountabilityData("string")
+                                        .previousMessageInputMessageAccountabilityData("string")
+                                        .previousMessageInputCycleDate(
+                                            LocalDate.parse("2019-12-27")
+                                        )
+                                        .previousMessageInputSequenceNumber("string")
+                                        .previousMessageInputSource("string")
                                         .build()
                                 )
                                 .inboundWireReversal(
@@ -1003,6 +1023,23 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     )
                                     .build()
                             )
+                            .cardRevenuePayment(
+                                InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
+                                    .CardRevenuePayment
+                                    .builder()
+                                    .amount(123L)
+                                    .currency(
+                                        InboundRealTimePaymentsTransferSimulationResult.Transaction
+                                            .Source
+                                            .CardRevenuePayment
+                                            .Currency
+                                            .CAD
+                                    )
+                                    .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .transactedOnAccountId("string")
+                                    .build()
+                            )
                             .cardSettlement(
                                 InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
                                     .CardSettlement
@@ -1033,23 +1070,6 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .Type
                                             .CARD_SETTLEMENT
                                     )
-                                    .build()
-                            )
-                            .cardRevenuePayment(
-                                InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
-                                    .CardRevenuePayment
-                                    .builder()
-                                    .amount(123L)
-                                    .currency(
-                                        InboundRealTimePaymentsTransferSimulationResult.Transaction
-                                            .Source
-                                            .CardRevenuePayment
-                                            .Currency
-                                            .CAD
-                                    )
-                                    .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .transactedOnAccountId("string")
                                     .build()
                             )
                             .checkDepositAcceptance(
@@ -1095,6 +1115,22 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     )
                                     .build()
                             )
+                            .checkTransferDeposit(
+                                InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
+                                    .CheckTransferDeposit
+                                    .builder()
+                                    .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .frontImageFileId("string")
+                                    .backImageFileId("string")
+                                    .type(
+                                        InboundRealTimePaymentsTransferSimulationResult.Transaction
+                                            .Source
+                                            .CheckTransferDeposit
+                                            .Type
+                                            .CHECK_TRANSFER_DEPOSIT
+                                    )
+                                    .build()
+                            )
                             .checkTransferIntention(
                                 InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
                                     .CheckTransferIntention
@@ -1116,6 +1152,13 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .transferId("string")
                                     .build()
                             )
+                            .checkTransferRejection(
+                                InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
+                                    .CheckTransferRejection
+                                    .builder()
+                                    .transferId("string")
+                                    .build()
+                            )
                             .checkTransferReturn(
                                 InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
                                     .CheckTransferReturn
@@ -1131,13 +1174,6 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .MAIL_DELIVERY_FAILURE
                                     )
                                     .transactionId("string")
-                                    .build()
-                            )
-                            .checkTransferRejection(
-                                InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
-                                    .CheckTransferRejection
-                                    .builder()
-                                    .transferId("string")
                                     .build()
                             )
                             .checkTransferStopPaymentRequest(
@@ -1266,22 +1302,6 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .remittanceInformation("string")
                                     .build()
                             )
-                            .inboundWireDrawdownPaymentReversal(
-                                InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
-                                    .InboundWireDrawdownPaymentReversal
-                                    .builder()
-                                    .amount(123L)
-                                    .description("string")
-                                    .inputCycleDate(LocalDate.parse("2019-12-27"))
-                                    .inputSequenceNumber("string")
-                                    .inputSource("string")
-                                    .inputMessageAccountabilityData("string")
-                                    .previousMessageInputMessageAccountabilityData("string")
-                                    .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
-                                    .previousMessageInputSequenceNumber("string")
-                                    .previousMessageInputSource("string")
-                                    .build()
-                            )
                             .inboundWireDrawdownPayment(
                                 InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
                                     .InboundWireDrawdownPayment
@@ -1299,6 +1319,22 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .originatorAddressLine3("string")
                                     .originatorName("string")
                                     .originatorToBeneficiaryInformation("string")
+                                    .build()
+                            )
+                            .inboundWireDrawdownPaymentReversal(
+                                InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
+                                    .InboundWireDrawdownPaymentReversal
+                                    .builder()
+                                    .amount(123L)
+                                    .description("string")
+                                    .inputCycleDate(LocalDate.parse("2019-12-27"))
+                                    .inputSequenceNumber("string")
+                                    .inputSource("string")
+                                    .inputMessageAccountabilityData("string")
+                                    .previousMessageInputMessageAccountabilityData("string")
+                                    .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
+                                    .previousMessageInputSequenceNumber("string")
+                                    .previousMessageInputSource("string")
                                     .build()
                             )
                             .inboundWireReversal(
