@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.5.0](https://github.com/Increase/increase-java/compare/v0.4.1...v0.5.0) (2023-06-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** remove many enum members from document category ([#22](https://github.com/Increase/increase-java/issues/22))
+
+### Features
+
+* **api/types:** mark more check transfer intention properties as nullable ([#21](https://github.com/Increase/increase-java/issues/21)) ([50e0bbc](https://github.com/Increase/increase-java/commit/50e0bbc45b50b431bdb3be9c3c964fb313189b49))
+
+
+### Refactors
+
+* **api:** remove `other` from reason enum ([#19](https://github.com/Increase/increase-java/issues/19)) ([3bb921d](https://github.com/Increase/increase-java/commit/3bb921db184c53d82227c5c3811714cfdc46964c))
+* **api:** remove many enum members from document category ([#22](https://github.com/Increase/increase-java/issues/22)) ([327d529](https://github.com/Increase/increase-java/commit/327d5293471a4a48503636304812aa1497bc5ef6))
+
+
+### Documentation
+
+* add trailing newlines ([#23](https://github.com/Increase/increase-java/issues/23)) ([b553eec](https://github.com/Increase/increase-java/commit/b553eec4264af4ca9cd0b490bb662079635e7395))
+
 ## [0.4.1](https://github.com/Increase/increase-java/compare/v0.4.0...v0.4.1) (2023-06-19)
 
 
