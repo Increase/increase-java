@@ -8,7 +8,30 @@ class CheckTransferStopPaymentParamsTest {
 
     @Test
     fun createCheckTransferStopPaymentParams() {
-        CheckTransferStopPaymentParams.builder().checkTransferId("string").build()
+        CheckTransferStopPaymentParams.builder()
+            .checkTransferId("string")
+            .reason(CheckTransferStopPaymentParams.Reason.MAIL_DELIVERY_FAILED)
+            .build()
+    }
+
+    @Test
+    fun getBody() {
+        val params =
+            CheckTransferStopPaymentParams.builder()
+                .checkTransferId("string")
+                .reason(CheckTransferStopPaymentParams.Reason.MAIL_DELIVERY_FAILED)
+                .build()
+        val body = params.getBody()
+        assertThat(body).isNotNull
+        assertThat(body.reason())
+            .isEqualTo(CheckTransferStopPaymentParams.Reason.MAIL_DELIVERY_FAILED)
+    }
+
+    @Test
+    fun getBodyWithoutOptionalFields() {
+        val params = CheckTransferStopPaymentParams.builder().checkTransferId("string").build()
+        val body = params.getBody()
+        assertThat(body).isNotNull
     }
 
     @Test

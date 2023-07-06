@@ -127,6 +127,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .merchantCountry("string")
                                         .merchantName("string")
                                         .merchantCategoryCode("string")
+                                        .transactionId("string")
                                         .type(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .Transaction
@@ -182,6 +183,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .merchantCountry("string")
                                         .merchantName("string")
                                         .merchantCategoryCode("string")
+                                        .transactionId("string")
                                         .pendingTransactionId("string")
                                         .type(
                                             InboundRealTimePaymentsTransferSimulationResult
@@ -251,6 +253,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .depositedAt(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
+                                        .transactionId("string")
                                         .frontImageFileId("string")
                                         .backImageFileId("string")
                                         .type(
@@ -294,34 +297,20 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .transferId("string")
                                         .build()
                                 )
-                                .checkTransferReturn(
-                                    InboundRealTimePaymentsTransferSimulationResult.Transaction
-                                        .Source
-                                        .CheckTransferReturn
-                                        .builder()
-                                        .transferId("string")
-                                        .returnedAt(
-                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
-                                        )
-                                        .fileId("string")
-                                        .reason(
-                                            InboundRealTimePaymentsTransferSimulationResult
-                                                .Transaction
-                                                .Source
-                                                .CheckTransferReturn
-                                                .Reason
-                                                .MAIL_DELIVERY_FAILURE
-                                        )
-                                        .transactionId("string")
-                                        .build()
-                                )
                                 .checkTransferStopPaymentRequest(
                                     InboundRealTimePaymentsTransferSimulationResult.Transaction
                                         .Source
                                         .CheckTransferStopPaymentRequest
                                         .builder()
                                         .transferId("string")
-                                        .transactionId("string")
+                                        .reason(
+                                            InboundRealTimePaymentsTransferSimulationResult
+                                                .Transaction
+                                                .Source
+                                                .CheckTransferStopPaymentRequest
+                                                .Reason
+                                                .MAIL_DELIVERY_FAILED
+                                        )
                                         .requestedAt(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
@@ -1014,6 +1003,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .merchantCountry("string")
                                     .merchantName("string")
                                     .merchantCategoryCode("string")
+                                    .transactionId("string")
                                     .type(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction
                                             .Source
@@ -1062,6 +1052,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .merchantCountry("string")
                                     .merchantName("string")
                                     .merchantCategoryCode("string")
+                                    .transactionId("string")
                                     .pendingTransactionId("string")
                                     .type(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction
@@ -1120,6 +1111,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .CheckTransferDeposit
                                     .builder()
                                     .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .transactionId("string")
                                     .frontImageFileId("string")
                                     .backImageFileId("string")
                                     .type(
@@ -1159,29 +1151,18 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .transferId("string")
                                     .build()
                             )
-                            .checkTransferReturn(
-                                InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
-                                    .CheckTransferReturn
-                                    .builder()
-                                    .transferId("string")
-                                    .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .fileId("string")
-                                    .reason(
-                                        InboundRealTimePaymentsTransferSimulationResult.Transaction
-                                            .Source
-                                            .CheckTransferReturn
-                                            .Reason
-                                            .MAIL_DELIVERY_FAILURE
-                                    )
-                                    .transactionId("string")
-                                    .build()
-                            )
                             .checkTransferStopPaymentRequest(
                                 InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
                                     .CheckTransferStopPaymentRequest
                                     .builder()
                                     .transferId("string")
-                                    .transactionId("string")
+                                    .reason(
+                                        InboundRealTimePaymentsTransferSimulationResult.Transaction
+                                            .Source
+                                            .CheckTransferStopPaymentRequest
+                                            .Reason
+                                            .MAIL_DELIVERY_FAILED
+                                    )
                                     .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .type(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction

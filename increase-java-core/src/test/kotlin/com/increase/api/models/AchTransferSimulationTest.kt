@@ -100,6 +100,7 @@ class AchTransferSimulationTest {
                                         .merchantCountry("string")
                                         .merchantName("string")
                                         .merchantCategoryCode("string")
+                                        .transactionId("string")
                                         .type(
                                             AchTransferSimulation.Transaction.Source.CardRefund.Type
                                                 .CARD_REFUND
@@ -142,6 +143,7 @@ class AchTransferSimulationTest {
                                         .merchantCountry("string")
                                         .merchantName("string")
                                         .merchantCategoryCode("string")
+                                        .transactionId("string")
                                         .pendingTransactionId("string")
                                         .type(
                                             AchTransferSimulation.Transaction.Source.CardSettlement
@@ -196,6 +198,7 @@ class AchTransferSimulationTest {
                                         .depositedAt(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
+                                        .transactionId("string")
                                         .frontImageFileId("string")
                                         .backImageFileId("string")
                                         .type(
@@ -231,29 +234,17 @@ class AchTransferSimulationTest {
                                         .transferId("string")
                                         .build()
                                 )
-                                .checkTransferReturn(
-                                    AchTransferSimulation.Transaction.Source.CheckTransferReturn
-                                        .builder()
-                                        .transferId("string")
-                                        .returnedAt(
-                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
-                                        )
-                                        .fileId("string")
-                                        .reason(
-                                            AchTransferSimulation.Transaction.Source
-                                                .CheckTransferReturn
-                                                .Reason
-                                                .MAIL_DELIVERY_FAILURE
-                                        )
-                                        .transactionId("string")
-                                        .build()
-                                )
                                 .checkTransferStopPaymentRequest(
                                     AchTransferSimulation.Transaction.Source
                                         .CheckTransferStopPaymentRequest
                                         .builder()
                                         .transferId("string")
-                                        .transactionId("string")
+                                        .reason(
+                                            AchTransferSimulation.Transaction.Source
+                                                .CheckTransferStopPaymentRequest
+                                                .Reason
+                                                .MAIL_DELIVERY_FAILED
+                                        )
                                         .requestedAt(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
@@ -823,6 +814,7 @@ class AchTransferSimulationTest {
                                     .merchantCountry("string")
                                     .merchantName("string")
                                     .merchantCategoryCode("string")
+                                    .transactionId("string")
                                     .type(
                                         AchTransferSimulation.Transaction.Source.CardRefund.Type
                                             .CARD_REFUND
@@ -861,6 +853,7 @@ class AchTransferSimulationTest {
                                     .merchantCountry("string")
                                     .merchantName("string")
                                     .merchantCategoryCode("string")
+                                    .transactionId("string")
                                     .pendingTransactionId("string")
                                     .type(
                                         AchTransferSimulation.Transaction.Source.CardSettlement.Type
@@ -908,6 +901,7 @@ class AchTransferSimulationTest {
                                 AchTransferSimulation.Transaction.Source.CheckTransferDeposit
                                     .builder()
                                     .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .transactionId("string")
                                     .frontImageFileId("string")
                                     .backImageFileId("string")
                                     .type(
@@ -943,26 +937,17 @@ class AchTransferSimulationTest {
                                     .transferId("string")
                                     .build()
                             )
-                            .checkTransferReturn(
-                                AchTransferSimulation.Transaction.Source.CheckTransferReturn
-                                    .builder()
-                                    .transferId("string")
-                                    .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .fileId("string")
-                                    .reason(
-                                        AchTransferSimulation.Transaction.Source.CheckTransferReturn
-                                            .Reason
-                                            .MAIL_DELIVERY_FAILURE
-                                    )
-                                    .transactionId("string")
-                                    .build()
-                            )
                             .checkTransferStopPaymentRequest(
                                 AchTransferSimulation.Transaction.Source
                                     .CheckTransferStopPaymentRequest
                                     .builder()
                                     .transferId("string")
-                                    .transactionId("string")
+                                    .reason(
+                                        AchTransferSimulation.Transaction.Source
+                                            .CheckTransferStopPaymentRequest
+                                            .Reason
+                                            .MAIL_DELIVERY_FAILED
+                                    )
                                     .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .type(
                                         AchTransferSimulation.Transaction.Source

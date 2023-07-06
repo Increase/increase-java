@@ -478,8 +478,6 @@ constructor(
                 @JvmField
                 val CHECK_TRANSFER_REJECTION = In(JsonField.of("check_transfer_rejection"))
 
-                @JvmField val CHECK_TRANSFER_RETURN = In(JsonField.of("check_transfer_return"))
-
                 @JvmField
                 val CHECK_TRANSFER_STOP_PAYMENT_REQUEST =
                     In(JsonField.of("check_transfer_stop_payment_request"))
@@ -547,7 +545,6 @@ constructor(
                 CHECK_TRANSFER_DEPOSIT,
                 CHECK_TRANSFER_INTENTION,
                 CHECK_TRANSFER_REJECTION,
-                CHECK_TRANSFER_RETURN,
                 CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
                 FEE_PAYMENT,
                 INBOUND_ACH_TRANSFER,
@@ -582,7 +579,6 @@ constructor(
                 CHECK_TRANSFER_DEPOSIT,
                 CHECK_TRANSFER_INTENTION,
                 CHECK_TRANSFER_REJECTION,
-                CHECK_TRANSFER_RETURN,
                 CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
                 FEE_PAYMENT,
                 INBOUND_ACH_TRANSFER,
@@ -619,7 +615,6 @@ constructor(
                     CHECK_TRANSFER_DEPOSIT -> Value.CHECK_TRANSFER_DEPOSIT
                     CHECK_TRANSFER_INTENTION -> Value.CHECK_TRANSFER_INTENTION
                     CHECK_TRANSFER_REJECTION -> Value.CHECK_TRANSFER_REJECTION
-                    CHECK_TRANSFER_RETURN -> Value.CHECK_TRANSFER_RETURN
                     CHECK_TRANSFER_STOP_PAYMENT_REQUEST -> Value.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
                     FEE_PAYMENT -> Value.FEE_PAYMENT
                     INBOUND_ACH_TRANSFER -> Value.INBOUND_ACH_TRANSFER
@@ -660,7 +655,6 @@ constructor(
                     CHECK_TRANSFER_DEPOSIT -> Known.CHECK_TRANSFER_DEPOSIT
                     CHECK_TRANSFER_INTENTION -> Known.CHECK_TRANSFER_INTENTION
                     CHECK_TRANSFER_REJECTION -> Known.CHECK_TRANSFER_REJECTION
-                    CHECK_TRANSFER_RETURN -> Known.CHECK_TRANSFER_RETURN
                     CHECK_TRANSFER_STOP_PAYMENT_REQUEST -> Known.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
                     FEE_PAYMENT -> Known.FEE_PAYMENT
                     INBOUND_ACH_TRANSFER -> Known.INBOUND_ACH_TRANSFER

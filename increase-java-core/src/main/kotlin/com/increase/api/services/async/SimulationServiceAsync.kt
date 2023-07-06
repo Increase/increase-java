@@ -6,6 +6,7 @@ import com.increase.api.services.async.simulations.AccountStatementServiceAsync
 import com.increase.api.services.async.simulations.AccountTransferServiceAsync
 import com.increase.api.services.async.simulations.AchTransferServiceAsync
 import com.increase.api.services.async.simulations.CardDisputeServiceAsync
+import com.increase.api.services.async.simulations.CardProfileServiceAsync
 import com.increase.api.services.async.simulations.CardRefundServiceAsync
 import com.increase.api.services.async.simulations.CardServiceAsync
 import com.increase.api.services.async.simulations.CheckDepositServiceAsync
@@ -27,6 +28,8 @@ interface SimulationServiceAsync {
     fun achTransfers(): AchTransferServiceAsync
 
     fun cardDisputes(): CardDisputeServiceAsync
+
+    fun cardProfiles(): CardProfileServiceAsync
 
     fun cardRefunds(): CardRefundServiceAsync
 

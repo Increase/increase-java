@@ -23,6 +23,7 @@ class CheckTransferServiceTest {
             checkTransferService.create(
                 CheckTransferCreateParams.builder()
                     .accountId("string")
+                    .sourceAccountNumberId("string")
                     .addressLine1("x")
                     .addressLine2("x")
                     .addressCity("x")
@@ -121,7 +122,10 @@ class CheckTransferServiceTest {
         val checkTransferService = client.checkTransfers()
         val checkTransfer =
             checkTransferService.stopPayment(
-                CheckTransferStopPaymentParams.builder().checkTransferId("string").build()
+                CheckTransferStopPaymentParams.builder()
+                    .checkTransferId("string")
+                    .reason(CheckTransferStopPaymentParams.Reason.MAIL_DELIVERY_FAILED)
+                    .build()
             )
         println(checkTransfer)
         checkTransfer.validate()

@@ -267,8 +267,8 @@ private constructor(
         fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
         /**
-         * For a Transaction related to a transfer, this is the description you provide. For a
-         * Transaction related to a payment, this is the description the vendor provides.
+         * An informational message describing this transaction. Use the fields in `source` to get
+         * more detailed information. This field appears as the line-item on the statement.
          */
         fun description(): String = description.getRequired("description")
 
@@ -321,8 +321,8 @@ private constructor(
         @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
         /**
-         * For a Transaction related to a transfer, this is the description you provide. For a
-         * Transaction related to a payment, this is the description the vendor provides.
+         * An informational message describing this transaction. Use the fields in `source` to get
+         * more detailed information. This field appears as the line-item on the statement.
          */
         @JsonProperty("description") @ExcludeMissing fun _description() = description
 
@@ -503,14 +503,14 @@ private constructor(
             }
 
             /**
-             * For a Transaction related to a transfer, this is the description you provide. For a
-             * Transaction related to a payment, this is the description the vendor provides.
+             * An informational message describing this transaction. Use the fields in `source` to
+             * get more detailed information. This field appears as the line-item on the statement.
              */
             fun description(description: String) = description(JsonField.of(description))
 
             /**
-             * For a Transaction related to a transfer, this is the description you provide. For a
-             * Transaction related to a payment, this is the description the vendor provides.
+             * An informational message describing this transaction. Use the fields in `source` to
+             * get more detailed information. This field appears as the line-item on the statement.
              */
             @JsonProperty("description")
             @ExcludeMissing
@@ -772,7 +772,6 @@ private constructor(
             private val checkTransferDeposit: JsonField<CheckTransferDeposit>,
             private val checkTransferIntention: JsonField<CheckTransferIntention>,
             private val checkTransferRejection: JsonField<CheckTransferRejection>,
-            private val checkTransferReturn: JsonField<CheckTransferReturn>,
             private val checkTransferStopPaymentRequest: JsonField<CheckTransferStopPaymentRequest>,
             private val feePayment: JsonField<FeePayment>,
             private val inboundAchTransfer: JsonField<InboundAchTransfer>,
@@ -898,13 +897,6 @@ private constructor(
              */
             fun checkTransferRejection(): Optional<CheckTransferRejection> =
                 Optional.ofNullable(checkTransferRejection.getNullable("check_transfer_rejection"))
-
-            /**
-             * A Check Transfer Return object. This field will be present in the JSON response if
-             * and only if `category` is equal to `check_transfer_return`.
-             */
-            fun checkTransferReturn(): Optional<CheckTransferReturn> =
-                Optional.ofNullable(checkTransferReturn.getNullable("check_transfer_return"))
 
             /**
              * A Check Transfer Stop Payment Request object. This field will be present in the JSON
@@ -1153,14 +1145,6 @@ private constructor(
             fun _checkTransferRejection() = checkTransferRejection
 
             /**
-             * A Check Transfer Return object. This field will be present in the JSON response if
-             * and only if `category` is equal to `check_transfer_return`.
-             */
-            @JsonProperty("check_transfer_return")
-            @ExcludeMissing
-            fun _checkTransferReturn() = checkTransferReturn
-
-            /**
              * A Check Transfer Stop Payment Request object. This field will be present in the JSON
              * response if and only if `category` is equal to `check_transfer_stop_payment_request`.
              */
@@ -1304,7 +1288,6 @@ private constructor(
                     checkTransferDeposit().map { it.validate() }
                     checkTransferIntention().map { it.validate() }
                     checkTransferRejection().map { it.validate() }
-                    checkTransferReturn().map { it.validate() }
                     checkTransferStopPaymentRequest().map { it.validate() }
                     feePayment().map { it.validate() }
                     inboundAchTransfer().map { it.validate() }
@@ -1347,7 +1330,6 @@ private constructor(
                     this.checkTransferDeposit == other.checkTransferDeposit &&
                     this.checkTransferIntention == other.checkTransferIntention &&
                     this.checkTransferRejection == other.checkTransferRejection &&
-                    this.checkTransferReturn == other.checkTransferReturn &&
                     this.checkTransferStopPaymentRequest == other.checkTransferStopPaymentRequest &&
                     this.feePayment == other.feePayment &&
                     this.inboundAchTransfer == other.inboundAchTransfer &&
@@ -1388,7 +1370,6 @@ private constructor(
                             checkTransferDeposit,
                             checkTransferIntention,
                             checkTransferRejection,
-                            checkTransferReturn,
                             checkTransferStopPaymentRequest,
                             feePayment,
                             inboundAchTransfer,
@@ -1412,7 +1393,7 @@ private constructor(
             }
 
             override fun toString() =
-                "Source{category=$category, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, checkTransferIntention=$checkTransferIntention, checkTransferRejection=$checkTransferRejection, checkTransferReturn=$checkTransferReturn, checkTransferStopPaymentRequest=$checkTransferStopPaymentRequest, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundCheck=$inboundCheck, inboundInternationalAchTransfer=$inboundInternationalAchTransfer, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireDrawdownPayment=$inboundWireDrawdownPayment, inboundWireDrawdownPaymentReversal=$inboundWireDrawdownPaymentReversal, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, interestPayment=$interestPayment, internalSource=$internalSource, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, wireTransferIntention=$wireTransferIntention, wireTransferRejection=$wireTransferRejection, additionalProperties=$additionalProperties}"
+                "Source{category=$category, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, checkTransferIntention=$checkTransferIntention, checkTransferRejection=$checkTransferRejection, checkTransferStopPaymentRequest=$checkTransferStopPaymentRequest, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundCheck=$inboundCheck, inboundInternationalAchTransfer=$inboundInternationalAchTransfer, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireDrawdownPayment=$inboundWireDrawdownPayment, inboundWireDrawdownPaymentReversal=$inboundWireDrawdownPaymentReversal, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, interestPayment=$interestPayment, internalSource=$internalSource, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, wireTransferIntention=$wireTransferIntention, wireTransferRejection=$wireTransferRejection, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1440,7 +1421,6 @@ private constructor(
                     JsonMissing.of()
                 private var checkTransferRejection: JsonField<CheckTransferRejection> =
                     JsonMissing.of()
-                private var checkTransferReturn: JsonField<CheckTransferReturn> = JsonMissing.of()
                 private var checkTransferStopPaymentRequest:
                     JsonField<CheckTransferStopPaymentRequest> =
                     JsonMissing.of()
@@ -1488,7 +1468,6 @@ private constructor(
                     this.checkTransferDeposit = source.checkTransferDeposit
                     this.checkTransferIntention = source.checkTransferIntention
                     this.checkTransferRejection = source.checkTransferRejection
-                    this.checkTransferReturn = source.checkTransferReturn
                     this.checkTransferStopPaymentRequest = source.checkTransferStopPaymentRequest
                     this.feePayment = source.feePayment
                     this.inboundAchTransfer = source.inboundAchTransfer
@@ -1750,24 +1729,6 @@ private constructor(
                 fun checkTransferRejection(
                     checkTransferRejection: JsonField<CheckTransferRejection>
                 ) = apply { this.checkTransferRejection = checkTransferRejection }
-
-                /**
-                 * A Check Transfer Return object. This field will be present in the JSON response
-                 * if and only if `category` is equal to `check_transfer_return`.
-                 */
-                fun checkTransferReturn(checkTransferReturn: CheckTransferReturn) =
-                    checkTransferReturn(JsonField.of(checkTransferReturn))
-
-                /**
-                 * A Check Transfer Return object. This field will be present in the JSON response
-                 * if and only if `category` is equal to `check_transfer_return`.
-                 */
-                @JsonProperty("check_transfer_return")
-                @ExcludeMissing
-                fun checkTransferReturn(checkTransferReturn: JsonField<CheckTransferReturn>) =
-                    apply {
-                        this.checkTransferReturn = checkTransferReturn
-                    }
 
                 /**
                  * A Check Transfer Stop Payment Request object. This field will be present in the
@@ -2111,7 +2072,6 @@ private constructor(
                         checkTransferDeposit,
                         checkTransferIntention,
                         checkTransferRejection,
-                        checkTransferReturn,
                         checkTransferStopPaymentRequest,
                         feePayment,
                         inboundAchTransfer,
@@ -2196,9 +2156,6 @@ private constructor(
                         Category(JsonField.of("check_transfer_rejection"))
 
                     @JvmField
-                    val CHECK_TRANSFER_RETURN = Category(JsonField.of("check_transfer_return"))
-
-                    @JvmField
                     val CHECK_TRANSFER_STOP_PAYMENT_REQUEST =
                         Category(JsonField.of("check_transfer_stop_payment_request"))
 
@@ -2270,7 +2227,6 @@ private constructor(
                     CHECK_TRANSFER_DEPOSIT,
                     CHECK_TRANSFER_INTENTION,
                     CHECK_TRANSFER_REJECTION,
-                    CHECK_TRANSFER_RETURN,
                     CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
                     FEE_PAYMENT,
                     INBOUND_ACH_TRANSFER,
@@ -2305,7 +2261,6 @@ private constructor(
                     CHECK_TRANSFER_DEPOSIT,
                     CHECK_TRANSFER_INTENTION,
                     CHECK_TRANSFER_REJECTION,
-                    CHECK_TRANSFER_RETURN,
                     CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
                     FEE_PAYMENT,
                     INBOUND_ACH_TRANSFER,
@@ -2342,7 +2297,6 @@ private constructor(
                         CHECK_TRANSFER_DEPOSIT -> Value.CHECK_TRANSFER_DEPOSIT
                         CHECK_TRANSFER_INTENTION -> Value.CHECK_TRANSFER_INTENTION
                         CHECK_TRANSFER_REJECTION -> Value.CHECK_TRANSFER_REJECTION
-                        CHECK_TRANSFER_RETURN -> Value.CHECK_TRANSFER_RETURN
                         CHECK_TRANSFER_STOP_PAYMENT_REQUEST ->
                             Value.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
                         FEE_PAYMENT -> Value.FEE_PAYMENT
@@ -2385,7 +2339,6 @@ private constructor(
                         CHECK_TRANSFER_DEPOSIT -> Known.CHECK_TRANSFER_DEPOSIT
                         CHECK_TRANSFER_INTENTION -> Known.CHECK_TRANSFER_INTENTION
                         CHECK_TRANSFER_REJECTION -> Known.CHECK_TRANSFER_REJECTION
-                        CHECK_TRANSFER_RETURN -> Known.CHECK_TRANSFER_RETURN
                         CHECK_TRANSFER_STOP_PAYMENT_REQUEST ->
                             Known.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
                         FEE_PAYMENT -> Known.FEE_PAYMENT
@@ -4168,6 +4121,7 @@ private constructor(
                 private val merchantCountry: JsonField<String>,
                 private val merchantName: JsonField<String>,
                 private val merchantCategoryCode: JsonField<String>,
+                private val transactionId: JsonField<String>,
                 private val type: JsonField<Type>,
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
@@ -4217,6 +4171,9 @@ private constructor(
                 fun merchantCategoryCode(): String =
                     merchantCategoryCode.getRequired("merchant_category_code")
 
+                /** The identifier of the Transaction associated with this Transaction. */
+                fun transactionId(): String = transactionId.getRequired("transaction_id")
+
                 /**
                  * A constant representing the object's type. For this resource it will always be
                  * `card_refund`.
@@ -4265,6 +4222,9 @@ private constructor(
                 @ExcludeMissing
                 fun _merchantCategoryCode() = merchantCategoryCode
 
+                /** The identifier of the Transaction associated with this Transaction. */
+                @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+
                 /**
                  * A constant representing the object's type. For this resource it will always be
                  * `card_refund`.
@@ -4286,6 +4246,7 @@ private constructor(
                         merchantCountry()
                         merchantName()
                         merchantCategoryCode()
+                        transactionId()
                         type()
                         validated = true
                     }
@@ -4308,6 +4269,7 @@ private constructor(
                         this.merchantCountry == other.merchantCountry &&
                         this.merchantName == other.merchantName &&
                         this.merchantCategoryCode == other.merchantCategoryCode &&
+                        this.transactionId == other.transactionId &&
                         this.type == other.type &&
                         this.additionalProperties == other.additionalProperties
                 }
@@ -4325,6 +4287,7 @@ private constructor(
                                 merchantCountry,
                                 merchantName,
                                 merchantCategoryCode,
+                                transactionId,
                                 type,
                                 additionalProperties,
                             )
@@ -4333,7 +4296,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "CardRefund{id=$id, amount=$amount, currency=$currency, merchantAcceptorId=$merchantAcceptorId, merchantCity=$merchantCity, merchantState=$merchantState, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantCategoryCode=$merchantCategoryCode, type=$type, additionalProperties=$additionalProperties}"
+                    "CardRefund{id=$id, amount=$amount, currency=$currency, merchantAcceptorId=$merchantAcceptorId, merchantCity=$merchantCity, merchantState=$merchantState, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantCategoryCode=$merchantCategoryCode, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -4351,6 +4314,7 @@ private constructor(
                     private var merchantCountry: JsonField<String> = JsonMissing.of()
                     private var merchantName: JsonField<String> = JsonMissing.of()
                     private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
+                    private var transactionId: JsonField<String> = JsonMissing.of()
                     private var type: JsonField<Type> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -4365,6 +4329,7 @@ private constructor(
                         this.merchantCountry = cardRefund.merchantCountry
                         this.merchantName = cardRefund.merchantName
                         this.merchantCategoryCode = cardRefund.merchantCategoryCode
+                        this.transactionId = cardRefund.transactionId
                         this.type = cardRefund.type
                         additionalProperties(cardRefund.additionalProperties)
                     }
@@ -4477,6 +4442,17 @@ private constructor(
                         this.merchantCategoryCode = merchantCategoryCode
                     }
 
+                    /** The identifier of the Transaction associated with this Transaction. */
+                    fun transactionId(transactionId: String) =
+                        transactionId(JsonField.of(transactionId))
+
+                    /** The identifier of the Transaction associated with this Transaction. */
+                    @JsonProperty("transaction_id")
+                    @ExcludeMissing
+                    fun transactionId(transactionId: JsonField<String>) = apply {
+                        this.transactionId = transactionId
+                    }
+
                     /**
                      * A constant representing the object's type. For this resource it will always
                      * be `card_refund`.
@@ -4517,6 +4493,7 @@ private constructor(
                             merchantCountry,
                             merchantName,
                             merchantCategoryCode,
+                            transactionId,
                             type,
                             additionalProperties.toUnmodifiable(),
                         )
@@ -4986,6 +4963,7 @@ private constructor(
                 private val merchantCountry: JsonField<String>,
                 private val merchantName: JsonField<String>,
                 private val merchantCategoryCode: JsonField<String>,
+                private val transactionId: JsonField<String>,
                 private val pendingTransactionId: JsonField<String>,
                 private val type: JsonField<Type>,
                 private val additionalProperties: Map<String, JsonValue>,
@@ -5052,6 +5030,9 @@ private constructor(
                 /** The 4-digit MCC describing the merchant's business. */
                 fun merchantCategoryCode(): String =
                     merchantCategoryCode.getRequired("merchant_category_code")
+
+                /** The identifier of the Transaction associated with this Transaction. */
+                fun transactionId(): String = transactionId.getRequired("transaction_id")
 
                 /** The identifier of the Pending Transaction associated with this Transaction. */
                 fun pendingTransactionId(): Optional<String> =
@@ -5126,6 +5107,9 @@ private constructor(
                 @ExcludeMissing
                 fun _merchantCategoryCode() = merchantCategoryCode
 
+                /** The identifier of the Transaction associated with this Transaction. */
+                @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+
                 /** The identifier of the Pending Transaction associated with this Transaction. */
                 @JsonProperty("pending_transaction_id")
                 @ExcludeMissing
@@ -5155,6 +5139,7 @@ private constructor(
                         merchantCountry()
                         merchantName()
                         merchantCategoryCode()
+                        transactionId()
                         pendingTransactionId()
                         type()
                         validated = true
@@ -5181,6 +5166,7 @@ private constructor(
                         this.merchantCountry == other.merchantCountry &&
                         this.merchantName == other.merchantName &&
                         this.merchantCategoryCode == other.merchantCategoryCode &&
+                        this.transactionId == other.transactionId &&
                         this.pendingTransactionId == other.pendingTransactionId &&
                         this.type == other.type &&
                         this.additionalProperties == other.additionalProperties
@@ -5202,6 +5188,7 @@ private constructor(
                                 merchantCountry,
                                 merchantName,
                                 merchantCategoryCode,
+                                transactionId,
                                 pendingTransactionId,
                                 type,
                                 additionalProperties,
@@ -5211,7 +5198,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "CardSettlement{id=$id, cardAuthorization=$cardAuthorization, amount=$amount, currency=$currency, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, merchantAcceptorId=$merchantAcceptorId, merchantCity=$merchantCity, merchantState=$merchantState, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantCategoryCode=$merchantCategoryCode, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
+                    "CardSettlement{id=$id, cardAuthorization=$cardAuthorization, amount=$amount, currency=$currency, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, merchantAcceptorId=$merchantAcceptorId, merchantCity=$merchantCity, merchantState=$merchantState, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantCategoryCode=$merchantCategoryCode, transactionId=$transactionId, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -5232,6 +5219,7 @@ private constructor(
                     private var merchantCountry: JsonField<String> = JsonMissing.of()
                     private var merchantName: JsonField<String> = JsonMissing.of()
                     private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
+                    private var transactionId: JsonField<String> = JsonMissing.of()
                     private var pendingTransactionId: JsonField<String> = JsonMissing.of()
                     private var type: JsonField<Type> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -5250,6 +5238,7 @@ private constructor(
                         this.merchantCountry = cardSettlement.merchantCountry
                         this.merchantName = cardSettlement.merchantName
                         this.merchantCategoryCode = cardSettlement.merchantCategoryCode
+                        this.transactionId = cardSettlement.transactionId
                         this.pendingTransactionId = cardSettlement.pendingTransactionId
                         this.type = cardSettlement.type
                         additionalProperties(cardSettlement.additionalProperties)
@@ -5408,6 +5397,17 @@ private constructor(
                         this.merchantCategoryCode = merchantCategoryCode
                     }
 
+                    /** The identifier of the Transaction associated with this Transaction. */
+                    fun transactionId(transactionId: String) =
+                        transactionId(JsonField.of(transactionId))
+
+                    /** The identifier of the Transaction associated with this Transaction. */
+                    @JsonProperty("transaction_id")
+                    @ExcludeMissing
+                    fun transactionId(transactionId: JsonField<String>) = apply {
+                        this.transactionId = transactionId
+                    }
+
                     /**
                      * The identifier of the Pending Transaction associated with this Transaction.
                      */
@@ -5466,6 +5466,7 @@ private constructor(
                             merchantCountry,
                             merchantName,
                             merchantCategoryCode,
+                            transactionId,
                             pendingTransactionId,
                             type,
                             additionalProperties.toUnmodifiable(),
@@ -6478,6 +6479,7 @@ private constructor(
             class CheckTransferDeposit
             private constructor(
                 private val depositedAt: JsonField<OffsetDateTime>,
+                private val transactionId: JsonField<String>,
                 private val frontImageFileId: JsonField<String>,
                 private val backImageFileId: JsonField<String>,
                 private val type: JsonField<Type>,
@@ -6490,6 +6492,12 @@ private constructor(
 
                 /** When the check was deposited. */
                 fun depositedAt(): OffsetDateTime = depositedAt.getRequired("deposited_at")
+
+                /**
+                 * The identifier of the Transaction object created when the check was deposited.
+                 */
+                fun transactionId(): Optional<String> =
+                    Optional.ofNullable(transactionId.getNullable("transaction_id"))
 
                 /**
                  * The identifier of the API File object containing an image of the front of the
@@ -6513,6 +6521,11 @@ private constructor(
 
                 /** When the check was deposited. */
                 @JsonProperty("deposited_at") @ExcludeMissing fun _depositedAt() = depositedAt
+
+                /**
+                 * The identifier of the Transaction object created when the check was deposited.
+                 */
+                @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
                 /**
                  * The identifier of the API File object containing an image of the front of the
@@ -6543,6 +6556,7 @@ private constructor(
                 fun validate(): CheckTransferDeposit = apply {
                     if (!validated) {
                         depositedAt()
+                        transactionId()
                         frontImageFileId()
                         backImageFileId()
                         type()
@@ -6559,6 +6573,7 @@ private constructor(
 
                     return other is CheckTransferDeposit &&
                         this.depositedAt == other.depositedAt &&
+                        this.transactionId == other.transactionId &&
                         this.frontImageFileId == other.frontImageFileId &&
                         this.backImageFileId == other.backImageFileId &&
                         this.type == other.type &&
@@ -6570,6 +6585,7 @@ private constructor(
                         hashCode =
                             Objects.hash(
                                 depositedAt,
+                                transactionId,
                                 frontImageFileId,
                                 backImageFileId,
                                 type,
@@ -6580,7 +6596,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "CheckTransferDeposit{depositedAt=$depositedAt, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, type=$type, additionalProperties=$additionalProperties}"
+                    "CheckTransferDeposit{depositedAt=$depositedAt, transactionId=$transactionId, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, type=$type, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -6590,6 +6606,7 @@ private constructor(
                 class Builder {
 
                     private var depositedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+                    private var transactionId: JsonField<String> = JsonMissing.of()
                     private var frontImageFileId: JsonField<String> = JsonMissing.of()
                     private var backImageFileId: JsonField<String> = JsonMissing.of()
                     private var type: JsonField<Type> = JsonMissing.of()
@@ -6598,6 +6615,7 @@ private constructor(
                     @JvmSynthetic
                     internal fun from(checkTransferDeposit: CheckTransferDeposit) = apply {
                         this.depositedAt = checkTransferDeposit.depositedAt
+                        this.transactionId = checkTransferDeposit.transactionId
                         this.frontImageFileId = checkTransferDeposit.frontImageFileId
                         this.backImageFileId = checkTransferDeposit.backImageFileId
                         this.type = checkTransferDeposit.type
@@ -6613,6 +6631,23 @@ private constructor(
                     @ExcludeMissing
                     fun depositedAt(depositedAt: JsonField<OffsetDateTime>) = apply {
                         this.depositedAt = depositedAt
+                    }
+
+                    /**
+                     * The identifier of the Transaction object created when the check was
+                     * deposited.
+                     */
+                    fun transactionId(transactionId: String) =
+                        transactionId(JsonField.of(transactionId))
+
+                    /**
+                     * The identifier of the Transaction object created when the check was
+                     * deposited.
+                     */
+                    @JsonProperty("transaction_id")
+                    @ExcludeMissing
+                    fun transactionId(transactionId: JsonField<String>) = apply {
+                        this.transactionId = transactionId
                     }
 
                     /**
@@ -6681,6 +6716,7 @@ private constructor(
                     fun build(): CheckTransferDeposit =
                         CheckTransferDeposit(
                             depositedAt,
+                            transactionId,
                             frontImageFileId,
                             backImageFileId,
                             type,
@@ -7236,297 +7272,6 @@ private constructor(
             }
 
             /**
-             * A Check Transfer Return object. This field will be present in the JSON response if
-             * and only if `category` is equal to `check_transfer_return`.
-             */
-            @JsonDeserialize(builder = CheckTransferReturn.Builder::class)
-            @NoAutoDetect
-            class CheckTransferReturn
-            private constructor(
-                private val transferId: JsonField<String>,
-                private val returnedAt: JsonField<OffsetDateTime>,
-                private val fileId: JsonField<String>,
-                private val reason: JsonField<Reason>,
-                private val transactionId: JsonField<String>,
-                private val additionalProperties: Map<String, JsonValue>,
-            ) {
-
-                private var validated: Boolean = false
-
-                private var hashCode: Int = 0
-
-                /** The identifier of the returned Check Transfer. */
-                fun transferId(): String = transferId.getRequired("transfer_id")
-
-                /**
-                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-                 * check was returned.
-                 */
-                fun returnedAt(): OffsetDateTime = returnedAt.getRequired("returned_at")
-
-                /** If available, a document with additional information about the return. */
-                fun fileId(): Optional<String> = Optional.ofNullable(fileId.getNullable("file_id"))
-
-                /** The reason why the check was returned. */
-                fun reason(): Reason = reason.getRequired("reason")
-
-                /**
-                 * The identifier of the Transaction that was created to credit you for the returned
-                 * check.
-                 */
-                fun transactionId(): Optional<String> =
-                    Optional.ofNullable(transactionId.getNullable("transaction_id"))
-
-                /** The identifier of the returned Check Transfer. */
-                @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
-
-                /**
-                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-                 * check was returned.
-                 */
-                @JsonProperty("returned_at") @ExcludeMissing fun _returnedAt() = returnedAt
-
-                /** If available, a document with additional information about the return. */
-                @JsonProperty("file_id") @ExcludeMissing fun _fileId() = fileId
-
-                /** The reason why the check was returned. */
-                @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
-
-                /**
-                 * The identifier of the Transaction that was created to credit you for the returned
-                 * check.
-                 */
-                @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                fun validate(): CheckTransferReturn = apply {
-                    if (!validated) {
-                        transferId()
-                        returnedAt()
-                        fileId()
-                        reason()
-                        transactionId()
-                        validated = true
-                    }
-                }
-
-                fun toBuilder() = Builder().from(this)
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is CheckTransferReturn &&
-                        this.transferId == other.transferId &&
-                        this.returnedAt == other.returnedAt &&
-                        this.fileId == other.fileId &&
-                        this.reason == other.reason &&
-                        this.transactionId == other.transactionId &&
-                        this.additionalProperties == other.additionalProperties
-                }
-
-                override fun hashCode(): Int {
-                    if (hashCode == 0) {
-                        hashCode =
-                            Objects.hash(
-                                transferId,
-                                returnedAt,
-                                fileId,
-                                reason,
-                                transactionId,
-                                additionalProperties,
-                            )
-                    }
-                    return hashCode
-                }
-
-                override fun toString() =
-                    "CheckTransferReturn{transferId=$transferId, returnedAt=$returnedAt, fileId=$fileId, reason=$reason, transactionId=$transactionId, additionalProperties=$additionalProperties}"
-
-                companion object {
-
-                    @JvmStatic fun builder() = Builder()
-                }
-
-                class Builder {
-
-                    private var transferId: JsonField<String> = JsonMissing.of()
-                    private var returnedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-                    private var fileId: JsonField<String> = JsonMissing.of()
-                    private var reason: JsonField<Reason> = JsonMissing.of()
-                    private var transactionId: JsonField<String> = JsonMissing.of()
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    @JvmSynthetic
-                    internal fun from(checkTransferReturn: CheckTransferReturn) = apply {
-                        this.transferId = checkTransferReturn.transferId
-                        this.returnedAt = checkTransferReturn.returnedAt
-                        this.fileId = checkTransferReturn.fileId
-                        this.reason = checkTransferReturn.reason
-                        this.transactionId = checkTransferReturn.transactionId
-                        additionalProperties(checkTransferReturn.additionalProperties)
-                    }
-
-                    /** The identifier of the returned Check Transfer. */
-                    fun transferId(transferId: String) = transferId(JsonField.of(transferId))
-
-                    /** The identifier of the returned Check Transfer. */
-                    @JsonProperty("transfer_id")
-                    @ExcludeMissing
-                    fun transferId(transferId: JsonField<String>) = apply {
-                        this.transferId = transferId
-                    }
-
-                    /**
-                     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-                     * the check was returned.
-                     */
-                    fun returnedAt(returnedAt: OffsetDateTime) =
-                        returnedAt(JsonField.of(returnedAt))
-
-                    /**
-                     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-                     * the check was returned.
-                     */
-                    @JsonProperty("returned_at")
-                    @ExcludeMissing
-                    fun returnedAt(returnedAt: JsonField<OffsetDateTime>) = apply {
-                        this.returnedAt = returnedAt
-                    }
-
-                    /** If available, a document with additional information about the return. */
-                    fun fileId(fileId: String) = fileId(JsonField.of(fileId))
-
-                    /** If available, a document with additional information about the return. */
-                    @JsonProperty("file_id")
-                    @ExcludeMissing
-                    fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
-
-                    /** The reason why the check was returned. */
-                    fun reason(reason: Reason) = reason(JsonField.of(reason))
-
-                    /** The reason why the check was returned. */
-                    @JsonProperty("reason")
-                    @ExcludeMissing
-                    fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
-
-                    /**
-                     * The identifier of the Transaction that was created to credit you for the
-                     * returned check.
-                     */
-                    fun transactionId(transactionId: String) =
-                        transactionId(JsonField.of(transactionId))
-
-                    /**
-                     * The identifier of the Transaction that was created to credit you for the
-                     * returned check.
-                     */
-                    @JsonProperty("transaction_id")
-                    @ExcludeMissing
-                    fun transactionId(transactionId: JsonField<String>) = apply {
-                        this.transactionId = transactionId
-                    }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                    @JsonAnySetter
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        this.additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun build(): CheckTransferReturn =
-                        CheckTransferReturn(
-                            transferId,
-                            returnedAt,
-                            fileId,
-                            reason,
-                            transactionId,
-                            additionalProperties.toUnmodifiable(),
-                        )
-                }
-
-                class Reason
-                @JsonCreator
-                private constructor(
-                    private val value: JsonField<String>,
-                ) {
-
-                    @com.fasterxml.jackson.annotation.JsonValue
-                    fun _value(): JsonField<String> = value
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is Reason && this.value == other.value
-                    }
-
-                    override fun hashCode() = value.hashCode()
-
-                    override fun toString() = value.toString()
-
-                    companion object {
-
-                        @JvmField
-                        val MAIL_DELIVERY_FAILURE = Reason(JsonField.of("mail_delivery_failure"))
-
-                        @JvmField
-                        val REFUSED_BY_RECIPIENT = Reason(JsonField.of("refused_by_recipient"))
-
-                        @JvmField
-                        val RETURNED_NOT_AUTHORIZED =
-                            Reason(JsonField.of("returned_not_authorized"))
-
-                        @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
-                    }
-
-                    enum class Known {
-                        MAIL_DELIVERY_FAILURE,
-                        REFUSED_BY_RECIPIENT,
-                        RETURNED_NOT_AUTHORIZED,
-                    }
-
-                    enum class Value {
-                        MAIL_DELIVERY_FAILURE,
-                        REFUSED_BY_RECIPIENT,
-                        RETURNED_NOT_AUTHORIZED,
-                        _UNKNOWN,
-                    }
-
-                    fun value(): Value =
-                        when (this) {
-                            MAIL_DELIVERY_FAILURE -> Value.MAIL_DELIVERY_FAILURE
-                            REFUSED_BY_RECIPIENT -> Value.REFUSED_BY_RECIPIENT
-                            RETURNED_NOT_AUTHORIZED -> Value.RETURNED_NOT_AUTHORIZED
-                            else -> Value._UNKNOWN
-                        }
-
-                    fun known(): Known =
-                        when (this) {
-                            MAIL_DELIVERY_FAILURE -> Known.MAIL_DELIVERY_FAILURE
-                            REFUSED_BY_RECIPIENT -> Known.REFUSED_BY_RECIPIENT
-                            RETURNED_NOT_AUTHORIZED -> Known.RETURNED_NOT_AUTHORIZED
-                            else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
-                        }
-
-                    fun asString(): String = _value().asStringOrThrow()
-                }
-            }
-
-            /**
              * A Check Transfer Stop Payment Request object. This field will be present in the JSON
              * response if and only if `category` is equal to `check_transfer_stop_payment_request`.
              */
@@ -7535,7 +7280,7 @@ private constructor(
             class CheckTransferStopPaymentRequest
             private constructor(
                 private val transferId: JsonField<String>,
-                private val transactionId: JsonField<String>,
+                private val reason: JsonField<Reason>,
                 private val requestedAt: JsonField<OffsetDateTime>,
                 private val type: JsonField<Type>,
                 private val additionalProperties: Map<String, JsonValue>,
@@ -7548,8 +7293,8 @@ private constructor(
                 /** The ID of the check transfer that was stopped. */
                 fun transferId(): String = transferId.getRequired("transfer_id")
 
-                /** The transaction ID of the corresponding credit transaction. */
-                fun transactionId(): String = transactionId.getRequired("transaction_id")
+                /** The reason why this transfer was stopped. */
+                fun reason(): Reason = reason.getRequired("reason")
 
                 /** The time the stop-payment was requested. */
                 fun requestedAt(): OffsetDateTime = requestedAt.getRequired("requested_at")
@@ -7563,8 +7308,8 @@ private constructor(
                 /** The ID of the check transfer that was stopped. */
                 @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
 
-                /** The transaction ID of the corresponding credit transaction. */
-                @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+                /** The reason why this transfer was stopped. */
+                @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
 
                 /** The time the stop-payment was requested. */
                 @JsonProperty("requested_at") @ExcludeMissing fun _requestedAt() = requestedAt
@@ -7582,7 +7327,7 @@ private constructor(
                 fun validate(): CheckTransferStopPaymentRequest = apply {
                     if (!validated) {
                         transferId()
-                        transactionId()
+                        reason()
                         requestedAt()
                         type()
                         validated = true
@@ -7598,7 +7343,7 @@ private constructor(
 
                     return other is CheckTransferStopPaymentRequest &&
                         this.transferId == other.transferId &&
-                        this.transactionId == other.transactionId &&
+                        this.reason == other.reason &&
                         this.requestedAt == other.requestedAt &&
                         this.type == other.type &&
                         this.additionalProperties == other.additionalProperties
@@ -7609,7 +7354,7 @@ private constructor(
                         hashCode =
                             Objects.hash(
                                 transferId,
-                                transactionId,
+                                reason,
                                 requestedAt,
                                 type,
                                 additionalProperties,
@@ -7619,7 +7364,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "CheckTransferStopPaymentRequest{transferId=$transferId, transactionId=$transactionId, requestedAt=$requestedAt, type=$type, additionalProperties=$additionalProperties}"
+                    "CheckTransferStopPaymentRequest{transferId=$transferId, reason=$reason, requestedAt=$requestedAt, type=$type, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -7629,7 +7374,7 @@ private constructor(
                 class Builder {
 
                     private var transferId: JsonField<String> = JsonMissing.of()
-                    private var transactionId: JsonField<String> = JsonMissing.of()
+                    private var reason: JsonField<Reason> = JsonMissing.of()
                     private var requestedAt: JsonField<OffsetDateTime> = JsonMissing.of()
                     private var type: JsonField<Type> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -7639,7 +7384,7 @@ private constructor(
                         checkTransferStopPaymentRequest: CheckTransferStopPaymentRequest
                     ) = apply {
                         this.transferId = checkTransferStopPaymentRequest.transferId
-                        this.transactionId = checkTransferStopPaymentRequest.transactionId
+                        this.reason = checkTransferStopPaymentRequest.reason
                         this.requestedAt = checkTransferStopPaymentRequest.requestedAt
                         this.type = checkTransferStopPaymentRequest.type
                         additionalProperties(checkTransferStopPaymentRequest.additionalProperties)
@@ -7655,16 +7400,13 @@ private constructor(
                         this.transferId = transferId
                     }
 
-                    /** The transaction ID of the corresponding credit transaction. */
-                    fun transactionId(transactionId: String) =
-                        transactionId(JsonField.of(transactionId))
+                    /** The reason why this transfer was stopped. */
+                    fun reason(reason: Reason) = reason(JsonField.of(reason))
 
-                    /** The transaction ID of the corresponding credit transaction. */
-                    @JsonProperty("transaction_id")
+                    /** The reason why this transfer was stopped. */
+                    @JsonProperty("reason")
                     @ExcludeMissing
-                    fun transactionId(transactionId: JsonField<String>) = apply {
-                        this.transactionId = transactionId
-                    }
+                    fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
                     /** The time the stop-payment was requested. */
                     fun requestedAt(requestedAt: OffsetDateTime) =
@@ -7709,11 +7451,70 @@ private constructor(
                     fun build(): CheckTransferStopPaymentRequest =
                         CheckTransferStopPaymentRequest(
                             transferId,
-                            transactionId,
+                            reason,
                             requestedAt,
                             type,
                             additionalProperties.toUnmodifiable(),
                         )
+                }
+
+                class Reason
+                @JsonCreator
+                private constructor(
+                    private val value: JsonField<String>,
+                ) {
+
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Reason && this.value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+
+                    companion object {
+
+                        @JvmField
+                        val MAIL_DELIVERY_FAILED = Reason(JsonField.of("mail_delivery_failed"))
+
+                        @JvmField val UNKNOWN = Reason(JsonField.of("unknown"))
+
+                        @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
+                    }
+
+                    enum class Known {
+                        MAIL_DELIVERY_FAILED,
+                        UNKNOWN,
+                    }
+
+                    enum class Value {
+                        MAIL_DELIVERY_FAILED,
+                        UNKNOWN,
+                        _UNKNOWN,
+                    }
+
+                    fun value(): Value =
+                        when (this) {
+                            MAIL_DELIVERY_FAILED -> Value.MAIL_DELIVERY_FAILED
+                            UNKNOWN -> Value.UNKNOWN
+                            else -> Value._UNKNOWN
+                        }
+
+                    fun known(): Known =
+                        when (this) {
+                            MAIL_DELIVERY_FAILED -> Known.MAIL_DELIVERY_FAILED
+                            UNKNOWN -> Known.UNKNOWN
+                            else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
+                        }
+
+                    fun asString(): String = _value().asStringOrThrow()
                 }
 
                 class Type

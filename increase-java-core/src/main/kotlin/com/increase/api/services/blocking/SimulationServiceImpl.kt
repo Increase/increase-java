@@ -11,6 +11,8 @@ import com.increase.api.services.blocking.simulations.AchTransferService
 import com.increase.api.services.blocking.simulations.AchTransferServiceImpl
 import com.increase.api.services.blocking.simulations.CardDisputeService
 import com.increase.api.services.blocking.simulations.CardDisputeServiceImpl
+import com.increase.api.services.blocking.simulations.CardProfileService
+import com.increase.api.services.blocking.simulations.CardProfileServiceImpl
 import com.increase.api.services.blocking.simulations.CardRefundService
 import com.increase.api.services.blocking.simulations.CardRefundServiceImpl
 import com.increase.api.services.blocking.simulations.CardService
@@ -53,6 +55,8 @@ constructor(
     private val achTransfers: AchTransferService by lazy { AchTransferServiceImpl(clientOptions) }
 
     private val cardDisputes: CardDisputeService by lazy { CardDisputeServiceImpl(clientOptions) }
+
+    private val cardProfiles: CardProfileService by lazy { CardProfileServiceImpl(clientOptions) }
 
     private val cardRefunds: CardRefundService by lazy { CardRefundServiceImpl(clientOptions) }
 
@@ -97,6 +101,8 @@ constructor(
     override fun achTransfers(): AchTransferService = achTransfers
 
     override fun cardDisputes(): CardDisputeService = cardDisputes
+
+    override fun cardProfiles(): CardProfileService = cardProfiles
 
     override fun cardRefunds(): CardRefundService = cardRefunds
 
