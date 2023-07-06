@@ -9,7 +9,6 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.CheckTransfer
 import com.increase.api.models.SimulationCheckTransferDepositParams
 import com.increase.api.models.SimulationCheckTransferMailParams
-import com.increase.api.models.SimulationCheckTransferReturnParams
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
@@ -82,37 +81,6 @@ constructor(
         return clientOptions.httpClient.execute(request, requestOptions).let { response ->
             response
                 .let { mailHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
-                }
-        }
-    }
-
-    private val returnHandler: Handler<CheckTransfer> =
-        jsonHandler<CheckTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
-
-    /**
-     * Simulates a [Check Transfer](#check-transfers) being returned via USPS to Increase. This
-     * transfer must first have a `status` of `mailed`.
-     */
-    override fun return_(
-        params: SimulationCheckTransferReturnParams,
-        requestOptions: RequestOptions
-    ): CheckTransfer {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.POST)
-                .addPathSegments("simulations", "check_transfers", params.getPathParam(0), "return")
-                .putAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers)
-                .putAllHeaders(params.getHeaders())
-                .body(json(clientOptions.jsonMapper, params.getBody()))
-                .build()
-        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
-            response
-                .let { returnHandler.handle(it) }
                 .apply {
                     if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
                         validate()

@@ -6,6 +6,7 @@ import com.increase.api.services.blocking.simulations.AccountStatementService
 import com.increase.api.services.blocking.simulations.AccountTransferService
 import com.increase.api.services.blocking.simulations.AchTransferService
 import com.increase.api.services.blocking.simulations.CardDisputeService
+import com.increase.api.services.blocking.simulations.CardProfileService
 import com.increase.api.services.blocking.simulations.CardRefundService
 import com.increase.api.services.blocking.simulations.CardService
 import com.increase.api.services.blocking.simulations.CheckDepositService
@@ -27,6 +28,8 @@ interface SimulationService {
     fun achTransfers(): AchTransferService
 
     fun cardDisputes(): CardDisputeService
+
+    fun cardProfiles(): CardProfileService
 
     fun cardRefunds(): CardRefundService
 
