@@ -76,6 +76,7 @@ class TransactionTest {
                                 .merchantCountry("string")
                                 .merchantName("string")
                                 .merchantCategoryCode("string")
+                                .transactionId("string")
                                 .type(Transaction.Source.CardRefund.Type.CARD_REFUND)
                                 .build()
                         )
@@ -102,6 +103,7 @@ class TransactionTest {
                                 .merchantCountry("string")
                                 .merchantName("string")
                                 .merchantCategoryCode("string")
+                                .transactionId("string")
                                 .pendingTransactionId("string")
                                 .type(Transaction.Source.CardSettlement.Type.CARD_SETTLEMENT)
                                 .build()
@@ -133,6 +135,7 @@ class TransactionTest {
                         .checkTransferDeposit(
                             Transaction.Source.CheckTransferDeposit.builder()
                                 .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .transactionId("string")
                                 .frontImageFileId("string")
                                 .backImageFileId("string")
                                 .type(
@@ -159,22 +162,13 @@ class TransactionTest {
                                 .transferId("string")
                                 .build()
                         )
-                        .checkTransferReturn(
-                            Transaction.Source.CheckTransferReturn.builder()
-                                .transferId("string")
-                                .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .fileId("string")
-                                .reason(
-                                    Transaction.Source.CheckTransferReturn.Reason
-                                        .MAIL_DELIVERY_FAILURE
-                                )
-                                .transactionId("string")
-                                .build()
-                        )
                         .checkTransferStopPaymentRequest(
                             Transaction.Source.CheckTransferStopPaymentRequest.builder()
                                 .transferId("string")
-                                .transactionId("string")
+                                .reason(
+                                    Transaction.Source.CheckTransferStopPaymentRequest.Reason
+                                        .MAIL_DELIVERY_FAILED
+                                )
                                 .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .type(
                                     Transaction.Source.CheckTransferStopPaymentRequest.Type
@@ -451,6 +445,7 @@ class TransactionTest {
                             .merchantCountry("string")
                             .merchantName("string")
                             .merchantCategoryCode("string")
+                            .transactionId("string")
                             .type(Transaction.Source.CardRefund.Type.CARD_REFUND)
                             .build()
                     )
@@ -477,6 +472,7 @@ class TransactionTest {
                             .merchantCountry("string")
                             .merchantName("string")
                             .merchantCategoryCode("string")
+                            .transactionId("string")
                             .pendingTransactionId("string")
                             .type(Transaction.Source.CardSettlement.Type.CARD_SETTLEMENT)
                             .build()
@@ -508,6 +504,7 @@ class TransactionTest {
                     .checkTransferDeposit(
                         Transaction.Source.CheckTransferDeposit.builder()
                             .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .transactionId("string")
                             .frontImageFileId("string")
                             .backImageFileId("string")
                             .type(
@@ -533,21 +530,13 @@ class TransactionTest {
                             .transferId("string")
                             .build()
                     )
-                    .checkTransferReturn(
-                        Transaction.Source.CheckTransferReturn.builder()
-                            .transferId("string")
-                            .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .fileId("string")
-                            .reason(
-                                Transaction.Source.CheckTransferReturn.Reason.MAIL_DELIVERY_FAILURE
-                            )
-                            .transactionId("string")
-                            .build()
-                    )
                     .checkTransferStopPaymentRequest(
                         Transaction.Source.CheckTransferStopPaymentRequest.builder()
                             .transferId("string")
-                            .transactionId("string")
+                            .reason(
+                                Transaction.Source.CheckTransferStopPaymentRequest.Reason
+                                    .MAIL_DELIVERY_FAILED
+                            )
                             .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .type(
                                 Transaction.Source.CheckTransferStopPaymentRequest.Type

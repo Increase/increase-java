@@ -11,6 +11,8 @@ import com.increase.api.services.async.simulations.AchTransferServiceAsync
 import com.increase.api.services.async.simulations.AchTransferServiceAsyncImpl
 import com.increase.api.services.async.simulations.CardDisputeServiceAsync
 import com.increase.api.services.async.simulations.CardDisputeServiceAsyncImpl
+import com.increase.api.services.async.simulations.CardProfileServiceAsync
+import com.increase.api.services.async.simulations.CardProfileServiceAsyncImpl
 import com.increase.api.services.async.simulations.CardRefundServiceAsync
 import com.increase.api.services.async.simulations.CardRefundServiceAsyncImpl
 import com.increase.api.services.async.simulations.CardServiceAsync
@@ -58,6 +60,10 @@ constructor(
         CardDisputeServiceAsyncImpl(clientOptions)
     }
 
+    private val cardProfiles: CardProfileServiceAsync by lazy {
+        CardProfileServiceAsyncImpl(clientOptions)
+    }
+
     private val cardRefunds: CardRefundServiceAsync by lazy {
         CardRefundServiceAsyncImpl(clientOptions)
     }
@@ -103,6 +109,8 @@ constructor(
     override fun achTransfers(): AchTransferServiceAsync = achTransfers
 
     override fun cardDisputes(): CardDisputeServiceAsync = cardDisputes
+
+    override fun cardProfiles(): CardProfileServiceAsync = cardProfiles
 
     override fun cardRefunds(): CardRefundServiceAsync = cardRefunds
 

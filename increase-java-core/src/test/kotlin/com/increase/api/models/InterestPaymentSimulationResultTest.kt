@@ -108,6 +108,7 @@ class InterestPaymentSimulationResultTest {
                                         .merchantCountry("string")
                                         .merchantName("string")
                                         .merchantCategoryCode("string")
+                                        .transactionId("string")
                                         .type(
                                             InterestPaymentSimulationResult.Transaction.Source
                                                 .CardRefund
@@ -155,6 +156,7 @@ class InterestPaymentSimulationResultTest {
                                         .merchantCountry("string")
                                         .merchantName("string")
                                         .merchantCategoryCode("string")
+                                        .transactionId("string")
                                         .pendingTransactionId("string")
                                         .type(
                                             InterestPaymentSimulationResult.Transaction.Source
@@ -213,6 +215,7 @@ class InterestPaymentSimulationResultTest {
                                         .depositedAt(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
+                                        .transactionId("string")
                                         .frontImageFileId("string")
                                         .backImageFileId("string")
                                         .type(
@@ -250,30 +253,17 @@ class InterestPaymentSimulationResultTest {
                                         .transferId("string")
                                         .build()
                                 )
-                                .checkTransferReturn(
-                                    InterestPaymentSimulationResult.Transaction.Source
-                                        .CheckTransferReturn
-                                        .builder()
-                                        .transferId("string")
-                                        .returnedAt(
-                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
-                                        )
-                                        .fileId("string")
-                                        .reason(
-                                            InterestPaymentSimulationResult.Transaction.Source
-                                                .CheckTransferReturn
-                                                .Reason
-                                                .MAIL_DELIVERY_FAILURE
-                                        )
-                                        .transactionId("string")
-                                        .build()
-                                )
                                 .checkTransferStopPaymentRequest(
                                     InterestPaymentSimulationResult.Transaction.Source
                                         .CheckTransferStopPaymentRequest
                                         .builder()
                                         .transferId("string")
-                                        .transactionId("string")
+                                        .reason(
+                                            InterestPaymentSimulationResult.Transaction.Source
+                                                .CheckTransferStopPaymentRequest
+                                                .Reason
+                                                .MAIL_DELIVERY_FAILED
+                                        )
                                         .requestedAt(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
@@ -652,6 +642,7 @@ class InterestPaymentSimulationResultTest {
                                     .merchantCountry("string")
                                     .merchantName("string")
                                     .merchantCategoryCode("string")
+                                    .transactionId("string")
                                     .type(
                                         InterestPaymentSimulationResult.Transaction.Source
                                             .CardRefund
@@ -696,6 +687,7 @@ class InterestPaymentSimulationResultTest {
                                     .merchantCountry("string")
                                     .merchantName("string")
                                     .merchantCategoryCode("string")
+                                    .transactionId("string")
                                     .pendingTransactionId("string")
                                     .type(
                                         InterestPaymentSimulationResult.Transaction.Source
@@ -750,6 +742,7 @@ class InterestPaymentSimulationResultTest {
                                     .CheckTransferDeposit
                                     .builder()
                                     .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .transactionId("string")
                                     .frontImageFileId("string")
                                     .backImageFileId("string")
                                     .type(
@@ -787,28 +780,17 @@ class InterestPaymentSimulationResultTest {
                                     .transferId("string")
                                     .build()
                             )
-                            .checkTransferReturn(
-                                InterestPaymentSimulationResult.Transaction.Source
-                                    .CheckTransferReturn
-                                    .builder()
-                                    .transferId("string")
-                                    .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .fileId("string")
-                                    .reason(
-                                        InterestPaymentSimulationResult.Transaction.Source
-                                            .CheckTransferReturn
-                                            .Reason
-                                            .MAIL_DELIVERY_FAILURE
-                                    )
-                                    .transactionId("string")
-                                    .build()
-                            )
                             .checkTransferStopPaymentRequest(
                                 InterestPaymentSimulationResult.Transaction.Source
                                     .CheckTransferStopPaymentRequest
                                     .builder()
                                     .transferId("string")
-                                    .transactionId("string")
+                                    .reason(
+                                        InterestPaymentSimulationResult.Transaction.Source
+                                            .CheckTransferStopPaymentRequest
+                                            .Reason
+                                            .MAIL_DELIVERY_FAILED
+                                    )
                                     .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .type(
                                         InterestPaymentSimulationResult.Transaction.Source

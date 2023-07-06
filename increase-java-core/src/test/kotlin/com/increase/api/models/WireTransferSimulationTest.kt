@@ -100,6 +100,7 @@ class WireTransferSimulationTest {
                                         .merchantCountry("string")
                                         .merchantName("string")
                                         .merchantCategoryCode("string")
+                                        .transactionId("string")
                                         .type(
                                             WireTransferSimulation.Transaction.Source.CardRefund
                                                 .Type
@@ -143,6 +144,7 @@ class WireTransferSimulationTest {
                                         .merchantCountry("string")
                                         .merchantName("string")
                                         .merchantCategoryCode("string")
+                                        .transactionId("string")
                                         .pendingTransactionId("string")
                                         .type(
                                             WireTransferSimulation.Transaction.Source.CardSettlement
@@ -197,6 +199,7 @@ class WireTransferSimulationTest {
                                         .depositedAt(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
+                                        .transactionId("string")
                                         .frontImageFileId("string")
                                         .backImageFileId("string")
                                         .type(
@@ -232,29 +235,17 @@ class WireTransferSimulationTest {
                                         .transferId("string")
                                         .build()
                                 )
-                                .checkTransferReturn(
-                                    WireTransferSimulation.Transaction.Source.CheckTransferReturn
-                                        .builder()
-                                        .transferId("string")
-                                        .returnedAt(
-                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
-                                        )
-                                        .fileId("string")
-                                        .reason(
-                                            WireTransferSimulation.Transaction.Source
-                                                .CheckTransferReturn
-                                                .Reason
-                                                .MAIL_DELIVERY_FAILURE
-                                        )
-                                        .transactionId("string")
-                                        .build()
-                                )
                                 .checkTransferStopPaymentRequest(
                                     WireTransferSimulation.Transaction.Source
                                         .CheckTransferStopPaymentRequest
                                         .builder()
                                         .transferId("string")
-                                        .transactionId("string")
+                                        .reason(
+                                            WireTransferSimulation.Transaction.Source
+                                                .CheckTransferStopPaymentRequest
+                                                .Reason
+                                                .MAIL_DELIVERY_FAILED
+                                        )
                                         .requestedAt(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
@@ -612,6 +603,7 @@ class WireTransferSimulationTest {
                                     .merchantCountry("string")
                                     .merchantName("string")
                                     .merchantCategoryCode("string")
+                                    .transactionId("string")
                                     .type(
                                         WireTransferSimulation.Transaction.Source.CardRefund.Type
                                             .CARD_REFUND
@@ -650,6 +642,7 @@ class WireTransferSimulationTest {
                                     .merchantCountry("string")
                                     .merchantName("string")
                                     .merchantCategoryCode("string")
+                                    .transactionId("string")
                                     .pendingTransactionId("string")
                                     .type(
                                         WireTransferSimulation.Transaction.Source.CardSettlement
@@ -698,6 +691,7 @@ class WireTransferSimulationTest {
                                 WireTransferSimulation.Transaction.Source.CheckTransferDeposit
                                     .builder()
                                     .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .transactionId("string")
                                     .frontImageFileId("string")
                                     .backImageFileId("string")
                                     .type(
@@ -733,27 +727,17 @@ class WireTransferSimulationTest {
                                     .transferId("string")
                                     .build()
                             )
-                            .checkTransferReturn(
-                                WireTransferSimulation.Transaction.Source.CheckTransferReturn
-                                    .builder()
-                                    .transferId("string")
-                                    .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .fileId("string")
-                                    .reason(
-                                        WireTransferSimulation.Transaction.Source
-                                            .CheckTransferReturn
-                                            .Reason
-                                            .MAIL_DELIVERY_FAILURE
-                                    )
-                                    .transactionId("string")
-                                    .build()
-                            )
                             .checkTransferStopPaymentRequest(
                                 WireTransferSimulation.Transaction.Source
                                     .CheckTransferStopPaymentRequest
                                     .builder()
                                     .transferId("string")
-                                    .transactionId("string")
+                                    .reason(
+                                        WireTransferSimulation.Transaction.Source
+                                            .CheckTransferStopPaymentRequest
+                                            .Reason
+                                            .MAIL_DELIVERY_FAILED
+                                    )
                                     .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .type(
                                         WireTransferSimulation.Transaction.Source

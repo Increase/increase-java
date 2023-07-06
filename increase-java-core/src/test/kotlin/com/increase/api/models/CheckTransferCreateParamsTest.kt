@@ -10,6 +10,7 @@ class CheckTransferCreateParamsTest {
     fun createCheckTransferCreateParams() {
         CheckTransferCreateParams.builder()
             .accountId("string")
+            .sourceAccountNumberId("string")
             .addressLine1("x")
             .addressLine2("x")
             .addressCity("x")
@@ -38,6 +39,7 @@ class CheckTransferCreateParamsTest {
         val params =
             CheckTransferCreateParams.builder()
                 .accountId("string")
+                .sourceAccountNumberId("string")
                 .addressLine1("x")
                 .addressLine2("x")
                 .addressCity("x")
@@ -62,6 +64,7 @@ class CheckTransferCreateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("string")
+        assertThat(body.sourceAccountNumberId()).isEqualTo("string")
         assertThat(body.addressLine1()).isEqualTo("x")
         assertThat(body.addressLine2()).isEqualTo("x")
         assertThat(body.addressCity()).isEqualTo("x")
