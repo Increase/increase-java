@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.6.0](https://github.com/Increase/increase-java/compare/v0.5.0...v0.6.0) (2023-07-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** add card profiles simulation method ([#25](https://github.com/Increase/increase-java/issues/25))
+
+### Features
+
+* **api:** add card profiles simulation method ([#25](https://github.com/Increase/increase-java/issues/25)) ([b7c7d75](https://github.com/Increase/increase-java/commit/b7c7d75ebbda9ef01eff6ebf60f950daeac01902))
+
 ## [0.5.0](https://github.com/Increase/increase-java/compare/v0.4.1...v0.5.0) (2023-06-29)
 
 
