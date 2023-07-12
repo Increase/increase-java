@@ -29,6 +29,7 @@ class RealTimePaymentsTransferServiceTest {
                     .creditorName("x")
                     .remittanceInformation("x")
                     .requireApproval(true)
+                    .uniqueIdentifier("x")
                     .build()
             )
         println(realTimePaymentsTransfer)

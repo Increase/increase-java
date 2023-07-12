@@ -20,6 +20,7 @@ class WireTransferCreateParamsTest {
             .beneficiaryAddressLine2("x")
             .beneficiaryAddressLine3("x")
             .requireApproval(true)
+            .uniqueIdentifier("x")
             .build()
     }
 
@@ -38,6 +39,7 @@ class WireTransferCreateParamsTest {
                 .beneficiaryAddressLine2("x")
                 .beneficiaryAddressLine3("x")
                 .requireApproval(true)
+                .uniqueIdentifier("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -52,6 +54,7 @@ class WireTransferCreateParamsTest {
         assertThat(body.beneficiaryAddressLine2()).isEqualTo("x")
         assertThat(body.beneficiaryAddressLine3()).isEqualTo("x")
         assertThat(body.requireApproval()).isEqualTo(true)
+        assertThat(body.uniqueIdentifier()).isEqualTo("x")
     }
 
     @Test

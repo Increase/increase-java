@@ -47,6 +47,7 @@ private constructor(
     private val submission: JsonField<Submission>,
     private val stopPaymentRequest: JsonField<StopPaymentRequest>,
     private val deposit: JsonField<Deposit>,
+    private val uniqueIdentifier: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -159,6 +160,10 @@ private constructor(
     /** After a check transfer is deposited, this will contain supplemental details. */
     fun deposit(): Optional<Deposit> = Optional.ofNullable(deposit.getNullable("deposit"))
 
+    /** The unique identifier you chose for this transfer. */
+    fun uniqueIdentifier(): Optional<String> =
+        Optional.ofNullable(uniqueIdentifier.getNullable("unique_identifier"))
+
     /**
      * A constant representing the object's type. For this resource it will always be
      * `check_transfer`.
@@ -263,6 +268,9 @@ private constructor(
     /** After a check transfer is deposited, this will contain supplemental details. */
     @JsonProperty("deposit") @ExcludeMissing fun _deposit() = deposit
 
+    /** The unique identifier you chose for this transfer. */
+    @JsonProperty("unique_identifier") @ExcludeMissing fun _uniqueIdentifier() = uniqueIdentifier
+
     /**
      * A constant representing the object's type. For this resource it will always be
      * `check_transfer`.
@@ -301,6 +309,7 @@ private constructor(
             submission().map { it.validate() }
             stopPaymentRequest().map { it.validate() }
             deposit().map { it.validate() }
+            uniqueIdentifier()
             type()
             validated = true
         }
@@ -340,6 +349,7 @@ private constructor(
             this.submission == other.submission &&
             this.stopPaymentRequest == other.stopPaymentRequest &&
             this.deposit == other.deposit &&
+            this.uniqueIdentifier == other.uniqueIdentifier &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -374,6 +384,7 @@ private constructor(
                     submission,
                     stopPaymentRequest,
                     deposit,
+                    uniqueIdentifier,
                     type,
                     additionalProperties,
                 )
@@ -382,7 +393,7 @@ private constructor(
     }
 
     override fun toString() =
-        "CheckTransfer{accountId=$accountId, sourceAccountNumberId=$sourceAccountNumberId, accountNumber=$accountNumber, routingNumber=$routingNumber, checkNumber=$checkNumber, addressLine1=$addressLine1, addressLine2=$addressLine2, addressCity=$addressCity, addressState=$addressState, addressZip=$addressZip, returnAddress=$returnAddress, amount=$amount, createdAt=$createdAt, currency=$currency, approval=$approval, cancellation=$cancellation, id=$id, mailedAt=$mailedAt, message=$message, note=$note, pendingTransactionId=$pendingTransactionId, recipientName=$recipientName, status=$status, submission=$submission, stopPaymentRequest=$stopPaymentRequest, deposit=$deposit, type=$type, additionalProperties=$additionalProperties}"
+        "CheckTransfer{accountId=$accountId, sourceAccountNumberId=$sourceAccountNumberId, accountNumber=$accountNumber, routingNumber=$routingNumber, checkNumber=$checkNumber, addressLine1=$addressLine1, addressLine2=$addressLine2, addressCity=$addressCity, addressState=$addressState, addressZip=$addressZip, returnAddress=$returnAddress, amount=$amount, createdAt=$createdAt, currency=$currency, approval=$approval, cancellation=$cancellation, id=$id, mailedAt=$mailedAt, message=$message, note=$note, pendingTransactionId=$pendingTransactionId, recipientName=$recipientName, status=$status, submission=$submission, stopPaymentRequest=$stopPaymentRequest, deposit=$deposit, uniqueIdentifier=$uniqueIdentifier, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -417,6 +428,7 @@ private constructor(
         private var submission: JsonField<Submission> = JsonMissing.of()
         private var stopPaymentRequest: JsonField<StopPaymentRequest> = JsonMissing.of()
         private var deposit: JsonField<Deposit> = JsonMissing.of()
+        private var uniqueIdentifier: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -448,6 +460,7 @@ private constructor(
             this.submission = checkTransfer.submission
             this.stopPaymentRequest = checkTransfer.stopPaymentRequest
             this.deposit = checkTransfer.deposit
+            this.uniqueIdentifier = checkTransfer.uniqueIdentifier
             this.type = checkTransfer.type
             additionalProperties(checkTransfer.additionalProperties)
         }
@@ -717,6 +730,17 @@ private constructor(
         @ExcludeMissing
         fun deposit(deposit: JsonField<Deposit>) = apply { this.deposit = deposit }
 
+        /** The unique identifier you chose for this transfer. */
+        fun uniqueIdentifier(uniqueIdentifier: String) =
+            uniqueIdentifier(JsonField.of(uniqueIdentifier))
+
+        /** The unique identifier you chose for this transfer. */
+        @JsonProperty("unique_identifier")
+        @ExcludeMissing
+        fun uniqueIdentifier(uniqueIdentifier: JsonField<String>) = apply {
+            this.uniqueIdentifier = uniqueIdentifier
+        }
+
         /**
          * A constant representing the object's type. For this resource it will always be
          * `check_transfer`.
@@ -773,6 +797,7 @@ private constructor(
                 submission,
                 stopPaymentRequest,
                 deposit,
+                uniqueIdentifier,
                 type,
                 additionalProperties.toUnmodifiable(),
             )

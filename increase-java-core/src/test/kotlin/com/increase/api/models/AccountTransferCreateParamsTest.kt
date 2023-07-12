@@ -14,6 +14,7 @@ class AccountTransferCreateParamsTest {
             .description("x")
             .destinationAccountId("string")
             .requireApproval(true)
+            .uniqueIdentifier("x")
             .build()
     }
 
@@ -26,6 +27,7 @@ class AccountTransferCreateParamsTest {
                 .description("x")
                 .destinationAccountId("string")
                 .requireApproval(true)
+                .uniqueIdentifier("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -34,6 +36,7 @@ class AccountTransferCreateParamsTest {
         assertThat(body.description()).isEqualTo("x")
         assertThat(body.destinationAccountId()).isEqualTo("string")
         assertThat(body.requireApproval()).isEqualTo(true)
+        assertThat(body.uniqueIdentifier()).isEqualTo("x")
     }
 
     @Test

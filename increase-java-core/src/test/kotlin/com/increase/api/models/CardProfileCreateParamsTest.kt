@@ -28,6 +28,13 @@ class CardProfileCreateParamsTest {
                     .appIconFileId("string")
                     .build()
             )
+            .physicalCards(
+                CardProfileCreateParams.PhysicalCards.builder()
+                    .contactPhone("x")
+                    .frontImageFileId("string")
+                    .carrierImageFileId("string")
+                    .build()
+            )
             .build()
     }
 
@@ -54,6 +61,13 @@ class CardProfileCreateParamsTest {
                         .appIconFileId("string")
                         .build()
                 )
+                .physicalCards(
+                    CardProfileCreateParams.PhysicalCards.builder()
+                        .contactPhone("x")
+                        .frontImageFileId("string")
+                        .carrierImageFileId("string")
+                        .build()
+                )
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -75,6 +89,14 @@ class CardProfileCreateParamsTest {
                     .contactPhone("x")
                     .backgroundImageFileId("string")
                     .appIconFileId("string")
+                    .build()
+            )
+        assertThat(body.physicalCards())
+            .isEqualTo(
+                CardProfileCreateParams.PhysicalCards.builder()
+                    .contactPhone("x")
+                    .frontImageFileId("string")
+                    .carrierImageFileId("string")
                     .build()
             )
     }

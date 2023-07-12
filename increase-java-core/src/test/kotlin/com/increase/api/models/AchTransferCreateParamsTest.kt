@@ -29,6 +29,7 @@ class AchTransferCreateParamsTest {
                 AchTransferCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
             )
             .statementDescriptor("x")
+            .uniqueIdentifier("x")
             .build()
     }
 
@@ -55,6 +56,7 @@ class AchTransferCreateParamsTest {
                     AchTransferCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
                 )
                 .statementDescriptor("x")
+                .uniqueIdentifier("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -76,6 +78,7 @@ class AchTransferCreateParamsTest {
         assertThat(body.standardEntryClassCode())
             .isEqualTo(AchTransferCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT)
         assertThat(body.statementDescriptor()).isEqualTo("x")
+        assertThat(body.uniqueIdentifier()).isEqualTo("x")
     }
 
     @Test

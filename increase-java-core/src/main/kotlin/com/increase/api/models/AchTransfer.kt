@@ -52,6 +52,7 @@ private constructor(
     private val individualName: JsonField<String>,
     private val effectiveDate: JsonField<LocalDate>,
     private val standardEntryClassCode: JsonField<StandardEntryClassCode>,
+    private val uniqueIdentifier: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -176,6 +177,10 @@ private constructor(
     fun standardEntryClassCode(): StandardEntryClassCode =
         standardEntryClassCode.getRequired("standard_entry_class_code")
 
+    /** The unique identifier you chose for this transfer. */
+    fun uniqueIdentifier(): Optional<String> =
+        Optional.ofNullable(uniqueIdentifier.getNullable("unique_identifier"))
+
     /**
      * A constant representing the object's type. For this resource it will always be
      * `ach_transfer`.
@@ -299,6 +304,9 @@ private constructor(
     @ExcludeMissing
     fun _standardEntryClassCode() = standardEntryClassCode
 
+    /** The unique identifier you chose for this transfer. */
+    @JsonProperty("unique_identifier") @ExcludeMissing fun _uniqueIdentifier() = uniqueIdentifier
+
     /**
      * A constant representing the object's type. For this resource it will always be
      * `ach_transfer`.
@@ -338,6 +346,7 @@ private constructor(
             individualName()
             effectiveDate()
             standardEntryClassCode()
+            uniqueIdentifier()
             type()
             validated = true
         }
@@ -378,6 +387,7 @@ private constructor(
             this.individualName == other.individualName &&
             this.effectiveDate == other.effectiveDate &&
             this.standardEntryClassCode == other.standardEntryClassCode &&
+            this.uniqueIdentifier == other.uniqueIdentifier &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -413,6 +423,7 @@ private constructor(
                     individualName,
                     effectiveDate,
                     standardEntryClassCode,
+                    uniqueIdentifier,
                     type,
                     additionalProperties,
                 )
@@ -421,7 +432,7 @@ private constructor(
     }
 
     override fun toString() =
-        "AchTransfer{accountId=$accountId, accountNumber=$accountNumber, addendum=$addendum, amount=$amount, currency=$currency, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, externalAccountId=$externalAccountId, id=$id, network=$network, notificationsOfChange=$notificationsOfChange, return_=$return_, routingNumber=$routingNumber, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, transactionId=$transactionId, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, funding=$funding, individualId=$individualId, individualName=$individualName, effectiveDate=$effectiveDate, standardEntryClassCode=$standardEntryClassCode, type=$type, additionalProperties=$additionalProperties}"
+        "AchTransfer{accountId=$accountId, accountNumber=$accountNumber, addendum=$addendum, amount=$amount, currency=$currency, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, externalAccountId=$externalAccountId, id=$id, network=$network, notificationsOfChange=$notificationsOfChange, return_=$return_, routingNumber=$routingNumber, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, transactionId=$transactionId, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, funding=$funding, individualId=$individualId, individualName=$individualName, effectiveDate=$effectiveDate, standardEntryClassCode=$standardEntryClassCode, uniqueIdentifier=$uniqueIdentifier, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -457,6 +468,7 @@ private constructor(
         private var individualName: JsonField<String> = JsonMissing.of()
         private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
         private var standardEntryClassCode: JsonField<StandardEntryClassCode> = JsonMissing.of()
+        private var uniqueIdentifier: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -489,6 +501,7 @@ private constructor(
             this.individualName = achTransfer.individualName
             this.effectiveDate = achTransfer.effectiveDate
             this.standardEntryClassCode = achTransfer.standardEntryClassCode
+            this.uniqueIdentifier = achTransfer.uniqueIdentifier
             this.type = achTransfer.type
             additionalProperties(achTransfer.additionalProperties)
         }
@@ -792,6 +805,17 @@ private constructor(
                 this.standardEntryClassCode = standardEntryClassCode
             }
 
+        /** The unique identifier you chose for this transfer. */
+        fun uniqueIdentifier(uniqueIdentifier: String) =
+            uniqueIdentifier(JsonField.of(uniqueIdentifier))
+
+        /** The unique identifier you chose for this transfer. */
+        @JsonProperty("unique_identifier")
+        @ExcludeMissing
+        fun uniqueIdentifier(uniqueIdentifier: JsonField<String>) = apply {
+            this.uniqueIdentifier = uniqueIdentifier
+        }
+
         /**
          * A constant representing the object's type. For this resource it will always be
          * `ach_transfer`.
@@ -849,6 +873,7 @@ private constructor(
                 individualName,
                 effectiveDate,
                 standardEntryClassCode,
+                uniqueIdentifier,
                 type,
                 additionalProperties.toUnmodifiable(),
             )
@@ -1293,7 +1318,7 @@ private constructor(
     class NotificationsOfChange
     private constructor(
         private val createdAt: JsonField<OffsetDateTime>,
-        private val changeCode: JsonField<String>,
+        private val changeCode: JsonField<ChangeCode>,
         private val correctedData: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -1309,7 +1334,7 @@ private constructor(
         fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
         /** The type of change that occurred. */
-        fun changeCode(): String = changeCode.getRequired("change_code")
+        fun changeCode(): ChangeCode = changeCode.getRequired("change_code")
 
         /** The corrected data. */
         fun correctedData(): String = correctedData.getRequired("corrected_data")
@@ -1377,7 +1402,7 @@ private constructor(
         class Builder {
 
             private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var changeCode: JsonField<String> = JsonMissing.of()
+            private var changeCode: JsonField<ChangeCode> = JsonMissing.of()
             private var correctedData: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1406,12 +1431,14 @@ private constructor(
             }
 
             /** The type of change that occurred. */
-            fun changeCode(changeCode: String) = changeCode(JsonField.of(changeCode))
+            fun changeCode(changeCode: ChangeCode) = changeCode(JsonField.of(changeCode))
 
             /** The type of change that occurred. */
             @JsonProperty("change_code")
             @ExcludeMissing
-            fun changeCode(changeCode: JsonField<String>) = apply { this.changeCode = changeCode }
+            fun changeCode(changeCode: JsonField<ChangeCode>) = apply {
+                this.changeCode = changeCode
+            }
 
             /** The corrected data. */
             fun correctedData(correctedData: String) = correctedData(JsonField.of(correctedData))
@@ -1444,6 +1471,150 @@ private constructor(
                     correctedData,
                     additionalProperties.toUnmodifiable(),
                 )
+        }
+
+        class ChangeCode
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is ChangeCode && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                @JvmField
+                val INCORRECT_ACCOUNT_NUMBER = ChangeCode(JsonField.of("incorrect_account_number"))
+
+                @JvmField
+                val INCORRECT_ROUTING_NUMBER = ChangeCode(JsonField.of("incorrect_routing_number"))
+
+                @JvmField
+                val INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER =
+                    ChangeCode(JsonField.of("incorrect_routing_number_and_account_number"))
+
+                @JvmField
+                val INCORRECT_TRANSACTION_CODE =
+                    ChangeCode(JsonField.of("incorrect_transaction_code"))
+
+                @JvmField
+                val INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE =
+                    ChangeCode(JsonField.of("incorrect_account_number_and_transaction_code"))
+
+                @JvmField
+                val INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE =
+                    ChangeCode(
+                        JsonField.of("incorrect_routing_number_account_number_and_transaction_code")
+                    )
+
+                @JvmField
+                val INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION =
+                    ChangeCode(
+                        JsonField.of(
+                            "incorrect_receiving_depository_financial_institution_identification"
+                        )
+                    )
+
+                @JvmField
+                val INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER =
+                    ChangeCode(JsonField.of("incorrect_individual_identification_number"))
+
+                @JvmField
+                val ADDENDA_FORMAT_ERROR = ChangeCode(JsonField.of("addenda_format_error"))
+
+                @JvmField
+                val INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT =
+                    ChangeCode(
+                        JsonField.of(
+                            "incorrect_standard_entry_class_code_for_outbound_international_payment"
+                        )
+                    )
+
+                @JvmStatic fun of(value: String) = ChangeCode(JsonField.of(value))
+            }
+
+            enum class Known {
+                INCORRECT_ACCOUNT_NUMBER,
+                INCORRECT_ROUTING_NUMBER,
+                INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER,
+                INCORRECT_TRANSACTION_CODE,
+                INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE,
+                INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE,
+                INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION,
+                INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER,
+                ADDENDA_FORMAT_ERROR,
+                INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT,
+            }
+
+            enum class Value {
+                INCORRECT_ACCOUNT_NUMBER,
+                INCORRECT_ROUTING_NUMBER,
+                INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER,
+                INCORRECT_TRANSACTION_CODE,
+                INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE,
+                INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE,
+                INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION,
+                INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER,
+                ADDENDA_FORMAT_ERROR,
+                INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    INCORRECT_ACCOUNT_NUMBER -> Value.INCORRECT_ACCOUNT_NUMBER
+                    INCORRECT_ROUTING_NUMBER -> Value.INCORRECT_ROUTING_NUMBER
+                    INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER ->
+                        Value.INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER
+                    INCORRECT_TRANSACTION_CODE -> Value.INCORRECT_TRANSACTION_CODE
+                    INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE ->
+                        Value.INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
+                    INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE ->
+                        Value.INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
+                    INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION ->
+                        Value.INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION
+                    INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER ->
+                        Value.INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER
+                    ADDENDA_FORMAT_ERROR -> Value.ADDENDA_FORMAT_ERROR
+                    INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT ->
+                        Value.INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    INCORRECT_ACCOUNT_NUMBER -> Known.INCORRECT_ACCOUNT_NUMBER
+                    INCORRECT_ROUTING_NUMBER -> Known.INCORRECT_ROUTING_NUMBER
+                    INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER ->
+                        Known.INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER
+                    INCORRECT_TRANSACTION_CODE -> Known.INCORRECT_TRANSACTION_CODE
+                    INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE ->
+                        Known.INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
+                    INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE ->
+                        Known.INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
+                    INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION ->
+                        Known.INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION
+                    INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER ->
+                        Known.INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER
+                    ADDENDA_FORMAT_ERROR -> Known.ADDENDA_FORMAT_ERROR
+                    INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT ->
+                        Known.INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT
+                    else -> throw IncreaseInvalidDataException("Unknown ChangeCode: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
         }
     }
 

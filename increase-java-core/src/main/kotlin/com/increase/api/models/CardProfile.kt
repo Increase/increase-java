@@ -30,6 +30,7 @@ private constructor(
     private val status: JsonField<Status>,
     private val description: JsonField<String>,
     private val digitalWallets: JsonField<DigitalWallets>,
+    private val physicalCards: JsonField<PhysicalCards>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -59,6 +60,10 @@ private constructor(
      */
     fun digitalWallets(): DigitalWallets = digitalWallets.getRequired("digital_wallets")
 
+    /** How physical cards should be designed and shipped. */
+    fun physicalCards(): Optional<PhysicalCards> =
+        Optional.ofNullable(physicalCards.getNullable("physical_cards"))
+
     /**
      * A constant representing the object's type. For this resource it will always be
      * `card_profile`.
@@ -86,6 +91,9 @@ private constructor(
      */
     @JsonProperty("digital_wallets") @ExcludeMissing fun _digitalWallets() = digitalWallets
 
+    /** How physical cards should be designed and shipped. */
+    @JsonProperty("physical_cards") @ExcludeMissing fun _physicalCards() = physicalCards
+
     /**
      * A constant representing the object's type. For this resource it will always be
      * `card_profile`.
@@ -103,6 +111,7 @@ private constructor(
             status()
             description()
             digitalWallets().validate()
+            physicalCards().map { it.validate() }
             type()
             validated = true
         }
@@ -121,6 +130,7 @@ private constructor(
             this.status == other.status &&
             this.description == other.description &&
             this.digitalWallets == other.digitalWallets &&
+            this.physicalCards == other.physicalCards &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -134,6 +144,7 @@ private constructor(
                     status,
                     description,
                     digitalWallets,
+                    physicalCards,
                     type,
                     additionalProperties,
                 )
@@ -142,7 +153,7 @@ private constructor(
     }
 
     override fun toString() =
-        "CardProfile{id=$id, createdAt=$createdAt, status=$status, description=$description, digitalWallets=$digitalWallets, type=$type, additionalProperties=$additionalProperties}"
+        "CardProfile{id=$id, createdAt=$createdAt, status=$status, description=$description, digitalWallets=$digitalWallets, physicalCards=$physicalCards, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -156,6 +167,7 @@ private constructor(
         private var status: JsonField<Status> = JsonMissing.of()
         private var description: JsonField<String> = JsonMissing.of()
         private var digitalWallets: JsonField<DigitalWallets> = JsonMissing.of()
+        private var physicalCards: JsonField<PhysicalCards> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -166,6 +178,7 @@ private constructor(
             this.status = cardProfile.status
             this.description = cardProfile.description
             this.digitalWallets = cardProfile.digitalWallets
+            this.physicalCards = cardProfile.physicalCards
             this.type = cardProfile.type
             additionalProperties(cardProfile.additionalProperties)
         }
@@ -223,6 +236,16 @@ private constructor(
             this.digitalWallets = digitalWallets
         }
 
+        /** How physical cards should be designed and shipped. */
+        fun physicalCards(physicalCards: PhysicalCards) = physicalCards(JsonField.of(physicalCards))
+
+        /** How physical cards should be designed and shipped. */
+        @JsonProperty("physical_cards")
+        @ExcludeMissing
+        fun physicalCards(physicalCards: JsonField<PhysicalCards>) = apply {
+            this.physicalCards = physicalCards
+        }
+
         /**
          * A constant representing the object's type. For this resource it will always be
          * `card_profile`.
@@ -258,6 +281,7 @@ private constructor(
                 status,
                 description,
                 digitalWallets,
+                physicalCards,
                 type,
                 additionalProperties.toUnmodifiable(),
             )
@@ -747,6 +771,186 @@ private constructor(
                         additionalProperties.toUnmodifiable(),
                     )
             }
+        }
+    }
+
+    /** How physical cards should be designed and shipped. */
+    @JsonDeserialize(builder = PhysicalCards.Builder::class)
+    @NoAutoDetect
+    class PhysicalCards
+    private constructor(
+        private val contactPhone: JsonField<String>,
+        private val frontImageFileId: JsonField<String>,
+        private val backImageFileId: JsonField<String>,
+        private val carrierImageFileId: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        /** A phone number the user can contact to receive support for their card. */
+        fun contactPhone(): String = contactPhone.getRequired("contact_phone")
+
+        /** The identifier of the File containing the physical card's front image. */
+        fun frontImageFileId(): String = frontImageFileId.getRequired("front_image_file_id")
+
+        /** The identifier of the File containing the physical card's back image. */
+        fun backImageFileId(): String = backImageFileId.getRequired("back_image_file_id")
+
+        /** The identifier of the File containing the physical card's carrier image. */
+        fun carrierImageFileId(): String = carrierImageFileId.getRequired("carrier_image_file_id")
+
+        /** A phone number the user can contact to receive support for their card. */
+        @JsonProperty("contact_phone") @ExcludeMissing fun _contactPhone() = contactPhone
+
+        /** The identifier of the File containing the physical card's front image. */
+        @JsonProperty("front_image_file_id")
+        @ExcludeMissing
+        fun _frontImageFileId() = frontImageFileId
+
+        /** The identifier of the File containing the physical card's back image. */
+        @JsonProperty("back_image_file_id") @ExcludeMissing fun _backImageFileId() = backImageFileId
+
+        /** The identifier of the File containing the physical card's carrier image. */
+        @JsonProperty("carrier_image_file_id")
+        @ExcludeMissing
+        fun _carrierImageFileId() = carrierImageFileId
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): PhysicalCards = apply {
+            if (!validated) {
+                contactPhone()
+                frontImageFileId()
+                backImageFileId()
+                carrierImageFileId()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is PhysicalCards &&
+                this.contactPhone == other.contactPhone &&
+                this.frontImageFileId == other.frontImageFileId &&
+                this.backImageFileId == other.backImageFileId &&
+                this.carrierImageFileId == other.carrierImageFileId &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        contactPhone,
+                        frontImageFileId,
+                        backImageFileId,
+                        carrierImageFileId,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "PhysicalCards{contactPhone=$contactPhone, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, carrierImageFileId=$carrierImageFileId, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var contactPhone: JsonField<String> = JsonMissing.of()
+            private var frontImageFileId: JsonField<String> = JsonMissing.of()
+            private var backImageFileId: JsonField<String> = JsonMissing.of()
+            private var carrierImageFileId: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(physicalCards: PhysicalCards) = apply {
+                this.contactPhone = physicalCards.contactPhone
+                this.frontImageFileId = physicalCards.frontImageFileId
+                this.backImageFileId = physicalCards.backImageFileId
+                this.carrierImageFileId = physicalCards.carrierImageFileId
+                additionalProperties(physicalCards.additionalProperties)
+            }
+
+            /** A phone number the user can contact to receive support for their card. */
+            fun contactPhone(contactPhone: String) = contactPhone(JsonField.of(contactPhone))
+
+            /** A phone number the user can contact to receive support for their card. */
+            @JsonProperty("contact_phone")
+            @ExcludeMissing
+            fun contactPhone(contactPhone: JsonField<String>) = apply {
+                this.contactPhone = contactPhone
+            }
+
+            /** The identifier of the File containing the physical card's front image. */
+            fun frontImageFileId(frontImageFileId: String) =
+                frontImageFileId(JsonField.of(frontImageFileId))
+
+            /** The identifier of the File containing the physical card's front image. */
+            @JsonProperty("front_image_file_id")
+            @ExcludeMissing
+            fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
+                this.frontImageFileId = frontImageFileId
+            }
+
+            /** The identifier of the File containing the physical card's back image. */
+            fun backImageFileId(backImageFileId: String) =
+                backImageFileId(JsonField.of(backImageFileId))
+
+            /** The identifier of the File containing the physical card's back image. */
+            @JsonProperty("back_image_file_id")
+            @ExcludeMissing
+            fun backImageFileId(backImageFileId: JsonField<String>) = apply {
+                this.backImageFileId = backImageFileId
+            }
+
+            /** The identifier of the File containing the physical card's carrier image. */
+            fun carrierImageFileId(carrierImageFileId: String) =
+                carrierImageFileId(JsonField.of(carrierImageFileId))
+
+            /** The identifier of the File containing the physical card's carrier image. */
+            @JsonProperty("carrier_image_file_id")
+            @ExcludeMissing
+            fun carrierImageFileId(carrierImageFileId: JsonField<String>) = apply {
+                this.carrierImageFileId = carrierImageFileId
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): PhysicalCards =
+                PhysicalCards(
+                    contactPhone,
+                    frontImageFileId,
+                    backImageFileId,
+                    carrierImageFileId,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 

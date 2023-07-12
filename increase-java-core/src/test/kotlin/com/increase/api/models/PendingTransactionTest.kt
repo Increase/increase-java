@@ -113,6 +113,10 @@ class PendingTransactionTest {
                                 .status(PendingTransaction.Source.InboundFundsHold.Status.HELD)
                                 .heldTransactionId("string")
                                 .pendingTransactionId("string")
+                                .type(
+                                    PendingTransaction.Source.InboundFundsHold.Type
+                                        .INBOUND_FUNDS_HOLD
+                                )
                                 .build()
                         )
                         .realTimePaymentsTransferInstruction(
@@ -237,6 +241,9 @@ class PendingTransactionTest {
                             .status(PendingTransaction.Source.InboundFundsHold.Status.HELD)
                             .heldTransactionId("string")
                             .pendingTransactionId("string")
+                            .type(
+                                PendingTransaction.Source.InboundFundsHold.Type.INBOUND_FUNDS_HOLD
+                            )
                             .build()
                     )
                     .realTimePaymentsTransferInstruction(
