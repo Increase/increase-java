@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.7.0](https://github.com/Increase/increase-java/compare/v0.6.0...v0.7.0) (2023-07-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** add unique_identifier, driver's license backs, inbound funds holds, and more ([#28](https://github.com/Increase/increase-java/issues/28))
+
+### Features
+
+* **api:** add unique_identifier, driver's license backs, inbound funds holds, and more ([#28](https://github.com/Increase/increase-java/issues/28)) ([470fd38](https://github.com/Increase/increase-java/commit/470fd3802ad7b163c0c2bdc1a9f8a605d15ff8f4))
+
 ## [0.6.0](https://github.com/Increase/increase-java/compare/v0.5.0...v0.6.0) (2023-07-07)
 
 
