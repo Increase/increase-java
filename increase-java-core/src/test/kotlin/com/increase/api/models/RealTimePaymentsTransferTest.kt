@@ -51,6 +51,7 @@ class RealTimePaymentsTransferTest {
                         .rejectReasonAdditionalInformation("string")
                         .build()
                 )
+                .uniqueIdentifier("string")
                 .build()
         assertThat(realTimePaymentsTransfer).isNotNull
         assertThat(realTimePaymentsTransfer.type())
@@ -102,5 +103,6 @@ class RealTimePaymentsTransferTest {
                     .rejectReasonAdditionalInformation("string")
                     .build()
             )
+        assertThat(realTimePaymentsTransfer.uniqueIdentifier()).contains("string")
     }
 }

@@ -31,6 +31,7 @@ class CheckTransferCreateParamsTest {
             .note("x")
             .recipientName("x")
             .requireApproval(true)
+            .uniqueIdentifier("x")
             .build()
     }
 
@@ -60,6 +61,7 @@ class CheckTransferCreateParamsTest {
                 .note("x")
                 .recipientName("x")
                 .requireApproval(true)
+                .uniqueIdentifier("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -86,6 +88,7 @@ class CheckTransferCreateParamsTest {
         assertThat(body.note()).isEqualTo("x")
         assertThat(body.recipientName()).isEqualTo("x")
         assertThat(body.requireApproval()).isEqualTo(true)
+        assertThat(body.uniqueIdentifier()).isEqualTo("x")
     }
 
     @Test

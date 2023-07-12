@@ -41,6 +41,7 @@ class AchTransferServiceTest {
                         AchTransferCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
                     )
                     .statementDescriptor("x")
+                    .uniqueIdentifier("x")
                     .build()
             )
         println(achTransfer)

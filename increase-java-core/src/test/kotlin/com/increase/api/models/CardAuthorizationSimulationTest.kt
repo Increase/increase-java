@@ -171,6 +171,12 @@ class CardAuthorizationSimulationTest {
                                         )
                                         .heldTransactionId("string")
                                         .pendingTransactionId("string")
+                                        .type(
+                                            CardAuthorizationSimulation.PendingTransaction.Source
+                                                .InboundFundsHold
+                                                .Type
+                                                .INBOUND_FUNDS_HOLD
+                                        )
                                         .build()
                                 )
                                 .realTimePaymentsTransferInstruction(
@@ -586,6 +592,12 @@ class CardAuthorizationSimulationTest {
                                     )
                                     .heldTransactionId("string")
                                     .pendingTransactionId("string")
+                                    .type(
+                                        CardAuthorizationSimulation.PendingTransaction.Source
+                                            .InboundFundsHold
+                                            .Type
+                                            .INBOUND_FUNDS_HOLD
+                                    )
                                     .build()
                             )
                             .realTimePaymentsTransferInstruction(

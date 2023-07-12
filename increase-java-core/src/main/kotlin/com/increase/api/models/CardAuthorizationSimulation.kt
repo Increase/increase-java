@@ -3557,6 +3557,7 @@ private constructor(
                 private val status: JsonField<Status>,
                 private val heldTransactionId: JsonField<String>,
                 private val pendingTransactionId: JsonField<String>,
+                private val type: JsonField<Type>,
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
 
@@ -3605,6 +3606,12 @@ private constructor(
                     Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
 
                 /**
+                 * A constant representing the object's type. For this resource it will always be
+                 * `inbound_funds_hold`.
+                 */
+                fun type(): Type = type.getRequired("type")
+
+                /**
                  * The held amount in the minor unit of the account's currency. For dollars, for
                  * example, this is cents.
                  */
@@ -3646,6 +3653,12 @@ private constructor(
                 @ExcludeMissing
                 fun _pendingTransactionId() = pendingTransactionId
 
+                /**
+                 * A constant representing the object's type. For this resource it will always be
+                 * `inbound_funds_hold`.
+                 */
+                @JsonProperty("type") @ExcludeMissing fun _type() = type
+
                 @JsonAnyGetter
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -3660,6 +3673,7 @@ private constructor(
                         status()
                         heldTransactionId()
                         pendingTransactionId()
+                        type()
                         validated = true
                     }
                 }
@@ -3680,6 +3694,7 @@ private constructor(
                         this.status == other.status &&
                         this.heldTransactionId == other.heldTransactionId &&
                         this.pendingTransactionId == other.pendingTransactionId &&
+                        this.type == other.type &&
                         this.additionalProperties == other.additionalProperties
                 }
 
@@ -3695,6 +3710,7 @@ private constructor(
                                 status,
                                 heldTransactionId,
                                 pendingTransactionId,
+                                type,
                                 additionalProperties,
                             )
                     }
@@ -3702,7 +3718,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "InboundFundsHold{amount=$amount, createdAt=$createdAt, currency=$currency, automaticallyReleasesAt=$automaticallyReleasesAt, releasedAt=$releasedAt, status=$status, heldTransactionId=$heldTransactionId, pendingTransactionId=$pendingTransactionId, additionalProperties=$additionalProperties}"
+                    "InboundFundsHold{amount=$amount, createdAt=$createdAt, currency=$currency, automaticallyReleasesAt=$automaticallyReleasesAt, releasedAt=$releasedAt, status=$status, heldTransactionId=$heldTransactionId, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -3720,6 +3736,7 @@ private constructor(
                     private var status: JsonField<Status> = JsonMissing.of()
                     private var heldTransactionId: JsonField<String> = JsonMissing.of()
                     private var pendingTransactionId: JsonField<String> = JsonMissing.of()
+                    private var type: JsonField<Type> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
@@ -3732,6 +3749,7 @@ private constructor(
                         this.status = inboundFundsHold.status
                         this.heldTransactionId = inboundFundsHold.heldTransactionId
                         this.pendingTransactionId = inboundFundsHold.pendingTransactionId
+                        this.type = inboundFundsHold.type
                         additionalProperties(inboundFundsHold.additionalProperties)
                     }
 
@@ -3837,6 +3855,20 @@ private constructor(
                         this.pendingTransactionId = pendingTransactionId
                     }
 
+                    /**
+                     * A constant representing the object's type. For this resource it will always
+                     * be `inbound_funds_hold`.
+                     */
+                    fun type(type: Type) = type(JsonField.of(type))
+
+                    /**
+                     * A constant representing the object's type. For this resource it will always
+                     * be `inbound_funds_hold`.
+                     */
+                    @JsonProperty("type")
+                    @ExcludeMissing
+                    fun type(type: JsonField<Type>) = apply { this.type = type }
+
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
                         this.additionalProperties.putAll(additionalProperties)
@@ -3862,6 +3894,7 @@ private constructor(
                             status,
                             heldTransactionId,
                             pendingTransactionId,
+                            type,
                             additionalProperties.toUnmodifiable(),
                         )
                 }
@@ -4001,6 +4034,58 @@ private constructor(
                             HELD -> Known.HELD
                             COMPLETE -> Known.COMPLETE
                             else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+                        }
+
+                    fun asString(): String = _value().asStringOrThrow()
+                }
+
+                class Type
+                @JsonCreator
+                private constructor(
+                    private val value: JsonField<String>,
+                ) {
+
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Type && this.value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+
+                    companion object {
+
+                        @JvmField val INBOUND_FUNDS_HOLD = Type(JsonField.of("inbound_funds_hold"))
+
+                        @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+                    }
+
+                    enum class Known {
+                        INBOUND_FUNDS_HOLD,
+                    }
+
+                    enum class Value {
+                        INBOUND_FUNDS_HOLD,
+                        _UNKNOWN,
+                    }
+
+                    fun value(): Value =
+                        when (this) {
+                            INBOUND_FUNDS_HOLD -> Value.INBOUND_FUNDS_HOLD
+                            else -> Value._UNKNOWN
+                        }
+
+                    fun known(): Known =
+                        when (this) {
+                            INBOUND_FUNDS_HOLD -> Known.INBOUND_FUNDS_HOLD
+                            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
                         }
 
                     fun asString(): String = _value().asStringOrThrow()

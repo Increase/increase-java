@@ -96,6 +96,7 @@ class EntityServiceTest {
                                                                 .DriversLicense
                                                                 .builder()
                                                                 .fileId("string")
+                                                                .backFileId("string")
                                                                 .expirationDate(
                                                                     LocalDate.parse("2019-12-27")
                                                                 )
@@ -115,6 +116,7 @@ class EntityServiceTest {
                                                                     LocalDate.parse("2019-12-27")
                                                                 )
                                                                 .fileId("string")
+                                                                .backFileId("string")
                                                                 .build()
                                                         )
                                                         .build()
@@ -165,6 +167,7 @@ class EntityServiceTest {
                                             .DriversLicense
                                             .builder()
                                             .fileId("string")
+                                            .backFileId("string")
                                             .expirationDate(LocalDate.parse("2019-12-27"))
                                             .state("x")
                                             .build()
@@ -176,6 +179,7 @@ class EntityServiceTest {
                                             .description("x")
                                             .expirationDate(LocalDate.parse("2019-12-27"))
                                             .fileId("string")
+                                            .backFileId("string")
                                             .build()
                                     )
                                     .build()
@@ -228,6 +232,7 @@ class EntityServiceTest {
                                                         .DriversLicense
                                                         .builder()
                                                         .fileId("string")
+                                                        .backFileId("string")
                                                         .expirationDate(
                                                             LocalDate.parse("2019-12-27")
                                                         )
@@ -245,6 +250,7 @@ class EntityServiceTest {
                                                             LocalDate.parse("2019-12-27")
                                                         )
                                                         .fileId("string")
+                                                        .backFileId("string")
                                                         .build()
                                                 )
                                                 .build()
@@ -324,6 +330,7 @@ class EntityServiceTest {
                                                                 .DriversLicense
                                                                 .builder()
                                                                 .fileId("string")
+                                                                .backFileId("string")
                                                                 .expirationDate(
                                                                     LocalDate.parse("2019-12-27")
                                                                 )
@@ -342,6 +349,7 @@ class EntityServiceTest {
                                                                     LocalDate.parse("2019-12-27")
                                                                 )
                                                                 .fileId("string")
+                                                                .backFileId("string")
                                                                 .build()
                                                         )
                                                         .build()
@@ -387,6 +395,7 @@ class EntityServiceTest {
                                                     .DriversLicense
                                                     .builder()
                                                     .fileId("string")
+                                                    .backFileId("string")
                                                     .expirationDate(LocalDate.parse("2019-12-27"))
                                                     .state("x")
                                                     .build()
@@ -399,6 +408,7 @@ class EntityServiceTest {
                                                     .description("x")
                                                     .expirationDate(LocalDate.parse("2019-12-27"))
                                                     .fileId("string")
+                                                    .backFileId("string")
                                                     .build()
                                             )
                                             .build()

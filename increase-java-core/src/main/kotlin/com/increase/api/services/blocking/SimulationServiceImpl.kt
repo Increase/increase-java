@@ -25,6 +25,8 @@ import com.increase.api.services.blocking.simulations.DigitalWalletTokenRequestS
 import com.increase.api.services.blocking.simulations.DigitalWalletTokenRequestServiceImpl
 import com.increase.api.services.blocking.simulations.DocumentService
 import com.increase.api.services.blocking.simulations.DocumentServiceImpl
+import com.increase.api.services.blocking.simulations.InboundFundsHoldService
+import com.increase.api.services.blocking.simulations.InboundFundsHoldServiceImpl
 import com.increase.api.services.blocking.simulations.InboundWireDrawdownRequestService
 import com.increase.api.services.blocking.simulations.InboundWireDrawdownRequestServiceImpl
 import com.increase.api.services.blocking.simulations.InterestPaymentService
@@ -80,6 +82,10 @@ constructor(
         InboundWireDrawdownRequestServiceImpl(clientOptions)
     }
 
+    private val inboundFundsHolds: InboundFundsHoldService by lazy {
+        InboundFundsHoldServiceImpl(clientOptions)
+    }
+
     private val interestPayments: InterestPaymentService by lazy {
         InterestPaymentServiceImpl(clientOptions)
     }
@@ -119,6 +125,8 @@ constructor(
 
     override fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestService =
         inboundWireDrawdownRequests
+
+    override fun inboundFundsHolds(): InboundFundsHoldService = inboundFundsHolds
 
     override fun interestPayments(): InterestPaymentService = interestPayments
 

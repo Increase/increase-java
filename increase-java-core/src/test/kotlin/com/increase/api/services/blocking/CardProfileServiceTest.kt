@@ -40,6 +40,13 @@ class CardProfileServiceTest {
                             .appIconFileId("string")
                             .build()
                     )
+                    .physicalCards(
+                        CardProfileCreateParams.PhysicalCards.builder()
+                            .contactPhone("x")
+                            .frontImageFileId("string")
+                            .carrierImageFileId("string")
+                            .build()
+                    )
                     .build()
             )
         println(cardProfile)

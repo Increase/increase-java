@@ -13,6 +13,7 @@ class CheckTransferListParamsTest {
             .cursor("string")
             .limit(123L)
             .accountId("string")
+            .uniqueIdentifier("x")
             .createdAt(
                 CheckTransferListParams.CreatedAt.builder()
                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -31,6 +32,7 @@ class CheckTransferListParamsTest {
                 .cursor("string")
                 .limit(123L)
                 .accountId("string")
+                .uniqueIdentifier("x")
                 .createdAt(
                     CheckTransferListParams.CreatedAt.builder()
                         .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -44,6 +46,7 @@ class CheckTransferListParamsTest {
         expected.put("cursor", listOf("string"))
         expected.put("limit", listOf("123"))
         expected.put("account_id", listOf("string"))
+        expected.put("unique_identifier", listOf("x"))
         CheckTransferListParams.CreatedAt.builder()
             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

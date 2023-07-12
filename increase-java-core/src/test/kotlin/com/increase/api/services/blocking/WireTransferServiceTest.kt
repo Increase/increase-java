@@ -33,6 +33,7 @@ class WireTransferServiceTest {
                     .beneficiaryAddressLine2("x")
                     .beneficiaryAddressLine3("x")
                     .requireApproval(true)
+                    .uniqueIdentifier("x")
                     .build()
             )
         println(wireTransfer)
