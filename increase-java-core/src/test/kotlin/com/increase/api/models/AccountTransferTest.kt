@@ -33,6 +33,7 @@ class AccountTransferTest {
                         .canceledBy("string")
                         .build()
                 )
+                .uniqueIdentifier("string")
                 .type(AccountTransfer.Type.ACCOUNT_TRANSFER)
                 .build()
         assertThat(accountTransfer).isNotNull
@@ -62,6 +63,7 @@ class AccountTransferTest {
                     .canceledBy("string")
                     .build()
             )
+        assertThat(accountTransfer.uniqueIdentifier()).contains("string")
         assertThat(accountTransfer.type()).isEqualTo(AccountTransfer.Type.ACCOUNT_TRANSFER)
     }
 }

@@ -45,6 +45,7 @@ private constructor(
     private val status: JsonField<Status>,
     private val submission: JsonField<Submission>,
     private val transactionId: JsonField<String>,
+    private val uniqueIdentifier: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -134,6 +135,10 @@ private constructor(
     fun transactionId(): Optional<String> =
         Optional.ofNullable(transactionId.getNullable("transaction_id"))
 
+    /** The unique identifier you chose for this transfer. */
+    fun uniqueIdentifier(): Optional<String> =
+        Optional.ofNullable(uniqueIdentifier.getNullable("unique_identifier"))
+
     /**
      * A constant representing the object's type. For this resource it will always be
      * `wire_transfer`.
@@ -222,6 +227,9 @@ private constructor(
     /** The ID for the transaction funding the transfer. */
     @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
+    /** The unique identifier you chose for this transfer. */
+    @JsonProperty("unique_identifier") @ExcludeMissing fun _uniqueIdentifier() = uniqueIdentifier
+
     /**
      * A constant representing the object's type. For this resource it will always be
      * `wire_transfer`.
@@ -254,6 +262,7 @@ private constructor(
             status()
             submission().map { it.validate() }
             transactionId()
+            uniqueIdentifier()
             type()
             validated = true
         }
@@ -287,6 +296,7 @@ private constructor(
             this.status == other.status &&
             this.submission == other.submission &&
             this.transactionId == other.transactionId &&
+            this.uniqueIdentifier == other.uniqueIdentifier &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -315,6 +325,7 @@ private constructor(
                     status,
                     submission,
                     transactionId,
+                    uniqueIdentifier,
                     type,
                     additionalProperties,
                 )
@@ -323,7 +334,7 @@ private constructor(
     }
 
     override fun toString() =
-        "WireTransfer{id=$id, messageToRecipient=$messageToRecipient, amount=$amount, currency=$currency, accountNumber=$accountNumber, beneficiaryName=$beneficiaryName, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, accountId=$accountId, externalAccountId=$externalAccountId, routingNumber=$routingNumber, approval=$approval, cancellation=$cancellation, reversal=$reversal, createdAt=$createdAt, network=$network, status=$status, submission=$submission, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+        "WireTransfer{id=$id, messageToRecipient=$messageToRecipient, amount=$amount, currency=$currency, accountNumber=$accountNumber, beneficiaryName=$beneficiaryName, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, accountId=$accountId, externalAccountId=$externalAccountId, routingNumber=$routingNumber, approval=$approval, cancellation=$cancellation, reversal=$reversal, createdAt=$createdAt, network=$network, status=$status, submission=$submission, transactionId=$transactionId, uniqueIdentifier=$uniqueIdentifier, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -352,6 +363,7 @@ private constructor(
         private var status: JsonField<Status> = JsonMissing.of()
         private var submission: JsonField<Submission> = JsonMissing.of()
         private var transactionId: JsonField<String> = JsonMissing.of()
+        private var uniqueIdentifier: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -377,6 +389,7 @@ private constructor(
             this.status = wireTransfer.status
             this.submission = wireTransfer.submission
             this.transactionId = wireTransfer.transactionId
+            this.uniqueIdentifier = wireTransfer.uniqueIdentifier
             this.type = wireTransfer.type
             additionalProperties(wireTransfer.additionalProperties)
         }
@@ -589,6 +602,17 @@ private constructor(
             this.transactionId = transactionId
         }
 
+        /** The unique identifier you chose for this transfer. */
+        fun uniqueIdentifier(uniqueIdentifier: String) =
+            uniqueIdentifier(JsonField.of(uniqueIdentifier))
+
+        /** The unique identifier you chose for this transfer. */
+        @JsonProperty("unique_identifier")
+        @ExcludeMissing
+        fun uniqueIdentifier(uniqueIdentifier: JsonField<String>) = apply {
+            this.uniqueIdentifier = uniqueIdentifier
+        }
+
         /**
          * A constant representing the object's type. For this resource it will always be
          * `wire_transfer`.
@@ -639,6 +663,7 @@ private constructor(
                 status,
                 submission,
                 transactionId,
+                uniqueIdentifier,
                 type,
                 additionalProperties.toUnmodifiable(),
             )

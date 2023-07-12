@@ -44,6 +44,7 @@ class CheckTransferServiceTest {
                     .note("x")
                     .recipientName("x")
                     .requireApproval(true)
+                    .uniqueIdentifier("x")
                     .build()
             )
         println(checkTransfer)

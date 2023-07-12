@@ -36,7 +36,10 @@ class AchTransferTest {
                     listOf(
                         AchTransfer.NotificationsOfChange.builder()
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .changeCode("string")
+                            .changeCode(
+                                AchTransfer.NotificationsOfChange.ChangeCode
+                                    .INCORRECT_ACCOUNT_NUMBER
+                            )
                             .correctedData("string")
                             .build()
                     )
@@ -71,6 +74,7 @@ class AchTransferTest {
                 .standardEntryClassCode(
                     AchTransfer.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
                 )
+                .uniqueIdentifier("string")
                 .type(AchTransfer.Type.ACH_TRANSFER)
                 .build()
         assertThat(achTransfer).isNotNull
@@ -102,7 +106,9 @@ class AchTransferTest {
             .containsExactly(
                 AchTransfer.NotificationsOfChange.builder()
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .changeCode("string")
+                    .changeCode(
+                        AchTransfer.NotificationsOfChange.ChangeCode.INCORRECT_ACCOUNT_NUMBER
+                    )
                     .correctedData("string")
                     .build()
             )
@@ -137,6 +143,7 @@ class AchTransferTest {
         assertThat(achTransfer.effectiveDate()).contains(LocalDate.parse("2019-12-27"))
         assertThat(achTransfer.standardEntryClassCode())
             .isEqualTo(AchTransfer.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT)
+        assertThat(achTransfer.uniqueIdentifier()).contains("string")
         assertThat(achTransfer.type()).isEqualTo(AchTransfer.Type.ACH_TRANSFER)
     }
 }

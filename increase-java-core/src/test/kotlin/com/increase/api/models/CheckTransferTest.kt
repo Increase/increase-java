@@ -77,6 +77,7 @@ class CheckTransferTest {
                         .type(CheckTransfer.Deposit.Type.CHECK_TRANSFER_DEPOSIT)
                         .build()
                 )
+                .uniqueIdentifier("string")
                 .type(CheckTransfer.Type.CHECK_TRANSFER)
                 .build()
         assertThat(checkTransfer).isNotNull
@@ -152,6 +153,7 @@ class CheckTransferTest {
                     .type(CheckTransfer.Deposit.Type.CHECK_TRANSFER_DEPOSIT)
                     .build()
             )
+        assertThat(checkTransfer.uniqueIdentifier()).contains("string")
         assertThat(checkTransfer.type()).isEqualTo(CheckTransfer.Type.CHECK_TRANSFER)
     }
 }

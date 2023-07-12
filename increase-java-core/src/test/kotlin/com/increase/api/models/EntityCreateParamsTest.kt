@@ -80,6 +80,7 @@ class EntityCreateParamsTest {
                                                         .DriversLicense
                                                         .builder()
                                                         .fileId("string")
+                                                        .backFileId("string")
                                                         .expirationDate(
                                                             LocalDate.parse("2019-12-27")
                                                         )
@@ -98,6 +99,7 @@ class EntityCreateParamsTest {
                                                             LocalDate.parse("2019-12-27")
                                                         )
                                                         .fileId("string")
+                                                        .backFileId("string")
                                                         .build()
                                                 )
                                                 .build()
@@ -145,6 +147,7 @@ class EntityCreateParamsTest {
                                 EntityCreateParams.NaturalPerson.Identification.DriversLicense
                                     .builder()
                                     .fileId("string")
+                                    .backFileId("string")
                                     .expirationDate(LocalDate.parse("2019-12-27"))
                                     .state("x")
                                     .build()
@@ -155,6 +158,7 @@ class EntityCreateParamsTest {
                                     .description("x")
                                     .expirationDate(LocalDate.parse("2019-12-27"))
                                     .fileId("string")
+                                    .backFileId("string")
                                     .build()
                             )
                             .build()
@@ -201,6 +205,7 @@ class EntityCreateParamsTest {
                                                 .DriversLicense
                                                 .builder()
                                                 .fileId("string")
+                                                .backFileId("string")
                                                 .expirationDate(LocalDate.parse("2019-12-27"))
                                                 .state("x")
                                                 .build()
@@ -212,6 +217,7 @@ class EntityCreateParamsTest {
                                                 .description("x")
                                                 .expirationDate(LocalDate.parse("2019-12-27"))
                                                 .fileId("string")
+                                                .backFileId("string")
                                                 .build()
                                         )
                                         .build()
@@ -285,6 +291,7 @@ class EntityCreateParamsTest {
                                                         .DriversLicense
                                                         .builder()
                                                         .fileId("string")
+                                                        .backFileId("string")
                                                         .expirationDate(
                                                             LocalDate.parse("2019-12-27")
                                                         )
@@ -302,6 +309,7 @@ class EntityCreateParamsTest {
                                                             LocalDate.parse("2019-12-27")
                                                         )
                                                         .fileId("string")
+                                                        .backFileId("string")
                                                         .build()
                                                 )
                                                 .build()
@@ -345,6 +353,7 @@ class EntityCreateParamsTest {
                                             .DriversLicense
                                             .builder()
                                             .fileId("string")
+                                            .backFileId("string")
                                             .expirationDate(LocalDate.parse("2019-12-27"))
                                             .state("x")
                                             .build()
@@ -356,6 +365,7 @@ class EntityCreateParamsTest {
                                             .description("x")
                                             .expirationDate(LocalDate.parse("2019-12-27"))
                                             .fileId("string")
+                                            .backFileId("string")
                                             .build()
                                     )
                                     .build()
@@ -449,6 +459,7 @@ class EntityCreateParamsTest {
                                                             .DriversLicense
                                                             .builder()
                                                             .fileId("string")
+                                                            .backFileId("string")
                                                             .expirationDate(
                                                                 LocalDate.parse("2019-12-27")
                                                             )
@@ -468,6 +479,7 @@ class EntityCreateParamsTest {
                                                                 LocalDate.parse("2019-12-27")
                                                             )
                                                             .fileId("string")
+                                                            .backFileId("string")
                                                             .build()
                                                     )
                                                     .build()
@@ -517,6 +529,7 @@ class EntityCreateParamsTest {
                                     EntityCreateParams.NaturalPerson.Identification.DriversLicense
                                         .builder()
                                         .fileId("string")
+                                        .backFileId("string")
                                         .expirationDate(LocalDate.parse("2019-12-27"))
                                         .state("x")
                                         .build()
@@ -527,6 +540,7 @@ class EntityCreateParamsTest {
                                         .description("x")
                                         .expirationDate(LocalDate.parse("2019-12-27"))
                                         .fileId("string")
+                                        .backFileId("string")
                                         .build()
                                 )
                                 .build()
@@ -573,6 +587,7 @@ class EntityCreateParamsTest {
                                                     .DriversLicense
                                                     .builder()
                                                     .fileId("string")
+                                                    .backFileId("string")
                                                     .expirationDate(LocalDate.parse("2019-12-27"))
                                                     .state("x")
                                                     .build()
@@ -585,6 +600,7 @@ class EntityCreateParamsTest {
                                                     .description("x")
                                                     .expirationDate(LocalDate.parse("2019-12-27"))
                                                     .fileId("string")
+                                                    .backFileId("string")
                                                     .build()
                                             )
                                             .build()
@@ -660,6 +676,7 @@ class EntityCreateParamsTest {
                                                             .DriversLicense
                                                             .builder()
                                                             .fileId("string")
+                                                            .backFileId("string")
                                                             .expirationDate(
                                                                 LocalDate.parse("2019-12-27")
                                                             )
@@ -677,6 +694,7 @@ class EntityCreateParamsTest {
                                                                 LocalDate.parse("2019-12-27")
                                                             )
                                                             .fileId("string")
+                                                            .backFileId("string")
                                                             .build()
                                                     )
                                                     .build()
@@ -720,6 +738,7 @@ class EntityCreateParamsTest {
                                                 .DriversLicense
                                                 .builder()
                                                 .fileId("string")
+                                                .backFileId("string")
                                                 .expirationDate(LocalDate.parse("2019-12-27"))
                                                 .state("x")
                                                 .build()
@@ -731,6 +750,7 @@ class EntityCreateParamsTest {
                                                 .description("x")
                                                 .expirationDate(LocalDate.parse("2019-12-27"))
                                                 .fileId("string")
+                                                .backFileId("string")
                                                 .build()
                                         )
                                         .build()
@@ -820,6 +840,7 @@ class EntityCreateParamsTest {
                                                         .DriversLicense
                                                         .builder()
                                                         .fileId("string")
+                                                        .backFileId("string")
                                                         .expirationDate(
                                                             LocalDate.parse("2019-12-27")
                                                         )
@@ -838,6 +859,7 @@ class EntityCreateParamsTest {
                                                             LocalDate.parse("2019-12-27")
                                                         )
                                                         .fileId("string")
+                                                        .backFileId("string")
                                                         .build()
                                                 )
                                                 .build()
@@ -886,6 +908,7 @@ class EntityCreateParamsTest {
                                 EntityCreateParams.NaturalPerson.Identification.DriversLicense
                                     .builder()
                                     .fileId("string")
+                                    .backFileId("string")
                                     .expirationDate(LocalDate.parse("2019-12-27"))
                                     .state("x")
                                     .build()
@@ -896,6 +919,7 @@ class EntityCreateParamsTest {
                                     .description("x")
                                     .expirationDate(LocalDate.parse("2019-12-27"))
                                     .fileId("string")
+                                    .backFileId("string")
                                     .build()
                             )
                             .build()
@@ -943,6 +967,7 @@ class EntityCreateParamsTest {
                                                 .DriversLicense
                                                 .builder()
                                                 .fileId("string")
+                                                .backFileId("string")
                                                 .expirationDate(LocalDate.parse("2019-12-27"))
                                                 .state("x")
                                                 .build()
@@ -954,6 +979,7 @@ class EntityCreateParamsTest {
                                                 .description("x")
                                                 .expirationDate(LocalDate.parse("2019-12-27"))
                                                 .fileId("string")
+                                                .backFileId("string")
                                                 .build()
                                         )
                                         .build()
@@ -1028,6 +1054,7 @@ class EntityCreateParamsTest {
                                                         .DriversLicense
                                                         .builder()
                                                         .fileId("string")
+                                                        .backFileId("string")
                                                         .expirationDate(
                                                             LocalDate.parse("2019-12-27")
                                                         )
@@ -1045,6 +1072,7 @@ class EntityCreateParamsTest {
                                                             LocalDate.parse("2019-12-27")
                                                         )
                                                         .fileId("string")
+                                                        .backFileId("string")
                                                         .build()
                                                 )
                                                 .build()
@@ -1088,6 +1116,7 @@ class EntityCreateParamsTest {
                                             .DriversLicense
                                             .builder()
                                             .fileId("string")
+                                            .backFileId("string")
                                             .expirationDate(LocalDate.parse("2019-12-27"))
                                             .state("x")
                                             .build()
@@ -1099,6 +1128,7 @@ class EntityCreateParamsTest {
                                             .description("x")
                                             .expirationDate(LocalDate.parse("2019-12-27"))
                                             .fileId("string")
+                                            .backFileId("string")
                                             .build()
                                     )
                                     .build()

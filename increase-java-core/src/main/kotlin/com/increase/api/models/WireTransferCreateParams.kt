@@ -25,6 +25,7 @@ constructor(
     private val beneficiaryAddressLine2: String?,
     private val beneficiaryAddressLine3: String?,
     private val requireApproval: Boolean?,
+    private val uniqueIdentifier: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -52,6 +53,8 @@ constructor(
 
     fun requireApproval(): Optional<Boolean> = Optional.ofNullable(requireApproval)
 
+    fun uniqueIdentifier(): Optional<String> = Optional.ofNullable(uniqueIdentifier)
+
     @JvmSynthetic
     internal fun getBody(): WireTransferCreateBody {
         return WireTransferCreateBody(
@@ -66,6 +69,7 @@ constructor(
             beneficiaryAddressLine2,
             beneficiaryAddressLine3,
             requireApproval,
+            uniqueIdentifier,
             additionalBodyProperties,
         )
     }
@@ -89,6 +93,7 @@ constructor(
         private val beneficiaryAddressLine2: String?,
         private val beneficiaryAddressLine3: String?,
         private val requireApproval: Boolean?,
+        private val uniqueIdentifier: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -136,6 +141,13 @@ constructor(
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         @JsonProperty("require_approval") fun requireApproval(): Boolean? = requireApproval
 
+        /**
+         * A unique identifier you choose for the transfer. Reusing this identifer for another
+         * transfer will result in an error. You can query for the transfer associated with this
+         * identifier using the List endpoint.
+         */
+        @JsonProperty("unique_identifier") fun uniqueIdentifier(): String? = uniqueIdentifier
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -159,6 +171,7 @@ constructor(
                 this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
                 this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
                 this.requireApproval == other.requireApproval &&
+                this.uniqueIdentifier == other.uniqueIdentifier &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -177,6 +190,7 @@ constructor(
                         beneficiaryAddressLine2,
                         beneficiaryAddressLine3,
                         requireApproval,
+                        uniqueIdentifier,
                         additionalProperties,
                     )
             }
@@ -184,7 +198,7 @@ constructor(
         }
 
         override fun toString() =
-            "WireTransferCreateBody{accountId=$accountId, accountNumber=$accountNumber, routingNumber=$routingNumber, externalAccountId=$externalAccountId, amount=$amount, messageToRecipient=$messageToRecipient, beneficiaryName=$beneficiaryName, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, requireApproval=$requireApproval, additionalProperties=$additionalProperties}"
+            "WireTransferCreateBody{accountId=$accountId, accountNumber=$accountNumber, routingNumber=$routingNumber, externalAccountId=$externalAccountId, amount=$amount, messageToRecipient=$messageToRecipient, beneficiaryName=$beneficiaryName, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, requireApproval=$requireApproval, uniqueIdentifier=$uniqueIdentifier, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -204,6 +218,7 @@ constructor(
             private var beneficiaryAddressLine2: String? = null
             private var beneficiaryAddressLine3: String? = null
             private var requireApproval: Boolean? = null
+            private var uniqueIdentifier: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -219,6 +234,7 @@ constructor(
                 this.beneficiaryAddressLine2 = wireTransferCreateBody.beneficiaryAddressLine2
                 this.beneficiaryAddressLine3 = wireTransferCreateBody.beneficiaryAddressLine3
                 this.requireApproval = wireTransferCreateBody.requireApproval
+                this.uniqueIdentifier = wireTransferCreateBody.uniqueIdentifier
                 additionalProperties(wireTransferCreateBody.additionalProperties)
             }
 
@@ -285,6 +301,16 @@ constructor(
                 this.requireApproval = requireApproval
             }
 
+            /**
+             * A unique identifier you choose for the transfer. Reusing this identifer for another
+             * transfer will result in an error. You can query for the transfer associated with this
+             * identifier using the List endpoint.
+             */
+            @JsonProperty("unique_identifier")
+            fun uniqueIdentifier(uniqueIdentifier: String) = apply {
+                this.uniqueIdentifier = uniqueIdentifier
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -316,6 +342,7 @@ constructor(
                     beneficiaryAddressLine2,
                     beneficiaryAddressLine3,
                     requireApproval,
+                    uniqueIdentifier,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -344,6 +371,7 @@ constructor(
             this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
             this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
             this.requireApproval == other.requireApproval &&
+            this.uniqueIdentifier == other.uniqueIdentifier &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -362,6 +390,7 @@ constructor(
             beneficiaryAddressLine2,
             beneficiaryAddressLine3,
             requireApproval,
+            uniqueIdentifier,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -369,7 +398,7 @@ constructor(
     }
 
     override fun toString() =
-        "WireTransferCreateParams{accountId=$accountId, accountNumber=$accountNumber, routingNumber=$routingNumber, externalAccountId=$externalAccountId, amount=$amount, messageToRecipient=$messageToRecipient, beneficiaryName=$beneficiaryName, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, requireApproval=$requireApproval, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "WireTransferCreateParams{accountId=$accountId, accountNumber=$accountNumber, routingNumber=$routingNumber, externalAccountId=$externalAccountId, amount=$amount, messageToRecipient=$messageToRecipient, beneficiaryName=$beneficiaryName, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, requireApproval=$requireApproval, uniqueIdentifier=$uniqueIdentifier, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -392,6 +421,7 @@ constructor(
         private var beneficiaryAddressLine2: String? = null
         private var beneficiaryAddressLine3: String? = null
         private var requireApproval: Boolean? = null
+        private var uniqueIdentifier: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -409,6 +439,7 @@ constructor(
             this.beneficiaryAddressLine2 = wireTransferCreateParams.beneficiaryAddressLine2
             this.beneficiaryAddressLine3 = wireTransferCreateParams.beneficiaryAddressLine3
             this.requireApproval = wireTransferCreateParams.requireApproval
+            this.uniqueIdentifier = wireTransferCreateParams.uniqueIdentifier
             additionalQueryParams(wireTransferCreateParams.additionalQueryParams)
             additionalHeaders(wireTransferCreateParams.additionalHeaders)
             additionalBodyProperties(wireTransferCreateParams.additionalBodyProperties)
@@ -465,6 +496,15 @@ constructor(
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         fun requireApproval(requireApproval: Boolean) = apply {
             this.requireApproval = requireApproval
+        }
+
+        /**
+         * A unique identifier you choose for the transfer. Reusing this identifer for another
+         * transfer will result in an error. You can query for the transfer associated with this
+         * identifier using the List endpoint.
+         */
+        fun uniqueIdentifier(uniqueIdentifier: String) = apply {
+            this.uniqueIdentifier = uniqueIdentifier
         }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
@@ -536,6 +576,7 @@ constructor(
                 beneficiaryAddressLine2,
                 beneficiaryAddressLine3,
                 requireApproval,
+                uniqueIdentifier,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

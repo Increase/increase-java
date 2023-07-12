@@ -10,11 +10,13 @@ import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
 import com.increase.api.models.*
 import java.util.Objects
+import java.util.Optional
 
 class CardProfileCreateParams
 constructor(
     private val description: String,
     private val digitalWallets: DigitalWallets,
+    private val physicalCards: PhysicalCards?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -24,11 +26,14 @@ constructor(
 
     fun digitalWallets(): DigitalWallets = digitalWallets
 
+    fun physicalCards(): Optional<PhysicalCards> = Optional.ofNullable(physicalCards)
+
     @JvmSynthetic
     internal fun getBody(): CardProfileCreateBody {
         return CardProfileCreateBody(
             description,
             digitalWallets,
+            physicalCards,
             additionalBodyProperties,
         )
     }
@@ -43,6 +48,7 @@ constructor(
     internal constructor(
         private val description: String?,
         private val digitalWallets: DigitalWallets?,
+        private val physicalCards: PhysicalCards?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -56,6 +62,9 @@ constructor(
          * these values to render card artwork appropriately for their app.
          */
         @JsonProperty("digital_wallets") fun digitalWallets(): DigitalWallets? = digitalWallets
+
+        /** How physical cards should be designed and shipped. */
+        @JsonProperty("physical_cards") fun physicalCards(): PhysicalCards? = physicalCards
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -71,6 +80,7 @@ constructor(
             return other is CardProfileCreateBody &&
                 this.description == other.description &&
                 this.digitalWallets == other.digitalWallets &&
+                this.physicalCards == other.physicalCards &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -80,6 +90,7 @@ constructor(
                     Objects.hash(
                         description,
                         digitalWallets,
+                        physicalCards,
                         additionalProperties,
                     )
             }
@@ -87,7 +98,7 @@ constructor(
         }
 
         override fun toString() =
-            "CardProfileCreateBody{description=$description, digitalWallets=$digitalWallets, additionalProperties=$additionalProperties}"
+            "CardProfileCreateBody{description=$description, digitalWallets=$digitalWallets, physicalCards=$physicalCards, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -98,12 +109,14 @@ constructor(
 
             private var description: String? = null
             private var digitalWallets: DigitalWallets? = null
+            private var physicalCards: PhysicalCards? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(cardProfileCreateBody: CardProfileCreateBody) = apply {
                 this.description = cardProfileCreateBody.description
                 this.digitalWallets = cardProfileCreateBody.digitalWallets
+                this.physicalCards = cardProfileCreateBody.physicalCards
                 additionalProperties(cardProfileCreateBody.additionalProperties)
             }
 
@@ -118,6 +131,12 @@ constructor(
             @JsonProperty("digital_wallets")
             fun digitalWallets(digitalWallets: DigitalWallets) = apply {
                 this.digitalWallets = digitalWallets
+            }
+
+            /** How physical cards should be designed and shipped. */
+            @JsonProperty("physical_cards")
+            fun physicalCards(physicalCards: PhysicalCards) = apply {
+                this.physicalCards = physicalCards
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -138,6 +157,7 @@ constructor(
                 CardProfileCreateBody(
                     checkNotNull(description) { "`description` is required but was not set" },
                     checkNotNull(digitalWallets) { "`digitalWallets` is required but was not set" },
+                    physicalCards,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -157,6 +177,7 @@ constructor(
         return other is CardProfileCreateParams &&
             this.description == other.description &&
             this.digitalWallets == other.digitalWallets &&
+            this.physicalCards == other.physicalCards &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -166,6 +187,7 @@ constructor(
         return Objects.hash(
             description,
             digitalWallets,
+            physicalCards,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -173,7 +195,7 @@ constructor(
     }
 
     override fun toString() =
-        "CardProfileCreateParams{description=$description, digitalWallets=$digitalWallets, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "CardProfileCreateParams{description=$description, digitalWallets=$digitalWallets, physicalCards=$physicalCards, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -187,6 +209,7 @@ constructor(
 
         private var description: String? = null
         private var digitalWallets: DigitalWallets? = null
+        private var physicalCards: PhysicalCards? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -195,6 +218,7 @@ constructor(
         internal fun from(cardProfileCreateParams: CardProfileCreateParams) = apply {
             this.description = cardProfileCreateParams.description
             this.digitalWallets = cardProfileCreateParams.digitalWallets
+            this.physicalCards = cardProfileCreateParams.physicalCards
             additionalQueryParams(cardProfileCreateParams.additionalQueryParams)
             additionalHeaders(cardProfileCreateParams.additionalHeaders)
             additionalBodyProperties(cardProfileCreateParams.additionalBodyProperties)
@@ -209,6 +233,11 @@ constructor(
          */
         fun digitalWallets(digitalWallets: DigitalWallets) = apply {
             this.digitalWallets = digitalWallets
+        }
+
+        /** How physical cards should be designed and shipped. */
+        fun physicalCards(physicalCards: PhysicalCards) = apply {
+            this.physicalCards = physicalCards
         }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
@@ -269,6 +298,7 @@ constructor(
             CardProfileCreateParams(
                 checkNotNull(description) { "`description` is required but was not set" },
                 checkNotNull(digitalWallets) { "`digitalWallets` is required but was not set" },
+                physicalCards,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),
@@ -573,6 +603,127 @@ constructor(
                         additionalProperties.toUnmodifiable(),
                     )
             }
+        }
+    }
+
+    /** How physical cards should be designed and shipped. */
+    @JsonDeserialize(builder = PhysicalCards.Builder::class)
+    @NoAutoDetect
+    class PhysicalCards
+    private constructor(
+        private val contactPhone: String?,
+        private val frontImageFileId: String?,
+        private val carrierImageFileId: String?,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        /** A phone number the user can contact to receive support for their card. */
+        @JsonProperty("contact_phone") fun contactPhone(): String? = contactPhone
+
+        /** The identifier of the File containing the physical card's front image. */
+        @JsonProperty("front_image_file_id") fun frontImageFileId(): String? = frontImageFileId
+
+        /** The identifier of the File containing the physical card's carrier image. */
+        @JsonProperty("carrier_image_file_id")
+        fun carrierImageFileId(): String? = carrierImageFileId
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is PhysicalCards &&
+                this.contactPhone == other.contactPhone &&
+                this.frontImageFileId == other.frontImageFileId &&
+                this.carrierImageFileId == other.carrierImageFileId &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        contactPhone,
+                        frontImageFileId,
+                        carrierImageFileId,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "PhysicalCards{contactPhone=$contactPhone, frontImageFileId=$frontImageFileId, carrierImageFileId=$carrierImageFileId, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var contactPhone: String? = null
+            private var frontImageFileId: String? = null
+            private var carrierImageFileId: String? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(physicalCards: PhysicalCards) = apply {
+                this.contactPhone = physicalCards.contactPhone
+                this.frontImageFileId = physicalCards.frontImageFileId
+                this.carrierImageFileId = physicalCards.carrierImageFileId
+                additionalProperties(physicalCards.additionalProperties)
+            }
+
+            /** A phone number the user can contact to receive support for their card. */
+            @JsonProperty("contact_phone")
+            fun contactPhone(contactPhone: String) = apply { this.contactPhone = contactPhone }
+
+            /** The identifier of the File containing the physical card's front image. */
+            @JsonProperty("front_image_file_id")
+            fun frontImageFileId(frontImageFileId: String) = apply {
+                this.frontImageFileId = frontImageFileId
+            }
+
+            /** The identifier of the File containing the physical card's carrier image. */
+            @JsonProperty("carrier_image_file_id")
+            fun carrierImageFileId(carrierImageFileId: String) = apply {
+                this.carrierImageFileId = carrierImageFileId
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): PhysicalCards =
+                PhysicalCards(
+                    checkNotNull(contactPhone) { "`contactPhone` is required but was not set" },
+                    checkNotNull(frontImageFileId) {
+                        "`frontImageFileId` is required but was not set"
+                    },
+                    checkNotNull(carrierImageFileId) {
+                        "`carrierImageFileId` is required but was not set"
+                    },
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 }

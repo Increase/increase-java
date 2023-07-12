@@ -64,6 +64,7 @@ class WireTransferTest {
                         .build()
                 )
                 .transactionId("string")
+                .uniqueIdentifier("string")
                 .type(WireTransfer.Type.WIRE_TRANSFER)
                 .build()
         assertThat(wireTransfer).isNotNull
@@ -125,6 +126,7 @@ class WireTransferTest {
                     .build()
             )
         assertThat(wireTransfer.transactionId()).contains("string")
+        assertThat(wireTransfer.uniqueIdentifier()).contains("string")
         assertThat(wireTransfer.type()).isEqualTo(WireTransfer.Type.WIRE_TRANSFER)
     }
 }

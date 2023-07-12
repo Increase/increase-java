@@ -34,6 +34,7 @@ private constructor(
     private val transactionId: JsonField<String>,
     private val approval: JsonField<Approval>,
     private val cancellation: JsonField<Cancellation>,
+    private val uniqueIdentifier: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -99,6 +100,10 @@ private constructor(
     fun cancellation(): Optional<Cancellation> =
         Optional.ofNullable(cancellation.getNullable("cancellation"))
 
+    /** The unique identifier you chose for this transfer. */
+    fun uniqueIdentifier(): Optional<String> =
+        Optional.ofNullable(uniqueIdentifier.getNullable("unique_identifier"))
+
     /**
      * A constant representing the object's type. For this resource it will always be
      * `account_transfer`.
@@ -163,6 +168,9 @@ private constructor(
      */
     @JsonProperty("cancellation") @ExcludeMissing fun _cancellation() = cancellation
 
+    /** The unique identifier you chose for this transfer. */
+    @JsonProperty("unique_identifier") @ExcludeMissing fun _uniqueIdentifier() = uniqueIdentifier
+
     /**
      * A constant representing the object's type. For this resource it will always be
      * `account_transfer`.
@@ -188,6 +196,7 @@ private constructor(
             transactionId()
             approval().map { it.validate() }
             cancellation().map { it.validate() }
+            uniqueIdentifier()
             type()
             validated = true
         }
@@ -214,6 +223,7 @@ private constructor(
             this.transactionId == other.transactionId &&
             this.approval == other.approval &&
             this.cancellation == other.cancellation &&
+            this.uniqueIdentifier == other.uniqueIdentifier &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -235,6 +245,7 @@ private constructor(
                     transactionId,
                     approval,
                     cancellation,
+                    uniqueIdentifier,
                     type,
                     additionalProperties,
                 )
@@ -243,7 +254,7 @@ private constructor(
     }
 
     override fun toString() =
-        "AccountTransfer{id=$id, amount=$amount, accountId=$accountId, currency=$currency, destinationAccountId=$destinationAccountId, destinationTransactionId=$destinationTransactionId, createdAt=$createdAt, description=$description, network=$network, status=$status, transactionId=$transactionId, approval=$approval, cancellation=$cancellation, type=$type, additionalProperties=$additionalProperties}"
+        "AccountTransfer{id=$id, amount=$amount, accountId=$accountId, currency=$currency, destinationAccountId=$destinationAccountId, destinationTransactionId=$destinationTransactionId, createdAt=$createdAt, description=$description, network=$network, status=$status, transactionId=$transactionId, approval=$approval, cancellation=$cancellation, uniqueIdentifier=$uniqueIdentifier, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -265,6 +276,7 @@ private constructor(
         private var transactionId: JsonField<String> = JsonMissing.of()
         private var approval: JsonField<Approval> = JsonMissing.of()
         private var cancellation: JsonField<Cancellation> = JsonMissing.of()
+        private var uniqueIdentifier: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -283,6 +295,7 @@ private constructor(
             this.transactionId = accountTransfer.transactionId
             this.approval = accountTransfer.approval
             this.cancellation = accountTransfer.cancellation
+            this.uniqueIdentifier = accountTransfer.uniqueIdentifier
             this.type = accountTransfer.type
             additionalProperties(accountTransfer.additionalProperties)
         }
@@ -429,6 +442,17 @@ private constructor(
             this.cancellation = cancellation
         }
 
+        /** The unique identifier you chose for this transfer. */
+        fun uniqueIdentifier(uniqueIdentifier: String) =
+            uniqueIdentifier(JsonField.of(uniqueIdentifier))
+
+        /** The unique identifier you chose for this transfer. */
+        @JsonProperty("unique_identifier")
+        @ExcludeMissing
+        fun uniqueIdentifier(uniqueIdentifier: JsonField<String>) = apply {
+            this.uniqueIdentifier = uniqueIdentifier
+        }
+
         /**
          * A constant representing the object's type. For this resource it will always be
          * `account_transfer`.
@@ -472,6 +496,7 @@ private constructor(
                 transactionId,
                 approval,
                 cancellation,
+                uniqueIdentifier,
                 type,
                 additionalProperties.toUnmodifiable(),
             )
