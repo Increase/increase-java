@@ -61,6 +61,7 @@ class CardAuthorizationSimulationTest {
                                         .merchantCategoryCode("string")
                                         .merchantCity("string")
                                         .merchantCountry("string")
+                                        .physicalCardId("string")
                                         .network(
                                             CardAuthorizationSimulation.PendingTransaction.Source
                                                 .CardAuthorization
@@ -253,6 +254,7 @@ class CardAuthorizationSimulationTest {
                                         .merchantCategoryCode("string")
                                         .merchantCity("string")
                                         .merchantCountry("string")
+                                        .physicalCardId("string")
                                         .network(
                                             CardAuthorizationSimulation.DeclinedTransaction.Source
                                                 .CardDecline
@@ -484,6 +486,7 @@ class CardAuthorizationSimulationTest {
                                     .merchantCategoryCode("string")
                                     .merchantCity("string")
                                     .merchantCountry("string")
+                                    .physicalCardId("string")
                                     .network(
                                         CardAuthorizationSimulation.PendingTransaction.Source
                                             .CardAuthorization
@@ -671,6 +674,7 @@ class CardAuthorizationSimulationTest {
                                     .merchantCategoryCode("string")
                                     .merchantCity("string")
                                     .merchantCountry("string")
+                                    .physicalCardId("string")
                                     .network(
                                         CardAuthorizationSimulation.DeclinedTransaction.Source
                                             .CardDecline

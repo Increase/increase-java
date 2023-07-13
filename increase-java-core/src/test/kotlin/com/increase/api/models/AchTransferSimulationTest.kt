@@ -557,6 +557,7 @@ class AchTransferSimulationTest {
                                         .merchantCategoryCode("string")
                                         .merchantCity("string")
                                         .merchantCountry("string")
+                                        .physicalCardId("string")
                                         .network(
                                             AchTransferSimulation.DeclinedTransaction.Source
                                                 .CardDecline
@@ -1240,6 +1241,7 @@ class AchTransferSimulationTest {
                                     .merchantCategoryCode("string")
                                     .merchantCity("string")
                                     .merchantCountry("string")
+                                    .physicalCardId("string")
                                     .network(
                                         AchTransferSimulation.DeclinedTransaction.Source.CardDecline
                                             .Network

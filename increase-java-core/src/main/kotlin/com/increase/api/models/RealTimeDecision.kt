@@ -486,6 +486,7 @@ private constructor(
         private val merchantCategoryCode: JsonField<String>,
         private val merchantCity: JsonField<String>,
         private val merchantCountry: JsonField<String>,
+        private val physicalCardId: JsonField<String>,
         private val network: JsonField<Network>,
         private val networkDetails: JsonField<NetworkDetails>,
         private val decision: JsonField<Decision>,
@@ -525,6 +526,13 @@ private constructor(
         /** The country the merchant resides in. */
         fun merchantCountry(): Optional<String> =
             Optional.ofNullable(merchantCountry.getNullable("merchant_country"))
+
+        /**
+         * If the authorization was made in-person with a physical card, the Physical Card that was
+         * used.
+         */
+        fun physicalCardId(): Optional<String> =
+            Optional.ofNullable(physicalCardId.getNullable("physical_card_id"))
 
         /** The payment network used to process this card authorization */
         fun network(): Network = network.getRequired("network")
@@ -592,6 +600,12 @@ private constructor(
         /** The country the merchant resides in. */
         @JsonProperty("merchant_country") @ExcludeMissing fun _merchantCountry() = merchantCountry
 
+        /**
+         * If the authorization was made in-person with a physical card, the Physical Card that was
+         * used.
+         */
+        @JsonProperty("physical_card_id") @ExcludeMissing fun _physicalCardId() = physicalCardId
+
         /** The payment network used to process this card authorization */
         @JsonProperty("network") @ExcludeMissing fun _network() = network
 
@@ -650,6 +664,7 @@ private constructor(
                 merchantCategoryCode()
                 merchantCity()
                 merchantCountry()
+                physicalCardId()
                 network()
                 networkDetails().validate()
                 decision()
@@ -676,6 +691,7 @@ private constructor(
                 this.merchantCategoryCode == other.merchantCategoryCode &&
                 this.merchantCity == other.merchantCity &&
                 this.merchantCountry == other.merchantCountry &&
+                this.physicalCardId == other.physicalCardId &&
                 this.network == other.network &&
                 this.networkDetails == other.networkDetails &&
                 this.decision == other.decision &&
@@ -697,6 +713,7 @@ private constructor(
                         merchantCategoryCode,
                         merchantCity,
                         merchantCountry,
+                        physicalCardId,
                         network,
                         networkDetails,
                         decision,
@@ -713,7 +730,7 @@ private constructor(
         }
 
         override fun toString() =
-            "CardAuthorization{merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, network=$network, networkDetails=$networkDetails, decision=$decision, cardId=$cardId, accountId=$accountId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, settlementAmount=$settlementAmount, settlementCurrency=$settlementCurrency, additionalProperties=$additionalProperties}"
+            "CardAuthorization{merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, physicalCardId=$physicalCardId, network=$network, networkDetails=$networkDetails, decision=$decision, cardId=$cardId, accountId=$accountId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, settlementAmount=$settlementAmount, settlementCurrency=$settlementCurrency, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -727,6 +744,7 @@ private constructor(
             private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
             private var merchantCity: JsonField<String> = JsonMissing.of()
             private var merchantCountry: JsonField<String> = JsonMissing.of()
+            private var physicalCardId: JsonField<String> = JsonMissing.of()
             private var network: JsonField<Network> = JsonMissing.of()
             private var networkDetails: JsonField<NetworkDetails> = JsonMissing.of()
             private var decision: JsonField<Decision> = JsonMissing.of()
@@ -745,6 +763,7 @@ private constructor(
                 this.merchantCategoryCode = cardAuthorization.merchantCategoryCode
                 this.merchantCity = cardAuthorization.merchantCity
                 this.merchantCountry = cardAuthorization.merchantCountry
+                this.physicalCardId = cardAuthorization.physicalCardId
                 this.network = cardAuthorization.network
                 this.networkDetails = cardAuthorization.networkDetails
                 this.decision = cardAuthorization.decision
@@ -821,6 +840,23 @@ private constructor(
             @ExcludeMissing
             fun merchantCountry(merchantCountry: JsonField<String>) = apply {
                 this.merchantCountry = merchantCountry
+            }
+
+            /**
+             * If the authorization was made in-person with a physical card, the Physical Card that
+             * was used.
+             */
+            fun physicalCardId(physicalCardId: String) =
+                physicalCardId(JsonField.of(physicalCardId))
+
+            /**
+             * If the authorization was made in-person with a physical card, the Physical Card that
+             * was used.
+             */
+            @JsonProperty("physical_card_id")
+            @ExcludeMissing
+            fun physicalCardId(physicalCardId: JsonField<String>) = apply {
+                this.physicalCardId = physicalCardId
             }
 
             /** The payment network used to process this card authorization */
@@ -957,6 +993,7 @@ private constructor(
                     merchantCategoryCode,
                     merchantCity,
                     merchantCountry,
+                    physicalCardId,
                     network,
                     networkDetails,
                     decision,
