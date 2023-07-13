@@ -22,6 +22,7 @@ class RealTimeDecisionTest {
                         .merchantCategoryCode("string")
                         .merchantCity("string")
                         .merchantCountry("string")
+                        .physicalCardId("string")
                         .network(RealTimeDecision.CardAuthorization.Network.VISA)
                         .networkDetails(
                             RealTimeDecision.CardAuthorization.NetworkDetails.builder()
@@ -86,6 +87,7 @@ class RealTimeDecisionTest {
                     .merchantCategoryCode("string")
                     .merchantCity("string")
                     .merchantCountry("string")
+                    .physicalCardId("string")
                     .network(RealTimeDecision.CardAuthorization.Network.VISA)
                     .networkDetails(
                         RealTimeDecision.CardAuthorization.NetworkDetails.builder()

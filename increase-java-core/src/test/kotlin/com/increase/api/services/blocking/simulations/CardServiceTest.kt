@@ -22,6 +22,7 @@ class CardServiceTest {
                 SimulationCardAuthorizeParams.builder()
                     .amount(123L)
                     .cardId("string")
+                    .physicalCardId("string")
                     .digitalWalletTokenId("string")
                     .eventSubscriptionId("string")
                     .build()

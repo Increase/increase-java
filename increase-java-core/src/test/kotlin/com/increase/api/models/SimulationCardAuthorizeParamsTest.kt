@@ -11,6 +11,7 @@ class SimulationCardAuthorizeParamsTest {
         SimulationCardAuthorizeParams.builder()
             .amount(123L)
             .cardId("string")
+            .physicalCardId("string")
             .digitalWalletTokenId("string")
             .eventSubscriptionId("string")
             .build()
@@ -22,6 +23,7 @@ class SimulationCardAuthorizeParamsTest {
             SimulationCardAuthorizeParams.builder()
                 .amount(123L)
                 .cardId("string")
+                .physicalCardId("string")
                 .digitalWalletTokenId("string")
                 .eventSubscriptionId("string")
                 .build()
@@ -29,6 +31,7 @@ class SimulationCardAuthorizeParamsTest {
         assertThat(body).isNotNull
         assertThat(body.amount()).isEqualTo(123L)
         assertThat(body.cardId()).isEqualTo("string")
+        assertThat(body.physicalCardId()).isEqualTo("string")
         assertThat(body.digitalWalletTokenId()).isEqualTo("string")
         assertThat(body.eventSubscriptionId()).isEqualTo("string")
     }

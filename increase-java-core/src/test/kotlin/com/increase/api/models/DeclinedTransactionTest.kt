@@ -43,6 +43,7 @@ class DeclinedTransactionTest {
                                 .merchantCategoryCode("string")
                                 .merchantCity("string")
                                 .merchantCountry("string")
+                                .physicalCardId("string")
                                 .network(DeclinedTransaction.Source.CardDecline.Network.VISA)
                                 .networkDetails(
                                     DeclinedTransaction.Source.CardDecline.NetworkDetails.builder()
@@ -211,6 +212,7 @@ class DeclinedTransactionTest {
                             .merchantCategoryCode("string")
                             .merchantCity("string")
                             .merchantCountry("string")
+                            .physicalCardId("string")
                             .network(DeclinedTransaction.Source.CardDecline.Network.VISA)
                             .networkDetails(
                                 DeclinedTransaction.Source.CardDecline.NetworkDetails.builder()

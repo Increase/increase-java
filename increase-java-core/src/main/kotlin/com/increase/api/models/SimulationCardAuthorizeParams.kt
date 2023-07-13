@@ -16,6 +16,7 @@ class SimulationCardAuthorizeParams
 constructor(
     private val amount: Long,
     private val cardId: String?,
+    private val physicalCardId: String?,
     private val digitalWalletTokenId: String?,
     private val eventSubscriptionId: String?,
     private val additionalQueryParams: Map<String, List<String>>,
@@ -27,6 +28,8 @@ constructor(
 
     fun cardId(): Optional<String> = Optional.ofNullable(cardId)
 
+    fun physicalCardId(): Optional<String> = Optional.ofNullable(physicalCardId)
+
     fun digitalWalletTokenId(): Optional<String> = Optional.ofNullable(digitalWalletTokenId)
 
     fun eventSubscriptionId(): Optional<String> = Optional.ofNullable(eventSubscriptionId)
@@ -36,6 +39,7 @@ constructor(
         return SimulationCardAuthorizeBody(
             amount,
             cardId,
+            physicalCardId,
             digitalWalletTokenId,
             eventSubscriptionId,
             additionalBodyProperties,
@@ -52,6 +56,7 @@ constructor(
     internal constructor(
         private val amount: Long?,
         private val cardId: String?,
+        private val physicalCardId: String?,
         private val digitalWalletTokenId: String?,
         private val eventSubscriptionId: String?,
         private val additionalProperties: Map<String, JsonValue>,
@@ -64,6 +69,9 @@ constructor(
 
         /** The identifier of the Card to be authorized. */
         @JsonProperty("card_id") fun cardId(): String? = cardId
+
+        /** The identifier of the Physical Card to be authorized. */
+        @JsonProperty("physical_card_id") fun physicalCardId(): String? = physicalCardId
 
         /** The identifier of the Digital Wallet Token to be authorized. */
         @JsonProperty("digital_wallet_token_id")
@@ -92,6 +100,7 @@ constructor(
             return other is SimulationCardAuthorizeBody &&
                 this.amount == other.amount &&
                 this.cardId == other.cardId &&
+                this.physicalCardId == other.physicalCardId &&
                 this.digitalWalletTokenId == other.digitalWalletTokenId &&
                 this.eventSubscriptionId == other.eventSubscriptionId &&
                 this.additionalProperties == other.additionalProperties
@@ -103,6 +112,7 @@ constructor(
                     Objects.hash(
                         amount,
                         cardId,
+                        physicalCardId,
                         digitalWalletTokenId,
                         eventSubscriptionId,
                         additionalProperties,
@@ -112,7 +122,7 @@ constructor(
         }
 
         override fun toString() =
-            "SimulationCardAuthorizeBody{amount=$amount, cardId=$cardId, digitalWalletTokenId=$digitalWalletTokenId, eventSubscriptionId=$eventSubscriptionId, additionalProperties=$additionalProperties}"
+            "SimulationCardAuthorizeBody{amount=$amount, cardId=$cardId, physicalCardId=$physicalCardId, digitalWalletTokenId=$digitalWalletTokenId, eventSubscriptionId=$eventSubscriptionId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -123,6 +133,7 @@ constructor(
 
             private var amount: Long? = null
             private var cardId: String? = null
+            private var physicalCardId: String? = null
             private var digitalWalletTokenId: String? = null
             private var eventSubscriptionId: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -131,6 +142,7 @@ constructor(
             internal fun from(simulationCardAuthorizeBody: SimulationCardAuthorizeBody) = apply {
                 this.amount = simulationCardAuthorizeBody.amount
                 this.cardId = simulationCardAuthorizeBody.cardId
+                this.physicalCardId = simulationCardAuthorizeBody.physicalCardId
                 this.digitalWalletTokenId = simulationCardAuthorizeBody.digitalWalletTokenId
                 this.eventSubscriptionId = simulationCardAuthorizeBody.eventSubscriptionId
                 additionalProperties(simulationCardAuthorizeBody.additionalProperties)
@@ -141,6 +153,12 @@ constructor(
 
             /** The identifier of the Card to be authorized. */
             @JsonProperty("card_id") fun cardId(cardId: String) = apply { this.cardId = cardId }
+
+            /** The identifier of the Physical Card to be authorized. */
+            @JsonProperty("physical_card_id")
+            fun physicalCardId(physicalCardId: String) = apply {
+                this.physicalCardId = physicalCardId
+            }
 
             /** The identifier of the Digital Wallet Token to be authorized. */
             @JsonProperty("digital_wallet_token_id")
@@ -177,6 +195,7 @@ constructor(
                 SimulationCardAuthorizeBody(
                     checkNotNull(amount) { "`amount` is required but was not set" },
                     cardId,
+                    physicalCardId,
                     digitalWalletTokenId,
                     eventSubscriptionId,
                     additionalProperties.toUnmodifiable(),
@@ -198,6 +217,7 @@ constructor(
         return other is SimulationCardAuthorizeParams &&
             this.amount == other.amount &&
             this.cardId == other.cardId &&
+            this.physicalCardId == other.physicalCardId &&
             this.digitalWalletTokenId == other.digitalWalletTokenId &&
             this.eventSubscriptionId == other.eventSubscriptionId &&
             this.additionalQueryParams == other.additionalQueryParams &&
@@ -209,6 +229,7 @@ constructor(
         return Objects.hash(
             amount,
             cardId,
+            physicalCardId,
             digitalWalletTokenId,
             eventSubscriptionId,
             additionalQueryParams,
@@ -218,7 +239,7 @@ constructor(
     }
 
     override fun toString() =
-        "SimulationCardAuthorizeParams{amount=$amount, cardId=$cardId, digitalWalletTokenId=$digitalWalletTokenId, eventSubscriptionId=$eventSubscriptionId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationCardAuthorizeParams{amount=$amount, cardId=$cardId, physicalCardId=$physicalCardId, digitalWalletTokenId=$digitalWalletTokenId, eventSubscriptionId=$eventSubscriptionId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -232,6 +253,7 @@ constructor(
 
         private var amount: Long? = null
         private var cardId: String? = null
+        private var physicalCardId: String? = null
         private var digitalWalletTokenId: String? = null
         private var eventSubscriptionId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -242,6 +264,7 @@ constructor(
         internal fun from(simulationCardAuthorizeParams: SimulationCardAuthorizeParams) = apply {
             this.amount = simulationCardAuthorizeParams.amount
             this.cardId = simulationCardAuthorizeParams.cardId
+            this.physicalCardId = simulationCardAuthorizeParams.physicalCardId
             this.digitalWalletTokenId = simulationCardAuthorizeParams.digitalWalletTokenId
             this.eventSubscriptionId = simulationCardAuthorizeParams.eventSubscriptionId
             additionalQueryParams(simulationCardAuthorizeParams.additionalQueryParams)
@@ -254,6 +277,9 @@ constructor(
 
         /** The identifier of the Card to be authorized. */
         fun cardId(cardId: String) = apply { this.cardId = cardId }
+
+        /** The identifier of the Physical Card to be authorized. */
+        fun physicalCardId(physicalCardId: String) = apply { this.physicalCardId = physicalCardId }
 
         /** The identifier of the Digital Wallet Token to be authorized. */
         fun digitalWalletTokenId(digitalWalletTokenId: String) = apply {
@@ -328,6 +354,7 @@ constructor(
             SimulationCardAuthorizeParams(
                 checkNotNull(amount) { "`amount` is required but was not set" },
                 cardId,
+                physicalCardId,
                 digitalWalletTokenId,
                 eventSubscriptionId,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
