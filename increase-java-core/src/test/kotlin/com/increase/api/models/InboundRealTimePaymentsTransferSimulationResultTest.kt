@@ -692,6 +692,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .merchantCategoryCode("string")
                                         .merchantCity("string")
                                         .merchantCountry("string")
+                                        .physicalCardId("string")
                                         .network(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .DeclinedTransaction
@@ -1503,6 +1504,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .merchantCategoryCode("string")
                                     .merchantCity("string")
                                     .merchantCountry("string")
+                                    .physicalCardId("string")
                                     .network(
                                         InboundRealTimePaymentsTransferSimulationResult
                                             .DeclinedTransaction

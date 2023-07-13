@@ -46,6 +46,7 @@ class PendingTransactionTest {
                                 .merchantCategoryCode("string")
                                 .merchantCity("string")
                                 .merchantCountry("string")
+                                .physicalCardId("string")
                                 .network(PendingTransaction.Source.CardAuthorization.Network.VISA)
                                 .networkDetails(
                                     PendingTransaction.Source.CardAuthorization.NetworkDetails
@@ -179,6 +180,7 @@ class PendingTransactionTest {
                             .merchantCategoryCode("string")
                             .merchantCity("string")
                             .merchantCountry("string")
+                            .physicalCardId("string")
                             .network(PendingTransaction.Source.CardAuthorization.Network.VISA)
                             .networkDetails(
                                 PendingTransaction.Source.CardAuthorization.NetworkDetails.builder()
