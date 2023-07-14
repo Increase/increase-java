@@ -10,11 +10,11 @@ class EventTest {
     fun createEvent() {
         val event =
             Event.builder()
+                .id("string")
                 .associatedObjectId("string")
                 .associatedObjectType("string")
                 .category(Event.Category.ACCOUNT_CREATED)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .id("string")
                 .type(Event.Type.EVENT)
                 .build()
         assertThat(event).isNotNull

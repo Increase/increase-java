@@ -10,18 +10,17 @@ class PendingTransactionTest {
     fun createPendingTransaction() {
         val pendingTransaction =
             PendingTransaction.builder()
+                .id("string")
                 .accountId("string")
                 .amount(123L)
-                .currency(PendingTransaction.Currency.CAD)
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .currency(PendingTransaction.Currency.CAD)
                 .description("string")
-                .id("string")
                 .routeId("string")
                 .routeType(PendingTransaction.RouteType.ACCOUNT_NUMBER)
                 .source(
                     PendingTransaction.Source.builder()
-                        .category(PendingTransaction.Source.Category.ACCOUNT_TRANSFER_INSTRUCTION)
                         .accountTransferInstruction(
                             PendingTransaction.Source.AccountTransferInstruction.builder()
                                 .amount(123L)
@@ -41,12 +40,15 @@ class PendingTransactionTest {
                         .cardAuthorization(
                             PendingTransaction.Source.CardAuthorization.builder()
                                 .id("string")
+                                .amount(123L)
+                                .currency(PendingTransaction.Source.CardAuthorization.Currency.CAD)
+                                .digitalWalletTokenId("string")
+                                .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .merchantAcceptorId("string")
-                                .merchantDescriptor("string")
                                 .merchantCategoryCode("string")
                                 .merchantCity("string")
                                 .merchantCountry("string")
-                                .physicalCardId("string")
+                                .merchantDescriptor("string")
                                 .network(PendingTransaction.Source.CardAuthorization.Network.VISA)
                                 .networkDetails(
                                     PendingTransaction.Source.CardAuthorization.NetworkDetails
@@ -70,27 +72,25 @@ class PendingTransactionTest {
                                         )
                                         .build()
                                 )
-                                .amount(123L)
-                                .currency(PendingTransaction.Source.CardAuthorization.Currency.CAD)
-                                .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .realTimeDecisionId("string")
-                                .digitalWalletTokenId("string")
                                 .pendingTransactionId("string")
+                                .physicalCardId("string")
+                                .realTimeDecisionId("string")
                                 .type(
                                     PendingTransaction.Source.CardAuthorization.Type
                                         .CARD_AUTHORIZATION
                                 )
                                 .build()
                         )
+                        .category(PendingTransaction.Source.Category.ACCOUNT_TRANSFER_INSTRUCTION)
                         .checkDepositInstruction(
                             PendingTransaction.Source.CheckDepositInstruction.builder()
                                 .amount(123L)
+                                .backImageFileId("string")
+                                .checkDepositId("string")
                                 .currency(
                                     PendingTransaction.Source.CheckDepositInstruction.Currency.CAD
                                 )
                                 .frontImageFileId("string")
-                                .backImageFileId("string")
-                                .checkDepositId("string")
                                 .build()
                         )
                         .checkTransferInstruction(
@@ -105,15 +105,15 @@ class PendingTransactionTest {
                         .inboundFundsHold(
                             PendingTransaction.Source.InboundFundsHold.builder()
                                 .amount(123L)
-                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .currency(PendingTransaction.Source.InboundFundsHold.Currency.CAD)
                                 .automaticallyReleasesAt(
                                     OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                 )
-                                .releasedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .status(PendingTransaction.Source.InboundFundsHold.Status.HELD)
+                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .currency(PendingTransaction.Source.InboundFundsHold.Currency.CAD)
                                 .heldTransactionId("string")
                                 .pendingTransactionId("string")
+                                .releasedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .status(PendingTransaction.Source.InboundFundsHold.Status.HELD)
                                 .type(
                                     PendingTransaction.Source.InboundFundsHold.Type
                                         .INBOUND_FUNDS_HOLD
@@ -128,10 +128,10 @@ class PendingTransactionTest {
                         )
                         .wireTransferInstruction(
                             PendingTransaction.Source.WireTransferInstruction.builder()
-                                .amount(123L)
                                 .accountNumber("string")
-                                .routingNumber("string")
+                                .amount(123L)
                                 .messageToRecipient("string")
+                                .routingNumber("string")
                                 .transferId("string")
                                 .build()
                         )
@@ -156,7 +156,6 @@ class PendingTransactionTest {
         assertThat(pendingTransaction.source())
             .isEqualTo(
                 PendingTransaction.Source.builder()
-                    .category(PendingTransaction.Source.Category.ACCOUNT_TRANSFER_INSTRUCTION)
                     .accountTransferInstruction(
                         PendingTransaction.Source.AccountTransferInstruction.builder()
                             .amount(123L)
@@ -175,12 +174,15 @@ class PendingTransactionTest {
                     .cardAuthorization(
                         PendingTransaction.Source.CardAuthorization.builder()
                             .id("string")
+                            .amount(123L)
+                            .currency(PendingTransaction.Source.CardAuthorization.Currency.CAD)
+                            .digitalWalletTokenId("string")
+                            .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .merchantAcceptorId("string")
-                            .merchantDescriptor("string")
                             .merchantCategoryCode("string")
                             .merchantCity("string")
                             .merchantCountry("string")
-                            .physicalCardId("string")
+                            .merchantDescriptor("string")
                             .network(PendingTransaction.Source.CardAuthorization.Network.VISA)
                             .networkDetails(
                                 PendingTransaction.Source.CardAuthorization.NetworkDetails.builder()
@@ -200,26 +202,24 @@ class PendingTransactionTest {
                                     )
                                     .build()
                             )
-                            .amount(123L)
-                            .currency(PendingTransaction.Source.CardAuthorization.Currency.CAD)
-                            .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .realTimeDecisionId("string")
-                            .digitalWalletTokenId("string")
                             .pendingTransactionId("string")
+                            .physicalCardId("string")
+                            .realTimeDecisionId("string")
                             .type(
                                 PendingTransaction.Source.CardAuthorization.Type.CARD_AUTHORIZATION
                             )
                             .build()
                     )
+                    .category(PendingTransaction.Source.Category.ACCOUNT_TRANSFER_INSTRUCTION)
                     .checkDepositInstruction(
                         PendingTransaction.Source.CheckDepositInstruction.builder()
                             .amount(123L)
+                            .backImageFileId("string")
+                            .checkDepositId("string")
                             .currency(
                                 PendingTransaction.Source.CheckDepositInstruction.Currency.CAD
                             )
                             .frontImageFileId("string")
-                            .backImageFileId("string")
-                            .checkDepositId("string")
                             .build()
                     )
                     .checkTransferInstruction(
@@ -234,15 +234,15 @@ class PendingTransactionTest {
                     .inboundFundsHold(
                         PendingTransaction.Source.InboundFundsHold.builder()
                             .amount(123L)
-                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .currency(PendingTransaction.Source.InboundFundsHold.Currency.CAD)
                             .automaticallyReleasesAt(
                                 OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                             )
-                            .releasedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .status(PendingTransaction.Source.InboundFundsHold.Status.HELD)
+                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .currency(PendingTransaction.Source.InboundFundsHold.Currency.CAD)
                             .heldTransactionId("string")
                             .pendingTransactionId("string")
+                            .releasedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .status(PendingTransaction.Source.InboundFundsHold.Status.HELD)
                             .type(
                                 PendingTransaction.Source.InboundFundsHold.Type.INBOUND_FUNDS_HOLD
                             )
@@ -256,10 +256,10 @@ class PendingTransactionTest {
                     )
                     .wireTransferInstruction(
                         PendingTransaction.Source.WireTransferInstruction.builder()
-                            .amount(123L)
                             .accountNumber("string")
-                            .routingNumber("string")
+                            .amount(123L)
                             .messageToRecipient("string")
+                            .routingNumber("string")
                             .transferId("string")
                             .build()
                     )

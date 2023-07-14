@@ -13,22 +13,18 @@ class InterestPaymentSimulationResultTest {
             InterestPaymentSimulationResult.builder()
                 .transaction(
                     InterestPaymentSimulationResult.Transaction.builder()
+                        .id("string")
                         .accountId("string")
                         .amount(123L)
-                        .currency(InterestPaymentSimulationResult.Transaction.Currency.CAD)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .currency(InterestPaymentSimulationResult.Transaction.Currency.CAD)
                         .description("string")
-                        .id("string")
                         .routeId("string")
                         .routeType(
                             InterestPaymentSimulationResult.Transaction.RouteType.ACCOUNT_NUMBER
                         )
                         .source(
                             InterestPaymentSimulationResult.Transaction.Source.builder()
-                                .category(
-                                    InterestPaymentSimulationResult.Transaction.Source.Category
-                                        .ACCOUNT_TRANSFER_INTENTION
-                                )
                                 .accountTransferIntention(
                                     InterestPaymentSimulationResult.Transaction.Source
                                         .AccountTransferIntention
@@ -50,8 +46,8 @@ class InterestPaymentSimulationResultTest {
                                     InterestPaymentSimulationResult.Transaction.Source
                                         .AchTransferIntention
                                         .builder()
-                                        .amount(123L)
                                         .accountNumber("string")
+                                        .amount(123L)
                                         .routingNumber("string")
                                         .statementDescriptor("string")
                                         .transferId("string")
@@ -69,15 +65,15 @@ class InterestPaymentSimulationResultTest {
                                         .AchTransferReturn
                                         .builder()
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .rawReturnReasonCode("string")
                                         .returnReasonCode(
                                             InterestPaymentSimulationResult.Transaction.Source
                                                 .AchTransferReturn
                                                 .ReturnReasonCode
                                                 .INSUFFICIENT_FUND
                                         )
-                                        .rawReturnReasonCode("string")
-                                        .transferId("string")
                                         .transactionId("string")
+                                        .transferId("string")
                                         .build()
                                 )
                                 .cardDisputeAcceptance(
@@ -103,11 +99,11 @@ class InterestPaymentSimulationResultTest {
                                                 .CAD
                                         )
                                         .merchantAcceptorId("string")
+                                        .merchantCategoryCode("string")
                                         .merchantCity("string")
-                                        .merchantState("string")
                                         .merchantCountry("string")
                                         .merchantName("string")
-                                        .merchantCategoryCode("string")
+                                        .merchantState("string")
                                         .transactionId("string")
                                         .type(
                                             InterestPaymentSimulationResult.Transaction.Source
@@ -128,10 +124,10 @@ class InterestPaymentSimulationResultTest {
                                                 .Currency
                                                 .CAD
                                         )
+                                        .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .periodStart(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
-                                        .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .transactedOnAccountId("string")
                                         .build()
                                 )
@@ -140,24 +136,24 @@ class InterestPaymentSimulationResultTest {
                                         .CardSettlement
                                         .builder()
                                         .id("string")
-                                        .cardAuthorization("string")
                                         .amount(123L)
+                                        .cardAuthorization("string")
                                         .currency(
                                             InterestPaymentSimulationResult.Transaction.Source
                                                 .CardSettlement
                                                 .Currency
                                                 .CAD
                                         )
-                                        .presentmentAmount(123L)
-                                        .presentmentCurrency("string")
                                         .merchantAcceptorId("string")
+                                        .merchantCategoryCode("string")
                                         .merchantCity("string")
-                                        .merchantState("string")
                                         .merchantCountry("string")
                                         .merchantName("string")
-                                        .merchantCategoryCode("string")
-                                        .transactionId("string")
+                                        .merchantState("string")
                                         .pendingTransactionId("string")
+                                        .presentmentAmount(123L)
+                                        .presentmentCurrency("string")
+                                        .transactionId("string")
                                         .type(
                                             InterestPaymentSimulationResult.Transaction.Source
                                                 .CardSettlement
@@ -166,22 +162,26 @@ class InterestPaymentSimulationResultTest {
                                         )
                                         .build()
                                 )
+                                .category(
+                                    InterestPaymentSimulationResult.Transaction.Source.Category
+                                        .ACCOUNT_TRANSFER_INTENTION
+                                )
                                 .checkDepositAcceptance(
                                     InterestPaymentSimulationResult.Transaction.Source
                                         .CheckDepositAcceptance
                                         .builder()
+                                        .accountNumber("string")
                                         .amount(123L)
+                                        .auxiliaryOnUs("string")
+                                        .checkDepositId("string")
                                         .currency(
                                             InterestPaymentSimulationResult.Transaction.Source
                                                 .CheckDepositAcceptance
                                                 .Currency
                                                 .CAD
                                         )
-                                        .accountNumber("string")
                                         .routingNumber("string")
-                                        .auxiliaryOnUs("string")
                                         .serialNumber("string")
-                                        .checkDepositId("string")
                                         .build()
                                 )
                                 .checkDepositReturn(
@@ -189,35 +189,35 @@ class InterestPaymentSimulationResultTest {
                                         .CheckDepositReturn
                                         .builder()
                                         .amount(123L)
-                                        .returnedAt(
-                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
-                                        )
+                                        .checkDepositId("string")
                                         .currency(
                                             InterestPaymentSimulationResult.Transaction.Source
                                                 .CheckDepositReturn
                                                 .Currency
                                                 .CAD
                                         )
-                                        .checkDepositId("string")
-                                        .transactionId("string")
                                         .returnReason(
                                             InterestPaymentSimulationResult.Transaction.Source
                                                 .CheckDepositReturn
                                                 .ReturnReason
                                                 .ACH_CONVERSION_NOT_SUPPORTED
                                         )
+                                        .returnedAt(
+                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                        )
+                                        .transactionId("string")
                                         .build()
                                 )
                                 .checkTransferDeposit(
                                     InterestPaymentSimulationResult.Transaction.Source
                                         .CheckTransferDeposit
                                         .builder()
+                                        .backImageFileId("string")
                                         .depositedAt(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
-                                        .transactionId("string")
                                         .frontImageFileId("string")
-                                        .backImageFileId("string")
+                                        .transactionId("string")
                                         .type(
                                             InterestPaymentSimulationResult.Transaction.Source
                                                 .CheckTransferDeposit
@@ -230,9 +230,9 @@ class InterestPaymentSimulationResultTest {
                                     InterestPaymentSimulationResult.Transaction.Source
                                         .CheckTransferIntention
                                         .builder()
+                                        .addressCity("string")
                                         .addressLine1("string")
                                         .addressLine2("string")
-                                        .addressCity("string")
                                         .addressState("string")
                                         .addressZip("string")
                                         .amount(123L)
@@ -257,7 +257,6 @@ class InterestPaymentSimulationResultTest {
                                     InterestPaymentSimulationResult.Transaction.Source
                                         .CheckTransferStopPaymentRequest
                                         .builder()
-                                        .transferId("string")
                                         .reason(
                                             InterestPaymentSimulationResult.Transaction.Source
                                                 .CheckTransferStopPaymentRequest
@@ -267,6 +266,7 @@ class InterestPaymentSimulationResultTest {
                                         .requestedAt(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
+                                        .transferId("string")
                                         .type(
                                             InterestPaymentSimulationResult.Transaction.Source
                                                 .CheckTransferStopPaymentRequest
@@ -292,11 +292,11 @@ class InterestPaymentSimulationResultTest {
                                         .InboundAchTransfer
                                         .builder()
                                         .amount(123L)
-                                        .originatorCompanyName("string")
                                         .originatorCompanyDescriptiveDate("string")
                                         .originatorCompanyDiscretionaryData("string")
                                         .originatorCompanyEntryDescription("string")
                                         .originatorCompanyId("string")
+                                        .originatorCompanyName("string")
                                         .receiverIdNumber("string")
                                         .receiverName("string")
                                         .traceNumber("string")
@@ -306,15 +306,15 @@ class InterestPaymentSimulationResultTest {
                                     InterestPaymentSimulationResult.Transaction.Source.InboundCheck
                                         .builder()
                                         .amount(123L)
+                                        .checkFrontImageFileId("string")
+                                        .checkNumber("string")
+                                        .checkRearImageFileId("string")
                                         .currency(
                                             InterestPaymentSimulationResult.Transaction.Source
                                                 .InboundCheck
                                                 .Currency
                                                 .CAD
                                         )
-                                        .checkNumber("string")
-                                        .checkFrontImageFileId("string")
-                                        .checkRearImageFileId("string")
                                         .build()
                                 )
                                 .inboundInternationalAchTransfer(
@@ -322,46 +322,46 @@ class InterestPaymentSimulationResultTest {
                                         .InboundInternationalAchTransfer
                                         .builder()
                                         .amount(123L)
-                                        .foreignExchangeIndicator("string")
-                                        .foreignExchangeReferenceIndicator("string")
-                                        .foreignExchangeReference("string")
                                         .destinationCountryCode("string")
                                         .destinationCurrencyCode("string")
+                                        .foreignExchangeIndicator("string")
+                                        .foreignExchangeReference("string")
+                                        .foreignExchangeReferenceIndicator("string")
                                         .foreignPaymentAmount(123L)
                                         .foreignTraceNumber("string")
                                         .internationalTransactionTypeCode("string")
                                         .originatingCurrencyCode("string")
-                                        .originatingDepositoryFinancialInstitutionName("string")
-                                        .originatingDepositoryFinancialInstitutionIdQualifier(
-                                            "string"
-                                        )
-                                        .originatingDepositoryFinancialInstitutionId("string")
                                         .originatingDepositoryFinancialInstitutionBranchCountry(
                                             "string"
                                         )
+                                        .originatingDepositoryFinancialInstitutionId("string")
+                                        .originatingDepositoryFinancialInstitutionIdQualifier(
+                                            "string"
+                                        )
+                                        .originatingDepositoryFinancialInstitutionName("string")
                                         .originatorCity("string")
                                         .originatorCompanyEntryDescription("string")
                                         .originatorCountry("string")
                                         .originatorIdentification("string")
                                         .originatorName("string")
                                         .originatorPostalCode("string")
-                                        .originatorStreetAddress("string")
                                         .originatorStateOrProvince("string")
+                                        .originatorStreetAddress("string")
                                         .paymentRelatedInformation("string")
                                         .paymentRelatedInformation2("string")
-                                        .receiverIdentificationNumber("string")
-                                        .receiverStreetAddress("string")
                                         .receiverCity("string")
-                                        .receiverStateOrProvince("string")
                                         .receiverCountry("string")
+                                        .receiverIdentificationNumber("string")
                                         .receiverPostalCode("string")
+                                        .receiverStateOrProvince("string")
+                                        .receiverStreetAddress("string")
                                         .receivingCompanyOrIndividualName("string")
-                                        .receivingDepositoryFinancialInstitutionName("string")
+                                        .receivingDepositoryFinancialInstitutionCountry("string")
+                                        .receivingDepositoryFinancialInstitutionId("string")
                                         .receivingDepositoryFinancialInstitutionIdQualifier(
                                             "string"
                                         )
-                                        .receivingDepositoryFinancialInstitutionId("string")
-                                        .receivingDepositoryFinancialInstitutionCountry("string")
+                                        .receivingDepositoryFinancialInstitutionName("string")
                                         .traceNumber("string")
                                         .build()
                                 )
@@ -370,18 +370,18 @@ class InterestPaymentSimulationResultTest {
                                         .InboundRealTimePaymentsTransferConfirmation
                                         .builder()
                                         .amount(123L)
+                                        .creditorName("string")
                                         .currency(
                                             InterestPaymentSimulationResult.Transaction.Source
                                                 .InboundRealTimePaymentsTransferConfirmation
                                                 .Currency
                                                 .CAD
                                         )
-                                        .creditorName("string")
-                                        .debtorName("string")
                                         .debtorAccountNumber("string")
+                                        .debtorName("string")
                                         .debtorRoutingNumber("string")
-                                        .transactionIdentification("string")
                                         .remittanceInformation("string")
+                                        .transactionIdentification("string")
                                         .build()
                                 )
                                 .inboundWireDrawdownPayment(
@@ -410,13 +410,13 @@ class InterestPaymentSimulationResultTest {
                                         .amount(123L)
                                         .description("string")
                                         .inputCycleDate(LocalDate.parse("2019-12-27"))
+                                        .inputMessageAccountabilityData("string")
                                         .inputSequenceNumber("string")
                                         .inputSource("string")
-                                        .inputMessageAccountabilityData("string")
-                                        .previousMessageInputMessageAccountabilityData("string")
                                         .previousMessageInputCycleDate(
                                             LocalDate.parse("2019-12-27")
                                         )
+                                        .previousMessageInputMessageAccountabilityData("string")
                                         .previousMessageInputSequenceNumber("string")
                                         .previousMessageInputSource("string")
                                         .build()
@@ -428,20 +428,20 @@ class InterestPaymentSimulationResultTest {
                                         .amount(123L)
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .description("string")
-                                        .inputCycleDate(LocalDate.parse("2019-12-27"))
-                                        .inputSequenceNumber("string")
-                                        .inputSource("string")
-                                        .inputMessageAccountabilityData("string")
-                                        .previousMessageInputMessageAccountabilityData("string")
-                                        .previousMessageInputCycleDate(
-                                            LocalDate.parse("2019-12-27")
-                                        )
-                                        .previousMessageInputSequenceNumber("string")
-                                        .previousMessageInputSource("string")
-                                        .receiverFinancialInstitutionInformation("string")
                                         .financialInstitutionToFinancialInstitutionInformation(
                                             "string"
                                         )
+                                        .inputCycleDate(LocalDate.parse("2019-12-27"))
+                                        .inputMessageAccountabilityData("string")
+                                        .inputSequenceNumber("string")
+                                        .inputSource("string")
+                                        .previousMessageInputCycleDate(
+                                            LocalDate.parse("2019-12-27")
+                                        )
+                                        .previousMessageInputMessageAccountabilityData("string")
+                                        .previousMessageInputSequenceNumber("string")
+                                        .previousMessageInputSource("string")
+                                        .receiverFinancialInstitutionInformation("string")
                                         .transactionId("string")
                                         .wireTransferId("string")
                                         .build()
@@ -462,17 +462,18 @@ class InterestPaymentSimulationResultTest {
                                         .originatorAddressLine2("string")
                                         .originatorAddressLine3("string")
                                         .originatorName("string")
+                                        .originatorToBeneficiaryInformation("string")
                                         .originatorToBeneficiaryInformationLine1("string")
                                         .originatorToBeneficiaryInformationLine2("string")
                                         .originatorToBeneficiaryInformationLine3("string")
                                         .originatorToBeneficiaryInformationLine4("string")
-                                        .originatorToBeneficiaryInformation("string")
                                         .build()
                                 )
                                 .interestPayment(
                                     InterestPaymentSimulationResult.Transaction.Source
                                         .InterestPayment
                                         .builder()
+                                        .accruedOnAccountId("string")
                                         .amount(123L)
                                         .currency(
                                             InterestPaymentSimulationResult.Transaction.Source
@@ -480,11 +481,10 @@ class InterestPaymentSimulationResultTest {
                                                 .Currency
                                                 .CAD
                                         )
+                                        .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .periodStart(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
-                                        .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                        .accruedOnAccountId("string")
                                         .build()
                                 )
                                 .internalSource(
@@ -527,10 +527,10 @@ class InterestPaymentSimulationResultTest {
                                     InterestPaymentSimulationResult.Transaction.Source
                                         .WireTransferIntention
                                         .builder()
-                                        .amount(123L)
                                         .accountNumber("string")
-                                        .routingNumber("string")
+                                        .amount(123L)
                                         .messageToRecipient("string")
+                                        .routingNumber("string")
                                         .transferId("string")
                                         .build()
                                 )
@@ -552,20 +552,16 @@ class InterestPaymentSimulationResultTest {
         assertThat(interestPaymentSimulationResult.transaction())
             .isEqualTo(
                 InterestPaymentSimulationResult.Transaction.builder()
+                    .id("string")
                     .accountId("string")
                     .amount(123L)
-                    .currency(InterestPaymentSimulationResult.Transaction.Currency.CAD)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .currency(InterestPaymentSimulationResult.Transaction.Currency.CAD)
                     .description("string")
-                    .id("string")
                     .routeId("string")
                     .routeType(InterestPaymentSimulationResult.Transaction.RouteType.ACCOUNT_NUMBER)
                     .source(
                         InterestPaymentSimulationResult.Transaction.Source.builder()
-                            .category(
-                                InterestPaymentSimulationResult.Transaction.Source.Category
-                                    .ACCOUNT_TRANSFER_INTENTION
-                            )
                             .accountTransferIntention(
                                 InterestPaymentSimulationResult.Transaction.Source
                                     .AccountTransferIntention
@@ -587,8 +583,8 @@ class InterestPaymentSimulationResultTest {
                                 InterestPaymentSimulationResult.Transaction.Source
                                     .AchTransferIntention
                                     .builder()
-                                    .amount(123L)
                                     .accountNumber("string")
+                                    .amount(123L)
                                     .routingNumber("string")
                                     .statementDescriptor("string")
                                     .transferId("string")
@@ -605,15 +601,15 @@ class InterestPaymentSimulationResultTest {
                                 InterestPaymentSimulationResult.Transaction.Source.AchTransferReturn
                                     .builder()
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .rawReturnReasonCode("string")
                                     .returnReasonCode(
                                         InterestPaymentSimulationResult.Transaction.Source
                                             .AchTransferReturn
                                             .ReturnReasonCode
                                             .INSUFFICIENT_FUND
                                     )
-                                    .rawReturnReasonCode("string")
-                                    .transferId("string")
                                     .transactionId("string")
+                                    .transferId("string")
                                     .build()
                             )
                             .cardDisputeAcceptance(
@@ -637,11 +633,11 @@ class InterestPaymentSimulationResultTest {
                                             .CAD
                                     )
                                     .merchantAcceptorId("string")
+                                    .merchantCategoryCode("string")
                                     .merchantCity("string")
-                                    .merchantState("string")
                                     .merchantCountry("string")
                                     .merchantName("string")
-                                    .merchantCategoryCode("string")
+                                    .merchantState("string")
                                     .transactionId("string")
                                     .type(
                                         InterestPaymentSimulationResult.Transaction.Source
@@ -662,8 +658,8 @@ class InterestPaymentSimulationResultTest {
                                             .Currency
                                             .CAD
                                     )
-                                    .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .transactedOnAccountId("string")
                                     .build()
                             )
@@ -671,24 +667,24 @@ class InterestPaymentSimulationResultTest {
                                 InterestPaymentSimulationResult.Transaction.Source.CardSettlement
                                     .builder()
                                     .id("string")
-                                    .cardAuthorization("string")
                                     .amount(123L)
+                                    .cardAuthorization("string")
                                     .currency(
                                         InterestPaymentSimulationResult.Transaction.Source
                                             .CardSettlement
                                             .Currency
                                             .CAD
                                     )
-                                    .presentmentAmount(123L)
-                                    .presentmentCurrency("string")
                                     .merchantAcceptorId("string")
+                                    .merchantCategoryCode("string")
                                     .merchantCity("string")
-                                    .merchantState("string")
                                     .merchantCountry("string")
                                     .merchantName("string")
-                                    .merchantCategoryCode("string")
-                                    .transactionId("string")
+                                    .merchantState("string")
                                     .pendingTransactionId("string")
+                                    .presentmentAmount(123L)
+                                    .presentmentCurrency("string")
+                                    .transactionId("string")
                                     .type(
                                         InterestPaymentSimulationResult.Transaction.Source
                                             .CardSettlement
@@ -697,22 +693,26 @@ class InterestPaymentSimulationResultTest {
                                     )
                                     .build()
                             )
+                            .category(
+                                InterestPaymentSimulationResult.Transaction.Source.Category
+                                    .ACCOUNT_TRANSFER_INTENTION
+                            )
                             .checkDepositAcceptance(
                                 InterestPaymentSimulationResult.Transaction.Source
                                     .CheckDepositAcceptance
                                     .builder()
+                                    .accountNumber("string")
                                     .amount(123L)
+                                    .auxiliaryOnUs("string")
+                                    .checkDepositId("string")
                                     .currency(
                                         InterestPaymentSimulationResult.Transaction.Source
                                             .CheckDepositAcceptance
                                             .Currency
                                             .CAD
                                     )
-                                    .accountNumber("string")
                                     .routingNumber("string")
-                                    .auxiliaryOnUs("string")
                                     .serialNumber("string")
-                                    .checkDepositId("string")
                                     .build()
                             )
                             .checkDepositReturn(
@@ -720,31 +720,31 @@ class InterestPaymentSimulationResultTest {
                                     .CheckDepositReturn
                                     .builder()
                                     .amount(123L)
-                                    .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .checkDepositId("string")
                                     .currency(
                                         InterestPaymentSimulationResult.Transaction.Source
                                             .CheckDepositReturn
                                             .Currency
                                             .CAD
                                     )
-                                    .checkDepositId("string")
-                                    .transactionId("string")
                                     .returnReason(
                                         InterestPaymentSimulationResult.Transaction.Source
                                             .CheckDepositReturn
                                             .ReturnReason
                                             .ACH_CONVERSION_NOT_SUPPORTED
                                     )
+                                    .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .transactionId("string")
                                     .build()
                             )
                             .checkTransferDeposit(
                                 InterestPaymentSimulationResult.Transaction.Source
                                     .CheckTransferDeposit
                                     .builder()
-                                    .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .transactionId("string")
-                                    .frontImageFileId("string")
                                     .backImageFileId("string")
+                                    .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .frontImageFileId("string")
+                                    .transactionId("string")
                                     .type(
                                         InterestPaymentSimulationResult.Transaction.Source
                                             .CheckTransferDeposit
@@ -757,9 +757,9 @@ class InterestPaymentSimulationResultTest {
                                 InterestPaymentSimulationResult.Transaction.Source
                                     .CheckTransferIntention
                                     .builder()
+                                    .addressCity("string")
                                     .addressLine1("string")
                                     .addressLine2("string")
-                                    .addressCity("string")
                                     .addressState("string")
                                     .addressZip("string")
                                     .amount(123L)
@@ -784,7 +784,6 @@ class InterestPaymentSimulationResultTest {
                                 InterestPaymentSimulationResult.Transaction.Source
                                     .CheckTransferStopPaymentRequest
                                     .builder()
-                                    .transferId("string")
                                     .reason(
                                         InterestPaymentSimulationResult.Transaction.Source
                                             .CheckTransferStopPaymentRequest
@@ -792,6 +791,7 @@ class InterestPaymentSimulationResultTest {
                                             .MAIL_DELIVERY_FAILED
                                     )
                                     .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .transferId("string")
                                     .type(
                                         InterestPaymentSimulationResult.Transaction.Source
                                             .CheckTransferStopPaymentRequest
@@ -817,11 +817,11 @@ class InterestPaymentSimulationResultTest {
                                     .InboundAchTransfer
                                     .builder()
                                     .amount(123L)
-                                    .originatorCompanyName("string")
                                     .originatorCompanyDescriptiveDate("string")
                                     .originatorCompanyDiscretionaryData("string")
                                     .originatorCompanyEntryDescription("string")
                                     .originatorCompanyId("string")
+                                    .originatorCompanyName("string")
                                     .receiverIdNumber("string")
                                     .receiverName("string")
                                     .traceNumber("string")
@@ -831,15 +831,15 @@ class InterestPaymentSimulationResultTest {
                                 InterestPaymentSimulationResult.Transaction.Source.InboundCheck
                                     .builder()
                                     .amount(123L)
+                                    .checkFrontImageFileId("string")
+                                    .checkNumber("string")
+                                    .checkRearImageFileId("string")
                                     .currency(
                                         InterestPaymentSimulationResult.Transaction.Source
                                             .InboundCheck
                                             .Currency
                                             .CAD
                                     )
-                                    .checkNumber("string")
-                                    .checkFrontImageFileId("string")
-                                    .checkRearImageFileId("string")
                                     .build()
                             )
                             .inboundInternationalAchTransfer(
@@ -847,42 +847,42 @@ class InterestPaymentSimulationResultTest {
                                     .InboundInternationalAchTransfer
                                     .builder()
                                     .amount(123L)
-                                    .foreignExchangeIndicator("string")
-                                    .foreignExchangeReferenceIndicator("string")
-                                    .foreignExchangeReference("string")
                                     .destinationCountryCode("string")
                                     .destinationCurrencyCode("string")
+                                    .foreignExchangeIndicator("string")
+                                    .foreignExchangeReference("string")
+                                    .foreignExchangeReferenceIndicator("string")
                                     .foreignPaymentAmount(123L)
                                     .foreignTraceNumber("string")
                                     .internationalTransactionTypeCode("string")
                                     .originatingCurrencyCode("string")
-                                    .originatingDepositoryFinancialInstitutionName("string")
-                                    .originatingDepositoryFinancialInstitutionIdQualifier("string")
-                                    .originatingDepositoryFinancialInstitutionId("string")
                                     .originatingDepositoryFinancialInstitutionBranchCountry(
                                         "string"
                                     )
+                                    .originatingDepositoryFinancialInstitutionId("string")
+                                    .originatingDepositoryFinancialInstitutionIdQualifier("string")
+                                    .originatingDepositoryFinancialInstitutionName("string")
                                     .originatorCity("string")
                                     .originatorCompanyEntryDescription("string")
                                     .originatorCountry("string")
                                     .originatorIdentification("string")
                                     .originatorName("string")
                                     .originatorPostalCode("string")
-                                    .originatorStreetAddress("string")
                                     .originatorStateOrProvince("string")
+                                    .originatorStreetAddress("string")
                                     .paymentRelatedInformation("string")
                                     .paymentRelatedInformation2("string")
-                                    .receiverIdentificationNumber("string")
-                                    .receiverStreetAddress("string")
                                     .receiverCity("string")
-                                    .receiverStateOrProvince("string")
                                     .receiverCountry("string")
+                                    .receiverIdentificationNumber("string")
                                     .receiverPostalCode("string")
+                                    .receiverStateOrProvince("string")
+                                    .receiverStreetAddress("string")
                                     .receivingCompanyOrIndividualName("string")
-                                    .receivingDepositoryFinancialInstitutionName("string")
-                                    .receivingDepositoryFinancialInstitutionIdQualifier("string")
-                                    .receivingDepositoryFinancialInstitutionId("string")
                                     .receivingDepositoryFinancialInstitutionCountry("string")
+                                    .receivingDepositoryFinancialInstitutionId("string")
+                                    .receivingDepositoryFinancialInstitutionIdQualifier("string")
+                                    .receivingDepositoryFinancialInstitutionName("string")
                                     .traceNumber("string")
                                     .build()
                             )
@@ -891,18 +891,18 @@ class InterestPaymentSimulationResultTest {
                                     .InboundRealTimePaymentsTransferConfirmation
                                     .builder()
                                     .amount(123L)
+                                    .creditorName("string")
                                     .currency(
                                         InterestPaymentSimulationResult.Transaction.Source
                                             .InboundRealTimePaymentsTransferConfirmation
                                             .Currency
                                             .CAD
                                     )
-                                    .creditorName("string")
-                                    .debtorName("string")
                                     .debtorAccountNumber("string")
+                                    .debtorName("string")
                                     .debtorRoutingNumber("string")
-                                    .transactionIdentification("string")
                                     .remittanceInformation("string")
+                                    .transactionIdentification("string")
                                     .build()
                             )
                             .inboundWireDrawdownPayment(
@@ -931,11 +931,11 @@ class InterestPaymentSimulationResultTest {
                                     .amount(123L)
                                     .description("string")
                                     .inputCycleDate(LocalDate.parse("2019-12-27"))
+                                    .inputMessageAccountabilityData("string")
                                     .inputSequenceNumber("string")
                                     .inputSource("string")
-                                    .inputMessageAccountabilityData("string")
-                                    .previousMessageInputMessageAccountabilityData("string")
                                     .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
+                                    .previousMessageInputMessageAccountabilityData("string")
                                     .previousMessageInputSequenceNumber("string")
                                     .previousMessageInputSource("string")
                                     .build()
@@ -947,16 +947,16 @@ class InterestPaymentSimulationResultTest {
                                     .amount(123L)
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .description("string")
+                                    .financialInstitutionToFinancialInstitutionInformation("string")
                                     .inputCycleDate(LocalDate.parse("2019-12-27"))
+                                    .inputMessageAccountabilityData("string")
                                     .inputSequenceNumber("string")
                                     .inputSource("string")
-                                    .inputMessageAccountabilityData("string")
-                                    .previousMessageInputMessageAccountabilityData("string")
                                     .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
+                                    .previousMessageInputMessageAccountabilityData("string")
                                     .previousMessageInputSequenceNumber("string")
                                     .previousMessageInputSource("string")
                                     .receiverFinancialInstitutionInformation("string")
-                                    .financialInstitutionToFinancialInstitutionInformation("string")
                                     .transactionId("string")
                                     .wireTransferId("string")
                                     .build()
@@ -977,16 +977,17 @@ class InterestPaymentSimulationResultTest {
                                     .originatorAddressLine2("string")
                                     .originatorAddressLine3("string")
                                     .originatorName("string")
+                                    .originatorToBeneficiaryInformation("string")
                                     .originatorToBeneficiaryInformationLine1("string")
                                     .originatorToBeneficiaryInformationLine2("string")
                                     .originatorToBeneficiaryInformationLine3("string")
                                     .originatorToBeneficiaryInformationLine4("string")
-                                    .originatorToBeneficiaryInformation("string")
                                     .build()
                             )
                             .interestPayment(
                                 InterestPaymentSimulationResult.Transaction.Source.InterestPayment
                                     .builder()
+                                    .accruedOnAccountId("string")
                                     .amount(123L)
                                     .currency(
                                         InterestPaymentSimulationResult.Transaction.Source
@@ -994,9 +995,8 @@ class InterestPaymentSimulationResultTest {
                                             .Currency
                                             .CAD
                                     )
-                                    .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .accruedOnAccountId("string")
+                                    .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .build()
                             )
                             .internalSource(
@@ -1038,10 +1038,10 @@ class InterestPaymentSimulationResultTest {
                                 InterestPaymentSimulationResult.Transaction.Source
                                     .WireTransferIntention
                                     .builder()
-                                    .amount(123L)
                                     .accountNumber("string")
-                                    .routingNumber("string")
+                                    .amount(123L)
                                     .messageToRecipient("string")
+                                    .routingNumber("string")
                                     .transferId("string")
                                     .build()
                             )

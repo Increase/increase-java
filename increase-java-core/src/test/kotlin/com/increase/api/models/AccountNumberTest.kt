@@ -10,9 +10,9 @@ class AccountNumberTest {
     fun createAccountNumber() {
         val accountNumber =
             AccountNumber.builder()
+                .id("string")
                 .accountId("string")
                 .accountNumber("string")
-                .id("string")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .name("string")
                 .routingNumber("string")

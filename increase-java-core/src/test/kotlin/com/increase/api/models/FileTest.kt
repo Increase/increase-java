@@ -10,13 +10,13 @@ class FileTest {
     fun createFile() {
         val file =
             File.builder()
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .id("string")
-                .purpose(File.Purpose.CHECK_IMAGE_FRONT)
+                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .description("string")
                 .direction(File.Direction.TO_INCREASE)
-                .filename("string")
                 .downloadUrl("string")
+                .filename("string")
+                .purpose(File.Purpose.CHECK_IMAGE_FRONT)
                 .type(File.Type.FILE)
                 .build()
         assertThat(file).isNotNull

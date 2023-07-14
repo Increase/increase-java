@@ -11,17 +11,17 @@ class BookkeepingEntrySetTest {
         val bookkeepingEntrySet =
             BookkeepingEntrySet.builder()
                 .id("string")
-                .transactionId("string")
                 .date(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .entries(
                     listOf(
                         BookkeepingEntrySet.Entry.builder()
+                            .id("string")
                             .accountId("string")
                             .amount(123L)
-                            .id("string")
                             .build()
                     )
                 )
+                .transactionId("string")
                 .type(BookkeepingEntrySet.Type.BOOKKEEPING_ENTRY_SET)
                 .build()
         assertThat(bookkeepingEntrySet).isNotNull
@@ -32,9 +32,9 @@ class BookkeepingEntrySetTest {
         assertThat(bookkeepingEntrySet.entries())
             .containsExactly(
                 BookkeepingEntrySet.Entry.builder()
+                    .id("string")
                     .accountId("string")
                     .amount(123L)
-                    .id("string")
                     .build()
             )
         assertThat(bookkeepingEntrySet.type())

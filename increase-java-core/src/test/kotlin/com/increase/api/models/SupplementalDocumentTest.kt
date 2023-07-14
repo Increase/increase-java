@@ -10,8 +10,8 @@ class SupplementalDocumentTest {
     fun createSupplementalDocument() {
         val supplementalDocument =
             SupplementalDocument.builder()
-                .fileId("string")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .fileId("string")
                 .type(SupplementalDocument.Type.ENTITY_SUPPLEMENTAL_DOCUMENT)
                 .build()
         assertThat(supplementalDocument).isNotNull

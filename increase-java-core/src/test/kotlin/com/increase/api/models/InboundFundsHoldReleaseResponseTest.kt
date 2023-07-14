@@ -11,13 +11,13 @@ class InboundFundsHoldReleaseResponseTest {
         val inboundFundsHoldReleaseResponse =
             InboundFundsHoldReleaseResponse.builder()
                 .amount(123L)
+                .automaticallyReleasesAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .currency(InboundFundsHoldReleaseResponse.Currency.CAD)
-                .automaticallyReleasesAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .releasedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(InboundFundsHoldReleaseResponse.Status.HELD)
                 .heldTransactionId("string")
                 .pendingTransactionId("string")
+                .releasedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .status(InboundFundsHoldReleaseResponse.Status.HELD)
                 .type(InboundFundsHoldReleaseResponse.Type.INBOUND_FUNDS_HOLD)
                 .build()
         assertThat(inboundFundsHoldReleaseResponse).isNotNull

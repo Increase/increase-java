@@ -49,8 +49,8 @@ class RealTimeDecisionServiceTest {
                             .approval(
                                 RealTimeDecisionActionParams.DigitalWalletToken.Approval.builder()
                                     .cardProfileId("string")
-                                    .phone("x")
                                     .email("x")
+                                    .phone("x")
                                     .build()
                             )
                             .decline(
