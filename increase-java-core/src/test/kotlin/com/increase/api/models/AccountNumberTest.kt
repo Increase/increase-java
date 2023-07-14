@@ -20,9 +20,9 @@ class AccountNumberTest {
                 .type(AccountNumber.Type.ACCOUNT_NUMBER)
                 .build()
         assertThat(accountNumber).isNotNull
+        assertThat(accountNumber.id()).isEqualTo("string")
         assertThat(accountNumber.accountId()).isEqualTo("string")
         assertThat(accountNumber.accountNumber()).isEqualTo("string")
-        assertThat(accountNumber.id()).isEqualTo("string")
         assertThat(accountNumber.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(accountNumber.name()).isEqualTo("string")

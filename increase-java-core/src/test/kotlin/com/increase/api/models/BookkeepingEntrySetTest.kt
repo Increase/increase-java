@@ -26,7 +26,6 @@ class BookkeepingEntrySetTest {
                 .build()
         assertThat(bookkeepingEntrySet).isNotNull
         assertThat(bookkeepingEntrySet.id()).isEqualTo("string")
-        assertThat(bookkeepingEntrySet.transactionId()).contains("string")
         assertThat(bookkeepingEntrySet.date())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(bookkeepingEntrySet.entries())
@@ -37,6 +36,7 @@ class BookkeepingEntrySetTest {
                     .amount(123L)
                     .build()
             )
+        assertThat(bookkeepingEntrySet.transactionId()).contains("string")
         assertThat(bookkeepingEntrySet.type())
             .isEqualTo(BookkeepingEntrySet.Type.BOOKKEEPING_ENTRY_SET)
     }

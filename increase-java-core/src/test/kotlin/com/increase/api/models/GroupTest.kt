@@ -17,10 +17,10 @@ class GroupTest {
                 .type(Group.Type.GROUP)
                 .build()
         assertThat(group).isNotNull
-        assertThat(group.activationStatus()).isEqualTo(Group.ActivationStatus.UNACTIVATED)
-        assertThat(group.achDebitStatus()).isEqualTo(Group.AchDebitStatus.DISABLED)
-        assertThat(group.createdAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(group.id()).isEqualTo("string")
+        assertThat(group.achDebitStatus()).isEqualTo(Group.AchDebitStatus.DISABLED)
+        assertThat(group.activationStatus()).isEqualTo(Group.ActivationStatus.UNACTIVATED)
+        assertThat(group.createdAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(group.type()).isEqualTo(Group.Type.GROUP)
     }
 }

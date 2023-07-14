@@ -33,11 +33,6 @@ class CardDisputeTest {
                 .build()
         assertThat(cardDispute).isNotNull
         assertThat(cardDispute.id()).isEqualTo("string")
-        assertThat(cardDispute.explanation()).isEqualTo("string")
-        assertThat(cardDispute.status()).isEqualTo(CardDispute.Status.PENDING_REVIEWING)
-        assertThat(cardDispute.createdAt())
-            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(cardDispute.disputedTransactionId()).isEqualTo("string")
         assertThat(cardDispute.acceptance())
             .contains(
                 CardDispute.Acceptance.builder()
@@ -46,6 +41,10 @@ class CardDisputeTest {
                     .transactionId("string")
                     .build()
             )
+        assertThat(cardDispute.createdAt())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(cardDispute.disputedTransactionId()).isEqualTo("string")
+        assertThat(cardDispute.explanation()).isEqualTo("string")
         assertThat(cardDispute.rejection())
             .contains(
                 CardDispute.Rejection.builder()
@@ -54,6 +53,7 @@ class CardDisputeTest {
                     .rejectedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
+        assertThat(cardDispute.status()).isEqualTo(CardDispute.Status.PENDING_REVIEWING)
         assertThat(cardDispute.type()).isEqualTo(CardDispute.Type.CARD_DISPUTE)
     }
 }

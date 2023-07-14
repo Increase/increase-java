@@ -72,13 +72,6 @@ class RealTimeDecisionTest {
                 .build()
         assertThat(realTimeDecision).isNotNull
         assertThat(realTimeDecision.id()).isEqualTo("string")
-        assertThat(realTimeDecision.createdAt())
-            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(realTimeDecision.timeoutAt())
-            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(realTimeDecision.status()).isEqualTo(RealTimeDecision.Status.PENDING)
-        assertThat(realTimeDecision.category())
-            .isEqualTo(RealTimeDecision.Category.CARD_AUTHORIZATION_REQUESTED)
         assertThat(realTimeDecision.cardAuthorization())
             .contains(
                 RealTimeDecision.CardAuthorization.builder()
@@ -112,15 +105,10 @@ class RealTimeDecisionTest {
                     .settlementCurrency("string")
                     .build()
             )
-        assertThat(realTimeDecision.digitalWalletToken())
-            .contains(
-                RealTimeDecision.DigitalWalletToken.builder()
-                    .cardId("string")
-                    .cardProfileId("string")
-                    .decision(RealTimeDecision.DigitalWalletToken.Decision.APPROVE)
-                    .digitalWallet(RealTimeDecision.DigitalWalletToken.DigitalWallet.APPLE_PAY)
-                    .build()
-            )
+        assertThat(realTimeDecision.category())
+            .isEqualTo(RealTimeDecision.Category.CARD_AUTHORIZATION_REQUESTED)
+        assertThat(realTimeDecision.createdAt())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(realTimeDecision.digitalWalletAuthentication())
             .contains(
                 RealTimeDecision.DigitalWalletAuthentication.builder()
@@ -135,6 +123,18 @@ class RealTimeDecisionTest {
                     .result(RealTimeDecision.DigitalWalletAuthentication.Result.SUCCESS)
                     .build()
             )
+        assertThat(realTimeDecision.digitalWalletToken())
+            .contains(
+                RealTimeDecision.DigitalWalletToken.builder()
+                    .cardId("string")
+                    .cardProfileId("string")
+                    .decision(RealTimeDecision.DigitalWalletToken.Decision.APPROVE)
+                    .digitalWallet(RealTimeDecision.DigitalWalletToken.DigitalWallet.APPLE_PAY)
+                    .build()
+            )
+        assertThat(realTimeDecision.status()).isEqualTo(RealTimeDecision.Status.PENDING)
+        assertThat(realTimeDecision.timeoutAt())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(realTimeDecision.type()).isEqualTo(RealTimeDecision.Type.REAL_TIME_DECISION)
     }
 }
