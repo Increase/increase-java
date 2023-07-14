@@ -12,18 +12,13 @@ class EntityTest {
         val entity =
             Entity.builder()
                 .id("string")
-                .structure(Entity.Structure.CORPORATION)
                 .corporation(
                     Entity.Corporation.builder()
-                        .name("string")
-                        .website("string")
-                        .taxIdentifier("string")
-                        .incorporationState("string")
                         .address(
                             Entity.Corporation.Address.builder()
+                                .city("string")
                                 .line1("string")
                                 .line2("string")
-                                .city("string")
                                 .state("string")
                                 .zip("string")
                                 .build()
@@ -31,21 +26,21 @@ class EntityTest {
                         .beneficialOwners(
                             listOf(
                                 Entity.Corporation.BeneficialOwner.builder()
+                                    .companyTitle("string")
                                     .individual(
                                         Entity.Corporation.BeneficialOwner.Individual.builder()
-                                            .name("string")
-                                            .dateOfBirth(LocalDate.parse("2019-12-27"))
                                             .address(
                                                 Entity.Corporation.BeneficialOwner.Individual
                                                     .Address
                                                     .builder()
+                                                    .city("string")
                                                     .line1("string")
                                                     .line2("string")
-                                                    .city("string")
                                                     .state("string")
                                                     .zip("string")
                                                     .build()
                                             )
+                                            .dateOfBirth(LocalDate.parse("2019-12-27"))
                                             .identification(
                                                 Entity.Corporation.BeneficialOwner.Individual
                                                     .Identification
@@ -60,56 +55,35 @@ class EntityTest {
                                                     .numberLast4("string")
                                                     .build()
                                             )
+                                            .name("string")
                                             .build()
                                     )
-                                    .companyTitle("string")
                                     .prong(Entity.Corporation.BeneficialOwner.Prong.OWNERSHIP)
                                     .build()
                             )
                         )
-                        .build()
-                )
-                .naturalPerson(
-                    Entity.NaturalPerson.builder()
+                        .incorporationState("string")
                         .name("string")
-                        .dateOfBirth(LocalDate.parse("2019-12-27"))
-                        .address(
-                            Entity.NaturalPerson.Address.builder()
-                                .line1("string")
-                                .line2("string")
-                                .city("string")
-                                .state("string")
-                                .zip("string")
-                                .build()
-                        )
-                        .identification(
-                            Entity.NaturalPerson.Identification.builder()
-                                .method(
-                                    Entity.NaturalPerson.Identification.Method
-                                        .SOCIAL_SECURITY_NUMBER
-                                )
-                                .numberLast4("string")
-                                .build()
-                        )
+                        .taxIdentifier("string")
+                        .website("string")
                         .build()
                 )
+                .description("string")
                 .joint(
                     Entity.Joint.builder()
-                        .name("string")
                         .individuals(
                             listOf(
                                 Entity.Joint.Individual.builder()
-                                    .name("string")
-                                    .dateOfBirth(LocalDate.parse("2019-12-27"))
                                     .address(
                                         Entity.Joint.Individual.Address.builder()
+                                            .city("string")
                                             .line1("string")
                                             .line2("string")
-                                            .city("string")
                                             .state("string")
                                             .zip("string")
                                             .build()
                                     )
+                                    .dateOfBirth(LocalDate.parse("2019-12-27"))
                                     .identification(
                                         Entity.Joint.Individual.Identification.builder()
                                             .method(
@@ -119,43 +93,103 @@ class EntityTest {
                                             .numberLast4("string")
                                             .build()
                                     )
+                                    .name("string")
                                     .build()
                             )
                         )
+                        .name("string")
                         .build()
                 )
-                .trust(
-                    Entity.Trust.builder()
-                        .name("string")
-                        .category(Entity.Trust.Category.REVOCABLE)
+                .naturalPerson(
+                    Entity.NaturalPerson.builder()
                         .address(
-                            Entity.Trust.Address.builder()
+                            Entity.NaturalPerson.Address.builder()
+                                .city("string")
                                 .line1("string")
                                 .line2("string")
-                                .city("string")
                                 .state("string")
                                 .zip("string")
                                 .build()
                         )
+                        .dateOfBirth(LocalDate.parse("2019-12-27"))
+                        .identification(
+                            Entity.NaturalPerson.Identification.builder()
+                                .method(
+                                    Entity.NaturalPerson.Identification.Method
+                                        .SOCIAL_SECURITY_NUMBER
+                                )
+                                .numberLast4("string")
+                                .build()
+                        )
+                        .name("string")
+                        .build()
+                )
+                .relationship(Entity.Relationship.AFFILIATED)
+                .structure(Entity.Structure.CORPORATION)
+                .supplementalDocuments(
+                    listOf(
+                        Entity.SupplementalDocument.builder()
+                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .fileId("string")
+                            .type(Entity.SupplementalDocument.Type.ENTITY_SUPPLEMENTAL_DOCUMENT)
+                            .build()
+                    )
+                )
+                .trust(
+                    Entity.Trust.builder()
+                        .address(
+                            Entity.Trust.Address.builder()
+                                .city("string")
+                                .line1("string")
+                                .line2("string")
+                                .state("string")
+                                .zip("string")
+                                .build()
+                        )
+                        .category(Entity.Trust.Category.REVOCABLE)
+                        .formationDocumentFileId("string")
                         .formationState("string")
+                        .grantor(
+                            Entity.Trust.Grantor.builder()
+                                .address(
+                                    Entity.Trust.Grantor.Address.builder()
+                                        .city("string")
+                                        .line1("string")
+                                        .line2("string")
+                                        .state("string")
+                                        .zip("string")
+                                        .build()
+                                )
+                                .dateOfBirth(LocalDate.parse("2019-12-27"))
+                                .identification(
+                                    Entity.Trust.Grantor.Identification.builder()
+                                        .method(
+                                            Entity.Trust.Grantor.Identification.Method
+                                                .SOCIAL_SECURITY_NUMBER
+                                        )
+                                        .numberLast4("string")
+                                        .build()
+                                )
+                                .name("string")
+                                .build()
+                        )
+                        .name("string")
                         .taxIdentifier("string")
                         .trustees(
                             listOf(
                                 Entity.Trust.Trustee.builder()
-                                    .structure(Entity.Trust.Trustee.Structure.INDIVIDUAL)
                                     .individual(
                                         Entity.Trust.Trustee.Individual.builder()
-                                            .name("string")
-                                            .dateOfBirth(LocalDate.parse("2019-12-27"))
                                             .address(
                                                 Entity.Trust.Trustee.Individual.Address.builder()
+                                                    .city("string")
                                                     .line1("string")
                                                     .line2("string")
-                                                    .city("string")
                                                     .state("string")
                                                     .zip("string")
                                                     .build()
                                             )
+                                            .dateOfBirth(LocalDate.parse("2019-12-27"))
                                             .identification(
                                                 Entity.Trust.Trustee.Individual.Identification
                                                     .builder()
@@ -168,50 +202,16 @@ class EntityTest {
                                                     .numberLast4("string")
                                                     .build()
                                             )
+                                            .name("string")
                                             .build()
                                     )
+                                    .structure(Entity.Trust.Trustee.Structure.INDIVIDUAL)
                                     .build()
                             )
                         )
-                        .grantor(
-                            Entity.Trust.Grantor.builder()
-                                .name("string")
-                                .dateOfBirth(LocalDate.parse("2019-12-27"))
-                                .address(
-                                    Entity.Trust.Grantor.Address.builder()
-                                        .line1("string")
-                                        .line2("string")
-                                        .city("string")
-                                        .state("string")
-                                        .zip("string")
-                                        .build()
-                                )
-                                .identification(
-                                    Entity.Trust.Grantor.Identification.builder()
-                                        .method(
-                                            Entity.Trust.Grantor.Identification.Method
-                                                .SOCIAL_SECURITY_NUMBER
-                                        )
-                                        .numberLast4("string")
-                                        .build()
-                                )
-                                .build()
-                        )
-                        .formationDocumentFileId("string")
                         .build()
                 )
                 .type(Entity.Type.ENTITY)
-                .description("string")
-                .relationship(Entity.Relationship.AFFILIATED)
-                .supplementalDocuments(
-                    listOf(
-                        Entity.SupplementalDocument.builder()
-                            .fileId("string")
-                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .type(Entity.SupplementalDocument.Type.ENTITY_SUPPLEMENTAL_DOCUMENT)
-                            .build()
-                    )
-                )
                 .build()
         assertThat(entity).isNotNull
         assertThat(entity.id()).isEqualTo("string")
@@ -219,15 +219,11 @@ class EntityTest {
         assertThat(entity.corporation())
             .contains(
                 Entity.Corporation.builder()
-                    .name("string")
-                    .website("string")
-                    .taxIdentifier("string")
-                    .incorporationState("string")
                     .address(
                         Entity.Corporation.Address.builder()
+                            .city("string")
                             .line1("string")
                             .line2("string")
-                            .city("string")
                             .state("string")
                             .zip("string")
                             .build()
@@ -235,20 +231,20 @@ class EntityTest {
                     .beneficialOwners(
                         listOf(
                             Entity.Corporation.BeneficialOwner.builder()
+                                .companyTitle("string")
                                 .individual(
                                     Entity.Corporation.BeneficialOwner.Individual.builder()
-                                        .name("string")
-                                        .dateOfBirth(LocalDate.parse("2019-12-27"))
                                         .address(
                                             Entity.Corporation.BeneficialOwner.Individual.Address
                                                 .builder()
+                                                .city("string")
                                                 .line1("string")
                                                 .line2("string")
-                                                .city("string")
                                                 .state("string")
                                                 .zip("string")
                                                 .build()
                                         )
+                                        .dateOfBirth(LocalDate.parse("2019-12-27"))
                                         .identification(
                                             Entity.Corporation.BeneficialOwner.Individual
                                                 .Identification
@@ -262,29 +258,32 @@ class EntityTest {
                                                 .numberLast4("string")
                                                 .build()
                                         )
+                                        .name("string")
                                         .build()
                                 )
-                                .companyTitle("string")
                                 .prong(Entity.Corporation.BeneficialOwner.Prong.OWNERSHIP)
                                 .build()
                         )
                     )
+                    .incorporationState("string")
+                    .name("string")
+                    .taxIdentifier("string")
+                    .website("string")
                     .build()
             )
         assertThat(entity.naturalPerson())
             .contains(
                 Entity.NaturalPerson.builder()
-                    .name("string")
-                    .dateOfBirth(LocalDate.parse("2019-12-27"))
                     .address(
                         Entity.NaturalPerson.Address.builder()
+                            .city("string")
                             .line1("string")
                             .line2("string")
-                            .city("string")
                             .state("string")
                             .zip("string")
                             .build()
                     )
+                    .dateOfBirth(LocalDate.parse("2019-12-27"))
                     .identification(
                         Entity.NaturalPerson.Identification.builder()
                             .method(
@@ -293,26 +292,25 @@ class EntityTest {
                             .numberLast4("string")
                             .build()
                     )
+                    .name("string")
                     .build()
             )
         assertThat(entity.joint())
             .contains(
                 Entity.Joint.builder()
-                    .name("string")
                     .individuals(
                         listOf(
                             Entity.Joint.Individual.builder()
-                                .name("string")
-                                .dateOfBirth(LocalDate.parse("2019-12-27"))
                                 .address(
                                     Entity.Joint.Individual.Address.builder()
+                                        .city("string")
                                         .line1("string")
                                         .line2("string")
-                                        .city("string")
                                         .state("string")
                                         .zip("string")
                                         .build()
                                 )
+                                .dateOfBirth(LocalDate.parse("2019-12-27"))
                                 .identification(
                                     Entity.Joint.Individual.Identification.builder()
                                         .method(
@@ -322,44 +320,69 @@ class EntityTest {
                                         .numberLast4("string")
                                         .build()
                                 )
+                                .name("string")
                                 .build()
                         )
                     )
+                    .name("string")
                     .build()
             )
         assertThat(entity.trust())
             .contains(
                 Entity.Trust.builder()
-                    .name("string")
-                    .category(Entity.Trust.Category.REVOCABLE)
                     .address(
                         Entity.Trust.Address.builder()
+                            .city("string")
                             .line1("string")
                             .line2("string")
-                            .city("string")
                             .state("string")
                             .zip("string")
                             .build()
                     )
+                    .category(Entity.Trust.Category.REVOCABLE)
+                    .formationDocumentFileId("string")
                     .formationState("string")
+                    .grantor(
+                        Entity.Trust.Grantor.builder()
+                            .address(
+                                Entity.Trust.Grantor.Address.builder()
+                                    .city("string")
+                                    .line1("string")
+                                    .line2("string")
+                                    .state("string")
+                                    .zip("string")
+                                    .build()
+                            )
+                            .dateOfBirth(LocalDate.parse("2019-12-27"))
+                            .identification(
+                                Entity.Trust.Grantor.Identification.builder()
+                                    .method(
+                                        Entity.Trust.Grantor.Identification.Method
+                                            .SOCIAL_SECURITY_NUMBER
+                                    )
+                                    .numberLast4("string")
+                                    .build()
+                            )
+                            .name("string")
+                            .build()
+                    )
+                    .name("string")
                     .taxIdentifier("string")
                     .trustees(
                         listOf(
                             Entity.Trust.Trustee.builder()
-                                .structure(Entity.Trust.Trustee.Structure.INDIVIDUAL)
                                 .individual(
                                     Entity.Trust.Trustee.Individual.builder()
-                                        .name("string")
-                                        .dateOfBirth(LocalDate.parse("2019-12-27"))
                                         .address(
                                             Entity.Trust.Trustee.Individual.Address.builder()
+                                                .city("string")
                                                 .line1("string")
                                                 .line2("string")
-                                                .city("string")
                                                 .state("string")
                                                 .zip("string")
                                                 .build()
                                         )
+                                        .dateOfBirth(LocalDate.parse("2019-12-27"))
                                         .identification(
                                             Entity.Trust.Trustee.Individual.Identification.builder()
                                                 .method(
@@ -370,36 +393,13 @@ class EntityTest {
                                                 .numberLast4("string")
                                                 .build()
                                         )
+                                        .name("string")
                                         .build()
                                 )
+                                .structure(Entity.Trust.Trustee.Structure.INDIVIDUAL)
                                 .build()
                         )
                     )
-                    .grantor(
-                        Entity.Trust.Grantor.builder()
-                            .name("string")
-                            .dateOfBirth(LocalDate.parse("2019-12-27"))
-                            .address(
-                                Entity.Trust.Grantor.Address.builder()
-                                    .line1("string")
-                                    .line2("string")
-                                    .city("string")
-                                    .state("string")
-                                    .zip("string")
-                                    .build()
-                            )
-                            .identification(
-                                Entity.Trust.Grantor.Identification.builder()
-                                    .method(
-                                        Entity.Trust.Grantor.Identification.Method
-                                            .SOCIAL_SECURITY_NUMBER
-                                    )
-                                    .numberLast4("string")
-                                    .build()
-                            )
-                            .build()
-                    )
-                    .formationDocumentFileId("string")
                     .build()
             )
         assertThat(entity.type()).isEqualTo(Entity.Type.ENTITY)
@@ -408,8 +408,8 @@ class EntityTest {
         assertThat(entity.supplementalDocuments())
             .containsExactly(
                 Entity.SupplementalDocument.builder()
-                    .fileId("string")
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .fileId("string")
                     .type(Entity.SupplementalDocument.Type.ENTITY_SUPPLEMENTAL_DOCUMENT)
                     .build()
             )

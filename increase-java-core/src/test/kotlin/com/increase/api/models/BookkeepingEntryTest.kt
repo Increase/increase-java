@@ -9,10 +9,10 @@ class BookkeepingEntryTest {
     fun createBookkeepingEntry() {
         val bookkeepingEntry =
             BookkeepingEntry.builder()
+                .id("string")
                 .accountId("string")
                 .amount(123L)
                 .entrySetId("string")
-                .id("string")
                 .type(BookkeepingEntry.Type.BOOKKEEPING_ENTRY)
                 .build()
         assertThat(bookkeepingEntry).isNotNull

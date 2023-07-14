@@ -11,22 +11,234 @@ class AchTransferSimulationTest {
     fun createAchTransferSimulation() {
         val achTransferSimulation =
             AchTransferSimulation.builder()
-                .transaction(
-                    AchTransferSimulation.Transaction.builder()
+                .declinedTransaction(
+                    AchTransferSimulation.DeclinedTransaction.builder()
+                        .id("string")
                         .accountId("string")
                         .amount(123L)
-                        .currency(AchTransferSimulation.Transaction.Currency.CAD)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .currency(AchTransferSimulation.DeclinedTransaction.Currency.CAD)
                         .description("string")
+                        .routeId("string")
+                        .routeType(
+                            AchTransferSimulation.DeclinedTransaction.RouteType.ACCOUNT_NUMBER
+                        )
+                        .source(
+                            AchTransferSimulation.DeclinedTransaction.Source.builder()
+                                .achDecline(
+                                    AchTransferSimulation.DeclinedTransaction.Source.AchDecline
+                                        .builder()
+                                        .amount(123L)
+                                        .originatorCompanyDescriptiveDate("string")
+                                        .originatorCompanyDiscretionaryData("string")
+                                        .originatorCompanyId("string")
+                                        .originatorCompanyName("string")
+                                        .reason(
+                                            AchTransferSimulation.DeclinedTransaction.Source
+                                                .AchDecline
+                                                .Reason
+                                                .ACH_ROUTE_CANCELED
+                                        )
+                                        .receiverIdNumber("string")
+                                        .receiverName("string")
+                                        .traceNumber("string")
+                                        .build()
+                                )
+                                .cardDecline(
+                                    AchTransferSimulation.DeclinedTransaction.Source.CardDecline
+                                        .builder()
+                                        .amount(123L)
+                                        .currency(
+                                            AchTransferSimulation.DeclinedTransaction.Source
+                                                .CardDecline
+                                                .Currency
+                                                .CAD
+                                        )
+                                        .digitalWalletTokenId("string")
+                                        .merchantAcceptorId("string")
+                                        .merchantCategoryCode("string")
+                                        .merchantCity("string")
+                                        .merchantCountry("string")
+                                        .merchantDescriptor("string")
+                                        .merchantState("string")
+                                        .network(
+                                            AchTransferSimulation.DeclinedTransaction.Source
+                                                .CardDecline
+                                                .Network
+                                                .VISA
+                                        )
+                                        .networkDetails(
+                                            AchTransferSimulation.DeclinedTransaction.Source
+                                                .CardDecline
+                                                .NetworkDetails
+                                                .builder()
+                                                .visa(
+                                                    AchTransferSimulation.DeclinedTransaction.Source
+                                                        .CardDecline
+                                                        .NetworkDetails
+                                                        .Visa
+                                                        .builder()
+                                                        .electronicCommerceIndicator(
+                                                            AchTransferSimulation
+                                                                .DeclinedTransaction
+                                                                .Source
+                                                                .CardDecline
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .ElectronicCommerceIndicator
+                                                                .MAIL_PHONE_ORDER
+                                                        )
+                                                        .pointOfServiceEntryMode(
+                                                            PointOfServiceEntryMode.MANUAL
+                                                        )
+                                                        .build()
+                                                )
+                                                .build()
+                                        )
+                                        .physicalCardId("string")
+                                        .realTimeDecisionId("string")
+                                        .reason(
+                                            AchTransferSimulation.DeclinedTransaction.Source
+                                                .CardDecline
+                                                .Reason
+                                                .CARD_NOT_ACTIVE
+                                        )
+                                        .build()
+                                )
+                                .category(
+                                    AchTransferSimulation.DeclinedTransaction.Source.Category
+                                        .ACH_DECLINE
+                                )
+                                .checkDecline(
+                                    AchTransferSimulation.DeclinedTransaction.Source.CheckDecline
+                                        .builder()
+                                        .amount(123L)
+                                        .auxiliaryOnUs("string")
+                                        .reason(
+                                            AchTransferSimulation.DeclinedTransaction.Source
+                                                .CheckDecline
+                                                .Reason
+                                                .ACH_ROUTE_CANCELED
+                                        )
+                                        .build()
+                                )
+                                .inboundRealTimePaymentsTransferDecline(
+                                    AchTransferSimulation.DeclinedTransaction.Source
+                                        .InboundRealTimePaymentsTransferDecline
+                                        .builder()
+                                        .amount(123L)
+                                        .creditorName("string")
+                                        .currency(
+                                            AchTransferSimulation.DeclinedTransaction.Source
+                                                .InboundRealTimePaymentsTransferDecline
+                                                .Currency
+                                                .CAD
+                                        )
+                                        .debtorAccountNumber("string")
+                                        .debtorName("string")
+                                        .debtorRoutingNumber("string")
+                                        .reason(
+                                            AchTransferSimulation.DeclinedTransaction.Source
+                                                .InboundRealTimePaymentsTransferDecline
+                                                .Reason
+                                                .ACCOUNT_NUMBER_CANCELED
+                                        )
+                                        .remittanceInformation("string")
+                                        .transactionIdentification("string")
+                                        .build()
+                                )
+                                .internationalAchDecline(
+                                    AchTransferSimulation.DeclinedTransaction.Source
+                                        .InternationalAchDecline
+                                        .builder()
+                                        .amount(123L)
+                                        .destinationCountryCode("string")
+                                        .destinationCurrencyCode("string")
+                                        .foreignExchangeIndicator("string")
+                                        .foreignExchangeReference("string")
+                                        .foreignExchangeReferenceIndicator("string")
+                                        .foreignPaymentAmount(123L)
+                                        .foreignTraceNumber("string")
+                                        .internationalTransactionTypeCode("string")
+                                        .originatingCurrencyCode("string")
+                                        .originatingDepositoryFinancialInstitutionBranchCountry(
+                                            "string"
+                                        )
+                                        .originatingDepositoryFinancialInstitutionId("string")
+                                        .originatingDepositoryFinancialInstitutionIdQualifier(
+                                            "string"
+                                        )
+                                        .originatingDepositoryFinancialInstitutionName("string")
+                                        .originatorCity("string")
+                                        .originatorCompanyEntryDescription("string")
+                                        .originatorCountry("string")
+                                        .originatorIdentification("string")
+                                        .originatorName("string")
+                                        .originatorPostalCode("string")
+                                        .originatorStateOrProvince("string")
+                                        .originatorStreetAddress("string")
+                                        .paymentRelatedInformation("string")
+                                        .paymentRelatedInformation2("string")
+                                        .receiverCity("string")
+                                        .receiverCountry("string")
+                                        .receiverIdentificationNumber("string")
+                                        .receiverPostalCode("string")
+                                        .receiverStateOrProvince("string")
+                                        .receiverStreetAddress("string")
+                                        .receivingCompanyOrIndividualName("string")
+                                        .receivingDepositoryFinancialInstitutionCountry("string")
+                                        .receivingDepositoryFinancialInstitutionId("string")
+                                        .receivingDepositoryFinancialInstitutionIdQualifier(
+                                            "string"
+                                        )
+                                        .receivingDepositoryFinancialInstitutionName("string")
+                                        .traceNumber("string")
+                                        .build()
+                                )
+                                .wireDecline(
+                                    AchTransferSimulation.DeclinedTransaction.Source.WireDecline
+                                        .builder()
+                                        .amount(123L)
+                                        .beneficiaryAddressLine1("string")
+                                        .beneficiaryAddressLine2("string")
+                                        .beneficiaryAddressLine3("string")
+                                        .beneficiaryName("string")
+                                        .beneficiaryReference("string")
+                                        .description("string")
+                                        .inputMessageAccountabilityData("string")
+                                        .originatorAddressLine1("string")
+                                        .originatorAddressLine2("string")
+                                        .originatorAddressLine3("string")
+                                        .originatorName("string")
+                                        .originatorToBeneficiaryInformationLine1("string")
+                                        .originatorToBeneficiaryInformationLine2("string")
+                                        .originatorToBeneficiaryInformationLine3("string")
+                                        .originatorToBeneficiaryInformationLine4("string")
+                                        .reason(
+                                            AchTransferSimulation.DeclinedTransaction.Source
+                                                .WireDecline
+                                                .Reason
+                                                .ACCOUNT_NUMBER_CANCELED
+                                        )
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .type(AchTransferSimulation.DeclinedTransaction.Type.DECLINED_TRANSACTION)
+                        .build()
+                )
+                .transaction(
+                    AchTransferSimulation.Transaction.builder()
                         .id("string")
+                        .accountId("string")
+                        .amount(123L)
+                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .currency(AchTransferSimulation.Transaction.Currency.CAD)
+                        .description("string")
                         .routeId("string")
                         .routeType(AchTransferSimulation.Transaction.RouteType.ACCOUNT_NUMBER)
                         .source(
                             AchTransferSimulation.Transaction.Source.builder()
-                                .category(
-                                    AchTransferSimulation.Transaction.Source.Category
-                                        .ACCOUNT_TRANSFER_INTENTION
-                                )
                                 .accountTransferIntention(
                                     AchTransferSimulation.Transaction.Source
                                         .AccountTransferIntention
@@ -47,8 +259,8 @@ class AchTransferSimulationTest {
                                 .achTransferIntention(
                                     AchTransferSimulation.Transaction.Source.AchTransferIntention
                                         .builder()
-                                        .amount(123L)
                                         .accountNumber("string")
+                                        .amount(123L)
                                         .routingNumber("string")
                                         .statementDescriptor("string")
                                         .transferId("string")
@@ -64,15 +276,15 @@ class AchTransferSimulationTest {
                                     AchTransferSimulation.Transaction.Source.AchTransferReturn
                                         .builder()
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .rawReturnReasonCode("string")
                                         .returnReasonCode(
                                             AchTransferSimulation.Transaction.Source
                                                 .AchTransferReturn
                                                 .ReturnReasonCode
                                                 .INSUFFICIENT_FUND
                                         )
-                                        .rawReturnReasonCode("string")
-                                        .transferId("string")
                                         .transactionId("string")
+                                        .transferId("string")
                                         .build()
                                 )
                                 .cardDisputeAcceptance(
@@ -95,11 +307,11 @@ class AchTransferSimulationTest {
                                                 .CAD
                                         )
                                         .merchantAcceptorId("string")
+                                        .merchantCategoryCode("string")
                                         .merchantCity("string")
-                                        .merchantState("string")
                                         .merchantCountry("string")
                                         .merchantName("string")
-                                        .merchantCategoryCode("string")
+                                        .merchantState("string")
                                         .transactionId("string")
                                         .type(
                                             AchTransferSimulation.Transaction.Source.CardRefund.Type
@@ -117,10 +329,10 @@ class AchTransferSimulationTest {
                                                 .Currency
                                                 .CAD
                                         )
+                                        .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .periodStart(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
-                                        .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .transactedOnAccountId("string")
                                         .build()
                                 )
@@ -128,23 +340,23 @@ class AchTransferSimulationTest {
                                     AchTransferSimulation.Transaction.Source.CardSettlement
                                         .builder()
                                         .id("string")
-                                        .cardAuthorization("string")
                                         .amount(123L)
+                                        .cardAuthorization("string")
                                         .currency(
                                             AchTransferSimulation.Transaction.Source.CardSettlement
                                                 .Currency
                                                 .CAD
                                         )
-                                        .presentmentAmount(123L)
-                                        .presentmentCurrency("string")
                                         .merchantAcceptorId("string")
+                                        .merchantCategoryCode("string")
                                         .merchantCity("string")
-                                        .merchantState("string")
                                         .merchantCountry("string")
                                         .merchantName("string")
-                                        .merchantCategoryCode("string")
-                                        .transactionId("string")
+                                        .merchantState("string")
                                         .pendingTransactionId("string")
+                                        .presentmentAmount(123L)
+                                        .presentmentCurrency("string")
+                                        .transactionId("string")
                                         .type(
                                             AchTransferSimulation.Transaction.Source.CardSettlement
                                                 .Type
@@ -152,55 +364,59 @@ class AchTransferSimulationTest {
                                         )
                                         .build()
                                 )
+                                .category(
+                                    AchTransferSimulation.Transaction.Source.Category
+                                        .ACCOUNT_TRANSFER_INTENTION
+                                )
                                 .checkDepositAcceptance(
                                     AchTransferSimulation.Transaction.Source.CheckDepositAcceptance
                                         .builder()
+                                        .accountNumber("string")
                                         .amount(123L)
+                                        .auxiliaryOnUs("string")
+                                        .checkDepositId("string")
                                         .currency(
                                             AchTransferSimulation.Transaction.Source
                                                 .CheckDepositAcceptance
                                                 .Currency
                                                 .CAD
                                         )
-                                        .accountNumber("string")
                                         .routingNumber("string")
-                                        .auxiliaryOnUs("string")
                                         .serialNumber("string")
-                                        .checkDepositId("string")
                                         .build()
                                 )
                                 .checkDepositReturn(
                                     AchTransferSimulation.Transaction.Source.CheckDepositReturn
                                         .builder()
                                         .amount(123L)
-                                        .returnedAt(
-                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
-                                        )
+                                        .checkDepositId("string")
                                         .currency(
                                             AchTransferSimulation.Transaction.Source
                                                 .CheckDepositReturn
                                                 .Currency
                                                 .CAD
                                         )
-                                        .checkDepositId("string")
-                                        .transactionId("string")
                                         .returnReason(
                                             AchTransferSimulation.Transaction.Source
                                                 .CheckDepositReturn
                                                 .ReturnReason
                                                 .ACH_CONVERSION_NOT_SUPPORTED
                                         )
+                                        .returnedAt(
+                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                        )
+                                        .transactionId("string")
                                         .build()
                                 )
                                 .checkTransferDeposit(
                                     AchTransferSimulation.Transaction.Source.CheckTransferDeposit
                                         .builder()
+                                        .backImageFileId("string")
                                         .depositedAt(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
-                                        .transactionId("string")
                                         .frontImageFileId("string")
-                                        .backImageFileId("string")
+                                        .transactionId("string")
                                         .type(
                                             AchTransferSimulation.Transaction.Source
                                                 .CheckTransferDeposit
@@ -212,9 +428,9 @@ class AchTransferSimulationTest {
                                 .checkTransferIntention(
                                     AchTransferSimulation.Transaction.Source.CheckTransferIntention
                                         .builder()
+                                        .addressCity("string")
                                         .addressLine1("string")
                                         .addressLine2("string")
-                                        .addressCity("string")
                                         .addressState("string")
                                         .addressZip("string")
                                         .amount(123L)
@@ -238,7 +454,6 @@ class AchTransferSimulationTest {
                                     AchTransferSimulation.Transaction.Source
                                         .CheckTransferStopPaymentRequest
                                         .builder()
-                                        .transferId("string")
                                         .reason(
                                             AchTransferSimulation.Transaction.Source
                                                 .CheckTransferStopPaymentRequest
@@ -248,6 +463,7 @@ class AchTransferSimulationTest {
                                         .requestedAt(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
+                                        .transferId("string")
                                         .type(
                                             AchTransferSimulation.Transaction.Source
                                                 .CheckTransferStopPaymentRequest
@@ -270,11 +486,11 @@ class AchTransferSimulationTest {
                                     AchTransferSimulation.Transaction.Source.InboundAchTransfer
                                         .builder()
                                         .amount(123L)
-                                        .originatorCompanyName("string")
                                         .originatorCompanyDescriptiveDate("string")
                                         .originatorCompanyDiscretionaryData("string")
                                         .originatorCompanyEntryDescription("string")
                                         .originatorCompanyId("string")
+                                        .originatorCompanyName("string")
                                         .receiverIdNumber("string")
                                         .receiverName("string")
                                         .traceNumber("string")
@@ -283,14 +499,14 @@ class AchTransferSimulationTest {
                                 .inboundCheck(
                                     AchTransferSimulation.Transaction.Source.InboundCheck.builder()
                                         .amount(123L)
+                                        .checkFrontImageFileId("string")
+                                        .checkNumber("string")
+                                        .checkRearImageFileId("string")
                                         .currency(
                                             AchTransferSimulation.Transaction.Source.InboundCheck
                                                 .Currency
                                                 .CAD
                                         )
-                                        .checkNumber("string")
-                                        .checkFrontImageFileId("string")
-                                        .checkRearImageFileId("string")
                                         .build()
                                 )
                                 .inboundInternationalAchTransfer(
@@ -298,46 +514,46 @@ class AchTransferSimulationTest {
                                         .InboundInternationalAchTransfer
                                         .builder()
                                         .amount(123L)
-                                        .foreignExchangeIndicator("string")
-                                        .foreignExchangeReferenceIndicator("string")
-                                        .foreignExchangeReference("string")
                                         .destinationCountryCode("string")
                                         .destinationCurrencyCode("string")
+                                        .foreignExchangeIndicator("string")
+                                        .foreignExchangeReference("string")
+                                        .foreignExchangeReferenceIndicator("string")
                                         .foreignPaymentAmount(123L)
                                         .foreignTraceNumber("string")
                                         .internationalTransactionTypeCode("string")
                                         .originatingCurrencyCode("string")
-                                        .originatingDepositoryFinancialInstitutionName("string")
-                                        .originatingDepositoryFinancialInstitutionIdQualifier(
-                                            "string"
-                                        )
-                                        .originatingDepositoryFinancialInstitutionId("string")
                                         .originatingDepositoryFinancialInstitutionBranchCountry(
                                             "string"
                                         )
+                                        .originatingDepositoryFinancialInstitutionId("string")
+                                        .originatingDepositoryFinancialInstitutionIdQualifier(
+                                            "string"
+                                        )
+                                        .originatingDepositoryFinancialInstitutionName("string")
                                         .originatorCity("string")
                                         .originatorCompanyEntryDescription("string")
                                         .originatorCountry("string")
                                         .originatorIdentification("string")
                                         .originatorName("string")
                                         .originatorPostalCode("string")
-                                        .originatorStreetAddress("string")
                                         .originatorStateOrProvince("string")
+                                        .originatorStreetAddress("string")
                                         .paymentRelatedInformation("string")
                                         .paymentRelatedInformation2("string")
-                                        .receiverIdentificationNumber("string")
-                                        .receiverStreetAddress("string")
                                         .receiverCity("string")
-                                        .receiverStateOrProvince("string")
                                         .receiverCountry("string")
+                                        .receiverIdentificationNumber("string")
                                         .receiverPostalCode("string")
+                                        .receiverStateOrProvince("string")
+                                        .receiverStreetAddress("string")
                                         .receivingCompanyOrIndividualName("string")
-                                        .receivingDepositoryFinancialInstitutionName("string")
+                                        .receivingDepositoryFinancialInstitutionCountry("string")
+                                        .receivingDepositoryFinancialInstitutionId("string")
                                         .receivingDepositoryFinancialInstitutionIdQualifier(
                                             "string"
                                         )
-                                        .receivingDepositoryFinancialInstitutionId("string")
-                                        .receivingDepositoryFinancialInstitutionCountry("string")
+                                        .receivingDepositoryFinancialInstitutionName("string")
                                         .traceNumber("string")
                                         .build()
                                 )
@@ -346,18 +562,18 @@ class AchTransferSimulationTest {
                                         .InboundRealTimePaymentsTransferConfirmation
                                         .builder()
                                         .amount(123L)
+                                        .creditorName("string")
                                         .currency(
                                             AchTransferSimulation.Transaction.Source
                                                 .InboundRealTimePaymentsTransferConfirmation
                                                 .Currency
                                                 .CAD
                                         )
-                                        .creditorName("string")
-                                        .debtorName("string")
                                         .debtorAccountNumber("string")
+                                        .debtorName("string")
                                         .debtorRoutingNumber("string")
-                                        .transactionIdentification("string")
                                         .remittanceInformation("string")
+                                        .transactionIdentification("string")
                                         .build()
                                 )
                                 .inboundWireDrawdownPayment(
@@ -386,13 +602,13 @@ class AchTransferSimulationTest {
                                         .amount(123L)
                                         .description("string")
                                         .inputCycleDate(LocalDate.parse("2019-12-27"))
+                                        .inputMessageAccountabilityData("string")
                                         .inputSequenceNumber("string")
                                         .inputSource("string")
-                                        .inputMessageAccountabilityData("string")
-                                        .previousMessageInputMessageAccountabilityData("string")
                                         .previousMessageInputCycleDate(
                                             LocalDate.parse("2019-12-27")
                                         )
+                                        .previousMessageInputMessageAccountabilityData("string")
                                         .previousMessageInputSequenceNumber("string")
                                         .previousMessageInputSource("string")
                                         .build()
@@ -403,20 +619,20 @@ class AchTransferSimulationTest {
                                         .amount(123L)
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .description("string")
-                                        .inputCycleDate(LocalDate.parse("2019-12-27"))
-                                        .inputSequenceNumber("string")
-                                        .inputSource("string")
-                                        .inputMessageAccountabilityData("string")
-                                        .previousMessageInputMessageAccountabilityData("string")
-                                        .previousMessageInputCycleDate(
-                                            LocalDate.parse("2019-12-27")
-                                        )
-                                        .previousMessageInputSequenceNumber("string")
-                                        .previousMessageInputSource("string")
-                                        .receiverFinancialInstitutionInformation("string")
                                         .financialInstitutionToFinancialInstitutionInformation(
                                             "string"
                                         )
+                                        .inputCycleDate(LocalDate.parse("2019-12-27"))
+                                        .inputMessageAccountabilityData("string")
+                                        .inputSequenceNumber("string")
+                                        .inputSource("string")
+                                        .previousMessageInputCycleDate(
+                                            LocalDate.parse("2019-12-27")
+                                        )
+                                        .previousMessageInputMessageAccountabilityData("string")
+                                        .previousMessageInputSequenceNumber("string")
+                                        .previousMessageInputSource("string")
+                                        .receiverFinancialInstitutionInformation("string")
                                         .transactionId("string")
                                         .wireTransferId("string")
                                         .build()
@@ -436,27 +652,27 @@ class AchTransferSimulationTest {
                                         .originatorAddressLine2("string")
                                         .originatorAddressLine3("string")
                                         .originatorName("string")
+                                        .originatorToBeneficiaryInformation("string")
                                         .originatorToBeneficiaryInformationLine1("string")
                                         .originatorToBeneficiaryInformationLine2("string")
                                         .originatorToBeneficiaryInformationLine3("string")
                                         .originatorToBeneficiaryInformationLine4("string")
-                                        .originatorToBeneficiaryInformation("string")
                                         .build()
                                 )
                                 .interestPayment(
                                     AchTransferSimulation.Transaction.Source.InterestPayment
                                         .builder()
+                                        .accruedOnAccountId("string")
                                         .amount(123L)
                                         .currency(
                                             AchTransferSimulation.Transaction.Source.InterestPayment
                                                 .Currency
                                                 .CAD
                                         )
+                                        .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .periodStart(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
-                                        .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                        .accruedOnAccountId("string")
                                         .build()
                                 )
                                 .internalSource(
@@ -494,10 +710,10 @@ class AchTransferSimulationTest {
                                 .wireTransferIntention(
                                     AchTransferSimulation.Transaction.Source.WireTransferIntention
                                         .builder()
-                                        .amount(123L)
                                         .accountNumber("string")
-                                        .routingNumber("string")
+                                        .amount(123L)
                                         .messageToRecipient("string")
+                                        .routingNumber("string")
                                         .transferId("string")
                                         .build()
                                 )
@@ -512,242 +728,22 @@ class AchTransferSimulationTest {
                         .type(AchTransferSimulation.Transaction.Type.TRANSACTION)
                         .build()
                 )
-                .declinedTransaction(
-                    AchTransferSimulation.DeclinedTransaction.builder()
-                        .accountId("string")
-                        .amount(123L)
-                        .currency(AchTransferSimulation.DeclinedTransaction.Currency.CAD)
-                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .description("string")
-                        .id("string")
-                        .routeId("string")
-                        .routeType(
-                            AchTransferSimulation.DeclinedTransaction.RouteType.ACCOUNT_NUMBER
-                        )
-                        .source(
-                            AchTransferSimulation.DeclinedTransaction.Source.builder()
-                                .category(
-                                    AchTransferSimulation.DeclinedTransaction.Source.Category
-                                        .ACH_DECLINE
-                                )
-                                .achDecline(
-                                    AchTransferSimulation.DeclinedTransaction.Source.AchDecline
-                                        .builder()
-                                        .amount(123L)
-                                        .originatorCompanyName("string")
-                                        .originatorCompanyDescriptiveDate("string")
-                                        .originatorCompanyDiscretionaryData("string")
-                                        .originatorCompanyId("string")
-                                        .reason(
-                                            AchTransferSimulation.DeclinedTransaction.Source
-                                                .AchDecline
-                                                .Reason
-                                                .ACH_ROUTE_CANCELED
-                                        )
-                                        .receiverIdNumber("string")
-                                        .receiverName("string")
-                                        .traceNumber("string")
-                                        .build()
-                                )
-                                .cardDecline(
-                                    AchTransferSimulation.DeclinedTransaction.Source.CardDecline
-                                        .builder()
-                                        .merchantAcceptorId("string")
-                                        .merchantDescriptor("string")
-                                        .merchantCategoryCode("string")
-                                        .merchantCity("string")
-                                        .merchantCountry("string")
-                                        .physicalCardId("string")
-                                        .network(
-                                            AchTransferSimulation.DeclinedTransaction.Source
-                                                .CardDecline
-                                                .Network
-                                                .VISA
-                                        )
-                                        .networkDetails(
-                                            AchTransferSimulation.DeclinedTransaction.Source
-                                                .CardDecline
-                                                .NetworkDetails
-                                                .builder()
-                                                .visa(
-                                                    AchTransferSimulation.DeclinedTransaction.Source
-                                                        .CardDecline
-                                                        .NetworkDetails
-                                                        .Visa
-                                                        .builder()
-                                                        .electronicCommerceIndicator(
-                                                            AchTransferSimulation
-                                                                .DeclinedTransaction
-                                                                .Source
-                                                                .CardDecline
-                                                                .NetworkDetails
-                                                                .Visa
-                                                                .ElectronicCommerceIndicator
-                                                                .MAIL_PHONE_ORDER
-                                                        )
-                                                        .pointOfServiceEntryMode(
-                                                            PointOfServiceEntryMode.MANUAL
-                                                        )
-                                                        .build()
-                                                )
-                                                .build()
-                                        )
-                                        .amount(123L)
-                                        .currency(
-                                            AchTransferSimulation.DeclinedTransaction.Source
-                                                .CardDecline
-                                                .Currency
-                                                .CAD
-                                        )
-                                        .reason(
-                                            AchTransferSimulation.DeclinedTransaction.Source
-                                                .CardDecline
-                                                .Reason
-                                                .CARD_NOT_ACTIVE
-                                        )
-                                        .merchantState("string")
-                                        .realTimeDecisionId("string")
-                                        .digitalWalletTokenId("string")
-                                        .build()
-                                )
-                                .checkDecline(
-                                    AchTransferSimulation.DeclinedTransaction.Source.CheckDecline
-                                        .builder()
-                                        .amount(123L)
-                                        .auxiliaryOnUs("string")
-                                        .reason(
-                                            AchTransferSimulation.DeclinedTransaction.Source
-                                                .CheckDecline
-                                                .Reason
-                                                .ACH_ROUTE_CANCELED
-                                        )
-                                        .build()
-                                )
-                                .inboundRealTimePaymentsTransferDecline(
-                                    AchTransferSimulation.DeclinedTransaction.Source
-                                        .InboundRealTimePaymentsTransferDecline
-                                        .builder()
-                                        .amount(123L)
-                                        .currency(
-                                            AchTransferSimulation.DeclinedTransaction.Source
-                                                .InboundRealTimePaymentsTransferDecline
-                                                .Currency
-                                                .CAD
-                                        )
-                                        .reason(
-                                            AchTransferSimulation.DeclinedTransaction.Source
-                                                .InboundRealTimePaymentsTransferDecline
-                                                .Reason
-                                                .ACCOUNT_NUMBER_CANCELED
-                                        )
-                                        .creditorName("string")
-                                        .debtorName("string")
-                                        .debtorAccountNumber("string")
-                                        .debtorRoutingNumber("string")
-                                        .transactionIdentification("string")
-                                        .remittanceInformation("string")
-                                        .build()
-                                )
-                                .internationalAchDecline(
-                                    AchTransferSimulation.DeclinedTransaction.Source
-                                        .InternationalAchDecline
-                                        .builder()
-                                        .amount(123L)
-                                        .foreignExchangeIndicator("string")
-                                        .foreignExchangeReferenceIndicator("string")
-                                        .foreignExchangeReference("string")
-                                        .destinationCountryCode("string")
-                                        .destinationCurrencyCode("string")
-                                        .foreignPaymentAmount(123L)
-                                        .foreignTraceNumber("string")
-                                        .internationalTransactionTypeCode("string")
-                                        .originatingCurrencyCode("string")
-                                        .originatingDepositoryFinancialInstitutionName("string")
-                                        .originatingDepositoryFinancialInstitutionIdQualifier(
-                                            "string"
-                                        )
-                                        .originatingDepositoryFinancialInstitutionId("string")
-                                        .originatingDepositoryFinancialInstitutionBranchCountry(
-                                            "string"
-                                        )
-                                        .originatorCity("string")
-                                        .originatorCompanyEntryDescription("string")
-                                        .originatorCountry("string")
-                                        .originatorIdentification("string")
-                                        .originatorName("string")
-                                        .originatorPostalCode("string")
-                                        .originatorStreetAddress("string")
-                                        .originatorStateOrProvince("string")
-                                        .paymentRelatedInformation("string")
-                                        .paymentRelatedInformation2("string")
-                                        .receiverIdentificationNumber("string")
-                                        .receiverStreetAddress("string")
-                                        .receiverCity("string")
-                                        .receiverStateOrProvince("string")
-                                        .receiverCountry("string")
-                                        .receiverPostalCode("string")
-                                        .receivingCompanyOrIndividualName("string")
-                                        .receivingDepositoryFinancialInstitutionName("string")
-                                        .receivingDepositoryFinancialInstitutionIdQualifier(
-                                            "string"
-                                        )
-                                        .receivingDepositoryFinancialInstitutionId("string")
-                                        .receivingDepositoryFinancialInstitutionCountry("string")
-                                        .traceNumber("string")
-                                        .build()
-                                )
-                                .wireDecline(
-                                    AchTransferSimulation.DeclinedTransaction.Source.WireDecline
-                                        .builder()
-                                        .amount(123L)
-                                        .reason(
-                                            AchTransferSimulation.DeclinedTransaction.Source
-                                                .WireDecline
-                                                .Reason
-                                                .ACCOUNT_NUMBER_CANCELED
-                                        )
-                                        .description("string")
-                                        .beneficiaryAddressLine1("string")
-                                        .beneficiaryAddressLine2("string")
-                                        .beneficiaryAddressLine3("string")
-                                        .beneficiaryName("string")
-                                        .beneficiaryReference("string")
-                                        .inputMessageAccountabilityData("string")
-                                        .originatorAddressLine1("string")
-                                        .originatorAddressLine2("string")
-                                        .originatorAddressLine3("string")
-                                        .originatorName("string")
-                                        .originatorToBeneficiaryInformationLine1("string")
-                                        .originatorToBeneficiaryInformationLine2("string")
-                                        .originatorToBeneficiaryInformationLine3("string")
-                                        .originatorToBeneficiaryInformationLine4("string")
-                                        .build()
-                                )
-                                .build()
-                        )
-                        .type(AchTransferSimulation.DeclinedTransaction.Type.DECLINED_TRANSACTION)
-                        .build()
-                )
                 .type(AchTransferSimulation.Type.INBOUND_ACH_TRANSFER_SIMULATION_RESULT)
                 .build()
         assertThat(achTransferSimulation).isNotNull
         assertThat(achTransferSimulation.transaction())
             .contains(
                 AchTransferSimulation.Transaction.builder()
+                    .id("string")
                     .accountId("string")
                     .amount(123L)
-                    .currency(AchTransferSimulation.Transaction.Currency.CAD)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .currency(AchTransferSimulation.Transaction.Currency.CAD)
                     .description("string")
-                    .id("string")
                     .routeId("string")
                     .routeType(AchTransferSimulation.Transaction.RouteType.ACCOUNT_NUMBER)
                     .source(
                         AchTransferSimulation.Transaction.Source.builder()
-                            .category(
-                                AchTransferSimulation.Transaction.Source.Category
-                                    .ACCOUNT_TRANSFER_INTENTION
-                            )
                             .accountTransferIntention(
                                 AchTransferSimulation.Transaction.Source.AccountTransferIntention
                                     .builder()
@@ -767,8 +763,8 @@ class AchTransferSimulationTest {
                             .achTransferIntention(
                                 AchTransferSimulation.Transaction.Source.AchTransferIntention
                                     .builder()
-                                    .amount(123L)
                                     .accountNumber("string")
+                                    .amount(123L)
                                     .routingNumber("string")
                                     .statementDescriptor("string")
                                     .transferId("string")
@@ -783,14 +779,14 @@ class AchTransferSimulationTest {
                             .achTransferReturn(
                                 AchTransferSimulation.Transaction.Source.AchTransferReturn.builder()
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .rawReturnReasonCode("string")
                                     .returnReasonCode(
                                         AchTransferSimulation.Transaction.Source.AchTransferReturn
                                             .ReturnReasonCode
                                             .INSUFFICIENT_FUND
                                     )
-                                    .rawReturnReasonCode("string")
-                                    .transferId("string")
                                     .transactionId("string")
+                                    .transferId("string")
                                     .build()
                             )
                             .cardDisputeAcceptance(
@@ -810,11 +806,11 @@ class AchTransferSimulationTest {
                                             .CAD
                                     )
                                     .merchantAcceptorId("string")
+                                    .merchantCategoryCode("string")
                                     .merchantCity("string")
-                                    .merchantState("string")
                                     .merchantCountry("string")
                                     .merchantName("string")
-                                    .merchantCategoryCode("string")
+                                    .merchantState("string")
                                     .transactionId("string")
                                     .type(
                                         AchTransferSimulation.Transaction.Source.CardRefund.Type
@@ -831,80 +827,84 @@ class AchTransferSimulationTest {
                                             .Currency
                                             .CAD
                                     )
-                                    .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .transactedOnAccountId("string")
                                     .build()
                             )
                             .cardSettlement(
                                 AchTransferSimulation.Transaction.Source.CardSettlement.builder()
                                     .id("string")
-                                    .cardAuthorization("string")
                                     .amount(123L)
+                                    .cardAuthorization("string")
                                     .currency(
                                         AchTransferSimulation.Transaction.Source.CardSettlement
                                             .Currency
                                             .CAD
                                     )
-                                    .presentmentAmount(123L)
-                                    .presentmentCurrency("string")
                                     .merchantAcceptorId("string")
+                                    .merchantCategoryCode("string")
                                     .merchantCity("string")
-                                    .merchantState("string")
                                     .merchantCountry("string")
                                     .merchantName("string")
-                                    .merchantCategoryCode("string")
-                                    .transactionId("string")
+                                    .merchantState("string")
                                     .pendingTransactionId("string")
+                                    .presentmentAmount(123L)
+                                    .presentmentCurrency("string")
+                                    .transactionId("string")
                                     .type(
                                         AchTransferSimulation.Transaction.Source.CardSettlement.Type
                                             .CARD_SETTLEMENT
                                     )
                                     .build()
                             )
+                            .category(
+                                AchTransferSimulation.Transaction.Source.Category
+                                    .ACCOUNT_TRANSFER_INTENTION
+                            )
                             .checkDepositAcceptance(
                                 AchTransferSimulation.Transaction.Source.CheckDepositAcceptance
                                     .builder()
+                                    .accountNumber("string")
                                     .amount(123L)
+                                    .auxiliaryOnUs("string")
+                                    .checkDepositId("string")
                                     .currency(
                                         AchTransferSimulation.Transaction.Source
                                             .CheckDepositAcceptance
                                             .Currency
                                             .CAD
                                     )
-                                    .accountNumber("string")
                                     .routingNumber("string")
-                                    .auxiliaryOnUs("string")
                                     .serialNumber("string")
-                                    .checkDepositId("string")
                                     .build()
                             )
                             .checkDepositReturn(
                                 AchTransferSimulation.Transaction.Source.CheckDepositReturn
                                     .builder()
                                     .amount(123L)
-                                    .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .checkDepositId("string")
                                     .currency(
                                         AchTransferSimulation.Transaction.Source.CheckDepositReturn
                                             .Currency
                                             .CAD
                                     )
-                                    .checkDepositId("string")
-                                    .transactionId("string")
                                     .returnReason(
                                         AchTransferSimulation.Transaction.Source.CheckDepositReturn
                                             .ReturnReason
                                             .ACH_CONVERSION_NOT_SUPPORTED
                                     )
+                                    .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .transactionId("string")
                                     .build()
                             )
                             .checkTransferDeposit(
                                 AchTransferSimulation.Transaction.Source.CheckTransferDeposit
                                     .builder()
-                                    .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .transactionId("string")
-                                    .frontImageFileId("string")
                                     .backImageFileId("string")
+                                    .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .frontImageFileId("string")
+                                    .transactionId("string")
                                     .type(
                                         AchTransferSimulation.Transaction.Source
                                             .CheckTransferDeposit
@@ -916,9 +916,9 @@ class AchTransferSimulationTest {
                             .checkTransferIntention(
                                 AchTransferSimulation.Transaction.Source.CheckTransferIntention
                                     .builder()
+                                    .addressCity("string")
                                     .addressLine1("string")
                                     .addressLine2("string")
-                                    .addressCity("string")
                                     .addressState("string")
                                     .addressZip("string")
                                     .amount(123L)
@@ -942,7 +942,6 @@ class AchTransferSimulationTest {
                                 AchTransferSimulation.Transaction.Source
                                     .CheckTransferStopPaymentRequest
                                     .builder()
-                                    .transferId("string")
                                     .reason(
                                         AchTransferSimulation.Transaction.Source
                                             .CheckTransferStopPaymentRequest
@@ -950,6 +949,7 @@ class AchTransferSimulationTest {
                                             .MAIL_DELIVERY_FAILED
                                     )
                                     .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .transferId("string")
                                     .type(
                                         AchTransferSimulation.Transaction.Source
                                             .CheckTransferStopPaymentRequest
@@ -971,11 +971,11 @@ class AchTransferSimulationTest {
                                 AchTransferSimulation.Transaction.Source.InboundAchTransfer
                                     .builder()
                                     .amount(123L)
-                                    .originatorCompanyName("string")
                                     .originatorCompanyDescriptiveDate("string")
                                     .originatorCompanyDiscretionaryData("string")
                                     .originatorCompanyEntryDescription("string")
                                     .originatorCompanyId("string")
+                                    .originatorCompanyName("string")
                                     .receiverIdNumber("string")
                                     .receiverName("string")
                                     .traceNumber("string")
@@ -984,14 +984,14 @@ class AchTransferSimulationTest {
                             .inboundCheck(
                                 AchTransferSimulation.Transaction.Source.InboundCheck.builder()
                                     .amount(123L)
+                                    .checkFrontImageFileId("string")
+                                    .checkNumber("string")
+                                    .checkRearImageFileId("string")
                                     .currency(
                                         AchTransferSimulation.Transaction.Source.InboundCheck
                                             .Currency
                                             .CAD
                                     )
-                                    .checkNumber("string")
-                                    .checkFrontImageFileId("string")
-                                    .checkRearImageFileId("string")
                                     .build()
                             )
                             .inboundInternationalAchTransfer(
@@ -999,42 +999,42 @@ class AchTransferSimulationTest {
                                     .InboundInternationalAchTransfer
                                     .builder()
                                     .amount(123L)
-                                    .foreignExchangeIndicator("string")
-                                    .foreignExchangeReferenceIndicator("string")
-                                    .foreignExchangeReference("string")
                                     .destinationCountryCode("string")
                                     .destinationCurrencyCode("string")
+                                    .foreignExchangeIndicator("string")
+                                    .foreignExchangeReference("string")
+                                    .foreignExchangeReferenceIndicator("string")
                                     .foreignPaymentAmount(123L)
                                     .foreignTraceNumber("string")
                                     .internationalTransactionTypeCode("string")
                                     .originatingCurrencyCode("string")
-                                    .originatingDepositoryFinancialInstitutionName("string")
-                                    .originatingDepositoryFinancialInstitutionIdQualifier("string")
-                                    .originatingDepositoryFinancialInstitutionId("string")
                                     .originatingDepositoryFinancialInstitutionBranchCountry(
                                         "string"
                                     )
+                                    .originatingDepositoryFinancialInstitutionId("string")
+                                    .originatingDepositoryFinancialInstitutionIdQualifier("string")
+                                    .originatingDepositoryFinancialInstitutionName("string")
                                     .originatorCity("string")
                                     .originatorCompanyEntryDescription("string")
                                     .originatorCountry("string")
                                     .originatorIdentification("string")
                                     .originatorName("string")
                                     .originatorPostalCode("string")
-                                    .originatorStreetAddress("string")
                                     .originatorStateOrProvince("string")
+                                    .originatorStreetAddress("string")
                                     .paymentRelatedInformation("string")
                                     .paymentRelatedInformation2("string")
-                                    .receiverIdentificationNumber("string")
-                                    .receiverStreetAddress("string")
                                     .receiverCity("string")
-                                    .receiverStateOrProvince("string")
                                     .receiverCountry("string")
+                                    .receiverIdentificationNumber("string")
                                     .receiverPostalCode("string")
+                                    .receiverStateOrProvince("string")
+                                    .receiverStreetAddress("string")
                                     .receivingCompanyOrIndividualName("string")
-                                    .receivingDepositoryFinancialInstitutionName("string")
-                                    .receivingDepositoryFinancialInstitutionIdQualifier("string")
-                                    .receivingDepositoryFinancialInstitutionId("string")
                                     .receivingDepositoryFinancialInstitutionCountry("string")
+                                    .receivingDepositoryFinancialInstitutionId("string")
+                                    .receivingDepositoryFinancialInstitutionIdQualifier("string")
+                                    .receivingDepositoryFinancialInstitutionName("string")
                                     .traceNumber("string")
                                     .build()
                             )
@@ -1043,18 +1043,18 @@ class AchTransferSimulationTest {
                                     .InboundRealTimePaymentsTransferConfirmation
                                     .builder()
                                     .amount(123L)
+                                    .creditorName("string")
                                     .currency(
                                         AchTransferSimulation.Transaction.Source
                                             .InboundRealTimePaymentsTransferConfirmation
                                             .Currency
                                             .CAD
                                     )
-                                    .creditorName("string")
-                                    .debtorName("string")
                                     .debtorAccountNumber("string")
+                                    .debtorName("string")
                                     .debtorRoutingNumber("string")
-                                    .transactionIdentification("string")
                                     .remittanceInformation("string")
+                                    .transactionIdentification("string")
                                     .build()
                             )
                             .inboundWireDrawdownPayment(
@@ -1082,11 +1082,11 @@ class AchTransferSimulationTest {
                                     .amount(123L)
                                     .description("string")
                                     .inputCycleDate(LocalDate.parse("2019-12-27"))
+                                    .inputMessageAccountabilityData("string")
                                     .inputSequenceNumber("string")
                                     .inputSource("string")
-                                    .inputMessageAccountabilityData("string")
-                                    .previousMessageInputMessageAccountabilityData("string")
                                     .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
+                                    .previousMessageInputMessageAccountabilityData("string")
                                     .previousMessageInputSequenceNumber("string")
                                     .previousMessageInputSource("string")
                                     .build()
@@ -1097,16 +1097,16 @@ class AchTransferSimulationTest {
                                     .amount(123L)
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .description("string")
+                                    .financialInstitutionToFinancialInstitutionInformation("string")
                                     .inputCycleDate(LocalDate.parse("2019-12-27"))
+                                    .inputMessageAccountabilityData("string")
                                     .inputSequenceNumber("string")
                                     .inputSource("string")
-                                    .inputMessageAccountabilityData("string")
-                                    .previousMessageInputMessageAccountabilityData("string")
                                     .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
+                                    .previousMessageInputMessageAccountabilityData("string")
                                     .previousMessageInputSequenceNumber("string")
                                     .previousMessageInputSource("string")
                                     .receiverFinancialInstitutionInformation("string")
-                                    .financialInstitutionToFinancialInstitutionInformation("string")
                                     .transactionId("string")
                                     .wireTransferId("string")
                                     .build()
@@ -1126,24 +1126,24 @@ class AchTransferSimulationTest {
                                     .originatorAddressLine2("string")
                                     .originatorAddressLine3("string")
                                     .originatorName("string")
+                                    .originatorToBeneficiaryInformation("string")
                                     .originatorToBeneficiaryInformationLine1("string")
                                     .originatorToBeneficiaryInformationLine2("string")
                                     .originatorToBeneficiaryInformationLine3("string")
                                     .originatorToBeneficiaryInformationLine4("string")
-                                    .originatorToBeneficiaryInformation("string")
                                     .build()
                             )
                             .interestPayment(
                                 AchTransferSimulation.Transaction.Source.InterestPayment.builder()
+                                    .accruedOnAccountId("string")
                                     .amount(123L)
                                     .currency(
                                         AchTransferSimulation.Transaction.Source.InterestPayment
                                             .Currency
                                             .CAD
                                     )
-                                    .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .accruedOnAccountId("string")
+                                    .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .build()
                             )
                             .internalSource(
@@ -1180,10 +1180,10 @@ class AchTransferSimulationTest {
                             .wireTransferIntention(
                                 AchTransferSimulation.Transaction.Source.WireTransferIntention
                                     .builder()
-                                    .amount(123L)
                                     .accountNumber("string")
-                                    .routingNumber("string")
+                                    .amount(123L)
                                     .messageToRecipient("string")
+                                    .routingNumber("string")
                                     .transferId("string")
                                     .build()
                             )
@@ -1201,28 +1201,24 @@ class AchTransferSimulationTest {
         assertThat(achTransferSimulation.declinedTransaction())
             .contains(
                 AchTransferSimulation.DeclinedTransaction.builder()
+                    .id("string")
                     .accountId("string")
                     .amount(123L)
-                    .currency(AchTransferSimulation.DeclinedTransaction.Currency.CAD)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .currency(AchTransferSimulation.DeclinedTransaction.Currency.CAD)
                     .description("string")
-                    .id("string")
                     .routeId("string")
                     .routeType(AchTransferSimulation.DeclinedTransaction.RouteType.ACCOUNT_NUMBER)
                     .source(
                         AchTransferSimulation.DeclinedTransaction.Source.builder()
-                            .category(
-                                AchTransferSimulation.DeclinedTransaction.Source.Category
-                                    .ACH_DECLINE
-                            )
                             .achDecline(
                                 AchTransferSimulation.DeclinedTransaction.Source.AchDecline
                                     .builder()
                                     .amount(123L)
-                                    .originatorCompanyName("string")
                                     .originatorCompanyDescriptiveDate("string")
                                     .originatorCompanyDiscretionaryData("string")
                                     .originatorCompanyId("string")
+                                    .originatorCompanyName("string")
                                     .reason(
                                         AchTransferSimulation.DeclinedTransaction.Source.AchDecline
                                             .Reason
@@ -1236,12 +1232,19 @@ class AchTransferSimulationTest {
                             .cardDecline(
                                 AchTransferSimulation.DeclinedTransaction.Source.CardDecline
                                     .builder()
+                                    .amount(123L)
+                                    .currency(
+                                        AchTransferSimulation.DeclinedTransaction.Source.CardDecline
+                                            .Currency
+                                            .CAD
+                                    )
+                                    .digitalWalletTokenId("string")
                                     .merchantAcceptorId("string")
-                                    .merchantDescriptor("string")
                                     .merchantCategoryCode("string")
                                     .merchantCity("string")
                                     .merchantCountry("string")
-                                    .physicalCardId("string")
+                                    .merchantDescriptor("string")
+                                    .merchantState("string")
                                     .network(
                                         AchTransferSimulation.DeclinedTransaction.Source.CardDecline
                                             .Network
@@ -1273,21 +1276,18 @@ class AchTransferSimulationTest {
                                             )
                                             .build()
                                     )
-                                    .amount(123L)
-                                    .currency(
-                                        AchTransferSimulation.DeclinedTransaction.Source.CardDecline
-                                            .Currency
-                                            .CAD
-                                    )
+                                    .physicalCardId("string")
+                                    .realTimeDecisionId("string")
                                     .reason(
                                         AchTransferSimulation.DeclinedTransaction.Source.CardDecline
                                             .Reason
                                             .CARD_NOT_ACTIVE
                                     )
-                                    .merchantState("string")
-                                    .realTimeDecisionId("string")
-                                    .digitalWalletTokenId("string")
                                     .build()
+                            )
+                            .category(
+                                AchTransferSimulation.DeclinedTransaction.Source.Category
+                                    .ACH_DECLINE
                             )
                             .checkDecline(
                                 AchTransferSimulation.DeclinedTransaction.Source.CheckDecline
@@ -1307,24 +1307,24 @@ class AchTransferSimulationTest {
                                     .InboundRealTimePaymentsTransferDecline
                                     .builder()
                                     .amount(123L)
+                                    .creditorName("string")
                                     .currency(
                                         AchTransferSimulation.DeclinedTransaction.Source
                                             .InboundRealTimePaymentsTransferDecline
                                             .Currency
                                             .CAD
                                     )
+                                    .debtorAccountNumber("string")
+                                    .debtorName("string")
+                                    .debtorRoutingNumber("string")
                                     .reason(
                                         AchTransferSimulation.DeclinedTransaction.Source
                                             .InboundRealTimePaymentsTransferDecline
                                             .Reason
                                             .ACCOUNT_NUMBER_CANCELED
                                     )
-                                    .creditorName("string")
-                                    .debtorName("string")
-                                    .debtorAccountNumber("string")
-                                    .debtorRoutingNumber("string")
-                                    .transactionIdentification("string")
                                     .remittanceInformation("string")
+                                    .transactionIdentification("string")
                                     .build()
                             )
                             .internationalAchDecline(
@@ -1332,42 +1332,42 @@ class AchTransferSimulationTest {
                                     .InternationalAchDecline
                                     .builder()
                                     .amount(123L)
-                                    .foreignExchangeIndicator("string")
-                                    .foreignExchangeReferenceIndicator("string")
-                                    .foreignExchangeReference("string")
                                     .destinationCountryCode("string")
                                     .destinationCurrencyCode("string")
+                                    .foreignExchangeIndicator("string")
+                                    .foreignExchangeReference("string")
+                                    .foreignExchangeReferenceIndicator("string")
                                     .foreignPaymentAmount(123L)
                                     .foreignTraceNumber("string")
                                     .internationalTransactionTypeCode("string")
                                     .originatingCurrencyCode("string")
-                                    .originatingDepositoryFinancialInstitutionName("string")
-                                    .originatingDepositoryFinancialInstitutionIdQualifier("string")
-                                    .originatingDepositoryFinancialInstitutionId("string")
                                     .originatingDepositoryFinancialInstitutionBranchCountry(
                                         "string"
                                     )
+                                    .originatingDepositoryFinancialInstitutionId("string")
+                                    .originatingDepositoryFinancialInstitutionIdQualifier("string")
+                                    .originatingDepositoryFinancialInstitutionName("string")
                                     .originatorCity("string")
                                     .originatorCompanyEntryDescription("string")
                                     .originatorCountry("string")
                                     .originatorIdentification("string")
                                     .originatorName("string")
                                     .originatorPostalCode("string")
-                                    .originatorStreetAddress("string")
                                     .originatorStateOrProvince("string")
+                                    .originatorStreetAddress("string")
                                     .paymentRelatedInformation("string")
                                     .paymentRelatedInformation2("string")
-                                    .receiverIdentificationNumber("string")
-                                    .receiverStreetAddress("string")
                                     .receiverCity("string")
-                                    .receiverStateOrProvince("string")
                                     .receiverCountry("string")
+                                    .receiverIdentificationNumber("string")
                                     .receiverPostalCode("string")
+                                    .receiverStateOrProvince("string")
+                                    .receiverStreetAddress("string")
                                     .receivingCompanyOrIndividualName("string")
-                                    .receivingDepositoryFinancialInstitutionName("string")
-                                    .receivingDepositoryFinancialInstitutionIdQualifier("string")
-                                    .receivingDepositoryFinancialInstitutionId("string")
                                     .receivingDepositoryFinancialInstitutionCountry("string")
+                                    .receivingDepositoryFinancialInstitutionId("string")
+                                    .receivingDepositoryFinancialInstitutionIdQualifier("string")
+                                    .receivingDepositoryFinancialInstitutionName("string")
                                     .traceNumber("string")
                                     .build()
                             )
@@ -1375,17 +1375,12 @@ class AchTransferSimulationTest {
                                 AchTransferSimulation.DeclinedTransaction.Source.WireDecline
                                     .builder()
                                     .amount(123L)
-                                    .reason(
-                                        AchTransferSimulation.DeclinedTransaction.Source.WireDecline
-                                            .Reason
-                                            .ACCOUNT_NUMBER_CANCELED
-                                    )
-                                    .description("string")
                                     .beneficiaryAddressLine1("string")
                                     .beneficiaryAddressLine2("string")
                                     .beneficiaryAddressLine3("string")
                                     .beneficiaryName("string")
                                     .beneficiaryReference("string")
+                                    .description("string")
                                     .inputMessageAccountabilityData("string")
                                     .originatorAddressLine1("string")
                                     .originatorAddressLine2("string")
@@ -1395,6 +1390,11 @@ class AchTransferSimulationTest {
                                     .originatorToBeneficiaryInformationLine2("string")
                                     .originatorToBeneficiaryInformationLine3("string")
                                     .originatorToBeneficiaryInformationLine4("string")
+                                    .reason(
+                                        AchTransferSimulation.DeclinedTransaction.Source.WireDecline
+                                            .Reason
+                                            .ACCOUNT_NUMBER_CANCELED
+                                    )
                                     .build()
                             )
                             .build()

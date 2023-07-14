@@ -11,14 +11,14 @@ class ExternalAccountTest {
         val externalAccount =
             ExternalAccount.builder()
                 .id("string")
+                .accountNumber("string")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .description("string")
-                .status(ExternalAccount.Status.ACTIVE)
-                .routingNumber("string")
-                .accountNumber("string")
                 .funding(ExternalAccount.Funding.CHECKING)
-                .verificationStatus(ExternalAccount.VerificationStatus.UNVERIFIED)
+                .routingNumber("string")
+                .status(ExternalAccount.Status.ACTIVE)
                 .type(ExternalAccount.Type.EXTERNAL_ACCOUNT)
+                .verificationStatus(ExternalAccount.VerificationStatus.UNVERIFIED)
                 .build()
         assertThat(externalAccount).isNotNull
         assertThat(externalAccount.id()).isEqualTo("string")

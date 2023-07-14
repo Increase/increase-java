@@ -11,10 +11,6 @@ class CardDisputeTest {
         val cardDispute =
             CardDispute.builder()
                 .id("string")
-                .explanation("string")
-                .status(CardDispute.Status.PENDING_REVIEWING)
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .disputedTransactionId("string")
                 .acceptance(
                     CardDispute.Acceptance.builder()
                         .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -22,13 +18,17 @@ class CardDisputeTest {
                         .transactionId("string")
                         .build()
                 )
+                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .disputedTransactionId("string")
+                .explanation("string")
                 .rejection(
                     CardDispute.Rejection.builder()
+                        .cardDisputeId("string")
                         .explanation("string")
                         .rejectedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .cardDisputeId("string")
                         .build()
                 )
+                .status(CardDispute.Status.PENDING_REVIEWING)
                 .type(CardDispute.Type.CARD_DISPUTE)
                 .build()
         assertThat(cardDispute).isNotNull
@@ -49,9 +49,9 @@ class CardDisputeTest {
         assertThat(cardDispute.rejection())
             .contains(
                 CardDispute.Rejection.builder()
+                    .cardDisputeId("string")
                     .explanation("string")
                     .rejectedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .cardDisputeId("string")
                     .build()
             )
         assertThat(cardDispute.type()).isEqualTo(CardDispute.Type.CARD_DISPUTE)

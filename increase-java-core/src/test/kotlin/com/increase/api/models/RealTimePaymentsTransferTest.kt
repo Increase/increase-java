@@ -10,8 +10,9 @@ class RealTimePaymentsTransferTest {
     fun createRealTimePaymentsTransfer() {
         val realTimePaymentsTransfer =
             RealTimePaymentsTransfer.builder()
-                .type(RealTimePaymentsTransfer.Type.REAL_TIME_PAYMENTS_TRANSFER)
                 .id("string")
+                .accountId("string")
+                .amount(123L)
                 .approval(
                     RealTimePaymentsTransfer.Approval.builder()
                         .approvedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -24,33 +25,32 @@ class RealTimePaymentsTransferTest {
                         .canceledBy("string")
                         .build()
                 )
-                .status(RealTimePaymentsTransfer.Status.PENDING_APPROVAL)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .accountId("string")
-                .externalAccountId("string")
-                .sourceAccountNumberId("string")
                 .creditorName("string")
-                .remittanceInformation("string")
-                .amount(123L)
                 .currency(RealTimePaymentsTransfer.Currency.CAD)
                 .destinationAccountNumber("string")
                 .destinationRoutingNumber("string")
-                .transactionId("string")
+                .externalAccountId("string")
+                .rejection(
+                    RealTimePaymentsTransfer.Rejection.builder()
+                        .rejectReasonAdditionalInformation("string")
+                        .rejectReasonCode(
+                            RealTimePaymentsTransfer.Rejection.RejectReasonCode.ACCOUNT_CLOSED
+                        )
+                        .rejectedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .build()
+                )
+                .remittanceInformation("string")
+                .sourceAccountNumberId("string")
+                .status(RealTimePaymentsTransfer.Status.PENDING_APPROVAL)
                 .submission(
                     RealTimePaymentsTransfer.Submission.builder()
                         .submittedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .transactionIdentification("string")
                         .build()
                 )
-                .rejection(
-                    RealTimePaymentsTransfer.Rejection.builder()
-                        .rejectedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .rejectReasonCode(
-                            RealTimePaymentsTransfer.Rejection.RejectReasonCode.ACCOUNT_CLOSED
-                        )
-                        .rejectReasonAdditionalInformation("string")
-                        .build()
-                )
+                .transactionId("string")
+                .type(RealTimePaymentsTransfer.Type.REAL_TIME_PAYMENTS_TRANSFER)
                 .uniqueIdentifier("string")
                 .build()
         assertThat(realTimePaymentsTransfer).isNotNull
@@ -96,11 +96,11 @@ class RealTimePaymentsTransferTest {
         assertThat(realTimePaymentsTransfer.rejection())
             .contains(
                 RealTimePaymentsTransfer.Rejection.builder()
-                    .rejectedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .rejectReasonAdditionalInformation("string")
                     .rejectReasonCode(
                         RealTimePaymentsTransfer.Rejection.RejectReasonCode.ACCOUNT_CLOSED
                     )
-                    .rejectReasonAdditionalInformation("string")
+                    .rejectedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
         assertThat(realTimePaymentsTransfer.uniqueIdentifier()).contains("string")

@@ -68,11 +68,11 @@ class ErrorHandlingTest {
 
         val expected =
             Account.builder()
+                .id("string")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .currency(Account.Currency.CAD)
                 .entityId("string")
                 .informationalEntityId("string")
-                .id("string")
                 .interestAccrued("string")
                 .interestAccruedAt(LocalDate.parse("2019-12-27"))
                 .interestRate("string")

@@ -11,11 +11,11 @@ class AchTransferTest {
     fun createAchTransfer() {
         val achTransfer =
             AchTransfer.builder()
+                .id("string")
                 .accountId("string")
                 .accountNumber("string")
                 .addendum("string")
                 .amount(123L)
-                .currency(AchTransfer.Currency.CAD)
                 .approval(
                     AchTransfer.Approval.builder()
                         .approvedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -28,54 +28,54 @@ class AchTransferTest {
                         .canceledBy("string")
                         .build()
                 )
+                .companyDescriptiveDate("string")
+                .companyDiscretionaryData("string")
+                .companyEntryDescription("string")
+                .companyName("string")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .currency(AchTransfer.Currency.CAD)
+                .effectiveDate(LocalDate.parse("2019-12-27"))
                 .externalAccountId("string")
-                .id("string")
+                .funding(AchTransfer.Funding.CHECKING)
+                .individualId("string")
+                .individualName("string")
                 .network(AchTransfer.Network.ACH)
                 .notificationsOfChange(
                     listOf(
                         AchTransfer.NotificationsOfChange.builder()
-                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .changeCode(
                                 AchTransfer.NotificationsOfChange.ChangeCode
                                     .INCORRECT_ACCOUNT_NUMBER
                             )
                             .correctedData("string")
+                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .build()
                     )
                 )
                 .return_(
                     AchTransfer.Return.builder()
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .returnReasonCode(AchTransfer.Return.ReturnReasonCode.INSUFFICIENT_FUND)
                         .rawReturnReasonCode("string")
-                        .transferId("string")
+                        .returnReasonCode(AchTransfer.Return.ReturnReasonCode.INSUFFICIENT_FUND)
                         .transactionId("string")
+                        .transferId("string")
                         .build()
                 )
                 .routingNumber("string")
+                .standardEntryClassCode(
+                    AchTransfer.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
+                )
                 .statementDescriptor("string")
                 .status(AchTransfer.Status.PENDING_APPROVAL)
                 .submission(
                     AchTransfer.Submission.builder()
-                        .traceNumber("string")
                         .submittedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .traceNumber("string")
                         .build()
                 )
                 .transactionId("string")
-                .companyDescriptiveDate("string")
-                .companyDiscretionaryData("string")
-                .companyEntryDescription("string")
-                .companyName("string")
-                .funding(AchTransfer.Funding.CHECKING)
-                .individualId("string")
-                .individualName("string")
-                .effectiveDate(LocalDate.parse("2019-12-27"))
-                .standardEntryClassCode(
-                    AchTransfer.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
-                )
-                .uniqueIdentifier("string")
                 .type(AchTransfer.Type.ACH_TRANSFER)
+                .uniqueIdentifier("string")
                 .build()
         assertThat(achTransfer).isNotNull
         assertThat(achTransfer.accountId()).isEqualTo("string")
@@ -105,21 +105,21 @@ class AchTransferTest {
         assertThat(achTransfer.notificationsOfChange())
             .containsExactly(
                 AchTransfer.NotificationsOfChange.builder()
-                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .changeCode(
                         AchTransfer.NotificationsOfChange.ChangeCode.INCORRECT_ACCOUNT_NUMBER
                     )
                     .correctedData("string")
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
         assertThat(achTransfer.return_())
             .contains(
                 AchTransfer.Return.builder()
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .returnReasonCode(AchTransfer.Return.ReturnReasonCode.INSUFFICIENT_FUND)
                     .rawReturnReasonCode("string")
-                    .transferId("string")
+                    .returnReasonCode(AchTransfer.Return.ReturnReasonCode.INSUFFICIENT_FUND)
                     .transactionId("string")
+                    .transferId("string")
                     .build()
             )
         assertThat(achTransfer.routingNumber()).isEqualTo("string")
@@ -128,8 +128,8 @@ class AchTransferTest {
         assertThat(achTransfer.submission())
             .contains(
                 AchTransfer.Submission.builder()
-                    .traceNumber("string")
                     .submittedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .traceNumber("string")
                     .build()
             )
         assertThat(achTransfer.transactionId()).contains("string")

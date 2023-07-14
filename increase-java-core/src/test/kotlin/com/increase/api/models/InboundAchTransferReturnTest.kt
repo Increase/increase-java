@@ -12,15 +12,15 @@ class InboundAchTransferReturnTest {
             InboundAchTransferReturn.builder()
                 .id("string")
                 .inboundAchTransferTransactionId("string")
-                .transactionId("string")
-                .status(InboundAchTransferReturn.Status.PENDING_SUBMITTING)
                 .reason(InboundAchTransferReturn.Reason.AUTHORIZATION_REVOKED_BY_CUSTOMER)
+                .status(InboundAchTransferReturn.Status.PENDING_SUBMITTING)
                 .submission(
                     InboundAchTransferReturn.Submission.builder()
-                        .traceNumber("string")
                         .submittedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .traceNumber("string")
                         .build()
                 )
+                .transactionId("string")
                 .type(InboundAchTransferReturn.Type.INBOUND_ACH_TRANSFER_RETURN)
                 .build()
         assertThat(inboundAchTransferReturn).isNotNull
@@ -34,8 +34,8 @@ class InboundAchTransferReturnTest {
         assertThat(inboundAchTransferReturn.submission())
             .contains(
                 InboundAchTransferReturn.Submission.builder()
-                    .traceNumber("string")
                     .submittedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .traceNumber("string")
                     .build()
             )
         assertThat(inboundAchTransferReturn.type())

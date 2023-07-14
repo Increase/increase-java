@@ -12,11 +12,11 @@ class EventSubscriptionTest {
             EventSubscription.builder()
                 .id("string")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(EventSubscription.Status.ACTIVE)
                 .selectedEventCategory(EventSubscription.SelectedEventCategory.ACCOUNT_CREATED)
-                .url("string")
                 .sharedSecret("string")
+                .status(EventSubscription.Status.ACTIVE)
                 .type(EventSubscription.Type.EVENT_SUBSCRIPTION)
+                .url("string")
                 .build()
         assertThat(eventSubscription).isNotNull
         assertThat(eventSubscription.id()).isEqualTo("string")
