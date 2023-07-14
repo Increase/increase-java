@@ -22,11 +22,11 @@ class EventSubscriptionTest {
         assertThat(eventSubscription.id()).isEqualTo("string")
         assertThat(eventSubscription.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(eventSubscription.status()).isEqualTo(EventSubscription.Status.ACTIVE)
         assertThat(eventSubscription.selectedEventCategory())
             .contains(EventSubscription.SelectedEventCategory.ACCOUNT_CREATED)
-        assertThat(eventSubscription.url()).isEqualTo("string")
         assertThat(eventSubscription.sharedSecret()).isEqualTo("string")
+        assertThat(eventSubscription.status()).isEqualTo(EventSubscription.Status.ACTIVE)
         assertThat(eventSubscription.type()).isEqualTo(EventSubscription.Type.EVENT_SUBSCRIPTION)
+        assertThat(eventSubscription.url()).isEqualTo("string")
     }
 }

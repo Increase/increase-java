@@ -16,8 +16,8 @@ class BalanceLookupLookupResponseTest {
                 .build()
         assertThat(balanceLookupLookupResponse).isNotNull
         assertThat(balanceLookupLookupResponse.accountId()).isEqualTo("string")
-        assertThat(balanceLookupLookupResponse.currentBalance()).isEqualTo(123L)
         assertThat(balanceLookupLookupResponse.availableBalance()).isEqualTo(123L)
+        assertThat(balanceLookupLookupResponse.currentBalance()).isEqualTo(123L)
         assertThat(balanceLookupLookupResponse.type())
             .isEqualTo(BalanceLookupLookupResponse.Type.BALANCE_LOOKUP)
     }

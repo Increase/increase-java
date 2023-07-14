@@ -18,10 +18,10 @@ class CardDetailsTest {
                 .build()
         assertThat(cardDetails).isNotNull
         assertThat(cardDetails.cardId()).isEqualTo("string")
-        assertThat(cardDetails.primaryAccountNumber()).isEqualTo("string")
         assertThat(cardDetails.expirationMonth()).isEqualTo(123L)
         assertThat(cardDetails.expirationYear()).isEqualTo(123L)
-        assertThat(cardDetails.verificationCode()).isEqualTo("string")
+        assertThat(cardDetails.primaryAccountNumber()).isEqualTo("string")
         assertThat(cardDetails.type()).isEqualTo(CardDetails.Type.CARD_DETAILS)
+        assertThat(cardDetails.verificationCode()).isEqualTo("string")
     }
 }

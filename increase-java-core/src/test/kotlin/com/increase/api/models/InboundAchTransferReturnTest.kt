@@ -26,11 +26,10 @@ class InboundAchTransferReturnTest {
         assertThat(inboundAchTransferReturn).isNotNull
         assertThat(inboundAchTransferReturn.id()).isEqualTo("string")
         assertThat(inboundAchTransferReturn.inboundAchTransferTransactionId()).isEqualTo("string")
-        assertThat(inboundAchTransferReturn.transactionId()).contains("string")
-        assertThat(inboundAchTransferReturn.status())
-            .isEqualTo(InboundAchTransferReturn.Status.PENDING_SUBMITTING)
         assertThat(inboundAchTransferReturn.reason())
             .isEqualTo(InboundAchTransferReturn.Reason.AUTHORIZATION_REVOKED_BY_CUSTOMER)
+        assertThat(inboundAchTransferReturn.status())
+            .isEqualTo(InboundAchTransferReturn.Status.PENDING_SUBMITTING)
         assertThat(inboundAchTransferReturn.submission())
             .contains(
                 InboundAchTransferReturn.Submission.builder()
@@ -38,6 +37,7 @@ class InboundAchTransferReturnTest {
                     .traceNumber("string")
                     .build()
             )
+        assertThat(inboundAchTransferReturn.transactionId()).contains("string")
         assertThat(inboundAchTransferReturn.type())
             .isEqualTo(InboundAchTransferReturn.Type.INBOUND_ACH_TRANSFER_RETURN)
     }

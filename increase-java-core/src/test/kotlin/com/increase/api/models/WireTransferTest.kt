@@ -69,17 +69,9 @@ class WireTransferTest {
                 .build()
         assertThat(wireTransfer).isNotNull
         assertThat(wireTransfer.id()).isEqualTo("string")
-        assertThat(wireTransfer.messageToRecipient()).contains("string")
-        assertThat(wireTransfer.amount()).isEqualTo(123L)
-        assertThat(wireTransfer.currency()).isEqualTo(WireTransfer.Currency.CAD)
-        assertThat(wireTransfer.accountNumber()).isEqualTo("string")
-        assertThat(wireTransfer.beneficiaryName()).contains("string")
-        assertThat(wireTransfer.beneficiaryAddressLine1()).contains("string")
-        assertThat(wireTransfer.beneficiaryAddressLine2()).contains("string")
-        assertThat(wireTransfer.beneficiaryAddressLine3()).contains("string")
         assertThat(wireTransfer.accountId()).isEqualTo("string")
-        assertThat(wireTransfer.externalAccountId()).contains("string")
-        assertThat(wireTransfer.routingNumber()).isEqualTo("string")
+        assertThat(wireTransfer.accountNumber()).isEqualTo("string")
+        assertThat(wireTransfer.amount()).isEqualTo(123L)
         assertThat(wireTransfer.approval())
             .contains(
                 WireTransfer.Approval.builder()
@@ -87,6 +79,10 @@ class WireTransferTest {
                     .approvedBy("string")
                     .build()
             )
+        assertThat(wireTransfer.beneficiaryAddressLine1()).contains("string")
+        assertThat(wireTransfer.beneficiaryAddressLine2()).contains("string")
+        assertThat(wireTransfer.beneficiaryAddressLine3()).contains("string")
+        assertThat(wireTransfer.beneficiaryName()).contains("string")
         assertThat(wireTransfer.cancellation())
             .contains(
                 WireTransfer.Cancellation.builder()
@@ -94,6 +90,12 @@ class WireTransferTest {
                     .canceledBy("string")
                     .build()
             )
+        assertThat(wireTransfer.createdAt())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(wireTransfer.currency()).isEqualTo(WireTransfer.Currency.CAD)
+        assertThat(wireTransfer.externalAccountId()).contains("string")
+        assertThat(wireTransfer.messageToRecipient()).contains("string")
+        assertThat(wireTransfer.network()).isEqualTo(WireTransfer.Network.WIRE)
         assertThat(wireTransfer.reversal())
             .contains(
                 WireTransfer.Reversal.builder()
@@ -114,9 +116,7 @@ class WireTransferTest {
                     .wireTransferId("string")
                     .build()
             )
-        assertThat(wireTransfer.createdAt())
-            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(wireTransfer.network()).isEqualTo(WireTransfer.Network.WIRE)
+        assertThat(wireTransfer.routingNumber()).isEqualTo("string")
         assertThat(wireTransfer.status()).isEqualTo(WireTransfer.Status.CANCELED)
         assertThat(wireTransfer.submission())
             .contains(
@@ -126,7 +126,7 @@ class WireTransferTest {
                     .build()
             )
         assertThat(wireTransfer.transactionId()).contains("string")
-        assertThat(wireTransfer.uniqueIdentifier()).contains("string")
         assertThat(wireTransfer.type()).isEqualTo(WireTransfer.Type.WIRE_TRANSFER)
+        assertThat(wireTransfer.uniqueIdentifier()).contains("string")
     }
 }

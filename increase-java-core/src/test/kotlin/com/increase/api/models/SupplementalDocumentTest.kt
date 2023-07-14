@@ -15,9 +15,9 @@ class SupplementalDocumentTest {
                 .type(SupplementalDocument.Type.ENTITY_SUPPLEMENTAL_DOCUMENT)
                 .build()
         assertThat(supplementalDocument).isNotNull
-        assertThat(supplementalDocument.fileId()).isEqualTo("string")
         assertThat(supplementalDocument.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(supplementalDocument.fileId()).isEqualTo("string")
         assertThat(supplementalDocument.type())
             .isEqualTo(SupplementalDocument.Type.ENTITY_SUPPLEMENTAL_DOCUMENT)
     }
