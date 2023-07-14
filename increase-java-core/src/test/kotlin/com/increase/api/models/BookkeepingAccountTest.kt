@@ -10,8 +10,8 @@ class BookkeepingAccountTest {
         val bookkeepingAccount =
             BookkeepingAccount.builder()
                 .id("string")
-                .complianceCategory(BookkeepingAccount.ComplianceCategory.COMMINGLED_CASH)
                 .accountId("string")
+                .complianceCategory(BookkeepingAccount.ComplianceCategory.COMMINGLED_CASH)
                 .entityId("string")
                 .name("string")
                 .type(BookkeepingAccount.Type.BOOKKEEPING_ACCOUNT)

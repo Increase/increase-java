@@ -10,11 +10,11 @@ class ProgramTest {
     fun createProgram() {
         val program =
             Program.builder()
-                .name("string")
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .id("string")
+                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .name("string")
                 .type(Program.Type.PROGRAM)
+                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
         assertThat(program).isNotNull
         assertThat(program.name()).isEqualTo("string")

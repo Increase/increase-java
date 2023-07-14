@@ -9,11 +9,11 @@ class RoutingNumberTest {
     fun createRoutingNumber() {
         val routingNumber =
             RoutingNumber.builder()
+                .achTransfers(RoutingNumber.AchTransfers.SUPPORTED)
                 .name("string")
+                .realTimePaymentsTransfers(RoutingNumber.RealTimePaymentsTransfers.SUPPORTED)
                 .routingNumber("string")
                 .type(RoutingNumber.Type.ROUTING_NUMBER)
-                .achTransfers(RoutingNumber.AchTransfers.SUPPORTED)
-                .realTimePaymentsTransfers(RoutingNumber.RealTimePaymentsTransfers.SUPPORTED)
                 .wireTransfers(RoutingNumber.WireTransfers.SUPPORTED)
                 .build()
         assertThat(routingNumber).isNotNull

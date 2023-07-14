@@ -13,20 +13,16 @@ class WireTransferSimulationTest {
             WireTransferSimulation.builder()
                 .transaction(
                     WireTransferSimulation.Transaction.builder()
+                        .id("string")
                         .accountId("string")
                         .amount(123L)
-                        .currency(WireTransferSimulation.Transaction.Currency.CAD)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .currency(WireTransferSimulation.Transaction.Currency.CAD)
                         .description("string")
-                        .id("string")
                         .routeId("string")
                         .routeType(WireTransferSimulation.Transaction.RouteType.ACCOUNT_NUMBER)
                         .source(
                             WireTransferSimulation.Transaction.Source.builder()
-                                .category(
-                                    WireTransferSimulation.Transaction.Source.Category
-                                        .ACCOUNT_TRANSFER_INTENTION
-                                )
                                 .accountTransferIntention(
                                     WireTransferSimulation.Transaction.Source
                                         .AccountTransferIntention
@@ -47,8 +43,8 @@ class WireTransferSimulationTest {
                                 .achTransferIntention(
                                     WireTransferSimulation.Transaction.Source.AchTransferIntention
                                         .builder()
-                                        .amount(123L)
                                         .accountNumber("string")
+                                        .amount(123L)
                                         .routingNumber("string")
                                         .statementDescriptor("string")
                                         .transferId("string")
@@ -64,15 +60,15 @@ class WireTransferSimulationTest {
                                     WireTransferSimulation.Transaction.Source.AchTransferReturn
                                         .builder()
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .rawReturnReasonCode("string")
                                         .returnReasonCode(
                                             WireTransferSimulation.Transaction.Source
                                                 .AchTransferReturn
                                                 .ReturnReasonCode
                                                 .INSUFFICIENT_FUND
                                         )
-                                        .rawReturnReasonCode("string")
-                                        .transferId("string")
                                         .transactionId("string")
+                                        .transferId("string")
                                         .build()
                                 )
                                 .cardDisputeAcceptance(
@@ -95,11 +91,11 @@ class WireTransferSimulationTest {
                                                 .CAD
                                         )
                                         .merchantAcceptorId("string")
+                                        .merchantCategoryCode("string")
                                         .merchantCity("string")
-                                        .merchantState("string")
                                         .merchantCountry("string")
                                         .merchantName("string")
-                                        .merchantCategoryCode("string")
+                                        .merchantState("string")
                                         .transactionId("string")
                                         .type(
                                             WireTransferSimulation.Transaction.Source.CardRefund
@@ -118,10 +114,10 @@ class WireTransferSimulationTest {
                                                 .Currency
                                                 .CAD
                                         )
+                                        .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .periodStart(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
-                                        .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .transactedOnAccountId("string")
                                         .build()
                                 )
@@ -129,23 +125,23 @@ class WireTransferSimulationTest {
                                     WireTransferSimulation.Transaction.Source.CardSettlement
                                         .builder()
                                         .id("string")
-                                        .cardAuthorization("string")
                                         .amount(123L)
+                                        .cardAuthorization("string")
                                         .currency(
                                             WireTransferSimulation.Transaction.Source.CardSettlement
                                                 .Currency
                                                 .CAD
                                         )
-                                        .presentmentAmount(123L)
-                                        .presentmentCurrency("string")
                                         .merchantAcceptorId("string")
+                                        .merchantCategoryCode("string")
                                         .merchantCity("string")
-                                        .merchantState("string")
                                         .merchantCountry("string")
                                         .merchantName("string")
-                                        .merchantCategoryCode("string")
-                                        .transactionId("string")
+                                        .merchantState("string")
                                         .pendingTransactionId("string")
+                                        .presentmentAmount(123L)
+                                        .presentmentCurrency("string")
+                                        .transactionId("string")
                                         .type(
                                             WireTransferSimulation.Transaction.Source.CardSettlement
                                                 .Type
@@ -153,55 +149,59 @@ class WireTransferSimulationTest {
                                         )
                                         .build()
                                 )
+                                .category(
+                                    WireTransferSimulation.Transaction.Source.Category
+                                        .ACCOUNT_TRANSFER_INTENTION
+                                )
                                 .checkDepositAcceptance(
                                     WireTransferSimulation.Transaction.Source.CheckDepositAcceptance
                                         .builder()
+                                        .accountNumber("string")
                                         .amount(123L)
+                                        .auxiliaryOnUs("string")
+                                        .checkDepositId("string")
                                         .currency(
                                             WireTransferSimulation.Transaction.Source
                                                 .CheckDepositAcceptance
                                                 .Currency
                                                 .CAD
                                         )
-                                        .accountNumber("string")
                                         .routingNumber("string")
-                                        .auxiliaryOnUs("string")
                                         .serialNumber("string")
-                                        .checkDepositId("string")
                                         .build()
                                 )
                                 .checkDepositReturn(
                                     WireTransferSimulation.Transaction.Source.CheckDepositReturn
                                         .builder()
                                         .amount(123L)
-                                        .returnedAt(
-                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
-                                        )
+                                        .checkDepositId("string")
                                         .currency(
                                             WireTransferSimulation.Transaction.Source
                                                 .CheckDepositReturn
                                                 .Currency
                                                 .CAD
                                         )
-                                        .checkDepositId("string")
-                                        .transactionId("string")
                                         .returnReason(
                                             WireTransferSimulation.Transaction.Source
                                                 .CheckDepositReturn
                                                 .ReturnReason
                                                 .ACH_CONVERSION_NOT_SUPPORTED
                                         )
+                                        .returnedAt(
+                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                        )
+                                        .transactionId("string")
                                         .build()
                                 )
                                 .checkTransferDeposit(
                                     WireTransferSimulation.Transaction.Source.CheckTransferDeposit
                                         .builder()
+                                        .backImageFileId("string")
                                         .depositedAt(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
-                                        .transactionId("string")
                                         .frontImageFileId("string")
-                                        .backImageFileId("string")
+                                        .transactionId("string")
                                         .type(
                                             WireTransferSimulation.Transaction.Source
                                                 .CheckTransferDeposit
@@ -213,9 +213,9 @@ class WireTransferSimulationTest {
                                 .checkTransferIntention(
                                     WireTransferSimulation.Transaction.Source.CheckTransferIntention
                                         .builder()
+                                        .addressCity("string")
                                         .addressLine1("string")
                                         .addressLine2("string")
-                                        .addressCity("string")
                                         .addressState("string")
                                         .addressZip("string")
                                         .amount(123L)
@@ -239,7 +239,6 @@ class WireTransferSimulationTest {
                                     WireTransferSimulation.Transaction.Source
                                         .CheckTransferStopPaymentRequest
                                         .builder()
-                                        .transferId("string")
                                         .reason(
                                             WireTransferSimulation.Transaction.Source
                                                 .CheckTransferStopPaymentRequest
@@ -249,6 +248,7 @@ class WireTransferSimulationTest {
                                         .requestedAt(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
+                                        .transferId("string")
                                         .type(
                                             WireTransferSimulation.Transaction.Source
                                                 .CheckTransferStopPaymentRequest
@@ -271,11 +271,11 @@ class WireTransferSimulationTest {
                                     WireTransferSimulation.Transaction.Source.InboundAchTransfer
                                         .builder()
                                         .amount(123L)
-                                        .originatorCompanyName("string")
                                         .originatorCompanyDescriptiveDate("string")
                                         .originatorCompanyDiscretionaryData("string")
                                         .originatorCompanyEntryDescription("string")
                                         .originatorCompanyId("string")
+                                        .originatorCompanyName("string")
                                         .receiverIdNumber("string")
                                         .receiverName("string")
                                         .traceNumber("string")
@@ -284,14 +284,14 @@ class WireTransferSimulationTest {
                                 .inboundCheck(
                                     WireTransferSimulation.Transaction.Source.InboundCheck.builder()
                                         .amount(123L)
+                                        .checkFrontImageFileId("string")
+                                        .checkNumber("string")
+                                        .checkRearImageFileId("string")
                                         .currency(
                                             WireTransferSimulation.Transaction.Source.InboundCheck
                                                 .Currency
                                                 .CAD
                                         )
-                                        .checkNumber("string")
-                                        .checkFrontImageFileId("string")
-                                        .checkRearImageFileId("string")
                                         .build()
                                 )
                                 .inboundInternationalAchTransfer(
@@ -299,46 +299,46 @@ class WireTransferSimulationTest {
                                         .InboundInternationalAchTransfer
                                         .builder()
                                         .amount(123L)
-                                        .foreignExchangeIndicator("string")
-                                        .foreignExchangeReferenceIndicator("string")
-                                        .foreignExchangeReference("string")
                                         .destinationCountryCode("string")
                                         .destinationCurrencyCode("string")
+                                        .foreignExchangeIndicator("string")
+                                        .foreignExchangeReference("string")
+                                        .foreignExchangeReferenceIndicator("string")
                                         .foreignPaymentAmount(123L)
                                         .foreignTraceNumber("string")
                                         .internationalTransactionTypeCode("string")
                                         .originatingCurrencyCode("string")
-                                        .originatingDepositoryFinancialInstitutionName("string")
-                                        .originatingDepositoryFinancialInstitutionIdQualifier(
-                                            "string"
-                                        )
-                                        .originatingDepositoryFinancialInstitutionId("string")
                                         .originatingDepositoryFinancialInstitutionBranchCountry(
                                             "string"
                                         )
+                                        .originatingDepositoryFinancialInstitutionId("string")
+                                        .originatingDepositoryFinancialInstitutionIdQualifier(
+                                            "string"
+                                        )
+                                        .originatingDepositoryFinancialInstitutionName("string")
                                         .originatorCity("string")
                                         .originatorCompanyEntryDescription("string")
                                         .originatorCountry("string")
                                         .originatorIdentification("string")
                                         .originatorName("string")
                                         .originatorPostalCode("string")
-                                        .originatorStreetAddress("string")
                                         .originatorStateOrProvince("string")
+                                        .originatorStreetAddress("string")
                                         .paymentRelatedInformation("string")
                                         .paymentRelatedInformation2("string")
-                                        .receiverIdentificationNumber("string")
-                                        .receiverStreetAddress("string")
                                         .receiverCity("string")
-                                        .receiverStateOrProvince("string")
                                         .receiverCountry("string")
+                                        .receiverIdentificationNumber("string")
                                         .receiverPostalCode("string")
+                                        .receiverStateOrProvince("string")
+                                        .receiverStreetAddress("string")
                                         .receivingCompanyOrIndividualName("string")
-                                        .receivingDepositoryFinancialInstitutionName("string")
+                                        .receivingDepositoryFinancialInstitutionCountry("string")
+                                        .receivingDepositoryFinancialInstitutionId("string")
                                         .receivingDepositoryFinancialInstitutionIdQualifier(
                                             "string"
                                         )
-                                        .receivingDepositoryFinancialInstitutionId("string")
-                                        .receivingDepositoryFinancialInstitutionCountry("string")
+                                        .receivingDepositoryFinancialInstitutionName("string")
                                         .traceNumber("string")
                                         .build()
                                 )
@@ -347,18 +347,18 @@ class WireTransferSimulationTest {
                                         .InboundRealTimePaymentsTransferConfirmation
                                         .builder()
                                         .amount(123L)
+                                        .creditorName("string")
                                         .currency(
                                             WireTransferSimulation.Transaction.Source
                                                 .InboundRealTimePaymentsTransferConfirmation
                                                 .Currency
                                                 .CAD
                                         )
-                                        .creditorName("string")
-                                        .debtorName("string")
                                         .debtorAccountNumber("string")
+                                        .debtorName("string")
                                         .debtorRoutingNumber("string")
-                                        .transactionIdentification("string")
                                         .remittanceInformation("string")
+                                        .transactionIdentification("string")
                                         .build()
                                 )
                                 .inboundWireDrawdownPayment(
@@ -387,13 +387,13 @@ class WireTransferSimulationTest {
                                         .amount(123L)
                                         .description("string")
                                         .inputCycleDate(LocalDate.parse("2019-12-27"))
+                                        .inputMessageAccountabilityData("string")
                                         .inputSequenceNumber("string")
                                         .inputSource("string")
-                                        .inputMessageAccountabilityData("string")
-                                        .previousMessageInputMessageAccountabilityData("string")
                                         .previousMessageInputCycleDate(
                                             LocalDate.parse("2019-12-27")
                                         )
+                                        .previousMessageInputMessageAccountabilityData("string")
                                         .previousMessageInputSequenceNumber("string")
                                         .previousMessageInputSource("string")
                                         .build()
@@ -404,20 +404,20 @@ class WireTransferSimulationTest {
                                         .amount(123L)
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .description("string")
-                                        .inputCycleDate(LocalDate.parse("2019-12-27"))
-                                        .inputSequenceNumber("string")
-                                        .inputSource("string")
-                                        .inputMessageAccountabilityData("string")
-                                        .previousMessageInputMessageAccountabilityData("string")
-                                        .previousMessageInputCycleDate(
-                                            LocalDate.parse("2019-12-27")
-                                        )
-                                        .previousMessageInputSequenceNumber("string")
-                                        .previousMessageInputSource("string")
-                                        .receiverFinancialInstitutionInformation("string")
                                         .financialInstitutionToFinancialInstitutionInformation(
                                             "string"
                                         )
+                                        .inputCycleDate(LocalDate.parse("2019-12-27"))
+                                        .inputMessageAccountabilityData("string")
+                                        .inputSequenceNumber("string")
+                                        .inputSource("string")
+                                        .previousMessageInputCycleDate(
+                                            LocalDate.parse("2019-12-27")
+                                        )
+                                        .previousMessageInputMessageAccountabilityData("string")
+                                        .previousMessageInputSequenceNumber("string")
+                                        .previousMessageInputSource("string")
+                                        .receiverFinancialInstitutionInformation("string")
                                         .transactionId("string")
                                         .wireTransferId("string")
                                         .build()
@@ -437,16 +437,17 @@ class WireTransferSimulationTest {
                                         .originatorAddressLine2("string")
                                         .originatorAddressLine3("string")
                                         .originatorName("string")
+                                        .originatorToBeneficiaryInformation("string")
                                         .originatorToBeneficiaryInformationLine1("string")
                                         .originatorToBeneficiaryInformationLine2("string")
                                         .originatorToBeneficiaryInformationLine3("string")
                                         .originatorToBeneficiaryInformationLine4("string")
-                                        .originatorToBeneficiaryInformation("string")
                                         .build()
                                 )
                                 .interestPayment(
                                     WireTransferSimulation.Transaction.Source.InterestPayment
                                         .builder()
+                                        .accruedOnAccountId("string")
                                         .amount(123L)
                                         .currency(
                                             WireTransferSimulation.Transaction.Source
@@ -454,11 +455,10 @@ class WireTransferSimulationTest {
                                                 .Currency
                                                 .CAD
                                         )
+                                        .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .periodStart(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
-                                        .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                        .accruedOnAccountId("string")
                                         .build()
                                 )
                                 .internalSource(
@@ -496,10 +496,10 @@ class WireTransferSimulationTest {
                                 .wireTransferIntention(
                                     WireTransferSimulation.Transaction.Source.WireTransferIntention
                                         .builder()
-                                        .amount(123L)
                                         .accountNumber("string")
-                                        .routingNumber("string")
+                                        .amount(123L)
                                         .messageToRecipient("string")
+                                        .routingNumber("string")
                                         .transferId("string")
                                         .build()
                                 )
@@ -520,20 +520,16 @@ class WireTransferSimulationTest {
         assertThat(wireTransferSimulation.transaction())
             .isEqualTo(
                 WireTransferSimulation.Transaction.builder()
+                    .id("string")
                     .accountId("string")
                     .amount(123L)
-                    .currency(WireTransferSimulation.Transaction.Currency.CAD)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .currency(WireTransferSimulation.Transaction.Currency.CAD)
                     .description("string")
-                    .id("string")
                     .routeId("string")
                     .routeType(WireTransferSimulation.Transaction.RouteType.ACCOUNT_NUMBER)
                     .source(
                         WireTransferSimulation.Transaction.Source.builder()
-                            .category(
-                                WireTransferSimulation.Transaction.Source.Category
-                                    .ACCOUNT_TRANSFER_INTENTION
-                            )
                             .accountTransferIntention(
                                 WireTransferSimulation.Transaction.Source.AccountTransferIntention
                                     .builder()
@@ -553,8 +549,8 @@ class WireTransferSimulationTest {
                             .achTransferIntention(
                                 WireTransferSimulation.Transaction.Source.AchTransferIntention
                                     .builder()
-                                    .amount(123L)
                                     .accountNumber("string")
+                                    .amount(123L)
                                     .routingNumber("string")
                                     .statementDescriptor("string")
                                     .transferId("string")
@@ -570,14 +566,14 @@ class WireTransferSimulationTest {
                                 WireTransferSimulation.Transaction.Source.AchTransferReturn
                                     .builder()
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .rawReturnReasonCode("string")
                                     .returnReasonCode(
                                         WireTransferSimulation.Transaction.Source.AchTransferReturn
                                             .ReturnReasonCode
                                             .INSUFFICIENT_FUND
                                     )
-                                    .rawReturnReasonCode("string")
-                                    .transferId("string")
                                     .transactionId("string")
+                                    .transferId("string")
                                     .build()
                             )
                             .cardDisputeAcceptance(
@@ -598,11 +594,11 @@ class WireTransferSimulationTest {
                                             .CAD
                                     )
                                     .merchantAcceptorId("string")
+                                    .merchantCategoryCode("string")
                                     .merchantCity("string")
-                                    .merchantState("string")
                                     .merchantCountry("string")
                                     .merchantName("string")
-                                    .merchantCategoryCode("string")
+                                    .merchantState("string")
                                     .transactionId("string")
                                     .type(
                                         WireTransferSimulation.Transaction.Source.CardRefund.Type
@@ -619,31 +615,31 @@ class WireTransferSimulationTest {
                                             .Currency
                                             .CAD
                                     )
-                                    .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .transactedOnAccountId("string")
                                     .build()
                             )
                             .cardSettlement(
                                 WireTransferSimulation.Transaction.Source.CardSettlement.builder()
                                     .id("string")
-                                    .cardAuthorization("string")
                                     .amount(123L)
+                                    .cardAuthorization("string")
                                     .currency(
                                         WireTransferSimulation.Transaction.Source.CardSettlement
                                             .Currency
                                             .CAD
                                     )
-                                    .presentmentAmount(123L)
-                                    .presentmentCurrency("string")
                                     .merchantAcceptorId("string")
+                                    .merchantCategoryCode("string")
                                     .merchantCity("string")
-                                    .merchantState("string")
                                     .merchantCountry("string")
                                     .merchantName("string")
-                                    .merchantCategoryCode("string")
-                                    .transactionId("string")
+                                    .merchantState("string")
                                     .pendingTransactionId("string")
+                                    .presentmentAmount(123L)
+                                    .presentmentCurrency("string")
+                                    .transactionId("string")
                                     .type(
                                         WireTransferSimulation.Transaction.Source.CardSettlement
                                             .Type
@@ -651,49 +647,53 @@ class WireTransferSimulationTest {
                                     )
                                     .build()
                             )
+                            .category(
+                                WireTransferSimulation.Transaction.Source.Category
+                                    .ACCOUNT_TRANSFER_INTENTION
+                            )
                             .checkDepositAcceptance(
                                 WireTransferSimulation.Transaction.Source.CheckDepositAcceptance
                                     .builder()
+                                    .accountNumber("string")
                                     .amount(123L)
+                                    .auxiliaryOnUs("string")
+                                    .checkDepositId("string")
                                     .currency(
                                         WireTransferSimulation.Transaction.Source
                                             .CheckDepositAcceptance
                                             .Currency
                                             .CAD
                                     )
-                                    .accountNumber("string")
                                     .routingNumber("string")
-                                    .auxiliaryOnUs("string")
                                     .serialNumber("string")
-                                    .checkDepositId("string")
                                     .build()
                             )
                             .checkDepositReturn(
                                 WireTransferSimulation.Transaction.Source.CheckDepositReturn
                                     .builder()
                                     .amount(123L)
-                                    .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .checkDepositId("string")
                                     .currency(
                                         WireTransferSimulation.Transaction.Source.CheckDepositReturn
                                             .Currency
                                             .CAD
                                     )
-                                    .checkDepositId("string")
-                                    .transactionId("string")
                                     .returnReason(
                                         WireTransferSimulation.Transaction.Source.CheckDepositReturn
                                             .ReturnReason
                                             .ACH_CONVERSION_NOT_SUPPORTED
                                     )
+                                    .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .transactionId("string")
                                     .build()
                             )
                             .checkTransferDeposit(
                                 WireTransferSimulation.Transaction.Source.CheckTransferDeposit
                                     .builder()
-                                    .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .transactionId("string")
-                                    .frontImageFileId("string")
                                     .backImageFileId("string")
+                                    .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .frontImageFileId("string")
+                                    .transactionId("string")
                                     .type(
                                         WireTransferSimulation.Transaction.Source
                                             .CheckTransferDeposit
@@ -705,9 +705,9 @@ class WireTransferSimulationTest {
                             .checkTransferIntention(
                                 WireTransferSimulation.Transaction.Source.CheckTransferIntention
                                     .builder()
+                                    .addressCity("string")
                                     .addressLine1("string")
                                     .addressLine2("string")
-                                    .addressCity("string")
                                     .addressState("string")
                                     .addressZip("string")
                                     .amount(123L)
@@ -731,7 +731,6 @@ class WireTransferSimulationTest {
                                 WireTransferSimulation.Transaction.Source
                                     .CheckTransferStopPaymentRequest
                                     .builder()
-                                    .transferId("string")
                                     .reason(
                                         WireTransferSimulation.Transaction.Source
                                             .CheckTransferStopPaymentRequest
@@ -739,6 +738,7 @@ class WireTransferSimulationTest {
                                             .MAIL_DELIVERY_FAILED
                                     )
                                     .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .transferId("string")
                                     .type(
                                         WireTransferSimulation.Transaction.Source
                                             .CheckTransferStopPaymentRequest
@@ -761,11 +761,11 @@ class WireTransferSimulationTest {
                                 WireTransferSimulation.Transaction.Source.InboundAchTransfer
                                     .builder()
                                     .amount(123L)
-                                    .originatorCompanyName("string")
                                     .originatorCompanyDescriptiveDate("string")
                                     .originatorCompanyDiscretionaryData("string")
                                     .originatorCompanyEntryDescription("string")
                                     .originatorCompanyId("string")
+                                    .originatorCompanyName("string")
                                     .receiverIdNumber("string")
                                     .receiverName("string")
                                     .traceNumber("string")
@@ -774,14 +774,14 @@ class WireTransferSimulationTest {
                             .inboundCheck(
                                 WireTransferSimulation.Transaction.Source.InboundCheck.builder()
                                     .amount(123L)
+                                    .checkFrontImageFileId("string")
+                                    .checkNumber("string")
+                                    .checkRearImageFileId("string")
                                     .currency(
                                         WireTransferSimulation.Transaction.Source.InboundCheck
                                             .Currency
                                             .CAD
                                     )
-                                    .checkNumber("string")
-                                    .checkFrontImageFileId("string")
-                                    .checkRearImageFileId("string")
                                     .build()
                             )
                             .inboundInternationalAchTransfer(
@@ -789,42 +789,42 @@ class WireTransferSimulationTest {
                                     .InboundInternationalAchTransfer
                                     .builder()
                                     .amount(123L)
-                                    .foreignExchangeIndicator("string")
-                                    .foreignExchangeReferenceIndicator("string")
-                                    .foreignExchangeReference("string")
                                     .destinationCountryCode("string")
                                     .destinationCurrencyCode("string")
+                                    .foreignExchangeIndicator("string")
+                                    .foreignExchangeReference("string")
+                                    .foreignExchangeReferenceIndicator("string")
                                     .foreignPaymentAmount(123L)
                                     .foreignTraceNumber("string")
                                     .internationalTransactionTypeCode("string")
                                     .originatingCurrencyCode("string")
-                                    .originatingDepositoryFinancialInstitutionName("string")
-                                    .originatingDepositoryFinancialInstitutionIdQualifier("string")
-                                    .originatingDepositoryFinancialInstitutionId("string")
                                     .originatingDepositoryFinancialInstitutionBranchCountry(
                                         "string"
                                     )
+                                    .originatingDepositoryFinancialInstitutionId("string")
+                                    .originatingDepositoryFinancialInstitutionIdQualifier("string")
+                                    .originatingDepositoryFinancialInstitutionName("string")
                                     .originatorCity("string")
                                     .originatorCompanyEntryDescription("string")
                                     .originatorCountry("string")
                                     .originatorIdentification("string")
                                     .originatorName("string")
                                     .originatorPostalCode("string")
-                                    .originatorStreetAddress("string")
                                     .originatorStateOrProvince("string")
+                                    .originatorStreetAddress("string")
                                     .paymentRelatedInformation("string")
                                     .paymentRelatedInformation2("string")
-                                    .receiverIdentificationNumber("string")
-                                    .receiverStreetAddress("string")
                                     .receiverCity("string")
-                                    .receiverStateOrProvince("string")
                                     .receiverCountry("string")
+                                    .receiverIdentificationNumber("string")
                                     .receiverPostalCode("string")
+                                    .receiverStateOrProvince("string")
+                                    .receiverStreetAddress("string")
                                     .receivingCompanyOrIndividualName("string")
-                                    .receivingDepositoryFinancialInstitutionName("string")
-                                    .receivingDepositoryFinancialInstitutionIdQualifier("string")
-                                    .receivingDepositoryFinancialInstitutionId("string")
                                     .receivingDepositoryFinancialInstitutionCountry("string")
+                                    .receivingDepositoryFinancialInstitutionId("string")
+                                    .receivingDepositoryFinancialInstitutionIdQualifier("string")
+                                    .receivingDepositoryFinancialInstitutionName("string")
                                     .traceNumber("string")
                                     .build()
                             )
@@ -833,18 +833,18 @@ class WireTransferSimulationTest {
                                     .InboundRealTimePaymentsTransferConfirmation
                                     .builder()
                                     .amount(123L)
+                                    .creditorName("string")
                                     .currency(
                                         WireTransferSimulation.Transaction.Source
                                             .InboundRealTimePaymentsTransferConfirmation
                                             .Currency
                                             .CAD
                                     )
-                                    .creditorName("string")
-                                    .debtorName("string")
                                     .debtorAccountNumber("string")
+                                    .debtorName("string")
                                     .debtorRoutingNumber("string")
-                                    .transactionIdentification("string")
                                     .remittanceInformation("string")
+                                    .transactionIdentification("string")
                                     .build()
                             )
                             .inboundWireDrawdownPayment(
@@ -872,11 +872,11 @@ class WireTransferSimulationTest {
                                     .amount(123L)
                                     .description("string")
                                     .inputCycleDate(LocalDate.parse("2019-12-27"))
+                                    .inputMessageAccountabilityData("string")
                                     .inputSequenceNumber("string")
                                     .inputSource("string")
-                                    .inputMessageAccountabilityData("string")
-                                    .previousMessageInputMessageAccountabilityData("string")
                                     .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
+                                    .previousMessageInputMessageAccountabilityData("string")
                                     .previousMessageInputSequenceNumber("string")
                                     .previousMessageInputSource("string")
                                     .build()
@@ -887,16 +887,16 @@ class WireTransferSimulationTest {
                                     .amount(123L)
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .description("string")
+                                    .financialInstitutionToFinancialInstitutionInformation("string")
                                     .inputCycleDate(LocalDate.parse("2019-12-27"))
+                                    .inputMessageAccountabilityData("string")
                                     .inputSequenceNumber("string")
                                     .inputSource("string")
-                                    .inputMessageAccountabilityData("string")
-                                    .previousMessageInputMessageAccountabilityData("string")
                                     .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
+                                    .previousMessageInputMessageAccountabilityData("string")
                                     .previousMessageInputSequenceNumber("string")
                                     .previousMessageInputSource("string")
                                     .receiverFinancialInstitutionInformation("string")
-                                    .financialInstitutionToFinancialInstitutionInformation("string")
                                     .transactionId("string")
                                     .wireTransferId("string")
                                     .build()
@@ -916,24 +916,24 @@ class WireTransferSimulationTest {
                                     .originatorAddressLine2("string")
                                     .originatorAddressLine3("string")
                                     .originatorName("string")
+                                    .originatorToBeneficiaryInformation("string")
                                     .originatorToBeneficiaryInformationLine1("string")
                                     .originatorToBeneficiaryInformationLine2("string")
                                     .originatorToBeneficiaryInformationLine3("string")
                                     .originatorToBeneficiaryInformationLine4("string")
-                                    .originatorToBeneficiaryInformation("string")
                                     .build()
                             )
                             .interestPayment(
                                 WireTransferSimulation.Transaction.Source.InterestPayment.builder()
+                                    .accruedOnAccountId("string")
                                     .amount(123L)
                                     .currency(
                                         WireTransferSimulation.Transaction.Source.InterestPayment
                                             .Currency
                                             .CAD
                                     )
-                                    .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .accruedOnAccountId("string")
+                                    .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .build()
                             )
                             .internalSource(
@@ -970,10 +970,10 @@ class WireTransferSimulationTest {
                             .wireTransferIntention(
                                 WireTransferSimulation.Transaction.Source.WireTransferIntention
                                     .builder()
-                                    .amount(123L)
                                     .accountNumber("string")
-                                    .routingNumber("string")
+                                    .amount(123L)
                                     .messageToRecipient("string")
+                                    .routingNumber("string")
                                     .transferId("string")
                                     .build()
                             )

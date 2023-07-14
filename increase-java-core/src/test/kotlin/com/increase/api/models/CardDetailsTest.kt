@@ -10,11 +10,11 @@ class CardDetailsTest {
         val cardDetails =
             CardDetails.builder()
                 .cardId("string")
-                .primaryAccountNumber("string")
                 .expirationMonth(123L)
                 .expirationYear(123L)
-                .verificationCode("string")
+                .primaryAccountNumber("string")
                 .type(CardDetails.Type.CARD_DETAILS)
+                .verificationCode("string")
                 .build()
         assertThat(cardDetails).isNotNull
         assertThat(cardDetails.cardId()).isEqualTo("string")

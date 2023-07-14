@@ -11,11 +11,11 @@ class ExportTest {
         val export =
             Export.builder()
                 .id("string")
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .category(Export.Category.TRANSACTION_CSV)
-                .status(Export.Status.PENDING)
-                .fileId("string")
+                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .fileDownloadUrl("string")
+                .fileId("string")
+                .status(Export.Status.PENDING)
                 .type(Export.Type.EXPORT)
                 .build()
         assertThat(export).isNotNull

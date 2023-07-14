@@ -10,10 +10,10 @@ class GroupTest {
     fun createGroup() {
         val group =
             Group.builder()
-                .activationStatus(Group.ActivationStatus.UNACTIVATED)
-                .achDebitStatus(Group.AchDebitStatus.DISABLED)
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .id("string")
+                .achDebitStatus(Group.AchDebitStatus.DISABLED)
+                .activationStatus(Group.ActivationStatus.UNACTIVATED)
+                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .type(Group.Type.GROUP)
                 .build()
         assertThat(group).isNotNull

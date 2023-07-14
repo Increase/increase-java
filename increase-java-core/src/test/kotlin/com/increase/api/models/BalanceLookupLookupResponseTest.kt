@@ -10,8 +10,8 @@ class BalanceLookupLookupResponseTest {
         val balanceLookupLookupResponse =
             BalanceLookupLookupResponse.builder()
                 .accountId("string")
-                .currentBalance(123L)
                 .availableBalance(123L)
+                .currentBalance(123L)
                 .type(BalanceLookupLookupResponse.Type.BALANCE_LOOKUP)
                 .build()
         assertThat(balanceLookupLookupResponse).isNotNull
