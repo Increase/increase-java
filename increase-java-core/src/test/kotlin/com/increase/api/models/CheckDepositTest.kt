@@ -54,15 +54,12 @@ class CheckDepositTest {
                 .build()
         assertThat(checkDeposit).isNotNull
         assertThat(checkDeposit.id()).isEqualTo("string")
+        assertThat(checkDeposit.accountId()).isEqualTo("string")
         assertThat(checkDeposit.amount()).isEqualTo(123L)
+        assertThat(checkDeposit.backImageFileId()).contains("string")
         assertThat(checkDeposit.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(checkDeposit.currency()).isEqualTo(CheckDeposit.Currency.CAD)
-        assertThat(checkDeposit.status()).isEqualTo(CheckDeposit.Status.PENDING)
-        assertThat(checkDeposit.accountId()).isEqualTo("string")
-        assertThat(checkDeposit.frontImageFileId()).isEqualTo("string")
-        assertThat(checkDeposit.backImageFileId()).contains("string")
-        assertThat(checkDeposit.transactionId()).contains("string")
         assertThat(checkDeposit.depositAcceptance())
             .contains(
                 CheckDeposit.DepositAcceptance.builder()
@@ -97,6 +94,9 @@ class CheckDepositTest {
                     .transactionId("string")
                     .build()
             )
+        assertThat(checkDeposit.frontImageFileId()).isEqualTo("string")
+        assertThat(checkDeposit.status()).isEqualTo(CheckDeposit.Status.PENDING)
+        assertThat(checkDeposit.transactionId()).contains("string")
         assertThat(checkDeposit.type()).isEqualTo(CheckDeposit.Type.CHECK_DEPOSIT)
     }
 }

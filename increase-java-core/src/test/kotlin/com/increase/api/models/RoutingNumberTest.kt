@@ -17,12 +17,12 @@ class RoutingNumberTest {
                 .wireTransfers(RoutingNumber.WireTransfers.SUPPORTED)
                 .build()
         assertThat(routingNumber).isNotNull
-        assertThat(routingNumber.name()).isEqualTo("string")
-        assertThat(routingNumber.routingNumber()).isEqualTo("string")
-        assertThat(routingNumber.type()).isEqualTo(RoutingNumber.Type.ROUTING_NUMBER)
         assertThat(routingNumber.achTransfers()).isEqualTo(RoutingNumber.AchTransfers.SUPPORTED)
+        assertThat(routingNumber.name()).isEqualTo("string")
         assertThat(routingNumber.realTimePaymentsTransfers())
             .isEqualTo(RoutingNumber.RealTimePaymentsTransfers.SUPPORTED)
+        assertThat(routingNumber.routingNumber()).isEqualTo("string")
+        assertThat(routingNumber.type()).isEqualTo(RoutingNumber.Type.ROUTING_NUMBER)
         assertThat(routingNumber.wireTransfers()).isEqualTo(RoutingNumber.WireTransfers.SUPPORTED)
     }
 }

@@ -18,9 +18,9 @@ class BookkeepingAccountTest {
                 .build()
         assertThat(bookkeepingAccount).isNotNull
         assertThat(bookkeepingAccount.id()).isEqualTo("string")
+        assertThat(bookkeepingAccount.accountId()).contains("string")
         assertThat(bookkeepingAccount.complianceCategory())
             .contains(BookkeepingAccount.ComplianceCategory.COMMINGLED_CASH)
-        assertThat(bookkeepingAccount.accountId()).contains("string")
         assertThat(bookkeepingAccount.entityId()).contains("string")
         assertThat(bookkeepingAccount.name()).isEqualTo("string")
         assertThat(bookkeepingAccount.type()).isEqualTo(BookkeepingAccount.Type.BOOKKEEPING_ACCOUNT)

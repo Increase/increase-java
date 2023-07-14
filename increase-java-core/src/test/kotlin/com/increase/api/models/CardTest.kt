@@ -39,12 +39,6 @@ class CardTest {
         assertThat(card).isNotNull
         assertThat(card.id()).isEqualTo("string")
         assertThat(card.accountId()).isEqualTo("string")
-        assertThat(card.createdAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(card.description()).contains("string")
-        assertThat(card.last4()).isEqualTo("string")
-        assertThat(card.expirationMonth()).isEqualTo(123L)
-        assertThat(card.expirationYear()).isEqualTo(123L)
-        assertThat(card.status()).isEqualTo(Card.Status.ACTIVE)
         assertThat(card.billingAddress())
             .isEqualTo(
                 Card.BillingAddress.builder()
@@ -55,6 +49,8 @@ class CardTest {
                     .state("string")
                     .build()
             )
+        assertThat(card.createdAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(card.description()).contains("string")
         assertThat(card.digitalWallet())
             .contains(
                 Card.DigitalWallet.builder()
@@ -63,6 +59,10 @@ class CardTest {
                     .phone("string")
                     .build()
             )
+        assertThat(card.expirationMonth()).isEqualTo(123L)
+        assertThat(card.expirationYear()).isEqualTo(123L)
+        assertThat(card.last4()).isEqualTo("string")
+        assertThat(card.status()).isEqualTo(Card.Status.ACTIVE)
         assertThat(card.type()).isEqualTo(Card.Type.CARD)
     }
 }

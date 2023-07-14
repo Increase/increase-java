@@ -46,7 +46,6 @@ class CardProfileTest {
         assertThat(cardProfile.id()).isEqualTo("string")
         assertThat(cardProfile.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(cardProfile.status()).isEqualTo(CardProfile.Status.PENDING)
         assertThat(cardProfile.description()).isEqualTo("string")
         assertThat(cardProfile.digitalWallets())
             .isEqualTo(
@@ -76,6 +75,7 @@ class CardProfileTest {
                     .frontImageFileId("string")
                     .build()
             )
+        assertThat(cardProfile.status()).isEqualTo(CardProfile.Status.PENDING)
         assertThat(cardProfile.type()).isEqualTo(CardProfile.Type.CARD_PROFILE)
     }
 }

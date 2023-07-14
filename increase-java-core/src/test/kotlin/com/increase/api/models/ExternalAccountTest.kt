@@ -22,15 +22,15 @@ class ExternalAccountTest {
                 .build()
         assertThat(externalAccount).isNotNull
         assertThat(externalAccount.id()).isEqualTo("string")
+        assertThat(externalAccount.accountNumber()).isEqualTo("string")
         assertThat(externalAccount.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(externalAccount.description()).isEqualTo("string")
-        assertThat(externalAccount.status()).isEqualTo(ExternalAccount.Status.ACTIVE)
-        assertThat(externalAccount.routingNumber()).isEqualTo("string")
-        assertThat(externalAccount.accountNumber()).isEqualTo("string")
         assertThat(externalAccount.funding()).isEqualTo(ExternalAccount.Funding.CHECKING)
+        assertThat(externalAccount.routingNumber()).isEqualTo("string")
+        assertThat(externalAccount.status()).isEqualTo(ExternalAccount.Status.ACTIVE)
+        assertThat(externalAccount.type()).isEqualTo(ExternalAccount.Type.EXTERNAL_ACCOUNT)
         assertThat(externalAccount.verificationStatus())
             .isEqualTo(ExternalAccount.VerificationStatus.UNVERIFIED)
-        assertThat(externalAccount.type()).isEqualTo(ExternalAccount.Type.EXTERNAL_ACCOUNT)
     }
 }

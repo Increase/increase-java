@@ -18,11 +18,11 @@ class EventTest {
                 .type(Event.Type.EVENT)
                 .build()
         assertThat(event).isNotNull
+        assertThat(event.id()).isEqualTo("string")
         assertThat(event.associatedObjectId()).isEqualTo("string")
         assertThat(event.associatedObjectType()).isEqualTo("string")
         assertThat(event.category()).isEqualTo(Event.Category.ACCOUNT_CREATED)
         assertThat(event.createdAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(event.id()).isEqualTo("string")
         assertThat(event.type()).isEqualTo(Event.Type.EVENT)
     }
 }

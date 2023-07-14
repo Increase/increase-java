@@ -25,13 +25,13 @@ class AccountStatementTest {
         assertThat(accountStatement.accountId()).isEqualTo("string")
         assertThat(accountStatement.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(accountStatement.endingBalance()).isEqualTo(123L)
         assertThat(accountStatement.fileId()).isEqualTo("string")
-        assertThat(accountStatement.statementPeriodStart())
-            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(accountStatement.startingBalance()).isEqualTo(123L)
         assertThat(accountStatement.statementPeriodEnd())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(accountStatement.startingBalance()).isEqualTo(123L)
-        assertThat(accountStatement.endingBalance()).isEqualTo(123L)
+        assertThat(accountStatement.statementPeriodStart())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(accountStatement.type()).isEqualTo(AccountStatement.Type.ACCOUNT_STATEMENT)
     }
 }

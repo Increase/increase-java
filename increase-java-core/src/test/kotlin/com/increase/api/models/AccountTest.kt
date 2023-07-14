@@ -24,11 +24,11 @@ class AccountTest {
                 .type(Account.Type.ACCOUNT)
                 .build()
         assertThat(account).isNotNull
+        assertThat(account.id()).isEqualTo("string")
         assertThat(account.createdAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(account.currency()).isEqualTo(Account.Currency.CAD)
         assertThat(account.entityId()).contains("string")
         assertThat(account.informationalEntityId()).contains("string")
-        assertThat(account.id()).isEqualTo("string")
         assertThat(account.interestAccrued()).isEqualTo("string")
         assertThat(account.interestAccruedAt()).contains(LocalDate.parse("2019-12-27"))
         assertThat(account.interestRate()).isEqualTo("string")

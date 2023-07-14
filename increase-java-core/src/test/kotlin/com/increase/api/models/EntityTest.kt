@@ -215,7 +215,6 @@ class EntityTest {
                 .build()
         assertThat(entity).isNotNull
         assertThat(entity.id()).isEqualTo("string")
-        assertThat(entity.structure()).isEqualTo(Entity.Structure.CORPORATION)
         assertThat(entity.corporation())
             .contains(
                 Entity.Corporation.builder()
@@ -271,30 +270,7 @@ class EntityTest {
                     .website("string")
                     .build()
             )
-        assertThat(entity.naturalPerson())
-            .contains(
-                Entity.NaturalPerson.builder()
-                    .address(
-                        Entity.NaturalPerson.Address.builder()
-                            .city("string")
-                            .line1("string")
-                            .line2("string")
-                            .state("string")
-                            .zip("string")
-                            .build()
-                    )
-                    .dateOfBirth(LocalDate.parse("2019-12-27"))
-                    .identification(
-                        Entity.NaturalPerson.Identification.builder()
-                            .method(
-                                Entity.NaturalPerson.Identification.Method.SOCIAL_SECURITY_NUMBER
-                            )
-                            .numberLast4("string")
-                            .build()
-                    )
-                    .name("string")
-                    .build()
-            )
+        assertThat(entity.description()).contains("string")
         assertThat(entity.joint())
             .contains(
                 Entity.Joint.builder()
@@ -325,6 +301,40 @@ class EntityTest {
                         )
                     )
                     .name("string")
+                    .build()
+            )
+        assertThat(entity.naturalPerson())
+            .contains(
+                Entity.NaturalPerson.builder()
+                    .address(
+                        Entity.NaturalPerson.Address.builder()
+                            .city("string")
+                            .line1("string")
+                            .line2("string")
+                            .state("string")
+                            .zip("string")
+                            .build()
+                    )
+                    .dateOfBirth(LocalDate.parse("2019-12-27"))
+                    .identification(
+                        Entity.NaturalPerson.Identification.builder()
+                            .method(
+                                Entity.NaturalPerson.Identification.Method.SOCIAL_SECURITY_NUMBER
+                            )
+                            .numberLast4("string")
+                            .build()
+                    )
+                    .name("string")
+                    .build()
+            )
+        assertThat(entity.relationship()).isEqualTo(Entity.Relationship.AFFILIATED)
+        assertThat(entity.structure()).isEqualTo(Entity.Structure.CORPORATION)
+        assertThat(entity.supplementalDocuments())
+            .containsExactly(
+                Entity.SupplementalDocument.builder()
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .fileId("string")
+                    .type(Entity.SupplementalDocument.Type.ENTITY_SUPPLEMENTAL_DOCUMENT)
                     .build()
             )
         assertThat(entity.trust())
@@ -403,15 +413,5 @@ class EntityTest {
                     .build()
             )
         assertThat(entity.type()).isEqualTo(Entity.Type.ENTITY)
-        assertThat(entity.description()).contains("string")
-        assertThat(entity.relationship()).isEqualTo(Entity.Relationship.AFFILIATED)
-        assertThat(entity.supplementalDocuments())
-            .containsExactly(
-                Entity.SupplementalDocument.builder()
-                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .fileId("string")
-                    .type(Entity.SupplementalDocument.Type.ENTITY_SUPPLEMENTAL_DOCUMENT)
-                    .build()
-            )
     }
 }
