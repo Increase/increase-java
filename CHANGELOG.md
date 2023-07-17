@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.7.1](https://github.com/Increase/increase-java/compare/v0.7.0...v0.7.1) (2023-07-17)
+
+
+### Features
+
+* **api:** add physical_card_id ([#31](https://github.com/Increase/increase-java/issues/31)) ([1aef9ff](https://github.com/Increase/increase-java/commit/1aef9ff90998cde4b6341b42b6cc32abd8c756c6))
+
+
+### Chores
+
+* **internal:** minor reformatting ([#34](https://github.com/Increase/increase-java/issues/34)) ([f0a69b1](https://github.com/Increase/increase-java/commit/f0a69b1426d31d74e31849a86b858637c7ea8ee4))
+* **internal:** minor reformatting + remove internal examples classes ([#33](https://github.com/Increase/increase-java/issues/33)) ([b656b3b](https://github.com/Increase/increase-java/commit/b656b3bd7259e7453baf1f9cd758b1d80c2f011c))
+
 ## [0.7.0](https://github.com/Increase/increase-java/compare/v0.6.0...v0.7.0) (2023-07-12)
 
 
