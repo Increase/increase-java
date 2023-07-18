@@ -1,5 +1,6 @@
 package com.increase.api.models
 
+import com.increase.api.core.JsonNull
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -21,9 +22,11 @@ class RealTimeDecisionTest {
                         .merchantCity("string")
                         .merchantCountry("string")
                         .merchantDescriptor("string")
-                        .network(RealTimeDecision.CardAuthorization.Network.VISA)
                         .networkDetails(
                             RealTimeDecision.CardAuthorization.NetworkDetails.builder()
+                                .category(
+                                    RealTimeDecision.CardAuthorization.NetworkDetails.Category.VISA
+                                )
                                 .visa(
                                     RealTimeDecision.CardAuthorization.NetworkDetails.Visa.builder()
                                         .electronicCommerceIndicator(
@@ -31,7 +34,7 @@ class RealTimeDecisionTest {
                                                 .ElectronicCommerceIndicator
                                                 .MAIL_PHONE_ORDER
                                         )
-                                        .pointOfServiceEntryMode(PointOfServiceEntryMode.MANUAL)
+                                        .pointOfServiceEntryMode(PointOfServiceEntryMode.UNKNOWN)
                                         .build()
                                 )
                                 .build()
@@ -39,6 +42,23 @@ class RealTimeDecisionTest {
                         .physicalCardId("string")
                         .presentmentAmount(123L)
                         .presentmentCurrency("string")
+                        .requestDetails(
+                            RealTimeDecision.CardAuthorization.RequestDetails.builder()
+                                .category(
+                                    RealTimeDecision.CardAuthorization.RequestDetails.Category
+                                        .INITIAL_AUTHORIZATION
+                                )
+                                .incrementalAuthorization(
+                                    RealTimeDecision.CardAuthorization.RequestDetails
+                                        .IncrementalAuthorization
+                                        .builder()
+                                        .cardPaymentId("string")
+                                        .originalCardAuthorizationId("string")
+                                        .build()
+                                )
+                                .initialAuthorization(JsonNull.of())
+                                .build()
+                        )
                         .settlementAmount(123L)
                         .settlementCurrency("string")
                         .build()
@@ -83,9 +103,11 @@ class RealTimeDecisionTest {
                     .merchantCity("string")
                     .merchantCountry("string")
                     .merchantDescriptor("string")
-                    .network(RealTimeDecision.CardAuthorization.Network.VISA)
                     .networkDetails(
                         RealTimeDecision.CardAuthorization.NetworkDetails.builder()
+                            .category(
+                                RealTimeDecision.CardAuthorization.NetworkDetails.Category.VISA
+                            )
                             .visa(
                                 RealTimeDecision.CardAuthorization.NetworkDetails.Visa.builder()
                                     .electronicCommerceIndicator(
@@ -93,7 +115,7 @@ class RealTimeDecisionTest {
                                             .ElectronicCommerceIndicator
                                             .MAIL_PHONE_ORDER
                                     )
-                                    .pointOfServiceEntryMode(PointOfServiceEntryMode.MANUAL)
+                                    .pointOfServiceEntryMode(PointOfServiceEntryMode.UNKNOWN)
                                     .build()
                             )
                             .build()
@@ -101,6 +123,23 @@ class RealTimeDecisionTest {
                     .physicalCardId("string")
                     .presentmentAmount(123L)
                     .presentmentCurrency("string")
+                    .requestDetails(
+                        RealTimeDecision.CardAuthorization.RequestDetails.builder()
+                            .category(
+                                RealTimeDecision.CardAuthorization.RequestDetails.Category
+                                    .INITIAL_AUTHORIZATION
+                            )
+                            .incrementalAuthorization(
+                                RealTimeDecision.CardAuthorization.RequestDetails
+                                    .IncrementalAuthorization
+                                    .builder()
+                                    .cardPaymentId("string")
+                                    .originalCardAuthorizationId("string")
+                                    .build()
+                            )
+                            .initialAuthorization(JsonNull.of())
+                            .build()
+                    )
                     .settlementAmount(123L)
                     .settlementCurrency("string")
                     .build()
