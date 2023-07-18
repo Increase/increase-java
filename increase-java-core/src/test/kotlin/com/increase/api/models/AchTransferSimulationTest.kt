@@ -61,17 +61,18 @@ class AchTransferSimulationTest {
                                         .merchantCountry("string")
                                         .merchantDescriptor("string")
                                         .merchantState("string")
-                                        .network(
-                                            AchTransferSimulation.DeclinedTransaction.Source
-                                                .CardDecline
-                                                .Network
-                                                .VISA
-                                        )
                                         .networkDetails(
                                             AchTransferSimulation.DeclinedTransaction.Source
                                                 .CardDecline
                                                 .NetworkDetails
                                                 .builder()
+                                                .category(
+                                                    AchTransferSimulation.DeclinedTransaction.Source
+                                                        .CardDecline
+                                                        .NetworkDetails
+                                                        .Category
+                                                        .VISA
+                                                )
                                                 .visa(
                                                     AchTransferSimulation.DeclinedTransaction.Source
                                                         .CardDecline
@@ -89,7 +90,7 @@ class AchTransferSimulationTest {
                                                                 .MAIL_PHONE_ORDER
                                                         )
                                                         .pointOfServiceEntryMode(
-                                                            PointOfServiceEntryMode.MANUAL
+                                                            PointOfServiceEntryMode.UNKNOWN
                                                         )
                                                         .build()
                                                 )
@@ -778,15 +779,17 @@ class AchTransferSimulationTest {
                                     .merchantCountry("string")
                                     .merchantDescriptor("string")
                                     .merchantState("string")
-                                    .network(
-                                        AchTransferSimulation.DeclinedTransaction.Source.CardDecline
-                                            .Network
-                                            .VISA
-                                    )
                                     .networkDetails(
                                         AchTransferSimulation.DeclinedTransaction.Source.CardDecline
                                             .NetworkDetails
                                             .builder()
+                                            .category(
+                                                AchTransferSimulation.DeclinedTransaction.Source
+                                                    .CardDecline
+                                                    .NetworkDetails
+                                                    .Category
+                                                    .VISA
+                                            )
                                             .visa(
                                                 AchTransferSimulation.DeclinedTransaction.Source
                                                     .CardDecline
@@ -803,7 +806,7 @@ class AchTransferSimulationTest {
                                                             .MAIL_PHONE_ORDER
                                                     )
                                                     .pointOfServiceEntryMode(
-                                                        PointOfServiceEntryMode.MANUAL
+                                                        PointOfServiceEntryMode.UNKNOWN
                                                     )
                                                     .build()
                                             )

@@ -27,6 +27,8 @@ private constructor(
 
     companion object {
 
+        @JvmField val UNKNOWN = PointOfServiceEntryMode(JsonField.of("unknown"))
+
         @JvmField val MANUAL = PointOfServiceEntryMode(JsonField.of("manual"))
 
         @JvmField
@@ -57,6 +59,7 @@ private constructor(
     }
 
     enum class Known {
+        UNKNOWN,
         MANUAL,
         MAGNETIC_STRIPE_NO_CVV,
         OPTICAL_CODE,
@@ -69,6 +72,7 @@ private constructor(
     }
 
     enum class Value {
+        UNKNOWN,
         MANUAL,
         MAGNETIC_STRIPE_NO_CVV,
         OPTICAL_CODE,
@@ -83,6 +87,7 @@ private constructor(
 
     fun value(): Value =
         when (this) {
+            UNKNOWN -> Value.UNKNOWN
             MANUAL -> Value.MANUAL
             MAGNETIC_STRIPE_NO_CVV -> Value.MAGNETIC_STRIPE_NO_CVV
             OPTICAL_CODE -> Value.OPTICAL_CODE
@@ -97,6 +102,7 @@ private constructor(
 
     fun known(): Known =
         when (this) {
+            UNKNOWN -> Known.UNKNOWN
             MANUAL -> Known.MANUAL
             MAGNETIC_STRIPE_NO_CVV -> Known.MAGNETIC_STRIPE_NO_CVV
             OPTICAL_CODE -> Known.OPTICAL_CODE

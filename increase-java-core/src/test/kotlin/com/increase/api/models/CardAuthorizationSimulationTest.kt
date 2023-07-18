@@ -62,17 +62,19 @@ class CardAuthorizationSimulationTest {
                                         .merchantCountry("string")
                                         .merchantDescriptor("string")
                                         .merchantState("string")
-                                        .network(
-                                            CardAuthorizationSimulation.DeclinedTransaction.Source
-                                                .CardDecline
-                                                .Network
-                                                .VISA
-                                        )
                                         .networkDetails(
                                             CardAuthorizationSimulation.DeclinedTransaction.Source
                                                 .CardDecline
                                                 .NetworkDetails
                                                 .builder()
+                                                .category(
+                                                    CardAuthorizationSimulation.DeclinedTransaction
+                                                        .Source
+                                                        .CardDecline
+                                                        .NetworkDetails
+                                                        .Category
+                                                        .VISA
+                                                )
                                                 .visa(
                                                     CardAuthorizationSimulation.DeclinedTransaction
                                                         .Source
@@ -91,7 +93,7 @@ class CardAuthorizationSimulationTest {
                                                                 .MAIL_PHONE_ORDER
                                                         )
                                                         .pointOfServiceEntryMode(
-                                                            PointOfServiceEntryMode.MANUAL
+                                                            PointOfServiceEntryMode.UNKNOWN
                                                         )
                                                         .build()
                                                 )
@@ -290,17 +292,19 @@ class CardAuthorizationSimulationTest {
                                         .merchantCity("string")
                                         .merchantCountry("string")
                                         .merchantDescriptor("string")
-                                        .network(
-                                            CardAuthorizationSimulation.PendingTransaction.Source
-                                                .CardAuthorization
-                                                .Network
-                                                .VISA
-                                        )
                                         .networkDetails(
                                             CardAuthorizationSimulation.PendingTransaction.Source
                                                 .CardAuthorization
                                                 .NetworkDetails
                                                 .builder()
+                                                .category(
+                                                    CardAuthorizationSimulation.PendingTransaction
+                                                        .Source
+                                                        .CardAuthorization
+                                                        .NetworkDetails
+                                                        .Category
+                                                        .VISA
+                                                )
                                                 .visa(
                                                     CardAuthorizationSimulation.PendingTransaction
                                                         .Source
@@ -319,7 +323,7 @@ class CardAuthorizationSimulationTest {
                                                                 .MAIL_PHONE_ORDER
                                                         )
                                                         .pointOfServiceEntryMode(
-                                                            PointOfServiceEntryMode.MANUAL
+                                                            PointOfServiceEntryMode.UNKNOWN
                                                         )
                                                         .build()
                                                 )
@@ -485,17 +489,19 @@ class CardAuthorizationSimulationTest {
                                     .merchantCountry("string")
                                     .merchantDescriptor("string")
                                     .merchantState("string")
-                                    .network(
-                                        CardAuthorizationSimulation.DeclinedTransaction.Source
-                                            .CardDecline
-                                            .Network
-                                            .VISA
-                                    )
                                     .networkDetails(
                                         CardAuthorizationSimulation.DeclinedTransaction.Source
                                             .CardDecline
                                             .NetworkDetails
                                             .builder()
+                                            .category(
+                                                CardAuthorizationSimulation.DeclinedTransaction
+                                                    .Source
+                                                    .CardDecline
+                                                    .NetworkDetails
+                                                    .Category
+                                                    .VISA
+                                            )
                                             .visa(
                                                 CardAuthorizationSimulation.DeclinedTransaction
                                                     .Source
@@ -514,7 +520,7 @@ class CardAuthorizationSimulationTest {
                                                             .MAIL_PHONE_ORDER
                                                     )
                                                     .pointOfServiceEntryMode(
-                                                        PointOfServiceEntryMode.MANUAL
+                                                        PointOfServiceEntryMode.UNKNOWN
                                                     )
                                                     .build()
                                             )
@@ -705,17 +711,19 @@ class CardAuthorizationSimulationTest {
                                     .merchantCity("string")
                                     .merchantCountry("string")
                                     .merchantDescriptor("string")
-                                    .network(
-                                        CardAuthorizationSimulation.PendingTransaction.Source
-                                            .CardAuthorization
-                                            .Network
-                                            .VISA
-                                    )
                                     .networkDetails(
                                         CardAuthorizationSimulation.PendingTransaction.Source
                                             .CardAuthorization
                                             .NetworkDetails
                                             .builder()
+                                            .category(
+                                                CardAuthorizationSimulation.PendingTransaction
+                                                    .Source
+                                                    .CardAuthorization
+                                                    .NetworkDetails
+                                                    .Category
+                                                    .VISA
+                                            )
                                             .visa(
                                                 CardAuthorizationSimulation.PendingTransaction
                                                     .Source
@@ -734,7 +742,7 @@ class CardAuthorizationSimulationTest {
                                                             .MAIL_PHONE_ORDER
                                                     )
                                                     .pointOfServiceEntryMode(
-                                                        PointOfServiceEntryMode.MANUAL
+                                                        PointOfServiceEntryMode.UNKNOWN
                                                     )
                                                     .build()
                                             )

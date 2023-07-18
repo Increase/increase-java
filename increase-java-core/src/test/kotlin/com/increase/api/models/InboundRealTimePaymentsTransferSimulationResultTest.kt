@@ -79,14 +79,6 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .merchantCountry("string")
                                         .merchantDescriptor("string")
                                         .merchantState("string")
-                                        .network(
-                                            InboundRealTimePaymentsTransferSimulationResult
-                                                .DeclinedTransaction
-                                                .Source
-                                                .CardDecline
-                                                .Network
-                                                .VISA
-                                        )
                                         .networkDetails(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .DeclinedTransaction
@@ -94,6 +86,15 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .CardDecline
                                                 .NetworkDetails
                                                 .builder()
+                                                .category(
+                                                    InboundRealTimePaymentsTransferSimulationResult
+                                                        .DeclinedTransaction
+                                                        .Source
+                                                        .CardDecline
+                                                        .NetworkDetails
+                                                        .Category
+                                                        .VISA
+                                                )
                                                 .visa(
                                                     InboundRealTimePaymentsTransferSimulationResult
                                                         .DeclinedTransaction
@@ -113,7 +114,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                 .MAIL_PHONE_ORDER
                                                         )
                                                         .pointOfServiceEntryMode(
-                                                            PointOfServiceEntryMode.MANUAL
+                                                            PointOfServiceEntryMode.UNKNOWN
                                                         )
                                                         .build()
                                                 )
@@ -965,14 +966,6 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .merchantCountry("string")
                                     .merchantDescriptor("string")
                                     .merchantState("string")
-                                    .network(
-                                        InboundRealTimePaymentsTransferSimulationResult
-                                            .DeclinedTransaction
-                                            .Source
-                                            .CardDecline
-                                            .Network
-                                            .VISA
-                                    )
                                     .networkDetails(
                                         InboundRealTimePaymentsTransferSimulationResult
                                             .DeclinedTransaction
@@ -980,6 +973,15 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .CardDecline
                                             .NetworkDetails
                                             .builder()
+                                            .category(
+                                                InboundRealTimePaymentsTransferSimulationResult
+                                                    .DeclinedTransaction
+                                                    .Source
+                                                    .CardDecline
+                                                    .NetworkDetails
+                                                    .Category
+                                                    .VISA
+                                            )
                                             .visa(
                                                 InboundRealTimePaymentsTransferSimulationResult
                                                     .DeclinedTransaction
@@ -999,7 +1001,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                             .MAIL_PHONE_ORDER
                                                     )
                                                     .pointOfServiceEntryMode(
-                                                        PointOfServiceEntryMode.MANUAL
+                                                        PointOfServiceEntryMode.UNKNOWN
                                                     )
                                                     .build()
                                             )
