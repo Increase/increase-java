@@ -49,10 +49,15 @@ class PendingTransactionTest {
                                 .merchantCity("string")
                                 .merchantCountry("string")
                                 .merchantDescriptor("string")
-                                .network(PendingTransaction.Source.CardAuthorization.Network.VISA)
                                 .networkDetails(
                                     PendingTransaction.Source.CardAuthorization.NetworkDetails
                                         .builder()
+                                        .category(
+                                            PendingTransaction.Source.CardAuthorization
+                                                .NetworkDetails
+                                                .Category
+                                                .VISA
+                                        )
                                         .visa(
                                             PendingTransaction.Source.CardAuthorization
                                                 .NetworkDetails
@@ -66,7 +71,7 @@ class PendingTransactionTest {
                                                         .MAIL_PHONE_ORDER
                                                 )
                                                 .pointOfServiceEntryMode(
-                                                    PointOfServiceEntryMode.MANUAL
+                                                    PointOfServiceEntryMode.UNKNOWN
                                                 )
                                                 .build()
                                         )
@@ -183,9 +188,13 @@ class PendingTransactionTest {
                             .merchantCity("string")
                             .merchantCountry("string")
                             .merchantDescriptor("string")
-                            .network(PendingTransaction.Source.CardAuthorization.Network.VISA)
                             .networkDetails(
                                 PendingTransaction.Source.CardAuthorization.NetworkDetails.builder()
+                                    .category(
+                                        PendingTransaction.Source.CardAuthorization.NetworkDetails
+                                            .Category
+                                            .VISA
+                                    )
                                     .visa(
                                         PendingTransaction.Source.CardAuthorization.NetworkDetails
                                             .Visa
@@ -197,7 +206,9 @@ class PendingTransactionTest {
                                                     .ElectronicCommerceIndicator
                                                     .MAIL_PHONE_ORDER
                                             )
-                                            .pointOfServiceEntryMode(PointOfServiceEntryMode.MANUAL)
+                                            .pointOfServiceEntryMode(
+                                                PointOfServiceEntryMode.UNKNOWN
+                                            )
                                             .build()
                                     )
                                     .build()
