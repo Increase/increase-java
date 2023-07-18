@@ -46,9 +46,13 @@ class DeclinedTransactionTest {
                                 .merchantCountry("string")
                                 .merchantDescriptor("string")
                                 .merchantState("string")
-                                .network(DeclinedTransaction.Source.CardDecline.Network.VISA)
                                 .networkDetails(
                                     DeclinedTransaction.Source.CardDecline.NetworkDetails.builder()
+                                        .category(
+                                            DeclinedTransaction.Source.CardDecline.NetworkDetails
+                                                .Category
+                                                .VISA
+                                        )
                                         .visa(
                                             DeclinedTransaction.Source.CardDecline.NetworkDetails
                                                 .Visa
@@ -61,7 +65,7 @@ class DeclinedTransactionTest {
                                                         .MAIL_PHONE_ORDER
                                                 )
                                                 .pointOfServiceEntryMode(
-                                                    PointOfServiceEntryMode.MANUAL
+                                                    PointOfServiceEntryMode.UNKNOWN
                                                 )
                                                 .build()
                                         )
@@ -215,9 +219,13 @@ class DeclinedTransactionTest {
                             .merchantCountry("string")
                             .merchantDescriptor("string")
                             .merchantState("string")
-                            .network(DeclinedTransaction.Source.CardDecline.Network.VISA)
                             .networkDetails(
                                 DeclinedTransaction.Source.CardDecline.NetworkDetails.builder()
+                                    .category(
+                                        DeclinedTransaction.Source.CardDecline.NetworkDetails
+                                            .Category
+                                            .VISA
+                                    )
                                     .visa(
                                         DeclinedTransaction.Source.CardDecline.NetworkDetails.Visa
                                             .builder()
@@ -228,7 +236,9 @@ class DeclinedTransactionTest {
                                                     .ElectronicCommerceIndicator
                                                     .MAIL_PHONE_ORDER
                                             )
-                                            .pointOfServiceEntryMode(PointOfServiceEntryMode.MANUAL)
+                                            .pointOfServiceEntryMode(
+                                                PointOfServiceEntryMode.UNKNOWN
+                                            )
                                             .build()
                                     )
                                     .build()

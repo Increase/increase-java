@@ -487,7 +487,6 @@ private constructor(
         private val merchantCity: JsonField<String>,
         private val merchantCountry: JsonField<String>,
         private val physicalCardId: JsonField<String>,
-        private val network: JsonField<Network>,
         private val networkDetails: JsonField<NetworkDetails>,
         private val decision: JsonField<Decision>,
         private val cardId: JsonField<String>,
@@ -496,6 +495,7 @@ private constructor(
         private val presentmentCurrency: JsonField<String>,
         private val settlementAmount: JsonField<Long>,
         private val settlementCurrency: JsonField<String>,
+        private val requestDetails: JsonField<RequestDetails>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -534,9 +534,6 @@ private constructor(
         fun physicalCardId(): Optional<String> =
             Optional.ofNullable(physicalCardId.getNullable("physical_card_id"))
 
-        /** The payment network used to process this card authorization */
-        fun network(): Network = network.getRequired("network")
-
         /** Fields specific to the `network` */
         fun networkDetails(): NetworkDetails = networkDetails.getRequired("network_details")
 
@@ -573,6 +570,9 @@ private constructor(
          */
         fun settlementCurrency(): String = settlementCurrency.getRequired("settlement_currency")
 
+        /** Fields specific to the type of request, such as an incremental authorization. */
+        fun requestDetails(): RequestDetails = requestDetails.getRequired("request_details")
+
         /**
          * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
          * transacting with.
@@ -605,9 +605,6 @@ private constructor(
          * used.
          */
         @JsonProperty("physical_card_id") @ExcludeMissing fun _physicalCardId() = physicalCardId
-
-        /** The payment network used to process this card authorization */
-        @JsonProperty("network") @ExcludeMissing fun _network() = network
 
         /** Fields specific to the `network` */
         @JsonProperty("network_details") @ExcludeMissing fun _networkDetails() = networkDetails
@@ -653,6 +650,9 @@ private constructor(
         @ExcludeMissing
         fun _settlementCurrency() = settlementCurrency
 
+        /** Fields specific to the type of request, such as an incremental authorization. */
+        @JsonProperty("request_details") @ExcludeMissing fun _requestDetails() = requestDetails
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -665,7 +665,6 @@ private constructor(
                 merchantCity()
                 merchantCountry()
                 physicalCardId()
-                network()
                 networkDetails().validate()
                 decision()
                 cardId()
@@ -674,6 +673,7 @@ private constructor(
                 presentmentCurrency()
                 settlementAmount()
                 settlementCurrency()
+                requestDetails().validate()
                 validated = true
             }
         }
@@ -692,7 +692,6 @@ private constructor(
                 this.merchantCity == other.merchantCity &&
                 this.merchantCountry == other.merchantCountry &&
                 this.physicalCardId == other.physicalCardId &&
-                this.network == other.network &&
                 this.networkDetails == other.networkDetails &&
                 this.decision == other.decision &&
                 this.cardId == other.cardId &&
@@ -701,6 +700,7 @@ private constructor(
                 this.presentmentCurrency == other.presentmentCurrency &&
                 this.settlementAmount == other.settlementAmount &&
                 this.settlementCurrency == other.settlementCurrency &&
+                this.requestDetails == other.requestDetails &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -714,7 +714,6 @@ private constructor(
                         merchantCity,
                         merchantCountry,
                         physicalCardId,
-                        network,
                         networkDetails,
                         decision,
                         cardId,
@@ -723,6 +722,7 @@ private constructor(
                         presentmentCurrency,
                         settlementAmount,
                         settlementCurrency,
+                        requestDetails,
                         additionalProperties,
                     )
             }
@@ -730,7 +730,7 @@ private constructor(
         }
 
         override fun toString() =
-            "CardAuthorization{merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, physicalCardId=$physicalCardId, network=$network, networkDetails=$networkDetails, decision=$decision, cardId=$cardId, accountId=$accountId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, settlementAmount=$settlementAmount, settlementCurrency=$settlementCurrency, additionalProperties=$additionalProperties}"
+            "CardAuthorization{merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, physicalCardId=$physicalCardId, networkDetails=$networkDetails, decision=$decision, cardId=$cardId, accountId=$accountId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, settlementAmount=$settlementAmount, settlementCurrency=$settlementCurrency, requestDetails=$requestDetails, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -745,7 +745,6 @@ private constructor(
             private var merchantCity: JsonField<String> = JsonMissing.of()
             private var merchantCountry: JsonField<String> = JsonMissing.of()
             private var physicalCardId: JsonField<String> = JsonMissing.of()
-            private var network: JsonField<Network> = JsonMissing.of()
             private var networkDetails: JsonField<NetworkDetails> = JsonMissing.of()
             private var decision: JsonField<Decision> = JsonMissing.of()
             private var cardId: JsonField<String> = JsonMissing.of()
@@ -754,6 +753,7 @@ private constructor(
             private var presentmentCurrency: JsonField<String> = JsonMissing.of()
             private var settlementAmount: JsonField<Long> = JsonMissing.of()
             private var settlementCurrency: JsonField<String> = JsonMissing.of()
+            private var requestDetails: JsonField<RequestDetails> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -764,7 +764,6 @@ private constructor(
                 this.merchantCity = cardAuthorization.merchantCity
                 this.merchantCountry = cardAuthorization.merchantCountry
                 this.physicalCardId = cardAuthorization.physicalCardId
-                this.network = cardAuthorization.network
                 this.networkDetails = cardAuthorization.networkDetails
                 this.decision = cardAuthorization.decision
                 this.cardId = cardAuthorization.cardId
@@ -773,6 +772,7 @@ private constructor(
                 this.presentmentCurrency = cardAuthorization.presentmentCurrency
                 this.settlementAmount = cardAuthorization.settlementAmount
                 this.settlementCurrency = cardAuthorization.settlementCurrency
+                this.requestDetails = cardAuthorization.requestDetails
                 additionalProperties(cardAuthorization.additionalProperties)
             }
 
@@ -858,14 +858,6 @@ private constructor(
             fun physicalCardId(physicalCardId: JsonField<String>) = apply {
                 this.physicalCardId = physicalCardId
             }
-
-            /** The payment network used to process this card authorization */
-            fun network(network: Network) = network(JsonField.of(network))
-
-            /** The payment network used to process this card authorization */
-            @JsonProperty("network")
-            @ExcludeMissing
-            fun network(network: JsonField<Network>) = apply { this.network = network }
 
             /** Fields specific to the `network` */
             fun networkDetails(networkDetails: NetworkDetails) =
@@ -972,6 +964,17 @@ private constructor(
                 this.settlementCurrency = settlementCurrency
             }
 
+            /** Fields specific to the type of request, such as an incremental authorization. */
+            fun requestDetails(requestDetails: RequestDetails) =
+                requestDetails(JsonField.of(requestDetails))
+
+            /** Fields specific to the type of request, such as an incremental authorization. */
+            @JsonProperty("request_details")
+            @ExcludeMissing
+            fun requestDetails(requestDetails: JsonField<RequestDetails>) = apply {
+                this.requestDetails = requestDetails
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -994,7 +997,6 @@ private constructor(
                     merchantCity,
                     merchantCountry,
                     physicalCardId,
-                    network,
                     networkDetails,
                     decision,
                     cardId,
@@ -1003,59 +1005,9 @@ private constructor(
                     presentmentCurrency,
                     settlementAmount,
                     settlementCurrency,
+                    requestDetails,
                     additionalProperties.toUnmodifiable(),
                 )
-        }
-
-        class Network
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) {
-
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Network && this.value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-
-            companion object {
-
-                @JvmField val VISA = Network(JsonField.of("visa"))
-
-                @JvmStatic fun of(value: String) = Network(JsonField.of(value))
-            }
-
-            enum class Known {
-                VISA,
-            }
-
-            enum class Value {
-                VISA,
-                _UNKNOWN,
-            }
-
-            fun value(): Value =
-                when (this) {
-                    VISA -> Value.VISA
-                    else -> Value._UNKNOWN
-                }
-
-            fun known(): Known =
-                when (this) {
-                    VISA -> Known.VISA
-                    else -> throw IncreaseInvalidDataException("Unknown Network: $value")
-                }
-
-            fun asString(): String = _value().asStringOrThrow()
         }
 
         /** Fields specific to the `network` */
@@ -1063,6 +1015,7 @@ private constructor(
         @NoAutoDetect
         class NetworkDetails
         private constructor(
+            private val category: JsonField<Category>,
             private val visa: JsonField<Visa>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
@@ -1071,8 +1024,14 @@ private constructor(
 
             private var hashCode: Int = 0
 
+            /** The payment network used to process this card authorization */
+            fun category(): Category = category.getRequired("category")
+
             /** Fields specific to the `visa` network */
-            fun visa(): Visa = visa.getRequired("visa")
+            fun visa(): Optional<Visa> = Optional.ofNullable(visa.getNullable("visa"))
+
+            /** The payment network used to process this card authorization */
+            @JsonProperty("category") @ExcludeMissing fun _category() = category
 
             /** Fields specific to the `visa` network */
             @JsonProperty("visa") @ExcludeMissing fun _visa() = visa
@@ -1083,7 +1042,8 @@ private constructor(
 
             fun validate(): NetworkDetails = apply {
                 if (!validated) {
-                    visa().validate()
+                    category()
+                    visa().map { it.validate() }
                     validated = true
                 }
             }
@@ -1096,19 +1056,25 @@ private constructor(
                 }
 
                 return other is NetworkDetails &&
+                    this.category == other.category &&
                     this.visa == other.visa &&
                     this.additionalProperties == other.additionalProperties
             }
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode = Objects.hash(visa, additionalProperties)
+                    hashCode =
+                        Objects.hash(
+                            category,
+                            visa,
+                            additionalProperties,
+                        )
                 }
                 return hashCode
             }
 
             override fun toString() =
-                "NetworkDetails{visa=$visa, additionalProperties=$additionalProperties}"
+                "NetworkDetails{category=$category, visa=$visa, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1117,14 +1083,24 @@ private constructor(
 
             class Builder {
 
+                private var category: JsonField<Category> = JsonMissing.of()
                 private var visa: JsonField<Visa> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
                 internal fun from(networkDetails: NetworkDetails) = apply {
+                    this.category = networkDetails.category
                     this.visa = networkDetails.visa
                     additionalProperties(networkDetails.additionalProperties)
                 }
+
+                /** The payment network used to process this card authorization */
+                fun category(category: Category) = category(JsonField.of(category))
+
+                /** The payment network used to process this card authorization */
+                @JsonProperty("category")
+                @ExcludeMissing
+                fun category(category: JsonField<Category>) = apply { this.category = category }
 
                 /** Fields specific to the `visa` network */
                 fun visa(visa: Visa) = visa(JsonField.of(visa))
@@ -1150,7 +1126,62 @@ private constructor(
                     }
 
                 fun build(): NetworkDetails =
-                    NetworkDetails(visa, additionalProperties.toUnmodifiable())
+                    NetworkDetails(
+                        category,
+                        visa,
+                        additionalProperties.toUnmodifiable(),
+                    )
+            }
+
+            class Category
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) {
+
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Category && this.value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+
+                companion object {
+
+                    @JvmField val VISA = Category(JsonField.of("visa"))
+
+                    @JvmStatic fun of(value: String) = Category(JsonField.of(value))
+                }
+
+                enum class Known {
+                    VISA,
+                }
+
+                enum class Value {
+                    VISA,
+                    _UNKNOWN,
+                }
+
+                fun value(): Value =
+                    when (this) {
+                        VISA -> Value.VISA
+                        else -> Value._UNKNOWN
+                    }
+
+                fun known(): Known =
+                    when (this) {
+                        VISA -> Known.VISA
+                        else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+                    }
+
+                fun asString(): String = _value().asStringOrThrow()
             }
 
             /** Fields specific to the `visa` network */
@@ -1503,6 +1534,375 @@ private constructor(
                 }
 
             fun asString(): String = _value().asStringOrThrow()
+        }
+
+        /** Fields specific to the type of request, such as an incremental authorization. */
+        @JsonDeserialize(builder = RequestDetails.Builder::class)
+        @NoAutoDetect
+        class RequestDetails
+        private constructor(
+            private val category: JsonField<Category>,
+            private val initialAuthorization: JsonValue,
+            private val incrementalAuthorization: JsonField<IncrementalAuthorization>,
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
+
+            private var validated: Boolean = false
+
+            private var hashCode: Int = 0
+
+            /**
+             * The type of this request (e.g., an initial authorization or an incremental
+             * authorization.)
+             */
+            fun category(): Category = category.getRequired("category")
+
+            /** Fields specific to the categorty `incremental_authorization`. */
+            fun incrementalAuthorization(): Optional<IncrementalAuthorization> =
+                Optional.ofNullable(
+                    incrementalAuthorization.getNullable("incremental_authorization")
+                )
+
+            /**
+             * The type of this request (e.g., an initial authorization or an incremental
+             * authorization.)
+             */
+            @JsonProperty("category") @ExcludeMissing fun _category() = category
+
+            /** Fields specific to the category `initial_authorization`. */
+            @JsonProperty("initial_authorization")
+            @ExcludeMissing
+            fun _initialAuthorization() = initialAuthorization
+
+            /** Fields specific to the categorty `incremental_authorization`. */
+            @JsonProperty("incremental_authorization")
+            @ExcludeMissing
+            fun _incrementalAuthorization() = incrementalAuthorization
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun validate(): RequestDetails = apply {
+                if (!validated) {
+                    category()
+                    incrementalAuthorization().map { it.validate() }
+                    validated = true
+                }
+            }
+
+            fun toBuilder() = Builder().from(this)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is RequestDetails &&
+                    this.category == other.category &&
+                    this.initialAuthorization == other.initialAuthorization &&
+                    this.incrementalAuthorization == other.incrementalAuthorization &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            category,
+                            initialAuthorization,
+                            incrementalAuthorization,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "RequestDetails{category=$category, initialAuthorization=$initialAuthorization, incrementalAuthorization=$incrementalAuthorization, additionalProperties=$additionalProperties}"
+
+            companion object {
+
+                @JvmStatic fun builder() = Builder()
+            }
+
+            class Builder {
+
+                private var category: JsonField<Category> = JsonMissing.of()
+                private var initialAuthorization: JsonValue = JsonMissing.of()
+                private var incrementalAuthorization: JsonField<IncrementalAuthorization> =
+                    JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(requestDetails: RequestDetails) = apply {
+                    this.category = requestDetails.category
+                    this.initialAuthorization = requestDetails.initialAuthorization
+                    this.incrementalAuthorization = requestDetails.incrementalAuthorization
+                    additionalProperties(requestDetails.additionalProperties)
+                }
+
+                /**
+                 * The type of this request (e.g., an initial authorization or an incremental
+                 * authorization.)
+                 */
+                fun category(category: Category) = category(JsonField.of(category))
+
+                /**
+                 * The type of this request (e.g., an initial authorization or an incremental
+                 * authorization.)
+                 */
+                @JsonProperty("category")
+                @ExcludeMissing
+                fun category(category: JsonField<Category>) = apply { this.category = category }
+
+                /** Fields specific to the category `initial_authorization`. */
+                @JsonProperty("initial_authorization")
+                @ExcludeMissing
+                fun initialAuthorization(initialAuthorization: JsonValue) = apply {
+                    this.initialAuthorization = initialAuthorization
+                }
+
+                /** Fields specific to the categorty `incremental_authorization`. */
+                fun incrementalAuthorization(incrementalAuthorization: IncrementalAuthorization) =
+                    incrementalAuthorization(JsonField.of(incrementalAuthorization))
+
+                /** Fields specific to the categorty `incremental_authorization`. */
+                @JsonProperty("incremental_authorization")
+                @ExcludeMissing
+                fun incrementalAuthorization(
+                    incrementalAuthorization: JsonField<IncrementalAuthorization>
+                ) = apply { this.incrementalAuthorization = incrementalAuthorization }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                @JsonAnySetter
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    this.additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun build(): RequestDetails =
+                    RequestDetails(
+                        category,
+                        initialAuthorization,
+                        incrementalAuthorization,
+                        additionalProperties.toUnmodifiable(),
+                    )
+            }
+
+            class Category
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) {
+
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Category && this.value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+
+                companion object {
+
+                    @JvmField
+                    val INITIAL_AUTHORIZATION = Category(JsonField.of("initial_authorization"))
+
+                    @JvmField
+                    val INCREMENTAL_AUTHORIZATION =
+                        Category(JsonField.of("incremental_authorization"))
+
+                    @JvmStatic fun of(value: String) = Category(JsonField.of(value))
+                }
+
+                enum class Known {
+                    INITIAL_AUTHORIZATION,
+                    INCREMENTAL_AUTHORIZATION,
+                }
+
+                enum class Value {
+                    INITIAL_AUTHORIZATION,
+                    INCREMENTAL_AUTHORIZATION,
+                    _UNKNOWN,
+                }
+
+                fun value(): Value =
+                    when (this) {
+                        INITIAL_AUTHORIZATION -> Value.INITIAL_AUTHORIZATION
+                        INCREMENTAL_AUTHORIZATION -> Value.INCREMENTAL_AUTHORIZATION
+                        else -> Value._UNKNOWN
+                    }
+
+                fun known(): Known =
+                    when (this) {
+                        INITIAL_AUTHORIZATION -> Known.INITIAL_AUTHORIZATION
+                        INCREMENTAL_AUTHORIZATION -> Known.INCREMENTAL_AUTHORIZATION
+                        else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+                    }
+
+                fun asString(): String = _value().asStringOrThrow()
+            }
+
+            /** Fields specific to the categorty `incremental_authorization`. */
+            @JsonDeserialize(builder = IncrementalAuthorization.Builder::class)
+            @NoAutoDetect
+            class IncrementalAuthorization
+            private constructor(
+                private val cardPaymentId: JsonField<String>,
+                private val originalCardAuthorizationId: JsonField<String>,
+                private val additionalProperties: Map<String, JsonValue>,
+            ) {
+
+                private var validated: Boolean = false
+
+                private var hashCode: Int = 0
+
+                /** The card payment for this authorization and increment. */
+                fun cardPaymentId(): String = cardPaymentId.getRequired("card_payment_id")
+
+                /**
+                 * The identifier of the card authorization this request is attempting to increment.
+                 */
+                fun originalCardAuthorizationId(): String =
+                    originalCardAuthorizationId.getRequired("original_card_authorization_id")
+
+                /** The card payment for this authorization and increment. */
+                @JsonProperty("card_payment_id")
+                @ExcludeMissing
+                fun _cardPaymentId() = cardPaymentId
+
+                /**
+                 * The identifier of the card authorization this request is attempting to increment.
+                 */
+                @JsonProperty("original_card_authorization_id")
+                @ExcludeMissing
+                fun _originalCardAuthorizationId() = originalCardAuthorizationId
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun validate(): IncrementalAuthorization = apply {
+                    if (!validated) {
+                        cardPaymentId()
+                        originalCardAuthorizationId()
+                        validated = true
+                    }
+                }
+
+                fun toBuilder() = Builder().from(this)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is IncrementalAuthorization &&
+                        this.cardPaymentId == other.cardPaymentId &&
+                        this.originalCardAuthorizationId == other.originalCardAuthorizationId &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode =
+                            Objects.hash(
+                                cardPaymentId,
+                                originalCardAuthorizationId,
+                                additionalProperties,
+                            )
+                    }
+                    return hashCode
+                }
+
+                override fun toString() =
+                    "IncrementalAuthorization{cardPaymentId=$cardPaymentId, originalCardAuthorizationId=$originalCardAuthorizationId, additionalProperties=$additionalProperties}"
+
+                companion object {
+
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                class Builder {
+
+                    private var cardPaymentId: JsonField<String> = JsonMissing.of()
+                    private var originalCardAuthorizationId: JsonField<String> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(incrementalAuthorization: IncrementalAuthorization) = apply {
+                        this.cardPaymentId = incrementalAuthorization.cardPaymentId
+                        this.originalCardAuthorizationId =
+                            incrementalAuthorization.originalCardAuthorizationId
+                        additionalProperties(incrementalAuthorization.additionalProperties)
+                    }
+
+                    /** The card payment for this authorization and increment. */
+                    fun cardPaymentId(cardPaymentId: String) =
+                        cardPaymentId(JsonField.of(cardPaymentId))
+
+                    /** The card payment for this authorization and increment. */
+                    @JsonProperty("card_payment_id")
+                    @ExcludeMissing
+                    fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
+                        this.cardPaymentId = cardPaymentId
+                    }
+
+                    /**
+                     * The identifier of the card authorization this request is attempting to
+                     * increment.
+                     */
+                    fun originalCardAuthorizationId(originalCardAuthorizationId: String) =
+                        originalCardAuthorizationId(JsonField.of(originalCardAuthorizationId))
+
+                    /**
+                     * The identifier of the card authorization this request is attempting to
+                     * increment.
+                     */
+                    @JsonProperty("original_card_authorization_id")
+                    @ExcludeMissing
+                    fun originalCardAuthorizationId(
+                        originalCardAuthorizationId: JsonField<String>
+                    ) = apply { this.originalCardAuthorizationId = originalCardAuthorizationId }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    @JsonAnySetter
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        this.additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun build(): IncrementalAuthorization =
+                        IncrementalAuthorization(
+                            cardPaymentId,
+                            originalCardAuthorizationId,
+                            additionalProperties.toUnmodifiable(),
+                        )
+                }
+            }
         }
     }
 

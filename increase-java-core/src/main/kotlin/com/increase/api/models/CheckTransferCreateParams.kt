@@ -2,12 +2,15 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
+import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
 import java.util.Objects
 import java.util.Optional
@@ -16,16 +19,9 @@ class CheckTransferCreateParams
 constructor(
     private val accountId: String,
     private val sourceAccountNumberId: String?,
-    private val addressLine1: String,
-    private val addressLine2: String?,
-    private val addressCity: String,
-    private val addressState: String,
-    private val addressZip: String,
-    private val returnAddress: ReturnAddress?,
+    private val fulfillmentMethod: FulfillmentMethod?,
+    private val physicalCheck: PhysicalCheck?,
     private val amount: Long,
-    private val message: String,
-    private val note: String?,
-    private val recipientName: String,
     private val requireApproval: Boolean?,
     private val uniqueIdentifier: String?,
     private val additionalQueryParams: Map<String, List<String>>,
@@ -37,25 +33,11 @@ constructor(
 
     fun sourceAccountNumberId(): Optional<String> = Optional.ofNullable(sourceAccountNumberId)
 
-    fun addressLine1(): String = addressLine1
+    fun fulfillmentMethod(): Optional<FulfillmentMethod> = Optional.ofNullable(fulfillmentMethod)
 
-    fun addressLine2(): Optional<String> = Optional.ofNullable(addressLine2)
-
-    fun addressCity(): String = addressCity
-
-    fun addressState(): String = addressState
-
-    fun addressZip(): String = addressZip
-
-    fun returnAddress(): Optional<ReturnAddress> = Optional.ofNullable(returnAddress)
+    fun physicalCheck(): Optional<PhysicalCheck> = Optional.ofNullable(physicalCheck)
 
     fun amount(): Long = amount
-
-    fun message(): String = message
-
-    fun note(): Optional<String> = Optional.ofNullable(note)
-
-    fun recipientName(): String = recipientName
 
     fun requireApproval(): Optional<Boolean> = Optional.ofNullable(requireApproval)
 
@@ -66,16 +48,9 @@ constructor(
         return CheckTransferCreateBody(
             accountId,
             sourceAccountNumberId,
-            addressLine1,
-            addressLine2,
-            addressCity,
-            addressState,
-            addressZip,
-            returnAddress,
+            fulfillmentMethod,
+            physicalCheck,
             amount,
-            message,
-            note,
-            recipientName,
             requireApproval,
             uniqueIdentifier,
             additionalBodyProperties,
@@ -92,16 +67,9 @@ constructor(
     internal constructor(
         private val accountId: String?,
         private val sourceAccountNumberId: String?,
-        private val addressLine1: String?,
-        private val addressLine2: String?,
-        private val addressCity: String?,
-        private val addressState: String?,
-        private val addressZip: String?,
-        private val returnAddress: ReturnAddress?,
+        private val fulfillmentMethod: FulfillmentMethod?,
+        private val physicalCheck: PhysicalCheck?,
         private val amount: Long?,
-        private val message: String?,
-        private val note: String?,
-        private val recipientName: String?,
         private val requireApproval: Boolean?,
         private val uniqueIdentifier: String?,
         private val additionalProperties: Map<String, JsonValue>,
@@ -119,38 +87,19 @@ constructor(
         @JsonProperty("source_account_number_id")
         fun sourceAccountNumberId(): String? = sourceAccountNumberId
 
-        /** The street address of the check's destination. */
-        @JsonProperty("address_line1") fun addressLine1(): String? = addressLine1
-
-        /** The second line of the address of the check's destination. */
-        @JsonProperty("address_line2") fun addressLine2(): String? = addressLine2
-
-        /** The city of the check's destination. */
-        @JsonProperty("address_city") fun addressCity(): String? = addressCity
-
-        /** The state of the check's destination. */
-        @JsonProperty("address_state") fun addressState(): String? = addressState
-
-        /** The postal code of the check's destination. */
-        @JsonProperty("address_zip") fun addressZip(): String? = addressZip
+        /** Whether Increase will print and mail the check or if you will do it yourself. */
+        @JsonProperty("fulfillment_method")
+        fun fulfillmentMethod(): FulfillmentMethod? = fulfillmentMethod
 
         /**
-         * The return address to be printed on the check. If omitted this will default to the
-         * address of the Entity of the Account used to make the Check Transfer.
+         * Details relating to the physical check that Increase will print and mail. This is
+         * required if `fulfillment_method` is equal to `physical_check`. It must not be included if
+         * any other `fulfillment_method` is provided.
          */
-        @JsonProperty("return_address") fun returnAddress(): ReturnAddress? = returnAddress
+        @JsonProperty("physical_check") fun physicalCheck(): PhysicalCheck? = physicalCheck
 
         /** The transfer amount in cents. */
         @JsonProperty("amount") fun amount(): Long? = amount
-
-        /** The descriptor that will be printed on the memo field on the check. */
-        @JsonProperty("message") fun message(): String? = message
-
-        /** The descriptor that will be printed on the letter included with the check. */
-        @JsonProperty("note") fun note(): String? = note
-
-        /** The name that will be printed on the check. */
-        @JsonProperty("recipient_name") fun recipientName(): String? = recipientName
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         @JsonProperty("require_approval") fun requireApproval(): Boolean? = requireApproval
@@ -176,16 +125,9 @@ constructor(
             return other is CheckTransferCreateBody &&
                 this.accountId == other.accountId &&
                 this.sourceAccountNumberId == other.sourceAccountNumberId &&
-                this.addressLine1 == other.addressLine1 &&
-                this.addressLine2 == other.addressLine2 &&
-                this.addressCity == other.addressCity &&
-                this.addressState == other.addressState &&
-                this.addressZip == other.addressZip &&
-                this.returnAddress == other.returnAddress &&
+                this.fulfillmentMethod == other.fulfillmentMethod &&
+                this.physicalCheck == other.physicalCheck &&
                 this.amount == other.amount &&
-                this.message == other.message &&
-                this.note == other.note &&
-                this.recipientName == other.recipientName &&
                 this.requireApproval == other.requireApproval &&
                 this.uniqueIdentifier == other.uniqueIdentifier &&
                 this.additionalProperties == other.additionalProperties
@@ -197,16 +139,9 @@ constructor(
                     Objects.hash(
                         accountId,
                         sourceAccountNumberId,
-                        addressLine1,
-                        addressLine2,
-                        addressCity,
-                        addressState,
-                        addressZip,
-                        returnAddress,
+                        fulfillmentMethod,
+                        physicalCheck,
                         amount,
-                        message,
-                        note,
-                        recipientName,
                         requireApproval,
                         uniqueIdentifier,
                         additionalProperties,
@@ -216,7 +151,7 @@ constructor(
         }
 
         override fun toString() =
-            "CheckTransferCreateBody{accountId=$accountId, sourceAccountNumberId=$sourceAccountNumberId, addressLine1=$addressLine1, addressLine2=$addressLine2, addressCity=$addressCity, addressState=$addressState, addressZip=$addressZip, returnAddress=$returnAddress, amount=$amount, message=$message, note=$note, recipientName=$recipientName, requireApproval=$requireApproval, uniqueIdentifier=$uniqueIdentifier, additionalProperties=$additionalProperties}"
+            "CheckTransferCreateBody{accountId=$accountId, sourceAccountNumberId=$sourceAccountNumberId, fulfillmentMethod=$fulfillmentMethod, physicalCheck=$physicalCheck, amount=$amount, requireApproval=$requireApproval, uniqueIdentifier=$uniqueIdentifier, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -227,16 +162,9 @@ constructor(
 
             private var accountId: String? = null
             private var sourceAccountNumberId: String? = null
-            private var addressLine1: String? = null
-            private var addressLine2: String? = null
-            private var addressCity: String? = null
-            private var addressState: String? = null
-            private var addressZip: String? = null
-            private var returnAddress: ReturnAddress? = null
+            private var fulfillmentMethod: FulfillmentMethod? = null
+            private var physicalCheck: PhysicalCheck? = null
             private var amount: Long? = null
-            private var message: String? = null
-            private var note: String? = null
-            private var recipientName: String? = null
             private var requireApproval: Boolean? = null
             private var uniqueIdentifier: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -245,16 +173,9 @@ constructor(
             internal fun from(checkTransferCreateBody: CheckTransferCreateBody) = apply {
                 this.accountId = checkTransferCreateBody.accountId
                 this.sourceAccountNumberId = checkTransferCreateBody.sourceAccountNumberId
-                this.addressLine1 = checkTransferCreateBody.addressLine1
-                this.addressLine2 = checkTransferCreateBody.addressLine2
-                this.addressCity = checkTransferCreateBody.addressCity
-                this.addressState = checkTransferCreateBody.addressState
-                this.addressZip = checkTransferCreateBody.addressZip
-                this.returnAddress = checkTransferCreateBody.returnAddress
+                this.fulfillmentMethod = checkTransferCreateBody.fulfillmentMethod
+                this.physicalCheck = checkTransferCreateBody.physicalCheck
                 this.amount = checkTransferCreateBody.amount
-                this.message = checkTransferCreateBody.message
-                this.note = checkTransferCreateBody.note
-                this.recipientName = checkTransferCreateBody.recipientName
                 this.requireApproval = checkTransferCreateBody.requireApproval
                 this.uniqueIdentifier = checkTransferCreateBody.uniqueIdentifier
                 additionalProperties(checkTransferCreateBody.additionalProperties)
@@ -273,47 +194,24 @@ constructor(
                 this.sourceAccountNumberId = sourceAccountNumberId
             }
 
-            /** The street address of the check's destination. */
-            @JsonProperty("address_line1")
-            fun addressLine1(addressLine1: String) = apply { this.addressLine1 = addressLine1 }
-
-            /** The second line of the address of the check's destination. */
-            @JsonProperty("address_line2")
-            fun addressLine2(addressLine2: String) = apply { this.addressLine2 = addressLine2 }
-
-            /** The city of the check's destination. */
-            @JsonProperty("address_city")
-            fun addressCity(addressCity: String) = apply { this.addressCity = addressCity }
-
-            /** The state of the check's destination. */
-            @JsonProperty("address_state")
-            fun addressState(addressState: String) = apply { this.addressState = addressState }
-
-            /** The postal code of the check's destination. */
-            @JsonProperty("address_zip")
-            fun addressZip(addressZip: String) = apply { this.addressZip = addressZip }
+            /** Whether Increase will print and mail the check or if you will do it yourself. */
+            @JsonProperty("fulfillment_method")
+            fun fulfillmentMethod(fulfillmentMethod: FulfillmentMethod) = apply {
+                this.fulfillmentMethod = fulfillmentMethod
+            }
 
             /**
-             * The return address to be printed on the check. If omitted this will default to the
-             * address of the Entity of the Account used to make the Check Transfer.
+             * Details relating to the physical check that Increase will print and mail. This is
+             * required if `fulfillment_method` is equal to `physical_check`. It must not be
+             * included if any other `fulfillment_method` is provided.
              */
-            @JsonProperty("return_address")
-            fun returnAddress(returnAddress: ReturnAddress) = apply {
-                this.returnAddress = returnAddress
+            @JsonProperty("physical_check")
+            fun physicalCheck(physicalCheck: PhysicalCheck) = apply {
+                this.physicalCheck = physicalCheck
             }
 
             /** The transfer amount in cents. */
             @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
-
-            /** The descriptor that will be printed on the memo field on the check. */
-            @JsonProperty("message") fun message(message: String) = apply { this.message = message }
-
-            /** The descriptor that will be printed on the letter included with the check. */
-            @JsonProperty("note") fun note(note: String) = apply { this.note = note }
-
-            /** The name that will be printed on the check. */
-            @JsonProperty("recipient_name")
-            fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
 
             /** Whether the transfer requires explicit approval via the dashboard or API. */
             @JsonProperty("require_approval")
@@ -349,16 +247,9 @@ constructor(
                 CheckTransferCreateBody(
                     checkNotNull(accountId) { "`accountId` is required but was not set" },
                     sourceAccountNumberId,
-                    checkNotNull(addressLine1) { "`addressLine1` is required but was not set" },
-                    addressLine2,
-                    checkNotNull(addressCity) { "`addressCity` is required but was not set" },
-                    checkNotNull(addressState) { "`addressState` is required but was not set" },
-                    checkNotNull(addressZip) { "`addressZip` is required but was not set" },
-                    returnAddress,
+                    fulfillmentMethod,
+                    physicalCheck,
                     checkNotNull(amount) { "`amount` is required but was not set" },
-                    checkNotNull(message) { "`message` is required but was not set" },
-                    note,
-                    checkNotNull(recipientName) { "`recipientName` is required but was not set" },
                     requireApproval,
                     uniqueIdentifier,
                     additionalProperties.toUnmodifiable(),
@@ -380,16 +271,9 @@ constructor(
         return other is CheckTransferCreateParams &&
             this.accountId == other.accountId &&
             this.sourceAccountNumberId == other.sourceAccountNumberId &&
-            this.addressLine1 == other.addressLine1 &&
-            this.addressLine2 == other.addressLine2 &&
-            this.addressCity == other.addressCity &&
-            this.addressState == other.addressState &&
-            this.addressZip == other.addressZip &&
-            this.returnAddress == other.returnAddress &&
+            this.fulfillmentMethod == other.fulfillmentMethod &&
+            this.physicalCheck == other.physicalCheck &&
             this.amount == other.amount &&
-            this.message == other.message &&
-            this.note == other.note &&
-            this.recipientName == other.recipientName &&
             this.requireApproval == other.requireApproval &&
             this.uniqueIdentifier == other.uniqueIdentifier &&
             this.additionalQueryParams == other.additionalQueryParams &&
@@ -401,16 +285,9 @@ constructor(
         return Objects.hash(
             accountId,
             sourceAccountNumberId,
-            addressLine1,
-            addressLine2,
-            addressCity,
-            addressState,
-            addressZip,
-            returnAddress,
+            fulfillmentMethod,
+            physicalCheck,
             amount,
-            message,
-            note,
-            recipientName,
             requireApproval,
             uniqueIdentifier,
             additionalQueryParams,
@@ -420,7 +297,7 @@ constructor(
     }
 
     override fun toString() =
-        "CheckTransferCreateParams{accountId=$accountId, sourceAccountNumberId=$sourceAccountNumberId, addressLine1=$addressLine1, addressLine2=$addressLine2, addressCity=$addressCity, addressState=$addressState, addressZip=$addressZip, returnAddress=$returnAddress, amount=$amount, message=$message, note=$note, recipientName=$recipientName, requireApproval=$requireApproval, uniqueIdentifier=$uniqueIdentifier, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "CheckTransferCreateParams{accountId=$accountId, sourceAccountNumberId=$sourceAccountNumberId, fulfillmentMethod=$fulfillmentMethod, physicalCheck=$physicalCheck, amount=$amount, requireApproval=$requireApproval, uniqueIdentifier=$uniqueIdentifier, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -434,16 +311,9 @@ constructor(
 
         private var accountId: String? = null
         private var sourceAccountNumberId: String? = null
-        private var addressLine1: String? = null
-        private var addressLine2: String? = null
-        private var addressCity: String? = null
-        private var addressState: String? = null
-        private var addressZip: String? = null
-        private var returnAddress: ReturnAddress? = null
+        private var fulfillmentMethod: FulfillmentMethod? = null
+        private var physicalCheck: PhysicalCheck? = null
         private var amount: Long? = null
-        private var message: String? = null
-        private var note: String? = null
-        private var recipientName: String? = null
         private var requireApproval: Boolean? = null
         private var uniqueIdentifier: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -454,16 +324,9 @@ constructor(
         internal fun from(checkTransferCreateParams: CheckTransferCreateParams) = apply {
             this.accountId = checkTransferCreateParams.accountId
             this.sourceAccountNumberId = checkTransferCreateParams.sourceAccountNumberId
-            this.addressLine1 = checkTransferCreateParams.addressLine1
-            this.addressLine2 = checkTransferCreateParams.addressLine2
-            this.addressCity = checkTransferCreateParams.addressCity
-            this.addressState = checkTransferCreateParams.addressState
-            this.addressZip = checkTransferCreateParams.addressZip
-            this.returnAddress = checkTransferCreateParams.returnAddress
+            this.fulfillmentMethod = checkTransferCreateParams.fulfillmentMethod
+            this.physicalCheck = checkTransferCreateParams.physicalCheck
             this.amount = checkTransferCreateParams.amount
-            this.message = checkTransferCreateParams.message
-            this.note = checkTransferCreateParams.note
-            this.recipientName = checkTransferCreateParams.recipientName
             this.requireApproval = checkTransferCreateParams.requireApproval
             this.uniqueIdentifier = checkTransferCreateParams.uniqueIdentifier
             additionalQueryParams(checkTransferCreateParams.additionalQueryParams)
@@ -482,40 +345,22 @@ constructor(
             this.sourceAccountNumberId = sourceAccountNumberId
         }
 
-        /** The street address of the check's destination. */
-        fun addressLine1(addressLine1: String) = apply { this.addressLine1 = addressLine1 }
-
-        /** The second line of the address of the check's destination. */
-        fun addressLine2(addressLine2: String) = apply { this.addressLine2 = addressLine2 }
-
-        /** The city of the check's destination. */
-        fun addressCity(addressCity: String) = apply { this.addressCity = addressCity }
-
-        /** The state of the check's destination. */
-        fun addressState(addressState: String) = apply { this.addressState = addressState }
-
-        /** The postal code of the check's destination. */
-        fun addressZip(addressZip: String) = apply { this.addressZip = addressZip }
+        /** Whether Increase will print and mail the check or if you will do it yourself. */
+        fun fulfillmentMethod(fulfillmentMethod: FulfillmentMethod) = apply {
+            this.fulfillmentMethod = fulfillmentMethod
+        }
 
         /**
-         * The return address to be printed on the check. If omitted this will default to the
-         * address of the Entity of the Account used to make the Check Transfer.
+         * Details relating to the physical check that Increase will print and mail. This is
+         * required if `fulfillment_method` is equal to `physical_check`. It must not be included if
+         * any other `fulfillment_method` is provided.
          */
-        fun returnAddress(returnAddress: ReturnAddress) = apply {
-            this.returnAddress = returnAddress
+        fun physicalCheck(physicalCheck: PhysicalCheck) = apply {
+            this.physicalCheck = physicalCheck
         }
 
         /** The transfer amount in cents. */
         fun amount(amount: Long) = apply { this.amount = amount }
-
-        /** The descriptor that will be printed on the memo field on the check. */
-        fun message(message: String) = apply { this.message = message }
-
-        /** The descriptor that will be printed on the letter included with the check. */
-        fun note(note: String) = apply { this.note = note }
-
-        /** The name that will be printed on the check. */
-        fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         fun requireApproval(requireApproval: Boolean) = apply {
@@ -589,16 +434,9 @@ constructor(
             CheckTransferCreateParams(
                 checkNotNull(accountId) { "`accountId` is required but was not set" },
                 sourceAccountNumberId,
-                checkNotNull(addressLine1) { "`addressLine1` is required but was not set" },
-                addressLine2,
-                checkNotNull(addressCity) { "`addressCity` is required but was not set" },
-                checkNotNull(addressState) { "`addressState` is required but was not set" },
-                checkNotNull(addressZip) { "`addressZip` is required but was not set" },
-                returnAddress,
+                fulfillmentMethod,
+                physicalCheck,
                 checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(message) { "`message` is required but was not set" },
-                note,
-                checkNotNull(recipientName) { "`recipientName` is required but was not set" },
                 requireApproval,
                 uniqueIdentifier,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
@@ -607,42 +445,99 @@ constructor(
             )
     }
 
-    /**
-     * The return address to be printed on the check. If omitted this will default to the address of
-     * the Entity of the Account used to make the Check Transfer.
-     */
-    @JsonDeserialize(builder = ReturnAddress.Builder::class)
-    @NoAutoDetect
-    class ReturnAddress
+    class FulfillmentMethod
+    @JsonCreator
     private constructor(
-        private val name: String?,
-        private val line1: String?,
-        private val line2: String?,
-        private val city: String?,
-        private val state: String?,
-        private val zip: String?,
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is FulfillmentMethod && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val PHYSICAL_CHECK = FulfillmentMethod(JsonField.of("physical_check"))
+
+            @JvmField val THIRD_PARTY = FulfillmentMethod(JsonField.of("third_party"))
+
+            @JvmStatic fun of(value: String) = FulfillmentMethod(JsonField.of(value))
+        }
+
+        enum class Known {
+            PHYSICAL_CHECK,
+            THIRD_PARTY,
+        }
+
+        enum class Value {
+            PHYSICAL_CHECK,
+            THIRD_PARTY,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                PHYSICAL_CHECK -> Value.PHYSICAL_CHECK
+                THIRD_PARTY -> Value.THIRD_PARTY
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                PHYSICAL_CHECK -> Known.PHYSICAL_CHECK
+                THIRD_PARTY -> Known.THIRD_PARTY
+                else -> throw IncreaseInvalidDataException("Unknown FulfillmentMethod: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    /**
+     * Details relating to the physical check that Increase will print and mail. This is required if
+     * `fulfillment_method` is equal to `physical_check`. It must not be included if any other
+     * `fulfillment_method` is provided.
+     */
+    @JsonDeserialize(builder = PhysicalCheck.Builder::class)
+    @NoAutoDetect
+    class PhysicalCheck
+    private constructor(
+        private val memo: String?,
+        private val note: String?,
+        private val recipientName: String?,
+        private val mailingAddress: MailingAddress?,
+        private val returnAddress: ReturnAddress?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
 
-        /** The name of the return address. */
-        @JsonProperty("name") fun name(): String? = name
+        /** The descriptor that will be printed on the memo field on the check. */
+        @JsonProperty("memo") fun memo(): String? = memo
 
-        /** The first line of the return address. */
-        @JsonProperty("line1") fun line1(): String? = line1
+        /** The descriptor that will be printed on the letter included with the check. */
+        @JsonProperty("note") fun note(): String? = note
 
-        /** The second line of the return address. */
-        @JsonProperty("line2") fun line2(): String? = line2
+        /** The name that will be printed on the check in the 'To:' field. */
+        @JsonProperty("recipient_name") fun recipientName(): String? = recipientName
 
-        /** The city of the return address. */
-        @JsonProperty("city") fun city(): String? = city
+        /** Details for where Increase will mail the check. */
+        @JsonProperty("mailing_address") fun mailingAddress(): MailingAddress? = mailingAddress
 
-        /** The US state of the return address. */
-        @JsonProperty("state") fun state(): String? = state
-
-        /** The postal code of the return address. */
-        @JsonProperty("zip") fun zip(): String? = zip
+        /**
+         * The return address to be printed on the check. If omitted this will default to the
+         * address of the Entity of the Account used to make the Check Transfer.
+         */
+        @JsonProperty("return_address") fun returnAddress(): ReturnAddress? = returnAddress
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -655,13 +550,12 @@ constructor(
                 return true
             }
 
-            return other is ReturnAddress &&
-                this.name == other.name &&
-                this.line1 == other.line1 &&
-                this.line2 == other.line2 &&
-                this.city == other.city &&
-                this.state == other.state &&
-                this.zip == other.zip &&
+            return other is PhysicalCheck &&
+                this.memo == other.memo &&
+                this.note == other.note &&
+                this.recipientName == other.recipientName &&
+                this.mailingAddress == other.mailingAddress &&
+                this.returnAddress == other.returnAddress &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -669,12 +563,11 @@ constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        name,
-                        line1,
-                        line2,
-                        city,
-                        state,
-                        zip,
+                        memo,
+                        note,
+                        recipientName,
+                        mailingAddress,
+                        returnAddress,
                         additionalProperties,
                     )
             }
@@ -682,7 +575,7 @@ constructor(
         }
 
         override fun toString() =
-            "ReturnAddress{name=$name, line1=$line1, line2=$line2, city=$city, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
+            "PhysicalCheck{memo=$memo, note=$note, recipientName=$recipientName, mailingAddress=$mailingAddress, returnAddress=$returnAddress, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -691,42 +584,47 @@ constructor(
 
         class Builder {
 
-            private var name: String? = null
-            private var line1: String? = null
-            private var line2: String? = null
-            private var city: String? = null
-            private var state: String? = null
-            private var zip: String? = null
+            private var memo: String? = null
+            private var note: String? = null
+            private var recipientName: String? = null
+            private var mailingAddress: MailingAddress? = null
+            private var returnAddress: ReturnAddress? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(returnAddress: ReturnAddress) = apply {
-                this.name = returnAddress.name
-                this.line1 = returnAddress.line1
-                this.line2 = returnAddress.line2
-                this.city = returnAddress.city
-                this.state = returnAddress.state
-                this.zip = returnAddress.zip
-                additionalProperties(returnAddress.additionalProperties)
+            internal fun from(physicalCheck: PhysicalCheck) = apply {
+                this.memo = physicalCheck.memo
+                this.note = physicalCheck.note
+                this.recipientName = physicalCheck.recipientName
+                this.mailingAddress = physicalCheck.mailingAddress
+                this.returnAddress = physicalCheck.returnAddress
+                additionalProperties(physicalCheck.additionalProperties)
             }
 
-            /** The name of the return address. */
-            @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+            /** The descriptor that will be printed on the memo field on the check. */
+            @JsonProperty("memo") fun memo(memo: String) = apply { this.memo = memo }
 
-            /** The first line of the return address. */
-            @JsonProperty("line1") fun line1(line1: String) = apply { this.line1 = line1 }
+            /** The descriptor that will be printed on the letter included with the check. */
+            @JsonProperty("note") fun note(note: String) = apply { this.note = note }
 
-            /** The second line of the return address. */
-            @JsonProperty("line2") fun line2(line2: String) = apply { this.line2 = line2 }
+            /** The name that will be printed on the check in the 'To:' field. */
+            @JsonProperty("recipient_name")
+            fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
 
-            /** The city of the return address. */
-            @JsonProperty("city") fun city(city: String) = apply { this.city = city }
+            /** Details for where Increase will mail the check. */
+            @JsonProperty("mailing_address")
+            fun mailingAddress(mailingAddress: MailingAddress) = apply {
+                this.mailingAddress = mailingAddress
+            }
 
-            /** The US state of the return address. */
-            @JsonProperty("state") fun state(state: String) = apply { this.state = state }
-
-            /** The postal code of the return address. */
-            @JsonProperty("zip") fun zip(zip: String) = apply { this.zip = zip }
+            /**
+             * The return address to be printed on the check. If omitted this will default to the
+             * address of the Entity of the Account used to make the Check Transfer.
+             */
+            @JsonProperty("return_address")
+            fun returnAddress(returnAddress: ReturnAddress) = apply {
+                this.returnAddress = returnAddress
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -742,16 +640,318 @@ constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): ReturnAddress =
-                ReturnAddress(
-                    checkNotNull(name) { "`name` is required but was not set" },
-                    checkNotNull(line1) { "`line1` is required but was not set" },
-                    line2,
-                    checkNotNull(city) { "`city` is required but was not set" },
-                    checkNotNull(state) { "`state` is required but was not set" },
-                    checkNotNull(zip) { "`zip` is required but was not set" },
+            fun build(): PhysicalCheck =
+                PhysicalCheck(
+                    checkNotNull(memo) { "`memo` is required but was not set" },
+                    note,
+                    checkNotNull(recipientName) { "`recipientName` is required but was not set" },
+                    checkNotNull(mailingAddress) { "`mailingAddress` is required but was not set" },
+                    returnAddress,
                     additionalProperties.toUnmodifiable(),
                 )
+        }
+
+        /** Details for where Increase will mail the check. */
+        @JsonDeserialize(builder = MailingAddress.Builder::class)
+        @NoAutoDetect
+        class MailingAddress
+        private constructor(
+            private val name: String?,
+            private val line1: String?,
+            private val line2: String?,
+            private val city: String?,
+            private val state: String?,
+            private val postalCode: String?,
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
+
+            private var hashCode: Int = 0
+
+            /**
+             * The name component of the check's destination address. Defaults to the provided
+             * `recipient_name` parameter.
+             */
+            @JsonProperty("name") fun name(): String? = name
+
+            /** The first line of the address component of the check's destination address. */
+            @JsonProperty("line1") fun line1(): String? = line1
+
+            /** The second line of the address component of the check's destination address. */
+            @JsonProperty("line2") fun line2(): String? = line2
+
+            /** The city component of the check's destination address. */
+            @JsonProperty("city") fun city(): String? = city
+
+            /** The US state component of the check's destination address. */
+            @JsonProperty("state") fun state(): String? = state
+
+            /** The postal code component of the check's destination address. */
+            @JsonProperty("postal_code") fun postalCode(): String? = postalCode
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is MailingAddress &&
+                    this.name == other.name &&
+                    this.line1 == other.line1 &&
+                    this.line2 == other.line2 &&
+                    this.city == other.city &&
+                    this.state == other.state &&
+                    this.postalCode == other.postalCode &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            name,
+                            line1,
+                            line2,
+                            city,
+                            state,
+                            postalCode,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "MailingAddress{name=$name, line1=$line1, line2=$line2, city=$city, state=$state, postalCode=$postalCode, additionalProperties=$additionalProperties}"
+
+            companion object {
+
+                @JvmStatic fun builder() = Builder()
+            }
+
+            class Builder {
+
+                private var name: String? = null
+                private var line1: String? = null
+                private var line2: String? = null
+                private var city: String? = null
+                private var state: String? = null
+                private var postalCode: String? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(mailingAddress: MailingAddress) = apply {
+                    this.name = mailingAddress.name
+                    this.line1 = mailingAddress.line1
+                    this.line2 = mailingAddress.line2
+                    this.city = mailingAddress.city
+                    this.state = mailingAddress.state
+                    this.postalCode = mailingAddress.postalCode
+                    additionalProperties(mailingAddress.additionalProperties)
+                }
+
+                /**
+                 * The name component of the check's destination address. Defaults to the provided
+                 * `recipient_name` parameter.
+                 */
+                @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+
+                /** The first line of the address component of the check's destination address. */
+                @JsonProperty("line1") fun line1(line1: String) = apply { this.line1 = line1 }
+
+                /** The second line of the address component of the check's destination address. */
+                @JsonProperty("line2") fun line2(line2: String) = apply { this.line2 = line2 }
+
+                /** The city component of the check's destination address. */
+                @JsonProperty("city") fun city(city: String) = apply { this.city = city }
+
+                /** The US state component of the check's destination address. */
+                @JsonProperty("state") fun state(state: String) = apply { this.state = state }
+
+                /** The postal code component of the check's destination address. */
+                @JsonProperty("postal_code")
+                fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                @JsonAnySetter
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    this.additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun build(): MailingAddress =
+                    MailingAddress(
+                        name,
+                        checkNotNull(line1) { "`line1` is required but was not set" },
+                        line2,
+                        checkNotNull(city) { "`city` is required but was not set" },
+                        checkNotNull(state) { "`state` is required but was not set" },
+                        checkNotNull(postalCode) { "`postalCode` is required but was not set" },
+                        additionalProperties.toUnmodifiable(),
+                    )
+            }
+        }
+
+        /**
+         * The return address to be printed on the check. If omitted this will default to the
+         * address of the Entity of the Account used to make the Check Transfer.
+         */
+        @JsonDeserialize(builder = ReturnAddress.Builder::class)
+        @NoAutoDetect
+        class ReturnAddress
+        private constructor(
+            private val name: String?,
+            private val line1: String?,
+            private val line2: String?,
+            private val city: String?,
+            private val state: String?,
+            private val postalCode: String?,
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
+
+            private var hashCode: Int = 0
+
+            /** The name of the return address. */
+            @JsonProperty("name") fun name(): String? = name
+
+            /** The first line of the return address. */
+            @JsonProperty("line1") fun line1(): String? = line1
+
+            /** The second line of the return address. */
+            @JsonProperty("line2") fun line2(): String? = line2
+
+            /** The city of the return address. */
+            @JsonProperty("city") fun city(): String? = city
+
+            /** The US state of the return address. */
+            @JsonProperty("state") fun state(): String? = state
+
+            /** The postal code of the return address. */
+            @JsonProperty("postal_code") fun postalCode(): String? = postalCode
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is ReturnAddress &&
+                    this.name == other.name &&
+                    this.line1 == other.line1 &&
+                    this.line2 == other.line2 &&
+                    this.city == other.city &&
+                    this.state == other.state &&
+                    this.postalCode == other.postalCode &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            name,
+                            line1,
+                            line2,
+                            city,
+                            state,
+                            postalCode,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "ReturnAddress{name=$name, line1=$line1, line2=$line2, city=$city, state=$state, postalCode=$postalCode, additionalProperties=$additionalProperties}"
+
+            companion object {
+
+                @JvmStatic fun builder() = Builder()
+            }
+
+            class Builder {
+
+                private var name: String? = null
+                private var line1: String? = null
+                private var line2: String? = null
+                private var city: String? = null
+                private var state: String? = null
+                private var postalCode: String? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(returnAddress: ReturnAddress) = apply {
+                    this.name = returnAddress.name
+                    this.line1 = returnAddress.line1
+                    this.line2 = returnAddress.line2
+                    this.city = returnAddress.city
+                    this.state = returnAddress.state
+                    this.postalCode = returnAddress.postalCode
+                    additionalProperties(returnAddress.additionalProperties)
+                }
+
+                /** The name of the return address. */
+                @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+
+                /** The first line of the return address. */
+                @JsonProperty("line1") fun line1(line1: String) = apply { this.line1 = line1 }
+
+                /** The second line of the return address. */
+                @JsonProperty("line2") fun line2(line2: String) = apply { this.line2 = line2 }
+
+                /** The city of the return address. */
+                @JsonProperty("city") fun city(city: String) = apply { this.city = city }
+
+                /** The US state of the return address. */
+                @JsonProperty("state") fun state(state: String) = apply { this.state = state }
+
+                /** The postal code of the return address. */
+                @JsonProperty("postal_code")
+                fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                @JsonAnySetter
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    this.additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun build(): ReturnAddress =
+                    ReturnAddress(
+                        checkNotNull(name) { "`name` is required but was not set" },
+                        checkNotNull(line1) { "`line1` is required but was not set" },
+                        line2,
+                        checkNotNull(city) { "`city` is required but was not set" },
+                        checkNotNull(state) { "`state` is required but was not set" },
+                        checkNotNull(postalCode) { "`postalCode` is required but was not set" },
+                        additionalProperties.toUnmodifiable(),
+                    )
+            }
         }
     }
 }
