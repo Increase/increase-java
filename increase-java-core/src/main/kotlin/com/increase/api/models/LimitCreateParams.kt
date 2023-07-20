@@ -68,7 +68,10 @@ constructor(
         /** The interval for the metric. Required if `metric` is `count` or `volume`. */
         @JsonProperty("interval") fun interval(): Interval? = interval
 
-        /** The identifier of the Account or Account Number you wish to associate the limit with. */
+        /**
+         * The identifier of the Account, Account Number, or Card you wish to associate the limit
+         * with.
+         */
         @JsonProperty("model_id") fun modelId(): String? = modelId
 
         /** The value to test the limit against. */
@@ -140,7 +143,8 @@ constructor(
             fun interval(interval: Interval) = apply { this.interval = interval }
 
             /**
-             * The identifier of the Account or Account Number you wish to associate the limit with.
+             * The identifier of the Account, Account Number, or Card you wish to associate the
+             * limit with.
              */
             @JsonProperty("model_id")
             fun modelId(modelId: String) = apply { this.modelId = modelId }
@@ -244,7 +248,10 @@ constructor(
         /** The interval for the metric. Required if `metric` is `count` or `volume`. */
         fun interval(interval: Interval) = apply { this.interval = interval }
 
-        /** The identifier of the Account or Account Number you wish to associate the limit with. */
+        /**
+         * The identifier of the Account, Account Number, or Card you wish to associate the limit
+         * with.
+         */
         fun modelId(modelId: String) = apply { this.modelId = modelId }
 
         /** The value to test the limit against. */
