@@ -41,7 +41,7 @@ constructor(
         return clientOptions.httpClient.executeAsync(request, requestOptions).thenApply { response
             ->
             response
-                .let { createInboundHandler.handle(it) }
+                .use { createInboundHandler.handle(it) }
                 .apply {
                     if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
                         validate()
