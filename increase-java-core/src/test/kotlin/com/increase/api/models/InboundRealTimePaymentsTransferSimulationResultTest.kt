@@ -605,6 +605,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .Currency
                                                 .CAD
                                         )
+                                        .feePeriodStart(LocalDate.parse("2019-12-27"))
                                         .build()
                                 )
                                 .inboundAchTransfer(
@@ -1442,6 +1443,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .Currency
                                             .CAD
                                     )
+                                    .feePeriodStart(LocalDate.parse("2019-12-27"))
                                     .build()
                             )
                             .inboundAchTransfer(
