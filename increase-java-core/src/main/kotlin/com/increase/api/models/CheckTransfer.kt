@@ -729,8 +729,7 @@ private constructor(
         fun note(): Optional<String> = Optional.ofNullable(note.getNullable("note"))
 
         /** The name that will be printed on the check. */
-        fun recipientName(): Optional<String> =
-            Optional.ofNullable(recipientName.getNullable("recipient_name"))
+        fun recipientName(): String = recipientName.getRequired("recipient_name")
 
         /** Details for where Increase will mail the check. */
         fun mailingAddress(): MailingAddress = mailingAddress.getRequired("mailing_address")

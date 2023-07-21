@@ -481,6 +481,7 @@ class AchTransferSimulationTest {
                                                 .Currency
                                                 .CAD
                                         )
+                                        .feePeriodStart(LocalDate.parse("2019-12-27"))
                                         .build()
                                 )
                                 .inboundAchTransfer(
@@ -1172,6 +1173,7 @@ class AchTransferSimulationTest {
                                         AchTransferSimulation.Transaction.Source.FeePayment.Currency
                                             .CAD
                                     )
+                                    .feePeriodStart(LocalDate.parse("2019-12-27"))
                                     .build()
                             )
                             .inboundAchTransfer(
