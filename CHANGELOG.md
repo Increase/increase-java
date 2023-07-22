@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.8.0](https://github.com/Increase/increase-java/compare/v0.7.1...v0.8.0) (2023-07-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** reorganize `check_transfer` and `network fields; add `request_details`; add `unknown` ([#36](https://github.com/Increase/increase-java/issues/36))
+
+### Features
+
+* **api:** add fee_period_start and return_of_erroneous_or_reversing_debit ([#40](https://github.com/Increase/increase-java/issues/40)) ([c562272](https://github.com/Increase/increase-java/commit/c562272c8ee970444cce0f690ca90f83a7cce412))
+* **api:** reorganize `check_transfer` and `network fields; add `request_details`; add `unknown` ([#36](https://github.com/Increase/increase-java/issues/36)) ([964c5ad](https://github.com/Increase/increase-java/commit/964c5adb2b91a1ce4a0e3b63542371a0e52923a2))
+
+
+### Bug Fixes
+
+* auto-close responses even if an exception is thrown during deserialization ([#38](https://github.com/Increase/increase-java/issues/38)) ([e8e9452](https://github.com/Increase/increase-java/commit/e8e94521a74091dcff02fcb01ef0e2f6a5b7636d))
+
+
+### Documentation
+
+* **api:** update `model_id` documentation ([#39](https://github.com/Increase/increase-java/issues/39)) ([29502ac](https://github.com/Increase/increase-java/commit/29502ac72de6f493b43891931cbc2c994352d8e8))
+
 ## [0.7.1](https://github.com/Increase/increase-java/compare/v0.7.0...v0.7.1) (2023-07-17)
 
 
