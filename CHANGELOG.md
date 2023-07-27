@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.8.1](https://github.com/Increase/increase-java/compare/v0.8.0...v0.8.1) (2023-07-27)
+
+
+### Features
+
+* **ci:** add a publish-sonatype workflow for manual running ([#44](https://github.com/Increase/increase-java/issues/44)) ([fb2d0f4](https://github.com/Increase/increase-java/commit/fb2d0f4bd803d5f51026b3ec7a472de60aaa21da))
+
+
+### Chores
+
+* **internal:** add `codegen.log` to `.gitignore` ([#42](https://github.com/Increase/increase-java/issues/42)) ([09b95e6](https://github.com/Increase/increase-java/commit/09b95e6a217c58ea72eaa4b7487a457792c3e69e))
+
 ## [0.8.0](https://github.com/Increase/increase-java/compare/v0.7.1...v0.8.0) (2023-07-22)
 
 
