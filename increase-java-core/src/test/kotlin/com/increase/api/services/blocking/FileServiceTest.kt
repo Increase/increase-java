@@ -4,14 +4,12 @@ import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.*
 import com.increase.api.models.FileListParams
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
 class FileServiceTest {
 
-    @Disabled("skipped: prism mock server is broken for file uploads")
     @Test
     fun callCreate() {
         val client =
