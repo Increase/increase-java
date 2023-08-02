@@ -36,7 +36,7 @@ jobs:
       - name: Publish to Sonatype
         if: ${{ steps.release.outputs.releases_created }}
         run: |
-          ./gradlew publish
+          ./gradlew publish --stacktrace
         env:
           SONATYPE_USERNAME: ${{ secrets.INCREASE_SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.INCREASE_SONATYPE_PASSWORD }}
