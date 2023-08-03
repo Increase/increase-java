@@ -717,7 +717,6 @@ private constructor(
             private val checkDepositReturn: JsonField<CheckDepositReturn>,
             private val checkTransferDeposit: JsonField<CheckTransferDeposit>,
             private val checkTransferIntention: JsonField<CheckTransferIntention>,
-            private val checkTransferRejection: JsonField<CheckTransferRejection>,
             private val checkTransferStopPaymentRequest: JsonField<CheckTransferStopPaymentRequest>,
             private val feePayment: JsonField<FeePayment>,
             private val inboundAchTransfer: JsonField<InboundAchTransfer>,
@@ -836,13 +835,6 @@ private constructor(
              */
             fun checkTransferIntention(): Optional<CheckTransferIntention> =
                 Optional.ofNullable(checkTransferIntention.getNullable("check_transfer_intention"))
-
-            /**
-             * A Check Transfer Rejection object. This field will be present in the JSON response if
-             * and only if `category` is equal to `check_transfer_rejection`.
-             */
-            fun checkTransferRejection(): Optional<CheckTransferRejection> =
-                Optional.ofNullable(checkTransferRejection.getNullable("check_transfer_rejection"))
 
             /**
              * A Check Transfer Stop Payment Request object. This field will be present in the JSON
@@ -1083,14 +1075,6 @@ private constructor(
             fun _checkTransferIntention() = checkTransferIntention
 
             /**
-             * A Check Transfer Rejection object. This field will be present in the JSON response if
-             * and only if `category` is equal to `check_transfer_rejection`.
-             */
-            @JsonProperty("check_transfer_rejection")
-            @ExcludeMissing
-            fun _checkTransferRejection() = checkTransferRejection
-
-            /**
              * A Check Transfer Stop Payment Request object. This field will be present in the JSON
              * response if and only if `category` is equal to `check_transfer_stop_payment_request`.
              */
@@ -1233,7 +1217,6 @@ private constructor(
                     checkDepositReturn().map { it.validate() }
                     checkTransferDeposit().map { it.validate() }
                     checkTransferIntention().map { it.validate() }
-                    checkTransferRejection().map { it.validate() }
                     checkTransferStopPaymentRequest().map { it.validate() }
                     feePayment().map { it.validate() }
                     inboundAchTransfer().map { it.validate() }
@@ -1275,7 +1258,6 @@ private constructor(
                     this.checkDepositReturn == other.checkDepositReturn &&
                     this.checkTransferDeposit == other.checkTransferDeposit &&
                     this.checkTransferIntention == other.checkTransferIntention &&
-                    this.checkTransferRejection == other.checkTransferRejection &&
                     this.checkTransferStopPaymentRequest == other.checkTransferStopPaymentRequest &&
                     this.feePayment == other.feePayment &&
                     this.inboundAchTransfer == other.inboundAchTransfer &&
@@ -1315,7 +1297,6 @@ private constructor(
                             checkDepositReturn,
                             checkTransferDeposit,
                             checkTransferIntention,
-                            checkTransferRejection,
                             checkTransferStopPaymentRequest,
                             feePayment,
                             inboundAchTransfer,
@@ -1339,7 +1320,7 @@ private constructor(
             }
 
             override fun toString() =
-                "Source{category=$category, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, checkTransferIntention=$checkTransferIntention, checkTransferRejection=$checkTransferRejection, checkTransferStopPaymentRequest=$checkTransferStopPaymentRequest, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundCheck=$inboundCheck, inboundInternationalAchTransfer=$inboundInternationalAchTransfer, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireDrawdownPayment=$inboundWireDrawdownPayment, inboundWireDrawdownPaymentReversal=$inboundWireDrawdownPaymentReversal, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, interestPayment=$interestPayment, internalSource=$internalSource, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, wireTransferIntention=$wireTransferIntention, wireTransferRejection=$wireTransferRejection, additionalProperties=$additionalProperties}"
+                "Source{category=$category, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, checkTransferIntention=$checkTransferIntention, checkTransferStopPaymentRequest=$checkTransferStopPaymentRequest, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundCheck=$inboundCheck, inboundInternationalAchTransfer=$inboundInternationalAchTransfer, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireDrawdownPayment=$inboundWireDrawdownPayment, inboundWireDrawdownPaymentReversal=$inboundWireDrawdownPaymentReversal, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, interestPayment=$interestPayment, internalSource=$internalSource, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, wireTransferIntention=$wireTransferIntention, wireTransferRejection=$wireTransferRejection, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1364,8 +1345,6 @@ private constructor(
                 private var checkDepositReturn: JsonField<CheckDepositReturn> = JsonMissing.of()
                 private var checkTransferDeposit: JsonField<CheckTransferDeposit> = JsonMissing.of()
                 private var checkTransferIntention: JsonField<CheckTransferIntention> =
-                    JsonMissing.of()
-                private var checkTransferRejection: JsonField<CheckTransferRejection> =
                     JsonMissing.of()
                 private var checkTransferStopPaymentRequest:
                     JsonField<CheckTransferStopPaymentRequest> =
@@ -1413,7 +1392,6 @@ private constructor(
                     this.checkDepositReturn = source.checkDepositReturn
                     this.checkTransferDeposit = source.checkTransferDeposit
                     this.checkTransferIntention = source.checkTransferIntention
-                    this.checkTransferRejection = source.checkTransferRejection
                     this.checkTransferStopPaymentRequest = source.checkTransferStopPaymentRequest
                     this.feePayment = source.feePayment
                     this.inboundAchTransfer = source.inboundAchTransfer
@@ -1658,23 +1636,6 @@ private constructor(
                 fun checkTransferIntention(
                     checkTransferIntention: JsonField<CheckTransferIntention>
                 ) = apply { this.checkTransferIntention = checkTransferIntention }
-
-                /**
-                 * A Check Transfer Rejection object. This field will be present in the JSON
-                 * response if and only if `category` is equal to `check_transfer_rejection`.
-                 */
-                fun checkTransferRejection(checkTransferRejection: CheckTransferRejection) =
-                    checkTransferRejection(JsonField.of(checkTransferRejection))
-
-                /**
-                 * A Check Transfer Rejection object. This field will be present in the JSON
-                 * response if and only if `category` is equal to `check_transfer_rejection`.
-                 */
-                @JsonProperty("check_transfer_rejection")
-                @ExcludeMissing
-                fun checkTransferRejection(
-                    checkTransferRejection: JsonField<CheckTransferRejection>
-                ) = apply { this.checkTransferRejection = checkTransferRejection }
 
                 /**
                  * A Check Transfer Stop Payment Request object. This field will be present in the
@@ -2017,7 +1978,6 @@ private constructor(
                         checkDepositReturn,
                         checkTransferDeposit,
                         checkTransferIntention,
-                        checkTransferRejection,
                         checkTransferStopPaymentRequest,
                         feePayment,
                         inboundAchTransfer,
@@ -2098,10 +2058,6 @@ private constructor(
                         Category(JsonField.of("check_transfer_intention"))
 
                     @JvmField
-                    val CHECK_TRANSFER_REJECTION =
-                        Category(JsonField.of("check_transfer_rejection"))
-
-                    @JvmField
                     val CHECK_TRANSFER_STOP_PAYMENT_REQUEST =
                         Category(JsonField.of("check_transfer_stop_payment_request"))
 
@@ -2172,7 +2128,6 @@ private constructor(
                     CHECK_DEPOSIT_RETURN,
                     CHECK_TRANSFER_DEPOSIT,
                     CHECK_TRANSFER_INTENTION,
-                    CHECK_TRANSFER_REJECTION,
                     CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
                     FEE_PAYMENT,
                     INBOUND_ACH_TRANSFER,
@@ -2206,7 +2161,6 @@ private constructor(
                     CHECK_DEPOSIT_RETURN,
                     CHECK_TRANSFER_DEPOSIT,
                     CHECK_TRANSFER_INTENTION,
-                    CHECK_TRANSFER_REJECTION,
                     CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
                     FEE_PAYMENT,
                     INBOUND_ACH_TRANSFER,
@@ -2242,7 +2196,6 @@ private constructor(
                         CHECK_DEPOSIT_RETURN -> Value.CHECK_DEPOSIT_RETURN
                         CHECK_TRANSFER_DEPOSIT -> Value.CHECK_TRANSFER_DEPOSIT
                         CHECK_TRANSFER_INTENTION -> Value.CHECK_TRANSFER_INTENTION
-                        CHECK_TRANSFER_REJECTION -> Value.CHECK_TRANSFER_REJECTION
                         CHECK_TRANSFER_STOP_PAYMENT_REQUEST ->
                             Value.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
                         FEE_PAYMENT -> Value.FEE_PAYMENT
@@ -2284,7 +2237,6 @@ private constructor(
                         CHECK_DEPOSIT_RETURN -> Known.CHECK_DEPOSIT_RETURN
                         CHECK_TRANSFER_DEPOSIT -> Known.CHECK_TRANSFER_DEPOSIT
                         CHECK_TRANSFER_INTENTION -> Known.CHECK_TRANSFER_INTENTION
-                        CHECK_TRANSFER_REJECTION -> Known.CHECK_TRANSFER_REJECTION
                         CHECK_TRANSFER_STOP_PAYMENT_REQUEST ->
                             Known.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
                         FEE_PAYMENT -> Known.FEE_PAYMENT
@@ -4067,6 +4019,7 @@ private constructor(
                 private val merchantCountry: JsonField<String>,
                 private val merchantName: JsonField<String>,
                 private val merchantCategoryCode: JsonField<String>,
+                private val purchaseDetails: JsonField<PurchaseDetails>,
                 private val transactionId: JsonField<String>,
                 private val type: JsonField<Type>,
                 private val additionalProperties: Map<String, JsonValue>,
@@ -4116,6 +4069,13 @@ private constructor(
                 /** The 4-digit MCC describing the merchant's business. */
                 fun merchantCategoryCode(): String =
                     merchantCategoryCode.getRequired("merchant_category_code")
+
+                /**
+                 * Additional details about the card purchase, such as tax and industry-specific
+                 * fields.
+                 */
+                fun purchaseDetails(): Optional<PurchaseDetails> =
+                    Optional.ofNullable(purchaseDetails.getNullable("purchase_details"))
 
                 /** The identifier of the Transaction associated with this Transaction. */
                 fun transactionId(): String = transactionId.getRequired("transaction_id")
@@ -4168,6 +4128,14 @@ private constructor(
                 @ExcludeMissing
                 fun _merchantCategoryCode() = merchantCategoryCode
 
+                /**
+                 * Additional details about the card purchase, such as tax and industry-specific
+                 * fields.
+                 */
+                @JsonProperty("purchase_details")
+                @ExcludeMissing
+                fun _purchaseDetails() = purchaseDetails
+
                 /** The identifier of the Transaction associated with this Transaction. */
                 @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
@@ -4192,6 +4160,7 @@ private constructor(
                         merchantCountry()
                         merchantName()
                         merchantCategoryCode()
+                        purchaseDetails().map { it.validate() }
                         transactionId()
                         type()
                         validated = true
@@ -4215,6 +4184,7 @@ private constructor(
                         this.merchantCountry == other.merchantCountry &&
                         this.merchantName == other.merchantName &&
                         this.merchantCategoryCode == other.merchantCategoryCode &&
+                        this.purchaseDetails == other.purchaseDetails &&
                         this.transactionId == other.transactionId &&
                         this.type == other.type &&
                         this.additionalProperties == other.additionalProperties
@@ -4233,6 +4203,7 @@ private constructor(
                                 merchantCountry,
                                 merchantName,
                                 merchantCategoryCode,
+                                purchaseDetails,
                                 transactionId,
                                 type,
                                 additionalProperties,
@@ -4242,7 +4213,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "CardRefund{id=$id, amount=$amount, currency=$currency, merchantAcceptorId=$merchantAcceptorId, merchantCity=$merchantCity, merchantState=$merchantState, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantCategoryCode=$merchantCategoryCode, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+                    "CardRefund{id=$id, amount=$amount, currency=$currency, merchantAcceptorId=$merchantAcceptorId, merchantCity=$merchantCity, merchantState=$merchantState, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantCategoryCode=$merchantCategoryCode, purchaseDetails=$purchaseDetails, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -4260,6 +4231,7 @@ private constructor(
                     private var merchantCountry: JsonField<String> = JsonMissing.of()
                     private var merchantName: JsonField<String> = JsonMissing.of()
                     private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
+                    private var purchaseDetails: JsonField<PurchaseDetails> = JsonMissing.of()
                     private var transactionId: JsonField<String> = JsonMissing.of()
                     private var type: JsonField<Type> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -4275,6 +4247,7 @@ private constructor(
                         this.merchantCountry = cardRefund.merchantCountry
                         this.merchantName = cardRefund.merchantName
                         this.merchantCategoryCode = cardRefund.merchantCategoryCode
+                        this.purchaseDetails = cardRefund.purchaseDetails
                         this.transactionId = cardRefund.transactionId
                         this.type = cardRefund.type
                         additionalProperties(cardRefund.additionalProperties)
@@ -4388,6 +4361,23 @@ private constructor(
                         this.merchantCategoryCode = merchantCategoryCode
                     }
 
+                    /**
+                     * Additional details about the card purchase, such as tax and industry-specific
+                     * fields.
+                     */
+                    fun purchaseDetails(purchaseDetails: PurchaseDetails) =
+                        purchaseDetails(JsonField.of(purchaseDetails))
+
+                    /**
+                     * Additional details about the card purchase, such as tax and industry-specific
+                     * fields.
+                     */
+                    @JsonProperty("purchase_details")
+                    @ExcludeMissing
+                    fun purchaseDetails(purchaseDetails: JsonField<PurchaseDetails>) = apply {
+                        this.purchaseDetails = purchaseDetails
+                    }
+
                     /** The identifier of the Transaction associated with this Transaction. */
                     fun transactionId(transactionId: String) =
                         transactionId(JsonField.of(transactionId))
@@ -4439,6 +4429,7 @@ private constructor(
                             merchantCountry,
                             merchantName,
                             merchantCategoryCode,
+                            purchaseDetails,
                             transactionId,
                             type,
                             additionalProperties.toUnmodifiable(),
@@ -4525,6 +4516,3867 @@ private constructor(
                         }
 
                     fun asString(): String = _value().asStringOrThrow()
+                }
+
+                /**
+                 * Additional details about the card purchase, such as tax and industry-specific
+                 * fields.
+                 */
+                @JsonDeserialize(builder = PurchaseDetails.Builder::class)
+                @NoAutoDetect
+                class PurchaseDetails
+                private constructor(
+                    private val purchaseIdentifier: JsonField<String>,
+                    private val purchaseIdentifierFormat: JsonField<PurchaseIdentifierFormat>,
+                    private val customerReferenceIdentifier: JsonField<String>,
+                    private val localTaxAmount: JsonField<Long>,
+                    private val localTaxCurrency: JsonField<String>,
+                    private val nationalTaxAmount: JsonField<Long>,
+                    private val nationalTaxCurrency: JsonField<String>,
+                    private val carRental: JsonField<CarRental>,
+                    private val lodging: JsonField<Lodging>,
+                    private val travel: JsonField<Travel>,
+                    private val additionalProperties: Map<String, JsonValue>,
+                ) {
+
+                    private var validated: Boolean = false
+
+                    private var hashCode: Int = 0
+
+                    /**
+                     * An identifier from the merchant for the purchase to the issuer and
+                     * cardholder.
+                     */
+                    fun purchaseIdentifier(): Optional<String> =
+                        Optional.ofNullable(purchaseIdentifier.getNullable("purchase_identifier"))
+
+                    /** The format of the purchase identifier. */
+                    fun purchaseIdentifierFormat(): Optional<PurchaseIdentifierFormat> =
+                        Optional.ofNullable(
+                            purchaseIdentifierFormat.getNullable("purchase_identifier_format")
+                        )
+
+                    /** An identifier from the merchant for the customer or consumer. */
+                    fun customerReferenceIdentifier(): Optional<String> =
+                        Optional.ofNullable(
+                            customerReferenceIdentifier.getNullable("customer_reference_identifier")
+                        )
+
+                    /** The state or provincial tax amount in minor units. */
+                    fun localTaxAmount(): Optional<Long> =
+                        Optional.ofNullable(localTaxAmount.getNullable("local_tax_amount"))
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the local tax
+                     * assessed.
+                     */
+                    fun localTaxCurrency(): Optional<String> =
+                        Optional.ofNullable(localTaxCurrency.getNullable("local_tax_currency"))
+
+                    /** The national tax amount in minor units. */
+                    fun nationalTaxAmount(): Optional<Long> =
+                        Optional.ofNullable(nationalTaxAmount.getNullable("national_tax_amount"))
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the local tax
+                     * assessed.
+                     */
+                    fun nationalTaxCurrency(): Optional<String> =
+                        Optional.ofNullable(
+                            nationalTaxCurrency.getNullable("national_tax_currency")
+                        )
+
+                    /** Fields specific to car rentals. */
+                    fun carRental(): Optional<CarRental> =
+                        Optional.ofNullable(carRental.getNullable("car_rental"))
+
+                    /** Fields specific to lodging. */
+                    fun lodging(): Optional<Lodging> =
+                        Optional.ofNullable(lodging.getNullable("lodging"))
+
+                    /** Fields specific to travel. */
+                    fun travel(): Optional<Travel> =
+                        Optional.ofNullable(travel.getNullable("travel"))
+
+                    /**
+                     * An identifier from the merchant for the purchase to the issuer and
+                     * cardholder.
+                     */
+                    @JsonProperty("purchase_identifier")
+                    @ExcludeMissing
+                    fun _purchaseIdentifier() = purchaseIdentifier
+
+                    /** The format of the purchase identifier. */
+                    @JsonProperty("purchase_identifier_format")
+                    @ExcludeMissing
+                    fun _purchaseIdentifierFormat() = purchaseIdentifierFormat
+
+                    /** An identifier from the merchant for the customer or consumer. */
+                    @JsonProperty("customer_reference_identifier")
+                    @ExcludeMissing
+                    fun _customerReferenceIdentifier() = customerReferenceIdentifier
+
+                    /** The state or provincial tax amount in minor units. */
+                    @JsonProperty("local_tax_amount")
+                    @ExcludeMissing
+                    fun _localTaxAmount() = localTaxAmount
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the local tax
+                     * assessed.
+                     */
+                    @JsonProperty("local_tax_currency")
+                    @ExcludeMissing
+                    fun _localTaxCurrency() = localTaxCurrency
+
+                    /** The national tax amount in minor units. */
+                    @JsonProperty("national_tax_amount")
+                    @ExcludeMissing
+                    fun _nationalTaxAmount() = nationalTaxAmount
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the local tax
+                     * assessed.
+                     */
+                    @JsonProperty("national_tax_currency")
+                    @ExcludeMissing
+                    fun _nationalTaxCurrency() = nationalTaxCurrency
+
+                    /** Fields specific to car rentals. */
+                    @JsonProperty("car_rental") @ExcludeMissing fun _carRental() = carRental
+
+                    /** Fields specific to lodging. */
+                    @JsonProperty("lodging") @ExcludeMissing fun _lodging() = lodging
+
+                    /** Fields specific to travel. */
+                    @JsonProperty("travel") @ExcludeMissing fun _travel() = travel
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                    fun validate(): PurchaseDetails = apply {
+                        if (!validated) {
+                            purchaseIdentifier()
+                            purchaseIdentifierFormat()
+                            customerReferenceIdentifier()
+                            localTaxAmount()
+                            localTaxCurrency()
+                            nationalTaxAmount()
+                            nationalTaxCurrency()
+                            carRental().map { it.validate() }
+                            lodging().map { it.validate() }
+                            travel().map { it.validate() }
+                            validated = true
+                        }
+                    }
+
+                    fun toBuilder() = Builder().from(this)
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is PurchaseDetails &&
+                            this.purchaseIdentifier == other.purchaseIdentifier &&
+                            this.purchaseIdentifierFormat == other.purchaseIdentifierFormat &&
+                            this.customerReferenceIdentifier == other.customerReferenceIdentifier &&
+                            this.localTaxAmount == other.localTaxAmount &&
+                            this.localTaxCurrency == other.localTaxCurrency &&
+                            this.nationalTaxAmount == other.nationalTaxAmount &&
+                            this.nationalTaxCurrency == other.nationalTaxCurrency &&
+                            this.carRental == other.carRental &&
+                            this.lodging == other.lodging &&
+                            this.travel == other.travel &&
+                            this.additionalProperties == other.additionalProperties
+                    }
+
+                    override fun hashCode(): Int {
+                        if (hashCode == 0) {
+                            hashCode =
+                                Objects.hash(
+                                    purchaseIdentifier,
+                                    purchaseIdentifierFormat,
+                                    customerReferenceIdentifier,
+                                    localTaxAmount,
+                                    localTaxCurrency,
+                                    nationalTaxAmount,
+                                    nationalTaxCurrency,
+                                    carRental,
+                                    lodging,
+                                    travel,
+                                    additionalProperties,
+                                )
+                        }
+                        return hashCode
+                    }
+
+                    override fun toString() =
+                        "PurchaseDetails{purchaseIdentifier=$purchaseIdentifier, purchaseIdentifierFormat=$purchaseIdentifierFormat, customerReferenceIdentifier=$customerReferenceIdentifier, localTaxAmount=$localTaxAmount, localTaxCurrency=$localTaxCurrency, nationalTaxAmount=$nationalTaxAmount, nationalTaxCurrency=$nationalTaxCurrency, carRental=$carRental, lodging=$lodging, travel=$travel, additionalProperties=$additionalProperties}"
+
+                    companion object {
+
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    class Builder {
+
+                        private var purchaseIdentifier: JsonField<String> = JsonMissing.of()
+                        private var purchaseIdentifierFormat: JsonField<PurchaseIdentifierFormat> =
+                            JsonMissing.of()
+                        private var customerReferenceIdentifier: JsonField<String> =
+                            JsonMissing.of()
+                        private var localTaxAmount: JsonField<Long> = JsonMissing.of()
+                        private var localTaxCurrency: JsonField<String> = JsonMissing.of()
+                        private var nationalTaxAmount: JsonField<Long> = JsonMissing.of()
+                        private var nationalTaxCurrency: JsonField<String> = JsonMissing.of()
+                        private var carRental: JsonField<CarRental> = JsonMissing.of()
+                        private var lodging: JsonField<Lodging> = JsonMissing.of()
+                        private var travel: JsonField<Travel> = JsonMissing.of()
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(purchaseDetails: PurchaseDetails) = apply {
+                            this.purchaseIdentifier = purchaseDetails.purchaseIdentifier
+                            this.purchaseIdentifierFormat = purchaseDetails.purchaseIdentifierFormat
+                            this.customerReferenceIdentifier =
+                                purchaseDetails.customerReferenceIdentifier
+                            this.localTaxAmount = purchaseDetails.localTaxAmount
+                            this.localTaxCurrency = purchaseDetails.localTaxCurrency
+                            this.nationalTaxAmount = purchaseDetails.nationalTaxAmount
+                            this.nationalTaxCurrency = purchaseDetails.nationalTaxCurrency
+                            this.carRental = purchaseDetails.carRental
+                            this.lodging = purchaseDetails.lodging
+                            this.travel = purchaseDetails.travel
+                            additionalProperties(purchaseDetails.additionalProperties)
+                        }
+
+                        /**
+                         * An identifier from the merchant for the purchase to the issuer and
+                         * cardholder.
+                         */
+                        fun purchaseIdentifier(purchaseIdentifier: String) =
+                            purchaseIdentifier(JsonField.of(purchaseIdentifier))
+
+                        /**
+                         * An identifier from the merchant for the purchase to the issuer and
+                         * cardholder.
+                         */
+                        @JsonProperty("purchase_identifier")
+                        @ExcludeMissing
+                        fun purchaseIdentifier(purchaseIdentifier: JsonField<String>) = apply {
+                            this.purchaseIdentifier = purchaseIdentifier
+                        }
+
+                        /** The format of the purchase identifier. */
+                        fun purchaseIdentifierFormat(
+                            purchaseIdentifierFormat: PurchaseIdentifierFormat
+                        ) = purchaseIdentifierFormat(JsonField.of(purchaseIdentifierFormat))
+
+                        /** The format of the purchase identifier. */
+                        @JsonProperty("purchase_identifier_format")
+                        @ExcludeMissing
+                        fun purchaseIdentifierFormat(
+                            purchaseIdentifierFormat: JsonField<PurchaseIdentifierFormat>
+                        ) = apply { this.purchaseIdentifierFormat = purchaseIdentifierFormat }
+
+                        /** An identifier from the merchant for the customer or consumer. */
+                        fun customerReferenceIdentifier(customerReferenceIdentifier: String) =
+                            customerReferenceIdentifier(JsonField.of(customerReferenceIdentifier))
+
+                        /** An identifier from the merchant for the customer or consumer. */
+                        @JsonProperty("customer_reference_identifier")
+                        @ExcludeMissing
+                        fun customerReferenceIdentifier(
+                            customerReferenceIdentifier: JsonField<String>
+                        ) = apply { this.customerReferenceIdentifier = customerReferenceIdentifier }
+
+                        /** The state or provincial tax amount in minor units. */
+                        fun localTaxAmount(localTaxAmount: Long) =
+                            localTaxAmount(JsonField.of(localTaxAmount))
+
+                        /** The state or provincial tax amount in minor units. */
+                        @JsonProperty("local_tax_amount")
+                        @ExcludeMissing
+                        fun localTaxAmount(localTaxAmount: JsonField<Long>) = apply {
+                            this.localTaxAmount = localTaxAmount
+                        }
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the local
+                         * tax assessed.
+                         */
+                        fun localTaxCurrency(localTaxCurrency: String) =
+                            localTaxCurrency(JsonField.of(localTaxCurrency))
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the local
+                         * tax assessed.
+                         */
+                        @JsonProperty("local_tax_currency")
+                        @ExcludeMissing
+                        fun localTaxCurrency(localTaxCurrency: JsonField<String>) = apply {
+                            this.localTaxCurrency = localTaxCurrency
+                        }
+
+                        /** The national tax amount in minor units. */
+                        fun nationalTaxAmount(nationalTaxAmount: Long) =
+                            nationalTaxAmount(JsonField.of(nationalTaxAmount))
+
+                        /** The national tax amount in minor units. */
+                        @JsonProperty("national_tax_amount")
+                        @ExcludeMissing
+                        fun nationalTaxAmount(nationalTaxAmount: JsonField<Long>) = apply {
+                            this.nationalTaxAmount = nationalTaxAmount
+                        }
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the local
+                         * tax assessed.
+                         */
+                        fun nationalTaxCurrency(nationalTaxCurrency: String) =
+                            nationalTaxCurrency(JsonField.of(nationalTaxCurrency))
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the local
+                         * tax assessed.
+                         */
+                        @JsonProperty("national_tax_currency")
+                        @ExcludeMissing
+                        fun nationalTaxCurrency(nationalTaxCurrency: JsonField<String>) = apply {
+                            this.nationalTaxCurrency = nationalTaxCurrency
+                        }
+
+                        /** Fields specific to car rentals. */
+                        fun carRental(carRental: CarRental) = carRental(JsonField.of(carRental))
+
+                        /** Fields specific to car rentals. */
+                        @JsonProperty("car_rental")
+                        @ExcludeMissing
+                        fun carRental(carRental: JsonField<CarRental>) = apply {
+                            this.carRental = carRental
+                        }
+
+                        /** Fields specific to lodging. */
+                        fun lodging(lodging: Lodging) = lodging(JsonField.of(lodging))
+
+                        /** Fields specific to lodging. */
+                        @JsonProperty("lodging")
+                        @ExcludeMissing
+                        fun lodging(lodging: JsonField<Lodging>) = apply { this.lodging = lodging }
+
+                        /** Fields specific to travel. */
+                        fun travel(travel: Travel) = travel(JsonField.of(travel))
+
+                        /** Fields specific to travel. */
+                        @JsonProperty("travel")
+                        @ExcludeMissing
+                        fun travel(travel: JsonField<Travel>) = apply { this.travel = travel }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                this.additionalProperties.putAll(additionalProperties)
+                            }
+
+                        @JsonAnySetter
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            this.additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun build(): PurchaseDetails =
+                            PurchaseDetails(
+                                purchaseIdentifier,
+                                purchaseIdentifierFormat,
+                                customerReferenceIdentifier,
+                                localTaxAmount,
+                                localTaxCurrency,
+                                nationalTaxAmount,
+                                nationalTaxCurrency,
+                                carRental,
+                                lodging,
+                                travel,
+                                additionalProperties.toUnmodifiable(),
+                            )
+                    }
+
+                    class PurchaseIdentifierFormat
+                    @JsonCreator
+                    private constructor(
+                        private val value: JsonField<String>,
+                    ) {
+
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is PurchaseIdentifierFormat && this.value == other.value
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+
+                        companion object {
+
+                            @JvmField
+                            val FREE_TEXT = PurchaseIdentifierFormat(JsonField.of("free_text"))
+
+                            @JvmField
+                            val ORDER_NUMBER =
+                                PurchaseIdentifierFormat(JsonField.of("order_number"))
+
+                            @JvmField
+                            val RENTAL_AGREEMENT_NUMBER =
+                                PurchaseIdentifierFormat(JsonField.of("rental_agreement_number"))
+
+                            @JvmField
+                            val HOTEL_FOLIO_NUMBER =
+                                PurchaseIdentifierFormat(JsonField.of("hotel_folio_number"))
+
+                            @JvmField
+                            val INVOICE_NUMBER =
+                                PurchaseIdentifierFormat(JsonField.of("invoice_number"))
+
+                            @JvmStatic
+                            fun of(value: String) = PurchaseIdentifierFormat(JsonField.of(value))
+                        }
+
+                        enum class Known {
+                            FREE_TEXT,
+                            ORDER_NUMBER,
+                            RENTAL_AGREEMENT_NUMBER,
+                            HOTEL_FOLIO_NUMBER,
+                            INVOICE_NUMBER,
+                        }
+
+                        enum class Value {
+                            FREE_TEXT,
+                            ORDER_NUMBER,
+                            RENTAL_AGREEMENT_NUMBER,
+                            HOTEL_FOLIO_NUMBER,
+                            INVOICE_NUMBER,
+                            _UNKNOWN,
+                        }
+
+                        fun value(): Value =
+                            when (this) {
+                                FREE_TEXT -> Value.FREE_TEXT
+                                ORDER_NUMBER -> Value.ORDER_NUMBER
+                                RENTAL_AGREEMENT_NUMBER -> Value.RENTAL_AGREEMENT_NUMBER
+                                HOTEL_FOLIO_NUMBER -> Value.HOTEL_FOLIO_NUMBER
+                                INVOICE_NUMBER -> Value.INVOICE_NUMBER
+                                else -> Value._UNKNOWN
+                            }
+
+                        fun known(): Known =
+                            when (this) {
+                                FREE_TEXT -> Known.FREE_TEXT
+                                ORDER_NUMBER -> Known.ORDER_NUMBER
+                                RENTAL_AGREEMENT_NUMBER -> Known.RENTAL_AGREEMENT_NUMBER
+                                HOTEL_FOLIO_NUMBER -> Known.HOTEL_FOLIO_NUMBER
+                                INVOICE_NUMBER -> Known.INVOICE_NUMBER
+                                else ->
+                                    throw IncreaseInvalidDataException(
+                                        "Unknown PurchaseIdentifierFormat: $value"
+                                    )
+                            }
+
+                        fun asString(): String = _value().asStringOrThrow()
+                    }
+
+                    /** Fields specific to car rentals. */
+                    @JsonDeserialize(builder = CarRental.Builder::class)
+                    @NoAutoDetect
+                    class CarRental
+                    private constructor(
+                        private val extraCharges: JsonField<ExtraCharges>,
+                        private val daysRented: JsonField<Long>,
+                        private val noShowIndicator: JsonField<NoShowIndicator>,
+                        private val checkoutDate: JsonField<LocalDate>,
+                        private val dailyRentalRateAmount: JsonField<Long>,
+                        private val dailyRentalRateCurrency: JsonField<String>,
+                        private val weeklyRentalRateAmount: JsonField<Long>,
+                        private val weeklyRentalRateCurrency: JsonField<String>,
+                        private val insuranceChargesAmount: JsonField<Long>,
+                        private val insuranceChargesCurrency: JsonField<String>,
+                        private val fuelChargesAmount: JsonField<Long>,
+                        private val fuelChargesCurrency: JsonField<String>,
+                        private val oneWayDropOffChargesAmount: JsonField<Long>,
+                        private val oneWayDropOffChargesCurrency: JsonField<String>,
+                        private val carClassCode: JsonField<String>,
+                        private val renterName: JsonField<String>,
+                        private val additionalProperties: Map<String, JsonValue>,
+                    ) {
+
+                        private var validated: Boolean = false
+
+                        private var hashCode: Int = 0
+
+                        /** Additional charges (gas, late fee, etc.) being billed. */
+                        fun extraCharges(): Optional<ExtraCharges> =
+                            Optional.ofNullable(extraCharges.getNullable("extra_charges"))
+
+                        /** Number of days the vehicle was rented. */
+                        fun daysRented(): Optional<Long> =
+                            Optional.ofNullable(daysRented.getNullable("days_rented"))
+
+                        /**
+                         * An indicator that the cardholder is being billed for a reserved vehicle
+                         * that was not actually rented (that is, a "no-show" charge).
+                         */
+                        fun noShowIndicator(): Optional<NoShowIndicator> =
+                            Optional.ofNullable(noShowIndicator.getNullable("no_show_indicator"))
+
+                        /**
+                         * Date the customer picked up the car or, in the case of a no-show or
+                         * pre-pay transaction, the scheduled pick up date.
+                         */
+                        fun checkoutDate(): Optional<LocalDate> =
+                            Optional.ofNullable(checkoutDate.getNullable("checkout_date"))
+
+                        /** Daily rate being charged for the vehicle. */
+                        fun dailyRentalRateAmount(): Optional<Long> =
+                            Optional.ofNullable(
+                                dailyRentalRateAmount.getNullable("daily_rental_rate_amount")
+                            )
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the daily
+                         * rental rate.
+                         */
+                        fun dailyRentalRateCurrency(): Optional<String> =
+                            Optional.ofNullable(
+                                dailyRentalRateCurrency.getNullable("daily_rental_rate_currency")
+                            )
+
+                        /** Weekly rate being charged for the vehicle. */
+                        fun weeklyRentalRateAmount(): Optional<Long> =
+                            Optional.ofNullable(
+                                weeklyRentalRateAmount.getNullable("weekly_rental_rate_amount")
+                            )
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                         * weekly rental rate.
+                         */
+                        fun weeklyRentalRateCurrency(): Optional<String> =
+                            Optional.ofNullable(
+                                weeklyRentalRateCurrency.getNullable("weekly_rental_rate_currency")
+                            )
+
+                        /** Any insurance being charged for the vehicle. */
+                        fun insuranceChargesAmount(): Optional<Long> =
+                            Optional.ofNullable(
+                                insuranceChargesAmount.getNullable("insurance_charges_amount")
+                            )
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                         * insurance charges assessed.
+                         */
+                        fun insuranceChargesCurrency(): Optional<String> =
+                            Optional.ofNullable(
+                                insuranceChargesCurrency.getNullable("insurance_charges_currency")
+                            )
+
+                        /** Fuel charges for the vehicle. */
+                        fun fuelChargesAmount(): Optional<Long> =
+                            Optional.ofNullable(
+                                fuelChargesAmount.getNullable("fuel_charges_amount")
+                            )
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the fuel
+                         * charges assessed.
+                         */
+                        fun fuelChargesCurrency(): Optional<String> =
+                            Optional.ofNullable(
+                                fuelChargesCurrency.getNullable("fuel_charges_currency")
+                            )
+
+                        /**
+                         * Charges for returning the vehicle at a different location than where it
+                         * was picked up.
+                         */
+                        fun oneWayDropOffChargesAmount(): Optional<Long> =
+                            Optional.ofNullable(
+                                oneWayDropOffChargesAmount.getNullable(
+                                    "one_way_drop_off_charges_amount"
+                                )
+                            )
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                         * one-way drop-off charges assessed.
+                         */
+                        fun oneWayDropOffChargesCurrency(): Optional<String> =
+                            Optional.ofNullable(
+                                oneWayDropOffChargesCurrency.getNullable(
+                                    "one_way_drop_off_charges_currency"
+                                )
+                            )
+
+                        /** Code indicating the vehicle's class. */
+                        fun carClassCode(): Optional<String> =
+                            Optional.ofNullable(carClassCode.getNullable("car_class_code"))
+
+                        /** Name of the person renting the vehicle. */
+                        fun renterName(): Optional<String> =
+                            Optional.ofNullable(renterName.getNullable("renter_name"))
+
+                        /** Additional charges (gas, late fee, etc.) being billed. */
+                        @JsonProperty("extra_charges")
+                        @ExcludeMissing
+                        fun _extraCharges() = extraCharges
+
+                        /** Number of days the vehicle was rented. */
+                        @JsonProperty("days_rented") @ExcludeMissing fun _daysRented() = daysRented
+
+                        /**
+                         * An indicator that the cardholder is being billed for a reserved vehicle
+                         * that was not actually rented (that is, a "no-show" charge).
+                         */
+                        @JsonProperty("no_show_indicator")
+                        @ExcludeMissing
+                        fun _noShowIndicator() = noShowIndicator
+
+                        /**
+                         * Date the customer picked up the car or, in the case of a no-show or
+                         * pre-pay transaction, the scheduled pick up date.
+                         */
+                        @JsonProperty("checkout_date")
+                        @ExcludeMissing
+                        fun _checkoutDate() = checkoutDate
+
+                        /** Daily rate being charged for the vehicle. */
+                        @JsonProperty("daily_rental_rate_amount")
+                        @ExcludeMissing
+                        fun _dailyRentalRateAmount() = dailyRentalRateAmount
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the daily
+                         * rental rate.
+                         */
+                        @JsonProperty("daily_rental_rate_currency")
+                        @ExcludeMissing
+                        fun _dailyRentalRateCurrency() = dailyRentalRateCurrency
+
+                        /** Weekly rate being charged for the vehicle. */
+                        @JsonProperty("weekly_rental_rate_amount")
+                        @ExcludeMissing
+                        fun _weeklyRentalRateAmount() = weeklyRentalRateAmount
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                         * weekly rental rate.
+                         */
+                        @JsonProperty("weekly_rental_rate_currency")
+                        @ExcludeMissing
+                        fun _weeklyRentalRateCurrency() = weeklyRentalRateCurrency
+
+                        /** Any insurance being charged for the vehicle. */
+                        @JsonProperty("insurance_charges_amount")
+                        @ExcludeMissing
+                        fun _insuranceChargesAmount() = insuranceChargesAmount
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                         * insurance charges assessed.
+                         */
+                        @JsonProperty("insurance_charges_currency")
+                        @ExcludeMissing
+                        fun _insuranceChargesCurrency() = insuranceChargesCurrency
+
+                        /** Fuel charges for the vehicle. */
+                        @JsonProperty("fuel_charges_amount")
+                        @ExcludeMissing
+                        fun _fuelChargesAmount() = fuelChargesAmount
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the fuel
+                         * charges assessed.
+                         */
+                        @JsonProperty("fuel_charges_currency")
+                        @ExcludeMissing
+                        fun _fuelChargesCurrency() = fuelChargesCurrency
+
+                        /**
+                         * Charges for returning the vehicle at a different location than where it
+                         * was picked up.
+                         */
+                        @JsonProperty("one_way_drop_off_charges_amount")
+                        @ExcludeMissing
+                        fun _oneWayDropOffChargesAmount() = oneWayDropOffChargesAmount
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                         * one-way drop-off charges assessed.
+                         */
+                        @JsonProperty("one_way_drop_off_charges_currency")
+                        @ExcludeMissing
+                        fun _oneWayDropOffChargesCurrency() = oneWayDropOffChargesCurrency
+
+                        /** Code indicating the vehicle's class. */
+                        @JsonProperty("car_class_code")
+                        @ExcludeMissing
+                        fun _carClassCode() = carClassCode
+
+                        /** Name of the person renting the vehicle. */
+                        @JsonProperty("renter_name") @ExcludeMissing fun _renterName() = renterName
+
+                        @JsonAnyGetter
+                        @ExcludeMissing
+                        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                        fun validate(): CarRental = apply {
+                            if (!validated) {
+                                extraCharges()
+                                daysRented()
+                                noShowIndicator()
+                                checkoutDate()
+                                dailyRentalRateAmount()
+                                dailyRentalRateCurrency()
+                                weeklyRentalRateAmount()
+                                weeklyRentalRateCurrency()
+                                insuranceChargesAmount()
+                                insuranceChargesCurrency()
+                                fuelChargesAmount()
+                                fuelChargesCurrency()
+                                oneWayDropOffChargesAmount()
+                                oneWayDropOffChargesCurrency()
+                                carClassCode()
+                                renterName()
+                                validated = true
+                            }
+                        }
+
+                        fun toBuilder() = Builder().from(this)
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is CarRental &&
+                                this.extraCharges == other.extraCharges &&
+                                this.daysRented == other.daysRented &&
+                                this.noShowIndicator == other.noShowIndicator &&
+                                this.checkoutDate == other.checkoutDate &&
+                                this.dailyRentalRateAmount == other.dailyRentalRateAmount &&
+                                this.dailyRentalRateCurrency == other.dailyRentalRateCurrency &&
+                                this.weeklyRentalRateAmount == other.weeklyRentalRateAmount &&
+                                this.weeklyRentalRateCurrency == other.weeklyRentalRateCurrency &&
+                                this.insuranceChargesAmount == other.insuranceChargesAmount &&
+                                this.insuranceChargesCurrency == other.insuranceChargesCurrency &&
+                                this.fuelChargesAmount == other.fuelChargesAmount &&
+                                this.fuelChargesCurrency == other.fuelChargesCurrency &&
+                                this.oneWayDropOffChargesAmount ==
+                                    other.oneWayDropOffChargesAmount &&
+                                this.oneWayDropOffChargesCurrency ==
+                                    other.oneWayDropOffChargesCurrency &&
+                                this.carClassCode == other.carClassCode &&
+                                this.renterName == other.renterName &&
+                                this.additionalProperties == other.additionalProperties
+                        }
+
+                        override fun hashCode(): Int {
+                            if (hashCode == 0) {
+                                hashCode =
+                                    Objects.hash(
+                                        extraCharges,
+                                        daysRented,
+                                        noShowIndicator,
+                                        checkoutDate,
+                                        dailyRentalRateAmount,
+                                        dailyRentalRateCurrency,
+                                        weeklyRentalRateAmount,
+                                        weeklyRentalRateCurrency,
+                                        insuranceChargesAmount,
+                                        insuranceChargesCurrency,
+                                        fuelChargesAmount,
+                                        fuelChargesCurrency,
+                                        oneWayDropOffChargesAmount,
+                                        oneWayDropOffChargesCurrency,
+                                        carClassCode,
+                                        renterName,
+                                        additionalProperties,
+                                    )
+                            }
+                            return hashCode
+                        }
+
+                        override fun toString() =
+                            "CarRental{extraCharges=$extraCharges, daysRented=$daysRented, noShowIndicator=$noShowIndicator, checkoutDate=$checkoutDate, dailyRentalRateAmount=$dailyRentalRateAmount, dailyRentalRateCurrency=$dailyRentalRateCurrency, weeklyRentalRateAmount=$weeklyRentalRateAmount, weeklyRentalRateCurrency=$weeklyRentalRateCurrency, insuranceChargesAmount=$insuranceChargesAmount, insuranceChargesCurrency=$insuranceChargesCurrency, fuelChargesAmount=$fuelChargesAmount, fuelChargesCurrency=$fuelChargesCurrency, oneWayDropOffChargesAmount=$oneWayDropOffChargesAmount, oneWayDropOffChargesCurrency=$oneWayDropOffChargesCurrency, carClassCode=$carClassCode, renterName=$renterName, additionalProperties=$additionalProperties}"
+
+                        companion object {
+
+                            @JvmStatic fun builder() = Builder()
+                        }
+
+                        class Builder {
+
+                            private var extraCharges: JsonField<ExtraCharges> = JsonMissing.of()
+                            private var daysRented: JsonField<Long> = JsonMissing.of()
+                            private var noShowIndicator: JsonField<NoShowIndicator> =
+                                JsonMissing.of()
+                            private var checkoutDate: JsonField<LocalDate> = JsonMissing.of()
+                            private var dailyRentalRateAmount: JsonField<Long> = JsonMissing.of()
+                            private var dailyRentalRateCurrency: JsonField<String> =
+                                JsonMissing.of()
+                            private var weeklyRentalRateAmount: JsonField<Long> = JsonMissing.of()
+                            private var weeklyRentalRateCurrency: JsonField<String> =
+                                JsonMissing.of()
+                            private var insuranceChargesAmount: JsonField<Long> = JsonMissing.of()
+                            private var insuranceChargesCurrency: JsonField<String> =
+                                JsonMissing.of()
+                            private var fuelChargesAmount: JsonField<Long> = JsonMissing.of()
+                            private var fuelChargesCurrency: JsonField<String> = JsonMissing.of()
+                            private var oneWayDropOffChargesAmount: JsonField<Long> =
+                                JsonMissing.of()
+                            private var oneWayDropOffChargesCurrency: JsonField<String> =
+                                JsonMissing.of()
+                            private var carClassCode: JsonField<String> = JsonMissing.of()
+                            private var renterName: JsonField<String> = JsonMissing.of()
+                            private var additionalProperties: MutableMap<String, JsonValue> =
+                                mutableMapOf()
+
+                            @JvmSynthetic
+                            internal fun from(carRental: CarRental) = apply {
+                                this.extraCharges = carRental.extraCharges
+                                this.daysRented = carRental.daysRented
+                                this.noShowIndicator = carRental.noShowIndicator
+                                this.checkoutDate = carRental.checkoutDate
+                                this.dailyRentalRateAmount = carRental.dailyRentalRateAmount
+                                this.dailyRentalRateCurrency = carRental.dailyRentalRateCurrency
+                                this.weeklyRentalRateAmount = carRental.weeklyRentalRateAmount
+                                this.weeklyRentalRateCurrency = carRental.weeklyRentalRateCurrency
+                                this.insuranceChargesAmount = carRental.insuranceChargesAmount
+                                this.insuranceChargesCurrency = carRental.insuranceChargesCurrency
+                                this.fuelChargesAmount = carRental.fuelChargesAmount
+                                this.fuelChargesCurrency = carRental.fuelChargesCurrency
+                                this.oneWayDropOffChargesAmount =
+                                    carRental.oneWayDropOffChargesAmount
+                                this.oneWayDropOffChargesCurrency =
+                                    carRental.oneWayDropOffChargesCurrency
+                                this.carClassCode = carRental.carClassCode
+                                this.renterName = carRental.renterName
+                                additionalProperties(carRental.additionalProperties)
+                            }
+
+                            /** Additional charges (gas, late fee, etc.) being billed. */
+                            fun extraCharges(extraCharges: ExtraCharges) =
+                                extraCharges(JsonField.of(extraCharges))
+
+                            /** Additional charges (gas, late fee, etc.) being billed. */
+                            @JsonProperty("extra_charges")
+                            @ExcludeMissing
+                            fun extraCharges(extraCharges: JsonField<ExtraCharges>) = apply {
+                                this.extraCharges = extraCharges
+                            }
+
+                            /** Number of days the vehicle was rented. */
+                            fun daysRented(daysRented: Long) = daysRented(JsonField.of(daysRented))
+
+                            /** Number of days the vehicle was rented. */
+                            @JsonProperty("days_rented")
+                            @ExcludeMissing
+                            fun daysRented(daysRented: JsonField<Long>) = apply {
+                                this.daysRented = daysRented
+                            }
+
+                            /**
+                             * An indicator that the cardholder is being billed for a reserved
+                             * vehicle that was not actually rented (that is, a "no-show" charge).
+                             */
+                            fun noShowIndicator(noShowIndicator: NoShowIndicator) =
+                                noShowIndicator(JsonField.of(noShowIndicator))
+
+                            /**
+                             * An indicator that the cardholder is being billed for a reserved
+                             * vehicle that was not actually rented (that is, a "no-show" charge).
+                             */
+                            @JsonProperty("no_show_indicator")
+                            @ExcludeMissing
+                            fun noShowIndicator(noShowIndicator: JsonField<NoShowIndicator>) =
+                                apply {
+                                    this.noShowIndicator = noShowIndicator
+                                }
+
+                            /**
+                             * Date the customer picked up the car or, in the case of a no-show or
+                             * pre-pay transaction, the scheduled pick up date.
+                             */
+                            fun checkoutDate(checkoutDate: LocalDate) =
+                                checkoutDate(JsonField.of(checkoutDate))
+
+                            /**
+                             * Date the customer picked up the car or, in the case of a no-show or
+                             * pre-pay transaction, the scheduled pick up date.
+                             */
+                            @JsonProperty("checkout_date")
+                            @ExcludeMissing
+                            fun checkoutDate(checkoutDate: JsonField<LocalDate>) = apply {
+                                this.checkoutDate = checkoutDate
+                            }
+
+                            /** Daily rate being charged for the vehicle. */
+                            fun dailyRentalRateAmount(dailyRentalRateAmount: Long) =
+                                dailyRentalRateAmount(JsonField.of(dailyRentalRateAmount))
+
+                            /** Daily rate being charged for the vehicle. */
+                            @JsonProperty("daily_rental_rate_amount")
+                            @ExcludeMissing
+                            fun dailyRentalRateAmount(dailyRentalRateAmount: JsonField<Long>) =
+                                apply {
+                                    this.dailyRentalRateAmount = dailyRentalRateAmount
+                                }
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * daily rental rate.
+                             */
+                            fun dailyRentalRateCurrency(dailyRentalRateCurrency: String) =
+                                dailyRentalRateCurrency(JsonField.of(dailyRentalRateCurrency))
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * daily rental rate.
+                             */
+                            @JsonProperty("daily_rental_rate_currency")
+                            @ExcludeMissing
+                            fun dailyRentalRateCurrency(
+                                dailyRentalRateCurrency: JsonField<String>
+                            ) = apply { this.dailyRentalRateCurrency = dailyRentalRateCurrency }
+
+                            /** Weekly rate being charged for the vehicle. */
+                            fun weeklyRentalRateAmount(weeklyRentalRateAmount: Long) =
+                                weeklyRentalRateAmount(JsonField.of(weeklyRentalRateAmount))
+
+                            /** Weekly rate being charged for the vehicle. */
+                            @JsonProperty("weekly_rental_rate_amount")
+                            @ExcludeMissing
+                            fun weeklyRentalRateAmount(weeklyRentalRateAmount: JsonField<Long>) =
+                                apply {
+                                    this.weeklyRentalRateAmount = weeklyRentalRateAmount
+                                }
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * weekly rental rate.
+                             */
+                            fun weeklyRentalRateCurrency(weeklyRentalRateCurrency: String) =
+                                weeklyRentalRateCurrency(JsonField.of(weeklyRentalRateCurrency))
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * weekly rental rate.
+                             */
+                            @JsonProperty("weekly_rental_rate_currency")
+                            @ExcludeMissing
+                            fun weeklyRentalRateCurrency(
+                                weeklyRentalRateCurrency: JsonField<String>
+                            ) = apply { this.weeklyRentalRateCurrency = weeklyRentalRateCurrency }
+
+                            /** Any insurance being charged for the vehicle. */
+                            fun insuranceChargesAmount(insuranceChargesAmount: Long) =
+                                insuranceChargesAmount(JsonField.of(insuranceChargesAmount))
+
+                            /** Any insurance being charged for the vehicle. */
+                            @JsonProperty("insurance_charges_amount")
+                            @ExcludeMissing
+                            fun insuranceChargesAmount(insuranceChargesAmount: JsonField<Long>) =
+                                apply {
+                                    this.insuranceChargesAmount = insuranceChargesAmount
+                                }
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * insurance charges assessed.
+                             */
+                            fun insuranceChargesCurrency(insuranceChargesCurrency: String) =
+                                insuranceChargesCurrency(JsonField.of(insuranceChargesCurrency))
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * insurance charges assessed.
+                             */
+                            @JsonProperty("insurance_charges_currency")
+                            @ExcludeMissing
+                            fun insuranceChargesCurrency(
+                                insuranceChargesCurrency: JsonField<String>
+                            ) = apply { this.insuranceChargesCurrency = insuranceChargesCurrency }
+
+                            /** Fuel charges for the vehicle. */
+                            fun fuelChargesAmount(fuelChargesAmount: Long) =
+                                fuelChargesAmount(JsonField.of(fuelChargesAmount))
+
+                            /** Fuel charges for the vehicle. */
+                            @JsonProperty("fuel_charges_amount")
+                            @ExcludeMissing
+                            fun fuelChargesAmount(fuelChargesAmount: JsonField<Long>) = apply {
+                                this.fuelChargesAmount = fuelChargesAmount
+                            }
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * fuel charges assessed.
+                             */
+                            fun fuelChargesCurrency(fuelChargesCurrency: String) =
+                                fuelChargesCurrency(JsonField.of(fuelChargesCurrency))
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * fuel charges assessed.
+                             */
+                            @JsonProperty("fuel_charges_currency")
+                            @ExcludeMissing
+                            fun fuelChargesCurrency(fuelChargesCurrency: JsonField<String>) =
+                                apply {
+                                    this.fuelChargesCurrency = fuelChargesCurrency
+                                }
+
+                            /**
+                             * Charges for returning the vehicle at a different location than where
+                             * it was picked up.
+                             */
+                            fun oneWayDropOffChargesAmount(oneWayDropOffChargesAmount: Long) =
+                                oneWayDropOffChargesAmount(JsonField.of(oneWayDropOffChargesAmount))
+
+                            /**
+                             * Charges for returning the vehicle at a different location than where
+                             * it was picked up.
+                             */
+                            @JsonProperty("one_way_drop_off_charges_amount")
+                            @ExcludeMissing
+                            fun oneWayDropOffChargesAmount(
+                                oneWayDropOffChargesAmount: JsonField<Long>
+                            ) = apply {
+                                this.oneWayDropOffChargesAmount = oneWayDropOffChargesAmount
+                            }
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * one-way drop-off charges assessed.
+                             */
+                            fun oneWayDropOffChargesCurrency(oneWayDropOffChargesCurrency: String) =
+                                oneWayDropOffChargesCurrency(
+                                    JsonField.of(oneWayDropOffChargesCurrency)
+                                )
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * one-way drop-off charges assessed.
+                             */
+                            @JsonProperty("one_way_drop_off_charges_currency")
+                            @ExcludeMissing
+                            fun oneWayDropOffChargesCurrency(
+                                oneWayDropOffChargesCurrency: JsonField<String>
+                            ) = apply {
+                                this.oneWayDropOffChargesCurrency = oneWayDropOffChargesCurrency
+                            }
+
+                            /** Code indicating the vehicle's class. */
+                            fun carClassCode(carClassCode: String) =
+                                carClassCode(JsonField.of(carClassCode))
+
+                            /** Code indicating the vehicle's class. */
+                            @JsonProperty("car_class_code")
+                            @ExcludeMissing
+                            fun carClassCode(carClassCode: JsonField<String>) = apply {
+                                this.carClassCode = carClassCode
+                            }
+
+                            /** Name of the person renting the vehicle. */
+                            fun renterName(renterName: String) =
+                                renterName(JsonField.of(renterName))
+
+                            /** Name of the person renting the vehicle. */
+                            @JsonProperty("renter_name")
+                            @ExcludeMissing
+                            fun renterName(renterName: JsonField<String>) = apply {
+                                this.renterName = renterName
+                            }
+
+                            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                                apply {
+                                    this.additionalProperties.clear()
+                                    this.additionalProperties.putAll(additionalProperties)
+                                }
+
+                            @JsonAnySetter
+                            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                                this.additionalProperties.put(key, value)
+                            }
+
+                            fun putAllAdditionalProperties(
+                                additionalProperties: Map<String, JsonValue>
+                            ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                            fun build(): CarRental =
+                                CarRental(
+                                    extraCharges,
+                                    daysRented,
+                                    noShowIndicator,
+                                    checkoutDate,
+                                    dailyRentalRateAmount,
+                                    dailyRentalRateCurrency,
+                                    weeklyRentalRateAmount,
+                                    weeklyRentalRateCurrency,
+                                    insuranceChargesAmount,
+                                    insuranceChargesCurrency,
+                                    fuelChargesAmount,
+                                    fuelChargesCurrency,
+                                    oneWayDropOffChargesAmount,
+                                    oneWayDropOffChargesCurrency,
+                                    carClassCode,
+                                    renterName,
+                                    additionalProperties.toUnmodifiable(),
+                                )
+                        }
+
+                        class ExtraCharges
+                        @JsonCreator
+                        private constructor(
+                            private val value: JsonField<String>,
+                        ) {
+
+                            @com.fasterxml.jackson.annotation.JsonValue
+                            fun _value(): JsonField<String> = value
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is ExtraCharges && this.value == other.value
+                            }
+
+                            override fun hashCode() = value.hashCode()
+
+                            override fun toString() = value.toString()
+
+                            companion object {
+
+                                @JvmField
+                                val NO_EXTRA_CHARGE = ExtraCharges(JsonField.of("no_extra_charge"))
+
+                                @JvmField val GAS = ExtraCharges(JsonField.of("gas"))
+
+                                @JvmField
+                                val EXTRA_MILEAGE = ExtraCharges(JsonField.of("extra_mileage"))
+
+                                @JvmField
+                                val LATE_RETURN = ExtraCharges(JsonField.of("late_return"))
+
+                                @JvmField
+                                val ONE_WAY_SERVICE_FEE =
+                                    ExtraCharges(JsonField.of("one_way_service_fee"))
+
+                                @JvmField
+                                val PARKING_VIOLATION =
+                                    ExtraCharges(JsonField.of("parking_violation"))
+
+                                @JvmStatic fun of(value: String) = ExtraCharges(JsonField.of(value))
+                            }
+
+                            enum class Known {
+                                NO_EXTRA_CHARGE,
+                                GAS,
+                                EXTRA_MILEAGE,
+                                LATE_RETURN,
+                                ONE_WAY_SERVICE_FEE,
+                                PARKING_VIOLATION,
+                            }
+
+                            enum class Value {
+                                NO_EXTRA_CHARGE,
+                                GAS,
+                                EXTRA_MILEAGE,
+                                LATE_RETURN,
+                                ONE_WAY_SERVICE_FEE,
+                                PARKING_VIOLATION,
+                                _UNKNOWN,
+                            }
+
+                            fun value(): Value =
+                                when (this) {
+                                    NO_EXTRA_CHARGE -> Value.NO_EXTRA_CHARGE
+                                    GAS -> Value.GAS
+                                    EXTRA_MILEAGE -> Value.EXTRA_MILEAGE
+                                    LATE_RETURN -> Value.LATE_RETURN
+                                    ONE_WAY_SERVICE_FEE -> Value.ONE_WAY_SERVICE_FEE
+                                    PARKING_VIOLATION -> Value.PARKING_VIOLATION
+                                    else -> Value._UNKNOWN
+                                }
+
+                            fun known(): Known =
+                                when (this) {
+                                    NO_EXTRA_CHARGE -> Known.NO_EXTRA_CHARGE
+                                    GAS -> Known.GAS
+                                    EXTRA_MILEAGE -> Known.EXTRA_MILEAGE
+                                    LATE_RETURN -> Known.LATE_RETURN
+                                    ONE_WAY_SERVICE_FEE -> Known.ONE_WAY_SERVICE_FEE
+                                    PARKING_VIOLATION -> Known.PARKING_VIOLATION
+                                    else ->
+                                        throw IncreaseInvalidDataException(
+                                            "Unknown ExtraCharges: $value"
+                                        )
+                                }
+
+                            fun asString(): String = _value().asStringOrThrow()
+                        }
+
+                        class NoShowIndicator
+                        @JsonCreator
+                        private constructor(
+                            private val value: JsonField<String>,
+                        ) {
+
+                            @com.fasterxml.jackson.annotation.JsonValue
+                            fun _value(): JsonField<String> = value
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is NoShowIndicator && this.value == other.value
+                            }
+
+                            override fun hashCode() = value.hashCode()
+
+                            override fun toString() = value.toString()
+
+                            companion object {
+
+                                @JvmField
+                                val NOT_APPLICABLE = NoShowIndicator(JsonField.of("not_applicable"))
+
+                                @JvmField
+                                val NO_SHOW_FOR_SPECIALIZED_VEHICLE =
+                                    NoShowIndicator(JsonField.of("no_show_for_specialized_vehicle"))
+
+                                @JvmStatic
+                                fun of(value: String) = NoShowIndicator(JsonField.of(value))
+                            }
+
+                            enum class Known {
+                                NOT_APPLICABLE,
+                                NO_SHOW_FOR_SPECIALIZED_VEHICLE,
+                            }
+
+                            enum class Value {
+                                NOT_APPLICABLE,
+                                NO_SHOW_FOR_SPECIALIZED_VEHICLE,
+                                _UNKNOWN,
+                            }
+
+                            fun value(): Value =
+                                when (this) {
+                                    NOT_APPLICABLE -> Value.NOT_APPLICABLE
+                                    NO_SHOW_FOR_SPECIALIZED_VEHICLE ->
+                                        Value.NO_SHOW_FOR_SPECIALIZED_VEHICLE
+                                    else -> Value._UNKNOWN
+                                }
+
+                            fun known(): Known =
+                                when (this) {
+                                    NOT_APPLICABLE -> Known.NOT_APPLICABLE
+                                    NO_SHOW_FOR_SPECIALIZED_VEHICLE ->
+                                        Known.NO_SHOW_FOR_SPECIALIZED_VEHICLE
+                                    else ->
+                                        throw IncreaseInvalidDataException(
+                                            "Unknown NoShowIndicator: $value"
+                                        )
+                                }
+
+                            fun asString(): String = _value().asStringOrThrow()
+                        }
+                    }
+
+                    /** Fields specific to lodging. */
+                    @JsonDeserialize(builder = Lodging.Builder::class)
+                    @NoAutoDetect
+                    class Lodging
+                    private constructor(
+                        private val noShowIndicator: JsonField<NoShowIndicator>,
+                        private val extraCharges: JsonField<ExtraCharges>,
+                        private val checkInDate: JsonField<LocalDate>,
+                        private val dailyRoomRateAmount: JsonField<Long>,
+                        private val dailyRoomRateCurrency: JsonField<String>,
+                        private val totalTaxAmount: JsonField<Long>,
+                        private val totalTaxCurrency: JsonField<String>,
+                        private val prepaidExpensesAmount: JsonField<Long>,
+                        private val prepaidExpensesCurrency: JsonField<String>,
+                        private val foodBeverageChargesAmount: JsonField<Long>,
+                        private val foodBeverageChargesCurrency: JsonField<String>,
+                        private val folioCashAdvancesAmount: JsonField<Long>,
+                        private val folioCashAdvancesCurrency: JsonField<String>,
+                        private val roomNights: JsonField<Long>,
+                        private val totalRoomTaxAmount: JsonField<Long>,
+                        private val totalRoomTaxCurrency: JsonField<String>,
+                        private val additionalProperties: Map<String, JsonValue>,
+                    ) {
+
+                        private var validated: Boolean = false
+
+                        private var hashCode: Int = 0
+
+                        /**
+                         * Indicator that the cardholder is being billed for a reserved room that
+                         * was not actually used.
+                         */
+                        fun noShowIndicator(): Optional<NoShowIndicator> =
+                            Optional.ofNullable(noShowIndicator.getNullable("no_show_indicator"))
+
+                        /** Additional charges (phone, late check-out, etc.) being billed. */
+                        fun extraCharges(): Optional<ExtraCharges> =
+                            Optional.ofNullable(extraCharges.getNullable("extra_charges"))
+
+                        /** Date the customer checked in. */
+                        fun checkInDate(): Optional<LocalDate> =
+                            Optional.ofNullable(checkInDate.getNullable("check_in_date"))
+
+                        /** Daily rate being charged for the room. */
+                        fun dailyRoomRateAmount(): Optional<Long> =
+                            Optional.ofNullable(
+                                dailyRoomRateAmount.getNullable("daily_room_rate_amount")
+                            )
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the daily
+                         * room rate.
+                         */
+                        fun dailyRoomRateCurrency(): Optional<String> =
+                            Optional.ofNullable(
+                                dailyRoomRateCurrency.getNullable("daily_room_rate_currency")
+                            )
+
+                        /** Total tax being charged for the room. */
+                        fun totalTaxAmount(): Optional<Long> =
+                            Optional.ofNullable(totalTaxAmount.getNullable("total_tax_amount"))
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total
+                         * tax assessed.
+                         */
+                        fun totalTaxCurrency(): Optional<String> =
+                            Optional.ofNullable(totalTaxCurrency.getNullable("total_tax_currency"))
+
+                        /** Prepaid expenses being charged for the room. */
+                        fun prepaidExpensesAmount(): Optional<Long> =
+                            Optional.ofNullable(
+                                prepaidExpensesAmount.getNullable("prepaid_expenses_amount")
+                            )
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                         * prepaid expenses.
+                         */
+                        fun prepaidExpensesCurrency(): Optional<String> =
+                            Optional.ofNullable(
+                                prepaidExpensesCurrency.getNullable("prepaid_expenses_currency")
+                            )
+
+                        /** Food and beverage charges for the room. */
+                        fun foodBeverageChargesAmount(): Optional<Long> =
+                            Optional.ofNullable(
+                                foodBeverageChargesAmount.getNullable(
+                                    "food_beverage_charges_amount"
+                                )
+                            )
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the foor
+                         * and beverage charges.
+                         */
+                        fun foodBeverageChargesCurrency(): Optional<String> =
+                            Optional.ofNullable(
+                                foodBeverageChargesCurrency.getNullable(
+                                    "food_beverage_charges_currency"
+                                )
+                            )
+
+                        /** Folio cash advances for the room. */
+                        fun folioCashAdvancesAmount(): Optional<Long> =
+                            Optional.ofNullable(
+                                folioCashAdvancesAmount.getNullable("folio_cash_advances_amount")
+                            )
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the folio
+                         * cash advances.
+                         */
+                        fun folioCashAdvancesCurrency(): Optional<String> =
+                            Optional.ofNullable(
+                                folioCashAdvancesCurrency.getNullable(
+                                    "folio_cash_advances_currency"
+                                )
+                            )
+
+                        /** Number of nights the room was rented. */
+                        fun roomNights(): Optional<Long> =
+                            Optional.ofNullable(roomNights.getNullable("room_nights"))
+
+                        /** Total room tax being charged. */
+                        fun totalRoomTaxAmount(): Optional<Long> =
+                            Optional.ofNullable(
+                                totalRoomTaxAmount.getNullable("total_room_tax_amount")
+                            )
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total
+                         * room tax.
+                         */
+                        fun totalRoomTaxCurrency(): Optional<String> =
+                            Optional.ofNullable(
+                                totalRoomTaxCurrency.getNullable("total_room_tax_currency")
+                            )
+
+                        /**
+                         * Indicator that the cardholder is being billed for a reserved room that
+                         * was not actually used.
+                         */
+                        @JsonProperty("no_show_indicator")
+                        @ExcludeMissing
+                        fun _noShowIndicator() = noShowIndicator
+
+                        /** Additional charges (phone, late check-out, etc.) being billed. */
+                        @JsonProperty("extra_charges")
+                        @ExcludeMissing
+                        fun _extraCharges() = extraCharges
+
+                        /** Date the customer checked in. */
+                        @JsonProperty("check_in_date")
+                        @ExcludeMissing
+                        fun _checkInDate() = checkInDate
+
+                        /** Daily rate being charged for the room. */
+                        @JsonProperty("daily_room_rate_amount")
+                        @ExcludeMissing
+                        fun _dailyRoomRateAmount() = dailyRoomRateAmount
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the daily
+                         * room rate.
+                         */
+                        @JsonProperty("daily_room_rate_currency")
+                        @ExcludeMissing
+                        fun _dailyRoomRateCurrency() = dailyRoomRateCurrency
+
+                        /** Total tax being charged for the room. */
+                        @JsonProperty("total_tax_amount")
+                        @ExcludeMissing
+                        fun _totalTaxAmount() = totalTaxAmount
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total
+                         * tax assessed.
+                         */
+                        @JsonProperty("total_tax_currency")
+                        @ExcludeMissing
+                        fun _totalTaxCurrency() = totalTaxCurrency
+
+                        /** Prepaid expenses being charged for the room. */
+                        @JsonProperty("prepaid_expenses_amount")
+                        @ExcludeMissing
+                        fun _prepaidExpensesAmount() = prepaidExpensesAmount
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                         * prepaid expenses.
+                         */
+                        @JsonProperty("prepaid_expenses_currency")
+                        @ExcludeMissing
+                        fun _prepaidExpensesCurrency() = prepaidExpensesCurrency
+
+                        /** Food and beverage charges for the room. */
+                        @JsonProperty("food_beverage_charges_amount")
+                        @ExcludeMissing
+                        fun _foodBeverageChargesAmount() = foodBeverageChargesAmount
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the foor
+                         * and beverage charges.
+                         */
+                        @JsonProperty("food_beverage_charges_currency")
+                        @ExcludeMissing
+                        fun _foodBeverageChargesCurrency() = foodBeverageChargesCurrency
+
+                        /** Folio cash advances for the room. */
+                        @JsonProperty("folio_cash_advances_amount")
+                        @ExcludeMissing
+                        fun _folioCashAdvancesAmount() = folioCashAdvancesAmount
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the folio
+                         * cash advances.
+                         */
+                        @JsonProperty("folio_cash_advances_currency")
+                        @ExcludeMissing
+                        fun _folioCashAdvancesCurrency() = folioCashAdvancesCurrency
+
+                        /** Number of nights the room was rented. */
+                        @JsonProperty("room_nights") @ExcludeMissing fun _roomNights() = roomNights
+
+                        /** Total room tax being charged. */
+                        @JsonProperty("total_room_tax_amount")
+                        @ExcludeMissing
+                        fun _totalRoomTaxAmount() = totalRoomTaxAmount
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total
+                         * room tax.
+                         */
+                        @JsonProperty("total_room_tax_currency")
+                        @ExcludeMissing
+                        fun _totalRoomTaxCurrency() = totalRoomTaxCurrency
+
+                        @JsonAnyGetter
+                        @ExcludeMissing
+                        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                        fun validate(): Lodging = apply {
+                            if (!validated) {
+                                noShowIndicator()
+                                extraCharges()
+                                checkInDate()
+                                dailyRoomRateAmount()
+                                dailyRoomRateCurrency()
+                                totalTaxAmount()
+                                totalTaxCurrency()
+                                prepaidExpensesAmount()
+                                prepaidExpensesCurrency()
+                                foodBeverageChargesAmount()
+                                foodBeverageChargesCurrency()
+                                folioCashAdvancesAmount()
+                                folioCashAdvancesCurrency()
+                                roomNights()
+                                totalRoomTaxAmount()
+                                totalRoomTaxCurrency()
+                                validated = true
+                            }
+                        }
+
+                        fun toBuilder() = Builder().from(this)
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is Lodging &&
+                                this.noShowIndicator == other.noShowIndicator &&
+                                this.extraCharges == other.extraCharges &&
+                                this.checkInDate == other.checkInDate &&
+                                this.dailyRoomRateAmount == other.dailyRoomRateAmount &&
+                                this.dailyRoomRateCurrency == other.dailyRoomRateCurrency &&
+                                this.totalTaxAmount == other.totalTaxAmount &&
+                                this.totalTaxCurrency == other.totalTaxCurrency &&
+                                this.prepaidExpensesAmount == other.prepaidExpensesAmount &&
+                                this.prepaidExpensesCurrency == other.prepaidExpensesCurrency &&
+                                this.foodBeverageChargesAmount == other.foodBeverageChargesAmount &&
+                                this.foodBeverageChargesCurrency ==
+                                    other.foodBeverageChargesCurrency &&
+                                this.folioCashAdvancesAmount == other.folioCashAdvancesAmount &&
+                                this.folioCashAdvancesCurrency == other.folioCashAdvancesCurrency &&
+                                this.roomNights == other.roomNights &&
+                                this.totalRoomTaxAmount == other.totalRoomTaxAmount &&
+                                this.totalRoomTaxCurrency == other.totalRoomTaxCurrency &&
+                                this.additionalProperties == other.additionalProperties
+                        }
+
+                        override fun hashCode(): Int {
+                            if (hashCode == 0) {
+                                hashCode =
+                                    Objects.hash(
+                                        noShowIndicator,
+                                        extraCharges,
+                                        checkInDate,
+                                        dailyRoomRateAmount,
+                                        dailyRoomRateCurrency,
+                                        totalTaxAmount,
+                                        totalTaxCurrency,
+                                        prepaidExpensesAmount,
+                                        prepaidExpensesCurrency,
+                                        foodBeverageChargesAmount,
+                                        foodBeverageChargesCurrency,
+                                        folioCashAdvancesAmount,
+                                        folioCashAdvancesCurrency,
+                                        roomNights,
+                                        totalRoomTaxAmount,
+                                        totalRoomTaxCurrency,
+                                        additionalProperties,
+                                    )
+                            }
+                            return hashCode
+                        }
+
+                        override fun toString() =
+                            "Lodging{noShowIndicator=$noShowIndicator, extraCharges=$extraCharges, checkInDate=$checkInDate, dailyRoomRateAmount=$dailyRoomRateAmount, dailyRoomRateCurrency=$dailyRoomRateCurrency, totalTaxAmount=$totalTaxAmount, totalTaxCurrency=$totalTaxCurrency, prepaidExpensesAmount=$prepaidExpensesAmount, prepaidExpensesCurrency=$prepaidExpensesCurrency, foodBeverageChargesAmount=$foodBeverageChargesAmount, foodBeverageChargesCurrency=$foodBeverageChargesCurrency, folioCashAdvancesAmount=$folioCashAdvancesAmount, folioCashAdvancesCurrency=$folioCashAdvancesCurrency, roomNights=$roomNights, totalRoomTaxAmount=$totalRoomTaxAmount, totalRoomTaxCurrency=$totalRoomTaxCurrency, additionalProperties=$additionalProperties}"
+
+                        companion object {
+
+                            @JvmStatic fun builder() = Builder()
+                        }
+
+                        class Builder {
+
+                            private var noShowIndicator: JsonField<NoShowIndicator> =
+                                JsonMissing.of()
+                            private var extraCharges: JsonField<ExtraCharges> = JsonMissing.of()
+                            private var checkInDate: JsonField<LocalDate> = JsonMissing.of()
+                            private var dailyRoomRateAmount: JsonField<Long> = JsonMissing.of()
+                            private var dailyRoomRateCurrency: JsonField<String> = JsonMissing.of()
+                            private var totalTaxAmount: JsonField<Long> = JsonMissing.of()
+                            private var totalTaxCurrency: JsonField<String> = JsonMissing.of()
+                            private var prepaidExpensesAmount: JsonField<Long> = JsonMissing.of()
+                            private var prepaidExpensesCurrency: JsonField<String> =
+                                JsonMissing.of()
+                            private var foodBeverageChargesAmount: JsonField<Long> =
+                                JsonMissing.of()
+                            private var foodBeverageChargesCurrency: JsonField<String> =
+                                JsonMissing.of()
+                            private var folioCashAdvancesAmount: JsonField<Long> = JsonMissing.of()
+                            private var folioCashAdvancesCurrency: JsonField<String> =
+                                JsonMissing.of()
+                            private var roomNights: JsonField<Long> = JsonMissing.of()
+                            private var totalRoomTaxAmount: JsonField<Long> = JsonMissing.of()
+                            private var totalRoomTaxCurrency: JsonField<String> = JsonMissing.of()
+                            private var additionalProperties: MutableMap<String, JsonValue> =
+                                mutableMapOf()
+
+                            @JvmSynthetic
+                            internal fun from(lodging: Lodging) = apply {
+                                this.noShowIndicator = lodging.noShowIndicator
+                                this.extraCharges = lodging.extraCharges
+                                this.checkInDate = lodging.checkInDate
+                                this.dailyRoomRateAmount = lodging.dailyRoomRateAmount
+                                this.dailyRoomRateCurrency = lodging.dailyRoomRateCurrency
+                                this.totalTaxAmount = lodging.totalTaxAmount
+                                this.totalTaxCurrency = lodging.totalTaxCurrency
+                                this.prepaidExpensesAmount = lodging.prepaidExpensesAmount
+                                this.prepaidExpensesCurrency = lodging.prepaidExpensesCurrency
+                                this.foodBeverageChargesAmount = lodging.foodBeverageChargesAmount
+                                this.foodBeverageChargesCurrency =
+                                    lodging.foodBeverageChargesCurrency
+                                this.folioCashAdvancesAmount = lodging.folioCashAdvancesAmount
+                                this.folioCashAdvancesCurrency = lodging.folioCashAdvancesCurrency
+                                this.roomNights = lodging.roomNights
+                                this.totalRoomTaxAmount = lodging.totalRoomTaxAmount
+                                this.totalRoomTaxCurrency = lodging.totalRoomTaxCurrency
+                                additionalProperties(lodging.additionalProperties)
+                            }
+
+                            /**
+                             * Indicator that the cardholder is being billed for a reserved room
+                             * that was not actually used.
+                             */
+                            fun noShowIndicator(noShowIndicator: NoShowIndicator) =
+                                noShowIndicator(JsonField.of(noShowIndicator))
+
+                            /**
+                             * Indicator that the cardholder is being billed for a reserved room
+                             * that was not actually used.
+                             */
+                            @JsonProperty("no_show_indicator")
+                            @ExcludeMissing
+                            fun noShowIndicator(noShowIndicator: JsonField<NoShowIndicator>) =
+                                apply {
+                                    this.noShowIndicator = noShowIndicator
+                                }
+
+                            /** Additional charges (phone, late check-out, etc.) being billed. */
+                            fun extraCharges(extraCharges: ExtraCharges) =
+                                extraCharges(JsonField.of(extraCharges))
+
+                            /** Additional charges (phone, late check-out, etc.) being billed. */
+                            @JsonProperty("extra_charges")
+                            @ExcludeMissing
+                            fun extraCharges(extraCharges: JsonField<ExtraCharges>) = apply {
+                                this.extraCharges = extraCharges
+                            }
+
+                            /** Date the customer checked in. */
+                            fun checkInDate(checkInDate: LocalDate) =
+                                checkInDate(JsonField.of(checkInDate))
+
+                            /** Date the customer checked in. */
+                            @JsonProperty("check_in_date")
+                            @ExcludeMissing
+                            fun checkInDate(checkInDate: JsonField<LocalDate>) = apply {
+                                this.checkInDate = checkInDate
+                            }
+
+                            /** Daily rate being charged for the room. */
+                            fun dailyRoomRateAmount(dailyRoomRateAmount: Long) =
+                                dailyRoomRateAmount(JsonField.of(dailyRoomRateAmount))
+
+                            /** Daily rate being charged for the room. */
+                            @JsonProperty("daily_room_rate_amount")
+                            @ExcludeMissing
+                            fun dailyRoomRateAmount(dailyRoomRateAmount: JsonField<Long>) = apply {
+                                this.dailyRoomRateAmount = dailyRoomRateAmount
+                            }
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * daily room rate.
+                             */
+                            fun dailyRoomRateCurrency(dailyRoomRateCurrency: String) =
+                                dailyRoomRateCurrency(JsonField.of(dailyRoomRateCurrency))
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * daily room rate.
+                             */
+                            @JsonProperty("daily_room_rate_currency")
+                            @ExcludeMissing
+                            fun dailyRoomRateCurrency(dailyRoomRateCurrency: JsonField<String>) =
+                                apply {
+                                    this.dailyRoomRateCurrency = dailyRoomRateCurrency
+                                }
+
+                            /** Total tax being charged for the room. */
+                            fun totalTaxAmount(totalTaxAmount: Long) =
+                                totalTaxAmount(JsonField.of(totalTaxAmount))
+
+                            /** Total tax being charged for the room. */
+                            @JsonProperty("total_tax_amount")
+                            @ExcludeMissing
+                            fun totalTaxAmount(totalTaxAmount: JsonField<Long>) = apply {
+                                this.totalTaxAmount = totalTaxAmount
+                            }
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * total tax assessed.
+                             */
+                            fun totalTaxCurrency(totalTaxCurrency: String) =
+                                totalTaxCurrency(JsonField.of(totalTaxCurrency))
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * total tax assessed.
+                             */
+                            @JsonProperty("total_tax_currency")
+                            @ExcludeMissing
+                            fun totalTaxCurrency(totalTaxCurrency: JsonField<String>) = apply {
+                                this.totalTaxCurrency = totalTaxCurrency
+                            }
+
+                            /** Prepaid expenses being charged for the room. */
+                            fun prepaidExpensesAmount(prepaidExpensesAmount: Long) =
+                                prepaidExpensesAmount(JsonField.of(prepaidExpensesAmount))
+
+                            /** Prepaid expenses being charged for the room. */
+                            @JsonProperty("prepaid_expenses_amount")
+                            @ExcludeMissing
+                            fun prepaidExpensesAmount(prepaidExpensesAmount: JsonField<Long>) =
+                                apply {
+                                    this.prepaidExpensesAmount = prepaidExpensesAmount
+                                }
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * prepaid expenses.
+                             */
+                            fun prepaidExpensesCurrency(prepaidExpensesCurrency: String) =
+                                prepaidExpensesCurrency(JsonField.of(prepaidExpensesCurrency))
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * prepaid expenses.
+                             */
+                            @JsonProperty("prepaid_expenses_currency")
+                            @ExcludeMissing
+                            fun prepaidExpensesCurrency(
+                                prepaidExpensesCurrency: JsonField<String>
+                            ) = apply { this.prepaidExpensesCurrency = prepaidExpensesCurrency }
+
+                            /** Food and beverage charges for the room. */
+                            fun foodBeverageChargesAmount(foodBeverageChargesAmount: Long) =
+                                foodBeverageChargesAmount(JsonField.of(foodBeverageChargesAmount))
+
+                            /** Food and beverage charges for the room. */
+                            @JsonProperty("food_beverage_charges_amount")
+                            @ExcludeMissing
+                            fun foodBeverageChargesAmount(
+                                foodBeverageChargesAmount: JsonField<Long>
+                            ) = apply { this.foodBeverageChargesAmount = foodBeverageChargesAmount }
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * foor and beverage charges.
+                             */
+                            fun foodBeverageChargesCurrency(foodBeverageChargesCurrency: String) =
+                                foodBeverageChargesCurrency(
+                                    JsonField.of(foodBeverageChargesCurrency)
+                                )
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * foor and beverage charges.
+                             */
+                            @JsonProperty("food_beverage_charges_currency")
+                            @ExcludeMissing
+                            fun foodBeverageChargesCurrency(
+                                foodBeverageChargesCurrency: JsonField<String>
+                            ) = apply {
+                                this.foodBeverageChargesCurrency = foodBeverageChargesCurrency
+                            }
+
+                            /** Folio cash advances for the room. */
+                            fun folioCashAdvancesAmount(folioCashAdvancesAmount: Long) =
+                                folioCashAdvancesAmount(JsonField.of(folioCashAdvancesAmount))
+
+                            /** Folio cash advances for the room. */
+                            @JsonProperty("folio_cash_advances_amount")
+                            @ExcludeMissing
+                            fun folioCashAdvancesAmount(folioCashAdvancesAmount: JsonField<Long>) =
+                                apply {
+                                    this.folioCashAdvancesAmount = folioCashAdvancesAmount
+                                }
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * folio cash advances.
+                             */
+                            fun folioCashAdvancesCurrency(folioCashAdvancesCurrency: String) =
+                                folioCashAdvancesCurrency(JsonField.of(folioCashAdvancesCurrency))
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * folio cash advances.
+                             */
+                            @JsonProperty("folio_cash_advances_currency")
+                            @ExcludeMissing
+                            fun folioCashAdvancesCurrency(
+                                folioCashAdvancesCurrency: JsonField<String>
+                            ) = apply { this.folioCashAdvancesCurrency = folioCashAdvancesCurrency }
+
+                            /** Number of nights the room was rented. */
+                            fun roomNights(roomNights: Long) = roomNights(JsonField.of(roomNights))
+
+                            /** Number of nights the room was rented. */
+                            @JsonProperty("room_nights")
+                            @ExcludeMissing
+                            fun roomNights(roomNights: JsonField<Long>) = apply {
+                                this.roomNights = roomNights
+                            }
+
+                            /** Total room tax being charged. */
+                            fun totalRoomTaxAmount(totalRoomTaxAmount: Long) =
+                                totalRoomTaxAmount(JsonField.of(totalRoomTaxAmount))
+
+                            /** Total room tax being charged. */
+                            @JsonProperty("total_room_tax_amount")
+                            @ExcludeMissing
+                            fun totalRoomTaxAmount(totalRoomTaxAmount: JsonField<Long>) = apply {
+                                this.totalRoomTaxAmount = totalRoomTaxAmount
+                            }
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * total room tax.
+                             */
+                            fun totalRoomTaxCurrency(totalRoomTaxCurrency: String) =
+                                totalRoomTaxCurrency(JsonField.of(totalRoomTaxCurrency))
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * total room tax.
+                             */
+                            @JsonProperty("total_room_tax_currency")
+                            @ExcludeMissing
+                            fun totalRoomTaxCurrency(totalRoomTaxCurrency: JsonField<String>) =
+                                apply {
+                                    this.totalRoomTaxCurrency = totalRoomTaxCurrency
+                                }
+
+                            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                                apply {
+                                    this.additionalProperties.clear()
+                                    this.additionalProperties.putAll(additionalProperties)
+                                }
+
+                            @JsonAnySetter
+                            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                                this.additionalProperties.put(key, value)
+                            }
+
+                            fun putAllAdditionalProperties(
+                                additionalProperties: Map<String, JsonValue>
+                            ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                            fun build(): Lodging =
+                                Lodging(
+                                    noShowIndicator,
+                                    extraCharges,
+                                    checkInDate,
+                                    dailyRoomRateAmount,
+                                    dailyRoomRateCurrency,
+                                    totalTaxAmount,
+                                    totalTaxCurrency,
+                                    prepaidExpensesAmount,
+                                    prepaidExpensesCurrency,
+                                    foodBeverageChargesAmount,
+                                    foodBeverageChargesCurrency,
+                                    folioCashAdvancesAmount,
+                                    folioCashAdvancesCurrency,
+                                    roomNights,
+                                    totalRoomTaxAmount,
+                                    totalRoomTaxCurrency,
+                                    additionalProperties.toUnmodifiable(),
+                                )
+                        }
+
+                        class NoShowIndicator
+                        @JsonCreator
+                        private constructor(
+                            private val value: JsonField<String>,
+                        ) {
+
+                            @com.fasterxml.jackson.annotation.JsonValue
+                            fun _value(): JsonField<String> = value
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is NoShowIndicator && this.value == other.value
+                            }
+
+                            override fun hashCode() = value.hashCode()
+
+                            override fun toString() = value.toString()
+
+                            companion object {
+
+                                @JvmField
+                                val NOT_APPLICABLE = NoShowIndicator(JsonField.of("not_applicable"))
+
+                                @JvmField val NO_SHOW = NoShowIndicator(JsonField.of("no_show"))
+
+                                @JvmStatic
+                                fun of(value: String) = NoShowIndicator(JsonField.of(value))
+                            }
+
+                            enum class Known {
+                                NOT_APPLICABLE,
+                                NO_SHOW,
+                            }
+
+                            enum class Value {
+                                NOT_APPLICABLE,
+                                NO_SHOW,
+                                _UNKNOWN,
+                            }
+
+                            fun value(): Value =
+                                when (this) {
+                                    NOT_APPLICABLE -> Value.NOT_APPLICABLE
+                                    NO_SHOW -> Value.NO_SHOW
+                                    else -> Value._UNKNOWN
+                                }
+
+                            fun known(): Known =
+                                when (this) {
+                                    NOT_APPLICABLE -> Known.NOT_APPLICABLE
+                                    NO_SHOW -> Known.NO_SHOW
+                                    else ->
+                                        throw IncreaseInvalidDataException(
+                                            "Unknown NoShowIndicator: $value"
+                                        )
+                                }
+
+                            fun asString(): String = _value().asStringOrThrow()
+                        }
+
+                        class ExtraCharges
+                        @JsonCreator
+                        private constructor(
+                            private val value: JsonField<String>,
+                        ) {
+
+                            @com.fasterxml.jackson.annotation.JsonValue
+                            fun _value(): JsonField<String> = value
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is ExtraCharges && this.value == other.value
+                            }
+
+                            override fun hashCode() = value.hashCode()
+
+                            override fun toString() = value.toString()
+
+                            companion object {
+
+                                @JvmField
+                                val NO_EXTRA_CHARGE = ExtraCharges(JsonField.of("no_extra_charge"))
+
+                                @JvmField val RESTAURANT = ExtraCharges(JsonField.of("restaurant"))
+
+                                @JvmField val GIFT_SHOP = ExtraCharges(JsonField.of("gift_shop"))
+
+                                @JvmField val MINI_BAR = ExtraCharges(JsonField.of("mini_bar"))
+
+                                @JvmField val TELEPHONE = ExtraCharges(JsonField.of("telephone"))
+
+                                @JvmField val OTHER = ExtraCharges(JsonField.of("other"))
+
+                                @JvmField val LAUNDRY = ExtraCharges(JsonField.of("laundry"))
+
+                                @JvmStatic fun of(value: String) = ExtraCharges(JsonField.of(value))
+                            }
+
+                            enum class Known {
+                                NO_EXTRA_CHARGE,
+                                RESTAURANT,
+                                GIFT_SHOP,
+                                MINI_BAR,
+                                TELEPHONE,
+                                OTHER,
+                                LAUNDRY,
+                            }
+
+                            enum class Value {
+                                NO_EXTRA_CHARGE,
+                                RESTAURANT,
+                                GIFT_SHOP,
+                                MINI_BAR,
+                                TELEPHONE,
+                                OTHER,
+                                LAUNDRY,
+                                _UNKNOWN,
+                            }
+
+                            fun value(): Value =
+                                when (this) {
+                                    NO_EXTRA_CHARGE -> Value.NO_EXTRA_CHARGE
+                                    RESTAURANT -> Value.RESTAURANT
+                                    GIFT_SHOP -> Value.GIFT_SHOP
+                                    MINI_BAR -> Value.MINI_BAR
+                                    TELEPHONE -> Value.TELEPHONE
+                                    OTHER -> Value.OTHER
+                                    LAUNDRY -> Value.LAUNDRY
+                                    else -> Value._UNKNOWN
+                                }
+
+                            fun known(): Known =
+                                when (this) {
+                                    NO_EXTRA_CHARGE -> Known.NO_EXTRA_CHARGE
+                                    RESTAURANT -> Known.RESTAURANT
+                                    GIFT_SHOP -> Known.GIFT_SHOP
+                                    MINI_BAR -> Known.MINI_BAR
+                                    TELEPHONE -> Known.TELEPHONE
+                                    OTHER -> Known.OTHER
+                                    LAUNDRY -> Known.LAUNDRY
+                                    else ->
+                                        throw IncreaseInvalidDataException(
+                                            "Unknown ExtraCharges: $value"
+                                        )
+                                }
+
+                            fun asString(): String = _value().asStringOrThrow()
+                        }
+                    }
+
+                    /** Fields specific to travel. */
+                    @JsonDeserialize(builder = Travel.Builder::class)
+                    @NoAutoDetect
+                    class Travel
+                    private constructor(
+                        private val ticketNumber: JsonField<String>,
+                        private val passengerName: JsonField<String>,
+                        private val departureDate: JsonField<LocalDate>,
+                        private val originationCityAirportCode: JsonField<String>,
+                        private val travelAgencyCode: JsonField<String>,
+                        private val travelAgencyName: JsonField<String>,
+                        private val restrictedTicketIndicator: JsonField<RestrictedTicketIndicator>,
+                        private val computerizedReservationSystem: JsonField<String>,
+                        private val creditReasonIndicator: JsonField<CreditReasonIndicator>,
+                        private val ticketChangeIndicator: JsonField<TicketChangeIndicator>,
+                        private val tripLegs: JsonField<List<TripLeg>>,
+                        private val ancillary: JsonField<Ancillary>,
+                        private val additionalProperties: Map<String, JsonValue>,
+                    ) {
+
+                        private var validated: Boolean = false
+
+                        private var hashCode: Int = 0
+
+                        /** Ticket number. */
+                        fun ticketNumber(): Optional<String> =
+                            Optional.ofNullable(ticketNumber.getNullable("ticket_number"))
+
+                        /** Name of the passenger. */
+                        fun passengerName(): Optional<String> =
+                            Optional.ofNullable(passengerName.getNullable("passenger_name"))
+
+                        /** Date of departure. */
+                        fun departureDate(): Optional<LocalDate> =
+                            Optional.ofNullable(departureDate.getNullable("departure_date"))
+
+                        /** Code for the originating city or airport. */
+                        fun originationCityAirportCode(): Optional<String> =
+                            Optional.ofNullable(
+                                originationCityAirportCode.getNullable(
+                                    "origination_city_airport_code"
+                                )
+                            )
+
+                        /**
+                         * Code for the travel agency if the ticket was issued by a travel agency.
+                         */
+                        fun travelAgencyCode(): Optional<String> =
+                            Optional.ofNullable(travelAgencyCode.getNullable("travel_agency_code"))
+
+                        /**
+                         * Name of the travel agency if the ticket was issued by a travel agency.
+                         */
+                        fun travelAgencyName(): Optional<String> =
+                            Optional.ofNullable(travelAgencyName.getNullable("travel_agency_name"))
+
+                        /** Indicates whether this ticket is non-refundable. */
+                        fun restrictedTicketIndicator(): Optional<RestrictedTicketIndicator> =
+                            Optional.ofNullable(
+                                restrictedTicketIndicator.getNullable("restricted_ticket_indicator")
+                            )
+
+                        /**
+                         * Indicates the computerized reservation system used to book the ticket.
+                         */
+                        fun computerizedReservationSystem(): Optional<String> =
+                            Optional.ofNullable(
+                                computerizedReservationSystem.getNullable(
+                                    "computerized_reservation_system"
+                                )
+                            )
+
+                        /** Indicates the reason for a credit to the cardholder. */
+                        fun creditReasonIndicator(): Optional<CreditReasonIndicator> =
+                            Optional.ofNullable(
+                                creditReasonIndicator.getNullable("credit_reason_indicator")
+                            )
+
+                        /** Indicates why a ticket was changed. */
+                        fun ticketChangeIndicator(): Optional<TicketChangeIndicator> =
+                            Optional.ofNullable(
+                                ticketChangeIndicator.getNullable("ticket_change_indicator")
+                            )
+
+                        /** Fields specific to each leg of the journey. */
+                        fun tripLegs(): Optional<List<TripLeg>> =
+                            Optional.ofNullable(tripLegs.getNullable("trip_legs"))
+
+                        /** Ancillary purchases in addition to the airfare. */
+                        fun ancillary(): Optional<Ancillary> =
+                            Optional.ofNullable(ancillary.getNullable("ancillary"))
+
+                        /** Ticket number. */
+                        @JsonProperty("ticket_number")
+                        @ExcludeMissing
+                        fun _ticketNumber() = ticketNumber
+
+                        /** Name of the passenger. */
+                        @JsonProperty("passenger_name")
+                        @ExcludeMissing
+                        fun _passengerName() = passengerName
+
+                        /** Date of departure. */
+                        @JsonProperty("departure_date")
+                        @ExcludeMissing
+                        fun _departureDate() = departureDate
+
+                        /** Code for the originating city or airport. */
+                        @JsonProperty("origination_city_airport_code")
+                        @ExcludeMissing
+                        fun _originationCityAirportCode() = originationCityAirportCode
+
+                        /**
+                         * Code for the travel agency if the ticket was issued by a travel agency.
+                         */
+                        @JsonProperty("travel_agency_code")
+                        @ExcludeMissing
+                        fun _travelAgencyCode() = travelAgencyCode
+
+                        /**
+                         * Name of the travel agency if the ticket was issued by a travel agency.
+                         */
+                        @JsonProperty("travel_agency_name")
+                        @ExcludeMissing
+                        fun _travelAgencyName() = travelAgencyName
+
+                        /** Indicates whether this ticket is non-refundable. */
+                        @JsonProperty("restricted_ticket_indicator")
+                        @ExcludeMissing
+                        fun _restrictedTicketIndicator() = restrictedTicketIndicator
+
+                        /**
+                         * Indicates the computerized reservation system used to book the ticket.
+                         */
+                        @JsonProperty("computerized_reservation_system")
+                        @ExcludeMissing
+                        fun _computerizedReservationSystem() = computerizedReservationSystem
+
+                        /** Indicates the reason for a credit to the cardholder. */
+                        @JsonProperty("credit_reason_indicator")
+                        @ExcludeMissing
+                        fun _creditReasonIndicator() = creditReasonIndicator
+
+                        /** Indicates why a ticket was changed. */
+                        @JsonProperty("ticket_change_indicator")
+                        @ExcludeMissing
+                        fun _ticketChangeIndicator() = ticketChangeIndicator
+
+                        /** Fields specific to each leg of the journey. */
+                        @JsonProperty("trip_legs") @ExcludeMissing fun _tripLegs() = tripLegs
+
+                        /** Ancillary purchases in addition to the airfare. */
+                        @JsonProperty("ancillary") @ExcludeMissing fun _ancillary() = ancillary
+
+                        @JsonAnyGetter
+                        @ExcludeMissing
+                        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                        fun validate(): Travel = apply {
+                            if (!validated) {
+                                ticketNumber()
+                                passengerName()
+                                departureDate()
+                                originationCityAirportCode()
+                                travelAgencyCode()
+                                travelAgencyName()
+                                restrictedTicketIndicator()
+                                computerizedReservationSystem()
+                                creditReasonIndicator()
+                                ticketChangeIndicator()
+                                tripLegs().map { it.forEach { it.validate() } }
+                                ancillary().map { it.validate() }
+                                validated = true
+                            }
+                        }
+
+                        fun toBuilder() = Builder().from(this)
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is Travel &&
+                                this.ticketNumber == other.ticketNumber &&
+                                this.passengerName == other.passengerName &&
+                                this.departureDate == other.departureDate &&
+                                this.originationCityAirportCode ==
+                                    other.originationCityAirportCode &&
+                                this.travelAgencyCode == other.travelAgencyCode &&
+                                this.travelAgencyName == other.travelAgencyName &&
+                                this.restrictedTicketIndicator == other.restrictedTicketIndicator &&
+                                this.computerizedReservationSystem ==
+                                    other.computerizedReservationSystem &&
+                                this.creditReasonIndicator == other.creditReasonIndicator &&
+                                this.ticketChangeIndicator == other.ticketChangeIndicator &&
+                                this.tripLegs == other.tripLegs &&
+                                this.ancillary == other.ancillary &&
+                                this.additionalProperties == other.additionalProperties
+                        }
+
+                        override fun hashCode(): Int {
+                            if (hashCode == 0) {
+                                hashCode =
+                                    Objects.hash(
+                                        ticketNumber,
+                                        passengerName,
+                                        departureDate,
+                                        originationCityAirportCode,
+                                        travelAgencyCode,
+                                        travelAgencyName,
+                                        restrictedTicketIndicator,
+                                        computerizedReservationSystem,
+                                        creditReasonIndicator,
+                                        ticketChangeIndicator,
+                                        tripLegs,
+                                        ancillary,
+                                        additionalProperties,
+                                    )
+                            }
+                            return hashCode
+                        }
+
+                        override fun toString() =
+                            "Travel{ticketNumber=$ticketNumber, passengerName=$passengerName, departureDate=$departureDate, originationCityAirportCode=$originationCityAirportCode, travelAgencyCode=$travelAgencyCode, travelAgencyName=$travelAgencyName, restrictedTicketIndicator=$restrictedTicketIndicator, computerizedReservationSystem=$computerizedReservationSystem, creditReasonIndicator=$creditReasonIndicator, ticketChangeIndicator=$ticketChangeIndicator, tripLegs=$tripLegs, ancillary=$ancillary, additionalProperties=$additionalProperties}"
+
+                        companion object {
+
+                            @JvmStatic fun builder() = Builder()
+                        }
+
+                        class Builder {
+
+                            private var ticketNumber: JsonField<String> = JsonMissing.of()
+                            private var passengerName: JsonField<String> = JsonMissing.of()
+                            private var departureDate: JsonField<LocalDate> = JsonMissing.of()
+                            private var originationCityAirportCode: JsonField<String> =
+                                JsonMissing.of()
+                            private var travelAgencyCode: JsonField<String> = JsonMissing.of()
+                            private var travelAgencyName: JsonField<String> = JsonMissing.of()
+                            private var restrictedTicketIndicator:
+                                JsonField<RestrictedTicketIndicator> =
+                                JsonMissing.of()
+                            private var computerizedReservationSystem: JsonField<String> =
+                                JsonMissing.of()
+                            private var creditReasonIndicator: JsonField<CreditReasonIndicator> =
+                                JsonMissing.of()
+                            private var ticketChangeIndicator: JsonField<TicketChangeIndicator> =
+                                JsonMissing.of()
+                            private var tripLegs: JsonField<List<TripLeg>> = JsonMissing.of()
+                            private var ancillary: JsonField<Ancillary> = JsonMissing.of()
+                            private var additionalProperties: MutableMap<String, JsonValue> =
+                                mutableMapOf()
+
+                            @JvmSynthetic
+                            internal fun from(travel: Travel) = apply {
+                                this.ticketNumber = travel.ticketNumber
+                                this.passengerName = travel.passengerName
+                                this.departureDate = travel.departureDate
+                                this.originationCityAirportCode = travel.originationCityAirportCode
+                                this.travelAgencyCode = travel.travelAgencyCode
+                                this.travelAgencyName = travel.travelAgencyName
+                                this.restrictedTicketIndicator = travel.restrictedTicketIndicator
+                                this.computerizedReservationSystem =
+                                    travel.computerizedReservationSystem
+                                this.creditReasonIndicator = travel.creditReasonIndicator
+                                this.ticketChangeIndicator = travel.ticketChangeIndicator
+                                this.tripLegs = travel.tripLegs
+                                this.ancillary = travel.ancillary
+                                additionalProperties(travel.additionalProperties)
+                            }
+
+                            /** Ticket number. */
+                            fun ticketNumber(ticketNumber: String) =
+                                ticketNumber(JsonField.of(ticketNumber))
+
+                            /** Ticket number. */
+                            @JsonProperty("ticket_number")
+                            @ExcludeMissing
+                            fun ticketNumber(ticketNumber: JsonField<String>) = apply {
+                                this.ticketNumber = ticketNumber
+                            }
+
+                            /** Name of the passenger. */
+                            fun passengerName(passengerName: String) =
+                                passengerName(JsonField.of(passengerName))
+
+                            /** Name of the passenger. */
+                            @JsonProperty("passenger_name")
+                            @ExcludeMissing
+                            fun passengerName(passengerName: JsonField<String>) = apply {
+                                this.passengerName = passengerName
+                            }
+
+                            /** Date of departure. */
+                            fun departureDate(departureDate: LocalDate) =
+                                departureDate(JsonField.of(departureDate))
+
+                            /** Date of departure. */
+                            @JsonProperty("departure_date")
+                            @ExcludeMissing
+                            fun departureDate(departureDate: JsonField<LocalDate>) = apply {
+                                this.departureDate = departureDate
+                            }
+
+                            /** Code for the originating city or airport. */
+                            fun originationCityAirportCode(originationCityAirportCode: String) =
+                                originationCityAirportCode(JsonField.of(originationCityAirportCode))
+
+                            /** Code for the originating city or airport. */
+                            @JsonProperty("origination_city_airport_code")
+                            @ExcludeMissing
+                            fun originationCityAirportCode(
+                                originationCityAirportCode: JsonField<String>
+                            ) = apply {
+                                this.originationCityAirportCode = originationCityAirportCode
+                            }
+
+                            /**
+                             * Code for the travel agency if the ticket was issued by a travel
+                             * agency.
+                             */
+                            fun travelAgencyCode(travelAgencyCode: String) =
+                                travelAgencyCode(JsonField.of(travelAgencyCode))
+
+                            /**
+                             * Code for the travel agency if the ticket was issued by a travel
+                             * agency.
+                             */
+                            @JsonProperty("travel_agency_code")
+                            @ExcludeMissing
+                            fun travelAgencyCode(travelAgencyCode: JsonField<String>) = apply {
+                                this.travelAgencyCode = travelAgencyCode
+                            }
+
+                            /**
+                             * Name of the travel agency if the ticket was issued by a travel
+                             * agency.
+                             */
+                            fun travelAgencyName(travelAgencyName: String) =
+                                travelAgencyName(JsonField.of(travelAgencyName))
+
+                            /**
+                             * Name of the travel agency if the ticket was issued by a travel
+                             * agency.
+                             */
+                            @JsonProperty("travel_agency_name")
+                            @ExcludeMissing
+                            fun travelAgencyName(travelAgencyName: JsonField<String>) = apply {
+                                this.travelAgencyName = travelAgencyName
+                            }
+
+                            /** Indicates whether this ticket is non-refundable. */
+                            fun restrictedTicketIndicator(
+                                restrictedTicketIndicator: RestrictedTicketIndicator
+                            ) = restrictedTicketIndicator(JsonField.of(restrictedTicketIndicator))
+
+                            /** Indicates whether this ticket is non-refundable. */
+                            @JsonProperty("restricted_ticket_indicator")
+                            @ExcludeMissing
+                            fun restrictedTicketIndicator(
+                                restrictedTicketIndicator: JsonField<RestrictedTicketIndicator>
+                            ) = apply { this.restrictedTicketIndicator = restrictedTicketIndicator }
+
+                            /**
+                             * Indicates the computerized reservation system used to book the
+                             * ticket.
+                             */
+                            fun computerizedReservationSystem(
+                                computerizedReservationSystem: String
+                            ) =
+                                computerizedReservationSystem(
+                                    JsonField.of(computerizedReservationSystem)
+                                )
+
+                            /**
+                             * Indicates the computerized reservation system used to book the
+                             * ticket.
+                             */
+                            @JsonProperty("computerized_reservation_system")
+                            @ExcludeMissing
+                            fun computerizedReservationSystem(
+                                computerizedReservationSystem: JsonField<String>
+                            ) = apply {
+                                this.computerizedReservationSystem = computerizedReservationSystem
+                            }
+
+                            /** Indicates the reason for a credit to the cardholder. */
+                            fun creditReasonIndicator(
+                                creditReasonIndicator: CreditReasonIndicator
+                            ) = creditReasonIndicator(JsonField.of(creditReasonIndicator))
+
+                            /** Indicates the reason for a credit to the cardholder. */
+                            @JsonProperty("credit_reason_indicator")
+                            @ExcludeMissing
+                            fun creditReasonIndicator(
+                                creditReasonIndicator: JsonField<CreditReasonIndicator>
+                            ) = apply { this.creditReasonIndicator = creditReasonIndicator }
+
+                            /** Indicates why a ticket was changed. */
+                            fun ticketChangeIndicator(
+                                ticketChangeIndicator: TicketChangeIndicator
+                            ) = ticketChangeIndicator(JsonField.of(ticketChangeIndicator))
+
+                            /** Indicates why a ticket was changed. */
+                            @JsonProperty("ticket_change_indicator")
+                            @ExcludeMissing
+                            fun ticketChangeIndicator(
+                                ticketChangeIndicator: JsonField<TicketChangeIndicator>
+                            ) = apply { this.ticketChangeIndicator = ticketChangeIndicator }
+
+                            /** Fields specific to each leg of the journey. */
+                            fun tripLegs(tripLegs: List<TripLeg>) = tripLegs(JsonField.of(tripLegs))
+
+                            /** Fields specific to each leg of the journey. */
+                            @JsonProperty("trip_legs")
+                            @ExcludeMissing
+                            fun tripLegs(tripLegs: JsonField<List<TripLeg>>) = apply {
+                                this.tripLegs = tripLegs
+                            }
+
+                            /** Ancillary purchases in addition to the airfare. */
+                            fun ancillary(ancillary: Ancillary) = ancillary(JsonField.of(ancillary))
+
+                            /** Ancillary purchases in addition to the airfare. */
+                            @JsonProperty("ancillary")
+                            @ExcludeMissing
+                            fun ancillary(ancillary: JsonField<Ancillary>) = apply {
+                                this.ancillary = ancillary
+                            }
+
+                            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                                apply {
+                                    this.additionalProperties.clear()
+                                    this.additionalProperties.putAll(additionalProperties)
+                                }
+
+                            @JsonAnySetter
+                            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                                this.additionalProperties.put(key, value)
+                            }
+
+                            fun putAllAdditionalProperties(
+                                additionalProperties: Map<String, JsonValue>
+                            ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                            fun build(): Travel =
+                                Travel(
+                                    ticketNumber,
+                                    passengerName,
+                                    departureDate,
+                                    originationCityAirportCode,
+                                    travelAgencyCode,
+                                    travelAgencyName,
+                                    restrictedTicketIndicator,
+                                    computerizedReservationSystem,
+                                    creditReasonIndicator,
+                                    ticketChangeIndicator,
+                                    tripLegs.map { it.toUnmodifiable() },
+                                    ancillary,
+                                    additionalProperties.toUnmodifiable(),
+                                )
+                        }
+
+                        class RestrictedTicketIndicator
+                        @JsonCreator
+                        private constructor(
+                            private val value: JsonField<String>,
+                        ) {
+
+                            @com.fasterxml.jackson.annotation.JsonValue
+                            fun _value(): JsonField<String> = value
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is RestrictedTicketIndicator &&
+                                    this.value == other.value
+                            }
+
+                            override fun hashCode() = value.hashCode()
+
+                            override fun toString() = value.toString()
+
+                            companion object {
+
+                                @JvmField
+                                val NO_RESTRICTIONS =
+                                    RestrictedTicketIndicator(JsonField.of("no_restrictions"))
+
+                                @JvmField
+                                val RESTRICTED_NON_REFUNDABLE_TICKET =
+                                    RestrictedTicketIndicator(
+                                        JsonField.of("restricted_non_refundable_ticket")
+                                    )
+
+                                @JvmStatic
+                                fun of(value: String) =
+                                    RestrictedTicketIndicator(JsonField.of(value))
+                            }
+
+                            enum class Known {
+                                NO_RESTRICTIONS,
+                                RESTRICTED_NON_REFUNDABLE_TICKET,
+                            }
+
+                            enum class Value {
+                                NO_RESTRICTIONS,
+                                RESTRICTED_NON_REFUNDABLE_TICKET,
+                                _UNKNOWN,
+                            }
+
+                            fun value(): Value =
+                                when (this) {
+                                    NO_RESTRICTIONS -> Value.NO_RESTRICTIONS
+                                    RESTRICTED_NON_REFUNDABLE_TICKET ->
+                                        Value.RESTRICTED_NON_REFUNDABLE_TICKET
+                                    else -> Value._UNKNOWN
+                                }
+
+                            fun known(): Known =
+                                when (this) {
+                                    NO_RESTRICTIONS -> Known.NO_RESTRICTIONS
+                                    RESTRICTED_NON_REFUNDABLE_TICKET ->
+                                        Known.RESTRICTED_NON_REFUNDABLE_TICKET
+                                    else ->
+                                        throw IncreaseInvalidDataException(
+                                            "Unknown RestrictedTicketIndicator: $value"
+                                        )
+                                }
+
+                            fun asString(): String = _value().asStringOrThrow()
+                        }
+
+                        class CreditReasonIndicator
+                        @JsonCreator
+                        private constructor(
+                            private val value: JsonField<String>,
+                        ) {
+
+                            @com.fasterxml.jackson.annotation.JsonValue
+                            fun _value(): JsonField<String> = value
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is CreditReasonIndicator && this.value == other.value
+                            }
+
+                            override fun hashCode() = value.hashCode()
+
+                            override fun toString() = value.toString()
+
+                            companion object {
+
+                                @JvmField
+                                val NO_CREDIT = CreditReasonIndicator(JsonField.of("no_credit"))
+
+                                @JvmField
+                                val PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
+                                    CreditReasonIndicator(
+                                        JsonField.of(
+                                            "passenger_transport_ancillary_purchase_cancellation"
+                                        )
+                                    )
+
+                                @JvmField
+                                val AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
+                                    CreditReasonIndicator(
+                                        JsonField.of(
+                                            "airline_ticket_and_passenger_transport_ancillary_purchase_cancellation"
+                                        )
+                                    )
+
+                                @JvmField
+                                val AIRLINE_TICKET_CANCELLATION =
+                                    CreditReasonIndicator(
+                                        JsonField.of("airline_ticket_cancellation")
+                                    )
+
+                                @JvmField val OTHER = CreditReasonIndicator(JsonField.of("other"))
+
+                                @JvmField
+                                val PARTIAL_REFUND_OF_AIRLINE_TICKET =
+                                    CreditReasonIndicator(
+                                        JsonField.of("partial_refund_of_airline_ticket")
+                                    )
+
+                                @JvmStatic
+                                fun of(value: String) = CreditReasonIndicator(JsonField.of(value))
+                            }
+
+                            enum class Known {
+                                NO_CREDIT,
+                                PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                AIRLINE_TICKET_CANCELLATION,
+                                OTHER,
+                                PARTIAL_REFUND_OF_AIRLINE_TICKET,
+                            }
+
+                            enum class Value {
+                                NO_CREDIT,
+                                PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                AIRLINE_TICKET_CANCELLATION,
+                                OTHER,
+                                PARTIAL_REFUND_OF_AIRLINE_TICKET,
+                                _UNKNOWN,
+                            }
+
+                            fun value(): Value =
+                                when (this) {
+                                    NO_CREDIT -> Value.NO_CREDIT
+                                    PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
+                                        Value.PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
+                                    AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
+                                        Value
+                                            .AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
+                                    AIRLINE_TICKET_CANCELLATION -> Value.AIRLINE_TICKET_CANCELLATION
+                                    OTHER -> Value.OTHER
+                                    PARTIAL_REFUND_OF_AIRLINE_TICKET ->
+                                        Value.PARTIAL_REFUND_OF_AIRLINE_TICKET
+                                    else -> Value._UNKNOWN
+                                }
+
+                            fun known(): Known =
+                                when (this) {
+                                    NO_CREDIT -> Known.NO_CREDIT
+                                    PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
+                                        Known.PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
+                                    AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
+                                        Known
+                                            .AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
+                                    AIRLINE_TICKET_CANCELLATION -> Known.AIRLINE_TICKET_CANCELLATION
+                                    OTHER -> Known.OTHER
+                                    PARTIAL_REFUND_OF_AIRLINE_TICKET ->
+                                        Known.PARTIAL_REFUND_OF_AIRLINE_TICKET
+                                    else ->
+                                        throw IncreaseInvalidDataException(
+                                            "Unknown CreditReasonIndicator: $value"
+                                        )
+                                }
+
+                            fun asString(): String = _value().asStringOrThrow()
+                        }
+
+                        class TicketChangeIndicator
+                        @JsonCreator
+                        private constructor(
+                            private val value: JsonField<String>,
+                        ) {
+
+                            @com.fasterxml.jackson.annotation.JsonValue
+                            fun _value(): JsonField<String> = value
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is TicketChangeIndicator && this.value == other.value
+                            }
+
+                            override fun hashCode() = value.hashCode()
+
+                            override fun toString() = value.toString()
+
+                            companion object {
+
+                                @JvmField val NONE = TicketChangeIndicator(JsonField.of("none"))
+
+                                @JvmField
+                                val CHANGE_TO_EXISTING_TICKET =
+                                    TicketChangeIndicator(JsonField.of("change_to_existing_ticket"))
+
+                                @JvmField
+                                val NEW_TICKET = TicketChangeIndicator(JsonField.of("new_ticket"))
+
+                                @JvmStatic
+                                fun of(value: String) = TicketChangeIndicator(JsonField.of(value))
+                            }
+
+                            enum class Known {
+                                NONE,
+                                CHANGE_TO_EXISTING_TICKET,
+                                NEW_TICKET,
+                            }
+
+                            enum class Value {
+                                NONE,
+                                CHANGE_TO_EXISTING_TICKET,
+                                NEW_TICKET,
+                                _UNKNOWN,
+                            }
+
+                            fun value(): Value =
+                                when (this) {
+                                    NONE -> Value.NONE
+                                    CHANGE_TO_EXISTING_TICKET -> Value.CHANGE_TO_EXISTING_TICKET
+                                    NEW_TICKET -> Value.NEW_TICKET
+                                    else -> Value._UNKNOWN
+                                }
+
+                            fun known(): Known =
+                                when (this) {
+                                    NONE -> Known.NONE
+                                    CHANGE_TO_EXISTING_TICKET -> Known.CHANGE_TO_EXISTING_TICKET
+                                    NEW_TICKET -> Known.NEW_TICKET
+                                    else ->
+                                        throw IncreaseInvalidDataException(
+                                            "Unknown TicketChangeIndicator: $value"
+                                        )
+                                }
+
+                            fun asString(): String = _value().asStringOrThrow()
+                        }
+
+                        @JsonDeserialize(builder = TripLeg.Builder::class)
+                        @NoAutoDetect
+                        class TripLeg
+                        private constructor(
+                            private val flightNumber: JsonField<String>,
+                            private val carrierCode: JsonField<String>,
+                            private val fareBasisCode: JsonField<String>,
+                            private val serviceClass: JsonField<String>,
+                            private val stopOverCode: JsonField<StopOverCode>,
+                            private val destinationCityAirportCode: JsonField<String>,
+                            private val additionalProperties: Map<String, JsonValue>,
+                        ) {
+
+                            private var validated: Boolean = false
+
+                            private var hashCode: Int = 0
+
+                            /** Flight number. */
+                            fun flightNumber(): Optional<String> =
+                                Optional.ofNullable(flightNumber.getNullable("flight_number"))
+
+                            /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
+                            fun carrierCode(): Optional<String> =
+                                Optional.ofNullable(carrierCode.getNullable("carrier_code"))
+
+                            /** Fare basis code. */
+                            fun fareBasisCode(): Optional<String> =
+                                Optional.ofNullable(fareBasisCode.getNullable("fare_basis_code"))
+
+                            /** Service class (e.g., first class, business class, etc.). */
+                            fun serviceClass(): Optional<String> =
+                                Optional.ofNullable(serviceClass.getNullable("service_class"))
+
+                            /** Indicates whether a stopover is allowed on this ticket. */
+                            fun stopOverCode(): Optional<StopOverCode> =
+                                Optional.ofNullable(stopOverCode.getNullable("stop_over_code"))
+
+                            /** Code for the destination city or airport. */
+                            fun destinationCityAirportCode(): Optional<String> =
+                                Optional.ofNullable(
+                                    destinationCityAirportCode.getNullable(
+                                        "destination_city_airport_code"
+                                    )
+                                )
+
+                            /** Flight number. */
+                            @JsonProperty("flight_number")
+                            @ExcludeMissing
+                            fun _flightNumber() = flightNumber
+
+                            /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
+                            @JsonProperty("carrier_code")
+                            @ExcludeMissing
+                            fun _carrierCode() = carrierCode
+
+                            /** Fare basis code. */
+                            @JsonProperty("fare_basis_code")
+                            @ExcludeMissing
+                            fun _fareBasisCode() = fareBasisCode
+
+                            /** Service class (e.g., first class, business class, etc.). */
+                            @JsonProperty("service_class")
+                            @ExcludeMissing
+                            fun _serviceClass() = serviceClass
+
+                            /** Indicates whether a stopover is allowed on this ticket. */
+                            @JsonProperty("stop_over_code")
+                            @ExcludeMissing
+                            fun _stopOverCode() = stopOverCode
+
+                            /** Code for the destination city or airport. */
+                            @JsonProperty("destination_city_airport_code")
+                            @ExcludeMissing
+                            fun _destinationCityAirportCode() = destinationCityAirportCode
+
+                            @JsonAnyGetter
+                            @ExcludeMissing
+                            fun _additionalProperties(): Map<String, JsonValue> =
+                                additionalProperties
+
+                            fun validate(): TripLeg = apply {
+                                if (!validated) {
+                                    flightNumber()
+                                    carrierCode()
+                                    fareBasisCode()
+                                    serviceClass()
+                                    stopOverCode()
+                                    destinationCityAirportCode()
+                                    validated = true
+                                }
+                            }
+
+                            fun toBuilder() = Builder().from(this)
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is TripLeg &&
+                                    this.flightNumber == other.flightNumber &&
+                                    this.carrierCode == other.carrierCode &&
+                                    this.fareBasisCode == other.fareBasisCode &&
+                                    this.serviceClass == other.serviceClass &&
+                                    this.stopOverCode == other.stopOverCode &&
+                                    this.destinationCityAirportCode ==
+                                        other.destinationCityAirportCode &&
+                                    this.additionalProperties == other.additionalProperties
+                            }
+
+                            override fun hashCode(): Int {
+                                if (hashCode == 0) {
+                                    hashCode =
+                                        Objects.hash(
+                                            flightNumber,
+                                            carrierCode,
+                                            fareBasisCode,
+                                            serviceClass,
+                                            stopOverCode,
+                                            destinationCityAirportCode,
+                                            additionalProperties,
+                                        )
+                                }
+                                return hashCode
+                            }
+
+                            override fun toString() =
+                                "TripLeg{flightNumber=$flightNumber, carrierCode=$carrierCode, fareBasisCode=$fareBasisCode, serviceClass=$serviceClass, stopOverCode=$stopOverCode, destinationCityAirportCode=$destinationCityAirportCode, additionalProperties=$additionalProperties}"
+
+                            companion object {
+
+                                @JvmStatic fun builder() = Builder()
+                            }
+
+                            class Builder {
+
+                                private var flightNumber: JsonField<String> = JsonMissing.of()
+                                private var carrierCode: JsonField<String> = JsonMissing.of()
+                                private var fareBasisCode: JsonField<String> = JsonMissing.of()
+                                private var serviceClass: JsonField<String> = JsonMissing.of()
+                                private var stopOverCode: JsonField<StopOverCode> = JsonMissing.of()
+                                private var destinationCityAirportCode: JsonField<String> =
+                                    JsonMissing.of()
+                                private var additionalProperties: MutableMap<String, JsonValue> =
+                                    mutableMapOf()
+
+                                @JvmSynthetic
+                                internal fun from(tripLeg: TripLeg) = apply {
+                                    this.flightNumber = tripLeg.flightNumber
+                                    this.carrierCode = tripLeg.carrierCode
+                                    this.fareBasisCode = tripLeg.fareBasisCode
+                                    this.serviceClass = tripLeg.serviceClass
+                                    this.stopOverCode = tripLeg.stopOverCode
+                                    this.destinationCityAirportCode =
+                                        tripLeg.destinationCityAirportCode
+                                    additionalProperties(tripLeg.additionalProperties)
+                                }
+
+                                /** Flight number. */
+                                fun flightNumber(flightNumber: String) =
+                                    flightNumber(JsonField.of(flightNumber))
+
+                                /** Flight number. */
+                                @JsonProperty("flight_number")
+                                @ExcludeMissing
+                                fun flightNumber(flightNumber: JsonField<String>) = apply {
+                                    this.flightNumber = flightNumber
+                                }
+
+                                /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
+                                fun carrierCode(carrierCode: String) =
+                                    carrierCode(JsonField.of(carrierCode))
+
+                                /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
+                                @JsonProperty("carrier_code")
+                                @ExcludeMissing
+                                fun carrierCode(carrierCode: JsonField<String>) = apply {
+                                    this.carrierCode = carrierCode
+                                }
+
+                                /** Fare basis code. */
+                                fun fareBasisCode(fareBasisCode: String) =
+                                    fareBasisCode(JsonField.of(fareBasisCode))
+
+                                /** Fare basis code. */
+                                @JsonProperty("fare_basis_code")
+                                @ExcludeMissing
+                                fun fareBasisCode(fareBasisCode: JsonField<String>) = apply {
+                                    this.fareBasisCode = fareBasisCode
+                                }
+
+                                /** Service class (e.g., first class, business class, etc.). */
+                                fun serviceClass(serviceClass: String) =
+                                    serviceClass(JsonField.of(serviceClass))
+
+                                /** Service class (e.g., first class, business class, etc.). */
+                                @JsonProperty("service_class")
+                                @ExcludeMissing
+                                fun serviceClass(serviceClass: JsonField<String>) = apply {
+                                    this.serviceClass = serviceClass
+                                }
+
+                                /** Indicates whether a stopover is allowed on this ticket. */
+                                fun stopOverCode(stopOverCode: StopOverCode) =
+                                    stopOverCode(JsonField.of(stopOverCode))
+
+                                /** Indicates whether a stopover is allowed on this ticket. */
+                                @JsonProperty("stop_over_code")
+                                @ExcludeMissing
+                                fun stopOverCode(stopOverCode: JsonField<StopOverCode>) = apply {
+                                    this.stopOverCode = stopOverCode
+                                }
+
+                                /** Code for the destination city or airport. */
+                                fun destinationCityAirportCode(destinationCityAirportCode: String) =
+                                    destinationCityAirportCode(
+                                        JsonField.of(destinationCityAirportCode)
+                                    )
+
+                                /** Code for the destination city or airport. */
+                                @JsonProperty("destination_city_airport_code")
+                                @ExcludeMissing
+                                fun destinationCityAirportCode(
+                                    destinationCityAirportCode: JsonField<String>
+                                ) = apply {
+                                    this.destinationCityAirportCode = destinationCityAirportCode
+                                }
+
+                                fun additionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply {
+                                    this.additionalProperties.clear()
+                                    this.additionalProperties.putAll(additionalProperties)
+                                }
+
+                                @JsonAnySetter
+                                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                                    this.additionalProperties.put(key, value)
+                                }
+
+                                fun putAllAdditionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                                fun build(): TripLeg =
+                                    TripLeg(
+                                        flightNumber,
+                                        carrierCode,
+                                        fareBasisCode,
+                                        serviceClass,
+                                        stopOverCode,
+                                        destinationCityAirportCode,
+                                        additionalProperties.toUnmodifiable(),
+                                    )
+                            }
+
+                            class StopOverCode
+                            @JsonCreator
+                            private constructor(
+                                private val value: JsonField<String>,
+                            ) {
+
+                                @com.fasterxml.jackson.annotation.JsonValue
+                                fun _value(): JsonField<String> = value
+
+                                override fun equals(other: Any?): Boolean {
+                                    if (this === other) {
+                                        return true
+                                    }
+
+                                    return other is StopOverCode && this.value == other.value
+                                }
+
+                                override fun hashCode() = value.hashCode()
+
+                                override fun toString() = value.toString()
+
+                                companion object {
+
+                                    @JvmField val NONE = StopOverCode(JsonField.of("none"))
+
+                                    @JvmField
+                                    val STOP_OVER_ALLOWED =
+                                        StopOverCode(JsonField.of("stop_over_allowed"))
+
+                                    @JvmField
+                                    val STOP_OVER_NOT_ALLOWED =
+                                        StopOverCode(JsonField.of("stop_over_not_allowed"))
+
+                                    @JvmStatic
+                                    fun of(value: String) = StopOverCode(JsonField.of(value))
+                                }
+
+                                enum class Known {
+                                    NONE,
+                                    STOP_OVER_ALLOWED,
+                                    STOP_OVER_NOT_ALLOWED,
+                                }
+
+                                enum class Value {
+                                    NONE,
+                                    STOP_OVER_ALLOWED,
+                                    STOP_OVER_NOT_ALLOWED,
+                                    _UNKNOWN,
+                                }
+
+                                fun value(): Value =
+                                    when (this) {
+                                        NONE -> Value.NONE
+                                        STOP_OVER_ALLOWED -> Value.STOP_OVER_ALLOWED
+                                        STOP_OVER_NOT_ALLOWED -> Value.STOP_OVER_NOT_ALLOWED
+                                        else -> Value._UNKNOWN
+                                    }
+
+                                fun known(): Known =
+                                    when (this) {
+                                        NONE -> Known.NONE
+                                        STOP_OVER_ALLOWED -> Known.STOP_OVER_ALLOWED
+                                        STOP_OVER_NOT_ALLOWED -> Known.STOP_OVER_NOT_ALLOWED
+                                        else ->
+                                            throw IncreaseInvalidDataException(
+                                                "Unknown StopOverCode: $value"
+                                            )
+                                    }
+
+                                fun asString(): String = _value().asStringOrThrow()
+                            }
+                        }
+
+                        /** Ancillary purchases in addition to the airfare. */
+                        @JsonDeserialize(builder = Ancillary.Builder::class)
+                        @NoAutoDetect
+                        class Ancillary
+                        private constructor(
+                            private val ticketDocumentNumber: JsonField<String>,
+                            private val passengerNameOrDescription: JsonField<String>,
+                            private val connectedTicketDocumentNumber: JsonField<String>,
+                            private val creditReasonIndicator: JsonField<CreditReasonIndicator>,
+                            private val services: JsonField<List<Service>>,
+                            private val additionalProperties: Map<String, JsonValue>,
+                        ) {
+
+                            private var validated: Boolean = false
+
+                            private var hashCode: Int = 0
+
+                            /** Ticket document number. */
+                            fun ticketDocumentNumber(): Optional<String> =
+                                Optional.ofNullable(
+                                    ticketDocumentNumber.getNullable("ticket_document_number")
+                                )
+
+                            /** Name of the passenger or description of the ancillary purchase. */
+                            fun passengerNameOrDescription(): Optional<String> =
+                                Optional.ofNullable(
+                                    passengerNameOrDescription.getNullable(
+                                        "passenger_name_or_description"
+                                    )
+                                )
+
+                            /**
+                             * If this purchase has a connection or relationship to another
+                             * purchase, such as a baggage fee for a passenger transport ticket,
+                             * this field should contain the ticket document number for the other
+                             * purchase.
+                             */
+                            fun connectedTicketDocumentNumber(): Optional<String> =
+                                Optional.ofNullable(
+                                    connectedTicketDocumentNumber.getNullable(
+                                        "connected_ticket_document_number"
+                                    )
+                                )
+
+                            /** Indicates the reason for a credit to the cardholder. */
+                            fun creditReasonIndicator(): Optional<CreditReasonIndicator> =
+                                Optional.ofNullable(
+                                    creditReasonIndicator.getNullable("credit_reason_indicator")
+                                )
+
+                            /** Additional travel charges, such as baggage fees. */
+                            fun services(): List<Service> = services.getRequired("services")
+
+                            /** Ticket document number. */
+                            @JsonProperty("ticket_document_number")
+                            @ExcludeMissing
+                            fun _ticketDocumentNumber() = ticketDocumentNumber
+
+                            /** Name of the passenger or description of the ancillary purchase. */
+                            @JsonProperty("passenger_name_or_description")
+                            @ExcludeMissing
+                            fun _passengerNameOrDescription() = passengerNameOrDescription
+
+                            /**
+                             * If this purchase has a connection or relationship to another
+                             * purchase, such as a baggage fee for a passenger transport ticket,
+                             * this field should contain the ticket document number for the other
+                             * purchase.
+                             */
+                            @JsonProperty("connected_ticket_document_number")
+                            @ExcludeMissing
+                            fun _connectedTicketDocumentNumber() = connectedTicketDocumentNumber
+
+                            /** Indicates the reason for a credit to the cardholder. */
+                            @JsonProperty("credit_reason_indicator")
+                            @ExcludeMissing
+                            fun _creditReasonIndicator() = creditReasonIndicator
+
+                            /** Additional travel charges, such as baggage fees. */
+                            @JsonProperty("services") @ExcludeMissing fun _services() = services
+
+                            @JsonAnyGetter
+                            @ExcludeMissing
+                            fun _additionalProperties(): Map<String, JsonValue> =
+                                additionalProperties
+
+                            fun validate(): Ancillary = apply {
+                                if (!validated) {
+                                    ticketDocumentNumber()
+                                    passengerNameOrDescription()
+                                    connectedTicketDocumentNumber()
+                                    creditReasonIndicator()
+                                    services().forEach { it.validate() }
+                                    validated = true
+                                }
+                            }
+
+                            fun toBuilder() = Builder().from(this)
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is Ancillary &&
+                                    this.ticketDocumentNumber == other.ticketDocumentNumber &&
+                                    this.passengerNameOrDescription ==
+                                        other.passengerNameOrDescription &&
+                                    this.connectedTicketDocumentNumber ==
+                                        other.connectedTicketDocumentNumber &&
+                                    this.creditReasonIndicator == other.creditReasonIndicator &&
+                                    this.services == other.services &&
+                                    this.additionalProperties == other.additionalProperties
+                            }
+
+                            override fun hashCode(): Int {
+                                if (hashCode == 0) {
+                                    hashCode =
+                                        Objects.hash(
+                                            ticketDocumentNumber,
+                                            passengerNameOrDescription,
+                                            connectedTicketDocumentNumber,
+                                            creditReasonIndicator,
+                                            services,
+                                            additionalProperties,
+                                        )
+                                }
+                                return hashCode
+                            }
+
+                            override fun toString() =
+                                "Ancillary{ticketDocumentNumber=$ticketDocumentNumber, passengerNameOrDescription=$passengerNameOrDescription, connectedTicketDocumentNumber=$connectedTicketDocumentNumber, creditReasonIndicator=$creditReasonIndicator, services=$services, additionalProperties=$additionalProperties}"
+
+                            companion object {
+
+                                @JvmStatic fun builder() = Builder()
+                            }
+
+                            class Builder {
+
+                                private var ticketDocumentNumber: JsonField<String> =
+                                    JsonMissing.of()
+                                private var passengerNameOrDescription: JsonField<String> =
+                                    JsonMissing.of()
+                                private var connectedTicketDocumentNumber: JsonField<String> =
+                                    JsonMissing.of()
+                                private var creditReasonIndicator:
+                                    JsonField<CreditReasonIndicator> =
+                                    JsonMissing.of()
+                                private var services: JsonField<List<Service>> = JsonMissing.of()
+                                private var additionalProperties: MutableMap<String, JsonValue> =
+                                    mutableMapOf()
+
+                                @JvmSynthetic
+                                internal fun from(ancillary: Ancillary) = apply {
+                                    this.ticketDocumentNumber = ancillary.ticketDocumentNumber
+                                    this.passengerNameOrDescription =
+                                        ancillary.passengerNameOrDescription
+                                    this.connectedTicketDocumentNumber =
+                                        ancillary.connectedTicketDocumentNumber
+                                    this.creditReasonIndicator = ancillary.creditReasonIndicator
+                                    this.services = ancillary.services
+                                    additionalProperties(ancillary.additionalProperties)
+                                }
+
+                                /** Ticket document number. */
+                                fun ticketDocumentNumber(ticketDocumentNumber: String) =
+                                    ticketDocumentNumber(JsonField.of(ticketDocumentNumber))
+
+                                /** Ticket document number. */
+                                @JsonProperty("ticket_document_number")
+                                @ExcludeMissing
+                                fun ticketDocumentNumber(ticketDocumentNumber: JsonField<String>) =
+                                    apply {
+                                        this.ticketDocumentNumber = ticketDocumentNumber
+                                    }
+
+                                /**
+                                 * Name of the passenger or description of the ancillary purchase.
+                                 */
+                                fun passengerNameOrDescription(passengerNameOrDescription: String) =
+                                    passengerNameOrDescription(
+                                        JsonField.of(passengerNameOrDescription)
+                                    )
+
+                                /**
+                                 * Name of the passenger or description of the ancillary purchase.
+                                 */
+                                @JsonProperty("passenger_name_or_description")
+                                @ExcludeMissing
+                                fun passengerNameOrDescription(
+                                    passengerNameOrDescription: JsonField<String>
+                                ) = apply {
+                                    this.passengerNameOrDescription = passengerNameOrDescription
+                                }
+
+                                /**
+                                 * If this purchase has a connection or relationship to another
+                                 * purchase, such as a baggage fee for a passenger transport ticket,
+                                 * this field should contain the ticket document number for the
+                                 * other purchase.
+                                 */
+                                fun connectedTicketDocumentNumber(
+                                    connectedTicketDocumentNumber: String
+                                ) =
+                                    connectedTicketDocumentNumber(
+                                        JsonField.of(connectedTicketDocumentNumber)
+                                    )
+
+                                /**
+                                 * If this purchase has a connection or relationship to another
+                                 * purchase, such as a baggage fee for a passenger transport ticket,
+                                 * this field should contain the ticket document number for the
+                                 * other purchase.
+                                 */
+                                @JsonProperty("connected_ticket_document_number")
+                                @ExcludeMissing
+                                fun connectedTicketDocumentNumber(
+                                    connectedTicketDocumentNumber: JsonField<String>
+                                ) = apply {
+                                    this.connectedTicketDocumentNumber =
+                                        connectedTicketDocumentNumber
+                                }
+
+                                /** Indicates the reason for a credit to the cardholder. */
+                                fun creditReasonIndicator(
+                                    creditReasonIndicator: CreditReasonIndicator
+                                ) = creditReasonIndicator(JsonField.of(creditReasonIndicator))
+
+                                /** Indicates the reason for a credit to the cardholder. */
+                                @JsonProperty("credit_reason_indicator")
+                                @ExcludeMissing
+                                fun creditReasonIndicator(
+                                    creditReasonIndicator: JsonField<CreditReasonIndicator>
+                                ) = apply { this.creditReasonIndicator = creditReasonIndicator }
+
+                                /** Additional travel charges, such as baggage fees. */
+                                fun services(services: List<Service>) =
+                                    services(JsonField.of(services))
+
+                                /** Additional travel charges, such as baggage fees. */
+                                @JsonProperty("services")
+                                @ExcludeMissing
+                                fun services(services: JsonField<List<Service>>) = apply {
+                                    this.services = services
+                                }
+
+                                fun additionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply {
+                                    this.additionalProperties.clear()
+                                    this.additionalProperties.putAll(additionalProperties)
+                                }
+
+                                @JsonAnySetter
+                                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                                    this.additionalProperties.put(key, value)
+                                }
+
+                                fun putAllAdditionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                                fun build(): Ancillary =
+                                    Ancillary(
+                                        ticketDocumentNumber,
+                                        passengerNameOrDescription,
+                                        connectedTicketDocumentNumber,
+                                        creditReasonIndicator,
+                                        services.map { it.toUnmodifiable() },
+                                        additionalProperties.toUnmodifiable(),
+                                    )
+                            }
+
+                            class CreditReasonIndicator
+                            @JsonCreator
+                            private constructor(
+                                private val value: JsonField<String>,
+                            ) {
+
+                                @com.fasterxml.jackson.annotation.JsonValue
+                                fun _value(): JsonField<String> = value
+
+                                override fun equals(other: Any?): Boolean {
+                                    if (this === other) {
+                                        return true
+                                    }
+
+                                    return other is CreditReasonIndicator &&
+                                        this.value == other.value
+                                }
+
+                                override fun hashCode() = value.hashCode()
+
+                                override fun toString() = value.toString()
+
+                                companion object {
+
+                                    @JvmField
+                                    val NO_CREDIT = CreditReasonIndicator(JsonField.of("no_credit"))
+
+                                    @JvmField
+                                    val PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
+                                        CreditReasonIndicator(
+                                            JsonField.of(
+                                                "passenger_transport_ancillary_purchase_cancellation"
+                                            )
+                                        )
+
+                                    @JvmField
+                                    val AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
+                                        CreditReasonIndicator(
+                                            JsonField.of(
+                                                "airline_ticket_and_passenger_transport_ancillary_purchase_cancellation"
+                                            )
+                                        )
+
+                                    @JvmField
+                                    val OTHER = CreditReasonIndicator(JsonField.of("other"))
+
+                                    @JvmStatic
+                                    fun of(value: String) =
+                                        CreditReasonIndicator(JsonField.of(value))
+                                }
+
+                                enum class Known {
+                                    NO_CREDIT,
+                                    PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                    AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                    OTHER,
+                                }
+
+                                enum class Value {
+                                    NO_CREDIT,
+                                    PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                    AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                    OTHER,
+                                    _UNKNOWN,
+                                }
+
+                                fun value(): Value =
+                                    when (this) {
+                                        NO_CREDIT -> Value.NO_CREDIT
+                                        PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
+                                            Value
+                                                .PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
+                                        AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
+                                            Value
+                                                .AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
+                                        OTHER -> Value.OTHER
+                                        else -> Value._UNKNOWN
+                                    }
+
+                                fun known(): Known =
+                                    when (this) {
+                                        NO_CREDIT -> Known.NO_CREDIT
+                                        PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
+                                            Known
+                                                .PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
+                                        AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
+                                            Known
+                                                .AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
+                                        OTHER -> Known.OTHER
+                                        else ->
+                                            throw IncreaseInvalidDataException(
+                                                "Unknown CreditReasonIndicator: $value"
+                                            )
+                                    }
+
+                                fun asString(): String = _value().asStringOrThrow()
+                            }
+
+                            @JsonDeserialize(builder = Service.Builder::class)
+                            @NoAutoDetect
+                            class Service
+                            private constructor(
+                                private val category: JsonField<Category>,
+                                private val subCategory: JsonField<String>,
+                                private val additionalProperties: Map<String, JsonValue>,
+                            ) {
+
+                                private var validated: Boolean = false
+
+                                private var hashCode: Int = 0
+
+                                /** Category of the ancillary service. */
+                                fun category(): Optional<Category> =
+                                    Optional.ofNullable(category.getNullable("category"))
+
+                                /** Sub-category of the ancillary service, free-form. */
+                                fun subCategory(): Optional<String> =
+                                    Optional.ofNullable(subCategory.getNullable("sub_category"))
+
+                                /** Category of the ancillary service. */
+                                @JsonProperty("category") @ExcludeMissing fun _category() = category
+
+                                /** Sub-category of the ancillary service, free-form. */
+                                @JsonProperty("sub_category")
+                                @ExcludeMissing
+                                fun _subCategory() = subCategory
+
+                                @JsonAnyGetter
+                                @ExcludeMissing
+                                fun _additionalProperties(): Map<String, JsonValue> =
+                                    additionalProperties
+
+                                fun validate(): Service = apply {
+                                    if (!validated) {
+                                        category()
+                                        subCategory()
+                                        validated = true
+                                    }
+                                }
+
+                                fun toBuilder() = Builder().from(this)
+
+                                override fun equals(other: Any?): Boolean {
+                                    if (this === other) {
+                                        return true
+                                    }
+
+                                    return other is Service &&
+                                        this.category == other.category &&
+                                        this.subCategory == other.subCategory &&
+                                        this.additionalProperties == other.additionalProperties
+                                }
+
+                                override fun hashCode(): Int {
+                                    if (hashCode == 0) {
+                                        hashCode =
+                                            Objects.hash(
+                                                category,
+                                                subCategory,
+                                                additionalProperties,
+                                            )
+                                    }
+                                    return hashCode
+                                }
+
+                                override fun toString() =
+                                    "Service{category=$category, subCategory=$subCategory, additionalProperties=$additionalProperties}"
+
+                                companion object {
+
+                                    @JvmStatic fun builder() = Builder()
+                                }
+
+                                class Builder {
+
+                                    private var category: JsonField<Category> = JsonMissing.of()
+                                    private var subCategory: JsonField<String> = JsonMissing.of()
+                                    private var additionalProperties:
+                                        MutableMap<String, JsonValue> =
+                                        mutableMapOf()
+
+                                    @JvmSynthetic
+                                    internal fun from(service: Service) = apply {
+                                        this.category = service.category
+                                        this.subCategory = service.subCategory
+                                        additionalProperties(service.additionalProperties)
+                                    }
+
+                                    /** Category of the ancillary service. */
+                                    fun category(category: Category) =
+                                        category(JsonField.of(category))
+
+                                    /** Category of the ancillary service. */
+                                    @JsonProperty("category")
+                                    @ExcludeMissing
+                                    fun category(category: JsonField<Category>) = apply {
+                                        this.category = category
+                                    }
+
+                                    /** Sub-category of the ancillary service, free-form. */
+                                    fun subCategory(subCategory: String) =
+                                        subCategory(JsonField.of(subCategory))
+
+                                    /** Sub-category of the ancillary service, free-form. */
+                                    @JsonProperty("sub_category")
+                                    @ExcludeMissing
+                                    fun subCategory(subCategory: JsonField<String>) = apply {
+                                        this.subCategory = subCategory
+                                    }
+
+                                    fun additionalProperties(
+                                        additionalProperties: Map<String, JsonValue>
+                                    ) = apply {
+                                        this.additionalProperties.clear()
+                                        this.additionalProperties.putAll(additionalProperties)
+                                    }
+
+                                    @JsonAnySetter
+                                    fun putAdditionalProperty(key: String, value: JsonValue) =
+                                        apply {
+                                            this.additionalProperties.put(key, value)
+                                        }
+
+                                    fun putAllAdditionalProperties(
+                                        additionalProperties: Map<String, JsonValue>
+                                    ) = apply {
+                                        this.additionalProperties.putAll(additionalProperties)
+                                    }
+
+                                    fun build(): Service =
+                                        Service(
+                                            category,
+                                            subCategory,
+                                            additionalProperties.toUnmodifiable(),
+                                        )
+                                }
+
+                                class Category
+                                @JsonCreator
+                                private constructor(
+                                    private val value: JsonField<String>,
+                                ) {
+
+                                    @com.fasterxml.jackson.annotation.JsonValue
+                                    fun _value(): JsonField<String> = value
+
+                                    override fun equals(other: Any?): Boolean {
+                                        if (this === other) {
+                                            return true
+                                        }
+
+                                        return other is Category && this.value == other.value
+                                    }
+
+                                    override fun hashCode() = value.hashCode()
+
+                                    override fun toString() = value.toString()
+
+                                    companion object {
+
+                                        @JvmField val NONE = Category(JsonField.of("none"))
+
+                                        @JvmField
+                                        val BUNDLED_SERVICE =
+                                            Category(JsonField.of("bundled_service"))
+
+                                        @JvmField
+                                        val BAGGAGE_FEE = Category(JsonField.of("baggage_fee"))
+
+                                        @JvmField
+                                        val CHANGE_FEE = Category(JsonField.of("change_fee"))
+
+                                        @JvmField val CARGO = Category(JsonField.of("cargo"))
+
+                                        @JvmField
+                                        val CARBON_OFFSET = Category(JsonField.of("carbon_offset"))
+
+                                        @JvmField
+                                        val FREQUENT_FLYER =
+                                            Category(JsonField.of("frequent_flyer"))
+
+                                        @JvmField
+                                        val GIFT_CARD = Category(JsonField.of("gift_card"))
+
+                                        @JvmField
+                                        val GROUND_TRANSPORT =
+                                            Category(JsonField.of("ground_transport"))
+
+                                        @JvmField
+                                        val IN_FLIGHT_ENTERTAINMENT =
+                                            Category(JsonField.of("in_flight_entertainment"))
+
+                                        @JvmField val LOUNGE = Category(JsonField.of("lounge"))
+
+                                        @JvmField val MEDICAL = Category(JsonField.of("medical"))
+
+                                        @JvmField
+                                        val MEAL_BEVERAGE = Category(JsonField.of("meal_beverage"))
+
+                                        @JvmField val OTHER = Category(JsonField.of("other"))
+
+                                        @JvmField
+                                        val PASSENGER_ASSIST_FEE =
+                                            Category(JsonField.of("passenger_assist_fee"))
+
+                                        @JvmField val PETS = Category(JsonField.of("pets"))
+
+                                        @JvmField
+                                        val SEAT_FEES = Category(JsonField.of("seat_fees"))
+
+                                        @JvmField val STANDBY = Category(JsonField.of("standby"))
+
+                                        @JvmField
+                                        val SERVICE_FEE = Category(JsonField.of("service_fee"))
+
+                                        @JvmField val STORE = Category(JsonField.of("store"))
+
+                                        @JvmField
+                                        val TRAVEL_SERVICE =
+                                            Category(JsonField.of("travel_service"))
+
+                                        @JvmField
+                                        val UNACCOMPANIED_TRAVEL =
+                                            Category(JsonField.of("unaccompanied_travel"))
+
+                                        @JvmField val UPGRADES = Category(JsonField.of("upgrades"))
+
+                                        @JvmField val WIFI = Category(JsonField.of("wifi"))
+
+                                        @JvmStatic
+                                        fun of(value: String) = Category(JsonField.of(value))
+                                    }
+
+                                    enum class Known {
+                                        NONE,
+                                        BUNDLED_SERVICE,
+                                        BAGGAGE_FEE,
+                                        CHANGE_FEE,
+                                        CARGO,
+                                        CARBON_OFFSET,
+                                        FREQUENT_FLYER,
+                                        GIFT_CARD,
+                                        GROUND_TRANSPORT,
+                                        IN_FLIGHT_ENTERTAINMENT,
+                                        LOUNGE,
+                                        MEDICAL,
+                                        MEAL_BEVERAGE,
+                                        OTHER,
+                                        PASSENGER_ASSIST_FEE,
+                                        PETS,
+                                        SEAT_FEES,
+                                        STANDBY,
+                                        SERVICE_FEE,
+                                        STORE,
+                                        TRAVEL_SERVICE,
+                                        UNACCOMPANIED_TRAVEL,
+                                        UPGRADES,
+                                        WIFI,
+                                    }
+
+                                    enum class Value {
+                                        NONE,
+                                        BUNDLED_SERVICE,
+                                        BAGGAGE_FEE,
+                                        CHANGE_FEE,
+                                        CARGO,
+                                        CARBON_OFFSET,
+                                        FREQUENT_FLYER,
+                                        GIFT_CARD,
+                                        GROUND_TRANSPORT,
+                                        IN_FLIGHT_ENTERTAINMENT,
+                                        LOUNGE,
+                                        MEDICAL,
+                                        MEAL_BEVERAGE,
+                                        OTHER,
+                                        PASSENGER_ASSIST_FEE,
+                                        PETS,
+                                        SEAT_FEES,
+                                        STANDBY,
+                                        SERVICE_FEE,
+                                        STORE,
+                                        TRAVEL_SERVICE,
+                                        UNACCOMPANIED_TRAVEL,
+                                        UPGRADES,
+                                        WIFI,
+                                        _UNKNOWN,
+                                    }
+
+                                    fun value(): Value =
+                                        when (this) {
+                                            NONE -> Value.NONE
+                                            BUNDLED_SERVICE -> Value.BUNDLED_SERVICE
+                                            BAGGAGE_FEE -> Value.BAGGAGE_FEE
+                                            CHANGE_FEE -> Value.CHANGE_FEE
+                                            CARGO -> Value.CARGO
+                                            CARBON_OFFSET -> Value.CARBON_OFFSET
+                                            FREQUENT_FLYER -> Value.FREQUENT_FLYER
+                                            GIFT_CARD -> Value.GIFT_CARD
+                                            GROUND_TRANSPORT -> Value.GROUND_TRANSPORT
+                                            IN_FLIGHT_ENTERTAINMENT -> Value.IN_FLIGHT_ENTERTAINMENT
+                                            LOUNGE -> Value.LOUNGE
+                                            MEDICAL -> Value.MEDICAL
+                                            MEAL_BEVERAGE -> Value.MEAL_BEVERAGE
+                                            OTHER -> Value.OTHER
+                                            PASSENGER_ASSIST_FEE -> Value.PASSENGER_ASSIST_FEE
+                                            PETS -> Value.PETS
+                                            SEAT_FEES -> Value.SEAT_FEES
+                                            STANDBY -> Value.STANDBY
+                                            SERVICE_FEE -> Value.SERVICE_FEE
+                                            STORE -> Value.STORE
+                                            TRAVEL_SERVICE -> Value.TRAVEL_SERVICE
+                                            UNACCOMPANIED_TRAVEL -> Value.UNACCOMPANIED_TRAVEL
+                                            UPGRADES -> Value.UPGRADES
+                                            WIFI -> Value.WIFI
+                                            else -> Value._UNKNOWN
+                                        }
+
+                                    fun known(): Known =
+                                        when (this) {
+                                            NONE -> Known.NONE
+                                            BUNDLED_SERVICE -> Known.BUNDLED_SERVICE
+                                            BAGGAGE_FEE -> Known.BAGGAGE_FEE
+                                            CHANGE_FEE -> Known.CHANGE_FEE
+                                            CARGO -> Known.CARGO
+                                            CARBON_OFFSET -> Known.CARBON_OFFSET
+                                            FREQUENT_FLYER -> Known.FREQUENT_FLYER
+                                            GIFT_CARD -> Known.GIFT_CARD
+                                            GROUND_TRANSPORT -> Known.GROUND_TRANSPORT
+                                            IN_FLIGHT_ENTERTAINMENT -> Known.IN_FLIGHT_ENTERTAINMENT
+                                            LOUNGE -> Known.LOUNGE
+                                            MEDICAL -> Known.MEDICAL
+                                            MEAL_BEVERAGE -> Known.MEAL_BEVERAGE
+                                            OTHER -> Known.OTHER
+                                            PASSENGER_ASSIST_FEE -> Known.PASSENGER_ASSIST_FEE
+                                            PETS -> Known.PETS
+                                            SEAT_FEES -> Known.SEAT_FEES
+                                            STANDBY -> Known.STANDBY
+                                            SERVICE_FEE -> Known.SERVICE_FEE
+                                            STORE -> Known.STORE
+                                            TRAVEL_SERVICE -> Known.TRAVEL_SERVICE
+                                            UNACCOMPANIED_TRAVEL -> Known.UNACCOMPANIED_TRAVEL
+                                            UPGRADES -> Known.UPGRADES
+                                            WIFI -> Known.WIFI
+                                            else ->
+                                                throw IncreaseInvalidDataException(
+                                                    "Unknown Category: $value"
+                                                )
+                                        }
+
+                                    fun asString(): String = _value().asStringOrThrow()
+                                }
+                            }
+                        }
+                    }
                 }
 
                 class Type
@@ -4911,6 +8763,7 @@ private constructor(
                 private val merchantCategoryCode: JsonField<String>,
                 private val transactionId: JsonField<String>,
                 private val pendingTransactionId: JsonField<String>,
+                private val purchaseDetails: JsonField<PurchaseDetails>,
                 private val type: JsonField<Type>,
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
@@ -4983,6 +8836,13 @@ private constructor(
                 /** The identifier of the Pending Transaction associated with this Transaction. */
                 fun pendingTransactionId(): Optional<String> =
                     Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
+
+                /**
+                 * Additional details about the card purchase, such as tax and industry-specific
+                 * fields.
+                 */
+                fun purchaseDetails(): Optional<PurchaseDetails> =
+                    Optional.ofNullable(purchaseDetails.getNullable("purchase_details"))
 
                 /**
                  * A constant representing the object's type. For this resource it will always be
@@ -5062,6 +8922,14 @@ private constructor(
                 fun _pendingTransactionId() = pendingTransactionId
 
                 /**
+                 * Additional details about the card purchase, such as tax and industry-specific
+                 * fields.
+                 */
+                @JsonProperty("purchase_details")
+                @ExcludeMissing
+                fun _purchaseDetails() = purchaseDetails
+
+                /**
                  * A constant representing the object's type. For this resource it will always be
                  * `card_settlement`.
                  */
@@ -5087,6 +8955,7 @@ private constructor(
                         merchantCategoryCode()
                         transactionId()
                         pendingTransactionId()
+                        purchaseDetails().map { it.validate() }
                         type()
                         validated = true
                     }
@@ -5114,6 +8983,7 @@ private constructor(
                         this.merchantCategoryCode == other.merchantCategoryCode &&
                         this.transactionId == other.transactionId &&
                         this.pendingTransactionId == other.pendingTransactionId &&
+                        this.purchaseDetails == other.purchaseDetails &&
                         this.type == other.type &&
                         this.additionalProperties == other.additionalProperties
                 }
@@ -5136,6 +9006,7 @@ private constructor(
                                 merchantCategoryCode,
                                 transactionId,
                                 pendingTransactionId,
+                                purchaseDetails,
                                 type,
                                 additionalProperties,
                             )
@@ -5144,7 +9015,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "CardSettlement{id=$id, cardAuthorization=$cardAuthorization, amount=$amount, currency=$currency, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, merchantAcceptorId=$merchantAcceptorId, merchantCity=$merchantCity, merchantState=$merchantState, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantCategoryCode=$merchantCategoryCode, transactionId=$transactionId, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
+                    "CardSettlement{id=$id, cardAuthorization=$cardAuthorization, amount=$amount, currency=$currency, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, merchantAcceptorId=$merchantAcceptorId, merchantCity=$merchantCity, merchantState=$merchantState, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantCategoryCode=$merchantCategoryCode, transactionId=$transactionId, pendingTransactionId=$pendingTransactionId, purchaseDetails=$purchaseDetails, type=$type, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -5167,6 +9038,7 @@ private constructor(
                     private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
                     private var transactionId: JsonField<String> = JsonMissing.of()
                     private var pendingTransactionId: JsonField<String> = JsonMissing.of()
+                    private var purchaseDetails: JsonField<PurchaseDetails> = JsonMissing.of()
                     private var type: JsonField<Type> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -5186,6 +9058,7 @@ private constructor(
                         this.merchantCategoryCode = cardSettlement.merchantCategoryCode
                         this.transactionId = cardSettlement.transactionId
                         this.pendingTransactionId = cardSettlement.pendingTransactionId
+                        this.purchaseDetails = cardSettlement.purchaseDetails
                         this.type = cardSettlement.type
                         additionalProperties(cardSettlement.additionalProperties)
                     }
@@ -5370,6 +9243,23 @@ private constructor(
                     }
 
                     /**
+                     * Additional details about the card purchase, such as tax and industry-specific
+                     * fields.
+                     */
+                    fun purchaseDetails(purchaseDetails: PurchaseDetails) =
+                        purchaseDetails(JsonField.of(purchaseDetails))
+
+                    /**
+                     * Additional details about the card purchase, such as tax and industry-specific
+                     * fields.
+                     */
+                    @JsonProperty("purchase_details")
+                    @ExcludeMissing
+                    fun purchaseDetails(purchaseDetails: JsonField<PurchaseDetails>) = apply {
+                        this.purchaseDetails = purchaseDetails
+                    }
+
+                    /**
                      * A constant representing the object's type. For this resource it will always
                      * be `card_settlement`.
                      */
@@ -5414,6 +9304,7 @@ private constructor(
                             merchantCategoryCode,
                             transactionId,
                             pendingTransactionId,
+                            purchaseDetails,
                             type,
                             additionalProperties.toUnmodifiable(),
                         )
@@ -5499,6 +9390,3867 @@ private constructor(
                         }
 
                     fun asString(): String = _value().asStringOrThrow()
+                }
+
+                /**
+                 * Additional details about the card purchase, such as tax and industry-specific
+                 * fields.
+                 */
+                @JsonDeserialize(builder = PurchaseDetails.Builder::class)
+                @NoAutoDetect
+                class PurchaseDetails
+                private constructor(
+                    private val purchaseIdentifier: JsonField<String>,
+                    private val purchaseIdentifierFormat: JsonField<PurchaseIdentifierFormat>,
+                    private val customerReferenceIdentifier: JsonField<String>,
+                    private val localTaxAmount: JsonField<Long>,
+                    private val localTaxCurrency: JsonField<String>,
+                    private val nationalTaxAmount: JsonField<Long>,
+                    private val nationalTaxCurrency: JsonField<String>,
+                    private val carRental: JsonField<CarRental>,
+                    private val lodging: JsonField<Lodging>,
+                    private val travel: JsonField<Travel>,
+                    private val additionalProperties: Map<String, JsonValue>,
+                ) {
+
+                    private var validated: Boolean = false
+
+                    private var hashCode: Int = 0
+
+                    /**
+                     * An identifier from the merchant for the purchase to the issuer and
+                     * cardholder.
+                     */
+                    fun purchaseIdentifier(): Optional<String> =
+                        Optional.ofNullable(purchaseIdentifier.getNullable("purchase_identifier"))
+
+                    /** The format of the purchase identifier. */
+                    fun purchaseIdentifierFormat(): Optional<PurchaseIdentifierFormat> =
+                        Optional.ofNullable(
+                            purchaseIdentifierFormat.getNullable("purchase_identifier_format")
+                        )
+
+                    /** An identifier from the merchant for the customer or consumer. */
+                    fun customerReferenceIdentifier(): Optional<String> =
+                        Optional.ofNullable(
+                            customerReferenceIdentifier.getNullable("customer_reference_identifier")
+                        )
+
+                    /** The state or provincial tax amount in minor units. */
+                    fun localTaxAmount(): Optional<Long> =
+                        Optional.ofNullable(localTaxAmount.getNullable("local_tax_amount"))
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the local tax
+                     * assessed.
+                     */
+                    fun localTaxCurrency(): Optional<String> =
+                        Optional.ofNullable(localTaxCurrency.getNullable("local_tax_currency"))
+
+                    /** The national tax amount in minor units. */
+                    fun nationalTaxAmount(): Optional<Long> =
+                        Optional.ofNullable(nationalTaxAmount.getNullable("national_tax_amount"))
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the local tax
+                     * assessed.
+                     */
+                    fun nationalTaxCurrency(): Optional<String> =
+                        Optional.ofNullable(
+                            nationalTaxCurrency.getNullable("national_tax_currency")
+                        )
+
+                    /** Fields specific to car rentals. */
+                    fun carRental(): Optional<CarRental> =
+                        Optional.ofNullable(carRental.getNullable("car_rental"))
+
+                    /** Fields specific to lodging. */
+                    fun lodging(): Optional<Lodging> =
+                        Optional.ofNullable(lodging.getNullable("lodging"))
+
+                    /** Fields specific to travel. */
+                    fun travel(): Optional<Travel> =
+                        Optional.ofNullable(travel.getNullable("travel"))
+
+                    /**
+                     * An identifier from the merchant for the purchase to the issuer and
+                     * cardholder.
+                     */
+                    @JsonProperty("purchase_identifier")
+                    @ExcludeMissing
+                    fun _purchaseIdentifier() = purchaseIdentifier
+
+                    /** The format of the purchase identifier. */
+                    @JsonProperty("purchase_identifier_format")
+                    @ExcludeMissing
+                    fun _purchaseIdentifierFormat() = purchaseIdentifierFormat
+
+                    /** An identifier from the merchant for the customer or consumer. */
+                    @JsonProperty("customer_reference_identifier")
+                    @ExcludeMissing
+                    fun _customerReferenceIdentifier() = customerReferenceIdentifier
+
+                    /** The state or provincial tax amount in minor units. */
+                    @JsonProperty("local_tax_amount")
+                    @ExcludeMissing
+                    fun _localTaxAmount() = localTaxAmount
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the local tax
+                     * assessed.
+                     */
+                    @JsonProperty("local_tax_currency")
+                    @ExcludeMissing
+                    fun _localTaxCurrency() = localTaxCurrency
+
+                    /** The national tax amount in minor units. */
+                    @JsonProperty("national_tax_amount")
+                    @ExcludeMissing
+                    fun _nationalTaxAmount() = nationalTaxAmount
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the local tax
+                     * assessed.
+                     */
+                    @JsonProperty("national_tax_currency")
+                    @ExcludeMissing
+                    fun _nationalTaxCurrency() = nationalTaxCurrency
+
+                    /** Fields specific to car rentals. */
+                    @JsonProperty("car_rental") @ExcludeMissing fun _carRental() = carRental
+
+                    /** Fields specific to lodging. */
+                    @JsonProperty("lodging") @ExcludeMissing fun _lodging() = lodging
+
+                    /** Fields specific to travel. */
+                    @JsonProperty("travel") @ExcludeMissing fun _travel() = travel
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                    fun validate(): PurchaseDetails = apply {
+                        if (!validated) {
+                            purchaseIdentifier()
+                            purchaseIdentifierFormat()
+                            customerReferenceIdentifier()
+                            localTaxAmount()
+                            localTaxCurrency()
+                            nationalTaxAmount()
+                            nationalTaxCurrency()
+                            carRental().map { it.validate() }
+                            lodging().map { it.validate() }
+                            travel().map { it.validate() }
+                            validated = true
+                        }
+                    }
+
+                    fun toBuilder() = Builder().from(this)
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is PurchaseDetails &&
+                            this.purchaseIdentifier == other.purchaseIdentifier &&
+                            this.purchaseIdentifierFormat == other.purchaseIdentifierFormat &&
+                            this.customerReferenceIdentifier == other.customerReferenceIdentifier &&
+                            this.localTaxAmount == other.localTaxAmount &&
+                            this.localTaxCurrency == other.localTaxCurrency &&
+                            this.nationalTaxAmount == other.nationalTaxAmount &&
+                            this.nationalTaxCurrency == other.nationalTaxCurrency &&
+                            this.carRental == other.carRental &&
+                            this.lodging == other.lodging &&
+                            this.travel == other.travel &&
+                            this.additionalProperties == other.additionalProperties
+                    }
+
+                    override fun hashCode(): Int {
+                        if (hashCode == 0) {
+                            hashCode =
+                                Objects.hash(
+                                    purchaseIdentifier,
+                                    purchaseIdentifierFormat,
+                                    customerReferenceIdentifier,
+                                    localTaxAmount,
+                                    localTaxCurrency,
+                                    nationalTaxAmount,
+                                    nationalTaxCurrency,
+                                    carRental,
+                                    lodging,
+                                    travel,
+                                    additionalProperties,
+                                )
+                        }
+                        return hashCode
+                    }
+
+                    override fun toString() =
+                        "PurchaseDetails{purchaseIdentifier=$purchaseIdentifier, purchaseIdentifierFormat=$purchaseIdentifierFormat, customerReferenceIdentifier=$customerReferenceIdentifier, localTaxAmount=$localTaxAmount, localTaxCurrency=$localTaxCurrency, nationalTaxAmount=$nationalTaxAmount, nationalTaxCurrency=$nationalTaxCurrency, carRental=$carRental, lodging=$lodging, travel=$travel, additionalProperties=$additionalProperties}"
+
+                    companion object {
+
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    class Builder {
+
+                        private var purchaseIdentifier: JsonField<String> = JsonMissing.of()
+                        private var purchaseIdentifierFormat: JsonField<PurchaseIdentifierFormat> =
+                            JsonMissing.of()
+                        private var customerReferenceIdentifier: JsonField<String> =
+                            JsonMissing.of()
+                        private var localTaxAmount: JsonField<Long> = JsonMissing.of()
+                        private var localTaxCurrency: JsonField<String> = JsonMissing.of()
+                        private var nationalTaxAmount: JsonField<Long> = JsonMissing.of()
+                        private var nationalTaxCurrency: JsonField<String> = JsonMissing.of()
+                        private var carRental: JsonField<CarRental> = JsonMissing.of()
+                        private var lodging: JsonField<Lodging> = JsonMissing.of()
+                        private var travel: JsonField<Travel> = JsonMissing.of()
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(purchaseDetails: PurchaseDetails) = apply {
+                            this.purchaseIdentifier = purchaseDetails.purchaseIdentifier
+                            this.purchaseIdentifierFormat = purchaseDetails.purchaseIdentifierFormat
+                            this.customerReferenceIdentifier =
+                                purchaseDetails.customerReferenceIdentifier
+                            this.localTaxAmount = purchaseDetails.localTaxAmount
+                            this.localTaxCurrency = purchaseDetails.localTaxCurrency
+                            this.nationalTaxAmount = purchaseDetails.nationalTaxAmount
+                            this.nationalTaxCurrency = purchaseDetails.nationalTaxCurrency
+                            this.carRental = purchaseDetails.carRental
+                            this.lodging = purchaseDetails.lodging
+                            this.travel = purchaseDetails.travel
+                            additionalProperties(purchaseDetails.additionalProperties)
+                        }
+
+                        /**
+                         * An identifier from the merchant for the purchase to the issuer and
+                         * cardholder.
+                         */
+                        fun purchaseIdentifier(purchaseIdentifier: String) =
+                            purchaseIdentifier(JsonField.of(purchaseIdentifier))
+
+                        /**
+                         * An identifier from the merchant for the purchase to the issuer and
+                         * cardholder.
+                         */
+                        @JsonProperty("purchase_identifier")
+                        @ExcludeMissing
+                        fun purchaseIdentifier(purchaseIdentifier: JsonField<String>) = apply {
+                            this.purchaseIdentifier = purchaseIdentifier
+                        }
+
+                        /** The format of the purchase identifier. */
+                        fun purchaseIdentifierFormat(
+                            purchaseIdentifierFormat: PurchaseIdentifierFormat
+                        ) = purchaseIdentifierFormat(JsonField.of(purchaseIdentifierFormat))
+
+                        /** The format of the purchase identifier. */
+                        @JsonProperty("purchase_identifier_format")
+                        @ExcludeMissing
+                        fun purchaseIdentifierFormat(
+                            purchaseIdentifierFormat: JsonField<PurchaseIdentifierFormat>
+                        ) = apply { this.purchaseIdentifierFormat = purchaseIdentifierFormat }
+
+                        /** An identifier from the merchant for the customer or consumer. */
+                        fun customerReferenceIdentifier(customerReferenceIdentifier: String) =
+                            customerReferenceIdentifier(JsonField.of(customerReferenceIdentifier))
+
+                        /** An identifier from the merchant for the customer or consumer. */
+                        @JsonProperty("customer_reference_identifier")
+                        @ExcludeMissing
+                        fun customerReferenceIdentifier(
+                            customerReferenceIdentifier: JsonField<String>
+                        ) = apply { this.customerReferenceIdentifier = customerReferenceIdentifier }
+
+                        /** The state or provincial tax amount in minor units. */
+                        fun localTaxAmount(localTaxAmount: Long) =
+                            localTaxAmount(JsonField.of(localTaxAmount))
+
+                        /** The state or provincial tax amount in minor units. */
+                        @JsonProperty("local_tax_amount")
+                        @ExcludeMissing
+                        fun localTaxAmount(localTaxAmount: JsonField<Long>) = apply {
+                            this.localTaxAmount = localTaxAmount
+                        }
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the local
+                         * tax assessed.
+                         */
+                        fun localTaxCurrency(localTaxCurrency: String) =
+                            localTaxCurrency(JsonField.of(localTaxCurrency))
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the local
+                         * tax assessed.
+                         */
+                        @JsonProperty("local_tax_currency")
+                        @ExcludeMissing
+                        fun localTaxCurrency(localTaxCurrency: JsonField<String>) = apply {
+                            this.localTaxCurrency = localTaxCurrency
+                        }
+
+                        /** The national tax amount in minor units. */
+                        fun nationalTaxAmount(nationalTaxAmount: Long) =
+                            nationalTaxAmount(JsonField.of(nationalTaxAmount))
+
+                        /** The national tax amount in minor units. */
+                        @JsonProperty("national_tax_amount")
+                        @ExcludeMissing
+                        fun nationalTaxAmount(nationalTaxAmount: JsonField<Long>) = apply {
+                            this.nationalTaxAmount = nationalTaxAmount
+                        }
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the local
+                         * tax assessed.
+                         */
+                        fun nationalTaxCurrency(nationalTaxCurrency: String) =
+                            nationalTaxCurrency(JsonField.of(nationalTaxCurrency))
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the local
+                         * tax assessed.
+                         */
+                        @JsonProperty("national_tax_currency")
+                        @ExcludeMissing
+                        fun nationalTaxCurrency(nationalTaxCurrency: JsonField<String>) = apply {
+                            this.nationalTaxCurrency = nationalTaxCurrency
+                        }
+
+                        /** Fields specific to car rentals. */
+                        fun carRental(carRental: CarRental) = carRental(JsonField.of(carRental))
+
+                        /** Fields specific to car rentals. */
+                        @JsonProperty("car_rental")
+                        @ExcludeMissing
+                        fun carRental(carRental: JsonField<CarRental>) = apply {
+                            this.carRental = carRental
+                        }
+
+                        /** Fields specific to lodging. */
+                        fun lodging(lodging: Lodging) = lodging(JsonField.of(lodging))
+
+                        /** Fields specific to lodging. */
+                        @JsonProperty("lodging")
+                        @ExcludeMissing
+                        fun lodging(lodging: JsonField<Lodging>) = apply { this.lodging = lodging }
+
+                        /** Fields specific to travel. */
+                        fun travel(travel: Travel) = travel(JsonField.of(travel))
+
+                        /** Fields specific to travel. */
+                        @JsonProperty("travel")
+                        @ExcludeMissing
+                        fun travel(travel: JsonField<Travel>) = apply { this.travel = travel }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                this.additionalProperties.putAll(additionalProperties)
+                            }
+
+                        @JsonAnySetter
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            this.additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun build(): PurchaseDetails =
+                            PurchaseDetails(
+                                purchaseIdentifier,
+                                purchaseIdentifierFormat,
+                                customerReferenceIdentifier,
+                                localTaxAmount,
+                                localTaxCurrency,
+                                nationalTaxAmount,
+                                nationalTaxCurrency,
+                                carRental,
+                                lodging,
+                                travel,
+                                additionalProperties.toUnmodifiable(),
+                            )
+                    }
+
+                    class PurchaseIdentifierFormat
+                    @JsonCreator
+                    private constructor(
+                        private val value: JsonField<String>,
+                    ) {
+
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is PurchaseIdentifierFormat && this.value == other.value
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+
+                        companion object {
+
+                            @JvmField
+                            val FREE_TEXT = PurchaseIdentifierFormat(JsonField.of("free_text"))
+
+                            @JvmField
+                            val ORDER_NUMBER =
+                                PurchaseIdentifierFormat(JsonField.of("order_number"))
+
+                            @JvmField
+                            val RENTAL_AGREEMENT_NUMBER =
+                                PurchaseIdentifierFormat(JsonField.of("rental_agreement_number"))
+
+                            @JvmField
+                            val HOTEL_FOLIO_NUMBER =
+                                PurchaseIdentifierFormat(JsonField.of("hotel_folio_number"))
+
+                            @JvmField
+                            val INVOICE_NUMBER =
+                                PurchaseIdentifierFormat(JsonField.of("invoice_number"))
+
+                            @JvmStatic
+                            fun of(value: String) = PurchaseIdentifierFormat(JsonField.of(value))
+                        }
+
+                        enum class Known {
+                            FREE_TEXT,
+                            ORDER_NUMBER,
+                            RENTAL_AGREEMENT_NUMBER,
+                            HOTEL_FOLIO_NUMBER,
+                            INVOICE_NUMBER,
+                        }
+
+                        enum class Value {
+                            FREE_TEXT,
+                            ORDER_NUMBER,
+                            RENTAL_AGREEMENT_NUMBER,
+                            HOTEL_FOLIO_NUMBER,
+                            INVOICE_NUMBER,
+                            _UNKNOWN,
+                        }
+
+                        fun value(): Value =
+                            when (this) {
+                                FREE_TEXT -> Value.FREE_TEXT
+                                ORDER_NUMBER -> Value.ORDER_NUMBER
+                                RENTAL_AGREEMENT_NUMBER -> Value.RENTAL_AGREEMENT_NUMBER
+                                HOTEL_FOLIO_NUMBER -> Value.HOTEL_FOLIO_NUMBER
+                                INVOICE_NUMBER -> Value.INVOICE_NUMBER
+                                else -> Value._UNKNOWN
+                            }
+
+                        fun known(): Known =
+                            when (this) {
+                                FREE_TEXT -> Known.FREE_TEXT
+                                ORDER_NUMBER -> Known.ORDER_NUMBER
+                                RENTAL_AGREEMENT_NUMBER -> Known.RENTAL_AGREEMENT_NUMBER
+                                HOTEL_FOLIO_NUMBER -> Known.HOTEL_FOLIO_NUMBER
+                                INVOICE_NUMBER -> Known.INVOICE_NUMBER
+                                else ->
+                                    throw IncreaseInvalidDataException(
+                                        "Unknown PurchaseIdentifierFormat: $value"
+                                    )
+                            }
+
+                        fun asString(): String = _value().asStringOrThrow()
+                    }
+
+                    /** Fields specific to car rentals. */
+                    @JsonDeserialize(builder = CarRental.Builder::class)
+                    @NoAutoDetect
+                    class CarRental
+                    private constructor(
+                        private val extraCharges: JsonField<ExtraCharges>,
+                        private val daysRented: JsonField<Long>,
+                        private val noShowIndicator: JsonField<NoShowIndicator>,
+                        private val checkoutDate: JsonField<LocalDate>,
+                        private val dailyRentalRateAmount: JsonField<Long>,
+                        private val dailyRentalRateCurrency: JsonField<String>,
+                        private val weeklyRentalRateAmount: JsonField<Long>,
+                        private val weeklyRentalRateCurrency: JsonField<String>,
+                        private val insuranceChargesAmount: JsonField<Long>,
+                        private val insuranceChargesCurrency: JsonField<String>,
+                        private val fuelChargesAmount: JsonField<Long>,
+                        private val fuelChargesCurrency: JsonField<String>,
+                        private val oneWayDropOffChargesAmount: JsonField<Long>,
+                        private val oneWayDropOffChargesCurrency: JsonField<String>,
+                        private val carClassCode: JsonField<String>,
+                        private val renterName: JsonField<String>,
+                        private val additionalProperties: Map<String, JsonValue>,
+                    ) {
+
+                        private var validated: Boolean = false
+
+                        private var hashCode: Int = 0
+
+                        /** Additional charges (gas, late fee, etc.) being billed. */
+                        fun extraCharges(): Optional<ExtraCharges> =
+                            Optional.ofNullable(extraCharges.getNullable("extra_charges"))
+
+                        /** Number of days the vehicle was rented. */
+                        fun daysRented(): Optional<Long> =
+                            Optional.ofNullable(daysRented.getNullable("days_rented"))
+
+                        /**
+                         * An indicator that the cardholder is being billed for a reserved vehicle
+                         * that was not actually rented (that is, a "no-show" charge).
+                         */
+                        fun noShowIndicator(): Optional<NoShowIndicator> =
+                            Optional.ofNullable(noShowIndicator.getNullable("no_show_indicator"))
+
+                        /**
+                         * Date the customer picked up the car or, in the case of a no-show or
+                         * pre-pay transaction, the scheduled pick up date.
+                         */
+                        fun checkoutDate(): Optional<LocalDate> =
+                            Optional.ofNullable(checkoutDate.getNullable("checkout_date"))
+
+                        /** Daily rate being charged for the vehicle. */
+                        fun dailyRentalRateAmount(): Optional<Long> =
+                            Optional.ofNullable(
+                                dailyRentalRateAmount.getNullable("daily_rental_rate_amount")
+                            )
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the daily
+                         * rental rate.
+                         */
+                        fun dailyRentalRateCurrency(): Optional<String> =
+                            Optional.ofNullable(
+                                dailyRentalRateCurrency.getNullable("daily_rental_rate_currency")
+                            )
+
+                        /** Weekly rate being charged for the vehicle. */
+                        fun weeklyRentalRateAmount(): Optional<Long> =
+                            Optional.ofNullable(
+                                weeklyRentalRateAmount.getNullable("weekly_rental_rate_amount")
+                            )
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                         * weekly rental rate.
+                         */
+                        fun weeklyRentalRateCurrency(): Optional<String> =
+                            Optional.ofNullable(
+                                weeklyRentalRateCurrency.getNullable("weekly_rental_rate_currency")
+                            )
+
+                        /** Any insurance being charged for the vehicle. */
+                        fun insuranceChargesAmount(): Optional<Long> =
+                            Optional.ofNullable(
+                                insuranceChargesAmount.getNullable("insurance_charges_amount")
+                            )
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                         * insurance charges assessed.
+                         */
+                        fun insuranceChargesCurrency(): Optional<String> =
+                            Optional.ofNullable(
+                                insuranceChargesCurrency.getNullable("insurance_charges_currency")
+                            )
+
+                        /** Fuel charges for the vehicle. */
+                        fun fuelChargesAmount(): Optional<Long> =
+                            Optional.ofNullable(
+                                fuelChargesAmount.getNullable("fuel_charges_amount")
+                            )
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the fuel
+                         * charges assessed.
+                         */
+                        fun fuelChargesCurrency(): Optional<String> =
+                            Optional.ofNullable(
+                                fuelChargesCurrency.getNullable("fuel_charges_currency")
+                            )
+
+                        /**
+                         * Charges for returning the vehicle at a different location than where it
+                         * was picked up.
+                         */
+                        fun oneWayDropOffChargesAmount(): Optional<Long> =
+                            Optional.ofNullable(
+                                oneWayDropOffChargesAmount.getNullable(
+                                    "one_way_drop_off_charges_amount"
+                                )
+                            )
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                         * one-way drop-off charges assessed.
+                         */
+                        fun oneWayDropOffChargesCurrency(): Optional<String> =
+                            Optional.ofNullable(
+                                oneWayDropOffChargesCurrency.getNullable(
+                                    "one_way_drop_off_charges_currency"
+                                )
+                            )
+
+                        /** Code indicating the vehicle's class. */
+                        fun carClassCode(): Optional<String> =
+                            Optional.ofNullable(carClassCode.getNullable("car_class_code"))
+
+                        /** Name of the person renting the vehicle. */
+                        fun renterName(): Optional<String> =
+                            Optional.ofNullable(renterName.getNullable("renter_name"))
+
+                        /** Additional charges (gas, late fee, etc.) being billed. */
+                        @JsonProperty("extra_charges")
+                        @ExcludeMissing
+                        fun _extraCharges() = extraCharges
+
+                        /** Number of days the vehicle was rented. */
+                        @JsonProperty("days_rented") @ExcludeMissing fun _daysRented() = daysRented
+
+                        /**
+                         * An indicator that the cardholder is being billed for a reserved vehicle
+                         * that was not actually rented (that is, a "no-show" charge).
+                         */
+                        @JsonProperty("no_show_indicator")
+                        @ExcludeMissing
+                        fun _noShowIndicator() = noShowIndicator
+
+                        /**
+                         * Date the customer picked up the car or, in the case of a no-show or
+                         * pre-pay transaction, the scheduled pick up date.
+                         */
+                        @JsonProperty("checkout_date")
+                        @ExcludeMissing
+                        fun _checkoutDate() = checkoutDate
+
+                        /** Daily rate being charged for the vehicle. */
+                        @JsonProperty("daily_rental_rate_amount")
+                        @ExcludeMissing
+                        fun _dailyRentalRateAmount() = dailyRentalRateAmount
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the daily
+                         * rental rate.
+                         */
+                        @JsonProperty("daily_rental_rate_currency")
+                        @ExcludeMissing
+                        fun _dailyRentalRateCurrency() = dailyRentalRateCurrency
+
+                        /** Weekly rate being charged for the vehicle. */
+                        @JsonProperty("weekly_rental_rate_amount")
+                        @ExcludeMissing
+                        fun _weeklyRentalRateAmount() = weeklyRentalRateAmount
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                         * weekly rental rate.
+                         */
+                        @JsonProperty("weekly_rental_rate_currency")
+                        @ExcludeMissing
+                        fun _weeklyRentalRateCurrency() = weeklyRentalRateCurrency
+
+                        /** Any insurance being charged for the vehicle. */
+                        @JsonProperty("insurance_charges_amount")
+                        @ExcludeMissing
+                        fun _insuranceChargesAmount() = insuranceChargesAmount
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                         * insurance charges assessed.
+                         */
+                        @JsonProperty("insurance_charges_currency")
+                        @ExcludeMissing
+                        fun _insuranceChargesCurrency() = insuranceChargesCurrency
+
+                        /** Fuel charges for the vehicle. */
+                        @JsonProperty("fuel_charges_amount")
+                        @ExcludeMissing
+                        fun _fuelChargesAmount() = fuelChargesAmount
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the fuel
+                         * charges assessed.
+                         */
+                        @JsonProperty("fuel_charges_currency")
+                        @ExcludeMissing
+                        fun _fuelChargesCurrency() = fuelChargesCurrency
+
+                        /**
+                         * Charges for returning the vehicle at a different location than where it
+                         * was picked up.
+                         */
+                        @JsonProperty("one_way_drop_off_charges_amount")
+                        @ExcludeMissing
+                        fun _oneWayDropOffChargesAmount() = oneWayDropOffChargesAmount
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                         * one-way drop-off charges assessed.
+                         */
+                        @JsonProperty("one_way_drop_off_charges_currency")
+                        @ExcludeMissing
+                        fun _oneWayDropOffChargesCurrency() = oneWayDropOffChargesCurrency
+
+                        /** Code indicating the vehicle's class. */
+                        @JsonProperty("car_class_code")
+                        @ExcludeMissing
+                        fun _carClassCode() = carClassCode
+
+                        /** Name of the person renting the vehicle. */
+                        @JsonProperty("renter_name") @ExcludeMissing fun _renterName() = renterName
+
+                        @JsonAnyGetter
+                        @ExcludeMissing
+                        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                        fun validate(): CarRental = apply {
+                            if (!validated) {
+                                extraCharges()
+                                daysRented()
+                                noShowIndicator()
+                                checkoutDate()
+                                dailyRentalRateAmount()
+                                dailyRentalRateCurrency()
+                                weeklyRentalRateAmount()
+                                weeklyRentalRateCurrency()
+                                insuranceChargesAmount()
+                                insuranceChargesCurrency()
+                                fuelChargesAmount()
+                                fuelChargesCurrency()
+                                oneWayDropOffChargesAmount()
+                                oneWayDropOffChargesCurrency()
+                                carClassCode()
+                                renterName()
+                                validated = true
+                            }
+                        }
+
+                        fun toBuilder() = Builder().from(this)
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is CarRental &&
+                                this.extraCharges == other.extraCharges &&
+                                this.daysRented == other.daysRented &&
+                                this.noShowIndicator == other.noShowIndicator &&
+                                this.checkoutDate == other.checkoutDate &&
+                                this.dailyRentalRateAmount == other.dailyRentalRateAmount &&
+                                this.dailyRentalRateCurrency == other.dailyRentalRateCurrency &&
+                                this.weeklyRentalRateAmount == other.weeklyRentalRateAmount &&
+                                this.weeklyRentalRateCurrency == other.weeklyRentalRateCurrency &&
+                                this.insuranceChargesAmount == other.insuranceChargesAmount &&
+                                this.insuranceChargesCurrency == other.insuranceChargesCurrency &&
+                                this.fuelChargesAmount == other.fuelChargesAmount &&
+                                this.fuelChargesCurrency == other.fuelChargesCurrency &&
+                                this.oneWayDropOffChargesAmount ==
+                                    other.oneWayDropOffChargesAmount &&
+                                this.oneWayDropOffChargesCurrency ==
+                                    other.oneWayDropOffChargesCurrency &&
+                                this.carClassCode == other.carClassCode &&
+                                this.renterName == other.renterName &&
+                                this.additionalProperties == other.additionalProperties
+                        }
+
+                        override fun hashCode(): Int {
+                            if (hashCode == 0) {
+                                hashCode =
+                                    Objects.hash(
+                                        extraCharges,
+                                        daysRented,
+                                        noShowIndicator,
+                                        checkoutDate,
+                                        dailyRentalRateAmount,
+                                        dailyRentalRateCurrency,
+                                        weeklyRentalRateAmount,
+                                        weeklyRentalRateCurrency,
+                                        insuranceChargesAmount,
+                                        insuranceChargesCurrency,
+                                        fuelChargesAmount,
+                                        fuelChargesCurrency,
+                                        oneWayDropOffChargesAmount,
+                                        oneWayDropOffChargesCurrency,
+                                        carClassCode,
+                                        renterName,
+                                        additionalProperties,
+                                    )
+                            }
+                            return hashCode
+                        }
+
+                        override fun toString() =
+                            "CarRental{extraCharges=$extraCharges, daysRented=$daysRented, noShowIndicator=$noShowIndicator, checkoutDate=$checkoutDate, dailyRentalRateAmount=$dailyRentalRateAmount, dailyRentalRateCurrency=$dailyRentalRateCurrency, weeklyRentalRateAmount=$weeklyRentalRateAmount, weeklyRentalRateCurrency=$weeklyRentalRateCurrency, insuranceChargesAmount=$insuranceChargesAmount, insuranceChargesCurrency=$insuranceChargesCurrency, fuelChargesAmount=$fuelChargesAmount, fuelChargesCurrency=$fuelChargesCurrency, oneWayDropOffChargesAmount=$oneWayDropOffChargesAmount, oneWayDropOffChargesCurrency=$oneWayDropOffChargesCurrency, carClassCode=$carClassCode, renterName=$renterName, additionalProperties=$additionalProperties}"
+
+                        companion object {
+
+                            @JvmStatic fun builder() = Builder()
+                        }
+
+                        class Builder {
+
+                            private var extraCharges: JsonField<ExtraCharges> = JsonMissing.of()
+                            private var daysRented: JsonField<Long> = JsonMissing.of()
+                            private var noShowIndicator: JsonField<NoShowIndicator> =
+                                JsonMissing.of()
+                            private var checkoutDate: JsonField<LocalDate> = JsonMissing.of()
+                            private var dailyRentalRateAmount: JsonField<Long> = JsonMissing.of()
+                            private var dailyRentalRateCurrency: JsonField<String> =
+                                JsonMissing.of()
+                            private var weeklyRentalRateAmount: JsonField<Long> = JsonMissing.of()
+                            private var weeklyRentalRateCurrency: JsonField<String> =
+                                JsonMissing.of()
+                            private var insuranceChargesAmount: JsonField<Long> = JsonMissing.of()
+                            private var insuranceChargesCurrency: JsonField<String> =
+                                JsonMissing.of()
+                            private var fuelChargesAmount: JsonField<Long> = JsonMissing.of()
+                            private var fuelChargesCurrency: JsonField<String> = JsonMissing.of()
+                            private var oneWayDropOffChargesAmount: JsonField<Long> =
+                                JsonMissing.of()
+                            private var oneWayDropOffChargesCurrency: JsonField<String> =
+                                JsonMissing.of()
+                            private var carClassCode: JsonField<String> = JsonMissing.of()
+                            private var renterName: JsonField<String> = JsonMissing.of()
+                            private var additionalProperties: MutableMap<String, JsonValue> =
+                                mutableMapOf()
+
+                            @JvmSynthetic
+                            internal fun from(carRental: CarRental) = apply {
+                                this.extraCharges = carRental.extraCharges
+                                this.daysRented = carRental.daysRented
+                                this.noShowIndicator = carRental.noShowIndicator
+                                this.checkoutDate = carRental.checkoutDate
+                                this.dailyRentalRateAmount = carRental.dailyRentalRateAmount
+                                this.dailyRentalRateCurrency = carRental.dailyRentalRateCurrency
+                                this.weeklyRentalRateAmount = carRental.weeklyRentalRateAmount
+                                this.weeklyRentalRateCurrency = carRental.weeklyRentalRateCurrency
+                                this.insuranceChargesAmount = carRental.insuranceChargesAmount
+                                this.insuranceChargesCurrency = carRental.insuranceChargesCurrency
+                                this.fuelChargesAmount = carRental.fuelChargesAmount
+                                this.fuelChargesCurrency = carRental.fuelChargesCurrency
+                                this.oneWayDropOffChargesAmount =
+                                    carRental.oneWayDropOffChargesAmount
+                                this.oneWayDropOffChargesCurrency =
+                                    carRental.oneWayDropOffChargesCurrency
+                                this.carClassCode = carRental.carClassCode
+                                this.renterName = carRental.renterName
+                                additionalProperties(carRental.additionalProperties)
+                            }
+
+                            /** Additional charges (gas, late fee, etc.) being billed. */
+                            fun extraCharges(extraCharges: ExtraCharges) =
+                                extraCharges(JsonField.of(extraCharges))
+
+                            /** Additional charges (gas, late fee, etc.) being billed. */
+                            @JsonProperty("extra_charges")
+                            @ExcludeMissing
+                            fun extraCharges(extraCharges: JsonField<ExtraCharges>) = apply {
+                                this.extraCharges = extraCharges
+                            }
+
+                            /** Number of days the vehicle was rented. */
+                            fun daysRented(daysRented: Long) = daysRented(JsonField.of(daysRented))
+
+                            /** Number of days the vehicle was rented. */
+                            @JsonProperty("days_rented")
+                            @ExcludeMissing
+                            fun daysRented(daysRented: JsonField<Long>) = apply {
+                                this.daysRented = daysRented
+                            }
+
+                            /**
+                             * An indicator that the cardholder is being billed for a reserved
+                             * vehicle that was not actually rented (that is, a "no-show" charge).
+                             */
+                            fun noShowIndicator(noShowIndicator: NoShowIndicator) =
+                                noShowIndicator(JsonField.of(noShowIndicator))
+
+                            /**
+                             * An indicator that the cardholder is being billed for a reserved
+                             * vehicle that was not actually rented (that is, a "no-show" charge).
+                             */
+                            @JsonProperty("no_show_indicator")
+                            @ExcludeMissing
+                            fun noShowIndicator(noShowIndicator: JsonField<NoShowIndicator>) =
+                                apply {
+                                    this.noShowIndicator = noShowIndicator
+                                }
+
+                            /**
+                             * Date the customer picked up the car or, in the case of a no-show or
+                             * pre-pay transaction, the scheduled pick up date.
+                             */
+                            fun checkoutDate(checkoutDate: LocalDate) =
+                                checkoutDate(JsonField.of(checkoutDate))
+
+                            /**
+                             * Date the customer picked up the car or, in the case of a no-show or
+                             * pre-pay transaction, the scheduled pick up date.
+                             */
+                            @JsonProperty("checkout_date")
+                            @ExcludeMissing
+                            fun checkoutDate(checkoutDate: JsonField<LocalDate>) = apply {
+                                this.checkoutDate = checkoutDate
+                            }
+
+                            /** Daily rate being charged for the vehicle. */
+                            fun dailyRentalRateAmount(dailyRentalRateAmount: Long) =
+                                dailyRentalRateAmount(JsonField.of(dailyRentalRateAmount))
+
+                            /** Daily rate being charged for the vehicle. */
+                            @JsonProperty("daily_rental_rate_amount")
+                            @ExcludeMissing
+                            fun dailyRentalRateAmount(dailyRentalRateAmount: JsonField<Long>) =
+                                apply {
+                                    this.dailyRentalRateAmount = dailyRentalRateAmount
+                                }
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * daily rental rate.
+                             */
+                            fun dailyRentalRateCurrency(dailyRentalRateCurrency: String) =
+                                dailyRentalRateCurrency(JsonField.of(dailyRentalRateCurrency))
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * daily rental rate.
+                             */
+                            @JsonProperty("daily_rental_rate_currency")
+                            @ExcludeMissing
+                            fun dailyRentalRateCurrency(
+                                dailyRentalRateCurrency: JsonField<String>
+                            ) = apply { this.dailyRentalRateCurrency = dailyRentalRateCurrency }
+
+                            /** Weekly rate being charged for the vehicle. */
+                            fun weeklyRentalRateAmount(weeklyRentalRateAmount: Long) =
+                                weeklyRentalRateAmount(JsonField.of(weeklyRentalRateAmount))
+
+                            /** Weekly rate being charged for the vehicle. */
+                            @JsonProperty("weekly_rental_rate_amount")
+                            @ExcludeMissing
+                            fun weeklyRentalRateAmount(weeklyRentalRateAmount: JsonField<Long>) =
+                                apply {
+                                    this.weeklyRentalRateAmount = weeklyRentalRateAmount
+                                }
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * weekly rental rate.
+                             */
+                            fun weeklyRentalRateCurrency(weeklyRentalRateCurrency: String) =
+                                weeklyRentalRateCurrency(JsonField.of(weeklyRentalRateCurrency))
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * weekly rental rate.
+                             */
+                            @JsonProperty("weekly_rental_rate_currency")
+                            @ExcludeMissing
+                            fun weeklyRentalRateCurrency(
+                                weeklyRentalRateCurrency: JsonField<String>
+                            ) = apply { this.weeklyRentalRateCurrency = weeklyRentalRateCurrency }
+
+                            /** Any insurance being charged for the vehicle. */
+                            fun insuranceChargesAmount(insuranceChargesAmount: Long) =
+                                insuranceChargesAmount(JsonField.of(insuranceChargesAmount))
+
+                            /** Any insurance being charged for the vehicle. */
+                            @JsonProperty("insurance_charges_amount")
+                            @ExcludeMissing
+                            fun insuranceChargesAmount(insuranceChargesAmount: JsonField<Long>) =
+                                apply {
+                                    this.insuranceChargesAmount = insuranceChargesAmount
+                                }
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * insurance charges assessed.
+                             */
+                            fun insuranceChargesCurrency(insuranceChargesCurrency: String) =
+                                insuranceChargesCurrency(JsonField.of(insuranceChargesCurrency))
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * insurance charges assessed.
+                             */
+                            @JsonProperty("insurance_charges_currency")
+                            @ExcludeMissing
+                            fun insuranceChargesCurrency(
+                                insuranceChargesCurrency: JsonField<String>
+                            ) = apply { this.insuranceChargesCurrency = insuranceChargesCurrency }
+
+                            /** Fuel charges for the vehicle. */
+                            fun fuelChargesAmount(fuelChargesAmount: Long) =
+                                fuelChargesAmount(JsonField.of(fuelChargesAmount))
+
+                            /** Fuel charges for the vehicle. */
+                            @JsonProperty("fuel_charges_amount")
+                            @ExcludeMissing
+                            fun fuelChargesAmount(fuelChargesAmount: JsonField<Long>) = apply {
+                                this.fuelChargesAmount = fuelChargesAmount
+                            }
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * fuel charges assessed.
+                             */
+                            fun fuelChargesCurrency(fuelChargesCurrency: String) =
+                                fuelChargesCurrency(JsonField.of(fuelChargesCurrency))
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * fuel charges assessed.
+                             */
+                            @JsonProperty("fuel_charges_currency")
+                            @ExcludeMissing
+                            fun fuelChargesCurrency(fuelChargesCurrency: JsonField<String>) =
+                                apply {
+                                    this.fuelChargesCurrency = fuelChargesCurrency
+                                }
+
+                            /**
+                             * Charges for returning the vehicle at a different location than where
+                             * it was picked up.
+                             */
+                            fun oneWayDropOffChargesAmount(oneWayDropOffChargesAmount: Long) =
+                                oneWayDropOffChargesAmount(JsonField.of(oneWayDropOffChargesAmount))
+
+                            /**
+                             * Charges for returning the vehicle at a different location than where
+                             * it was picked up.
+                             */
+                            @JsonProperty("one_way_drop_off_charges_amount")
+                            @ExcludeMissing
+                            fun oneWayDropOffChargesAmount(
+                                oneWayDropOffChargesAmount: JsonField<Long>
+                            ) = apply {
+                                this.oneWayDropOffChargesAmount = oneWayDropOffChargesAmount
+                            }
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * one-way drop-off charges assessed.
+                             */
+                            fun oneWayDropOffChargesCurrency(oneWayDropOffChargesCurrency: String) =
+                                oneWayDropOffChargesCurrency(
+                                    JsonField.of(oneWayDropOffChargesCurrency)
+                                )
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * one-way drop-off charges assessed.
+                             */
+                            @JsonProperty("one_way_drop_off_charges_currency")
+                            @ExcludeMissing
+                            fun oneWayDropOffChargesCurrency(
+                                oneWayDropOffChargesCurrency: JsonField<String>
+                            ) = apply {
+                                this.oneWayDropOffChargesCurrency = oneWayDropOffChargesCurrency
+                            }
+
+                            /** Code indicating the vehicle's class. */
+                            fun carClassCode(carClassCode: String) =
+                                carClassCode(JsonField.of(carClassCode))
+
+                            /** Code indicating the vehicle's class. */
+                            @JsonProperty("car_class_code")
+                            @ExcludeMissing
+                            fun carClassCode(carClassCode: JsonField<String>) = apply {
+                                this.carClassCode = carClassCode
+                            }
+
+                            /** Name of the person renting the vehicle. */
+                            fun renterName(renterName: String) =
+                                renterName(JsonField.of(renterName))
+
+                            /** Name of the person renting the vehicle. */
+                            @JsonProperty("renter_name")
+                            @ExcludeMissing
+                            fun renterName(renterName: JsonField<String>) = apply {
+                                this.renterName = renterName
+                            }
+
+                            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                                apply {
+                                    this.additionalProperties.clear()
+                                    this.additionalProperties.putAll(additionalProperties)
+                                }
+
+                            @JsonAnySetter
+                            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                                this.additionalProperties.put(key, value)
+                            }
+
+                            fun putAllAdditionalProperties(
+                                additionalProperties: Map<String, JsonValue>
+                            ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                            fun build(): CarRental =
+                                CarRental(
+                                    extraCharges,
+                                    daysRented,
+                                    noShowIndicator,
+                                    checkoutDate,
+                                    dailyRentalRateAmount,
+                                    dailyRentalRateCurrency,
+                                    weeklyRentalRateAmount,
+                                    weeklyRentalRateCurrency,
+                                    insuranceChargesAmount,
+                                    insuranceChargesCurrency,
+                                    fuelChargesAmount,
+                                    fuelChargesCurrency,
+                                    oneWayDropOffChargesAmount,
+                                    oneWayDropOffChargesCurrency,
+                                    carClassCode,
+                                    renterName,
+                                    additionalProperties.toUnmodifiable(),
+                                )
+                        }
+
+                        class ExtraCharges
+                        @JsonCreator
+                        private constructor(
+                            private val value: JsonField<String>,
+                        ) {
+
+                            @com.fasterxml.jackson.annotation.JsonValue
+                            fun _value(): JsonField<String> = value
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is ExtraCharges && this.value == other.value
+                            }
+
+                            override fun hashCode() = value.hashCode()
+
+                            override fun toString() = value.toString()
+
+                            companion object {
+
+                                @JvmField
+                                val NO_EXTRA_CHARGE = ExtraCharges(JsonField.of("no_extra_charge"))
+
+                                @JvmField val GAS = ExtraCharges(JsonField.of("gas"))
+
+                                @JvmField
+                                val EXTRA_MILEAGE = ExtraCharges(JsonField.of("extra_mileage"))
+
+                                @JvmField
+                                val LATE_RETURN = ExtraCharges(JsonField.of("late_return"))
+
+                                @JvmField
+                                val ONE_WAY_SERVICE_FEE =
+                                    ExtraCharges(JsonField.of("one_way_service_fee"))
+
+                                @JvmField
+                                val PARKING_VIOLATION =
+                                    ExtraCharges(JsonField.of("parking_violation"))
+
+                                @JvmStatic fun of(value: String) = ExtraCharges(JsonField.of(value))
+                            }
+
+                            enum class Known {
+                                NO_EXTRA_CHARGE,
+                                GAS,
+                                EXTRA_MILEAGE,
+                                LATE_RETURN,
+                                ONE_WAY_SERVICE_FEE,
+                                PARKING_VIOLATION,
+                            }
+
+                            enum class Value {
+                                NO_EXTRA_CHARGE,
+                                GAS,
+                                EXTRA_MILEAGE,
+                                LATE_RETURN,
+                                ONE_WAY_SERVICE_FEE,
+                                PARKING_VIOLATION,
+                                _UNKNOWN,
+                            }
+
+                            fun value(): Value =
+                                when (this) {
+                                    NO_EXTRA_CHARGE -> Value.NO_EXTRA_CHARGE
+                                    GAS -> Value.GAS
+                                    EXTRA_MILEAGE -> Value.EXTRA_MILEAGE
+                                    LATE_RETURN -> Value.LATE_RETURN
+                                    ONE_WAY_SERVICE_FEE -> Value.ONE_WAY_SERVICE_FEE
+                                    PARKING_VIOLATION -> Value.PARKING_VIOLATION
+                                    else -> Value._UNKNOWN
+                                }
+
+                            fun known(): Known =
+                                when (this) {
+                                    NO_EXTRA_CHARGE -> Known.NO_EXTRA_CHARGE
+                                    GAS -> Known.GAS
+                                    EXTRA_MILEAGE -> Known.EXTRA_MILEAGE
+                                    LATE_RETURN -> Known.LATE_RETURN
+                                    ONE_WAY_SERVICE_FEE -> Known.ONE_WAY_SERVICE_FEE
+                                    PARKING_VIOLATION -> Known.PARKING_VIOLATION
+                                    else ->
+                                        throw IncreaseInvalidDataException(
+                                            "Unknown ExtraCharges: $value"
+                                        )
+                                }
+
+                            fun asString(): String = _value().asStringOrThrow()
+                        }
+
+                        class NoShowIndicator
+                        @JsonCreator
+                        private constructor(
+                            private val value: JsonField<String>,
+                        ) {
+
+                            @com.fasterxml.jackson.annotation.JsonValue
+                            fun _value(): JsonField<String> = value
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is NoShowIndicator && this.value == other.value
+                            }
+
+                            override fun hashCode() = value.hashCode()
+
+                            override fun toString() = value.toString()
+
+                            companion object {
+
+                                @JvmField
+                                val NOT_APPLICABLE = NoShowIndicator(JsonField.of("not_applicable"))
+
+                                @JvmField
+                                val NO_SHOW_FOR_SPECIALIZED_VEHICLE =
+                                    NoShowIndicator(JsonField.of("no_show_for_specialized_vehicle"))
+
+                                @JvmStatic
+                                fun of(value: String) = NoShowIndicator(JsonField.of(value))
+                            }
+
+                            enum class Known {
+                                NOT_APPLICABLE,
+                                NO_SHOW_FOR_SPECIALIZED_VEHICLE,
+                            }
+
+                            enum class Value {
+                                NOT_APPLICABLE,
+                                NO_SHOW_FOR_SPECIALIZED_VEHICLE,
+                                _UNKNOWN,
+                            }
+
+                            fun value(): Value =
+                                when (this) {
+                                    NOT_APPLICABLE -> Value.NOT_APPLICABLE
+                                    NO_SHOW_FOR_SPECIALIZED_VEHICLE ->
+                                        Value.NO_SHOW_FOR_SPECIALIZED_VEHICLE
+                                    else -> Value._UNKNOWN
+                                }
+
+                            fun known(): Known =
+                                when (this) {
+                                    NOT_APPLICABLE -> Known.NOT_APPLICABLE
+                                    NO_SHOW_FOR_SPECIALIZED_VEHICLE ->
+                                        Known.NO_SHOW_FOR_SPECIALIZED_VEHICLE
+                                    else ->
+                                        throw IncreaseInvalidDataException(
+                                            "Unknown NoShowIndicator: $value"
+                                        )
+                                }
+
+                            fun asString(): String = _value().asStringOrThrow()
+                        }
+                    }
+
+                    /** Fields specific to lodging. */
+                    @JsonDeserialize(builder = Lodging.Builder::class)
+                    @NoAutoDetect
+                    class Lodging
+                    private constructor(
+                        private val noShowIndicator: JsonField<NoShowIndicator>,
+                        private val extraCharges: JsonField<ExtraCharges>,
+                        private val checkInDate: JsonField<LocalDate>,
+                        private val dailyRoomRateAmount: JsonField<Long>,
+                        private val dailyRoomRateCurrency: JsonField<String>,
+                        private val totalTaxAmount: JsonField<Long>,
+                        private val totalTaxCurrency: JsonField<String>,
+                        private val prepaidExpensesAmount: JsonField<Long>,
+                        private val prepaidExpensesCurrency: JsonField<String>,
+                        private val foodBeverageChargesAmount: JsonField<Long>,
+                        private val foodBeverageChargesCurrency: JsonField<String>,
+                        private val folioCashAdvancesAmount: JsonField<Long>,
+                        private val folioCashAdvancesCurrency: JsonField<String>,
+                        private val roomNights: JsonField<Long>,
+                        private val totalRoomTaxAmount: JsonField<Long>,
+                        private val totalRoomTaxCurrency: JsonField<String>,
+                        private val additionalProperties: Map<String, JsonValue>,
+                    ) {
+
+                        private var validated: Boolean = false
+
+                        private var hashCode: Int = 0
+
+                        /**
+                         * Indicator that the cardholder is being billed for a reserved room that
+                         * was not actually used.
+                         */
+                        fun noShowIndicator(): Optional<NoShowIndicator> =
+                            Optional.ofNullable(noShowIndicator.getNullable("no_show_indicator"))
+
+                        /** Additional charges (phone, late check-out, etc.) being billed. */
+                        fun extraCharges(): Optional<ExtraCharges> =
+                            Optional.ofNullable(extraCharges.getNullable("extra_charges"))
+
+                        /** Date the customer checked in. */
+                        fun checkInDate(): Optional<LocalDate> =
+                            Optional.ofNullable(checkInDate.getNullable("check_in_date"))
+
+                        /** Daily rate being charged for the room. */
+                        fun dailyRoomRateAmount(): Optional<Long> =
+                            Optional.ofNullable(
+                                dailyRoomRateAmount.getNullable("daily_room_rate_amount")
+                            )
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the daily
+                         * room rate.
+                         */
+                        fun dailyRoomRateCurrency(): Optional<String> =
+                            Optional.ofNullable(
+                                dailyRoomRateCurrency.getNullable("daily_room_rate_currency")
+                            )
+
+                        /** Total tax being charged for the room. */
+                        fun totalTaxAmount(): Optional<Long> =
+                            Optional.ofNullable(totalTaxAmount.getNullable("total_tax_amount"))
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total
+                         * tax assessed.
+                         */
+                        fun totalTaxCurrency(): Optional<String> =
+                            Optional.ofNullable(totalTaxCurrency.getNullable("total_tax_currency"))
+
+                        /** Prepaid expenses being charged for the room. */
+                        fun prepaidExpensesAmount(): Optional<Long> =
+                            Optional.ofNullable(
+                                prepaidExpensesAmount.getNullable("prepaid_expenses_amount")
+                            )
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                         * prepaid expenses.
+                         */
+                        fun prepaidExpensesCurrency(): Optional<String> =
+                            Optional.ofNullable(
+                                prepaidExpensesCurrency.getNullable("prepaid_expenses_currency")
+                            )
+
+                        /** Food and beverage charges for the room. */
+                        fun foodBeverageChargesAmount(): Optional<Long> =
+                            Optional.ofNullable(
+                                foodBeverageChargesAmount.getNullable(
+                                    "food_beverage_charges_amount"
+                                )
+                            )
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the foor
+                         * and beverage charges.
+                         */
+                        fun foodBeverageChargesCurrency(): Optional<String> =
+                            Optional.ofNullable(
+                                foodBeverageChargesCurrency.getNullable(
+                                    "food_beverage_charges_currency"
+                                )
+                            )
+
+                        /** Folio cash advances for the room. */
+                        fun folioCashAdvancesAmount(): Optional<Long> =
+                            Optional.ofNullable(
+                                folioCashAdvancesAmount.getNullable("folio_cash_advances_amount")
+                            )
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the folio
+                         * cash advances.
+                         */
+                        fun folioCashAdvancesCurrency(): Optional<String> =
+                            Optional.ofNullable(
+                                folioCashAdvancesCurrency.getNullable(
+                                    "folio_cash_advances_currency"
+                                )
+                            )
+
+                        /** Number of nights the room was rented. */
+                        fun roomNights(): Optional<Long> =
+                            Optional.ofNullable(roomNights.getNullable("room_nights"))
+
+                        /** Total room tax being charged. */
+                        fun totalRoomTaxAmount(): Optional<Long> =
+                            Optional.ofNullable(
+                                totalRoomTaxAmount.getNullable("total_room_tax_amount")
+                            )
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total
+                         * room tax.
+                         */
+                        fun totalRoomTaxCurrency(): Optional<String> =
+                            Optional.ofNullable(
+                                totalRoomTaxCurrency.getNullable("total_room_tax_currency")
+                            )
+
+                        /**
+                         * Indicator that the cardholder is being billed for a reserved room that
+                         * was not actually used.
+                         */
+                        @JsonProperty("no_show_indicator")
+                        @ExcludeMissing
+                        fun _noShowIndicator() = noShowIndicator
+
+                        /** Additional charges (phone, late check-out, etc.) being billed. */
+                        @JsonProperty("extra_charges")
+                        @ExcludeMissing
+                        fun _extraCharges() = extraCharges
+
+                        /** Date the customer checked in. */
+                        @JsonProperty("check_in_date")
+                        @ExcludeMissing
+                        fun _checkInDate() = checkInDate
+
+                        /** Daily rate being charged for the room. */
+                        @JsonProperty("daily_room_rate_amount")
+                        @ExcludeMissing
+                        fun _dailyRoomRateAmount() = dailyRoomRateAmount
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the daily
+                         * room rate.
+                         */
+                        @JsonProperty("daily_room_rate_currency")
+                        @ExcludeMissing
+                        fun _dailyRoomRateCurrency() = dailyRoomRateCurrency
+
+                        /** Total tax being charged for the room. */
+                        @JsonProperty("total_tax_amount")
+                        @ExcludeMissing
+                        fun _totalTaxAmount() = totalTaxAmount
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total
+                         * tax assessed.
+                         */
+                        @JsonProperty("total_tax_currency")
+                        @ExcludeMissing
+                        fun _totalTaxCurrency() = totalTaxCurrency
+
+                        /** Prepaid expenses being charged for the room. */
+                        @JsonProperty("prepaid_expenses_amount")
+                        @ExcludeMissing
+                        fun _prepaidExpensesAmount() = prepaidExpensesAmount
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                         * prepaid expenses.
+                         */
+                        @JsonProperty("prepaid_expenses_currency")
+                        @ExcludeMissing
+                        fun _prepaidExpensesCurrency() = prepaidExpensesCurrency
+
+                        /** Food and beverage charges for the room. */
+                        @JsonProperty("food_beverage_charges_amount")
+                        @ExcludeMissing
+                        fun _foodBeverageChargesAmount() = foodBeverageChargesAmount
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the foor
+                         * and beverage charges.
+                         */
+                        @JsonProperty("food_beverage_charges_currency")
+                        @ExcludeMissing
+                        fun _foodBeverageChargesCurrency() = foodBeverageChargesCurrency
+
+                        /** Folio cash advances for the room. */
+                        @JsonProperty("folio_cash_advances_amount")
+                        @ExcludeMissing
+                        fun _folioCashAdvancesAmount() = folioCashAdvancesAmount
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the folio
+                         * cash advances.
+                         */
+                        @JsonProperty("folio_cash_advances_currency")
+                        @ExcludeMissing
+                        fun _folioCashAdvancesCurrency() = folioCashAdvancesCurrency
+
+                        /** Number of nights the room was rented. */
+                        @JsonProperty("room_nights") @ExcludeMissing fun _roomNights() = roomNights
+
+                        /** Total room tax being charged. */
+                        @JsonProperty("total_room_tax_amount")
+                        @ExcludeMissing
+                        fun _totalRoomTaxAmount() = totalRoomTaxAmount
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total
+                         * room tax.
+                         */
+                        @JsonProperty("total_room_tax_currency")
+                        @ExcludeMissing
+                        fun _totalRoomTaxCurrency() = totalRoomTaxCurrency
+
+                        @JsonAnyGetter
+                        @ExcludeMissing
+                        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                        fun validate(): Lodging = apply {
+                            if (!validated) {
+                                noShowIndicator()
+                                extraCharges()
+                                checkInDate()
+                                dailyRoomRateAmount()
+                                dailyRoomRateCurrency()
+                                totalTaxAmount()
+                                totalTaxCurrency()
+                                prepaidExpensesAmount()
+                                prepaidExpensesCurrency()
+                                foodBeverageChargesAmount()
+                                foodBeverageChargesCurrency()
+                                folioCashAdvancesAmount()
+                                folioCashAdvancesCurrency()
+                                roomNights()
+                                totalRoomTaxAmount()
+                                totalRoomTaxCurrency()
+                                validated = true
+                            }
+                        }
+
+                        fun toBuilder() = Builder().from(this)
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is Lodging &&
+                                this.noShowIndicator == other.noShowIndicator &&
+                                this.extraCharges == other.extraCharges &&
+                                this.checkInDate == other.checkInDate &&
+                                this.dailyRoomRateAmount == other.dailyRoomRateAmount &&
+                                this.dailyRoomRateCurrency == other.dailyRoomRateCurrency &&
+                                this.totalTaxAmount == other.totalTaxAmount &&
+                                this.totalTaxCurrency == other.totalTaxCurrency &&
+                                this.prepaidExpensesAmount == other.prepaidExpensesAmount &&
+                                this.prepaidExpensesCurrency == other.prepaidExpensesCurrency &&
+                                this.foodBeverageChargesAmount == other.foodBeverageChargesAmount &&
+                                this.foodBeverageChargesCurrency ==
+                                    other.foodBeverageChargesCurrency &&
+                                this.folioCashAdvancesAmount == other.folioCashAdvancesAmount &&
+                                this.folioCashAdvancesCurrency == other.folioCashAdvancesCurrency &&
+                                this.roomNights == other.roomNights &&
+                                this.totalRoomTaxAmount == other.totalRoomTaxAmount &&
+                                this.totalRoomTaxCurrency == other.totalRoomTaxCurrency &&
+                                this.additionalProperties == other.additionalProperties
+                        }
+
+                        override fun hashCode(): Int {
+                            if (hashCode == 0) {
+                                hashCode =
+                                    Objects.hash(
+                                        noShowIndicator,
+                                        extraCharges,
+                                        checkInDate,
+                                        dailyRoomRateAmount,
+                                        dailyRoomRateCurrency,
+                                        totalTaxAmount,
+                                        totalTaxCurrency,
+                                        prepaidExpensesAmount,
+                                        prepaidExpensesCurrency,
+                                        foodBeverageChargesAmount,
+                                        foodBeverageChargesCurrency,
+                                        folioCashAdvancesAmount,
+                                        folioCashAdvancesCurrency,
+                                        roomNights,
+                                        totalRoomTaxAmount,
+                                        totalRoomTaxCurrency,
+                                        additionalProperties,
+                                    )
+                            }
+                            return hashCode
+                        }
+
+                        override fun toString() =
+                            "Lodging{noShowIndicator=$noShowIndicator, extraCharges=$extraCharges, checkInDate=$checkInDate, dailyRoomRateAmount=$dailyRoomRateAmount, dailyRoomRateCurrency=$dailyRoomRateCurrency, totalTaxAmount=$totalTaxAmount, totalTaxCurrency=$totalTaxCurrency, prepaidExpensesAmount=$prepaidExpensesAmount, prepaidExpensesCurrency=$prepaidExpensesCurrency, foodBeverageChargesAmount=$foodBeverageChargesAmount, foodBeverageChargesCurrency=$foodBeverageChargesCurrency, folioCashAdvancesAmount=$folioCashAdvancesAmount, folioCashAdvancesCurrency=$folioCashAdvancesCurrency, roomNights=$roomNights, totalRoomTaxAmount=$totalRoomTaxAmount, totalRoomTaxCurrency=$totalRoomTaxCurrency, additionalProperties=$additionalProperties}"
+
+                        companion object {
+
+                            @JvmStatic fun builder() = Builder()
+                        }
+
+                        class Builder {
+
+                            private var noShowIndicator: JsonField<NoShowIndicator> =
+                                JsonMissing.of()
+                            private var extraCharges: JsonField<ExtraCharges> = JsonMissing.of()
+                            private var checkInDate: JsonField<LocalDate> = JsonMissing.of()
+                            private var dailyRoomRateAmount: JsonField<Long> = JsonMissing.of()
+                            private var dailyRoomRateCurrency: JsonField<String> = JsonMissing.of()
+                            private var totalTaxAmount: JsonField<Long> = JsonMissing.of()
+                            private var totalTaxCurrency: JsonField<String> = JsonMissing.of()
+                            private var prepaidExpensesAmount: JsonField<Long> = JsonMissing.of()
+                            private var prepaidExpensesCurrency: JsonField<String> =
+                                JsonMissing.of()
+                            private var foodBeverageChargesAmount: JsonField<Long> =
+                                JsonMissing.of()
+                            private var foodBeverageChargesCurrency: JsonField<String> =
+                                JsonMissing.of()
+                            private var folioCashAdvancesAmount: JsonField<Long> = JsonMissing.of()
+                            private var folioCashAdvancesCurrency: JsonField<String> =
+                                JsonMissing.of()
+                            private var roomNights: JsonField<Long> = JsonMissing.of()
+                            private var totalRoomTaxAmount: JsonField<Long> = JsonMissing.of()
+                            private var totalRoomTaxCurrency: JsonField<String> = JsonMissing.of()
+                            private var additionalProperties: MutableMap<String, JsonValue> =
+                                mutableMapOf()
+
+                            @JvmSynthetic
+                            internal fun from(lodging: Lodging) = apply {
+                                this.noShowIndicator = lodging.noShowIndicator
+                                this.extraCharges = lodging.extraCharges
+                                this.checkInDate = lodging.checkInDate
+                                this.dailyRoomRateAmount = lodging.dailyRoomRateAmount
+                                this.dailyRoomRateCurrency = lodging.dailyRoomRateCurrency
+                                this.totalTaxAmount = lodging.totalTaxAmount
+                                this.totalTaxCurrency = lodging.totalTaxCurrency
+                                this.prepaidExpensesAmount = lodging.prepaidExpensesAmount
+                                this.prepaidExpensesCurrency = lodging.prepaidExpensesCurrency
+                                this.foodBeverageChargesAmount = lodging.foodBeverageChargesAmount
+                                this.foodBeverageChargesCurrency =
+                                    lodging.foodBeverageChargesCurrency
+                                this.folioCashAdvancesAmount = lodging.folioCashAdvancesAmount
+                                this.folioCashAdvancesCurrency = lodging.folioCashAdvancesCurrency
+                                this.roomNights = lodging.roomNights
+                                this.totalRoomTaxAmount = lodging.totalRoomTaxAmount
+                                this.totalRoomTaxCurrency = lodging.totalRoomTaxCurrency
+                                additionalProperties(lodging.additionalProperties)
+                            }
+
+                            /**
+                             * Indicator that the cardholder is being billed for a reserved room
+                             * that was not actually used.
+                             */
+                            fun noShowIndicator(noShowIndicator: NoShowIndicator) =
+                                noShowIndicator(JsonField.of(noShowIndicator))
+
+                            /**
+                             * Indicator that the cardholder is being billed for a reserved room
+                             * that was not actually used.
+                             */
+                            @JsonProperty("no_show_indicator")
+                            @ExcludeMissing
+                            fun noShowIndicator(noShowIndicator: JsonField<NoShowIndicator>) =
+                                apply {
+                                    this.noShowIndicator = noShowIndicator
+                                }
+
+                            /** Additional charges (phone, late check-out, etc.) being billed. */
+                            fun extraCharges(extraCharges: ExtraCharges) =
+                                extraCharges(JsonField.of(extraCharges))
+
+                            /** Additional charges (phone, late check-out, etc.) being billed. */
+                            @JsonProperty("extra_charges")
+                            @ExcludeMissing
+                            fun extraCharges(extraCharges: JsonField<ExtraCharges>) = apply {
+                                this.extraCharges = extraCharges
+                            }
+
+                            /** Date the customer checked in. */
+                            fun checkInDate(checkInDate: LocalDate) =
+                                checkInDate(JsonField.of(checkInDate))
+
+                            /** Date the customer checked in. */
+                            @JsonProperty("check_in_date")
+                            @ExcludeMissing
+                            fun checkInDate(checkInDate: JsonField<LocalDate>) = apply {
+                                this.checkInDate = checkInDate
+                            }
+
+                            /** Daily rate being charged for the room. */
+                            fun dailyRoomRateAmount(dailyRoomRateAmount: Long) =
+                                dailyRoomRateAmount(JsonField.of(dailyRoomRateAmount))
+
+                            /** Daily rate being charged for the room. */
+                            @JsonProperty("daily_room_rate_amount")
+                            @ExcludeMissing
+                            fun dailyRoomRateAmount(dailyRoomRateAmount: JsonField<Long>) = apply {
+                                this.dailyRoomRateAmount = dailyRoomRateAmount
+                            }
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * daily room rate.
+                             */
+                            fun dailyRoomRateCurrency(dailyRoomRateCurrency: String) =
+                                dailyRoomRateCurrency(JsonField.of(dailyRoomRateCurrency))
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * daily room rate.
+                             */
+                            @JsonProperty("daily_room_rate_currency")
+                            @ExcludeMissing
+                            fun dailyRoomRateCurrency(dailyRoomRateCurrency: JsonField<String>) =
+                                apply {
+                                    this.dailyRoomRateCurrency = dailyRoomRateCurrency
+                                }
+
+                            /** Total tax being charged for the room. */
+                            fun totalTaxAmount(totalTaxAmount: Long) =
+                                totalTaxAmount(JsonField.of(totalTaxAmount))
+
+                            /** Total tax being charged for the room. */
+                            @JsonProperty("total_tax_amount")
+                            @ExcludeMissing
+                            fun totalTaxAmount(totalTaxAmount: JsonField<Long>) = apply {
+                                this.totalTaxAmount = totalTaxAmount
+                            }
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * total tax assessed.
+                             */
+                            fun totalTaxCurrency(totalTaxCurrency: String) =
+                                totalTaxCurrency(JsonField.of(totalTaxCurrency))
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * total tax assessed.
+                             */
+                            @JsonProperty("total_tax_currency")
+                            @ExcludeMissing
+                            fun totalTaxCurrency(totalTaxCurrency: JsonField<String>) = apply {
+                                this.totalTaxCurrency = totalTaxCurrency
+                            }
+
+                            /** Prepaid expenses being charged for the room. */
+                            fun prepaidExpensesAmount(prepaidExpensesAmount: Long) =
+                                prepaidExpensesAmount(JsonField.of(prepaidExpensesAmount))
+
+                            /** Prepaid expenses being charged for the room. */
+                            @JsonProperty("prepaid_expenses_amount")
+                            @ExcludeMissing
+                            fun prepaidExpensesAmount(prepaidExpensesAmount: JsonField<Long>) =
+                                apply {
+                                    this.prepaidExpensesAmount = prepaidExpensesAmount
+                                }
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * prepaid expenses.
+                             */
+                            fun prepaidExpensesCurrency(prepaidExpensesCurrency: String) =
+                                prepaidExpensesCurrency(JsonField.of(prepaidExpensesCurrency))
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * prepaid expenses.
+                             */
+                            @JsonProperty("prepaid_expenses_currency")
+                            @ExcludeMissing
+                            fun prepaidExpensesCurrency(
+                                prepaidExpensesCurrency: JsonField<String>
+                            ) = apply { this.prepaidExpensesCurrency = prepaidExpensesCurrency }
+
+                            /** Food and beverage charges for the room. */
+                            fun foodBeverageChargesAmount(foodBeverageChargesAmount: Long) =
+                                foodBeverageChargesAmount(JsonField.of(foodBeverageChargesAmount))
+
+                            /** Food and beverage charges for the room. */
+                            @JsonProperty("food_beverage_charges_amount")
+                            @ExcludeMissing
+                            fun foodBeverageChargesAmount(
+                                foodBeverageChargesAmount: JsonField<Long>
+                            ) = apply { this.foodBeverageChargesAmount = foodBeverageChargesAmount }
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * foor and beverage charges.
+                             */
+                            fun foodBeverageChargesCurrency(foodBeverageChargesCurrency: String) =
+                                foodBeverageChargesCurrency(
+                                    JsonField.of(foodBeverageChargesCurrency)
+                                )
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * foor and beverage charges.
+                             */
+                            @JsonProperty("food_beverage_charges_currency")
+                            @ExcludeMissing
+                            fun foodBeverageChargesCurrency(
+                                foodBeverageChargesCurrency: JsonField<String>
+                            ) = apply {
+                                this.foodBeverageChargesCurrency = foodBeverageChargesCurrency
+                            }
+
+                            /** Folio cash advances for the room. */
+                            fun folioCashAdvancesAmount(folioCashAdvancesAmount: Long) =
+                                folioCashAdvancesAmount(JsonField.of(folioCashAdvancesAmount))
+
+                            /** Folio cash advances for the room. */
+                            @JsonProperty("folio_cash_advances_amount")
+                            @ExcludeMissing
+                            fun folioCashAdvancesAmount(folioCashAdvancesAmount: JsonField<Long>) =
+                                apply {
+                                    this.folioCashAdvancesAmount = folioCashAdvancesAmount
+                                }
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * folio cash advances.
+                             */
+                            fun folioCashAdvancesCurrency(folioCashAdvancesCurrency: String) =
+                                folioCashAdvancesCurrency(JsonField.of(folioCashAdvancesCurrency))
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * folio cash advances.
+                             */
+                            @JsonProperty("folio_cash_advances_currency")
+                            @ExcludeMissing
+                            fun folioCashAdvancesCurrency(
+                                folioCashAdvancesCurrency: JsonField<String>
+                            ) = apply { this.folioCashAdvancesCurrency = folioCashAdvancesCurrency }
+
+                            /** Number of nights the room was rented. */
+                            fun roomNights(roomNights: Long) = roomNights(JsonField.of(roomNights))
+
+                            /** Number of nights the room was rented. */
+                            @JsonProperty("room_nights")
+                            @ExcludeMissing
+                            fun roomNights(roomNights: JsonField<Long>) = apply {
+                                this.roomNights = roomNights
+                            }
+
+                            /** Total room tax being charged. */
+                            fun totalRoomTaxAmount(totalRoomTaxAmount: Long) =
+                                totalRoomTaxAmount(JsonField.of(totalRoomTaxAmount))
+
+                            /** Total room tax being charged. */
+                            @JsonProperty("total_room_tax_amount")
+                            @ExcludeMissing
+                            fun totalRoomTaxAmount(totalRoomTaxAmount: JsonField<Long>) = apply {
+                                this.totalRoomTaxAmount = totalRoomTaxAmount
+                            }
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * total room tax.
+                             */
+                            fun totalRoomTaxCurrency(totalRoomTaxCurrency: String) =
+                                totalRoomTaxCurrency(JsonField.of(totalRoomTaxCurrency))
+
+                            /**
+                             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                             * total room tax.
+                             */
+                            @JsonProperty("total_room_tax_currency")
+                            @ExcludeMissing
+                            fun totalRoomTaxCurrency(totalRoomTaxCurrency: JsonField<String>) =
+                                apply {
+                                    this.totalRoomTaxCurrency = totalRoomTaxCurrency
+                                }
+
+                            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                                apply {
+                                    this.additionalProperties.clear()
+                                    this.additionalProperties.putAll(additionalProperties)
+                                }
+
+                            @JsonAnySetter
+                            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                                this.additionalProperties.put(key, value)
+                            }
+
+                            fun putAllAdditionalProperties(
+                                additionalProperties: Map<String, JsonValue>
+                            ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                            fun build(): Lodging =
+                                Lodging(
+                                    noShowIndicator,
+                                    extraCharges,
+                                    checkInDate,
+                                    dailyRoomRateAmount,
+                                    dailyRoomRateCurrency,
+                                    totalTaxAmount,
+                                    totalTaxCurrency,
+                                    prepaidExpensesAmount,
+                                    prepaidExpensesCurrency,
+                                    foodBeverageChargesAmount,
+                                    foodBeverageChargesCurrency,
+                                    folioCashAdvancesAmount,
+                                    folioCashAdvancesCurrency,
+                                    roomNights,
+                                    totalRoomTaxAmount,
+                                    totalRoomTaxCurrency,
+                                    additionalProperties.toUnmodifiable(),
+                                )
+                        }
+
+                        class NoShowIndicator
+                        @JsonCreator
+                        private constructor(
+                            private val value: JsonField<String>,
+                        ) {
+
+                            @com.fasterxml.jackson.annotation.JsonValue
+                            fun _value(): JsonField<String> = value
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is NoShowIndicator && this.value == other.value
+                            }
+
+                            override fun hashCode() = value.hashCode()
+
+                            override fun toString() = value.toString()
+
+                            companion object {
+
+                                @JvmField
+                                val NOT_APPLICABLE = NoShowIndicator(JsonField.of("not_applicable"))
+
+                                @JvmField val NO_SHOW = NoShowIndicator(JsonField.of("no_show"))
+
+                                @JvmStatic
+                                fun of(value: String) = NoShowIndicator(JsonField.of(value))
+                            }
+
+                            enum class Known {
+                                NOT_APPLICABLE,
+                                NO_SHOW,
+                            }
+
+                            enum class Value {
+                                NOT_APPLICABLE,
+                                NO_SHOW,
+                                _UNKNOWN,
+                            }
+
+                            fun value(): Value =
+                                when (this) {
+                                    NOT_APPLICABLE -> Value.NOT_APPLICABLE
+                                    NO_SHOW -> Value.NO_SHOW
+                                    else -> Value._UNKNOWN
+                                }
+
+                            fun known(): Known =
+                                when (this) {
+                                    NOT_APPLICABLE -> Known.NOT_APPLICABLE
+                                    NO_SHOW -> Known.NO_SHOW
+                                    else ->
+                                        throw IncreaseInvalidDataException(
+                                            "Unknown NoShowIndicator: $value"
+                                        )
+                                }
+
+                            fun asString(): String = _value().asStringOrThrow()
+                        }
+
+                        class ExtraCharges
+                        @JsonCreator
+                        private constructor(
+                            private val value: JsonField<String>,
+                        ) {
+
+                            @com.fasterxml.jackson.annotation.JsonValue
+                            fun _value(): JsonField<String> = value
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is ExtraCharges && this.value == other.value
+                            }
+
+                            override fun hashCode() = value.hashCode()
+
+                            override fun toString() = value.toString()
+
+                            companion object {
+
+                                @JvmField
+                                val NO_EXTRA_CHARGE = ExtraCharges(JsonField.of("no_extra_charge"))
+
+                                @JvmField val RESTAURANT = ExtraCharges(JsonField.of("restaurant"))
+
+                                @JvmField val GIFT_SHOP = ExtraCharges(JsonField.of("gift_shop"))
+
+                                @JvmField val MINI_BAR = ExtraCharges(JsonField.of("mini_bar"))
+
+                                @JvmField val TELEPHONE = ExtraCharges(JsonField.of("telephone"))
+
+                                @JvmField val OTHER = ExtraCharges(JsonField.of("other"))
+
+                                @JvmField val LAUNDRY = ExtraCharges(JsonField.of("laundry"))
+
+                                @JvmStatic fun of(value: String) = ExtraCharges(JsonField.of(value))
+                            }
+
+                            enum class Known {
+                                NO_EXTRA_CHARGE,
+                                RESTAURANT,
+                                GIFT_SHOP,
+                                MINI_BAR,
+                                TELEPHONE,
+                                OTHER,
+                                LAUNDRY,
+                            }
+
+                            enum class Value {
+                                NO_EXTRA_CHARGE,
+                                RESTAURANT,
+                                GIFT_SHOP,
+                                MINI_BAR,
+                                TELEPHONE,
+                                OTHER,
+                                LAUNDRY,
+                                _UNKNOWN,
+                            }
+
+                            fun value(): Value =
+                                when (this) {
+                                    NO_EXTRA_CHARGE -> Value.NO_EXTRA_CHARGE
+                                    RESTAURANT -> Value.RESTAURANT
+                                    GIFT_SHOP -> Value.GIFT_SHOP
+                                    MINI_BAR -> Value.MINI_BAR
+                                    TELEPHONE -> Value.TELEPHONE
+                                    OTHER -> Value.OTHER
+                                    LAUNDRY -> Value.LAUNDRY
+                                    else -> Value._UNKNOWN
+                                }
+
+                            fun known(): Known =
+                                when (this) {
+                                    NO_EXTRA_CHARGE -> Known.NO_EXTRA_CHARGE
+                                    RESTAURANT -> Known.RESTAURANT
+                                    GIFT_SHOP -> Known.GIFT_SHOP
+                                    MINI_BAR -> Known.MINI_BAR
+                                    TELEPHONE -> Known.TELEPHONE
+                                    OTHER -> Known.OTHER
+                                    LAUNDRY -> Known.LAUNDRY
+                                    else ->
+                                        throw IncreaseInvalidDataException(
+                                            "Unknown ExtraCharges: $value"
+                                        )
+                                }
+
+                            fun asString(): String = _value().asStringOrThrow()
+                        }
+                    }
+
+                    /** Fields specific to travel. */
+                    @JsonDeserialize(builder = Travel.Builder::class)
+                    @NoAutoDetect
+                    class Travel
+                    private constructor(
+                        private val ticketNumber: JsonField<String>,
+                        private val passengerName: JsonField<String>,
+                        private val departureDate: JsonField<LocalDate>,
+                        private val originationCityAirportCode: JsonField<String>,
+                        private val travelAgencyCode: JsonField<String>,
+                        private val travelAgencyName: JsonField<String>,
+                        private val restrictedTicketIndicator: JsonField<RestrictedTicketIndicator>,
+                        private val computerizedReservationSystem: JsonField<String>,
+                        private val creditReasonIndicator: JsonField<CreditReasonIndicator>,
+                        private val ticketChangeIndicator: JsonField<TicketChangeIndicator>,
+                        private val tripLegs: JsonField<List<TripLeg>>,
+                        private val ancillary: JsonField<Ancillary>,
+                        private val additionalProperties: Map<String, JsonValue>,
+                    ) {
+
+                        private var validated: Boolean = false
+
+                        private var hashCode: Int = 0
+
+                        /** Ticket number. */
+                        fun ticketNumber(): Optional<String> =
+                            Optional.ofNullable(ticketNumber.getNullable("ticket_number"))
+
+                        /** Name of the passenger. */
+                        fun passengerName(): Optional<String> =
+                            Optional.ofNullable(passengerName.getNullable("passenger_name"))
+
+                        /** Date of departure. */
+                        fun departureDate(): Optional<LocalDate> =
+                            Optional.ofNullable(departureDate.getNullable("departure_date"))
+
+                        /** Code for the originating city or airport. */
+                        fun originationCityAirportCode(): Optional<String> =
+                            Optional.ofNullable(
+                                originationCityAirportCode.getNullable(
+                                    "origination_city_airport_code"
+                                )
+                            )
+
+                        /**
+                         * Code for the travel agency if the ticket was issued by a travel agency.
+                         */
+                        fun travelAgencyCode(): Optional<String> =
+                            Optional.ofNullable(travelAgencyCode.getNullable("travel_agency_code"))
+
+                        /**
+                         * Name of the travel agency if the ticket was issued by a travel agency.
+                         */
+                        fun travelAgencyName(): Optional<String> =
+                            Optional.ofNullable(travelAgencyName.getNullable("travel_agency_name"))
+
+                        /** Indicates whether this ticket is non-refundable. */
+                        fun restrictedTicketIndicator(): Optional<RestrictedTicketIndicator> =
+                            Optional.ofNullable(
+                                restrictedTicketIndicator.getNullable("restricted_ticket_indicator")
+                            )
+
+                        /**
+                         * Indicates the computerized reservation system used to book the ticket.
+                         */
+                        fun computerizedReservationSystem(): Optional<String> =
+                            Optional.ofNullable(
+                                computerizedReservationSystem.getNullable(
+                                    "computerized_reservation_system"
+                                )
+                            )
+
+                        /** Indicates the reason for a credit to the cardholder. */
+                        fun creditReasonIndicator(): Optional<CreditReasonIndicator> =
+                            Optional.ofNullable(
+                                creditReasonIndicator.getNullable("credit_reason_indicator")
+                            )
+
+                        /** Indicates why a ticket was changed. */
+                        fun ticketChangeIndicator(): Optional<TicketChangeIndicator> =
+                            Optional.ofNullable(
+                                ticketChangeIndicator.getNullable("ticket_change_indicator")
+                            )
+
+                        /** Fields specific to each leg of the journey. */
+                        fun tripLegs(): Optional<List<TripLeg>> =
+                            Optional.ofNullable(tripLegs.getNullable("trip_legs"))
+
+                        /** Ancillary purchases in addition to the airfare. */
+                        fun ancillary(): Optional<Ancillary> =
+                            Optional.ofNullable(ancillary.getNullable("ancillary"))
+
+                        /** Ticket number. */
+                        @JsonProperty("ticket_number")
+                        @ExcludeMissing
+                        fun _ticketNumber() = ticketNumber
+
+                        /** Name of the passenger. */
+                        @JsonProperty("passenger_name")
+                        @ExcludeMissing
+                        fun _passengerName() = passengerName
+
+                        /** Date of departure. */
+                        @JsonProperty("departure_date")
+                        @ExcludeMissing
+                        fun _departureDate() = departureDate
+
+                        /** Code for the originating city or airport. */
+                        @JsonProperty("origination_city_airport_code")
+                        @ExcludeMissing
+                        fun _originationCityAirportCode() = originationCityAirportCode
+
+                        /**
+                         * Code for the travel agency if the ticket was issued by a travel agency.
+                         */
+                        @JsonProperty("travel_agency_code")
+                        @ExcludeMissing
+                        fun _travelAgencyCode() = travelAgencyCode
+
+                        /**
+                         * Name of the travel agency if the ticket was issued by a travel agency.
+                         */
+                        @JsonProperty("travel_agency_name")
+                        @ExcludeMissing
+                        fun _travelAgencyName() = travelAgencyName
+
+                        /** Indicates whether this ticket is non-refundable. */
+                        @JsonProperty("restricted_ticket_indicator")
+                        @ExcludeMissing
+                        fun _restrictedTicketIndicator() = restrictedTicketIndicator
+
+                        /**
+                         * Indicates the computerized reservation system used to book the ticket.
+                         */
+                        @JsonProperty("computerized_reservation_system")
+                        @ExcludeMissing
+                        fun _computerizedReservationSystem() = computerizedReservationSystem
+
+                        /** Indicates the reason for a credit to the cardholder. */
+                        @JsonProperty("credit_reason_indicator")
+                        @ExcludeMissing
+                        fun _creditReasonIndicator() = creditReasonIndicator
+
+                        /** Indicates why a ticket was changed. */
+                        @JsonProperty("ticket_change_indicator")
+                        @ExcludeMissing
+                        fun _ticketChangeIndicator() = ticketChangeIndicator
+
+                        /** Fields specific to each leg of the journey. */
+                        @JsonProperty("trip_legs") @ExcludeMissing fun _tripLegs() = tripLegs
+
+                        /** Ancillary purchases in addition to the airfare. */
+                        @JsonProperty("ancillary") @ExcludeMissing fun _ancillary() = ancillary
+
+                        @JsonAnyGetter
+                        @ExcludeMissing
+                        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                        fun validate(): Travel = apply {
+                            if (!validated) {
+                                ticketNumber()
+                                passengerName()
+                                departureDate()
+                                originationCityAirportCode()
+                                travelAgencyCode()
+                                travelAgencyName()
+                                restrictedTicketIndicator()
+                                computerizedReservationSystem()
+                                creditReasonIndicator()
+                                ticketChangeIndicator()
+                                tripLegs().map { it.forEach { it.validate() } }
+                                ancillary().map { it.validate() }
+                                validated = true
+                            }
+                        }
+
+                        fun toBuilder() = Builder().from(this)
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is Travel &&
+                                this.ticketNumber == other.ticketNumber &&
+                                this.passengerName == other.passengerName &&
+                                this.departureDate == other.departureDate &&
+                                this.originationCityAirportCode ==
+                                    other.originationCityAirportCode &&
+                                this.travelAgencyCode == other.travelAgencyCode &&
+                                this.travelAgencyName == other.travelAgencyName &&
+                                this.restrictedTicketIndicator == other.restrictedTicketIndicator &&
+                                this.computerizedReservationSystem ==
+                                    other.computerizedReservationSystem &&
+                                this.creditReasonIndicator == other.creditReasonIndicator &&
+                                this.ticketChangeIndicator == other.ticketChangeIndicator &&
+                                this.tripLegs == other.tripLegs &&
+                                this.ancillary == other.ancillary &&
+                                this.additionalProperties == other.additionalProperties
+                        }
+
+                        override fun hashCode(): Int {
+                            if (hashCode == 0) {
+                                hashCode =
+                                    Objects.hash(
+                                        ticketNumber,
+                                        passengerName,
+                                        departureDate,
+                                        originationCityAirportCode,
+                                        travelAgencyCode,
+                                        travelAgencyName,
+                                        restrictedTicketIndicator,
+                                        computerizedReservationSystem,
+                                        creditReasonIndicator,
+                                        ticketChangeIndicator,
+                                        tripLegs,
+                                        ancillary,
+                                        additionalProperties,
+                                    )
+                            }
+                            return hashCode
+                        }
+
+                        override fun toString() =
+                            "Travel{ticketNumber=$ticketNumber, passengerName=$passengerName, departureDate=$departureDate, originationCityAirportCode=$originationCityAirportCode, travelAgencyCode=$travelAgencyCode, travelAgencyName=$travelAgencyName, restrictedTicketIndicator=$restrictedTicketIndicator, computerizedReservationSystem=$computerizedReservationSystem, creditReasonIndicator=$creditReasonIndicator, ticketChangeIndicator=$ticketChangeIndicator, tripLegs=$tripLegs, ancillary=$ancillary, additionalProperties=$additionalProperties}"
+
+                        companion object {
+
+                            @JvmStatic fun builder() = Builder()
+                        }
+
+                        class Builder {
+
+                            private var ticketNumber: JsonField<String> = JsonMissing.of()
+                            private var passengerName: JsonField<String> = JsonMissing.of()
+                            private var departureDate: JsonField<LocalDate> = JsonMissing.of()
+                            private var originationCityAirportCode: JsonField<String> =
+                                JsonMissing.of()
+                            private var travelAgencyCode: JsonField<String> = JsonMissing.of()
+                            private var travelAgencyName: JsonField<String> = JsonMissing.of()
+                            private var restrictedTicketIndicator:
+                                JsonField<RestrictedTicketIndicator> =
+                                JsonMissing.of()
+                            private var computerizedReservationSystem: JsonField<String> =
+                                JsonMissing.of()
+                            private var creditReasonIndicator: JsonField<CreditReasonIndicator> =
+                                JsonMissing.of()
+                            private var ticketChangeIndicator: JsonField<TicketChangeIndicator> =
+                                JsonMissing.of()
+                            private var tripLegs: JsonField<List<TripLeg>> = JsonMissing.of()
+                            private var ancillary: JsonField<Ancillary> = JsonMissing.of()
+                            private var additionalProperties: MutableMap<String, JsonValue> =
+                                mutableMapOf()
+
+                            @JvmSynthetic
+                            internal fun from(travel: Travel) = apply {
+                                this.ticketNumber = travel.ticketNumber
+                                this.passengerName = travel.passengerName
+                                this.departureDate = travel.departureDate
+                                this.originationCityAirportCode = travel.originationCityAirportCode
+                                this.travelAgencyCode = travel.travelAgencyCode
+                                this.travelAgencyName = travel.travelAgencyName
+                                this.restrictedTicketIndicator = travel.restrictedTicketIndicator
+                                this.computerizedReservationSystem =
+                                    travel.computerizedReservationSystem
+                                this.creditReasonIndicator = travel.creditReasonIndicator
+                                this.ticketChangeIndicator = travel.ticketChangeIndicator
+                                this.tripLegs = travel.tripLegs
+                                this.ancillary = travel.ancillary
+                                additionalProperties(travel.additionalProperties)
+                            }
+
+                            /** Ticket number. */
+                            fun ticketNumber(ticketNumber: String) =
+                                ticketNumber(JsonField.of(ticketNumber))
+
+                            /** Ticket number. */
+                            @JsonProperty("ticket_number")
+                            @ExcludeMissing
+                            fun ticketNumber(ticketNumber: JsonField<String>) = apply {
+                                this.ticketNumber = ticketNumber
+                            }
+
+                            /** Name of the passenger. */
+                            fun passengerName(passengerName: String) =
+                                passengerName(JsonField.of(passengerName))
+
+                            /** Name of the passenger. */
+                            @JsonProperty("passenger_name")
+                            @ExcludeMissing
+                            fun passengerName(passengerName: JsonField<String>) = apply {
+                                this.passengerName = passengerName
+                            }
+
+                            /** Date of departure. */
+                            fun departureDate(departureDate: LocalDate) =
+                                departureDate(JsonField.of(departureDate))
+
+                            /** Date of departure. */
+                            @JsonProperty("departure_date")
+                            @ExcludeMissing
+                            fun departureDate(departureDate: JsonField<LocalDate>) = apply {
+                                this.departureDate = departureDate
+                            }
+
+                            /** Code for the originating city or airport. */
+                            fun originationCityAirportCode(originationCityAirportCode: String) =
+                                originationCityAirportCode(JsonField.of(originationCityAirportCode))
+
+                            /** Code for the originating city or airport. */
+                            @JsonProperty("origination_city_airport_code")
+                            @ExcludeMissing
+                            fun originationCityAirportCode(
+                                originationCityAirportCode: JsonField<String>
+                            ) = apply {
+                                this.originationCityAirportCode = originationCityAirportCode
+                            }
+
+                            /**
+                             * Code for the travel agency if the ticket was issued by a travel
+                             * agency.
+                             */
+                            fun travelAgencyCode(travelAgencyCode: String) =
+                                travelAgencyCode(JsonField.of(travelAgencyCode))
+
+                            /**
+                             * Code for the travel agency if the ticket was issued by a travel
+                             * agency.
+                             */
+                            @JsonProperty("travel_agency_code")
+                            @ExcludeMissing
+                            fun travelAgencyCode(travelAgencyCode: JsonField<String>) = apply {
+                                this.travelAgencyCode = travelAgencyCode
+                            }
+
+                            /**
+                             * Name of the travel agency if the ticket was issued by a travel
+                             * agency.
+                             */
+                            fun travelAgencyName(travelAgencyName: String) =
+                                travelAgencyName(JsonField.of(travelAgencyName))
+
+                            /**
+                             * Name of the travel agency if the ticket was issued by a travel
+                             * agency.
+                             */
+                            @JsonProperty("travel_agency_name")
+                            @ExcludeMissing
+                            fun travelAgencyName(travelAgencyName: JsonField<String>) = apply {
+                                this.travelAgencyName = travelAgencyName
+                            }
+
+                            /** Indicates whether this ticket is non-refundable. */
+                            fun restrictedTicketIndicator(
+                                restrictedTicketIndicator: RestrictedTicketIndicator
+                            ) = restrictedTicketIndicator(JsonField.of(restrictedTicketIndicator))
+
+                            /** Indicates whether this ticket is non-refundable. */
+                            @JsonProperty("restricted_ticket_indicator")
+                            @ExcludeMissing
+                            fun restrictedTicketIndicator(
+                                restrictedTicketIndicator: JsonField<RestrictedTicketIndicator>
+                            ) = apply { this.restrictedTicketIndicator = restrictedTicketIndicator }
+
+                            /**
+                             * Indicates the computerized reservation system used to book the
+                             * ticket.
+                             */
+                            fun computerizedReservationSystem(
+                                computerizedReservationSystem: String
+                            ) =
+                                computerizedReservationSystem(
+                                    JsonField.of(computerizedReservationSystem)
+                                )
+
+                            /**
+                             * Indicates the computerized reservation system used to book the
+                             * ticket.
+                             */
+                            @JsonProperty("computerized_reservation_system")
+                            @ExcludeMissing
+                            fun computerizedReservationSystem(
+                                computerizedReservationSystem: JsonField<String>
+                            ) = apply {
+                                this.computerizedReservationSystem = computerizedReservationSystem
+                            }
+
+                            /** Indicates the reason for a credit to the cardholder. */
+                            fun creditReasonIndicator(
+                                creditReasonIndicator: CreditReasonIndicator
+                            ) = creditReasonIndicator(JsonField.of(creditReasonIndicator))
+
+                            /** Indicates the reason for a credit to the cardholder. */
+                            @JsonProperty("credit_reason_indicator")
+                            @ExcludeMissing
+                            fun creditReasonIndicator(
+                                creditReasonIndicator: JsonField<CreditReasonIndicator>
+                            ) = apply { this.creditReasonIndicator = creditReasonIndicator }
+
+                            /** Indicates why a ticket was changed. */
+                            fun ticketChangeIndicator(
+                                ticketChangeIndicator: TicketChangeIndicator
+                            ) = ticketChangeIndicator(JsonField.of(ticketChangeIndicator))
+
+                            /** Indicates why a ticket was changed. */
+                            @JsonProperty("ticket_change_indicator")
+                            @ExcludeMissing
+                            fun ticketChangeIndicator(
+                                ticketChangeIndicator: JsonField<TicketChangeIndicator>
+                            ) = apply { this.ticketChangeIndicator = ticketChangeIndicator }
+
+                            /** Fields specific to each leg of the journey. */
+                            fun tripLegs(tripLegs: List<TripLeg>) = tripLegs(JsonField.of(tripLegs))
+
+                            /** Fields specific to each leg of the journey. */
+                            @JsonProperty("trip_legs")
+                            @ExcludeMissing
+                            fun tripLegs(tripLegs: JsonField<List<TripLeg>>) = apply {
+                                this.tripLegs = tripLegs
+                            }
+
+                            /** Ancillary purchases in addition to the airfare. */
+                            fun ancillary(ancillary: Ancillary) = ancillary(JsonField.of(ancillary))
+
+                            /** Ancillary purchases in addition to the airfare. */
+                            @JsonProperty("ancillary")
+                            @ExcludeMissing
+                            fun ancillary(ancillary: JsonField<Ancillary>) = apply {
+                                this.ancillary = ancillary
+                            }
+
+                            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                                apply {
+                                    this.additionalProperties.clear()
+                                    this.additionalProperties.putAll(additionalProperties)
+                                }
+
+                            @JsonAnySetter
+                            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                                this.additionalProperties.put(key, value)
+                            }
+
+                            fun putAllAdditionalProperties(
+                                additionalProperties: Map<String, JsonValue>
+                            ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                            fun build(): Travel =
+                                Travel(
+                                    ticketNumber,
+                                    passengerName,
+                                    departureDate,
+                                    originationCityAirportCode,
+                                    travelAgencyCode,
+                                    travelAgencyName,
+                                    restrictedTicketIndicator,
+                                    computerizedReservationSystem,
+                                    creditReasonIndicator,
+                                    ticketChangeIndicator,
+                                    tripLegs.map { it.toUnmodifiable() },
+                                    ancillary,
+                                    additionalProperties.toUnmodifiable(),
+                                )
+                        }
+
+                        class RestrictedTicketIndicator
+                        @JsonCreator
+                        private constructor(
+                            private val value: JsonField<String>,
+                        ) {
+
+                            @com.fasterxml.jackson.annotation.JsonValue
+                            fun _value(): JsonField<String> = value
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is RestrictedTicketIndicator &&
+                                    this.value == other.value
+                            }
+
+                            override fun hashCode() = value.hashCode()
+
+                            override fun toString() = value.toString()
+
+                            companion object {
+
+                                @JvmField
+                                val NO_RESTRICTIONS =
+                                    RestrictedTicketIndicator(JsonField.of("no_restrictions"))
+
+                                @JvmField
+                                val RESTRICTED_NON_REFUNDABLE_TICKET =
+                                    RestrictedTicketIndicator(
+                                        JsonField.of("restricted_non_refundable_ticket")
+                                    )
+
+                                @JvmStatic
+                                fun of(value: String) =
+                                    RestrictedTicketIndicator(JsonField.of(value))
+                            }
+
+                            enum class Known {
+                                NO_RESTRICTIONS,
+                                RESTRICTED_NON_REFUNDABLE_TICKET,
+                            }
+
+                            enum class Value {
+                                NO_RESTRICTIONS,
+                                RESTRICTED_NON_REFUNDABLE_TICKET,
+                                _UNKNOWN,
+                            }
+
+                            fun value(): Value =
+                                when (this) {
+                                    NO_RESTRICTIONS -> Value.NO_RESTRICTIONS
+                                    RESTRICTED_NON_REFUNDABLE_TICKET ->
+                                        Value.RESTRICTED_NON_REFUNDABLE_TICKET
+                                    else -> Value._UNKNOWN
+                                }
+
+                            fun known(): Known =
+                                when (this) {
+                                    NO_RESTRICTIONS -> Known.NO_RESTRICTIONS
+                                    RESTRICTED_NON_REFUNDABLE_TICKET ->
+                                        Known.RESTRICTED_NON_REFUNDABLE_TICKET
+                                    else ->
+                                        throw IncreaseInvalidDataException(
+                                            "Unknown RestrictedTicketIndicator: $value"
+                                        )
+                                }
+
+                            fun asString(): String = _value().asStringOrThrow()
+                        }
+
+                        class CreditReasonIndicator
+                        @JsonCreator
+                        private constructor(
+                            private val value: JsonField<String>,
+                        ) {
+
+                            @com.fasterxml.jackson.annotation.JsonValue
+                            fun _value(): JsonField<String> = value
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is CreditReasonIndicator && this.value == other.value
+                            }
+
+                            override fun hashCode() = value.hashCode()
+
+                            override fun toString() = value.toString()
+
+                            companion object {
+
+                                @JvmField
+                                val NO_CREDIT = CreditReasonIndicator(JsonField.of("no_credit"))
+
+                                @JvmField
+                                val PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
+                                    CreditReasonIndicator(
+                                        JsonField.of(
+                                            "passenger_transport_ancillary_purchase_cancellation"
+                                        )
+                                    )
+
+                                @JvmField
+                                val AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
+                                    CreditReasonIndicator(
+                                        JsonField.of(
+                                            "airline_ticket_and_passenger_transport_ancillary_purchase_cancellation"
+                                        )
+                                    )
+
+                                @JvmField
+                                val AIRLINE_TICKET_CANCELLATION =
+                                    CreditReasonIndicator(
+                                        JsonField.of("airline_ticket_cancellation")
+                                    )
+
+                                @JvmField val OTHER = CreditReasonIndicator(JsonField.of("other"))
+
+                                @JvmField
+                                val PARTIAL_REFUND_OF_AIRLINE_TICKET =
+                                    CreditReasonIndicator(
+                                        JsonField.of("partial_refund_of_airline_ticket")
+                                    )
+
+                                @JvmStatic
+                                fun of(value: String) = CreditReasonIndicator(JsonField.of(value))
+                            }
+
+                            enum class Known {
+                                NO_CREDIT,
+                                PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                AIRLINE_TICKET_CANCELLATION,
+                                OTHER,
+                                PARTIAL_REFUND_OF_AIRLINE_TICKET,
+                            }
+
+                            enum class Value {
+                                NO_CREDIT,
+                                PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                AIRLINE_TICKET_CANCELLATION,
+                                OTHER,
+                                PARTIAL_REFUND_OF_AIRLINE_TICKET,
+                                _UNKNOWN,
+                            }
+
+                            fun value(): Value =
+                                when (this) {
+                                    NO_CREDIT -> Value.NO_CREDIT
+                                    PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
+                                        Value.PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
+                                    AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
+                                        Value
+                                            .AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
+                                    AIRLINE_TICKET_CANCELLATION -> Value.AIRLINE_TICKET_CANCELLATION
+                                    OTHER -> Value.OTHER
+                                    PARTIAL_REFUND_OF_AIRLINE_TICKET ->
+                                        Value.PARTIAL_REFUND_OF_AIRLINE_TICKET
+                                    else -> Value._UNKNOWN
+                                }
+
+                            fun known(): Known =
+                                when (this) {
+                                    NO_CREDIT -> Known.NO_CREDIT
+                                    PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
+                                        Known.PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
+                                    AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
+                                        Known
+                                            .AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
+                                    AIRLINE_TICKET_CANCELLATION -> Known.AIRLINE_TICKET_CANCELLATION
+                                    OTHER -> Known.OTHER
+                                    PARTIAL_REFUND_OF_AIRLINE_TICKET ->
+                                        Known.PARTIAL_REFUND_OF_AIRLINE_TICKET
+                                    else ->
+                                        throw IncreaseInvalidDataException(
+                                            "Unknown CreditReasonIndicator: $value"
+                                        )
+                                }
+
+                            fun asString(): String = _value().asStringOrThrow()
+                        }
+
+                        class TicketChangeIndicator
+                        @JsonCreator
+                        private constructor(
+                            private val value: JsonField<String>,
+                        ) {
+
+                            @com.fasterxml.jackson.annotation.JsonValue
+                            fun _value(): JsonField<String> = value
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is TicketChangeIndicator && this.value == other.value
+                            }
+
+                            override fun hashCode() = value.hashCode()
+
+                            override fun toString() = value.toString()
+
+                            companion object {
+
+                                @JvmField val NONE = TicketChangeIndicator(JsonField.of("none"))
+
+                                @JvmField
+                                val CHANGE_TO_EXISTING_TICKET =
+                                    TicketChangeIndicator(JsonField.of("change_to_existing_ticket"))
+
+                                @JvmField
+                                val NEW_TICKET = TicketChangeIndicator(JsonField.of("new_ticket"))
+
+                                @JvmStatic
+                                fun of(value: String) = TicketChangeIndicator(JsonField.of(value))
+                            }
+
+                            enum class Known {
+                                NONE,
+                                CHANGE_TO_EXISTING_TICKET,
+                                NEW_TICKET,
+                            }
+
+                            enum class Value {
+                                NONE,
+                                CHANGE_TO_EXISTING_TICKET,
+                                NEW_TICKET,
+                                _UNKNOWN,
+                            }
+
+                            fun value(): Value =
+                                when (this) {
+                                    NONE -> Value.NONE
+                                    CHANGE_TO_EXISTING_TICKET -> Value.CHANGE_TO_EXISTING_TICKET
+                                    NEW_TICKET -> Value.NEW_TICKET
+                                    else -> Value._UNKNOWN
+                                }
+
+                            fun known(): Known =
+                                when (this) {
+                                    NONE -> Known.NONE
+                                    CHANGE_TO_EXISTING_TICKET -> Known.CHANGE_TO_EXISTING_TICKET
+                                    NEW_TICKET -> Known.NEW_TICKET
+                                    else ->
+                                        throw IncreaseInvalidDataException(
+                                            "Unknown TicketChangeIndicator: $value"
+                                        )
+                                }
+
+                            fun asString(): String = _value().asStringOrThrow()
+                        }
+
+                        @JsonDeserialize(builder = TripLeg.Builder::class)
+                        @NoAutoDetect
+                        class TripLeg
+                        private constructor(
+                            private val flightNumber: JsonField<String>,
+                            private val carrierCode: JsonField<String>,
+                            private val fareBasisCode: JsonField<String>,
+                            private val serviceClass: JsonField<String>,
+                            private val stopOverCode: JsonField<StopOverCode>,
+                            private val destinationCityAirportCode: JsonField<String>,
+                            private val additionalProperties: Map<String, JsonValue>,
+                        ) {
+
+                            private var validated: Boolean = false
+
+                            private var hashCode: Int = 0
+
+                            /** Flight number. */
+                            fun flightNumber(): Optional<String> =
+                                Optional.ofNullable(flightNumber.getNullable("flight_number"))
+
+                            /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
+                            fun carrierCode(): Optional<String> =
+                                Optional.ofNullable(carrierCode.getNullable("carrier_code"))
+
+                            /** Fare basis code. */
+                            fun fareBasisCode(): Optional<String> =
+                                Optional.ofNullable(fareBasisCode.getNullable("fare_basis_code"))
+
+                            /** Service class (e.g., first class, business class, etc.). */
+                            fun serviceClass(): Optional<String> =
+                                Optional.ofNullable(serviceClass.getNullable("service_class"))
+
+                            /** Indicates whether a stopover is allowed on this ticket. */
+                            fun stopOverCode(): Optional<StopOverCode> =
+                                Optional.ofNullable(stopOverCode.getNullable("stop_over_code"))
+
+                            /** Code for the destination city or airport. */
+                            fun destinationCityAirportCode(): Optional<String> =
+                                Optional.ofNullable(
+                                    destinationCityAirportCode.getNullable(
+                                        "destination_city_airport_code"
+                                    )
+                                )
+
+                            /** Flight number. */
+                            @JsonProperty("flight_number")
+                            @ExcludeMissing
+                            fun _flightNumber() = flightNumber
+
+                            /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
+                            @JsonProperty("carrier_code")
+                            @ExcludeMissing
+                            fun _carrierCode() = carrierCode
+
+                            /** Fare basis code. */
+                            @JsonProperty("fare_basis_code")
+                            @ExcludeMissing
+                            fun _fareBasisCode() = fareBasisCode
+
+                            /** Service class (e.g., first class, business class, etc.). */
+                            @JsonProperty("service_class")
+                            @ExcludeMissing
+                            fun _serviceClass() = serviceClass
+
+                            /** Indicates whether a stopover is allowed on this ticket. */
+                            @JsonProperty("stop_over_code")
+                            @ExcludeMissing
+                            fun _stopOverCode() = stopOverCode
+
+                            /** Code for the destination city or airport. */
+                            @JsonProperty("destination_city_airport_code")
+                            @ExcludeMissing
+                            fun _destinationCityAirportCode() = destinationCityAirportCode
+
+                            @JsonAnyGetter
+                            @ExcludeMissing
+                            fun _additionalProperties(): Map<String, JsonValue> =
+                                additionalProperties
+
+                            fun validate(): TripLeg = apply {
+                                if (!validated) {
+                                    flightNumber()
+                                    carrierCode()
+                                    fareBasisCode()
+                                    serviceClass()
+                                    stopOverCode()
+                                    destinationCityAirportCode()
+                                    validated = true
+                                }
+                            }
+
+                            fun toBuilder() = Builder().from(this)
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is TripLeg &&
+                                    this.flightNumber == other.flightNumber &&
+                                    this.carrierCode == other.carrierCode &&
+                                    this.fareBasisCode == other.fareBasisCode &&
+                                    this.serviceClass == other.serviceClass &&
+                                    this.stopOverCode == other.stopOverCode &&
+                                    this.destinationCityAirportCode ==
+                                        other.destinationCityAirportCode &&
+                                    this.additionalProperties == other.additionalProperties
+                            }
+
+                            override fun hashCode(): Int {
+                                if (hashCode == 0) {
+                                    hashCode =
+                                        Objects.hash(
+                                            flightNumber,
+                                            carrierCode,
+                                            fareBasisCode,
+                                            serviceClass,
+                                            stopOverCode,
+                                            destinationCityAirportCode,
+                                            additionalProperties,
+                                        )
+                                }
+                                return hashCode
+                            }
+
+                            override fun toString() =
+                                "TripLeg{flightNumber=$flightNumber, carrierCode=$carrierCode, fareBasisCode=$fareBasisCode, serviceClass=$serviceClass, stopOverCode=$stopOverCode, destinationCityAirportCode=$destinationCityAirportCode, additionalProperties=$additionalProperties}"
+
+                            companion object {
+
+                                @JvmStatic fun builder() = Builder()
+                            }
+
+                            class Builder {
+
+                                private var flightNumber: JsonField<String> = JsonMissing.of()
+                                private var carrierCode: JsonField<String> = JsonMissing.of()
+                                private var fareBasisCode: JsonField<String> = JsonMissing.of()
+                                private var serviceClass: JsonField<String> = JsonMissing.of()
+                                private var stopOverCode: JsonField<StopOverCode> = JsonMissing.of()
+                                private var destinationCityAirportCode: JsonField<String> =
+                                    JsonMissing.of()
+                                private var additionalProperties: MutableMap<String, JsonValue> =
+                                    mutableMapOf()
+
+                                @JvmSynthetic
+                                internal fun from(tripLeg: TripLeg) = apply {
+                                    this.flightNumber = tripLeg.flightNumber
+                                    this.carrierCode = tripLeg.carrierCode
+                                    this.fareBasisCode = tripLeg.fareBasisCode
+                                    this.serviceClass = tripLeg.serviceClass
+                                    this.stopOverCode = tripLeg.stopOverCode
+                                    this.destinationCityAirportCode =
+                                        tripLeg.destinationCityAirportCode
+                                    additionalProperties(tripLeg.additionalProperties)
+                                }
+
+                                /** Flight number. */
+                                fun flightNumber(flightNumber: String) =
+                                    flightNumber(JsonField.of(flightNumber))
+
+                                /** Flight number. */
+                                @JsonProperty("flight_number")
+                                @ExcludeMissing
+                                fun flightNumber(flightNumber: JsonField<String>) = apply {
+                                    this.flightNumber = flightNumber
+                                }
+
+                                /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
+                                fun carrierCode(carrierCode: String) =
+                                    carrierCode(JsonField.of(carrierCode))
+
+                                /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
+                                @JsonProperty("carrier_code")
+                                @ExcludeMissing
+                                fun carrierCode(carrierCode: JsonField<String>) = apply {
+                                    this.carrierCode = carrierCode
+                                }
+
+                                /** Fare basis code. */
+                                fun fareBasisCode(fareBasisCode: String) =
+                                    fareBasisCode(JsonField.of(fareBasisCode))
+
+                                /** Fare basis code. */
+                                @JsonProperty("fare_basis_code")
+                                @ExcludeMissing
+                                fun fareBasisCode(fareBasisCode: JsonField<String>) = apply {
+                                    this.fareBasisCode = fareBasisCode
+                                }
+
+                                /** Service class (e.g., first class, business class, etc.). */
+                                fun serviceClass(serviceClass: String) =
+                                    serviceClass(JsonField.of(serviceClass))
+
+                                /** Service class (e.g., first class, business class, etc.). */
+                                @JsonProperty("service_class")
+                                @ExcludeMissing
+                                fun serviceClass(serviceClass: JsonField<String>) = apply {
+                                    this.serviceClass = serviceClass
+                                }
+
+                                /** Indicates whether a stopover is allowed on this ticket. */
+                                fun stopOverCode(stopOverCode: StopOverCode) =
+                                    stopOverCode(JsonField.of(stopOverCode))
+
+                                /** Indicates whether a stopover is allowed on this ticket. */
+                                @JsonProperty("stop_over_code")
+                                @ExcludeMissing
+                                fun stopOverCode(stopOverCode: JsonField<StopOverCode>) = apply {
+                                    this.stopOverCode = stopOverCode
+                                }
+
+                                /** Code for the destination city or airport. */
+                                fun destinationCityAirportCode(destinationCityAirportCode: String) =
+                                    destinationCityAirportCode(
+                                        JsonField.of(destinationCityAirportCode)
+                                    )
+
+                                /** Code for the destination city or airport. */
+                                @JsonProperty("destination_city_airport_code")
+                                @ExcludeMissing
+                                fun destinationCityAirportCode(
+                                    destinationCityAirportCode: JsonField<String>
+                                ) = apply {
+                                    this.destinationCityAirportCode = destinationCityAirportCode
+                                }
+
+                                fun additionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply {
+                                    this.additionalProperties.clear()
+                                    this.additionalProperties.putAll(additionalProperties)
+                                }
+
+                                @JsonAnySetter
+                                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                                    this.additionalProperties.put(key, value)
+                                }
+
+                                fun putAllAdditionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                                fun build(): TripLeg =
+                                    TripLeg(
+                                        flightNumber,
+                                        carrierCode,
+                                        fareBasisCode,
+                                        serviceClass,
+                                        stopOverCode,
+                                        destinationCityAirportCode,
+                                        additionalProperties.toUnmodifiable(),
+                                    )
+                            }
+
+                            class StopOverCode
+                            @JsonCreator
+                            private constructor(
+                                private val value: JsonField<String>,
+                            ) {
+
+                                @com.fasterxml.jackson.annotation.JsonValue
+                                fun _value(): JsonField<String> = value
+
+                                override fun equals(other: Any?): Boolean {
+                                    if (this === other) {
+                                        return true
+                                    }
+
+                                    return other is StopOverCode && this.value == other.value
+                                }
+
+                                override fun hashCode() = value.hashCode()
+
+                                override fun toString() = value.toString()
+
+                                companion object {
+
+                                    @JvmField val NONE = StopOverCode(JsonField.of("none"))
+
+                                    @JvmField
+                                    val STOP_OVER_ALLOWED =
+                                        StopOverCode(JsonField.of("stop_over_allowed"))
+
+                                    @JvmField
+                                    val STOP_OVER_NOT_ALLOWED =
+                                        StopOverCode(JsonField.of("stop_over_not_allowed"))
+
+                                    @JvmStatic
+                                    fun of(value: String) = StopOverCode(JsonField.of(value))
+                                }
+
+                                enum class Known {
+                                    NONE,
+                                    STOP_OVER_ALLOWED,
+                                    STOP_OVER_NOT_ALLOWED,
+                                }
+
+                                enum class Value {
+                                    NONE,
+                                    STOP_OVER_ALLOWED,
+                                    STOP_OVER_NOT_ALLOWED,
+                                    _UNKNOWN,
+                                }
+
+                                fun value(): Value =
+                                    when (this) {
+                                        NONE -> Value.NONE
+                                        STOP_OVER_ALLOWED -> Value.STOP_OVER_ALLOWED
+                                        STOP_OVER_NOT_ALLOWED -> Value.STOP_OVER_NOT_ALLOWED
+                                        else -> Value._UNKNOWN
+                                    }
+
+                                fun known(): Known =
+                                    when (this) {
+                                        NONE -> Known.NONE
+                                        STOP_OVER_ALLOWED -> Known.STOP_OVER_ALLOWED
+                                        STOP_OVER_NOT_ALLOWED -> Known.STOP_OVER_NOT_ALLOWED
+                                        else ->
+                                            throw IncreaseInvalidDataException(
+                                                "Unknown StopOverCode: $value"
+                                            )
+                                    }
+
+                                fun asString(): String = _value().asStringOrThrow()
+                            }
+                        }
+
+                        /** Ancillary purchases in addition to the airfare. */
+                        @JsonDeserialize(builder = Ancillary.Builder::class)
+                        @NoAutoDetect
+                        class Ancillary
+                        private constructor(
+                            private val ticketDocumentNumber: JsonField<String>,
+                            private val passengerNameOrDescription: JsonField<String>,
+                            private val connectedTicketDocumentNumber: JsonField<String>,
+                            private val creditReasonIndicator: JsonField<CreditReasonIndicator>,
+                            private val services: JsonField<List<Service>>,
+                            private val additionalProperties: Map<String, JsonValue>,
+                        ) {
+
+                            private var validated: Boolean = false
+
+                            private var hashCode: Int = 0
+
+                            /** Ticket document number. */
+                            fun ticketDocumentNumber(): Optional<String> =
+                                Optional.ofNullable(
+                                    ticketDocumentNumber.getNullable("ticket_document_number")
+                                )
+
+                            /** Name of the passenger or description of the ancillary purchase. */
+                            fun passengerNameOrDescription(): Optional<String> =
+                                Optional.ofNullable(
+                                    passengerNameOrDescription.getNullable(
+                                        "passenger_name_or_description"
+                                    )
+                                )
+
+                            /**
+                             * If this purchase has a connection or relationship to another
+                             * purchase, such as a baggage fee for a passenger transport ticket,
+                             * this field should contain the ticket document number for the other
+                             * purchase.
+                             */
+                            fun connectedTicketDocumentNumber(): Optional<String> =
+                                Optional.ofNullable(
+                                    connectedTicketDocumentNumber.getNullable(
+                                        "connected_ticket_document_number"
+                                    )
+                                )
+
+                            /** Indicates the reason for a credit to the cardholder. */
+                            fun creditReasonIndicator(): Optional<CreditReasonIndicator> =
+                                Optional.ofNullable(
+                                    creditReasonIndicator.getNullable("credit_reason_indicator")
+                                )
+
+                            /** Additional travel charges, such as baggage fees. */
+                            fun services(): List<Service> = services.getRequired("services")
+
+                            /** Ticket document number. */
+                            @JsonProperty("ticket_document_number")
+                            @ExcludeMissing
+                            fun _ticketDocumentNumber() = ticketDocumentNumber
+
+                            /** Name of the passenger or description of the ancillary purchase. */
+                            @JsonProperty("passenger_name_or_description")
+                            @ExcludeMissing
+                            fun _passengerNameOrDescription() = passengerNameOrDescription
+
+                            /**
+                             * If this purchase has a connection or relationship to another
+                             * purchase, such as a baggage fee for a passenger transport ticket,
+                             * this field should contain the ticket document number for the other
+                             * purchase.
+                             */
+                            @JsonProperty("connected_ticket_document_number")
+                            @ExcludeMissing
+                            fun _connectedTicketDocumentNumber() = connectedTicketDocumentNumber
+
+                            /** Indicates the reason for a credit to the cardholder. */
+                            @JsonProperty("credit_reason_indicator")
+                            @ExcludeMissing
+                            fun _creditReasonIndicator() = creditReasonIndicator
+
+                            /** Additional travel charges, such as baggage fees. */
+                            @JsonProperty("services") @ExcludeMissing fun _services() = services
+
+                            @JsonAnyGetter
+                            @ExcludeMissing
+                            fun _additionalProperties(): Map<String, JsonValue> =
+                                additionalProperties
+
+                            fun validate(): Ancillary = apply {
+                                if (!validated) {
+                                    ticketDocumentNumber()
+                                    passengerNameOrDescription()
+                                    connectedTicketDocumentNumber()
+                                    creditReasonIndicator()
+                                    services().forEach { it.validate() }
+                                    validated = true
+                                }
+                            }
+
+                            fun toBuilder() = Builder().from(this)
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is Ancillary &&
+                                    this.ticketDocumentNumber == other.ticketDocumentNumber &&
+                                    this.passengerNameOrDescription ==
+                                        other.passengerNameOrDescription &&
+                                    this.connectedTicketDocumentNumber ==
+                                        other.connectedTicketDocumentNumber &&
+                                    this.creditReasonIndicator == other.creditReasonIndicator &&
+                                    this.services == other.services &&
+                                    this.additionalProperties == other.additionalProperties
+                            }
+
+                            override fun hashCode(): Int {
+                                if (hashCode == 0) {
+                                    hashCode =
+                                        Objects.hash(
+                                            ticketDocumentNumber,
+                                            passengerNameOrDescription,
+                                            connectedTicketDocumentNumber,
+                                            creditReasonIndicator,
+                                            services,
+                                            additionalProperties,
+                                        )
+                                }
+                                return hashCode
+                            }
+
+                            override fun toString() =
+                                "Ancillary{ticketDocumentNumber=$ticketDocumentNumber, passengerNameOrDescription=$passengerNameOrDescription, connectedTicketDocumentNumber=$connectedTicketDocumentNumber, creditReasonIndicator=$creditReasonIndicator, services=$services, additionalProperties=$additionalProperties}"
+
+                            companion object {
+
+                                @JvmStatic fun builder() = Builder()
+                            }
+
+                            class Builder {
+
+                                private var ticketDocumentNumber: JsonField<String> =
+                                    JsonMissing.of()
+                                private var passengerNameOrDescription: JsonField<String> =
+                                    JsonMissing.of()
+                                private var connectedTicketDocumentNumber: JsonField<String> =
+                                    JsonMissing.of()
+                                private var creditReasonIndicator:
+                                    JsonField<CreditReasonIndicator> =
+                                    JsonMissing.of()
+                                private var services: JsonField<List<Service>> = JsonMissing.of()
+                                private var additionalProperties: MutableMap<String, JsonValue> =
+                                    mutableMapOf()
+
+                                @JvmSynthetic
+                                internal fun from(ancillary: Ancillary) = apply {
+                                    this.ticketDocumentNumber = ancillary.ticketDocumentNumber
+                                    this.passengerNameOrDescription =
+                                        ancillary.passengerNameOrDescription
+                                    this.connectedTicketDocumentNumber =
+                                        ancillary.connectedTicketDocumentNumber
+                                    this.creditReasonIndicator = ancillary.creditReasonIndicator
+                                    this.services = ancillary.services
+                                    additionalProperties(ancillary.additionalProperties)
+                                }
+
+                                /** Ticket document number. */
+                                fun ticketDocumentNumber(ticketDocumentNumber: String) =
+                                    ticketDocumentNumber(JsonField.of(ticketDocumentNumber))
+
+                                /** Ticket document number. */
+                                @JsonProperty("ticket_document_number")
+                                @ExcludeMissing
+                                fun ticketDocumentNumber(ticketDocumentNumber: JsonField<String>) =
+                                    apply {
+                                        this.ticketDocumentNumber = ticketDocumentNumber
+                                    }
+
+                                /**
+                                 * Name of the passenger or description of the ancillary purchase.
+                                 */
+                                fun passengerNameOrDescription(passengerNameOrDescription: String) =
+                                    passengerNameOrDescription(
+                                        JsonField.of(passengerNameOrDescription)
+                                    )
+
+                                /**
+                                 * Name of the passenger or description of the ancillary purchase.
+                                 */
+                                @JsonProperty("passenger_name_or_description")
+                                @ExcludeMissing
+                                fun passengerNameOrDescription(
+                                    passengerNameOrDescription: JsonField<String>
+                                ) = apply {
+                                    this.passengerNameOrDescription = passengerNameOrDescription
+                                }
+
+                                /**
+                                 * If this purchase has a connection or relationship to another
+                                 * purchase, such as a baggage fee for a passenger transport ticket,
+                                 * this field should contain the ticket document number for the
+                                 * other purchase.
+                                 */
+                                fun connectedTicketDocumentNumber(
+                                    connectedTicketDocumentNumber: String
+                                ) =
+                                    connectedTicketDocumentNumber(
+                                        JsonField.of(connectedTicketDocumentNumber)
+                                    )
+
+                                /**
+                                 * If this purchase has a connection or relationship to another
+                                 * purchase, such as a baggage fee for a passenger transport ticket,
+                                 * this field should contain the ticket document number for the
+                                 * other purchase.
+                                 */
+                                @JsonProperty("connected_ticket_document_number")
+                                @ExcludeMissing
+                                fun connectedTicketDocumentNumber(
+                                    connectedTicketDocumentNumber: JsonField<String>
+                                ) = apply {
+                                    this.connectedTicketDocumentNumber =
+                                        connectedTicketDocumentNumber
+                                }
+
+                                /** Indicates the reason for a credit to the cardholder. */
+                                fun creditReasonIndicator(
+                                    creditReasonIndicator: CreditReasonIndicator
+                                ) = creditReasonIndicator(JsonField.of(creditReasonIndicator))
+
+                                /** Indicates the reason for a credit to the cardholder. */
+                                @JsonProperty("credit_reason_indicator")
+                                @ExcludeMissing
+                                fun creditReasonIndicator(
+                                    creditReasonIndicator: JsonField<CreditReasonIndicator>
+                                ) = apply { this.creditReasonIndicator = creditReasonIndicator }
+
+                                /** Additional travel charges, such as baggage fees. */
+                                fun services(services: List<Service>) =
+                                    services(JsonField.of(services))
+
+                                /** Additional travel charges, such as baggage fees. */
+                                @JsonProperty("services")
+                                @ExcludeMissing
+                                fun services(services: JsonField<List<Service>>) = apply {
+                                    this.services = services
+                                }
+
+                                fun additionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply {
+                                    this.additionalProperties.clear()
+                                    this.additionalProperties.putAll(additionalProperties)
+                                }
+
+                                @JsonAnySetter
+                                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                                    this.additionalProperties.put(key, value)
+                                }
+
+                                fun putAllAdditionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                                fun build(): Ancillary =
+                                    Ancillary(
+                                        ticketDocumentNumber,
+                                        passengerNameOrDescription,
+                                        connectedTicketDocumentNumber,
+                                        creditReasonIndicator,
+                                        services.map { it.toUnmodifiable() },
+                                        additionalProperties.toUnmodifiable(),
+                                    )
+                            }
+
+                            class CreditReasonIndicator
+                            @JsonCreator
+                            private constructor(
+                                private val value: JsonField<String>,
+                            ) {
+
+                                @com.fasterxml.jackson.annotation.JsonValue
+                                fun _value(): JsonField<String> = value
+
+                                override fun equals(other: Any?): Boolean {
+                                    if (this === other) {
+                                        return true
+                                    }
+
+                                    return other is CreditReasonIndicator &&
+                                        this.value == other.value
+                                }
+
+                                override fun hashCode() = value.hashCode()
+
+                                override fun toString() = value.toString()
+
+                                companion object {
+
+                                    @JvmField
+                                    val NO_CREDIT = CreditReasonIndicator(JsonField.of("no_credit"))
+
+                                    @JvmField
+                                    val PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
+                                        CreditReasonIndicator(
+                                            JsonField.of(
+                                                "passenger_transport_ancillary_purchase_cancellation"
+                                            )
+                                        )
+
+                                    @JvmField
+                                    val AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
+                                        CreditReasonIndicator(
+                                            JsonField.of(
+                                                "airline_ticket_and_passenger_transport_ancillary_purchase_cancellation"
+                                            )
+                                        )
+
+                                    @JvmField
+                                    val OTHER = CreditReasonIndicator(JsonField.of("other"))
+
+                                    @JvmStatic
+                                    fun of(value: String) =
+                                        CreditReasonIndicator(JsonField.of(value))
+                                }
+
+                                enum class Known {
+                                    NO_CREDIT,
+                                    PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                    AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                    OTHER,
+                                }
+
+                                enum class Value {
+                                    NO_CREDIT,
+                                    PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                    AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                    OTHER,
+                                    _UNKNOWN,
+                                }
+
+                                fun value(): Value =
+                                    when (this) {
+                                        NO_CREDIT -> Value.NO_CREDIT
+                                        PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
+                                            Value
+                                                .PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
+                                        AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
+                                            Value
+                                                .AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
+                                        OTHER -> Value.OTHER
+                                        else -> Value._UNKNOWN
+                                    }
+
+                                fun known(): Known =
+                                    when (this) {
+                                        NO_CREDIT -> Known.NO_CREDIT
+                                        PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
+                                            Known
+                                                .PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
+                                        AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
+                                            Known
+                                                .AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
+                                        OTHER -> Known.OTHER
+                                        else ->
+                                            throw IncreaseInvalidDataException(
+                                                "Unknown CreditReasonIndicator: $value"
+                                            )
+                                    }
+
+                                fun asString(): String = _value().asStringOrThrow()
+                            }
+
+                            @JsonDeserialize(builder = Service.Builder::class)
+                            @NoAutoDetect
+                            class Service
+                            private constructor(
+                                private val category: JsonField<Category>,
+                                private val subCategory: JsonField<String>,
+                                private val additionalProperties: Map<String, JsonValue>,
+                            ) {
+
+                                private var validated: Boolean = false
+
+                                private var hashCode: Int = 0
+
+                                /** Category of the ancillary service. */
+                                fun category(): Optional<Category> =
+                                    Optional.ofNullable(category.getNullable("category"))
+
+                                /** Sub-category of the ancillary service, free-form. */
+                                fun subCategory(): Optional<String> =
+                                    Optional.ofNullable(subCategory.getNullable("sub_category"))
+
+                                /** Category of the ancillary service. */
+                                @JsonProperty("category") @ExcludeMissing fun _category() = category
+
+                                /** Sub-category of the ancillary service, free-form. */
+                                @JsonProperty("sub_category")
+                                @ExcludeMissing
+                                fun _subCategory() = subCategory
+
+                                @JsonAnyGetter
+                                @ExcludeMissing
+                                fun _additionalProperties(): Map<String, JsonValue> =
+                                    additionalProperties
+
+                                fun validate(): Service = apply {
+                                    if (!validated) {
+                                        category()
+                                        subCategory()
+                                        validated = true
+                                    }
+                                }
+
+                                fun toBuilder() = Builder().from(this)
+
+                                override fun equals(other: Any?): Boolean {
+                                    if (this === other) {
+                                        return true
+                                    }
+
+                                    return other is Service &&
+                                        this.category == other.category &&
+                                        this.subCategory == other.subCategory &&
+                                        this.additionalProperties == other.additionalProperties
+                                }
+
+                                override fun hashCode(): Int {
+                                    if (hashCode == 0) {
+                                        hashCode =
+                                            Objects.hash(
+                                                category,
+                                                subCategory,
+                                                additionalProperties,
+                                            )
+                                    }
+                                    return hashCode
+                                }
+
+                                override fun toString() =
+                                    "Service{category=$category, subCategory=$subCategory, additionalProperties=$additionalProperties}"
+
+                                companion object {
+
+                                    @JvmStatic fun builder() = Builder()
+                                }
+
+                                class Builder {
+
+                                    private var category: JsonField<Category> = JsonMissing.of()
+                                    private var subCategory: JsonField<String> = JsonMissing.of()
+                                    private var additionalProperties:
+                                        MutableMap<String, JsonValue> =
+                                        mutableMapOf()
+
+                                    @JvmSynthetic
+                                    internal fun from(service: Service) = apply {
+                                        this.category = service.category
+                                        this.subCategory = service.subCategory
+                                        additionalProperties(service.additionalProperties)
+                                    }
+
+                                    /** Category of the ancillary service. */
+                                    fun category(category: Category) =
+                                        category(JsonField.of(category))
+
+                                    /** Category of the ancillary service. */
+                                    @JsonProperty("category")
+                                    @ExcludeMissing
+                                    fun category(category: JsonField<Category>) = apply {
+                                        this.category = category
+                                    }
+
+                                    /** Sub-category of the ancillary service, free-form. */
+                                    fun subCategory(subCategory: String) =
+                                        subCategory(JsonField.of(subCategory))
+
+                                    /** Sub-category of the ancillary service, free-form. */
+                                    @JsonProperty("sub_category")
+                                    @ExcludeMissing
+                                    fun subCategory(subCategory: JsonField<String>) = apply {
+                                        this.subCategory = subCategory
+                                    }
+
+                                    fun additionalProperties(
+                                        additionalProperties: Map<String, JsonValue>
+                                    ) = apply {
+                                        this.additionalProperties.clear()
+                                        this.additionalProperties.putAll(additionalProperties)
+                                    }
+
+                                    @JsonAnySetter
+                                    fun putAdditionalProperty(key: String, value: JsonValue) =
+                                        apply {
+                                            this.additionalProperties.put(key, value)
+                                        }
+
+                                    fun putAllAdditionalProperties(
+                                        additionalProperties: Map<String, JsonValue>
+                                    ) = apply {
+                                        this.additionalProperties.putAll(additionalProperties)
+                                    }
+
+                                    fun build(): Service =
+                                        Service(
+                                            category,
+                                            subCategory,
+                                            additionalProperties.toUnmodifiable(),
+                                        )
+                                }
+
+                                class Category
+                                @JsonCreator
+                                private constructor(
+                                    private val value: JsonField<String>,
+                                ) {
+
+                                    @com.fasterxml.jackson.annotation.JsonValue
+                                    fun _value(): JsonField<String> = value
+
+                                    override fun equals(other: Any?): Boolean {
+                                        if (this === other) {
+                                            return true
+                                        }
+
+                                        return other is Category && this.value == other.value
+                                    }
+
+                                    override fun hashCode() = value.hashCode()
+
+                                    override fun toString() = value.toString()
+
+                                    companion object {
+
+                                        @JvmField val NONE = Category(JsonField.of("none"))
+
+                                        @JvmField
+                                        val BUNDLED_SERVICE =
+                                            Category(JsonField.of("bundled_service"))
+
+                                        @JvmField
+                                        val BAGGAGE_FEE = Category(JsonField.of("baggage_fee"))
+
+                                        @JvmField
+                                        val CHANGE_FEE = Category(JsonField.of("change_fee"))
+
+                                        @JvmField val CARGO = Category(JsonField.of("cargo"))
+
+                                        @JvmField
+                                        val CARBON_OFFSET = Category(JsonField.of("carbon_offset"))
+
+                                        @JvmField
+                                        val FREQUENT_FLYER =
+                                            Category(JsonField.of("frequent_flyer"))
+
+                                        @JvmField
+                                        val GIFT_CARD = Category(JsonField.of("gift_card"))
+
+                                        @JvmField
+                                        val GROUND_TRANSPORT =
+                                            Category(JsonField.of("ground_transport"))
+
+                                        @JvmField
+                                        val IN_FLIGHT_ENTERTAINMENT =
+                                            Category(JsonField.of("in_flight_entertainment"))
+
+                                        @JvmField val LOUNGE = Category(JsonField.of("lounge"))
+
+                                        @JvmField val MEDICAL = Category(JsonField.of("medical"))
+
+                                        @JvmField
+                                        val MEAL_BEVERAGE = Category(JsonField.of("meal_beverage"))
+
+                                        @JvmField val OTHER = Category(JsonField.of("other"))
+
+                                        @JvmField
+                                        val PASSENGER_ASSIST_FEE =
+                                            Category(JsonField.of("passenger_assist_fee"))
+
+                                        @JvmField val PETS = Category(JsonField.of("pets"))
+
+                                        @JvmField
+                                        val SEAT_FEES = Category(JsonField.of("seat_fees"))
+
+                                        @JvmField val STANDBY = Category(JsonField.of("standby"))
+
+                                        @JvmField
+                                        val SERVICE_FEE = Category(JsonField.of("service_fee"))
+
+                                        @JvmField val STORE = Category(JsonField.of("store"))
+
+                                        @JvmField
+                                        val TRAVEL_SERVICE =
+                                            Category(JsonField.of("travel_service"))
+
+                                        @JvmField
+                                        val UNACCOMPANIED_TRAVEL =
+                                            Category(JsonField.of("unaccompanied_travel"))
+
+                                        @JvmField val UPGRADES = Category(JsonField.of("upgrades"))
+
+                                        @JvmField val WIFI = Category(JsonField.of("wifi"))
+
+                                        @JvmStatic
+                                        fun of(value: String) = Category(JsonField.of(value))
+                                    }
+
+                                    enum class Known {
+                                        NONE,
+                                        BUNDLED_SERVICE,
+                                        BAGGAGE_FEE,
+                                        CHANGE_FEE,
+                                        CARGO,
+                                        CARBON_OFFSET,
+                                        FREQUENT_FLYER,
+                                        GIFT_CARD,
+                                        GROUND_TRANSPORT,
+                                        IN_FLIGHT_ENTERTAINMENT,
+                                        LOUNGE,
+                                        MEDICAL,
+                                        MEAL_BEVERAGE,
+                                        OTHER,
+                                        PASSENGER_ASSIST_FEE,
+                                        PETS,
+                                        SEAT_FEES,
+                                        STANDBY,
+                                        SERVICE_FEE,
+                                        STORE,
+                                        TRAVEL_SERVICE,
+                                        UNACCOMPANIED_TRAVEL,
+                                        UPGRADES,
+                                        WIFI,
+                                    }
+
+                                    enum class Value {
+                                        NONE,
+                                        BUNDLED_SERVICE,
+                                        BAGGAGE_FEE,
+                                        CHANGE_FEE,
+                                        CARGO,
+                                        CARBON_OFFSET,
+                                        FREQUENT_FLYER,
+                                        GIFT_CARD,
+                                        GROUND_TRANSPORT,
+                                        IN_FLIGHT_ENTERTAINMENT,
+                                        LOUNGE,
+                                        MEDICAL,
+                                        MEAL_BEVERAGE,
+                                        OTHER,
+                                        PASSENGER_ASSIST_FEE,
+                                        PETS,
+                                        SEAT_FEES,
+                                        STANDBY,
+                                        SERVICE_FEE,
+                                        STORE,
+                                        TRAVEL_SERVICE,
+                                        UNACCOMPANIED_TRAVEL,
+                                        UPGRADES,
+                                        WIFI,
+                                        _UNKNOWN,
+                                    }
+
+                                    fun value(): Value =
+                                        when (this) {
+                                            NONE -> Value.NONE
+                                            BUNDLED_SERVICE -> Value.BUNDLED_SERVICE
+                                            BAGGAGE_FEE -> Value.BAGGAGE_FEE
+                                            CHANGE_FEE -> Value.CHANGE_FEE
+                                            CARGO -> Value.CARGO
+                                            CARBON_OFFSET -> Value.CARBON_OFFSET
+                                            FREQUENT_FLYER -> Value.FREQUENT_FLYER
+                                            GIFT_CARD -> Value.GIFT_CARD
+                                            GROUND_TRANSPORT -> Value.GROUND_TRANSPORT
+                                            IN_FLIGHT_ENTERTAINMENT -> Value.IN_FLIGHT_ENTERTAINMENT
+                                            LOUNGE -> Value.LOUNGE
+                                            MEDICAL -> Value.MEDICAL
+                                            MEAL_BEVERAGE -> Value.MEAL_BEVERAGE
+                                            OTHER -> Value.OTHER
+                                            PASSENGER_ASSIST_FEE -> Value.PASSENGER_ASSIST_FEE
+                                            PETS -> Value.PETS
+                                            SEAT_FEES -> Value.SEAT_FEES
+                                            STANDBY -> Value.STANDBY
+                                            SERVICE_FEE -> Value.SERVICE_FEE
+                                            STORE -> Value.STORE
+                                            TRAVEL_SERVICE -> Value.TRAVEL_SERVICE
+                                            UNACCOMPANIED_TRAVEL -> Value.UNACCOMPANIED_TRAVEL
+                                            UPGRADES -> Value.UPGRADES
+                                            WIFI -> Value.WIFI
+                                            else -> Value._UNKNOWN
+                                        }
+
+                                    fun known(): Known =
+                                        when (this) {
+                                            NONE -> Known.NONE
+                                            BUNDLED_SERVICE -> Known.BUNDLED_SERVICE
+                                            BAGGAGE_FEE -> Known.BAGGAGE_FEE
+                                            CHANGE_FEE -> Known.CHANGE_FEE
+                                            CARGO -> Known.CARGO
+                                            CARBON_OFFSET -> Known.CARBON_OFFSET
+                                            FREQUENT_FLYER -> Known.FREQUENT_FLYER
+                                            GIFT_CARD -> Known.GIFT_CARD
+                                            GROUND_TRANSPORT -> Known.GROUND_TRANSPORT
+                                            IN_FLIGHT_ENTERTAINMENT -> Known.IN_FLIGHT_ENTERTAINMENT
+                                            LOUNGE -> Known.LOUNGE
+                                            MEDICAL -> Known.MEDICAL
+                                            MEAL_BEVERAGE -> Known.MEAL_BEVERAGE
+                                            OTHER -> Known.OTHER
+                                            PASSENGER_ASSIST_FEE -> Known.PASSENGER_ASSIST_FEE
+                                            PETS -> Known.PETS
+                                            SEAT_FEES -> Known.SEAT_FEES
+                                            STANDBY -> Known.STANDBY
+                                            SERVICE_FEE -> Known.SERVICE_FEE
+                                            STORE -> Known.STORE
+                                            TRAVEL_SERVICE -> Known.TRAVEL_SERVICE
+                                            UNACCOMPANIED_TRAVEL -> Known.UNACCOMPANIED_TRAVEL
+                                            UPGRADES -> Known.UPGRADES
+                                            WIFI -> Known.WIFI
+                                            else ->
+                                                throw IncreaseInvalidDataException(
+                                                    "Unknown Category: $value"
+                                                )
+                                        }
+
+                                    fun asString(): String = _value().asStringOrThrow()
+                                }
+                            }
+                        }
+                    }
                 }
 
                 class Type
@@ -7117,107 +14869,6 @@ private constructor(
             }
 
             /**
-             * A Check Transfer Rejection object. This field will be present in the JSON response if
-             * and only if `category` is equal to `check_transfer_rejection`.
-             */
-            @JsonDeserialize(builder = CheckTransferRejection.Builder::class)
-            @NoAutoDetect
-            class CheckTransferRejection
-            private constructor(
-                private val transferId: JsonField<String>,
-                private val additionalProperties: Map<String, JsonValue>,
-            ) {
-
-                private var validated: Boolean = false
-
-                private var hashCode: Int = 0
-
-                /** The identifier of the Check Transfer that led to this Transaction. */
-                fun transferId(): String = transferId.getRequired("transfer_id")
-
-                /** The identifier of the Check Transfer that led to this Transaction. */
-                @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                fun validate(): CheckTransferRejection = apply {
-                    if (!validated) {
-                        transferId()
-                        validated = true
-                    }
-                }
-
-                fun toBuilder() = Builder().from(this)
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is CheckTransferRejection &&
-                        this.transferId == other.transferId &&
-                        this.additionalProperties == other.additionalProperties
-                }
-
-                override fun hashCode(): Int {
-                    if (hashCode == 0) {
-                        hashCode = Objects.hash(transferId, additionalProperties)
-                    }
-                    return hashCode
-                }
-
-                override fun toString() =
-                    "CheckTransferRejection{transferId=$transferId, additionalProperties=$additionalProperties}"
-
-                companion object {
-
-                    @JvmStatic fun builder() = Builder()
-                }
-
-                class Builder {
-
-                    private var transferId: JsonField<String> = JsonMissing.of()
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    @JvmSynthetic
-                    internal fun from(checkTransferRejection: CheckTransferRejection) = apply {
-                        this.transferId = checkTransferRejection.transferId
-                        additionalProperties(checkTransferRejection.additionalProperties)
-                    }
-
-                    /** The identifier of the Check Transfer that led to this Transaction. */
-                    fun transferId(transferId: String) = transferId(JsonField.of(transferId))
-
-                    /** The identifier of the Check Transfer that led to this Transaction. */
-                    @JsonProperty("transfer_id")
-                    @ExcludeMissing
-                    fun transferId(transferId: JsonField<String>) = apply {
-                        this.transferId = transferId
-                    }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                    @JsonAnySetter
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        this.additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun build(): CheckTransferRejection =
-                        CheckTransferRejection(transferId, additionalProperties.toUnmodifiable())
-                }
-            }
-
-            /**
              * A Check Transfer Stop Payment Request object. This field will be present in the JSON
              * response if and only if `category` is equal to `check_transfer_stop_payment_request`.
              */
@@ -7430,6 +15081,9 @@ private constructor(
                         @JvmField
                         val MAIL_DELIVERY_FAILED = Reason(JsonField.of("mail_delivery_failed"))
 
+                        @JvmField
+                        val REJECTED_BY_INCREASE = Reason(JsonField.of("rejected_by_increase"))
+
                         @JvmField val UNKNOWN = Reason(JsonField.of("unknown"))
 
                         @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
@@ -7437,11 +15091,13 @@ private constructor(
 
                     enum class Known {
                         MAIL_DELIVERY_FAILED,
+                        REJECTED_BY_INCREASE,
                         UNKNOWN,
                     }
 
                     enum class Value {
                         MAIL_DELIVERY_FAILED,
+                        REJECTED_BY_INCREASE,
                         UNKNOWN,
                         _UNKNOWN,
                     }
@@ -7449,6 +15105,7 @@ private constructor(
                     fun value(): Value =
                         when (this) {
                             MAIL_DELIVERY_FAILED -> Value.MAIL_DELIVERY_FAILED
+                            REJECTED_BY_INCREASE -> Value.REJECTED_BY_INCREASE
                             UNKNOWN -> Value.UNKNOWN
                             else -> Value._UNKNOWN
                         }
@@ -7456,6 +15113,7 @@ private constructor(
                     fun known(): Known =
                         when (this) {
                             MAIL_DELIVERY_FAILED -> Known.MAIL_DELIVERY_FAILED
+                            REJECTED_BY_INCREASE -> Known.REJECTED_BY_INCREASE
                             UNKNOWN -> Known.UNKNOWN
                             else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                         }
@@ -12483,6 +20141,8 @@ private constructor(
 
                         @JvmField val CASHBACK = Reason(JsonField.of("cashback"))
 
+                        @JvmField val CHECK_ADJUSTMENT = Reason(JsonField.of("check_adjustment"))
+
                         @JvmField
                         val COLLECTION_RECEIVABLE = Reason(JsonField.of("collection_receivable"))
 
@@ -12513,6 +20173,7 @@ private constructor(
                         ACCOUNT_CLOSURE,
                         BANK_MIGRATION,
                         CASHBACK,
+                        CHECK_ADJUSTMENT,
                         COLLECTION_RECEIVABLE,
                         EMPYREAL_ADJUSTMENT,
                         ERROR,
@@ -12528,6 +20189,7 @@ private constructor(
                         ACCOUNT_CLOSURE,
                         BANK_MIGRATION,
                         CASHBACK,
+                        CHECK_ADJUSTMENT,
                         COLLECTION_RECEIVABLE,
                         EMPYREAL_ADJUSTMENT,
                         ERROR,
@@ -12545,6 +20207,7 @@ private constructor(
                             ACCOUNT_CLOSURE -> Value.ACCOUNT_CLOSURE
                             BANK_MIGRATION -> Value.BANK_MIGRATION
                             CASHBACK -> Value.CASHBACK
+                            CHECK_ADJUSTMENT -> Value.CHECK_ADJUSTMENT
                             COLLECTION_RECEIVABLE -> Value.COLLECTION_RECEIVABLE
                             EMPYREAL_ADJUSTMENT -> Value.EMPYREAL_ADJUSTMENT
                             ERROR -> Value.ERROR
@@ -12562,6 +20225,7 @@ private constructor(
                             ACCOUNT_CLOSURE -> Known.ACCOUNT_CLOSURE
                             BANK_MIGRATION -> Known.BANK_MIGRATION
                             CASHBACK -> Known.CASHBACK
+                            CHECK_ADJUSTMENT -> Known.CHECK_ADJUSTMENT
                             COLLECTION_RECEIVABLE -> Known.COLLECTION_RECEIVABLE
                             EMPYREAL_ADJUSTMENT -> Known.EMPYREAL_ADJUSTMENT
                             ERROR -> Known.ERROR

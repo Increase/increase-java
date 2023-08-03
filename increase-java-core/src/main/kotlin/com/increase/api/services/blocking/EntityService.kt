@@ -8,9 +8,12 @@ import com.increase.api.models.EntityCreateParams
 import com.increase.api.models.EntityListPage
 import com.increase.api.models.EntityListParams
 import com.increase.api.models.EntityRetrieveParams
+import com.increase.api.services.blocking.entities.BeneficialOwnerService
 import com.increase.api.services.blocking.entities.SupplementalDocumentService
 
 interface EntityService {
+
+    fun beneficialOwners(): BeneficialOwnerService
 
     fun supplementalDocuments(): SupplementalDocumentService
 
