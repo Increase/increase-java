@@ -669,87 +669,6 @@ private constructor(
             )
     }
 
-    class Currency
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Currency && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            @JvmField val CAD = Currency(JsonField.of("CAD"))
-
-            @JvmField val CHF = Currency(JsonField.of("CHF"))
-
-            @JvmField val EUR = Currency(JsonField.of("EUR"))
-
-            @JvmField val GBP = Currency(JsonField.of("GBP"))
-
-            @JvmField val JPY = Currency(JsonField.of("JPY"))
-
-            @JvmField val USD = Currency(JsonField.of("USD"))
-
-            @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
-        }
-
-        enum class Known {
-            CAD,
-            CHF,
-            EUR,
-            GBP,
-            JPY,
-            USD,
-        }
-
-        enum class Value {
-            CAD,
-            CHF,
-            EUR,
-            GBP,
-            JPY,
-            USD,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                CAD -> Value.CAD
-                CHF -> Value.CHF
-                EUR -> Value.EUR
-                GBP -> Value.GBP
-                JPY -> Value.JPY
-                USD -> Value.USD
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                CAD -> Known.CAD
-                CHF -> Known.CHF
-                EUR -> Known.EUR
-                GBP -> Known.GBP
-                JPY -> Known.JPY
-                USD -> Known.USD
-                else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
     /**
      * If your account requires approvals for transfers and the transfer was approved, this will
      * contain details of the approval.
@@ -1050,6 +969,138 @@ private constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+    }
+
+    class Currency
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Currency && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val CAD = Currency(JsonField.of("CAD"))
+
+            @JvmField val CHF = Currency(JsonField.of("CHF"))
+
+            @JvmField val EUR = Currency(JsonField.of("EUR"))
+
+            @JvmField val GBP = Currency(JsonField.of("GBP"))
+
+            @JvmField val JPY = Currency(JsonField.of("JPY"))
+
+            @JvmField val USD = Currency(JsonField.of("USD"))
+
+            @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
+        }
+
+        enum class Known {
+            CAD,
+            CHF,
+            EUR,
+            GBP,
+            JPY,
+            USD,
+        }
+
+        enum class Value {
+            CAD,
+            CHF,
+            EUR,
+            GBP,
+            JPY,
+            USD,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                CAD -> Value.CAD
+                CHF -> Value.CHF
+                EUR -> Value.EUR
+                GBP -> Value.GBP
+                JPY -> Value.JPY
+                USD -> Value.USD
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                CAD -> Known.CAD
+                CHF -> Known.CHF
+                EUR -> Known.EUR
+                GBP -> Known.GBP
+                JPY -> Known.JPY
+                USD -> Known.USD
+                else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    class Network
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Network && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val WIRE = Network(JsonField.of("wire"))
+
+            @JvmStatic fun of(value: String) = Network(JsonField.of(value))
+        }
+
+        enum class Known {
+            WIRE,
+        }
+
+        enum class Value {
+            WIRE,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                WIRE -> Value.WIRE
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                WIRE -> Known.WIRE
+                else -> throw IncreaseInvalidDataException("Unknown Network: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 
     /** If your transfer is reversed, this will contain details of the reversal. */
@@ -1572,57 +1623,6 @@ private constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
-    }
-
-    class Network
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Network && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            @JvmField val WIRE = Network(JsonField.of("wire"))
-
-            @JvmStatic fun of(value: String) = Network(JsonField.of(value))
-        }
-
-        enum class Known {
-            WIRE,
-        }
-
-        enum class Value {
-            WIRE,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                WIRE -> Value.WIRE
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                WIRE -> Known.WIRE
-                else -> throw IncreaseInvalidDataException("Unknown Network: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
     }
 
     class Status

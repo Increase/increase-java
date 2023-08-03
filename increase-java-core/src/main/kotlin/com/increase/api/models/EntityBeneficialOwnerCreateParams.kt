@@ -918,128 +918,6 @@ constructor(
                 }
 
                 /**
-                 * Information about the passport used for identification. Required if `method` is
-                 * equal to `passport`.
-                 */
-                @JsonDeserialize(builder = Passport.Builder::class)
-                @NoAutoDetect
-                class Passport
-                private constructor(
-                    private val fileId: String?,
-                    private val expirationDate: LocalDate?,
-                    private val country: String?,
-                    private val additionalProperties: Map<String, JsonValue>,
-                ) {
-
-                    private var hashCode: Int = 0
-
-                    /** The identifier of the File containing the passport. */
-                    @JsonProperty("file_id") fun fileId(): String? = fileId
-
-                    /** The passport's expiration date in YYYY-MM-DD format. */
-                    @JsonProperty("expiration_date")
-                    fun expirationDate(): LocalDate? = expirationDate
-
-                    /** The country that issued the passport. */
-                    @JsonProperty("country") fun country(): String? = country
-
-                    @JsonAnyGetter
-                    @ExcludeMissing
-                    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                    fun toBuilder() = Builder().from(this)
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is Passport &&
-                            this.fileId == other.fileId &&
-                            this.expirationDate == other.expirationDate &&
-                            this.country == other.country &&
-                            this.additionalProperties == other.additionalProperties
-                    }
-
-                    override fun hashCode(): Int {
-                        if (hashCode == 0) {
-                            hashCode =
-                                Objects.hash(
-                                    fileId,
-                                    expirationDate,
-                                    country,
-                                    additionalProperties,
-                                )
-                        }
-                        return hashCode
-                    }
-
-                    override fun toString() =
-                        "Passport{fileId=$fileId, expirationDate=$expirationDate, country=$country, additionalProperties=$additionalProperties}"
-
-                    companion object {
-
-                        @JvmStatic fun builder() = Builder()
-                    }
-
-                    class Builder {
-
-                        private var fileId: String? = null
-                        private var expirationDate: LocalDate? = null
-                        private var country: String? = null
-                        private var additionalProperties: MutableMap<String, JsonValue> =
-                            mutableMapOf()
-
-                        @JvmSynthetic
-                        internal fun from(passport: Passport) = apply {
-                            this.fileId = passport.fileId
-                            this.expirationDate = passport.expirationDate
-                            this.country = passport.country
-                            additionalProperties(passport.additionalProperties)
-                        }
-
-                        /** The identifier of the File containing the passport. */
-                        @JsonProperty("file_id")
-                        fun fileId(fileId: String) = apply { this.fileId = fileId }
-
-                        /** The passport's expiration date in YYYY-MM-DD format. */
-                        @JsonProperty("expiration_date")
-                        fun expirationDate(expirationDate: LocalDate) = apply {
-                            this.expirationDate = expirationDate
-                        }
-
-                        /** The country that issued the passport. */
-                        @JsonProperty("country")
-                        fun country(country: String) = apply { this.country = country }
-
-                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                            apply {
-                                this.additionalProperties.clear()
-                                this.additionalProperties.putAll(additionalProperties)
-                            }
-
-                        @JsonAnySetter
-                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                            this.additionalProperties.put(key, value)
-                        }
-
-                        fun putAllAdditionalProperties(
-                            additionalProperties: Map<String, JsonValue>
-                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
-
-                        fun build(): Passport =
-                            Passport(
-                                checkNotNull(fileId) { "`fileId` is required but was not set" },
-                                checkNotNull(expirationDate) {
-                                    "`expirationDate` is required but was not set"
-                                },
-                                checkNotNull(country) { "`country` is required but was not set" },
-                                additionalProperties.toUnmodifiable(),
-                            )
-                    }
-                }
-
-                /**
                  * Information about the United States driver's license used for identification.
                  * Required if `method` is equal to `drivers_license`.
                  */
@@ -1335,6 +1213,128 @@ constructor(
                                 expirationDate,
                                 checkNotNull(fileId) { "`fileId` is required but was not set" },
                                 backFileId,
+                                additionalProperties.toUnmodifiable(),
+                            )
+                    }
+                }
+
+                /**
+                 * Information about the passport used for identification. Required if `method` is
+                 * equal to `passport`.
+                 */
+                @JsonDeserialize(builder = Passport.Builder::class)
+                @NoAutoDetect
+                class Passport
+                private constructor(
+                    private val fileId: String?,
+                    private val expirationDate: LocalDate?,
+                    private val country: String?,
+                    private val additionalProperties: Map<String, JsonValue>,
+                ) {
+
+                    private var hashCode: Int = 0
+
+                    /** The identifier of the File containing the passport. */
+                    @JsonProperty("file_id") fun fileId(): String? = fileId
+
+                    /** The passport's expiration date in YYYY-MM-DD format. */
+                    @JsonProperty("expiration_date")
+                    fun expirationDate(): LocalDate? = expirationDate
+
+                    /** The country that issued the passport. */
+                    @JsonProperty("country") fun country(): String? = country
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                    fun toBuilder() = Builder().from(this)
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Passport &&
+                            this.fileId == other.fileId &&
+                            this.expirationDate == other.expirationDate &&
+                            this.country == other.country &&
+                            this.additionalProperties == other.additionalProperties
+                    }
+
+                    override fun hashCode(): Int {
+                        if (hashCode == 0) {
+                            hashCode =
+                                Objects.hash(
+                                    fileId,
+                                    expirationDate,
+                                    country,
+                                    additionalProperties,
+                                )
+                        }
+                        return hashCode
+                    }
+
+                    override fun toString() =
+                        "Passport{fileId=$fileId, expirationDate=$expirationDate, country=$country, additionalProperties=$additionalProperties}"
+
+                    companion object {
+
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    class Builder {
+
+                        private var fileId: String? = null
+                        private var expirationDate: LocalDate? = null
+                        private var country: String? = null
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(passport: Passport) = apply {
+                            this.fileId = passport.fileId
+                            this.expirationDate = passport.expirationDate
+                            this.country = passport.country
+                            additionalProperties(passport.additionalProperties)
+                        }
+
+                        /** The identifier of the File containing the passport. */
+                        @JsonProperty("file_id")
+                        fun fileId(fileId: String) = apply { this.fileId = fileId }
+
+                        /** The passport's expiration date in YYYY-MM-DD format. */
+                        @JsonProperty("expiration_date")
+                        fun expirationDate(expirationDate: LocalDate) = apply {
+                            this.expirationDate = expirationDate
+                        }
+
+                        /** The country that issued the passport. */
+                        @JsonProperty("country")
+                        fun country(country: String) = apply { this.country = country }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                this.additionalProperties.putAll(additionalProperties)
+                            }
+
+                        @JsonAnySetter
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            this.additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun build(): Passport =
+                            Passport(
+                                checkNotNull(fileId) { "`fileId` is required but was not set" },
+                                checkNotNull(expirationDate) {
+                                    "`expirationDate` is required but was not set"
+                                },
+                                checkNotNull(country) { "`country` is required but was not set" },
                                 additionalProperties.toUnmodifiable(),
                             )
                     }

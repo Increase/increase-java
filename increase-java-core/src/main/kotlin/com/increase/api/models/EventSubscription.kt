@@ -278,75 +278,6 @@ private constructor(
             )
     }
 
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Status && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            @JvmField val ACTIVE = Status(JsonField.of("active"))
-
-            @JvmField val DISABLED = Status(JsonField.of("disabled"))
-
-            @JvmField val DELETED = Status(JsonField.of("deleted"))
-
-            @JvmField val REQUIRES_ATTENTION = Status(JsonField.of("requires_attention"))
-
-            @JvmStatic fun of(value: String) = Status(JsonField.of(value))
-        }
-
-        enum class Known {
-            ACTIVE,
-            DISABLED,
-            DELETED,
-            REQUIRES_ATTENTION,
-        }
-
-        enum class Value {
-            ACTIVE,
-            DISABLED,
-            DELETED,
-            REQUIRES_ATTENTION,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                ACTIVE -> Value.ACTIVE
-                DISABLED -> Value.DISABLED
-                DELETED -> Value.DELETED
-                REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                ACTIVE -> Known.ACTIVE
-                DISABLED -> Known.DISABLED
-                DELETED -> Known.DELETED
-                REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
-                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
     class SelectedEventCategory
     @JsonCreator
     private constructor(
@@ -776,6 +707,75 @@ private constructor(
                 WIRE_TRANSFER_CREATED -> Known.WIRE_TRANSFER_CREATED
                 WIRE_TRANSFER_UPDATED -> Known.WIRE_TRANSFER_UPDATED
                 else -> throw IncreaseInvalidDataException("Unknown SelectedEventCategory: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Status && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val ACTIVE = Status(JsonField.of("active"))
+
+            @JvmField val DISABLED = Status(JsonField.of("disabled"))
+
+            @JvmField val DELETED = Status(JsonField.of("deleted"))
+
+            @JvmField val REQUIRES_ATTENTION = Status(JsonField.of("requires_attention"))
+
+            @JvmStatic fun of(value: String) = Status(JsonField.of(value))
+        }
+
+        enum class Known {
+            ACTIVE,
+            DISABLED,
+            DELETED,
+            REQUIRES_ATTENTION,
+        }
+
+        enum class Value {
+            ACTIVE,
+            DISABLED,
+            DELETED,
+            REQUIRES_ATTENTION,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                ACTIVE -> Value.ACTIVE
+                DISABLED -> Value.DISABLED
+                DELETED -> Value.DELETED
+                REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                ACTIVE -> Known.ACTIVE
+                DISABLED -> Known.DISABLED
+                DELETED -> Known.DELETED
+                REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
+                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
             }
 
         fun asString(): String = _value().asStringOrThrow()

@@ -194,63 +194,6 @@ constructor(
             )
     }
 
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Status && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            @JvmField val OPEN = Status(JsonField.of("open"))
-
-            @JvmField val CLOSED = Status(JsonField.of("closed"))
-
-            @JvmStatic fun of(value: String) = Status(JsonField.of(value))
-        }
-
-        enum class Known {
-            OPEN,
-            CLOSED,
-        }
-
-        enum class Value {
-            OPEN,
-            CLOSED,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                OPEN -> Value.OPEN
-                CLOSED -> Value.CLOSED
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                OPEN -> Known.OPEN
-                CLOSED -> Known.CLOSED
-                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
     @JsonDeserialize(builder = CreatedAt.Builder::class)
     @NoAutoDetect
     class CreatedAt
@@ -398,5 +341,62 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+    }
+
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Status && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val OPEN = Status(JsonField.of("open"))
+
+            @JvmField val CLOSED = Status(JsonField.of("closed"))
+
+            @JvmStatic fun of(value: String) = Status(JsonField.of(value))
+        }
+
+        enum class Known {
+            OPEN,
+            CLOSED,
+        }
+
+        enum class Value {
+            OPEN,
+            CLOSED,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                OPEN -> Value.OPEN
+                CLOSED -> Value.CLOSED
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                OPEN -> Known.OPEN
+                CLOSED -> Known.CLOSED
+                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 }
