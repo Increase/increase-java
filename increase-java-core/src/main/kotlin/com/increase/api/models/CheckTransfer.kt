@@ -645,6 +645,677 @@ private constructor(
             )
     }
 
+    /**
+     * If your account requires approvals for transfers and the transfer was approved, this will
+     * contain details of the approval.
+     */
+    @JsonDeserialize(builder = Approval.Builder::class)
+    @NoAutoDetect
+    class Approval
+    private constructor(
+        private val approvedAt: JsonField<OffsetDateTime>,
+        private val approvedBy: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * transfer was approved.
+         */
+        fun approvedAt(): OffsetDateTime = approvedAt.getRequired("approved_at")
+
+        /**
+         * If the Transfer was approved by a user in the dashboard, the email address of that user.
+         */
+        fun approvedBy(): Optional<String> =
+            Optional.ofNullable(approvedBy.getNullable("approved_by"))
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * transfer was approved.
+         */
+        @JsonProperty("approved_at") @ExcludeMissing fun _approvedAt() = approvedAt
+
+        /**
+         * If the Transfer was approved by a user in the dashboard, the email address of that user.
+         */
+        @JsonProperty("approved_by") @ExcludeMissing fun _approvedBy() = approvedBy
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): Approval = apply {
+            if (!validated) {
+                approvedAt()
+                approvedBy()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Approval &&
+                this.approvedAt == other.approvedAt &&
+                this.approvedBy == other.approvedBy &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        approvedAt,
+                        approvedBy,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Approval{approvedAt=$approvedAt, approvedBy=$approvedBy, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var approvedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var approvedBy: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(approval: Approval) = apply {
+                this.approvedAt = approval.approvedAt
+                this.approvedBy = approval.approvedBy
+                additionalProperties(approval.additionalProperties)
+            }
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * transfer was approved.
+             */
+            fun approvedAt(approvedAt: OffsetDateTime) = approvedAt(JsonField.of(approvedAt))
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * transfer was approved.
+             */
+            @JsonProperty("approved_at")
+            @ExcludeMissing
+            fun approvedAt(approvedAt: JsonField<OffsetDateTime>) = apply {
+                this.approvedAt = approvedAt
+            }
+
+            /**
+             * If the Transfer was approved by a user in the dashboard, the email address of that
+             * user.
+             */
+            fun approvedBy(approvedBy: String) = approvedBy(JsonField.of(approvedBy))
+
+            /**
+             * If the Transfer was approved by a user in the dashboard, the email address of that
+             * user.
+             */
+            @JsonProperty("approved_by")
+            @ExcludeMissing
+            fun approvedBy(approvedBy: JsonField<String>) = apply { this.approvedBy = approvedBy }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): Approval =
+                Approval(
+                    approvedAt,
+                    approvedBy,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
+    }
+
+    /**
+     * If your account requires approvals for transfers and the transfer was not approved, this will
+     * contain details of the cancellation.
+     */
+    @JsonDeserialize(builder = Cancellation.Builder::class)
+    @NoAutoDetect
+    class Cancellation
+    private constructor(
+        private val canceledAt: JsonField<OffsetDateTime>,
+        private val canceledBy: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * Transfer was canceled.
+         */
+        fun canceledAt(): OffsetDateTime = canceledAt.getRequired("canceled_at")
+
+        /**
+         * If the Transfer was canceled by a user in the dashboard, the email address of that user.
+         */
+        fun canceledBy(): Optional<String> =
+            Optional.ofNullable(canceledBy.getNullable("canceled_by"))
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * Transfer was canceled.
+         */
+        @JsonProperty("canceled_at") @ExcludeMissing fun _canceledAt() = canceledAt
+
+        /**
+         * If the Transfer was canceled by a user in the dashboard, the email address of that user.
+         */
+        @JsonProperty("canceled_by") @ExcludeMissing fun _canceledBy() = canceledBy
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): Cancellation = apply {
+            if (!validated) {
+                canceledAt()
+                canceledBy()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Cancellation &&
+                this.canceledAt == other.canceledAt &&
+                this.canceledBy == other.canceledBy &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        canceledAt,
+                        canceledBy,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Cancellation{canceledAt=$canceledAt, canceledBy=$canceledBy, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var canceledAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var canceledBy: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(cancellation: Cancellation) = apply {
+                this.canceledAt = cancellation.canceledAt
+                this.canceledBy = cancellation.canceledBy
+                additionalProperties(cancellation.additionalProperties)
+            }
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * Transfer was canceled.
+             */
+            fun canceledAt(canceledAt: OffsetDateTime) = canceledAt(JsonField.of(canceledAt))
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * Transfer was canceled.
+             */
+            @JsonProperty("canceled_at")
+            @ExcludeMissing
+            fun canceledAt(canceledAt: JsonField<OffsetDateTime>) = apply {
+                this.canceledAt = canceledAt
+            }
+
+            /**
+             * If the Transfer was canceled by a user in the dashboard, the email address of that
+             * user.
+             */
+            fun canceledBy(canceledBy: String) = canceledBy(JsonField.of(canceledBy))
+
+            /**
+             * If the Transfer was canceled by a user in the dashboard, the email address of that
+             * user.
+             */
+            @JsonProperty("canceled_by")
+            @ExcludeMissing
+            fun canceledBy(canceledBy: JsonField<String>) = apply { this.canceledBy = canceledBy }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): Cancellation =
+                Cancellation(
+                    canceledAt,
+                    canceledBy,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
+    }
+
+    class Currency
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Currency && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val CAD = Currency(JsonField.of("CAD"))
+
+            @JvmField val CHF = Currency(JsonField.of("CHF"))
+
+            @JvmField val EUR = Currency(JsonField.of("EUR"))
+
+            @JvmField val GBP = Currency(JsonField.of("GBP"))
+
+            @JvmField val JPY = Currency(JsonField.of("JPY"))
+
+            @JvmField val USD = Currency(JsonField.of("USD"))
+
+            @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
+        }
+
+        enum class Known {
+            CAD,
+            CHF,
+            EUR,
+            GBP,
+            JPY,
+            USD,
+        }
+
+        enum class Value {
+            CAD,
+            CHF,
+            EUR,
+            GBP,
+            JPY,
+            USD,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                CAD -> Value.CAD
+                CHF -> Value.CHF
+                EUR -> Value.EUR
+                GBP -> Value.GBP
+                JPY -> Value.JPY
+                USD -> Value.USD
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                CAD -> Known.CAD
+                CHF -> Known.CHF
+                EUR -> Known.EUR
+                GBP -> Known.GBP
+                JPY -> Known.JPY
+                USD -> Known.USD
+                else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    /** After a check transfer is deposited, this will contain supplemental details. */
+    @JsonDeserialize(builder = Deposit.Builder::class)
+    @NoAutoDetect
+    class Deposit
+    private constructor(
+        private val depositedAt: JsonField<OffsetDateTime>,
+        private val transactionId: JsonField<String>,
+        private val frontImageFileId: JsonField<String>,
+        private val backImageFileId: JsonField<String>,
+        private val type: JsonField<Type>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        /** When the check was deposited. */
+        fun depositedAt(): OffsetDateTime = depositedAt.getRequired("deposited_at")
+
+        /** The identifier of the Transaction object created when the check was deposited. */
+        fun transactionId(): Optional<String> =
+            Optional.ofNullable(transactionId.getNullable("transaction_id"))
+
+        /**
+         * The identifier of the API File object containing an image of the front of the deposited
+         * check.
+         */
+        fun frontImageFileId(): Optional<String> =
+            Optional.ofNullable(frontImageFileId.getNullable("front_image_file_id"))
+
+        /**
+         * The identifier of the API File object containing an image of the back of the deposited
+         * check.
+         */
+        fun backImageFileId(): Optional<String> =
+            Optional.ofNullable(backImageFileId.getNullable("back_image_file_id"))
+
+        /**
+         * A constant representing the object's type. For this resource it will always be
+         * `check_transfer_deposit`.
+         */
+        fun type(): Type = type.getRequired("type")
+
+        /** When the check was deposited. */
+        @JsonProperty("deposited_at") @ExcludeMissing fun _depositedAt() = depositedAt
+
+        /** The identifier of the Transaction object created when the check was deposited. */
+        @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+
+        /**
+         * The identifier of the API File object containing an image of the front of the deposited
+         * check.
+         */
+        @JsonProperty("front_image_file_id")
+        @ExcludeMissing
+        fun _frontImageFileId() = frontImageFileId
+
+        /**
+         * The identifier of the API File object containing an image of the back of the deposited
+         * check.
+         */
+        @JsonProperty("back_image_file_id") @ExcludeMissing fun _backImageFileId() = backImageFileId
+
+        /**
+         * A constant representing the object's type. For this resource it will always be
+         * `check_transfer_deposit`.
+         */
+        @JsonProperty("type") @ExcludeMissing fun _type() = type
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): Deposit = apply {
+            if (!validated) {
+                depositedAt()
+                transactionId()
+                frontImageFileId()
+                backImageFileId()
+                type()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Deposit &&
+                this.depositedAt == other.depositedAt &&
+                this.transactionId == other.transactionId &&
+                this.frontImageFileId == other.frontImageFileId &&
+                this.backImageFileId == other.backImageFileId &&
+                this.type == other.type &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        depositedAt,
+                        transactionId,
+                        frontImageFileId,
+                        backImageFileId,
+                        type,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Deposit{depositedAt=$depositedAt, transactionId=$transactionId, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, type=$type, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var depositedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var transactionId: JsonField<String> = JsonMissing.of()
+            private var frontImageFileId: JsonField<String> = JsonMissing.of()
+            private var backImageFileId: JsonField<String> = JsonMissing.of()
+            private var type: JsonField<Type> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(deposit: Deposit) = apply {
+                this.depositedAt = deposit.depositedAt
+                this.transactionId = deposit.transactionId
+                this.frontImageFileId = deposit.frontImageFileId
+                this.backImageFileId = deposit.backImageFileId
+                this.type = deposit.type
+                additionalProperties(deposit.additionalProperties)
+            }
+
+            /** When the check was deposited. */
+            fun depositedAt(depositedAt: OffsetDateTime) = depositedAt(JsonField.of(depositedAt))
+
+            /** When the check was deposited. */
+            @JsonProperty("deposited_at")
+            @ExcludeMissing
+            fun depositedAt(depositedAt: JsonField<OffsetDateTime>) = apply {
+                this.depositedAt = depositedAt
+            }
+
+            /** The identifier of the Transaction object created when the check was deposited. */
+            fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
+
+            /** The identifier of the Transaction object created when the check was deposited. */
+            @JsonProperty("transaction_id")
+            @ExcludeMissing
+            fun transactionId(transactionId: JsonField<String>) = apply {
+                this.transactionId = transactionId
+            }
+
+            /**
+             * The identifier of the API File object containing an image of the front of the
+             * deposited check.
+             */
+            fun frontImageFileId(frontImageFileId: String) =
+                frontImageFileId(JsonField.of(frontImageFileId))
+
+            /**
+             * The identifier of the API File object containing an image of the front of the
+             * deposited check.
+             */
+            @JsonProperty("front_image_file_id")
+            @ExcludeMissing
+            fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
+                this.frontImageFileId = frontImageFileId
+            }
+
+            /**
+             * The identifier of the API File object containing an image of the back of the
+             * deposited check.
+             */
+            fun backImageFileId(backImageFileId: String) =
+                backImageFileId(JsonField.of(backImageFileId))
+
+            /**
+             * The identifier of the API File object containing an image of the back of the
+             * deposited check.
+             */
+            @JsonProperty("back_image_file_id")
+            @ExcludeMissing
+            fun backImageFileId(backImageFileId: JsonField<String>) = apply {
+                this.backImageFileId = backImageFileId
+            }
+
+            /**
+             * A constant representing the object's type. For this resource it will always be
+             * `check_transfer_deposit`.
+             */
+            fun type(type: Type) = type(JsonField.of(type))
+
+            /**
+             * A constant representing the object's type. For this resource it will always be
+             * `check_transfer_deposit`.
+             */
+            @JsonProperty("type")
+            @ExcludeMissing
+            fun type(type: JsonField<Type>) = apply { this.type = type }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): Deposit =
+                Deposit(
+                    depositedAt,
+                    transactionId,
+                    frontImageFileId,
+                    backImageFileId,
+                    type,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
+
+        class Type
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Type && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                @JvmField val CHECK_TRANSFER_DEPOSIT = Type(JsonField.of("check_transfer_deposit"))
+
+                @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+            }
+
+            enum class Known {
+                CHECK_TRANSFER_DEPOSIT,
+            }
+
+            enum class Value {
+                CHECK_TRANSFER_DEPOSIT,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    CHECK_TRANSFER_DEPOSIT -> Value.CHECK_TRANSFER_DEPOSIT
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    CHECK_TRANSFER_DEPOSIT -> Known.CHECK_TRANSFER_DEPOSIT
+                    else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
+    }
+
     class FulfillmentMethod
     @JsonCreator
     private constructor(
@@ -700,6 +1371,112 @@ private constructor(
             }
 
         fun asString(): String = _value().asStringOrThrow()
+    }
+
+    /** If the check has been mailed by Increase, this will contain details of the shipment. */
+    @JsonDeserialize(builder = Mailing.Builder::class)
+    @NoAutoDetect
+    class Mailing
+    private constructor(
+        private val mailedAt: JsonField<OffsetDateTime>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the check
+         * was mailed.
+         */
+        fun mailedAt(): OffsetDateTime = mailedAt.getRequired("mailed_at")
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the check
+         * was mailed.
+         */
+        @JsonProperty("mailed_at") @ExcludeMissing fun _mailedAt() = mailedAt
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): Mailing = apply {
+            if (!validated) {
+                mailedAt()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Mailing &&
+                this.mailedAt == other.mailedAt &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(mailedAt, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Mailing{mailedAt=$mailedAt, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var mailedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(mailing: Mailing) = apply {
+                this.mailedAt = mailing.mailedAt
+                additionalProperties(mailing.additionalProperties)
+            }
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * check was mailed.
+             */
+            fun mailedAt(mailedAt: OffsetDateTime) = mailedAt(JsonField.of(mailedAt))
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * check was mailed.
+             */
+            @JsonProperty("mailed_at")
+            @ExcludeMissing
+            fun mailedAt(mailedAt: JsonField<OffsetDateTime>) = apply { this.mailedAt = mailedAt }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): Mailing = Mailing(mailedAt, additionalProperties.toUnmodifiable())
+        }
     }
 
     /**
@@ -1322,495 +2099,6 @@ private constructor(
         }
     }
 
-    class Currency
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Currency && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            @JvmField val CAD = Currency(JsonField.of("CAD"))
-
-            @JvmField val CHF = Currency(JsonField.of("CHF"))
-
-            @JvmField val EUR = Currency(JsonField.of("EUR"))
-
-            @JvmField val GBP = Currency(JsonField.of("GBP"))
-
-            @JvmField val JPY = Currency(JsonField.of("JPY"))
-
-            @JvmField val USD = Currency(JsonField.of("USD"))
-
-            @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
-        }
-
-        enum class Known {
-            CAD,
-            CHF,
-            EUR,
-            GBP,
-            JPY,
-            USD,
-        }
-
-        enum class Value {
-            CAD,
-            CHF,
-            EUR,
-            GBP,
-            JPY,
-            USD,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                CAD -> Value.CAD
-                CHF -> Value.CHF
-                EUR -> Value.EUR
-                GBP -> Value.GBP
-                JPY -> Value.JPY
-                USD -> Value.USD
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                CAD -> Known.CAD
-                CHF -> Known.CHF
-                EUR -> Known.EUR
-                GBP -> Known.GBP
-                JPY -> Known.JPY
-                USD -> Known.USD
-                else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
-    /**
-     * If your account requires approvals for transfers and the transfer was approved, this will
-     * contain details of the approval.
-     */
-    @JsonDeserialize(builder = Approval.Builder::class)
-    @NoAutoDetect
-    class Approval
-    private constructor(
-        private val approvedAt: JsonField<OffsetDateTime>,
-        private val approvedBy: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
-
-        private var validated: Boolean = false
-
-        private var hashCode: Int = 0
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * transfer was approved.
-         */
-        fun approvedAt(): OffsetDateTime = approvedAt.getRequired("approved_at")
-
-        /**
-         * If the Transfer was approved by a user in the dashboard, the email address of that user.
-         */
-        fun approvedBy(): Optional<String> =
-            Optional.ofNullable(approvedBy.getNullable("approved_by"))
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * transfer was approved.
-         */
-        @JsonProperty("approved_at") @ExcludeMissing fun _approvedAt() = approvedAt
-
-        /**
-         * If the Transfer was approved by a user in the dashboard, the email address of that user.
-         */
-        @JsonProperty("approved_by") @ExcludeMissing fun _approvedBy() = approvedBy
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun validate(): Approval = apply {
-            if (!validated) {
-                approvedAt()
-                approvedBy()
-                validated = true
-            }
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Approval &&
-                this.approvedAt == other.approvedAt &&
-                this.approvedBy == other.approvedBy &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        approvedAt,
-                        approvedBy,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Approval{approvedAt=$approvedAt, approvedBy=$approvedBy, additionalProperties=$additionalProperties}"
-
-        companion object {
-
-            @JvmStatic fun builder() = Builder()
-        }
-
-        class Builder {
-
-            private var approvedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var approvedBy: JsonField<String> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(approval: Approval) = apply {
-                this.approvedAt = approval.approvedAt
-                this.approvedBy = approval.approvedBy
-                additionalProperties(approval.additionalProperties)
-            }
-
-            /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * transfer was approved.
-             */
-            fun approvedAt(approvedAt: OffsetDateTime) = approvedAt(JsonField.of(approvedAt))
-
-            /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * transfer was approved.
-             */
-            @JsonProperty("approved_at")
-            @ExcludeMissing
-            fun approvedAt(approvedAt: JsonField<OffsetDateTime>) = apply {
-                this.approvedAt = approvedAt
-            }
-
-            /**
-             * If the Transfer was approved by a user in the dashboard, the email address of that
-             * user.
-             */
-            fun approvedBy(approvedBy: String) = approvedBy(JsonField.of(approvedBy))
-
-            /**
-             * If the Transfer was approved by a user in the dashboard, the email address of that
-             * user.
-             */
-            @JsonProperty("approved_by")
-            @ExcludeMissing
-            fun approvedBy(approvedBy: JsonField<String>) = apply { this.approvedBy = approvedBy }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            @JsonAnySetter
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun build(): Approval =
-                Approval(
-                    approvedAt,
-                    approvedBy,
-                    additionalProperties.toUnmodifiable(),
-                )
-        }
-    }
-
-    /**
-     * If your account requires approvals for transfers and the transfer was not approved, this will
-     * contain details of the cancellation.
-     */
-    @JsonDeserialize(builder = Cancellation.Builder::class)
-    @NoAutoDetect
-    class Cancellation
-    private constructor(
-        private val canceledAt: JsonField<OffsetDateTime>,
-        private val canceledBy: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
-
-        private var validated: Boolean = false
-
-        private var hashCode: Int = 0
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * Transfer was canceled.
-         */
-        fun canceledAt(): OffsetDateTime = canceledAt.getRequired("canceled_at")
-
-        /**
-         * If the Transfer was canceled by a user in the dashboard, the email address of that user.
-         */
-        fun canceledBy(): Optional<String> =
-            Optional.ofNullable(canceledBy.getNullable("canceled_by"))
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * Transfer was canceled.
-         */
-        @JsonProperty("canceled_at") @ExcludeMissing fun _canceledAt() = canceledAt
-
-        /**
-         * If the Transfer was canceled by a user in the dashboard, the email address of that user.
-         */
-        @JsonProperty("canceled_by") @ExcludeMissing fun _canceledBy() = canceledBy
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun validate(): Cancellation = apply {
-            if (!validated) {
-                canceledAt()
-                canceledBy()
-                validated = true
-            }
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Cancellation &&
-                this.canceledAt == other.canceledAt &&
-                this.canceledBy == other.canceledBy &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        canceledAt,
-                        canceledBy,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Cancellation{canceledAt=$canceledAt, canceledBy=$canceledBy, additionalProperties=$additionalProperties}"
-
-        companion object {
-
-            @JvmStatic fun builder() = Builder()
-        }
-
-        class Builder {
-
-            private var canceledAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var canceledBy: JsonField<String> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(cancellation: Cancellation) = apply {
-                this.canceledAt = cancellation.canceledAt
-                this.canceledBy = cancellation.canceledBy
-                additionalProperties(cancellation.additionalProperties)
-            }
-
-            /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * Transfer was canceled.
-             */
-            fun canceledAt(canceledAt: OffsetDateTime) = canceledAt(JsonField.of(canceledAt))
-
-            /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * Transfer was canceled.
-             */
-            @JsonProperty("canceled_at")
-            @ExcludeMissing
-            fun canceledAt(canceledAt: JsonField<OffsetDateTime>) = apply {
-                this.canceledAt = canceledAt
-            }
-
-            /**
-             * If the Transfer was canceled by a user in the dashboard, the email address of that
-             * user.
-             */
-            fun canceledBy(canceledBy: String) = canceledBy(JsonField.of(canceledBy))
-
-            /**
-             * If the Transfer was canceled by a user in the dashboard, the email address of that
-             * user.
-             */
-            @JsonProperty("canceled_by")
-            @ExcludeMissing
-            fun canceledBy(canceledBy: JsonField<String>) = apply { this.canceledBy = canceledBy }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            @JsonAnySetter
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun build(): Cancellation =
-                Cancellation(
-                    canceledAt,
-                    canceledBy,
-                    additionalProperties.toUnmodifiable(),
-                )
-        }
-    }
-
-    /** If the check has been mailed by Increase, this will contain details of the shipment. */
-    @JsonDeserialize(builder = Mailing.Builder::class)
-    @NoAutoDetect
-    class Mailing
-    private constructor(
-        private val mailedAt: JsonField<OffsetDateTime>,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
-
-        private var validated: Boolean = false
-
-        private var hashCode: Int = 0
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the check
-         * was mailed.
-         */
-        fun mailedAt(): OffsetDateTime = mailedAt.getRequired("mailed_at")
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the check
-         * was mailed.
-         */
-        @JsonProperty("mailed_at") @ExcludeMissing fun _mailedAt() = mailedAt
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun validate(): Mailing = apply {
-            if (!validated) {
-                mailedAt()
-                validated = true
-            }
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Mailing &&
-                this.mailedAt == other.mailedAt &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(mailedAt, additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Mailing{mailedAt=$mailedAt, additionalProperties=$additionalProperties}"
-
-        companion object {
-
-            @JvmStatic fun builder() = Builder()
-        }
-
-        class Builder {
-
-            private var mailedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(mailing: Mailing) = apply {
-                this.mailedAt = mailing.mailedAt
-                additionalProperties(mailing.additionalProperties)
-            }
-
-            /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * check was mailed.
-             */
-            fun mailedAt(mailedAt: OffsetDateTime) = mailedAt(JsonField.of(mailedAt))
-
-            /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * check was mailed.
-             */
-            @JsonProperty("mailed_at")
-            @ExcludeMissing
-            fun mailedAt(mailedAt: JsonField<OffsetDateTime>) = apply { this.mailedAt = mailedAt }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            @JsonAnySetter
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun build(): Mailing = Mailing(mailedAt, additionalProperties.toUnmodifiable())
-        }
-    }
-
     class Status
     @JsonCreator
     private constructor(
@@ -1914,102 +2202,6 @@ private constructor(
             }
 
         fun asString(): String = _value().asStringOrThrow()
-    }
-
-    /** After the transfer is submitted, this will contain supplemental details. */
-    @JsonDeserialize(builder = Submission.Builder::class)
-    @NoAutoDetect
-    class Submission
-    private constructor(
-        private val submittedAt: JsonField<OffsetDateTime>,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
-
-        private var validated: Boolean = false
-
-        private var hashCode: Int = 0
-
-        /** When this check transfer was submitted to our check printer. */
-        fun submittedAt(): OffsetDateTime = submittedAt.getRequired("submitted_at")
-
-        /** When this check transfer was submitted to our check printer. */
-        @JsonProperty("submitted_at") @ExcludeMissing fun _submittedAt() = submittedAt
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun validate(): Submission = apply {
-            if (!validated) {
-                submittedAt()
-                validated = true
-            }
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Submission &&
-                this.submittedAt == other.submittedAt &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(submittedAt, additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Submission{submittedAt=$submittedAt, additionalProperties=$additionalProperties}"
-
-        companion object {
-
-            @JvmStatic fun builder() = Builder()
-        }
-
-        class Builder {
-
-            private var submittedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(submission: Submission) = apply {
-                this.submittedAt = submission.submittedAt
-                additionalProperties(submission.additionalProperties)
-            }
-
-            /** When this check transfer was submitted to our check printer. */
-            fun submittedAt(submittedAt: OffsetDateTime) = submittedAt(JsonField.of(submittedAt))
-
-            /** When this check transfer was submitted to our check printer. */
-            @JsonProperty("submitted_at")
-            @ExcludeMissing
-            fun submittedAt(submittedAt: JsonField<OffsetDateTime>) = apply {
-                this.submittedAt = submittedAt
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            @JsonAnySetter
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun build(): Submission = Submission(submittedAt, additionalProperties.toUnmodifiable())
-        }
     }
 
     /** After a stop-payment is requested on the check, this will contain supplemental details. */
@@ -2307,16 +2499,12 @@ private constructor(
         }
     }
 
-    /** After a check transfer is deposited, this will contain supplemental details. */
-    @JsonDeserialize(builder = Deposit.Builder::class)
+    /** After the transfer is submitted, this will contain supplemental details. */
+    @JsonDeserialize(builder = Submission.Builder::class)
     @NoAutoDetect
-    class Deposit
+    class Submission
     private constructor(
-        private val depositedAt: JsonField<OffsetDateTime>,
-        private val transactionId: JsonField<String>,
-        private val frontImageFileId: JsonField<String>,
-        private val backImageFileId: JsonField<String>,
-        private val type: JsonField<Type>,
+        private val submittedAt: JsonField<OffsetDateTime>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -2324,70 +2512,19 @@ private constructor(
 
         private var hashCode: Int = 0
 
-        /** When the check was deposited. */
-        fun depositedAt(): OffsetDateTime = depositedAt.getRequired("deposited_at")
+        /** When this check transfer was submitted to our check printer. */
+        fun submittedAt(): OffsetDateTime = submittedAt.getRequired("submitted_at")
 
-        /** The identifier of the Transaction object created when the check was deposited. */
-        fun transactionId(): Optional<String> =
-            Optional.ofNullable(transactionId.getNullable("transaction_id"))
-
-        /**
-         * The identifier of the API File object containing an image of the front of the deposited
-         * check.
-         */
-        fun frontImageFileId(): Optional<String> =
-            Optional.ofNullable(frontImageFileId.getNullable("front_image_file_id"))
-
-        /**
-         * The identifier of the API File object containing an image of the back of the deposited
-         * check.
-         */
-        fun backImageFileId(): Optional<String> =
-            Optional.ofNullable(backImageFileId.getNullable("back_image_file_id"))
-
-        /**
-         * A constant representing the object's type. For this resource it will always be
-         * `check_transfer_deposit`.
-         */
-        fun type(): Type = type.getRequired("type")
-
-        /** When the check was deposited. */
-        @JsonProperty("deposited_at") @ExcludeMissing fun _depositedAt() = depositedAt
-
-        /** The identifier of the Transaction object created when the check was deposited. */
-        @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
-
-        /**
-         * The identifier of the API File object containing an image of the front of the deposited
-         * check.
-         */
-        @JsonProperty("front_image_file_id")
-        @ExcludeMissing
-        fun _frontImageFileId() = frontImageFileId
-
-        /**
-         * The identifier of the API File object containing an image of the back of the deposited
-         * check.
-         */
-        @JsonProperty("back_image_file_id") @ExcludeMissing fun _backImageFileId() = backImageFileId
-
-        /**
-         * A constant representing the object's type. For this resource it will always be
-         * `check_transfer_deposit`.
-         */
-        @JsonProperty("type") @ExcludeMissing fun _type() = type
+        /** When this check transfer was submitted to our check printer. */
+        @JsonProperty("submitted_at") @ExcludeMissing fun _submittedAt() = submittedAt
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate(): Deposit = apply {
+        fun validate(): Submission = apply {
             if (!validated) {
-                depositedAt()
-                transactionId()
-                frontImageFileId()
-                backImageFileId()
-                type()
+                submittedAt()
                 validated = true
             }
         }
@@ -2399,32 +2536,20 @@ private constructor(
                 return true
             }
 
-            return other is Deposit &&
-                this.depositedAt == other.depositedAt &&
-                this.transactionId == other.transactionId &&
-                this.frontImageFileId == other.frontImageFileId &&
-                this.backImageFileId == other.backImageFileId &&
-                this.type == other.type &&
+            return other is Submission &&
+                this.submittedAt == other.submittedAt &&
                 this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        depositedAt,
-                        transactionId,
-                        frontImageFileId,
-                        backImageFileId,
-                        type,
-                        additionalProperties,
-                    )
+                hashCode = Objects.hash(submittedAt, additionalProperties)
             }
             return hashCode
         }
 
         override fun toString() =
-            "Deposit{depositedAt=$depositedAt, transactionId=$transactionId, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, type=$type, additionalProperties=$additionalProperties}"
+            "Submission{submittedAt=$submittedAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -2433,90 +2558,24 @@ private constructor(
 
         class Builder {
 
-            private var depositedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var transactionId: JsonField<String> = JsonMissing.of()
-            private var frontImageFileId: JsonField<String> = JsonMissing.of()
-            private var backImageFileId: JsonField<String> = JsonMissing.of()
-            private var type: JsonField<Type> = JsonMissing.of()
+            private var submittedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(deposit: Deposit) = apply {
-                this.depositedAt = deposit.depositedAt
-                this.transactionId = deposit.transactionId
-                this.frontImageFileId = deposit.frontImageFileId
-                this.backImageFileId = deposit.backImageFileId
-                this.type = deposit.type
-                additionalProperties(deposit.additionalProperties)
+            internal fun from(submission: Submission) = apply {
+                this.submittedAt = submission.submittedAt
+                additionalProperties(submission.additionalProperties)
             }
 
-            /** When the check was deposited. */
-            fun depositedAt(depositedAt: OffsetDateTime) = depositedAt(JsonField.of(depositedAt))
+            /** When this check transfer was submitted to our check printer. */
+            fun submittedAt(submittedAt: OffsetDateTime) = submittedAt(JsonField.of(submittedAt))
 
-            /** When the check was deposited. */
-            @JsonProperty("deposited_at")
+            /** When this check transfer was submitted to our check printer. */
+            @JsonProperty("submitted_at")
             @ExcludeMissing
-            fun depositedAt(depositedAt: JsonField<OffsetDateTime>) = apply {
-                this.depositedAt = depositedAt
+            fun submittedAt(submittedAt: JsonField<OffsetDateTime>) = apply {
+                this.submittedAt = submittedAt
             }
-
-            /** The identifier of the Transaction object created when the check was deposited. */
-            fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
-
-            /** The identifier of the Transaction object created when the check was deposited. */
-            @JsonProperty("transaction_id")
-            @ExcludeMissing
-            fun transactionId(transactionId: JsonField<String>) = apply {
-                this.transactionId = transactionId
-            }
-
-            /**
-             * The identifier of the API File object containing an image of the front of the
-             * deposited check.
-             */
-            fun frontImageFileId(frontImageFileId: String) =
-                frontImageFileId(JsonField.of(frontImageFileId))
-
-            /**
-             * The identifier of the API File object containing an image of the front of the
-             * deposited check.
-             */
-            @JsonProperty("front_image_file_id")
-            @ExcludeMissing
-            fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
-                this.frontImageFileId = frontImageFileId
-            }
-
-            /**
-             * The identifier of the API File object containing an image of the back of the
-             * deposited check.
-             */
-            fun backImageFileId(backImageFileId: String) =
-                backImageFileId(JsonField.of(backImageFileId))
-
-            /**
-             * The identifier of the API File object containing an image of the back of the
-             * deposited check.
-             */
-            @JsonProperty("back_image_file_id")
-            @ExcludeMissing
-            fun backImageFileId(backImageFileId: JsonField<String>) = apply {
-                this.backImageFileId = backImageFileId
-            }
-
-            /**
-             * A constant representing the object's type. For this resource it will always be
-             * `check_transfer_deposit`.
-             */
-            fun type(type: Type) = type(JsonField.of(type))
-
-            /**
-             * A constant representing the object's type. For this resource it will always be
-             * `check_transfer_deposit`.
-             */
-            @JsonProperty("type")
-            @ExcludeMissing
-            fun type(type: JsonField<Type>) = apply { this.type = type }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -2532,66 +2591,7 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Deposit =
-                Deposit(
-                    depositedAt,
-                    transactionId,
-                    frontImageFileId,
-                    backImageFileId,
-                    type,
-                    additionalProperties.toUnmodifiable(),
-                )
-        }
-
-        class Type
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) {
-
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Type && this.value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-
-            companion object {
-
-                @JvmField val CHECK_TRANSFER_DEPOSIT = Type(JsonField.of("check_transfer_deposit"))
-
-                @JvmStatic fun of(value: String) = Type(JsonField.of(value))
-            }
-
-            enum class Known {
-                CHECK_TRANSFER_DEPOSIT,
-            }
-
-            enum class Value {
-                CHECK_TRANSFER_DEPOSIT,
-                _UNKNOWN,
-            }
-
-            fun value(): Value =
-                when (this) {
-                    CHECK_TRANSFER_DEPOSIT -> Value.CHECK_TRANSFER_DEPOSIT
-                    else -> Value._UNKNOWN
-                }
-
-            fun known(): Known =
-                when (this) {
-                    CHECK_TRANSFER_DEPOSIT -> Known.CHECK_TRANSFER_DEPOSIT
-                    else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-                }
-
-            fun asString(): String = _value().asStringOrThrow()
+            fun build(): Submission = Submission(submittedAt, additionalProperties.toUnmodifiable())
         }
     }
 

@@ -503,6 +503,147 @@ constructor(
     }
 
     /**
+     * If the Real-Time Decision relates to a digital wallet authentication attempt, this object
+     * contains your response to the authentication.
+     */
+    @JsonDeserialize(builder = DigitalWalletAuthentication.Builder::class)
+    @NoAutoDetect
+    class DigitalWalletAuthentication
+    private constructor(
+        private val result: Result?,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        /** Whether your application was able to deliver the one-time passcode. */
+        @JsonProperty("result") fun result(): Result? = result
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is DigitalWalletAuthentication &&
+                this.result == other.result &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(result, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "DigitalWalletAuthentication{result=$result, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var result: Result? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(digitalWalletAuthentication: DigitalWalletAuthentication) = apply {
+                this.result = digitalWalletAuthentication.result
+                additionalProperties(digitalWalletAuthentication.additionalProperties)
+            }
+
+            /** Whether your application was able to deliver the one-time passcode. */
+            @JsonProperty("result") fun result(result: Result) = apply { this.result = result }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): DigitalWalletAuthentication =
+                DigitalWalletAuthentication(
+                    checkNotNull(result) { "`result` is required but was not set" },
+                    additionalProperties.toUnmodifiable()
+                )
+        }
+
+        class Result
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Result && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                @JvmField val SUCCESS = Result(JsonField.of("success"))
+
+                @JvmField val FAILURE = Result(JsonField.of("failure"))
+
+                @JvmStatic fun of(value: String) = Result(JsonField.of(value))
+            }
+
+            enum class Known {
+                SUCCESS,
+                FAILURE,
+            }
+
+            enum class Value {
+                SUCCESS,
+                FAILURE,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    SUCCESS -> Value.SUCCESS
+                    FAILURE -> Value.FAILURE
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    SUCCESS -> Known.SUCCESS
+                    FAILURE -> Known.FAILURE
+                    else -> throw IncreaseInvalidDataException("Unknown Result: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
+    }
+
+    /**
      * If the Real-Time Decision relates to a digital wallet token provisioning attempt, this object
      * contains your response to the attempt.
      */
@@ -826,147 +967,6 @@ constructor(
 
                 fun build(): Decline = Decline(reason, additionalProperties.toUnmodifiable())
             }
-        }
-    }
-
-    /**
-     * If the Real-Time Decision relates to a digital wallet authentication attempt, this object
-     * contains your response to the authentication.
-     */
-    @JsonDeserialize(builder = DigitalWalletAuthentication.Builder::class)
-    @NoAutoDetect
-    class DigitalWalletAuthentication
-    private constructor(
-        private val result: Result?,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
-
-        private var hashCode: Int = 0
-
-        /** Whether your application was able to deliver the one-time passcode. */
-        @JsonProperty("result") fun result(): Result? = result
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is DigitalWalletAuthentication &&
-                this.result == other.result &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(result, additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "DigitalWalletAuthentication{result=$result, additionalProperties=$additionalProperties}"
-
-        companion object {
-
-            @JvmStatic fun builder() = Builder()
-        }
-
-        class Builder {
-
-            private var result: Result? = null
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(digitalWalletAuthentication: DigitalWalletAuthentication) = apply {
-                this.result = digitalWalletAuthentication.result
-                additionalProperties(digitalWalletAuthentication.additionalProperties)
-            }
-
-            /** Whether your application was able to deliver the one-time passcode. */
-            @JsonProperty("result") fun result(result: Result) = apply { this.result = result }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            @JsonAnySetter
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun build(): DigitalWalletAuthentication =
-                DigitalWalletAuthentication(
-                    checkNotNull(result) { "`result` is required but was not set" },
-                    additionalProperties.toUnmodifiable()
-                )
-        }
-
-        class Result
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) {
-
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Result && this.value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-
-            companion object {
-
-                @JvmField val SUCCESS = Result(JsonField.of("success"))
-
-                @JvmField val FAILURE = Result(JsonField.of("failure"))
-
-                @JvmStatic fun of(value: String) = Result(JsonField.of(value))
-            }
-
-            enum class Known {
-                SUCCESS,
-                FAILURE,
-            }
-
-            enum class Value {
-                SUCCESS,
-                FAILURE,
-                _UNKNOWN,
-            }
-
-            fun value(): Value =
-                when (this) {
-                    SUCCESS -> Value.SUCCESS
-                    FAILURE -> Value.FAILURE
-                    else -> Value._UNKNOWN
-                }
-
-            fun known(): Known =
-                when (this) {
-                    SUCCESS -> Known.SUCCESS
-                    FAILURE -> Known.FAILURE
-                    else -> throw IncreaseInvalidDataException("Unknown Result: $value")
-                }
-
-            fun asString(): String = _value().asStringOrThrow()
         }
     }
 }

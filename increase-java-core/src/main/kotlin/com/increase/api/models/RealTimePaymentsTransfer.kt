@@ -623,58 +623,6 @@ private constructor(
             )
     }
 
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Type && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            @JvmField
-            val REAL_TIME_PAYMENTS_TRANSFER = Type(JsonField.of("real_time_payments_transfer"))
-
-            @JvmStatic fun of(value: String) = Type(JsonField.of(value))
-        }
-
-        enum class Known {
-            REAL_TIME_PAYMENTS_TRANSFER,
-        }
-
-        enum class Value {
-            REAL_TIME_PAYMENTS_TRANSFER,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                REAL_TIME_PAYMENTS_TRANSFER -> Value.REAL_TIME_PAYMENTS_TRANSFER
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                REAL_TIME_PAYMENTS_TRANSFER -> Known.REAL_TIME_PAYMENTS_TRANSFER
-                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
     /**
      * If your account requires approvals for transfers and the transfer was approved, this will
      * contain details of the approval.
@@ -977,93 +925,6 @@ private constructor(
         }
     }
 
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Status && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            @JvmField val PENDING_APPROVAL = Status(JsonField.of("pending_approval"))
-
-            @JvmField val CANCELED = Status(JsonField.of("canceled"))
-
-            @JvmField val PENDING_SUBMISSION = Status(JsonField.of("pending_submission"))
-
-            @JvmField val SUBMITTED = Status(JsonField.of("submitted"))
-
-            @JvmField val COMPLETE = Status(JsonField.of("complete"))
-
-            @JvmField val REJECTED = Status(JsonField.of("rejected"))
-
-            @JvmField val REQUIRES_ATTENTION = Status(JsonField.of("requires_attention"))
-
-            @JvmStatic fun of(value: String) = Status(JsonField.of(value))
-        }
-
-        enum class Known {
-            PENDING_APPROVAL,
-            CANCELED,
-            PENDING_SUBMISSION,
-            SUBMITTED,
-            COMPLETE,
-            REJECTED,
-            REQUIRES_ATTENTION,
-        }
-
-        enum class Value {
-            PENDING_APPROVAL,
-            CANCELED,
-            PENDING_SUBMISSION,
-            SUBMITTED,
-            COMPLETE,
-            REJECTED,
-            REQUIRES_ATTENTION,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                PENDING_APPROVAL -> Value.PENDING_APPROVAL
-                CANCELED -> Value.CANCELED
-                PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
-                SUBMITTED -> Value.SUBMITTED
-                COMPLETE -> Value.COMPLETE
-                REJECTED -> Value.REJECTED
-                REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                PENDING_APPROVAL -> Known.PENDING_APPROVAL
-                CANCELED -> Known.CANCELED
-                PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
-                SUBMITTED -> Known.SUBMITTED
-                COMPLETE -> Known.COMPLETE
-                REJECTED -> Known.REJECTED
-                REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
-                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
     class Currency
     @JsonCreator
     private constructor(
@@ -1143,153 +1004,6 @@ private constructor(
             }
 
         fun asString(): String = _value().asStringOrThrow()
-    }
-
-    /**
-     * After the transfer is submitted to Real Time Payments, this will contain supplemental
-     * details.
-     */
-    @JsonDeserialize(builder = Submission.Builder::class)
-    @NoAutoDetect
-    class Submission
-    private constructor(
-        private val submittedAt: JsonField<OffsetDateTime>,
-        private val transactionIdentification: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
-
-        private var validated: Boolean = false
-
-        private var hashCode: Int = 0
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * transfer was submitted to The Clearing House.
-         */
-        fun submittedAt(): Optional<OffsetDateTime> =
-            Optional.ofNullable(submittedAt.getNullable("submitted_at"))
-
-        /** The Real Time Payments network identification of the transfer. */
-        fun transactionIdentification(): String =
-            transactionIdentification.getRequired("transaction_identification")
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * transfer was submitted to The Clearing House.
-         */
-        @JsonProperty("submitted_at") @ExcludeMissing fun _submittedAt() = submittedAt
-
-        /** The Real Time Payments network identification of the transfer. */
-        @JsonProperty("transaction_identification")
-        @ExcludeMissing
-        fun _transactionIdentification() = transactionIdentification
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun validate(): Submission = apply {
-            if (!validated) {
-                submittedAt()
-                transactionIdentification()
-                validated = true
-            }
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Submission &&
-                this.submittedAt == other.submittedAt &&
-                this.transactionIdentification == other.transactionIdentification &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        submittedAt,
-                        transactionIdentification,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Submission{submittedAt=$submittedAt, transactionIdentification=$transactionIdentification, additionalProperties=$additionalProperties}"
-
-        companion object {
-
-            @JvmStatic fun builder() = Builder()
-        }
-
-        class Builder {
-
-            private var submittedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var transactionIdentification: JsonField<String> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(submission: Submission) = apply {
-                this.submittedAt = submission.submittedAt
-                this.transactionIdentification = submission.transactionIdentification
-                additionalProperties(submission.additionalProperties)
-            }
-
-            /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * transfer was submitted to The Clearing House.
-             */
-            fun submittedAt(submittedAt: OffsetDateTime) = submittedAt(JsonField.of(submittedAt))
-
-            /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * transfer was submitted to The Clearing House.
-             */
-            @JsonProperty("submitted_at")
-            @ExcludeMissing
-            fun submittedAt(submittedAt: JsonField<OffsetDateTime>) = apply {
-                this.submittedAt = submittedAt
-            }
-
-            /** The Real Time Payments network identification of the transfer. */
-            fun transactionIdentification(transactionIdentification: String) =
-                transactionIdentification(JsonField.of(transactionIdentification))
-
-            /** The Real Time Payments network identification of the transfer. */
-            @JsonProperty("transaction_identification")
-            @ExcludeMissing
-            fun transactionIdentification(transactionIdentification: JsonField<String>) = apply {
-                this.transactionIdentification = transactionIdentification
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            @JsonAnySetter
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun build(): Submission =
-                Submission(
-                    submittedAt,
-                    transactionIdentification,
-                    additionalProperties.toUnmodifiable(),
-                )
-        }
     }
 
     /**
@@ -1693,5 +1407,291 @@ private constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+    }
+
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Status && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val PENDING_APPROVAL = Status(JsonField.of("pending_approval"))
+
+            @JvmField val CANCELED = Status(JsonField.of("canceled"))
+
+            @JvmField val PENDING_SUBMISSION = Status(JsonField.of("pending_submission"))
+
+            @JvmField val SUBMITTED = Status(JsonField.of("submitted"))
+
+            @JvmField val COMPLETE = Status(JsonField.of("complete"))
+
+            @JvmField val REJECTED = Status(JsonField.of("rejected"))
+
+            @JvmField val REQUIRES_ATTENTION = Status(JsonField.of("requires_attention"))
+
+            @JvmStatic fun of(value: String) = Status(JsonField.of(value))
+        }
+
+        enum class Known {
+            PENDING_APPROVAL,
+            CANCELED,
+            PENDING_SUBMISSION,
+            SUBMITTED,
+            COMPLETE,
+            REJECTED,
+            REQUIRES_ATTENTION,
+        }
+
+        enum class Value {
+            PENDING_APPROVAL,
+            CANCELED,
+            PENDING_SUBMISSION,
+            SUBMITTED,
+            COMPLETE,
+            REJECTED,
+            REQUIRES_ATTENTION,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                PENDING_APPROVAL -> Value.PENDING_APPROVAL
+                CANCELED -> Value.CANCELED
+                PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
+                SUBMITTED -> Value.SUBMITTED
+                COMPLETE -> Value.COMPLETE
+                REJECTED -> Value.REJECTED
+                REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                PENDING_APPROVAL -> Known.PENDING_APPROVAL
+                CANCELED -> Known.CANCELED
+                PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
+                SUBMITTED -> Known.SUBMITTED
+                COMPLETE -> Known.COMPLETE
+                REJECTED -> Known.REJECTED
+                REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
+                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    /**
+     * After the transfer is submitted to Real Time Payments, this will contain supplemental
+     * details.
+     */
+    @JsonDeserialize(builder = Submission.Builder::class)
+    @NoAutoDetect
+    class Submission
+    private constructor(
+        private val submittedAt: JsonField<OffsetDateTime>,
+        private val transactionIdentification: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * transfer was submitted to The Clearing House.
+         */
+        fun submittedAt(): Optional<OffsetDateTime> =
+            Optional.ofNullable(submittedAt.getNullable("submitted_at"))
+
+        /** The Real Time Payments network identification of the transfer. */
+        fun transactionIdentification(): String =
+            transactionIdentification.getRequired("transaction_identification")
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * transfer was submitted to The Clearing House.
+         */
+        @JsonProperty("submitted_at") @ExcludeMissing fun _submittedAt() = submittedAt
+
+        /** The Real Time Payments network identification of the transfer. */
+        @JsonProperty("transaction_identification")
+        @ExcludeMissing
+        fun _transactionIdentification() = transactionIdentification
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): Submission = apply {
+            if (!validated) {
+                submittedAt()
+                transactionIdentification()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Submission &&
+                this.submittedAt == other.submittedAt &&
+                this.transactionIdentification == other.transactionIdentification &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        submittedAt,
+                        transactionIdentification,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Submission{submittedAt=$submittedAt, transactionIdentification=$transactionIdentification, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var submittedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var transactionIdentification: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(submission: Submission) = apply {
+                this.submittedAt = submission.submittedAt
+                this.transactionIdentification = submission.transactionIdentification
+                additionalProperties(submission.additionalProperties)
+            }
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * transfer was submitted to The Clearing House.
+             */
+            fun submittedAt(submittedAt: OffsetDateTime) = submittedAt(JsonField.of(submittedAt))
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * transfer was submitted to The Clearing House.
+             */
+            @JsonProperty("submitted_at")
+            @ExcludeMissing
+            fun submittedAt(submittedAt: JsonField<OffsetDateTime>) = apply {
+                this.submittedAt = submittedAt
+            }
+
+            /** The Real Time Payments network identification of the transfer. */
+            fun transactionIdentification(transactionIdentification: String) =
+                transactionIdentification(JsonField.of(transactionIdentification))
+
+            /** The Real Time Payments network identification of the transfer. */
+            @JsonProperty("transaction_identification")
+            @ExcludeMissing
+            fun transactionIdentification(transactionIdentification: JsonField<String>) = apply {
+                this.transactionIdentification = transactionIdentification
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): Submission =
+                Submission(
+                    submittedAt,
+                    transactionIdentification,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
+    }
+
+    class Type
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Type && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField
+            val REAL_TIME_PAYMENTS_TRANSFER = Type(JsonField.of("real_time_payments_transfer"))
+
+            @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+        }
+
+        enum class Known {
+            REAL_TIME_PAYMENTS_TRANSFER,
+        }
+
+        enum class Value {
+            REAL_TIME_PAYMENTS_TRANSFER,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                REAL_TIME_PAYMENTS_TRANSFER -> Value.REAL_TIME_PAYMENTS_TRANSFER
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                REAL_TIME_PAYMENTS_TRANSFER -> Known.REAL_TIME_PAYMENTS_TRANSFER
+                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 }

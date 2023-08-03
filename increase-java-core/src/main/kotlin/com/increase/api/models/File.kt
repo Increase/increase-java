@@ -296,6 +296,63 @@ private constructor(
             )
     }
 
+    class Direction
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Direction && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val TO_INCREASE = Direction(JsonField.of("to_increase"))
+
+            @JvmField val FROM_INCREASE = Direction(JsonField.of("from_increase"))
+
+            @JvmStatic fun of(value: String) = Direction(JsonField.of(value))
+        }
+
+        enum class Known {
+            TO_INCREASE,
+            FROM_INCREASE,
+        }
+
+        enum class Value {
+            TO_INCREASE,
+            FROM_INCREASE,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                TO_INCREASE -> Value.TO_INCREASE
+                FROM_INCREASE -> Value.FROM_INCREASE
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                TO_INCREASE -> Known.TO_INCREASE
+                FROM_INCREASE -> Known.FROM_INCREASE
+                else -> throw IncreaseInvalidDataException("Unknown Direction: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
     class Purpose
     @JsonCreator
     private constructor(
@@ -434,63 +491,6 @@ private constructor(
                 ENTITY_SUPPLEMENTAL_DOCUMENT -> Known.ENTITY_SUPPLEMENTAL_DOCUMENT
                 EXPORT -> Known.EXPORT
                 else -> throw IncreaseInvalidDataException("Unknown Purpose: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
-    class Direction
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Direction && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            @JvmField val TO_INCREASE = Direction(JsonField.of("to_increase"))
-
-            @JvmField val FROM_INCREASE = Direction(JsonField.of("from_increase"))
-
-            @JvmStatic fun of(value: String) = Direction(JsonField.of(value))
-        }
-
-        enum class Known {
-            TO_INCREASE,
-            FROM_INCREASE,
-        }
-
-        enum class Value {
-            TO_INCREASE,
-            FROM_INCREASE,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                TO_INCREASE -> Value.TO_INCREASE
-                FROM_INCREASE -> Value.FROM_INCREASE
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                TO_INCREASE -> Known.TO_INCREASE
-                FROM_INCREASE -> Known.FROM_INCREASE
-                else -> throw IncreaseInvalidDataException("Unknown Direction: $value")
             }
 
         fun asString(): String = _value().asStringOrThrow()

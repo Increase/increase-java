@@ -879,87 +879,6 @@ private constructor(
             )
     }
 
-    class Currency
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Currency && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            @JvmField val CAD = Currency(JsonField.of("CAD"))
-
-            @JvmField val CHF = Currency(JsonField.of("CHF"))
-
-            @JvmField val EUR = Currency(JsonField.of("EUR"))
-
-            @JvmField val GBP = Currency(JsonField.of("GBP"))
-
-            @JvmField val JPY = Currency(JsonField.of("JPY"))
-
-            @JvmField val USD = Currency(JsonField.of("USD"))
-
-            @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
-        }
-
-        enum class Known {
-            CAD,
-            CHF,
-            EUR,
-            GBP,
-            JPY,
-            USD,
-        }
-
-        enum class Value {
-            CAD,
-            CHF,
-            EUR,
-            GBP,
-            JPY,
-            USD,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                CAD -> Value.CAD
-                CHF -> Value.CHF
-                EUR -> Value.EUR
-                GBP -> Value.GBP
-                JPY -> Value.JPY
-                USD -> Value.USD
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                CAD -> Known.CAD
-                CHF -> Known.CHF
-                EUR -> Known.EUR
-                GBP -> Known.GBP
-                JPY -> Known.JPY
-                USD -> Known.USD
-                else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
     /**
      * If your account requires approvals for transfers and the transfer was approved, this will
      * contain details of the approval.
@@ -1260,6 +1179,144 @@ private constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+    }
+
+    class Currency
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Currency && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val CAD = Currency(JsonField.of("CAD"))
+
+            @JvmField val CHF = Currency(JsonField.of("CHF"))
+
+            @JvmField val EUR = Currency(JsonField.of("EUR"))
+
+            @JvmField val GBP = Currency(JsonField.of("GBP"))
+
+            @JvmField val JPY = Currency(JsonField.of("JPY"))
+
+            @JvmField val USD = Currency(JsonField.of("USD"))
+
+            @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
+        }
+
+        enum class Known {
+            CAD,
+            CHF,
+            EUR,
+            GBP,
+            JPY,
+            USD,
+        }
+
+        enum class Value {
+            CAD,
+            CHF,
+            EUR,
+            GBP,
+            JPY,
+            USD,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                CAD -> Value.CAD
+                CHF -> Value.CHF
+                EUR -> Value.EUR
+                GBP -> Value.GBP
+                JPY -> Value.JPY
+                USD -> Value.USD
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                CAD -> Known.CAD
+                CHF -> Known.CHF
+                EUR -> Known.EUR
+                GBP -> Known.GBP
+                JPY -> Known.JPY
+                USD -> Known.USD
+                else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    class Funding
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Funding && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val CHECKING = Funding(JsonField.of("checking"))
+
+            @JvmField val SAVINGS = Funding(JsonField.of("savings"))
+
+            @JvmStatic fun of(value: String) = Funding(JsonField.of(value))
+        }
+
+        enum class Known {
+            CHECKING,
+            SAVINGS,
+        }
+
+        enum class Value {
+            CHECKING,
+            SAVINGS,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                CHECKING -> Value.CHECKING
+                SAVINGS -> Value.SAVINGS
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                CHECKING -> Known.CHECKING
+                SAVINGS -> Known.SAVINGS
+                else -> throw IncreaseInvalidDataException("Unknown Funding: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 
     class Network
@@ -2469,6 +2526,74 @@ private constructor(
         }
     }
 
+    class StandardEntryClassCode
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is StandardEntryClassCode && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField
+            val CORPORATE_CREDIT_OR_DEBIT =
+                StandardEntryClassCode(JsonField.of("corporate_credit_or_debit"))
+
+            @JvmField
+            val PREARRANGED_PAYMENTS_AND_DEPOSIT =
+                StandardEntryClassCode(JsonField.of("prearranged_payments_and_deposit"))
+
+            @JvmField
+            val INTERNET_INITIATED = StandardEntryClassCode(JsonField.of("internet_initiated"))
+
+            @JvmStatic fun of(value: String) = StandardEntryClassCode(JsonField.of(value))
+        }
+
+        enum class Known {
+            CORPORATE_CREDIT_OR_DEBIT,
+            PREARRANGED_PAYMENTS_AND_DEPOSIT,
+            INTERNET_INITIATED,
+        }
+
+        enum class Value {
+            CORPORATE_CREDIT_OR_DEBIT,
+            PREARRANGED_PAYMENTS_AND_DEPOSIT,
+            INTERNET_INITIATED,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                CORPORATE_CREDIT_OR_DEBIT -> Value.CORPORATE_CREDIT_OR_DEBIT
+                PREARRANGED_PAYMENTS_AND_DEPOSIT -> Value.PREARRANGED_PAYMENTS_AND_DEPOSIT
+                INTERNET_INITIATED -> Value.INTERNET_INITIATED
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                CORPORATE_CREDIT_OR_DEBIT -> Known.CORPORATE_CREDIT_OR_DEBIT
+                PREARRANGED_PAYMENTS_AND_DEPOSIT -> Known.PREARRANGED_PAYMENTS_AND_DEPOSIT
+                INTERNET_INITIATED -> Known.INTERNET_INITIATED
+                else -> throw IncreaseInvalidDataException("Unknown StandardEntryClassCode: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
     class Status
     @JsonCreator
     private constructor(
@@ -2687,131 +2812,6 @@ private constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
-    }
-
-    class Funding
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Funding && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            @JvmField val CHECKING = Funding(JsonField.of("checking"))
-
-            @JvmField val SAVINGS = Funding(JsonField.of("savings"))
-
-            @JvmStatic fun of(value: String) = Funding(JsonField.of(value))
-        }
-
-        enum class Known {
-            CHECKING,
-            SAVINGS,
-        }
-
-        enum class Value {
-            CHECKING,
-            SAVINGS,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                CHECKING -> Value.CHECKING
-                SAVINGS -> Value.SAVINGS
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                CHECKING -> Known.CHECKING
-                SAVINGS -> Known.SAVINGS
-                else -> throw IncreaseInvalidDataException("Unknown Funding: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
-    class StandardEntryClassCode
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is StandardEntryClassCode && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            @JvmField
-            val CORPORATE_CREDIT_OR_DEBIT =
-                StandardEntryClassCode(JsonField.of("corporate_credit_or_debit"))
-
-            @JvmField
-            val PREARRANGED_PAYMENTS_AND_DEPOSIT =
-                StandardEntryClassCode(JsonField.of("prearranged_payments_and_deposit"))
-
-            @JvmField
-            val INTERNET_INITIATED = StandardEntryClassCode(JsonField.of("internet_initiated"))
-
-            @JvmStatic fun of(value: String) = StandardEntryClassCode(JsonField.of(value))
-        }
-
-        enum class Known {
-            CORPORATE_CREDIT_OR_DEBIT,
-            PREARRANGED_PAYMENTS_AND_DEPOSIT,
-            INTERNET_INITIATED,
-        }
-
-        enum class Value {
-            CORPORATE_CREDIT_OR_DEBIT,
-            PREARRANGED_PAYMENTS_AND_DEPOSIT,
-            INTERNET_INITIATED,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                CORPORATE_CREDIT_OR_DEBIT -> Value.CORPORATE_CREDIT_OR_DEBIT
-                PREARRANGED_PAYMENTS_AND_DEPOSIT -> Value.PREARRANGED_PAYMENTS_AND_DEPOSIT
-                INTERNET_INITIATED -> Value.INTERNET_INITIATED
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                CORPORATE_CREDIT_OR_DEBIT -> Known.CORPORATE_CREDIT_OR_DEBIT
-                PREARRANGED_PAYMENTS_AND_DEPOSIT -> Known.PREARRANGED_PAYMENTS_AND_DEPOSIT
-                INTERNET_INITIATED -> Known.INTERNET_INITIATED
-                else -> throw IncreaseInvalidDataException("Unknown StandardEntryClassCode: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
     }
 
     class Type

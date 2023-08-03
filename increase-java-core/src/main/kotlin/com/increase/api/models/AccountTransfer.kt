@@ -502,201 +502,6 @@ private constructor(
             )
     }
 
-    class Currency
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Currency && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            @JvmField val CAD = Currency(JsonField.of("CAD"))
-
-            @JvmField val CHF = Currency(JsonField.of("CHF"))
-
-            @JvmField val EUR = Currency(JsonField.of("EUR"))
-
-            @JvmField val GBP = Currency(JsonField.of("GBP"))
-
-            @JvmField val JPY = Currency(JsonField.of("JPY"))
-
-            @JvmField val USD = Currency(JsonField.of("USD"))
-
-            @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
-        }
-
-        enum class Known {
-            CAD,
-            CHF,
-            EUR,
-            GBP,
-            JPY,
-            USD,
-        }
-
-        enum class Value {
-            CAD,
-            CHF,
-            EUR,
-            GBP,
-            JPY,
-            USD,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                CAD -> Value.CAD
-                CHF -> Value.CHF
-                EUR -> Value.EUR
-                GBP -> Value.GBP
-                JPY -> Value.JPY
-                USD -> Value.USD
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                CAD -> Known.CAD
-                CHF -> Known.CHF
-                EUR -> Known.EUR
-                GBP -> Known.GBP
-                JPY -> Known.JPY
-                USD -> Known.USD
-                else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
-    class Network
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Network && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            @JvmField val ACCOUNT = Network(JsonField.of("account"))
-
-            @JvmStatic fun of(value: String) = Network(JsonField.of(value))
-        }
-
-        enum class Known {
-            ACCOUNT,
-        }
-
-        enum class Value {
-            ACCOUNT,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                ACCOUNT -> Value.ACCOUNT
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                ACCOUNT -> Known.ACCOUNT
-                else -> throw IncreaseInvalidDataException("Unknown Network: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Status && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            @JvmField val PENDING_APPROVAL = Status(JsonField.of("pending_approval"))
-
-            @JvmField val CANCELED = Status(JsonField.of("canceled"))
-
-            @JvmField val COMPLETE = Status(JsonField.of("complete"))
-
-            @JvmStatic fun of(value: String) = Status(JsonField.of(value))
-        }
-
-        enum class Known {
-            PENDING_APPROVAL,
-            CANCELED,
-            COMPLETE,
-        }
-
-        enum class Value {
-            PENDING_APPROVAL,
-            CANCELED,
-            COMPLETE,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                PENDING_APPROVAL -> Value.PENDING_APPROVAL
-                CANCELED -> Value.CANCELED
-                COMPLETE -> Value.COMPLETE
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                PENDING_APPROVAL -> Known.PENDING_APPROVAL
-                CANCELED -> Known.CANCELED
-                COMPLETE -> Known.COMPLETE
-                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
     /**
      * If your account requires approvals for transfers and the transfer was approved, this will
      * contain details of the approval.
@@ -997,6 +802,201 @@ private constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+    }
+
+    class Currency
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Currency && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val CAD = Currency(JsonField.of("CAD"))
+
+            @JvmField val CHF = Currency(JsonField.of("CHF"))
+
+            @JvmField val EUR = Currency(JsonField.of("EUR"))
+
+            @JvmField val GBP = Currency(JsonField.of("GBP"))
+
+            @JvmField val JPY = Currency(JsonField.of("JPY"))
+
+            @JvmField val USD = Currency(JsonField.of("USD"))
+
+            @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
+        }
+
+        enum class Known {
+            CAD,
+            CHF,
+            EUR,
+            GBP,
+            JPY,
+            USD,
+        }
+
+        enum class Value {
+            CAD,
+            CHF,
+            EUR,
+            GBP,
+            JPY,
+            USD,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                CAD -> Value.CAD
+                CHF -> Value.CHF
+                EUR -> Value.EUR
+                GBP -> Value.GBP
+                JPY -> Value.JPY
+                USD -> Value.USD
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                CAD -> Known.CAD
+                CHF -> Known.CHF
+                EUR -> Known.EUR
+                GBP -> Known.GBP
+                JPY -> Known.JPY
+                USD -> Known.USD
+                else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    class Network
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Network && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val ACCOUNT = Network(JsonField.of("account"))
+
+            @JvmStatic fun of(value: String) = Network(JsonField.of(value))
+        }
+
+        enum class Known {
+            ACCOUNT,
+        }
+
+        enum class Value {
+            ACCOUNT,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                ACCOUNT -> Value.ACCOUNT
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                ACCOUNT -> Known.ACCOUNT
+                else -> throw IncreaseInvalidDataException("Unknown Network: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Status && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val PENDING_APPROVAL = Status(JsonField.of("pending_approval"))
+
+            @JvmField val CANCELED = Status(JsonField.of("canceled"))
+
+            @JvmField val COMPLETE = Status(JsonField.of("complete"))
+
+            @JvmStatic fun of(value: String) = Status(JsonField.of(value))
+        }
+
+        enum class Known {
+            PENDING_APPROVAL,
+            CANCELED,
+            COMPLETE,
+        }
+
+        enum class Value {
+            PENDING_APPROVAL,
+            CANCELED,
+            COMPLETE,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                PENDING_APPROVAL -> Value.PENDING_APPROVAL
+                CANCELED -> Value.CANCELED
+                COMPLETE -> Value.COMPLETE
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                PENDING_APPROVAL -> Known.PENDING_APPROVAL
+                CANCELED -> Known.CANCELED
+                COMPLETE -> Known.COMPLETE
+                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 
     class Type
