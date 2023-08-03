@@ -11,6 +11,8 @@ import com.increase.api.models.EntityCreateParams
 import com.increase.api.models.EntityListPage
 import com.increase.api.models.EntityListParams
 import com.increase.api.models.EntityRetrieveParams
+import com.increase.api.services.blocking.entities.BeneficialOwnerService
+import com.increase.api.services.blocking.entities.BeneficialOwnerServiceImpl
 import com.increase.api.services.blocking.entities.SupplementalDocumentService
 import com.increase.api.services.blocking.entities.SupplementalDocumentServiceImpl
 import com.increase.api.services.errorHandler
@@ -25,9 +27,15 @@ constructor(
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
+    private val beneficialOwners: BeneficialOwnerService by lazy {
+        BeneficialOwnerServiceImpl(clientOptions)
+    }
+
     private val supplementalDocuments: SupplementalDocumentService by lazy {
         SupplementalDocumentServiceImpl(clientOptions)
     }
+
+    override fun beneficialOwners(): BeneficialOwnerService = beneficialOwners
 
     override fun supplementalDocuments(): SupplementalDocumentService = supplementalDocuments
 

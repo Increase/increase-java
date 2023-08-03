@@ -31,6 +31,8 @@ interface IncreaseClient {
 
     fun cardProfiles(): CardProfileService
 
+    fun cardPurchaseSupplements(): CardPurchaseSupplementService
+
     fun externalAccounts(): ExternalAccountService
 
     fun exports(): ExportService

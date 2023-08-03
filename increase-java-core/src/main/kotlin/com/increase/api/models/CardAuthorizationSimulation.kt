@@ -3598,6 +3598,7 @@ private constructor(
             @NoAutoDetect
             class InboundFundsHold
             private constructor(
+                private val id: JsonField<String>,
                 private val amount: JsonField<Long>,
                 private val createdAt: JsonField<OffsetDateTime>,
                 private val currency: JsonField<Currency>,
@@ -3613,6 +3614,9 @@ private constructor(
                 private var validated: Boolean = false
 
                 private var hashCode: Int = 0
+
+                /** The Inbound Funds Hold identifier. */
+                fun id(): String = id.getRequired("id")
 
                 /**
                  * The held amount in the minor unit of the account's currency. For dollars, for
@@ -3659,6 +3663,9 @@ private constructor(
                  * `inbound_funds_hold`.
                  */
                 fun type(): Type = type.getRequired("type")
+
+                /** The Inbound Funds Hold identifier. */
+                @JsonProperty("id") @ExcludeMissing fun _id() = id
 
                 /**
                  * The held amount in the minor unit of the account's currency. For dollars, for
@@ -3714,6 +3721,7 @@ private constructor(
 
                 fun validate(): InboundFundsHold = apply {
                     if (!validated) {
+                        id()
                         amount()
                         createdAt()
                         currency()
@@ -3735,6 +3743,7 @@ private constructor(
                     }
 
                     return other is InboundFundsHold &&
+                        this.id == other.id &&
                         this.amount == other.amount &&
                         this.createdAt == other.createdAt &&
                         this.currency == other.currency &&
@@ -3751,6 +3760,7 @@ private constructor(
                     if (hashCode == 0) {
                         hashCode =
                             Objects.hash(
+                                id,
                                 amount,
                                 createdAt,
                                 currency,
@@ -3767,7 +3777,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "InboundFundsHold{amount=$amount, createdAt=$createdAt, currency=$currency, automaticallyReleasesAt=$automaticallyReleasesAt, releasedAt=$releasedAt, status=$status, heldTransactionId=$heldTransactionId, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
+                    "InboundFundsHold{id=$id, amount=$amount, createdAt=$createdAt, currency=$currency, automaticallyReleasesAt=$automaticallyReleasesAt, releasedAt=$releasedAt, status=$status, heldTransactionId=$heldTransactionId, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -3776,6 +3786,7 @@ private constructor(
 
                 class Builder {
 
+                    private var id: JsonField<String> = JsonMissing.of()
                     private var amount: JsonField<Long> = JsonMissing.of()
                     private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
                     private var currency: JsonField<Currency> = JsonMissing.of()
@@ -3790,6 +3801,7 @@ private constructor(
 
                     @JvmSynthetic
                     internal fun from(inboundFundsHold: InboundFundsHold) = apply {
+                        this.id = inboundFundsHold.id
                         this.amount = inboundFundsHold.amount
                         this.createdAt = inboundFundsHold.createdAt
                         this.currency = inboundFundsHold.currency
@@ -3801,6 +3813,14 @@ private constructor(
                         this.type = inboundFundsHold.type
                         additionalProperties(inboundFundsHold.additionalProperties)
                     }
+
+                    /** The Inbound Funds Hold identifier. */
+                    fun id(id: String) = id(JsonField.of(id))
+
+                    /** The Inbound Funds Hold identifier. */
+                    @JsonProperty("id")
+                    @ExcludeMissing
+                    fun id(id: JsonField<String>) = apply { this.id = id }
 
                     /**
                      * The held amount in the minor unit of the account's currency. For dollars, for
@@ -3935,6 +3955,7 @@ private constructor(
 
                     fun build(): InboundFundsHold =
                         InboundFundsHold(
+                            id,
                             amount,
                             createdAt,
                             currency,

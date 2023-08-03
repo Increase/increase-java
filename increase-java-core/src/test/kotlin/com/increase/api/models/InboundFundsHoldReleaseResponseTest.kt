@@ -10,6 +10,7 @@ class InboundFundsHoldReleaseResponseTest {
     fun createInboundFundsHoldReleaseResponse() {
         val inboundFundsHoldReleaseResponse =
             InboundFundsHoldReleaseResponse.builder()
+                .id("string")
                 .amount(123L)
                 .automaticallyReleasesAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -21,6 +22,7 @@ class InboundFundsHoldReleaseResponseTest {
                 .type(InboundFundsHoldReleaseResponse.Type.INBOUND_FUNDS_HOLD)
                 .build()
         assertThat(inboundFundsHoldReleaseResponse).isNotNull
+        assertThat(inboundFundsHoldReleaseResponse.id()).isEqualTo("string")
         assertThat(inboundFundsHoldReleaseResponse.amount()).isEqualTo(123L)
         assertThat(inboundFundsHoldReleaseResponse.automaticallyReleasesAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
