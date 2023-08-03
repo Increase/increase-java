@@ -31,6 +31,8 @@ interface IncreaseClientAsync {
 
     fun cardProfiles(): CardProfileServiceAsync
 
+    fun cardPurchaseSupplements(): CardPurchaseSupplementServiceAsync
+
     fun externalAccounts(): ExternalAccountServiceAsync
 
     fun exports(): ExportServiceAsync

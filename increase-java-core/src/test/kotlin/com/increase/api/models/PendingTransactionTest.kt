@@ -109,6 +109,7 @@ class PendingTransactionTest {
                         )
                         .inboundFundsHold(
                             PendingTransaction.Source.InboundFundsHold.builder()
+                                .id("string")
                                 .amount(123L)
                                 .automaticallyReleasesAt(
                                     OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
@@ -244,6 +245,7 @@ class PendingTransactionTest {
                     )
                     .inboundFundsHold(
                         PendingTransaction.Source.InboundFundsHold.builder()
+                            .id("string")
                             .amount(123L)
                             .automaticallyReleasesAt(
                                 OffsetDateTime.parse("2019-12-27T18:11:19.117Z")

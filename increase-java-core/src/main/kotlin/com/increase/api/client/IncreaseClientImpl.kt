@@ -52,6 +52,10 @@ constructor(
 
     private val cardProfiles: CardProfileService by lazy { CardProfileServiceImpl(clientOptions) }
 
+    private val cardPurchaseSupplements: CardPurchaseSupplementService by lazy {
+        CardPurchaseSupplementServiceImpl(clientOptions)
+    }
+
     private val externalAccounts: ExternalAccountService by lazy {
         ExternalAccountServiceImpl(clientOptions)
     }
@@ -162,6 +166,8 @@ constructor(
     override fun cardDisputes(): CardDisputeService = cardDisputes
 
     override fun cardProfiles(): CardProfileService = cardProfiles
+
+    override fun cardPurchaseSupplements(): CardPurchaseSupplementService = cardPurchaseSupplements
 
     override fun externalAccounts(): ExternalAccountService = externalAccounts
 
