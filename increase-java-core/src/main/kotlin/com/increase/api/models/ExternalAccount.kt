@@ -319,63 +319,6 @@ private constructor(
             )
     }
 
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Status && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            @JvmField val ACTIVE = Status(JsonField.of("active"))
-
-            @JvmField val ARCHIVED = Status(JsonField.of("archived"))
-
-            @JvmStatic fun of(value: String) = Status(JsonField.of(value))
-        }
-
-        enum class Known {
-            ACTIVE,
-            ARCHIVED,
-        }
-
-        enum class Value {
-            ACTIVE,
-            ARCHIVED,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                ACTIVE -> Value.ACTIVE
-                ARCHIVED -> Value.ARCHIVED
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                ACTIVE -> Known.ACTIVE
-                ARCHIVED -> Known.ARCHIVED
-                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
     class Funding
     @JsonCreator
     private constructor(
@@ -439,6 +382,114 @@ private constructor(
         fun asString(): String = _value().asStringOrThrow()
     }
 
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Status && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val ACTIVE = Status(JsonField.of("active"))
+
+            @JvmField val ARCHIVED = Status(JsonField.of("archived"))
+
+            @JvmStatic fun of(value: String) = Status(JsonField.of(value))
+        }
+
+        enum class Known {
+            ACTIVE,
+            ARCHIVED,
+        }
+
+        enum class Value {
+            ACTIVE,
+            ARCHIVED,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                ACTIVE -> Value.ACTIVE
+                ARCHIVED -> Value.ARCHIVED
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                ACTIVE -> Known.ACTIVE
+                ARCHIVED -> Known.ARCHIVED
+                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    class Type
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Type && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val EXTERNAL_ACCOUNT = Type(JsonField.of("external_account"))
+
+            @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+        }
+
+        enum class Known {
+            EXTERNAL_ACCOUNT,
+        }
+
+        enum class Value {
+            EXTERNAL_ACCOUNT,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                EXTERNAL_ACCOUNT -> Value.EXTERNAL_ACCOUNT
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                EXTERNAL_ACCOUNT -> Known.EXTERNAL_ACCOUNT
+                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
     class VerificationStatus
     @JsonCreator
     private constructor(
@@ -497,57 +548,6 @@ private constructor(
                 PENDING -> Known.PENDING
                 VERIFIED -> Known.VERIFIED
                 else -> throw IncreaseInvalidDataException("Unknown VerificationStatus: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Type && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            @JvmField val EXTERNAL_ACCOUNT = Type(JsonField.of("external_account"))
-
-            @JvmStatic fun of(value: String) = Type(JsonField.of(value))
-        }
-
-        enum class Known {
-            EXTERNAL_ACCOUNT,
-        }
-
-        enum class Value {
-            EXTERNAL_ACCOUNT,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                EXTERNAL_ACCOUNT -> Value.EXTERNAL_ACCOUNT
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                EXTERNAL_ACCOUNT -> Known.EXTERNAL_ACCOUNT
-                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
             }
 
         fun asString(): String = _value().asStringOrThrow()

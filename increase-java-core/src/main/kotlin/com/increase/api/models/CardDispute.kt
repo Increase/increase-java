@@ -320,69 +320,6 @@ private constructor(
             )
     }
 
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Status && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            @JvmField val PENDING_REVIEWING = Status(JsonField.of("pending_reviewing"))
-
-            @JvmField val ACCEPTED = Status(JsonField.of("accepted"))
-
-            @JvmField val REJECTED = Status(JsonField.of("rejected"))
-
-            @JvmStatic fun of(value: String) = Status(JsonField.of(value))
-        }
-
-        enum class Known {
-            PENDING_REVIEWING,
-            ACCEPTED,
-            REJECTED,
-        }
-
-        enum class Value {
-            PENDING_REVIEWING,
-            ACCEPTED,
-            REJECTED,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                PENDING_REVIEWING -> Value.PENDING_REVIEWING
-                ACCEPTED -> Value.ACCEPTED
-                REJECTED -> Value.REJECTED
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                PENDING_REVIEWING -> Known.PENDING_REVIEWING
-                ACCEPTED -> Known.ACCEPTED
-                REJECTED -> Known.REJECTED
-                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
     /**
      * If the Card Dispute's status is `accepted`, this will contain details of the successful
      * dispute.
@@ -723,6 +660,69 @@ private constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+    }
+
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Status && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val PENDING_REVIEWING = Status(JsonField.of("pending_reviewing"))
+
+            @JvmField val ACCEPTED = Status(JsonField.of("accepted"))
+
+            @JvmField val REJECTED = Status(JsonField.of("rejected"))
+
+            @JvmStatic fun of(value: String) = Status(JsonField.of(value))
+        }
+
+        enum class Known {
+            PENDING_REVIEWING,
+            ACCEPTED,
+            REJECTED,
+        }
+
+        enum class Value {
+            PENDING_REVIEWING,
+            ACCEPTED,
+            REJECTED,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                PENDING_REVIEWING -> Value.PENDING_REVIEWING
+                ACCEPTED -> Value.ACCEPTED
+                REJECTED -> Value.REJECTED
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                PENDING_REVIEWING -> Known.PENDING_REVIEWING
+                ACCEPTED -> Known.ACCEPTED
+                REJECTED -> Known.REJECTED
+                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 
     class Type

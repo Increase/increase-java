@@ -245,57 +245,6 @@ private constructor(
             )
     }
 
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Type && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            @JvmField val ROUTING_NUMBER = Type(JsonField.of("routing_number"))
-
-            @JvmStatic fun of(value: String) = Type(JsonField.of(value))
-        }
-
-        enum class Known {
-            ROUTING_NUMBER,
-        }
-
-        enum class Value {
-            ROUTING_NUMBER,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                ROUTING_NUMBER -> Value.ROUTING_NUMBER
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                ROUTING_NUMBER -> Known.ROUTING_NUMBER
-                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
     class AchTransfers
     @JsonCreator
     private constructor(
@@ -406,6 +355,57 @@ private constructor(
                 NOT_SUPPORTED -> Known.NOT_SUPPORTED
                 else ->
                     throw IncreaseInvalidDataException("Unknown RealTimePaymentsTransfers: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    class Type
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Type && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val ROUTING_NUMBER = Type(JsonField.of("routing_number"))
+
+            @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+        }
+
+        enum class Known {
+            ROUTING_NUMBER,
+        }
+
+        enum class Value {
+            ROUTING_NUMBER,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                ROUTING_NUMBER -> Value.ROUTING_NUMBER
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                ROUTING_NUMBER -> Known.ROUTING_NUMBER
+                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
             }
 
         fun asString(): String = _value().asStringOrThrow()

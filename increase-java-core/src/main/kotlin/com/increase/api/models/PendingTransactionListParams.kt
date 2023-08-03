@@ -201,151 +201,6 @@ constructor(
             )
     }
 
-    @JsonDeserialize(builder = Status.Builder::class)
-    @NoAutoDetect
-    class Status
-    private constructor(
-        private val in_: List<In>?,
-        private val additionalProperties: Map<String, List<String>>,
-    ) {
-
-        private var hashCode: Int = 0
-
-        /**
-         * Filter Pending Transactions for those with the specified status. By default only Pending
-         * Transactions in with status `pending` will be returned. For GET requests, this should be
-         * encoded as a comma-delimited string, such as `?in=one,two,three`.
-         */
-        fun in_(): List<In>? = in_
-
-        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
-
-        @JvmSynthetic
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.in_?.let { putParam("in", listOf(it.joinToString(separator = ","))) }
-            this.additionalProperties.forEach { key, values -> putParam(key, values) }
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Status &&
-                this.in_ == other.in_ &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(in_, additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() = "Status{in_=$in_, additionalProperties=$additionalProperties}"
-
-        companion object {
-
-            @JvmStatic fun builder() = Builder()
-        }
-
-        class Builder {
-
-            private var in_: List<In>? = null
-            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(status: Status) = apply {
-                this.in_ = status.in_
-                additionalProperties(status.additionalProperties)
-            }
-
-            /**
-             * Filter Pending Transactions for those with the specified status. By default only
-             * Pending Transactions in with status `pending` will be returned. For GET requests,
-             * this should be encoded as a comma-delimited string, such as `?in=one,two,three`.
-             */
-            fun in_(in_: List<In>) = apply { this.in_ = in_ }
-
-            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: List<String>) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
-
-            fun build(): Status =
-                Status(in_?.toUnmodifiable(), additionalProperties.toUnmodifiable())
-        }
-
-        class In
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) {
-
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is In && this.value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-
-            companion object {
-
-                @JvmField val PENDING = In(JsonField.of("pending"))
-
-                @JvmField val COMPLETE = In(JsonField.of("complete"))
-
-                @JvmStatic fun of(value: String) = In(JsonField.of(value))
-            }
-
-            enum class Known {
-                PENDING,
-                COMPLETE,
-            }
-
-            enum class Value {
-                PENDING,
-                COMPLETE,
-                _UNKNOWN,
-            }
-
-            fun value(): Value =
-                when (this) {
-                    PENDING -> Value.PENDING
-                    COMPLETE -> Value.COMPLETE
-                    else -> Value._UNKNOWN
-                }
-
-            fun known(): Known =
-                when (this) {
-                    PENDING -> Known.PENDING
-                    COMPLETE -> Known.COMPLETE
-                    else -> throw IncreaseInvalidDataException("Unknown In: $value")
-                }
-
-            fun asString(): String = _value().asStringOrThrow()
-        }
-    }
-
     @JsonDeserialize(builder = CreatedAt.Builder::class)
     @NoAutoDetect
     class CreatedAt
@@ -492,6 +347,151 @@ constructor(
                     onOrBefore,
                     additionalProperties.toUnmodifiable(),
                 )
+        }
+    }
+
+    @JsonDeserialize(builder = Status.Builder::class)
+    @NoAutoDetect
+    class Status
+    private constructor(
+        private val in_: List<In>?,
+        private val additionalProperties: Map<String, List<String>>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        /**
+         * Filter Pending Transactions for those with the specified status. By default only Pending
+         * Transactions in with status `pending` will be returned. For GET requests, this should be
+         * encoded as a comma-delimited string, such as `?in=one,two,three`.
+         */
+        fun in_(): List<In>? = in_
+
+        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
+
+        @JvmSynthetic
+        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
+            this.in_?.let { putParam("in", listOf(it.joinToString(separator = ","))) }
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Status &&
+                this.in_ == other.in_ &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(in_, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "Status{in_=$in_, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var in_: List<In>? = null
+            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(status: Status) = apply {
+                this.in_ = status.in_
+                additionalProperties(status.additionalProperties)
+            }
+
+            /**
+             * Filter Pending Transactions for those with the specified status. By default only
+             * Pending Transactions in with status `pending` will be returned. For GET requests,
+             * this should be encoded as a comma-delimited string, such as `?in=one,two,three`.
+             */
+            fun in_(in_: List<In>) = apply { this.in_ = in_ }
+
+            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: List<String>) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun build(): Status =
+                Status(in_?.toUnmodifiable(), additionalProperties.toUnmodifiable())
+        }
+
+        class In
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is In && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                @JvmField val PENDING = In(JsonField.of("pending"))
+
+                @JvmField val COMPLETE = In(JsonField.of("complete"))
+
+                @JvmStatic fun of(value: String) = In(JsonField.of(value))
+            }
+
+            enum class Known {
+                PENDING,
+                COMPLETE,
+            }
+
+            enum class Value {
+                PENDING,
+                COMPLETE,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    PENDING -> Value.PENDING
+                    COMPLETE -> Value.COMPLETE
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    PENDING -> Known.PENDING
+                    COMPLETE -> Known.COMPLETE
+                    else -> throw IncreaseInvalidDataException("Unknown In: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
         }
     }
 }

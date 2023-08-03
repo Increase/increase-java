@@ -2002,275 +2002,6 @@ private constructor(
                     )
             }
 
-            class Category
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) {
-
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Category && this.value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-
-                companion object {
-
-                    @JvmField
-                    val ACCOUNT_TRANSFER_INTENTION =
-                        Category(JsonField.of("account_transfer_intention"))
-
-                    @JvmField
-                    val ACH_TRANSFER_INTENTION = Category(JsonField.of("ach_transfer_intention"))
-
-                    @JvmField
-                    val ACH_TRANSFER_REJECTION = Category(JsonField.of("ach_transfer_rejection"))
-
-                    @JvmField
-                    val ACH_TRANSFER_RETURN = Category(JsonField.of("ach_transfer_return"))
-
-                    @JvmField
-                    val CARD_DISPUTE_ACCEPTANCE = Category(JsonField.of("card_dispute_acceptance"))
-
-                    @JvmField val CARD_REFUND = Category(JsonField.of("card_refund"))
-
-                    @JvmField
-                    val CARD_REVENUE_PAYMENT = Category(JsonField.of("card_revenue_payment"))
-
-                    @JvmField val CARD_SETTLEMENT = Category(JsonField.of("card_settlement"))
-
-                    @JvmField
-                    val CHECK_DEPOSIT_ACCEPTANCE =
-                        Category(JsonField.of("check_deposit_acceptance"))
-
-                    @JvmField
-                    val CHECK_DEPOSIT_RETURN = Category(JsonField.of("check_deposit_return"))
-
-                    @JvmField
-                    val CHECK_TRANSFER_DEPOSIT = Category(JsonField.of("check_transfer_deposit"))
-
-                    @JvmField
-                    val CHECK_TRANSFER_INTENTION =
-                        Category(JsonField.of("check_transfer_intention"))
-
-                    @JvmField
-                    val CHECK_TRANSFER_STOP_PAYMENT_REQUEST =
-                        Category(JsonField.of("check_transfer_stop_payment_request"))
-
-                    @JvmField val FEE_PAYMENT = Category(JsonField.of("fee_payment"))
-
-                    @JvmField
-                    val INBOUND_ACH_TRANSFER = Category(JsonField.of("inbound_ach_transfer"))
-
-                    @JvmField
-                    val INBOUND_ACH_TRANSFER_RETURN_INTENTION =
-                        Category(JsonField.of("inbound_ach_transfer_return_intention"))
-
-                    @JvmField val INBOUND_CHECK = Category(JsonField.of("inbound_check"))
-
-                    @JvmField
-                    val INBOUND_INTERNATIONAL_ACH_TRANSFER =
-                        Category(JsonField.of("inbound_international_ach_transfer"))
-
-                    @JvmField
-                    val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION =
-                        Category(JsonField.of("inbound_real_time_payments_transfer_confirmation"))
-
-                    @JvmField
-                    val INBOUND_WIRE_DRAWDOWN_PAYMENT =
-                        Category(JsonField.of("inbound_wire_drawdown_payment"))
-
-                    @JvmField
-                    val INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL =
-                        Category(JsonField.of("inbound_wire_drawdown_payment_reversal"))
-
-                    @JvmField
-                    val INBOUND_WIRE_REVERSAL = Category(JsonField.of("inbound_wire_reversal"))
-
-                    @JvmField
-                    val INBOUND_WIRE_TRANSFER = Category(JsonField.of("inbound_wire_transfer"))
-
-                    @JvmField val INTEREST_PAYMENT = Category(JsonField.of("interest_payment"))
-
-                    @JvmField val INTERNAL_SOURCE = Category(JsonField.of("internal_source"))
-
-                    @JvmField
-                    val REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT =
-                        Category(JsonField.of("real_time_payments_transfer_acknowledgement"))
-
-                    @JvmField val SAMPLE_FUNDS = Category(JsonField.of("sample_funds"))
-
-                    @JvmField
-                    val WIRE_TRANSFER_INTENTION = Category(JsonField.of("wire_transfer_intention"))
-
-                    @JvmField
-                    val WIRE_TRANSFER_REJECTION = Category(JsonField.of("wire_transfer_rejection"))
-
-                    @JvmField val OTHER = Category(JsonField.of("other"))
-
-                    @JvmStatic fun of(value: String) = Category(JsonField.of(value))
-                }
-
-                enum class Known {
-                    ACCOUNT_TRANSFER_INTENTION,
-                    ACH_TRANSFER_INTENTION,
-                    ACH_TRANSFER_REJECTION,
-                    ACH_TRANSFER_RETURN,
-                    CARD_DISPUTE_ACCEPTANCE,
-                    CARD_REFUND,
-                    CARD_REVENUE_PAYMENT,
-                    CARD_SETTLEMENT,
-                    CHECK_DEPOSIT_ACCEPTANCE,
-                    CHECK_DEPOSIT_RETURN,
-                    CHECK_TRANSFER_DEPOSIT,
-                    CHECK_TRANSFER_INTENTION,
-                    CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
-                    FEE_PAYMENT,
-                    INBOUND_ACH_TRANSFER,
-                    INBOUND_ACH_TRANSFER_RETURN_INTENTION,
-                    INBOUND_CHECK,
-                    INBOUND_INTERNATIONAL_ACH_TRANSFER,
-                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
-                    INBOUND_WIRE_DRAWDOWN_PAYMENT,
-                    INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL,
-                    INBOUND_WIRE_REVERSAL,
-                    INBOUND_WIRE_TRANSFER,
-                    INTEREST_PAYMENT,
-                    INTERNAL_SOURCE,
-                    REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT,
-                    SAMPLE_FUNDS,
-                    WIRE_TRANSFER_INTENTION,
-                    WIRE_TRANSFER_REJECTION,
-                    OTHER,
-                }
-
-                enum class Value {
-                    ACCOUNT_TRANSFER_INTENTION,
-                    ACH_TRANSFER_INTENTION,
-                    ACH_TRANSFER_REJECTION,
-                    ACH_TRANSFER_RETURN,
-                    CARD_DISPUTE_ACCEPTANCE,
-                    CARD_REFUND,
-                    CARD_REVENUE_PAYMENT,
-                    CARD_SETTLEMENT,
-                    CHECK_DEPOSIT_ACCEPTANCE,
-                    CHECK_DEPOSIT_RETURN,
-                    CHECK_TRANSFER_DEPOSIT,
-                    CHECK_TRANSFER_INTENTION,
-                    CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
-                    FEE_PAYMENT,
-                    INBOUND_ACH_TRANSFER,
-                    INBOUND_ACH_TRANSFER_RETURN_INTENTION,
-                    INBOUND_CHECK,
-                    INBOUND_INTERNATIONAL_ACH_TRANSFER,
-                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
-                    INBOUND_WIRE_DRAWDOWN_PAYMENT,
-                    INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL,
-                    INBOUND_WIRE_REVERSAL,
-                    INBOUND_WIRE_TRANSFER,
-                    INTEREST_PAYMENT,
-                    INTERNAL_SOURCE,
-                    REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT,
-                    SAMPLE_FUNDS,
-                    WIRE_TRANSFER_INTENTION,
-                    WIRE_TRANSFER_REJECTION,
-                    OTHER,
-                    _UNKNOWN,
-                }
-
-                fun value(): Value =
-                    when (this) {
-                        ACCOUNT_TRANSFER_INTENTION -> Value.ACCOUNT_TRANSFER_INTENTION
-                        ACH_TRANSFER_INTENTION -> Value.ACH_TRANSFER_INTENTION
-                        ACH_TRANSFER_REJECTION -> Value.ACH_TRANSFER_REJECTION
-                        ACH_TRANSFER_RETURN -> Value.ACH_TRANSFER_RETURN
-                        CARD_DISPUTE_ACCEPTANCE -> Value.CARD_DISPUTE_ACCEPTANCE
-                        CARD_REFUND -> Value.CARD_REFUND
-                        CARD_REVENUE_PAYMENT -> Value.CARD_REVENUE_PAYMENT
-                        CARD_SETTLEMENT -> Value.CARD_SETTLEMENT
-                        CHECK_DEPOSIT_ACCEPTANCE -> Value.CHECK_DEPOSIT_ACCEPTANCE
-                        CHECK_DEPOSIT_RETURN -> Value.CHECK_DEPOSIT_RETURN
-                        CHECK_TRANSFER_DEPOSIT -> Value.CHECK_TRANSFER_DEPOSIT
-                        CHECK_TRANSFER_INTENTION -> Value.CHECK_TRANSFER_INTENTION
-                        CHECK_TRANSFER_STOP_PAYMENT_REQUEST ->
-                            Value.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
-                        FEE_PAYMENT -> Value.FEE_PAYMENT
-                        INBOUND_ACH_TRANSFER -> Value.INBOUND_ACH_TRANSFER
-                        INBOUND_ACH_TRANSFER_RETURN_INTENTION ->
-                            Value.INBOUND_ACH_TRANSFER_RETURN_INTENTION
-                        INBOUND_CHECK -> Value.INBOUND_CHECK
-                        INBOUND_INTERNATIONAL_ACH_TRANSFER ->
-                            Value.INBOUND_INTERNATIONAL_ACH_TRANSFER
-                        INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
-                            Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
-                        INBOUND_WIRE_DRAWDOWN_PAYMENT -> Value.INBOUND_WIRE_DRAWDOWN_PAYMENT
-                        INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL ->
-                            Value.INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL
-                        INBOUND_WIRE_REVERSAL -> Value.INBOUND_WIRE_REVERSAL
-                        INBOUND_WIRE_TRANSFER -> Value.INBOUND_WIRE_TRANSFER
-                        INTEREST_PAYMENT -> Value.INTEREST_PAYMENT
-                        INTERNAL_SOURCE -> Value.INTERNAL_SOURCE
-                        REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT ->
-                            Value.REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT
-                        SAMPLE_FUNDS -> Value.SAMPLE_FUNDS
-                        WIRE_TRANSFER_INTENTION -> Value.WIRE_TRANSFER_INTENTION
-                        WIRE_TRANSFER_REJECTION -> Value.WIRE_TRANSFER_REJECTION
-                        OTHER -> Value.OTHER
-                        else -> Value._UNKNOWN
-                    }
-
-                fun known(): Known =
-                    when (this) {
-                        ACCOUNT_TRANSFER_INTENTION -> Known.ACCOUNT_TRANSFER_INTENTION
-                        ACH_TRANSFER_INTENTION -> Known.ACH_TRANSFER_INTENTION
-                        ACH_TRANSFER_REJECTION -> Known.ACH_TRANSFER_REJECTION
-                        ACH_TRANSFER_RETURN -> Known.ACH_TRANSFER_RETURN
-                        CARD_DISPUTE_ACCEPTANCE -> Known.CARD_DISPUTE_ACCEPTANCE
-                        CARD_REFUND -> Known.CARD_REFUND
-                        CARD_REVENUE_PAYMENT -> Known.CARD_REVENUE_PAYMENT
-                        CARD_SETTLEMENT -> Known.CARD_SETTLEMENT
-                        CHECK_DEPOSIT_ACCEPTANCE -> Known.CHECK_DEPOSIT_ACCEPTANCE
-                        CHECK_DEPOSIT_RETURN -> Known.CHECK_DEPOSIT_RETURN
-                        CHECK_TRANSFER_DEPOSIT -> Known.CHECK_TRANSFER_DEPOSIT
-                        CHECK_TRANSFER_INTENTION -> Known.CHECK_TRANSFER_INTENTION
-                        CHECK_TRANSFER_STOP_PAYMENT_REQUEST ->
-                            Known.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
-                        FEE_PAYMENT -> Known.FEE_PAYMENT
-                        INBOUND_ACH_TRANSFER -> Known.INBOUND_ACH_TRANSFER
-                        INBOUND_ACH_TRANSFER_RETURN_INTENTION ->
-                            Known.INBOUND_ACH_TRANSFER_RETURN_INTENTION
-                        INBOUND_CHECK -> Known.INBOUND_CHECK
-                        INBOUND_INTERNATIONAL_ACH_TRANSFER ->
-                            Known.INBOUND_INTERNATIONAL_ACH_TRANSFER
-                        INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
-                            Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
-                        INBOUND_WIRE_DRAWDOWN_PAYMENT -> Known.INBOUND_WIRE_DRAWDOWN_PAYMENT
-                        INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL ->
-                            Known.INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL
-                        INBOUND_WIRE_REVERSAL -> Known.INBOUND_WIRE_REVERSAL
-                        INBOUND_WIRE_TRANSFER -> Known.INBOUND_WIRE_TRANSFER
-                        INTEREST_PAYMENT -> Known.INTEREST_PAYMENT
-                        INTERNAL_SOURCE -> Known.INTERNAL_SOURCE
-                        REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT ->
-                            Known.REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT
-                        SAMPLE_FUNDS -> Known.SAMPLE_FUNDS
-                        WIRE_TRANSFER_INTENTION -> Known.WIRE_TRANSFER_INTENTION
-                        WIRE_TRANSFER_REJECTION -> Known.WIRE_TRANSFER_REJECTION
-                        OTHER -> Known.OTHER
-                        else -> throw IncreaseInvalidDataException("Unknown Category: $value")
-                    }
-
-                fun asString(): String = _value().asStringOrThrow()
-            }
-
             /**
              * A Account Transfer Intention object. This field will be present in the JSON response
              * if and only if `category` is equal to `account_transfer_intention`.
@@ -4910,95 +4641,6 @@ private constructor(
                             )
                     }
 
-                    class PurchaseIdentifierFormat
-                    @JsonCreator
-                    private constructor(
-                        private val value: JsonField<String>,
-                    ) {
-
-                        @com.fasterxml.jackson.annotation.JsonValue
-                        fun _value(): JsonField<String> = value
-
-                        override fun equals(other: Any?): Boolean {
-                            if (this === other) {
-                                return true
-                            }
-
-                            return other is PurchaseIdentifierFormat && this.value == other.value
-                        }
-
-                        override fun hashCode() = value.hashCode()
-
-                        override fun toString() = value.toString()
-
-                        companion object {
-
-                            @JvmField
-                            val FREE_TEXT = PurchaseIdentifierFormat(JsonField.of("free_text"))
-
-                            @JvmField
-                            val ORDER_NUMBER =
-                                PurchaseIdentifierFormat(JsonField.of("order_number"))
-
-                            @JvmField
-                            val RENTAL_AGREEMENT_NUMBER =
-                                PurchaseIdentifierFormat(JsonField.of("rental_agreement_number"))
-
-                            @JvmField
-                            val HOTEL_FOLIO_NUMBER =
-                                PurchaseIdentifierFormat(JsonField.of("hotel_folio_number"))
-
-                            @JvmField
-                            val INVOICE_NUMBER =
-                                PurchaseIdentifierFormat(JsonField.of("invoice_number"))
-
-                            @JvmStatic
-                            fun of(value: String) = PurchaseIdentifierFormat(JsonField.of(value))
-                        }
-
-                        enum class Known {
-                            FREE_TEXT,
-                            ORDER_NUMBER,
-                            RENTAL_AGREEMENT_NUMBER,
-                            HOTEL_FOLIO_NUMBER,
-                            INVOICE_NUMBER,
-                        }
-
-                        enum class Value {
-                            FREE_TEXT,
-                            ORDER_NUMBER,
-                            RENTAL_AGREEMENT_NUMBER,
-                            HOTEL_FOLIO_NUMBER,
-                            INVOICE_NUMBER,
-                            _UNKNOWN,
-                        }
-
-                        fun value(): Value =
-                            when (this) {
-                                FREE_TEXT -> Value.FREE_TEXT
-                                ORDER_NUMBER -> Value.ORDER_NUMBER
-                                RENTAL_AGREEMENT_NUMBER -> Value.RENTAL_AGREEMENT_NUMBER
-                                HOTEL_FOLIO_NUMBER -> Value.HOTEL_FOLIO_NUMBER
-                                INVOICE_NUMBER -> Value.INVOICE_NUMBER
-                                else -> Value._UNKNOWN
-                            }
-
-                        fun known(): Known =
-                            when (this) {
-                                FREE_TEXT -> Known.FREE_TEXT
-                                ORDER_NUMBER -> Known.ORDER_NUMBER
-                                RENTAL_AGREEMENT_NUMBER -> Known.RENTAL_AGREEMENT_NUMBER
-                                HOTEL_FOLIO_NUMBER -> Known.HOTEL_FOLIO_NUMBER
-                                INVOICE_NUMBER -> Known.INVOICE_NUMBER
-                                else ->
-                                    throw IncreaseInvalidDataException(
-                                        "Unknown PurchaseIdentifierFormat: $value"
-                                    )
-                            }
-
-                        fun asString(): String = _value().asStringOrThrow()
-                    }
-
                     /** Fields specific to car rentals. */
                     @JsonDeserialize(builder = CarRental.Builder::class)
                     @NoAutoDetect
@@ -6446,69 +6088,6 @@ private constructor(
                                 )
                         }
 
-                        class NoShowIndicator
-                        @JsonCreator
-                        private constructor(
-                            private val value: JsonField<String>,
-                        ) {
-
-                            @com.fasterxml.jackson.annotation.JsonValue
-                            fun _value(): JsonField<String> = value
-
-                            override fun equals(other: Any?): Boolean {
-                                if (this === other) {
-                                    return true
-                                }
-
-                                return other is NoShowIndicator && this.value == other.value
-                            }
-
-                            override fun hashCode() = value.hashCode()
-
-                            override fun toString() = value.toString()
-
-                            companion object {
-
-                                @JvmField
-                                val NOT_APPLICABLE = NoShowIndicator(JsonField.of("not_applicable"))
-
-                                @JvmField val NO_SHOW = NoShowIndicator(JsonField.of("no_show"))
-
-                                @JvmStatic
-                                fun of(value: String) = NoShowIndicator(JsonField.of(value))
-                            }
-
-                            enum class Known {
-                                NOT_APPLICABLE,
-                                NO_SHOW,
-                            }
-
-                            enum class Value {
-                                NOT_APPLICABLE,
-                                NO_SHOW,
-                                _UNKNOWN,
-                            }
-
-                            fun value(): Value =
-                                when (this) {
-                                    NOT_APPLICABLE -> Value.NOT_APPLICABLE
-                                    NO_SHOW -> Value.NO_SHOW
-                                    else -> Value._UNKNOWN
-                                }
-
-                            fun known(): Known =
-                                when (this) {
-                                    NOT_APPLICABLE -> Known.NOT_APPLICABLE
-                                    NO_SHOW -> Known.NO_SHOW
-                                    else ->
-                                        throw IncreaseInvalidDataException(
-                                            "Unknown NoShowIndicator: $value"
-                                        )
-                                }
-
-                            fun asString(): String = _value().asStringOrThrow()
-                        }
-
                         class ExtraCharges
                         @JsonCreator
                         private constructor(
@@ -6600,6 +6179,158 @@ private constructor(
 
                             fun asString(): String = _value().asStringOrThrow()
                         }
+
+                        class NoShowIndicator
+                        @JsonCreator
+                        private constructor(
+                            private val value: JsonField<String>,
+                        ) {
+
+                            @com.fasterxml.jackson.annotation.JsonValue
+                            fun _value(): JsonField<String> = value
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is NoShowIndicator && this.value == other.value
+                            }
+
+                            override fun hashCode() = value.hashCode()
+
+                            override fun toString() = value.toString()
+
+                            companion object {
+
+                                @JvmField
+                                val NOT_APPLICABLE = NoShowIndicator(JsonField.of("not_applicable"))
+
+                                @JvmField val NO_SHOW = NoShowIndicator(JsonField.of("no_show"))
+
+                                @JvmStatic
+                                fun of(value: String) = NoShowIndicator(JsonField.of(value))
+                            }
+
+                            enum class Known {
+                                NOT_APPLICABLE,
+                                NO_SHOW,
+                            }
+
+                            enum class Value {
+                                NOT_APPLICABLE,
+                                NO_SHOW,
+                                _UNKNOWN,
+                            }
+
+                            fun value(): Value =
+                                when (this) {
+                                    NOT_APPLICABLE -> Value.NOT_APPLICABLE
+                                    NO_SHOW -> Value.NO_SHOW
+                                    else -> Value._UNKNOWN
+                                }
+
+                            fun known(): Known =
+                                when (this) {
+                                    NOT_APPLICABLE -> Known.NOT_APPLICABLE
+                                    NO_SHOW -> Known.NO_SHOW
+                                    else ->
+                                        throw IncreaseInvalidDataException(
+                                            "Unknown NoShowIndicator: $value"
+                                        )
+                                }
+
+                            fun asString(): String = _value().asStringOrThrow()
+                        }
+                    }
+
+                    class PurchaseIdentifierFormat
+                    @JsonCreator
+                    private constructor(
+                        private val value: JsonField<String>,
+                    ) {
+
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is PurchaseIdentifierFormat && this.value == other.value
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+
+                        companion object {
+
+                            @JvmField
+                            val FREE_TEXT = PurchaseIdentifierFormat(JsonField.of("free_text"))
+
+                            @JvmField
+                            val ORDER_NUMBER =
+                                PurchaseIdentifierFormat(JsonField.of("order_number"))
+
+                            @JvmField
+                            val RENTAL_AGREEMENT_NUMBER =
+                                PurchaseIdentifierFormat(JsonField.of("rental_agreement_number"))
+
+                            @JvmField
+                            val HOTEL_FOLIO_NUMBER =
+                                PurchaseIdentifierFormat(JsonField.of("hotel_folio_number"))
+
+                            @JvmField
+                            val INVOICE_NUMBER =
+                                PurchaseIdentifierFormat(JsonField.of("invoice_number"))
+
+                            @JvmStatic
+                            fun of(value: String) = PurchaseIdentifierFormat(JsonField.of(value))
+                        }
+
+                        enum class Known {
+                            FREE_TEXT,
+                            ORDER_NUMBER,
+                            RENTAL_AGREEMENT_NUMBER,
+                            HOTEL_FOLIO_NUMBER,
+                            INVOICE_NUMBER,
+                        }
+
+                        enum class Value {
+                            FREE_TEXT,
+                            ORDER_NUMBER,
+                            RENTAL_AGREEMENT_NUMBER,
+                            HOTEL_FOLIO_NUMBER,
+                            INVOICE_NUMBER,
+                            _UNKNOWN,
+                        }
+
+                        fun value(): Value =
+                            when (this) {
+                                FREE_TEXT -> Value.FREE_TEXT
+                                ORDER_NUMBER -> Value.ORDER_NUMBER
+                                RENTAL_AGREEMENT_NUMBER -> Value.RENTAL_AGREEMENT_NUMBER
+                                HOTEL_FOLIO_NUMBER -> Value.HOTEL_FOLIO_NUMBER
+                                INVOICE_NUMBER -> Value.INVOICE_NUMBER
+                                else -> Value._UNKNOWN
+                            }
+
+                        fun known(): Known =
+                            when (this) {
+                                FREE_TEXT -> Known.FREE_TEXT
+                                ORDER_NUMBER -> Known.ORDER_NUMBER
+                                RENTAL_AGREEMENT_NUMBER -> Known.RENTAL_AGREEMENT_NUMBER
+                                HOTEL_FOLIO_NUMBER -> Known.HOTEL_FOLIO_NUMBER
+                                INVOICE_NUMBER -> Known.INVOICE_NUMBER
+                                else ->
+                                    throw IncreaseInvalidDataException(
+                                        "Unknown PurchaseIdentifierFormat: $value"
+                                    )
+                            }
+
+                        fun asString(): String = _value().asStringOrThrow()
                     }
 
                     /** Fields specific to travel. */
@@ -7064,593 +6795,6 @@ private constructor(
                                     ancillary,
                                     additionalProperties.toUnmodifiable(),
                                 )
-                        }
-
-                        class RestrictedTicketIndicator
-                        @JsonCreator
-                        private constructor(
-                            private val value: JsonField<String>,
-                        ) {
-
-                            @com.fasterxml.jackson.annotation.JsonValue
-                            fun _value(): JsonField<String> = value
-
-                            override fun equals(other: Any?): Boolean {
-                                if (this === other) {
-                                    return true
-                                }
-
-                                return other is RestrictedTicketIndicator &&
-                                    this.value == other.value
-                            }
-
-                            override fun hashCode() = value.hashCode()
-
-                            override fun toString() = value.toString()
-
-                            companion object {
-
-                                @JvmField
-                                val NO_RESTRICTIONS =
-                                    RestrictedTicketIndicator(JsonField.of("no_restrictions"))
-
-                                @JvmField
-                                val RESTRICTED_NON_REFUNDABLE_TICKET =
-                                    RestrictedTicketIndicator(
-                                        JsonField.of("restricted_non_refundable_ticket")
-                                    )
-
-                                @JvmStatic
-                                fun of(value: String) =
-                                    RestrictedTicketIndicator(JsonField.of(value))
-                            }
-
-                            enum class Known {
-                                NO_RESTRICTIONS,
-                                RESTRICTED_NON_REFUNDABLE_TICKET,
-                            }
-
-                            enum class Value {
-                                NO_RESTRICTIONS,
-                                RESTRICTED_NON_REFUNDABLE_TICKET,
-                                _UNKNOWN,
-                            }
-
-                            fun value(): Value =
-                                when (this) {
-                                    NO_RESTRICTIONS -> Value.NO_RESTRICTIONS
-                                    RESTRICTED_NON_REFUNDABLE_TICKET ->
-                                        Value.RESTRICTED_NON_REFUNDABLE_TICKET
-                                    else -> Value._UNKNOWN
-                                }
-
-                            fun known(): Known =
-                                when (this) {
-                                    NO_RESTRICTIONS -> Known.NO_RESTRICTIONS
-                                    RESTRICTED_NON_REFUNDABLE_TICKET ->
-                                        Known.RESTRICTED_NON_REFUNDABLE_TICKET
-                                    else ->
-                                        throw IncreaseInvalidDataException(
-                                            "Unknown RestrictedTicketIndicator: $value"
-                                        )
-                                }
-
-                            fun asString(): String = _value().asStringOrThrow()
-                        }
-
-                        class CreditReasonIndicator
-                        @JsonCreator
-                        private constructor(
-                            private val value: JsonField<String>,
-                        ) {
-
-                            @com.fasterxml.jackson.annotation.JsonValue
-                            fun _value(): JsonField<String> = value
-
-                            override fun equals(other: Any?): Boolean {
-                                if (this === other) {
-                                    return true
-                                }
-
-                                return other is CreditReasonIndicator && this.value == other.value
-                            }
-
-                            override fun hashCode() = value.hashCode()
-
-                            override fun toString() = value.toString()
-
-                            companion object {
-
-                                @JvmField
-                                val NO_CREDIT = CreditReasonIndicator(JsonField.of("no_credit"))
-
-                                @JvmField
-                                val PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
-                                    CreditReasonIndicator(
-                                        JsonField.of(
-                                            "passenger_transport_ancillary_purchase_cancellation"
-                                        )
-                                    )
-
-                                @JvmField
-                                val AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
-                                    CreditReasonIndicator(
-                                        JsonField.of(
-                                            "airline_ticket_and_passenger_transport_ancillary_purchase_cancellation"
-                                        )
-                                    )
-
-                                @JvmField
-                                val AIRLINE_TICKET_CANCELLATION =
-                                    CreditReasonIndicator(
-                                        JsonField.of("airline_ticket_cancellation")
-                                    )
-
-                                @JvmField val OTHER = CreditReasonIndicator(JsonField.of("other"))
-
-                                @JvmField
-                                val PARTIAL_REFUND_OF_AIRLINE_TICKET =
-                                    CreditReasonIndicator(
-                                        JsonField.of("partial_refund_of_airline_ticket")
-                                    )
-
-                                @JvmStatic
-                                fun of(value: String) = CreditReasonIndicator(JsonField.of(value))
-                            }
-
-                            enum class Known {
-                                NO_CREDIT,
-                                PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
-                                AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
-                                AIRLINE_TICKET_CANCELLATION,
-                                OTHER,
-                                PARTIAL_REFUND_OF_AIRLINE_TICKET,
-                            }
-
-                            enum class Value {
-                                NO_CREDIT,
-                                PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
-                                AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
-                                AIRLINE_TICKET_CANCELLATION,
-                                OTHER,
-                                PARTIAL_REFUND_OF_AIRLINE_TICKET,
-                                _UNKNOWN,
-                            }
-
-                            fun value(): Value =
-                                when (this) {
-                                    NO_CREDIT -> Value.NO_CREDIT
-                                    PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
-                                        Value.PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
-                                    AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
-                                        Value
-                                            .AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
-                                    AIRLINE_TICKET_CANCELLATION -> Value.AIRLINE_TICKET_CANCELLATION
-                                    OTHER -> Value.OTHER
-                                    PARTIAL_REFUND_OF_AIRLINE_TICKET ->
-                                        Value.PARTIAL_REFUND_OF_AIRLINE_TICKET
-                                    else -> Value._UNKNOWN
-                                }
-
-                            fun known(): Known =
-                                when (this) {
-                                    NO_CREDIT -> Known.NO_CREDIT
-                                    PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
-                                        Known.PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
-                                    AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
-                                        Known
-                                            .AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
-                                    AIRLINE_TICKET_CANCELLATION -> Known.AIRLINE_TICKET_CANCELLATION
-                                    OTHER -> Known.OTHER
-                                    PARTIAL_REFUND_OF_AIRLINE_TICKET ->
-                                        Known.PARTIAL_REFUND_OF_AIRLINE_TICKET
-                                    else ->
-                                        throw IncreaseInvalidDataException(
-                                            "Unknown CreditReasonIndicator: $value"
-                                        )
-                                }
-
-                            fun asString(): String = _value().asStringOrThrow()
-                        }
-
-                        class TicketChangeIndicator
-                        @JsonCreator
-                        private constructor(
-                            private val value: JsonField<String>,
-                        ) {
-
-                            @com.fasterxml.jackson.annotation.JsonValue
-                            fun _value(): JsonField<String> = value
-
-                            override fun equals(other: Any?): Boolean {
-                                if (this === other) {
-                                    return true
-                                }
-
-                                return other is TicketChangeIndicator && this.value == other.value
-                            }
-
-                            override fun hashCode() = value.hashCode()
-
-                            override fun toString() = value.toString()
-
-                            companion object {
-
-                                @JvmField val NONE = TicketChangeIndicator(JsonField.of("none"))
-
-                                @JvmField
-                                val CHANGE_TO_EXISTING_TICKET =
-                                    TicketChangeIndicator(JsonField.of("change_to_existing_ticket"))
-
-                                @JvmField
-                                val NEW_TICKET = TicketChangeIndicator(JsonField.of("new_ticket"))
-
-                                @JvmStatic
-                                fun of(value: String) = TicketChangeIndicator(JsonField.of(value))
-                            }
-
-                            enum class Known {
-                                NONE,
-                                CHANGE_TO_EXISTING_TICKET,
-                                NEW_TICKET,
-                            }
-
-                            enum class Value {
-                                NONE,
-                                CHANGE_TO_EXISTING_TICKET,
-                                NEW_TICKET,
-                                _UNKNOWN,
-                            }
-
-                            fun value(): Value =
-                                when (this) {
-                                    NONE -> Value.NONE
-                                    CHANGE_TO_EXISTING_TICKET -> Value.CHANGE_TO_EXISTING_TICKET
-                                    NEW_TICKET -> Value.NEW_TICKET
-                                    else -> Value._UNKNOWN
-                                }
-
-                            fun known(): Known =
-                                when (this) {
-                                    NONE -> Known.NONE
-                                    CHANGE_TO_EXISTING_TICKET -> Known.CHANGE_TO_EXISTING_TICKET
-                                    NEW_TICKET -> Known.NEW_TICKET
-                                    else ->
-                                        throw IncreaseInvalidDataException(
-                                            "Unknown TicketChangeIndicator: $value"
-                                        )
-                                }
-
-                            fun asString(): String = _value().asStringOrThrow()
-                        }
-
-                        @JsonDeserialize(builder = TripLeg.Builder::class)
-                        @NoAutoDetect
-                        class TripLeg
-                        private constructor(
-                            private val flightNumber: JsonField<String>,
-                            private val carrierCode: JsonField<String>,
-                            private val fareBasisCode: JsonField<String>,
-                            private val serviceClass: JsonField<String>,
-                            private val stopOverCode: JsonField<StopOverCode>,
-                            private val destinationCityAirportCode: JsonField<String>,
-                            private val additionalProperties: Map<String, JsonValue>,
-                        ) {
-
-                            private var validated: Boolean = false
-
-                            private var hashCode: Int = 0
-
-                            /** Flight number. */
-                            fun flightNumber(): Optional<String> =
-                                Optional.ofNullable(flightNumber.getNullable("flight_number"))
-
-                            /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
-                            fun carrierCode(): Optional<String> =
-                                Optional.ofNullable(carrierCode.getNullable("carrier_code"))
-
-                            /** Fare basis code. */
-                            fun fareBasisCode(): Optional<String> =
-                                Optional.ofNullable(fareBasisCode.getNullable("fare_basis_code"))
-
-                            /** Service class (e.g., first class, business class, etc.). */
-                            fun serviceClass(): Optional<String> =
-                                Optional.ofNullable(serviceClass.getNullable("service_class"))
-
-                            /** Indicates whether a stopover is allowed on this ticket. */
-                            fun stopOverCode(): Optional<StopOverCode> =
-                                Optional.ofNullable(stopOverCode.getNullable("stop_over_code"))
-
-                            /** Code for the destination city or airport. */
-                            fun destinationCityAirportCode(): Optional<String> =
-                                Optional.ofNullable(
-                                    destinationCityAirportCode.getNullable(
-                                        "destination_city_airport_code"
-                                    )
-                                )
-
-                            /** Flight number. */
-                            @JsonProperty("flight_number")
-                            @ExcludeMissing
-                            fun _flightNumber() = flightNumber
-
-                            /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
-                            @JsonProperty("carrier_code")
-                            @ExcludeMissing
-                            fun _carrierCode() = carrierCode
-
-                            /** Fare basis code. */
-                            @JsonProperty("fare_basis_code")
-                            @ExcludeMissing
-                            fun _fareBasisCode() = fareBasisCode
-
-                            /** Service class (e.g., first class, business class, etc.). */
-                            @JsonProperty("service_class")
-                            @ExcludeMissing
-                            fun _serviceClass() = serviceClass
-
-                            /** Indicates whether a stopover is allowed on this ticket. */
-                            @JsonProperty("stop_over_code")
-                            @ExcludeMissing
-                            fun _stopOverCode() = stopOverCode
-
-                            /** Code for the destination city or airport. */
-                            @JsonProperty("destination_city_airport_code")
-                            @ExcludeMissing
-                            fun _destinationCityAirportCode() = destinationCityAirportCode
-
-                            @JsonAnyGetter
-                            @ExcludeMissing
-                            fun _additionalProperties(): Map<String, JsonValue> =
-                                additionalProperties
-
-                            fun validate(): TripLeg = apply {
-                                if (!validated) {
-                                    flightNumber()
-                                    carrierCode()
-                                    fareBasisCode()
-                                    serviceClass()
-                                    stopOverCode()
-                                    destinationCityAirportCode()
-                                    validated = true
-                                }
-                            }
-
-                            fun toBuilder() = Builder().from(this)
-
-                            override fun equals(other: Any?): Boolean {
-                                if (this === other) {
-                                    return true
-                                }
-
-                                return other is TripLeg &&
-                                    this.flightNumber == other.flightNumber &&
-                                    this.carrierCode == other.carrierCode &&
-                                    this.fareBasisCode == other.fareBasisCode &&
-                                    this.serviceClass == other.serviceClass &&
-                                    this.stopOverCode == other.stopOverCode &&
-                                    this.destinationCityAirportCode ==
-                                        other.destinationCityAirportCode &&
-                                    this.additionalProperties == other.additionalProperties
-                            }
-
-                            override fun hashCode(): Int {
-                                if (hashCode == 0) {
-                                    hashCode =
-                                        Objects.hash(
-                                            flightNumber,
-                                            carrierCode,
-                                            fareBasisCode,
-                                            serviceClass,
-                                            stopOverCode,
-                                            destinationCityAirportCode,
-                                            additionalProperties,
-                                        )
-                                }
-                                return hashCode
-                            }
-
-                            override fun toString() =
-                                "TripLeg{flightNumber=$flightNumber, carrierCode=$carrierCode, fareBasisCode=$fareBasisCode, serviceClass=$serviceClass, stopOverCode=$stopOverCode, destinationCityAirportCode=$destinationCityAirportCode, additionalProperties=$additionalProperties}"
-
-                            companion object {
-
-                                @JvmStatic fun builder() = Builder()
-                            }
-
-                            class Builder {
-
-                                private var flightNumber: JsonField<String> = JsonMissing.of()
-                                private var carrierCode: JsonField<String> = JsonMissing.of()
-                                private var fareBasisCode: JsonField<String> = JsonMissing.of()
-                                private var serviceClass: JsonField<String> = JsonMissing.of()
-                                private var stopOverCode: JsonField<StopOverCode> = JsonMissing.of()
-                                private var destinationCityAirportCode: JsonField<String> =
-                                    JsonMissing.of()
-                                private var additionalProperties: MutableMap<String, JsonValue> =
-                                    mutableMapOf()
-
-                                @JvmSynthetic
-                                internal fun from(tripLeg: TripLeg) = apply {
-                                    this.flightNumber = tripLeg.flightNumber
-                                    this.carrierCode = tripLeg.carrierCode
-                                    this.fareBasisCode = tripLeg.fareBasisCode
-                                    this.serviceClass = tripLeg.serviceClass
-                                    this.stopOverCode = tripLeg.stopOverCode
-                                    this.destinationCityAirportCode =
-                                        tripLeg.destinationCityAirportCode
-                                    additionalProperties(tripLeg.additionalProperties)
-                                }
-
-                                /** Flight number. */
-                                fun flightNumber(flightNumber: String) =
-                                    flightNumber(JsonField.of(flightNumber))
-
-                                /** Flight number. */
-                                @JsonProperty("flight_number")
-                                @ExcludeMissing
-                                fun flightNumber(flightNumber: JsonField<String>) = apply {
-                                    this.flightNumber = flightNumber
-                                }
-
-                                /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
-                                fun carrierCode(carrierCode: String) =
-                                    carrierCode(JsonField.of(carrierCode))
-
-                                /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
-                                @JsonProperty("carrier_code")
-                                @ExcludeMissing
-                                fun carrierCode(carrierCode: JsonField<String>) = apply {
-                                    this.carrierCode = carrierCode
-                                }
-
-                                /** Fare basis code. */
-                                fun fareBasisCode(fareBasisCode: String) =
-                                    fareBasisCode(JsonField.of(fareBasisCode))
-
-                                /** Fare basis code. */
-                                @JsonProperty("fare_basis_code")
-                                @ExcludeMissing
-                                fun fareBasisCode(fareBasisCode: JsonField<String>) = apply {
-                                    this.fareBasisCode = fareBasisCode
-                                }
-
-                                /** Service class (e.g., first class, business class, etc.). */
-                                fun serviceClass(serviceClass: String) =
-                                    serviceClass(JsonField.of(serviceClass))
-
-                                /** Service class (e.g., first class, business class, etc.). */
-                                @JsonProperty("service_class")
-                                @ExcludeMissing
-                                fun serviceClass(serviceClass: JsonField<String>) = apply {
-                                    this.serviceClass = serviceClass
-                                }
-
-                                /** Indicates whether a stopover is allowed on this ticket. */
-                                fun stopOverCode(stopOverCode: StopOverCode) =
-                                    stopOverCode(JsonField.of(stopOverCode))
-
-                                /** Indicates whether a stopover is allowed on this ticket. */
-                                @JsonProperty("stop_over_code")
-                                @ExcludeMissing
-                                fun stopOverCode(stopOverCode: JsonField<StopOverCode>) = apply {
-                                    this.stopOverCode = stopOverCode
-                                }
-
-                                /** Code for the destination city or airport. */
-                                fun destinationCityAirportCode(destinationCityAirportCode: String) =
-                                    destinationCityAirportCode(
-                                        JsonField.of(destinationCityAirportCode)
-                                    )
-
-                                /** Code for the destination city or airport. */
-                                @JsonProperty("destination_city_airport_code")
-                                @ExcludeMissing
-                                fun destinationCityAirportCode(
-                                    destinationCityAirportCode: JsonField<String>
-                                ) = apply {
-                                    this.destinationCityAirportCode = destinationCityAirportCode
-                                }
-
-                                fun additionalProperties(
-                                    additionalProperties: Map<String, JsonValue>
-                                ) = apply {
-                                    this.additionalProperties.clear()
-                                    this.additionalProperties.putAll(additionalProperties)
-                                }
-
-                                @JsonAnySetter
-                                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                                    this.additionalProperties.put(key, value)
-                                }
-
-                                fun putAllAdditionalProperties(
-                                    additionalProperties: Map<String, JsonValue>
-                                ) = apply { this.additionalProperties.putAll(additionalProperties) }
-
-                                fun build(): TripLeg =
-                                    TripLeg(
-                                        flightNumber,
-                                        carrierCode,
-                                        fareBasisCode,
-                                        serviceClass,
-                                        stopOverCode,
-                                        destinationCityAirportCode,
-                                        additionalProperties.toUnmodifiable(),
-                                    )
-                            }
-
-                            class StopOverCode
-                            @JsonCreator
-                            private constructor(
-                                private val value: JsonField<String>,
-                            ) {
-
-                                @com.fasterxml.jackson.annotation.JsonValue
-                                fun _value(): JsonField<String> = value
-
-                                override fun equals(other: Any?): Boolean {
-                                    if (this === other) {
-                                        return true
-                                    }
-
-                                    return other is StopOverCode && this.value == other.value
-                                }
-
-                                override fun hashCode() = value.hashCode()
-
-                                override fun toString() = value.toString()
-
-                                companion object {
-
-                                    @JvmField val NONE = StopOverCode(JsonField.of("none"))
-
-                                    @JvmField
-                                    val STOP_OVER_ALLOWED =
-                                        StopOverCode(JsonField.of("stop_over_allowed"))
-
-                                    @JvmField
-                                    val STOP_OVER_NOT_ALLOWED =
-                                        StopOverCode(JsonField.of("stop_over_not_allowed"))
-
-                                    @JvmStatic
-                                    fun of(value: String) = StopOverCode(JsonField.of(value))
-                                }
-
-                                enum class Known {
-                                    NONE,
-                                    STOP_OVER_ALLOWED,
-                                    STOP_OVER_NOT_ALLOWED,
-                                }
-
-                                enum class Value {
-                                    NONE,
-                                    STOP_OVER_ALLOWED,
-                                    STOP_OVER_NOT_ALLOWED,
-                                    _UNKNOWN,
-                                }
-
-                                fun value(): Value =
-                                    when (this) {
-                                        NONE -> Value.NONE
-                                        STOP_OVER_ALLOWED -> Value.STOP_OVER_ALLOWED
-                                        STOP_OVER_NOT_ALLOWED -> Value.STOP_OVER_NOT_ALLOWED
-                                        else -> Value._UNKNOWN
-                                    }
-
-                                fun known(): Known =
-                                    when (this) {
-                                        NONE -> Known.NONE
-                                        STOP_OVER_ALLOWED -> Known.STOP_OVER_ALLOWED
-                                        STOP_OVER_NOT_ALLOWED -> Known.STOP_OVER_NOT_ALLOWED
-                                        else ->
-                                            throw IncreaseInvalidDataException(
-                                                "Unknown StopOverCode: $value"
-                                            )
-                                    }
-
-                                fun asString(): String = _value().asStringOrThrow()
-                            }
                         }
 
                         /** Ancillary purchases in addition to the airfare. */
@@ -8378,6 +7522,593 @@ private constructor(
 
                                     fun asString(): String = _value().asStringOrThrow()
                                 }
+                            }
+                        }
+
+                        class CreditReasonIndicator
+                        @JsonCreator
+                        private constructor(
+                            private val value: JsonField<String>,
+                        ) {
+
+                            @com.fasterxml.jackson.annotation.JsonValue
+                            fun _value(): JsonField<String> = value
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is CreditReasonIndicator && this.value == other.value
+                            }
+
+                            override fun hashCode() = value.hashCode()
+
+                            override fun toString() = value.toString()
+
+                            companion object {
+
+                                @JvmField
+                                val NO_CREDIT = CreditReasonIndicator(JsonField.of("no_credit"))
+
+                                @JvmField
+                                val PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
+                                    CreditReasonIndicator(
+                                        JsonField.of(
+                                            "passenger_transport_ancillary_purchase_cancellation"
+                                        )
+                                    )
+
+                                @JvmField
+                                val AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
+                                    CreditReasonIndicator(
+                                        JsonField.of(
+                                            "airline_ticket_and_passenger_transport_ancillary_purchase_cancellation"
+                                        )
+                                    )
+
+                                @JvmField
+                                val AIRLINE_TICKET_CANCELLATION =
+                                    CreditReasonIndicator(
+                                        JsonField.of("airline_ticket_cancellation")
+                                    )
+
+                                @JvmField val OTHER = CreditReasonIndicator(JsonField.of("other"))
+
+                                @JvmField
+                                val PARTIAL_REFUND_OF_AIRLINE_TICKET =
+                                    CreditReasonIndicator(
+                                        JsonField.of("partial_refund_of_airline_ticket")
+                                    )
+
+                                @JvmStatic
+                                fun of(value: String) = CreditReasonIndicator(JsonField.of(value))
+                            }
+
+                            enum class Known {
+                                NO_CREDIT,
+                                PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                AIRLINE_TICKET_CANCELLATION,
+                                OTHER,
+                                PARTIAL_REFUND_OF_AIRLINE_TICKET,
+                            }
+
+                            enum class Value {
+                                NO_CREDIT,
+                                PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                AIRLINE_TICKET_CANCELLATION,
+                                OTHER,
+                                PARTIAL_REFUND_OF_AIRLINE_TICKET,
+                                _UNKNOWN,
+                            }
+
+                            fun value(): Value =
+                                when (this) {
+                                    NO_CREDIT -> Value.NO_CREDIT
+                                    PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
+                                        Value.PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
+                                    AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
+                                        Value
+                                            .AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
+                                    AIRLINE_TICKET_CANCELLATION -> Value.AIRLINE_TICKET_CANCELLATION
+                                    OTHER -> Value.OTHER
+                                    PARTIAL_REFUND_OF_AIRLINE_TICKET ->
+                                        Value.PARTIAL_REFUND_OF_AIRLINE_TICKET
+                                    else -> Value._UNKNOWN
+                                }
+
+                            fun known(): Known =
+                                when (this) {
+                                    NO_CREDIT -> Known.NO_CREDIT
+                                    PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
+                                        Known.PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
+                                    AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
+                                        Known
+                                            .AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
+                                    AIRLINE_TICKET_CANCELLATION -> Known.AIRLINE_TICKET_CANCELLATION
+                                    OTHER -> Known.OTHER
+                                    PARTIAL_REFUND_OF_AIRLINE_TICKET ->
+                                        Known.PARTIAL_REFUND_OF_AIRLINE_TICKET
+                                    else ->
+                                        throw IncreaseInvalidDataException(
+                                            "Unknown CreditReasonIndicator: $value"
+                                        )
+                                }
+
+                            fun asString(): String = _value().asStringOrThrow()
+                        }
+
+                        class RestrictedTicketIndicator
+                        @JsonCreator
+                        private constructor(
+                            private val value: JsonField<String>,
+                        ) {
+
+                            @com.fasterxml.jackson.annotation.JsonValue
+                            fun _value(): JsonField<String> = value
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is RestrictedTicketIndicator &&
+                                    this.value == other.value
+                            }
+
+                            override fun hashCode() = value.hashCode()
+
+                            override fun toString() = value.toString()
+
+                            companion object {
+
+                                @JvmField
+                                val NO_RESTRICTIONS =
+                                    RestrictedTicketIndicator(JsonField.of("no_restrictions"))
+
+                                @JvmField
+                                val RESTRICTED_NON_REFUNDABLE_TICKET =
+                                    RestrictedTicketIndicator(
+                                        JsonField.of("restricted_non_refundable_ticket")
+                                    )
+
+                                @JvmStatic
+                                fun of(value: String) =
+                                    RestrictedTicketIndicator(JsonField.of(value))
+                            }
+
+                            enum class Known {
+                                NO_RESTRICTIONS,
+                                RESTRICTED_NON_REFUNDABLE_TICKET,
+                            }
+
+                            enum class Value {
+                                NO_RESTRICTIONS,
+                                RESTRICTED_NON_REFUNDABLE_TICKET,
+                                _UNKNOWN,
+                            }
+
+                            fun value(): Value =
+                                when (this) {
+                                    NO_RESTRICTIONS -> Value.NO_RESTRICTIONS
+                                    RESTRICTED_NON_REFUNDABLE_TICKET ->
+                                        Value.RESTRICTED_NON_REFUNDABLE_TICKET
+                                    else -> Value._UNKNOWN
+                                }
+
+                            fun known(): Known =
+                                when (this) {
+                                    NO_RESTRICTIONS -> Known.NO_RESTRICTIONS
+                                    RESTRICTED_NON_REFUNDABLE_TICKET ->
+                                        Known.RESTRICTED_NON_REFUNDABLE_TICKET
+                                    else ->
+                                        throw IncreaseInvalidDataException(
+                                            "Unknown RestrictedTicketIndicator: $value"
+                                        )
+                                }
+
+                            fun asString(): String = _value().asStringOrThrow()
+                        }
+
+                        class TicketChangeIndicator
+                        @JsonCreator
+                        private constructor(
+                            private val value: JsonField<String>,
+                        ) {
+
+                            @com.fasterxml.jackson.annotation.JsonValue
+                            fun _value(): JsonField<String> = value
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is TicketChangeIndicator && this.value == other.value
+                            }
+
+                            override fun hashCode() = value.hashCode()
+
+                            override fun toString() = value.toString()
+
+                            companion object {
+
+                                @JvmField val NONE = TicketChangeIndicator(JsonField.of("none"))
+
+                                @JvmField
+                                val CHANGE_TO_EXISTING_TICKET =
+                                    TicketChangeIndicator(JsonField.of("change_to_existing_ticket"))
+
+                                @JvmField
+                                val NEW_TICKET = TicketChangeIndicator(JsonField.of("new_ticket"))
+
+                                @JvmStatic
+                                fun of(value: String) = TicketChangeIndicator(JsonField.of(value))
+                            }
+
+                            enum class Known {
+                                NONE,
+                                CHANGE_TO_EXISTING_TICKET,
+                                NEW_TICKET,
+                            }
+
+                            enum class Value {
+                                NONE,
+                                CHANGE_TO_EXISTING_TICKET,
+                                NEW_TICKET,
+                                _UNKNOWN,
+                            }
+
+                            fun value(): Value =
+                                when (this) {
+                                    NONE -> Value.NONE
+                                    CHANGE_TO_EXISTING_TICKET -> Value.CHANGE_TO_EXISTING_TICKET
+                                    NEW_TICKET -> Value.NEW_TICKET
+                                    else -> Value._UNKNOWN
+                                }
+
+                            fun known(): Known =
+                                when (this) {
+                                    NONE -> Known.NONE
+                                    CHANGE_TO_EXISTING_TICKET -> Known.CHANGE_TO_EXISTING_TICKET
+                                    NEW_TICKET -> Known.NEW_TICKET
+                                    else ->
+                                        throw IncreaseInvalidDataException(
+                                            "Unknown TicketChangeIndicator: $value"
+                                        )
+                                }
+
+                            fun asString(): String = _value().asStringOrThrow()
+                        }
+
+                        @JsonDeserialize(builder = TripLeg.Builder::class)
+                        @NoAutoDetect
+                        class TripLeg
+                        private constructor(
+                            private val flightNumber: JsonField<String>,
+                            private val carrierCode: JsonField<String>,
+                            private val fareBasisCode: JsonField<String>,
+                            private val serviceClass: JsonField<String>,
+                            private val stopOverCode: JsonField<StopOverCode>,
+                            private val destinationCityAirportCode: JsonField<String>,
+                            private val additionalProperties: Map<String, JsonValue>,
+                        ) {
+
+                            private var validated: Boolean = false
+
+                            private var hashCode: Int = 0
+
+                            /** Flight number. */
+                            fun flightNumber(): Optional<String> =
+                                Optional.ofNullable(flightNumber.getNullable("flight_number"))
+
+                            /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
+                            fun carrierCode(): Optional<String> =
+                                Optional.ofNullable(carrierCode.getNullable("carrier_code"))
+
+                            /** Fare basis code. */
+                            fun fareBasisCode(): Optional<String> =
+                                Optional.ofNullable(fareBasisCode.getNullable("fare_basis_code"))
+
+                            /** Service class (e.g., first class, business class, etc.). */
+                            fun serviceClass(): Optional<String> =
+                                Optional.ofNullable(serviceClass.getNullable("service_class"))
+
+                            /** Indicates whether a stopover is allowed on this ticket. */
+                            fun stopOverCode(): Optional<StopOverCode> =
+                                Optional.ofNullable(stopOverCode.getNullable("stop_over_code"))
+
+                            /** Code for the destination city or airport. */
+                            fun destinationCityAirportCode(): Optional<String> =
+                                Optional.ofNullable(
+                                    destinationCityAirportCode.getNullable(
+                                        "destination_city_airport_code"
+                                    )
+                                )
+
+                            /** Flight number. */
+                            @JsonProperty("flight_number")
+                            @ExcludeMissing
+                            fun _flightNumber() = flightNumber
+
+                            /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
+                            @JsonProperty("carrier_code")
+                            @ExcludeMissing
+                            fun _carrierCode() = carrierCode
+
+                            /** Fare basis code. */
+                            @JsonProperty("fare_basis_code")
+                            @ExcludeMissing
+                            fun _fareBasisCode() = fareBasisCode
+
+                            /** Service class (e.g., first class, business class, etc.). */
+                            @JsonProperty("service_class")
+                            @ExcludeMissing
+                            fun _serviceClass() = serviceClass
+
+                            /** Indicates whether a stopover is allowed on this ticket. */
+                            @JsonProperty("stop_over_code")
+                            @ExcludeMissing
+                            fun _stopOverCode() = stopOverCode
+
+                            /** Code for the destination city or airport. */
+                            @JsonProperty("destination_city_airport_code")
+                            @ExcludeMissing
+                            fun _destinationCityAirportCode() = destinationCityAirportCode
+
+                            @JsonAnyGetter
+                            @ExcludeMissing
+                            fun _additionalProperties(): Map<String, JsonValue> =
+                                additionalProperties
+
+                            fun validate(): TripLeg = apply {
+                                if (!validated) {
+                                    flightNumber()
+                                    carrierCode()
+                                    fareBasisCode()
+                                    serviceClass()
+                                    stopOverCode()
+                                    destinationCityAirportCode()
+                                    validated = true
+                                }
+                            }
+
+                            fun toBuilder() = Builder().from(this)
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is TripLeg &&
+                                    this.flightNumber == other.flightNumber &&
+                                    this.carrierCode == other.carrierCode &&
+                                    this.fareBasisCode == other.fareBasisCode &&
+                                    this.serviceClass == other.serviceClass &&
+                                    this.stopOverCode == other.stopOverCode &&
+                                    this.destinationCityAirportCode ==
+                                        other.destinationCityAirportCode &&
+                                    this.additionalProperties == other.additionalProperties
+                            }
+
+                            override fun hashCode(): Int {
+                                if (hashCode == 0) {
+                                    hashCode =
+                                        Objects.hash(
+                                            flightNumber,
+                                            carrierCode,
+                                            fareBasisCode,
+                                            serviceClass,
+                                            stopOverCode,
+                                            destinationCityAirportCode,
+                                            additionalProperties,
+                                        )
+                                }
+                                return hashCode
+                            }
+
+                            override fun toString() =
+                                "TripLeg{flightNumber=$flightNumber, carrierCode=$carrierCode, fareBasisCode=$fareBasisCode, serviceClass=$serviceClass, stopOverCode=$stopOverCode, destinationCityAirportCode=$destinationCityAirportCode, additionalProperties=$additionalProperties}"
+
+                            companion object {
+
+                                @JvmStatic fun builder() = Builder()
+                            }
+
+                            class Builder {
+
+                                private var flightNumber: JsonField<String> = JsonMissing.of()
+                                private var carrierCode: JsonField<String> = JsonMissing.of()
+                                private var fareBasisCode: JsonField<String> = JsonMissing.of()
+                                private var serviceClass: JsonField<String> = JsonMissing.of()
+                                private var stopOverCode: JsonField<StopOverCode> = JsonMissing.of()
+                                private var destinationCityAirportCode: JsonField<String> =
+                                    JsonMissing.of()
+                                private var additionalProperties: MutableMap<String, JsonValue> =
+                                    mutableMapOf()
+
+                                @JvmSynthetic
+                                internal fun from(tripLeg: TripLeg) = apply {
+                                    this.flightNumber = tripLeg.flightNumber
+                                    this.carrierCode = tripLeg.carrierCode
+                                    this.fareBasisCode = tripLeg.fareBasisCode
+                                    this.serviceClass = tripLeg.serviceClass
+                                    this.stopOverCode = tripLeg.stopOverCode
+                                    this.destinationCityAirportCode =
+                                        tripLeg.destinationCityAirportCode
+                                    additionalProperties(tripLeg.additionalProperties)
+                                }
+
+                                /** Flight number. */
+                                fun flightNumber(flightNumber: String) =
+                                    flightNumber(JsonField.of(flightNumber))
+
+                                /** Flight number. */
+                                @JsonProperty("flight_number")
+                                @ExcludeMissing
+                                fun flightNumber(flightNumber: JsonField<String>) = apply {
+                                    this.flightNumber = flightNumber
+                                }
+
+                                /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
+                                fun carrierCode(carrierCode: String) =
+                                    carrierCode(JsonField.of(carrierCode))
+
+                                /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
+                                @JsonProperty("carrier_code")
+                                @ExcludeMissing
+                                fun carrierCode(carrierCode: JsonField<String>) = apply {
+                                    this.carrierCode = carrierCode
+                                }
+
+                                /** Fare basis code. */
+                                fun fareBasisCode(fareBasisCode: String) =
+                                    fareBasisCode(JsonField.of(fareBasisCode))
+
+                                /** Fare basis code. */
+                                @JsonProperty("fare_basis_code")
+                                @ExcludeMissing
+                                fun fareBasisCode(fareBasisCode: JsonField<String>) = apply {
+                                    this.fareBasisCode = fareBasisCode
+                                }
+
+                                /** Service class (e.g., first class, business class, etc.). */
+                                fun serviceClass(serviceClass: String) =
+                                    serviceClass(JsonField.of(serviceClass))
+
+                                /** Service class (e.g., first class, business class, etc.). */
+                                @JsonProperty("service_class")
+                                @ExcludeMissing
+                                fun serviceClass(serviceClass: JsonField<String>) = apply {
+                                    this.serviceClass = serviceClass
+                                }
+
+                                /** Indicates whether a stopover is allowed on this ticket. */
+                                fun stopOverCode(stopOverCode: StopOverCode) =
+                                    stopOverCode(JsonField.of(stopOverCode))
+
+                                /** Indicates whether a stopover is allowed on this ticket. */
+                                @JsonProperty("stop_over_code")
+                                @ExcludeMissing
+                                fun stopOverCode(stopOverCode: JsonField<StopOverCode>) = apply {
+                                    this.stopOverCode = stopOverCode
+                                }
+
+                                /** Code for the destination city or airport. */
+                                fun destinationCityAirportCode(destinationCityAirportCode: String) =
+                                    destinationCityAirportCode(
+                                        JsonField.of(destinationCityAirportCode)
+                                    )
+
+                                /** Code for the destination city or airport. */
+                                @JsonProperty("destination_city_airport_code")
+                                @ExcludeMissing
+                                fun destinationCityAirportCode(
+                                    destinationCityAirportCode: JsonField<String>
+                                ) = apply {
+                                    this.destinationCityAirportCode = destinationCityAirportCode
+                                }
+
+                                fun additionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply {
+                                    this.additionalProperties.clear()
+                                    this.additionalProperties.putAll(additionalProperties)
+                                }
+
+                                @JsonAnySetter
+                                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                                    this.additionalProperties.put(key, value)
+                                }
+
+                                fun putAllAdditionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                                fun build(): TripLeg =
+                                    TripLeg(
+                                        flightNumber,
+                                        carrierCode,
+                                        fareBasisCode,
+                                        serviceClass,
+                                        stopOverCode,
+                                        destinationCityAirportCode,
+                                        additionalProperties.toUnmodifiable(),
+                                    )
+                            }
+
+                            class StopOverCode
+                            @JsonCreator
+                            private constructor(
+                                private val value: JsonField<String>,
+                            ) {
+
+                                @com.fasterxml.jackson.annotation.JsonValue
+                                fun _value(): JsonField<String> = value
+
+                                override fun equals(other: Any?): Boolean {
+                                    if (this === other) {
+                                        return true
+                                    }
+
+                                    return other is StopOverCode && this.value == other.value
+                                }
+
+                                override fun hashCode() = value.hashCode()
+
+                                override fun toString() = value.toString()
+
+                                companion object {
+
+                                    @JvmField val NONE = StopOverCode(JsonField.of("none"))
+
+                                    @JvmField
+                                    val STOP_OVER_ALLOWED =
+                                        StopOverCode(JsonField.of("stop_over_allowed"))
+
+                                    @JvmField
+                                    val STOP_OVER_NOT_ALLOWED =
+                                        StopOverCode(JsonField.of("stop_over_not_allowed"))
+
+                                    @JvmStatic
+                                    fun of(value: String) = StopOverCode(JsonField.of(value))
+                                }
+
+                                enum class Known {
+                                    NONE,
+                                    STOP_OVER_ALLOWED,
+                                    STOP_OVER_NOT_ALLOWED,
+                                }
+
+                                enum class Value {
+                                    NONE,
+                                    STOP_OVER_ALLOWED,
+                                    STOP_OVER_NOT_ALLOWED,
+                                    _UNKNOWN,
+                                }
+
+                                fun value(): Value =
+                                    when (this) {
+                                        NONE -> Value.NONE
+                                        STOP_OVER_ALLOWED -> Value.STOP_OVER_ALLOWED
+                                        STOP_OVER_NOT_ALLOWED -> Value.STOP_OVER_NOT_ALLOWED
+                                        else -> Value._UNKNOWN
+                                    }
+
+                                fun known(): Known =
+                                    when (this) {
+                                        NONE -> Known.NONE
+                                        STOP_OVER_ALLOWED -> Known.STOP_OVER_ALLOWED
+                                        STOP_OVER_NOT_ALLOWED -> Known.STOP_OVER_NOT_ALLOWED
+                                        else ->
+                                            throw IncreaseInvalidDataException(
+                                                "Unknown StopOverCode: $value"
+                                            )
+                                    }
+
+                                fun asString(): String = _value().asStringOrThrow()
                             }
                         }
                     }
@@ -9784,95 +9515,6 @@ private constructor(
                             )
                     }
 
-                    class PurchaseIdentifierFormat
-                    @JsonCreator
-                    private constructor(
-                        private val value: JsonField<String>,
-                    ) {
-
-                        @com.fasterxml.jackson.annotation.JsonValue
-                        fun _value(): JsonField<String> = value
-
-                        override fun equals(other: Any?): Boolean {
-                            if (this === other) {
-                                return true
-                            }
-
-                            return other is PurchaseIdentifierFormat && this.value == other.value
-                        }
-
-                        override fun hashCode() = value.hashCode()
-
-                        override fun toString() = value.toString()
-
-                        companion object {
-
-                            @JvmField
-                            val FREE_TEXT = PurchaseIdentifierFormat(JsonField.of("free_text"))
-
-                            @JvmField
-                            val ORDER_NUMBER =
-                                PurchaseIdentifierFormat(JsonField.of("order_number"))
-
-                            @JvmField
-                            val RENTAL_AGREEMENT_NUMBER =
-                                PurchaseIdentifierFormat(JsonField.of("rental_agreement_number"))
-
-                            @JvmField
-                            val HOTEL_FOLIO_NUMBER =
-                                PurchaseIdentifierFormat(JsonField.of("hotel_folio_number"))
-
-                            @JvmField
-                            val INVOICE_NUMBER =
-                                PurchaseIdentifierFormat(JsonField.of("invoice_number"))
-
-                            @JvmStatic
-                            fun of(value: String) = PurchaseIdentifierFormat(JsonField.of(value))
-                        }
-
-                        enum class Known {
-                            FREE_TEXT,
-                            ORDER_NUMBER,
-                            RENTAL_AGREEMENT_NUMBER,
-                            HOTEL_FOLIO_NUMBER,
-                            INVOICE_NUMBER,
-                        }
-
-                        enum class Value {
-                            FREE_TEXT,
-                            ORDER_NUMBER,
-                            RENTAL_AGREEMENT_NUMBER,
-                            HOTEL_FOLIO_NUMBER,
-                            INVOICE_NUMBER,
-                            _UNKNOWN,
-                        }
-
-                        fun value(): Value =
-                            when (this) {
-                                FREE_TEXT -> Value.FREE_TEXT
-                                ORDER_NUMBER -> Value.ORDER_NUMBER
-                                RENTAL_AGREEMENT_NUMBER -> Value.RENTAL_AGREEMENT_NUMBER
-                                HOTEL_FOLIO_NUMBER -> Value.HOTEL_FOLIO_NUMBER
-                                INVOICE_NUMBER -> Value.INVOICE_NUMBER
-                                else -> Value._UNKNOWN
-                            }
-
-                        fun known(): Known =
-                            when (this) {
-                                FREE_TEXT -> Known.FREE_TEXT
-                                ORDER_NUMBER -> Known.ORDER_NUMBER
-                                RENTAL_AGREEMENT_NUMBER -> Known.RENTAL_AGREEMENT_NUMBER
-                                HOTEL_FOLIO_NUMBER -> Known.HOTEL_FOLIO_NUMBER
-                                INVOICE_NUMBER -> Known.INVOICE_NUMBER
-                                else ->
-                                    throw IncreaseInvalidDataException(
-                                        "Unknown PurchaseIdentifierFormat: $value"
-                                    )
-                            }
-
-                        fun asString(): String = _value().asStringOrThrow()
-                    }
-
                     /** Fields specific to car rentals. */
                     @JsonDeserialize(builder = CarRental.Builder::class)
                     @NoAutoDetect
@@ -11320,69 +10962,6 @@ private constructor(
                                 )
                         }
 
-                        class NoShowIndicator
-                        @JsonCreator
-                        private constructor(
-                            private val value: JsonField<String>,
-                        ) {
-
-                            @com.fasterxml.jackson.annotation.JsonValue
-                            fun _value(): JsonField<String> = value
-
-                            override fun equals(other: Any?): Boolean {
-                                if (this === other) {
-                                    return true
-                                }
-
-                                return other is NoShowIndicator && this.value == other.value
-                            }
-
-                            override fun hashCode() = value.hashCode()
-
-                            override fun toString() = value.toString()
-
-                            companion object {
-
-                                @JvmField
-                                val NOT_APPLICABLE = NoShowIndicator(JsonField.of("not_applicable"))
-
-                                @JvmField val NO_SHOW = NoShowIndicator(JsonField.of("no_show"))
-
-                                @JvmStatic
-                                fun of(value: String) = NoShowIndicator(JsonField.of(value))
-                            }
-
-                            enum class Known {
-                                NOT_APPLICABLE,
-                                NO_SHOW,
-                            }
-
-                            enum class Value {
-                                NOT_APPLICABLE,
-                                NO_SHOW,
-                                _UNKNOWN,
-                            }
-
-                            fun value(): Value =
-                                when (this) {
-                                    NOT_APPLICABLE -> Value.NOT_APPLICABLE
-                                    NO_SHOW -> Value.NO_SHOW
-                                    else -> Value._UNKNOWN
-                                }
-
-                            fun known(): Known =
-                                when (this) {
-                                    NOT_APPLICABLE -> Known.NOT_APPLICABLE
-                                    NO_SHOW -> Known.NO_SHOW
-                                    else ->
-                                        throw IncreaseInvalidDataException(
-                                            "Unknown NoShowIndicator: $value"
-                                        )
-                                }
-
-                            fun asString(): String = _value().asStringOrThrow()
-                        }
-
                         class ExtraCharges
                         @JsonCreator
                         private constructor(
@@ -11474,6 +11053,158 @@ private constructor(
 
                             fun asString(): String = _value().asStringOrThrow()
                         }
+
+                        class NoShowIndicator
+                        @JsonCreator
+                        private constructor(
+                            private val value: JsonField<String>,
+                        ) {
+
+                            @com.fasterxml.jackson.annotation.JsonValue
+                            fun _value(): JsonField<String> = value
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is NoShowIndicator && this.value == other.value
+                            }
+
+                            override fun hashCode() = value.hashCode()
+
+                            override fun toString() = value.toString()
+
+                            companion object {
+
+                                @JvmField
+                                val NOT_APPLICABLE = NoShowIndicator(JsonField.of("not_applicable"))
+
+                                @JvmField val NO_SHOW = NoShowIndicator(JsonField.of("no_show"))
+
+                                @JvmStatic
+                                fun of(value: String) = NoShowIndicator(JsonField.of(value))
+                            }
+
+                            enum class Known {
+                                NOT_APPLICABLE,
+                                NO_SHOW,
+                            }
+
+                            enum class Value {
+                                NOT_APPLICABLE,
+                                NO_SHOW,
+                                _UNKNOWN,
+                            }
+
+                            fun value(): Value =
+                                when (this) {
+                                    NOT_APPLICABLE -> Value.NOT_APPLICABLE
+                                    NO_SHOW -> Value.NO_SHOW
+                                    else -> Value._UNKNOWN
+                                }
+
+                            fun known(): Known =
+                                when (this) {
+                                    NOT_APPLICABLE -> Known.NOT_APPLICABLE
+                                    NO_SHOW -> Known.NO_SHOW
+                                    else ->
+                                        throw IncreaseInvalidDataException(
+                                            "Unknown NoShowIndicator: $value"
+                                        )
+                                }
+
+                            fun asString(): String = _value().asStringOrThrow()
+                        }
+                    }
+
+                    class PurchaseIdentifierFormat
+                    @JsonCreator
+                    private constructor(
+                        private val value: JsonField<String>,
+                    ) {
+
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is PurchaseIdentifierFormat && this.value == other.value
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+
+                        companion object {
+
+                            @JvmField
+                            val FREE_TEXT = PurchaseIdentifierFormat(JsonField.of("free_text"))
+
+                            @JvmField
+                            val ORDER_NUMBER =
+                                PurchaseIdentifierFormat(JsonField.of("order_number"))
+
+                            @JvmField
+                            val RENTAL_AGREEMENT_NUMBER =
+                                PurchaseIdentifierFormat(JsonField.of("rental_agreement_number"))
+
+                            @JvmField
+                            val HOTEL_FOLIO_NUMBER =
+                                PurchaseIdentifierFormat(JsonField.of("hotel_folio_number"))
+
+                            @JvmField
+                            val INVOICE_NUMBER =
+                                PurchaseIdentifierFormat(JsonField.of("invoice_number"))
+
+                            @JvmStatic
+                            fun of(value: String) = PurchaseIdentifierFormat(JsonField.of(value))
+                        }
+
+                        enum class Known {
+                            FREE_TEXT,
+                            ORDER_NUMBER,
+                            RENTAL_AGREEMENT_NUMBER,
+                            HOTEL_FOLIO_NUMBER,
+                            INVOICE_NUMBER,
+                        }
+
+                        enum class Value {
+                            FREE_TEXT,
+                            ORDER_NUMBER,
+                            RENTAL_AGREEMENT_NUMBER,
+                            HOTEL_FOLIO_NUMBER,
+                            INVOICE_NUMBER,
+                            _UNKNOWN,
+                        }
+
+                        fun value(): Value =
+                            when (this) {
+                                FREE_TEXT -> Value.FREE_TEXT
+                                ORDER_NUMBER -> Value.ORDER_NUMBER
+                                RENTAL_AGREEMENT_NUMBER -> Value.RENTAL_AGREEMENT_NUMBER
+                                HOTEL_FOLIO_NUMBER -> Value.HOTEL_FOLIO_NUMBER
+                                INVOICE_NUMBER -> Value.INVOICE_NUMBER
+                                else -> Value._UNKNOWN
+                            }
+
+                        fun known(): Known =
+                            when (this) {
+                                FREE_TEXT -> Known.FREE_TEXT
+                                ORDER_NUMBER -> Known.ORDER_NUMBER
+                                RENTAL_AGREEMENT_NUMBER -> Known.RENTAL_AGREEMENT_NUMBER
+                                HOTEL_FOLIO_NUMBER -> Known.HOTEL_FOLIO_NUMBER
+                                INVOICE_NUMBER -> Known.INVOICE_NUMBER
+                                else ->
+                                    throw IncreaseInvalidDataException(
+                                        "Unknown PurchaseIdentifierFormat: $value"
+                                    )
+                            }
+
+                        fun asString(): String = _value().asStringOrThrow()
                     }
 
                     /** Fields specific to travel. */
@@ -11938,593 +11669,6 @@ private constructor(
                                     ancillary,
                                     additionalProperties.toUnmodifiable(),
                                 )
-                        }
-
-                        class RestrictedTicketIndicator
-                        @JsonCreator
-                        private constructor(
-                            private val value: JsonField<String>,
-                        ) {
-
-                            @com.fasterxml.jackson.annotation.JsonValue
-                            fun _value(): JsonField<String> = value
-
-                            override fun equals(other: Any?): Boolean {
-                                if (this === other) {
-                                    return true
-                                }
-
-                                return other is RestrictedTicketIndicator &&
-                                    this.value == other.value
-                            }
-
-                            override fun hashCode() = value.hashCode()
-
-                            override fun toString() = value.toString()
-
-                            companion object {
-
-                                @JvmField
-                                val NO_RESTRICTIONS =
-                                    RestrictedTicketIndicator(JsonField.of("no_restrictions"))
-
-                                @JvmField
-                                val RESTRICTED_NON_REFUNDABLE_TICKET =
-                                    RestrictedTicketIndicator(
-                                        JsonField.of("restricted_non_refundable_ticket")
-                                    )
-
-                                @JvmStatic
-                                fun of(value: String) =
-                                    RestrictedTicketIndicator(JsonField.of(value))
-                            }
-
-                            enum class Known {
-                                NO_RESTRICTIONS,
-                                RESTRICTED_NON_REFUNDABLE_TICKET,
-                            }
-
-                            enum class Value {
-                                NO_RESTRICTIONS,
-                                RESTRICTED_NON_REFUNDABLE_TICKET,
-                                _UNKNOWN,
-                            }
-
-                            fun value(): Value =
-                                when (this) {
-                                    NO_RESTRICTIONS -> Value.NO_RESTRICTIONS
-                                    RESTRICTED_NON_REFUNDABLE_TICKET ->
-                                        Value.RESTRICTED_NON_REFUNDABLE_TICKET
-                                    else -> Value._UNKNOWN
-                                }
-
-                            fun known(): Known =
-                                when (this) {
-                                    NO_RESTRICTIONS -> Known.NO_RESTRICTIONS
-                                    RESTRICTED_NON_REFUNDABLE_TICKET ->
-                                        Known.RESTRICTED_NON_REFUNDABLE_TICKET
-                                    else ->
-                                        throw IncreaseInvalidDataException(
-                                            "Unknown RestrictedTicketIndicator: $value"
-                                        )
-                                }
-
-                            fun asString(): String = _value().asStringOrThrow()
-                        }
-
-                        class CreditReasonIndicator
-                        @JsonCreator
-                        private constructor(
-                            private val value: JsonField<String>,
-                        ) {
-
-                            @com.fasterxml.jackson.annotation.JsonValue
-                            fun _value(): JsonField<String> = value
-
-                            override fun equals(other: Any?): Boolean {
-                                if (this === other) {
-                                    return true
-                                }
-
-                                return other is CreditReasonIndicator && this.value == other.value
-                            }
-
-                            override fun hashCode() = value.hashCode()
-
-                            override fun toString() = value.toString()
-
-                            companion object {
-
-                                @JvmField
-                                val NO_CREDIT = CreditReasonIndicator(JsonField.of("no_credit"))
-
-                                @JvmField
-                                val PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
-                                    CreditReasonIndicator(
-                                        JsonField.of(
-                                            "passenger_transport_ancillary_purchase_cancellation"
-                                        )
-                                    )
-
-                                @JvmField
-                                val AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
-                                    CreditReasonIndicator(
-                                        JsonField.of(
-                                            "airline_ticket_and_passenger_transport_ancillary_purchase_cancellation"
-                                        )
-                                    )
-
-                                @JvmField
-                                val AIRLINE_TICKET_CANCELLATION =
-                                    CreditReasonIndicator(
-                                        JsonField.of("airline_ticket_cancellation")
-                                    )
-
-                                @JvmField val OTHER = CreditReasonIndicator(JsonField.of("other"))
-
-                                @JvmField
-                                val PARTIAL_REFUND_OF_AIRLINE_TICKET =
-                                    CreditReasonIndicator(
-                                        JsonField.of("partial_refund_of_airline_ticket")
-                                    )
-
-                                @JvmStatic
-                                fun of(value: String) = CreditReasonIndicator(JsonField.of(value))
-                            }
-
-                            enum class Known {
-                                NO_CREDIT,
-                                PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
-                                AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
-                                AIRLINE_TICKET_CANCELLATION,
-                                OTHER,
-                                PARTIAL_REFUND_OF_AIRLINE_TICKET,
-                            }
-
-                            enum class Value {
-                                NO_CREDIT,
-                                PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
-                                AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
-                                AIRLINE_TICKET_CANCELLATION,
-                                OTHER,
-                                PARTIAL_REFUND_OF_AIRLINE_TICKET,
-                                _UNKNOWN,
-                            }
-
-                            fun value(): Value =
-                                when (this) {
-                                    NO_CREDIT -> Value.NO_CREDIT
-                                    PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
-                                        Value.PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
-                                    AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
-                                        Value
-                                            .AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
-                                    AIRLINE_TICKET_CANCELLATION -> Value.AIRLINE_TICKET_CANCELLATION
-                                    OTHER -> Value.OTHER
-                                    PARTIAL_REFUND_OF_AIRLINE_TICKET ->
-                                        Value.PARTIAL_REFUND_OF_AIRLINE_TICKET
-                                    else -> Value._UNKNOWN
-                                }
-
-                            fun known(): Known =
-                                when (this) {
-                                    NO_CREDIT -> Known.NO_CREDIT
-                                    PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
-                                        Known.PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
-                                    AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
-                                        Known
-                                            .AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
-                                    AIRLINE_TICKET_CANCELLATION -> Known.AIRLINE_TICKET_CANCELLATION
-                                    OTHER -> Known.OTHER
-                                    PARTIAL_REFUND_OF_AIRLINE_TICKET ->
-                                        Known.PARTIAL_REFUND_OF_AIRLINE_TICKET
-                                    else ->
-                                        throw IncreaseInvalidDataException(
-                                            "Unknown CreditReasonIndicator: $value"
-                                        )
-                                }
-
-                            fun asString(): String = _value().asStringOrThrow()
-                        }
-
-                        class TicketChangeIndicator
-                        @JsonCreator
-                        private constructor(
-                            private val value: JsonField<String>,
-                        ) {
-
-                            @com.fasterxml.jackson.annotation.JsonValue
-                            fun _value(): JsonField<String> = value
-
-                            override fun equals(other: Any?): Boolean {
-                                if (this === other) {
-                                    return true
-                                }
-
-                                return other is TicketChangeIndicator && this.value == other.value
-                            }
-
-                            override fun hashCode() = value.hashCode()
-
-                            override fun toString() = value.toString()
-
-                            companion object {
-
-                                @JvmField val NONE = TicketChangeIndicator(JsonField.of("none"))
-
-                                @JvmField
-                                val CHANGE_TO_EXISTING_TICKET =
-                                    TicketChangeIndicator(JsonField.of("change_to_existing_ticket"))
-
-                                @JvmField
-                                val NEW_TICKET = TicketChangeIndicator(JsonField.of("new_ticket"))
-
-                                @JvmStatic
-                                fun of(value: String) = TicketChangeIndicator(JsonField.of(value))
-                            }
-
-                            enum class Known {
-                                NONE,
-                                CHANGE_TO_EXISTING_TICKET,
-                                NEW_TICKET,
-                            }
-
-                            enum class Value {
-                                NONE,
-                                CHANGE_TO_EXISTING_TICKET,
-                                NEW_TICKET,
-                                _UNKNOWN,
-                            }
-
-                            fun value(): Value =
-                                when (this) {
-                                    NONE -> Value.NONE
-                                    CHANGE_TO_EXISTING_TICKET -> Value.CHANGE_TO_EXISTING_TICKET
-                                    NEW_TICKET -> Value.NEW_TICKET
-                                    else -> Value._UNKNOWN
-                                }
-
-                            fun known(): Known =
-                                when (this) {
-                                    NONE -> Known.NONE
-                                    CHANGE_TO_EXISTING_TICKET -> Known.CHANGE_TO_EXISTING_TICKET
-                                    NEW_TICKET -> Known.NEW_TICKET
-                                    else ->
-                                        throw IncreaseInvalidDataException(
-                                            "Unknown TicketChangeIndicator: $value"
-                                        )
-                                }
-
-                            fun asString(): String = _value().asStringOrThrow()
-                        }
-
-                        @JsonDeserialize(builder = TripLeg.Builder::class)
-                        @NoAutoDetect
-                        class TripLeg
-                        private constructor(
-                            private val flightNumber: JsonField<String>,
-                            private val carrierCode: JsonField<String>,
-                            private val fareBasisCode: JsonField<String>,
-                            private val serviceClass: JsonField<String>,
-                            private val stopOverCode: JsonField<StopOverCode>,
-                            private val destinationCityAirportCode: JsonField<String>,
-                            private val additionalProperties: Map<String, JsonValue>,
-                        ) {
-
-                            private var validated: Boolean = false
-
-                            private var hashCode: Int = 0
-
-                            /** Flight number. */
-                            fun flightNumber(): Optional<String> =
-                                Optional.ofNullable(flightNumber.getNullable("flight_number"))
-
-                            /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
-                            fun carrierCode(): Optional<String> =
-                                Optional.ofNullable(carrierCode.getNullable("carrier_code"))
-
-                            /** Fare basis code. */
-                            fun fareBasisCode(): Optional<String> =
-                                Optional.ofNullable(fareBasisCode.getNullable("fare_basis_code"))
-
-                            /** Service class (e.g., first class, business class, etc.). */
-                            fun serviceClass(): Optional<String> =
-                                Optional.ofNullable(serviceClass.getNullable("service_class"))
-
-                            /** Indicates whether a stopover is allowed on this ticket. */
-                            fun stopOverCode(): Optional<StopOverCode> =
-                                Optional.ofNullable(stopOverCode.getNullable("stop_over_code"))
-
-                            /** Code for the destination city or airport. */
-                            fun destinationCityAirportCode(): Optional<String> =
-                                Optional.ofNullable(
-                                    destinationCityAirportCode.getNullable(
-                                        "destination_city_airport_code"
-                                    )
-                                )
-
-                            /** Flight number. */
-                            @JsonProperty("flight_number")
-                            @ExcludeMissing
-                            fun _flightNumber() = flightNumber
-
-                            /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
-                            @JsonProperty("carrier_code")
-                            @ExcludeMissing
-                            fun _carrierCode() = carrierCode
-
-                            /** Fare basis code. */
-                            @JsonProperty("fare_basis_code")
-                            @ExcludeMissing
-                            fun _fareBasisCode() = fareBasisCode
-
-                            /** Service class (e.g., first class, business class, etc.). */
-                            @JsonProperty("service_class")
-                            @ExcludeMissing
-                            fun _serviceClass() = serviceClass
-
-                            /** Indicates whether a stopover is allowed on this ticket. */
-                            @JsonProperty("stop_over_code")
-                            @ExcludeMissing
-                            fun _stopOverCode() = stopOverCode
-
-                            /** Code for the destination city or airport. */
-                            @JsonProperty("destination_city_airport_code")
-                            @ExcludeMissing
-                            fun _destinationCityAirportCode() = destinationCityAirportCode
-
-                            @JsonAnyGetter
-                            @ExcludeMissing
-                            fun _additionalProperties(): Map<String, JsonValue> =
-                                additionalProperties
-
-                            fun validate(): TripLeg = apply {
-                                if (!validated) {
-                                    flightNumber()
-                                    carrierCode()
-                                    fareBasisCode()
-                                    serviceClass()
-                                    stopOverCode()
-                                    destinationCityAirportCode()
-                                    validated = true
-                                }
-                            }
-
-                            fun toBuilder() = Builder().from(this)
-
-                            override fun equals(other: Any?): Boolean {
-                                if (this === other) {
-                                    return true
-                                }
-
-                                return other is TripLeg &&
-                                    this.flightNumber == other.flightNumber &&
-                                    this.carrierCode == other.carrierCode &&
-                                    this.fareBasisCode == other.fareBasisCode &&
-                                    this.serviceClass == other.serviceClass &&
-                                    this.stopOverCode == other.stopOverCode &&
-                                    this.destinationCityAirportCode ==
-                                        other.destinationCityAirportCode &&
-                                    this.additionalProperties == other.additionalProperties
-                            }
-
-                            override fun hashCode(): Int {
-                                if (hashCode == 0) {
-                                    hashCode =
-                                        Objects.hash(
-                                            flightNumber,
-                                            carrierCode,
-                                            fareBasisCode,
-                                            serviceClass,
-                                            stopOverCode,
-                                            destinationCityAirportCode,
-                                            additionalProperties,
-                                        )
-                                }
-                                return hashCode
-                            }
-
-                            override fun toString() =
-                                "TripLeg{flightNumber=$flightNumber, carrierCode=$carrierCode, fareBasisCode=$fareBasisCode, serviceClass=$serviceClass, stopOverCode=$stopOverCode, destinationCityAirportCode=$destinationCityAirportCode, additionalProperties=$additionalProperties}"
-
-                            companion object {
-
-                                @JvmStatic fun builder() = Builder()
-                            }
-
-                            class Builder {
-
-                                private var flightNumber: JsonField<String> = JsonMissing.of()
-                                private var carrierCode: JsonField<String> = JsonMissing.of()
-                                private var fareBasisCode: JsonField<String> = JsonMissing.of()
-                                private var serviceClass: JsonField<String> = JsonMissing.of()
-                                private var stopOverCode: JsonField<StopOverCode> = JsonMissing.of()
-                                private var destinationCityAirportCode: JsonField<String> =
-                                    JsonMissing.of()
-                                private var additionalProperties: MutableMap<String, JsonValue> =
-                                    mutableMapOf()
-
-                                @JvmSynthetic
-                                internal fun from(tripLeg: TripLeg) = apply {
-                                    this.flightNumber = tripLeg.flightNumber
-                                    this.carrierCode = tripLeg.carrierCode
-                                    this.fareBasisCode = tripLeg.fareBasisCode
-                                    this.serviceClass = tripLeg.serviceClass
-                                    this.stopOverCode = tripLeg.stopOverCode
-                                    this.destinationCityAirportCode =
-                                        tripLeg.destinationCityAirportCode
-                                    additionalProperties(tripLeg.additionalProperties)
-                                }
-
-                                /** Flight number. */
-                                fun flightNumber(flightNumber: String) =
-                                    flightNumber(JsonField.of(flightNumber))
-
-                                /** Flight number. */
-                                @JsonProperty("flight_number")
-                                @ExcludeMissing
-                                fun flightNumber(flightNumber: JsonField<String>) = apply {
-                                    this.flightNumber = flightNumber
-                                }
-
-                                /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
-                                fun carrierCode(carrierCode: String) =
-                                    carrierCode(JsonField.of(carrierCode))
-
-                                /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
-                                @JsonProperty("carrier_code")
-                                @ExcludeMissing
-                                fun carrierCode(carrierCode: JsonField<String>) = apply {
-                                    this.carrierCode = carrierCode
-                                }
-
-                                /** Fare basis code. */
-                                fun fareBasisCode(fareBasisCode: String) =
-                                    fareBasisCode(JsonField.of(fareBasisCode))
-
-                                /** Fare basis code. */
-                                @JsonProperty("fare_basis_code")
-                                @ExcludeMissing
-                                fun fareBasisCode(fareBasisCode: JsonField<String>) = apply {
-                                    this.fareBasisCode = fareBasisCode
-                                }
-
-                                /** Service class (e.g., first class, business class, etc.). */
-                                fun serviceClass(serviceClass: String) =
-                                    serviceClass(JsonField.of(serviceClass))
-
-                                /** Service class (e.g., first class, business class, etc.). */
-                                @JsonProperty("service_class")
-                                @ExcludeMissing
-                                fun serviceClass(serviceClass: JsonField<String>) = apply {
-                                    this.serviceClass = serviceClass
-                                }
-
-                                /** Indicates whether a stopover is allowed on this ticket. */
-                                fun stopOverCode(stopOverCode: StopOverCode) =
-                                    stopOverCode(JsonField.of(stopOverCode))
-
-                                /** Indicates whether a stopover is allowed on this ticket. */
-                                @JsonProperty("stop_over_code")
-                                @ExcludeMissing
-                                fun stopOverCode(stopOverCode: JsonField<StopOverCode>) = apply {
-                                    this.stopOverCode = stopOverCode
-                                }
-
-                                /** Code for the destination city or airport. */
-                                fun destinationCityAirportCode(destinationCityAirportCode: String) =
-                                    destinationCityAirportCode(
-                                        JsonField.of(destinationCityAirportCode)
-                                    )
-
-                                /** Code for the destination city or airport. */
-                                @JsonProperty("destination_city_airport_code")
-                                @ExcludeMissing
-                                fun destinationCityAirportCode(
-                                    destinationCityAirportCode: JsonField<String>
-                                ) = apply {
-                                    this.destinationCityAirportCode = destinationCityAirportCode
-                                }
-
-                                fun additionalProperties(
-                                    additionalProperties: Map<String, JsonValue>
-                                ) = apply {
-                                    this.additionalProperties.clear()
-                                    this.additionalProperties.putAll(additionalProperties)
-                                }
-
-                                @JsonAnySetter
-                                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                                    this.additionalProperties.put(key, value)
-                                }
-
-                                fun putAllAdditionalProperties(
-                                    additionalProperties: Map<String, JsonValue>
-                                ) = apply { this.additionalProperties.putAll(additionalProperties) }
-
-                                fun build(): TripLeg =
-                                    TripLeg(
-                                        flightNumber,
-                                        carrierCode,
-                                        fareBasisCode,
-                                        serviceClass,
-                                        stopOverCode,
-                                        destinationCityAirportCode,
-                                        additionalProperties.toUnmodifiable(),
-                                    )
-                            }
-
-                            class StopOverCode
-                            @JsonCreator
-                            private constructor(
-                                private val value: JsonField<String>,
-                            ) {
-
-                                @com.fasterxml.jackson.annotation.JsonValue
-                                fun _value(): JsonField<String> = value
-
-                                override fun equals(other: Any?): Boolean {
-                                    if (this === other) {
-                                        return true
-                                    }
-
-                                    return other is StopOverCode && this.value == other.value
-                                }
-
-                                override fun hashCode() = value.hashCode()
-
-                                override fun toString() = value.toString()
-
-                                companion object {
-
-                                    @JvmField val NONE = StopOverCode(JsonField.of("none"))
-
-                                    @JvmField
-                                    val STOP_OVER_ALLOWED =
-                                        StopOverCode(JsonField.of("stop_over_allowed"))
-
-                                    @JvmField
-                                    val STOP_OVER_NOT_ALLOWED =
-                                        StopOverCode(JsonField.of("stop_over_not_allowed"))
-
-                                    @JvmStatic
-                                    fun of(value: String) = StopOverCode(JsonField.of(value))
-                                }
-
-                                enum class Known {
-                                    NONE,
-                                    STOP_OVER_ALLOWED,
-                                    STOP_OVER_NOT_ALLOWED,
-                                }
-
-                                enum class Value {
-                                    NONE,
-                                    STOP_OVER_ALLOWED,
-                                    STOP_OVER_NOT_ALLOWED,
-                                    _UNKNOWN,
-                                }
-
-                                fun value(): Value =
-                                    when (this) {
-                                        NONE -> Value.NONE
-                                        STOP_OVER_ALLOWED -> Value.STOP_OVER_ALLOWED
-                                        STOP_OVER_NOT_ALLOWED -> Value.STOP_OVER_NOT_ALLOWED
-                                        else -> Value._UNKNOWN
-                                    }
-
-                                fun known(): Known =
-                                    when (this) {
-                                        NONE -> Known.NONE
-                                        STOP_OVER_ALLOWED -> Known.STOP_OVER_ALLOWED
-                                        STOP_OVER_NOT_ALLOWED -> Known.STOP_OVER_NOT_ALLOWED
-                                        else ->
-                                            throw IncreaseInvalidDataException(
-                                                "Unknown StopOverCode: $value"
-                                            )
-                                    }
-
-                                fun asString(): String = _value().asStringOrThrow()
-                            }
                         }
 
                         /** Ancillary purchases in addition to the airfare. */
@@ -13254,6 +12398,593 @@ private constructor(
                                 }
                             }
                         }
+
+                        class CreditReasonIndicator
+                        @JsonCreator
+                        private constructor(
+                            private val value: JsonField<String>,
+                        ) {
+
+                            @com.fasterxml.jackson.annotation.JsonValue
+                            fun _value(): JsonField<String> = value
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is CreditReasonIndicator && this.value == other.value
+                            }
+
+                            override fun hashCode() = value.hashCode()
+
+                            override fun toString() = value.toString()
+
+                            companion object {
+
+                                @JvmField
+                                val NO_CREDIT = CreditReasonIndicator(JsonField.of("no_credit"))
+
+                                @JvmField
+                                val PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
+                                    CreditReasonIndicator(
+                                        JsonField.of(
+                                            "passenger_transport_ancillary_purchase_cancellation"
+                                        )
+                                    )
+
+                                @JvmField
+                                val AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
+                                    CreditReasonIndicator(
+                                        JsonField.of(
+                                            "airline_ticket_and_passenger_transport_ancillary_purchase_cancellation"
+                                        )
+                                    )
+
+                                @JvmField
+                                val AIRLINE_TICKET_CANCELLATION =
+                                    CreditReasonIndicator(
+                                        JsonField.of("airline_ticket_cancellation")
+                                    )
+
+                                @JvmField val OTHER = CreditReasonIndicator(JsonField.of("other"))
+
+                                @JvmField
+                                val PARTIAL_REFUND_OF_AIRLINE_TICKET =
+                                    CreditReasonIndicator(
+                                        JsonField.of("partial_refund_of_airline_ticket")
+                                    )
+
+                                @JvmStatic
+                                fun of(value: String) = CreditReasonIndicator(JsonField.of(value))
+                            }
+
+                            enum class Known {
+                                NO_CREDIT,
+                                PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                AIRLINE_TICKET_CANCELLATION,
+                                OTHER,
+                                PARTIAL_REFUND_OF_AIRLINE_TICKET,
+                            }
+
+                            enum class Value {
+                                NO_CREDIT,
+                                PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                AIRLINE_TICKET_CANCELLATION,
+                                OTHER,
+                                PARTIAL_REFUND_OF_AIRLINE_TICKET,
+                                _UNKNOWN,
+                            }
+
+                            fun value(): Value =
+                                when (this) {
+                                    NO_CREDIT -> Value.NO_CREDIT
+                                    PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
+                                        Value.PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
+                                    AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
+                                        Value
+                                            .AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
+                                    AIRLINE_TICKET_CANCELLATION -> Value.AIRLINE_TICKET_CANCELLATION
+                                    OTHER -> Value.OTHER
+                                    PARTIAL_REFUND_OF_AIRLINE_TICKET ->
+                                        Value.PARTIAL_REFUND_OF_AIRLINE_TICKET
+                                    else -> Value._UNKNOWN
+                                }
+
+                            fun known(): Known =
+                                when (this) {
+                                    NO_CREDIT -> Known.NO_CREDIT
+                                    PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
+                                        Known.PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
+                                    AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION ->
+                                        Known
+                                            .AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION
+                                    AIRLINE_TICKET_CANCELLATION -> Known.AIRLINE_TICKET_CANCELLATION
+                                    OTHER -> Known.OTHER
+                                    PARTIAL_REFUND_OF_AIRLINE_TICKET ->
+                                        Known.PARTIAL_REFUND_OF_AIRLINE_TICKET
+                                    else ->
+                                        throw IncreaseInvalidDataException(
+                                            "Unknown CreditReasonIndicator: $value"
+                                        )
+                                }
+
+                            fun asString(): String = _value().asStringOrThrow()
+                        }
+
+                        class RestrictedTicketIndicator
+                        @JsonCreator
+                        private constructor(
+                            private val value: JsonField<String>,
+                        ) {
+
+                            @com.fasterxml.jackson.annotation.JsonValue
+                            fun _value(): JsonField<String> = value
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is RestrictedTicketIndicator &&
+                                    this.value == other.value
+                            }
+
+                            override fun hashCode() = value.hashCode()
+
+                            override fun toString() = value.toString()
+
+                            companion object {
+
+                                @JvmField
+                                val NO_RESTRICTIONS =
+                                    RestrictedTicketIndicator(JsonField.of("no_restrictions"))
+
+                                @JvmField
+                                val RESTRICTED_NON_REFUNDABLE_TICKET =
+                                    RestrictedTicketIndicator(
+                                        JsonField.of("restricted_non_refundable_ticket")
+                                    )
+
+                                @JvmStatic
+                                fun of(value: String) =
+                                    RestrictedTicketIndicator(JsonField.of(value))
+                            }
+
+                            enum class Known {
+                                NO_RESTRICTIONS,
+                                RESTRICTED_NON_REFUNDABLE_TICKET,
+                            }
+
+                            enum class Value {
+                                NO_RESTRICTIONS,
+                                RESTRICTED_NON_REFUNDABLE_TICKET,
+                                _UNKNOWN,
+                            }
+
+                            fun value(): Value =
+                                when (this) {
+                                    NO_RESTRICTIONS -> Value.NO_RESTRICTIONS
+                                    RESTRICTED_NON_REFUNDABLE_TICKET ->
+                                        Value.RESTRICTED_NON_REFUNDABLE_TICKET
+                                    else -> Value._UNKNOWN
+                                }
+
+                            fun known(): Known =
+                                when (this) {
+                                    NO_RESTRICTIONS -> Known.NO_RESTRICTIONS
+                                    RESTRICTED_NON_REFUNDABLE_TICKET ->
+                                        Known.RESTRICTED_NON_REFUNDABLE_TICKET
+                                    else ->
+                                        throw IncreaseInvalidDataException(
+                                            "Unknown RestrictedTicketIndicator: $value"
+                                        )
+                                }
+
+                            fun asString(): String = _value().asStringOrThrow()
+                        }
+
+                        class TicketChangeIndicator
+                        @JsonCreator
+                        private constructor(
+                            private val value: JsonField<String>,
+                        ) {
+
+                            @com.fasterxml.jackson.annotation.JsonValue
+                            fun _value(): JsonField<String> = value
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is TicketChangeIndicator && this.value == other.value
+                            }
+
+                            override fun hashCode() = value.hashCode()
+
+                            override fun toString() = value.toString()
+
+                            companion object {
+
+                                @JvmField val NONE = TicketChangeIndicator(JsonField.of("none"))
+
+                                @JvmField
+                                val CHANGE_TO_EXISTING_TICKET =
+                                    TicketChangeIndicator(JsonField.of("change_to_existing_ticket"))
+
+                                @JvmField
+                                val NEW_TICKET = TicketChangeIndicator(JsonField.of("new_ticket"))
+
+                                @JvmStatic
+                                fun of(value: String) = TicketChangeIndicator(JsonField.of(value))
+                            }
+
+                            enum class Known {
+                                NONE,
+                                CHANGE_TO_EXISTING_TICKET,
+                                NEW_TICKET,
+                            }
+
+                            enum class Value {
+                                NONE,
+                                CHANGE_TO_EXISTING_TICKET,
+                                NEW_TICKET,
+                                _UNKNOWN,
+                            }
+
+                            fun value(): Value =
+                                when (this) {
+                                    NONE -> Value.NONE
+                                    CHANGE_TO_EXISTING_TICKET -> Value.CHANGE_TO_EXISTING_TICKET
+                                    NEW_TICKET -> Value.NEW_TICKET
+                                    else -> Value._UNKNOWN
+                                }
+
+                            fun known(): Known =
+                                when (this) {
+                                    NONE -> Known.NONE
+                                    CHANGE_TO_EXISTING_TICKET -> Known.CHANGE_TO_EXISTING_TICKET
+                                    NEW_TICKET -> Known.NEW_TICKET
+                                    else ->
+                                        throw IncreaseInvalidDataException(
+                                            "Unknown TicketChangeIndicator: $value"
+                                        )
+                                }
+
+                            fun asString(): String = _value().asStringOrThrow()
+                        }
+
+                        @JsonDeserialize(builder = TripLeg.Builder::class)
+                        @NoAutoDetect
+                        class TripLeg
+                        private constructor(
+                            private val flightNumber: JsonField<String>,
+                            private val carrierCode: JsonField<String>,
+                            private val fareBasisCode: JsonField<String>,
+                            private val serviceClass: JsonField<String>,
+                            private val stopOverCode: JsonField<StopOverCode>,
+                            private val destinationCityAirportCode: JsonField<String>,
+                            private val additionalProperties: Map<String, JsonValue>,
+                        ) {
+
+                            private var validated: Boolean = false
+
+                            private var hashCode: Int = 0
+
+                            /** Flight number. */
+                            fun flightNumber(): Optional<String> =
+                                Optional.ofNullable(flightNumber.getNullable("flight_number"))
+
+                            /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
+                            fun carrierCode(): Optional<String> =
+                                Optional.ofNullable(carrierCode.getNullable("carrier_code"))
+
+                            /** Fare basis code. */
+                            fun fareBasisCode(): Optional<String> =
+                                Optional.ofNullable(fareBasisCode.getNullable("fare_basis_code"))
+
+                            /** Service class (e.g., first class, business class, etc.). */
+                            fun serviceClass(): Optional<String> =
+                                Optional.ofNullable(serviceClass.getNullable("service_class"))
+
+                            /** Indicates whether a stopover is allowed on this ticket. */
+                            fun stopOverCode(): Optional<StopOverCode> =
+                                Optional.ofNullable(stopOverCode.getNullable("stop_over_code"))
+
+                            /** Code for the destination city or airport. */
+                            fun destinationCityAirportCode(): Optional<String> =
+                                Optional.ofNullable(
+                                    destinationCityAirportCode.getNullable(
+                                        "destination_city_airport_code"
+                                    )
+                                )
+
+                            /** Flight number. */
+                            @JsonProperty("flight_number")
+                            @ExcludeMissing
+                            fun _flightNumber() = flightNumber
+
+                            /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
+                            @JsonProperty("carrier_code")
+                            @ExcludeMissing
+                            fun _carrierCode() = carrierCode
+
+                            /** Fare basis code. */
+                            @JsonProperty("fare_basis_code")
+                            @ExcludeMissing
+                            fun _fareBasisCode() = fareBasisCode
+
+                            /** Service class (e.g., first class, business class, etc.). */
+                            @JsonProperty("service_class")
+                            @ExcludeMissing
+                            fun _serviceClass() = serviceClass
+
+                            /** Indicates whether a stopover is allowed on this ticket. */
+                            @JsonProperty("stop_over_code")
+                            @ExcludeMissing
+                            fun _stopOverCode() = stopOverCode
+
+                            /** Code for the destination city or airport. */
+                            @JsonProperty("destination_city_airport_code")
+                            @ExcludeMissing
+                            fun _destinationCityAirportCode() = destinationCityAirportCode
+
+                            @JsonAnyGetter
+                            @ExcludeMissing
+                            fun _additionalProperties(): Map<String, JsonValue> =
+                                additionalProperties
+
+                            fun validate(): TripLeg = apply {
+                                if (!validated) {
+                                    flightNumber()
+                                    carrierCode()
+                                    fareBasisCode()
+                                    serviceClass()
+                                    stopOverCode()
+                                    destinationCityAirportCode()
+                                    validated = true
+                                }
+                            }
+
+                            fun toBuilder() = Builder().from(this)
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is TripLeg &&
+                                    this.flightNumber == other.flightNumber &&
+                                    this.carrierCode == other.carrierCode &&
+                                    this.fareBasisCode == other.fareBasisCode &&
+                                    this.serviceClass == other.serviceClass &&
+                                    this.stopOverCode == other.stopOverCode &&
+                                    this.destinationCityAirportCode ==
+                                        other.destinationCityAirportCode &&
+                                    this.additionalProperties == other.additionalProperties
+                            }
+
+                            override fun hashCode(): Int {
+                                if (hashCode == 0) {
+                                    hashCode =
+                                        Objects.hash(
+                                            flightNumber,
+                                            carrierCode,
+                                            fareBasisCode,
+                                            serviceClass,
+                                            stopOverCode,
+                                            destinationCityAirportCode,
+                                            additionalProperties,
+                                        )
+                                }
+                                return hashCode
+                            }
+
+                            override fun toString() =
+                                "TripLeg{flightNumber=$flightNumber, carrierCode=$carrierCode, fareBasisCode=$fareBasisCode, serviceClass=$serviceClass, stopOverCode=$stopOverCode, destinationCityAirportCode=$destinationCityAirportCode, additionalProperties=$additionalProperties}"
+
+                            companion object {
+
+                                @JvmStatic fun builder() = Builder()
+                            }
+
+                            class Builder {
+
+                                private var flightNumber: JsonField<String> = JsonMissing.of()
+                                private var carrierCode: JsonField<String> = JsonMissing.of()
+                                private var fareBasisCode: JsonField<String> = JsonMissing.of()
+                                private var serviceClass: JsonField<String> = JsonMissing.of()
+                                private var stopOverCode: JsonField<StopOverCode> = JsonMissing.of()
+                                private var destinationCityAirportCode: JsonField<String> =
+                                    JsonMissing.of()
+                                private var additionalProperties: MutableMap<String, JsonValue> =
+                                    mutableMapOf()
+
+                                @JvmSynthetic
+                                internal fun from(tripLeg: TripLeg) = apply {
+                                    this.flightNumber = tripLeg.flightNumber
+                                    this.carrierCode = tripLeg.carrierCode
+                                    this.fareBasisCode = tripLeg.fareBasisCode
+                                    this.serviceClass = tripLeg.serviceClass
+                                    this.stopOverCode = tripLeg.stopOverCode
+                                    this.destinationCityAirportCode =
+                                        tripLeg.destinationCityAirportCode
+                                    additionalProperties(tripLeg.additionalProperties)
+                                }
+
+                                /** Flight number. */
+                                fun flightNumber(flightNumber: String) =
+                                    flightNumber(JsonField.of(flightNumber))
+
+                                /** Flight number. */
+                                @JsonProperty("flight_number")
+                                @ExcludeMissing
+                                fun flightNumber(flightNumber: JsonField<String>) = apply {
+                                    this.flightNumber = flightNumber
+                                }
+
+                                /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
+                                fun carrierCode(carrierCode: String) =
+                                    carrierCode(JsonField.of(carrierCode))
+
+                                /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
+                                @JsonProperty("carrier_code")
+                                @ExcludeMissing
+                                fun carrierCode(carrierCode: JsonField<String>) = apply {
+                                    this.carrierCode = carrierCode
+                                }
+
+                                /** Fare basis code. */
+                                fun fareBasisCode(fareBasisCode: String) =
+                                    fareBasisCode(JsonField.of(fareBasisCode))
+
+                                /** Fare basis code. */
+                                @JsonProperty("fare_basis_code")
+                                @ExcludeMissing
+                                fun fareBasisCode(fareBasisCode: JsonField<String>) = apply {
+                                    this.fareBasisCode = fareBasisCode
+                                }
+
+                                /** Service class (e.g., first class, business class, etc.). */
+                                fun serviceClass(serviceClass: String) =
+                                    serviceClass(JsonField.of(serviceClass))
+
+                                /** Service class (e.g., first class, business class, etc.). */
+                                @JsonProperty("service_class")
+                                @ExcludeMissing
+                                fun serviceClass(serviceClass: JsonField<String>) = apply {
+                                    this.serviceClass = serviceClass
+                                }
+
+                                /** Indicates whether a stopover is allowed on this ticket. */
+                                fun stopOverCode(stopOverCode: StopOverCode) =
+                                    stopOverCode(JsonField.of(stopOverCode))
+
+                                /** Indicates whether a stopover is allowed on this ticket. */
+                                @JsonProperty("stop_over_code")
+                                @ExcludeMissing
+                                fun stopOverCode(stopOverCode: JsonField<StopOverCode>) = apply {
+                                    this.stopOverCode = stopOverCode
+                                }
+
+                                /** Code for the destination city or airport. */
+                                fun destinationCityAirportCode(destinationCityAirportCode: String) =
+                                    destinationCityAirportCode(
+                                        JsonField.of(destinationCityAirportCode)
+                                    )
+
+                                /** Code for the destination city or airport. */
+                                @JsonProperty("destination_city_airport_code")
+                                @ExcludeMissing
+                                fun destinationCityAirportCode(
+                                    destinationCityAirportCode: JsonField<String>
+                                ) = apply {
+                                    this.destinationCityAirportCode = destinationCityAirportCode
+                                }
+
+                                fun additionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply {
+                                    this.additionalProperties.clear()
+                                    this.additionalProperties.putAll(additionalProperties)
+                                }
+
+                                @JsonAnySetter
+                                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                                    this.additionalProperties.put(key, value)
+                                }
+
+                                fun putAllAdditionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                                fun build(): TripLeg =
+                                    TripLeg(
+                                        flightNumber,
+                                        carrierCode,
+                                        fareBasisCode,
+                                        serviceClass,
+                                        stopOverCode,
+                                        destinationCityAirportCode,
+                                        additionalProperties.toUnmodifiable(),
+                                    )
+                            }
+
+                            class StopOverCode
+                            @JsonCreator
+                            private constructor(
+                                private val value: JsonField<String>,
+                            ) {
+
+                                @com.fasterxml.jackson.annotation.JsonValue
+                                fun _value(): JsonField<String> = value
+
+                                override fun equals(other: Any?): Boolean {
+                                    if (this === other) {
+                                        return true
+                                    }
+
+                                    return other is StopOverCode && this.value == other.value
+                                }
+
+                                override fun hashCode() = value.hashCode()
+
+                                override fun toString() = value.toString()
+
+                                companion object {
+
+                                    @JvmField val NONE = StopOverCode(JsonField.of("none"))
+
+                                    @JvmField
+                                    val STOP_OVER_ALLOWED =
+                                        StopOverCode(JsonField.of("stop_over_allowed"))
+
+                                    @JvmField
+                                    val STOP_OVER_NOT_ALLOWED =
+                                        StopOverCode(JsonField.of("stop_over_not_allowed"))
+
+                                    @JvmStatic
+                                    fun of(value: String) = StopOverCode(JsonField.of(value))
+                                }
+
+                                enum class Known {
+                                    NONE,
+                                    STOP_OVER_ALLOWED,
+                                    STOP_OVER_NOT_ALLOWED,
+                                }
+
+                                enum class Value {
+                                    NONE,
+                                    STOP_OVER_ALLOWED,
+                                    STOP_OVER_NOT_ALLOWED,
+                                    _UNKNOWN,
+                                }
+
+                                fun value(): Value =
+                                    when (this) {
+                                        NONE -> Value.NONE
+                                        STOP_OVER_ALLOWED -> Value.STOP_OVER_ALLOWED
+                                        STOP_OVER_NOT_ALLOWED -> Value.STOP_OVER_NOT_ALLOWED
+                                        else -> Value._UNKNOWN
+                                    }
+
+                                fun known(): Known =
+                                    when (this) {
+                                        NONE -> Known.NONE
+                                        STOP_OVER_ALLOWED -> Known.STOP_OVER_ALLOWED
+                                        STOP_OVER_NOT_ALLOWED -> Known.STOP_OVER_NOT_ALLOWED
+                                        else ->
+                                            throw IncreaseInvalidDataException(
+                                                "Unknown StopOverCode: $value"
+                                            )
+                                    }
+
+                                fun asString(): String = _value().asStringOrThrow()
+                            }
+                        }
                     }
                 }
 
@@ -13308,6 +13039,275 @@ private constructor(
 
                     fun asString(): String = _value().asStringOrThrow()
                 }
+            }
+
+            class Category
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) {
+
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Category && this.value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+
+                companion object {
+
+                    @JvmField
+                    val ACCOUNT_TRANSFER_INTENTION =
+                        Category(JsonField.of("account_transfer_intention"))
+
+                    @JvmField
+                    val ACH_TRANSFER_INTENTION = Category(JsonField.of("ach_transfer_intention"))
+
+                    @JvmField
+                    val ACH_TRANSFER_REJECTION = Category(JsonField.of("ach_transfer_rejection"))
+
+                    @JvmField
+                    val ACH_TRANSFER_RETURN = Category(JsonField.of("ach_transfer_return"))
+
+                    @JvmField
+                    val CARD_DISPUTE_ACCEPTANCE = Category(JsonField.of("card_dispute_acceptance"))
+
+                    @JvmField val CARD_REFUND = Category(JsonField.of("card_refund"))
+
+                    @JvmField
+                    val CARD_REVENUE_PAYMENT = Category(JsonField.of("card_revenue_payment"))
+
+                    @JvmField val CARD_SETTLEMENT = Category(JsonField.of("card_settlement"))
+
+                    @JvmField
+                    val CHECK_DEPOSIT_ACCEPTANCE =
+                        Category(JsonField.of("check_deposit_acceptance"))
+
+                    @JvmField
+                    val CHECK_DEPOSIT_RETURN = Category(JsonField.of("check_deposit_return"))
+
+                    @JvmField
+                    val CHECK_TRANSFER_DEPOSIT = Category(JsonField.of("check_transfer_deposit"))
+
+                    @JvmField
+                    val CHECK_TRANSFER_INTENTION =
+                        Category(JsonField.of("check_transfer_intention"))
+
+                    @JvmField
+                    val CHECK_TRANSFER_STOP_PAYMENT_REQUEST =
+                        Category(JsonField.of("check_transfer_stop_payment_request"))
+
+                    @JvmField val FEE_PAYMENT = Category(JsonField.of("fee_payment"))
+
+                    @JvmField
+                    val INBOUND_ACH_TRANSFER = Category(JsonField.of("inbound_ach_transfer"))
+
+                    @JvmField
+                    val INBOUND_ACH_TRANSFER_RETURN_INTENTION =
+                        Category(JsonField.of("inbound_ach_transfer_return_intention"))
+
+                    @JvmField val INBOUND_CHECK = Category(JsonField.of("inbound_check"))
+
+                    @JvmField
+                    val INBOUND_INTERNATIONAL_ACH_TRANSFER =
+                        Category(JsonField.of("inbound_international_ach_transfer"))
+
+                    @JvmField
+                    val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION =
+                        Category(JsonField.of("inbound_real_time_payments_transfer_confirmation"))
+
+                    @JvmField
+                    val INBOUND_WIRE_DRAWDOWN_PAYMENT =
+                        Category(JsonField.of("inbound_wire_drawdown_payment"))
+
+                    @JvmField
+                    val INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL =
+                        Category(JsonField.of("inbound_wire_drawdown_payment_reversal"))
+
+                    @JvmField
+                    val INBOUND_WIRE_REVERSAL = Category(JsonField.of("inbound_wire_reversal"))
+
+                    @JvmField
+                    val INBOUND_WIRE_TRANSFER = Category(JsonField.of("inbound_wire_transfer"))
+
+                    @JvmField val INTEREST_PAYMENT = Category(JsonField.of("interest_payment"))
+
+                    @JvmField val INTERNAL_SOURCE = Category(JsonField.of("internal_source"))
+
+                    @JvmField
+                    val REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT =
+                        Category(JsonField.of("real_time_payments_transfer_acknowledgement"))
+
+                    @JvmField val SAMPLE_FUNDS = Category(JsonField.of("sample_funds"))
+
+                    @JvmField
+                    val WIRE_TRANSFER_INTENTION = Category(JsonField.of("wire_transfer_intention"))
+
+                    @JvmField
+                    val WIRE_TRANSFER_REJECTION = Category(JsonField.of("wire_transfer_rejection"))
+
+                    @JvmField val OTHER = Category(JsonField.of("other"))
+
+                    @JvmStatic fun of(value: String) = Category(JsonField.of(value))
+                }
+
+                enum class Known {
+                    ACCOUNT_TRANSFER_INTENTION,
+                    ACH_TRANSFER_INTENTION,
+                    ACH_TRANSFER_REJECTION,
+                    ACH_TRANSFER_RETURN,
+                    CARD_DISPUTE_ACCEPTANCE,
+                    CARD_REFUND,
+                    CARD_REVENUE_PAYMENT,
+                    CARD_SETTLEMENT,
+                    CHECK_DEPOSIT_ACCEPTANCE,
+                    CHECK_DEPOSIT_RETURN,
+                    CHECK_TRANSFER_DEPOSIT,
+                    CHECK_TRANSFER_INTENTION,
+                    CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
+                    FEE_PAYMENT,
+                    INBOUND_ACH_TRANSFER,
+                    INBOUND_ACH_TRANSFER_RETURN_INTENTION,
+                    INBOUND_CHECK,
+                    INBOUND_INTERNATIONAL_ACH_TRANSFER,
+                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
+                    INBOUND_WIRE_DRAWDOWN_PAYMENT,
+                    INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL,
+                    INBOUND_WIRE_REVERSAL,
+                    INBOUND_WIRE_TRANSFER,
+                    INTEREST_PAYMENT,
+                    INTERNAL_SOURCE,
+                    REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT,
+                    SAMPLE_FUNDS,
+                    WIRE_TRANSFER_INTENTION,
+                    WIRE_TRANSFER_REJECTION,
+                    OTHER,
+                }
+
+                enum class Value {
+                    ACCOUNT_TRANSFER_INTENTION,
+                    ACH_TRANSFER_INTENTION,
+                    ACH_TRANSFER_REJECTION,
+                    ACH_TRANSFER_RETURN,
+                    CARD_DISPUTE_ACCEPTANCE,
+                    CARD_REFUND,
+                    CARD_REVENUE_PAYMENT,
+                    CARD_SETTLEMENT,
+                    CHECK_DEPOSIT_ACCEPTANCE,
+                    CHECK_DEPOSIT_RETURN,
+                    CHECK_TRANSFER_DEPOSIT,
+                    CHECK_TRANSFER_INTENTION,
+                    CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
+                    FEE_PAYMENT,
+                    INBOUND_ACH_TRANSFER,
+                    INBOUND_ACH_TRANSFER_RETURN_INTENTION,
+                    INBOUND_CHECK,
+                    INBOUND_INTERNATIONAL_ACH_TRANSFER,
+                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
+                    INBOUND_WIRE_DRAWDOWN_PAYMENT,
+                    INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL,
+                    INBOUND_WIRE_REVERSAL,
+                    INBOUND_WIRE_TRANSFER,
+                    INTEREST_PAYMENT,
+                    INTERNAL_SOURCE,
+                    REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT,
+                    SAMPLE_FUNDS,
+                    WIRE_TRANSFER_INTENTION,
+                    WIRE_TRANSFER_REJECTION,
+                    OTHER,
+                    _UNKNOWN,
+                }
+
+                fun value(): Value =
+                    when (this) {
+                        ACCOUNT_TRANSFER_INTENTION -> Value.ACCOUNT_TRANSFER_INTENTION
+                        ACH_TRANSFER_INTENTION -> Value.ACH_TRANSFER_INTENTION
+                        ACH_TRANSFER_REJECTION -> Value.ACH_TRANSFER_REJECTION
+                        ACH_TRANSFER_RETURN -> Value.ACH_TRANSFER_RETURN
+                        CARD_DISPUTE_ACCEPTANCE -> Value.CARD_DISPUTE_ACCEPTANCE
+                        CARD_REFUND -> Value.CARD_REFUND
+                        CARD_REVENUE_PAYMENT -> Value.CARD_REVENUE_PAYMENT
+                        CARD_SETTLEMENT -> Value.CARD_SETTLEMENT
+                        CHECK_DEPOSIT_ACCEPTANCE -> Value.CHECK_DEPOSIT_ACCEPTANCE
+                        CHECK_DEPOSIT_RETURN -> Value.CHECK_DEPOSIT_RETURN
+                        CHECK_TRANSFER_DEPOSIT -> Value.CHECK_TRANSFER_DEPOSIT
+                        CHECK_TRANSFER_INTENTION -> Value.CHECK_TRANSFER_INTENTION
+                        CHECK_TRANSFER_STOP_PAYMENT_REQUEST ->
+                            Value.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
+                        FEE_PAYMENT -> Value.FEE_PAYMENT
+                        INBOUND_ACH_TRANSFER -> Value.INBOUND_ACH_TRANSFER
+                        INBOUND_ACH_TRANSFER_RETURN_INTENTION ->
+                            Value.INBOUND_ACH_TRANSFER_RETURN_INTENTION
+                        INBOUND_CHECK -> Value.INBOUND_CHECK
+                        INBOUND_INTERNATIONAL_ACH_TRANSFER ->
+                            Value.INBOUND_INTERNATIONAL_ACH_TRANSFER
+                        INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
+                            Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
+                        INBOUND_WIRE_DRAWDOWN_PAYMENT -> Value.INBOUND_WIRE_DRAWDOWN_PAYMENT
+                        INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL ->
+                            Value.INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL
+                        INBOUND_WIRE_REVERSAL -> Value.INBOUND_WIRE_REVERSAL
+                        INBOUND_WIRE_TRANSFER -> Value.INBOUND_WIRE_TRANSFER
+                        INTEREST_PAYMENT -> Value.INTEREST_PAYMENT
+                        INTERNAL_SOURCE -> Value.INTERNAL_SOURCE
+                        REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT ->
+                            Value.REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT
+                        SAMPLE_FUNDS -> Value.SAMPLE_FUNDS
+                        WIRE_TRANSFER_INTENTION -> Value.WIRE_TRANSFER_INTENTION
+                        WIRE_TRANSFER_REJECTION -> Value.WIRE_TRANSFER_REJECTION
+                        OTHER -> Value.OTHER
+                        else -> Value._UNKNOWN
+                    }
+
+                fun known(): Known =
+                    when (this) {
+                        ACCOUNT_TRANSFER_INTENTION -> Known.ACCOUNT_TRANSFER_INTENTION
+                        ACH_TRANSFER_INTENTION -> Known.ACH_TRANSFER_INTENTION
+                        ACH_TRANSFER_REJECTION -> Known.ACH_TRANSFER_REJECTION
+                        ACH_TRANSFER_RETURN -> Known.ACH_TRANSFER_RETURN
+                        CARD_DISPUTE_ACCEPTANCE -> Known.CARD_DISPUTE_ACCEPTANCE
+                        CARD_REFUND -> Known.CARD_REFUND
+                        CARD_REVENUE_PAYMENT -> Known.CARD_REVENUE_PAYMENT
+                        CARD_SETTLEMENT -> Known.CARD_SETTLEMENT
+                        CHECK_DEPOSIT_ACCEPTANCE -> Known.CHECK_DEPOSIT_ACCEPTANCE
+                        CHECK_DEPOSIT_RETURN -> Known.CHECK_DEPOSIT_RETURN
+                        CHECK_TRANSFER_DEPOSIT -> Known.CHECK_TRANSFER_DEPOSIT
+                        CHECK_TRANSFER_INTENTION -> Known.CHECK_TRANSFER_INTENTION
+                        CHECK_TRANSFER_STOP_PAYMENT_REQUEST ->
+                            Known.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
+                        FEE_PAYMENT -> Known.FEE_PAYMENT
+                        INBOUND_ACH_TRANSFER -> Known.INBOUND_ACH_TRANSFER
+                        INBOUND_ACH_TRANSFER_RETURN_INTENTION ->
+                            Known.INBOUND_ACH_TRANSFER_RETURN_INTENTION
+                        INBOUND_CHECK -> Known.INBOUND_CHECK
+                        INBOUND_INTERNATIONAL_ACH_TRANSFER ->
+                            Known.INBOUND_INTERNATIONAL_ACH_TRANSFER
+                        INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
+                            Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
+                        INBOUND_WIRE_DRAWDOWN_PAYMENT -> Known.INBOUND_WIRE_DRAWDOWN_PAYMENT
+                        INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL ->
+                            Known.INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL
+                        INBOUND_WIRE_REVERSAL -> Known.INBOUND_WIRE_REVERSAL
+                        INBOUND_WIRE_TRANSFER -> Known.INBOUND_WIRE_TRANSFER
+                        INTEREST_PAYMENT -> Known.INTEREST_PAYMENT
+                        INTERNAL_SOURCE -> Known.INTERNAL_SOURCE
+                        REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT ->
+                            Known.REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT
+                        SAMPLE_FUNDS -> Known.SAMPLE_FUNDS
+                        WIRE_TRANSFER_INTENTION -> Known.WIRE_TRANSFER_INTENTION
+                        WIRE_TRANSFER_REJECTION -> Known.WIRE_TRANSFER_REJECTION
+                        OTHER -> Known.OTHER
+                        else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+                    }
+
+                fun asString(): String = _value().asStringOrThrow()
             }
 
             /**

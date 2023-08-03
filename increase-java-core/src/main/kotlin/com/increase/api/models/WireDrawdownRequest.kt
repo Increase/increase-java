@@ -515,7 +515,7 @@ private constructor(
             )
     }
 
-    class Type
+    class Status
     @JsonCreator
     private constructor(
         private val value: JsonField<String>,
@@ -528,7 +528,7 @@ private constructor(
                 return true
             }
 
-            return other is Type && this.value == other.value
+            return other is Status && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -537,30 +537,48 @@ private constructor(
 
         companion object {
 
-            @JvmField val WIRE_DRAWDOWN_REQUEST = Type(JsonField.of("wire_drawdown_request"))
+            @JvmField val PENDING_SUBMISSION = Status(JsonField.of("pending_submission"))
 
-            @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+            @JvmField val PENDING_RESPONSE = Status(JsonField.of("pending_response"))
+
+            @JvmField val FULFILLED = Status(JsonField.of("fulfilled"))
+
+            @JvmField val REFUSED = Status(JsonField.of("refused"))
+
+            @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
 
         enum class Known {
-            WIRE_DRAWDOWN_REQUEST,
+            PENDING_SUBMISSION,
+            PENDING_RESPONSE,
+            FULFILLED,
+            REFUSED,
         }
 
         enum class Value {
-            WIRE_DRAWDOWN_REQUEST,
+            PENDING_SUBMISSION,
+            PENDING_RESPONSE,
+            FULFILLED,
+            REFUSED,
             _UNKNOWN,
         }
 
         fun value(): Value =
             when (this) {
-                WIRE_DRAWDOWN_REQUEST -> Value.WIRE_DRAWDOWN_REQUEST
+                PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
+                PENDING_RESPONSE -> Value.PENDING_RESPONSE
+                FULFILLED -> Value.FULFILLED
+                REFUSED -> Value.REFUSED
                 else -> Value._UNKNOWN
             }
 
         fun known(): Known =
             when (this) {
-                WIRE_DRAWDOWN_REQUEST -> Known.WIRE_DRAWDOWN_REQUEST
-                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+                PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
+                PENDING_RESPONSE -> Known.PENDING_RESPONSE
+                FULFILLED -> Known.FULFILLED
+                REFUSED -> Known.REFUSED
+                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
             }
 
         fun asString(): String = _value().asStringOrThrow()
@@ -682,7 +700,7 @@ private constructor(
         }
     }
 
-    class Status
+    class Type
     @JsonCreator
     private constructor(
         private val value: JsonField<String>,
@@ -695,7 +713,7 @@ private constructor(
                 return true
             }
 
-            return other is Status && this.value == other.value
+            return other is Type && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -704,48 +722,30 @@ private constructor(
 
         companion object {
 
-            @JvmField val PENDING_SUBMISSION = Status(JsonField.of("pending_submission"))
+            @JvmField val WIRE_DRAWDOWN_REQUEST = Type(JsonField.of("wire_drawdown_request"))
 
-            @JvmField val PENDING_RESPONSE = Status(JsonField.of("pending_response"))
-
-            @JvmField val FULFILLED = Status(JsonField.of("fulfilled"))
-
-            @JvmField val REFUSED = Status(JsonField.of("refused"))
-
-            @JvmStatic fun of(value: String) = Status(JsonField.of(value))
+            @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }
 
         enum class Known {
-            PENDING_SUBMISSION,
-            PENDING_RESPONSE,
-            FULFILLED,
-            REFUSED,
+            WIRE_DRAWDOWN_REQUEST,
         }
 
         enum class Value {
-            PENDING_SUBMISSION,
-            PENDING_RESPONSE,
-            FULFILLED,
-            REFUSED,
+            WIRE_DRAWDOWN_REQUEST,
             _UNKNOWN,
         }
 
         fun value(): Value =
             when (this) {
-                PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
-                PENDING_RESPONSE -> Value.PENDING_RESPONSE
-                FULFILLED -> Value.FULFILLED
-                REFUSED -> Value.REFUSED
+                WIRE_DRAWDOWN_REQUEST -> Value.WIRE_DRAWDOWN_REQUEST
                 else -> Value._UNKNOWN
             }
 
         fun known(): Known =
             when (this) {
-                PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
-                PENDING_RESPONSE -> Known.PENDING_RESPONSE
-                FULFILLED -> Known.FULFILLED
-                REFUSED -> Known.REFUSED
-                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+                WIRE_DRAWDOWN_REQUEST -> Known.WIRE_DRAWDOWN_REQUEST
+                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
             }
 
         fun asString(): String = _value().asStringOrThrow()

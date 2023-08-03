@@ -287,75 +287,6 @@ private constructor(
             )
     }
 
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Status && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            @JvmField val PENDING = Status(JsonField.of("pending"))
-
-            @JvmField val REJECTED = Status(JsonField.of("rejected"))
-
-            @JvmField val ACTIVE = Status(JsonField.of("active"))
-
-            @JvmField val ARCHIVED = Status(JsonField.of("archived"))
-
-            @JvmStatic fun of(value: String) = Status(JsonField.of(value))
-        }
-
-        enum class Known {
-            PENDING,
-            REJECTED,
-            ACTIVE,
-            ARCHIVED,
-        }
-
-        enum class Value {
-            PENDING,
-            REJECTED,
-            ACTIVE,
-            ARCHIVED,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                PENDING -> Value.PENDING
-                REJECTED -> Value.REJECTED
-                ACTIVE -> Value.ACTIVE
-                ARCHIVED -> Value.ARCHIVED
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                PENDING -> Known.PENDING
-                REJECTED -> Known.REJECTED
-                ACTIVE -> Known.ACTIVE
-                ARCHIVED -> Known.ARCHIVED
-                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
     /**
      * How Cards should appear in digital wallets such as Apple Pay. Different wallets will use
      * these values to render card artwork appropriately for their app.
@@ -1052,6 +983,75 @@ private constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+    }
+
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Status && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val PENDING = Status(JsonField.of("pending"))
+
+            @JvmField val REJECTED = Status(JsonField.of("rejected"))
+
+            @JvmField val ACTIVE = Status(JsonField.of("active"))
+
+            @JvmField val ARCHIVED = Status(JsonField.of("archived"))
+
+            @JvmStatic fun of(value: String) = Status(JsonField.of(value))
+        }
+
+        enum class Known {
+            PENDING,
+            REJECTED,
+            ACTIVE,
+            ARCHIVED,
+        }
+
+        enum class Value {
+            PENDING,
+            REJECTED,
+            ACTIVE,
+            ARCHIVED,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                PENDING -> Value.PENDING
+                REJECTED -> Value.REJECTED
+                ACTIVE -> Value.ACTIVE
+                ARCHIVED -> Value.ARCHIVED
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                PENDING -> Known.PENDING
+                REJECTED -> Known.REJECTED
+                ACTIVE -> Known.ACTIVE
+                ARCHIVED -> Known.ARCHIVED
+                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 
     class Type

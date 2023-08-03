@@ -178,69 +178,6 @@ constructor(
             )
     }
 
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Status && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            @JvmField val ACTIVE = Status(JsonField.of("active"))
-
-            @JvmField val DISABLED = Status(JsonField.of("disabled"))
-
-            @JvmField val CANCELED = Status(JsonField.of("canceled"))
-
-            @JvmStatic fun of(value: String) = Status(JsonField.of(value))
-        }
-
-        enum class Known {
-            ACTIVE,
-            DISABLED,
-            CANCELED,
-        }
-
-        enum class Value {
-            ACTIVE,
-            DISABLED,
-            CANCELED,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                ACTIVE -> Value.ACTIVE
-                DISABLED -> Value.DISABLED
-                CANCELED -> Value.CANCELED
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                ACTIVE -> Known.ACTIVE
-                DISABLED -> Known.DISABLED
-                CANCELED -> Known.CANCELED
-                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
     @JsonDeserialize(builder = CreatedAt.Builder::class)
     @NoAutoDetect
     class CreatedAt
@@ -388,5 +325,68 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+    }
+
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Status && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val ACTIVE = Status(JsonField.of("active"))
+
+            @JvmField val DISABLED = Status(JsonField.of("disabled"))
+
+            @JvmField val CANCELED = Status(JsonField.of("canceled"))
+
+            @JvmStatic fun of(value: String) = Status(JsonField.of(value))
+        }
+
+        enum class Known {
+            ACTIVE,
+            DISABLED,
+            CANCELED,
+        }
+
+        enum class Value {
+            ACTIVE,
+            DISABLED,
+            CANCELED,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                ACTIVE -> Value.ACTIVE
+                DISABLED -> Value.DISABLED
+                CANCELED -> Value.CANCELED
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                ACTIVE -> Known.ACTIVE
+                DISABLED -> Known.DISABLED
+                CANCELED -> Known.CANCELED
+                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 }

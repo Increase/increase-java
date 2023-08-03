@@ -1407,6 +1407,69 @@ private constructor(
                 )
         }
 
+        class DetailIndicator
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is DetailIndicator && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                @JvmField val NORMAL = DetailIndicator(JsonField.of("normal"))
+
+                @JvmField val CREDIT = DetailIndicator(JsonField.of("credit"))
+
+                @JvmField val PAYMENT = DetailIndicator(JsonField.of("payment"))
+
+                @JvmStatic fun of(value: String) = DetailIndicator(JsonField.of(value))
+            }
+
+            enum class Known {
+                NORMAL,
+                CREDIT,
+                PAYMENT,
+            }
+
+            enum class Value {
+                NORMAL,
+                CREDIT,
+                PAYMENT,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    NORMAL -> Value.NORMAL
+                    CREDIT -> Value.CREDIT
+                    PAYMENT -> Value.PAYMENT
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    NORMAL -> Known.NORMAL
+                    CREDIT -> Known.CREDIT
+                    PAYMENT -> Known.PAYMENT
+                    else -> throw IncreaseInvalidDataException("Unknown DetailIndicator: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
+
         class DiscountTreatmentCode
         @JsonCreator
         private constructor(
@@ -1482,69 +1545,6 @@ private constructor(
                         Known.TAX_CALCULATED_ON_PRE_DISCOUNT_LINE_ITEM_TOTAL
                     else ->
                         throw IncreaseInvalidDataException("Unknown DiscountTreatmentCode: $value")
-                }
-
-            fun asString(): String = _value().asStringOrThrow()
-        }
-
-        class DetailIndicator
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) {
-
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is DetailIndicator && this.value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-
-            companion object {
-
-                @JvmField val NORMAL = DetailIndicator(JsonField.of("normal"))
-
-                @JvmField val CREDIT = DetailIndicator(JsonField.of("credit"))
-
-                @JvmField val PAYMENT = DetailIndicator(JsonField.of("payment"))
-
-                @JvmStatic fun of(value: String) = DetailIndicator(JsonField.of(value))
-            }
-
-            enum class Known {
-                NORMAL,
-                CREDIT,
-                PAYMENT,
-            }
-
-            enum class Value {
-                NORMAL,
-                CREDIT,
-                PAYMENT,
-                _UNKNOWN,
-            }
-
-            fun value(): Value =
-                when (this) {
-                    NORMAL -> Value.NORMAL
-                    CREDIT -> Value.CREDIT
-                    PAYMENT -> Value.PAYMENT
-                    else -> Value._UNKNOWN
-                }
-
-            fun known(): Known =
-                when (this) {
-                    NORMAL -> Known.NORMAL
-                    CREDIT -> Known.CREDIT
-                    PAYMENT -> Known.PAYMENT
-                    else -> throw IncreaseInvalidDataException("Unknown DetailIndicator: $value")
                 }
 
             fun asString(): String = _value().asStringOrThrow()
