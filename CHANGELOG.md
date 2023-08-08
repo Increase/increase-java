@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.8.2](https://github.com/Increase/increase-java/compare/v0.8.1...v0.8.2) (2023-08-08)
+
+
+### Features
+
+* **api:** updates ([#52](https://github.com/Increase/increase-java/issues/52)) ([cf6fae1](https://github.com/Increase/increase-java/commit/cf6fae1c8358fb351cd63b2a682390a05dbc5f8c))
+* **test:** unskip file uploads tests ([#46](https://github.com/Increase/increase-java/issues/46)) ([bf35772](https://github.com/Increase/increase-java/commit/bf35772430b75426d54380e0393eee100b3e843a))
+
+
+### Chores
+
+* **ci:** allow release to proceed without signing key id secret ([#53](https://github.com/Increase/increase-java/issues/53)) ([d1547d4](https://github.com/Increase/increase-java/commit/d1547d461391d48f906146844bc2809b372cabd9))
+* **internal:** publish with --stacktrace for more helpful error information ([#49](https://github.com/Increase/increase-java/issues/49)) ([453732e](https://github.com/Increase/increase-java/commit/453732e00fc437c8ae221b7150f90b88d767ec29))
+* **internal:** reorganize types ([#54](https://github.com/Increase/increase-java/issues/54)) ([055c963](https://github.com/Increase/increase-java/commit/055c9632783a249148df263ce879097c5d61718b))
+* **internal:** support passing GPG_SIGNING_KEY_ID from secrets ([#51](https://github.com/Increase/increase-java/issues/51)) ([977a2be](https://github.com/Increase/increase-java/commit/977a2bebf053499adc17621bb39d64a0045d094c))
+
 ## [0.8.1](https://github.com/Increase/increase-java/compare/v0.8.0...v0.8.1) (2023-07-27)
 
 
