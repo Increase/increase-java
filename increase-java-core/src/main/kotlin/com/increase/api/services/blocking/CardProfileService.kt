@@ -4,6 +4,7 @@ package com.increase.api.services.blocking
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.CardProfile
+import com.increase.api.models.CardProfileArchiveParams
 import com.increase.api.models.CardProfileCreateParams
 import com.increase.api.models.CardProfileListPage
 import com.increase.api.models.CardProfileListParams
@@ -31,4 +32,11 @@ interface CardProfileService {
         params: CardProfileListParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CardProfileListPage
+
+    /** Archive an Card Profile */
+    @JvmOverloads
+    fun archive(
+        params: CardProfileArchiveParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): CardProfile
 }

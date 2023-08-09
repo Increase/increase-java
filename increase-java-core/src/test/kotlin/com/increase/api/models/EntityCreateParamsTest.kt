@@ -102,8 +102,11 @@ class EntityCreateParamsTest {
                                         .confirmedNoUsTaxId(true)
                                         .build()
                                 )
-                                .prong(
-                                    EntityCreateParams.Corporation.BeneficialOwner.Prong.OWNERSHIP
+                                .prongs(
+                                    listOf(
+                                        EntityCreateParams.Corporation.BeneficialOwner.Prong
+                                            .OWNERSHIP
+                                    )
                                 )
                                 .companyTitle("x")
                                 .build()
@@ -482,9 +485,11 @@ class EntityCreateParamsTest {
                                             .confirmedNoUsTaxId(true)
                                             .build()
                                     )
-                                    .prong(
-                                        EntityCreateParams.Corporation.BeneficialOwner.Prong
-                                            .OWNERSHIP
+                                    .prongs(
+                                        listOf(
+                                            EntityCreateParams.Corporation.BeneficialOwner.Prong
+                                                .OWNERSHIP
+                                        )
                                     )
                                     .companyTitle("x")
                                     .build()
@@ -862,8 +867,11 @@ class EntityCreateParamsTest {
                                         .confirmedNoUsTaxId(true)
                                         .build()
                                 )
-                                .prong(
-                                    EntityCreateParams.Corporation.BeneficialOwner.Prong.OWNERSHIP
+                                .prongs(
+                                    listOf(
+                                        EntityCreateParams.Corporation.BeneficialOwner.Prong
+                                            .OWNERSHIP
+                                    )
                                 )
                                 .companyTitle("x")
                                 .build()

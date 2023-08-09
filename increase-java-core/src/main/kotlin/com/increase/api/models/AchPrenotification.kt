@@ -35,6 +35,7 @@ private constructor(
     private val effectiveDate: JsonField<OffsetDateTime>,
     private val routingNumber: JsonField<String>,
     private val prenotificationReturn: JsonField<PrenotificationReturn>,
+    private val notificationsOfChange: JsonField<List<NotificationsOfChange>>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val status: JsonField<Status>,
     private val type: JsonField<Type>,
@@ -84,6 +85,13 @@ private constructor(
     /** If your prenotification is returned, this will contain details of the return. */
     fun prenotificationReturn(): Optional<PrenotificationReturn> =
         Optional.ofNullable(prenotificationReturn.getNullable("prenotification_return"))
+
+    /**
+     * If the receiving bank notifies that future transfers should use different details, this will
+     * contain those details.
+     */
+    fun notificationsOfChange(): List<NotificationsOfChange> =
+        notificationsOfChange.getRequired("notifications_of_change")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
@@ -144,6 +152,14 @@ private constructor(
     fun _prenotificationReturn() = prenotificationReturn
 
     /**
+     * If the receiving bank notifies that future transfers should use different details, this will
+     * contain those details.
+     */
+    @JsonProperty("notifications_of_change")
+    @ExcludeMissing
+    fun _notificationsOfChange() = notificationsOfChange
+
+    /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
      * prenotification was created.
      */
@@ -175,6 +191,7 @@ private constructor(
             effectiveDate()
             routingNumber()
             prenotificationReturn().map { it.validate() }
+            notificationsOfChange().forEach { it.validate() }
             createdAt()
             status()
             type()
@@ -201,6 +218,7 @@ private constructor(
             this.effectiveDate == other.effectiveDate &&
             this.routingNumber == other.routingNumber &&
             this.prenotificationReturn == other.prenotificationReturn &&
+            this.notificationsOfChange == other.notificationsOfChange &&
             this.createdAt == other.createdAt &&
             this.status == other.status &&
             this.type == other.type &&
@@ -222,6 +240,7 @@ private constructor(
                     effectiveDate,
                     routingNumber,
                     prenotificationReturn,
+                    notificationsOfChange,
                     createdAt,
                     status,
                     type,
@@ -232,7 +251,7 @@ private constructor(
     }
 
     override fun toString() =
-        "AchPrenotification{id=$id, accountNumber=$accountNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, routingNumber=$routingNumber, prenotificationReturn=$prenotificationReturn, createdAt=$createdAt, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "AchPrenotification{id=$id, accountNumber=$accountNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, routingNumber=$routingNumber, prenotificationReturn=$prenotificationReturn, notificationsOfChange=$notificationsOfChange, createdAt=$createdAt, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -252,6 +271,7 @@ private constructor(
         private var effectiveDate: JsonField<OffsetDateTime> = JsonMissing.of()
         private var routingNumber: JsonField<String> = JsonMissing.of()
         private var prenotificationReturn: JsonField<PrenotificationReturn> = JsonMissing.of()
+        private var notificationsOfChange: JsonField<List<NotificationsOfChange>> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
@@ -270,6 +290,7 @@ private constructor(
             this.effectiveDate = achPrenotification.effectiveDate
             this.routingNumber = achPrenotification.routingNumber
             this.prenotificationReturn = achPrenotification.prenotificationReturn
+            this.notificationsOfChange = achPrenotification.notificationsOfChange
             this.createdAt = achPrenotification.createdAt
             this.status = achPrenotification.status
             this.type = achPrenotification.type
@@ -385,6 +406,24 @@ private constructor(
         }
 
         /**
+         * If the receiving bank notifies that future transfers should use different details, this
+         * will contain those details.
+         */
+        fun notificationsOfChange(notificationsOfChange: List<NotificationsOfChange>) =
+            notificationsOfChange(JsonField.of(notificationsOfChange))
+
+        /**
+         * If the receiving bank notifies that future transfers should use different details, this
+         * will contain those details.
+         */
+        @JsonProperty("notifications_of_change")
+        @ExcludeMissing
+        fun notificationsOfChange(notificationsOfChange: JsonField<List<NotificationsOfChange>>) =
+            apply {
+                this.notificationsOfChange = notificationsOfChange
+            }
+
+        /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * prenotification was created.
          */
@@ -447,6 +486,7 @@ private constructor(
                 effectiveDate,
                 routingNumber,
                 prenotificationReturn,
+                notificationsOfChange.map { it.toUnmodifiable() },
                 createdAt,
                 status,
                 type,
@@ -509,6 +549,311 @@ private constructor(
             }
 
         fun asString(): String = _value().asStringOrThrow()
+    }
+
+    @JsonDeserialize(builder = NotificationsOfChange.Builder::class)
+    @NoAutoDetect
+    class NotificationsOfChange
+    private constructor(
+        private val createdAt: JsonField<OffsetDateTime>,
+        private val changeCode: JsonField<ChangeCode>,
+        private val correctedData: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * notification occurred.
+         */
+        fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+        /** The type of change that occurred. */
+        fun changeCode(): ChangeCode = changeCode.getRequired("change_code")
+
+        /** The corrected data. */
+        fun correctedData(): String = correctedData.getRequired("corrected_data")
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * notification occurred.
+         */
+        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+        /** The type of change that occurred. */
+        @JsonProperty("change_code") @ExcludeMissing fun _changeCode() = changeCode
+
+        /** The corrected data. */
+        @JsonProperty("corrected_data") @ExcludeMissing fun _correctedData() = correctedData
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): NotificationsOfChange = apply {
+            if (!validated) {
+                createdAt()
+                changeCode()
+                correctedData()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is NotificationsOfChange &&
+                this.createdAt == other.createdAt &&
+                this.changeCode == other.changeCode &&
+                this.correctedData == other.correctedData &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        createdAt,
+                        changeCode,
+                        correctedData,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "NotificationsOfChange{createdAt=$createdAt, changeCode=$changeCode, correctedData=$correctedData, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var changeCode: JsonField<ChangeCode> = JsonMissing.of()
+            private var correctedData: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(notificationsOfChange: NotificationsOfChange) = apply {
+                this.createdAt = notificationsOfChange.createdAt
+                this.changeCode = notificationsOfChange.changeCode
+                this.correctedData = notificationsOfChange.correctedData
+                additionalProperties(notificationsOfChange.additionalProperties)
+            }
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * notification occurred.
+             */
+            fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * notification occurred.
+             */
+            @JsonProperty("created_at")
+            @ExcludeMissing
+            fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                this.createdAt = createdAt
+            }
+
+            /** The type of change that occurred. */
+            fun changeCode(changeCode: ChangeCode) = changeCode(JsonField.of(changeCode))
+
+            /** The type of change that occurred. */
+            @JsonProperty("change_code")
+            @ExcludeMissing
+            fun changeCode(changeCode: JsonField<ChangeCode>) = apply {
+                this.changeCode = changeCode
+            }
+
+            /** The corrected data. */
+            fun correctedData(correctedData: String) = correctedData(JsonField.of(correctedData))
+
+            /** The corrected data. */
+            @JsonProperty("corrected_data")
+            @ExcludeMissing
+            fun correctedData(correctedData: JsonField<String>) = apply {
+                this.correctedData = correctedData
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): NotificationsOfChange =
+                NotificationsOfChange(
+                    createdAt,
+                    changeCode,
+                    correctedData,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
+
+        class ChangeCode
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is ChangeCode && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                @JvmField
+                val INCORRECT_ACCOUNT_NUMBER = ChangeCode(JsonField.of("incorrect_account_number"))
+
+                @JvmField
+                val INCORRECT_ROUTING_NUMBER = ChangeCode(JsonField.of("incorrect_routing_number"))
+
+                @JvmField
+                val INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER =
+                    ChangeCode(JsonField.of("incorrect_routing_number_and_account_number"))
+
+                @JvmField
+                val INCORRECT_TRANSACTION_CODE =
+                    ChangeCode(JsonField.of("incorrect_transaction_code"))
+
+                @JvmField
+                val INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE =
+                    ChangeCode(JsonField.of("incorrect_account_number_and_transaction_code"))
+
+                @JvmField
+                val INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE =
+                    ChangeCode(
+                        JsonField.of("incorrect_routing_number_account_number_and_transaction_code")
+                    )
+
+                @JvmField
+                val INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION =
+                    ChangeCode(
+                        JsonField.of(
+                            "incorrect_receiving_depository_financial_institution_identification"
+                        )
+                    )
+
+                @JvmField
+                val INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER =
+                    ChangeCode(JsonField.of("incorrect_individual_identification_number"))
+
+                @JvmField
+                val ADDENDA_FORMAT_ERROR = ChangeCode(JsonField.of("addenda_format_error"))
+
+                @JvmField
+                val INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT =
+                    ChangeCode(
+                        JsonField.of(
+                            "incorrect_standard_entry_class_code_for_outbound_international_payment"
+                        )
+                    )
+
+                @JvmStatic fun of(value: String) = ChangeCode(JsonField.of(value))
+            }
+
+            enum class Known {
+                INCORRECT_ACCOUNT_NUMBER,
+                INCORRECT_ROUTING_NUMBER,
+                INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER,
+                INCORRECT_TRANSACTION_CODE,
+                INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE,
+                INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE,
+                INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION,
+                INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER,
+                ADDENDA_FORMAT_ERROR,
+                INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT,
+            }
+
+            enum class Value {
+                INCORRECT_ACCOUNT_NUMBER,
+                INCORRECT_ROUTING_NUMBER,
+                INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER,
+                INCORRECT_TRANSACTION_CODE,
+                INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE,
+                INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE,
+                INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION,
+                INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER,
+                ADDENDA_FORMAT_ERROR,
+                INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    INCORRECT_ACCOUNT_NUMBER -> Value.INCORRECT_ACCOUNT_NUMBER
+                    INCORRECT_ROUTING_NUMBER -> Value.INCORRECT_ROUTING_NUMBER
+                    INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER ->
+                        Value.INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER
+                    INCORRECT_TRANSACTION_CODE -> Value.INCORRECT_TRANSACTION_CODE
+                    INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE ->
+                        Value.INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
+                    INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE ->
+                        Value.INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
+                    INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION ->
+                        Value.INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION
+                    INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER ->
+                        Value.INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER
+                    ADDENDA_FORMAT_ERROR -> Value.ADDENDA_FORMAT_ERROR
+                    INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT ->
+                        Value.INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    INCORRECT_ACCOUNT_NUMBER -> Known.INCORRECT_ACCOUNT_NUMBER
+                    INCORRECT_ROUTING_NUMBER -> Known.INCORRECT_ROUTING_NUMBER
+                    INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER ->
+                        Known.INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER
+                    INCORRECT_TRANSACTION_CODE -> Known.INCORRECT_TRANSACTION_CODE
+                    INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE ->
+                        Known.INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
+                    INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE ->
+                        Known.INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
+                    INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION ->
+                        Known.INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION
+                    INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER ->
+                        Known.INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER
+                    ADDENDA_FORMAT_ERROR -> Known.ADDENDA_FORMAT_ERROR
+                    INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT ->
+                        Known.INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT
+                    else -> throw IncreaseInvalidDataException("Unknown ChangeCode: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
     }
 
     /** If your prenotification is returned, this will contain details of the return. */

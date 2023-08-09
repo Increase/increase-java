@@ -4,6 +4,7 @@ package com.increase.api.services.async
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.CardProfile
+import com.increase.api.models.CardProfileArchiveParams
 import com.increase.api.models.CardProfileCreateParams
 import com.increase.api.models.CardProfileListPageAsync
 import com.increase.api.models.CardProfileListParams
@@ -32,4 +33,11 @@ interface CardProfileServiceAsync {
         params: CardProfileListParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<CardProfileListPageAsync>
+
+    /** Archive an Card Profile */
+    @JvmOverloads
+    fun archive(
+        params: CardProfileArchiveParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): CompletableFuture<CardProfile>
 }

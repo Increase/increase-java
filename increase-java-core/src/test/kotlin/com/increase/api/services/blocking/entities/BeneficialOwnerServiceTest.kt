@@ -93,8 +93,11 @@ class BeneficialOwnerServiceTest {
                                     .confirmedNoUsTaxId(true)
                                     .build()
                             )
-                            .prong(
-                                EntityBeneficialOwnerCreateParams.BeneficialOwner.Prong.OWNERSHIP
+                            .prongs(
+                                listOf(
+                                    EntityBeneficialOwnerCreateParams.BeneficialOwner.Prong
+                                        .OWNERSHIP
+                                )
                             )
                             .companyTitle("x")
                             .build()

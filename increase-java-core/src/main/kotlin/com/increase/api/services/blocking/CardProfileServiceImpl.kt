@@ -7,6 +7,7 @@ import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.CardProfile
+import com.increase.api.models.CardProfileArchiveParams
 import com.increase.api.models.CardProfileCreateParams
 import com.increase.api.models.CardProfileListPage
 import com.increase.api.models.CardProfileListParams
@@ -104,6 +105,34 @@ constructor(
                     }
                 }
                 .let { CardProfileListPage.of(this, params, it) }
+        }
+    }
+
+    private val archiveHandler: Handler<CardProfile> =
+        jsonHandler<CardProfile>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+    /** Archive an Card Profile */
+    override fun archive(
+        params: CardProfileArchiveParams,
+        requestOptions: RequestOptions
+    ): CardProfile {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.POST)
+                .addPathSegments("card_profiles", params.getPathParam(0), "archive")
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .apply { params.getBody().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                .build()
+        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
+            response
+                .use { archiveHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
         }
     }
 }

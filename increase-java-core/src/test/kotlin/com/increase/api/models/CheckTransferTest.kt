@@ -41,6 +41,7 @@ class CheckTransferTest {
                 .fulfillmentMethod(CheckTransfer.FulfillmentMethod.PHYSICAL_CHECK)
                 .mailing(
                     CheckTransfer.Mailing.builder()
+                        .imageId("string")
                         .mailedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
@@ -132,6 +133,7 @@ class CheckTransferTest {
         assertThat(checkTransfer.mailing())
             .contains(
                 CheckTransfer.Mailing.builder()
+                    .imageId("string")
                     .mailedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )

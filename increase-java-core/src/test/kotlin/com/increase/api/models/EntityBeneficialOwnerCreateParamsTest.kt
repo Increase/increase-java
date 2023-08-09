@@ -76,7 +76,9 @@ class EntityBeneficialOwnerCreateParamsTest {
                             .confirmedNoUsTaxId(true)
                             .build()
                     )
-                    .prong(EntityBeneficialOwnerCreateParams.BeneficialOwner.Prong.OWNERSHIP)
+                    .prongs(
+                        listOf(EntityBeneficialOwnerCreateParams.BeneficialOwner.Prong.OWNERSHIP)
+                    )
                     .companyTitle("x")
                     .build()
             )
@@ -158,7 +160,11 @@ class EntityBeneficialOwnerCreateParamsTest {
                                 .confirmedNoUsTaxId(true)
                                 .build()
                         )
-                        .prong(EntityBeneficialOwnerCreateParams.BeneficialOwner.Prong.OWNERSHIP)
+                        .prongs(
+                            listOf(
+                                EntityBeneficialOwnerCreateParams.BeneficialOwner.Prong.OWNERSHIP
+                            )
+                        )
                         .companyTitle("x")
                         .build()
                 )
@@ -231,7 +237,9 @@ class EntityBeneficialOwnerCreateParamsTest {
                             .confirmedNoUsTaxId(true)
                             .build()
                     )
-                    .prong(EntityBeneficialOwnerCreateParams.BeneficialOwner.Prong.OWNERSHIP)
+                    .prongs(
+                        listOf(EntityBeneficialOwnerCreateParams.BeneficialOwner.Prong.OWNERSHIP)
+                    )
                     .companyTitle("x")
                     .build()
             )
@@ -274,7 +282,11 @@ class EntityBeneficialOwnerCreateParamsTest {
                                 .name("x")
                                 .build()
                         )
-                        .prong(EntityBeneficialOwnerCreateParams.BeneficialOwner.Prong.OWNERSHIP)
+                        .prongs(
+                            listOf(
+                                EntityBeneficialOwnerCreateParams.BeneficialOwner.Prong.OWNERSHIP
+                            )
+                        )
                         .build()
                 )
                 .build()
@@ -311,7 +323,9 @@ class EntityBeneficialOwnerCreateParamsTest {
                             .name("x")
                             .build()
                     )
-                    .prong(EntityBeneficialOwnerCreateParams.BeneficialOwner.Prong.OWNERSHIP)
+                    .prongs(
+                        listOf(EntityBeneficialOwnerCreateParams.BeneficialOwner.Prong.OWNERSHIP)
+                    )
                     .build()
             )
     }
@@ -353,7 +367,11 @@ class EntityBeneficialOwnerCreateParamsTest {
                                 .name("x")
                                 .build()
                         )
-                        .prong(EntityBeneficialOwnerCreateParams.BeneficialOwner.Prong.OWNERSHIP)
+                        .prongs(
+                            listOf(
+                                EntityBeneficialOwnerCreateParams.BeneficialOwner.Prong.OWNERSHIP
+                            )
+                        )
                         .build()
                 )
                 .build()
