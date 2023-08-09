@@ -2694,6 +2694,7 @@ private constructor(
     private constructor(
         private val traceNumber: JsonField<String>,
         private val submittedAt: JsonField<OffsetDateTime>,
+        private val expectedFundsSettlementAt: JsonField<OffsetDateTime>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -2707,11 +2708,30 @@ private constructor(
         /** When the ACH transfer was sent to FedACH. */
         fun submittedAt(): OffsetDateTime = submittedAt.getRequired("submitted_at")
 
+        /**
+         * When the funds transfer is expected to settle in the recipient's account. Credits may be
+         * available sooner, at the receiving banks discretion. The FedACH schedule is published
+         * [here](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html)
+         * .
+         */
+        fun expectedFundsSettlementAt(): OffsetDateTime =
+            expectedFundsSettlementAt.getRequired("expected_funds_settlement_at")
+
         /** The trace number for the submission. */
         @JsonProperty("trace_number") @ExcludeMissing fun _traceNumber() = traceNumber
 
         /** When the ACH transfer was sent to FedACH. */
         @JsonProperty("submitted_at") @ExcludeMissing fun _submittedAt() = submittedAt
+
+        /**
+         * When the funds transfer is expected to settle in the recipient's account. Credits may be
+         * available sooner, at the receiving banks discretion. The FedACH schedule is published
+         * [here](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html)
+         * .
+         */
+        @JsonProperty("expected_funds_settlement_at")
+        @ExcludeMissing
+        fun _expectedFundsSettlementAt() = expectedFundsSettlementAt
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -2721,6 +2741,7 @@ private constructor(
             if (!validated) {
                 traceNumber()
                 submittedAt()
+                expectedFundsSettlementAt()
                 validated = true
             }
         }
@@ -2735,6 +2756,7 @@ private constructor(
             return other is Submission &&
                 this.traceNumber == other.traceNumber &&
                 this.submittedAt == other.submittedAt &&
+                this.expectedFundsSettlementAt == other.expectedFundsSettlementAt &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -2744,6 +2766,7 @@ private constructor(
                     Objects.hash(
                         traceNumber,
                         submittedAt,
+                        expectedFundsSettlementAt,
                         additionalProperties,
                     )
             }
@@ -2751,7 +2774,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Submission{traceNumber=$traceNumber, submittedAt=$submittedAt, additionalProperties=$additionalProperties}"
+            "Submission{traceNumber=$traceNumber, submittedAt=$submittedAt, expectedFundsSettlementAt=$expectedFundsSettlementAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -2762,12 +2785,14 @@ private constructor(
 
             private var traceNumber: JsonField<String> = JsonMissing.of()
             private var submittedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var expectedFundsSettlementAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(submission: Submission) = apply {
                 this.traceNumber = submission.traceNumber
                 this.submittedAt = submission.submittedAt
+                this.expectedFundsSettlementAt = submission.expectedFundsSettlementAt
                 additionalProperties(submission.additionalProperties)
             }
 
@@ -2791,6 +2816,30 @@ private constructor(
                 this.submittedAt = submittedAt
             }
 
+            /**
+             * When the funds transfer is expected to settle in the recipient's account. Credits may
+             * be available sooner, at the receiving banks discretion. The FedACH schedule is
+             * published
+             * [here](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html)
+             * .
+             */
+            fun expectedFundsSettlementAt(expectedFundsSettlementAt: OffsetDateTime) =
+                expectedFundsSettlementAt(JsonField.of(expectedFundsSettlementAt))
+
+            /**
+             * When the funds transfer is expected to settle in the recipient's account. Credits may
+             * be available sooner, at the receiving banks discretion. The FedACH schedule is
+             * published
+             * [here](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html)
+             * .
+             */
+            @JsonProperty("expected_funds_settlement_at")
+            @ExcludeMissing
+            fun expectedFundsSettlementAt(expectedFundsSettlementAt: JsonField<OffsetDateTime>) =
+                apply {
+                    this.expectedFundsSettlementAt = expectedFundsSettlementAt
+                }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -2809,6 +2858,7 @@ private constructor(
                 Submission(
                     traceNumber,
                     submittedAt,
+                    expectedFundsSettlementAt,
                     additionalProperties.toUnmodifiable(),
                 )
         }

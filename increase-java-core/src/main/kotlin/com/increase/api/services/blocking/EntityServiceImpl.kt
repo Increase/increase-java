@@ -7,6 +7,7 @@ import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.Entity
+import com.increase.api.models.EntityArchiveParams
 import com.increase.api.models.EntityCreateParams
 import com.increase.api.models.EntityListPage
 import com.increase.api.models.EntityListParams
@@ -111,6 +112,31 @@ constructor(
                     }
                 }
                 .let { EntityListPage.of(this, params, it) }
+        }
+    }
+
+    private val archiveHandler: Handler<Entity> =
+        jsonHandler<Entity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+    /** Archive an Entity */
+    override fun archive(params: EntityArchiveParams, requestOptions: RequestOptions): Entity {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.POST)
+                .addPathSegments("entities", params.getPathParam(0), "archive")
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .apply { params.getBody().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                .build()
+        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
+            response
+                .use { archiveHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
         }
     }
 }

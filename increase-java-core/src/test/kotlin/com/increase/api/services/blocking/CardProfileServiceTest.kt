@@ -81,4 +81,20 @@ class CardProfileServiceTest {
         println(cardProfileList)
         cardProfileList.data().forEach { it.validate() }
     }
+
+    @Test
+    fun callArchive() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("test-api-key")
+                .build()
+        val cardProfileService = client.cardProfiles()
+        val cardProfile =
+            cardProfileService.archive(
+                CardProfileArchiveParams.builder().cardProfileId("string").build()
+            )
+        println(cardProfile)
+        cardProfile.validate()
+    }
 }

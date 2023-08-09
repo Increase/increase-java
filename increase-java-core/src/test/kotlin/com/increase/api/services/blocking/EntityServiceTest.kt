@@ -119,9 +119,11 @@ class EntityServiceTest {
                                                 .confirmedNoUsTaxId(true)
                                                 .build()
                                         )
-                                        .prong(
-                                            EntityCreateParams.Corporation.BeneficialOwner.Prong
-                                                .OWNERSHIP
+                                        .prongs(
+                                            listOf(
+                                                EntityCreateParams.Corporation.BeneficialOwner.Prong
+                                                    .OWNERSHIP
+                                            )
                                         )
                                         .companyTitle("x")
                                         .build()
@@ -457,5 +459,18 @@ class EntityServiceTest {
         val entityList = entityService.list(EntityListParams.builder().build())
         println(entityList)
         entityList.data().forEach { it.validate() }
+    }
+
+    @Test
+    fun callArchive() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("test-api-key")
+                .build()
+        val entityService = client.entities()
+        val entity = entityService.archive(EntityArchiveParams.builder().entityId("string").build())
+        println(entity)
+        entity.validate()
     }
 }

@@ -69,6 +69,7 @@ class AchTransferTest {
                 .status(AchTransfer.Status.PENDING_APPROVAL)
                 .submission(
                     AchTransfer.Submission.builder()
+                        .expectedFundsSettlementAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .submittedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .traceNumber("string")
                         .build()
@@ -138,6 +139,7 @@ class AchTransferTest {
         assertThat(achTransfer.submission())
             .contains(
                 AchTransfer.Submission.builder()
+                    .expectedFundsSettlementAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .submittedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .traceNumber("string")
                     .build()
