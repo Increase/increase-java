@@ -31,6 +31,7 @@ class CardProfileTest {
                         )
                         .build()
                 )
+                .isDefault(true)
                 .physicalCards(
                     CardProfile.PhysicalCards.builder()
                         .backImageFileId("string")
@@ -67,6 +68,7 @@ class CardProfileTest {
                     )
                     .build()
             )
+        assertThat(cardProfile.isDefault()).isEqualTo(true)
         assertThat(cardProfile.physicalCards())
             .contains(
                 CardProfile.PhysicalCards.builder()

@@ -6190,8 +6190,8 @@ private constructor(
                 Optional.ofNullable(feePayment.getNullable("fee_payment"))
 
             /**
-             * A Inbound ACH Transfer object. This field will be present in the JSON response if and
-             * only if `category` is equal to `inbound_ach_transfer`.
+             * A Inbound ACH Transfer Intention object. This field will be present in the JSON
+             * response if and only if `category` is equal to `inbound_ach_transfer`.
              */
             fun inboundAchTransfer(): Optional<InboundAchTransfer> =
                 Optional.ofNullable(inboundAchTransfer.getNullable("inbound_ach_transfer"))
@@ -6424,8 +6424,8 @@ private constructor(
             @JsonProperty("fee_payment") @ExcludeMissing fun _feePayment() = feePayment
 
             /**
-             * A Inbound ACH Transfer object. This field will be present in the JSON response if and
-             * only if `category` is equal to `inbound_ach_transfer`.
+             * A Inbound ACH Transfer Intention object. This field will be present in the JSON
+             * response if and only if `category` is equal to `inbound_ach_transfer`.
              */
             @JsonProperty("inbound_ach_transfer")
             @ExcludeMissing
@@ -7009,15 +7009,15 @@ private constructor(
                 }
 
                 /**
-                 * A Inbound ACH Transfer object. This field will be present in the JSON response if
-                 * and only if `category` is equal to `inbound_ach_transfer`.
+                 * A Inbound ACH Transfer Intention object. This field will be present in the JSON
+                 * response if and only if `category` is equal to `inbound_ach_transfer`.
                  */
                 fun inboundAchTransfer(inboundAchTransfer: InboundAchTransfer) =
                     inboundAchTransfer(JsonField.of(inboundAchTransfer))
 
                 /**
-                 * A Inbound ACH Transfer object. This field will be present in the JSON response if
-                 * and only if `category` is equal to `inbound_ach_transfer`.
+                 * A Inbound ACH Transfer Intention object. This field will be present in the JSON
+                 * response if and only if `category` is equal to `inbound_ach_transfer`.
                  */
                 @JsonProperty("inbound_ach_transfer")
                 @ExcludeMissing
@@ -20773,8 +20773,8 @@ private constructor(
             }
 
             /**
-             * A Inbound ACH Transfer object. This field will be present in the JSON response if and
-             * only if `category` is equal to `inbound_ach_transfer`.
+             * A Inbound ACH Transfer Intention object. This field will be present in the JSON
+             * response if and only if `category` is equal to `inbound_ach_transfer`.
              */
             @JsonDeserialize(builder = InboundAchTransfer.Builder::class)
             @NoAutoDetect

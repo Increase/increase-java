@@ -20,6 +20,18 @@ class AchPrenotificationTest {
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .creditDebitIndicator(AchPrenotification.CreditDebitIndicator.CREDIT)
                 .effectiveDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .notificationsOfChange(
+                    listOf(
+                        AchPrenotification.NotificationsOfChange.builder()
+                            .changeCode(
+                                AchPrenotification.NotificationsOfChange.ChangeCode
+                                    .INCORRECT_ACCOUNT_NUMBER
+                            )
+                            .correctedData("string")
+                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .build()
+                    )
+                )
                 .prenotificationReturn(
                     AchPrenotification.PrenotificationReturn.builder()
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -44,6 +56,16 @@ class AchPrenotificationTest {
             .contains(AchPrenotification.CreditDebitIndicator.CREDIT)
         assertThat(achPrenotification.effectiveDate())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(achPrenotification.notificationsOfChange())
+            .containsExactly(
+                AchPrenotification.NotificationsOfChange.builder()
+                    .changeCode(
+                        AchPrenotification.NotificationsOfChange.ChangeCode.INCORRECT_ACCOUNT_NUMBER
+                    )
+                    .correctedData("string")
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
         assertThat(achPrenotification.prenotificationReturn())
             .contains(
                 AchPrenotification.PrenotificationReturn.builder()
