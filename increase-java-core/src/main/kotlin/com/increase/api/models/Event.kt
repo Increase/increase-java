@@ -16,8 +16,9 @@ import java.time.OffsetDateTime
 import java.util.Objects
 
 /**
- * Events are records of things that happened to objects in the API. They also result in webhooks
- * being generated.
+ * Events are records of things that happened to objects at Increase. Events are accessible via the
+ * List Events endpoint and can be delivered to your application via webhooks. For more information,
+ * see our [webhooks guide](https://increase.com/documentation/webhooks).
  */
 @JsonDeserialize(builder = Event.Builder::class)
 @NoAutoDetect
