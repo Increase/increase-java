@@ -765,13 +765,13 @@ private constructor(
             private var hashCode: Int = 0
 
             /**
-             * The type of decline that took place. We may add additional possible values for this
-             * enum over time; your application should be able to handle such additions gracefully.
+             * The type of the resource. We may add additional possible values for this enum over
+             * time; your application should be able to handle such additions gracefully.
              */
             fun category(): Category = category.getRequired("category")
 
             /**
-             * A ACH Decline object. This field will be present in the JSON response if and only if
+             * An ACH Decline object. This field will be present in the JSON response if and only if
              * `category` is equal to `ach_decline`.
              */
             fun achDecline(): Optional<AchDecline> =
@@ -792,7 +792,7 @@ private constructor(
                 Optional.ofNullable(checkDecline.getNullable("check_decline"))
 
             /**
-             * A Inbound Real Time Payments Transfer Decline object. This field will be present in
+             * An Inbound Real Time Payments Transfer Decline object. This field will be present in
              * the JSON response if and only if `category` is equal to
              * `inbound_real_time_payments_transfer_decline`.
              */
@@ -805,7 +805,7 @@ private constructor(
                 )
 
             /**
-             * A International ACH Decline object. This field will be present in the JSON response
+             * An International ACH Decline object. This field will be present in the JSON response
              * if and only if `category` is equal to `international_ach_decline`.
              */
             fun internationalAchDecline(): Optional<InternationalAchDecline> =
@@ -821,13 +821,13 @@ private constructor(
                 Optional.ofNullable(wireDecline.getNullable("wire_decline"))
 
             /**
-             * The type of decline that took place. We may add additional possible values for this
-             * enum over time; your application should be able to handle such additions gracefully.
+             * The type of the resource. We may add additional possible values for this enum over
+             * time; your application should be able to handle such additions gracefully.
              */
             @JsonProperty("category") @ExcludeMissing fun _category() = category
 
             /**
-             * A ACH Decline object. This field will be present in the JSON response if and only if
+             * An ACH Decline object. This field will be present in the JSON response if and only if
              * `category` is equal to `ach_decline`.
              */
             @JsonProperty("ach_decline") @ExcludeMissing fun _achDecline() = achDecline
@@ -845,7 +845,7 @@ private constructor(
             @JsonProperty("check_decline") @ExcludeMissing fun _checkDecline() = checkDecline
 
             /**
-             * A Inbound Real Time Payments Transfer Decline object. This field will be present in
+             * An Inbound Real Time Payments Transfer Decline object. This field will be present in
              * the JSON response if and only if `category` is equal to
              * `inbound_real_time_payments_transfer_decline`.
              */
@@ -854,7 +854,7 @@ private constructor(
             fun _inboundRealTimePaymentsTransferDecline() = inboundRealTimePaymentsTransferDecline
 
             /**
-             * A International ACH Decline object. This field will be present in the JSON response
+             * An International ACH Decline object. This field will be present in the JSON response
              * if and only if `category` is equal to `international_ach_decline`.
              */
             @JsonProperty("international_ach_decline")
@@ -956,30 +956,28 @@ private constructor(
                 }
 
                 /**
-                 * The type of decline that took place. We may add additional possible values for
-                 * this enum over time; your application should be able to handle such additions
-                 * gracefully.
+                 * The type of the resource. We may add additional possible values for this enum
+                 * over time; your application should be able to handle such additions gracefully.
                  */
                 fun category(category: Category) = category(JsonField.of(category))
 
                 /**
-                 * The type of decline that took place. We may add additional possible values for
-                 * this enum over time; your application should be able to handle such additions
-                 * gracefully.
+                 * The type of the resource. We may add additional possible values for this enum
+                 * over time; your application should be able to handle such additions gracefully.
                  */
                 @JsonProperty("category")
                 @ExcludeMissing
                 fun category(category: JsonField<Category>) = apply { this.category = category }
 
                 /**
-                 * A ACH Decline object. This field will be present in the JSON response if and only
-                 * if `category` is equal to `ach_decline`.
+                 * An ACH Decline object. This field will be present in the JSON response if and
+                 * only if `category` is equal to `ach_decline`.
                  */
                 fun achDecline(achDecline: AchDecline) = achDecline(JsonField.of(achDecline))
 
                 /**
-                 * A ACH Decline object. This field will be present in the JSON response if and only
-                 * if `category` is equal to `ach_decline`.
+                 * An ACH Decline object. This field will be present in the JSON response if and
+                 * only if `category` is equal to `ach_decline`.
                  */
                 @JsonProperty("ach_decline")
                 @ExcludeMissing
@@ -1021,7 +1019,7 @@ private constructor(
                 }
 
                 /**
-                 * A Inbound Real Time Payments Transfer Decline object. This field will be present
+                 * An Inbound Real Time Payments Transfer Decline object. This field will be present
                  * in the JSON response if and only if `category` is equal to
                  * `inbound_real_time_payments_transfer_decline`.
                  */
@@ -1033,7 +1031,7 @@ private constructor(
                     )
 
                 /**
-                 * A Inbound Real Time Payments Transfer Decline object. This field will be present
+                 * An Inbound Real Time Payments Transfer Decline object. This field will be present
                  * in the JSON response if and only if `category` is equal to
                  * `inbound_real_time_payments_transfer_decline`.
                  */
@@ -1048,14 +1046,14 @@ private constructor(
                 }
 
                 /**
-                 * A International ACH Decline object. This field will be present in the JSON
+                 * An International ACH Decline object. This field will be present in the JSON
                  * response if and only if `category` is equal to `international_ach_decline`.
                  */
                 fun internationalAchDecline(internationalAchDecline: InternationalAchDecline) =
                     internationalAchDecline(JsonField.of(internationalAchDecline))
 
                 /**
-                 * A International ACH Decline object. This field will be present in the JSON
+                 * An International ACH Decline object. This field will be present in the JSON
                  * response if and only if `category` is equal to `international_ach_decline`.
                  */
                 @JsonProperty("international_ach_decline")
@@ -1109,7 +1107,7 @@ private constructor(
             }
 
             /**
-             * A ACH Decline object. This field will be present in the JSON response if and only if
+             * An ACH Decline object. This field will be present in the JSON response if and only if
              * `category` is equal to `ach_decline`.
              */
             @JsonDeserialize(builder = AchDecline.Builder::class)
@@ -3179,7 +3177,7 @@ private constructor(
             }
 
             /**
-             * A Inbound Real Time Payments Transfer Decline object. This field will be present in
+             * An Inbound Real Time Payments Transfer Decline object. This field will be present in
              * the JSON response if and only if `category` is equal to
              * `inbound_real_time_payments_transfer_decline`.
              */
@@ -3700,7 +3698,7 @@ private constructor(
             }
 
             /**
-             * A International ACH Decline object. This field will be present in the JSON response
+             * An International ACH Decline object. This field will be present in the JSON response
              * if and only if `category` is equal to `international_ach_decline`.
              */
             @JsonDeserialize(builder = InternationalAchDecline.Builder::class)
@@ -6116,14 +6114,13 @@ private constructor(
             private var hashCode: Int = 0
 
             /**
-             * The type of transaction that took place. We may add additional possible values for
-             * this enum over time; your application should be able to handle such additions
-             * gracefully.
+             * The type of the resource. We may add additional possible values for this enum over
+             * time; your application should be able to handle such additions gracefully.
              */
             fun category(): Category = category.getRequired("category")
 
             /**
-             * A Account Transfer Instruction object. This field will be present in the JSON
+             * An Account Transfer Instruction object. This field will be present in the JSON
              * response if and only if `category` is equal to `account_transfer_instruction`.
              */
             fun accountTransferInstruction(): Optional<AccountTransferInstruction> =
@@ -6132,8 +6129,8 @@ private constructor(
                 )
 
             /**
-             * A ACH Transfer Instruction object. This field will be present in the JSON response if
-             * and only if `category` is equal to `ach_transfer_instruction`.
+             * An ACH Transfer Instruction object. This field will be present in the JSON response
+             * if and only if `category` is equal to `ach_transfer_instruction`.
              */
             fun achTransferInstruction(): Optional<AchTransferInstruction> =
                 Optional.ofNullable(achTransferInstruction.getNullable("ach_transfer_instruction"))
@@ -6164,7 +6161,7 @@ private constructor(
                 )
 
             /**
-             * A Inbound Funds Hold object. This field will be present in the JSON response if and
+             * An Inbound Funds Hold object. This field will be present in the JSON response if and
              * only if `category` is equal to `inbound_funds_hold`.
              */
             fun inboundFundsHold(): Optional<InboundFundsHold> =
@@ -6193,14 +6190,13 @@ private constructor(
                 )
 
             /**
-             * The type of transaction that took place. We may add additional possible values for
-             * this enum over time; your application should be able to handle such additions
-             * gracefully.
+             * The type of the resource. We may add additional possible values for this enum over
+             * time; your application should be able to handle such additions gracefully.
              */
             @JsonProperty("category") @ExcludeMissing fun _category() = category
 
             /**
-             * A Account Transfer Instruction object. This field will be present in the JSON
+             * An Account Transfer Instruction object. This field will be present in the JSON
              * response if and only if `category` is equal to `account_transfer_instruction`.
              */
             @JsonProperty("account_transfer_instruction")
@@ -6208,8 +6204,8 @@ private constructor(
             fun _accountTransferInstruction() = accountTransferInstruction
 
             /**
-             * A ACH Transfer Instruction object. This field will be present in the JSON response if
-             * and only if `category` is equal to `ach_transfer_instruction`.
+             * An ACH Transfer Instruction object. This field will be present in the JSON response
+             * if and only if `category` is equal to `ach_transfer_instruction`.
              */
             @JsonProperty("ach_transfer_instruction")
             @ExcludeMissing
@@ -6240,7 +6236,7 @@ private constructor(
             fun _checkTransferInstruction() = checkTransferInstruction
 
             /**
-             * A Inbound Funds Hold object. This field will be present in the JSON response if and
+             * An Inbound Funds Hold object. This field will be present in the JSON response if and
              * only if `category` is equal to `inbound_funds_hold`.
              */
             @JsonProperty("inbound_funds_hold")
@@ -6367,23 +6363,21 @@ private constructor(
                 }
 
                 /**
-                 * The type of transaction that took place. We may add additional possible values
-                 * for this enum over time; your application should be able to handle such additions
-                 * gracefully.
+                 * The type of the resource. We may add additional possible values for this enum
+                 * over time; your application should be able to handle such additions gracefully.
                  */
                 fun category(category: Category) = category(JsonField.of(category))
 
                 /**
-                 * The type of transaction that took place. We may add additional possible values
-                 * for this enum over time; your application should be able to handle such additions
-                 * gracefully.
+                 * The type of the resource. We may add additional possible values for this enum
+                 * over time; your application should be able to handle such additions gracefully.
                  */
                 @JsonProperty("category")
                 @ExcludeMissing
                 fun category(category: JsonField<Category>) = apply { this.category = category }
 
                 /**
-                 * A Account Transfer Instruction object. This field will be present in the JSON
+                 * An Account Transfer Instruction object. This field will be present in the JSON
                  * response if and only if `category` is equal to `account_transfer_instruction`.
                  */
                 fun accountTransferInstruction(
@@ -6391,7 +6385,7 @@ private constructor(
                 ) = accountTransferInstruction(JsonField.of(accountTransferInstruction))
 
                 /**
-                 * A Account Transfer Instruction object. This field will be present in the JSON
+                 * An Account Transfer Instruction object. This field will be present in the JSON
                  * response if and only if `category` is equal to `account_transfer_instruction`.
                  */
                 @JsonProperty("account_transfer_instruction")
@@ -6401,14 +6395,14 @@ private constructor(
                 ) = apply { this.accountTransferInstruction = accountTransferInstruction }
 
                 /**
-                 * A ACH Transfer Instruction object. This field will be present in the JSON
+                 * An ACH Transfer Instruction object. This field will be present in the JSON
                  * response if and only if `category` is equal to `ach_transfer_instruction`.
                  */
                 fun achTransferInstruction(achTransferInstruction: AchTransferInstruction) =
                     achTransferInstruction(JsonField.of(achTransferInstruction))
 
                 /**
-                 * A ACH Transfer Instruction object. This field will be present in the JSON
+                 * An ACH Transfer Instruction object. This field will be present in the JSON
                  * response if and only if `category` is equal to `ach_transfer_instruction`.
                  */
                 @JsonProperty("ach_transfer_instruction")
@@ -6469,14 +6463,14 @@ private constructor(
                 ) = apply { this.checkTransferInstruction = checkTransferInstruction }
 
                 /**
-                 * A Inbound Funds Hold object. This field will be present in the JSON response if
+                 * An Inbound Funds Hold object. This field will be present in the JSON response if
                  * and only if `category` is equal to `inbound_funds_hold`.
                  */
                 fun inboundFundsHold(inboundFundsHold: InboundFundsHold) =
                     inboundFundsHold(JsonField.of(inboundFundsHold))
 
                 /**
-                 * A Inbound Funds Hold object. This field will be present in the JSON response if
+                 * An Inbound Funds Hold object. This field will be present in the JSON response if
                  * and only if `category` is equal to `inbound_funds_hold`.
                  */
                 @JsonProperty("inbound_funds_hold")
@@ -6559,7 +6553,7 @@ private constructor(
             }
 
             /**
-             * A Account Transfer Instruction object. This field will be present in the JSON
+             * An Account Transfer Instruction object. This field will be present in the JSON
              * response if and only if `category` is equal to `account_transfer_instruction`.
              */
             @JsonDeserialize(builder = AccountTransferInstruction.Builder::class)
@@ -6820,8 +6814,8 @@ private constructor(
             }
 
             /**
-             * A ACH Transfer Instruction object. This field will be present in the JSON response if
-             * and only if `category` is equal to `ach_transfer_instruction`.
+             * An ACH Transfer Instruction object. This field will be present in the JSON response
+             * if and only if `category` is equal to `ach_transfer_instruction`.
              */
             @JsonDeserialize(builder = AchTransferInstruction.Builder::class)
             @NoAutoDetect
@@ -8878,7 +8872,7 @@ private constructor(
             }
 
             /**
-             * A Inbound Funds Hold object. This field will be present in the JSON response if and
+             * An Inbound Funds Hold object. This field will be present in the JSON response if and
              * only if `category` is equal to `inbound_funds_hold`.
              */
             @JsonDeserialize(builder = InboundFundsHold.Builder::class)
