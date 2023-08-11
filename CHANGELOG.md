@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.8.3](https://github.com/Increase/increase-java/compare/v0.8.2...v0.8.3) (2023-08-11)
+
+
+### Features
+
+* **api:** updates ([#55](https://github.com/Increase/increase-java/issues/55)) ([314adae](https://github.com/Increase/increase-java/commit/314adae061640d5cdd4676126333fa695f2af612))
+
+
+### Documentation
+
+* **api:** change description of various fields ([#57](https://github.com/Increase/increase-java/issues/57)) ([7db1e95](https://github.com/Increase/increase-java/commit/7db1e95b2a91725abdd281ea2a3dd6c2d15b1ebc))
+
 ## [0.8.2](https://github.com/Increase/increase-java/compare/v0.8.1...v0.8.2) (2023-08-08)
 
 
