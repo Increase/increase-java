@@ -207,7 +207,7 @@ constructor(
 
         private var date: OffsetDateTime? = null
         private var transactionId: String? = null
-        private var entries: List<Entry>? = null
+        private var entries: MutableList<Entry> = mutableListOf()
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -217,7 +217,7 @@ constructor(
             apply {
                 this.date = bookkeepingEntrySetCreateParams.date
                 this.transactionId = bookkeepingEntrySetCreateParams.transactionId
-                this.entries = bookkeepingEntrySetCreateParams.entries
+                this.entries(bookkeepingEntrySetCreateParams.entries)
                 additionalQueryParams(bookkeepingEntrySetCreateParams.additionalQueryParams)
                 additionalHeaders(bookkeepingEntrySetCreateParams.additionalHeaders)
                 additionalBodyProperties(bookkeepingEntrySetCreateParams.additionalBodyProperties)
@@ -233,7 +233,13 @@ constructor(
         fun transactionId(transactionId: String) = apply { this.transactionId = transactionId }
 
         /** The bookkeeping entries. */
-        fun entries(entries: List<Entry>) = apply { this.entries = entries }
+        fun entries(entries: List<Entry>) = apply {
+            this.entries.clear()
+            this.entries.addAll(entries)
+        }
+
+        /** The bookkeeping entries. */
+        fun addEntry(entry: Entry) = apply { this.entries.add(entry) }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
