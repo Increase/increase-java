@@ -42,6 +42,7 @@ private constructor(
     private val statementDescriptor: JsonField<String>,
     private val status: JsonField<Status>,
     private val submission: JsonField<Submission>,
+    private val acknowledgement: JsonField<Acknowledgement>,
     private val transactionId: JsonField<String>,
     private val companyDescriptiveDate: JsonField<String>,
     private val companyDiscretionaryData: JsonField<String>,
@@ -131,9 +132,21 @@ private constructor(
     /** The lifecycle status of the transfer. */
     fun status(): Status = status.getRequired("status")
 
-    /** After the transfer is submitted to FedACH, this will contain supplemental details. */
+    /**
+     * After the transfer is submitted to FedACH, this will contain supplemental details. Increase
+     * batches transfers and submits a file to the Federal Reserve roughly every 30 minutes. The
+     * Federal Reserve processes ACH transfers during weekdays according to their (posted
+     * schedule)[https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html].
+     */
     fun submission(): Optional<Submission> =
         Optional.ofNullable(submission.getNullable("submission"))
+
+    /**
+     * After the transfer is acknowledged by FedACH, this will contain supplemental details. The
+     * Federal Reserve sends an acknowledgement message for each file that Increase submits.
+     */
+    fun acknowledgement(): Optional<Acknowledgement> =
+        Optional.ofNullable(acknowledgement.getNullable("acknowledgement"))
 
     /** The ID for the transaction funding the transfer. */
     fun transactionId(): Optional<String> =
@@ -260,8 +273,19 @@ private constructor(
     /** The lifecycle status of the transfer. */
     @JsonProperty("status") @ExcludeMissing fun _status() = status
 
-    /** After the transfer is submitted to FedACH, this will contain supplemental details. */
+    /**
+     * After the transfer is submitted to FedACH, this will contain supplemental details. Increase
+     * batches transfers and submits a file to the Federal Reserve roughly every 30 minutes. The
+     * Federal Reserve processes ACH transfers during weekdays according to their (posted
+     * schedule)[https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html].
+     */
     @JsonProperty("submission") @ExcludeMissing fun _submission() = submission
+
+    /**
+     * After the transfer is acknowledged by FedACH, this will contain supplemental details. The
+     * Federal Reserve sends an acknowledgement message for each file that Increase submits.
+     */
+    @JsonProperty("acknowledgement") @ExcludeMissing fun _acknowledgement() = acknowledgement
 
     /** The ID for the transaction funding the transfer. */
     @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
@@ -336,6 +360,7 @@ private constructor(
             statementDescriptor()
             status()
             submission().map { it.validate() }
+            acknowledgement().map { it.validate() }
             transactionId()
             companyDescriptiveDate()
             companyDiscretionaryData()
@@ -377,6 +402,7 @@ private constructor(
             this.statementDescriptor == other.statementDescriptor &&
             this.status == other.status &&
             this.submission == other.submission &&
+            this.acknowledgement == other.acknowledgement &&
             this.transactionId == other.transactionId &&
             this.companyDescriptiveDate == other.companyDescriptiveDate &&
             this.companyDiscretionaryData == other.companyDiscretionaryData &&
@@ -413,6 +439,7 @@ private constructor(
                     statementDescriptor,
                     status,
                     submission,
+                    acknowledgement,
                     transactionId,
                     companyDescriptiveDate,
                     companyDiscretionaryData,
@@ -432,7 +459,7 @@ private constructor(
     }
 
     override fun toString() =
-        "AchTransfer{accountId=$accountId, accountNumber=$accountNumber, addendum=$addendum, amount=$amount, currency=$currency, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, externalAccountId=$externalAccountId, id=$id, network=$network, notificationsOfChange=$notificationsOfChange, return_=$return_, routingNumber=$routingNumber, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, transactionId=$transactionId, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, funding=$funding, individualId=$individualId, individualName=$individualName, effectiveDate=$effectiveDate, standardEntryClassCode=$standardEntryClassCode, uniqueIdentifier=$uniqueIdentifier, type=$type, additionalProperties=$additionalProperties}"
+        "AchTransfer{accountId=$accountId, accountNumber=$accountNumber, addendum=$addendum, amount=$amount, currency=$currency, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, externalAccountId=$externalAccountId, id=$id, network=$network, notificationsOfChange=$notificationsOfChange, return_=$return_, routingNumber=$routingNumber, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, acknowledgement=$acknowledgement, transactionId=$transactionId, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, funding=$funding, individualId=$individualId, individualName=$individualName, effectiveDate=$effectiveDate, standardEntryClassCode=$standardEntryClassCode, uniqueIdentifier=$uniqueIdentifier, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -458,6 +485,7 @@ private constructor(
         private var statementDescriptor: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var submission: JsonField<Submission> = JsonMissing.of()
+        private var acknowledgement: JsonField<Acknowledgement> = JsonMissing.of()
         private var transactionId: JsonField<String> = JsonMissing.of()
         private var companyDescriptiveDate: JsonField<String> = JsonMissing.of()
         private var companyDiscretionaryData: JsonField<String> = JsonMissing.of()
@@ -491,6 +519,7 @@ private constructor(
             this.statementDescriptor = achTransfer.statementDescriptor
             this.status = achTransfer.status
             this.submission = achTransfer.submission
+            this.acknowledgement = achTransfer.acknowledgement
             this.transactionId = achTransfer.transactionId
             this.companyDescriptiveDate = achTransfer.companyDescriptiveDate
             this.companyDiscretionaryData = achTransfer.companyDiscretionaryData
@@ -686,13 +715,42 @@ private constructor(
         @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
-        /** After the transfer is submitted to FedACH, this will contain supplemental details. */
+        /**
+         * After the transfer is submitted to FedACH, this will contain supplemental details.
+         * Increase batches transfers and submits a file to the Federal Reserve roughly every 30
+         * minutes. The Federal Reserve processes ACH transfers during weekdays according to their
+         * (posted
+         * schedule)[https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html].
+         */
         fun submission(submission: Submission) = submission(JsonField.of(submission))
 
-        /** After the transfer is submitted to FedACH, this will contain supplemental details. */
+        /**
+         * After the transfer is submitted to FedACH, this will contain supplemental details.
+         * Increase batches transfers and submits a file to the Federal Reserve roughly every 30
+         * minutes. The Federal Reserve processes ACH transfers during weekdays according to their
+         * (posted
+         * schedule)[https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html].
+         */
         @JsonProperty("submission")
         @ExcludeMissing
         fun submission(submission: JsonField<Submission>) = apply { this.submission = submission }
+
+        /**
+         * After the transfer is acknowledged by FedACH, this will contain supplemental details. The
+         * Federal Reserve sends an acknowledgement message for each file that Increase submits.
+         */
+        fun acknowledgement(acknowledgement: Acknowledgement) =
+            acknowledgement(JsonField.of(acknowledgement))
+
+        /**
+         * After the transfer is acknowledged by FedACH, this will contain supplemental details. The
+         * Federal Reserve sends an acknowledgement message for each file that Increase submits.
+         */
+        @JsonProperty("acknowledgement")
+        @ExcludeMissing
+        fun acknowledgement(acknowledgement: JsonField<Acknowledgement>) = apply {
+            this.acknowledgement = acknowledgement
+        }
 
         /** The ID for the transaction funding the transfer. */
         fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
@@ -863,6 +921,7 @@ private constructor(
                 statementDescriptor,
                 status,
                 submission,
+                acknowledgement,
                 transactionId,
                 companyDescriptiveDate,
                 companyDiscretionaryData,
@@ -877,6 +936,111 @@ private constructor(
                 type,
                 additionalProperties.toUnmodifiable(),
             )
+    }
+
+    /**
+     * After the transfer is acknowledged by FedACH, this will contain supplemental details. The
+     * Federal Reserve sends an acknowledgement message for each file that Increase submits.
+     */
+    @JsonDeserialize(builder = Acknowledgement.Builder::class)
+    @NoAutoDetect
+    class Acknowledgement
+    private constructor(
+        private val acknowledgedAt: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        /** When the Federal Reserve acknowledged the submitted file containing this transfer. */
+        fun acknowledgedAt(): String = acknowledgedAt.getRequired("acknowledged_at")
+
+        /** When the Federal Reserve acknowledged the submitted file containing this transfer. */
+        @JsonProperty("acknowledged_at") @ExcludeMissing fun _acknowledgedAt() = acknowledgedAt
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): Acknowledgement = apply {
+            if (!validated) {
+                acknowledgedAt()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Acknowledgement &&
+                this.acknowledgedAt == other.acknowledgedAt &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(acknowledgedAt, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Acknowledgement{acknowledgedAt=$acknowledgedAt, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var acknowledgedAt: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(acknowledgement: Acknowledgement) = apply {
+                this.acknowledgedAt = acknowledgement.acknowledgedAt
+                additionalProperties(acknowledgement.additionalProperties)
+            }
+
+            /**
+             * When the Federal Reserve acknowledged the submitted file containing this transfer.
+             */
+            fun acknowledgedAt(acknowledgedAt: String) =
+                acknowledgedAt(JsonField.of(acknowledgedAt))
+
+            /**
+             * When the Federal Reserve acknowledged the submitted file containing this transfer.
+             */
+            @JsonProperty("acknowledged_at")
+            @ExcludeMissing
+            fun acknowledgedAt(acknowledgedAt: JsonField<String>) = apply {
+                this.acknowledgedAt = acknowledgedAt
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): Acknowledgement =
+                Acknowledgement(acknowledgedAt, additionalProperties.toUnmodifiable())
+        }
     }
 
     /**
@@ -2687,7 +2851,12 @@ private constructor(
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    /** After the transfer is submitted to FedACH, this will contain supplemental details. */
+    /**
+     * After the transfer is submitted to FedACH, this will contain supplemental details. Increase
+     * batches transfers and submits a file to the Federal Reserve roughly every 30 minutes. The
+     * Federal Reserve processes ACH transfers during weekdays according to their (posted
+     * schedule)[https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html].
+     */
     @JsonDeserialize(builder = Submission.Builder::class)
     @NoAutoDetect
     class Submission
