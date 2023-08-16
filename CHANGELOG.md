@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.8.4](https://github.com/Increase/increase-java/compare/v0.8.3...v0.8.4) (2023-08-16)
+
+
+### Features
+
+* default timeout is set for java clients ([#59](https://github.com/Increase/increase-java/issues/59)) ([a0bdd18](https://github.com/Increase/increase-java/commit/a0bdd18804c1c9d44f109dc281e34546d7026237))
+* generate addXxx methods for array types ([#62](https://github.com/Increase/increase-java/issues/62)) ([031953c](https://github.com/Increase/increase-java/commit/031953c9a0ed7b66d5634b1fd76b944bd0f93431))
+
+
+### Bug Fixes
+
+* set correct timeouts on okhttp client ([#63](https://github.com/Increase/increase-java/issues/63)) ([f3a4a43](https://github.com/Increase/increase-java/commit/f3a4a43f66b7414e2d60355a87622a8d94be685e))
+
+
+### Chores
+
+* assign default reviewers to release PRs ([#61](https://github.com/Increase/increase-java/issues/61)) ([72257c0](https://github.com/Increase/increase-java/commit/72257c01116682051dafd14c096359340f6a1eeb))
+
 ## [0.8.3](https://github.com/Increase/increase-java/compare/v0.8.2...v0.8.3) (2023-08-11)
 
 
