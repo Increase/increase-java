@@ -16,6 +16,11 @@ class CardProfileListParamsTest {
                     .in_(listOf(CardProfileListParams.Status.In.PENDING))
                     .build()
             )
+            .physicalCardsStatus(
+                CardProfileListParams.PhysicalCardsStatus.builder()
+                    .in_(listOf(CardProfileListParams.PhysicalCardsStatus.In.NOT_ELIGIBLE))
+                    .build()
+            )
             .build()
     }
 
@@ -30,6 +35,11 @@ class CardProfileListParamsTest {
                         .in_(listOf(CardProfileListParams.Status.In.PENDING))
                         .build()
                 )
+                .physicalCardsStatus(
+                    CardProfileListParams.PhysicalCardsStatus.builder()
+                        .in_(listOf(CardProfileListParams.PhysicalCardsStatus.In.NOT_ELIGIBLE))
+                        .build()
+                )
                 .build()
         val expected = mutableMapOf<String, List<String>>()
         expected.put("cursor", listOf("string"))
@@ -38,6 +48,10 @@ class CardProfileListParamsTest {
             .in_(listOf(CardProfileListParams.Status.In.PENDING))
             .build()
             .forEachQueryParam { key, values -> expected.put("status.$key", values) }
+        CardProfileListParams.PhysicalCardsStatus.builder()
+            .in_(listOf(CardProfileListParams.PhysicalCardsStatus.In.NOT_ELIGIBLE))
+            .build()
+            .forEachQueryParam { key, values -> expected.put("physical_cards_status.$key", values) }
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 
