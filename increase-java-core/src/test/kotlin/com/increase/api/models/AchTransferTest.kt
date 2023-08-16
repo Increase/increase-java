@@ -14,6 +14,9 @@ class AchTransferTest {
                 .id("string")
                 .accountId("string")
                 .accountNumber("string")
+                .acknowledgement(
+                    AchTransfer.Acknowledgement.builder().acknowledgedAt("string").build()
+                )
                 .addendum("string")
                 .amount(123L)
                 .approval(
@@ -82,6 +85,8 @@ class AchTransferTest {
         assertThat(achTransfer.id()).isEqualTo("string")
         assertThat(achTransfer.accountId()).isEqualTo("string")
         assertThat(achTransfer.accountNumber()).isEqualTo("string")
+        assertThat(achTransfer.acknowledgement())
+            .contains(AchTransfer.Acknowledgement.builder().acknowledgedAt("string").build())
         assertThat(achTransfer.addendum()).contains("string")
         assertThat(achTransfer.amount()).isEqualTo(123L)
         assertThat(achTransfer.approval())
