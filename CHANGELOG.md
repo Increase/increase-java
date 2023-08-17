@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.9.0](https://github.com/Increase/increase-java/compare/v0.8.4...v0.9.0) (2023-08-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** change `physical_cards.status` value, remove `event_subscription` field, add fields ([#65](https://github.com/Increase/increase-java/issues/65))
+
+### Features
+
+* **api:** change `physical_cards.status` value, remove `event_subscription` field, add fields ([#65](https://github.com/Increase/increase-java/issues/65)) ([5b2c460](https://github.com/Increase/increase-java/commit/5b2c46083e373868e2dc8bc04577e2448444c191))
+
 ## [0.8.4](https://github.com/Increase/increase-java/compare/v0.8.3...v0.8.4) (2023-08-16)
 
 
