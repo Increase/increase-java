@@ -65,6 +65,8 @@ interface IncreaseClient {
 
     fun entities(): EntityService
 
+    fun inboundAchTransfers(): InboundAchTransferService
+
     fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestService
 
     fun wireDrawdownRequests(): WireDrawdownRequestService

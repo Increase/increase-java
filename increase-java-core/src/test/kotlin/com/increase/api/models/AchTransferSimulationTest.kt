@@ -90,7 +90,14 @@ class AchTransferSimulationTest {
                                                                 .MAIL_PHONE_ORDER
                                                         )
                                                         .pointOfServiceEntryMode(
-                                                            PointOfServiceEntryMode.UNKNOWN
+                                                            AchTransferSimulation
+                                                                .DeclinedTransaction
+                                                                .Source
+                                                                .CardDecline
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .PointOfServiceEntryMode
+                                                                .UNKNOWN
                                                         )
                                                         .build()
                                                 )
@@ -1241,7 +1248,13 @@ class AchTransferSimulationTest {
                                                             .MAIL_PHONE_ORDER
                                                     )
                                                     .pointOfServiceEntryMode(
-                                                        PointOfServiceEntryMode.UNKNOWN
+                                                        AchTransferSimulation.DeclinedTransaction
+                                                            .Source
+                                                            .CardDecline
+                                                            .NetworkDetails
+                                                            .Visa
+                                                            .PointOfServiceEntryMode
+                                                            .UNKNOWN
                                                     )
                                                     .build()
                                             )

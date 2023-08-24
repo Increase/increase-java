@@ -65,7 +65,11 @@ class DeclinedTransactionTest {
                                                         .MAIL_PHONE_ORDER
                                                 )
                                                 .pointOfServiceEntryMode(
-                                                    PointOfServiceEntryMode.UNKNOWN
+                                                    DeclinedTransaction.Source.CardDecline
+                                                        .NetworkDetails
+                                                        .Visa
+                                                        .PointOfServiceEntryMode
+                                                        .UNKNOWN
                                                 )
                                                 .build()
                                         )
@@ -237,7 +241,11 @@ class DeclinedTransactionTest {
                                                     .MAIL_PHONE_ORDER
                                             )
                                             .pointOfServiceEntryMode(
-                                                PointOfServiceEntryMode.UNKNOWN
+                                                DeclinedTransaction.Source.CardDecline
+                                                    .NetworkDetails
+                                                    .Visa
+                                                    .PointOfServiceEntryMode
+                                                    .UNKNOWN
                                             )
                                             .build()
                                     )

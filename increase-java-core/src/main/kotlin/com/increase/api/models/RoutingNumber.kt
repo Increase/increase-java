@@ -47,7 +47,7 @@ private constructor(
     /** This routing number's support for ACH Transfers. */
     fun achTransfers(): AchTransfers = achTransfers.getRequired("ach_transfers")
 
-    /** This routing number's support for Real Time Payments Transfers. */
+    /** This routing number's support for Real-Time Payments Transfers. */
     fun realTimePaymentsTransfers(): RealTimePaymentsTransfers =
         realTimePaymentsTransfers.getRequired("real_time_payments_transfers")
 
@@ -69,7 +69,7 @@ private constructor(
     /** This routing number's support for ACH Transfers. */
     @JsonProperty("ach_transfers") @ExcludeMissing fun _achTransfers() = achTransfers
 
-    /** This routing number's support for Real Time Payments Transfers. */
+    /** This routing number's support for Real-Time Payments Transfers. */
     @JsonProperty("real_time_payments_transfers")
     @ExcludeMissing
     fun _realTimePaymentsTransfers() = realTimePaymentsTransfers
@@ -198,11 +198,11 @@ private constructor(
             this.achTransfers = achTransfers
         }
 
-        /** This routing number's support for Real Time Payments Transfers. */
+        /** This routing number's support for Real-Time Payments Transfers. */
         fun realTimePaymentsTransfers(realTimePaymentsTransfers: RealTimePaymentsTransfers) =
             realTimePaymentsTransfers(JsonField.of(realTimePaymentsTransfers))
 
-        /** This routing number's support for Real Time Payments Transfers. */
+        /** This routing number's support for Real-Time Payments Transfers. */
         @JsonProperty("real_time_payments_transfers")
         @ExcludeMissing
         fun realTimePaymentsTransfers(

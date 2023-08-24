@@ -34,7 +34,11 @@ class RealTimeDecisionTest {
                                                 .ElectronicCommerceIndicator
                                                 .MAIL_PHONE_ORDER
                                         )
-                                        .pointOfServiceEntryMode(PointOfServiceEntryMode.UNKNOWN)
+                                        .pointOfServiceEntryMode(
+                                            RealTimeDecision.CardAuthorization.NetworkDetails.Visa
+                                                .PointOfServiceEntryMode
+                                                .UNKNOWN
+                                        )
                                         .build()
                                 )
                                 .build()
@@ -115,7 +119,11 @@ class RealTimeDecisionTest {
                                             .ElectronicCommerceIndicator
                                             .MAIL_PHONE_ORDER
                                     )
-                                    .pointOfServiceEntryMode(PointOfServiceEntryMode.UNKNOWN)
+                                    .pointOfServiceEntryMode(
+                                        RealTimeDecision.CardAuthorization.NetworkDetails.Visa
+                                            .PointOfServiceEntryMode
+                                            .UNKNOWN
+                                    )
                                     .build()
                             )
                             .build()

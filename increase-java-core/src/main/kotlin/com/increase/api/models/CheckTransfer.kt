@@ -108,7 +108,12 @@ private constructor(
     /** If the check has been mailed by Increase, this will contain details of the shipment. */
     fun mailing(): Optional<Mailing> = Optional.ofNullable(mailing.getNullable("mailing"))
 
-    /** The identifier of the Pending Transaction associated with the check's creation. */
+    /**
+     * The ID for the pending transaction representing the transfer. A pending transaction is
+     * created when the transfer
+     * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+     * by someone else in your organization.
+     */
     fun pendingTransactionId(): Optional<String> =
         Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
 
@@ -194,7 +199,12 @@ private constructor(
     /** If the check has been mailed by Increase, this will contain details of the shipment. */
     @JsonProperty("mailing") @ExcludeMissing fun _mailing() = mailing
 
-    /** The identifier of the Pending Transaction associated with the check's creation. */
+    /**
+     * The ID for the pending transaction representing the transfer. A pending transaction is
+     * created when the transfer
+     * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+     * by someone else in your organization.
+     */
     @JsonProperty("pending_transaction_id")
     @ExcludeMissing
     fun _pendingTransactionId() = pendingTransactionId
@@ -529,11 +539,21 @@ private constructor(
         @ExcludeMissing
         fun mailing(mailing: JsonField<Mailing>) = apply { this.mailing = mailing }
 
-        /** The identifier of the Pending Transaction associated with the check's creation. */
+        /**
+         * The ID for the pending transaction representing the transfer. A pending transaction is
+         * created when the transfer
+         * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+         * by someone else in your organization.
+         */
         fun pendingTransactionId(pendingTransactionId: String) =
             pendingTransactionId(JsonField.of(pendingTransactionId))
 
-        /** The identifier of the Pending Transaction associated with the check's creation. */
+        /**
+         * The ID for the pending transaction representing the transfer. A pending transaction is
+         * created when the transfer
+         * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+         * by someone else in your organization.
+         */
         @JsonProperty("pending_transaction_id")
         @ExcludeMissing
         fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {

@@ -9,10 +9,7 @@ import java.util.concurrent.CompletableFuture
 
 interface InboundWireDrawdownRequestServiceAsync {
 
-    /**
-     * Simulates the receival of an [Inbound Wire Drawdown Request](#inbound-wire-drawdown-requests)
-     * .
-     */
+    /** Simulates receiving an [Inbound Wire Drawdown Request](#inbound-wire-drawdown-requests). */
     @JvmOverloads
     fun create(
         params: SimulationInboundWireDrawdownRequestCreateParams,

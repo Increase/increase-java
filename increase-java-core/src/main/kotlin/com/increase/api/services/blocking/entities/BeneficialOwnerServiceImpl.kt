@@ -7,6 +7,7 @@ import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.Entity
+import com.increase.api.models.EntityBeneficialOwnerArchiveParams
 import com.increase.api.models.EntityBeneficialOwnerCreateParams
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
@@ -31,7 +32,7 @@ constructor(
         val request =
             HttpRequest.builder()
                 .method(HttpMethod.POST)
-                .addPathSegments("entities", params.getPathParam(0), "beneficial_owners")
+                .addPathSegments("entity_beneficial_owners")
                 .putAllQueryParams(params.getQueryParams())
                 .putAllHeaders(clientOptions.headers)
                 .putAllHeaders(params.getHeaders())
@@ -40,6 +41,34 @@ constructor(
         return clientOptions.httpClient.execute(request, requestOptions).let { response ->
             response
                 .use { createHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
+        }
+    }
+
+    private val archiveHandler: Handler<Entity> =
+        jsonHandler<Entity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+    /** Archive a beneficial owner belonging to a corporate Entity */
+    override fun archive(
+        params: EntityBeneficialOwnerArchiveParams,
+        requestOptions: RequestOptions
+    ): Entity {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.POST)
+                .addPathSegments("entity_beneficial_owners", "archive")
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .body(json(clientOptions.jsonMapper, params.getBody()))
+                .build()
+        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
+            response
+                .use { archiveHandler.handle(it) }
                 .apply {
                     if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
                         validate()
