@@ -65,6 +65,8 @@ interface IncreaseClientAsync {
 
     fun entities(): EntityServiceAsync
 
+    fun inboundAchTransfers(): InboundAchTransferServiceAsync
+
     fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestServiceAsync
 
     fun wireDrawdownRequests(): WireDrawdownRequestServiceAsync

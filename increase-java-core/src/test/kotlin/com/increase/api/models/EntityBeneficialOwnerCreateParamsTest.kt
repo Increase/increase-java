@@ -171,6 +171,7 @@ class EntityBeneficialOwnerCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
+        assertThat(body.entityId()).isEqualTo("string")
         assertThat(body.beneficialOwner())
             .isEqualTo(
                 EntityBeneficialOwnerCreateParams.BeneficialOwner.builder()
@@ -292,6 +293,7 @@ class EntityBeneficialOwnerCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
+        assertThat(body.entityId()).isEqualTo("string")
         assertThat(body.beneficialOwner())
             .isEqualTo(
                 EntityBeneficialOwnerCreateParams.BeneficialOwner.builder()
@@ -328,57 +330,5 @@ class EntityBeneficialOwnerCreateParamsTest {
                     )
                     .build()
             )
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            EntityBeneficialOwnerCreateParams.builder()
-                .entityId("string")
-                .beneficialOwner(
-                    EntityBeneficialOwnerCreateParams.BeneficialOwner.builder()
-                        .individual(
-                            EntityBeneficialOwnerCreateParams.BeneficialOwner.Individual.builder()
-                                .address(
-                                    EntityBeneficialOwnerCreateParams.BeneficialOwner.Individual
-                                        .Address
-                                        .builder()
-                                        .city("x")
-                                        .line1("x")
-                                        .state("x")
-                                        .zip("x")
-                                        .build()
-                                )
-                                .dateOfBirth(LocalDate.parse("2019-12-27"))
-                                .identification(
-                                    EntityBeneficialOwnerCreateParams.BeneficialOwner.Individual
-                                        .Identification
-                                        .builder()
-                                        .method(
-                                            EntityBeneficialOwnerCreateParams.BeneficialOwner
-                                                .Individual
-                                                .Identification
-                                                .Method
-                                                .SOCIAL_SECURITY_NUMBER
-                                        )
-                                        .number("xxxx")
-                                        .build()
-                                )
-                                .name("x")
-                                .build()
-                        )
-                        .prongs(
-                            listOf(
-                                EntityBeneficialOwnerCreateParams.BeneficialOwner.Prong.OWNERSHIP
-                            )
-                        )
-                        .build()
-                )
-                .build()
-        assertThat(params).isNotNull
-        // path param "entityId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

@@ -25,10 +25,7 @@ constructor(
         jsonHandler<InboundWireDrawdownRequest>(clientOptions.jsonMapper)
             .withErrorHandler(errorHandler)
 
-    /**
-     * Simulates the receival of an [Inbound Wire Drawdown Request](#inbound-wire-drawdown-requests)
-     * .
-     */
+    /** Simulates receiving an [Inbound Wire Drawdown Request](#inbound-wire-drawdown-requests). */
     override fun create(
         params: SimulationInboundWireDrawdownRequestCreateParams,
         requestOptions: RequestOptions

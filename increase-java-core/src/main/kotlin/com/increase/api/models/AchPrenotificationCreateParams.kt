@@ -135,7 +135,7 @@ constructor(
          */
         @JsonProperty("effective_date") fun effectiveDate(): LocalDate? = effectiveDate
 
-        /** Your identifer for the transfer recipient. */
+        /** Your identifier for the transfer recipient. */
         @JsonProperty("individual_id") fun individualId(): String? = individualId
 
         /**
@@ -290,7 +290,7 @@ constructor(
                 this.effectiveDate = effectiveDate
             }
 
-            /** Your identifer for the transfer recipient. */
+            /** Your identifier for the transfer recipient. */
             @JsonProperty("individual_id")
             fun individualId(individualId: String) = apply { this.individualId = individualId }
 
@@ -480,7 +480,7 @@ constructor(
          */
         fun effectiveDate(effectiveDate: LocalDate) = apply { this.effectiveDate = effectiveDate }
 
-        /** Your identifer for the transfer recipient. */
+        /** Your identifier for the transfer recipient. */
         fun individualId(individualId: String) = apply { this.individualId = individualId }
 
         /**

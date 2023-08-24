@@ -71,7 +71,11 @@ class PendingTransactionTest {
                                                         .MAIL_PHONE_ORDER
                                                 )
                                                 .pointOfServiceEntryMode(
-                                                    PointOfServiceEntryMode.UNKNOWN
+                                                    PendingTransaction.Source.CardAuthorization
+                                                        .NetworkDetails
+                                                        .Visa
+                                                        .PointOfServiceEntryMode
+                                                        .UNKNOWN
                                                 )
                                                 .build()
                                         )
@@ -208,7 +212,11 @@ class PendingTransactionTest {
                                                     .MAIL_PHONE_ORDER
                                             )
                                             .pointOfServiceEntryMode(
-                                                PointOfServiceEntryMode.UNKNOWN
+                                                PendingTransaction.Source.CardAuthorization
+                                                    .NetworkDetails
+                                                    .Visa
+                                                    .PointOfServiceEntryMode
+                                                    .UNKNOWN
                                             )
                                             .build()
                                     )

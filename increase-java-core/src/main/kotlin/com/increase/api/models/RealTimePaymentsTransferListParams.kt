@@ -123,10 +123,10 @@ constructor(
          */
         fun limit(limit: Long) = apply { this.limit = limit }
 
-        /** Filter Real Time Payments Transfers to those belonging to the specified Account. */
+        /** Filter Real-Time Payments Transfers to those belonging to the specified Account. */
         fun accountId(accountId: String) = apply { this.accountId = accountId }
 
-        /** Filter Real Time Payments Transfers to those made to the specified External Account. */
+        /** Filter Real-Time Payments Transfers to those made to the specified External Account. */
         fun externalAccountId(externalAccountId: String) = apply {
             this.externalAccountId = externalAccountId
         }

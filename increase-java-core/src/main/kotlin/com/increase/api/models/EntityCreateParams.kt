@@ -628,7 +628,7 @@ constructor(
          */
         @JsonProperty("incorporation_state") fun incorporationState(): String? = incorporationState
 
-        /** The corporation's address. */
+        /** The corporation's physical address. Post Office Boxes are disallowed. */
         @JsonProperty("address") fun address(): Address? = address
 
         /**
@@ -722,7 +722,7 @@ constructor(
                 this.incorporationState = incorporationState
             }
 
-            /** The corporation's address. */
+            /** The corporation's physical address. Post Office Boxes are disallowed. */
             @JsonProperty("address")
             fun address(address: Address) = apply { this.address = address }
 
@@ -764,7 +764,7 @@ constructor(
                 )
         }
 
-        /** The corporation's address. */
+        /** The corporation's physical address. Post Office Boxes are disallowed. */
         @JsonDeserialize(builder = Address.Builder::class)
         @NoAutoDetect
         class Address
@@ -1043,7 +1043,7 @@ constructor(
                 /** The person's date of birth in YYYY-MM-DD format. */
                 @JsonProperty("date_of_birth") fun dateOfBirth(): LocalDate? = dateOfBirth
 
-                /** The individual's address. */
+                /** The individual's physical address. Post Office Boxes are disallowed. */
                 @JsonProperty("address") fun address(): Address? = address
 
                 /**
@@ -1130,7 +1130,7 @@ constructor(
                         this.dateOfBirth = dateOfBirth
                     }
 
-                    /** The individual's address. */
+                    /** The individual's physical address. Post Office Boxes are disallowed. */
                     @JsonProperty("address")
                     fun address(address: Address) = apply { this.address = address }
 
@@ -1181,7 +1181,7 @@ constructor(
                         )
                 }
 
-                /** The individual's address. */
+                /** The individual's physical address. Post Office Boxes are disallowed. */
                 @JsonDeserialize(builder = Address.Builder::class)
                 @NoAutoDetect
                 class Address
@@ -2198,7 +2198,7 @@ constructor(
             /** The person's date of birth in YYYY-MM-DD format. */
             @JsonProperty("date_of_birth") fun dateOfBirth(): LocalDate? = dateOfBirth
 
-            /** The individual's address. */
+            /** The individual's physical address. Post Office Boxes are disallowed. */
             @JsonProperty("address") fun address(): Address? = address
 
             /**
@@ -2281,7 +2281,7 @@ constructor(
                 @JsonProperty("date_of_birth")
                 fun dateOfBirth(dateOfBirth: LocalDate) = apply { this.dateOfBirth = dateOfBirth }
 
-                /** The individual's address. */
+                /** The individual's physical address. Post Office Boxes are disallowed. */
                 @JsonProperty("address")
                 fun address(address: Address) = apply { this.address = address }
 
@@ -2330,7 +2330,7 @@ constructor(
                     )
             }
 
-            /** The individual's address. */
+            /** The individual's physical address. Post Office Boxes are disallowed. */
             @JsonDeserialize(builder = Address.Builder::class)
             @NoAutoDetect
             class Address
@@ -3168,7 +3168,7 @@ constructor(
         /** The person's date of birth in YYYY-MM-DD format. */
         @JsonProperty("date_of_birth") fun dateOfBirth(): LocalDate? = dateOfBirth
 
-        /** The individual's address. */
+        /** The individual's physical address. Post Office Boxes are disallowed. */
         @JsonProperty("address") fun address(): Address? = address
 
         /**
@@ -3251,7 +3251,7 @@ constructor(
             @JsonProperty("date_of_birth")
             fun dateOfBirth(dateOfBirth: LocalDate) = apply { this.dateOfBirth = dateOfBirth }
 
-            /** The individual's address. */
+            /** The individual's physical address. Post Office Boxes are disallowed. */
             @JsonProperty("address")
             fun address(address: Address) = apply { this.address = address }
 
@@ -3296,7 +3296,7 @@ constructor(
                 )
         }
 
-        /** The individual's address. */
+        /** The individual's physical address. Post Office Boxes are disallowed. */
         @JsonDeserialize(builder = Address.Builder::class)
         @NoAutoDetect
         class Address
@@ -4209,7 +4209,7 @@ constructor(
          */
         @JsonProperty("formation_state") fun formationState(): String? = formationState
 
-        /** The trust's address. */
+        /** The trust's physical address. Post Office Boxes are disallowed. */
         @JsonProperty("address") fun address(): Address? = address
 
         /** The identifier of the File containing the formation document of the trust. */
@@ -4323,7 +4323,7 @@ constructor(
                 this.formationState = formationState
             }
 
-            /** The trust's address. */
+            /** The trust's physical address. Post Office Boxes are disallowed. */
             @JsonProperty("address")
             fun address(address: Address) = apply { this.address = address }
 
@@ -4370,7 +4370,7 @@ constructor(
                 )
         }
 
-        /** The trust's address. */
+        /** The trust's physical address. Post Office Boxes are disallowed. */
         @JsonDeserialize(builder = Address.Builder::class)
         @NoAutoDetect
         class Address
@@ -4746,7 +4746,7 @@ constructor(
                 /** The person's date of birth in YYYY-MM-DD format. */
                 @JsonProperty("date_of_birth") fun dateOfBirth(): LocalDate? = dateOfBirth
 
-                /** The individual's address. */
+                /** The individual's physical address. Post Office Boxes are disallowed. */
                 @JsonProperty("address") fun address(): Address? = address
 
                 /**
@@ -4833,7 +4833,7 @@ constructor(
                         this.dateOfBirth = dateOfBirth
                     }
 
-                    /** The individual's address. */
+                    /** The individual's physical address. Post Office Boxes are disallowed. */
                     @JsonProperty("address")
                     fun address(address: Address) = apply { this.address = address }
 
@@ -4884,7 +4884,7 @@ constructor(
                         )
                 }
 
-                /** The individual's address. */
+                /** The individual's physical address. Post Office Boxes are disallowed. */
                 @JsonDeserialize(builder = Address.Builder::class)
                 @NoAutoDetect
                 class Address
@@ -5744,7 +5744,7 @@ constructor(
             /** The person's date of birth in YYYY-MM-DD format. */
             @JsonProperty("date_of_birth") fun dateOfBirth(): LocalDate? = dateOfBirth
 
-            /** The individual's address. */
+            /** The individual's physical address. Post Office Boxes are disallowed. */
             @JsonProperty("address") fun address(): Address? = address
 
             /**
@@ -5827,7 +5827,7 @@ constructor(
                 @JsonProperty("date_of_birth")
                 fun dateOfBirth(dateOfBirth: LocalDate) = apply { this.dateOfBirth = dateOfBirth }
 
-                /** The individual's address. */
+                /** The individual's physical address. Post Office Boxes are disallowed. */
                 @JsonProperty("address")
                 fun address(address: Address) = apply { this.address = address }
 
@@ -5876,7 +5876,7 @@ constructor(
                     )
             }
 
-            /** The individual's address. */
+            /** The individual's physical address. Post Office Boxes are disallowed. */
             @JsonDeserialize(builder = Address.Builder::class)
             @NoAutoDetect
             class Address

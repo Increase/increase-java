@@ -45,6 +45,7 @@ private constructor(
     private val status: JsonField<Status>,
     private val submission: JsonField<Submission>,
     private val transactionId: JsonField<String>,
+    private val pendingTransactionId: JsonField<String>,
     private val uniqueIdentifier: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
@@ -134,6 +135,15 @@ private constructor(
     /** The ID for the transaction funding the transfer. */
     fun transactionId(): Optional<String> =
         Optional.ofNullable(transactionId.getNullable("transaction_id"))
+
+    /**
+     * The ID for the pending transaction representing the transfer. A pending transaction is
+     * created when the transfer
+     * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+     * by someone else in your organization.
+     */
+    fun pendingTransactionId(): Optional<String> =
+        Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
 
     /** The unique identifier you chose for this transfer. */
     fun uniqueIdentifier(): Optional<String> =
@@ -227,6 +237,16 @@ private constructor(
     /** The ID for the transaction funding the transfer. */
     @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
+    /**
+     * The ID for the pending transaction representing the transfer. A pending transaction is
+     * created when the transfer
+     * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+     * by someone else in your organization.
+     */
+    @JsonProperty("pending_transaction_id")
+    @ExcludeMissing
+    fun _pendingTransactionId() = pendingTransactionId
+
     /** The unique identifier you chose for this transfer. */
     @JsonProperty("unique_identifier") @ExcludeMissing fun _uniqueIdentifier() = uniqueIdentifier
 
@@ -262,6 +282,7 @@ private constructor(
             status()
             submission().map { it.validate() }
             transactionId()
+            pendingTransactionId()
             uniqueIdentifier()
             type()
             validated = true
@@ -296,6 +317,7 @@ private constructor(
             this.status == other.status &&
             this.submission == other.submission &&
             this.transactionId == other.transactionId &&
+            this.pendingTransactionId == other.pendingTransactionId &&
             this.uniqueIdentifier == other.uniqueIdentifier &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
@@ -325,6 +347,7 @@ private constructor(
                     status,
                     submission,
                     transactionId,
+                    pendingTransactionId,
                     uniqueIdentifier,
                     type,
                     additionalProperties,
@@ -334,7 +357,7 @@ private constructor(
     }
 
     override fun toString() =
-        "WireTransfer{id=$id, messageToRecipient=$messageToRecipient, amount=$amount, currency=$currency, accountNumber=$accountNumber, beneficiaryName=$beneficiaryName, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, accountId=$accountId, externalAccountId=$externalAccountId, routingNumber=$routingNumber, approval=$approval, cancellation=$cancellation, reversal=$reversal, createdAt=$createdAt, network=$network, status=$status, submission=$submission, transactionId=$transactionId, uniqueIdentifier=$uniqueIdentifier, type=$type, additionalProperties=$additionalProperties}"
+        "WireTransfer{id=$id, messageToRecipient=$messageToRecipient, amount=$amount, currency=$currency, accountNumber=$accountNumber, beneficiaryName=$beneficiaryName, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, accountId=$accountId, externalAccountId=$externalAccountId, routingNumber=$routingNumber, approval=$approval, cancellation=$cancellation, reversal=$reversal, createdAt=$createdAt, network=$network, status=$status, submission=$submission, transactionId=$transactionId, pendingTransactionId=$pendingTransactionId, uniqueIdentifier=$uniqueIdentifier, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -363,6 +386,7 @@ private constructor(
         private var status: JsonField<Status> = JsonMissing.of()
         private var submission: JsonField<Submission> = JsonMissing.of()
         private var transactionId: JsonField<String> = JsonMissing.of()
+        private var pendingTransactionId: JsonField<String> = JsonMissing.of()
         private var uniqueIdentifier: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -389,6 +413,7 @@ private constructor(
             this.status = wireTransfer.status
             this.submission = wireTransfer.submission
             this.transactionId = wireTransfer.transactionId
+            this.pendingTransactionId = wireTransfer.pendingTransactionId
             this.uniqueIdentifier = wireTransfer.uniqueIdentifier
             this.type = wireTransfer.type
             additionalProperties(wireTransfer.additionalProperties)
@@ -602,6 +627,27 @@ private constructor(
             this.transactionId = transactionId
         }
 
+        /**
+         * The ID for the pending transaction representing the transfer. A pending transaction is
+         * created when the transfer
+         * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+         * by someone else in your organization.
+         */
+        fun pendingTransactionId(pendingTransactionId: String) =
+            pendingTransactionId(JsonField.of(pendingTransactionId))
+
+        /**
+         * The ID for the pending transaction representing the transfer. A pending transaction is
+         * created when the transfer
+         * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+         * by someone else in your organization.
+         */
+        @JsonProperty("pending_transaction_id")
+        @ExcludeMissing
+        fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
+            this.pendingTransactionId = pendingTransactionId
+        }
+
         /** The unique identifier you chose for this transfer. */
         fun uniqueIdentifier(uniqueIdentifier: String) =
             uniqueIdentifier(JsonField.of(uniqueIdentifier))
@@ -663,6 +709,7 @@ private constructor(
                 status,
                 submission,
                 transactionId,
+                pendingTransactionId,
                 uniqueIdentifier,
                 type,
                 additionalProperties.toUnmodifiable(),
@@ -1190,8 +1237,7 @@ private constructor(
             )
 
         /** The ID for the Transaction associated with the transfer reversal. */
-        fun transactionId(): Optional<String> =
-            Optional.ofNullable(transactionId.getNullable("transaction_id"))
+        fun transactionId(): String = transactionId.getRequired("transaction_id")
 
         /** The ID for the Wire Transfer that is being reversed. */
         fun wireTransferId(): String = wireTransferId.getRequired("wire_transfer_id")

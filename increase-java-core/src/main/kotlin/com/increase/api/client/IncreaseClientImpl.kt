@@ -106,6 +106,10 @@ constructor(
 
     private val entities: EntityService by lazy { EntityServiceImpl(clientOptions) }
 
+    private val inboundAchTransfers: InboundAchTransferService by lazy {
+        InboundAchTransferServiceImpl(clientOptions)
+    }
+
     private val inboundWireDrawdownRequests: InboundWireDrawdownRequestService by lazy {
         InboundWireDrawdownRequestServiceImpl(clientOptions)
     }
@@ -201,6 +205,8 @@ constructor(
     override fun checkTransfers(): CheckTransferService = checkTransfers
 
     override fun entities(): EntityService = entities
+
+    override fun inboundAchTransfers(): InboundAchTransferService = inboundAchTransfers
 
     override fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestService =
         inboundWireDrawdownRequests

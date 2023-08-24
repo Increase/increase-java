@@ -31,6 +31,7 @@ class RealTimePaymentsTransferTest {
                 .destinationAccountNumber("string")
                 .destinationRoutingNumber("string")
                 .externalAccountId("string")
+                .pendingTransactionId("string")
                 .rejection(
                     RealTimePaymentsTransfer.Rejection.builder()
                         .rejectReasonAdditionalInformation("string")
@@ -79,6 +80,7 @@ class RealTimePaymentsTransferTest {
         assertThat(realTimePaymentsTransfer.destinationAccountNumber()).isEqualTo("string")
         assertThat(realTimePaymentsTransfer.destinationRoutingNumber()).isEqualTo("string")
         assertThat(realTimePaymentsTransfer.externalAccountId()).contains("string")
+        assertThat(realTimePaymentsTransfer.pendingTransactionId()).contains("string")
         assertThat(realTimePaymentsTransfer.rejection())
             .contains(
                 RealTimePaymentsTransfer.Rejection.builder()

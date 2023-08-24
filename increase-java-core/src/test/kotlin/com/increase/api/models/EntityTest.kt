@@ -26,6 +26,7 @@ class EntityTest {
                         .beneficialOwners(
                             listOf(
                                 Entity.Corporation.BeneficialOwner.builder()
+                                    .beneficialOwnerId("string")
                                     .companyTitle("string")
                                     .individual(
                                         Entity.Corporation.BeneficialOwner.Individual.builder()
@@ -230,6 +231,7 @@ class EntityTest {
                     .beneficialOwners(
                         listOf(
                             Entity.Corporation.BeneficialOwner.builder()
+                                .beneficialOwnerId("string")
                                 .companyTitle("string")
                                 .individual(
                                     Entity.Corporation.BeneficialOwner.Individual.builder()
