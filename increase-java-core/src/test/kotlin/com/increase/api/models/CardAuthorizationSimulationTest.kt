@@ -93,7 +93,14 @@ class CardAuthorizationSimulationTest {
                                                                 .MAIL_PHONE_ORDER
                                                         )
                                                         .pointOfServiceEntryMode(
-                                                            PointOfServiceEntryMode.UNKNOWN
+                                                            CardAuthorizationSimulation
+                                                                .DeclinedTransaction
+                                                                .Source
+                                                                .CardDecline
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .PointOfServiceEntryMode
+                                                                .UNKNOWN
                                                         )
                                                         .build()
                                                 )
@@ -323,7 +330,14 @@ class CardAuthorizationSimulationTest {
                                                                 .MAIL_PHONE_ORDER
                                                         )
                                                         .pointOfServiceEntryMode(
-                                                            PointOfServiceEntryMode.UNKNOWN
+                                                            CardAuthorizationSimulation
+                                                                .PendingTransaction
+                                                                .Source
+                                                                .CardAuthorization
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .PointOfServiceEntryMode
+                                                                .UNKNOWN
                                                         )
                                                         .build()
                                                 )
@@ -521,7 +535,14 @@ class CardAuthorizationSimulationTest {
                                                             .MAIL_PHONE_ORDER
                                                     )
                                                     .pointOfServiceEntryMode(
-                                                        PointOfServiceEntryMode.UNKNOWN
+                                                        CardAuthorizationSimulation
+                                                            .DeclinedTransaction
+                                                            .Source
+                                                            .CardDecline
+                                                            .NetworkDetails
+                                                            .Visa
+                                                            .PointOfServiceEntryMode
+                                                            .UNKNOWN
                                                     )
                                                     .build()
                                             )
@@ -743,7 +764,14 @@ class CardAuthorizationSimulationTest {
                                                             .MAIL_PHONE_ORDER
                                                     )
                                                     .pointOfServiceEntryMode(
-                                                        PointOfServiceEntryMode.UNKNOWN
+                                                        CardAuthorizationSimulation
+                                                            .PendingTransaction
+                                                            .Source
+                                                            .CardAuthorization
+                                                            .NetworkDetails
+                                                            .Visa
+                                                            .PointOfServiceEntryMode
+                                                            .UNKNOWN
                                                     )
                                                     .build()
                                             )

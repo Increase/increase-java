@@ -183,7 +183,7 @@ constructor(
             )
         }
 
-        /** The identifier of the Entity to retrieve. */
+        /** The identifier of the Entity to associate with the supplemental document. */
         fun entityId(entityId: String) = apply { this.entityId = entityId }
 
         /** The identifier of the File containing the document. */

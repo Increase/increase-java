@@ -1,8 +1,12 @@
 package com.increase.api.models
 
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
+import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
 import java.time.OffsetDateTime
 import java.util.Objects
@@ -15,6 +19,7 @@ constructor(
     private val accountId: String?,
     private val routeId: String?,
     private val createdAt: CreatedAt?,
+    private val category: Category?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
@@ -29,6 +34,8 @@ constructor(
 
     fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
+    fun category(): Optional<Category> = Optional.ofNullable(category)
+
     @JvmSynthetic
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
@@ -37,6 +44,7 @@ constructor(
         this.accountId?.let { params.put("account_id", listOf(it.toString())) }
         this.routeId?.let { params.put("route_id", listOf(it.toString())) }
         this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
+        this.category?.forEachQueryParam { key, values -> params.put("category.$key", values) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -58,6 +66,7 @@ constructor(
             this.accountId == other.accountId &&
             this.routeId == other.routeId &&
             this.createdAt == other.createdAt &&
+            this.category == other.category &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
@@ -69,13 +78,14 @@ constructor(
             accountId,
             routeId,
             createdAt,
+            category,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "DeclinedTransactionListParams{cursor=$cursor, limit=$limit, accountId=$accountId, routeId=$routeId, createdAt=$createdAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "DeclinedTransactionListParams{cursor=$cursor, limit=$limit, accountId=$accountId, routeId=$routeId, createdAt=$createdAt, category=$category, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -92,6 +102,7 @@ constructor(
         private var accountId: String? = null
         private var routeId: String? = null
         private var createdAt: CreatedAt? = null
+        private var category: Category? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
@@ -102,6 +113,7 @@ constructor(
             this.accountId = declinedTransactionListParams.accountId
             this.routeId = declinedTransactionListParams.routeId
             this.createdAt = declinedTransactionListParams.createdAt
+            this.category = declinedTransactionListParams.category
             additionalQueryParams(declinedTransactionListParams.additionalQueryParams)
             additionalHeaders(declinedTransactionListParams.additionalHeaders)
         }
@@ -121,6 +133,8 @@ constructor(
         fun routeId(routeId: String) = apply { this.routeId = routeId }
 
         fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
+
+        fun category(category: Category) = apply { this.category = category }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -169,9 +183,188 @@ constructor(
                 accountId,
                 routeId,
                 createdAt,
+                category,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )
+    }
+
+    @JsonDeserialize(builder = Category.Builder::class)
+    @NoAutoDetect
+    class Category
+    private constructor(
+        private val in_: List<In>?,
+        private val additionalProperties: Map<String, List<String>>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        /**
+         * Return results whose value is in the provided list. For GET requests, this should be
+         * encoded as a comma-delimited string, such as `?in=one,two,three`.
+         */
+        fun in_(): List<In>? = in_
+
+        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
+
+        @JvmSynthetic
+        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
+            this.in_?.let { putParam("in", listOf(it.joinToString(separator = ","))) }
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Category &&
+                this.in_ == other.in_ &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(in_, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "Category{in_=$in_, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var in_: List<In>? = null
+            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(category: Category) = apply {
+                this.in_ = category.in_
+                additionalProperties(category.additionalProperties)
+            }
+
+            /**
+             * Return results whose value is in the provided list. For GET requests, this should be
+             * encoded as a comma-delimited string, such as `?in=one,two,three`.
+             */
+            fun in_(in_: List<In>) = apply { this.in_ = in_ }
+
+            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: List<String>) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun build(): Category =
+                Category(in_?.toUnmodifiable(), additionalProperties.toUnmodifiable())
+        }
+
+        class In
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is In && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                @JvmField val ACH_DECLINE = In(JsonField.of("ach_decline"))
+
+                @JvmField val CARD_DECLINE = In(JsonField.of("card_decline"))
+
+                @JvmField val CHECK_DECLINE = In(JsonField.of("check_decline"))
+
+                @JvmField
+                val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE =
+                    In(JsonField.of("inbound_real_time_payments_transfer_decline"))
+
+                @JvmField
+                val INTERNATIONAL_ACH_DECLINE = In(JsonField.of("international_ach_decline"))
+
+                @JvmField val WIRE_DECLINE = In(JsonField.of("wire_decline"))
+
+                @JvmField val OTHER = In(JsonField.of("other"))
+
+                @JvmStatic fun of(value: String) = In(JsonField.of(value))
+            }
+
+            enum class Known {
+                ACH_DECLINE,
+                CARD_DECLINE,
+                CHECK_DECLINE,
+                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
+                INTERNATIONAL_ACH_DECLINE,
+                WIRE_DECLINE,
+                OTHER,
+            }
+
+            enum class Value {
+                ACH_DECLINE,
+                CARD_DECLINE,
+                CHECK_DECLINE,
+                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
+                INTERNATIONAL_ACH_DECLINE,
+                WIRE_DECLINE,
+                OTHER,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    ACH_DECLINE -> Value.ACH_DECLINE
+                    CARD_DECLINE -> Value.CARD_DECLINE
+                    CHECK_DECLINE -> Value.CHECK_DECLINE
+                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE ->
+                        Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
+                    INTERNATIONAL_ACH_DECLINE -> Value.INTERNATIONAL_ACH_DECLINE
+                    WIRE_DECLINE -> Value.WIRE_DECLINE
+                    OTHER -> Value.OTHER
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    ACH_DECLINE -> Known.ACH_DECLINE
+                    CARD_DECLINE -> Known.CARD_DECLINE
+                    CHECK_DECLINE -> Known.CHECK_DECLINE
+                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE ->
+                        Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
+                    INTERNATIONAL_ACH_DECLINE -> Known.INTERNATIONAL_ACH_DECLINE
+                    WIRE_DECLINE -> Known.WIRE_DECLINE
+                    OTHER -> Known.OTHER
+                    else -> throw IncreaseInvalidDataException("Unknown In: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
     }
 
     @JsonDeserialize(builder = CreatedAt.Builder::class)

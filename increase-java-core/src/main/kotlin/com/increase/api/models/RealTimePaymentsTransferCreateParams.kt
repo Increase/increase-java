@@ -102,7 +102,7 @@ constructor(
          */
         @JsonProperty("external_account_id") fun externalAccountId(): String? = externalAccountId
 
-        /** The transfer amount in USD cents. For Real Time Payments transfers, must be positive. */
+        /** The transfer amount in USD cents. For Real-Time Payments transfers, must be positive. */
         @JsonProperty("amount") fun amount(): Long? = amount
 
         /** The name of the transfer's recipient. */
@@ -116,7 +116,7 @@ constructor(
         @JsonProperty("require_approval") fun requireApproval(): Boolean? = requireApproval
 
         /**
-         * A unique identifier you choose for the transfer. Reusing this identifer for another
+         * A unique identifier you choose for the transfer. Reusing this identifier for another
          * transfer will result in an error. You can query for the transfer associated with this
          * identifier using the List endpoint.
          */
@@ -235,7 +235,7 @@ constructor(
             }
 
             /**
-             * The transfer amount in USD cents. For Real Time Payments transfers, must be positive.
+             * The transfer amount in USD cents. For Real-Time Payments transfers, must be positive.
              */
             @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
 
@@ -256,7 +256,7 @@ constructor(
             }
 
             /**
-             * A unique identifier you choose for the transfer. Reusing this identifer for another
+             * A unique identifier you choose for the transfer. Reusing this identifier for another
              * transfer will result in an error. You can query for the transfer associated with this
              * identifier using the List endpoint.
              */
@@ -411,7 +411,7 @@ constructor(
             this.externalAccountId = externalAccountId
         }
 
-        /** The transfer amount in USD cents. For Real Time Payments transfers, must be positive. */
+        /** The transfer amount in USD cents. For Real-Time Payments transfers, must be positive. */
         fun amount(amount: Long) = apply { this.amount = amount }
 
         /** The name of the transfer's recipient. */
@@ -428,7 +428,7 @@ constructor(
         }
 
         /**
-         * A unique identifier you choose for the transfer. Reusing this identifer for another
+         * A unique identifier you choose for the transfer. Reusing this identifier for another
          * transfer will result in an error. You can query for the transfer associated with this
          * identifier using the List endpoint.
          */

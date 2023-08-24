@@ -817,6 +817,7 @@ private constructor(
             private val individual: JsonField<Individual>,
             private val companyTitle: JsonField<String>,
             private val prong: JsonField<Prong>,
+            private val beneficialOwnerId: JsonField<String>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
@@ -834,6 +835,9 @@ private constructor(
             /** Why this person is considered a beneficial owner of the entity. */
             fun prong(): Prong = prong.getRequired("prong")
 
+            /** The identifier of this beneficial owner. */
+            fun beneficialOwnerId(): String = beneficialOwnerId.getRequired("beneficial_owner_id")
+
             /** Personal details for the beneficial owner. */
             @JsonProperty("individual") @ExcludeMissing fun _individual() = individual
 
@@ -842,6 +846,11 @@ private constructor(
 
             /** Why this person is considered a beneficial owner of the entity. */
             @JsonProperty("prong") @ExcludeMissing fun _prong() = prong
+
+            /** The identifier of this beneficial owner. */
+            @JsonProperty("beneficial_owner_id")
+            @ExcludeMissing
+            fun _beneficialOwnerId() = beneficialOwnerId
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -852,6 +861,7 @@ private constructor(
                     individual().validate()
                     companyTitle()
                     prong()
+                    beneficialOwnerId()
                     validated = true
                 }
             }
@@ -867,6 +877,7 @@ private constructor(
                     this.individual == other.individual &&
                     this.companyTitle == other.companyTitle &&
                     this.prong == other.prong &&
+                    this.beneficialOwnerId == other.beneficialOwnerId &&
                     this.additionalProperties == other.additionalProperties
             }
 
@@ -877,6 +888,7 @@ private constructor(
                             individual,
                             companyTitle,
                             prong,
+                            beneficialOwnerId,
                             additionalProperties,
                         )
                 }
@@ -884,7 +896,7 @@ private constructor(
             }
 
             override fun toString() =
-                "BeneficialOwner{individual=$individual, companyTitle=$companyTitle, prong=$prong, additionalProperties=$additionalProperties}"
+                "BeneficialOwner{individual=$individual, companyTitle=$companyTitle, prong=$prong, beneficialOwnerId=$beneficialOwnerId, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -896,6 +908,7 @@ private constructor(
                 private var individual: JsonField<Individual> = JsonMissing.of()
                 private var companyTitle: JsonField<String> = JsonMissing.of()
                 private var prong: JsonField<Prong> = JsonMissing.of()
+                private var beneficialOwnerId: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -903,6 +916,7 @@ private constructor(
                     this.individual = beneficialOwner.individual
                     this.companyTitle = beneficialOwner.companyTitle
                     this.prong = beneficialOwner.prong
+                    this.beneficialOwnerId = beneficialOwner.beneficialOwnerId
                     additionalProperties(beneficialOwner.additionalProperties)
                 }
 
@@ -934,6 +948,17 @@ private constructor(
                 @ExcludeMissing
                 fun prong(prong: JsonField<Prong>) = apply { this.prong = prong }
 
+                /** The identifier of this beneficial owner. */
+                fun beneficialOwnerId(beneficialOwnerId: String) =
+                    beneficialOwnerId(JsonField.of(beneficialOwnerId))
+
+                /** The identifier of this beneficial owner. */
+                @JsonProperty("beneficial_owner_id")
+                @ExcludeMissing
+                fun beneficialOwnerId(beneficialOwnerId: JsonField<String>) = apply {
+                    this.beneficialOwnerId = beneficialOwnerId
+                }
+
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
                     this.additionalProperties.putAll(additionalProperties)
@@ -954,6 +979,7 @@ private constructor(
                         individual,
                         companyTitle,
                         prong,
+                        beneficialOwnerId,
                         additionalProperties.toUnmodifiable(),
                     )
             }

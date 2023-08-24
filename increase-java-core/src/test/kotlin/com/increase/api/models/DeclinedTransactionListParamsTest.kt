@@ -22,6 +22,11 @@ class DeclinedTransactionListParamsTest {
                     .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
+            .category(
+                DeclinedTransactionListParams.Category.builder()
+                    .in_(listOf(DeclinedTransactionListParams.Category.In.ACH_DECLINE))
+                    .build()
+            )
             .build()
     }
 
@@ -41,6 +46,11 @@ class DeclinedTransactionListParamsTest {
                         .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
+                .category(
+                    DeclinedTransactionListParams.Category.builder()
+                        .in_(listOf(DeclinedTransactionListParams.Category.In.ACH_DECLINE))
+                        .build()
+                )
                 .build()
         val expected = mutableMapOf<String, List<String>>()
         expected.put("cursor", listOf("string"))
@@ -54,6 +64,10 @@ class DeclinedTransactionListParamsTest {
             .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
+        DeclinedTransactionListParams.Category.builder()
+            .in_(listOf(DeclinedTransactionListParams.Category.In.ACH_DECLINE))
+            .build()
+            .forEachQueryParam { key, values -> expected.put("category.$key", values) }
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 

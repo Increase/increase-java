@@ -17,8 +17,8 @@ import java.util.Objects
 import java.util.Optional
 
 /**
- * Real Time Payments transfers move funds, within seconds, between your Increase account and any
- * other account on the Real Time Payments network.
+ * Real-Time Payments transfers move funds, within seconds, between your Increase account and any
+ * other account on the Real-Time Payments network.
  */
 @JsonDeserialize(builder = RealTimePaymentsTransfer.Builder::class)
 @NoAutoDetect
@@ -40,6 +40,7 @@ private constructor(
     private val destinationAccountNumber: JsonField<String>,
     private val destinationRoutingNumber: JsonField<String>,
     private val transactionId: JsonField<String>,
+    private val pendingTransactionId: JsonField<String>,
     private val submission: JsonField<Submission>,
     private val rejection: JsonField<Rejection>,
     private val uniqueIdentifier: JsonField<String>,
@@ -56,7 +57,7 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The Real Time Payments Transfer's identifier. */
+    /** The Real-Time Payments Transfer's identifier. */
     fun id(): String = id.getRequired("id")
 
     /**
@@ -104,7 +105,7 @@ private constructor(
 
     /**
      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
-     * real time payments transfers this is always equal to `USD`.
+     * real-time payments transfers this is always equal to `USD`.
      */
     fun currency(): Currency = currency.getRequired("currency")
 
@@ -121,14 +122,23 @@ private constructor(
         Optional.ofNullable(transactionId.getNullable("transaction_id"))
 
     /**
-     * After the transfer is submitted to Real Time Payments, this will contain supplemental
+     * The ID for the pending transaction representing the transfer. A pending transaction is
+     * created when the transfer
+     * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+     * by someone else in your organization.
+     */
+    fun pendingTransactionId(): Optional<String> =
+        Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
+
+    /**
+     * After the transfer is submitted to Real-Time Payments, this will contain supplemental
      * details.
      */
     fun submission(): Optional<Submission> =
         Optional.ofNullable(submission.getNullable("submission"))
 
     /**
-     * If the transfer is rejected by Real Time Payments or the destination financial institution,
+     * If the transfer is rejected by Real-Time Payments or the destination financial institution,
      * this will contain supplemental details.
      */
     fun rejection(): Optional<Rejection> = Optional.ofNullable(rejection.getNullable("rejection"))
@@ -143,7 +153,7 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type() = type
 
-    /** The Real Time Payments Transfer's identifier. */
+    /** The Real-Time Payments Transfer's identifier. */
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
@@ -193,7 +203,7 @@ private constructor(
 
     /**
      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
-     * real time payments transfers this is always equal to `USD`.
+     * real-time payments transfers this is always equal to `USD`.
      */
     @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
 
@@ -211,13 +221,23 @@ private constructor(
     @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
     /**
-     * After the transfer is submitted to Real Time Payments, this will contain supplemental
+     * The ID for the pending transaction representing the transfer. A pending transaction is
+     * created when the transfer
+     * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+     * by someone else in your organization.
+     */
+    @JsonProperty("pending_transaction_id")
+    @ExcludeMissing
+    fun _pendingTransactionId() = pendingTransactionId
+
+    /**
+     * After the transfer is submitted to Real-Time Payments, this will contain supplemental
      * details.
      */
     @JsonProperty("submission") @ExcludeMissing fun _submission() = submission
 
     /**
-     * If the transfer is rejected by Real Time Payments or the destination financial institution,
+     * If the transfer is rejected by Real-Time Payments or the destination financial institution,
      * this will contain supplemental details.
      */
     @JsonProperty("rejection") @ExcludeMissing fun _rejection() = rejection
@@ -247,6 +267,7 @@ private constructor(
             destinationAccountNumber()
             destinationRoutingNumber()
             transactionId()
+            pendingTransactionId()
             submission().map { it.validate() }
             rejection().map { it.validate() }
             uniqueIdentifier()
@@ -278,6 +299,7 @@ private constructor(
             this.destinationAccountNumber == other.destinationAccountNumber &&
             this.destinationRoutingNumber == other.destinationRoutingNumber &&
             this.transactionId == other.transactionId &&
+            this.pendingTransactionId == other.pendingTransactionId &&
             this.submission == other.submission &&
             this.rejection == other.rejection &&
             this.uniqueIdentifier == other.uniqueIdentifier &&
@@ -304,6 +326,7 @@ private constructor(
                     destinationAccountNumber,
                     destinationRoutingNumber,
                     transactionId,
+                    pendingTransactionId,
                     submission,
                     rejection,
                     uniqueIdentifier,
@@ -314,7 +337,7 @@ private constructor(
     }
 
     override fun toString() =
-        "RealTimePaymentsTransfer{type=$type, id=$id, approval=$approval, cancellation=$cancellation, status=$status, createdAt=$createdAt, accountId=$accountId, externalAccountId=$externalAccountId, sourceAccountNumberId=$sourceAccountNumberId, creditorName=$creditorName, remittanceInformation=$remittanceInformation, amount=$amount, currency=$currency, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, transactionId=$transactionId, submission=$submission, rejection=$rejection, uniqueIdentifier=$uniqueIdentifier, additionalProperties=$additionalProperties}"
+        "RealTimePaymentsTransfer{type=$type, id=$id, approval=$approval, cancellation=$cancellation, status=$status, createdAt=$createdAt, accountId=$accountId, externalAccountId=$externalAccountId, sourceAccountNumberId=$sourceAccountNumberId, creditorName=$creditorName, remittanceInformation=$remittanceInformation, amount=$amount, currency=$currency, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, transactionId=$transactionId, pendingTransactionId=$pendingTransactionId, submission=$submission, rejection=$rejection, uniqueIdentifier=$uniqueIdentifier, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -339,6 +362,7 @@ private constructor(
         private var destinationAccountNumber: JsonField<String> = JsonMissing.of()
         private var destinationRoutingNumber: JsonField<String> = JsonMissing.of()
         private var transactionId: JsonField<String> = JsonMissing.of()
+        private var pendingTransactionId: JsonField<String> = JsonMissing.of()
         private var submission: JsonField<Submission> = JsonMissing.of()
         private var rejection: JsonField<Rejection> = JsonMissing.of()
         private var uniqueIdentifier: JsonField<String> = JsonMissing.of()
@@ -362,6 +386,7 @@ private constructor(
             this.destinationAccountNumber = realTimePaymentsTransfer.destinationAccountNumber
             this.destinationRoutingNumber = realTimePaymentsTransfer.destinationRoutingNumber
             this.transactionId = realTimePaymentsTransfer.transactionId
+            this.pendingTransactionId = realTimePaymentsTransfer.pendingTransactionId
             this.submission = realTimePaymentsTransfer.submission
             this.rejection = realTimePaymentsTransfer.rejection
             this.uniqueIdentifier = realTimePaymentsTransfer.uniqueIdentifier
@@ -382,10 +407,10 @@ private constructor(
         @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
-        /** The Real Time Payments Transfer's identifier. */
+        /** The Real-Time Payments Transfer's identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
-        /** The Real Time Payments Transfer's identifier. */
+        /** The Real-Time Payments Transfer's identifier. */
         @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
@@ -501,13 +526,13 @@ private constructor(
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency.
-         * For real time payments transfers this is always equal to `USD`.
+         * For real-time payments transfers this is always equal to `USD`.
          */
         fun currency(currency: Currency) = currency(JsonField.of(currency))
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency.
-         * For real time payments transfers this is always equal to `USD`.
+         * For real-time payments transfers this is always equal to `USD`.
          */
         @JsonProperty("currency")
         @ExcludeMissing
@@ -546,13 +571,34 @@ private constructor(
         }
 
         /**
-         * After the transfer is submitted to Real Time Payments, this will contain supplemental
+         * The ID for the pending transaction representing the transfer. A pending transaction is
+         * created when the transfer
+         * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+         * by someone else in your organization.
+         */
+        fun pendingTransactionId(pendingTransactionId: String) =
+            pendingTransactionId(JsonField.of(pendingTransactionId))
+
+        /**
+         * The ID for the pending transaction representing the transfer. A pending transaction is
+         * created when the transfer
+         * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+         * by someone else in your organization.
+         */
+        @JsonProperty("pending_transaction_id")
+        @ExcludeMissing
+        fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
+            this.pendingTransactionId = pendingTransactionId
+        }
+
+        /**
+         * After the transfer is submitted to Real-Time Payments, this will contain supplemental
          * details.
          */
         fun submission(submission: Submission) = submission(JsonField.of(submission))
 
         /**
-         * After the transfer is submitted to Real Time Payments, this will contain supplemental
+         * After the transfer is submitted to Real-Time Payments, this will contain supplemental
          * details.
          */
         @JsonProperty("submission")
@@ -560,13 +606,13 @@ private constructor(
         fun submission(submission: JsonField<Submission>) = apply { this.submission = submission }
 
         /**
-         * If the transfer is rejected by Real Time Payments or the destination financial
+         * If the transfer is rejected by Real-Time Payments or the destination financial
          * institution, this will contain supplemental details.
          */
         fun rejection(rejection: Rejection) = rejection(JsonField.of(rejection))
 
         /**
-         * If the transfer is rejected by Real Time Payments or the destination financial
+         * If the transfer is rejected by Real-Time Payments or the destination financial
          * institution, this will contain supplemental details.
          */
         @JsonProperty("rejection")
@@ -616,6 +662,7 @@ private constructor(
                 destinationAccountNumber,
                 destinationRoutingNumber,
                 transactionId,
+                pendingTransactionId,
                 submission,
                 rejection,
                 uniqueIdentifier,
@@ -1007,7 +1054,7 @@ private constructor(
     }
 
     /**
-     * If the transfer is rejected by Real Time Payments or the destination financial institution,
+     * If the transfer is rejected by Real-Time Payments or the destination financial institution,
      * this will contain supplemental details.
      */
     @JsonDeserialize(builder = Rejection.Builder::class)
@@ -1032,7 +1079,7 @@ private constructor(
             Optional.ofNullable(rejectedAt.getNullable("rejected_at"))
 
         /**
-         * The reason the transfer was rejected as provided by the recipient bank or the Real Time
+         * The reason the transfer was rejected as provided by the recipient bank or the Real-Time
          * Payments network.
          */
         fun rejectReasonCode(): RejectReasonCode =
@@ -1056,7 +1103,7 @@ private constructor(
         @JsonProperty("rejected_at") @ExcludeMissing fun _rejectedAt() = rejectedAt
 
         /**
-         * The reason the transfer was rejected as provided by the recipient bank or the Real Time
+         * The reason the transfer was rejected as provided by the recipient bank or the Real-Time
          * Payments network.
          */
         @JsonProperty("reject_reason_code")
@@ -1151,15 +1198,15 @@ private constructor(
             }
 
             /**
-             * The reason the transfer was rejected as provided by the recipient bank or the Real
-             * Time Payments network.
+             * The reason the transfer was rejected as provided by the recipient bank or the
+             * Real-Time Payments network.
              */
             fun rejectReasonCode(rejectReasonCode: RejectReasonCode) =
                 rejectReasonCode(JsonField.of(rejectReasonCode))
 
             /**
-             * The reason the transfer was rejected as provided by the recipient bank or the Real
-             * Time Payments network.
+             * The reason the transfer was rejected as provided by the recipient bank or the
+             * Real-Time Payments network.
              */
             @JsonProperty("reject_reason_code")
             @ExcludeMissing
@@ -1497,7 +1544,7 @@ private constructor(
     }
 
     /**
-     * After the transfer is submitted to Real Time Payments, this will contain supplemental
+     * After the transfer is submitted to Real-Time Payments, this will contain supplemental
      * details.
      */
     @JsonDeserialize(builder = Submission.Builder::class)
@@ -1520,7 +1567,7 @@ private constructor(
         fun submittedAt(): Optional<OffsetDateTime> =
             Optional.ofNullable(submittedAt.getNullable("submitted_at"))
 
-        /** The Real Time Payments network identification of the transfer. */
+        /** The Real-Time Payments network identification of the transfer. */
         fun transactionIdentification(): String =
             transactionIdentification.getRequired("transaction_identification")
 
@@ -1530,7 +1577,7 @@ private constructor(
          */
         @JsonProperty("submitted_at") @ExcludeMissing fun _submittedAt() = submittedAt
 
-        /** The Real Time Payments network identification of the transfer. */
+        /** The Real-Time Payments network identification of the transfer. */
         @JsonProperty("transaction_identification")
         @ExcludeMissing
         fun _transactionIdentification() = transactionIdentification
@@ -1609,11 +1656,11 @@ private constructor(
                 this.submittedAt = submittedAt
             }
 
-            /** The Real Time Payments network identification of the transfer. */
+            /** The Real-Time Payments network identification of the transfer. */
             fun transactionIdentification(transactionIdentification: String) =
                 transactionIdentification(JsonField.of(transactionIdentification))
 
-            /** The Real Time Payments network identification of the transfer. */
+            /** The Real-Time Payments network identification of the transfer. */
             @JsonProperty("transaction_identification")
             @ExcludeMissing
             fun transactionIdentification(transactionIdentification: JsonField<String>) = apply {

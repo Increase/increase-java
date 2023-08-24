@@ -114,7 +114,14 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                 .MAIL_PHONE_ORDER
                                                         )
                                                         .pointOfServiceEntryMode(
-                                                            PointOfServiceEntryMode.UNKNOWN
+                                                            InboundRealTimePaymentsTransferSimulationResult
+                                                                .DeclinedTransaction
+                                                                .Source
+                                                                .CardDecline
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .PointOfServiceEntryMode
+                                                                .UNKNOWN
                                                         )
                                                         .build()
                                                 )
@@ -1490,7 +1497,14 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                             .MAIL_PHONE_ORDER
                                                     )
                                                     .pointOfServiceEntryMode(
-                                                        PointOfServiceEntryMode.UNKNOWN
+                                                        InboundRealTimePaymentsTransferSimulationResult
+                                                            .DeclinedTransaction
+                                                            .Source
+                                                            .CardDecline
+                                                            .NetworkDetails
+                                                            .Visa
+                                                            .PointOfServiceEntryMode
+                                                            .UNKNOWN
                                                     )
                                                     .build()
                                             )

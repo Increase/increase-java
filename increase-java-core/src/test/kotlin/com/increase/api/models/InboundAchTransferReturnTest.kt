@@ -37,7 +37,7 @@ class InboundAchTransferReturnTest {
                     .traceNumber("string")
                     .build()
             )
-        assertThat(inboundAchTransferReturn.transactionId()).contains("string")
+        assertThat(inboundAchTransferReturn.transactionId()).isEqualTo("string")
         assertThat(inboundAchTransferReturn.type())
             .isEqualTo(InboundAchTransferReturn.Type.INBOUND_ACH_TRANSFER_RETURN)
     }

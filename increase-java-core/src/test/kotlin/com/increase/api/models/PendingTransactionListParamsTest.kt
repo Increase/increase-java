@@ -15,6 +15,15 @@ class PendingTransactionListParamsTest {
             .accountId("string")
             .routeId("string")
             .sourceId("string")
+            .category(
+                PendingTransactionListParams.Category.builder()
+                    .in_(
+                        listOf(
+                            PendingTransactionListParams.Category.In.ACCOUNT_TRANSFER_INSTRUCTION
+                        )
+                    )
+                    .build()
+            )
             .status(
                 PendingTransactionListParams.Status.builder()
                     .in_(listOf(PendingTransactionListParams.Status.In.PENDING))
@@ -40,6 +49,16 @@ class PendingTransactionListParamsTest {
                 .accountId("string")
                 .routeId("string")
                 .sourceId("string")
+                .category(
+                    PendingTransactionListParams.Category.builder()
+                        .in_(
+                            listOf(
+                                PendingTransactionListParams.Category.In
+                                    .ACCOUNT_TRANSFER_INSTRUCTION
+                            )
+                        )
+                        .build()
+                )
                 .status(
                     PendingTransactionListParams.Status.builder()
                         .in_(listOf(PendingTransactionListParams.Status.In.PENDING))
@@ -60,6 +79,10 @@ class PendingTransactionListParamsTest {
         expected.put("account_id", listOf("string"))
         expected.put("route_id", listOf("string"))
         expected.put("source_id", listOf("string"))
+        PendingTransactionListParams.Category.builder()
+            .in_(listOf(PendingTransactionListParams.Category.In.ACCOUNT_TRANSFER_INSTRUCTION))
+            .build()
+            .forEachQueryParam { key, values -> expected.put("category.$key", values) }
         PendingTransactionListParams.Status.builder()
             .in_(listOf(PendingTransactionListParams.Status.In.PENDING))
             .build()

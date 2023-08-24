@@ -105,7 +105,7 @@ constructor(
         @JsonProperty("require_approval") fun requireApproval(): Boolean? = requireApproval
 
         /**
-         * A unique identifier you choose for the transfer. Reusing this identifer for another
+         * A unique identifier you choose for the transfer. Reusing this identifier for another
          * transfer will result in an error. You can query for the transfer associated with this
          * identifier using the List endpoint.
          */
@@ -220,7 +220,7 @@ constructor(
             }
 
             /**
-             * A unique identifier you choose for the transfer. Reusing this identifer for another
+             * A unique identifier you choose for the transfer. Reusing this identifier for another
              * transfer will result in an error. You can query for the transfer associated with this
              * identifier using the List endpoint.
              */
@@ -368,7 +368,7 @@ constructor(
         }
 
         /**
-         * A unique identifier you choose for the transfer. Reusing this identifer for another
+         * A unique identifier you choose for the transfer. Reusing this identifier for another
          * transfer will result in an error. You can query for the transfer associated with this
          * identifier using the List endpoint.
          */

@@ -55,6 +55,7 @@ class AchTransferTest {
                             .build()
                     )
                 )
+                .pendingTransactionId("string")
                 .return_(
                     AchTransfer.Return.builder()
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -126,6 +127,7 @@ class AchTransferTest {
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
+        assertThat(achTransfer.pendingTransactionId()).contains("string")
         assertThat(achTransfer.return_())
             .contains(
                 AchTransfer.Return.builder()

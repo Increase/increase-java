@@ -107,4 +107,23 @@ class BeneficialOwnerServiceTest {
         println(entity)
         entity.validate()
     }
+
+    @Test
+    fun callArchive() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("test-api-key")
+                .build()
+        val beneficialOwnerService = client.entities().beneficialOwners()
+        val entity =
+            beneficialOwnerService.archive(
+                EntityBeneficialOwnerArchiveParams.builder()
+                    .entityId("string")
+                    .beneficialOwnerId("string")
+                    .build()
+            )
+        println(entity)
+        entity.validate()
+    }
 }

@@ -75,7 +75,7 @@ constructor(
             additionalHeaders(realTimePaymentsTransferRetrieveParams.additionalHeaders)
         }
 
-        /** The identifier of the Real Time Payments Transfer. */
+        /** The identifier of the Real-Time Payments Transfer. */
         fun realTimePaymentsTransferId(realTimePaymentsTransferId: String) = apply {
             this.realTimePaymentsTransferId = realTimePaymentsTransferId
         }
