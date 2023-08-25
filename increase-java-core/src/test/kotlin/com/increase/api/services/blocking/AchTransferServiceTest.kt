@@ -23,9 +23,10 @@ class AchTransferServiceTest {
             achTransferService.create(
                 AchTransferCreateParams.builder()
                     .accountId("string")
+                    .amount(123L)
+                    .statementDescriptor("x")
                     .accountNumber("x")
                     .addendum("x")
-                    .amount(123L)
                     .companyDescriptiveDate("x")
                     .companyDiscretionaryData("x")
                     .companyEntryDescription("x")
@@ -40,7 +41,6 @@ class AchTransferServiceTest {
                     .standardEntryClassCode(
                         AchTransferCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
                     )
-                    .statementDescriptor("x")
                     .uniqueIdentifier("x")
                     .build()
             )

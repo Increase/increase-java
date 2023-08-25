@@ -22,8 +22,8 @@ class FileServiceTest {
             fileService.create(
                 FileCreateParams.builder()
                     .file("file.txt")
-                    .description("x")
                     .purpose(FileCreateParams.Purpose.CHECK_IMAGE_FRONT)
+                    .description("x")
                     .build()
             )
         println(file)

@@ -19,9 +19,10 @@ import java.util.Optional
 class AchTransferCreateParams
 constructor(
     private val accountId: String,
+    private val amount: Long,
+    private val statementDescriptor: String,
     private val accountNumber: String?,
     private val addendum: String?,
-    private val amount: Long,
     private val companyDescriptiveDate: String?,
     private val companyDiscretionaryData: String?,
     private val companyEntryDescription: String?,
@@ -34,7 +35,6 @@ constructor(
     private val requireApproval: Boolean?,
     private val routingNumber: String?,
     private val standardEntryClassCode: StandardEntryClassCode?,
-    private val statementDescriptor: String,
     private val uniqueIdentifier: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -43,11 +43,13 @@ constructor(
 
     fun accountId(): String = accountId
 
+    fun amount(): Long = amount
+
+    fun statementDescriptor(): String = statementDescriptor
+
     fun accountNumber(): Optional<String> = Optional.ofNullable(accountNumber)
 
     fun addendum(): Optional<String> = Optional.ofNullable(addendum)
-
-    fun amount(): Long = amount
 
     fun companyDescriptiveDate(): Optional<String> = Optional.ofNullable(companyDescriptiveDate)
 
@@ -74,17 +76,16 @@ constructor(
     fun standardEntryClassCode(): Optional<StandardEntryClassCode> =
         Optional.ofNullable(standardEntryClassCode)
 
-    fun statementDescriptor(): String = statementDescriptor
-
     fun uniqueIdentifier(): Optional<String> = Optional.ofNullable(uniqueIdentifier)
 
     @JvmSynthetic
     internal fun getBody(): AchTransferCreateBody {
         return AchTransferCreateBody(
             accountId,
+            amount,
+            statementDescriptor,
             accountNumber,
             addendum,
-            amount,
             companyDescriptiveDate,
             companyDiscretionaryData,
             companyEntryDescription,
@@ -97,7 +98,6 @@ constructor(
             requireApproval,
             routingNumber,
             standardEntryClassCode,
-            statementDescriptor,
             uniqueIdentifier,
             additionalBodyProperties,
         )
@@ -112,9 +112,10 @@ constructor(
     class AchTransferCreateBody
     internal constructor(
         private val accountId: String?,
+        private val amount: Long?,
+        private val statementDescriptor: String?,
         private val accountNumber: String?,
         private val addendum: String?,
-        private val amount: Long?,
         private val companyDescriptiveDate: String?,
         private val companyDiscretionaryData: String?,
         private val companyEntryDescription: String?,
@@ -127,7 +128,6 @@ constructor(
         private val requireApproval: Boolean?,
         private val routingNumber: String?,
         private val standardEntryClassCode: StandardEntryClassCode?,
-        private val statementDescriptor: String?,
         private val uniqueIdentifier: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -137,6 +137,24 @@ constructor(
         /** The Increase identifier for the account that will send the transfer. */
         @JsonProperty("account_id") fun accountId(): String? = accountId
 
+        /**
+         * The transfer amount in cents. A positive amount originates a credit transfer pushing
+         * funds to the receiving account. A negative amount originates a debit transfer pulling
+         * funds from the receiving account.
+         */
+        @JsonProperty("amount") fun amount(): Long? = amount
+
+        /**
+         * A description you choose to give the transfer. This will be saved with the transfer
+         * details, displayed in the dashboard, and returned by the API. If `individual_name` and
+         * `company_name` are not explicitly set by this API, the `statement_descriptor` will be
+         * sent in those fields to the receiving bank to help the customer recognize the transfer.
+         * You are highly encouraged to pass `individual_name` and `company_name` instead of relying
+         * on this fallback.
+         */
+        @JsonProperty("statement_descriptor")
+        fun statementDescriptor(): String? = statementDescriptor
+
         /** The account number for the destination account. */
         @JsonProperty("account_number") fun accountNumber(): String? = accountNumber
 
@@ -145,13 +163,6 @@ constructor(
          * transfer data sent to the receiving bank.
          */
         @JsonProperty("addendum") fun addendum(): String? = addendum
-
-        /**
-         * The transfer amount in cents. A positive amount originates a credit transfer pushing
-         * funds to the receiving account. A negative amount originates a debit transfer pulling
-         * funds from the receiving account.
-         */
-        @JsonProperty("amount") fun amount(): Long? = amount
 
         /**
          * The description of the date of the transfer, usually in the format `YYMMDD`. This is
@@ -217,17 +228,6 @@ constructor(
         fun standardEntryClassCode(): StandardEntryClassCode? = standardEntryClassCode
 
         /**
-         * A description you choose to give the transfer. This will be saved with the transfer
-         * details, displayed in the dashboard, and returned by the API. If `individual_name` and
-         * `company_name` are not explicitly set by this API, the `statement_descriptor` will be
-         * sent in those fields to the receiving bank to help the customer recognize the transfer.
-         * You are highly encouraged to pass `individual_name` and `company_name` instead of relying
-         * on this fallback.
-         */
-        @JsonProperty("statement_descriptor")
-        fun statementDescriptor(): String? = statementDescriptor
-
-        /**
          * A unique identifier you choose for the transfer. Reusing this identifier for another
          * transfer will result in an error. You can query for the transfer associated with this
          * identifier using the List endpoint.
@@ -247,9 +247,10 @@ constructor(
 
             return other is AchTransferCreateBody &&
                 this.accountId == other.accountId &&
+                this.amount == other.amount &&
+                this.statementDescriptor == other.statementDescriptor &&
                 this.accountNumber == other.accountNumber &&
                 this.addendum == other.addendum &&
-                this.amount == other.amount &&
                 this.companyDescriptiveDate == other.companyDescriptiveDate &&
                 this.companyDiscretionaryData == other.companyDiscretionaryData &&
                 this.companyEntryDescription == other.companyEntryDescription &&
@@ -262,7 +263,6 @@ constructor(
                 this.requireApproval == other.requireApproval &&
                 this.routingNumber == other.routingNumber &&
                 this.standardEntryClassCode == other.standardEntryClassCode &&
-                this.statementDescriptor == other.statementDescriptor &&
                 this.uniqueIdentifier == other.uniqueIdentifier &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -272,9 +272,10 @@ constructor(
                 hashCode =
                     Objects.hash(
                         accountId,
+                        amount,
+                        statementDescriptor,
                         accountNumber,
                         addendum,
-                        amount,
                         companyDescriptiveDate,
                         companyDiscretionaryData,
                         companyEntryDescription,
@@ -287,7 +288,6 @@ constructor(
                         requireApproval,
                         routingNumber,
                         standardEntryClassCode,
-                        statementDescriptor,
                         uniqueIdentifier,
                         additionalProperties,
                     )
@@ -296,7 +296,7 @@ constructor(
         }
 
         override fun toString() =
-            "AchTransferCreateBody{accountId=$accountId, accountNumber=$accountNumber, addendum=$addendum, amount=$amount, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, effectiveDate=$effectiveDate, externalAccountId=$externalAccountId, funding=$funding, individualId=$individualId, individualName=$individualName, requireApproval=$requireApproval, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, statementDescriptor=$statementDescriptor, uniqueIdentifier=$uniqueIdentifier, additionalProperties=$additionalProperties}"
+            "AchTransferCreateBody{accountId=$accountId, amount=$amount, statementDescriptor=$statementDescriptor, accountNumber=$accountNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, effectiveDate=$effectiveDate, externalAccountId=$externalAccountId, funding=$funding, individualId=$individualId, individualName=$individualName, requireApproval=$requireApproval, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, uniqueIdentifier=$uniqueIdentifier, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -306,9 +306,10 @@ constructor(
         class Builder {
 
             private var accountId: String? = null
+            private var amount: Long? = null
+            private var statementDescriptor: String? = null
             private var accountNumber: String? = null
             private var addendum: String? = null
-            private var amount: Long? = null
             private var companyDescriptiveDate: String? = null
             private var companyDiscretionaryData: String? = null
             private var companyEntryDescription: String? = null
@@ -321,16 +322,16 @@ constructor(
             private var requireApproval: Boolean? = null
             private var routingNumber: String? = null
             private var standardEntryClassCode: StandardEntryClassCode? = null
-            private var statementDescriptor: String? = null
             private var uniqueIdentifier: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(achTransferCreateBody: AchTransferCreateBody) = apply {
                 this.accountId = achTransferCreateBody.accountId
+                this.amount = achTransferCreateBody.amount
+                this.statementDescriptor = achTransferCreateBody.statementDescriptor
                 this.accountNumber = achTransferCreateBody.accountNumber
                 this.addendum = achTransferCreateBody.addendum
-                this.amount = achTransferCreateBody.amount
                 this.companyDescriptiveDate = achTransferCreateBody.companyDescriptiveDate
                 this.companyDiscretionaryData = achTransferCreateBody.companyDiscretionaryData
                 this.companyEntryDescription = achTransferCreateBody.companyEntryDescription
@@ -343,7 +344,6 @@ constructor(
                 this.requireApproval = achTransferCreateBody.requireApproval
                 this.routingNumber = achTransferCreateBody.routingNumber
                 this.standardEntryClassCode = achTransferCreateBody.standardEntryClassCode
-                this.statementDescriptor = achTransferCreateBody.statementDescriptor
                 this.uniqueIdentifier = achTransferCreateBody.uniqueIdentifier
                 additionalProperties(achTransferCreateBody.additionalProperties)
             }
@@ -351,6 +351,26 @@ constructor(
             /** The Increase identifier for the account that will send the transfer. */
             @JsonProperty("account_id")
             fun accountId(accountId: String) = apply { this.accountId = accountId }
+
+            /**
+             * The transfer amount in cents. A positive amount originates a credit transfer pushing
+             * funds to the receiving account. A negative amount originates a debit transfer pulling
+             * funds from the receiving account.
+             */
+            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+
+            /**
+             * A description you choose to give the transfer. This will be saved with the transfer
+             * details, displayed in the dashboard, and returned by the API. If `individual_name`
+             * and `company_name` are not explicitly set by this API, the `statement_descriptor`
+             * will be sent in those fields to the receiving bank to help the customer recognize the
+             * transfer. You are highly encouraged to pass `individual_name` and `company_name`
+             * instead of relying on this fallback.
+             */
+            @JsonProperty("statement_descriptor")
+            fun statementDescriptor(statementDescriptor: String) = apply {
+                this.statementDescriptor = statementDescriptor
+            }
 
             /** The account number for the destination account. */
             @JsonProperty("account_number")
@@ -362,13 +382,6 @@ constructor(
              */
             @JsonProperty("addendum")
             fun addendum(addendum: String) = apply { this.addendum = addendum }
-
-            /**
-             * The transfer amount in cents. A positive amount originates a credit transfer pushing
-             * funds to the receiving account. A negative amount originates a debit transfer pulling
-             * funds from the receiving account.
-             */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
 
             /**
              * The description of the date of the transfer, usually in the format `YYMMDD`. This is
@@ -459,19 +472,6 @@ constructor(
             }
 
             /**
-             * A description you choose to give the transfer. This will be saved with the transfer
-             * details, displayed in the dashboard, and returned by the API. If `individual_name`
-             * and `company_name` are not explicitly set by this API, the `statement_descriptor`
-             * will be sent in those fields to the receiving bank to help the customer recognize the
-             * transfer. You are highly encouraged to pass `individual_name` and `company_name`
-             * instead of relying on this fallback.
-             */
-            @JsonProperty("statement_descriptor")
-            fun statementDescriptor(statementDescriptor: String) = apply {
-                this.statementDescriptor = statementDescriptor
-            }
-
-            /**
              * A unique identifier you choose for the transfer. Reusing this identifier for another
              * transfer will result in an error. You can query for the transfer associated with this
              * identifier using the List endpoint.
@@ -498,9 +498,12 @@ constructor(
             fun build(): AchTransferCreateBody =
                 AchTransferCreateBody(
                     checkNotNull(accountId) { "`accountId` is required but was not set" },
+                    checkNotNull(amount) { "`amount` is required but was not set" },
+                    checkNotNull(statementDescriptor) {
+                        "`statementDescriptor` is required but was not set"
+                    },
                     accountNumber,
                     addendum,
-                    checkNotNull(amount) { "`amount` is required but was not set" },
                     companyDescriptiveDate,
                     companyDiscretionaryData,
                     companyEntryDescription,
@@ -513,9 +516,6 @@ constructor(
                     requireApproval,
                     routingNumber,
                     standardEntryClassCode,
-                    checkNotNull(statementDescriptor) {
-                        "`statementDescriptor` is required but was not set"
-                    },
                     uniqueIdentifier,
                     additionalProperties.toUnmodifiable(),
                 )
@@ -535,9 +535,10 @@ constructor(
 
         return other is AchTransferCreateParams &&
             this.accountId == other.accountId &&
+            this.amount == other.amount &&
+            this.statementDescriptor == other.statementDescriptor &&
             this.accountNumber == other.accountNumber &&
             this.addendum == other.addendum &&
-            this.amount == other.amount &&
             this.companyDescriptiveDate == other.companyDescriptiveDate &&
             this.companyDiscretionaryData == other.companyDiscretionaryData &&
             this.companyEntryDescription == other.companyEntryDescription &&
@@ -550,7 +551,6 @@ constructor(
             this.requireApproval == other.requireApproval &&
             this.routingNumber == other.routingNumber &&
             this.standardEntryClassCode == other.standardEntryClassCode &&
-            this.statementDescriptor == other.statementDescriptor &&
             this.uniqueIdentifier == other.uniqueIdentifier &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
@@ -560,9 +560,10 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             accountId,
+            amount,
+            statementDescriptor,
             accountNumber,
             addendum,
-            amount,
             companyDescriptiveDate,
             companyDiscretionaryData,
             companyEntryDescription,
@@ -575,7 +576,6 @@ constructor(
             requireApproval,
             routingNumber,
             standardEntryClassCode,
-            statementDescriptor,
             uniqueIdentifier,
             additionalQueryParams,
             additionalHeaders,
@@ -584,7 +584,7 @@ constructor(
     }
 
     override fun toString() =
-        "AchTransferCreateParams{accountId=$accountId, accountNumber=$accountNumber, addendum=$addendum, amount=$amount, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, effectiveDate=$effectiveDate, externalAccountId=$externalAccountId, funding=$funding, individualId=$individualId, individualName=$individualName, requireApproval=$requireApproval, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, statementDescriptor=$statementDescriptor, uniqueIdentifier=$uniqueIdentifier, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "AchTransferCreateParams{accountId=$accountId, amount=$amount, statementDescriptor=$statementDescriptor, accountNumber=$accountNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, effectiveDate=$effectiveDate, externalAccountId=$externalAccountId, funding=$funding, individualId=$individualId, individualName=$individualName, requireApproval=$requireApproval, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, uniqueIdentifier=$uniqueIdentifier, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -597,9 +597,10 @@ constructor(
     class Builder {
 
         private var accountId: String? = null
+        private var amount: Long? = null
+        private var statementDescriptor: String? = null
         private var accountNumber: String? = null
         private var addendum: String? = null
-        private var amount: Long? = null
         private var companyDescriptiveDate: String? = null
         private var companyDiscretionaryData: String? = null
         private var companyEntryDescription: String? = null
@@ -612,7 +613,6 @@ constructor(
         private var requireApproval: Boolean? = null
         private var routingNumber: String? = null
         private var standardEntryClassCode: StandardEntryClassCode? = null
-        private var statementDescriptor: String? = null
         private var uniqueIdentifier: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -621,9 +621,10 @@ constructor(
         @JvmSynthetic
         internal fun from(achTransferCreateParams: AchTransferCreateParams) = apply {
             this.accountId = achTransferCreateParams.accountId
+            this.amount = achTransferCreateParams.amount
+            this.statementDescriptor = achTransferCreateParams.statementDescriptor
             this.accountNumber = achTransferCreateParams.accountNumber
             this.addendum = achTransferCreateParams.addendum
-            this.amount = achTransferCreateParams.amount
             this.companyDescriptiveDate = achTransferCreateParams.companyDescriptiveDate
             this.companyDiscretionaryData = achTransferCreateParams.companyDiscretionaryData
             this.companyEntryDescription = achTransferCreateParams.companyEntryDescription
@@ -636,7 +637,6 @@ constructor(
             this.requireApproval = achTransferCreateParams.requireApproval
             this.routingNumber = achTransferCreateParams.routingNumber
             this.standardEntryClassCode = achTransferCreateParams.standardEntryClassCode
-            this.statementDescriptor = achTransferCreateParams.statementDescriptor
             this.uniqueIdentifier = achTransferCreateParams.uniqueIdentifier
             additionalQueryParams(achTransferCreateParams.additionalQueryParams)
             additionalHeaders(achTransferCreateParams.additionalHeaders)
@@ -646,6 +646,25 @@ constructor(
         /** The Increase identifier for the account that will send the transfer. */
         fun accountId(accountId: String) = apply { this.accountId = accountId }
 
+        /**
+         * The transfer amount in cents. A positive amount originates a credit transfer pushing
+         * funds to the receiving account. A negative amount originates a debit transfer pulling
+         * funds from the receiving account.
+         */
+        fun amount(amount: Long) = apply { this.amount = amount }
+
+        /**
+         * A description you choose to give the transfer. This will be saved with the transfer
+         * details, displayed in the dashboard, and returned by the API. If `individual_name` and
+         * `company_name` are not explicitly set by this API, the `statement_descriptor` will be
+         * sent in those fields to the receiving bank to help the customer recognize the transfer.
+         * You are highly encouraged to pass `individual_name` and `company_name` instead of relying
+         * on this fallback.
+         */
+        fun statementDescriptor(statementDescriptor: String) = apply {
+            this.statementDescriptor = statementDescriptor
+        }
+
         /** The account number for the destination account. */
         fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
 
@@ -654,13 +673,6 @@ constructor(
          * transfer data sent to the receiving bank.
          */
         fun addendum(addendum: String) = apply { this.addendum = addendum }
-
-        /**
-         * The transfer amount in cents. A positive amount originates a credit transfer pushing
-         * funds to the receiving account. A negative amount originates a debit transfer pulling
-         * funds from the receiving account.
-         */
-        fun amount(amount: Long) = apply { this.amount = amount }
 
         /**
          * The description of the date of the transfer, usually in the format `YYMMDD`. This is
@@ -734,18 +746,6 @@ constructor(
         }
 
         /**
-         * A description you choose to give the transfer. This will be saved with the transfer
-         * details, displayed in the dashboard, and returned by the API. If `individual_name` and
-         * `company_name` are not explicitly set by this API, the `statement_descriptor` will be
-         * sent in those fields to the receiving bank to help the customer recognize the transfer.
-         * You are highly encouraged to pass `individual_name` and `company_name` instead of relying
-         * on this fallback.
-         */
-        fun statementDescriptor(statementDescriptor: String) = apply {
-            this.statementDescriptor = statementDescriptor
-        }
-
-        /**
          * A unique identifier you choose for the transfer. Reusing this identifier for another
          * transfer will result in an error. You can query for the transfer associated with this
          * identifier using the List endpoint.
@@ -811,9 +811,12 @@ constructor(
         fun build(): AchTransferCreateParams =
             AchTransferCreateParams(
                 checkNotNull(accountId) { "`accountId` is required but was not set" },
+                checkNotNull(amount) { "`amount` is required but was not set" },
+                checkNotNull(statementDescriptor) {
+                    "`statementDescriptor` is required but was not set"
+                },
                 accountNumber,
                 addendum,
-                checkNotNull(amount) { "`amount` is required but was not set" },
                 companyDescriptiveDate,
                 companyDiscretionaryData,
                 companyEntryDescription,
@@ -826,9 +829,6 @@ constructor(
                 requireApproval,
                 routingNumber,
                 standardEntryClassCode,
-                checkNotNull(statementDescriptor) {
-                    "`statementDescriptor` is required but was not set"
-                },
                 uniqueIdentifier,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),

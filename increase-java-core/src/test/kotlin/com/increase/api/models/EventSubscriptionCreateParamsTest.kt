@@ -10,10 +10,10 @@ class EventSubscriptionCreateParamsTest {
     fun createEventSubscriptionCreateParams() {
         EventSubscriptionCreateParams.builder()
             .url("string")
-            .sharedSecret("x")
             .selectedEventCategory(
                 EventSubscriptionCreateParams.SelectedEventCategory.ACCOUNT_CREATED
             )
+            .sharedSecret("x")
             .build()
     }
 
@@ -22,17 +22,17 @@ class EventSubscriptionCreateParamsTest {
         val params =
             EventSubscriptionCreateParams.builder()
                 .url("string")
-                .sharedSecret("x")
                 .selectedEventCategory(
                     EventSubscriptionCreateParams.SelectedEventCategory.ACCOUNT_CREATED
                 )
+                .sharedSecret("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.url()).isEqualTo("string")
-        assertThat(body.sharedSecret()).isEqualTo("x")
         assertThat(body.selectedEventCategory())
             .isEqualTo(EventSubscriptionCreateParams.SelectedEventCategory.ACCOUNT_CREATED)
+        assertThat(body.sharedSecret()).isEqualTo("x")
     }
 
     @Test

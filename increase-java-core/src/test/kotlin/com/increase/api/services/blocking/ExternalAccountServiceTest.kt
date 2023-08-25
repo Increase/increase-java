@@ -21,10 +21,10 @@ class ExternalAccountServiceTest {
         val externalAccount =
             externalAccountService.create(
                 ExternalAccountCreateParams.builder()
-                    .routingNumber("xxxxxxxxx")
                     .accountNumber("x")
-                    .funding(ExternalAccountCreateParams.Funding.CHECKING)
                     .description("x")
+                    .routingNumber("xxxxxxxxx")
+                    .funding(ExternalAccountCreateParams.Funding.CHECKING)
                     .build()
             )
         println(externalAccount)

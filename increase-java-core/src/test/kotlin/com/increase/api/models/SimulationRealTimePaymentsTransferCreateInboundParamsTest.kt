@@ -11,11 +11,11 @@ class SimulationRealTimePaymentsTransferCreateInboundParamsTest {
         SimulationRealTimePaymentsTransferCreateInboundParams.builder()
             .accountNumberId("string")
             .amount(123L)
-            .requestForPaymentId("string")
-            .debtorName("x")
             .debtorAccountNumber("x")
+            .debtorName("x")
             .debtorRoutingNumber("xxxxxxxxx")
             .remittanceInformation("x")
+            .requestForPaymentId("string")
             .build()
     }
 
@@ -25,21 +25,21 @@ class SimulationRealTimePaymentsTransferCreateInboundParamsTest {
             SimulationRealTimePaymentsTransferCreateInboundParams.builder()
                 .accountNumberId("string")
                 .amount(123L)
-                .requestForPaymentId("string")
-                .debtorName("x")
                 .debtorAccountNumber("x")
+                .debtorName("x")
                 .debtorRoutingNumber("xxxxxxxxx")
                 .remittanceInformation("x")
+                .requestForPaymentId("string")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.accountNumberId()).isEqualTo("string")
         assertThat(body.amount()).isEqualTo(123L)
-        assertThat(body.requestForPaymentId()).isEqualTo("string")
-        assertThat(body.debtorName()).isEqualTo("x")
         assertThat(body.debtorAccountNumber()).isEqualTo("x")
+        assertThat(body.debtorName()).isEqualTo("x")
         assertThat(body.debtorRoutingNumber()).isEqualTo("xxxxxxxxx")
         assertThat(body.remittanceInformation()).isEqualTo("x")
+        assertThat(body.requestForPaymentId()).isEqualTo("string")
     }
 
     @Test

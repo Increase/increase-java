@@ -18,47 +18,47 @@ import java.util.Optional
 
 class EntityCreateParams
 constructor(
+    private val relationship: Relationship,
     private val structure: Structure,
     private val corporation: Corporation?,
-    private val naturalPerson: NaturalPerson?,
-    private val joint: Joint?,
-    private val trust: Trust?,
     private val description: String?,
-    private val relationship: Relationship,
+    private val joint: Joint?,
+    private val naturalPerson: NaturalPerson?,
     private val supplementalDocuments: List<SupplementalDocument>?,
+    private val trust: Trust?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
+    fun relationship(): Relationship = relationship
+
     fun structure(): Structure = structure
 
     fun corporation(): Optional<Corporation> = Optional.ofNullable(corporation)
 
-    fun naturalPerson(): Optional<NaturalPerson> = Optional.ofNullable(naturalPerson)
+    fun description(): Optional<String> = Optional.ofNullable(description)
 
     fun joint(): Optional<Joint> = Optional.ofNullable(joint)
 
-    fun trust(): Optional<Trust> = Optional.ofNullable(trust)
-
-    fun description(): Optional<String> = Optional.ofNullable(description)
-
-    fun relationship(): Relationship = relationship
+    fun naturalPerson(): Optional<NaturalPerson> = Optional.ofNullable(naturalPerson)
 
     fun supplementalDocuments(): Optional<List<SupplementalDocument>> =
         Optional.ofNullable(supplementalDocuments)
 
+    fun trust(): Optional<Trust> = Optional.ofNullable(trust)
+
     @JvmSynthetic
     internal fun getBody(): EntityCreateBody {
         return EntityCreateBody(
+            relationship,
             structure,
             corporation,
-            naturalPerson,
-            joint,
-            trust,
             description,
-            relationship,
+            joint,
+            naturalPerson,
             supplementalDocuments,
+            trust,
             additionalBodyProperties,
         )
     }
@@ -71,18 +71,21 @@ constructor(
     @NoAutoDetect
     class EntityCreateBody
     internal constructor(
+        private val relationship: Relationship?,
         private val structure: Structure?,
         private val corporation: Corporation?,
-        private val naturalPerson: NaturalPerson?,
-        private val joint: Joint?,
-        private val trust: Trust?,
         private val description: String?,
-        private val relationship: Relationship?,
+        private val joint: Joint?,
+        private val naturalPerson: NaturalPerson?,
         private val supplementalDocuments: List<SupplementalDocument>?,
+        private val trust: Trust?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
+
+        /** The relationship between your group and the entity. */
+        @JsonProperty("relationship") fun relationship(): Relationship? = relationship
 
         /** The type of Entity to create. */
         @JsonProperty("structure") fun structure(): Structure? = structure
@@ -93,6 +96,12 @@ constructor(
          */
         @JsonProperty("corporation") fun corporation(): Corporation? = corporation
 
+        /** The description you choose to give the entity. */
+        @JsonProperty("description") fun description(): String? = description
+
+        /** Details of the joint entity to create. Required if `structure` is equal to `joint`. */
+        @JsonProperty("joint") fun joint(): Joint? = joint
+
         /**
          * Details of the natural person entity to create. Required if `structure` is equal to
          * `natural_person`. Natural people entities should be submitted with
@@ -101,21 +110,12 @@ constructor(
          */
         @JsonProperty("natural_person") fun naturalPerson(): NaturalPerson? = naturalPerson
 
-        /** Details of the joint entity to create. Required if `structure` is equal to `joint`. */
-        @JsonProperty("joint") fun joint(): Joint? = joint
-
-        /** Details of the trust entity to create. Required if `structure` is equal to `trust`. */
-        @JsonProperty("trust") fun trust(): Trust? = trust
-
-        /** The description you choose to give the entity. */
-        @JsonProperty("description") fun description(): String? = description
-
-        /** The relationship between your group and the entity. */
-        @JsonProperty("relationship") fun relationship(): Relationship? = relationship
-
         /** Additional documentation associated with the entity. */
         @JsonProperty("supplemental_documents")
         fun supplementalDocuments(): List<SupplementalDocument>? = supplementalDocuments
+
+        /** Details of the trust entity to create. Required if `structure` is equal to `trust`. */
+        @JsonProperty("trust") fun trust(): Trust? = trust
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -129,14 +129,14 @@ constructor(
             }
 
             return other is EntityCreateBody &&
+                this.relationship == other.relationship &&
                 this.structure == other.structure &&
                 this.corporation == other.corporation &&
-                this.naturalPerson == other.naturalPerson &&
-                this.joint == other.joint &&
-                this.trust == other.trust &&
                 this.description == other.description &&
-                this.relationship == other.relationship &&
+                this.joint == other.joint &&
+                this.naturalPerson == other.naturalPerson &&
                 this.supplementalDocuments == other.supplementalDocuments &&
+                this.trust == other.trust &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -144,14 +144,14 @@ constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
+                        relationship,
                         structure,
                         corporation,
-                        naturalPerson,
-                        joint,
-                        trust,
                         description,
-                        relationship,
+                        joint,
+                        naturalPerson,
                         supplementalDocuments,
+                        trust,
                         additionalProperties,
                     )
             }
@@ -159,7 +159,7 @@ constructor(
         }
 
         override fun toString() =
-            "EntityCreateBody{structure=$structure, corporation=$corporation, naturalPerson=$naturalPerson, joint=$joint, trust=$trust, description=$description, relationship=$relationship, supplementalDocuments=$supplementalDocuments, additionalProperties=$additionalProperties}"
+            "EntityCreateBody{relationship=$relationship, structure=$structure, corporation=$corporation, description=$description, joint=$joint, naturalPerson=$naturalPerson, supplementalDocuments=$supplementalDocuments, trust=$trust, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -168,27 +168,33 @@ constructor(
 
         class Builder {
 
+            private var relationship: Relationship? = null
             private var structure: Structure? = null
             private var corporation: Corporation? = null
-            private var naturalPerson: NaturalPerson? = null
-            private var joint: Joint? = null
-            private var trust: Trust? = null
             private var description: String? = null
-            private var relationship: Relationship? = null
+            private var joint: Joint? = null
+            private var naturalPerson: NaturalPerson? = null
             private var supplementalDocuments: List<SupplementalDocument>? = null
+            private var trust: Trust? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(entityCreateBody: EntityCreateBody) = apply {
+                this.relationship = entityCreateBody.relationship
                 this.structure = entityCreateBody.structure
                 this.corporation = entityCreateBody.corporation
-                this.naturalPerson = entityCreateBody.naturalPerson
-                this.joint = entityCreateBody.joint
-                this.trust = entityCreateBody.trust
                 this.description = entityCreateBody.description
-                this.relationship = entityCreateBody.relationship
+                this.joint = entityCreateBody.joint
+                this.naturalPerson = entityCreateBody.naturalPerson
                 this.supplementalDocuments = entityCreateBody.supplementalDocuments
+                this.trust = entityCreateBody.trust
                 additionalProperties(entityCreateBody.additionalProperties)
+            }
+
+            /** The relationship between your group and the entity. */
+            @JsonProperty("relationship")
+            fun relationship(relationship: Relationship) = apply {
+                this.relationship = relationship
             }
 
             /** The type of Entity to create. */
@@ -202,6 +208,15 @@ constructor(
             @JsonProperty("corporation")
             fun corporation(corporation: Corporation) = apply { this.corporation = corporation }
 
+            /** The description you choose to give the entity. */
+            @JsonProperty("description")
+            fun description(description: String) = apply { this.description = description }
+
+            /**
+             * Details of the joint entity to create. Required if `structure` is equal to `joint`.
+             */
+            @JsonProperty("joint") fun joint(joint: Joint) = apply { this.joint = joint }
+
             /**
              * Details of the natural person entity to create. Required if `structure` is equal to
              * `natural_person`. Natural people entities should be submitted with
@@ -213,31 +228,16 @@ constructor(
                 this.naturalPerson = naturalPerson
             }
 
-            /**
-             * Details of the joint entity to create. Required if `structure` is equal to `joint`.
-             */
-            @JsonProperty("joint") fun joint(joint: Joint) = apply { this.joint = joint }
-
-            /**
-             * Details of the trust entity to create. Required if `structure` is equal to `trust`.
-             */
-            @JsonProperty("trust") fun trust(trust: Trust) = apply { this.trust = trust }
-
-            /** The description you choose to give the entity. */
-            @JsonProperty("description")
-            fun description(description: String) = apply { this.description = description }
-
-            /** The relationship between your group and the entity. */
-            @JsonProperty("relationship")
-            fun relationship(relationship: Relationship) = apply {
-                this.relationship = relationship
-            }
-
             /** Additional documentation associated with the entity. */
             @JsonProperty("supplemental_documents")
             fun supplementalDocuments(supplementalDocuments: List<SupplementalDocument>) = apply {
                 this.supplementalDocuments = supplementalDocuments
             }
+
+            /**
+             * Details of the trust entity to create. Required if `structure` is equal to `trust`.
+             */
+            @JsonProperty("trust") fun trust(trust: Trust) = apply { this.trust = trust }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -255,14 +255,14 @@ constructor(
 
             fun build(): EntityCreateBody =
                 EntityCreateBody(
+                    checkNotNull(relationship) { "`relationship` is required but was not set" },
                     checkNotNull(structure) { "`structure` is required but was not set" },
                     corporation,
-                    naturalPerson,
-                    joint,
-                    trust,
                     description,
-                    checkNotNull(relationship) { "`relationship` is required but was not set" },
+                    joint,
+                    naturalPerson,
                     supplementalDocuments?.toUnmodifiable(),
+                    trust,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -280,14 +280,14 @@ constructor(
         }
 
         return other is EntityCreateParams &&
+            this.relationship == other.relationship &&
             this.structure == other.structure &&
             this.corporation == other.corporation &&
-            this.naturalPerson == other.naturalPerson &&
-            this.joint == other.joint &&
-            this.trust == other.trust &&
             this.description == other.description &&
-            this.relationship == other.relationship &&
+            this.joint == other.joint &&
+            this.naturalPerson == other.naturalPerson &&
             this.supplementalDocuments == other.supplementalDocuments &&
+            this.trust == other.trust &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -295,14 +295,14 @@ constructor(
 
     override fun hashCode(): Int {
         return Objects.hash(
+            relationship,
             structure,
             corporation,
-            naturalPerson,
-            joint,
-            trust,
             description,
-            relationship,
+            joint,
+            naturalPerson,
             supplementalDocuments,
+            trust,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -310,7 +310,7 @@ constructor(
     }
 
     override fun toString() =
-        "EntityCreateParams{structure=$structure, corporation=$corporation, naturalPerson=$naturalPerson, joint=$joint, trust=$trust, description=$description, relationship=$relationship, supplementalDocuments=$supplementalDocuments, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "EntityCreateParams{relationship=$relationship, structure=$structure, corporation=$corporation, description=$description, joint=$joint, naturalPerson=$naturalPerson, supplementalDocuments=$supplementalDocuments, trust=$trust, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -322,32 +322,35 @@ constructor(
     @NoAutoDetect
     class Builder {
 
+        private var relationship: Relationship? = null
         private var structure: Structure? = null
         private var corporation: Corporation? = null
-        private var naturalPerson: NaturalPerson? = null
-        private var joint: Joint? = null
-        private var trust: Trust? = null
         private var description: String? = null
-        private var relationship: Relationship? = null
+        private var joint: Joint? = null
+        private var naturalPerson: NaturalPerson? = null
         private var supplementalDocuments: MutableList<SupplementalDocument> = mutableListOf()
+        private var trust: Trust? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(entityCreateParams: EntityCreateParams) = apply {
+            this.relationship = entityCreateParams.relationship
             this.structure = entityCreateParams.structure
             this.corporation = entityCreateParams.corporation
-            this.naturalPerson = entityCreateParams.naturalPerson
-            this.joint = entityCreateParams.joint
-            this.trust = entityCreateParams.trust
             this.description = entityCreateParams.description
-            this.relationship = entityCreateParams.relationship
+            this.joint = entityCreateParams.joint
+            this.naturalPerson = entityCreateParams.naturalPerson
             this.supplementalDocuments(entityCreateParams.supplementalDocuments ?: listOf())
+            this.trust = entityCreateParams.trust
             additionalQueryParams(entityCreateParams.additionalQueryParams)
             additionalHeaders(entityCreateParams.additionalHeaders)
             additionalBodyProperties(entityCreateParams.additionalBodyProperties)
         }
+
+        /** The relationship between your group and the entity. */
+        fun relationship(relationship: Relationship) = apply { this.relationship = relationship }
 
         /** The type of Entity to create. */
         fun structure(structure: Structure) = apply { this.structure = structure }
@@ -357,6 +360,12 @@ constructor(
          * `corporation`.
          */
         fun corporation(corporation: Corporation) = apply { this.corporation = corporation }
+
+        /** The description you choose to give the entity. */
+        fun description(description: String) = apply { this.description = description }
+
+        /** Details of the joint entity to create. Required if `structure` is equal to `joint`. */
+        fun joint(joint: Joint) = apply { this.joint = joint }
 
         /**
          * Details of the natural person entity to create. Required if `structure` is equal to
@@ -368,18 +377,6 @@ constructor(
             this.naturalPerson = naturalPerson
         }
 
-        /** Details of the joint entity to create. Required if `structure` is equal to `joint`. */
-        fun joint(joint: Joint) = apply { this.joint = joint }
-
-        /** Details of the trust entity to create. Required if `structure` is equal to `trust`. */
-        fun trust(trust: Trust) = apply { this.trust = trust }
-
-        /** The description you choose to give the entity. */
-        fun description(description: String) = apply { this.description = description }
-
-        /** The relationship between your group and the entity. */
-        fun relationship(relationship: Relationship) = apply { this.relationship = relationship }
-
         /** Additional documentation associated with the entity. */
         fun supplementalDocuments(supplementalDocuments: List<SupplementalDocument>) = apply {
             this.supplementalDocuments.clear()
@@ -390,6 +387,9 @@ constructor(
         fun addSupplementalDocument(supplementalDocument: SupplementalDocument) = apply {
             this.supplementalDocuments.add(supplementalDocument)
         }
+
+        /** Details of the trust entity to create. Required if `structure` is equal to `trust`. */
+        fun trust(trust: Trust) = apply { this.trust = trust }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -447,15 +447,15 @@ constructor(
 
         fun build(): EntityCreateParams =
             EntityCreateParams(
+                checkNotNull(relationship) { "`relationship` is required but was not set" },
                 checkNotNull(structure) { "`structure` is required but was not set" },
                 corporation,
-                naturalPerson,
-                joint,
-                trust,
                 description,
-                checkNotNull(relationship) { "`relationship` is required but was not set" },
+                joint,
+                naturalPerson,
                 if (supplementalDocuments.size == 0) null
                 else supplementalDocuments.toUnmodifiable(),
+                trust,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

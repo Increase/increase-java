@@ -23,6 +23,7 @@ class AchPrenotificationServiceTest {
             achPrenotificationService.create(
                 AchPrenotificationCreateParams.builder()
                     .accountNumber("x")
+                    .routingNumber("xxxxxxxxx")
                     .addendum("x")
                     .companyDescriptiveDate("x")
                     .companyDiscretionaryData("x")
@@ -34,7 +35,6 @@ class AchPrenotificationServiceTest {
                     .effectiveDate(LocalDate.parse("2019-12-27"))
                     .individualId("x")
                     .individualName("x")
-                    .routingNumber("xxxxxxxxx")
                     .standardEntryClassCode(
                         AchPrenotificationCreateParams.StandardEntryClassCode
                             .CORPORATE_CREDIT_OR_DEBIT

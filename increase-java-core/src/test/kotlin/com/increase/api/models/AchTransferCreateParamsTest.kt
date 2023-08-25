@@ -11,9 +11,10 @@ class AchTransferCreateParamsTest {
     fun createAchTransferCreateParams() {
         AchTransferCreateParams.builder()
             .accountId("string")
+            .amount(123L)
+            .statementDescriptor("x")
             .accountNumber("x")
             .addendum("x")
-            .amount(123L)
             .companyDescriptiveDate("x")
             .companyDiscretionaryData("x")
             .companyEntryDescription("x")
@@ -28,7 +29,6 @@ class AchTransferCreateParamsTest {
             .standardEntryClassCode(
                 AchTransferCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
             )
-            .statementDescriptor("x")
             .uniqueIdentifier("x")
             .build()
     }
@@ -38,9 +38,10 @@ class AchTransferCreateParamsTest {
         val params =
             AchTransferCreateParams.builder()
                 .accountId("string")
+                .amount(123L)
+                .statementDescriptor("x")
                 .accountNumber("x")
                 .addendum("x")
-                .amount(123L)
                 .companyDescriptiveDate("x")
                 .companyDiscretionaryData("x")
                 .companyEntryDescription("x")
@@ -55,15 +56,15 @@ class AchTransferCreateParamsTest {
                 .standardEntryClassCode(
                     AchTransferCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
                 )
-                .statementDescriptor("x")
                 .uniqueIdentifier("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("string")
+        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.statementDescriptor()).isEqualTo("x")
         assertThat(body.accountNumber()).isEqualTo("x")
         assertThat(body.addendum()).isEqualTo("x")
-        assertThat(body.amount()).isEqualTo(123L)
         assertThat(body.companyDescriptiveDate()).isEqualTo("x")
         assertThat(body.companyDiscretionaryData()).isEqualTo("x")
         assertThat(body.companyEntryDescription()).isEqualTo("x")
@@ -77,7 +78,6 @@ class AchTransferCreateParamsTest {
         assertThat(body.routingNumber()).isEqualTo("xxxxxxxxx")
         assertThat(body.standardEntryClassCode())
             .isEqualTo(AchTransferCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT)
-        assertThat(body.statementDescriptor()).isEqualTo("x")
         assertThat(body.uniqueIdentifier()).isEqualTo("x")
     }
 

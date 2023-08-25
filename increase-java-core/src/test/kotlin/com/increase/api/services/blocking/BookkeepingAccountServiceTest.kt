@@ -21,12 +21,12 @@ class BookkeepingAccountServiceTest {
         val bookkeepingAccount =
             bookkeepingAccountService.create(
                 BookkeepingAccountCreateParams.builder()
+                    .name("x")
+                    .accountId("string")
                     .complianceCategory(
                         BookkeepingAccountCreateParams.ComplianceCategory.COMMINGLED_CASH
                     )
                     .entityId("string")
-                    .accountId("string")
-                    .name("x")
                     .build()
             )
         println(bookkeepingAccount)

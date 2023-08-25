@@ -22,6 +22,7 @@ class EntityServiceTest {
         val entity =
             entityService.create(
                 EntityCreateParams.builder()
+                    .relationship(EntityCreateParams.Relationship.AFFILIATED)
                     .structure(EntityCreateParams.Structure.CORPORATION)
                     .corporation(
                         EntityCreateParams.Corporation.builder()
@@ -135,59 +136,7 @@ class EntityServiceTest {
                             .website("string")
                             .build()
                     )
-                    .naturalPerson(
-                        EntityCreateParams.NaturalPerson.builder()
-                            .address(
-                                EntityCreateParams.NaturalPerson.Address.builder()
-                                    .city("x")
-                                    .line1("x")
-                                    .state("x")
-                                    .zip("x")
-                                    .line2("x")
-                                    .build()
-                            )
-                            .dateOfBirth(LocalDate.parse("2019-12-27"))
-                            .identification(
-                                EntityCreateParams.NaturalPerson.Identification.builder()
-                                    .method(
-                                        EntityCreateParams.NaturalPerson.Identification.Method
-                                            .SOCIAL_SECURITY_NUMBER
-                                    )
-                                    .number("xxxx")
-                                    .driversLicense(
-                                        EntityCreateParams.NaturalPerson.Identification
-                                            .DriversLicense
-                                            .builder()
-                                            .expirationDate(LocalDate.parse("2019-12-27"))
-                                            .fileId("string")
-                                            .state("x")
-                                            .backFileId("string")
-                                            .build()
-                                    )
-                                    .other(
-                                        EntityCreateParams.NaturalPerson.Identification.Other
-                                            .builder()
-                                            .country("x")
-                                            .description("x")
-                                            .fileId("string")
-                                            .backFileId("string")
-                                            .expirationDate(LocalDate.parse("2019-12-27"))
-                                            .build()
-                                    )
-                                    .passport(
-                                        EntityCreateParams.NaturalPerson.Identification.Passport
-                                            .builder()
-                                            .country("x")
-                                            .expirationDate(LocalDate.parse("2019-12-27"))
-                                            .fileId("string")
-                                            .build()
-                                    )
-                                    .build()
-                            )
-                            .name("x")
-                            .confirmedNoUsTaxId(true)
-                            .build()
-                    )
+                    .description("x")
                     .joint(
                         EntityCreateParams.Joint.builder()
                             .individuals(
@@ -261,6 +210,66 @@ class EntityServiceTest {
                             )
                             .name("x")
                             .build()
+                    )
+                    .naturalPerson(
+                        EntityCreateParams.NaturalPerson.builder()
+                            .address(
+                                EntityCreateParams.NaturalPerson.Address.builder()
+                                    .city("x")
+                                    .line1("x")
+                                    .state("x")
+                                    .zip("x")
+                                    .line2("x")
+                                    .build()
+                            )
+                            .dateOfBirth(LocalDate.parse("2019-12-27"))
+                            .identification(
+                                EntityCreateParams.NaturalPerson.Identification.builder()
+                                    .method(
+                                        EntityCreateParams.NaturalPerson.Identification.Method
+                                            .SOCIAL_SECURITY_NUMBER
+                                    )
+                                    .number("xxxx")
+                                    .driversLicense(
+                                        EntityCreateParams.NaturalPerson.Identification
+                                            .DriversLicense
+                                            .builder()
+                                            .expirationDate(LocalDate.parse("2019-12-27"))
+                                            .fileId("string")
+                                            .state("x")
+                                            .backFileId("string")
+                                            .build()
+                                    )
+                                    .other(
+                                        EntityCreateParams.NaturalPerson.Identification.Other
+                                            .builder()
+                                            .country("x")
+                                            .description("x")
+                                            .fileId("string")
+                                            .backFileId("string")
+                                            .expirationDate(LocalDate.parse("2019-12-27"))
+                                            .build()
+                                    )
+                                    .passport(
+                                        EntityCreateParams.NaturalPerson.Identification.Passport
+                                            .builder()
+                                            .country("x")
+                                            .expirationDate(LocalDate.parse("2019-12-27"))
+                                            .fileId("string")
+                                            .build()
+                                    )
+                                    .build()
+                            )
+                            .name("x")
+                            .confirmedNoUsTaxId(true)
+                            .build()
+                    )
+                    .supplementalDocuments(
+                        listOf(
+                            EntityCreateParams.SupplementalDocument.builder()
+                                .fileId("string")
+                                .build()
+                        )
                     )
                     .trust(
                         EntityCreateParams.Trust.builder()
@@ -418,15 +427,6 @@ class EntityServiceTest {
                             )
                             .taxIdentifier("x")
                             .build()
-                    )
-                    .description("x")
-                    .relationship(EntityCreateParams.Relationship.AFFILIATED)
-                    .supplementalDocuments(
-                        listOf(
-                            EntityCreateParams.SupplementalDocument.builder()
-                                .fileId("string")
-                                .build()
-                        )
                     )
                     .build()
             )

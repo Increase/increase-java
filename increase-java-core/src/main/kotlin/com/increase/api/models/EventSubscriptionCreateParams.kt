@@ -18,8 +18,8 @@ import java.util.Optional
 class EventSubscriptionCreateParams
 constructor(
     private val url: String,
-    private val sharedSecret: String?,
     private val selectedEventCategory: SelectedEventCategory?,
+    private val sharedSecret: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -27,17 +27,17 @@ constructor(
 
     fun url(): String = url
 
-    fun sharedSecret(): Optional<String> = Optional.ofNullable(sharedSecret)
-
     fun selectedEventCategory(): Optional<SelectedEventCategory> =
         Optional.ofNullable(selectedEventCategory)
+
+    fun sharedSecret(): Optional<String> = Optional.ofNullable(sharedSecret)
 
     @JvmSynthetic
     internal fun getBody(): EventSubscriptionCreateBody {
         return EventSubscriptionCreateBody(
             url,
-            sharedSecret,
             selectedEventCategory,
+            sharedSecret,
             additionalBodyProperties,
         )
     }
@@ -51,8 +51,8 @@ constructor(
     class EventSubscriptionCreateBody
     internal constructor(
         private val url: String?,
-        private val sharedSecret: String?,
         private val selectedEventCategory: SelectedEventCategory?,
+        private val sharedSecret: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -62,17 +62,17 @@ constructor(
         @JsonProperty("url") fun url(): String? = url
 
         /**
-         * The key that will be used to sign webhooks. If no value is passed, a random string will
-         * be used as default.
-         */
-        @JsonProperty("shared_secret") fun sharedSecret(): String? = sharedSecret
-
-        /**
          * If specified, this subscription will only receive webhooks for Events with the specified
          * `category`.
          */
         @JsonProperty("selected_event_category")
         fun selectedEventCategory(): SelectedEventCategory? = selectedEventCategory
+
+        /**
+         * The key that will be used to sign webhooks. If no value is passed, a random string will
+         * be used as default.
+         */
+        @JsonProperty("shared_secret") fun sharedSecret(): String? = sharedSecret
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -87,8 +87,8 @@ constructor(
 
             return other is EventSubscriptionCreateBody &&
                 this.url == other.url &&
-                this.sharedSecret == other.sharedSecret &&
                 this.selectedEventCategory == other.selectedEventCategory &&
+                this.sharedSecret == other.sharedSecret &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -97,8 +97,8 @@ constructor(
                 hashCode =
                     Objects.hash(
                         url,
-                        sharedSecret,
                         selectedEventCategory,
+                        sharedSecret,
                         additionalProperties,
                     )
             }
@@ -106,7 +106,7 @@ constructor(
         }
 
         override fun toString() =
-            "EventSubscriptionCreateBody{url=$url, sharedSecret=$sharedSecret, selectedEventCategory=$selectedEventCategory, additionalProperties=$additionalProperties}"
+            "EventSubscriptionCreateBody{url=$url, selectedEventCategory=$selectedEventCategory, sharedSecret=$sharedSecret, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -116,27 +116,20 @@ constructor(
         class Builder {
 
             private var url: String? = null
-            private var sharedSecret: String? = null
             private var selectedEventCategory: SelectedEventCategory? = null
+            private var sharedSecret: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(eventSubscriptionCreateBody: EventSubscriptionCreateBody) = apply {
                 this.url = eventSubscriptionCreateBody.url
-                this.sharedSecret = eventSubscriptionCreateBody.sharedSecret
                 this.selectedEventCategory = eventSubscriptionCreateBody.selectedEventCategory
+                this.sharedSecret = eventSubscriptionCreateBody.sharedSecret
                 additionalProperties(eventSubscriptionCreateBody.additionalProperties)
             }
 
             /** The URL you'd like us to send webhooks to. */
             @JsonProperty("url") fun url(url: String) = apply { this.url = url }
-
-            /**
-             * The key that will be used to sign webhooks. If no value is passed, a random string
-             * will be used as default.
-             */
-            @JsonProperty("shared_secret")
-            fun sharedSecret(sharedSecret: String) = apply { this.sharedSecret = sharedSecret }
 
             /**
              * If specified, this subscription will only receive webhooks for Events with the
@@ -146,6 +139,13 @@ constructor(
             fun selectedEventCategory(selectedEventCategory: SelectedEventCategory) = apply {
                 this.selectedEventCategory = selectedEventCategory
             }
+
+            /**
+             * The key that will be used to sign webhooks. If no value is passed, a random string
+             * will be used as default.
+             */
+            @JsonProperty("shared_secret")
+            fun sharedSecret(sharedSecret: String) = apply { this.sharedSecret = sharedSecret }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -164,8 +164,8 @@ constructor(
             fun build(): EventSubscriptionCreateBody =
                 EventSubscriptionCreateBody(
                     checkNotNull(url) { "`url` is required but was not set" },
-                    sharedSecret,
                     selectedEventCategory,
+                    sharedSecret,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -184,8 +184,8 @@ constructor(
 
         return other is EventSubscriptionCreateParams &&
             this.url == other.url &&
-            this.sharedSecret == other.sharedSecret &&
             this.selectedEventCategory == other.selectedEventCategory &&
+            this.sharedSecret == other.sharedSecret &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -194,8 +194,8 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             url,
-            sharedSecret,
             selectedEventCategory,
+            sharedSecret,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -203,7 +203,7 @@ constructor(
     }
 
     override fun toString() =
-        "EventSubscriptionCreateParams{url=$url, sharedSecret=$sharedSecret, selectedEventCategory=$selectedEventCategory, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "EventSubscriptionCreateParams{url=$url, selectedEventCategory=$selectedEventCategory, sharedSecret=$sharedSecret, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -216,8 +216,8 @@ constructor(
     class Builder {
 
         private var url: String? = null
-        private var sharedSecret: String? = null
         private var selectedEventCategory: SelectedEventCategory? = null
+        private var sharedSecret: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -225,8 +225,8 @@ constructor(
         @JvmSynthetic
         internal fun from(eventSubscriptionCreateParams: EventSubscriptionCreateParams) = apply {
             this.url = eventSubscriptionCreateParams.url
-            this.sharedSecret = eventSubscriptionCreateParams.sharedSecret
             this.selectedEventCategory = eventSubscriptionCreateParams.selectedEventCategory
+            this.sharedSecret = eventSubscriptionCreateParams.sharedSecret
             additionalQueryParams(eventSubscriptionCreateParams.additionalQueryParams)
             additionalHeaders(eventSubscriptionCreateParams.additionalHeaders)
             additionalBodyProperties(eventSubscriptionCreateParams.additionalBodyProperties)
@@ -236,18 +236,18 @@ constructor(
         fun url(url: String) = apply { this.url = url }
 
         /**
-         * The key that will be used to sign webhooks. If no value is passed, a random string will
-         * be used as default.
-         */
-        fun sharedSecret(sharedSecret: String) = apply { this.sharedSecret = sharedSecret }
-
-        /**
          * If specified, this subscription will only receive webhooks for Events with the specified
          * `category`.
          */
         fun selectedEventCategory(selectedEventCategory: SelectedEventCategory) = apply {
             this.selectedEventCategory = selectedEventCategory
         }
+
+        /**
+         * The key that will be used to sign webhooks. If no value is passed, a random string will
+         * be used as default.
+         */
+        fun sharedSecret(sharedSecret: String) = apply { this.sharedSecret = sharedSecret }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -306,8 +306,8 @@ constructor(
         fun build(): EventSubscriptionCreateParams =
             EventSubscriptionCreateParams(
                 checkNotNull(url) { "`url` is required but was not set" },
-                sharedSecret,
                 selectedEventCategory,
+                sharedSecret,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

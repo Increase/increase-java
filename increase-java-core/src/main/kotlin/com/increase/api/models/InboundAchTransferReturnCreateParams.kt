@@ -16,22 +16,22 @@ import java.util.Objects
 
 class InboundAchTransferReturnCreateParams
 constructor(
-    private val transactionId: String,
     private val reason: Reason,
+    private val transactionId: String,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun transactionId(): String = transactionId
-
     fun reason(): Reason = reason
+
+    fun transactionId(): String = transactionId
 
     @JvmSynthetic
     internal fun getBody(): InboundAchTransferReturnCreateBody {
         return InboundAchTransferReturnCreateBody(
-            transactionId,
             reason,
+            transactionId,
             additionalBodyProperties,
         )
     }
@@ -44,24 +44,24 @@ constructor(
     @NoAutoDetect
     class InboundAchTransferReturnCreateBody
     internal constructor(
-        private val transactionId: String?,
         private val reason: Reason?,
+        private val transactionId: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
 
         /**
-         * The transaction identifier of the Inbound ACH Transfer to return to the originating
-         * financial institution.
-         */
-        @JsonProperty("transaction_id") fun transactionId(): String? = transactionId
-
-        /**
          * The reason why this transfer will be returned. The most usual return codes are
          * `payment_stopped` for debits and `credit_entry_refused_by_receiver` for credits.
          */
         @JsonProperty("reason") fun reason(): Reason? = reason
+
+        /**
+         * The transaction identifier of the Inbound ACH Transfer to return to the originating
+         * financial institution.
+         */
+        @JsonProperty("transaction_id") fun transactionId(): String? = transactionId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -75,8 +75,8 @@ constructor(
             }
 
             return other is InboundAchTransferReturnCreateBody &&
-                this.transactionId == other.transactionId &&
                 this.reason == other.reason &&
+                this.transactionId == other.transactionId &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -84,8 +84,8 @@ constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        transactionId,
                         reason,
+                        transactionId,
                         additionalProperties,
                     )
             }
@@ -93,7 +93,7 @@ constructor(
         }
 
         override fun toString() =
-            "InboundAchTransferReturnCreateBody{transactionId=$transactionId, reason=$reason, additionalProperties=$additionalProperties}"
+            "InboundAchTransferReturnCreateBody{reason=$reason, transactionId=$transactionId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -102,18 +102,24 @@ constructor(
 
         class Builder {
 
-            private var transactionId: String? = null
             private var reason: Reason? = null
+            private var transactionId: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(
                 inboundAchTransferReturnCreateBody: InboundAchTransferReturnCreateBody
             ) = apply {
-                this.transactionId = inboundAchTransferReturnCreateBody.transactionId
                 this.reason = inboundAchTransferReturnCreateBody.reason
+                this.transactionId = inboundAchTransferReturnCreateBody.transactionId
                 additionalProperties(inboundAchTransferReturnCreateBody.additionalProperties)
             }
+
+            /**
+             * The reason why this transfer will be returned. The most usual return codes are
+             * `payment_stopped` for debits and `credit_entry_refused_by_receiver` for credits.
+             */
+            @JsonProperty("reason") fun reason(reason: Reason) = apply { this.reason = reason }
 
             /**
              * The transaction identifier of the Inbound ACH Transfer to return to the originating
@@ -121,12 +127,6 @@ constructor(
              */
             @JsonProperty("transaction_id")
             fun transactionId(transactionId: String) = apply { this.transactionId = transactionId }
-
-            /**
-             * The reason why this transfer will be returned. The most usual return codes are
-             * `payment_stopped` for debits and `credit_entry_refused_by_receiver` for credits.
-             */
-            @JsonProperty("reason") fun reason(reason: Reason) = apply { this.reason = reason }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -144,8 +144,8 @@ constructor(
 
             fun build(): InboundAchTransferReturnCreateBody =
                 InboundAchTransferReturnCreateBody(
-                    checkNotNull(transactionId) { "`transactionId` is required but was not set" },
                     checkNotNull(reason) { "`reason` is required but was not set" },
+                    checkNotNull(transactionId) { "`transactionId` is required but was not set" },
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -163,8 +163,8 @@ constructor(
         }
 
         return other is InboundAchTransferReturnCreateParams &&
-            this.transactionId == other.transactionId &&
             this.reason == other.reason &&
+            this.transactionId == other.transactionId &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -172,8 +172,8 @@ constructor(
 
     override fun hashCode(): Int {
         return Objects.hash(
-            transactionId,
             reason,
+            transactionId,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -181,7 +181,7 @@ constructor(
     }
 
     override fun toString() =
-        "InboundAchTransferReturnCreateParams{transactionId=$transactionId, reason=$reason, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "InboundAchTransferReturnCreateParams{reason=$reason, transactionId=$transactionId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -193,8 +193,8 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var transactionId: String? = null
         private var reason: Reason? = null
+        private var transactionId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -203,24 +203,24 @@ constructor(
         internal fun from(
             inboundAchTransferReturnCreateParams: InboundAchTransferReturnCreateParams
         ) = apply {
-            this.transactionId = inboundAchTransferReturnCreateParams.transactionId
             this.reason = inboundAchTransferReturnCreateParams.reason
+            this.transactionId = inboundAchTransferReturnCreateParams.transactionId
             additionalQueryParams(inboundAchTransferReturnCreateParams.additionalQueryParams)
             additionalHeaders(inboundAchTransferReturnCreateParams.additionalHeaders)
             additionalBodyProperties(inboundAchTransferReturnCreateParams.additionalBodyProperties)
         }
 
         /**
-         * The transaction identifier of the Inbound ACH Transfer to return to the originating
-         * financial institution.
-         */
-        fun transactionId(transactionId: String) = apply { this.transactionId = transactionId }
-
-        /**
          * The reason why this transfer will be returned. The most usual return codes are
          * `payment_stopped` for debits and `credit_entry_refused_by_receiver` for credits.
          */
         fun reason(reason: Reason) = apply { this.reason = reason }
+
+        /**
+         * The transaction identifier of the Inbound ACH Transfer to return to the originating
+         * financial institution.
+         */
+        fun transactionId(transactionId: String) = apply { this.transactionId = transactionId }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -278,8 +278,8 @@ constructor(
 
         fun build(): InboundAchTransferReturnCreateParams =
             InboundAchTransferReturnCreateParams(
-                checkNotNull(transactionId) { "`transactionId` is required but was not set" },
                 checkNotNull(reason) { "`reason` is required but was not set" },
+                checkNotNull(transactionId) { "`transactionId` is required but was not set" },
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

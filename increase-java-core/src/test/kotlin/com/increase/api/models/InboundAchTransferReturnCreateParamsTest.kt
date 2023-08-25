@@ -9,8 +9,8 @@ class InboundAchTransferReturnCreateParamsTest {
     @Test
     fun createInboundAchTransferReturnCreateParams() {
         InboundAchTransferReturnCreateParams.builder()
-            .transactionId("string")
             .reason(InboundAchTransferReturnCreateParams.Reason.AUTHORIZATION_REVOKED_BY_CUSTOMER)
+            .transactionId("string")
             .build()
     }
 
@@ -18,35 +18,35 @@ class InboundAchTransferReturnCreateParamsTest {
     fun getBody() {
         val params =
             InboundAchTransferReturnCreateParams.builder()
-                .transactionId("string")
                 .reason(
                     InboundAchTransferReturnCreateParams.Reason.AUTHORIZATION_REVOKED_BY_CUSTOMER
                 )
+                .transactionId("string")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.transactionId()).isEqualTo("string")
         assertThat(body.reason())
             .isEqualTo(
                 InboundAchTransferReturnCreateParams.Reason.AUTHORIZATION_REVOKED_BY_CUSTOMER
             )
+        assertThat(body.transactionId()).isEqualTo("string")
     }
 
     @Test
     fun getBodyWithoutOptionalFields() {
         val params =
             InboundAchTransferReturnCreateParams.builder()
-                .transactionId("string")
                 .reason(
                     InboundAchTransferReturnCreateParams.Reason.AUTHORIZATION_REVOKED_BY_CUSTOMER
                 )
+                .transactionId("string")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.transactionId()).isEqualTo("string")
         assertThat(body.reason())
             .isEqualTo(
                 InboundAchTransferReturnCreateParams.Reason.AUTHORIZATION_REVOKED_BY_CUSTOMER
             )
+        assertThat(body.transactionId()).isEqualTo("string")
     }
 }

@@ -10,8 +10,6 @@ class CardUpdateParamsTest {
     fun createCardUpdateParams() {
         CardUpdateParams.builder()
             .cardId("string")
-            .description("x")
-            .status(CardUpdateParams.Status.ACTIVE)
             .billingAddress(
                 CardUpdateParams.BillingAddress.builder()
                     .city("x")
@@ -21,6 +19,7 @@ class CardUpdateParamsTest {
                     .line2("x")
                     .build()
             )
+            .description("x")
             .digitalWallet(
                 CardUpdateParams.DigitalWallet.builder()
                     .cardProfileId("string")
@@ -28,6 +27,7 @@ class CardUpdateParamsTest {
                     .phone("x")
                     .build()
             )
+            .status(CardUpdateParams.Status.ACTIVE)
             .build()
     }
 
@@ -36,8 +36,6 @@ class CardUpdateParamsTest {
         val params =
             CardUpdateParams.builder()
                 .cardId("string")
-                .description("x")
-                .status(CardUpdateParams.Status.ACTIVE)
                 .billingAddress(
                     CardUpdateParams.BillingAddress.builder()
                         .city("x")
@@ -47,6 +45,7 @@ class CardUpdateParamsTest {
                         .line2("x")
                         .build()
                 )
+                .description("x")
                 .digitalWallet(
                     CardUpdateParams.DigitalWallet.builder()
                         .cardProfileId("string")
@@ -54,11 +53,10 @@ class CardUpdateParamsTest {
                         .phone("x")
                         .build()
                 )
+                .status(CardUpdateParams.Status.ACTIVE)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.description()).isEqualTo("x")
-        assertThat(body.status()).isEqualTo(CardUpdateParams.Status.ACTIVE)
         assertThat(body.billingAddress())
             .isEqualTo(
                 CardUpdateParams.BillingAddress.builder()
@@ -69,6 +67,7 @@ class CardUpdateParamsTest {
                     .line2("x")
                     .build()
             )
+        assertThat(body.description()).isEqualTo("x")
         assertThat(body.digitalWallet())
             .isEqualTo(
                 CardUpdateParams.DigitalWallet.builder()
@@ -77,6 +76,7 @@ class CardUpdateParamsTest {
                     .phone("x")
                     .build()
             )
+        assertThat(body.status()).isEqualTo(CardUpdateParams.Status.ACTIVE)
     }
 
     @Test

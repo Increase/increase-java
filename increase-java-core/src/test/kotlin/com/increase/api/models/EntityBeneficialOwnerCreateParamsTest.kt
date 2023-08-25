@@ -10,7 +10,6 @@ class EntityBeneficialOwnerCreateParamsTest {
     @Test
     fun createEntityBeneficialOwnerCreateParams() {
         EntityBeneficialOwnerCreateParams.builder()
-            .entityId("string")
             .beneficialOwner(
                 EntityBeneficialOwnerCreateParams.BeneficialOwner.builder()
                     .individual(
@@ -82,6 +81,7 @@ class EntityBeneficialOwnerCreateParamsTest {
                     .companyTitle("x")
                     .build()
             )
+            .entityId("string")
             .build()
     }
 
@@ -89,7 +89,6 @@ class EntityBeneficialOwnerCreateParamsTest {
     fun getBody() {
         val params =
             EntityBeneficialOwnerCreateParams.builder()
-                .entityId("string")
                 .beneficialOwner(
                     EntityBeneficialOwnerCreateParams.BeneficialOwner.builder()
                         .individual(
@@ -168,10 +167,10 @@ class EntityBeneficialOwnerCreateParamsTest {
                         .companyTitle("x")
                         .build()
                 )
+                .entityId("string")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.entityId()).isEqualTo("string")
         assertThat(body.beneficialOwner())
             .isEqualTo(
                 EntityBeneficialOwnerCreateParams.BeneficialOwner.builder()
@@ -244,13 +243,13 @@ class EntityBeneficialOwnerCreateParamsTest {
                     .companyTitle("x")
                     .build()
             )
+        assertThat(body.entityId()).isEqualTo("string")
     }
 
     @Test
     fun getBodyWithoutOptionalFields() {
         val params =
             EntityBeneficialOwnerCreateParams.builder()
-                .entityId("string")
                 .beneficialOwner(
                     EntityBeneficialOwnerCreateParams.BeneficialOwner.builder()
                         .individual(
@@ -290,10 +289,10 @@ class EntityBeneficialOwnerCreateParamsTest {
                         )
                         .build()
                 )
+                .entityId("string")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.entityId()).isEqualTo("string")
         assertThat(body.beneficialOwner())
             .isEqualTo(
                 EntityBeneficialOwnerCreateParams.BeneficialOwner.builder()
@@ -330,5 +329,6 @@ class EntityBeneficialOwnerCreateParamsTest {
                     )
                     .build()
             )
+        assertThat(body.entityId()).isEqualTo("string")
     }
 }

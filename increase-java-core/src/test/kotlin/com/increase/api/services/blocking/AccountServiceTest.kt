@@ -22,10 +22,10 @@ class AccountServiceTest {
         val account =
             accountService.create(
                 AccountCreateParams.builder()
-                    .entityId("string")
-                    .programId("string")
-                    .informationalEntityId("string")
                     .name("x")
+                    .entityId("string")
+                    .informationalEntityId("string")
+                    .programId("string")
                     .build()
             )
         println(account)

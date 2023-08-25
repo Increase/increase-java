@@ -60,10 +60,10 @@ class ErrorHandlingTest {
     fun accountsCreate200() {
         val params =
             AccountCreateParams.builder()
-                .entityId("string")
-                .programId("string")
-                .informationalEntityId("string")
                 .name("x")
+                .entityId("string")
+                .informationalEntityId("string")
+                .programId("string")
                 .build()
 
         val expected =
@@ -90,10 +90,10 @@ class ErrorHandlingTest {
     fun accountsCreate400() {
         val params =
             AccountCreateParams.builder()
-                .entityId("string")
-                .programId("string")
-                .informationalEntityId("string")
                 .name("x")
+                .entityId("string")
+                .informationalEntityId("string")
+                .programId("string")
                 .build()
 
         stubFor(
@@ -111,10 +111,10 @@ class ErrorHandlingTest {
     fun accountsCreate401() {
         val params =
             AccountCreateParams.builder()
-                .entityId("string")
-                .programId("string")
-                .informationalEntityId("string")
                 .name("x")
+                .entityId("string")
+                .informationalEntityId("string")
+                .programId("string")
                 .build()
 
         stubFor(
@@ -132,10 +132,10 @@ class ErrorHandlingTest {
     fun accountsCreate403() {
         val params =
             AccountCreateParams.builder()
-                .entityId("string")
-                .programId("string")
-                .informationalEntityId("string")
                 .name("x")
+                .entityId("string")
+                .informationalEntityId("string")
+                .programId("string")
                 .build()
 
         stubFor(
@@ -153,10 +153,10 @@ class ErrorHandlingTest {
     fun accountsCreate404() {
         val params =
             AccountCreateParams.builder()
-                .entityId("string")
-                .programId("string")
-                .informationalEntityId("string")
                 .name("x")
+                .entityId("string")
+                .informationalEntityId("string")
+                .programId("string")
                 .build()
 
         stubFor(
@@ -174,10 +174,10 @@ class ErrorHandlingTest {
     fun accountsCreate422() {
         val params =
             AccountCreateParams.builder()
-                .entityId("string")
-                .programId("string")
-                .informationalEntityId("string")
                 .name("x")
+                .entityId("string")
+                .informationalEntityId("string")
+                .programId("string")
                 .build()
 
         stubFor(
@@ -195,10 +195,10 @@ class ErrorHandlingTest {
     fun accountsCreate429() {
         val params =
             AccountCreateParams.builder()
-                .entityId("string")
-                .programId("string")
-                .informationalEntityId("string")
                 .name("x")
+                .entityId("string")
+                .informationalEntityId("string")
+                .programId("string")
                 .build()
 
         stubFor(
@@ -216,10 +216,10 @@ class ErrorHandlingTest {
     fun accountsCreate500() {
         val params =
             AccountCreateParams.builder()
-                .entityId("string")
-                .programId("string")
-                .informationalEntityId("string")
                 .name("x")
+                .entityId("string")
+                .informationalEntityId("string")
+                .programId("string")
                 .build()
 
         stubFor(
@@ -237,10 +237,10 @@ class ErrorHandlingTest {
     fun unexpectedStatusCode() {
         val params =
             AccountCreateParams.builder()
-                .entityId("string")
-                .programId("string")
-                .informationalEntityId("string")
                 .name("x")
+                .entityId("string")
+                .informationalEntityId("string")
+                .programId("string")
                 .build()
 
         stubFor(
@@ -263,10 +263,10 @@ class ErrorHandlingTest {
     fun invalidBody() {
         val params =
             AccountCreateParams.builder()
-                .entityId("string")
-                .programId("string")
-                .informationalEntityId("string")
                 .name("x")
+                .entityId("string")
+                .informationalEntityId("string")
+                .programId("string")
                 .build()
 
         stubFor(post(anyUrl()).willReturn(status(200).withBody("Not JSON")))
@@ -283,10 +283,10 @@ class ErrorHandlingTest {
     fun invalidErrorBody() {
         val params =
             AccountCreateParams.builder()
-                .entityId("string")
-                .programId("string")
-                .informationalEntityId("string")
                 .name("x")
+                .entityId("string")
+                .informationalEntityId("string")
+                .programId("string")
                 .build()
 
         stubFor(post(anyUrl()).willReturn(status(400).withBody("Not JSON")))

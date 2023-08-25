@@ -10,6 +10,7 @@ class EntityCreateParamsTest {
     @Test
     fun createEntityCreateParams() {
         EntityCreateParams.builder()
+            .relationship(EntityCreateParams.Relationship.AFFILIATED)
             .structure(EntityCreateParams.Structure.CORPORATION)
             .corporation(
                 EntityCreateParams.Corporation.builder()
@@ -118,56 +119,7 @@ class EntityCreateParamsTest {
                     .website("string")
                     .build()
             )
-            .naturalPerson(
-                EntityCreateParams.NaturalPerson.builder()
-                    .address(
-                        EntityCreateParams.NaturalPerson.Address.builder()
-                            .city("x")
-                            .line1("x")
-                            .state("x")
-                            .zip("x")
-                            .line2("x")
-                            .build()
-                    )
-                    .dateOfBirth(LocalDate.parse("2019-12-27"))
-                    .identification(
-                        EntityCreateParams.NaturalPerson.Identification.builder()
-                            .method(
-                                EntityCreateParams.NaturalPerson.Identification.Method
-                                    .SOCIAL_SECURITY_NUMBER
-                            )
-                            .number("xxxx")
-                            .driversLicense(
-                                EntityCreateParams.NaturalPerson.Identification.DriversLicense
-                                    .builder()
-                                    .expirationDate(LocalDate.parse("2019-12-27"))
-                                    .fileId("string")
-                                    .state("x")
-                                    .backFileId("string")
-                                    .build()
-                            )
-                            .other(
-                                EntityCreateParams.NaturalPerson.Identification.Other.builder()
-                                    .country("x")
-                                    .description("x")
-                                    .fileId("string")
-                                    .backFileId("string")
-                                    .expirationDate(LocalDate.parse("2019-12-27"))
-                                    .build()
-                            )
-                            .passport(
-                                EntityCreateParams.NaturalPerson.Identification.Passport.builder()
-                                    .country("x")
-                                    .expirationDate(LocalDate.parse("2019-12-27"))
-                                    .fileId("string")
-                                    .build()
-                            )
-                            .build()
-                    )
-                    .name("x")
-                    .confirmedNoUsTaxId(true)
-                    .build()
-            )
+            .description("x")
             .joint(
                 EntityCreateParams.Joint.builder()
                     .individuals(
@@ -229,6 +181,59 @@ class EntityCreateParamsTest {
                     )
                     .name("x")
                     .build()
+            )
+            .naturalPerson(
+                EntityCreateParams.NaturalPerson.builder()
+                    .address(
+                        EntityCreateParams.NaturalPerson.Address.builder()
+                            .city("x")
+                            .line1("x")
+                            .state("x")
+                            .zip("x")
+                            .line2("x")
+                            .build()
+                    )
+                    .dateOfBirth(LocalDate.parse("2019-12-27"))
+                    .identification(
+                        EntityCreateParams.NaturalPerson.Identification.builder()
+                            .method(
+                                EntityCreateParams.NaturalPerson.Identification.Method
+                                    .SOCIAL_SECURITY_NUMBER
+                            )
+                            .number("xxxx")
+                            .driversLicense(
+                                EntityCreateParams.NaturalPerson.Identification.DriversLicense
+                                    .builder()
+                                    .expirationDate(LocalDate.parse("2019-12-27"))
+                                    .fileId("string")
+                                    .state("x")
+                                    .backFileId("string")
+                                    .build()
+                            )
+                            .other(
+                                EntityCreateParams.NaturalPerson.Identification.Other.builder()
+                                    .country("x")
+                                    .description("x")
+                                    .fileId("string")
+                                    .backFileId("string")
+                                    .expirationDate(LocalDate.parse("2019-12-27"))
+                                    .build()
+                            )
+                            .passport(
+                                EntityCreateParams.NaturalPerson.Identification.Passport.builder()
+                                    .country("x")
+                                    .expirationDate(LocalDate.parse("2019-12-27"))
+                                    .fileId("string")
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .name("x")
+                    .confirmedNoUsTaxId(true)
+                    .build()
+            )
+            .supplementalDocuments(
+                listOf(EntityCreateParams.SupplementalDocument.builder().fileId("string").build())
             )
             .trust(
                 EntityCreateParams.Trust.builder()
@@ -377,11 +382,6 @@ class EntityCreateParamsTest {
                     .taxIdentifier("x")
                     .build()
             )
-            .description("x")
-            .relationship(EntityCreateParams.Relationship.AFFILIATED)
-            .supplementalDocuments(
-                listOf(EntityCreateParams.SupplementalDocument.builder().fileId("string").build())
-            )
             .build()
     }
 
@@ -389,6 +389,7 @@ class EntityCreateParamsTest {
     fun getBody() {
         val params =
             EntityCreateParams.builder()
+                .relationship(EntityCreateParams.Relationship.AFFILIATED)
                 .structure(EntityCreateParams.Structure.CORPORATION)
                 .corporation(
                     EntityCreateParams.Corporation.builder()
@@ -501,57 +502,7 @@ class EntityCreateParamsTest {
                         .website("string")
                         .build()
                 )
-                .naturalPerson(
-                    EntityCreateParams.NaturalPerson.builder()
-                        .address(
-                            EntityCreateParams.NaturalPerson.Address.builder()
-                                .city("x")
-                                .line1("x")
-                                .state("x")
-                                .zip("x")
-                                .line2("x")
-                                .build()
-                        )
-                        .dateOfBirth(LocalDate.parse("2019-12-27"))
-                        .identification(
-                            EntityCreateParams.NaturalPerson.Identification.builder()
-                                .method(
-                                    EntityCreateParams.NaturalPerson.Identification.Method
-                                        .SOCIAL_SECURITY_NUMBER
-                                )
-                                .number("xxxx")
-                                .driversLicense(
-                                    EntityCreateParams.NaturalPerson.Identification.DriversLicense
-                                        .builder()
-                                        .expirationDate(LocalDate.parse("2019-12-27"))
-                                        .fileId("string")
-                                        .state("x")
-                                        .backFileId("string")
-                                        .build()
-                                )
-                                .other(
-                                    EntityCreateParams.NaturalPerson.Identification.Other.builder()
-                                        .country("x")
-                                        .description("x")
-                                        .fileId("string")
-                                        .backFileId("string")
-                                        .expirationDate(LocalDate.parse("2019-12-27"))
-                                        .build()
-                                )
-                                .passport(
-                                    EntityCreateParams.NaturalPerson.Identification.Passport
-                                        .builder()
-                                        .country("x")
-                                        .expirationDate(LocalDate.parse("2019-12-27"))
-                                        .fileId("string")
-                                        .build()
-                                )
-                                .build()
-                        )
-                        .name("x")
-                        .confirmedNoUsTaxId(true)
-                        .build()
-                )
+                .description("x")
                 .joint(
                     EntityCreateParams.Joint.builder()
                         .individuals(
@@ -614,6 +565,62 @@ class EntityCreateParamsTest {
                         )
                         .name("x")
                         .build()
+                )
+                .naturalPerson(
+                    EntityCreateParams.NaturalPerson.builder()
+                        .address(
+                            EntityCreateParams.NaturalPerson.Address.builder()
+                                .city("x")
+                                .line1("x")
+                                .state("x")
+                                .zip("x")
+                                .line2("x")
+                                .build()
+                        )
+                        .dateOfBirth(LocalDate.parse("2019-12-27"))
+                        .identification(
+                            EntityCreateParams.NaturalPerson.Identification.builder()
+                                .method(
+                                    EntityCreateParams.NaturalPerson.Identification.Method
+                                        .SOCIAL_SECURITY_NUMBER
+                                )
+                                .number("xxxx")
+                                .driversLicense(
+                                    EntityCreateParams.NaturalPerson.Identification.DriversLicense
+                                        .builder()
+                                        .expirationDate(LocalDate.parse("2019-12-27"))
+                                        .fileId("string")
+                                        .state("x")
+                                        .backFileId("string")
+                                        .build()
+                                )
+                                .other(
+                                    EntityCreateParams.NaturalPerson.Identification.Other.builder()
+                                        .country("x")
+                                        .description("x")
+                                        .fileId("string")
+                                        .backFileId("string")
+                                        .expirationDate(LocalDate.parse("2019-12-27"))
+                                        .build()
+                                )
+                                .passport(
+                                    EntityCreateParams.NaturalPerson.Identification.Passport
+                                        .builder()
+                                        .country("x")
+                                        .expirationDate(LocalDate.parse("2019-12-27"))
+                                        .fileId("string")
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .name("x")
+                        .confirmedNoUsTaxId(true)
+                        .build()
+                )
+                .supplementalDocuments(
+                    listOf(
+                        EntityCreateParams.SupplementalDocument.builder().fileId("string").build()
+                    )
                 )
                 .trust(
                     EntityCreateParams.Trust.builder()
@@ -764,16 +771,10 @@ class EntityCreateParamsTest {
                         .taxIdentifier("x")
                         .build()
                 )
-                .description("x")
-                .relationship(EntityCreateParams.Relationship.AFFILIATED)
-                .supplementalDocuments(
-                    listOf(
-                        EntityCreateParams.SupplementalDocument.builder().fileId("string").build()
-                    )
-                )
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
+        assertThat(body.relationship()).isEqualTo(EntityCreateParams.Relationship.AFFILIATED)
         assertThat(body.structure()).isEqualTo(EntityCreateParams.Structure.CORPORATION)
         assertThat(body.corporation())
             .isEqualTo(
@@ -883,57 +884,7 @@ class EntityCreateParamsTest {
                     .website("string")
                     .build()
             )
-        assertThat(body.naturalPerson())
-            .isEqualTo(
-                EntityCreateParams.NaturalPerson.builder()
-                    .address(
-                        EntityCreateParams.NaturalPerson.Address.builder()
-                            .city("x")
-                            .line1("x")
-                            .state("x")
-                            .zip("x")
-                            .line2("x")
-                            .build()
-                    )
-                    .dateOfBirth(LocalDate.parse("2019-12-27"))
-                    .identification(
-                        EntityCreateParams.NaturalPerson.Identification.builder()
-                            .method(
-                                EntityCreateParams.NaturalPerson.Identification.Method
-                                    .SOCIAL_SECURITY_NUMBER
-                            )
-                            .number("xxxx")
-                            .driversLicense(
-                                EntityCreateParams.NaturalPerson.Identification.DriversLicense
-                                    .builder()
-                                    .expirationDate(LocalDate.parse("2019-12-27"))
-                                    .fileId("string")
-                                    .state("x")
-                                    .backFileId("string")
-                                    .build()
-                            )
-                            .other(
-                                EntityCreateParams.NaturalPerson.Identification.Other.builder()
-                                    .country("x")
-                                    .description("x")
-                                    .fileId("string")
-                                    .backFileId("string")
-                                    .expirationDate(LocalDate.parse("2019-12-27"))
-                                    .build()
-                            )
-                            .passport(
-                                EntityCreateParams.NaturalPerson.Identification.Passport.builder()
-                                    .country("x")
-                                    .expirationDate(LocalDate.parse("2019-12-27"))
-                                    .fileId("string")
-                                    .build()
-                            )
-                            .build()
-                    )
-                    .name("x")
-                    .confirmedNoUsTaxId(true)
-                    .build()
-            )
+        assertThat(body.description()).isEqualTo("x")
         assertThat(body.joint())
             .isEqualTo(
                 EntityCreateParams.Joint.builder()
@@ -996,6 +947,61 @@ class EntityCreateParamsTest {
                     )
                     .name("x")
                     .build()
+            )
+        assertThat(body.naturalPerson())
+            .isEqualTo(
+                EntityCreateParams.NaturalPerson.builder()
+                    .address(
+                        EntityCreateParams.NaturalPerson.Address.builder()
+                            .city("x")
+                            .line1("x")
+                            .state("x")
+                            .zip("x")
+                            .line2("x")
+                            .build()
+                    )
+                    .dateOfBirth(LocalDate.parse("2019-12-27"))
+                    .identification(
+                        EntityCreateParams.NaturalPerson.Identification.builder()
+                            .method(
+                                EntityCreateParams.NaturalPerson.Identification.Method
+                                    .SOCIAL_SECURITY_NUMBER
+                            )
+                            .number("xxxx")
+                            .driversLicense(
+                                EntityCreateParams.NaturalPerson.Identification.DriversLicense
+                                    .builder()
+                                    .expirationDate(LocalDate.parse("2019-12-27"))
+                                    .fileId("string")
+                                    .state("x")
+                                    .backFileId("string")
+                                    .build()
+                            )
+                            .other(
+                                EntityCreateParams.NaturalPerson.Identification.Other.builder()
+                                    .country("x")
+                                    .description("x")
+                                    .fileId("string")
+                                    .backFileId("string")
+                                    .expirationDate(LocalDate.parse("2019-12-27"))
+                                    .build()
+                            )
+                            .passport(
+                                EntityCreateParams.NaturalPerson.Identification.Passport.builder()
+                                    .country("x")
+                                    .expirationDate(LocalDate.parse("2019-12-27"))
+                                    .fileId("string")
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .name("x")
+                    .confirmedNoUsTaxId(true)
+                    .build()
+            )
+        assertThat(body.supplementalDocuments())
+            .isEqualTo(
+                listOf(EntityCreateParams.SupplementalDocument.builder().fileId("string").build())
             )
         assertThat(body.trust())
             .isEqualTo(
@@ -1145,24 +1151,18 @@ class EntityCreateParamsTest {
                     .taxIdentifier("x")
                     .build()
             )
-        assertThat(body.description()).isEqualTo("x")
-        assertThat(body.relationship()).isEqualTo(EntityCreateParams.Relationship.AFFILIATED)
-        assertThat(body.supplementalDocuments())
-            .isEqualTo(
-                listOf(EntityCreateParams.SupplementalDocument.builder().fileId("string").build())
-            )
     }
 
     @Test
     fun getBodyWithoutOptionalFields() {
         val params =
             EntityCreateParams.builder()
-                .structure(EntityCreateParams.Structure.CORPORATION)
                 .relationship(EntityCreateParams.Relationship.AFFILIATED)
+                .structure(EntityCreateParams.Structure.CORPORATION)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.structure()).isEqualTo(EntityCreateParams.Structure.CORPORATION)
         assertThat(body.relationship()).isEqualTo(EntityCreateParams.Relationship.AFFILIATED)
+        assertThat(body.structure()).isEqualTo(EntityCreateParams.Structure.CORPORATION)
     }
 }
