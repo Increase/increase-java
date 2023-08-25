@@ -21,7 +21,6 @@ class BeneficialOwnerServiceTest {
         val entity =
             beneficialOwnerService.create(
                 EntityBeneficialOwnerCreateParams.builder()
-                    .entityId("string")
                     .beneficialOwner(
                         EntityBeneficialOwnerCreateParams.BeneficialOwner.builder()
                             .individual(
@@ -102,6 +101,7 @@ class BeneficialOwnerServiceTest {
                             .companyTitle("x")
                             .build()
                     )
+                    .entityId("string")
                     .build()
             )
         println(entity)
@@ -119,8 +119,8 @@ class BeneficialOwnerServiceTest {
         val entity =
             beneficialOwnerService.archive(
                 EntityBeneficialOwnerArchiveParams.builder()
-                    .entityId("string")
                     .beneficialOwnerId("string")
+                    .entityId("string")
                     .build()
             )
         println(entity)

@@ -10,7 +10,6 @@ class CardCreateParamsTest {
     fun createCardCreateParams() {
         CardCreateParams.builder()
             .accountId("string")
-            .description("x")
             .billingAddress(
                 CardCreateParams.BillingAddress.builder()
                     .city("x")
@@ -20,6 +19,7 @@ class CardCreateParamsTest {
                     .line2("x")
                     .build()
             )
+            .description("x")
             .digitalWallet(
                 CardCreateParams.DigitalWallet.builder()
                     .cardProfileId("string")
@@ -35,7 +35,6 @@ class CardCreateParamsTest {
         val params =
             CardCreateParams.builder()
                 .accountId("string")
-                .description("x")
                 .billingAddress(
                     CardCreateParams.BillingAddress.builder()
                         .city("x")
@@ -45,6 +44,7 @@ class CardCreateParamsTest {
                         .line2("x")
                         .build()
                 )
+                .description("x")
                 .digitalWallet(
                     CardCreateParams.DigitalWallet.builder()
                         .cardProfileId("string")
@@ -56,7 +56,6 @@ class CardCreateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("string")
-        assertThat(body.description()).isEqualTo("x")
         assertThat(body.billingAddress())
             .isEqualTo(
                 CardCreateParams.BillingAddress.builder()
@@ -67,6 +66,7 @@ class CardCreateParamsTest {
                     .line2("x")
                     .build()
             )
+        assertThat(body.description()).isEqualTo("x")
         assertThat(body.digitalWallet())
             .isEqualTo(
                 CardCreateParams.DigitalWallet.builder()

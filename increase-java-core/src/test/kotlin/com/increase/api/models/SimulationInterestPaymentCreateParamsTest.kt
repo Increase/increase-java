@@ -12,8 +12,8 @@ class SimulationInterestPaymentCreateParamsTest {
         SimulationInterestPaymentCreateParams.builder()
             .accountId("string")
             .amount(123L)
-            .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
     }
 
@@ -23,15 +23,15 @@ class SimulationInterestPaymentCreateParamsTest {
             SimulationInterestPaymentCreateParams.builder()
                 .accountId("string")
                 .amount(123L)
-                .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("string")
         assertThat(body.amount()).isEqualTo(123L)
-        assertThat(body.periodStart()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(body.periodEnd()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(body.periodStart()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }
 
     @Test

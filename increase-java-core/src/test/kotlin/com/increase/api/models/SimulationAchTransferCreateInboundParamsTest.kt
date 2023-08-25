@@ -14,8 +14,8 @@ class SimulationAchTransferCreateInboundParamsTest {
             .companyDescriptiveDate("x")
             .companyDiscretionaryData("x")
             .companyEntryDescription("x")
-            .companyName("x")
             .companyId("x")
+            .companyName("x")
             .build()
     }
 
@@ -28,8 +28,8 @@ class SimulationAchTransferCreateInboundParamsTest {
                 .companyDescriptiveDate("x")
                 .companyDiscretionaryData("x")
                 .companyEntryDescription("x")
-                .companyName("x")
                 .companyId("x")
+                .companyName("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -38,8 +38,8 @@ class SimulationAchTransferCreateInboundParamsTest {
         assertThat(body.companyDescriptiveDate()).isEqualTo("x")
         assertThat(body.companyDiscretionaryData()).isEqualTo("x")
         assertThat(body.companyEntryDescription()).isEqualTo("x")
-        assertThat(body.companyName()).isEqualTo("x")
         assertThat(body.companyId()).isEqualTo("x")
+        assertThat(body.companyName()).isEqualTo("x")
     }
 
     @Test

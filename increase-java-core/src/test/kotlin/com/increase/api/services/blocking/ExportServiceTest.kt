@@ -23,11 +23,11 @@ class ExportServiceTest {
             exportService.create(
                 ExportCreateParams.builder()
                     .category(ExportCreateParams.Category.TRANSACTION_CSV)
-                    .transactionCsv(
-                        ExportCreateParams.TransactionCsv.builder()
+                    .balanceCsv(
+                        ExportCreateParams.BalanceCsv.builder()
                             .accountId("string")
                             .createdAt(
-                                ExportCreateParams.TransactionCsv.CreatedAt.builder()
+                                ExportCreateParams.BalanceCsv.CreatedAt.builder()
                                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -36,11 +36,11 @@ class ExportServiceTest {
                             )
                             .build()
                     )
-                    .balanceCsv(
-                        ExportCreateParams.BalanceCsv.builder()
+                    .transactionCsv(
+                        ExportCreateParams.TransactionCsv.builder()
                             .accountId("string")
                             .createdAt(
-                                ExportCreateParams.BalanceCsv.CreatedAt.builder()
+                                ExportCreateParams.TransactionCsv.CreatedAt.builder()
                                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

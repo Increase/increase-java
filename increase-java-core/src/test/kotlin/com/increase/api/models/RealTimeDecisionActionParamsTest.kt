@@ -15,6 +15,11 @@ class RealTimeDecisionActionParamsTest {
                     .decision(RealTimeDecisionActionParams.CardAuthorization.Decision.APPROVE)
                     .build()
             )
+            .digitalWalletAuthentication(
+                RealTimeDecisionActionParams.DigitalWalletAuthentication.builder()
+                    .result(RealTimeDecisionActionParams.DigitalWalletAuthentication.Result.SUCCESS)
+                    .build()
+            )
             .digitalWalletToken(
                 RealTimeDecisionActionParams.DigitalWalletToken.builder()
                     .approval(
@@ -31,11 +36,6 @@ class RealTimeDecisionActionParamsTest {
                     )
                     .build()
             )
-            .digitalWalletAuthentication(
-                RealTimeDecisionActionParams.DigitalWalletAuthentication.builder()
-                    .result(RealTimeDecisionActionParams.DigitalWalletAuthentication.Result.SUCCESS)
-                    .build()
-            )
             .build()
     }
 
@@ -47,6 +47,13 @@ class RealTimeDecisionActionParamsTest {
                 .cardAuthorization(
                     RealTimeDecisionActionParams.CardAuthorization.builder()
                         .decision(RealTimeDecisionActionParams.CardAuthorization.Decision.APPROVE)
+                        .build()
+                )
+                .digitalWalletAuthentication(
+                    RealTimeDecisionActionParams.DigitalWalletAuthentication.builder()
+                        .result(
+                            RealTimeDecisionActionParams.DigitalWalletAuthentication.Result.SUCCESS
+                        )
                         .build()
                 )
                 .digitalWalletToken(
@@ -65,13 +72,6 @@ class RealTimeDecisionActionParamsTest {
                         )
                         .build()
                 )
-                .digitalWalletAuthentication(
-                    RealTimeDecisionActionParams.DigitalWalletAuthentication.builder()
-                        .result(
-                            RealTimeDecisionActionParams.DigitalWalletAuthentication.Result.SUCCESS
-                        )
-                        .build()
-                )
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -79,6 +79,12 @@ class RealTimeDecisionActionParamsTest {
             .isEqualTo(
                 RealTimeDecisionActionParams.CardAuthorization.builder()
                     .decision(RealTimeDecisionActionParams.CardAuthorization.Decision.APPROVE)
+                    .build()
+            )
+        assertThat(body.digitalWalletAuthentication())
+            .isEqualTo(
+                RealTimeDecisionActionParams.DigitalWalletAuthentication.builder()
+                    .result(RealTimeDecisionActionParams.DigitalWalletAuthentication.Result.SUCCESS)
                     .build()
             )
         assertThat(body.digitalWalletToken())
@@ -96,12 +102,6 @@ class RealTimeDecisionActionParamsTest {
                             .reason("x")
                             .build()
                     )
-                    .build()
-            )
-        assertThat(body.digitalWalletAuthentication())
-            .isEqualTo(
-                RealTimeDecisionActionParams.DigitalWalletAuthentication.builder()
-                    .result(RealTimeDecisionActionParams.DigitalWalletAuthentication.Result.SUCCESS)
                     .build()
             )
     }

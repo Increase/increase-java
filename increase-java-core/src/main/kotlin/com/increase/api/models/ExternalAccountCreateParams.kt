@@ -17,30 +17,30 @@ import java.util.Optional
 
 class ExternalAccountCreateParams
 constructor(
-    private val routingNumber: String,
     private val accountNumber: String,
-    private val funding: Funding?,
     private val description: String,
+    private val routingNumber: String,
+    private val funding: Funding?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun routingNumber(): String = routingNumber
-
     fun accountNumber(): String = accountNumber
 
-    fun funding(): Optional<Funding> = Optional.ofNullable(funding)
-
     fun description(): String = description
+
+    fun routingNumber(): String = routingNumber
+
+    fun funding(): Optional<Funding> = Optional.ofNullable(funding)
 
     @JvmSynthetic
     internal fun getBody(): ExternalAccountCreateBody {
         return ExternalAccountCreateBody(
-            routingNumber,
             accountNumber,
-            funding,
             description,
+            routingNumber,
+            funding,
             additionalBodyProperties,
         )
     }
@@ -53,14 +53,20 @@ constructor(
     @NoAutoDetect
     class ExternalAccountCreateBody
     internal constructor(
-        private val routingNumber: String?,
         private val accountNumber: String?,
-        private val funding: Funding?,
         private val description: String?,
+        private val routingNumber: String?,
+        private val funding: Funding?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
+
+        /** The account number for the destination account. */
+        @JsonProperty("account_number") fun accountNumber(): String? = accountNumber
+
+        /** The name you choose for the Account. */
+        @JsonProperty("description") fun description(): String? = description
 
         /**
          * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
@@ -68,14 +74,8 @@ constructor(
          */
         @JsonProperty("routing_number") fun routingNumber(): String? = routingNumber
 
-        /** The account number for the destination account. */
-        @JsonProperty("account_number") fun accountNumber(): String? = accountNumber
-
         /** The type of the destination account. Defaults to `checking`. */
         @JsonProperty("funding") fun funding(): Funding? = funding
-
-        /** The name you choose for the Account. */
-        @JsonProperty("description") fun description(): String? = description
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -89,10 +89,10 @@ constructor(
             }
 
             return other is ExternalAccountCreateBody &&
-                this.routingNumber == other.routingNumber &&
                 this.accountNumber == other.accountNumber &&
-                this.funding == other.funding &&
                 this.description == other.description &&
+                this.routingNumber == other.routingNumber &&
+                this.funding == other.funding &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -100,10 +100,10 @@ constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        routingNumber,
                         accountNumber,
-                        funding,
                         description,
+                        routingNumber,
+                        funding,
                         additionalProperties,
                     )
             }
@@ -111,7 +111,7 @@ constructor(
         }
 
         override fun toString() =
-            "ExternalAccountCreateBody{routingNumber=$routingNumber, accountNumber=$accountNumber, funding=$funding, description=$description, additionalProperties=$additionalProperties}"
+            "ExternalAccountCreateBody{accountNumber=$accountNumber, description=$description, routingNumber=$routingNumber, funding=$funding, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -120,20 +120,28 @@ constructor(
 
         class Builder {
 
-            private var routingNumber: String? = null
             private var accountNumber: String? = null
-            private var funding: Funding? = null
             private var description: String? = null
+            private var routingNumber: String? = null
+            private var funding: Funding? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(externalAccountCreateBody: ExternalAccountCreateBody) = apply {
-                this.routingNumber = externalAccountCreateBody.routingNumber
                 this.accountNumber = externalAccountCreateBody.accountNumber
-                this.funding = externalAccountCreateBody.funding
                 this.description = externalAccountCreateBody.description
+                this.routingNumber = externalAccountCreateBody.routingNumber
+                this.funding = externalAccountCreateBody.funding
                 additionalProperties(externalAccountCreateBody.additionalProperties)
             }
+
+            /** The account number for the destination account. */
+            @JsonProperty("account_number")
+            fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
+
+            /** The name you choose for the Account. */
+            @JsonProperty("description")
+            fun description(description: String) = apply { this.description = description }
 
             /**
              * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
@@ -142,17 +150,9 @@ constructor(
             @JsonProperty("routing_number")
             fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
 
-            /** The account number for the destination account. */
-            @JsonProperty("account_number")
-            fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
-
             /** The type of the destination account. Defaults to `checking`. */
             @JsonProperty("funding")
             fun funding(funding: Funding) = apply { this.funding = funding }
-
-            /** The name you choose for the Account. */
-            @JsonProperty("description")
-            fun description(description: String) = apply { this.description = description }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -170,10 +170,10 @@ constructor(
 
             fun build(): ExternalAccountCreateBody =
                 ExternalAccountCreateBody(
-                    checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
                     checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
-                    funding,
                     checkNotNull(description) { "`description` is required but was not set" },
+                    checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
+                    funding,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -191,10 +191,10 @@ constructor(
         }
 
         return other is ExternalAccountCreateParams &&
-            this.routingNumber == other.routingNumber &&
             this.accountNumber == other.accountNumber &&
-            this.funding == other.funding &&
             this.description == other.description &&
+            this.routingNumber == other.routingNumber &&
+            this.funding == other.funding &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -202,10 +202,10 @@ constructor(
 
     override fun hashCode(): Int {
         return Objects.hash(
-            routingNumber,
             accountNumber,
-            funding,
             description,
+            routingNumber,
+            funding,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -213,7 +213,7 @@ constructor(
     }
 
     override fun toString() =
-        "ExternalAccountCreateParams{routingNumber=$routingNumber, accountNumber=$accountNumber, funding=$funding, description=$description, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "ExternalAccountCreateParams{accountNumber=$accountNumber, description=$description, routingNumber=$routingNumber, funding=$funding, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -225,24 +225,30 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var routingNumber: String? = null
         private var accountNumber: String? = null
-        private var funding: Funding? = null
         private var description: String? = null
+        private var routingNumber: String? = null
+        private var funding: Funding? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(externalAccountCreateParams: ExternalAccountCreateParams) = apply {
-            this.routingNumber = externalAccountCreateParams.routingNumber
             this.accountNumber = externalAccountCreateParams.accountNumber
-            this.funding = externalAccountCreateParams.funding
             this.description = externalAccountCreateParams.description
+            this.routingNumber = externalAccountCreateParams.routingNumber
+            this.funding = externalAccountCreateParams.funding
             additionalQueryParams(externalAccountCreateParams.additionalQueryParams)
             additionalHeaders(externalAccountCreateParams.additionalHeaders)
             additionalBodyProperties(externalAccountCreateParams.additionalBodyProperties)
         }
+
+        /** The account number for the destination account. */
+        fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
+
+        /** The name you choose for the Account. */
+        fun description(description: String) = apply { this.description = description }
 
         /**
          * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
@@ -250,14 +256,8 @@ constructor(
          */
         fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
 
-        /** The account number for the destination account. */
-        fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
-
         /** The type of the destination account. Defaults to `checking`. */
         fun funding(funding: Funding) = apply { this.funding = funding }
-
-        /** The name you choose for the Account. */
-        fun description(description: String) = apply { this.description = description }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -315,10 +315,10 @@ constructor(
 
         fun build(): ExternalAccountCreateParams =
             ExternalAccountCreateParams(
-                checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
                 checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
-                funding,
                 checkNotNull(description) { "`description` is required but was not set" },
+                checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
+                funding,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

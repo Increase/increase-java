@@ -44,6 +44,14 @@ class RealTimeDecisionServiceTest {
                             )
                             .build()
                     )
+                    .digitalWalletAuthentication(
+                        RealTimeDecisionActionParams.DigitalWalletAuthentication.builder()
+                            .result(
+                                RealTimeDecisionActionParams.DigitalWalletAuthentication.Result
+                                    .SUCCESS
+                            )
+                            .build()
+                    )
                     .digitalWalletToken(
                         RealTimeDecisionActionParams.DigitalWalletToken.builder()
                             .approval(
@@ -57,14 +65,6 @@ class RealTimeDecisionServiceTest {
                                 RealTimeDecisionActionParams.DigitalWalletToken.Decline.builder()
                                     .reason("x")
                                     .build()
-                            )
-                            .build()
-                    )
-                    .digitalWalletAuthentication(
-                        RealTimeDecisionActionParams.DigitalWalletAuthentication.builder()
-                            .result(
-                                RealTimeDecisionActionParams.DigitalWalletAuthentication.Result
-                                    .SUCCESS
                             )
                             .build()
                     )
