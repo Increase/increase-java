@@ -21,11 +21,11 @@ class InboundAchTransferReturnServiceTest {
         val inboundAchTransferReturn =
             inboundAchTransferReturnService.create(
                 InboundAchTransferReturnCreateParams.builder()
-                    .transactionId("string")
                     .reason(
                         InboundAchTransferReturnCreateParams.Reason
                             .AUTHORIZATION_REVOKED_BY_CUSTOMER
                     )
+                    .transactionId("string")
                     .build()
             )
         println(inboundAchTransferReturn)

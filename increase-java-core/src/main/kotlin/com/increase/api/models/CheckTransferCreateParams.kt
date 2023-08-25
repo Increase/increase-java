@@ -18,11 +18,11 @@ import java.util.Optional
 class CheckTransferCreateParams
 constructor(
     private val accountId: String,
-    private val sourceAccountNumberId: String?,
+    private val amount: Long,
     private val fulfillmentMethod: FulfillmentMethod?,
     private val physicalCheck: PhysicalCheck?,
-    private val amount: Long,
     private val requireApproval: Boolean?,
+    private val sourceAccountNumberId: String?,
     private val uniqueIdentifier: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -31,15 +31,15 @@ constructor(
 
     fun accountId(): String = accountId
 
-    fun sourceAccountNumberId(): Optional<String> = Optional.ofNullable(sourceAccountNumberId)
+    fun amount(): Long = amount
 
     fun fulfillmentMethod(): Optional<FulfillmentMethod> = Optional.ofNullable(fulfillmentMethod)
 
     fun physicalCheck(): Optional<PhysicalCheck> = Optional.ofNullable(physicalCheck)
 
-    fun amount(): Long = amount
-
     fun requireApproval(): Optional<Boolean> = Optional.ofNullable(requireApproval)
+
+    fun sourceAccountNumberId(): Optional<String> = Optional.ofNullable(sourceAccountNumberId)
 
     fun uniqueIdentifier(): Optional<String> = Optional.ofNullable(uniqueIdentifier)
 
@@ -47,11 +47,11 @@ constructor(
     internal fun getBody(): CheckTransferCreateBody {
         return CheckTransferCreateBody(
             accountId,
-            sourceAccountNumberId,
+            amount,
             fulfillmentMethod,
             physicalCheck,
-            amount,
             requireApproval,
+            sourceAccountNumberId,
             uniqueIdentifier,
             additionalBodyProperties,
         )
@@ -66,11 +66,11 @@ constructor(
     class CheckTransferCreateBody
     internal constructor(
         private val accountId: String?,
-        private val sourceAccountNumberId: String?,
+        private val amount: Long?,
         private val fulfillmentMethod: FulfillmentMethod?,
         private val physicalCheck: PhysicalCheck?,
-        private val amount: Long?,
         private val requireApproval: Boolean?,
+        private val sourceAccountNumberId: String?,
         private val uniqueIdentifier: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -80,12 +80,8 @@ constructor(
         /** The identifier for the account that will send the transfer. */
         @JsonProperty("account_id") fun accountId(): String? = accountId
 
-        /**
-         * The identifier of the Account Number from which to send the transfer and print on the
-         * check.
-         */
-        @JsonProperty("source_account_number_id")
-        fun sourceAccountNumberId(): String? = sourceAccountNumberId
+        /** The transfer amount in cents. */
+        @JsonProperty("amount") fun amount(): Long? = amount
 
         /** Whether Increase will print and mail the check or if you will do it yourself. */
         @JsonProperty("fulfillment_method")
@@ -98,11 +94,15 @@ constructor(
          */
         @JsonProperty("physical_check") fun physicalCheck(): PhysicalCheck? = physicalCheck
 
-        /** The transfer amount in cents. */
-        @JsonProperty("amount") fun amount(): Long? = amount
-
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         @JsonProperty("require_approval") fun requireApproval(): Boolean? = requireApproval
+
+        /**
+         * The identifier of the Account Number from which to send the transfer and print on the
+         * check.
+         */
+        @JsonProperty("source_account_number_id")
+        fun sourceAccountNumberId(): String? = sourceAccountNumberId
 
         /**
          * A unique identifier you choose for the transfer. Reusing this identifier for another
@@ -124,11 +124,11 @@ constructor(
 
             return other is CheckTransferCreateBody &&
                 this.accountId == other.accountId &&
-                this.sourceAccountNumberId == other.sourceAccountNumberId &&
+                this.amount == other.amount &&
                 this.fulfillmentMethod == other.fulfillmentMethod &&
                 this.physicalCheck == other.physicalCheck &&
-                this.amount == other.amount &&
                 this.requireApproval == other.requireApproval &&
+                this.sourceAccountNumberId == other.sourceAccountNumberId &&
                 this.uniqueIdentifier == other.uniqueIdentifier &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -138,11 +138,11 @@ constructor(
                 hashCode =
                     Objects.hash(
                         accountId,
-                        sourceAccountNumberId,
+                        amount,
                         fulfillmentMethod,
                         physicalCheck,
-                        amount,
                         requireApproval,
+                        sourceAccountNumberId,
                         uniqueIdentifier,
                         additionalProperties,
                     )
@@ -151,7 +151,7 @@ constructor(
         }
 
         override fun toString() =
-            "CheckTransferCreateBody{accountId=$accountId, sourceAccountNumberId=$sourceAccountNumberId, fulfillmentMethod=$fulfillmentMethod, physicalCheck=$physicalCheck, amount=$amount, requireApproval=$requireApproval, uniqueIdentifier=$uniqueIdentifier, additionalProperties=$additionalProperties}"
+            "CheckTransferCreateBody{accountId=$accountId, amount=$amount, fulfillmentMethod=$fulfillmentMethod, physicalCheck=$physicalCheck, requireApproval=$requireApproval, sourceAccountNumberId=$sourceAccountNumberId, uniqueIdentifier=$uniqueIdentifier, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -161,22 +161,22 @@ constructor(
         class Builder {
 
             private var accountId: String? = null
-            private var sourceAccountNumberId: String? = null
+            private var amount: Long? = null
             private var fulfillmentMethod: FulfillmentMethod? = null
             private var physicalCheck: PhysicalCheck? = null
-            private var amount: Long? = null
             private var requireApproval: Boolean? = null
+            private var sourceAccountNumberId: String? = null
             private var uniqueIdentifier: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(checkTransferCreateBody: CheckTransferCreateBody) = apply {
                 this.accountId = checkTransferCreateBody.accountId
-                this.sourceAccountNumberId = checkTransferCreateBody.sourceAccountNumberId
+                this.amount = checkTransferCreateBody.amount
                 this.fulfillmentMethod = checkTransferCreateBody.fulfillmentMethod
                 this.physicalCheck = checkTransferCreateBody.physicalCheck
-                this.amount = checkTransferCreateBody.amount
                 this.requireApproval = checkTransferCreateBody.requireApproval
+                this.sourceAccountNumberId = checkTransferCreateBody.sourceAccountNumberId
                 this.uniqueIdentifier = checkTransferCreateBody.uniqueIdentifier
                 additionalProperties(checkTransferCreateBody.additionalProperties)
             }
@@ -185,14 +185,8 @@ constructor(
             @JsonProperty("account_id")
             fun accountId(accountId: String) = apply { this.accountId = accountId }
 
-            /**
-             * The identifier of the Account Number from which to send the transfer and print on the
-             * check.
-             */
-            @JsonProperty("source_account_number_id")
-            fun sourceAccountNumberId(sourceAccountNumberId: String) = apply {
-                this.sourceAccountNumberId = sourceAccountNumberId
-            }
+            /** The transfer amount in cents. */
+            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
 
             /** Whether Increase will print and mail the check or if you will do it yourself. */
             @JsonProperty("fulfillment_method")
@@ -210,13 +204,19 @@ constructor(
                 this.physicalCheck = physicalCheck
             }
 
-            /** The transfer amount in cents. */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
-
             /** Whether the transfer requires explicit approval via the dashboard or API. */
             @JsonProperty("require_approval")
             fun requireApproval(requireApproval: Boolean) = apply {
                 this.requireApproval = requireApproval
+            }
+
+            /**
+             * The identifier of the Account Number from which to send the transfer and print on the
+             * check.
+             */
+            @JsonProperty("source_account_number_id")
+            fun sourceAccountNumberId(sourceAccountNumberId: String) = apply {
+                this.sourceAccountNumberId = sourceAccountNumberId
             }
 
             /**
@@ -246,11 +246,11 @@ constructor(
             fun build(): CheckTransferCreateBody =
                 CheckTransferCreateBody(
                     checkNotNull(accountId) { "`accountId` is required but was not set" },
-                    sourceAccountNumberId,
+                    checkNotNull(amount) { "`amount` is required but was not set" },
                     fulfillmentMethod,
                     physicalCheck,
-                    checkNotNull(amount) { "`amount` is required but was not set" },
                     requireApproval,
+                    sourceAccountNumberId,
                     uniqueIdentifier,
                     additionalProperties.toUnmodifiable(),
                 )
@@ -270,11 +270,11 @@ constructor(
 
         return other is CheckTransferCreateParams &&
             this.accountId == other.accountId &&
-            this.sourceAccountNumberId == other.sourceAccountNumberId &&
+            this.amount == other.amount &&
             this.fulfillmentMethod == other.fulfillmentMethod &&
             this.physicalCheck == other.physicalCheck &&
-            this.amount == other.amount &&
             this.requireApproval == other.requireApproval &&
+            this.sourceAccountNumberId == other.sourceAccountNumberId &&
             this.uniqueIdentifier == other.uniqueIdentifier &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
@@ -284,11 +284,11 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             accountId,
-            sourceAccountNumberId,
+            amount,
             fulfillmentMethod,
             physicalCheck,
-            amount,
             requireApproval,
+            sourceAccountNumberId,
             uniqueIdentifier,
             additionalQueryParams,
             additionalHeaders,
@@ -297,7 +297,7 @@ constructor(
     }
 
     override fun toString() =
-        "CheckTransferCreateParams{accountId=$accountId, sourceAccountNumberId=$sourceAccountNumberId, fulfillmentMethod=$fulfillmentMethod, physicalCheck=$physicalCheck, amount=$amount, requireApproval=$requireApproval, uniqueIdentifier=$uniqueIdentifier, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "CheckTransferCreateParams{accountId=$accountId, amount=$amount, fulfillmentMethod=$fulfillmentMethod, physicalCheck=$physicalCheck, requireApproval=$requireApproval, sourceAccountNumberId=$sourceAccountNumberId, uniqueIdentifier=$uniqueIdentifier, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -310,11 +310,11 @@ constructor(
     class Builder {
 
         private var accountId: String? = null
-        private var sourceAccountNumberId: String? = null
+        private var amount: Long? = null
         private var fulfillmentMethod: FulfillmentMethod? = null
         private var physicalCheck: PhysicalCheck? = null
-        private var amount: Long? = null
         private var requireApproval: Boolean? = null
+        private var sourceAccountNumberId: String? = null
         private var uniqueIdentifier: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -323,11 +323,11 @@ constructor(
         @JvmSynthetic
         internal fun from(checkTransferCreateParams: CheckTransferCreateParams) = apply {
             this.accountId = checkTransferCreateParams.accountId
-            this.sourceAccountNumberId = checkTransferCreateParams.sourceAccountNumberId
+            this.amount = checkTransferCreateParams.amount
             this.fulfillmentMethod = checkTransferCreateParams.fulfillmentMethod
             this.physicalCheck = checkTransferCreateParams.physicalCheck
-            this.amount = checkTransferCreateParams.amount
             this.requireApproval = checkTransferCreateParams.requireApproval
+            this.sourceAccountNumberId = checkTransferCreateParams.sourceAccountNumberId
             this.uniqueIdentifier = checkTransferCreateParams.uniqueIdentifier
             additionalQueryParams(checkTransferCreateParams.additionalQueryParams)
             additionalHeaders(checkTransferCreateParams.additionalHeaders)
@@ -337,13 +337,8 @@ constructor(
         /** The identifier for the account that will send the transfer. */
         fun accountId(accountId: String) = apply { this.accountId = accountId }
 
-        /**
-         * The identifier of the Account Number from which to send the transfer and print on the
-         * check.
-         */
-        fun sourceAccountNumberId(sourceAccountNumberId: String) = apply {
-            this.sourceAccountNumberId = sourceAccountNumberId
-        }
+        /** The transfer amount in cents. */
+        fun amount(amount: Long) = apply { this.amount = amount }
 
         /** Whether Increase will print and mail the check or if you will do it yourself. */
         fun fulfillmentMethod(fulfillmentMethod: FulfillmentMethod) = apply {
@@ -359,12 +354,17 @@ constructor(
             this.physicalCheck = physicalCheck
         }
 
-        /** The transfer amount in cents. */
-        fun amount(amount: Long) = apply { this.amount = amount }
-
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         fun requireApproval(requireApproval: Boolean) = apply {
             this.requireApproval = requireApproval
+        }
+
+        /**
+         * The identifier of the Account Number from which to send the transfer and print on the
+         * check.
+         */
+        fun sourceAccountNumberId(sourceAccountNumberId: String) = apply {
+            this.sourceAccountNumberId = sourceAccountNumberId
         }
 
         /**
@@ -433,11 +433,11 @@ constructor(
         fun build(): CheckTransferCreateParams =
             CheckTransferCreateParams(
                 checkNotNull(accountId) { "`accountId` is required but was not set" },
-                sourceAccountNumberId,
+                checkNotNull(amount) { "`amount` is required but was not set" },
                 fulfillmentMethod,
                 physicalCheck,
-                checkNotNull(amount) { "`amount` is required but was not set" },
                 requireApproval,
+                sourceAccountNumberId,
                 uniqueIdentifier,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),

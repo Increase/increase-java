@@ -10,9 +10,9 @@ class LimitCreateParamsTest {
     fun createLimitCreateParams() {
         LimitCreateParams.builder()
             .metric(LimitCreateParams.Metric.COUNT)
-            .interval(LimitCreateParams.Interval.TRANSACTION)
             .modelId("x")
             .value(123L)
+            .interval(LimitCreateParams.Interval.TRANSACTION)
             .build()
     }
 
@@ -21,16 +21,16 @@ class LimitCreateParamsTest {
         val params =
             LimitCreateParams.builder()
                 .metric(LimitCreateParams.Metric.COUNT)
-                .interval(LimitCreateParams.Interval.TRANSACTION)
                 .modelId("x")
                 .value(123L)
+                .interval(LimitCreateParams.Interval.TRANSACTION)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.metric()).isEqualTo(LimitCreateParams.Metric.COUNT)
-        assertThat(body.interval()).isEqualTo(LimitCreateParams.Interval.TRANSACTION)
         assertThat(body.modelId()).isEqualTo("x")
         assertThat(body.value()).isEqualTo(123L)
+        assertThat(body.interval()).isEqualTo(LimitCreateParams.Interval.TRANSACTION)
     }
 
     @Test

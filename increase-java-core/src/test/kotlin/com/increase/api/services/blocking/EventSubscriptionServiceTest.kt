@@ -22,10 +22,10 @@ class EventSubscriptionServiceTest {
             eventSubscriptionService.create(
                 EventSubscriptionCreateParams.builder()
                     .url("string")
-                    .sharedSecret("x")
                     .selectedEventCategory(
                         EventSubscriptionCreateParams.SelectedEventCategory.ACCOUNT_CREATED
                     )
+                    .sharedSecret("x")
                     .build()
             )
         println(eventSubscription)

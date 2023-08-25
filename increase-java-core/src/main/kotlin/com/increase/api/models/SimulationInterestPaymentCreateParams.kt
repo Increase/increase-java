@@ -17,8 +17,8 @@ class SimulationInterestPaymentCreateParams
 constructor(
     private val accountId: String,
     private val amount: Long,
-    private val periodStart: OffsetDateTime?,
     private val periodEnd: OffsetDateTime?,
+    private val periodStart: OffsetDateTime?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -28,17 +28,17 @@ constructor(
 
     fun amount(): Long = amount
 
-    fun periodStart(): Optional<OffsetDateTime> = Optional.ofNullable(periodStart)
-
     fun periodEnd(): Optional<OffsetDateTime> = Optional.ofNullable(periodEnd)
+
+    fun periodStart(): Optional<OffsetDateTime> = Optional.ofNullable(periodStart)
 
     @JvmSynthetic
     internal fun getBody(): SimulationInterestPaymentCreateBody {
         return SimulationInterestPaymentCreateBody(
             accountId,
             amount,
-            periodStart,
             periodEnd,
+            periodStart,
             additionalBodyProperties,
         )
     }
@@ -53,8 +53,8 @@ constructor(
     internal constructor(
         private val accountId: String?,
         private val amount: Long?,
-        private val periodStart: OffsetDateTime?,
         private val periodEnd: OffsetDateTime?,
+        private val periodStart: OffsetDateTime?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -66,11 +66,11 @@ constructor(
         /** The interest amount in cents. Must be positive. */
         @JsonProperty("amount") fun amount(): Long? = amount
 
-        /** The start of the interest period. If not provided, defaults to the current time. */
-        @JsonProperty("period_start") fun periodStart(): OffsetDateTime? = periodStart
-
         /** The end of the interest period. If not provided, defaults to the current time. */
         @JsonProperty("period_end") fun periodEnd(): OffsetDateTime? = periodEnd
+
+        /** The start of the interest period. If not provided, defaults to the current time. */
+        @JsonProperty("period_start") fun periodStart(): OffsetDateTime? = periodStart
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -86,8 +86,8 @@ constructor(
             return other is SimulationInterestPaymentCreateBody &&
                 this.accountId == other.accountId &&
                 this.amount == other.amount &&
-                this.periodStart == other.periodStart &&
                 this.periodEnd == other.periodEnd &&
+                this.periodStart == other.periodStart &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -97,8 +97,8 @@ constructor(
                     Objects.hash(
                         accountId,
                         amount,
-                        periodStart,
                         periodEnd,
+                        periodStart,
                         additionalProperties,
                     )
             }
@@ -106,7 +106,7 @@ constructor(
         }
 
         override fun toString() =
-            "SimulationInterestPaymentCreateBody{accountId=$accountId, amount=$amount, periodStart=$periodStart, periodEnd=$periodEnd, additionalProperties=$additionalProperties}"
+            "SimulationInterestPaymentCreateBody{accountId=$accountId, amount=$amount, periodEnd=$periodEnd, periodStart=$periodStart, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -117,8 +117,8 @@ constructor(
 
             private var accountId: String? = null
             private var amount: Long? = null
-            private var periodStart: OffsetDateTime? = null
             private var periodEnd: OffsetDateTime? = null
+            private var periodStart: OffsetDateTime? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -127,8 +127,8 @@ constructor(
             ) = apply {
                 this.accountId = simulationInterestPaymentCreateBody.accountId
                 this.amount = simulationInterestPaymentCreateBody.amount
-                this.periodStart = simulationInterestPaymentCreateBody.periodStart
                 this.periodEnd = simulationInterestPaymentCreateBody.periodEnd
+                this.periodStart = simulationInterestPaymentCreateBody.periodStart
                 additionalProperties(simulationInterestPaymentCreateBody.additionalProperties)
             }
 
@@ -139,13 +139,13 @@ constructor(
             /** The interest amount in cents. Must be positive. */
             @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
 
-            /** The start of the interest period. If not provided, defaults to the current time. */
-            @JsonProperty("period_start")
-            fun periodStart(periodStart: OffsetDateTime) = apply { this.periodStart = periodStart }
-
             /** The end of the interest period. If not provided, defaults to the current time. */
             @JsonProperty("period_end")
             fun periodEnd(periodEnd: OffsetDateTime) = apply { this.periodEnd = periodEnd }
+
+            /** The start of the interest period. If not provided, defaults to the current time. */
+            @JsonProperty("period_start")
+            fun periodStart(periodStart: OffsetDateTime) = apply { this.periodStart = periodStart }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -165,8 +165,8 @@ constructor(
                 SimulationInterestPaymentCreateBody(
                     checkNotNull(accountId) { "`accountId` is required but was not set" },
                     checkNotNull(amount) { "`amount` is required but was not set" },
-                    periodStart,
                     periodEnd,
+                    periodStart,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -186,8 +186,8 @@ constructor(
         return other is SimulationInterestPaymentCreateParams &&
             this.accountId == other.accountId &&
             this.amount == other.amount &&
-            this.periodStart == other.periodStart &&
             this.periodEnd == other.periodEnd &&
+            this.periodStart == other.periodStart &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -197,8 +197,8 @@ constructor(
         return Objects.hash(
             accountId,
             amount,
-            periodStart,
             periodEnd,
+            periodStart,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -206,7 +206,7 @@ constructor(
     }
 
     override fun toString() =
-        "SimulationInterestPaymentCreateParams{accountId=$accountId, amount=$amount, periodStart=$periodStart, periodEnd=$periodEnd, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationInterestPaymentCreateParams{accountId=$accountId, amount=$amount, periodEnd=$periodEnd, periodStart=$periodStart, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -220,8 +220,8 @@ constructor(
 
         private var accountId: String? = null
         private var amount: Long? = null
-        private var periodStart: OffsetDateTime? = null
         private var periodEnd: OffsetDateTime? = null
+        private var periodStart: OffsetDateTime? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -232,8 +232,8 @@ constructor(
         ) = apply {
             this.accountId = simulationInterestPaymentCreateParams.accountId
             this.amount = simulationInterestPaymentCreateParams.amount
-            this.periodStart = simulationInterestPaymentCreateParams.periodStart
             this.periodEnd = simulationInterestPaymentCreateParams.periodEnd
+            this.periodStart = simulationInterestPaymentCreateParams.periodStart
             additionalQueryParams(simulationInterestPaymentCreateParams.additionalQueryParams)
             additionalHeaders(simulationInterestPaymentCreateParams.additionalHeaders)
             additionalBodyProperties(simulationInterestPaymentCreateParams.additionalBodyProperties)
@@ -245,11 +245,11 @@ constructor(
         /** The interest amount in cents. Must be positive. */
         fun amount(amount: Long) = apply { this.amount = amount }
 
-        /** The start of the interest period. If not provided, defaults to the current time. */
-        fun periodStart(periodStart: OffsetDateTime) = apply { this.periodStart = periodStart }
-
         /** The end of the interest period. If not provided, defaults to the current time. */
         fun periodEnd(periodEnd: OffsetDateTime) = apply { this.periodEnd = periodEnd }
+
+        /** The start of the interest period. If not provided, defaults to the current time. */
+        fun periodStart(periodStart: OffsetDateTime) = apply { this.periodStart = periodStart }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -309,8 +309,8 @@ constructor(
             SimulationInterestPaymentCreateParams(
                 checkNotNull(accountId) { "`accountId` is required but was not set" },
                 checkNotNull(amount) { "`amount` is required but was not set" },
-                periodStart,
                 periodEnd,
+                periodStart,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

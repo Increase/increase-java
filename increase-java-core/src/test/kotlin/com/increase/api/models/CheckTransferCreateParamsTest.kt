@@ -10,7 +10,7 @@ class CheckTransferCreateParamsTest {
     fun createCheckTransferCreateParams() {
         CheckTransferCreateParams.builder()
             .accountId("string")
-            .sourceAccountNumberId("string")
+            .amount(123L)
             .fulfillmentMethod(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
             .physicalCheck(
                 CheckTransferCreateParams.PhysicalCheck.builder()
@@ -39,8 +39,8 @@ class CheckTransferCreateParamsTest {
                     )
                     .build()
             )
-            .amount(123L)
             .requireApproval(true)
+            .sourceAccountNumberId("string")
             .uniqueIdentifier("x")
             .build()
     }
@@ -50,7 +50,7 @@ class CheckTransferCreateParamsTest {
         val params =
             CheckTransferCreateParams.builder()
                 .accountId("string")
-                .sourceAccountNumberId("string")
+                .amount(123L)
                 .fulfillmentMethod(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
                 .physicalCheck(
                     CheckTransferCreateParams.PhysicalCheck.builder()
@@ -79,14 +79,14 @@ class CheckTransferCreateParamsTest {
                         )
                         .build()
                 )
-                .amount(123L)
                 .requireApproval(true)
+                .sourceAccountNumberId("string")
                 .uniqueIdentifier("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("string")
-        assertThat(body.sourceAccountNumberId()).isEqualTo("string")
+        assertThat(body.amount()).isEqualTo(123L)
         assertThat(body.fulfillmentMethod())
             .isEqualTo(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
         assertThat(body.physicalCheck())
@@ -117,8 +117,8 @@ class CheckTransferCreateParamsTest {
                     )
                     .build()
             )
-        assertThat(body.amount()).isEqualTo(123L)
         assertThat(body.requireApproval()).isEqualTo(true)
+        assertThat(body.sourceAccountNumberId()).isEqualTo("string")
         assertThat(body.uniqueIdentifier()).isEqualTo("x")
     }
 

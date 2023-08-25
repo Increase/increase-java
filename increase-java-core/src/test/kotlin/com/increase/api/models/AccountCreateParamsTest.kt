@@ -9,10 +9,10 @@ class AccountCreateParamsTest {
     @Test
     fun createAccountCreateParams() {
         AccountCreateParams.builder()
-            .entityId("string")
-            .programId("string")
-            .informationalEntityId("string")
             .name("x")
+            .entityId("string")
+            .informationalEntityId("string")
+            .programId("string")
             .build()
     }
 
@@ -20,17 +20,17 @@ class AccountCreateParamsTest {
     fun getBody() {
         val params =
             AccountCreateParams.builder()
-                .entityId("string")
-                .programId("string")
-                .informationalEntityId("string")
                 .name("x")
+                .entityId("string")
+                .informationalEntityId("string")
+                .programId("string")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.entityId()).isEqualTo("string")
-        assertThat(body.programId()).isEqualTo("string")
-        assertThat(body.informationalEntityId()).isEqualTo("string")
         assertThat(body.name()).isEqualTo("x")
+        assertThat(body.entityId()).isEqualTo("string")
+        assertThat(body.informationalEntityId()).isEqualTo("string")
+        assertThat(body.programId()).isEqualTo("string")
     }
 
     @Test

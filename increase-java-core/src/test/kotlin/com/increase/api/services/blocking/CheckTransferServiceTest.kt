@@ -23,7 +23,7 @@ class CheckTransferServiceTest {
             checkTransferService.create(
                 CheckTransferCreateParams.builder()
                     .accountId("string")
-                    .sourceAccountNumberId("string")
+                    .amount(123L)
                     .fulfillmentMethod(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
                     .physicalCheck(
                         CheckTransferCreateParams.PhysicalCheck.builder()
@@ -52,8 +52,8 @@ class CheckTransferServiceTest {
                             )
                             .build()
                     )
-                    .amount(123L)
                     .requireApproval(true)
+                    .sourceAccountNumberId("string")
                     .uniqueIdentifier("x")
                     .build()
             )

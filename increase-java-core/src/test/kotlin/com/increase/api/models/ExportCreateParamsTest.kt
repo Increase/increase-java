@@ -11,11 +11,11 @@ class ExportCreateParamsTest {
     fun createExportCreateParams() {
         ExportCreateParams.builder()
             .category(ExportCreateParams.Category.TRANSACTION_CSV)
-            .transactionCsv(
-                ExportCreateParams.TransactionCsv.builder()
+            .balanceCsv(
+                ExportCreateParams.BalanceCsv.builder()
                     .accountId("string")
                     .createdAt(
-                        ExportCreateParams.TransactionCsv.CreatedAt.builder()
+                        ExportCreateParams.BalanceCsv.CreatedAt.builder()
                             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -24,11 +24,11 @@ class ExportCreateParamsTest {
                     )
                     .build()
             )
-            .balanceCsv(
-                ExportCreateParams.BalanceCsv.builder()
+            .transactionCsv(
+                ExportCreateParams.TransactionCsv.builder()
                     .accountId("string")
                     .createdAt(
-                        ExportCreateParams.BalanceCsv.CreatedAt.builder()
+                        ExportCreateParams.TransactionCsv.CreatedAt.builder()
                             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -45,19 +45,6 @@ class ExportCreateParamsTest {
         val params =
             ExportCreateParams.builder()
                 .category(ExportCreateParams.Category.TRANSACTION_CSV)
-                .transactionCsv(
-                    ExportCreateParams.TransactionCsv.builder()
-                        .accountId("string")
-                        .createdAt(
-                            ExportCreateParams.TransactionCsv.CreatedAt.builder()
-                                .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .build()
-                        )
-                        .build()
-                )
                 .balanceCsv(
                     ExportCreateParams.BalanceCsv.builder()
                         .accountId("string")
@@ -71,16 +58,29 @@ class ExportCreateParamsTest {
                         )
                         .build()
                 )
+                .transactionCsv(
+                    ExportCreateParams.TransactionCsv.builder()
+                        .accountId("string")
+                        .createdAt(
+                            ExportCreateParams.TransactionCsv.CreatedAt.builder()
+                                .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .build()
+                        )
+                        .build()
+                )
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.category()).isEqualTo(ExportCreateParams.Category.TRANSACTION_CSV)
-        assertThat(body.transactionCsv())
+        assertThat(body.balanceCsv())
             .isEqualTo(
-                ExportCreateParams.TransactionCsv.builder()
+                ExportCreateParams.BalanceCsv.builder()
                     .accountId("string")
                     .createdAt(
-                        ExportCreateParams.TransactionCsv.CreatedAt.builder()
+                        ExportCreateParams.BalanceCsv.CreatedAt.builder()
                             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -89,12 +89,12 @@ class ExportCreateParamsTest {
                     )
                     .build()
             )
-        assertThat(body.balanceCsv())
+        assertThat(body.transactionCsv())
             .isEqualTo(
-                ExportCreateParams.BalanceCsv.builder()
+                ExportCreateParams.TransactionCsv.builder()
                     .accountId("string")
                     .createdAt(
-                        ExportCreateParams.BalanceCsv.CreatedAt.builder()
+                        ExportCreateParams.TransactionCsv.CreatedAt.builder()
                             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

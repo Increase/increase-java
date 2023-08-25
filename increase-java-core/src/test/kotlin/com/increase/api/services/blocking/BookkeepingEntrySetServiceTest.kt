@@ -21,8 +21,6 @@ class BookkeepingEntrySetServiceTest {
         val bookkeepingEntrySet =
             bookkeepingEntrySetService.create(
                 BookkeepingEntrySetCreateParams.builder()
-                    .date(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .transactionId("string")
                     .entries(
                         listOf(
                             BookkeepingEntrySetCreateParams.Entry.builder()
@@ -31,6 +29,8 @@ class BookkeepingEntrySetServiceTest {
                                 .build()
                         )
                     )
+                    .date(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .transactionId("string")
                     .build()
             )
         println(bookkeepingEntrySet)

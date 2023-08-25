@@ -22,7 +22,6 @@ class CardServiceTest {
             cardService.create(
                 CardCreateParams.builder()
                     .accountId("string")
-                    .description("x")
                     .billingAddress(
                         CardCreateParams.BillingAddress.builder()
                             .city("x")
@@ -32,6 +31,7 @@ class CardServiceTest {
                             .line2("x")
                             .build()
                     )
+                    .description("x")
                     .digitalWallet(
                         CardCreateParams.DigitalWallet.builder()
                             .cardProfileId("string")
@@ -70,8 +70,6 @@ class CardServiceTest {
             cardService.update(
                 CardUpdateParams.builder()
                     .cardId("string")
-                    .description("x")
-                    .status(CardUpdateParams.Status.ACTIVE)
                     .billingAddress(
                         CardUpdateParams.BillingAddress.builder()
                             .city("x")
@@ -81,6 +79,7 @@ class CardServiceTest {
                             .line2("x")
                             .build()
                     )
+                    .description("x")
                     .digitalWallet(
                         CardUpdateParams.DigitalWallet.builder()
                             .cardProfileId("string")
@@ -88,6 +87,7 @@ class CardServiceTest {
                             .phone("x")
                             .build()
                     )
+                    .status(CardUpdateParams.Status.ACTIVE)
                     .build()
             )
         println(card)

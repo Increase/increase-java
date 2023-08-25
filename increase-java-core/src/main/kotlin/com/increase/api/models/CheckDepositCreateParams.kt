@@ -15,9 +15,9 @@ class CheckDepositCreateParams
 constructor(
     private val accountId: String,
     private val amount: Long,
+    private val backImageFileId: String,
     private val currency: String,
     private val frontImageFileId: String,
-    private val backImageFileId: String,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -27,20 +27,20 @@ constructor(
 
     fun amount(): Long = amount
 
+    fun backImageFileId(): String = backImageFileId
+
     fun currency(): String = currency
 
     fun frontImageFileId(): String = frontImageFileId
-
-    fun backImageFileId(): String = backImageFileId
 
     @JvmSynthetic
     internal fun getBody(): CheckDepositCreateBody {
         return CheckDepositCreateBody(
             accountId,
             amount,
+            backImageFileId,
             currency,
             frontImageFileId,
-            backImageFileId,
             additionalBodyProperties,
         )
     }
@@ -55,9 +55,9 @@ constructor(
     internal constructor(
         private val accountId: String?,
         private val amount: Long?,
+        private val backImageFileId: String?,
         private val currency: String?,
         private val frontImageFileId: String?,
-        private val backImageFileId: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -72,14 +72,14 @@ constructor(
          */
         @JsonProperty("amount") fun amount(): Long? = amount
 
+        /** The File containing the check's back image. */
+        @JsonProperty("back_image_file_id") fun backImageFileId(): String? = backImageFileId
+
         /** The currency to use for the deposit. */
         @JsonProperty("currency") fun currency(): String? = currency
 
         /** The File containing the check's front image. */
         @JsonProperty("front_image_file_id") fun frontImageFileId(): String? = frontImageFileId
-
-        /** The File containing the check's back image. */
-        @JsonProperty("back_image_file_id") fun backImageFileId(): String? = backImageFileId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -95,9 +95,9 @@ constructor(
             return other is CheckDepositCreateBody &&
                 this.accountId == other.accountId &&
                 this.amount == other.amount &&
+                this.backImageFileId == other.backImageFileId &&
                 this.currency == other.currency &&
                 this.frontImageFileId == other.frontImageFileId &&
-                this.backImageFileId == other.backImageFileId &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -107,9 +107,9 @@ constructor(
                     Objects.hash(
                         accountId,
                         amount,
+                        backImageFileId,
                         currency,
                         frontImageFileId,
-                        backImageFileId,
                         additionalProperties,
                     )
             }
@@ -117,7 +117,7 @@ constructor(
         }
 
         override fun toString() =
-            "CheckDepositCreateBody{accountId=$accountId, amount=$amount, currency=$currency, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, additionalProperties=$additionalProperties}"
+            "CheckDepositCreateBody{accountId=$accountId, amount=$amount, backImageFileId=$backImageFileId, currency=$currency, frontImageFileId=$frontImageFileId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -128,18 +128,18 @@ constructor(
 
             private var accountId: String? = null
             private var amount: Long? = null
+            private var backImageFileId: String? = null
             private var currency: String? = null
             private var frontImageFileId: String? = null
-            private var backImageFileId: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(checkDepositCreateBody: CheckDepositCreateBody) = apply {
                 this.accountId = checkDepositCreateBody.accountId
                 this.amount = checkDepositCreateBody.amount
+                this.backImageFileId = checkDepositCreateBody.backImageFileId
                 this.currency = checkDepositCreateBody.currency
                 this.frontImageFileId = checkDepositCreateBody.frontImageFileId
-                this.backImageFileId = checkDepositCreateBody.backImageFileId
                 additionalProperties(checkDepositCreateBody.additionalProperties)
             }
 
@@ -153,6 +153,12 @@ constructor(
              */
             @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
 
+            /** The File containing the check's back image. */
+            @JsonProperty("back_image_file_id")
+            fun backImageFileId(backImageFileId: String) = apply {
+                this.backImageFileId = backImageFileId
+            }
+
             /** The currency to use for the deposit. */
             @JsonProperty("currency")
             fun currency(currency: String) = apply { this.currency = currency }
@@ -161,12 +167,6 @@ constructor(
             @JsonProperty("front_image_file_id")
             fun frontImageFileId(frontImageFileId: String) = apply {
                 this.frontImageFileId = frontImageFileId
-            }
-
-            /** The File containing the check's back image. */
-            @JsonProperty("back_image_file_id")
-            fun backImageFileId(backImageFileId: String) = apply {
-                this.backImageFileId = backImageFileId
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -187,12 +187,12 @@ constructor(
                 CheckDepositCreateBody(
                     checkNotNull(accountId) { "`accountId` is required but was not set" },
                     checkNotNull(amount) { "`amount` is required but was not set" },
+                    checkNotNull(backImageFileId) {
+                        "`backImageFileId` is required but was not set"
+                    },
                     checkNotNull(currency) { "`currency` is required but was not set" },
                     checkNotNull(frontImageFileId) {
                         "`frontImageFileId` is required but was not set"
-                    },
-                    checkNotNull(backImageFileId) {
-                        "`backImageFileId` is required but was not set"
                     },
                     additionalProperties.toUnmodifiable(),
                 )
@@ -213,9 +213,9 @@ constructor(
         return other is CheckDepositCreateParams &&
             this.accountId == other.accountId &&
             this.amount == other.amount &&
+            this.backImageFileId == other.backImageFileId &&
             this.currency == other.currency &&
             this.frontImageFileId == other.frontImageFileId &&
-            this.backImageFileId == other.backImageFileId &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -225,9 +225,9 @@ constructor(
         return Objects.hash(
             accountId,
             amount,
+            backImageFileId,
             currency,
             frontImageFileId,
-            backImageFileId,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -235,7 +235,7 @@ constructor(
     }
 
     override fun toString() =
-        "CheckDepositCreateParams{accountId=$accountId, amount=$amount, currency=$currency, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "CheckDepositCreateParams{accountId=$accountId, amount=$amount, backImageFileId=$backImageFileId, currency=$currency, frontImageFileId=$frontImageFileId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -249,9 +249,9 @@ constructor(
 
         private var accountId: String? = null
         private var amount: Long? = null
+        private var backImageFileId: String? = null
         private var currency: String? = null
         private var frontImageFileId: String? = null
-        private var backImageFileId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -260,9 +260,9 @@ constructor(
         internal fun from(checkDepositCreateParams: CheckDepositCreateParams) = apply {
             this.accountId = checkDepositCreateParams.accountId
             this.amount = checkDepositCreateParams.amount
+            this.backImageFileId = checkDepositCreateParams.backImageFileId
             this.currency = checkDepositCreateParams.currency
             this.frontImageFileId = checkDepositCreateParams.frontImageFileId
-            this.backImageFileId = checkDepositCreateParams.backImageFileId
             additionalQueryParams(checkDepositCreateParams.additionalQueryParams)
             additionalHeaders(checkDepositCreateParams.additionalHeaders)
             additionalBodyProperties(checkDepositCreateParams.additionalBodyProperties)
@@ -277,17 +277,17 @@ constructor(
          */
         fun amount(amount: Long) = apply { this.amount = amount }
 
+        /** The File containing the check's back image. */
+        fun backImageFileId(backImageFileId: String) = apply {
+            this.backImageFileId = backImageFileId
+        }
+
         /** The currency to use for the deposit. */
         fun currency(currency: String) = apply { this.currency = currency }
 
         /** The File containing the check's front image. */
         fun frontImageFileId(frontImageFileId: String) = apply {
             this.frontImageFileId = frontImageFileId
-        }
-
-        /** The File containing the check's back image. */
-        fun backImageFileId(backImageFileId: String) = apply {
-            this.backImageFileId = backImageFileId
         }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
@@ -348,9 +348,9 @@ constructor(
             CheckDepositCreateParams(
                 checkNotNull(accountId) { "`accountId` is required but was not set" },
                 checkNotNull(amount) { "`amount` is required but was not set" },
+                checkNotNull(backImageFileId) { "`backImageFileId` is required but was not set" },
                 checkNotNull(currency) { "`currency` is required but was not set" },
                 checkNotNull(frontImageFileId) { "`frontImageFileId` is required but was not set" },
-                checkNotNull(backImageFileId) { "`backImageFileId` is required but was not set" },
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

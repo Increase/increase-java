@@ -22,9 +22,9 @@ class LimitServiceTest {
             limitService.create(
                 LimitCreateParams.builder()
                     .metric(LimitCreateParams.Metric.COUNT)
-                    .interval(LimitCreateParams.Interval.TRANSACTION)
                     .modelId("x")
                     .value(123L)
+                    .interval(LimitCreateParams.Interval.TRANSACTION)
                     .build()
             )
         println(limit)

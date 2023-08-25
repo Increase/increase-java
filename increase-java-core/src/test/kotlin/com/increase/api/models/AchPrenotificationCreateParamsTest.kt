@@ -11,6 +11,7 @@ class AchPrenotificationCreateParamsTest {
     fun createAchPrenotificationCreateParams() {
         AchPrenotificationCreateParams.builder()
             .accountNumber("x")
+            .routingNumber("xxxxxxxxx")
             .addendum("x")
             .companyDescriptiveDate("x")
             .companyDiscretionaryData("x")
@@ -20,7 +21,6 @@ class AchPrenotificationCreateParamsTest {
             .effectiveDate(LocalDate.parse("2019-12-27"))
             .individualId("x")
             .individualName("x")
-            .routingNumber("xxxxxxxxx")
             .standardEntryClassCode(
                 AchPrenotificationCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
             )
@@ -32,6 +32,7 @@ class AchPrenotificationCreateParamsTest {
         val params =
             AchPrenotificationCreateParams.builder()
                 .accountNumber("x")
+                .routingNumber("xxxxxxxxx")
                 .addendum("x")
                 .companyDescriptiveDate("x")
                 .companyDiscretionaryData("x")
@@ -41,7 +42,6 @@ class AchPrenotificationCreateParamsTest {
                 .effectiveDate(LocalDate.parse("2019-12-27"))
                 .individualId("x")
                 .individualName("x")
-                .routingNumber("xxxxxxxxx")
                 .standardEntryClassCode(
                     AchPrenotificationCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
                 )
@@ -49,6 +49,7 @@ class AchPrenotificationCreateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.accountNumber()).isEqualTo("x")
+        assertThat(body.routingNumber()).isEqualTo("xxxxxxxxx")
         assertThat(body.addendum()).isEqualTo("x")
         assertThat(body.companyDescriptiveDate()).isEqualTo("x")
         assertThat(body.companyDiscretionaryData()).isEqualTo("x")
@@ -59,7 +60,6 @@ class AchPrenotificationCreateParamsTest {
         assertThat(body.effectiveDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.individualId()).isEqualTo("x")
         assertThat(body.individualName()).isEqualTo("x")
-        assertThat(body.routingNumber()).isEqualTo("xxxxxxxxx")
         assertThat(body.standardEntryClassCode())
             .isEqualTo(
                 AchPrenotificationCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT

@@ -18,8 +18,8 @@ constructor(
     private val amount: Long,
     private val messageToRecipient: String,
     private val recipientAccountNumber: String,
-    private val recipientRoutingNumber: String,
     private val recipientName: String,
+    private val recipientRoutingNumber: String,
     private val recipientAddressLine1: String?,
     private val recipientAddressLine2: String?,
     private val recipientAddressLine3: String?,
@@ -36,9 +36,9 @@ constructor(
 
     fun recipientAccountNumber(): String = recipientAccountNumber
 
-    fun recipientRoutingNumber(): String = recipientRoutingNumber
-
     fun recipientName(): String = recipientName
+
+    fun recipientRoutingNumber(): String = recipientRoutingNumber
 
     fun recipientAddressLine1(): Optional<String> = Optional.ofNullable(recipientAddressLine1)
 
@@ -53,8 +53,8 @@ constructor(
             amount,
             messageToRecipient,
             recipientAccountNumber,
-            recipientRoutingNumber,
             recipientName,
+            recipientRoutingNumber,
             recipientAddressLine1,
             recipientAddressLine2,
             recipientAddressLine3,
@@ -74,8 +74,8 @@ constructor(
         private val amount: Long?,
         private val messageToRecipient: String?,
         private val recipientAccountNumber: String?,
-        private val recipientRoutingNumber: String?,
         private val recipientName: String?,
+        private val recipientRoutingNumber: String?,
         private val recipientAddressLine1: String?,
         private val recipientAddressLine2: String?,
         private val recipientAddressLine3: String?,
@@ -97,12 +97,12 @@ constructor(
         @JsonProperty("recipient_account_number")
         fun recipientAccountNumber(): String? = recipientAccountNumber
 
+        /** The drawdown request's recipient's name. */
+        @JsonProperty("recipient_name") fun recipientName(): String? = recipientName
+
         /** The drawdown request's recipient's routing number. */
         @JsonProperty("recipient_routing_number")
         fun recipientRoutingNumber(): String? = recipientRoutingNumber
-
-        /** The drawdown request's recipient's name. */
-        @JsonProperty("recipient_name") fun recipientName(): String? = recipientName
 
         /** Line 1 of the drawdown request's recipient's address. */
         @JsonProperty("recipient_address_line1")
@@ -132,8 +132,8 @@ constructor(
                 this.amount == other.amount &&
                 this.messageToRecipient == other.messageToRecipient &&
                 this.recipientAccountNumber == other.recipientAccountNumber &&
-                this.recipientRoutingNumber == other.recipientRoutingNumber &&
                 this.recipientName == other.recipientName &&
+                this.recipientRoutingNumber == other.recipientRoutingNumber &&
                 this.recipientAddressLine1 == other.recipientAddressLine1 &&
                 this.recipientAddressLine2 == other.recipientAddressLine2 &&
                 this.recipientAddressLine3 == other.recipientAddressLine3 &&
@@ -148,8 +148,8 @@ constructor(
                         amount,
                         messageToRecipient,
                         recipientAccountNumber,
-                        recipientRoutingNumber,
                         recipientName,
+                        recipientRoutingNumber,
                         recipientAddressLine1,
                         recipientAddressLine2,
                         recipientAddressLine3,
@@ -160,7 +160,7 @@ constructor(
         }
 
         override fun toString() =
-            "WireDrawdownRequestCreateBody{accountNumberId=$accountNumberId, amount=$amount, messageToRecipient=$messageToRecipient, recipientAccountNumber=$recipientAccountNumber, recipientRoutingNumber=$recipientRoutingNumber, recipientName=$recipientName, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, additionalProperties=$additionalProperties}"
+            "WireDrawdownRequestCreateBody{accountNumberId=$accountNumberId, amount=$amount, messageToRecipient=$messageToRecipient, recipientAccountNumber=$recipientAccountNumber, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -173,8 +173,8 @@ constructor(
             private var amount: Long? = null
             private var messageToRecipient: String? = null
             private var recipientAccountNumber: String? = null
-            private var recipientRoutingNumber: String? = null
             private var recipientName: String? = null
+            private var recipientRoutingNumber: String? = null
             private var recipientAddressLine1: String? = null
             private var recipientAddressLine2: String? = null
             private var recipientAddressLine3: String? = null
@@ -188,9 +188,9 @@ constructor(
                     this.messageToRecipient = wireDrawdownRequestCreateBody.messageToRecipient
                     this.recipientAccountNumber =
                         wireDrawdownRequestCreateBody.recipientAccountNumber
+                    this.recipientName = wireDrawdownRequestCreateBody.recipientName
                     this.recipientRoutingNumber =
                         wireDrawdownRequestCreateBody.recipientRoutingNumber
-                    this.recipientName = wireDrawdownRequestCreateBody.recipientName
                     this.recipientAddressLine1 = wireDrawdownRequestCreateBody.recipientAddressLine1
                     this.recipientAddressLine2 = wireDrawdownRequestCreateBody.recipientAddressLine2
                     this.recipientAddressLine3 = wireDrawdownRequestCreateBody.recipientAddressLine3
@@ -218,15 +218,15 @@ constructor(
                 this.recipientAccountNumber = recipientAccountNumber
             }
 
+            /** The drawdown request's recipient's name. */
+            @JsonProperty("recipient_name")
+            fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
+
             /** The drawdown request's recipient's routing number. */
             @JsonProperty("recipient_routing_number")
             fun recipientRoutingNumber(recipientRoutingNumber: String) = apply {
                 this.recipientRoutingNumber = recipientRoutingNumber
             }
-
-            /** The drawdown request's recipient's name. */
-            @JsonProperty("recipient_name")
-            fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
 
             /** Line 1 of the drawdown request's recipient's address. */
             @JsonProperty("recipient_address_line1")
@@ -272,10 +272,10 @@ constructor(
                     checkNotNull(recipientAccountNumber) {
                         "`recipientAccountNumber` is required but was not set"
                     },
+                    checkNotNull(recipientName) { "`recipientName` is required but was not set" },
                     checkNotNull(recipientRoutingNumber) {
                         "`recipientRoutingNumber` is required but was not set"
                     },
-                    checkNotNull(recipientName) { "`recipientName` is required but was not set" },
                     recipientAddressLine1,
                     recipientAddressLine2,
                     recipientAddressLine3,
@@ -300,8 +300,8 @@ constructor(
             this.amount == other.amount &&
             this.messageToRecipient == other.messageToRecipient &&
             this.recipientAccountNumber == other.recipientAccountNumber &&
-            this.recipientRoutingNumber == other.recipientRoutingNumber &&
             this.recipientName == other.recipientName &&
+            this.recipientRoutingNumber == other.recipientRoutingNumber &&
             this.recipientAddressLine1 == other.recipientAddressLine1 &&
             this.recipientAddressLine2 == other.recipientAddressLine2 &&
             this.recipientAddressLine3 == other.recipientAddressLine3 &&
@@ -316,8 +316,8 @@ constructor(
             amount,
             messageToRecipient,
             recipientAccountNumber,
-            recipientRoutingNumber,
             recipientName,
+            recipientRoutingNumber,
             recipientAddressLine1,
             recipientAddressLine2,
             recipientAddressLine3,
@@ -328,7 +328,7 @@ constructor(
     }
 
     override fun toString() =
-        "WireDrawdownRequestCreateParams{accountNumberId=$accountNumberId, amount=$amount, messageToRecipient=$messageToRecipient, recipientAccountNumber=$recipientAccountNumber, recipientRoutingNumber=$recipientRoutingNumber, recipientName=$recipientName, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "WireDrawdownRequestCreateParams{accountNumberId=$accountNumberId, amount=$amount, messageToRecipient=$messageToRecipient, recipientAccountNumber=$recipientAccountNumber, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -344,8 +344,8 @@ constructor(
         private var amount: Long? = null
         private var messageToRecipient: String? = null
         private var recipientAccountNumber: String? = null
-        private var recipientRoutingNumber: String? = null
         private var recipientName: String? = null
+        private var recipientRoutingNumber: String? = null
         private var recipientAddressLine1: String? = null
         private var recipientAddressLine2: String? = null
         private var recipientAddressLine3: String? = null
@@ -360,8 +360,8 @@ constructor(
                 this.amount = wireDrawdownRequestCreateParams.amount
                 this.messageToRecipient = wireDrawdownRequestCreateParams.messageToRecipient
                 this.recipientAccountNumber = wireDrawdownRequestCreateParams.recipientAccountNumber
-                this.recipientRoutingNumber = wireDrawdownRequestCreateParams.recipientRoutingNumber
                 this.recipientName = wireDrawdownRequestCreateParams.recipientName
+                this.recipientRoutingNumber = wireDrawdownRequestCreateParams.recipientRoutingNumber
                 this.recipientAddressLine1 = wireDrawdownRequestCreateParams.recipientAddressLine1
                 this.recipientAddressLine2 = wireDrawdownRequestCreateParams.recipientAddressLine2
                 this.recipientAddressLine3 = wireDrawdownRequestCreateParams.recipientAddressLine3
@@ -388,13 +388,13 @@ constructor(
             this.recipientAccountNumber = recipientAccountNumber
         }
 
+        /** The drawdown request's recipient's name. */
+        fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
+
         /** The drawdown request's recipient's routing number. */
         fun recipientRoutingNumber(recipientRoutingNumber: String) = apply {
             this.recipientRoutingNumber = recipientRoutingNumber
         }
-
-        /** The drawdown request's recipient's name. */
-        fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
 
         /** Line 1 of the drawdown request's recipient's address. */
         fun recipientAddressLine1(recipientAddressLine1: String) = apply {
@@ -475,10 +475,10 @@ constructor(
                 checkNotNull(recipientAccountNumber) {
                     "`recipientAccountNumber` is required but was not set"
                 },
+                checkNotNull(recipientName) { "`recipientName` is required but was not set" },
                 checkNotNull(recipientRoutingNumber) {
                     "`recipientRoutingNumber` is required but was not set"
                 },
-                checkNotNull(recipientName) { "`recipientName` is required but was not set" },
                 recipientAddressLine1,
                 recipientAddressLine2,
                 recipientAddressLine3,
