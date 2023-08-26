@@ -7,10 +7,13 @@ import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.InboundAchTransfer
+import com.increase.api.models.InboundAchTransferDeclineParams
 import com.increase.api.models.InboundAchTransferListPage
 import com.increase.api.models.InboundAchTransferListParams
 import com.increase.api.models.InboundAchTransferRetrieveParams
+import com.increase.api.models.InboundAchTransferTransferReturnParams
 import com.increase.api.services.errorHandler
+import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
 import com.increase.api.services.withErrorHandler
 
@@ -74,6 +77,62 @@ constructor(
                     }
                 }
                 .let { InboundAchTransferListPage.of(this, params, it) }
+        }
+    }
+
+    private val declineHandler: Handler<InboundAchTransfer> =
+        jsonHandler<InboundAchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+    /** Decline an Inbound ACH Transfer */
+    override fun decline(
+        params: InboundAchTransferDeclineParams,
+        requestOptions: RequestOptions
+    ): InboundAchTransfer {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.POST)
+                .addPathSegments("inbound_ach_transfers", params.getPathParam(0), "decline")
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .apply { params.getBody().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                .build()
+        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
+            response
+                .use { declineHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
+        }
+    }
+
+    private val transferReturnHandler: Handler<InboundAchTransfer> =
+        jsonHandler<InboundAchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+    /** Create an ACH Return */
+    override fun transferReturn(
+        params: InboundAchTransferTransferReturnParams,
+        requestOptions: RequestOptions
+    ): InboundAchTransfer {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.POST)
+                .addPathSegments("inbound_ach_transfer", params.getPathParam(0), "transfer_returns")
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .body(json(clientOptions.jsonMapper, params.getBody()))
+                .build()
+        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
+            response
+                .use { transferReturnHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
         }
     }
 }
