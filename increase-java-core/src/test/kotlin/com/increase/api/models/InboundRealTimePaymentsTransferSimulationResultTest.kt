@@ -39,6 +39,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .Source
                                         .AchDecline
                                         .builder()
+                                        .id("string")
                                         .amount(123L)
                                         .originatorCompanyDescriptiveDate("string")
                                         .originatorCompanyDiscretionaryData("string")
@@ -55,6 +56,14 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .receiverIdNumber("string")
                                         .receiverName("string")
                                         .traceNumber("string")
+                                        .type(
+                                            InboundRealTimePaymentsTransferSimulationResult
+                                                .DeclinedTransaction
+                                                .Source
+                                                .AchDecline
+                                                .Type
+                                                .ACH_DECLINE
+                                        )
                                         .build()
                                 )
                                 .cardDecline(
@@ -1423,6 +1432,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .Source
                                     .AchDecline
                                     .builder()
+                                    .id("string")
                                     .amount(123L)
                                     .originatorCompanyDescriptiveDate("string")
                                     .originatorCompanyDiscretionaryData("string")
@@ -1439,6 +1449,14 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .receiverIdNumber("string")
                                     .receiverName("string")
                                     .traceNumber("string")
+                                    .type(
+                                        InboundRealTimePaymentsTransferSimulationResult
+                                            .DeclinedTransaction
+                                            .Source
+                                            .AchDecline
+                                            .Type
+                                            .ACH_DECLINE
+                                    )
                                     .build()
                             )
                             .cardDecline(

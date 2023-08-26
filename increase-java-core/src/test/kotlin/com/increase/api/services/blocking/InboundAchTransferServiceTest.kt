@@ -39,4 +39,42 @@ class InboundAchTransferServiceTest {
         println(inboundAchTransferList)
         inboundAchTransferList.data().forEach { it.validate() }
     }
+
+    @Test
+    fun callDecline() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("test-api-key")
+                .build()
+        val inboundAchTransferService = client.inboundAchTransfers()
+        val inboundAchTransfer =
+            inboundAchTransferService.decline(
+                InboundAchTransferDeclineParams.builder().inboundAchTransferId("string").build()
+            )
+        println(inboundAchTransfer)
+        inboundAchTransfer.validate()
+    }
+
+    @Test
+    fun callTransferReturn() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("test-api-key")
+                .build()
+        val inboundAchTransferService = client.inboundAchTransfers()
+        val inboundAchTransfer =
+            inboundAchTransferService.transferReturn(
+                InboundAchTransferTransferReturnParams.builder()
+                    .inboundAchTransferId("string")
+                    .reason(
+                        InboundAchTransferTransferReturnParams.Reason
+                            .AUTHORIZATION_REVOKED_BY_CUSTOMER
+                    )
+                    .build()
+            )
+        println(inboundAchTransfer)
+        inboundAchTransfer.validate()
+    }
 }

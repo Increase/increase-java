@@ -22,6 +22,7 @@ class DeclinedTransactionTest {
                     DeclinedTransaction.Source.builder()
                         .achDecline(
                             DeclinedTransaction.Source.AchDecline.builder()
+                                .id("string")
                                 .amount(123L)
                                 .originatorCompanyDescriptiveDate("string")
                                 .originatorCompanyDiscretionaryData("string")
@@ -33,6 +34,7 @@ class DeclinedTransactionTest {
                                 .receiverIdNumber("string")
                                 .receiverName("string")
                                 .traceNumber("string")
+                                .type(DeclinedTransaction.Source.AchDecline.Type.ACH_DECLINE)
                                 .build()
                         )
                         .cardDecline(
@@ -201,6 +203,7 @@ class DeclinedTransactionTest {
                 DeclinedTransaction.Source.builder()
                     .achDecline(
                         DeclinedTransaction.Source.AchDecline.builder()
+                            .id("string")
                             .amount(123L)
                             .originatorCompanyDescriptiveDate("string")
                             .originatorCompanyDiscretionaryData("string")
@@ -210,6 +213,7 @@ class DeclinedTransactionTest {
                             .receiverIdNumber("string")
                             .receiverName("string")
                             .traceNumber("string")
+                            .type(DeclinedTransaction.Source.AchDecline.Type.ACH_DECLINE)
                             .build()
                     )
                     .cardDecline(
