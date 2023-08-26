@@ -11,28 +11,6 @@ import org.junit.jupiter.api.extension.ExtendWith
 class InboundAchTransferReturnServiceTest {
 
     @Test
-    fun callCreate() {
-        val client =
-            IncreaseOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
-                .build()
-        val inboundAchTransferReturnService = client.inboundAchTransferReturns()
-        val inboundAchTransferReturn =
-            inboundAchTransferReturnService.create(
-                InboundAchTransferReturnCreateParams.builder()
-                    .reason(
-                        InboundAchTransferReturnCreateParams.Reason
-                            .AUTHORIZATION_REVOKED_BY_CUSTOMER
-                    )
-                    .transactionId("string")
-                    .build()
-            )
-        println(inboundAchTransferReturn)
-        inboundAchTransferReturn.validate()
-    }
-
-    @Test
     fun callRetrieve() {
         val client =
             IncreaseOkHttpClient.builder()

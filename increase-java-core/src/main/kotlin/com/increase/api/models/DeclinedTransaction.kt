@@ -903,6 +903,7 @@ private constructor(
         @NoAutoDetect
         class AchDecline
         private constructor(
+            private val id: JsonField<String>,
             private val amount: JsonField<Long>,
             private val originatorCompanyName: JsonField<String>,
             private val originatorCompanyDescriptiveDate: JsonField<String>,
@@ -912,6 +913,7 @@ private constructor(
             private val receiverIdNumber: JsonField<String>,
             private val receiverName: JsonField<String>,
             private val traceNumber: JsonField<String>,
+            private val type: JsonField<Type>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
@@ -919,15 +921,20 @@ private constructor(
 
             private var hashCode: Int = 0
 
+            /** The ACH Decline's identifier. */
+            fun id(): String = id.getRequired("id")
+
             /**
              * The declined amount in the minor unit of the destination account currency. For
              * dollars, for example, this is cents.
              */
             fun amount(): Long = amount.getRequired("amount")
 
+            /** The name of the company that initiated the transfer. */
             fun originatorCompanyName(): String =
                 originatorCompanyName.getRequired("originator_company_name")
 
+            /** The descriptive date of the transfer. */
             fun originatorCompanyDescriptiveDate(): Optional<String> =
                 Optional.ofNullable(
                     originatorCompanyDescriptiveDate.getNullable(
@@ -935,6 +942,7 @@ private constructor(
                     )
                 )
 
+            /** The additional information included with the transfer. */
             fun originatorCompanyDiscretionaryData(): Optional<String> =
                 Optional.ofNullable(
                     originatorCompanyDiscretionaryData.getNullable(
@@ -942,19 +950,32 @@ private constructor(
                     )
                 )
 
+            /** The identifier of the company that initiated the transfer. */
             fun originatorCompanyId(): String =
                 originatorCompanyId.getRequired("originator_company_id")
 
             /** Why the ACH transfer was declined. */
             fun reason(): Reason = reason.getRequired("reason")
 
+            /** The id of the receiver of the transfer. */
             fun receiverIdNumber(): Optional<String> =
                 Optional.ofNullable(receiverIdNumber.getNullable("receiver_id_number"))
 
+            /** The name of the receiver of the transfer. */
             fun receiverName(): Optional<String> =
                 Optional.ofNullable(receiverName.getNullable("receiver_name"))
 
+            /** The trace number of the transfer. */
             fun traceNumber(): String = traceNumber.getRequired("trace_number")
+
+            /**
+             * A constant representing the object's type. For this resource it will always be
+             * `ach_decline`.
+             */
+            fun type(): Type = type.getRequired("type")
+
+            /** The ACH Decline's identifier. */
+            @JsonProperty("id") @ExcludeMissing fun _id() = id
 
             /**
              * The declined amount in the minor unit of the destination account currency. For
@@ -962,18 +983,22 @@ private constructor(
              */
             @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
+            /** The name of the company that initiated the transfer. */
             @JsonProperty("originator_company_name")
             @ExcludeMissing
             fun _originatorCompanyName() = originatorCompanyName
 
+            /** The descriptive date of the transfer. */
             @JsonProperty("originator_company_descriptive_date")
             @ExcludeMissing
             fun _originatorCompanyDescriptiveDate() = originatorCompanyDescriptiveDate
 
+            /** The additional information included with the transfer. */
             @JsonProperty("originator_company_discretionary_data")
             @ExcludeMissing
             fun _originatorCompanyDiscretionaryData() = originatorCompanyDiscretionaryData
 
+            /** The identifier of the company that initiated the transfer. */
             @JsonProperty("originator_company_id")
             @ExcludeMissing
             fun _originatorCompanyId() = originatorCompanyId
@@ -981,13 +1006,22 @@ private constructor(
             /** Why the ACH transfer was declined. */
             @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
 
+            /** The id of the receiver of the transfer. */
             @JsonProperty("receiver_id_number")
             @ExcludeMissing
             fun _receiverIdNumber() = receiverIdNumber
 
+            /** The name of the receiver of the transfer. */
             @JsonProperty("receiver_name") @ExcludeMissing fun _receiverName() = receiverName
 
+            /** The trace number of the transfer. */
             @JsonProperty("trace_number") @ExcludeMissing fun _traceNumber() = traceNumber
+
+            /**
+             * A constant representing the object's type. For this resource it will always be
+             * `ach_decline`.
+             */
+            @JsonProperty("type") @ExcludeMissing fun _type() = type
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -995,6 +1029,7 @@ private constructor(
 
             fun validate(): AchDecline = apply {
                 if (!validated) {
+                    id()
                     amount()
                     originatorCompanyName()
                     originatorCompanyDescriptiveDate()
@@ -1004,6 +1039,7 @@ private constructor(
                     receiverIdNumber()
                     receiverName()
                     traceNumber()
+                    type()
                     validated = true
                 }
             }
@@ -1016,6 +1052,7 @@ private constructor(
                 }
 
                 return other is AchDecline &&
+                    this.id == other.id &&
                     this.amount == other.amount &&
                     this.originatorCompanyName == other.originatorCompanyName &&
                     this.originatorCompanyDescriptiveDate ==
@@ -1027,6 +1064,7 @@ private constructor(
                     this.receiverIdNumber == other.receiverIdNumber &&
                     this.receiverName == other.receiverName &&
                     this.traceNumber == other.traceNumber &&
+                    this.type == other.type &&
                     this.additionalProperties == other.additionalProperties
             }
 
@@ -1034,6 +1072,7 @@ private constructor(
                 if (hashCode == 0) {
                     hashCode =
                         Objects.hash(
+                            id,
                             amount,
                             originatorCompanyName,
                             originatorCompanyDescriptiveDate,
@@ -1043,6 +1082,7 @@ private constructor(
                             receiverIdNumber,
                             receiverName,
                             traceNumber,
+                            type,
                             additionalProperties,
                         )
                 }
@@ -1050,7 +1090,7 @@ private constructor(
             }
 
             override fun toString() =
-                "AchDecline{amount=$amount, originatorCompanyName=$originatorCompanyName, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyId=$originatorCompanyId, reason=$reason, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, traceNumber=$traceNumber, additionalProperties=$additionalProperties}"
+                "AchDecline{id=$id, amount=$amount, originatorCompanyName=$originatorCompanyName, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyId=$originatorCompanyId, reason=$reason, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, traceNumber=$traceNumber, type=$type, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1059,6 +1099,7 @@ private constructor(
 
             class Builder {
 
+                private var id: JsonField<String> = JsonMissing.of()
                 private var amount: JsonField<Long> = JsonMissing.of()
                 private var originatorCompanyName: JsonField<String> = JsonMissing.of()
                 private var originatorCompanyDescriptiveDate: JsonField<String> = JsonMissing.of()
@@ -1068,10 +1109,12 @@ private constructor(
                 private var receiverIdNumber: JsonField<String> = JsonMissing.of()
                 private var receiverName: JsonField<String> = JsonMissing.of()
                 private var traceNumber: JsonField<String> = JsonMissing.of()
+                private var type: JsonField<Type> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
                 internal fun from(achDecline: AchDecline) = apply {
+                    this.id = achDecline.id
                     this.amount = achDecline.amount
                     this.originatorCompanyName = achDecline.originatorCompanyName
                     this.originatorCompanyDescriptiveDate =
@@ -1083,8 +1126,17 @@ private constructor(
                     this.receiverIdNumber = achDecline.receiverIdNumber
                     this.receiverName = achDecline.receiverName
                     this.traceNumber = achDecline.traceNumber
+                    this.type = achDecline.type
                     additionalProperties(achDecline.additionalProperties)
                 }
+
+                /** The ACH Decline's identifier. */
+                fun id(id: String) = id(JsonField.of(id))
+
+                /** The ACH Decline's identifier. */
+                @JsonProperty("id")
+                @ExcludeMissing
+                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /**
                  * The declined amount in the minor unit of the destination account currency. For
@@ -1100,18 +1152,22 @@ private constructor(
                 @ExcludeMissing
                 fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
+                /** The name of the company that initiated the transfer. */
                 fun originatorCompanyName(originatorCompanyName: String) =
                     originatorCompanyName(JsonField.of(originatorCompanyName))
 
+                /** The name of the company that initiated the transfer. */
                 @JsonProperty("originator_company_name")
                 @ExcludeMissing
                 fun originatorCompanyName(originatorCompanyName: JsonField<String>) = apply {
                     this.originatorCompanyName = originatorCompanyName
                 }
 
+                /** The descriptive date of the transfer. */
                 fun originatorCompanyDescriptiveDate(originatorCompanyDescriptiveDate: String) =
                     originatorCompanyDescriptiveDate(JsonField.of(originatorCompanyDescriptiveDate))
 
+                /** The descriptive date of the transfer. */
                 @JsonProperty("originator_company_descriptive_date")
                 @ExcludeMissing
                 fun originatorCompanyDescriptiveDate(
@@ -1120,11 +1176,13 @@ private constructor(
                     this.originatorCompanyDescriptiveDate = originatorCompanyDescriptiveDate
                 }
 
+                /** The additional information included with the transfer. */
                 fun originatorCompanyDiscretionaryData(originatorCompanyDiscretionaryData: String) =
                     originatorCompanyDiscretionaryData(
                         JsonField.of(originatorCompanyDiscretionaryData)
                     )
 
+                /** The additional information included with the transfer. */
                 @JsonProperty("originator_company_discretionary_data")
                 @ExcludeMissing
                 fun originatorCompanyDiscretionaryData(
@@ -1133,9 +1191,11 @@ private constructor(
                     this.originatorCompanyDiscretionaryData = originatorCompanyDiscretionaryData
                 }
 
+                /** The identifier of the company that initiated the transfer. */
                 fun originatorCompanyId(originatorCompanyId: String) =
                     originatorCompanyId(JsonField.of(originatorCompanyId))
 
+                /** The identifier of the company that initiated the transfer. */
                 @JsonProperty("originator_company_id")
                 @ExcludeMissing
                 fun originatorCompanyId(originatorCompanyId: JsonField<String>) = apply {
@@ -1150,30 +1210,50 @@ private constructor(
                 @ExcludeMissing
                 fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
+                /** The id of the receiver of the transfer. */
                 fun receiverIdNumber(receiverIdNumber: String) =
                     receiverIdNumber(JsonField.of(receiverIdNumber))
 
+                /** The id of the receiver of the transfer. */
                 @JsonProperty("receiver_id_number")
                 @ExcludeMissing
                 fun receiverIdNumber(receiverIdNumber: JsonField<String>) = apply {
                     this.receiverIdNumber = receiverIdNumber
                 }
 
+                /** The name of the receiver of the transfer. */
                 fun receiverName(receiverName: String) = receiverName(JsonField.of(receiverName))
 
+                /** The name of the receiver of the transfer. */
                 @JsonProperty("receiver_name")
                 @ExcludeMissing
                 fun receiverName(receiverName: JsonField<String>) = apply {
                     this.receiverName = receiverName
                 }
 
+                /** The trace number of the transfer. */
                 fun traceNumber(traceNumber: String) = traceNumber(JsonField.of(traceNumber))
 
+                /** The trace number of the transfer. */
                 @JsonProperty("trace_number")
                 @ExcludeMissing
                 fun traceNumber(traceNumber: JsonField<String>) = apply {
                     this.traceNumber = traceNumber
                 }
+
+                /**
+                 * A constant representing the object's type. For this resource it will always be
+                 * `ach_decline`.
+                 */
+                fun type(type: Type) = type(JsonField.of(type))
+
+                /**
+                 * A constant representing the object's type. For this resource it will always be
+                 * `ach_decline`.
+                 */
+                @JsonProperty("type")
+                @ExcludeMissing
+                fun type(type: JsonField<Type>) = apply { this.type = type }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1192,6 +1272,7 @@ private constructor(
 
                 fun build(): AchDecline =
                     AchDecline(
+                        id,
                         amount,
                         originatorCompanyName,
                         originatorCompanyDescriptiveDate,
@@ -1201,6 +1282,7 @@ private constructor(
                         receiverIdNumber,
                         receiverName,
                         traceNumber,
+                        type,
                         additionalProperties.toUnmodifiable(),
                     )
             }
@@ -1336,6 +1418,57 @@ private constructor(
                         TRANSACTION_NOT_ALLOWED -> Known.TRANSACTION_NOT_ALLOWED
                         USER_INITIATED -> Known.USER_INITIATED
                         else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
+                    }
+
+                fun asString(): String = _value().asStringOrThrow()
+            }
+
+            class Type
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) {
+
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Type && this.value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+
+                companion object {
+
+                    @JvmField val ACH_DECLINE = Type(JsonField.of("ach_decline"))
+
+                    @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+                }
+
+                enum class Known {
+                    ACH_DECLINE,
+                }
+
+                enum class Value {
+                    ACH_DECLINE,
+                    _UNKNOWN,
+                }
+
+                fun value(): Value =
+                    when (this) {
+                        ACH_DECLINE -> Value.ACH_DECLINE
+                        else -> Value._UNKNOWN
+                    }
+
+                fun known(): Known =
+                    when (this) {
+                        ACH_DECLINE -> Known.ACH_DECLINE
+                        else -> throw IncreaseInvalidDataException("Unknown Type: $value")
                     }
 
                 fun asString(): String = _value().asStringOrThrow()

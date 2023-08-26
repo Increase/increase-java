@@ -28,6 +28,7 @@ class AchTransferSimulationTest {
                                 .achDecline(
                                     AchTransferSimulation.DeclinedTransaction.Source.AchDecline
                                         .builder()
+                                        .id("string")
                                         .amount(123L)
                                         .originatorCompanyDescriptiveDate("string")
                                         .originatorCompanyDiscretionaryData("string")
@@ -42,6 +43,12 @@ class AchTransferSimulationTest {
                                         .receiverIdNumber("string")
                                         .receiverName("string")
                                         .traceNumber("string")
+                                        .type(
+                                            AchTransferSimulation.DeclinedTransaction.Source
+                                                .AchDecline
+                                                .Type
+                                                .ACH_DECLINE
+                                        )
                                         .build()
                                 )
                                 .cardDecline(
@@ -1190,6 +1197,7 @@ class AchTransferSimulationTest {
                             .achDecline(
                                 AchTransferSimulation.DeclinedTransaction.Source.AchDecline
                                     .builder()
+                                    .id("string")
                                     .amount(123L)
                                     .originatorCompanyDescriptiveDate("string")
                                     .originatorCompanyDiscretionaryData("string")
@@ -1203,6 +1211,11 @@ class AchTransferSimulationTest {
                                     .receiverIdNumber("string")
                                     .receiverName("string")
                                     .traceNumber("string")
+                                    .type(
+                                        AchTransferSimulation.DeclinedTransaction.Source.AchDecline
+                                            .Type
+                                            .ACH_DECLINE
+                                    )
                                     .build()
                             )
                             .cardDecline(
