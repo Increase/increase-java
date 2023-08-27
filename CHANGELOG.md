@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.9.1](https://github.com/Increase/increase-java/compare/v0.9.0...v0.9.1) (2023-08-27)
+
+
+### Features
+
+* **api:** move inbound ACH transfer returns (⚠️ breaking); add ACH transfer declines ([#72](https://github.com/Increase/increase-java/issues/72)) ([162f32f](https://github.com/Increase/increase-java/commit/162f32f3fe6dbc318fc9180bafa80d2a9f9944e7))
+* **api:** updates ([#70](https://github.com/Increase/increase-java/issues/70)) ([adff556](https://github.com/Increase/increase-java/commit/adff556c31615da8e2f74957d3ca9f49218caf14))
+
+
+### Chores
+
+* **internal:** minor code re-ordering ([#71](https://github.com/Increase/increase-java/issues/71)) ([15fbcdd](https://github.com/Increase/increase-java/commit/15fbcddc51cc316546e66f6e976db3d916cd486f))
+
 ## [0.9.0](https://github.com/Increase/increase-java/compare/v0.8.4...v0.9.0) (2023-08-17)
 
 
