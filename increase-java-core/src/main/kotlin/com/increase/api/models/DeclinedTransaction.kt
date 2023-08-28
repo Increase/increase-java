@@ -1488,6 +1488,7 @@ private constructor(
             private val merchantCategoryCode: JsonField<String>,
             private val merchantCity: JsonField<String>,
             private val merchantCountry: JsonField<String>,
+            private val digitalWalletTokenId: JsonField<String>,
             private val physicalCardId: JsonField<String>,
             private val networkDetails: JsonField<NetworkDetails>,
             private val amount: JsonField<Long>,
@@ -1495,7 +1496,6 @@ private constructor(
             private val reason: JsonField<Reason>,
             private val merchantState: JsonField<String>,
             private val realTimeDecisionId: JsonField<String>,
-            private val digitalWalletTokenId: JsonField<String>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
@@ -1527,6 +1527,13 @@ private constructor(
             /** The country the merchant resides in. */
             fun merchantCountry(): Optional<String> =
                 Optional.ofNullable(merchantCountry.getNullable("merchant_country"))
+
+            /**
+             * If the authorization was made via a Digital Wallet Token (such as an Apple Pay
+             * purchase), the identifier of the token that was used.
+             */
+            fun digitalWalletTokenId(): Optional<String> =
+                Optional.ofNullable(digitalWalletTokenId.getNullable("digital_wallet_token_id"))
 
             /**
              * If the authorization was made in-person with a physical card, the Physical Card that
@@ -1564,13 +1571,6 @@ private constructor(
                 Optional.ofNullable(realTimeDecisionId.getNullable("real_time_decision_id"))
 
             /**
-             * If the authorization was attempted using a Digital Wallet Token (such as an Apple Pay
-             * purchase), the identifier of the token that was used.
-             */
-            fun digitalWalletTokenId(): Optional<String> =
-                Optional.ofNullable(digitalWalletTokenId.getNullable("digital_wallet_token_id"))
-
-            /**
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
              * transacting with.
              */
@@ -1598,6 +1598,14 @@ private constructor(
             @JsonProperty("merchant_country")
             @ExcludeMissing
             fun _merchantCountry() = merchantCountry
+
+            /**
+             * If the authorization was made via a Digital Wallet Token (such as an Apple Pay
+             * purchase), the identifier of the token that was used.
+             */
+            @JsonProperty("digital_wallet_token_id")
+            @ExcludeMissing
+            fun _digitalWalletTokenId() = digitalWalletTokenId
 
             /**
              * If the authorization was made in-person with a physical card, the Physical Card that
@@ -1633,14 +1641,6 @@ private constructor(
             @ExcludeMissing
             fun _realTimeDecisionId() = realTimeDecisionId
 
-            /**
-             * If the authorization was attempted using a Digital Wallet Token (such as an Apple Pay
-             * purchase), the identifier of the token that was used.
-             */
-            @JsonProperty("digital_wallet_token_id")
-            @ExcludeMissing
-            fun _digitalWalletTokenId() = digitalWalletTokenId
-
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -1652,6 +1652,7 @@ private constructor(
                     merchantCategoryCode()
                     merchantCity()
                     merchantCountry()
+                    digitalWalletTokenId()
                     physicalCardId()
                     networkDetails().validate()
                     amount()
@@ -1659,7 +1660,6 @@ private constructor(
                     reason()
                     merchantState()
                     realTimeDecisionId()
-                    digitalWalletTokenId()
                     validated = true
                 }
             }
@@ -1677,6 +1677,7 @@ private constructor(
                     this.merchantCategoryCode == other.merchantCategoryCode &&
                     this.merchantCity == other.merchantCity &&
                     this.merchantCountry == other.merchantCountry &&
+                    this.digitalWalletTokenId == other.digitalWalletTokenId &&
                     this.physicalCardId == other.physicalCardId &&
                     this.networkDetails == other.networkDetails &&
                     this.amount == other.amount &&
@@ -1684,7 +1685,6 @@ private constructor(
                     this.reason == other.reason &&
                     this.merchantState == other.merchantState &&
                     this.realTimeDecisionId == other.realTimeDecisionId &&
-                    this.digitalWalletTokenId == other.digitalWalletTokenId &&
                     this.additionalProperties == other.additionalProperties
             }
 
@@ -1697,6 +1697,7 @@ private constructor(
                             merchantCategoryCode,
                             merchantCity,
                             merchantCountry,
+                            digitalWalletTokenId,
                             physicalCardId,
                             networkDetails,
                             amount,
@@ -1704,7 +1705,6 @@ private constructor(
                             reason,
                             merchantState,
                             realTimeDecisionId,
-                            digitalWalletTokenId,
                             additionalProperties,
                         )
                 }
@@ -1712,7 +1712,7 @@ private constructor(
             }
 
             override fun toString() =
-                "CardDecline{merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, physicalCardId=$physicalCardId, networkDetails=$networkDetails, amount=$amount, currency=$currency, reason=$reason, merchantState=$merchantState, realTimeDecisionId=$realTimeDecisionId, digitalWalletTokenId=$digitalWalletTokenId, additionalProperties=$additionalProperties}"
+                "CardDecline{merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, digitalWalletTokenId=$digitalWalletTokenId, physicalCardId=$physicalCardId, networkDetails=$networkDetails, amount=$amount, currency=$currency, reason=$reason, merchantState=$merchantState, realTimeDecisionId=$realTimeDecisionId, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1726,6 +1726,7 @@ private constructor(
                 private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
                 private var merchantCity: JsonField<String> = JsonMissing.of()
                 private var merchantCountry: JsonField<String> = JsonMissing.of()
+                private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
                 private var physicalCardId: JsonField<String> = JsonMissing.of()
                 private var networkDetails: JsonField<NetworkDetails> = JsonMissing.of()
                 private var amount: JsonField<Long> = JsonMissing.of()
@@ -1733,7 +1734,6 @@ private constructor(
                 private var reason: JsonField<Reason> = JsonMissing.of()
                 private var merchantState: JsonField<String> = JsonMissing.of()
                 private var realTimeDecisionId: JsonField<String> = JsonMissing.of()
-                private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -1743,6 +1743,7 @@ private constructor(
                     this.merchantCategoryCode = cardDecline.merchantCategoryCode
                     this.merchantCity = cardDecline.merchantCity
                     this.merchantCountry = cardDecline.merchantCountry
+                    this.digitalWalletTokenId = cardDecline.digitalWalletTokenId
                     this.physicalCardId = cardDecline.physicalCardId
                     this.networkDetails = cardDecline.networkDetails
                     this.amount = cardDecline.amount
@@ -1750,7 +1751,6 @@ private constructor(
                     this.reason = cardDecline.reason
                     this.merchantState = cardDecline.merchantState
                     this.realTimeDecisionId = cardDecline.realTimeDecisionId
-                    this.digitalWalletTokenId = cardDecline.digitalWalletTokenId
                     additionalProperties(cardDecline.additionalProperties)
                 }
 
@@ -1818,6 +1818,23 @@ private constructor(
                 @ExcludeMissing
                 fun merchantCountry(merchantCountry: JsonField<String>) = apply {
                     this.merchantCountry = merchantCountry
+                }
+
+                /**
+                 * If the authorization was made via a Digital Wallet Token (such as an Apple Pay
+                 * purchase), the identifier of the token that was used.
+                 */
+                fun digitalWalletTokenId(digitalWalletTokenId: String) =
+                    digitalWalletTokenId(JsonField.of(digitalWalletTokenId))
+
+                /**
+                 * If the authorization was made via a Digital Wallet Token (such as an Apple Pay
+                 * purchase), the identifier of the token that was used.
+                 */
+                @JsonProperty("digital_wallet_token_id")
+                @ExcludeMissing
+                fun digitalWalletTokenId(digitalWalletTokenId: JsonField<String>) = apply {
+                    this.digitalWalletTokenId = digitalWalletTokenId
                 }
 
                 /**
@@ -1912,23 +1929,6 @@ private constructor(
                     this.realTimeDecisionId = realTimeDecisionId
                 }
 
-                /**
-                 * If the authorization was attempted using a Digital Wallet Token (such as an Apple
-                 * Pay purchase), the identifier of the token that was used.
-                 */
-                fun digitalWalletTokenId(digitalWalletTokenId: String) =
-                    digitalWalletTokenId(JsonField.of(digitalWalletTokenId))
-
-                /**
-                 * If the authorization was attempted using a Digital Wallet Token (such as an Apple
-                 * Pay purchase), the identifier of the token that was used.
-                 */
-                @JsonProperty("digital_wallet_token_id")
-                @ExcludeMissing
-                fun digitalWalletTokenId(digitalWalletTokenId: JsonField<String>) = apply {
-                    this.digitalWalletTokenId = digitalWalletTokenId
-                }
-
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
                     this.additionalProperties.putAll(additionalProperties)
@@ -1951,6 +1951,7 @@ private constructor(
                         merchantCategoryCode,
                         merchantCity,
                         merchantCountry,
+                        digitalWalletTokenId,
                         physicalCardId,
                         networkDetails,
                         amount,
@@ -1958,7 +1959,6 @@ private constructor(
                         reason,
                         merchantState,
                         realTimeDecisionId,
-                        digitalWalletTokenId,
                         additionalProperties.toUnmodifiable(),
                     )
             }

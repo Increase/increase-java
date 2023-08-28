@@ -1452,13 +1452,13 @@ private constructor(
             private val merchantCategoryCode: JsonField<String>,
             private val merchantCity: JsonField<String>,
             private val merchantCountry: JsonField<String>,
+            private val digitalWalletTokenId: JsonField<String>,
             private val physicalCardId: JsonField<String>,
             private val networkDetails: JsonField<NetworkDetails>,
             private val amount: JsonField<Long>,
             private val currency: JsonField<Currency>,
             private val expiresAt: JsonField<OffsetDateTime>,
             private val realTimeDecisionId: JsonField<String>,
-            private val digitalWalletTokenId: JsonField<String>,
             private val pendingTransactionId: JsonField<String>,
             private val type: JsonField<Type>,
             private val additionalProperties: Map<String, JsonValue>,
@@ -1497,6 +1497,13 @@ private constructor(
                 Optional.ofNullable(merchantCountry.getNullable("merchant_country"))
 
             /**
+             * If the authorization was made via a Digital Wallet Token (such as an Apple Pay
+             * purchase), the identifier of the token that was used.
+             */
+            fun digitalWalletTokenId(): Optional<String> =
+                Optional.ofNullable(digitalWalletTokenId.getNullable("digital_wallet_token_id"))
+
+            /**
              * If the authorization was made in-person with a physical card, the Physical Card that
              * was used.
              */
@@ -1529,13 +1536,6 @@ private constructor(
              */
             fun realTimeDecisionId(): Optional<String> =
                 Optional.ofNullable(realTimeDecisionId.getNullable("real_time_decision_id"))
-
-            /**
-             * If the authorization was made via a Digital Wallet Token (such as an Apple Pay
-             * purchase), the identifier of the token that was used.
-             */
-            fun digitalWalletTokenId(): Optional<String> =
-                Optional.ofNullable(digitalWalletTokenId.getNullable("digital_wallet_token_id"))
 
             /** The identifier of the Pending Transaction associated with this Transaction. */
             fun pendingTransactionId(): Optional<String> =
@@ -1580,6 +1580,14 @@ private constructor(
             fun _merchantCountry() = merchantCountry
 
             /**
+             * If the authorization was made via a Digital Wallet Token (such as an Apple Pay
+             * purchase), the identifier of the token that was used.
+             */
+            @JsonProperty("digital_wallet_token_id")
+            @ExcludeMissing
+            fun _digitalWalletTokenId() = digitalWalletTokenId
+
+            /**
              * If the authorization was made in-person with a physical card, the Physical Card that
              * was used.
              */
@@ -1613,14 +1621,6 @@ private constructor(
             @ExcludeMissing
             fun _realTimeDecisionId() = realTimeDecisionId
 
-            /**
-             * If the authorization was made via a Digital Wallet Token (such as an Apple Pay
-             * purchase), the identifier of the token that was used.
-             */
-            @JsonProperty("digital_wallet_token_id")
-            @ExcludeMissing
-            fun _digitalWalletTokenId() = digitalWalletTokenId
-
             /** The identifier of the Pending Transaction associated with this Transaction. */
             @JsonProperty("pending_transaction_id")
             @ExcludeMissing
@@ -1644,13 +1644,13 @@ private constructor(
                     merchantCategoryCode()
                     merchantCity()
                     merchantCountry()
+                    digitalWalletTokenId()
                     physicalCardId()
                     networkDetails().validate()
                     amount()
                     currency()
                     expiresAt()
                     realTimeDecisionId()
-                    digitalWalletTokenId()
                     pendingTransactionId()
                     type()
                     validated = true
@@ -1671,13 +1671,13 @@ private constructor(
                     this.merchantCategoryCode == other.merchantCategoryCode &&
                     this.merchantCity == other.merchantCity &&
                     this.merchantCountry == other.merchantCountry &&
+                    this.digitalWalletTokenId == other.digitalWalletTokenId &&
                     this.physicalCardId == other.physicalCardId &&
                     this.networkDetails == other.networkDetails &&
                     this.amount == other.amount &&
                     this.currency == other.currency &&
                     this.expiresAt == other.expiresAt &&
                     this.realTimeDecisionId == other.realTimeDecisionId &&
-                    this.digitalWalletTokenId == other.digitalWalletTokenId &&
                     this.pendingTransactionId == other.pendingTransactionId &&
                     this.type == other.type &&
                     this.additionalProperties == other.additionalProperties
@@ -1693,13 +1693,13 @@ private constructor(
                             merchantCategoryCode,
                             merchantCity,
                             merchantCountry,
+                            digitalWalletTokenId,
                             physicalCardId,
                             networkDetails,
                             amount,
                             currency,
                             expiresAt,
                             realTimeDecisionId,
-                            digitalWalletTokenId,
                             pendingTransactionId,
                             type,
                             additionalProperties,
@@ -1709,7 +1709,7 @@ private constructor(
             }
 
             override fun toString() =
-                "CardAuthorization{id=$id, merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, physicalCardId=$physicalCardId, networkDetails=$networkDetails, amount=$amount, currency=$currency, expiresAt=$expiresAt, realTimeDecisionId=$realTimeDecisionId, digitalWalletTokenId=$digitalWalletTokenId, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
+                "CardAuthorization{id=$id, merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, digitalWalletTokenId=$digitalWalletTokenId, physicalCardId=$physicalCardId, networkDetails=$networkDetails, amount=$amount, currency=$currency, expiresAt=$expiresAt, realTimeDecisionId=$realTimeDecisionId, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1724,13 +1724,13 @@ private constructor(
                 private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
                 private var merchantCity: JsonField<String> = JsonMissing.of()
                 private var merchantCountry: JsonField<String> = JsonMissing.of()
+                private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
                 private var physicalCardId: JsonField<String> = JsonMissing.of()
                 private var networkDetails: JsonField<NetworkDetails> = JsonMissing.of()
                 private var amount: JsonField<Long> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
                 private var expiresAt: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var realTimeDecisionId: JsonField<String> = JsonMissing.of()
-                private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
                 private var pendingTransactionId: JsonField<String> = JsonMissing.of()
                 private var type: JsonField<Type> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -1743,13 +1743,13 @@ private constructor(
                     this.merchantCategoryCode = cardAuthorization.merchantCategoryCode
                     this.merchantCity = cardAuthorization.merchantCity
                     this.merchantCountry = cardAuthorization.merchantCountry
+                    this.digitalWalletTokenId = cardAuthorization.digitalWalletTokenId
                     this.physicalCardId = cardAuthorization.physicalCardId
                     this.networkDetails = cardAuthorization.networkDetails
                     this.amount = cardAuthorization.amount
                     this.currency = cardAuthorization.currency
                     this.expiresAt = cardAuthorization.expiresAt
                     this.realTimeDecisionId = cardAuthorization.realTimeDecisionId
-                    this.digitalWalletTokenId = cardAuthorization.digitalWalletTokenId
                     this.pendingTransactionId = cardAuthorization.pendingTransactionId
                     this.type = cardAuthorization.type
                     additionalProperties(cardAuthorization.additionalProperties)
@@ -1827,6 +1827,23 @@ private constructor(
                 @ExcludeMissing
                 fun merchantCountry(merchantCountry: JsonField<String>) = apply {
                     this.merchantCountry = merchantCountry
+                }
+
+                /**
+                 * If the authorization was made via a Digital Wallet Token (such as an Apple Pay
+                 * purchase), the identifier of the token that was used.
+                 */
+                fun digitalWalletTokenId(digitalWalletTokenId: String) =
+                    digitalWalletTokenId(JsonField.of(digitalWalletTokenId))
+
+                /**
+                 * If the authorization was made via a Digital Wallet Token (such as an Apple Pay
+                 * purchase), the identifier of the token that was used.
+                 */
+                @JsonProperty("digital_wallet_token_id")
+                @ExcludeMissing
+                fun digitalWalletTokenId(digitalWalletTokenId: JsonField<String>) = apply {
+                    this.digitalWalletTokenId = digitalWalletTokenId
                 }
 
                 /**
@@ -1918,23 +1935,6 @@ private constructor(
                     this.realTimeDecisionId = realTimeDecisionId
                 }
 
-                /**
-                 * If the authorization was made via a Digital Wallet Token (such as an Apple Pay
-                 * purchase), the identifier of the token that was used.
-                 */
-                fun digitalWalletTokenId(digitalWalletTokenId: String) =
-                    digitalWalletTokenId(JsonField.of(digitalWalletTokenId))
-
-                /**
-                 * If the authorization was made via a Digital Wallet Token (such as an Apple Pay
-                 * purchase), the identifier of the token that was used.
-                 */
-                @JsonProperty("digital_wallet_token_id")
-                @ExcludeMissing
-                fun digitalWalletTokenId(digitalWalletTokenId: JsonField<String>) = apply {
-                    this.digitalWalletTokenId = digitalWalletTokenId
-                }
-
                 /** The identifier of the Pending Transaction associated with this Transaction. */
                 fun pendingTransactionId(pendingTransactionId: String) =
                     pendingTransactionId(JsonField.of(pendingTransactionId))
@@ -1983,13 +1983,13 @@ private constructor(
                         merchantCategoryCode,
                         merchantCity,
                         merchantCountry,
+                        digitalWalletTokenId,
                         physicalCardId,
                         networkDetails,
                         amount,
                         currency,
                         expiresAt,
                         realTimeDecisionId,
-                        digitalWalletTokenId,
                         pendingTransactionId,
                         type,
                         additionalProperties.toUnmodifiable(),
