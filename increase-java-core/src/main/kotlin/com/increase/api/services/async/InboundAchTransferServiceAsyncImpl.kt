@@ -123,7 +123,7 @@ constructor(
         val request =
             HttpRequest.builder()
                 .method(HttpMethod.POST)
-                .addPathSegments("inbound_ach_transfer", params.getPathParam(0), "transfer_returns")
+                .addPathSegments("inbound_ach_transfers", params.getPathParam(0), "transfer_return")
                 .putAllQueryParams(params.getQueryParams())
                 .putAllHeaders(clientOptions.headers)
                 .putAllHeaders(params.getHeaders())
