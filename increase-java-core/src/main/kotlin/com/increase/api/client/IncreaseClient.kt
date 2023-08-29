@@ -53,8 +53,6 @@ interface IncreaseClient {
 
     fun achTransfers(): AchTransferService
 
-    fun inboundAchTransferReturns(): InboundAchTransferReturnService
-
     fun achPrenotifications(): AchPrenotificationService
 
     fun documents(): DocumentService

@@ -34,7 +34,7 @@ interface InboundAchTransferServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<InboundAchTransfer>
 
-    /** Create an ACH Return */
+    /** Return an Inbound ACH Transfer */
     @JvmOverloads
     fun transferReturn(
         params: InboundAchTransferTransferReturnParams,
