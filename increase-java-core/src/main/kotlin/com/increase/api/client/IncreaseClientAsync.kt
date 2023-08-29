@@ -53,8 +53,6 @@ interface IncreaseClientAsync {
 
     fun achTransfers(): AchTransferServiceAsync
 
-    fun inboundAchTransferReturns(): InboundAchTransferReturnServiceAsync
-
     fun achPrenotifications(): AchPrenotificationServiceAsync
 
     fun documents(): DocumentServiceAsync

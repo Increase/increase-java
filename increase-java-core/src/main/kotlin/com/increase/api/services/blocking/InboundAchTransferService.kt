@@ -33,7 +33,7 @@ interface InboundAchTransferService {
         requestOptions: RequestOptions = RequestOptions.none()
     ): InboundAchTransfer
 
-    /** Create an ACH Return */
+    /** Return an Inbound ACH Transfer */
     @JvmOverloads
     fun transferReturn(
         params: InboundAchTransferTransferReturnParams,
