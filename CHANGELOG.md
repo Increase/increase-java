@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.9.2 (2023-08-29)
+
+Full Changelog: [v0.9.1...v0.9.2](https://github.com/Increase/increase-java/compare/v0.9.1...v0.9.2)
+
+### Features
+
+* **api:** remove unused `/inbound_ach_transfer_returns` endpoints ([#78](https://github.com/Increase/increase-java/issues/78)) ([08b2921](https://github.com/Increase/increase-java/commit/08b29215f1c5ea5f95d988a1a23843a6e20af58e))
+
+
+### Bug Fixes
+
+* **api:** move ACH Return endpoint and add digital wallet properties ([#77](https://github.com/Increase/increase-java/issues/77)) ([f481290](https://github.com/Increase/increase-java/commit/f481290971e22901de5211a6ffe9ab134b9a475b))
+
+
+### Chores
+
+* **ci:** setup workflows to create releases and release PRs ([#74](https://github.com/Increase/increase-java/issues/74)) ([b1aa07e](https://github.com/Increase/increase-java/commit/b1aa07ee5f288efa0490cbc2e12f2a5c2a2684bd))
+
 ## [0.9.1](https://github.com/Increase/increase-java/compare/v0.9.0...v0.9.1) (2023-08-27)
 
 
