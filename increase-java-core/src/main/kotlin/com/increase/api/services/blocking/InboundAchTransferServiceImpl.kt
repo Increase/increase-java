@@ -111,7 +111,7 @@ constructor(
     private val transferReturnHandler: Handler<InboundAchTransfer> =
         jsonHandler<InboundAchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-    /** Create an ACH Return */
+    /** Return an Inbound ACH Transfer */
     override fun transferReturn(
         params: InboundAchTransferTransferReturnParams,
         requestOptions: RequestOptions

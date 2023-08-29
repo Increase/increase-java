@@ -86,10 +86,6 @@ constructor(
 
     private val achTransfers: AchTransferService by lazy { AchTransferServiceImpl(clientOptions) }
 
-    private val inboundAchTransferReturns: InboundAchTransferReturnService by lazy {
-        InboundAchTransferReturnServiceImpl(clientOptions)
-    }
-
     private val achPrenotifications: AchPrenotificationService by lazy {
         AchPrenotificationServiceImpl(clientOptions)
     }
@@ -192,9 +188,6 @@ constructor(
     override fun accountTransfers(): AccountTransferService = accountTransfers
 
     override fun achTransfers(): AchTransferService = achTransfers
-
-    override fun inboundAchTransferReturns(): InboundAchTransferReturnService =
-        inboundAchTransferReturns
 
     override fun achPrenotifications(): AchPrenotificationService = achPrenotifications
 
