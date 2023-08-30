@@ -697,6 +697,7 @@ class InterestPaymentSimulationResultTest {
                                         .CheckTransferDeposit
                                         .builder()
                                         .backImageFileId("string")
+                                        .bankOfFirstDepositRoutingNumber("string")
                                         .depositedAt(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
@@ -778,12 +779,14 @@ class InterestPaymentSimulationResultTest {
                                         .receiverIdNumber("string")
                                         .receiverName("string")
                                         .traceNumber("string")
+                                        .transferId("string")
                                         .build()
                                 )
                                 .inboundCheck(
                                     InterestPaymentSimulationResult.Transaction.Source.InboundCheck
                                         .builder()
                                         .amount(123L)
+                                        .bankOfFirstDepositRoutingNumber("string")
                                         .checkFrontImageFileId("string")
                                         .checkNumber("string")
                                         .checkRearImageFileId("string")
@@ -1668,6 +1671,7 @@ class InterestPaymentSimulationResultTest {
                                     .CheckTransferDeposit
                                     .builder()
                                     .backImageFileId("string")
+                                    .bankOfFirstDepositRoutingNumber("string")
                                     .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .frontImageFileId("string")
                                     .transactionId("string")
@@ -1745,12 +1749,14 @@ class InterestPaymentSimulationResultTest {
                                     .receiverIdNumber("string")
                                     .receiverName("string")
                                     .traceNumber("string")
+                                    .transferId("string")
                                     .build()
                             )
                             .inboundCheck(
                                 InterestPaymentSimulationResult.Transaction.Source.InboundCheck
                                     .builder()
                                     .amount(123L)
+                                    .bankOfFirstDepositRoutingNumber("string")
                                     .checkFrontImageFileId("string")
                                     .checkNumber("string")
                                     .checkRearImageFileId("string")

@@ -32,6 +32,7 @@ class CheckTransferTest {
                 .deposit(
                     CheckTransfer.Deposit.builder()
                         .backImageFileId("string")
+                        .bankOfFirstDepositRoutingNumber("string")
                         .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .frontImageFileId("string")
                         .transactionId("string")
@@ -122,6 +123,7 @@ class CheckTransferTest {
             .contains(
                 CheckTransfer.Deposit.builder()
                     .backImageFileId("string")
+                    .bankOfFirstDepositRoutingNumber("string")
                     .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .frontImageFileId("string")
                     .transactionId("string")
