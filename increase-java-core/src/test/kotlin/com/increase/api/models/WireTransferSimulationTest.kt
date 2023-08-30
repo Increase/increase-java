@@ -653,6 +653,7 @@ class WireTransferSimulationTest {
                                     WireTransferSimulation.Transaction.Source.CheckTransferDeposit
                                         .builder()
                                         .backImageFileId("string")
+                                        .bankOfFirstDepositRoutingNumber("string")
                                         .depositedAt(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
@@ -730,11 +731,13 @@ class WireTransferSimulationTest {
                                         .receiverIdNumber("string")
                                         .receiverName("string")
                                         .traceNumber("string")
+                                        .transferId("string")
                                         .build()
                                 )
                                 .inboundCheck(
                                     WireTransferSimulation.Transaction.Source.InboundCheck.builder()
                                         .amount(123L)
+                                        .bankOfFirstDepositRoutingNumber("string")
                                         .checkFrontImageFileId("string")
                                         .checkNumber("string")
                                         .checkRearImageFileId("string")
@@ -1564,6 +1567,7 @@ class WireTransferSimulationTest {
                                 WireTransferSimulation.Transaction.Source.CheckTransferDeposit
                                     .builder()
                                     .backImageFileId("string")
+                                    .bankOfFirstDepositRoutingNumber("string")
                                     .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .frontImageFileId("string")
                                     .transactionId("string")
@@ -1637,11 +1641,13 @@ class WireTransferSimulationTest {
                                     .receiverIdNumber("string")
                                     .receiverName("string")
                                     .traceNumber("string")
+                                    .transferId("string")
                                     .build()
                             )
                             .inboundCheck(
                                 WireTransferSimulation.Transaction.Source.InboundCheck.builder()
                                     .amount(123L)
+                                    .bankOfFirstDepositRoutingNumber("string")
                                     .checkFrontImageFileId("string")
                                     .checkNumber("string")
                                     .checkRearImageFileId("string")
