@@ -11,6 +11,7 @@ class ExternalAccountListParamsTest {
         ExternalAccountListParams.builder()
             .cursor("string")
             .limit(123L)
+            .routingNumber("xxxxxxxxx")
             .status(
                 ExternalAccountListParams.Status.builder()
                     .in_(listOf(ExternalAccountListParams.Status.In.ACTIVE))
@@ -25,6 +26,7 @@ class ExternalAccountListParamsTest {
             ExternalAccountListParams.builder()
                 .cursor("string")
                 .limit(123L)
+                .routingNumber("xxxxxxxxx")
                 .status(
                     ExternalAccountListParams.Status.builder()
                         .in_(listOf(ExternalAccountListParams.Status.In.ACTIVE))
@@ -34,6 +36,7 @@ class ExternalAccountListParamsTest {
         val expected = mutableMapOf<String, List<String>>()
         expected.put("cursor", listOf("string"))
         expected.put("limit", listOf("123"))
+        expected.put("routing_number", listOf("xxxxxxxxx"))
         ExternalAccountListParams.Status.builder()
             .in_(listOf(ExternalAccountListParams.Status.In.ACTIVE))
             .build()

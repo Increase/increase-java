@@ -23,6 +23,7 @@ class InboundAchTransfer
 private constructor(
     private val id: JsonField<String>,
     private val amount: JsonField<Long>,
+    private val accountNumberId: JsonField<String>,
     private val direction: JsonField<Direction>,
     private val status: JsonField<Status>,
     private val originatorCompanyName: JsonField<String>,
@@ -37,6 +38,7 @@ private constructor(
     private val acceptance: JsonField<Acceptance>,
     private val decline: JsonField<Decline>,
     private val transferReturn: JsonField<TransferReturn>,
+    private val notificationOfChange: JsonField<NotificationOfChange>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -50,6 +52,9 @@ private constructor(
 
     /** The transfer amount in USD cents. */
     fun amount(): Long = amount.getRequired("amount")
+
+    /** The identifier of the Account Number to which this transfer was sent. */
+    fun accountNumberId(): String = accountNumberId.getRequired("account_number_id")
 
     /** The direction of the transfer. */
     fun direction(): Direction = direction.getRequired("direction")
@@ -107,6 +112,13 @@ private constructor(
         Optional.ofNullable(transferReturn.getNullable("transfer_return"))
 
     /**
+     * If you initiate a notification of change in response to the transfer, this will contain its
+     * details.
+     */
+    fun notificationOfChange(): Optional<NotificationOfChange> =
+        Optional.ofNullable(notificationOfChange.getNullable("notification_of_change"))
+
+    /**
      * A constant representing the object's type. For this resource it will always be
      * `inbound_ach_transfer`.
      */
@@ -117,6 +129,9 @@ private constructor(
 
     /** The transfer amount in USD cents. */
     @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+    /** The identifier of the Account Number to which this transfer was sent. */
+    @JsonProperty("account_number_id") @ExcludeMissing fun _accountNumberId() = accountNumberId
 
     /** The direction of the transfer. */
     @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
@@ -173,6 +188,14 @@ private constructor(
     @JsonProperty("transfer_return") @ExcludeMissing fun _transferReturn() = transferReturn
 
     /**
+     * If you initiate a notification of change in response to the transfer, this will contain its
+     * details.
+     */
+    @JsonProperty("notification_of_change")
+    @ExcludeMissing
+    fun _notificationOfChange() = notificationOfChange
+
+    /**
      * A constant representing the object's type. For this resource it will always be
      * `inbound_ach_transfer`.
      */
@@ -186,6 +209,7 @@ private constructor(
         if (!validated) {
             id()
             amount()
+            accountNumberId()
             direction()
             status()
             originatorCompanyName()
@@ -200,6 +224,7 @@ private constructor(
             acceptance().map { it.validate() }
             decline().map { it.validate() }
             transferReturn().map { it.validate() }
+            notificationOfChange().map { it.validate() }
             type()
             validated = true
         }
@@ -215,6 +240,7 @@ private constructor(
         return other is InboundAchTransfer &&
             this.id == other.id &&
             this.amount == other.amount &&
+            this.accountNumberId == other.accountNumberId &&
             this.direction == other.direction &&
             this.status == other.status &&
             this.originatorCompanyName == other.originatorCompanyName &&
@@ -229,6 +255,7 @@ private constructor(
             this.acceptance == other.acceptance &&
             this.decline == other.decline &&
             this.transferReturn == other.transferReturn &&
+            this.notificationOfChange == other.notificationOfChange &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -239,6 +266,7 @@ private constructor(
                 Objects.hash(
                     id,
                     amount,
+                    accountNumberId,
                     direction,
                     status,
                     originatorCompanyName,
@@ -253,6 +281,7 @@ private constructor(
                     acceptance,
                     decline,
                     transferReturn,
+                    notificationOfChange,
                     type,
                     additionalProperties,
                 )
@@ -261,7 +290,7 @@ private constructor(
     }
 
     override fun toString() =
-        "InboundAchTransfer{id=$id, amount=$amount, direction=$direction, status=$status, originatorCompanyName=$originatorCompanyName, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, traceNumber=$traceNumber, automaticallyResolvesAt=$automaticallyResolvesAt, acceptance=$acceptance, decline=$decline, transferReturn=$transferReturn, type=$type, additionalProperties=$additionalProperties}"
+        "InboundAchTransfer{id=$id, amount=$amount, accountNumberId=$accountNumberId, direction=$direction, status=$status, originatorCompanyName=$originatorCompanyName, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, traceNumber=$traceNumber, automaticallyResolvesAt=$automaticallyResolvesAt, acceptance=$acceptance, decline=$decline, transferReturn=$transferReturn, notificationOfChange=$notificationOfChange, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -272,6 +301,7 @@ private constructor(
 
         private var id: JsonField<String> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
+        private var accountNumberId: JsonField<String> = JsonMissing.of()
         private var direction: JsonField<Direction> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var originatorCompanyName: JsonField<String> = JsonMissing.of()
@@ -286,6 +316,7 @@ private constructor(
         private var acceptance: JsonField<Acceptance> = JsonMissing.of()
         private var decline: JsonField<Decline> = JsonMissing.of()
         private var transferReturn: JsonField<TransferReturn> = JsonMissing.of()
+        private var notificationOfChange: JsonField<NotificationOfChange> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -293,6 +324,7 @@ private constructor(
         internal fun from(inboundAchTransfer: InboundAchTransfer) = apply {
             this.id = inboundAchTransfer.id
             this.amount = inboundAchTransfer.amount
+            this.accountNumberId = inboundAchTransfer.accountNumberId
             this.direction = inboundAchTransfer.direction
             this.status = inboundAchTransfer.status
             this.originatorCompanyName = inboundAchTransfer.originatorCompanyName
@@ -310,6 +342,7 @@ private constructor(
             this.acceptance = inboundAchTransfer.acceptance
             this.decline = inboundAchTransfer.decline
             this.transferReturn = inboundAchTransfer.transferReturn
+            this.notificationOfChange = inboundAchTransfer.notificationOfChange
             this.type = inboundAchTransfer.type
             additionalProperties(inboundAchTransfer.additionalProperties)
         }
@@ -327,6 +360,17 @@ private constructor(
         @JsonProperty("amount")
         @ExcludeMissing
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+        /** The identifier of the Account Number to which this transfer was sent. */
+        fun accountNumberId(accountNumberId: String) =
+            accountNumberId(JsonField.of(accountNumberId))
+
+        /** The identifier of the Account Number to which this transfer was sent. */
+        @JsonProperty("account_number_id")
+        @ExcludeMissing
+        fun accountNumberId(accountNumberId: JsonField<String>) = apply {
+            this.accountNumberId = accountNumberId
+        }
 
         /** The direction of the transfer. */
         fun direction(direction: Direction) = direction(JsonField.of(direction))
@@ -468,6 +512,23 @@ private constructor(
         }
 
         /**
+         * If you initiate a notification of change in response to the transfer, this will contain
+         * its details.
+         */
+        fun notificationOfChange(notificationOfChange: NotificationOfChange) =
+            notificationOfChange(JsonField.of(notificationOfChange))
+
+        /**
+         * If you initiate a notification of change in response to the transfer, this will contain
+         * its details.
+         */
+        @JsonProperty("notification_of_change")
+        @ExcludeMissing
+        fun notificationOfChange(notificationOfChange: JsonField<NotificationOfChange>) = apply {
+            this.notificationOfChange = notificationOfChange
+        }
+
+        /**
          * A constant representing the object's type. For this resource it will always be
          * `inbound_ach_transfer`.
          */
@@ -499,6 +560,7 @@ private constructor(
             InboundAchTransfer(
                 id,
                 amount,
+                accountNumberId,
                 direction,
                 status,
                 originatorCompanyName,
@@ -513,6 +575,7 @@ private constructor(
                 acceptance,
                 decline,
                 transferReturn,
+                notificationOfChange,
                 type,
                 additionalProperties.toUnmodifiable(),
             )
@@ -988,6 +1051,144 @@ private constructor(
             }
 
         fun asString(): String = _value().asStringOrThrow()
+    }
+
+    /**
+     * If you initiate a notification of change in response to the transfer, this will contain its
+     * details.
+     */
+    @JsonDeserialize(builder = NotificationOfChange.Builder::class)
+    @NoAutoDetect
+    class NotificationOfChange
+    private constructor(
+        private val updatedAccountNumber: JsonField<String>,
+        private val updatedRoutingNumber: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        /** The new account number provided in the notification of change */
+        fun updatedAccountNumber(): Optional<String> =
+            Optional.ofNullable(updatedAccountNumber.getNullable("updated_account_number"))
+
+        /** The new account number provided in the notification of change */
+        fun updatedRoutingNumber(): Optional<String> =
+            Optional.ofNullable(updatedRoutingNumber.getNullable("updated_routing_number"))
+
+        /** The new account number provided in the notification of change */
+        @JsonProperty("updated_account_number")
+        @ExcludeMissing
+        fun _updatedAccountNumber() = updatedAccountNumber
+
+        /** The new account number provided in the notification of change */
+        @JsonProperty("updated_routing_number")
+        @ExcludeMissing
+        fun _updatedRoutingNumber() = updatedRoutingNumber
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): NotificationOfChange = apply {
+            if (!validated) {
+                updatedAccountNumber()
+                updatedRoutingNumber()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is NotificationOfChange &&
+                this.updatedAccountNumber == other.updatedAccountNumber &&
+                this.updatedRoutingNumber == other.updatedRoutingNumber &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        updatedAccountNumber,
+                        updatedRoutingNumber,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "NotificationOfChange{updatedAccountNumber=$updatedAccountNumber, updatedRoutingNumber=$updatedRoutingNumber, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var updatedAccountNumber: JsonField<String> = JsonMissing.of()
+            private var updatedRoutingNumber: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(notificationOfChange: NotificationOfChange) = apply {
+                this.updatedAccountNumber = notificationOfChange.updatedAccountNumber
+                this.updatedRoutingNumber = notificationOfChange.updatedRoutingNumber
+                additionalProperties(notificationOfChange.additionalProperties)
+            }
+
+            /** The new account number provided in the notification of change */
+            fun updatedAccountNumber(updatedAccountNumber: String) =
+                updatedAccountNumber(JsonField.of(updatedAccountNumber))
+
+            /** The new account number provided in the notification of change */
+            @JsonProperty("updated_account_number")
+            @ExcludeMissing
+            fun updatedAccountNumber(updatedAccountNumber: JsonField<String>) = apply {
+                this.updatedAccountNumber = updatedAccountNumber
+            }
+
+            /** The new account number provided in the notification of change */
+            fun updatedRoutingNumber(updatedRoutingNumber: String) =
+                updatedRoutingNumber(JsonField.of(updatedRoutingNumber))
+
+            /** The new account number provided in the notification of change */
+            @JsonProperty("updated_routing_number")
+            @ExcludeMissing
+            fun updatedRoutingNumber(updatedRoutingNumber: JsonField<String>) = apply {
+                this.updatedRoutingNumber = updatedRoutingNumber
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): NotificationOfChange =
+                NotificationOfChange(
+                    updatedAccountNumber,
+                    updatedRoutingNumber,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
     }
 
     class Status

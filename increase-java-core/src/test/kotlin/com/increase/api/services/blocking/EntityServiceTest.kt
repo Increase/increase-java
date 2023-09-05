@@ -473,4 +473,31 @@ class EntityServiceTest {
         println(entity)
         entity.validate()
     }
+
+    @Test
+    fun callUpdateAddress() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("test-api-key")
+                .build()
+        val entityService = client.entities()
+        val entity =
+            entityService.updateAddress(
+                EntityUpdateAddressParams.builder()
+                    .entityId("string")
+                    .address(
+                        EntityUpdateAddressParams.Address.builder()
+                            .city("x")
+                            .line1("x")
+                            .state("x")
+                            .zip("x")
+                            .line2("x")
+                            .build()
+                    )
+                    .build()
+            )
+        println(entity)
+        entity.validate()
+    }
 }

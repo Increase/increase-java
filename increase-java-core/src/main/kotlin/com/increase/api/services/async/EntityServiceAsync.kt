@@ -9,6 +9,7 @@ import com.increase.api.models.EntityCreateParams
 import com.increase.api.models.EntityListPageAsync
 import com.increase.api.models.EntityListParams
 import com.increase.api.models.EntityRetrieveParams
+import com.increase.api.models.EntityUpdateAddressParams
 import com.increase.api.services.async.entities.BeneficialOwnerServiceAsync
 import com.increase.api.services.async.entities.SupplementalDocumentServiceAsync
 import java.util.concurrent.CompletableFuture
@@ -44,6 +45,13 @@ interface EntityServiceAsync {
     @JvmOverloads
     fun archive(
         params: EntityArchiveParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): CompletableFuture<Entity>
+
+    /** Update a Natural Person or Corporation's address */
+    @JvmOverloads
+    fun updateAddress(
+        params: EntityUpdateAddressParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<Entity>
 }

@@ -1177,7 +1177,7 @@ private constructor(
 
         private var hashCode: Int = 0
 
-        /** The amount that was reversed. */
+        /** The amount that was reversed in USD cents. */
         fun amount(): Long = amount.getRequired("amount")
 
         /**
@@ -1186,10 +1186,13 @@ private constructor(
          */
         fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-        /** The description on the reversal message from Fedwire. */
+        /** The description on the reversal message from Fedwire, set by the reversing bank. */
         fun description(): String = description.getRequired("description")
 
-        /** The Fedwire cycle date for the wire reversal. */
+        /**
+         * The Fedwire cycle date for the wire reversal. The "Fedwire day" begins at 9:00 PM Eastern
+         * Time on the evening before the `cycle date`.
+         */
         fun inputCycleDate(): LocalDate = inputCycleDate.getRequired("input_cycle_date")
 
         /** The Fedwire sequence number. */
@@ -1208,7 +1211,7 @@ private constructor(
                 "previous_message_input_message_accountability_data"
             )
 
-        /** The Fedwire cycle date for the wire transfer that was reversed. */
+        /** The Fedwire cycle date for the wire transfer that is being reversed by this message. */
         fun previousMessageInputCycleDate(): LocalDate =
             previousMessageInputCycleDate.getRequired("previous_message_input_cycle_date")
 
@@ -1242,7 +1245,7 @@ private constructor(
         /** The ID for the Wire Transfer that is being reversed. */
         fun wireTransferId(): String = wireTransferId.getRequired("wire_transfer_id")
 
-        /** The amount that was reversed. */
+        /** The amount that was reversed in USD cents. */
         @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
         /**
@@ -1251,10 +1254,13 @@ private constructor(
          */
         @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
-        /** The description on the reversal message from Fedwire. */
+        /** The description on the reversal message from Fedwire, set by the reversing bank. */
         @JsonProperty("description") @ExcludeMissing fun _description() = description
 
-        /** The Fedwire cycle date for the wire reversal. */
+        /**
+         * The Fedwire cycle date for the wire reversal. The "Fedwire day" begins at 9:00 PM Eastern
+         * Time on the evening before the `cycle date`.
+         */
         @JsonProperty("input_cycle_date") @ExcludeMissing fun _inputCycleDate() = inputCycleDate
 
         /** The Fedwire sequence number. */
@@ -1276,7 +1282,7 @@ private constructor(
         fun _previousMessageInputMessageAccountabilityData() =
             previousMessageInputMessageAccountabilityData
 
-        /** The Fedwire cycle date for the wire transfer that was reversed. */
+        /** The Fedwire cycle date for the wire transfer that is being reversed by this message. */
         @JsonProperty("previous_message_input_cycle_date")
         @ExcludeMissing
         fun _previousMessageInputCycleDate() = previousMessageInputCycleDate
@@ -1442,10 +1448,10 @@ private constructor(
                 additionalProperties(reversal.additionalProperties)
             }
 
-            /** The amount that was reversed. */
+            /** The amount that was reversed in USD cents. */
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
-            /** The amount that was reversed. */
+            /** The amount that was reversed in USD cents. */
             @JsonProperty("amount")
             @ExcludeMissing
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
@@ -1466,21 +1472,27 @@ private constructor(
                 this.createdAt = createdAt
             }
 
-            /** The description on the reversal message from Fedwire. */
+            /** The description on the reversal message from Fedwire, set by the reversing bank. */
             fun description(description: String) = description(JsonField.of(description))
 
-            /** The description on the reversal message from Fedwire. */
+            /** The description on the reversal message from Fedwire, set by the reversing bank. */
             @JsonProperty("description")
             @ExcludeMissing
             fun description(description: JsonField<String>) = apply {
                 this.description = description
             }
 
-            /** The Fedwire cycle date for the wire reversal. */
+            /**
+             * The Fedwire cycle date for the wire reversal. The "Fedwire day" begins at 9:00 PM
+             * Eastern Time on the evening before the `cycle date`.
+             */
             fun inputCycleDate(inputCycleDate: LocalDate) =
                 inputCycleDate(JsonField.of(inputCycleDate))
 
-            /** The Fedwire cycle date for the wire reversal. */
+            /**
+             * The Fedwire cycle date for the wire reversal. The "Fedwire day" begins at 9:00 PM
+             * Eastern Time on the evening before the `cycle date`.
+             */
             @JsonProperty("input_cycle_date")
             @ExcludeMissing
             fun inputCycleDate(inputCycleDate: JsonField<LocalDate>) = apply {
@@ -1538,11 +1550,15 @@ private constructor(
                     previousMessageInputMessageAccountabilityData
             }
 
-            /** The Fedwire cycle date for the wire transfer that was reversed. */
+            /**
+             * The Fedwire cycle date for the wire transfer that is being reversed by this message.
+             */
             fun previousMessageInputCycleDate(previousMessageInputCycleDate: LocalDate) =
                 previousMessageInputCycleDate(JsonField.of(previousMessageInputCycleDate))
 
-            /** The Fedwire cycle date for the wire transfer that was reversed. */
+            /**
+             * The Fedwire cycle date for the wire transfer that is being reversed by this message.
+             */
             @JsonProperty("previous_message_input_cycle_date")
             @ExcludeMissing
             fun previousMessageInputCycleDate(previousMessageInputCycleDate: JsonField<LocalDate>) =
