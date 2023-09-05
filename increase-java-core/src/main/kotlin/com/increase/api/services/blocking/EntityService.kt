@@ -9,6 +9,7 @@ import com.increase.api.models.EntityCreateParams
 import com.increase.api.models.EntityListPage
 import com.increase.api.models.EntityListParams
 import com.increase.api.models.EntityRetrieveParams
+import com.increase.api.models.EntityUpdateAddressParams
 import com.increase.api.services.blocking.entities.BeneficialOwnerService
 import com.increase.api.services.blocking.entities.SupplementalDocumentService
 
@@ -43,6 +44,13 @@ interface EntityService {
     @JvmOverloads
     fun archive(
         params: EntityArchiveParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): Entity
+
+    /** Update a Natural Person or Corporation's address */
+    @JvmOverloads
+    fun updateAddress(
+        params: EntityUpdateAddressParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): Entity
 }

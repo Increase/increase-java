@@ -4182,13 +4182,20 @@ private constructor(
              */
             fun amount(): Long = amount.getRequired("amount")
 
+            /** The account number for the destination account. */
             fun accountNumber(): String = accountNumber.getRequired("account_number")
 
+            /**
+             * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
+             * destination account.
+             */
             fun routingNumber(): String = routingNumber.getRequired("routing_number")
 
+            /** The message that will show on the recipient's bank statement. */
             fun messageToRecipient(): String =
                 messageToRecipient.getRequired("message_to_recipient")
 
+            /** The identifier of the Wire Transfer that led to this Pending Transaction. */
             fun transferId(): String = transferId.getRequired("transfer_id")
 
             /**
@@ -4197,14 +4204,21 @@ private constructor(
              */
             @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
+            /** The account number for the destination account. */
             @JsonProperty("account_number") @ExcludeMissing fun _accountNumber() = accountNumber
 
+            /**
+             * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
+             * destination account.
+             */
             @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
 
+            /** The message that will show on the recipient's bank statement. */
             @JsonProperty("message_to_recipient")
             @ExcludeMissing
             fun _messageToRecipient() = messageToRecipient
 
+            /** The identifier of the Wire Transfer that led to this Pending Transaction. */
             @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
 
             @JsonAnyGetter
@@ -4294,35 +4308,49 @@ private constructor(
                 @ExcludeMissing
                 fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
+                /** The account number for the destination account. */
                 fun accountNumber(accountNumber: String) =
                     accountNumber(JsonField.of(accountNumber))
 
+                /** The account number for the destination account. */
                 @JsonProperty("account_number")
                 @ExcludeMissing
                 fun accountNumber(accountNumber: JsonField<String>) = apply {
                     this.accountNumber = accountNumber
                 }
 
+                /**
+                 * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
+                 * destination account.
+                 */
                 fun routingNumber(routingNumber: String) =
                     routingNumber(JsonField.of(routingNumber))
 
+                /**
+                 * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
+                 * destination account.
+                 */
                 @JsonProperty("routing_number")
                 @ExcludeMissing
                 fun routingNumber(routingNumber: JsonField<String>) = apply {
                     this.routingNumber = routingNumber
                 }
 
+                /** The message that will show on the recipient's bank statement. */
                 fun messageToRecipient(messageToRecipient: String) =
                     messageToRecipient(JsonField.of(messageToRecipient))
 
+                /** The message that will show on the recipient's bank statement. */
                 @JsonProperty("message_to_recipient")
                 @ExcludeMissing
                 fun messageToRecipient(messageToRecipient: JsonField<String>) = apply {
                     this.messageToRecipient = messageToRecipient
                 }
 
+                /** The identifier of the Wire Transfer that led to this Pending Transaction. */
                 fun transferId(transferId: String) = transferId(JsonField.of(transferId))
 
+                /** The identifier of the Wire Transfer that led to this Pending Transaction. */
                 @JsonProperty("transfer_id")
                 @ExcludeMissing
                 fun transferId(transferId: JsonField<String>) = apply {

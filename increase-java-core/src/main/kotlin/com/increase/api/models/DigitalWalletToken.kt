@@ -344,17 +344,21 @@ private constructor(
 
             @JvmField val GOOGLE_PAY = TokenRequestor(JsonField.of("google_pay"))
 
+            @JvmField val UNKNOWN = TokenRequestor(JsonField.of("unknown"))
+
             @JvmStatic fun of(value: String) = TokenRequestor(JsonField.of(value))
         }
 
         enum class Known {
             APPLE_PAY,
             GOOGLE_PAY,
+            UNKNOWN,
         }
 
         enum class Value {
             APPLE_PAY,
             GOOGLE_PAY,
+            UNKNOWN,
             _UNKNOWN,
         }
 
@@ -362,6 +366,7 @@ private constructor(
             when (this) {
                 APPLE_PAY -> Value.APPLE_PAY
                 GOOGLE_PAY -> Value.GOOGLE_PAY
+                UNKNOWN -> Value.UNKNOWN
                 else -> Value._UNKNOWN
             }
 
@@ -369,6 +374,7 @@ private constructor(
             when (this) {
                 APPLE_PAY -> Known.APPLE_PAY
                 GOOGLE_PAY -> Known.GOOGLE_PAY
+                UNKNOWN -> Known.UNKNOWN
                 else -> throw IncreaseInvalidDataException("Unknown TokenRequestor: $value")
             }
 

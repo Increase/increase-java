@@ -12,6 +12,7 @@ import com.increase.api.models.EntityCreateParams
 import com.increase.api.models.EntityListPage
 import com.increase.api.models.EntityListParams
 import com.increase.api.models.EntityRetrieveParams
+import com.increase.api.models.EntityUpdateAddressParams
 import com.increase.api.services.blocking.entities.BeneficialOwnerService
 import com.increase.api.services.blocking.entities.BeneficialOwnerServiceImpl
 import com.increase.api.services.blocking.entities.SupplementalDocumentService
@@ -132,6 +133,34 @@ constructor(
         return clientOptions.httpClient.execute(request, requestOptions).let { response ->
             response
                 .use { archiveHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
+        }
+    }
+
+    private val updateAddressHandler: Handler<Entity> =
+        jsonHandler<Entity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+    /** Update a Natural Person or Corporation's address */
+    override fun updateAddress(
+        params: EntityUpdateAddressParams,
+        requestOptions: RequestOptions
+    ): Entity {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.POST)
+                .addPathSegments("entities", params.getPathParam(0), "address")
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .body(json(clientOptions.jsonMapper, params.getBody()))
+                .build()
+        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
+            response
+                .use { updateAddressHandler.handle(it) }
                 .apply {
                     if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
                         validate()

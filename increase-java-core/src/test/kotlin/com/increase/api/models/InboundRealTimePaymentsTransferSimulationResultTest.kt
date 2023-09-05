@@ -1239,6 +1239,10 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .originatorAddressLine3("string")
                                         .originatorName("string")
                                         .originatorToBeneficiaryInformation("string")
+                                        .originatorToBeneficiaryInformationLine1("string")
+                                        .originatorToBeneficiaryInformationLine2("string")
+                                        .originatorToBeneficiaryInformationLine3("string")
+                                        .originatorToBeneficiaryInformationLine4("string")
                                         .build()
                                 )
                                 .inboundWireDrawdownPaymentReversal(
@@ -2560,6 +2564,10 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .originatorAddressLine3("string")
                                     .originatorName("string")
                                     .originatorToBeneficiaryInformation("string")
+                                    .originatorToBeneficiaryInformationLine1("string")
+                                    .originatorToBeneficiaryInformationLine2("string")
+                                    .originatorToBeneficiaryInformationLine3("string")
+                                    .originatorToBeneficiaryInformationLine4("string")
                                     .build()
                             )
                             .inboundWireDrawdownPaymentReversal(

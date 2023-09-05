@@ -35,7 +35,10 @@ class AchPrenotificationTest {
                 .prenotificationReturn(
                     AchPrenotification.PrenotificationReturn.builder()
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .returnReasonCode("string")
+                        .returnReasonCode(
+                            AchPrenotification.PrenotificationReturn.ReturnReasonCode
+                                .INSUFFICIENT_FUND
+                        )
                         .build()
                 )
                 .routingNumber("string")
@@ -70,7 +73,9 @@ class AchPrenotificationTest {
             .contains(
                 AchPrenotification.PrenotificationReturn.builder()
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .returnReasonCode("string")
+                    .returnReasonCode(
+                        AchPrenotification.PrenotificationReturn.ReturnReasonCode.INSUFFICIENT_FUND
+                    )
                     .build()
             )
         assertThat(achPrenotification.routingNumber()).isEqualTo("string")

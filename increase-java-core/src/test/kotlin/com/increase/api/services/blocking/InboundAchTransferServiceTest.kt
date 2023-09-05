@@ -57,6 +57,26 @@ class InboundAchTransferServiceTest {
     }
 
     @Test
+    fun callNotificationOfChange() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("test-api-key")
+                .build()
+        val inboundAchTransferService = client.inboundAchTransfers()
+        val inboundAchTransfer =
+            inboundAchTransferService.notificationOfChange(
+                InboundAchTransferNotificationOfChangeParams.builder()
+                    .inboundAchTransferId("string")
+                    .updatedAccountNumber("x")
+                    .updatedRoutingNumber("x")
+                    .build()
+            )
+        println(inboundAchTransfer)
+        inboundAchTransfer.validate()
+    }
+
+    @Test
     fun callTransferReturn() {
         val client =
             IncreaseOkHttpClient.builder()
