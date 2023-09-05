@@ -126,4 +126,32 @@ class BeneficialOwnerServiceTest {
         println(entity)
         entity.validate()
     }
+
+    @Test
+    fun callUpdateAddress() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("test-api-key")
+                .build()
+        val beneficialOwnerService = client.entities().beneficialOwners()
+        val entity =
+            beneficialOwnerService.updateAddress(
+                EntityBeneficialOwnerUpdateAddressParams.builder()
+                    .address(
+                        EntityBeneficialOwnerUpdateAddressParams.Address.builder()
+                            .city("x")
+                            .line1("x")
+                            .state("x")
+                            .zip("x")
+                            .line2("x")
+                            .build()
+                    )
+                    .beneficialOwnerId("string")
+                    .entityId("string")
+                    .build()
+            )
+        println(entity)
+        entity.validate()
+    }
 }

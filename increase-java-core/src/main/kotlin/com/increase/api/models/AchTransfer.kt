@@ -136,8 +136,9 @@ private constructor(
     /**
      * After the transfer is submitted to FedACH, this will contain supplemental details. Increase
      * batches transfers and submits a file to the Federal Reserve roughly every 30 minutes. The
-     * Federal Reserve processes ACH transfers during weekdays according to their (posted
-     * schedule)[https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html].
+     * Federal Reserve processes ACH transfers during weekdays according to their
+     * [posted schedule](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html)
+     * .
      */
     fun submission(): Optional<Submission> =
         Optional.ofNullable(submission.getNullable("submission"))
@@ -286,8 +287,9 @@ private constructor(
     /**
      * After the transfer is submitted to FedACH, this will contain supplemental details. Increase
      * batches transfers and submits a file to the Federal Reserve roughly every 30 minutes. The
-     * Federal Reserve processes ACH transfers during weekdays according to their (posted
-     * schedule)[https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html].
+     * Federal Reserve processes ACH transfers during weekdays according to their
+     * [posted schedule](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html)
+     * .
      */
     @JsonProperty("submission") @ExcludeMissing fun _submission() = submission
 
@@ -744,8 +746,8 @@ private constructor(
          * After the transfer is submitted to FedACH, this will contain supplemental details.
          * Increase batches transfers and submits a file to the Federal Reserve roughly every 30
          * minutes. The Federal Reserve processes ACH transfers during weekdays according to their
-         * (posted
-         * schedule)[https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html].
+         * [posted schedule](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html)
+         * .
          */
         fun submission(submission: Submission) = submission(JsonField.of(submission))
 
@@ -753,8 +755,8 @@ private constructor(
          * After the transfer is submitted to FedACH, this will contain supplemental details.
          * Increase batches transfers and submits a file to the Federal Reserve roughly every 30
          * minutes. The Federal Reserve processes ACH transfers during weekdays according to their
-         * (posted
-         * schedule)[https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html].
+         * [posted schedule](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html)
+         * .
          */
         @JsonProperty("submission")
         @ExcludeMissing
@@ -1601,10 +1603,13 @@ private constructor(
          */
         fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-        /** The type of change that occurred. */
+        /**
+         * The required type of change that is being signaled by the receiving financial
+         * institution.
+         */
         fun changeCode(): ChangeCode = changeCode.getRequired("change_code")
 
-        /** The corrected data. */
+        /** The corrected data that should be used in future ACHs to this account. */
         fun correctedData(): String = correctedData.getRequired("corrected_data")
 
         /**
@@ -1613,10 +1618,13 @@ private constructor(
          */
         @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
-        /** The type of change that occurred. */
+        /**
+         * The required type of change that is being signaled by the receiving financial
+         * institution.
+         */
         @JsonProperty("change_code") @ExcludeMissing fun _changeCode() = changeCode
 
-        /** The corrected data. */
+        /** The corrected data that should be used in future ACHs to this account. */
         @JsonProperty("corrected_data") @ExcludeMissing fun _correctedData() = correctedData
 
         @JsonAnyGetter
@@ -1698,20 +1706,26 @@ private constructor(
                 this.createdAt = createdAt
             }
 
-            /** The type of change that occurred. */
+            /**
+             * The required type of change that is being signaled by the receiving financial
+             * institution.
+             */
             fun changeCode(changeCode: ChangeCode) = changeCode(JsonField.of(changeCode))
 
-            /** The type of change that occurred. */
+            /**
+             * The required type of change that is being signaled by the receiving financial
+             * institution.
+             */
             @JsonProperty("change_code")
             @ExcludeMissing
             fun changeCode(changeCode: JsonField<ChangeCode>) = apply {
                 this.changeCode = changeCode
             }
 
-            /** The corrected data. */
+            /** The corrected data that should be used in future ACHs to this account. */
             fun correctedData(correctedData: String) = correctedData(JsonField.of(correctedData))
 
-            /** The corrected data. */
+            /** The corrected data that should be used in future ACHs to this account. */
             @JsonProperty("corrected_data")
             @ExcludeMissing
             fun correctedData(correctedData: JsonField<String>) = apply {
@@ -2901,8 +2915,9 @@ private constructor(
     /**
      * After the transfer is submitted to FedACH, this will contain supplemental details. Increase
      * batches transfers and submits a file to the Federal Reserve roughly every 30 minutes. The
-     * Federal Reserve processes ACH transfers during weekdays according to their (posted
-     * schedule)[https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html].
+     * Federal Reserve processes ACH transfers during weekdays according to their
+     * [posted schedule](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html)
+     * .
      */
     @JsonDeserialize(builder = Submission.Builder::class)
     @NoAutoDetect
@@ -2918,7 +2933,12 @@ private constructor(
 
         private var hashCode: Int = 0
 
-        /** The trace number for the submission. */
+        /**
+         * A 15 digit number recorded in the Nacha file and transmitted to the receiving bank. Along
+         * with the amount, date, and originating routing number, this can be used to identify the
+         * ACH transfer at the receiving bank. ACH trace numbers are not unique, but are
+         * [used to correlate returns](https://increase.com/documentation/ach#returns).
+         */
         fun traceNumber(): String = traceNumber.getRequired("trace_number")
 
         /** When the ACH transfer was sent to FedACH. */
@@ -2933,7 +2953,12 @@ private constructor(
         fun expectedFundsSettlementAt(): OffsetDateTime =
             expectedFundsSettlementAt.getRequired("expected_funds_settlement_at")
 
-        /** The trace number for the submission. */
+        /**
+         * A 15 digit number recorded in the Nacha file and transmitted to the receiving bank. Along
+         * with the amount, date, and originating routing number, this can be used to identify the
+         * ACH transfer at the receiving bank. ACH trace numbers are not unique, but are
+         * [used to correlate returns](https://increase.com/documentation/ach#returns).
+         */
         @JsonProperty("trace_number") @ExcludeMissing fun _traceNumber() = traceNumber
 
         /** When the ACH transfer was sent to FedACH. */
@@ -3012,10 +3037,20 @@ private constructor(
                 additionalProperties(submission.additionalProperties)
             }
 
-            /** The trace number for the submission. */
+            /**
+             * A 15 digit number recorded in the Nacha file and transmitted to the receiving bank.
+             * Along with the amount, date, and originating routing number, this can be used to
+             * identify the ACH transfer at the receiving bank. ACH trace numbers are not unique,
+             * but are [used to correlate returns](https://increase.com/documentation/ach#returns).
+             */
             fun traceNumber(traceNumber: String) = traceNumber(JsonField.of(traceNumber))
 
-            /** The trace number for the submission. */
+            /**
+             * A 15 digit number recorded in the Nacha file and transmitted to the receiving bank.
+             * Along with the amount, date, and originating routing number, this can be used to
+             * identify the ACH transfer at the receiving bank. ACH trace numbers are not unique,
+             * but are [used to correlate returns](https://increase.com/documentation/ach#returns).
+             */
             @JsonProperty("trace_number")
             @ExcludeMissing
             fun traceNumber(traceNumber: JsonField<String>) = apply {

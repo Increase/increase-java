@@ -15,6 +15,7 @@ class ExternalAccountListParams
 constructor(
     private val cursor: String?,
     private val limit: Long?,
+    private val routingNumber: String?,
     private val status: Status?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -24,6 +25,8 @@ constructor(
 
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
+    fun routingNumber(): Optional<String> = Optional.ofNullable(routingNumber)
+
     fun status(): Optional<Status> = Optional.ofNullable(status)
 
     @JvmSynthetic
@@ -31,6 +34,7 @@ constructor(
         val params = mutableMapOf<String, List<String>>()
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
+        this.routingNumber?.let { params.put("routing_number", listOf(it.toString())) }
         this.status?.forEachQueryParam { key, values -> params.put("status.$key", values) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
@@ -50,6 +54,7 @@ constructor(
         return other is ExternalAccountListParams &&
             this.cursor == other.cursor &&
             this.limit == other.limit &&
+            this.routingNumber == other.routingNumber &&
             this.status == other.status &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
@@ -59,6 +64,7 @@ constructor(
         return Objects.hash(
             cursor,
             limit,
+            routingNumber,
             status,
             additionalQueryParams,
             additionalHeaders,
@@ -66,7 +72,7 @@ constructor(
     }
 
     override fun toString() =
-        "ExternalAccountListParams{cursor=$cursor, limit=$limit, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "ExternalAccountListParams{cursor=$cursor, limit=$limit, routingNumber=$routingNumber, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -80,6 +86,7 @@ constructor(
 
         private var cursor: String? = null
         private var limit: Long? = null
+        private var routingNumber: String? = null
         private var status: Status? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -88,6 +95,7 @@ constructor(
         internal fun from(externalAccountListParams: ExternalAccountListParams) = apply {
             this.cursor = externalAccountListParams.cursor
             this.limit = externalAccountListParams.limit
+            this.routingNumber = externalAccountListParams.routingNumber
             this.status = externalAccountListParams.status
             additionalQueryParams(externalAccountListParams.additionalQueryParams)
             additionalHeaders(externalAccountListParams.additionalHeaders)
@@ -100,6 +108,9 @@ constructor(
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
         fun limit(limit: Long) = apply { this.limit = limit }
+
+        /** Filter External Accounts to those with the specified Routing Number. */
+        fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
 
         fun status(status: Status) = apply { this.status = status }
 
@@ -147,6 +158,7 @@ constructor(
             ExternalAccountListParams(
                 cursor,
                 limit,
+                routingNumber,
                 status,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),

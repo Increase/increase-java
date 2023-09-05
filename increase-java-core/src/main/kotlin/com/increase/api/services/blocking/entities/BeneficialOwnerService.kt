@@ -6,6 +6,7 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.models.Entity
 import com.increase.api.models.EntityBeneficialOwnerArchiveParams
 import com.increase.api.models.EntityBeneficialOwnerCreateParams
+import com.increase.api.models.EntityBeneficialOwnerUpdateAddressParams
 
 interface BeneficialOwnerService {
 
@@ -20,6 +21,13 @@ interface BeneficialOwnerService {
     @JvmOverloads
     fun archive(
         params: EntityBeneficialOwnerArchiveParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): Entity
+
+    /** Update the address for a beneficial owner belonging to a corporate Entity */
+    @JvmOverloads
+    fun updateAddress(
+        params: EntityBeneficialOwnerUpdateAddressParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): Entity
 }

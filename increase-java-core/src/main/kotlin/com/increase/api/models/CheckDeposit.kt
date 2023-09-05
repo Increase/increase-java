@@ -1319,6 +1319,7 @@ private constructor(
          */
         fun transactionId(): String = transactionId.getRequired("transaction_id")
 
+        /** Why this check was returned by the bank holding the account it was drawn against. */
         fun returnReason(): ReturnReason = returnReason.getRequired("return_reason")
 
         /**
@@ -1347,6 +1348,7 @@ private constructor(
          */
         @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
+        /** Why this check was returned by the bank holding the account it was drawn against. */
         @JsonProperty("return_reason") @ExcludeMissing fun _returnReason() = returnReason
 
         @JsonAnyGetter
@@ -1498,8 +1500,10 @@ private constructor(
                 this.transactionId = transactionId
             }
 
+            /** Why this check was returned by the bank holding the account it was drawn against. */
             fun returnReason(returnReason: ReturnReason) = returnReason(JsonField.of(returnReason))
 
+            /** Why this check was returned by the bank holding the account it was drawn against. */
             @JsonProperty("return_reason")
             @ExcludeMissing
             fun returnReason(returnReason: JsonField<ReturnReason>) = apply {
