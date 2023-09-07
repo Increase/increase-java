@@ -805,19 +805,37 @@ class InterestPaymentSimulationResultTest {
                                         .amount(123L)
                                         .destinationCountryCode("string")
                                         .destinationCurrencyCode("string")
-                                        .foreignExchangeIndicator("string")
+                                        .foreignExchangeIndicator(
+                                            InterestPaymentSimulationResult.Transaction.Source
+                                                .InboundInternationalAchTransfer
+                                                .ForeignExchangeIndicator
+                                                .FIXED_TO_VARIABLE
+                                        )
                                         .foreignExchangeReference("string")
-                                        .foreignExchangeReferenceIndicator("string")
+                                        .foreignExchangeReferenceIndicator(
+                                            InterestPaymentSimulationResult.Transaction.Source
+                                                .InboundInternationalAchTransfer
+                                                .ForeignExchangeReferenceIndicator
+                                                .FOREIGN_EXCHANGE_RATE
+                                        )
                                         .foreignPaymentAmount(123L)
                                         .foreignTraceNumber("string")
-                                        .internationalTransactionTypeCode("string")
+                                        .internationalTransactionTypeCode(
+                                            InterestPaymentSimulationResult.Transaction.Source
+                                                .InboundInternationalAchTransfer
+                                                .InternationalTransactionTypeCode
+                                                .ANNUITY
+                                        )
                                         .originatingCurrencyCode("string")
                                         .originatingDepositoryFinancialInstitutionBranchCountry(
                                             "string"
                                         )
                                         .originatingDepositoryFinancialInstitutionId("string")
                                         .originatingDepositoryFinancialInstitutionIdQualifier(
-                                            "string"
+                                            InterestPaymentSimulationResult.Transaction.Source
+                                                .InboundInternationalAchTransfer
+                                                .OriginatingDepositoryFinancialInstitutionIdQualifier
+                                                .NATIONAL_CLEARING_SYSTEM_NUMBER
                                         )
                                         .originatingDepositoryFinancialInstitutionName("string")
                                         .originatorCity("string")
@@ -840,7 +858,10 @@ class InterestPaymentSimulationResultTest {
                                         .receivingDepositoryFinancialInstitutionCountry("string")
                                         .receivingDepositoryFinancialInstitutionId("string")
                                         .receivingDepositoryFinancialInstitutionIdQualifier(
-                                            "string"
+                                            InterestPaymentSimulationResult.Transaction.Source
+                                                .InboundInternationalAchTransfer
+                                                .ReceivingDepositoryFinancialInstitutionIdQualifier
+                                                .NATIONAL_CLEARING_SYSTEM_NUMBER
                                         )
                                         .receivingDepositoryFinancialInstitutionName("string")
                                         .traceNumber("string")
@@ -1779,18 +1800,38 @@ class InterestPaymentSimulationResultTest {
                                     .amount(123L)
                                     .destinationCountryCode("string")
                                     .destinationCurrencyCode("string")
-                                    .foreignExchangeIndicator("string")
+                                    .foreignExchangeIndicator(
+                                        InterestPaymentSimulationResult.Transaction.Source
+                                            .InboundInternationalAchTransfer
+                                            .ForeignExchangeIndicator
+                                            .FIXED_TO_VARIABLE
+                                    )
                                     .foreignExchangeReference("string")
-                                    .foreignExchangeReferenceIndicator("string")
+                                    .foreignExchangeReferenceIndicator(
+                                        InterestPaymentSimulationResult.Transaction.Source
+                                            .InboundInternationalAchTransfer
+                                            .ForeignExchangeReferenceIndicator
+                                            .FOREIGN_EXCHANGE_RATE
+                                    )
                                     .foreignPaymentAmount(123L)
                                     .foreignTraceNumber("string")
-                                    .internationalTransactionTypeCode("string")
+                                    .internationalTransactionTypeCode(
+                                        InterestPaymentSimulationResult.Transaction.Source
+                                            .InboundInternationalAchTransfer
+                                            .InternationalTransactionTypeCode
+                                            .ANNUITY
+                                    )
                                     .originatingCurrencyCode("string")
                                     .originatingDepositoryFinancialInstitutionBranchCountry(
                                         "string"
                                     )
                                     .originatingDepositoryFinancialInstitutionId("string")
-                                    .originatingDepositoryFinancialInstitutionIdQualifier("string")
+                                    .originatingDepositoryFinancialInstitutionIdQualifier(
+                                        InterestPaymentSimulationResult.Transaction.Source
+                                            .InboundInternationalAchTransfer
+                                            .OriginatingDepositoryFinancialInstitutionIdQualifier
+                                            .NATIONAL_CLEARING_SYSTEM_NUMBER
+                                    )
                                     .originatingDepositoryFinancialInstitutionName("string")
                                     .originatorCity("string")
                                     .originatorCompanyEntryDescription("string")
@@ -1811,7 +1852,12 @@ class InterestPaymentSimulationResultTest {
                                     .receivingCompanyOrIndividualName("string")
                                     .receivingDepositoryFinancialInstitutionCountry("string")
                                     .receivingDepositoryFinancialInstitutionId("string")
-                                    .receivingDepositoryFinancialInstitutionIdQualifier("string")
+                                    .receivingDepositoryFinancialInstitutionIdQualifier(
+                                        InterestPaymentSimulationResult.Transaction.Source
+                                            .InboundInternationalAchTransfer
+                                            .ReceivingDepositoryFinancialInstitutionIdQualifier
+                                            .NATIONAL_CLEARING_SYSTEM_NUMBER
+                                    )
                                     .receivingDepositoryFinancialInstitutionName("string")
                                     .traceNumber("string")
                                     .build()

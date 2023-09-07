@@ -19,7 +19,7 @@ import java.util.Optional
 /**
  * This contains artwork and metadata relating to a Card's appearance in digital wallet apps like
  * Apple Pay and Google Pay. For more information, see our guide on
- * [digital card artwork](https://increase.com/documentation/card-art)
+ * [digital card artwork](https://increase.com/documentation/card-art).
  */
 @JsonDeserialize(builder = CardProfile.Builder::class)
 @NoAutoDetect

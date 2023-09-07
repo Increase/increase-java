@@ -53,7 +53,7 @@ interface WireTransferService {
     /**
      * Simulates the reversal of a [Wire Transfer](#wire-transfers) by the Federal Reserve due to
      * error conditions. This will also create a [Transaction](#transaction) to account for the
-     * returned funds. This Wire Transfer must first have a `status` of `complete`.'
+     * returned funds. This Wire Transfer must first have a `status` of `complete`.
      */
     @JvmOverloads
     fun reverse(
