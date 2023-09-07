@@ -124,16 +124,32 @@ class DeclinedTransactionTest {
                                 .amount(123L)
                                 .destinationCountryCode("string")
                                 .destinationCurrencyCode("string")
-                                .foreignExchangeIndicator("string")
+                                .foreignExchangeIndicator(
+                                    DeclinedTransaction.Source.InternationalAchDecline
+                                        .ForeignExchangeIndicator
+                                        .FIXED_TO_VARIABLE
+                                )
                                 .foreignExchangeReference("string")
-                                .foreignExchangeReferenceIndicator("string")
+                                .foreignExchangeReferenceIndicator(
+                                    DeclinedTransaction.Source.InternationalAchDecline
+                                        .ForeignExchangeReferenceIndicator
+                                        .FOREIGN_EXCHANGE_RATE
+                                )
                                 .foreignPaymentAmount(123L)
                                 .foreignTraceNumber("string")
-                                .internationalTransactionTypeCode("string")
+                                .internationalTransactionTypeCode(
+                                    DeclinedTransaction.Source.InternationalAchDecline
+                                        .InternationalTransactionTypeCode
+                                        .ANNUITY
+                                )
                                 .originatingCurrencyCode("string")
                                 .originatingDepositoryFinancialInstitutionBranchCountry("string")
                                 .originatingDepositoryFinancialInstitutionId("string")
-                                .originatingDepositoryFinancialInstitutionIdQualifier("string")
+                                .originatingDepositoryFinancialInstitutionIdQualifier(
+                                    DeclinedTransaction.Source.InternationalAchDecline
+                                        .OriginatingDepositoryFinancialInstitutionIdQualifier
+                                        .NATIONAL_CLEARING_SYSTEM_NUMBER
+                                )
                                 .originatingDepositoryFinancialInstitutionName("string")
                                 .originatorCity("string")
                                 .originatorCompanyEntryDescription("string")
@@ -154,7 +170,11 @@ class DeclinedTransactionTest {
                                 .receivingCompanyOrIndividualName("string")
                                 .receivingDepositoryFinancialInstitutionCountry("string")
                                 .receivingDepositoryFinancialInstitutionId("string")
-                                .receivingDepositoryFinancialInstitutionIdQualifier("string")
+                                .receivingDepositoryFinancialInstitutionIdQualifier(
+                                    DeclinedTransaction.Source.InternationalAchDecline
+                                        .ReceivingDepositoryFinancialInstitutionIdQualifier
+                                        .NATIONAL_CLEARING_SYSTEM_NUMBER
+                                )
                                 .receivingDepositoryFinancialInstitutionName("string")
                                 .traceNumber("string")
                                 .build()
@@ -296,16 +316,32 @@ class DeclinedTransactionTest {
                             .amount(123L)
                             .destinationCountryCode("string")
                             .destinationCurrencyCode("string")
-                            .foreignExchangeIndicator("string")
+                            .foreignExchangeIndicator(
+                                DeclinedTransaction.Source.InternationalAchDecline
+                                    .ForeignExchangeIndicator
+                                    .FIXED_TO_VARIABLE
+                            )
                             .foreignExchangeReference("string")
-                            .foreignExchangeReferenceIndicator("string")
+                            .foreignExchangeReferenceIndicator(
+                                DeclinedTransaction.Source.InternationalAchDecline
+                                    .ForeignExchangeReferenceIndicator
+                                    .FOREIGN_EXCHANGE_RATE
+                            )
                             .foreignPaymentAmount(123L)
                             .foreignTraceNumber("string")
-                            .internationalTransactionTypeCode("string")
+                            .internationalTransactionTypeCode(
+                                DeclinedTransaction.Source.InternationalAchDecline
+                                    .InternationalTransactionTypeCode
+                                    .ANNUITY
+                            )
                             .originatingCurrencyCode("string")
                             .originatingDepositoryFinancialInstitutionBranchCountry("string")
                             .originatingDepositoryFinancialInstitutionId("string")
-                            .originatingDepositoryFinancialInstitutionIdQualifier("string")
+                            .originatingDepositoryFinancialInstitutionIdQualifier(
+                                DeclinedTransaction.Source.InternationalAchDecline
+                                    .OriginatingDepositoryFinancialInstitutionIdQualifier
+                                    .NATIONAL_CLEARING_SYSTEM_NUMBER
+                            )
                             .originatingDepositoryFinancialInstitutionName("string")
                             .originatorCity("string")
                             .originatorCompanyEntryDescription("string")
@@ -326,7 +362,11 @@ class DeclinedTransactionTest {
                             .receivingCompanyOrIndividualName("string")
                             .receivingDepositoryFinancialInstitutionCountry("string")
                             .receivingDepositoryFinancialInstitutionId("string")
-                            .receivingDepositoryFinancialInstitutionIdQualifier("string")
+                            .receivingDepositoryFinancialInstitutionIdQualifier(
+                                DeclinedTransaction.Source.InternationalAchDecline
+                                    .ReceivingDepositoryFinancialInstitutionIdQualifier
+                                    .NATIONAL_CLEARING_SYSTEM_NUMBER
+                            )
                             .receivingDepositoryFinancialInstitutionName("string")
                             .traceNumber("string")
                             .build()

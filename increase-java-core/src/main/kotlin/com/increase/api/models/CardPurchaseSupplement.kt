@@ -958,7 +958,7 @@ private constructor(
         fun itemQuantity(): Optional<String> =
             Optional.ofNullable(itemQuantity.getNullable("item_quantity"))
 
-        /** Code indicating unit of measure (gallons, etc.) */
+        /** Code indicating unit of measure (gallons, etc.). */
         fun unitOfMeasureCode(): Optional<String> =
             Optional.ofNullable(unitOfMeasureCode.getNullable("unit_of_measure_code"))
 
@@ -995,7 +995,7 @@ private constructor(
         fun discountTreatmentCode(): Optional<DiscountTreatmentCode> =
             Optional.ofNullable(discountTreatmentCode.getNullable("discount_treatment_code"))
 
-        /** Total amount of all line items */
+        /** Total amount of all line items. */
         fun totalAmount(): Optional<Long> =
             Optional.ofNullable(totalAmount.getNullable("total_amount"))
 
@@ -1021,7 +1021,7 @@ private constructor(
         /** The number of units of the product being purchased. */
         @JsonProperty("item_quantity") @ExcludeMissing fun _itemQuantity() = itemQuantity
 
-        /** Code indicating unit of measure (gallons, etc.) */
+        /** Code indicating unit of measure (gallons, etc.). */
         @JsonProperty("unit_of_measure_code")
         @ExcludeMissing
         fun _unitOfMeasureCode() = unitOfMeasureCode
@@ -1060,7 +1060,7 @@ private constructor(
         @ExcludeMissing
         fun _discountTreatmentCode() = discountTreatmentCode
 
-        /** Total amount of all line items */
+        /** Total amount of all line items. */
         @JsonProperty("total_amount") @ExcludeMissing fun _totalAmount() = totalAmount
 
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total amount. */
@@ -1241,11 +1241,11 @@ private constructor(
                 this.itemQuantity = itemQuantity
             }
 
-            /** Code indicating unit of measure (gallons, etc.) */
+            /** Code indicating unit of measure (gallons, etc.). */
             fun unitOfMeasureCode(unitOfMeasureCode: String) =
                 unitOfMeasureCode(JsonField.of(unitOfMeasureCode))
 
-            /** Code indicating unit of measure (gallons, etc.) */
+            /** Code indicating unit of measure (gallons, etc.). */
             @JsonProperty("unit_of_measure_code")
             @ExcludeMissing
             fun unitOfMeasureCode(unitOfMeasureCode: JsonField<String>) = apply {
@@ -1341,10 +1341,10 @@ private constructor(
                     this.discountTreatmentCode = discountTreatmentCode
                 }
 
-            /** Total amount of all line items */
+            /** Total amount of all line items. */
             fun totalAmount(totalAmount: Long) = totalAmount(JsonField.of(totalAmount))
 
-            /** Total amount of all line items */
+            /** Total amount of all line items. */
             @JsonProperty("total_amount")
             @ExcludeMissing
             fun totalAmount(totalAmount: JsonField<Long>) = apply { this.totalAmount = totalAmount }

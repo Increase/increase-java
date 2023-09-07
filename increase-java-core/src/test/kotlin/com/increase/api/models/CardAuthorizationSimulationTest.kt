@@ -173,19 +173,37 @@ class CardAuthorizationSimulationTest {
                                         .amount(123L)
                                         .destinationCountryCode("string")
                                         .destinationCurrencyCode("string")
-                                        .foreignExchangeIndicator("string")
+                                        .foreignExchangeIndicator(
+                                            CardAuthorizationSimulation.DeclinedTransaction.Source
+                                                .InternationalAchDecline
+                                                .ForeignExchangeIndicator
+                                                .FIXED_TO_VARIABLE
+                                        )
                                         .foreignExchangeReference("string")
-                                        .foreignExchangeReferenceIndicator("string")
+                                        .foreignExchangeReferenceIndicator(
+                                            CardAuthorizationSimulation.DeclinedTransaction.Source
+                                                .InternationalAchDecline
+                                                .ForeignExchangeReferenceIndicator
+                                                .FOREIGN_EXCHANGE_RATE
+                                        )
                                         .foreignPaymentAmount(123L)
                                         .foreignTraceNumber("string")
-                                        .internationalTransactionTypeCode("string")
+                                        .internationalTransactionTypeCode(
+                                            CardAuthorizationSimulation.DeclinedTransaction.Source
+                                                .InternationalAchDecline
+                                                .InternationalTransactionTypeCode
+                                                .ANNUITY
+                                        )
                                         .originatingCurrencyCode("string")
                                         .originatingDepositoryFinancialInstitutionBranchCountry(
                                             "string"
                                         )
                                         .originatingDepositoryFinancialInstitutionId("string")
                                         .originatingDepositoryFinancialInstitutionIdQualifier(
-                                            "string"
+                                            CardAuthorizationSimulation.DeclinedTransaction.Source
+                                                .InternationalAchDecline
+                                                .OriginatingDepositoryFinancialInstitutionIdQualifier
+                                                .NATIONAL_CLEARING_SYSTEM_NUMBER
                                         )
                                         .originatingDepositoryFinancialInstitutionName("string")
                                         .originatorCity("string")
@@ -208,7 +226,10 @@ class CardAuthorizationSimulationTest {
                                         .receivingDepositoryFinancialInstitutionCountry("string")
                                         .receivingDepositoryFinancialInstitutionId("string")
                                         .receivingDepositoryFinancialInstitutionIdQualifier(
-                                            "string"
+                                            CardAuthorizationSimulation.DeclinedTransaction.Source
+                                                .InternationalAchDecline
+                                                .ReceivingDepositoryFinancialInstitutionIdQualifier
+                                                .NATIONAL_CLEARING_SYSTEM_NUMBER
                                         )
                                         .receivingDepositoryFinancialInstitutionName("string")
                                         .traceNumber("string")
@@ -621,18 +642,38 @@ class CardAuthorizationSimulationTest {
                                     .amount(123L)
                                     .destinationCountryCode("string")
                                     .destinationCurrencyCode("string")
-                                    .foreignExchangeIndicator("string")
+                                    .foreignExchangeIndicator(
+                                        CardAuthorizationSimulation.DeclinedTransaction.Source
+                                            .InternationalAchDecline
+                                            .ForeignExchangeIndicator
+                                            .FIXED_TO_VARIABLE
+                                    )
                                     .foreignExchangeReference("string")
-                                    .foreignExchangeReferenceIndicator("string")
+                                    .foreignExchangeReferenceIndicator(
+                                        CardAuthorizationSimulation.DeclinedTransaction.Source
+                                            .InternationalAchDecline
+                                            .ForeignExchangeReferenceIndicator
+                                            .FOREIGN_EXCHANGE_RATE
+                                    )
                                     .foreignPaymentAmount(123L)
                                     .foreignTraceNumber("string")
-                                    .internationalTransactionTypeCode("string")
+                                    .internationalTransactionTypeCode(
+                                        CardAuthorizationSimulation.DeclinedTransaction.Source
+                                            .InternationalAchDecline
+                                            .InternationalTransactionTypeCode
+                                            .ANNUITY
+                                    )
                                     .originatingCurrencyCode("string")
                                     .originatingDepositoryFinancialInstitutionBranchCountry(
                                         "string"
                                     )
                                     .originatingDepositoryFinancialInstitutionId("string")
-                                    .originatingDepositoryFinancialInstitutionIdQualifier("string")
+                                    .originatingDepositoryFinancialInstitutionIdQualifier(
+                                        CardAuthorizationSimulation.DeclinedTransaction.Source
+                                            .InternationalAchDecline
+                                            .OriginatingDepositoryFinancialInstitutionIdQualifier
+                                            .NATIONAL_CLEARING_SYSTEM_NUMBER
+                                    )
                                     .originatingDepositoryFinancialInstitutionName("string")
                                     .originatorCity("string")
                                     .originatorCompanyEntryDescription("string")
@@ -653,7 +694,12 @@ class CardAuthorizationSimulationTest {
                                     .receivingCompanyOrIndividualName("string")
                                     .receivingDepositoryFinancialInstitutionCountry("string")
                                     .receivingDepositoryFinancialInstitutionId("string")
-                                    .receivingDepositoryFinancialInstitutionIdQualifier("string")
+                                    .receivingDepositoryFinancialInstitutionIdQualifier(
+                                        CardAuthorizationSimulation.DeclinedTransaction.Source
+                                            .InternationalAchDecline
+                                            .ReceivingDepositoryFinancialInstitutionIdQualifier
+                                            .NATIONAL_CLEARING_SYSTEM_NUMBER
+                                    )
                                     .receivingDepositoryFinancialInstitutionName("string")
                                     .traceNumber("string")
                                     .build()

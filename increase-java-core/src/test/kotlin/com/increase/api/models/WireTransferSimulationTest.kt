@@ -755,19 +755,37 @@ class WireTransferSimulationTest {
                                         .amount(123L)
                                         .destinationCountryCode("string")
                                         .destinationCurrencyCode("string")
-                                        .foreignExchangeIndicator("string")
+                                        .foreignExchangeIndicator(
+                                            WireTransferSimulation.Transaction.Source
+                                                .InboundInternationalAchTransfer
+                                                .ForeignExchangeIndicator
+                                                .FIXED_TO_VARIABLE
+                                        )
                                         .foreignExchangeReference("string")
-                                        .foreignExchangeReferenceIndicator("string")
+                                        .foreignExchangeReferenceIndicator(
+                                            WireTransferSimulation.Transaction.Source
+                                                .InboundInternationalAchTransfer
+                                                .ForeignExchangeReferenceIndicator
+                                                .FOREIGN_EXCHANGE_RATE
+                                        )
                                         .foreignPaymentAmount(123L)
                                         .foreignTraceNumber("string")
-                                        .internationalTransactionTypeCode("string")
+                                        .internationalTransactionTypeCode(
+                                            WireTransferSimulation.Transaction.Source
+                                                .InboundInternationalAchTransfer
+                                                .InternationalTransactionTypeCode
+                                                .ANNUITY
+                                        )
                                         .originatingCurrencyCode("string")
                                         .originatingDepositoryFinancialInstitutionBranchCountry(
                                             "string"
                                         )
                                         .originatingDepositoryFinancialInstitutionId("string")
                                         .originatingDepositoryFinancialInstitutionIdQualifier(
-                                            "string"
+                                            WireTransferSimulation.Transaction.Source
+                                                .InboundInternationalAchTransfer
+                                                .OriginatingDepositoryFinancialInstitutionIdQualifier
+                                                .NATIONAL_CLEARING_SYSTEM_NUMBER
                                         )
                                         .originatingDepositoryFinancialInstitutionName("string")
                                         .originatorCity("string")
@@ -790,7 +808,10 @@ class WireTransferSimulationTest {
                                         .receivingDepositoryFinancialInstitutionCountry("string")
                                         .receivingDepositoryFinancialInstitutionId("string")
                                         .receivingDepositoryFinancialInstitutionIdQualifier(
-                                            "string"
+                                            WireTransferSimulation.Transaction.Source
+                                                .InboundInternationalAchTransfer
+                                                .ReceivingDepositoryFinancialInstitutionIdQualifier
+                                                .NATIONAL_CLEARING_SYSTEM_NUMBER
                                         )
                                         .receivingDepositoryFinancialInstitutionName("string")
                                         .traceNumber("string")
@@ -1669,18 +1690,38 @@ class WireTransferSimulationTest {
                                     .amount(123L)
                                     .destinationCountryCode("string")
                                     .destinationCurrencyCode("string")
-                                    .foreignExchangeIndicator("string")
+                                    .foreignExchangeIndicator(
+                                        WireTransferSimulation.Transaction.Source
+                                            .InboundInternationalAchTransfer
+                                            .ForeignExchangeIndicator
+                                            .FIXED_TO_VARIABLE
+                                    )
                                     .foreignExchangeReference("string")
-                                    .foreignExchangeReferenceIndicator("string")
+                                    .foreignExchangeReferenceIndicator(
+                                        WireTransferSimulation.Transaction.Source
+                                            .InboundInternationalAchTransfer
+                                            .ForeignExchangeReferenceIndicator
+                                            .FOREIGN_EXCHANGE_RATE
+                                    )
                                     .foreignPaymentAmount(123L)
                                     .foreignTraceNumber("string")
-                                    .internationalTransactionTypeCode("string")
+                                    .internationalTransactionTypeCode(
+                                        WireTransferSimulation.Transaction.Source
+                                            .InboundInternationalAchTransfer
+                                            .InternationalTransactionTypeCode
+                                            .ANNUITY
+                                    )
                                     .originatingCurrencyCode("string")
                                     .originatingDepositoryFinancialInstitutionBranchCountry(
                                         "string"
                                     )
                                     .originatingDepositoryFinancialInstitutionId("string")
-                                    .originatingDepositoryFinancialInstitutionIdQualifier("string")
+                                    .originatingDepositoryFinancialInstitutionIdQualifier(
+                                        WireTransferSimulation.Transaction.Source
+                                            .InboundInternationalAchTransfer
+                                            .OriginatingDepositoryFinancialInstitutionIdQualifier
+                                            .NATIONAL_CLEARING_SYSTEM_NUMBER
+                                    )
                                     .originatingDepositoryFinancialInstitutionName("string")
                                     .originatorCity("string")
                                     .originatorCompanyEntryDescription("string")
@@ -1701,7 +1742,12 @@ class WireTransferSimulationTest {
                                     .receivingCompanyOrIndividualName("string")
                                     .receivingDepositoryFinancialInstitutionCountry("string")
                                     .receivingDepositoryFinancialInstitutionId("string")
-                                    .receivingDepositoryFinancialInstitutionIdQualifier("string")
+                                    .receivingDepositoryFinancialInstitutionIdQualifier(
+                                        WireTransferSimulation.Transaction.Source
+                                            .InboundInternationalAchTransfer
+                                            .ReceivingDepositoryFinancialInstitutionIdQualifier
+                                            .NATIONAL_CLEARING_SYSTEM_NUMBER
+                                    )
                                     .receivingDepositoryFinancialInstitutionName("string")
                                     .traceNumber("string")
                                     .build()

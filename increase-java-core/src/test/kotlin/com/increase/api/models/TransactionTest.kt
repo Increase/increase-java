@@ -558,16 +558,32 @@ class TransactionTest {
                                 .amount(123L)
                                 .destinationCountryCode("string")
                                 .destinationCurrencyCode("string")
-                                .foreignExchangeIndicator("string")
+                                .foreignExchangeIndicator(
+                                    Transaction.Source.InboundInternationalAchTransfer
+                                        .ForeignExchangeIndicator
+                                        .FIXED_TO_VARIABLE
+                                )
                                 .foreignExchangeReference("string")
-                                .foreignExchangeReferenceIndicator("string")
+                                .foreignExchangeReferenceIndicator(
+                                    Transaction.Source.InboundInternationalAchTransfer
+                                        .ForeignExchangeReferenceIndicator
+                                        .FOREIGN_EXCHANGE_RATE
+                                )
                                 .foreignPaymentAmount(123L)
                                 .foreignTraceNumber("string")
-                                .internationalTransactionTypeCode("string")
+                                .internationalTransactionTypeCode(
+                                    Transaction.Source.InboundInternationalAchTransfer
+                                        .InternationalTransactionTypeCode
+                                        .ANNUITY
+                                )
                                 .originatingCurrencyCode("string")
                                 .originatingDepositoryFinancialInstitutionBranchCountry("string")
                                 .originatingDepositoryFinancialInstitutionId("string")
-                                .originatingDepositoryFinancialInstitutionIdQualifier("string")
+                                .originatingDepositoryFinancialInstitutionIdQualifier(
+                                    Transaction.Source.InboundInternationalAchTransfer
+                                        .OriginatingDepositoryFinancialInstitutionIdQualifier
+                                        .NATIONAL_CLEARING_SYSTEM_NUMBER
+                                )
                                 .originatingDepositoryFinancialInstitutionName("string")
                                 .originatorCity("string")
                                 .originatorCompanyEntryDescription("string")
@@ -588,7 +604,11 @@ class TransactionTest {
                                 .receivingCompanyOrIndividualName("string")
                                 .receivingDepositoryFinancialInstitutionCountry("string")
                                 .receivingDepositoryFinancialInstitutionId("string")
-                                .receivingDepositoryFinancialInstitutionIdQualifier("string")
+                                .receivingDepositoryFinancialInstitutionIdQualifier(
+                                    Transaction.Source.InboundInternationalAchTransfer
+                                        .ReceivingDepositoryFinancialInstitutionIdQualifier
+                                        .NATIONAL_CLEARING_SYSTEM_NUMBER
+                                )
                                 .receivingDepositoryFinancialInstitutionName("string")
                                 .traceNumber("string")
                                 .build()
@@ -1263,16 +1283,32 @@ class TransactionTest {
                             .amount(123L)
                             .destinationCountryCode("string")
                             .destinationCurrencyCode("string")
-                            .foreignExchangeIndicator("string")
+                            .foreignExchangeIndicator(
+                                Transaction.Source.InboundInternationalAchTransfer
+                                    .ForeignExchangeIndicator
+                                    .FIXED_TO_VARIABLE
+                            )
                             .foreignExchangeReference("string")
-                            .foreignExchangeReferenceIndicator("string")
+                            .foreignExchangeReferenceIndicator(
+                                Transaction.Source.InboundInternationalAchTransfer
+                                    .ForeignExchangeReferenceIndicator
+                                    .FOREIGN_EXCHANGE_RATE
+                            )
                             .foreignPaymentAmount(123L)
                             .foreignTraceNumber("string")
-                            .internationalTransactionTypeCode("string")
+                            .internationalTransactionTypeCode(
+                                Transaction.Source.InboundInternationalAchTransfer
+                                    .InternationalTransactionTypeCode
+                                    .ANNUITY
+                            )
                             .originatingCurrencyCode("string")
                             .originatingDepositoryFinancialInstitutionBranchCountry("string")
                             .originatingDepositoryFinancialInstitutionId("string")
-                            .originatingDepositoryFinancialInstitutionIdQualifier("string")
+                            .originatingDepositoryFinancialInstitutionIdQualifier(
+                                Transaction.Source.InboundInternationalAchTransfer
+                                    .OriginatingDepositoryFinancialInstitutionIdQualifier
+                                    .NATIONAL_CLEARING_SYSTEM_NUMBER
+                            )
                             .originatingDepositoryFinancialInstitutionName("string")
                             .originatorCity("string")
                             .originatorCompanyEntryDescription("string")
@@ -1293,7 +1329,11 @@ class TransactionTest {
                             .receivingCompanyOrIndividualName("string")
                             .receivingDepositoryFinancialInstitutionCountry("string")
                             .receivingDepositoryFinancialInstitutionId("string")
-                            .receivingDepositoryFinancialInstitutionIdQualifier("string")
+                            .receivingDepositoryFinancialInstitutionIdQualifier(
+                                Transaction.Source.InboundInternationalAchTransfer
+                                    .ReceivingDepositoryFinancialInstitutionIdQualifier
+                                    .NATIONAL_CLEARING_SYSTEM_NUMBER
+                            )
                             .receivingDepositoryFinancialInstitutionName("string")
                             .traceNumber("string")
                             .build()
