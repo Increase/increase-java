@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.9.3 (2023-09-07)
+
+Full Changelog: [v0.9.2...v0.9.3](https://github.com/increase/increase-java/compare/v0.9.2...v0.9.3)
+
+### Features
+
+* **api:** add bank_of_first_deposit_routing_number and transfer_id properties ([#80](https://github.com/increase/increase-java/issues/80)) ([2fff0d2](https://github.com/increase/increase-java/commit/2fff0d2fd51acd1a47d30f9e616dbe0f1c442c34))
+* **api:** add Update Address  and Create Notification Change endpoints ([#82](https://github.com/increase/increase-java/issues/82)) ([9c3264c](https://github.com/increase/increase-java/commit/9c3264cd76bfa453578975c53c24582e09f5d678))
+
+
+### Documentation
+
+* **api:** add docstrings and refine enum types ([#83](https://github.com/increase/increase-java/issues/83)) ([46bd156](https://github.com/increase/increase-java/commit/46bd156249680b657f6fc25b85b07eea2161dfa5))
+
 ## 0.9.2 (2023-08-29)
 
 Full Changelog: [v0.9.1...v0.9.2](https://github.com/Increase/increase-java/compare/v0.9.1...v0.9.2)
