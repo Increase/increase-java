@@ -169,19 +169,37 @@ class AchTransferSimulationTest {
                                         .amount(123L)
                                         .destinationCountryCode("string")
                                         .destinationCurrencyCode("string")
-                                        .foreignExchangeIndicator("string")
+                                        .foreignExchangeIndicator(
+                                            AchTransferSimulation.DeclinedTransaction.Source
+                                                .InternationalAchDecline
+                                                .ForeignExchangeIndicator
+                                                .FIXED_TO_VARIABLE
+                                        )
                                         .foreignExchangeReference("string")
-                                        .foreignExchangeReferenceIndicator("string")
+                                        .foreignExchangeReferenceIndicator(
+                                            AchTransferSimulation.DeclinedTransaction.Source
+                                                .InternationalAchDecline
+                                                .ForeignExchangeReferenceIndicator
+                                                .FOREIGN_EXCHANGE_RATE
+                                        )
                                         .foreignPaymentAmount(123L)
                                         .foreignTraceNumber("string")
-                                        .internationalTransactionTypeCode("string")
+                                        .internationalTransactionTypeCode(
+                                            AchTransferSimulation.DeclinedTransaction.Source
+                                                .InternationalAchDecline
+                                                .InternationalTransactionTypeCode
+                                                .ANNUITY
+                                        )
                                         .originatingCurrencyCode("string")
                                         .originatingDepositoryFinancialInstitutionBranchCountry(
                                             "string"
                                         )
                                         .originatingDepositoryFinancialInstitutionId("string")
                                         .originatingDepositoryFinancialInstitutionIdQualifier(
-                                            "string"
+                                            AchTransferSimulation.DeclinedTransaction.Source
+                                                .InternationalAchDecline
+                                                .OriginatingDepositoryFinancialInstitutionIdQualifier
+                                                .NATIONAL_CLEARING_SYSTEM_NUMBER
                                         )
                                         .originatingDepositoryFinancialInstitutionName("string")
                                         .originatorCity("string")
@@ -204,7 +222,10 @@ class AchTransferSimulationTest {
                                         .receivingDepositoryFinancialInstitutionCountry("string")
                                         .receivingDepositoryFinancialInstitutionId("string")
                                         .receivingDepositoryFinancialInstitutionIdQualifier(
-                                            "string"
+                                            AchTransferSimulation.DeclinedTransaction.Source
+                                                .InternationalAchDecline
+                                                .ReceivingDepositoryFinancialInstitutionIdQualifier
+                                                .NATIONAL_CLEARING_SYSTEM_NUMBER
                                         )
                                         .receivingDepositoryFinancialInstitutionName("string")
                                         .traceNumber("string")
@@ -969,19 +990,37 @@ class AchTransferSimulationTest {
                                         .amount(123L)
                                         .destinationCountryCode("string")
                                         .destinationCurrencyCode("string")
-                                        .foreignExchangeIndicator("string")
+                                        .foreignExchangeIndicator(
+                                            AchTransferSimulation.Transaction.Source
+                                                .InboundInternationalAchTransfer
+                                                .ForeignExchangeIndicator
+                                                .FIXED_TO_VARIABLE
+                                        )
                                         .foreignExchangeReference("string")
-                                        .foreignExchangeReferenceIndicator("string")
+                                        .foreignExchangeReferenceIndicator(
+                                            AchTransferSimulation.Transaction.Source
+                                                .InboundInternationalAchTransfer
+                                                .ForeignExchangeReferenceIndicator
+                                                .FOREIGN_EXCHANGE_RATE
+                                        )
                                         .foreignPaymentAmount(123L)
                                         .foreignTraceNumber("string")
-                                        .internationalTransactionTypeCode("string")
+                                        .internationalTransactionTypeCode(
+                                            AchTransferSimulation.Transaction.Source
+                                                .InboundInternationalAchTransfer
+                                                .InternationalTransactionTypeCode
+                                                .ANNUITY
+                                        )
                                         .originatingCurrencyCode("string")
                                         .originatingDepositoryFinancialInstitutionBranchCountry(
                                             "string"
                                         )
                                         .originatingDepositoryFinancialInstitutionId("string")
                                         .originatingDepositoryFinancialInstitutionIdQualifier(
-                                            "string"
+                                            AchTransferSimulation.Transaction.Source
+                                                .InboundInternationalAchTransfer
+                                                .OriginatingDepositoryFinancialInstitutionIdQualifier
+                                                .NATIONAL_CLEARING_SYSTEM_NUMBER
                                         )
                                         .originatingDepositoryFinancialInstitutionName("string")
                                         .originatorCity("string")
@@ -1004,7 +1043,10 @@ class AchTransferSimulationTest {
                                         .receivingDepositoryFinancialInstitutionCountry("string")
                                         .receivingDepositoryFinancialInstitutionId("string")
                                         .receivingDepositoryFinancialInstitutionIdQualifier(
-                                            "string"
+                                            AchTransferSimulation.Transaction.Source
+                                                .InboundInternationalAchTransfer
+                                                .ReceivingDepositoryFinancialInstitutionIdQualifier
+                                                .NATIONAL_CLEARING_SYSTEM_NUMBER
                                         )
                                         .receivingDepositoryFinancialInstitutionName("string")
                                         .traceNumber("string")
@@ -1338,18 +1380,38 @@ class AchTransferSimulationTest {
                                     .amount(123L)
                                     .destinationCountryCode("string")
                                     .destinationCurrencyCode("string")
-                                    .foreignExchangeIndicator("string")
+                                    .foreignExchangeIndicator(
+                                        AchTransferSimulation.DeclinedTransaction.Source
+                                            .InternationalAchDecline
+                                            .ForeignExchangeIndicator
+                                            .FIXED_TO_VARIABLE
+                                    )
                                     .foreignExchangeReference("string")
-                                    .foreignExchangeReferenceIndicator("string")
+                                    .foreignExchangeReferenceIndicator(
+                                        AchTransferSimulation.DeclinedTransaction.Source
+                                            .InternationalAchDecline
+                                            .ForeignExchangeReferenceIndicator
+                                            .FOREIGN_EXCHANGE_RATE
+                                    )
                                     .foreignPaymentAmount(123L)
                                     .foreignTraceNumber("string")
-                                    .internationalTransactionTypeCode("string")
+                                    .internationalTransactionTypeCode(
+                                        AchTransferSimulation.DeclinedTransaction.Source
+                                            .InternationalAchDecline
+                                            .InternationalTransactionTypeCode
+                                            .ANNUITY
+                                    )
                                     .originatingCurrencyCode("string")
                                     .originatingDepositoryFinancialInstitutionBranchCountry(
                                         "string"
                                     )
                                     .originatingDepositoryFinancialInstitutionId("string")
-                                    .originatingDepositoryFinancialInstitutionIdQualifier("string")
+                                    .originatingDepositoryFinancialInstitutionIdQualifier(
+                                        AchTransferSimulation.DeclinedTransaction.Source
+                                            .InternationalAchDecline
+                                            .OriginatingDepositoryFinancialInstitutionIdQualifier
+                                            .NATIONAL_CLEARING_SYSTEM_NUMBER
+                                    )
                                     .originatingDepositoryFinancialInstitutionName("string")
                                     .originatorCity("string")
                                     .originatorCompanyEntryDescription("string")
@@ -1370,7 +1432,12 @@ class AchTransferSimulationTest {
                                     .receivingCompanyOrIndividualName("string")
                                     .receivingDepositoryFinancialInstitutionCountry("string")
                                     .receivingDepositoryFinancialInstitutionId("string")
-                                    .receivingDepositoryFinancialInstitutionIdQualifier("string")
+                                    .receivingDepositoryFinancialInstitutionIdQualifier(
+                                        AchTransferSimulation.DeclinedTransaction.Source
+                                            .InternationalAchDecline
+                                            .ReceivingDepositoryFinancialInstitutionIdQualifier
+                                            .NATIONAL_CLEARING_SYSTEM_NUMBER
+                                    )
                                     .receivingDepositoryFinancialInstitutionName("string")
                                     .traceNumber("string")
                                     .build()
@@ -2094,18 +2161,38 @@ class AchTransferSimulationTest {
                                     .amount(123L)
                                     .destinationCountryCode("string")
                                     .destinationCurrencyCode("string")
-                                    .foreignExchangeIndicator("string")
+                                    .foreignExchangeIndicator(
+                                        AchTransferSimulation.Transaction.Source
+                                            .InboundInternationalAchTransfer
+                                            .ForeignExchangeIndicator
+                                            .FIXED_TO_VARIABLE
+                                    )
                                     .foreignExchangeReference("string")
-                                    .foreignExchangeReferenceIndicator("string")
+                                    .foreignExchangeReferenceIndicator(
+                                        AchTransferSimulation.Transaction.Source
+                                            .InboundInternationalAchTransfer
+                                            .ForeignExchangeReferenceIndicator
+                                            .FOREIGN_EXCHANGE_RATE
+                                    )
                                     .foreignPaymentAmount(123L)
                                     .foreignTraceNumber("string")
-                                    .internationalTransactionTypeCode("string")
+                                    .internationalTransactionTypeCode(
+                                        AchTransferSimulation.Transaction.Source
+                                            .InboundInternationalAchTransfer
+                                            .InternationalTransactionTypeCode
+                                            .ANNUITY
+                                    )
                                     .originatingCurrencyCode("string")
                                     .originatingDepositoryFinancialInstitutionBranchCountry(
                                         "string"
                                     )
                                     .originatingDepositoryFinancialInstitutionId("string")
-                                    .originatingDepositoryFinancialInstitutionIdQualifier("string")
+                                    .originatingDepositoryFinancialInstitutionIdQualifier(
+                                        AchTransferSimulation.Transaction.Source
+                                            .InboundInternationalAchTransfer
+                                            .OriginatingDepositoryFinancialInstitutionIdQualifier
+                                            .NATIONAL_CLEARING_SYSTEM_NUMBER
+                                    )
                                     .originatingDepositoryFinancialInstitutionName("string")
                                     .originatorCity("string")
                                     .originatorCompanyEntryDescription("string")
@@ -2126,7 +2213,12 @@ class AchTransferSimulationTest {
                                     .receivingCompanyOrIndividualName("string")
                                     .receivingDepositoryFinancialInstitutionCountry("string")
                                     .receivingDepositoryFinancialInstitutionId("string")
-                                    .receivingDepositoryFinancialInstitutionIdQualifier("string")
+                                    .receivingDepositoryFinancialInstitutionIdQualifier(
+                                        AchTransferSimulation.Transaction.Source
+                                            .InboundInternationalAchTransfer
+                                            .ReceivingDepositoryFinancialInstitutionIdQualifier
+                                            .NATIONAL_CLEARING_SYSTEM_NUMBER
+                                    )
                                     .receivingDepositoryFinancialInstitutionName("string")
                                     .traceNumber("string")
                                     .build()
