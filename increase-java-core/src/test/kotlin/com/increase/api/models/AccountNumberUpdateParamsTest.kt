@@ -10,6 +10,11 @@ class AccountNumberUpdateParamsTest {
     fun createAccountNumberUpdateParams() {
         AccountNumberUpdateParams.builder()
             .accountNumberId("string")
+            .inboundAch(
+                AccountNumberUpdateParams.InboundAch.builder()
+                    .debitStatus(AccountNumberUpdateParams.InboundAch.DebitStatus.ALLOWED)
+                    .build()
+            )
             .name("x")
             .status(AccountNumberUpdateParams.Status.ACTIVE)
             .build()
@@ -20,11 +25,22 @@ class AccountNumberUpdateParamsTest {
         val params =
             AccountNumberUpdateParams.builder()
                 .accountNumberId("string")
+                .inboundAch(
+                    AccountNumberUpdateParams.InboundAch.builder()
+                        .debitStatus(AccountNumberUpdateParams.InboundAch.DebitStatus.ALLOWED)
+                        .build()
+                )
                 .name("x")
                 .status(AccountNumberUpdateParams.Status.ACTIVE)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
+        assertThat(body.inboundAch())
+            .isEqualTo(
+                AccountNumberUpdateParams.InboundAch.builder()
+                    .debitStatus(AccountNumberUpdateParams.InboundAch.DebitStatus.ALLOWED)
+                    .build()
+            )
         assertThat(body.name()).isEqualTo("x")
         assertThat(body.status()).isEqualTo(AccountNumberUpdateParams.Status.ACTIVE)
     }

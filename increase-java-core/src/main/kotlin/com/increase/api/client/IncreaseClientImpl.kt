@@ -78,8 +78,6 @@ constructor(
         DeclinedTransactionServiceImpl(clientOptions)
     }
 
-    private val limits: LimitService by lazy { LimitServiceImpl(clientOptions) }
-
     private val accountTransfers: AccountTransferService by lazy {
         AccountTransferServiceImpl(clientOptions)
     }
@@ -182,8 +180,6 @@ constructor(
     override fun programs(): ProgramService = programs
 
     override fun declinedTransactions(): DeclinedTransactionService = declinedTransactions
-
-    override fun limits(): LimitService = limits
 
     override fun accountTransfers(): AccountTransferService = accountTransfers
 

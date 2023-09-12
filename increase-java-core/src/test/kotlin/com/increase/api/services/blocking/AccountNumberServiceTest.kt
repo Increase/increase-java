@@ -20,7 +20,15 @@ class AccountNumberServiceTest {
         val accountNumberService = client.accountNumbers()
         val accountNumber =
             accountNumberService.create(
-                AccountNumberCreateParams.builder().accountId("string").name("x").build()
+                AccountNumberCreateParams.builder()
+                    .accountId("string")
+                    .name("x")
+                    .inboundAch(
+                        AccountNumberCreateParams.InboundAch.builder()
+                            .debitStatus(AccountNumberCreateParams.InboundAch.DebitStatus.ALLOWED)
+                            .build()
+                    )
+                    .build()
             )
         println(accountNumber)
         accountNumber.validate()
@@ -54,6 +62,11 @@ class AccountNumberServiceTest {
             accountNumberService.update(
                 AccountNumberUpdateParams.builder()
                     .accountNumberId("string")
+                    .inboundAch(
+                        AccountNumberUpdateParams.InboundAch.builder()
+                            .debitStatus(AccountNumberUpdateParams.InboundAch.DebitStatus.ALLOWED)
+                            .build()
+                    )
                     .name("x")
                     .status(AccountNumberUpdateParams.Status.ACTIVE)
                     .build()

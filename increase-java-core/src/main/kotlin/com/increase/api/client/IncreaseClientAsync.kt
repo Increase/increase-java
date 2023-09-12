@@ -47,8 +47,6 @@ interface IncreaseClientAsync {
 
     fun declinedTransactions(): DeclinedTransactionServiceAsync
 
-    fun limits(): LimitServiceAsync
-
     fun accountTransfers(): AccountTransferServiceAsync
 
     fun achTransfers(): AchTransferServiceAsync
