@@ -169,7 +169,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .Source
                                                 .CheckDecline
                                                 .Reason
-                                                .ACH_ROUTE_CANCELED
+                                                .ACH_ROUTE_DISABLED
                                         )
                                         .build()
                                 )
@@ -1628,7 +1628,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .Source
                                             .CheckDecline
                                             .Reason
-                                            .ACH_ROUTE_CANCELED
+                                            .ACH_ROUTE_DISABLED
                                     )
                                     .build()
                             )

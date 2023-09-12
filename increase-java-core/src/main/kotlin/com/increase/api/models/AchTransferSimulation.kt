@@ -3355,10 +3355,10 @@ private constructor(
                     companion object {
 
                         @JvmField
-                        val ACH_ROUTE_CANCELED = Reason(JsonField.of("ach_route_canceled"))
+                        val ACH_ROUTE_DISABLED = Reason(JsonField.of("ach_route_disabled"))
 
                         @JvmField
-                        val ACH_ROUTE_DISABLED = Reason(JsonField.of("ach_route_disabled"))
+                        val ACH_ROUTE_CANCELED = Reason(JsonField.of("ach_route_canceled"))
 
                         @JvmField val BREACHES_LIMIT = Reason(JsonField.of("breaches_limit"))
 
@@ -3370,105 +3370,78 @@ private constructor(
                         val INSUFFICIENT_FUNDS = Reason(JsonField.of("insufficient_funds"))
 
                         @JvmField
-                        val UNABLE_TO_LOCATE_ACCOUNT =
-                            Reason(JsonField.of("unable_to_locate_account"))
-
-                        @JvmField val NOT_OUR_ITEM = Reason(JsonField.of("not_our_item"))
-
-                        @JvmField val UNABLE_TO_PROCESS = Reason(JsonField.of("unable_to_process"))
-
-                        @JvmField val REFER_TO_IMAGE = Reason(JsonField.of("refer_to_image"))
-
-                        @JvmField
                         val STOP_PAYMENT_REQUESTED = Reason(JsonField.of("stop_payment_requested"))
-
-                        @JvmField val RETURNED = Reason(JsonField.of("returned"))
 
                         @JvmField
                         val DUPLICATE_PRESENTMENT = Reason(JsonField.of("duplicate_presentment"))
 
                         @JvmField val NOT_AUTHORIZED = Reason(JsonField.of("not_authorized"))
 
-                        @JvmField
-                        val ALTERED_OR_FICTITIOUS = Reason(JsonField.of("altered_or_fictitious"))
+                        @JvmField val AMOUNT_MISMATCH = Reason(JsonField.of("amount_mismatch"))
+
+                        @JvmField val NOT_OUR_ITEM = Reason(JsonField.of("not_our_item"))
 
                         @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
                     }
 
                     enum class Known {
-                        ACH_ROUTE_CANCELED,
                         ACH_ROUTE_DISABLED,
+                        ACH_ROUTE_CANCELED,
                         BREACHES_LIMIT,
                         ENTITY_NOT_ACTIVE,
                         GROUP_LOCKED,
                         INSUFFICIENT_FUNDS,
-                        UNABLE_TO_LOCATE_ACCOUNT,
-                        NOT_OUR_ITEM,
-                        UNABLE_TO_PROCESS,
-                        REFER_TO_IMAGE,
                         STOP_PAYMENT_REQUESTED,
-                        RETURNED,
                         DUPLICATE_PRESENTMENT,
                         NOT_AUTHORIZED,
-                        ALTERED_OR_FICTITIOUS,
+                        AMOUNT_MISMATCH,
+                        NOT_OUR_ITEM,
                     }
 
                     enum class Value {
-                        ACH_ROUTE_CANCELED,
                         ACH_ROUTE_DISABLED,
+                        ACH_ROUTE_CANCELED,
                         BREACHES_LIMIT,
                         ENTITY_NOT_ACTIVE,
                         GROUP_LOCKED,
                         INSUFFICIENT_FUNDS,
-                        UNABLE_TO_LOCATE_ACCOUNT,
-                        NOT_OUR_ITEM,
-                        UNABLE_TO_PROCESS,
-                        REFER_TO_IMAGE,
                         STOP_PAYMENT_REQUESTED,
-                        RETURNED,
                         DUPLICATE_PRESENTMENT,
                         NOT_AUTHORIZED,
-                        ALTERED_OR_FICTITIOUS,
+                        AMOUNT_MISMATCH,
+                        NOT_OUR_ITEM,
                         _UNKNOWN,
                     }
 
                     fun value(): Value =
                         when (this) {
-                            ACH_ROUTE_CANCELED -> Value.ACH_ROUTE_CANCELED
                             ACH_ROUTE_DISABLED -> Value.ACH_ROUTE_DISABLED
+                            ACH_ROUTE_CANCELED -> Value.ACH_ROUTE_CANCELED
                             BREACHES_LIMIT -> Value.BREACHES_LIMIT
                             ENTITY_NOT_ACTIVE -> Value.ENTITY_NOT_ACTIVE
                             GROUP_LOCKED -> Value.GROUP_LOCKED
                             INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
-                            UNABLE_TO_LOCATE_ACCOUNT -> Value.UNABLE_TO_LOCATE_ACCOUNT
-                            NOT_OUR_ITEM -> Value.NOT_OUR_ITEM
-                            UNABLE_TO_PROCESS -> Value.UNABLE_TO_PROCESS
-                            REFER_TO_IMAGE -> Value.REFER_TO_IMAGE
                             STOP_PAYMENT_REQUESTED -> Value.STOP_PAYMENT_REQUESTED
-                            RETURNED -> Value.RETURNED
                             DUPLICATE_PRESENTMENT -> Value.DUPLICATE_PRESENTMENT
                             NOT_AUTHORIZED -> Value.NOT_AUTHORIZED
-                            ALTERED_OR_FICTITIOUS -> Value.ALTERED_OR_FICTITIOUS
+                            AMOUNT_MISMATCH -> Value.AMOUNT_MISMATCH
+                            NOT_OUR_ITEM -> Value.NOT_OUR_ITEM
                             else -> Value._UNKNOWN
                         }
 
                     fun known(): Known =
                         when (this) {
-                            ACH_ROUTE_CANCELED -> Known.ACH_ROUTE_CANCELED
                             ACH_ROUTE_DISABLED -> Known.ACH_ROUTE_DISABLED
+                            ACH_ROUTE_CANCELED -> Known.ACH_ROUTE_CANCELED
                             BREACHES_LIMIT -> Known.BREACHES_LIMIT
                             ENTITY_NOT_ACTIVE -> Known.ENTITY_NOT_ACTIVE
                             GROUP_LOCKED -> Known.GROUP_LOCKED
                             INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
-                            UNABLE_TO_LOCATE_ACCOUNT -> Known.UNABLE_TO_LOCATE_ACCOUNT
-                            NOT_OUR_ITEM -> Known.NOT_OUR_ITEM
-                            UNABLE_TO_PROCESS -> Known.UNABLE_TO_PROCESS
-                            REFER_TO_IMAGE -> Known.REFER_TO_IMAGE
                             STOP_PAYMENT_REQUESTED -> Known.STOP_PAYMENT_REQUESTED
-                            RETURNED -> Known.RETURNED
                             DUPLICATE_PRESENTMENT -> Known.DUPLICATE_PRESENTMENT
                             NOT_AUTHORIZED -> Known.NOT_AUTHORIZED
-                            ALTERED_OR_FICTITIOUS -> Known.ALTERED_OR_FICTITIOUS
+                            AMOUNT_MISMATCH -> Known.AMOUNT_MISMATCH
+                            NOT_OUR_ITEM -> Known.NOT_OUR_ITEM
                             else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                         }
 

@@ -47,8 +47,6 @@ interface IncreaseClient {
 
     fun declinedTransactions(): DeclinedTransactionService
 
-    fun limits(): LimitService
-
     fun accountTransfers(): AccountTransferService
 
     fun achTransfers(): AchTransferService

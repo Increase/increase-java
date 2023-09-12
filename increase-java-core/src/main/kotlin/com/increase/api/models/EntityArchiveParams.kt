@@ -86,7 +86,10 @@ constructor(
             additionalBodyProperties(entityArchiveParams.additionalBodyProperties)
         }
 
-        /** The identifier of the Entity to archive. */
+        /**
+         * The identifier of the Entity to archive. Any accounts associated with an entity must be
+         * closed before the entity can be archived.
+         */
         fun entityId(entityId: String) = apply { this.entityId = entityId }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {

@@ -8,16 +8,39 @@ class AccountNumberCreateParamsTest {
 
     @Test
     fun createAccountNumberCreateParams() {
-        AccountNumberCreateParams.builder().accountId("string").name("x").build()
+        AccountNumberCreateParams.builder()
+            .accountId("string")
+            .name("x")
+            .inboundAch(
+                AccountNumberCreateParams.InboundAch.builder()
+                    .debitStatus(AccountNumberCreateParams.InboundAch.DebitStatus.ALLOWED)
+                    .build()
+            )
+            .build()
     }
 
     @Test
     fun getBody() {
-        val params = AccountNumberCreateParams.builder().accountId("string").name("x").build()
+        val params =
+            AccountNumberCreateParams.builder()
+                .accountId("string")
+                .name("x")
+                .inboundAch(
+                    AccountNumberCreateParams.InboundAch.builder()
+                        .debitStatus(AccountNumberCreateParams.InboundAch.DebitStatus.ALLOWED)
+                        .build()
+                )
+                .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("string")
         assertThat(body.name()).isEqualTo("x")
+        assertThat(body.inboundAch())
+            .isEqualTo(
+                AccountNumberCreateParams.InboundAch.builder()
+                    .debitStatus(AccountNumberCreateParams.InboundAch.DebitStatus.ALLOWED)
+                    .build()
+            )
     }
 
     @Test
