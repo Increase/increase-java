@@ -137,7 +137,7 @@ class CardAuthorizationSimulationTest {
                                             CardAuthorizationSimulation.DeclinedTransaction.Source
                                                 .CheckDecline
                                                 .Reason
-                                                .ACH_ROUTE_CANCELED
+                                                .ACH_ROUTE_DISABLED
                                         )
                                         .build()
                                 )
@@ -606,7 +606,7 @@ class CardAuthorizationSimulationTest {
                                         CardAuthorizationSimulation.DeclinedTransaction.Source
                                             .CheckDecline
                                             .Reason
-                                            .ACH_ROUTE_CANCELED
+                                            .ACH_ROUTE_DISABLED
                                     )
                                     .build()
                             )

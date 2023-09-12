@@ -32,6 +32,7 @@ private constructor(
     private val name: JsonField<String>,
     private val routingNumber: JsonField<String>,
     private val status: JsonField<Status>,
+    private val inboundAch: JsonField<InboundAch>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -64,6 +65,9 @@ private constructor(
     /** This indicates if payments can be made to the Account Number. */
     fun status(): Status = status.getRequired("status")
 
+    /** Properties related to how this Account Number handles inbound ACH transfers. */
+    fun inboundAch(): InboundAch = inboundAch.getRequired("inbound_ach")
+
     /**
      * A constant representing the object's type. For this resource it will always be
      * `account_number`.
@@ -94,6 +98,9 @@ private constructor(
     /** This indicates if payments can be made to the Account Number. */
     @JsonProperty("status") @ExcludeMissing fun _status() = status
 
+    /** Properties related to how this Account Number handles inbound ACH transfers. */
+    @JsonProperty("inbound_ach") @ExcludeMissing fun _inboundAch() = inboundAch
+
     /**
      * A constant representing the object's type. For this resource it will always be
      * `account_number`.
@@ -113,6 +120,7 @@ private constructor(
             name()
             routingNumber()
             status()
+            inboundAch().validate()
             type()
             validated = true
         }
@@ -133,6 +141,7 @@ private constructor(
             this.name == other.name &&
             this.routingNumber == other.routingNumber &&
             this.status == other.status &&
+            this.inboundAch == other.inboundAch &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -148,6 +157,7 @@ private constructor(
                     name,
                     routingNumber,
                     status,
+                    inboundAch,
                     type,
                     additionalProperties,
                 )
@@ -156,7 +166,7 @@ private constructor(
     }
 
     override fun toString() =
-        "AccountNumber{accountId=$accountId, accountNumber=$accountNumber, id=$id, createdAt=$createdAt, name=$name, routingNumber=$routingNumber, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "AccountNumber{accountId=$accountId, accountNumber=$accountNumber, id=$id, createdAt=$createdAt, name=$name, routingNumber=$routingNumber, status=$status, inboundAch=$inboundAch, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -172,6 +182,7 @@ private constructor(
         private var name: JsonField<String> = JsonMissing.of()
         private var routingNumber: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
+        private var inboundAch: JsonField<InboundAch> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -184,6 +195,7 @@ private constructor(
             this.name = accountNumber.name
             this.routingNumber = accountNumber.routingNumber
             this.status = accountNumber.status
+            this.inboundAch = accountNumber.inboundAch
             this.type = accountNumber.type
             additionalProperties(accountNumber.additionalProperties)
         }
@@ -252,6 +264,14 @@ private constructor(
         @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
+        /** Properties related to how this Account Number handles inbound ACH transfers. */
+        fun inboundAch(inboundAch: InboundAch) = inboundAch(JsonField.of(inboundAch))
+
+        /** Properties related to how this Account Number handles inbound ACH transfers. */
+        @JsonProperty("inbound_ach")
+        @ExcludeMissing
+        fun inboundAch(inboundAch: JsonField<InboundAch>) = apply { this.inboundAch = inboundAch }
+
         /**
          * A constant representing the object's type. For this resource it will always be
          * `account_number`.
@@ -289,9 +309,175 @@ private constructor(
                 name,
                 routingNumber,
                 status,
+                inboundAch,
                 type,
                 additionalProperties.toUnmodifiable(),
             )
+    }
+
+    /** Properties related to how this Account Number handles inbound ACH transfers. */
+    @JsonDeserialize(builder = InboundAch.Builder::class)
+    @NoAutoDetect
+    class InboundAch
+    private constructor(
+        private val debitStatus: JsonField<DebitStatus>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        /**
+         * Whether ACH debits are allowed against this Account Number. Note that they will still be
+         * declined if this is `allowed` if the Account Number is not active.
+         */
+        fun debitStatus(): DebitStatus = debitStatus.getRequired("debit_status")
+
+        /**
+         * Whether ACH debits are allowed against this Account Number. Note that they will still be
+         * declined if this is `allowed` if the Account Number is not active.
+         */
+        @JsonProperty("debit_status") @ExcludeMissing fun _debitStatus() = debitStatus
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): InboundAch = apply {
+            if (!validated) {
+                debitStatus()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is InboundAch &&
+                this.debitStatus == other.debitStatus &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(debitStatus, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "InboundAch{debitStatus=$debitStatus, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var debitStatus: JsonField<DebitStatus> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(inboundAch: InboundAch) = apply {
+                this.debitStatus = inboundAch.debitStatus
+                additionalProperties(inboundAch.additionalProperties)
+            }
+
+            /**
+             * Whether ACH debits are allowed against this Account Number. Note that they will still
+             * be declined if this is `allowed` if the Account Number is not active.
+             */
+            fun debitStatus(debitStatus: DebitStatus) = debitStatus(JsonField.of(debitStatus))
+
+            /**
+             * Whether ACH debits are allowed against this Account Number. Note that they will still
+             * be declined if this is `allowed` if the Account Number is not active.
+             */
+            @JsonProperty("debit_status")
+            @ExcludeMissing
+            fun debitStatus(debitStatus: JsonField<DebitStatus>) = apply {
+                this.debitStatus = debitStatus
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): InboundAch = InboundAch(debitStatus, additionalProperties.toUnmodifiable())
+        }
+
+        class DebitStatus
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is DebitStatus && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                @JvmField val ALLOWED = DebitStatus(JsonField.of("allowed"))
+
+                @JvmField val BLOCKED = DebitStatus(JsonField.of("blocked"))
+
+                @JvmStatic fun of(value: String) = DebitStatus(JsonField.of(value))
+            }
+
+            enum class Known {
+                ALLOWED,
+                BLOCKED,
+            }
+
+            enum class Value {
+                ALLOWED,
+                BLOCKED,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    ALLOWED -> Value.ALLOWED
+                    BLOCKED -> Value.BLOCKED
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    ALLOWED -> Known.ALLOWED
+                    BLOCKED -> Known.BLOCKED
+                    else -> throw IncreaseInvalidDataException("Unknown DebitStatus: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
     }
 
     class Status

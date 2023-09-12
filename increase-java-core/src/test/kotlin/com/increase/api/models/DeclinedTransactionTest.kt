@@ -91,7 +91,7 @@ class DeclinedTransactionTest {
                                 .auxiliaryOnUs("string")
                                 .reason(
                                     DeclinedTransaction.Source.CheckDecline.Reason
-                                        .ACH_ROUTE_CANCELED
+                                        .ACH_ROUTE_DISABLED
                                 )
                                 .build()
                         )
@@ -286,7 +286,7 @@ class DeclinedTransactionTest {
                             .amount(123L)
                             .auxiliaryOnUs("string")
                             .reason(
-                                DeclinedTransaction.Source.CheckDecline.Reason.ACH_ROUTE_CANCELED
+                                DeclinedTransaction.Source.CheckDecline.Reason.ACH_ROUTE_DISABLED
                             )
                             .build()
                     )
