@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.10.0 (2023-09-12)
+
+Full Changelog: [v0.9.3...v0.10.0](https://github.com/increase/increase-java/compare/v0.9.3...v0.10.0)
+
+### ⚠ BREAKING CHANGES
+
+* **api:** remove Limits API, add ACH controls to Account Numbers   ([#84](https://github.com/increase/increase-java/issues/84))
+
+### Features
+
+* **api:** remove Limits API, add ACH controls to Account Numbers   ([#84](https://github.com/increase/increase-java/issues/84)) ([d16d5a0](https://github.com/increase/increase-java/commit/d16d5a05f9ad9f7094960830a27e0ec47cfb4490))
+
 ## 0.9.3 (2023-09-07)
 
 Full Changelog: [v0.9.2...v0.9.3](https://github.com/increase/increase-java/compare/v0.9.2...v0.9.3)
