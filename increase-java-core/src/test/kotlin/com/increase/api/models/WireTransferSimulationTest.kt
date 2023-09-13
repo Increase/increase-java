@@ -85,6 +85,7 @@ class WireTransferSimulationTest {
                                     WireTransferSimulation.Transaction.Source.CardRefund.builder()
                                         .id("string")
                                         .amount(123L)
+                                        .cardPaymentId("string")
                                         .currency(
                                             WireTransferSimulation.Transaction.Source.CardRefund
                                                 .Currency
@@ -355,6 +356,7 @@ class WireTransferSimulationTest {
                                         .id("string")
                                         .amount(123L)
                                         .cardAuthorization("string")
+                                        .cardPaymentId("string")
                                         .currency(
                                             WireTransferSimulation.Transaction.Source.CardSettlement
                                                 .Currency
@@ -1067,6 +1069,7 @@ class WireTransferSimulationTest {
                                 WireTransferSimulation.Transaction.Source.CardRefund.builder()
                                     .id("string")
                                     .amount(123L)
+                                    .cardPaymentId("string")
                                     .currency(
                                         WireTransferSimulation.Transaction.Source.CardRefund
                                             .Currency
@@ -1313,6 +1316,7 @@ class WireTransferSimulationTest {
                                     .id("string")
                                     .amount(123L)
                                     .cardAuthorization("string")
+                                    .cardPaymentId("string")
                                     .currency(
                                         WireTransferSimulation.Transaction.Source.CardSettlement
                                             .Currency

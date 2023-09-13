@@ -39,7 +39,9 @@ class DeclinedTransactionTest {
                         )
                         .cardDecline(
                             DeclinedTransaction.Source.CardDecline.builder()
+                                .id("string")
                                 .amount(123L)
+                                .cardPaymentId("string")
                                 .currency(DeclinedTransaction.Source.CardDecline.Currency.CAD)
                                 .digitalWalletTokenId("string")
                                 .merchantAcceptorId("string")
@@ -238,7 +240,9 @@ class DeclinedTransactionTest {
                     )
                     .cardDecline(
                         DeclinedTransaction.Source.CardDecline.builder()
+                            .id("string")
                             .amount(123L)
+                            .cardPaymentId("string")
                             .currency(DeclinedTransaction.Source.CardDecline.Currency.CAD)
                             .digitalWalletTokenId("string")
                             .merchantAcceptorId("string")
