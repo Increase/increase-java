@@ -55,7 +55,9 @@ class CardAuthorizationSimulationTest {
                                     CardAuthorizationSimulation.DeclinedTransaction.Source
                                         .CardDecline
                                         .builder()
+                                        .id("string")
                                         .amount(123L)
+                                        .cardPaymentId("string")
                                         .currency(
                                             CardAuthorizationSimulation.DeclinedTransaction.Source
                                                 .CardDecline
@@ -314,6 +316,7 @@ class CardAuthorizationSimulationTest {
                                         .builder()
                                         .id("string")
                                         .amount(123L)
+                                        .cardPaymentId("string")
                                         .currency(
                                             CardAuthorizationSimulation.PendingTransaction.Source
                                                 .CardAuthorization
@@ -525,7 +528,9 @@ class CardAuthorizationSimulationTest {
                             .cardDecline(
                                 CardAuthorizationSimulation.DeclinedTransaction.Source.CardDecline
                                     .builder()
+                                    .id("string")
                                     .amount(123L)
+                                    .cardPaymentId("string")
                                     .currency(
                                         CardAuthorizationSimulation.DeclinedTransaction.Source
                                             .CardDecline
@@ -780,6 +785,7 @@ class CardAuthorizationSimulationTest {
                                     .builder()
                                     .id("string")
                                     .amount(123L)
+                                    .cardPaymentId("string")
                                     .currency(
                                         CardAuthorizationSimulation.PendingTransaction.Source
                                             .CardAuthorization

@@ -1491,6 +1491,8 @@ private constructor(
             private val digitalWalletTokenId: JsonField<String>,
             private val physicalCardId: JsonField<String>,
             private val networkDetails: JsonField<NetworkDetails>,
+            private val id: JsonField<String>,
+            private val cardPaymentId: JsonField<String>,
             private val amount: JsonField<Long>,
             private val currency: JsonField<Currency>,
             private val reason: JsonField<Reason>,
@@ -1544,6 +1546,13 @@ private constructor(
 
             /** Fields specific to the `network`. */
             fun networkDetails(): NetworkDetails = networkDetails.getRequired("network_details")
+
+            /** The Card Decline identifier. */
+            fun id(): String = id.getRequired("id")
+
+            /** The ID of the Card Payment this transaction belongs to. */
+            fun cardPaymentId(): Optional<String> =
+                Optional.ofNullable(cardPaymentId.getNullable("card_payment_id"))
 
             /**
              * The declined amount in the minor unit of the destination account currency. For
@@ -1616,6 +1625,12 @@ private constructor(
             /** Fields specific to the `network`. */
             @JsonProperty("network_details") @ExcludeMissing fun _networkDetails() = networkDetails
 
+            /** The Card Decline identifier. */
+            @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+            /** The ID of the Card Payment this transaction belongs to. */
+            @JsonProperty("card_payment_id") @ExcludeMissing fun _cardPaymentId() = cardPaymentId
+
             /**
              * The declined amount in the minor unit of the destination account currency. For
              * dollars, for example, this is cents.
@@ -1655,6 +1670,8 @@ private constructor(
                     digitalWalletTokenId()
                     physicalCardId()
                     networkDetails().validate()
+                    id()
+                    cardPaymentId()
                     amount()
                     currency()
                     reason()
@@ -1680,6 +1697,8 @@ private constructor(
                     this.digitalWalletTokenId == other.digitalWalletTokenId &&
                     this.physicalCardId == other.physicalCardId &&
                     this.networkDetails == other.networkDetails &&
+                    this.id == other.id &&
+                    this.cardPaymentId == other.cardPaymentId &&
                     this.amount == other.amount &&
                     this.currency == other.currency &&
                     this.reason == other.reason &&
@@ -1700,6 +1719,8 @@ private constructor(
                             digitalWalletTokenId,
                             physicalCardId,
                             networkDetails,
+                            id,
+                            cardPaymentId,
                             amount,
                             currency,
                             reason,
@@ -1712,7 +1733,7 @@ private constructor(
             }
 
             override fun toString() =
-                "CardDecline{merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, digitalWalletTokenId=$digitalWalletTokenId, physicalCardId=$physicalCardId, networkDetails=$networkDetails, amount=$amount, currency=$currency, reason=$reason, merchantState=$merchantState, realTimeDecisionId=$realTimeDecisionId, additionalProperties=$additionalProperties}"
+                "CardDecline{merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, digitalWalletTokenId=$digitalWalletTokenId, physicalCardId=$physicalCardId, networkDetails=$networkDetails, id=$id, cardPaymentId=$cardPaymentId, amount=$amount, currency=$currency, reason=$reason, merchantState=$merchantState, realTimeDecisionId=$realTimeDecisionId, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1729,6 +1750,8 @@ private constructor(
                 private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
                 private var physicalCardId: JsonField<String> = JsonMissing.of()
                 private var networkDetails: JsonField<NetworkDetails> = JsonMissing.of()
+                private var id: JsonField<String> = JsonMissing.of()
+                private var cardPaymentId: JsonField<String> = JsonMissing.of()
                 private var amount: JsonField<Long> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
                 private var reason: JsonField<Reason> = JsonMissing.of()
@@ -1746,6 +1769,8 @@ private constructor(
                     this.digitalWalletTokenId = cardDecline.digitalWalletTokenId
                     this.physicalCardId = cardDecline.physicalCardId
                     this.networkDetails = cardDecline.networkDetails
+                    this.id = cardDecline.id
+                    this.cardPaymentId = cardDecline.cardPaymentId
                     this.amount = cardDecline.amount
                     this.currency = cardDecline.currency
                     this.reason = cardDecline.reason
@@ -1865,6 +1890,25 @@ private constructor(
                     this.networkDetails = networkDetails
                 }
 
+                /** The Card Decline identifier. */
+                fun id(id: String) = id(JsonField.of(id))
+
+                /** The Card Decline identifier. */
+                @JsonProperty("id")
+                @ExcludeMissing
+                fun id(id: JsonField<String>) = apply { this.id = id }
+
+                /** The ID of the Card Payment this transaction belongs to. */
+                fun cardPaymentId(cardPaymentId: String) =
+                    cardPaymentId(JsonField.of(cardPaymentId))
+
+                /** The ID of the Card Payment this transaction belongs to. */
+                @JsonProperty("card_payment_id")
+                @ExcludeMissing
+                fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
+                    this.cardPaymentId = cardPaymentId
+                }
+
                 /**
                  * The declined amount in the minor unit of the destination account currency. For
                  * dollars, for example, this is cents.
@@ -1954,6 +1998,8 @@ private constructor(
                         digitalWalletTokenId,
                         physicalCardId,
                         networkDetails,
+                        id,
+                        cardPaymentId,
                         amount,
                         currency,
                         reason,

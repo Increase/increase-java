@@ -3530,6 +3530,7 @@ private constructor(
         class CardRefund
         private constructor(
             private val id: JsonField<String>,
+            private val cardPaymentId: JsonField<String>,
             private val amount: JsonField<Long>,
             private val currency: JsonField<Currency>,
             private val merchantAcceptorId: JsonField<String>,
@@ -3550,6 +3551,10 @@ private constructor(
 
             /** The Card Refund identifier. */
             fun id(): String = id.getRequired("id")
+
+            /** The ID of the Card Payment this transaction belongs to. */
+            fun cardPaymentId(): Optional<String> =
+                Optional.ofNullable(cardPaymentId.getNullable("card_payment_id"))
 
             /**
              * The pending amount in the minor unit of the transaction's currency. For dollars, for
@@ -3606,6 +3611,9 @@ private constructor(
 
             /** The Card Refund identifier. */
             @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+            /** The ID of the Card Payment this transaction belongs to. */
+            @JsonProperty("card_payment_id") @ExcludeMissing fun _cardPaymentId() = cardPaymentId
 
             /**
              * The pending amount in the minor unit of the transaction's currency. For dollars, for
@@ -3669,6 +3677,7 @@ private constructor(
             fun validate(): CardRefund = apply {
                 if (!validated) {
                     id()
+                    cardPaymentId()
                     amount()
                     currency()
                     merchantAcceptorId()
@@ -3693,6 +3702,7 @@ private constructor(
 
                 return other is CardRefund &&
                     this.id == other.id &&
+                    this.cardPaymentId == other.cardPaymentId &&
                     this.amount == other.amount &&
                     this.currency == other.currency &&
                     this.merchantAcceptorId == other.merchantAcceptorId &&
@@ -3712,6 +3722,7 @@ private constructor(
                     hashCode =
                         Objects.hash(
                             id,
+                            cardPaymentId,
                             amount,
                             currency,
                             merchantAcceptorId,
@@ -3730,7 +3741,7 @@ private constructor(
             }
 
             override fun toString() =
-                "CardRefund{id=$id, amount=$amount, currency=$currency, merchantAcceptorId=$merchantAcceptorId, merchantCity=$merchantCity, merchantState=$merchantState, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantCategoryCode=$merchantCategoryCode, purchaseDetails=$purchaseDetails, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+                "CardRefund{id=$id, cardPaymentId=$cardPaymentId, amount=$amount, currency=$currency, merchantAcceptorId=$merchantAcceptorId, merchantCity=$merchantCity, merchantState=$merchantState, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantCategoryCode=$merchantCategoryCode, purchaseDetails=$purchaseDetails, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -3740,6 +3751,7 @@ private constructor(
             class Builder {
 
                 private var id: JsonField<String> = JsonMissing.of()
+                private var cardPaymentId: JsonField<String> = JsonMissing.of()
                 private var amount: JsonField<Long> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
                 private var merchantAcceptorId: JsonField<String> = JsonMissing.of()
@@ -3756,6 +3768,7 @@ private constructor(
                 @JvmSynthetic
                 internal fun from(cardRefund: CardRefund) = apply {
                     this.id = cardRefund.id
+                    this.cardPaymentId = cardRefund.cardPaymentId
                     this.amount = cardRefund.amount
                     this.currency = cardRefund.currency
                     this.merchantAcceptorId = cardRefund.merchantAcceptorId
@@ -3777,6 +3790,17 @@ private constructor(
                 @JsonProperty("id")
                 @ExcludeMissing
                 fun id(id: JsonField<String>) = apply { this.id = id }
+
+                /** The ID of the Card Payment this transaction belongs to. */
+                fun cardPaymentId(cardPaymentId: String) =
+                    cardPaymentId(JsonField.of(cardPaymentId))
+
+                /** The ID of the Card Payment this transaction belongs to. */
+                @JsonProperty("card_payment_id")
+                @ExcludeMissing
+                fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
+                    this.cardPaymentId = cardPaymentId
+                }
 
                 /**
                  * The pending amount in the minor unit of the transaction's currency. For dollars,
@@ -3936,6 +3960,7 @@ private constructor(
                 fun build(): CardRefund =
                     CardRefund(
                         id,
+                        cardPaymentId,
                         amount,
                         currency,
                         merchantAcceptorId,
@@ -8145,6 +8170,7 @@ private constructor(
         class CardSettlement
         private constructor(
             private val id: JsonField<String>,
+            private val cardPaymentId: JsonField<String>,
             private val cardAuthorization: JsonField<String>,
             private val amount: JsonField<Long>,
             private val currency: JsonField<Currency>,
@@ -8170,8 +8196,12 @@ private constructor(
             /** The Card Settlement identifier. */
             fun id(): String = id.getRequired("id")
 
+            /** The ID of the Card Payment this transaction belongs to. */
+            fun cardPaymentId(): Optional<String> =
+                Optional.ofNullable(cardPaymentId.getNullable("card_payment_id"))
+
             /**
-             * The Card Authorization that was created prior to this Card Settlement, if on exists.
+             * The Card Authorization that was created prior to this Card Settlement, if one exists.
              */
             fun cardAuthorization(): Optional<String> =
                 Optional.ofNullable(cardAuthorization.getNullable("card_authorization"))
@@ -8246,8 +8276,11 @@ private constructor(
             /** The Card Settlement identifier. */
             @JsonProperty("id") @ExcludeMissing fun _id() = id
 
+            /** The ID of the Card Payment this transaction belongs to. */
+            @JsonProperty("card_payment_id") @ExcludeMissing fun _cardPaymentId() = cardPaymentId
+
             /**
-             * The Card Authorization that was created prior to this Card Settlement, if on exists.
+             * The Card Authorization that was created prior to this Card Settlement, if one exists.
              */
             @JsonProperty("card_authorization")
             @ExcludeMissing
@@ -8333,6 +8366,7 @@ private constructor(
             fun validate(): CardSettlement = apply {
                 if (!validated) {
                     id()
+                    cardPaymentId()
                     cardAuthorization()
                     amount()
                     currency()
@@ -8361,6 +8395,7 @@ private constructor(
 
                 return other is CardSettlement &&
                     this.id == other.id &&
+                    this.cardPaymentId == other.cardPaymentId &&
                     this.cardAuthorization == other.cardAuthorization &&
                     this.amount == other.amount &&
                     this.currency == other.currency &&
@@ -8384,6 +8419,7 @@ private constructor(
                     hashCode =
                         Objects.hash(
                             id,
+                            cardPaymentId,
                             cardAuthorization,
                             amount,
                             currency,
@@ -8406,7 +8442,7 @@ private constructor(
             }
 
             override fun toString() =
-                "CardSettlement{id=$id, cardAuthorization=$cardAuthorization, amount=$amount, currency=$currency, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, merchantAcceptorId=$merchantAcceptorId, merchantCity=$merchantCity, merchantState=$merchantState, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantCategoryCode=$merchantCategoryCode, transactionId=$transactionId, pendingTransactionId=$pendingTransactionId, purchaseDetails=$purchaseDetails, type=$type, additionalProperties=$additionalProperties}"
+                "CardSettlement{id=$id, cardPaymentId=$cardPaymentId, cardAuthorization=$cardAuthorization, amount=$amount, currency=$currency, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, merchantAcceptorId=$merchantAcceptorId, merchantCity=$merchantCity, merchantState=$merchantState, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantCategoryCode=$merchantCategoryCode, transactionId=$transactionId, pendingTransactionId=$pendingTransactionId, purchaseDetails=$purchaseDetails, type=$type, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -8416,6 +8452,7 @@ private constructor(
             class Builder {
 
                 private var id: JsonField<String> = JsonMissing.of()
+                private var cardPaymentId: JsonField<String> = JsonMissing.of()
                 private var cardAuthorization: JsonField<String> = JsonMissing.of()
                 private var amount: JsonField<Long> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
@@ -8436,6 +8473,7 @@ private constructor(
                 @JvmSynthetic
                 internal fun from(cardSettlement: CardSettlement) = apply {
                     this.id = cardSettlement.id
+                    this.cardPaymentId = cardSettlement.cardPaymentId
                     this.cardAuthorization = cardSettlement.cardAuthorization
                     this.amount = cardSettlement.amount
                     this.currency = cardSettlement.currency
@@ -8462,15 +8500,26 @@ private constructor(
                 @ExcludeMissing
                 fun id(id: JsonField<String>) = apply { this.id = id }
 
+                /** The ID of the Card Payment this transaction belongs to. */
+                fun cardPaymentId(cardPaymentId: String) =
+                    cardPaymentId(JsonField.of(cardPaymentId))
+
+                /** The ID of the Card Payment this transaction belongs to. */
+                @JsonProperty("card_payment_id")
+                @ExcludeMissing
+                fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
+                    this.cardPaymentId = cardPaymentId
+                }
+
                 /**
-                 * The Card Authorization that was created prior to this Card Settlement, if on
+                 * The Card Authorization that was created prior to this Card Settlement, if one
                  * exists.
                  */
                 fun cardAuthorization(cardAuthorization: String) =
                     cardAuthorization(JsonField.of(cardAuthorization))
 
                 /**
-                 * The Card Authorization that was created prior to this Card Settlement, if on
+                 * The Card Authorization that was created prior to this Card Settlement, if one
                  * exists.
                  */
                 @JsonProperty("card_authorization")
@@ -8676,6 +8725,7 @@ private constructor(
                 fun build(): CardSettlement =
                     CardSettlement(
                         id,
+                        cardPaymentId,
                         cardAuthorization,
                         amount,
                         currency,
