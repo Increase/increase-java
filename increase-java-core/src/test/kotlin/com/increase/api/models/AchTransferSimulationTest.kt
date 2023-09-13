@@ -54,7 +54,9 @@ class AchTransferSimulationTest {
                                 .cardDecline(
                                     AchTransferSimulation.DeclinedTransaction.Source.CardDecline
                                         .builder()
+                                        .id("string")
                                         .amount(123L)
+                                        .cardPaymentId("string")
                                         .currency(
                                             AchTransferSimulation.DeclinedTransaction.Source
                                                 .CardDecline
@@ -337,6 +339,7 @@ class AchTransferSimulationTest {
                                     AchTransferSimulation.Transaction.Source.CardRefund.builder()
                                         .id("string")
                                         .amount(123L)
+                                        .cardPaymentId("string")
                                         .currency(
                                             AchTransferSimulation.Transaction.Source.CardRefund
                                                 .Currency
@@ -598,6 +601,7 @@ class AchTransferSimulationTest {
                                         .id("string")
                                         .amount(123L)
                                         .cardAuthorization("string")
+                                        .cardPaymentId("string")
                                         .currency(
                                             AchTransferSimulation.Transaction.Source.CardSettlement
                                                 .Currency
@@ -1270,7 +1274,9 @@ class AchTransferSimulationTest {
                             .cardDecline(
                                 AchTransferSimulation.DeclinedTransaction.Source.CardDecline
                                     .builder()
+                                    .id("string")
                                     .amount(123L)
+                                    .cardPaymentId("string")
                                     .currency(
                                         AchTransferSimulation.DeclinedTransaction.Source.CardDecline
                                             .Currency
@@ -1543,6 +1549,7 @@ class AchTransferSimulationTest {
                                 AchTransferSimulation.Transaction.Source.CardRefund.builder()
                                     .id("string")
                                     .amount(123L)
+                                    .cardPaymentId("string")
                                     .currency(
                                         AchTransferSimulation.Transaction.Source.CardRefund.Currency
                                             .CAD
@@ -1787,6 +1794,7 @@ class AchTransferSimulationTest {
                                     .id("string")
                                     .amount(123L)
                                     .cardAuthorization("string")
+                                    .cardPaymentId("string")
                                     .currency(
                                         AchTransferSimulation.Transaction.Source.CardSettlement
                                             .Currency

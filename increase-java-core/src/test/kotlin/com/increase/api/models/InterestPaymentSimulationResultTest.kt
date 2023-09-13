@@ -92,6 +92,7 @@ class InterestPaymentSimulationResultTest {
                                         .builder()
                                         .id("string")
                                         .amount(123L)
+                                        .cardPaymentId("string")
                                         .currency(
                                             InterestPaymentSimulationResult.Transaction.Source
                                                 .CardRefund
@@ -380,6 +381,7 @@ class InterestPaymentSimulationResultTest {
                                         .id("string")
                                         .amount(123L)
                                         .cardAuthorization("string")
+                                        .cardPaymentId("string")
                                         .currency(
                                             InterestPaymentSimulationResult.Transaction.Source
                                                 .CardSettlement
@@ -1132,6 +1134,7 @@ class InterestPaymentSimulationResultTest {
                                     .builder()
                                     .id("string")
                                     .amount(123L)
+                                    .cardPaymentId("string")
                                     .currency(
                                         InterestPaymentSimulationResult.Transaction.Source
                                             .CardRefund
@@ -1399,6 +1402,7 @@ class InterestPaymentSimulationResultTest {
                                     .id("string")
                                     .amount(123L)
                                     .cardAuthorization("string")
+                                    .cardPaymentId("string")
                                     .currency(
                                         InterestPaymentSimulationResult.Transaction.Source
                                             .CardSettlement
