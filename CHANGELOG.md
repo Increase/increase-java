@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.10.1 (2023-09-15)
+
+Full Changelog: [v0.10.0...v0.10.1](https://github.com/increase/increase-java/compare/v0.10.0...v0.10.1)
+
+### Features
+
+* **api:** add card payment ID reference to transaction models ([#86](https://github.com/increase/increase-java/issues/86)) ([1b3a36d](https://github.com/increase/increase-java/commit/1b3a36d1a0496d700001d81b5b08e27d386038c4))
+* **client:** retry on 408 Request Timeout ([#88](https://github.com/increase/increase-java/issues/88)) ([04b7e97](https://github.com/increase/increase-java/commit/04b7e97720d83ae7832ebdd30a23758f32ac2f96))
+
 ## 0.10.0 (2023-09-12)
 
 Full Changelog: [v0.9.3...v0.10.0](https://github.com/increase/increase-java/compare/v0.9.3...v0.10.0)
