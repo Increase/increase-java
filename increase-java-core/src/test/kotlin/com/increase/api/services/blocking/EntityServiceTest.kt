@@ -22,7 +22,6 @@ class EntityServiceTest {
         val entity =
             entityService.create(
                 EntityCreateParams.builder()
-                    .relationship(EntityCreateParams.Relationship.AFFILIATED)
                     .structure(EntityCreateParams.Structure.CORPORATION)
                     .corporation(
                         EntityCreateParams.Corporation.builder()
@@ -264,6 +263,7 @@ class EntityServiceTest {
                             .confirmedNoUsTaxId(true)
                             .build()
                     )
+                    .relationship(EntityCreateParams.Relationship.AFFILIATED)
                     .supplementalDocuments(
                         listOf(
                             EntityCreateParams.SupplementalDocument.builder()

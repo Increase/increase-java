@@ -18,7 +18,7 @@ interface BeneficialOwnerServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<Entity>
 
-    /** Archive a beneficial owner belonging to a corporate Entity */
+    /** Archive a beneficial owner for a corporate Entity */
     @JvmOverloads
     fun archive(
         params: EntityBeneficialOwnerArchiveParams,

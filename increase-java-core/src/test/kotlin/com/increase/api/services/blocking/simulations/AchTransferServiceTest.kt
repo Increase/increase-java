@@ -3,6 +3,7 @@ package com.increase.api.services.blocking.simulations
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.*
+import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -28,6 +29,7 @@ class AchTransferServiceTest {
                     .companyEntryDescription("x")
                     .companyId("x")
                     .companyName("x")
+                    .resolveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
         println(achTransferSimulation)

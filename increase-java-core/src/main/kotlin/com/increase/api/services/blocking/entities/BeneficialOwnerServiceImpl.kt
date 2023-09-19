@@ -53,7 +53,7 @@ constructor(
     private val archiveHandler: Handler<Entity> =
         jsonHandler<Entity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-    /** Archive a beneficial owner belonging to a corporate Entity */
+    /** Archive a beneficial owner for a corporate Entity */
     override fun archive(
         params: EntityBeneficialOwnerArchiveParams,
         requestOptions: RequestOptions

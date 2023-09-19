@@ -329,7 +329,7 @@ class EntityTest {
                     .name("string")
                     .build()
             )
-        assertThat(entity.relationship()).isEqualTo(Entity.Relationship.AFFILIATED)
+        assertThat(entity.relationship()).contains(Entity.Relationship.AFFILIATED)
         assertThat(entity.structure()).isEqualTo(Entity.Structure.CORPORATION)
         assertThat(entity.supplementalDocuments())
             .containsExactly(
