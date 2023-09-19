@@ -75,7 +75,8 @@ private constructor(
         Optional.ofNullable(description.getNullable("description"))
 
     /** The relationship between your group and the entity. */
-    fun relationship(): Relationship = relationship.getRequired("relationship")
+    fun relationship(): Optional<Relationship> =
+        Optional.ofNullable(relationship.getNullable("relationship"))
 
     /**
      * Additional documentation associated with the entity. This is limited to the first 10

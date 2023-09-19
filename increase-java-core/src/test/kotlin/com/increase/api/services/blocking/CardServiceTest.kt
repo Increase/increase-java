@@ -39,6 +39,7 @@ class CardServiceTest {
                             .phone("x")
                             .build()
                     )
+                    .entityId("string")
                     .build()
             )
         println(card)

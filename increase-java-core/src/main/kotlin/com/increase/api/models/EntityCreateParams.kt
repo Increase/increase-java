@@ -18,20 +18,18 @@ import java.util.Optional
 
 class EntityCreateParams
 constructor(
-    private val relationship: Relationship,
     private val structure: Structure,
     private val corporation: Corporation?,
     private val description: String?,
     private val joint: Joint?,
     private val naturalPerson: NaturalPerson?,
+    private val relationship: Relationship?,
     private val supplementalDocuments: List<SupplementalDocument>?,
     private val trust: Trust?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
-
-    fun relationship(): Relationship = relationship
 
     fun structure(): Structure = structure
 
@@ -43,6 +41,8 @@ constructor(
 
     fun naturalPerson(): Optional<NaturalPerson> = Optional.ofNullable(naturalPerson)
 
+    fun relationship(): Optional<Relationship> = Optional.ofNullable(relationship)
+
     fun supplementalDocuments(): Optional<List<SupplementalDocument>> =
         Optional.ofNullable(supplementalDocuments)
 
@@ -51,12 +51,12 @@ constructor(
     @JvmSynthetic
     internal fun getBody(): EntityCreateBody {
         return EntityCreateBody(
-            relationship,
             structure,
             corporation,
             description,
             joint,
             naturalPerson,
+            relationship,
             supplementalDocuments,
             trust,
             additionalBodyProperties,
@@ -71,21 +71,18 @@ constructor(
     @NoAutoDetect
     class EntityCreateBody
     internal constructor(
-        private val relationship: Relationship?,
         private val structure: Structure?,
         private val corporation: Corporation?,
         private val description: String?,
         private val joint: Joint?,
         private val naturalPerson: NaturalPerson?,
+        private val relationship: Relationship?,
         private val supplementalDocuments: List<SupplementalDocument>?,
         private val trust: Trust?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
-
-        /** The relationship between your group and the entity. */
-        @JsonProperty("relationship") fun relationship(): Relationship? = relationship
 
         /** The type of Entity to create. */
         @JsonProperty("structure") fun structure(): Structure? = structure
@@ -110,6 +107,9 @@ constructor(
          */
         @JsonProperty("natural_person") fun naturalPerson(): NaturalPerson? = naturalPerson
 
+        /** The relationship between your group and the entity. */
+        @JsonProperty("relationship") fun relationship(): Relationship? = relationship
+
         /** Additional documentation associated with the entity. */
         @JsonProperty("supplemental_documents")
         fun supplementalDocuments(): List<SupplementalDocument>? = supplementalDocuments
@@ -129,12 +129,12 @@ constructor(
             }
 
             return other is EntityCreateBody &&
-                this.relationship == other.relationship &&
                 this.structure == other.structure &&
                 this.corporation == other.corporation &&
                 this.description == other.description &&
                 this.joint == other.joint &&
                 this.naturalPerson == other.naturalPerson &&
+                this.relationship == other.relationship &&
                 this.supplementalDocuments == other.supplementalDocuments &&
                 this.trust == other.trust &&
                 this.additionalProperties == other.additionalProperties
@@ -144,12 +144,12 @@ constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        relationship,
                         structure,
                         corporation,
                         description,
                         joint,
                         naturalPerson,
+                        relationship,
                         supplementalDocuments,
                         trust,
                         additionalProperties,
@@ -159,7 +159,7 @@ constructor(
         }
 
         override fun toString() =
-            "EntityCreateBody{relationship=$relationship, structure=$structure, corporation=$corporation, description=$description, joint=$joint, naturalPerson=$naturalPerson, supplementalDocuments=$supplementalDocuments, trust=$trust, additionalProperties=$additionalProperties}"
+            "EntityCreateBody{structure=$structure, corporation=$corporation, description=$description, joint=$joint, naturalPerson=$naturalPerson, relationship=$relationship, supplementalDocuments=$supplementalDocuments, trust=$trust, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -168,33 +168,27 @@ constructor(
 
         class Builder {
 
-            private var relationship: Relationship? = null
             private var structure: Structure? = null
             private var corporation: Corporation? = null
             private var description: String? = null
             private var joint: Joint? = null
             private var naturalPerson: NaturalPerson? = null
+            private var relationship: Relationship? = null
             private var supplementalDocuments: List<SupplementalDocument>? = null
             private var trust: Trust? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(entityCreateBody: EntityCreateBody) = apply {
-                this.relationship = entityCreateBody.relationship
                 this.structure = entityCreateBody.structure
                 this.corporation = entityCreateBody.corporation
                 this.description = entityCreateBody.description
                 this.joint = entityCreateBody.joint
                 this.naturalPerson = entityCreateBody.naturalPerson
+                this.relationship = entityCreateBody.relationship
                 this.supplementalDocuments = entityCreateBody.supplementalDocuments
                 this.trust = entityCreateBody.trust
                 additionalProperties(entityCreateBody.additionalProperties)
-            }
-
-            /** The relationship between your group and the entity. */
-            @JsonProperty("relationship")
-            fun relationship(relationship: Relationship) = apply {
-                this.relationship = relationship
             }
 
             /** The type of Entity to create. */
@@ -228,6 +222,12 @@ constructor(
                 this.naturalPerson = naturalPerson
             }
 
+            /** The relationship between your group and the entity. */
+            @JsonProperty("relationship")
+            fun relationship(relationship: Relationship) = apply {
+                this.relationship = relationship
+            }
+
             /** Additional documentation associated with the entity. */
             @JsonProperty("supplemental_documents")
             fun supplementalDocuments(supplementalDocuments: List<SupplementalDocument>) = apply {
@@ -255,12 +255,12 @@ constructor(
 
             fun build(): EntityCreateBody =
                 EntityCreateBody(
-                    checkNotNull(relationship) { "`relationship` is required but was not set" },
                     checkNotNull(structure) { "`structure` is required but was not set" },
                     corporation,
                     description,
                     joint,
                     naturalPerson,
+                    relationship,
                     supplementalDocuments?.toUnmodifiable(),
                     trust,
                     additionalProperties.toUnmodifiable(),
@@ -280,12 +280,12 @@ constructor(
         }
 
         return other is EntityCreateParams &&
-            this.relationship == other.relationship &&
             this.structure == other.structure &&
             this.corporation == other.corporation &&
             this.description == other.description &&
             this.joint == other.joint &&
             this.naturalPerson == other.naturalPerson &&
+            this.relationship == other.relationship &&
             this.supplementalDocuments == other.supplementalDocuments &&
             this.trust == other.trust &&
             this.additionalQueryParams == other.additionalQueryParams &&
@@ -295,12 +295,12 @@ constructor(
 
     override fun hashCode(): Int {
         return Objects.hash(
-            relationship,
             structure,
             corporation,
             description,
             joint,
             naturalPerson,
+            relationship,
             supplementalDocuments,
             trust,
             additionalQueryParams,
@@ -310,7 +310,7 @@ constructor(
     }
 
     override fun toString() =
-        "EntityCreateParams{relationship=$relationship, structure=$structure, corporation=$corporation, description=$description, joint=$joint, naturalPerson=$naturalPerson, supplementalDocuments=$supplementalDocuments, trust=$trust, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "EntityCreateParams{structure=$structure, corporation=$corporation, description=$description, joint=$joint, naturalPerson=$naturalPerson, relationship=$relationship, supplementalDocuments=$supplementalDocuments, trust=$trust, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -322,12 +322,12 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var relationship: Relationship? = null
         private var structure: Structure? = null
         private var corporation: Corporation? = null
         private var description: String? = null
         private var joint: Joint? = null
         private var naturalPerson: NaturalPerson? = null
+        private var relationship: Relationship? = null
         private var supplementalDocuments: MutableList<SupplementalDocument> = mutableListOf()
         private var trust: Trust? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -336,21 +336,18 @@ constructor(
 
         @JvmSynthetic
         internal fun from(entityCreateParams: EntityCreateParams) = apply {
-            this.relationship = entityCreateParams.relationship
             this.structure = entityCreateParams.structure
             this.corporation = entityCreateParams.corporation
             this.description = entityCreateParams.description
             this.joint = entityCreateParams.joint
             this.naturalPerson = entityCreateParams.naturalPerson
+            this.relationship = entityCreateParams.relationship
             this.supplementalDocuments(entityCreateParams.supplementalDocuments ?: listOf())
             this.trust = entityCreateParams.trust
             additionalQueryParams(entityCreateParams.additionalQueryParams)
             additionalHeaders(entityCreateParams.additionalHeaders)
             additionalBodyProperties(entityCreateParams.additionalBodyProperties)
         }
-
-        /** The relationship between your group and the entity. */
-        fun relationship(relationship: Relationship) = apply { this.relationship = relationship }
 
         /** The type of Entity to create. */
         fun structure(structure: Structure) = apply { this.structure = structure }
@@ -376,6 +373,9 @@ constructor(
         fun naturalPerson(naturalPerson: NaturalPerson) = apply {
             this.naturalPerson = naturalPerson
         }
+
+        /** The relationship between your group and the entity. */
+        fun relationship(relationship: Relationship) = apply { this.relationship = relationship }
 
         /** Additional documentation associated with the entity. */
         fun supplementalDocuments(supplementalDocuments: List<SupplementalDocument>) = apply {
@@ -447,12 +447,12 @@ constructor(
 
         fun build(): EntityCreateParams =
             EntityCreateParams(
-                checkNotNull(relationship) { "`relationship` is required but was not set" },
                 checkNotNull(structure) { "`structure` is required but was not set" },
                 corporation,
                 description,
                 joint,
                 naturalPerson,
+                relationship,
                 if (supplementalDocuments.size == 0) null
                 else supplementalDocuments.toUnmodifiable(),
                 trust,
@@ -460,69 +460,6 @@ constructor(
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),
             )
-    }
-
-    class Relationship
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Relationship && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            @JvmField val AFFILIATED = Relationship(JsonField.of("affiliated"))
-
-            @JvmField val INFORMATIONAL = Relationship(JsonField.of("informational"))
-
-            @JvmField val UNAFFILIATED = Relationship(JsonField.of("unaffiliated"))
-
-            @JvmStatic fun of(value: String) = Relationship(JsonField.of(value))
-        }
-
-        enum class Known {
-            AFFILIATED,
-            INFORMATIONAL,
-            UNAFFILIATED,
-        }
-
-        enum class Value {
-            AFFILIATED,
-            INFORMATIONAL,
-            UNAFFILIATED,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                AFFILIATED -> Value.AFFILIATED
-                INFORMATIONAL -> Value.INFORMATIONAL
-                UNAFFILIATED -> Value.UNAFFILIATED
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                AFFILIATED -> Known.AFFILIATED
-                INFORMATIONAL -> Known.INFORMATIONAL
-                UNAFFILIATED -> Known.UNAFFILIATED
-                else -> throw IncreaseInvalidDataException("Unknown Relationship: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
     }
 
     class Structure
@@ -4087,6 +4024,69 @@ constructor(
                 }
             }
         }
+    }
+
+    class Relationship
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Relationship && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val AFFILIATED = Relationship(JsonField.of("affiliated"))
+
+            @JvmField val INFORMATIONAL = Relationship(JsonField.of("informational"))
+
+            @JvmField val UNAFFILIATED = Relationship(JsonField.of("unaffiliated"))
+
+            @JvmStatic fun of(value: String) = Relationship(JsonField.of(value))
+        }
+
+        enum class Known {
+            AFFILIATED,
+            INFORMATIONAL,
+            UNAFFILIATED,
+        }
+
+        enum class Value {
+            AFFILIATED,
+            INFORMATIONAL,
+            UNAFFILIATED,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                AFFILIATED -> Value.AFFILIATED
+                INFORMATIONAL -> Value.INFORMATIONAL
+                UNAFFILIATED -> Value.UNAFFILIATED
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                AFFILIATED -> Known.AFFILIATED
+                INFORMATIONAL -> Known.INFORMATIONAL
+                UNAFFILIATED -> Known.UNAFFILIATED
+                else -> throw IncreaseInvalidDataException("Unknown Relationship: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 
     @JsonDeserialize(builder = SupplementalDocument.Builder::class)

@@ -2492,7 +2492,10 @@ private constructor(
              */
             fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-            /** Why the ACH Transfer was returned. */
+            /**
+             * Why the ACH Transfer was returned. This reason code is sent by the receiving bank
+             * back to Increase.
+             */
             fun returnReasonCode(): ReturnReasonCode =
                 returnReasonCode.getRequired("return_reason_code")
 
@@ -2512,7 +2515,10 @@ private constructor(
              */
             @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
-            /** Why the ACH Transfer was returned. */
+            /**
+             * Why the ACH Transfer was returned. This reason code is sent by the receiving bank
+             * back to Increase.
+             */
             @JsonProperty("return_reason_code")
             @ExcludeMissing
             fun _returnReasonCode() = returnReasonCode
@@ -2617,11 +2623,17 @@ private constructor(
                     this.createdAt = createdAt
                 }
 
-                /** Why the ACH Transfer was returned. */
+                /**
+                 * Why the ACH Transfer was returned. This reason code is sent by the receiving bank
+                 * back to Increase.
+                 */
                 fun returnReasonCode(returnReasonCode: ReturnReasonCode) =
                     returnReasonCode(JsonField.of(returnReasonCode))
 
-                /** Why the ACH Transfer was returned. */
+                /**
+                 * Why the ACH Transfer was returned. This reason code is sent by the receiving bank
+                 * back to Increase.
+                 */
                 @JsonProperty("return_reason_code")
                 @ExcludeMissing
                 fun returnReasonCode(returnReasonCode: JsonField<ReturnReasonCode>) = apply {

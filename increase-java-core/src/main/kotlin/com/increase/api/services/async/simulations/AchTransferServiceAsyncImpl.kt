@@ -28,12 +28,15 @@ constructor(
         jsonHandler<AchTransferSimulation>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /**
-     * Simulates an inbound ACH transfer to your account. This imitates initiating a transaction to
-     * an Increase account from a different financial institution. The transfer may be either a
-     * credit or a debit depending on if the `amount` is positive or negative. The result of calling
-     * this API will be either a [Transaction](#transactions) or a
-     * [Declined Transaction](#declined-transactions) depending on whether or not the transfer is
-     * allowed.
+     * Simulates an inbound ACH transfer to your account. This imitates initiating a transfer to an
+     * Increase account from a different financial institution. The transfer may be either a credit
+     * or a debit depending on if the `amount` is positive or negative. The result of calling this
+     * API will contain the created transfer. You can pass a `resolve_at` parameter to allow for a
+     * window to
+     * [action on the Inbound ACH Transfer](https://increase.com/documentation/inbound-ach-transfers#inbound-ach-transfers)
+     * . Alternatively, if you don't pass the `resolve_at` parameter the result will contain either
+     * a [Transaction](#transactions) or a [Declined Transaction](#declined-transactions) depending
+     * on whether or not the transfer is allowed.
      */
     override fun createInbound(
         params: SimulationAchTransferCreateInboundParams,

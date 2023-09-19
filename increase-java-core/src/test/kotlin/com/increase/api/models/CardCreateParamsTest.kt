@@ -27,6 +27,7 @@ class CardCreateParamsTest {
                     .phone("x")
                     .build()
             )
+            .entityId("string")
             .build()
     }
 
@@ -52,6 +53,7 @@ class CardCreateParamsTest {
                         .phone("x")
                         .build()
                 )
+                .entityId("string")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -75,6 +77,7 @@ class CardCreateParamsTest {
                     .phone("x")
                     .build()
             )
+        assertThat(body.entityId()).isEqualTo("string")
     }
 
     @Test
