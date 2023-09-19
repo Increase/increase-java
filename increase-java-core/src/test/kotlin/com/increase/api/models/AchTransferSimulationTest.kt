@@ -1231,6 +1231,56 @@ class AchTransferSimulationTest {
                         .type(AchTransferSimulation.Transaction.Type.TRANSACTION)
                         .build()
                 )
+                .transfer(
+                    AchTransferSimulation.Transfer.builder()
+                        .id("string")
+                        .acceptance(
+                            AchTransferSimulation.Transfer.Acceptance.builder()
+                                .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .transactionId("string")
+                                .build()
+                        )
+                        .accountNumberId("string")
+                        .amount(123L)
+                        .automaticallyResolvesAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .decline(
+                            AchTransferSimulation.Transfer.Decline.builder()
+                                .declinedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .declinedTransactionId("string")
+                                .reason(
+                                    AchTransferSimulation.Transfer.Decline.Reason.ACH_ROUTE_CANCELED
+                                )
+                                .build()
+                        )
+                        .direction(AchTransferSimulation.Transfer.Direction.CREDIT)
+                        .notificationOfChange(
+                            AchTransferSimulation.Transfer.NotificationOfChange.builder()
+                                .updatedAccountNumber("string")
+                                .updatedRoutingNumber("string")
+                                .build()
+                        )
+                        .originatorCompanyDescriptiveDate("string")
+                        .originatorCompanyDiscretionaryData("string")
+                        .originatorCompanyEntryDescription("string")
+                        .originatorCompanyId("string")
+                        .originatorCompanyName("string")
+                        .receiverIdNumber("string")
+                        .receiverName("string")
+                        .status(AchTransferSimulation.Transfer.Status.PENDING)
+                        .traceNumber("string")
+                        .transferReturn(
+                            AchTransferSimulation.Transfer.TransferReturn.builder()
+                                .reason(
+                                    AchTransferSimulation.Transfer.TransferReturn.Reason
+                                        .AUTHORIZATION_REVOKED_BY_CUSTOMER
+                                )
+                                .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .transactionId("string")
+                                .build()
+                        )
+                        .type(AchTransferSimulation.Transfer.Type.INBOUND_ACH_TRANSFER)
+                        .build()
+                )
                 .type(AchTransferSimulation.Type.INBOUND_ACH_TRANSFER_SIMULATION_RESULT)
                 .build()
         assertThat(achTransferSimulation).isNotNull
@@ -2393,6 +2443,57 @@ class AchTransferSimulationTest {
                             .build()
                     )
                     .type(AchTransferSimulation.Transaction.Type.TRANSACTION)
+                    .build()
+            )
+        assertThat(achTransferSimulation.transfer())
+            .isEqualTo(
+                AchTransferSimulation.Transfer.builder()
+                    .id("string")
+                    .acceptance(
+                        AchTransferSimulation.Transfer.Acceptance.builder()
+                            .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .transactionId("string")
+                            .build()
+                    )
+                    .accountNumberId("string")
+                    .amount(123L)
+                    .automaticallyResolvesAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .decline(
+                        AchTransferSimulation.Transfer.Decline.builder()
+                            .declinedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .declinedTransactionId("string")
+                            .reason(
+                                AchTransferSimulation.Transfer.Decline.Reason.ACH_ROUTE_CANCELED
+                            )
+                            .build()
+                    )
+                    .direction(AchTransferSimulation.Transfer.Direction.CREDIT)
+                    .notificationOfChange(
+                        AchTransferSimulation.Transfer.NotificationOfChange.builder()
+                            .updatedAccountNumber("string")
+                            .updatedRoutingNumber("string")
+                            .build()
+                    )
+                    .originatorCompanyDescriptiveDate("string")
+                    .originatorCompanyDiscretionaryData("string")
+                    .originatorCompanyEntryDescription("string")
+                    .originatorCompanyId("string")
+                    .originatorCompanyName("string")
+                    .receiverIdNumber("string")
+                    .receiverName("string")
+                    .status(AchTransferSimulation.Transfer.Status.PENDING)
+                    .traceNumber("string")
+                    .transferReturn(
+                        AchTransferSimulation.Transfer.TransferReturn.builder()
+                            .reason(
+                                AchTransferSimulation.Transfer.TransferReturn.Reason
+                                    .AUTHORIZATION_REVOKED_BY_CUSTOMER
+                            )
+                            .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .transactionId("string")
+                            .build()
+                    )
+                    .type(AchTransferSimulation.Transfer.Type.INBOUND_ACH_TRANSFER)
                     .build()
             )
         assertThat(achTransferSimulation.type())

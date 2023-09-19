@@ -10,7 +10,6 @@ class EntityCreateParamsTest {
     @Test
     fun createEntityCreateParams() {
         EntityCreateParams.builder()
-            .relationship(EntityCreateParams.Relationship.AFFILIATED)
             .structure(EntityCreateParams.Structure.CORPORATION)
             .corporation(
                 EntityCreateParams.Corporation.builder()
@@ -232,6 +231,7 @@ class EntityCreateParamsTest {
                     .confirmedNoUsTaxId(true)
                     .build()
             )
+            .relationship(EntityCreateParams.Relationship.AFFILIATED)
             .supplementalDocuments(
                 listOf(EntityCreateParams.SupplementalDocument.builder().fileId("string").build())
             )
@@ -389,7 +389,6 @@ class EntityCreateParamsTest {
     fun getBody() {
         val params =
             EntityCreateParams.builder()
-                .relationship(EntityCreateParams.Relationship.AFFILIATED)
                 .structure(EntityCreateParams.Structure.CORPORATION)
                 .corporation(
                     EntityCreateParams.Corporation.builder()
@@ -617,6 +616,7 @@ class EntityCreateParamsTest {
                         .confirmedNoUsTaxId(true)
                         .build()
                 )
+                .relationship(EntityCreateParams.Relationship.AFFILIATED)
                 .supplementalDocuments(
                     listOf(
                         EntityCreateParams.SupplementalDocument.builder().fileId("string").build()
@@ -774,7 +774,6 @@ class EntityCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.relationship()).isEqualTo(EntityCreateParams.Relationship.AFFILIATED)
         assertThat(body.structure()).isEqualTo(EntityCreateParams.Structure.CORPORATION)
         assertThat(body.corporation())
             .isEqualTo(
@@ -999,6 +998,7 @@ class EntityCreateParamsTest {
                     .confirmedNoUsTaxId(true)
                     .build()
             )
+        assertThat(body.relationship()).isEqualTo(EntityCreateParams.Relationship.AFFILIATED)
         assertThat(body.supplementalDocuments())
             .isEqualTo(
                 listOf(EntityCreateParams.SupplementalDocument.builder().fileId("string").build())
@@ -1156,13 +1156,9 @@ class EntityCreateParamsTest {
     @Test
     fun getBodyWithoutOptionalFields() {
         val params =
-            EntityCreateParams.builder()
-                .relationship(EntityCreateParams.Relationship.AFFILIATED)
-                .structure(EntityCreateParams.Structure.CORPORATION)
-                .build()
+            EntityCreateParams.builder().structure(EntityCreateParams.Structure.CORPORATION).build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.relationship()).isEqualTo(EntityCreateParams.Relationship.AFFILIATED)
         assertThat(body.structure()).isEqualTo(EntityCreateParams.Structure.CORPORATION)
     }
 }
