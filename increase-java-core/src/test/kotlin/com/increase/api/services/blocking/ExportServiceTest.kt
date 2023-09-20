@@ -22,7 +22,20 @@ class ExportServiceTest {
         val export =
             exportService.create(
                 ExportCreateParams.builder()
-                    .category(ExportCreateParams.Category.TRANSACTION_CSV)
+                    .category(ExportCreateParams.Category.ACCOUNT_STATEMENT_OFX)
+                    .accountStatementOfx(
+                        ExportCreateParams.AccountStatementOfx.builder()
+                            .accountId("string")
+                            .createdAt(
+                                ExportCreateParams.AccountStatementOfx.CreatedAt.builder()
+                                    .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .build()
+                            )
+                            .build()
+                    )
                     .balanceCsv(
                         ExportCreateParams.BalanceCsv.builder()
                             .accountId("string")

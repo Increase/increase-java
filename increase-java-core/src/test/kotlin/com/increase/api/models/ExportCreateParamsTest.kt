@@ -10,7 +10,20 @@ class ExportCreateParamsTest {
     @Test
     fun createExportCreateParams() {
         ExportCreateParams.builder()
-            .category(ExportCreateParams.Category.TRANSACTION_CSV)
+            .category(ExportCreateParams.Category.ACCOUNT_STATEMENT_OFX)
+            .accountStatementOfx(
+                ExportCreateParams.AccountStatementOfx.builder()
+                    .accountId("string")
+                    .createdAt(
+                        ExportCreateParams.AccountStatementOfx.CreatedAt.builder()
+                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .build()
+                    )
+                    .build()
+            )
             .balanceCsv(
                 ExportCreateParams.BalanceCsv.builder()
                     .accountId("string")
@@ -44,7 +57,20 @@ class ExportCreateParamsTest {
     fun getBody() {
         val params =
             ExportCreateParams.builder()
-                .category(ExportCreateParams.Category.TRANSACTION_CSV)
+                .category(ExportCreateParams.Category.ACCOUNT_STATEMENT_OFX)
+                .accountStatementOfx(
+                    ExportCreateParams.AccountStatementOfx.builder()
+                        .accountId("string")
+                        .createdAt(
+                            ExportCreateParams.AccountStatementOfx.CreatedAt.builder()
+                                .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .build()
+                        )
+                        .build()
+                )
                 .balanceCsv(
                     ExportCreateParams.BalanceCsv.builder()
                         .accountId("string")
@@ -74,7 +100,21 @@ class ExportCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.category()).isEqualTo(ExportCreateParams.Category.TRANSACTION_CSV)
+        assertThat(body.category()).isEqualTo(ExportCreateParams.Category.ACCOUNT_STATEMENT_OFX)
+        assertThat(body.accountStatementOfx())
+            .isEqualTo(
+                ExportCreateParams.AccountStatementOfx.builder()
+                    .accountId("string")
+                    .createdAt(
+                        ExportCreateParams.AccountStatementOfx.CreatedAt.builder()
+                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .build()
+                    )
+                    .build()
+            )
         assertThat(body.balanceCsv())
             .isEqualTo(
                 ExportCreateParams.BalanceCsv.builder()
@@ -109,10 +149,10 @@ class ExportCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             ExportCreateParams.builder()
-                .category(ExportCreateParams.Category.TRANSACTION_CSV)
+                .category(ExportCreateParams.Category.ACCOUNT_STATEMENT_OFX)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.category()).isEqualTo(ExportCreateParams.Category.TRANSACTION_CSV)
+        assertThat(body.category()).isEqualTo(ExportCreateParams.Category.ACCOUNT_STATEMENT_OFX)
     }
 }
