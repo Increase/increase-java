@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.10.2 (2023-09-20)
+
+Full Changelog: [v0.10.1...v0.10.2](https://github.com/Increase/increase-java/compare/v0.10.1...v0.10.2)
+
+### Features
+
+* **api:** add entity_id to Card and make relationship nullable ([#91](https://github.com/Increase/increase-java/issues/91)) ([654c2b6](https://github.com/Increase/increase-java/commit/654c2b6862e18ee874a765f265e7ad66d51219ac))
+* **api:** export account statements in OFX format ([#93](https://github.com/Increase/increase-java/issues/93)) ([a73aa41](https://github.com/Increase/increase-java/commit/a73aa41501360700bd1a77fe6c4e2dbe3283542b))
+
 ## 0.10.1 (2023-09-15)
 
 Full Changelog: [v0.10.0...v0.10.1](https://github.com/increase/increase-java/compare/v0.10.0...v0.10.1)
