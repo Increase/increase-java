@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.10.3 (2023-09-22)
+
+Full Changelog: [v0.10.2...v0.10.3](https://github.com/increase/increase-java/compare/v0.10.2...v0.10.3)
+
+### Features
+
+* **api:** add inbound checks, originating routing number and new event types ([#94](https://github.com/increase/increase-java/issues/94)) ([784d32d](https://github.com/increase/increase-java/commit/784d32d9f8c5f85aee2c842275e7100969493659))
+
 ## 0.10.2 (2023-09-20)
 
 Full Changelog: [v0.10.1...v0.10.2](https://github.com/Increase/increase-java/compare/v0.10.1...v0.10.2)
