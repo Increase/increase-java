@@ -33,6 +33,7 @@ private constructor(
     private val routingNumber: JsonField<String>,
     private val status: JsonField<Status>,
     private val inboundAch: JsonField<InboundAch>,
+    private val inboundChecks: JsonField<InboundChecks>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -68,6 +69,9 @@ private constructor(
     /** Properties related to how this Account Number handles inbound ACH transfers. */
     fun inboundAch(): InboundAch = inboundAch.getRequired("inbound_ach")
 
+    /** Properties related to how this Account Number should handle inbound check withdrawls. */
+    fun inboundChecks(): InboundChecks = inboundChecks.getRequired("inbound_checks")
+
     /**
      * A constant representing the object's type. For this resource it will always be
      * `account_number`.
@@ -101,6 +105,9 @@ private constructor(
     /** Properties related to how this Account Number handles inbound ACH transfers. */
     @JsonProperty("inbound_ach") @ExcludeMissing fun _inboundAch() = inboundAch
 
+    /** Properties related to how this Account Number should handle inbound check withdrawls. */
+    @JsonProperty("inbound_checks") @ExcludeMissing fun _inboundChecks() = inboundChecks
+
     /**
      * A constant representing the object's type. For this resource it will always be
      * `account_number`.
@@ -121,6 +128,7 @@ private constructor(
             routingNumber()
             status()
             inboundAch().validate()
+            inboundChecks().validate()
             type()
             validated = true
         }
@@ -142,6 +150,7 @@ private constructor(
             this.routingNumber == other.routingNumber &&
             this.status == other.status &&
             this.inboundAch == other.inboundAch &&
+            this.inboundChecks == other.inboundChecks &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -158,6 +167,7 @@ private constructor(
                     routingNumber,
                     status,
                     inboundAch,
+                    inboundChecks,
                     type,
                     additionalProperties,
                 )
@@ -166,7 +176,7 @@ private constructor(
     }
 
     override fun toString() =
-        "AccountNumber{accountId=$accountId, accountNumber=$accountNumber, id=$id, createdAt=$createdAt, name=$name, routingNumber=$routingNumber, status=$status, inboundAch=$inboundAch, type=$type, additionalProperties=$additionalProperties}"
+        "AccountNumber{accountId=$accountId, accountNumber=$accountNumber, id=$id, createdAt=$createdAt, name=$name, routingNumber=$routingNumber, status=$status, inboundAch=$inboundAch, inboundChecks=$inboundChecks, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -183,6 +193,7 @@ private constructor(
         private var routingNumber: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var inboundAch: JsonField<InboundAch> = JsonMissing.of()
+        private var inboundChecks: JsonField<InboundChecks> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -196,6 +207,7 @@ private constructor(
             this.routingNumber = accountNumber.routingNumber
             this.status = accountNumber.status
             this.inboundAch = accountNumber.inboundAch
+            this.inboundChecks = accountNumber.inboundChecks
             this.type = accountNumber.type
             additionalProperties(accountNumber.additionalProperties)
         }
@@ -272,6 +284,16 @@ private constructor(
         @ExcludeMissing
         fun inboundAch(inboundAch: JsonField<InboundAch>) = apply { this.inboundAch = inboundAch }
 
+        /** Properties related to how this Account Number should handle inbound check withdrawls. */
+        fun inboundChecks(inboundChecks: InboundChecks) = inboundChecks(JsonField.of(inboundChecks))
+
+        /** Properties related to how this Account Number should handle inbound check withdrawls. */
+        @JsonProperty("inbound_checks")
+        @ExcludeMissing
+        fun inboundChecks(inboundChecks: JsonField<InboundChecks>) = apply {
+            this.inboundChecks = inboundChecks
+        }
+
         /**
          * A constant representing the object's type. For this resource it will always be
          * `account_number`.
@@ -310,6 +332,7 @@ private constructor(
                 routingNumber,
                 status,
                 inboundAch,
+                inboundChecks,
                 type,
                 additionalProperties.toUnmodifiable(),
             )
@@ -474,6 +497,158 @@ private constructor(
                     ALLOWED -> Known.ALLOWED
                     BLOCKED -> Known.BLOCKED
                     else -> throw IncreaseInvalidDataException("Unknown DebitStatus: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
+    }
+
+    /** Properties related to how this Account Number should handle inbound check withdrawls. */
+    @JsonDeserialize(builder = InboundChecks.Builder::class)
+    @NoAutoDetect
+    class InboundChecks
+    private constructor(
+        private val status: JsonField<Status>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        /** How Increase should process checks with this account number printed on them. */
+        fun status(): Status = status.getRequired("status")
+
+        /** How Increase should process checks with this account number printed on them. */
+        @JsonProperty("status") @ExcludeMissing fun _status() = status
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): InboundChecks = apply {
+            if (!validated) {
+                status()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is InboundChecks &&
+                this.status == other.status &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(status, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "InboundChecks{status=$status, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var status: JsonField<Status> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(inboundChecks: InboundChecks) = apply {
+                this.status = inboundChecks.status
+                additionalProperties(inboundChecks.additionalProperties)
+            }
+
+            /** How Increase should process checks with this account number printed on them. */
+            fun status(status: Status) = status(JsonField.of(status))
+
+            /** How Increase should process checks with this account number printed on them. */
+            @JsonProperty("status")
+            @ExcludeMissing
+            fun status(status: JsonField<Status>) = apply { this.status = status }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): InboundChecks =
+                InboundChecks(status, additionalProperties.toUnmodifiable())
+        }
+
+        class Status
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Status && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                @JvmField val ALLOWED = Status(JsonField.of("allowed"))
+
+                @JvmField val CHECK_TRANSFERS_ONLY = Status(JsonField.of("check_transfers_only"))
+
+                @JvmStatic fun of(value: String) = Status(JsonField.of(value))
+            }
+
+            enum class Known {
+                ALLOWED,
+                CHECK_TRANSFERS_ONLY,
+            }
+
+            enum class Value {
+                ALLOWED,
+                CHECK_TRANSFERS_ONLY,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    ALLOWED -> Value.ALLOWED
+                    CHECK_TRANSFERS_ONLY -> Value.CHECK_TRANSFERS_ONLY
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    ALLOWED -> Known.ALLOWED
+                    CHECK_TRANSFERS_ONLY -> Known.CHECK_TRANSFERS_ONLY
+                    else -> throw IncreaseInvalidDataException("Unknown Status: $value")
                 }
 
             fun asString(): String = _value().asStringOrThrow()

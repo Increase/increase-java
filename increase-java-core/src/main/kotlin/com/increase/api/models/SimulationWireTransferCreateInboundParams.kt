@@ -25,6 +25,7 @@ constructor(
     private val originatorAddressLine2: String?,
     private val originatorAddressLine3: String?,
     private val originatorName: String?,
+    private val originatorRoutingNumber: String?,
     private val originatorToBeneficiaryInformationLine1: String?,
     private val originatorToBeneficiaryInformationLine2: String?,
     private val originatorToBeneficiaryInformationLine3: String?,
@@ -56,6 +57,8 @@ constructor(
 
     fun originatorName(): Optional<String> = Optional.ofNullable(originatorName)
 
+    fun originatorRoutingNumber(): Optional<String> = Optional.ofNullable(originatorRoutingNumber)
+
     fun originatorToBeneficiaryInformationLine1(): Optional<String> =
         Optional.ofNullable(originatorToBeneficiaryInformationLine1)
 
@@ -82,6 +85,7 @@ constructor(
             originatorAddressLine2,
             originatorAddressLine3,
             originatorName,
+            originatorRoutingNumber,
             originatorToBeneficiaryInformationLine1,
             originatorToBeneficiaryInformationLine2,
             originatorToBeneficiaryInformationLine3,
@@ -109,6 +113,7 @@ constructor(
         private val originatorAddressLine2: String?,
         private val originatorAddressLine3: String?,
         private val originatorName: String?,
+        private val originatorRoutingNumber: String?,
         private val originatorToBeneficiaryInformationLine1: String?,
         private val originatorToBeneficiaryInformationLine2: String?,
         private val originatorToBeneficiaryInformationLine3: String?,
@@ -185,6 +190,13 @@ constructor(
         @JsonProperty("originator_name") fun originatorName(): String? = originatorName
 
         /**
+         * The sending bank will set originator_routing_number in production. You can simulate any
+         * value here.
+         */
+        @JsonProperty("originator_routing_number")
+        fun originatorRoutingNumber(): String? = originatorRoutingNumber
+
+        /**
          * The sending bank will set originator_to_beneficiary_information_line1 in production. You
          * can simulate any value here.
          */
@@ -239,6 +251,7 @@ constructor(
                 this.originatorAddressLine2 == other.originatorAddressLine2 &&
                 this.originatorAddressLine3 == other.originatorAddressLine3 &&
                 this.originatorName == other.originatorName &&
+                this.originatorRoutingNumber == other.originatorRoutingNumber &&
                 this.originatorToBeneficiaryInformationLine1 ==
                     other.originatorToBeneficiaryInformationLine1 &&
                 this.originatorToBeneficiaryInformationLine2 ==
@@ -265,6 +278,7 @@ constructor(
                         originatorAddressLine2,
                         originatorAddressLine3,
                         originatorName,
+                        originatorRoutingNumber,
                         originatorToBeneficiaryInformationLine1,
                         originatorToBeneficiaryInformationLine2,
                         originatorToBeneficiaryInformationLine3,
@@ -276,7 +290,7 @@ constructor(
         }
 
         override fun toString() =
-            "SimulationWireTransferCreateInboundBody{accountNumberId=$accountNumberId, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, additionalProperties=$additionalProperties}"
+            "SimulationWireTransferCreateInboundBody{accountNumberId=$accountNumberId, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -296,6 +310,7 @@ constructor(
             private var originatorAddressLine2: String? = null
             private var originatorAddressLine3: String? = null
             private var originatorName: String? = null
+            private var originatorRoutingNumber: String? = null
             private var originatorToBeneficiaryInformationLine1: String? = null
             private var originatorToBeneficiaryInformationLine2: String? = null
             private var originatorToBeneficiaryInformationLine3: String? = null
@@ -324,6 +339,8 @@ constructor(
                 this.originatorAddressLine3 =
                     simulationWireTransferCreateInboundBody.originatorAddressLine3
                 this.originatorName = simulationWireTransferCreateInboundBody.originatorName
+                this.originatorRoutingNumber =
+                    simulationWireTransferCreateInboundBody.originatorRoutingNumber
                 this.originatorToBeneficiaryInformationLine1 =
                     simulationWireTransferCreateInboundBody.originatorToBeneficiaryInformationLine1
                 this.originatorToBeneficiaryInformationLine2 =
@@ -426,6 +443,15 @@ constructor(
             }
 
             /**
+             * The sending bank will set originator_routing_number in production. You can simulate
+             * any value here.
+             */
+            @JsonProperty("originator_routing_number")
+            fun originatorRoutingNumber(originatorRoutingNumber: String) = apply {
+                this.originatorRoutingNumber = originatorRoutingNumber
+            }
+
+            /**
              * The sending bank will set originator_to_beneficiary_information_line1 in production.
              * You can simulate any value here.
              */
@@ -502,6 +528,7 @@ constructor(
                     originatorAddressLine2,
                     originatorAddressLine3,
                     originatorName,
+                    originatorRoutingNumber,
                     originatorToBeneficiaryInformationLine1,
                     originatorToBeneficiaryInformationLine2,
                     originatorToBeneficiaryInformationLine3,
@@ -534,6 +561,7 @@ constructor(
             this.originatorAddressLine2 == other.originatorAddressLine2 &&
             this.originatorAddressLine3 == other.originatorAddressLine3 &&
             this.originatorName == other.originatorName &&
+            this.originatorRoutingNumber == other.originatorRoutingNumber &&
             this.originatorToBeneficiaryInformationLine1 ==
                 other.originatorToBeneficiaryInformationLine1 &&
             this.originatorToBeneficiaryInformationLine2 ==
@@ -560,6 +588,7 @@ constructor(
             originatorAddressLine2,
             originatorAddressLine3,
             originatorName,
+            originatorRoutingNumber,
             originatorToBeneficiaryInformationLine1,
             originatorToBeneficiaryInformationLine2,
             originatorToBeneficiaryInformationLine3,
@@ -571,7 +600,7 @@ constructor(
     }
 
     override fun toString() =
-        "SimulationWireTransferCreateInboundParams{accountNumberId=$accountNumberId, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationWireTransferCreateInboundParams{accountNumberId=$accountNumberId, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -594,6 +623,7 @@ constructor(
         private var originatorAddressLine2: String? = null
         private var originatorAddressLine3: String? = null
         private var originatorName: String? = null
+        private var originatorRoutingNumber: String? = null
         private var originatorToBeneficiaryInformationLine1: String? = null
         private var originatorToBeneficiaryInformationLine2: String? = null
         private var originatorToBeneficiaryInformationLine3: String? = null
@@ -624,6 +654,8 @@ constructor(
             this.originatorAddressLine3 =
                 simulationWireTransferCreateInboundParams.originatorAddressLine3
             this.originatorName = simulationWireTransferCreateInboundParams.originatorName
+            this.originatorRoutingNumber =
+                simulationWireTransferCreateInboundParams.originatorRoutingNumber
             this.originatorToBeneficiaryInformationLine1 =
                 simulationWireTransferCreateInboundParams.originatorToBeneficiaryInformationLine1
             this.originatorToBeneficiaryInformationLine2 =
@@ -715,6 +747,14 @@ constructor(
          * The sending bank will set originator_name in production. You can simulate any value here.
          */
         fun originatorName(originatorName: String) = apply { this.originatorName = originatorName }
+
+        /**
+         * The sending bank will set originator_routing_number in production. You can simulate any
+         * value here.
+         */
+        fun originatorRoutingNumber(originatorRoutingNumber: String) = apply {
+            this.originatorRoutingNumber = originatorRoutingNumber
+        }
 
         /**
          * The sending bank will set originator_to_beneficiary_information_line1 in production. You
@@ -823,6 +863,7 @@ constructor(
                 originatorAddressLine2,
                 originatorAddressLine3,
                 originatorName,
+                originatorRoutingNumber,
                 originatorToBeneficiaryInformationLine1,
                 originatorToBeneficiaryInformationLine2,
                 originatorToBeneficiaryInformationLine3,
