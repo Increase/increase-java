@@ -16,6 +16,11 @@ class AccountNumberCreateParamsTest {
                     .debitStatus(AccountNumberCreateParams.InboundAch.DebitStatus.ALLOWED)
                     .build()
             )
+            .inboundChecks(
+                AccountNumberCreateParams.InboundChecks.builder()
+                    .status(AccountNumberCreateParams.InboundChecks.Status.ALLOWED)
+                    .build()
+            )
             .build()
     }
 
@@ -30,6 +35,11 @@ class AccountNumberCreateParamsTest {
                         .debitStatus(AccountNumberCreateParams.InboundAch.DebitStatus.ALLOWED)
                         .build()
                 )
+                .inboundChecks(
+                    AccountNumberCreateParams.InboundChecks.builder()
+                        .status(AccountNumberCreateParams.InboundChecks.Status.ALLOWED)
+                        .build()
+                )
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -39,6 +49,12 @@ class AccountNumberCreateParamsTest {
             .isEqualTo(
                 AccountNumberCreateParams.InboundAch.builder()
                     .debitStatus(AccountNumberCreateParams.InboundAch.DebitStatus.ALLOWED)
+                    .build()
+            )
+        assertThat(body.inboundChecks())
+            .isEqualTo(
+                AccountNumberCreateParams.InboundChecks.builder()
+                    .status(AccountNumberCreateParams.InboundChecks.Status.ALLOWED)
                     .build()
             )
     }
