@@ -28,6 +28,11 @@ class AccountNumberServiceTest {
                             .debitStatus(AccountNumberCreateParams.InboundAch.DebitStatus.ALLOWED)
                             .build()
                     )
+                    .inboundChecks(
+                        AccountNumberCreateParams.InboundChecks.builder()
+                            .status(AccountNumberCreateParams.InboundChecks.Status.ALLOWED)
+                            .build()
+                    )
                     .build()
             )
         println(accountNumber)

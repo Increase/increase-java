@@ -31,6 +31,7 @@ class WireTransferServiceTest {
                     .originatorAddressLine2("x")
                     .originatorAddressLine3("x")
                     .originatorName("x")
+                    .originatorRoutingNumber("x")
                     .originatorToBeneficiaryInformationLine1("x")
                     .originatorToBeneficiaryInformationLine2("x")
                     .originatorToBeneficiaryInformationLine3("x")

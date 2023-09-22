@@ -19,6 +19,11 @@ class AccountNumberTest {
                         .debitStatus(AccountNumber.InboundAch.DebitStatus.ALLOWED)
                         .build()
                 )
+                .inboundChecks(
+                    AccountNumber.InboundChecks.builder()
+                        .status(AccountNumber.InboundChecks.Status.ALLOWED)
+                        .build()
+                )
                 .name("string")
                 .routingNumber("string")
                 .status(AccountNumber.Status.ACTIVE)
@@ -34,6 +39,12 @@ class AccountNumberTest {
             .isEqualTo(
                 AccountNumber.InboundAch.builder()
                     .debitStatus(AccountNumber.InboundAch.DebitStatus.ALLOWED)
+                    .build()
+            )
+        assertThat(accountNumber.inboundChecks())
+            .isEqualTo(
+                AccountNumber.InboundChecks.builder()
+                    .status(AccountNumber.InboundChecks.Status.ALLOWED)
                     .build()
             )
         assertThat(accountNumber.name()).isEqualTo("string")

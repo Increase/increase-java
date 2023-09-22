@@ -385,6 +385,12 @@ constructor(
             val CARD_PAYMENT_UPDATED = SelectedEventCategory(JsonField.of("card_payment.updated"))
 
             @JvmField
+            val CARD_PROFILE_CREATED = SelectedEventCategory(JsonField.of("card_profile.created"))
+
+            @JvmField
+            val CARD_PROFILE_UPDATED = SelectedEventCategory(JsonField.of("card_profile.updated"))
+
+            @JvmField
             val CARD_DISPUTE_CREATED = SelectedEventCategory(JsonField.of("card_dispute.created"))
 
             @JvmField
@@ -542,6 +548,8 @@ constructor(
             CARD_UPDATED,
             CARD_PAYMENT_CREATED,
             CARD_PAYMENT_UPDATED,
+            CARD_PROFILE_CREATED,
+            CARD_PROFILE_UPDATED,
             CARD_DISPUTE_CREATED,
             CARD_DISPUTE_UPDATED,
             CHECK_DEPOSIT_CREATED,
@@ -597,6 +605,8 @@ constructor(
             CARD_UPDATED,
             CARD_PAYMENT_CREATED,
             CARD_PAYMENT_UPDATED,
+            CARD_PROFILE_CREATED,
+            CARD_PROFILE_UPDATED,
             CARD_DISPUTE_CREATED,
             CARD_DISPUTE_UPDATED,
             CHECK_DEPOSIT_CREATED,
@@ -654,6 +664,8 @@ constructor(
                 CARD_UPDATED -> Value.CARD_UPDATED
                 CARD_PAYMENT_CREATED -> Value.CARD_PAYMENT_CREATED
                 CARD_PAYMENT_UPDATED -> Value.CARD_PAYMENT_UPDATED
+                CARD_PROFILE_CREATED -> Value.CARD_PROFILE_CREATED
+                CARD_PROFILE_UPDATED -> Value.CARD_PROFILE_UPDATED
                 CARD_DISPUTE_CREATED -> Value.CARD_DISPUTE_CREATED
                 CARD_DISPUTE_UPDATED -> Value.CARD_DISPUTE_UPDATED
                 CHECK_DEPOSIT_CREATED -> Value.CHECK_DEPOSIT_CREATED
@@ -716,6 +728,8 @@ constructor(
                 CARD_UPDATED -> Known.CARD_UPDATED
                 CARD_PAYMENT_CREATED -> Known.CARD_PAYMENT_CREATED
                 CARD_PAYMENT_UPDATED -> Known.CARD_PAYMENT_UPDATED
+                CARD_PROFILE_CREATED -> Known.CARD_PROFILE_CREATED
+                CARD_PROFILE_UPDATED -> Known.CARD_PROFILE_UPDATED
                 CARD_DISPUTE_CREATED -> Known.CARD_DISPUTE_CREATED
                 CARD_DISPUTE_UPDATED -> Known.CARD_DISPUTE_UPDATED
                 CHECK_DEPOSIT_CREATED -> Known.CHECK_DEPOSIT_CREATED
