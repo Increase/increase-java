@@ -550,8 +550,8 @@ private constructor(
         private val achTransferReturn: JsonField<AchTransferReturn>,
         private val cardDisputeAcceptance: JsonField<CardDisputeAcceptance>,
         private val cardRefund: JsonField<CardRefund>,
-        private val cardRevenuePayment: JsonField<CardRevenuePayment>,
         private val cardSettlement: JsonField<CardSettlement>,
+        private val cardRevenuePayment: JsonField<CardRevenuePayment>,
         private val checkDepositAcceptance: JsonField<CheckDepositAcceptance>,
         private val checkDepositReturn: JsonField<CheckDepositReturn>,
         private val checkTransferDeposit: JsonField<CheckTransferDeposit>,
@@ -563,9 +563,9 @@ private constructor(
         private val inboundInternationalAchTransfer: JsonField<InboundInternationalAchTransfer>,
         private val inboundRealTimePaymentsTransferConfirmation:
             JsonField<InboundRealTimePaymentsTransferConfirmation>,
-        private val inboundWireDrawdownPayment: JsonField<InboundWireDrawdownPayment>,
         private val inboundWireDrawdownPaymentReversal:
             JsonField<InboundWireDrawdownPaymentReversal>,
+        private val inboundWireDrawdownPayment: JsonField<InboundWireDrawdownPayment>,
         private val inboundWireReversal: JsonField<InboundWireReversal>,
         private val inboundWireTransfer: JsonField<InboundWireTransfer>,
         private val interestPayment: JsonField<InterestPayment>,
@@ -631,18 +631,18 @@ private constructor(
             Optional.ofNullable(cardRefund.getNullable("card_refund"))
 
         /**
-         * A Card Revenue Payment object. This field will be present in the JSON response if and
-         * only if `category` is equal to `card_revenue_payment`.
-         */
-        fun cardRevenuePayment(): Optional<CardRevenuePayment> =
-            Optional.ofNullable(cardRevenuePayment.getNullable("card_revenue_payment"))
-
-        /**
          * A Card Settlement object. This field will be present in the JSON response if and only if
          * `category` is equal to `card_settlement`.
          */
         fun cardSettlement(): Optional<CardSettlement> =
             Optional.ofNullable(cardSettlement.getNullable("card_settlement"))
+
+        /**
+         * A Card Revenue Payment object. This field will be present in the JSON response if and
+         * only if `category` is equal to `card_revenue_payment`.
+         */
+        fun cardRevenuePayment(): Optional<CardRevenuePayment> =
+            Optional.ofNullable(cardRevenuePayment.getNullable("card_revenue_payment"))
 
         /**
          * A Check Deposit Acceptance object. This field will be present in the JSON response if and
@@ -725,15 +725,6 @@ private constructor(
             )
 
         /**
-         * An Inbound Wire Drawdown Payment object. This field will be present in the JSON response
-         * if and only if `category` is equal to `inbound_wire_drawdown_payment`.
-         */
-        fun inboundWireDrawdownPayment(): Optional<InboundWireDrawdownPayment> =
-            Optional.ofNullable(
-                inboundWireDrawdownPayment.getNullable("inbound_wire_drawdown_payment")
-            )
-
-        /**
          * An Inbound Wire Drawdown Payment Reversal object. This field will be present in the JSON
          * response if and only if `category` is equal to `inbound_wire_drawdown_payment_reversal`.
          */
@@ -742,6 +733,15 @@ private constructor(
                 inboundWireDrawdownPaymentReversal.getNullable(
                     "inbound_wire_drawdown_payment_reversal"
                 )
+            )
+
+        /**
+         * An Inbound Wire Drawdown Payment object. This field will be present in the JSON response
+         * if and only if `category` is equal to `inbound_wire_drawdown_payment`.
+         */
+        fun inboundWireDrawdownPayment(): Optional<InboundWireDrawdownPayment> =
+            Optional.ofNullable(
+                inboundWireDrawdownPayment.getNullable("inbound_wire_drawdown_payment")
             )
 
         /**
@@ -859,18 +859,18 @@ private constructor(
         @JsonProperty("card_refund") @ExcludeMissing fun _cardRefund() = cardRefund
 
         /**
+         * A Card Settlement object. This field will be present in the JSON response if and only if
+         * `category` is equal to `card_settlement`.
+         */
+        @JsonProperty("card_settlement") @ExcludeMissing fun _cardSettlement() = cardSettlement
+
+        /**
          * A Card Revenue Payment object. This field will be present in the JSON response if and
          * only if `category` is equal to `card_revenue_payment`.
          */
         @JsonProperty("card_revenue_payment")
         @ExcludeMissing
         fun _cardRevenuePayment() = cardRevenuePayment
-
-        /**
-         * A Card Settlement object. This field will be present in the JSON response if and only if
-         * `category` is equal to `card_settlement`.
-         */
-        @JsonProperty("card_settlement") @ExcludeMissing fun _cardSettlement() = cardSettlement
 
         /**
          * A Check Deposit Acceptance object. This field will be present in the JSON response if and
@@ -951,20 +951,20 @@ private constructor(
             inboundRealTimePaymentsTransferConfirmation
 
         /**
-         * An Inbound Wire Drawdown Payment object. This field will be present in the JSON response
-         * if and only if `category` is equal to `inbound_wire_drawdown_payment`.
-         */
-        @JsonProperty("inbound_wire_drawdown_payment")
-        @ExcludeMissing
-        fun _inboundWireDrawdownPayment() = inboundWireDrawdownPayment
-
-        /**
          * An Inbound Wire Drawdown Payment Reversal object. This field will be present in the JSON
          * response if and only if `category` is equal to `inbound_wire_drawdown_payment_reversal`.
          */
         @JsonProperty("inbound_wire_drawdown_payment_reversal")
         @ExcludeMissing
         fun _inboundWireDrawdownPaymentReversal() = inboundWireDrawdownPaymentReversal
+
+        /**
+         * An Inbound Wire Drawdown Payment object. This field will be present in the JSON response
+         * if and only if `category` is equal to `inbound_wire_drawdown_payment`.
+         */
+        @JsonProperty("inbound_wire_drawdown_payment")
+        @ExcludeMissing
+        fun _inboundWireDrawdownPayment() = inboundWireDrawdownPayment
 
         /**
          * An Inbound Wire Reversal object. This field will be present in the JSON response if and
@@ -1038,8 +1038,8 @@ private constructor(
                 achTransferReturn().map { it.validate() }
                 cardDisputeAcceptance().map { it.validate() }
                 cardRefund().map { it.validate() }
-                cardRevenuePayment().map { it.validate() }
                 cardSettlement().map { it.validate() }
+                cardRevenuePayment().map { it.validate() }
                 checkDepositAcceptance().map { it.validate() }
                 checkDepositReturn().map { it.validate() }
                 checkTransferDeposit().map { it.validate() }
@@ -1050,8 +1050,8 @@ private constructor(
                 inboundCheck().map { it.validate() }
                 inboundInternationalAchTransfer().map { it.validate() }
                 inboundRealTimePaymentsTransferConfirmation().map { it.validate() }
-                inboundWireDrawdownPayment().map { it.validate() }
                 inboundWireDrawdownPaymentReversal().map { it.validate() }
+                inboundWireDrawdownPayment().map { it.validate() }
                 inboundWireReversal().map { it.validate() }
                 inboundWireTransfer().map { it.validate() }
                 interestPayment().map { it.validate() }
@@ -1079,8 +1079,8 @@ private constructor(
                 this.achTransferReturn == other.achTransferReturn &&
                 this.cardDisputeAcceptance == other.cardDisputeAcceptance &&
                 this.cardRefund == other.cardRefund &&
-                this.cardRevenuePayment == other.cardRevenuePayment &&
                 this.cardSettlement == other.cardSettlement &&
+                this.cardRevenuePayment == other.cardRevenuePayment &&
                 this.checkDepositAcceptance == other.checkDepositAcceptance &&
                 this.checkDepositReturn == other.checkDepositReturn &&
                 this.checkTransferDeposit == other.checkTransferDeposit &&
@@ -1092,9 +1092,9 @@ private constructor(
                 this.inboundInternationalAchTransfer == other.inboundInternationalAchTransfer &&
                 this.inboundRealTimePaymentsTransferConfirmation ==
                     other.inboundRealTimePaymentsTransferConfirmation &&
-                this.inboundWireDrawdownPayment == other.inboundWireDrawdownPayment &&
                 this.inboundWireDrawdownPaymentReversal ==
                     other.inboundWireDrawdownPaymentReversal &&
+                this.inboundWireDrawdownPayment == other.inboundWireDrawdownPayment &&
                 this.inboundWireReversal == other.inboundWireReversal &&
                 this.inboundWireTransfer == other.inboundWireTransfer &&
                 this.interestPayment == other.interestPayment &&
@@ -1118,8 +1118,8 @@ private constructor(
                         achTransferReturn,
                         cardDisputeAcceptance,
                         cardRefund,
-                        cardRevenuePayment,
                         cardSettlement,
+                        cardRevenuePayment,
                         checkDepositAcceptance,
                         checkDepositReturn,
                         checkTransferDeposit,
@@ -1130,8 +1130,8 @@ private constructor(
                         inboundCheck,
                         inboundInternationalAchTransfer,
                         inboundRealTimePaymentsTransferConfirmation,
-                        inboundWireDrawdownPayment,
                         inboundWireDrawdownPaymentReversal,
+                        inboundWireDrawdownPayment,
                         inboundWireReversal,
                         inboundWireTransfer,
                         interestPayment,
@@ -1147,7 +1147,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Source{category=$category, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, checkTransferIntention=$checkTransferIntention, checkTransferStopPaymentRequest=$checkTransferStopPaymentRequest, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundCheck=$inboundCheck, inboundInternationalAchTransfer=$inboundInternationalAchTransfer, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireDrawdownPayment=$inboundWireDrawdownPayment, inboundWireDrawdownPaymentReversal=$inboundWireDrawdownPaymentReversal, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, interestPayment=$interestPayment, internalSource=$internalSource, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, wireTransferIntention=$wireTransferIntention, wireTransferRejection=$wireTransferRejection, additionalProperties=$additionalProperties}"
+            "Source{category=$category, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardRefund=$cardRefund, cardSettlement=$cardSettlement, cardRevenuePayment=$cardRevenuePayment, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, checkTransferIntention=$checkTransferIntention, checkTransferStopPaymentRequest=$checkTransferStopPaymentRequest, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundCheck=$inboundCheck, inboundInternationalAchTransfer=$inboundInternationalAchTransfer, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireDrawdownPaymentReversal=$inboundWireDrawdownPaymentReversal, inboundWireDrawdownPayment=$inboundWireDrawdownPayment, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, interestPayment=$interestPayment, internalSource=$internalSource, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, wireTransferIntention=$wireTransferIntention, wireTransferRejection=$wireTransferRejection, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1164,8 +1164,8 @@ private constructor(
             private var achTransferReturn: JsonField<AchTransferReturn> = JsonMissing.of()
             private var cardDisputeAcceptance: JsonField<CardDisputeAcceptance> = JsonMissing.of()
             private var cardRefund: JsonField<CardRefund> = JsonMissing.of()
-            private var cardRevenuePayment: JsonField<CardRevenuePayment> = JsonMissing.of()
             private var cardSettlement: JsonField<CardSettlement> = JsonMissing.of()
+            private var cardRevenuePayment: JsonField<CardRevenuePayment> = JsonMissing.of()
             private var checkDepositAcceptance: JsonField<CheckDepositAcceptance> = JsonMissing.of()
             private var checkDepositReturn: JsonField<CheckDepositReturn> = JsonMissing.of()
             private var checkTransferDeposit: JsonField<CheckTransferDeposit> = JsonMissing.of()
@@ -1182,10 +1182,10 @@ private constructor(
             private var inboundRealTimePaymentsTransferConfirmation:
                 JsonField<InboundRealTimePaymentsTransferConfirmation> =
                 JsonMissing.of()
-            private var inboundWireDrawdownPayment: JsonField<InboundWireDrawdownPayment> =
-                JsonMissing.of()
             private var inboundWireDrawdownPaymentReversal:
                 JsonField<InboundWireDrawdownPaymentReversal> =
+                JsonMissing.of()
+            private var inboundWireDrawdownPayment: JsonField<InboundWireDrawdownPayment> =
                 JsonMissing.of()
             private var inboundWireReversal: JsonField<InboundWireReversal> = JsonMissing.of()
             private var inboundWireTransfer: JsonField<InboundWireTransfer> = JsonMissing.of()
@@ -1208,8 +1208,8 @@ private constructor(
                 this.achTransferReturn = source.achTransferReturn
                 this.cardDisputeAcceptance = source.cardDisputeAcceptance
                 this.cardRefund = source.cardRefund
-                this.cardRevenuePayment = source.cardRevenuePayment
                 this.cardSettlement = source.cardSettlement
+                this.cardRevenuePayment = source.cardRevenuePayment
                 this.checkDepositAcceptance = source.checkDepositAcceptance
                 this.checkDepositReturn = source.checkDepositReturn
                 this.checkTransferDeposit = source.checkTransferDeposit
@@ -1221,8 +1221,8 @@ private constructor(
                 this.inboundInternationalAchTransfer = source.inboundInternationalAchTransfer
                 this.inboundRealTimePaymentsTransferConfirmation =
                     source.inboundRealTimePaymentsTransferConfirmation
-                this.inboundWireDrawdownPayment = source.inboundWireDrawdownPayment
                 this.inboundWireDrawdownPaymentReversal = source.inboundWireDrawdownPaymentReversal
+                this.inboundWireDrawdownPayment = source.inboundWireDrawdownPayment
                 this.inboundWireReversal = source.inboundWireReversal
                 this.inboundWireTransfer = source.inboundWireTransfer
                 this.interestPayment = source.interestPayment
@@ -1354,23 +1354,6 @@ private constructor(
             }
 
             /**
-             * A Card Revenue Payment object. This field will be present in the JSON response if and
-             * only if `category` is equal to `card_revenue_payment`.
-             */
-            fun cardRevenuePayment(cardRevenuePayment: CardRevenuePayment) =
-                cardRevenuePayment(JsonField.of(cardRevenuePayment))
-
-            /**
-             * A Card Revenue Payment object. This field will be present in the JSON response if and
-             * only if `category` is equal to `card_revenue_payment`.
-             */
-            @JsonProperty("card_revenue_payment")
-            @ExcludeMissing
-            fun cardRevenuePayment(cardRevenuePayment: JsonField<CardRevenuePayment>) = apply {
-                this.cardRevenuePayment = cardRevenuePayment
-            }
-
-            /**
              * A Card Settlement object. This field will be present in the JSON response if and only
              * if `category` is equal to `card_settlement`.
              */
@@ -1385,6 +1368,23 @@ private constructor(
             @ExcludeMissing
             fun cardSettlement(cardSettlement: JsonField<CardSettlement>) = apply {
                 this.cardSettlement = cardSettlement
+            }
+
+            /**
+             * A Card Revenue Payment object. This field will be present in the JSON response if and
+             * only if `category` is equal to `card_revenue_payment`.
+             */
+            fun cardRevenuePayment(cardRevenuePayment: CardRevenuePayment) =
+                cardRevenuePayment(JsonField.of(cardRevenuePayment))
+
+            /**
+             * A Card Revenue Payment object. This field will be present in the JSON response if and
+             * only if `category` is equal to `card_revenue_payment`.
+             */
+            @JsonProperty("card_revenue_payment")
+            @ExcludeMissing
+            fun cardRevenuePayment(cardRevenuePayment: JsonField<CardRevenuePayment>) = apply {
+                this.cardRevenuePayment = cardRevenuePayment
             }
 
             /**
@@ -1572,23 +1572,6 @@ private constructor(
             }
 
             /**
-             * An Inbound Wire Drawdown Payment object. This field will be present in the JSON
-             * response if and only if `category` is equal to `inbound_wire_drawdown_payment`.
-             */
-            fun inboundWireDrawdownPayment(inboundWireDrawdownPayment: InboundWireDrawdownPayment) =
-                inboundWireDrawdownPayment(JsonField.of(inboundWireDrawdownPayment))
-
-            /**
-             * An Inbound Wire Drawdown Payment object. This field will be present in the JSON
-             * response if and only if `category` is equal to `inbound_wire_drawdown_payment`.
-             */
-            @JsonProperty("inbound_wire_drawdown_payment")
-            @ExcludeMissing
-            fun inboundWireDrawdownPayment(
-                inboundWireDrawdownPayment: JsonField<InboundWireDrawdownPayment>
-            ) = apply { this.inboundWireDrawdownPayment = inboundWireDrawdownPayment }
-
-            /**
              * An Inbound Wire Drawdown Payment Reversal object. This field will be present in the
              * JSON response if and only if `category` is equal to
              * `inbound_wire_drawdown_payment_reversal`.
@@ -1609,6 +1592,23 @@ private constructor(
             ) = apply {
                 this.inboundWireDrawdownPaymentReversal = inboundWireDrawdownPaymentReversal
             }
+
+            /**
+             * An Inbound Wire Drawdown Payment object. This field will be present in the JSON
+             * response if and only if `category` is equal to `inbound_wire_drawdown_payment`.
+             */
+            fun inboundWireDrawdownPayment(inboundWireDrawdownPayment: InboundWireDrawdownPayment) =
+                inboundWireDrawdownPayment(JsonField.of(inboundWireDrawdownPayment))
+
+            /**
+             * An Inbound Wire Drawdown Payment object. This field will be present in the JSON
+             * response if and only if `category` is equal to `inbound_wire_drawdown_payment`.
+             */
+            @JsonProperty("inbound_wire_drawdown_payment")
+            @ExcludeMissing
+            fun inboundWireDrawdownPayment(
+                inboundWireDrawdownPayment: JsonField<InboundWireDrawdownPayment>
+            ) = apply { this.inboundWireDrawdownPayment = inboundWireDrawdownPayment }
 
             /**
              * An Inbound Wire Reversal object. This field will be present in the JSON response if
@@ -1780,8 +1780,8 @@ private constructor(
                     achTransferReturn,
                     cardDisputeAcceptance,
                     cardRefund,
-                    cardRevenuePayment,
                     cardSettlement,
+                    cardRevenuePayment,
                     checkDepositAcceptance,
                     checkDepositReturn,
                     checkTransferDeposit,
@@ -1792,8 +1792,8 @@ private constructor(
                     inboundCheck,
                     inboundInternationalAchTransfer,
                     inboundRealTimePaymentsTransferConfirmation,
-                    inboundWireDrawdownPayment,
                     inboundWireDrawdownPaymentReversal,
+                    inboundWireDrawdownPayment,
                     inboundWireReversal,
                     inboundWireTransfer,
                     interestPayment,
@@ -12675,9 +12675,9 @@ private constructor(
 
                 @JvmField val CARD_REFUND = Category(JsonField.of("card_refund"))
 
-                @JvmField val CARD_REVENUE_PAYMENT = Category(JsonField.of("card_revenue_payment"))
-
                 @JvmField val CARD_SETTLEMENT = Category(JsonField.of("card_settlement"))
+
+                @JvmField val CARD_REVENUE_PAYMENT = Category(JsonField.of("card_revenue_payment"))
 
                 @JvmField
                 val CHECK_DEPOSIT_ACCEPTANCE = Category(JsonField.of("check_deposit_acceptance"))
@@ -12713,12 +12713,12 @@ private constructor(
                     Category(JsonField.of("inbound_real_time_payments_transfer_confirmation"))
 
                 @JvmField
-                val INBOUND_WIRE_DRAWDOWN_PAYMENT =
-                    Category(JsonField.of("inbound_wire_drawdown_payment"))
-
-                @JvmField
                 val INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL =
                     Category(JsonField.of("inbound_wire_drawdown_payment_reversal"))
+
+                @JvmField
+                val INBOUND_WIRE_DRAWDOWN_PAYMENT =
+                    Category(JsonField.of("inbound_wire_drawdown_payment"))
 
                 @JvmField
                 val INBOUND_WIRE_REVERSAL = Category(JsonField.of("inbound_wire_reversal"))
@@ -12754,8 +12754,8 @@ private constructor(
                 ACH_TRANSFER_RETURN,
                 CARD_DISPUTE_ACCEPTANCE,
                 CARD_REFUND,
-                CARD_REVENUE_PAYMENT,
                 CARD_SETTLEMENT,
+                CARD_REVENUE_PAYMENT,
                 CHECK_DEPOSIT_ACCEPTANCE,
                 CHECK_DEPOSIT_RETURN,
                 CHECK_TRANSFER_DEPOSIT,
@@ -12767,8 +12767,8 @@ private constructor(
                 INBOUND_CHECK,
                 INBOUND_INTERNATIONAL_ACH_TRANSFER,
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
-                INBOUND_WIRE_DRAWDOWN_PAYMENT,
                 INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL,
+                INBOUND_WIRE_DRAWDOWN_PAYMENT,
                 INBOUND_WIRE_REVERSAL,
                 INBOUND_WIRE_TRANSFER,
                 INTEREST_PAYMENT,
@@ -12787,8 +12787,8 @@ private constructor(
                 ACH_TRANSFER_RETURN,
                 CARD_DISPUTE_ACCEPTANCE,
                 CARD_REFUND,
-                CARD_REVENUE_PAYMENT,
                 CARD_SETTLEMENT,
+                CARD_REVENUE_PAYMENT,
                 CHECK_DEPOSIT_ACCEPTANCE,
                 CHECK_DEPOSIT_RETURN,
                 CHECK_TRANSFER_DEPOSIT,
@@ -12800,8 +12800,8 @@ private constructor(
                 INBOUND_CHECK,
                 INBOUND_INTERNATIONAL_ACH_TRANSFER,
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
-                INBOUND_WIRE_DRAWDOWN_PAYMENT,
                 INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL,
+                INBOUND_WIRE_DRAWDOWN_PAYMENT,
                 INBOUND_WIRE_REVERSAL,
                 INBOUND_WIRE_TRANSFER,
                 INTEREST_PAYMENT,
@@ -12822,8 +12822,8 @@ private constructor(
                     ACH_TRANSFER_RETURN -> Value.ACH_TRANSFER_RETURN
                     CARD_DISPUTE_ACCEPTANCE -> Value.CARD_DISPUTE_ACCEPTANCE
                     CARD_REFUND -> Value.CARD_REFUND
-                    CARD_REVENUE_PAYMENT -> Value.CARD_REVENUE_PAYMENT
                     CARD_SETTLEMENT -> Value.CARD_SETTLEMENT
+                    CARD_REVENUE_PAYMENT -> Value.CARD_REVENUE_PAYMENT
                     CHECK_DEPOSIT_ACCEPTANCE -> Value.CHECK_DEPOSIT_ACCEPTANCE
                     CHECK_DEPOSIT_RETURN -> Value.CHECK_DEPOSIT_RETURN
                     CHECK_TRANSFER_DEPOSIT -> Value.CHECK_TRANSFER_DEPOSIT
@@ -12837,9 +12837,9 @@ private constructor(
                     INBOUND_INTERNATIONAL_ACH_TRANSFER -> Value.INBOUND_INTERNATIONAL_ACH_TRANSFER
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                         Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
-                    INBOUND_WIRE_DRAWDOWN_PAYMENT -> Value.INBOUND_WIRE_DRAWDOWN_PAYMENT
                     INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL ->
                         Value.INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL
+                    INBOUND_WIRE_DRAWDOWN_PAYMENT -> Value.INBOUND_WIRE_DRAWDOWN_PAYMENT
                     INBOUND_WIRE_REVERSAL -> Value.INBOUND_WIRE_REVERSAL
                     INBOUND_WIRE_TRANSFER -> Value.INBOUND_WIRE_TRANSFER
                     INTEREST_PAYMENT -> Value.INTEREST_PAYMENT
@@ -12861,8 +12861,8 @@ private constructor(
                     ACH_TRANSFER_RETURN -> Known.ACH_TRANSFER_RETURN
                     CARD_DISPUTE_ACCEPTANCE -> Known.CARD_DISPUTE_ACCEPTANCE
                     CARD_REFUND -> Known.CARD_REFUND
-                    CARD_REVENUE_PAYMENT -> Known.CARD_REVENUE_PAYMENT
                     CARD_SETTLEMENT -> Known.CARD_SETTLEMENT
+                    CARD_REVENUE_PAYMENT -> Known.CARD_REVENUE_PAYMENT
                     CHECK_DEPOSIT_ACCEPTANCE -> Known.CHECK_DEPOSIT_ACCEPTANCE
                     CHECK_DEPOSIT_RETURN -> Known.CHECK_DEPOSIT_RETURN
                     CHECK_TRANSFER_DEPOSIT -> Known.CHECK_TRANSFER_DEPOSIT
@@ -12876,9 +12876,9 @@ private constructor(
                     INBOUND_INTERNATIONAL_ACH_TRANSFER -> Known.INBOUND_INTERNATIONAL_ACH_TRANSFER
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                         Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
-                    INBOUND_WIRE_DRAWDOWN_PAYMENT -> Known.INBOUND_WIRE_DRAWDOWN_PAYMENT
                     INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL ->
                         Known.INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL
+                    INBOUND_WIRE_DRAWDOWN_PAYMENT -> Known.INBOUND_WIRE_DRAWDOWN_PAYMENT
                     INBOUND_WIRE_REVERSAL -> Known.INBOUND_WIRE_REVERSAL
                     INBOUND_WIRE_TRANSFER -> Known.INBOUND_WIRE_TRANSFER
                     INTEREST_PAYMENT -> Known.INTEREST_PAYMENT
