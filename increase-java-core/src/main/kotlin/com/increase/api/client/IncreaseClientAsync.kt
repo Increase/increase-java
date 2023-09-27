@@ -84,4 +84,6 @@ interface IncreaseClientAsync {
     fun accountStatements(): AccountStatementServiceAsync
 
     fun simulations(): SimulationServiceAsync
+
+    fun physicalCards(): PhysicalCardServiceAsync
 }

@@ -31,6 +31,8 @@ import com.increase.api.services.async.simulations.InboundWireDrawdownRequestSer
 import com.increase.api.services.async.simulations.InboundWireDrawdownRequestServiceAsyncImpl
 import com.increase.api.services.async.simulations.InterestPaymentServiceAsync
 import com.increase.api.services.async.simulations.InterestPaymentServiceAsyncImpl
+import com.increase.api.services.async.simulations.PhysicalCardServiceAsync
+import com.increase.api.services.async.simulations.PhysicalCardServiceAsyncImpl
 import com.increase.api.services.async.simulations.ProgramServiceAsync
 import com.increase.api.services.async.simulations.ProgramServiceAsyncImpl
 import com.increase.api.services.async.simulations.RealTimePaymentsTransferServiceAsync
@@ -108,6 +110,10 @@ constructor(
         RealTimePaymentsTransferServiceAsyncImpl(clientOptions)
     }
 
+    private val physicalCards: PhysicalCardServiceAsync by lazy {
+        PhysicalCardServiceAsyncImpl(clientOptions)
+    }
+
     override fun accountTransfers(): AccountTransferServiceAsync = accountTransfers
 
     override fun accountStatements(): AccountStatementServiceAsync = accountStatements
@@ -144,4 +150,6 @@ constructor(
 
     override fun realTimePaymentsTransfers(): RealTimePaymentsTransferServiceAsync =
         realTimePaymentsTransfers
+
+    override fun physicalCards(): PhysicalCardServiceAsync = physicalCards
 }
