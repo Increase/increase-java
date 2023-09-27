@@ -352,6 +352,10 @@ constructor(
 
                 @JvmField val ENTITY_UPDATED = In(JsonField.of("entity.updated"))
 
+                @JvmField val EXPORT_CREATED = In(JsonField.of("export.created"))
+
+                @JvmField val EXPORT_UPDATED = In(JsonField.of("export.updated"))
+
                 @JvmField
                 val EXTERNAL_ACCOUNT_CREATED = In(JsonField.of("external_account.created"))
 
@@ -380,6 +384,20 @@ constructor(
                     In(JsonField.of("inbound_wire_drawdown_request.created"))
 
                 @JvmField
+                val INTRAFI_ACCOUNT_ENROLLMENT_CREATED =
+                    In(JsonField.of("intrafi_account_enrollment.created"))
+
+                @JvmField
+                val INTRAFI_ACCOUNT_ENROLLMENT_UPDATED =
+                    In(JsonField.of("intrafi_account_enrollment.updated"))
+
+                @JvmField
+                val INTRAFI_EXCLUSION_CREATED = In(JsonField.of("intrafi_exclusion.created"))
+
+                @JvmField
+                val INTRAFI_EXCLUSION_UPDATED = In(JsonField.of("intrafi_exclusion.updated"))
+
+                @JvmField
                 val OAUTH_CONNECTION_CREATED = In(JsonField.of("oauth_connection.created"))
 
                 @JvmField
@@ -390,6 +408,10 @@ constructor(
 
                 @JvmField
                 val PENDING_TRANSACTION_UPDATED = In(JsonField.of("pending_transaction.updated"))
+
+                @JvmField val PHYSICAL_CARD_CREATED = In(JsonField.of("physical_card.created"))
+
+                @JvmField val PHYSICAL_CARD_UPDATED = In(JsonField.of("physical_card.updated"))
 
                 @JvmField
                 val REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED =
@@ -466,6 +488,8 @@ constructor(
                 DOCUMENT_CREATED,
                 ENTITY_CREATED,
                 ENTITY_UPDATED,
+                EXPORT_CREATED,
+                EXPORT_UPDATED,
                 EXTERNAL_ACCOUNT_CREATED,
                 FILE_CREATED,
                 GROUP_UPDATED,
@@ -475,10 +499,16 @@ constructor(
                 INBOUND_ACH_TRANSFER_RETURN_CREATED,
                 INBOUND_ACH_TRANSFER_RETURN_UPDATED,
                 INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED,
+                INTRAFI_ACCOUNT_ENROLLMENT_CREATED,
+                INTRAFI_ACCOUNT_ENROLLMENT_UPDATED,
+                INTRAFI_EXCLUSION_CREATED,
+                INTRAFI_EXCLUSION_UPDATED,
                 OAUTH_CONNECTION_CREATED,
                 OAUTH_CONNECTION_DEACTIVATED,
                 PENDING_TRANSACTION_CREATED,
                 PENDING_TRANSACTION_UPDATED,
+                PHYSICAL_CARD_CREATED,
+                PHYSICAL_CARD_UPDATED,
                 REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED,
                 REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED,
                 REAL_TIME_DECISION_DIGITAL_WALLET_AUTHENTICATION_REQUESTED,
@@ -523,6 +553,8 @@ constructor(
                 DOCUMENT_CREATED,
                 ENTITY_CREATED,
                 ENTITY_UPDATED,
+                EXPORT_CREATED,
+                EXPORT_UPDATED,
                 EXTERNAL_ACCOUNT_CREATED,
                 FILE_CREATED,
                 GROUP_UPDATED,
@@ -532,10 +564,16 @@ constructor(
                 INBOUND_ACH_TRANSFER_RETURN_CREATED,
                 INBOUND_ACH_TRANSFER_RETURN_UPDATED,
                 INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED,
+                INTRAFI_ACCOUNT_ENROLLMENT_CREATED,
+                INTRAFI_ACCOUNT_ENROLLMENT_UPDATED,
+                INTRAFI_EXCLUSION_CREATED,
+                INTRAFI_EXCLUSION_UPDATED,
                 OAUTH_CONNECTION_CREATED,
                 OAUTH_CONNECTION_DEACTIVATED,
                 PENDING_TRANSACTION_CREATED,
                 PENDING_TRANSACTION_UPDATED,
+                PHYSICAL_CARD_CREATED,
+                PHYSICAL_CARD_UPDATED,
                 REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED,
                 REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED,
                 REAL_TIME_DECISION_DIGITAL_WALLET_AUTHENTICATION_REQUESTED,
@@ -582,6 +620,8 @@ constructor(
                     DOCUMENT_CREATED -> Value.DOCUMENT_CREATED
                     ENTITY_CREATED -> Value.ENTITY_CREATED
                     ENTITY_UPDATED -> Value.ENTITY_UPDATED
+                    EXPORT_CREATED -> Value.EXPORT_CREATED
+                    EXPORT_UPDATED -> Value.EXPORT_UPDATED
                     EXTERNAL_ACCOUNT_CREATED -> Value.EXTERNAL_ACCOUNT_CREATED
                     FILE_CREATED -> Value.FILE_CREATED
                     GROUP_UPDATED -> Value.GROUP_UPDATED
@@ -592,10 +632,16 @@ constructor(
                     INBOUND_ACH_TRANSFER_RETURN_UPDATED -> Value.INBOUND_ACH_TRANSFER_RETURN_UPDATED
                     INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED ->
                         Value.INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED
+                    INTRAFI_ACCOUNT_ENROLLMENT_CREATED -> Value.INTRAFI_ACCOUNT_ENROLLMENT_CREATED
+                    INTRAFI_ACCOUNT_ENROLLMENT_UPDATED -> Value.INTRAFI_ACCOUNT_ENROLLMENT_UPDATED
+                    INTRAFI_EXCLUSION_CREATED -> Value.INTRAFI_EXCLUSION_CREATED
+                    INTRAFI_EXCLUSION_UPDATED -> Value.INTRAFI_EXCLUSION_UPDATED
                     OAUTH_CONNECTION_CREATED -> Value.OAUTH_CONNECTION_CREATED
                     OAUTH_CONNECTION_DEACTIVATED -> Value.OAUTH_CONNECTION_DEACTIVATED
                     PENDING_TRANSACTION_CREATED -> Value.PENDING_TRANSACTION_CREATED
                     PENDING_TRANSACTION_UPDATED -> Value.PENDING_TRANSACTION_UPDATED
+                    PHYSICAL_CARD_CREATED -> Value.PHYSICAL_CARD_CREATED
+                    PHYSICAL_CARD_UPDATED -> Value.PHYSICAL_CARD_UPDATED
                     REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED ->
                         Value.REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED
                     REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED ->
@@ -647,6 +693,8 @@ constructor(
                     DOCUMENT_CREATED -> Known.DOCUMENT_CREATED
                     ENTITY_CREATED -> Known.ENTITY_CREATED
                     ENTITY_UPDATED -> Known.ENTITY_UPDATED
+                    EXPORT_CREATED -> Known.EXPORT_CREATED
+                    EXPORT_UPDATED -> Known.EXPORT_UPDATED
                     EXTERNAL_ACCOUNT_CREATED -> Known.EXTERNAL_ACCOUNT_CREATED
                     FILE_CREATED -> Known.FILE_CREATED
                     GROUP_UPDATED -> Known.GROUP_UPDATED
@@ -657,10 +705,16 @@ constructor(
                     INBOUND_ACH_TRANSFER_RETURN_UPDATED -> Known.INBOUND_ACH_TRANSFER_RETURN_UPDATED
                     INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED ->
                         Known.INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED
+                    INTRAFI_ACCOUNT_ENROLLMENT_CREATED -> Known.INTRAFI_ACCOUNT_ENROLLMENT_CREATED
+                    INTRAFI_ACCOUNT_ENROLLMENT_UPDATED -> Known.INTRAFI_ACCOUNT_ENROLLMENT_UPDATED
+                    INTRAFI_EXCLUSION_CREATED -> Known.INTRAFI_EXCLUSION_CREATED
+                    INTRAFI_EXCLUSION_UPDATED -> Known.INTRAFI_EXCLUSION_UPDATED
                     OAUTH_CONNECTION_CREATED -> Known.OAUTH_CONNECTION_CREATED
                     OAUTH_CONNECTION_DEACTIVATED -> Known.OAUTH_CONNECTION_DEACTIVATED
                     PENDING_TRANSACTION_CREATED -> Known.PENDING_TRANSACTION_CREATED
                     PENDING_TRANSACTION_UPDATED -> Known.PENDING_TRANSACTION_UPDATED
+                    PHYSICAL_CARD_CREATED -> Known.PHYSICAL_CARD_CREATED
+                    PHYSICAL_CARD_UPDATED -> Known.PHYSICAL_CARD_UPDATED
                     REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED ->
                         Known.REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED
                     REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED ->

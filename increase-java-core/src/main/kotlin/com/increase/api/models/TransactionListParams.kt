@@ -312,9 +312,9 @@ constructor(
 
                 @JvmField val CARD_REFUND = In(JsonField.of("card_refund"))
 
-                @JvmField val CARD_REVENUE_PAYMENT = In(JsonField.of("card_revenue_payment"))
-
                 @JvmField val CARD_SETTLEMENT = In(JsonField.of("card_settlement"))
+
+                @JvmField val CARD_REVENUE_PAYMENT = In(JsonField.of("card_revenue_payment"))
 
                 @JvmField
                 val CHECK_DEPOSIT_ACCEPTANCE = In(JsonField.of("check_deposit_acceptance"))
@@ -349,12 +349,12 @@ constructor(
                     In(JsonField.of("inbound_real_time_payments_transfer_confirmation"))
 
                 @JvmField
-                val INBOUND_WIRE_DRAWDOWN_PAYMENT =
-                    In(JsonField.of("inbound_wire_drawdown_payment"))
-
-                @JvmField
                 val INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL =
                     In(JsonField.of("inbound_wire_drawdown_payment_reversal"))
+
+                @JvmField
+                val INBOUND_WIRE_DRAWDOWN_PAYMENT =
+                    In(JsonField.of("inbound_wire_drawdown_payment"))
 
                 @JvmField val INBOUND_WIRE_REVERSAL = In(JsonField.of("inbound_wire_reversal"))
 
@@ -386,8 +386,8 @@ constructor(
                 ACH_TRANSFER_RETURN,
                 CARD_DISPUTE_ACCEPTANCE,
                 CARD_REFUND,
-                CARD_REVENUE_PAYMENT,
                 CARD_SETTLEMENT,
+                CARD_REVENUE_PAYMENT,
                 CHECK_DEPOSIT_ACCEPTANCE,
                 CHECK_DEPOSIT_RETURN,
                 CHECK_TRANSFER_DEPOSIT,
@@ -399,8 +399,8 @@ constructor(
                 INBOUND_CHECK,
                 INBOUND_INTERNATIONAL_ACH_TRANSFER,
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
-                INBOUND_WIRE_DRAWDOWN_PAYMENT,
                 INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL,
+                INBOUND_WIRE_DRAWDOWN_PAYMENT,
                 INBOUND_WIRE_REVERSAL,
                 INBOUND_WIRE_TRANSFER,
                 INTEREST_PAYMENT,
@@ -419,8 +419,8 @@ constructor(
                 ACH_TRANSFER_RETURN,
                 CARD_DISPUTE_ACCEPTANCE,
                 CARD_REFUND,
-                CARD_REVENUE_PAYMENT,
                 CARD_SETTLEMENT,
+                CARD_REVENUE_PAYMENT,
                 CHECK_DEPOSIT_ACCEPTANCE,
                 CHECK_DEPOSIT_RETURN,
                 CHECK_TRANSFER_DEPOSIT,
@@ -432,8 +432,8 @@ constructor(
                 INBOUND_CHECK,
                 INBOUND_INTERNATIONAL_ACH_TRANSFER,
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
-                INBOUND_WIRE_DRAWDOWN_PAYMENT,
                 INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL,
+                INBOUND_WIRE_DRAWDOWN_PAYMENT,
                 INBOUND_WIRE_REVERSAL,
                 INBOUND_WIRE_TRANSFER,
                 INTEREST_PAYMENT,
@@ -454,8 +454,8 @@ constructor(
                     ACH_TRANSFER_RETURN -> Value.ACH_TRANSFER_RETURN
                     CARD_DISPUTE_ACCEPTANCE -> Value.CARD_DISPUTE_ACCEPTANCE
                     CARD_REFUND -> Value.CARD_REFUND
-                    CARD_REVENUE_PAYMENT -> Value.CARD_REVENUE_PAYMENT
                     CARD_SETTLEMENT -> Value.CARD_SETTLEMENT
+                    CARD_REVENUE_PAYMENT -> Value.CARD_REVENUE_PAYMENT
                     CHECK_DEPOSIT_ACCEPTANCE -> Value.CHECK_DEPOSIT_ACCEPTANCE
                     CHECK_DEPOSIT_RETURN -> Value.CHECK_DEPOSIT_RETURN
                     CHECK_TRANSFER_DEPOSIT -> Value.CHECK_TRANSFER_DEPOSIT
@@ -469,9 +469,9 @@ constructor(
                     INBOUND_INTERNATIONAL_ACH_TRANSFER -> Value.INBOUND_INTERNATIONAL_ACH_TRANSFER
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                         Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
-                    INBOUND_WIRE_DRAWDOWN_PAYMENT -> Value.INBOUND_WIRE_DRAWDOWN_PAYMENT
                     INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL ->
                         Value.INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL
+                    INBOUND_WIRE_DRAWDOWN_PAYMENT -> Value.INBOUND_WIRE_DRAWDOWN_PAYMENT
                     INBOUND_WIRE_REVERSAL -> Value.INBOUND_WIRE_REVERSAL
                     INBOUND_WIRE_TRANSFER -> Value.INBOUND_WIRE_TRANSFER
                     INTEREST_PAYMENT -> Value.INTEREST_PAYMENT
@@ -493,8 +493,8 @@ constructor(
                     ACH_TRANSFER_RETURN -> Known.ACH_TRANSFER_RETURN
                     CARD_DISPUTE_ACCEPTANCE -> Known.CARD_DISPUTE_ACCEPTANCE
                     CARD_REFUND -> Known.CARD_REFUND
-                    CARD_REVENUE_PAYMENT -> Known.CARD_REVENUE_PAYMENT
                     CARD_SETTLEMENT -> Known.CARD_SETTLEMENT
+                    CARD_REVENUE_PAYMENT -> Known.CARD_REVENUE_PAYMENT
                     CHECK_DEPOSIT_ACCEPTANCE -> Known.CHECK_DEPOSIT_ACCEPTANCE
                     CHECK_DEPOSIT_RETURN -> Known.CHECK_DEPOSIT_RETURN
                     CHECK_TRANSFER_DEPOSIT -> Known.CHECK_TRANSFER_DEPOSIT
@@ -508,9 +508,9 @@ constructor(
                     INBOUND_INTERNATIONAL_ACH_TRANSFER -> Known.INBOUND_INTERNATIONAL_ACH_TRANSFER
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                         Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
-                    INBOUND_WIRE_DRAWDOWN_PAYMENT -> Known.INBOUND_WIRE_DRAWDOWN_PAYMENT
                     INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL ->
                         Known.INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL
+                    INBOUND_WIRE_DRAWDOWN_PAYMENT -> Known.INBOUND_WIRE_DRAWDOWN_PAYMENT
                     INBOUND_WIRE_REVERSAL -> Known.INBOUND_WIRE_REVERSAL
                     INBOUND_WIRE_TRANSFER -> Known.INBOUND_WIRE_TRANSFER
                     INTEREST_PAYMENT -> Known.INTEREST_PAYMENT

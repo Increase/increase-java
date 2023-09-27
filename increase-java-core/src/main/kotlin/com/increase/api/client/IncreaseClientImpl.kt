@@ -140,6 +140,10 @@ constructor(
 
     private val simulations: SimulationService by lazy { SimulationServiceImpl(clientOptions) }
 
+    private val physicalCards: PhysicalCardService by lazy {
+        PhysicalCardServiceImpl(clientOptions)
+    }
+
     override fun async(): IncreaseClientAsync = async
 
     override fun accounts(): AccountService = accounts
@@ -219,4 +223,6 @@ constructor(
     override fun accountStatements(): AccountStatementService = accountStatements
 
     override fun simulations(): SimulationService = simulations
+
+    override fun physicalCards(): PhysicalCardService = physicalCards
 }

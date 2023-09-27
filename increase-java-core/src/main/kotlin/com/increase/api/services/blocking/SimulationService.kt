@@ -16,6 +16,7 @@ import com.increase.api.services.blocking.simulations.DocumentService
 import com.increase.api.services.blocking.simulations.InboundFundsHoldService
 import com.increase.api.services.blocking.simulations.InboundWireDrawdownRequestService
 import com.increase.api.services.blocking.simulations.InterestPaymentService
+import com.increase.api.services.blocking.simulations.PhysicalCardService
 import com.increase.api.services.blocking.simulations.ProgramService
 import com.increase.api.services.blocking.simulations.RealTimePaymentsTransferService
 import com.increase.api.services.blocking.simulations.WireTransferService
@@ -55,4 +56,6 @@ interface SimulationService {
     fun cards(): CardService
 
     fun realTimePaymentsTransfers(): RealTimePaymentsTransferService
+
+    fun physicalCards(): PhysicalCardService
 }

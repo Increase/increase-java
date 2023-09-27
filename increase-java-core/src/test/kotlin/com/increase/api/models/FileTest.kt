@@ -16,6 +16,7 @@ class FileTest {
                 .direction(File.Direction.TO_INCREASE)
                 .downloadUrl("string")
                 .filename("string")
+                .mimeType("string")
                 .purpose(File.Purpose.CHECK_IMAGE_FRONT)
                 .type(File.Type.FILE)
                 .build()
@@ -26,6 +27,7 @@ class FileTest {
         assertThat(file.direction()).isEqualTo(File.Direction.TO_INCREASE)
         assertThat(file.downloadUrl()).contains("string")
         assertThat(file.filename()).contains("string")
+        assertThat(file.mimeType()).isEqualTo("string")
         assertThat(file.purpose()).isEqualTo(File.Purpose.CHECK_IMAGE_FRONT)
         assertThat(file.type()).isEqualTo(File.Type.FILE)
     }
