@@ -88,6 +88,7 @@ class CardServiceTest {
                             .phone("x")
                             .build()
                     )
+                    .entityId("string")
                     .status(CardUpdateParams.Status.ACTIVE)
                     .build()
             )

@@ -86,4 +86,6 @@ interface IncreaseClient {
     fun simulations(): SimulationService
 
     fun physicalCards(): PhysicalCardService
+
+    fun cardPayments(): CardPaymentService
 }

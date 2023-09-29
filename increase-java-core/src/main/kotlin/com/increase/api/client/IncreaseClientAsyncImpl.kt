@@ -154,6 +154,10 @@ constructor(
         PhysicalCardServiceAsyncImpl(clientOptions)
     }
 
+    private val cardPayments: CardPaymentServiceAsync by lazy {
+        CardPaymentServiceAsyncImpl(clientOptions)
+    }
+
     override fun sync(): IncreaseClient = sync
 
     override fun accounts(): AccountServiceAsync = accounts
@@ -236,4 +240,6 @@ constructor(
     override fun simulations(): SimulationServiceAsync = simulations
 
     override fun physicalCards(): PhysicalCardServiceAsync = physicalCards
+
+    override fun cardPayments(): CardPaymentServiceAsync = cardPayments
 }
