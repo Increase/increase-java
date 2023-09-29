@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.10.4 (2023-09-29)
+
+Full Changelog: [v0.10.3...v0.10.4](https://github.com/Increase/increase-java/compare/v0.10.3...v0.10.4)
+
+### Features
+
+* **api:** add card payments endpoints ([#98](https://github.com/Increase/increase-java/issues/98)) ([de741df](https://github.com/Increase/increase-java/commit/de741df4b966b9a2944171a5962bc633df94e5cd))
+* **api:** add physical cards endpoints ([#96](https://github.com/Increase/increase-java/issues/96)) ([1a9971a](https://github.com/Increase/increase-java/commit/1a9971a89a4064890ab2cf44be3515cfb832dfa6))
+
 ## 0.10.3 (2023-09-22)
 
 Full Changelog: [v0.10.2...v0.10.3](https://github.com/increase/increase-java/compare/v0.10.2...v0.10.3)
