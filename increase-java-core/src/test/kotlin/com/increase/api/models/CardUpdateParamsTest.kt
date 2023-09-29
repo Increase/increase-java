@@ -27,6 +27,7 @@ class CardUpdateParamsTest {
                     .phone("x")
                     .build()
             )
+            .entityId("string")
             .status(CardUpdateParams.Status.ACTIVE)
             .build()
     }
@@ -53,6 +54,7 @@ class CardUpdateParamsTest {
                         .phone("x")
                         .build()
                 )
+                .entityId("string")
                 .status(CardUpdateParams.Status.ACTIVE)
                 .build()
         val body = params.getBody()
@@ -76,6 +78,7 @@ class CardUpdateParamsTest {
                     .phone("x")
                     .build()
             )
+        assertThat(body.entityId()).isEqualTo("string")
         assertThat(body.status()).isEqualTo(CardUpdateParams.Status.ACTIVE)
     }
 

@@ -21,6 +21,7 @@ constructor(
     private val billingAddress: BillingAddress?,
     private val description: String?,
     private val digitalWallet: DigitalWallet?,
+    private val entityId: String?,
     private val status: Status?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -35,6 +36,8 @@ constructor(
 
     fun digitalWallet(): Optional<DigitalWallet> = Optional.ofNullable(digitalWallet)
 
+    fun entityId(): Optional<String> = Optional.ofNullable(entityId)
+
     fun status(): Optional<Status> = Optional.ofNullable(status)
 
     @JvmSynthetic
@@ -43,6 +46,7 @@ constructor(
             billingAddress,
             description,
             digitalWallet,
+            entityId,
             status,
             additionalBodyProperties,
         )
@@ -66,6 +70,7 @@ constructor(
         private val billingAddress: BillingAddress?,
         private val description: String?,
         private val digitalWallet: DigitalWallet?,
+        private val entityId: String?,
         private val status: Status?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -83,6 +88,12 @@ constructor(
          * least one field must be present to complete the digital wallet steps.
          */
         @JsonProperty("digital_wallet") fun digitalWallet(): DigitalWallet? = digitalWallet
+
+        /**
+         * The Entity the card belongs to. You only need to supply this in rare situations when the
+         * card is not for the Account holder.
+         */
+        @JsonProperty("entity_id") fun entityId(): String? = entityId
 
         /** The status to update the Card with. */
         @JsonProperty("status") fun status(): Status? = status
@@ -102,6 +113,7 @@ constructor(
                 this.billingAddress == other.billingAddress &&
                 this.description == other.description &&
                 this.digitalWallet == other.digitalWallet &&
+                this.entityId == other.entityId &&
                 this.status == other.status &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -113,6 +125,7 @@ constructor(
                         billingAddress,
                         description,
                         digitalWallet,
+                        entityId,
                         status,
                         additionalProperties,
                     )
@@ -121,7 +134,7 @@ constructor(
         }
 
         override fun toString() =
-            "CardUpdateBody{billingAddress=$billingAddress, description=$description, digitalWallet=$digitalWallet, status=$status, additionalProperties=$additionalProperties}"
+            "CardUpdateBody{billingAddress=$billingAddress, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, status=$status, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -133,6 +146,7 @@ constructor(
             private var billingAddress: BillingAddress? = null
             private var description: String? = null
             private var digitalWallet: DigitalWallet? = null
+            private var entityId: String? = null
             private var status: Status? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -141,6 +155,7 @@ constructor(
                 this.billingAddress = cardUpdateBody.billingAddress
                 this.description = cardUpdateBody.description
                 this.digitalWallet = cardUpdateBody.digitalWallet
+                this.entityId = cardUpdateBody.entityId
                 this.status = cardUpdateBody.status
                 additionalProperties(cardUpdateBody.additionalProperties)
             }
@@ -164,6 +179,13 @@ constructor(
                 this.digitalWallet = digitalWallet
             }
 
+            /**
+             * The Entity the card belongs to. You only need to supply this in rare situations when
+             * the card is not for the Account holder.
+             */
+            @JsonProperty("entity_id")
+            fun entityId(entityId: String) = apply { this.entityId = entityId }
+
             /** The status to update the Card with. */
             @JsonProperty("status") fun status(status: Status) = apply { this.status = status }
 
@@ -186,6 +208,7 @@ constructor(
                     billingAddress,
                     description,
                     digitalWallet,
+                    entityId,
                     status,
                     additionalProperties.toUnmodifiable(),
                 )
@@ -208,6 +231,7 @@ constructor(
             this.billingAddress == other.billingAddress &&
             this.description == other.description &&
             this.digitalWallet == other.digitalWallet &&
+            this.entityId == other.entityId &&
             this.status == other.status &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
@@ -220,6 +244,7 @@ constructor(
             billingAddress,
             description,
             digitalWallet,
+            entityId,
             status,
             additionalQueryParams,
             additionalHeaders,
@@ -228,7 +253,7 @@ constructor(
     }
 
     override fun toString() =
-        "CardUpdateParams{cardId=$cardId, billingAddress=$billingAddress, description=$description, digitalWallet=$digitalWallet, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "CardUpdateParams{cardId=$cardId, billingAddress=$billingAddress, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -244,6 +269,7 @@ constructor(
         private var billingAddress: BillingAddress? = null
         private var description: String? = null
         private var digitalWallet: DigitalWallet? = null
+        private var entityId: String? = null
         private var status: Status? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -255,6 +281,7 @@ constructor(
             this.billingAddress = cardUpdateParams.billingAddress
             this.description = cardUpdateParams.description
             this.digitalWallet = cardUpdateParams.digitalWallet
+            this.entityId = cardUpdateParams.entityId
             this.status = cardUpdateParams.status
             additionalQueryParams(cardUpdateParams.additionalQueryParams)
             additionalHeaders(cardUpdateParams.additionalHeaders)
@@ -279,6 +306,12 @@ constructor(
         fun digitalWallet(digitalWallet: DigitalWallet) = apply {
             this.digitalWallet = digitalWallet
         }
+
+        /**
+         * The Entity the card belongs to. You only need to supply this in rare situations when the
+         * card is not for the Account holder.
+         */
+        fun entityId(entityId: String) = apply { this.entityId = entityId }
 
         /** The status to update the Card with. */
         fun status(status: Status) = apply { this.status = status }
@@ -343,6 +376,7 @@ constructor(
                 billingAddress,
                 description,
                 digitalWallet,
+                entityId,
                 status,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
