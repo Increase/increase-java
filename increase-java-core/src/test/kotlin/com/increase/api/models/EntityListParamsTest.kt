@@ -12,6 +12,11 @@ class EntityListParamsTest {
         EntityListParams.builder()
             .cursor("string")
             .limit(123L)
+            .status(
+                EntityListParams.Status.builder()
+                    .in_(listOf(EntityListParams.Status.In.ACTIVE))
+                    .build()
+            )
             .createdAt(
                 EntityListParams.CreatedAt.builder()
                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -29,6 +34,11 @@ class EntityListParamsTest {
             EntityListParams.builder()
                 .cursor("string")
                 .limit(123L)
+                .status(
+                    EntityListParams.Status.builder()
+                        .in_(listOf(EntityListParams.Status.In.ACTIVE))
+                        .build()
+                )
                 .createdAt(
                     EntityListParams.CreatedAt.builder()
                         .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -41,6 +51,10 @@ class EntityListParamsTest {
         val expected = mutableMapOf<String, List<String>>()
         expected.put("cursor", listOf("string"))
         expected.put("limit", listOf("123"))
+        EntityListParams.Status.builder()
+            .in_(listOf(EntityListParams.Status.In.ACTIVE))
+            .build()
+            .forEachQueryParam { key, values -> expected.put("status.$key", values) }
         EntityListParams.CreatedAt.builder()
             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

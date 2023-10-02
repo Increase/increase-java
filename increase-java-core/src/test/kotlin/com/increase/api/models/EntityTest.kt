@@ -125,7 +125,7 @@ class EntityTest {
                         .name("string")
                         .build()
                 )
-                .relationship(Entity.Relationship.AFFILIATED)
+                .status(Entity.Status.ACTIVE)
                 .structure(Entity.Structure.CORPORATION)
                 .supplementalDocuments(
                     listOf(
@@ -329,7 +329,7 @@ class EntityTest {
                     .name("string")
                     .build()
             )
-        assertThat(entity.relationship()).contains(Entity.Relationship.AFFILIATED)
+        assertThat(entity.status()).isEqualTo(Entity.Status.ACTIVE)
         assertThat(entity.structure()).isEqualTo(Entity.Structure.CORPORATION)
         assertThat(entity.supplementalDocuments())
             .containsExactly(
