@@ -1,3 +1,5 @@
+// File generated from our OpenAPI spec by Stainless.
+
 package com.increase.api.services.async
 
 import com.increase.api.core.ClientOptions
