@@ -1,3 +1,5 @@
+// File generated from our OpenAPI spec by Stainless.
+
 package com.increase.api.models
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
