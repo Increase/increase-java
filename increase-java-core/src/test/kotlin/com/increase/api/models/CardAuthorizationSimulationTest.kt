@@ -327,6 +327,12 @@ class CardAuthorizationSimulationTest {
                                                 .CAD
                                         )
                                         .digitalWalletTokenId("string")
+                                        .direction(
+                                            CardAuthorizationSimulation.PendingTransaction.Source
+                                                .CardAuthorization
+                                                .Direction
+                                                .SETTLEMENT
+                                        )
                                         .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .merchantAcceptorId("string")
                                         .merchantCategoryCode("string")
@@ -797,6 +803,12 @@ class CardAuthorizationSimulationTest {
                                             .CAD
                                     )
                                     .digitalWalletTokenId("string")
+                                    .direction(
+                                        CardAuthorizationSimulation.PendingTransaction.Source
+                                            .CardAuthorization
+                                            .Direction
+                                            .SETTLEMENT
+                                    )
                                     .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .merchantAcceptorId("string")
                                     .merchantCategoryCode("string")
