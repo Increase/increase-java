@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.10.5 (2023-10-05)
+
+Full Changelog: [v0.10.4...v0.10.5](https://github.com/increase/increase-java/compare/v0.10.4...v0.10.5)
+
+### Features
+
+* **api:** add direction property to CardAuthorization ([#104](https://github.com/increase/increase-java/issues/104)) ([9dc87fa](https://github.com/increase/increase-java/commit/9dc87fa91bb134a64356f5205223acc53ff710e7))
+* **api:** expand event categories and Entity status options ([#102](https://github.com/increase/increase-java/issues/102)) ([458aff0](https://github.com/increase/increase-java/commit/458aff0194b8bacc123ff43832f4e63ba98e24bf))
+
+
+### Chores
+
+* **internal:** add a top-level generated comment to each file ([#103](https://github.com/increase/increase-java/issues/103)) ([8886f78](https://github.com/increase/increase-java/commit/8886f78e8b91aaa4d196969db6c56e5adbf6cb5d))
+
 ## 0.10.4 (2023-09-29)
 
 Full Changelog: [v0.10.3...v0.10.4](https://github.com/Increase/increase-java/compare/v0.10.3...v0.10.4)
