@@ -46,6 +46,9 @@ class PendingTransactionTest {
                                 .cardPaymentId("string")
                                 .currency(PendingTransaction.Source.CardAuthorization.Currency.CAD)
                                 .digitalWalletTokenId("string")
+                                .direction(
+                                    PendingTransaction.Source.CardAuthorization.Direction.SETTLEMENT
+                                )
                                 .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .merchantAcceptorId("string")
                                 .merchantCategoryCode("string")
@@ -191,6 +194,9 @@ class PendingTransactionTest {
                             .cardPaymentId("string")
                             .currency(PendingTransaction.Source.CardAuthorization.Currency.CAD)
                             .digitalWalletTokenId("string")
+                            .direction(
+                                PendingTransaction.Source.CardAuthorization.Direction.SETTLEMENT
+                            )
                             .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .merchantAcceptorId("string")
                             .merchantCategoryCode("string")

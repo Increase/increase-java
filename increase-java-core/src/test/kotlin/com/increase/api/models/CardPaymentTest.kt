@@ -27,6 +27,9 @@ class CardPaymentTest {
                                     .cardPaymentId("string")
                                     .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
                                     .digitalWalletTokenId("string")
+                                    .direction(
+                                        CardPayment.Element.CardAuthorization.Direction.SETTLEMENT
+                                    )
                                     .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .merchantAcceptorId("string")
                                     .merchantCategoryCode("string")
@@ -638,6 +641,7 @@ class CardPaymentTest {
                             .cardPaymentId("string")
                             .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
                             .digitalWalletTokenId("string")
+                            .direction(CardPayment.Element.CardAuthorization.Direction.SETTLEMENT)
                             .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .merchantAcceptorId("string")
                             .merchantCategoryCode("string")
