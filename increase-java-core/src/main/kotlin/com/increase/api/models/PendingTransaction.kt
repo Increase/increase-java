@@ -1460,6 +1460,7 @@ private constructor(
             private val networkDetails: JsonField<NetworkDetails>,
             private val amount: JsonField<Long>,
             private val currency: JsonField<Currency>,
+            private val direction: JsonField<Direction>,
             private val expiresAt: JsonField<OffsetDateTime>,
             private val realTimeDecisionId: JsonField<String>,
             private val pendingTransactionId: JsonField<String>,
@@ -1531,6 +1532,12 @@ private constructor(
              * currency.
              */
             fun currency(): Currency = currency.getRequired("currency")
+
+            /**
+             * The direction descibes the direction the funds will move, either from the cardholder
+             * to the merchant or from the merchant to the cardholder.
+             */
+            fun direction(): Direction = direction.getRequired("direction")
 
             /**
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) when this authorization will
@@ -1619,6 +1626,12 @@ private constructor(
             @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
 
             /**
+             * The direction descibes the direction the funds will move, either from the cardholder
+             * to the merchant or from the merchant to the cardholder.
+             */
+            @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
+
+            /**
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) when this authorization will
              * expire and the pending transaction will be released.
              */
@@ -1660,6 +1673,7 @@ private constructor(
                     networkDetails().validate()
                     amount()
                     currency()
+                    direction()
                     expiresAt()
                     realTimeDecisionId()
                     pendingTransactionId()
@@ -1688,6 +1702,7 @@ private constructor(
                     this.networkDetails == other.networkDetails &&
                     this.amount == other.amount &&
                     this.currency == other.currency &&
+                    this.direction == other.direction &&
                     this.expiresAt == other.expiresAt &&
                     this.realTimeDecisionId == other.realTimeDecisionId &&
                     this.pendingTransactionId == other.pendingTransactionId &&
@@ -1711,6 +1726,7 @@ private constructor(
                             networkDetails,
                             amount,
                             currency,
+                            direction,
                             expiresAt,
                             realTimeDecisionId,
                             pendingTransactionId,
@@ -1722,7 +1738,7 @@ private constructor(
             }
 
             override fun toString() =
-                "CardAuthorization{id=$id, cardPaymentId=$cardPaymentId, merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, digitalWalletTokenId=$digitalWalletTokenId, physicalCardId=$physicalCardId, networkDetails=$networkDetails, amount=$amount, currency=$currency, expiresAt=$expiresAt, realTimeDecisionId=$realTimeDecisionId, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
+                "CardAuthorization{id=$id, cardPaymentId=$cardPaymentId, merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, digitalWalletTokenId=$digitalWalletTokenId, physicalCardId=$physicalCardId, networkDetails=$networkDetails, amount=$amount, currency=$currency, direction=$direction, expiresAt=$expiresAt, realTimeDecisionId=$realTimeDecisionId, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1743,6 +1759,7 @@ private constructor(
                 private var networkDetails: JsonField<NetworkDetails> = JsonMissing.of()
                 private var amount: JsonField<Long> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
+                private var direction: JsonField<Direction> = JsonMissing.of()
                 private var expiresAt: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var realTimeDecisionId: JsonField<String> = JsonMissing.of()
                 private var pendingTransactionId: JsonField<String> = JsonMissing.of()
@@ -1763,6 +1780,7 @@ private constructor(
                     this.networkDetails = cardAuthorization.networkDetails
                     this.amount = cardAuthorization.amount
                     this.currency = cardAuthorization.currency
+                    this.direction = cardAuthorization.direction
                     this.expiresAt = cardAuthorization.expiresAt
                     this.realTimeDecisionId = cardAuthorization.realTimeDecisionId
                     this.pendingTransactionId = cardAuthorization.pendingTransactionId
@@ -1929,6 +1947,22 @@ private constructor(
                 fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
                 /**
+                 * The direction descibes the direction the funds will move, either from the
+                 * cardholder to the merchant or from the merchant to the cardholder.
+                 */
+                fun direction(direction: Direction) = direction(JsonField.of(direction))
+
+                /**
+                 * The direction descibes the direction the funds will move, either from the
+                 * cardholder to the merchant or from the merchant to the cardholder.
+                 */
+                @JsonProperty("direction")
+                @ExcludeMissing
+                fun direction(direction: JsonField<Direction>) = apply {
+                    this.direction = direction
+                }
+
+                /**
                  * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) when this authorization
                  * will expire and the pending transaction will be released.
                  */
@@ -2015,6 +2049,7 @@ private constructor(
                         networkDetails,
                         amount,
                         currency,
+                        direction,
                         expiresAt,
                         realTimeDecisionId,
                         pendingTransactionId,
@@ -2099,6 +2134,63 @@ private constructor(
                         JPY -> Known.JPY
                         USD -> Known.USD
                         else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+                    }
+
+                fun asString(): String = _value().asStringOrThrow()
+            }
+
+            class Direction
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) {
+
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Direction && this.value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+
+                companion object {
+
+                    @JvmField val SETTLEMENT = Direction(JsonField.of("settlement"))
+
+                    @JvmField val REFUND = Direction(JsonField.of("refund"))
+
+                    @JvmStatic fun of(value: String) = Direction(JsonField.of(value))
+                }
+
+                enum class Known {
+                    SETTLEMENT,
+                    REFUND,
+                }
+
+                enum class Value {
+                    SETTLEMENT,
+                    REFUND,
+                    _UNKNOWN,
+                }
+
+                fun value(): Value =
+                    when (this) {
+                        SETTLEMENT -> Value.SETTLEMENT
+                        REFUND -> Value.REFUND
+                        else -> Value._UNKNOWN
+                    }
+
+                fun known(): Known =
+                    when (this) {
+                        SETTLEMENT -> Known.SETTLEMENT
+                        REFUND -> Known.REFUND
+                        else -> throw IncreaseInvalidDataException("Unknown Direction: $value")
                     }
 
                 fun asString(): String = _value().asStringOrThrow()
