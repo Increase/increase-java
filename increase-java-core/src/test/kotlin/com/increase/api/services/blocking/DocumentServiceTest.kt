@@ -17,7 +17,7 @@ class DocumentServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val documentService = client.documents()
         val document =
@@ -31,7 +31,7 @@ class DocumentServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val documentService = client.documents()
         val documentList = documentService.list(DocumentListParams.builder().build())

@@ -18,7 +18,7 @@ class AchTransferServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val achTransferService = client.simulations().achTransfers()
         val achTransferSimulation =
@@ -44,7 +44,7 @@ class AchTransferServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val achTransferService = client.simulations().achTransfers()
         val achTransfer =
@@ -64,7 +64,7 @@ class AchTransferServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val achTransferService = client.simulations().achTransfers()
         val achTransfer =

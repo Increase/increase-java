@@ -17,7 +17,7 @@ class EventServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val eventService = client.events()
         val event = eventService.retrieve(EventRetrieveParams.builder().eventId("string").build())
@@ -30,7 +30,7 @@ class EventServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val eventService = client.events()
         val eventList = eventService.list(EventListParams.builder().build())

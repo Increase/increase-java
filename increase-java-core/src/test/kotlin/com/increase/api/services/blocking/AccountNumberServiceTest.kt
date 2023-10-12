@@ -17,7 +17,7 @@ class AccountNumberServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val accountNumberService = client.accountNumbers()
         val accountNumber =
@@ -46,7 +46,7 @@ class AccountNumberServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val accountNumberService = client.accountNumbers()
         val accountNumber =
@@ -62,7 +62,7 @@ class AccountNumberServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val accountNumberService = client.accountNumbers()
         val accountNumber =
@@ -87,7 +87,7 @@ class AccountNumberServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val accountNumberService = client.accountNumbers()
         val accountNumberList = accountNumberService.list(AccountNumberListParams.builder().build())

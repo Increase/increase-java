@@ -17,7 +17,7 @@ class BeneficialOwnerServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val beneficialOwnerService = client.entities().beneficialOwners()
         val entity =
@@ -115,7 +115,7 @@ class BeneficialOwnerServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val beneficialOwnerService = client.entities().beneficialOwners()
         val entity =
@@ -134,7 +134,7 @@ class BeneficialOwnerServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val beneficialOwnerService = client.entities().beneficialOwners()
         val entity =

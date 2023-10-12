@@ -38,8 +38,6 @@ class IncreaseOkHttpClient private constructor() {
 
         fun clock(clock: Clock) = apply { clientOptions.clock(clock) }
 
-        fun apiKey(apiKey: String) = apply { clientOptions.apiKey(apiKey) }
-
         fun headers(headers: Map<String, Iterable<String>>) = apply {
             clientOptions.headers(headers)
         }
@@ -65,6 +63,8 @@ class IncreaseOkHttpClient private constructor() {
         fun responseValidation(responseValidation: Boolean) = apply {
             clientOptions.responseValidation(responseValidation)
         }
+
+        fun apiKey(apiKey: String) = apply { clientOptions.apiKey(apiKey) }
 
         fun fromEnv() = apply { clientOptions.fromEnv() }
 

@@ -17,7 +17,7 @@ class PhysicalCardServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val physicalCardService = client.physicalCards()
         val physicalCard =
@@ -59,7 +59,7 @@ class PhysicalCardServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val physicalCardService = client.physicalCards()
         val physicalCard =
@@ -75,7 +75,7 @@ class PhysicalCardServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val physicalCardService = client.physicalCards()
         val physicalCard =
@@ -94,7 +94,7 @@ class PhysicalCardServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val physicalCardService = client.physicalCards()
         val physicalCardList = physicalCardService.list(PhysicalCardListParams.builder().build())

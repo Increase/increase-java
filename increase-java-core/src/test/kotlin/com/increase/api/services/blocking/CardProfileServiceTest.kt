@@ -17,7 +17,7 @@ class CardProfileServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val cardProfileService = client.cardProfiles()
         val cardProfile =
@@ -60,7 +60,7 @@ class CardProfileServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val cardProfileService = client.cardProfiles()
         val cardProfile =
@@ -76,7 +76,7 @@ class CardProfileServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val cardProfileService = client.cardProfiles()
         val cardProfileList = cardProfileService.list(CardProfileListParams.builder().build())
@@ -89,7 +89,7 @@ class CardProfileServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val cardProfileService = client.cardProfiles()
         val cardProfile =

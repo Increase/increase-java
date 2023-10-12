@@ -17,7 +17,7 @@ class EventSubscriptionServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val eventSubscriptionService = client.eventSubscriptions()
         val eventSubscription =
@@ -39,7 +39,7 @@ class EventSubscriptionServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val eventSubscriptionService = client.eventSubscriptions()
         val eventSubscription =
@@ -55,7 +55,7 @@ class EventSubscriptionServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val eventSubscriptionService = client.eventSubscriptions()
         val eventSubscription =
@@ -74,7 +74,7 @@ class EventSubscriptionServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val eventSubscriptionService = client.eventSubscriptions()
         val eventSubscriptionList =

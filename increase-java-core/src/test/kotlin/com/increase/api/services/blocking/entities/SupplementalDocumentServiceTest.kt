@@ -17,7 +17,7 @@ class SupplementalDocumentServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val supplementalDocumentService = client.entities().supplementalDocuments()
         val entity =
@@ -36,7 +36,7 @@ class SupplementalDocumentServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val supplementalDocumentService = client.entities().supplementalDocuments()
         val supplementalDocumentList =

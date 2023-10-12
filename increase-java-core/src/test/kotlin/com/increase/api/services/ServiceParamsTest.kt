@@ -33,15 +33,13 @@ class ServiceParamsTest {
 
     private val JSON_MAPPER: JsonMapper = jsonMapper()
 
-    private val API_KEY: String = "apiKey"
-
     private lateinit var client: IncreaseClient
 
     @BeforeEach
     fun beforeEach(wmRuntimeInfo: WireMockRuntimeInfo) {
         client =
             IncreaseOkHttpClient.builder()
-                .apiKey(API_KEY)
+                .apiKey("My API Key")
                 .baseUrl(wmRuntimeInfo.getHttpBaseUrl())
                 .build()
     }

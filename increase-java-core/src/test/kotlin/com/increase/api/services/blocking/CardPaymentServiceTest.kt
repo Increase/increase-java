@@ -17,7 +17,7 @@ class CardPaymentServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val cardPaymentService = client.cardPayments()
         val cardPayment =
@@ -33,7 +33,7 @@ class CardPaymentServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val cardPaymentService = client.cardPayments()
         val cardPaymentList = cardPaymentService.list(CardPaymentListParams.builder().build())
