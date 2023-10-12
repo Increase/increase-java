@@ -16,7 +16,7 @@ class RealTimePaymentsTransferServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val realTimePaymentsTransferService = client.simulations().realTimePaymentsTransfers()
         val realTimePaymentsTransfer =
@@ -43,7 +43,7 @@ class RealTimePaymentsTransferServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val realTimePaymentsTransferService = client.simulations().realTimePaymentsTransfers()
         val inboundRealTimePaymentsTransferSimulationResult =

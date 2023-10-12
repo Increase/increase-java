@@ -45,19 +45,29 @@ implementation("com.increase.api:increase-java:0.10.5")
 Use `IncreaseOkHttpClient.builder()` to configure the client. At a minimum you need to set `.apiKey()`:
 
 ```java
-import com.increase.api.client.IncreaseClient;
+import com.increase.api.client.IncreaseOkHttpClient;
 import com.increase.api.client.okhttp.IncreaseOkHttpClient;
 
 IncreaseClient client = IncreaseOkHttpClient.builder()
-    .apiKey("<your API Key>")
+    .apiKey("My API Key")
     .build();
 ```
 
-Alternately, set the environment variable `INCREASE_API_KEY` and use `IncreaseOkHttpClient.fromEnv()`:
+Alternately, set the environment with `INCREASE_API_KEY`, and use `IncreaseOkHttpClient.fromEnv()` to read from the environment.
 
 ```java
 IncreaseClient client = IncreaseOkHttpClient.fromEnv();
+
+// Note: you can also call fromEnv() from the client builder, for example if you need to set additional properties
+IncreaseClient client = IncreaseOkHttpClient.builder()
+    .fromEnv()
+    // ... set properties on the builder
+    .build();
 ```
+
+| Property | Environment variable | Required | Default value |
+| -------- | -------------------- | -------- | ------------- |
+| apiKey   | `INCREASE_API_KEY`   | true     | —             |
 
 Read the documentation for more configuration options.
 

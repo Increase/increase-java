@@ -16,7 +16,7 @@ class WireTransferServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val wireTransferService = client.simulations().wireTransfers()
         val wireTransferSimulation =

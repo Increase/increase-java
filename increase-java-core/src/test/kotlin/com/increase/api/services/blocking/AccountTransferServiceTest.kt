@@ -17,7 +17,7 @@ class AccountTransferServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val accountTransferService = client.accountTransfers()
         val accountTransfer =
@@ -40,7 +40,7 @@ class AccountTransferServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val accountTransferService = client.accountTransfers()
         val accountTransfer =
@@ -56,7 +56,7 @@ class AccountTransferServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val accountTransferService = client.accountTransfers()
         val accountTransferList =
@@ -70,7 +70,7 @@ class AccountTransferServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val accountTransferService = client.accountTransfers()
         val accountTransfer =
@@ -86,7 +86,7 @@ class AccountTransferServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val accountTransferService = client.accountTransfers()
         val accountTransfer =

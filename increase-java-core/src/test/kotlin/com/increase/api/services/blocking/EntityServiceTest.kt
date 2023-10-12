@@ -18,7 +18,7 @@ class EntityServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val entityService = client.entities()
         val entity =
@@ -441,7 +441,7 @@ class EntityServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val entityService = client.entities()
         val entity =
@@ -455,7 +455,7 @@ class EntityServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val entityService = client.entities()
         val entityList = entityService.list(EntityListParams.builder().build())
@@ -468,7 +468,7 @@ class EntityServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val entityService = client.entities()
         val entity = entityService.archive(EntityArchiveParams.builder().entityId("string").build())
@@ -481,7 +481,7 @@ class EntityServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val entityService = client.entities()
         val entity =

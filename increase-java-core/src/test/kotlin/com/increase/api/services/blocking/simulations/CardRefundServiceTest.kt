@@ -16,7 +16,7 @@ class CardRefundServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val cardRefundService = client.simulations().cardRefunds()
         val transaction =

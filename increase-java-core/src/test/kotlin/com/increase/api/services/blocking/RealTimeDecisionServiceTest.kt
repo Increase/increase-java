@@ -16,7 +16,7 @@ class RealTimeDecisionServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val realTimeDecisionService = client.realTimeDecisions()
         val realTimeDecision =
@@ -32,7 +32,7 @@ class RealTimeDecisionServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val realTimeDecisionService = client.realTimeDecisions()
         val realTimeDecision =

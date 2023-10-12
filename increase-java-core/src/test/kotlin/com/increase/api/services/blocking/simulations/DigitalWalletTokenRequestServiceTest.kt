@@ -16,7 +16,7 @@ class DigitalWalletTokenRequestServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val digitalWalletTokenRequestService = client.simulations().digitalWalletTokenRequests()
         val digitalWalletTokenRequestCreateResponse =

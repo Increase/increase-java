@@ -17,7 +17,7 @@ class OauthConnectionServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val oauthConnectionService = client.oauthConnections()
         val oauthConnection =
@@ -33,7 +33,7 @@ class OauthConnectionServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val oauthConnectionService = client.oauthConnections()
         val oauthConnectionList =

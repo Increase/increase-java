@@ -19,7 +19,7 @@ class WireDrawdownRequestServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val wireDrawdownRequestService = client.wireDrawdownRequests()
         val wireDrawdownRequest =
@@ -45,7 +45,7 @@ class WireDrawdownRequestServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val wireDrawdownRequestService = client.wireDrawdownRequests()
         val wireDrawdownRequest =
@@ -61,7 +61,7 @@ class WireDrawdownRequestServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val wireDrawdownRequestService = client.wireDrawdownRequests()
         val wireDrawdownRequestList =
