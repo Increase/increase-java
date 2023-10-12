@@ -17,8 +17,8 @@ class CardProfileListParams
 constructor(
     private val cursor: String?,
     private val limit: Long?,
-    private val status: Status?,
     private val physicalCardsStatus: PhysicalCardsStatus?,
+    private val status: Status?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
@@ -27,20 +27,20 @@ constructor(
 
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
-    fun status(): Optional<Status> = Optional.ofNullable(status)
-
     fun physicalCardsStatus(): Optional<PhysicalCardsStatus> =
         Optional.ofNullable(physicalCardsStatus)
+
+    fun status(): Optional<Status> = Optional.ofNullable(status)
 
     @JvmSynthetic
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
-        this.status?.forEachQueryParam { key, values -> params.put("status.$key", values) }
         this.physicalCardsStatus?.forEachQueryParam { key, values ->
             params.put("physical_cards_status.$key", values)
         }
+        this.status?.forEachQueryParam { key, values -> params.put("status.$key", values) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -59,8 +59,8 @@ constructor(
         return other is CardProfileListParams &&
             this.cursor == other.cursor &&
             this.limit == other.limit &&
-            this.status == other.status &&
             this.physicalCardsStatus == other.physicalCardsStatus &&
+            this.status == other.status &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
@@ -69,15 +69,15 @@ constructor(
         return Objects.hash(
             cursor,
             limit,
-            status,
             physicalCardsStatus,
+            status,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "CardProfileListParams{cursor=$cursor, limit=$limit, status=$status, physicalCardsStatus=$physicalCardsStatus, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "CardProfileListParams{cursor=$cursor, limit=$limit, physicalCardsStatus=$physicalCardsStatus, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -91,8 +91,8 @@ constructor(
 
         private var cursor: String? = null
         private var limit: Long? = null
-        private var status: Status? = null
         private var physicalCardsStatus: PhysicalCardsStatus? = null
+        private var status: Status? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
@@ -100,8 +100,8 @@ constructor(
         internal fun from(cardProfileListParams: CardProfileListParams) = apply {
             this.cursor = cardProfileListParams.cursor
             this.limit = cardProfileListParams.limit
-            this.status = cardProfileListParams.status
             this.physicalCardsStatus = cardProfileListParams.physicalCardsStatus
+            this.status = cardProfileListParams.status
             additionalQueryParams(cardProfileListParams.additionalQueryParams)
             additionalHeaders(cardProfileListParams.additionalHeaders)
         }
@@ -114,11 +114,11 @@ constructor(
          */
         fun limit(limit: Long) = apply { this.limit = limit }
 
-        fun status(status: Status) = apply { this.status = status }
-
         fun physicalCardsStatus(physicalCardsStatus: PhysicalCardsStatus) = apply {
             this.physicalCardsStatus = physicalCardsStatus
         }
+
+        fun status(status: Status) = apply { this.status = status }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -164,8 +164,8 @@ constructor(
             CardProfileListParams(
                 cursor,
                 limit,
-                status,
                 physicalCardsStatus,
+                status,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )
