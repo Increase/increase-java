@@ -16,7 +16,7 @@ class AccountStatementServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val accountStatementService = client.simulations().accountStatements()
         val accountStatement =

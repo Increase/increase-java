@@ -18,7 +18,7 @@ class ExportServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val exportService = client.exports()
         val export =
@@ -75,7 +75,7 @@ class ExportServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val exportService = client.exports()
         val export =
@@ -89,7 +89,7 @@ class ExportServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val exportService = client.exports()
         val exportList = exportService.list(ExportListParams.builder().build())

@@ -42,8 +42,6 @@ class ErrorHandlingTest {
 
     private val JSON_MAPPER: JsonMapper = jsonMapper()
 
-    private val API_KEY: String = "apiKey"
-
     private val INCREASE_ERROR: IncreaseError =
         IncreaseError.builder().putAdditionalProperty("key", JsonString.of("value")).build()
 
@@ -53,8 +51,8 @@ class ErrorHandlingTest {
     fun beforeEach(wmRuntimeInfo: WireMockRuntimeInfo) {
         client =
             IncreaseOkHttpClient.builder()
-                .apiKey(API_KEY)
                 .baseUrl(wmRuntimeInfo.getHttpBaseUrl())
+                .apiKey("My API Key")
                 .build()
     }
 

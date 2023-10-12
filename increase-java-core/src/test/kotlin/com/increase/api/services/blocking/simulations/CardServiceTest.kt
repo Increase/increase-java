@@ -16,7 +16,7 @@ class CardServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val cardService = client.simulations().cards()
         val cardAuthorizationSimulation =
@@ -38,7 +38,7 @@ class CardServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val cardService = client.simulations().cards()
         val transaction =

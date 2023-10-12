@@ -18,7 +18,7 @@ class CheckTransferServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val checkTransferService = client.checkTransfers()
         val checkTransfer =
@@ -68,7 +68,7 @@ class CheckTransferServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val checkTransferService = client.checkTransfers()
         val checkTransfer =
@@ -84,7 +84,7 @@ class CheckTransferServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val checkTransferService = client.checkTransfers()
         val checkTransferList = checkTransferService.list(CheckTransferListParams.builder().build())
@@ -97,7 +97,7 @@ class CheckTransferServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val checkTransferService = client.checkTransfers()
         val checkTransfer =
@@ -113,7 +113,7 @@ class CheckTransferServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val checkTransferService = client.checkTransfers()
         val checkTransfer =
@@ -130,7 +130,7 @@ class CheckTransferServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val checkTransferService = client.checkTransfers()
         val checkTransfer =

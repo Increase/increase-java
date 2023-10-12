@@ -17,7 +17,7 @@ class FileServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val fileService = client.files()
         val file =
@@ -37,7 +37,7 @@ class FileServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val fileService = client.files()
         val file = fileService.retrieve(FileRetrieveParams.builder().fileId("string").build())
@@ -50,7 +50,7 @@ class FileServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val fileService = client.files()
         val fileList = fileService.list(FileListParams.builder().build())

@@ -16,7 +16,7 @@ class InboundFundsHoldServiceTest {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("test-api-key")
+                .apiKey("My API Key")
                 .build()
         val inboundFundsHoldService = client.simulations().inboundFundsHolds()
         val inboundFundsHoldReleaseResponse =
