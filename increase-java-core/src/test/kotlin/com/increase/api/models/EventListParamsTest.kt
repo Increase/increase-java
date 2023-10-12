@@ -12,9 +12,12 @@ class EventListParamsTest {
     @Test
     fun createEventListParams() {
         EventListParams.builder()
-            .cursor("string")
-            .limit(123L)
             .associatedObjectId("string")
+            .category(
+                EventListParams.Category.builder()
+                    .in_(listOf(EventListParams.Category.In.ACCOUNT_CREATED))
+                    .build()
+            )
             .createdAt(
                 EventListParams.CreatedAt.builder()
                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -23,11 +26,8 @@ class EventListParamsTest {
                     .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
-            .category(
-                EventListParams.Category.builder()
-                    .in_(listOf(EventListParams.Category.In.ACCOUNT_CREATED))
-                    .build()
-            )
+            .cursor("string")
+            .limit(123L)
             .build()
     }
 
@@ -35,9 +35,12 @@ class EventListParamsTest {
     fun getQueryParams() {
         val params =
             EventListParams.builder()
-                .cursor("string")
-                .limit(123L)
                 .associatedObjectId("string")
+                .category(
+                    EventListParams.Category.builder()
+                        .in_(listOf(EventListParams.Category.In.ACCOUNT_CREATED))
+                        .build()
+                )
                 .createdAt(
                     EventListParams.CreatedAt.builder()
                         .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -46,16 +49,15 @@ class EventListParamsTest {
                         .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
-                .category(
-                    EventListParams.Category.builder()
-                        .in_(listOf(EventListParams.Category.In.ACCOUNT_CREATED))
-                        .build()
-                )
+                .cursor("string")
+                .limit(123L)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("cursor", listOf("string"))
-        expected.put("limit", listOf("123"))
         expected.put("associated_object_id", listOf("string"))
+        EventListParams.Category.builder()
+            .in_(listOf(EventListParams.Category.In.ACCOUNT_CREATED))
+            .build()
+            .forEachQueryParam { key, values -> expected.put("category.$key", values) }
         EventListParams.CreatedAt.builder()
             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -63,10 +65,8 @@ class EventListParamsTest {
             .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
-        EventListParams.Category.builder()
-            .in_(listOf(EventListParams.Category.In.ACCOUNT_CREATED))
-            .build()
-            .forEachQueryParam { key, values -> expected.put("category.$key", values) }
+        expected.put("cursor", listOf("string"))
+        expected.put("limit", listOf("123"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 

@@ -16,33 +16,33 @@ import java.util.Optional
 
 class EventListParams
 constructor(
+    private val associatedObjectId: String?,
+    private val category: Category?,
+    private val createdAt: CreatedAt?,
     private val cursor: String?,
     private val limit: Long?,
-    private val associatedObjectId: String?,
-    private val createdAt: CreatedAt?,
-    private val category: Category?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
+
+    fun associatedObjectId(): Optional<String> = Optional.ofNullable(associatedObjectId)
+
+    fun category(): Optional<Category> = Optional.ofNullable(category)
+
+    fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
-    fun associatedObjectId(): Optional<String> = Optional.ofNullable(associatedObjectId)
-
-    fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
-
-    fun category(): Optional<Category> = Optional.ofNullable(category)
-
     @JvmSynthetic
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
+        this.associatedObjectId?.let { params.put("associated_object_id", listOf(it.toString())) }
+        this.category?.forEachQueryParam { key, values -> params.put("category.$key", values) }
+        this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
-        this.associatedObjectId?.let { params.put("associated_object_id", listOf(it.toString())) }
-        this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
-        this.category?.forEachQueryParam { key, values -> params.put("category.$key", values) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -59,29 +59,29 @@ constructor(
         }
 
         return other is EventListParams &&
+            this.associatedObjectId == other.associatedObjectId &&
+            this.category == other.category &&
+            this.createdAt == other.createdAt &&
             this.cursor == other.cursor &&
             this.limit == other.limit &&
-            this.associatedObjectId == other.associatedObjectId &&
-            this.createdAt == other.createdAt &&
-            this.category == other.category &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
         return Objects.hash(
+            associatedObjectId,
+            category,
+            createdAt,
             cursor,
             limit,
-            associatedObjectId,
-            createdAt,
-            category,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "EventListParams{cursor=$cursor, limit=$limit, associatedObjectId=$associatedObjectId, createdAt=$createdAt, category=$category, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "EventListParams{associatedObjectId=$associatedObjectId, category=$category, createdAt=$createdAt, cursor=$cursor, limit=$limit, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -93,24 +93,33 @@ constructor(
     @NoAutoDetect
     class Builder {
 
+        private var associatedObjectId: String? = null
+        private var category: Category? = null
+        private var createdAt: CreatedAt? = null
         private var cursor: String? = null
         private var limit: Long? = null
-        private var associatedObjectId: String? = null
-        private var createdAt: CreatedAt? = null
-        private var category: Category? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(eventListParams: EventListParams) = apply {
+            this.associatedObjectId = eventListParams.associatedObjectId
+            this.category = eventListParams.category
+            this.createdAt = eventListParams.createdAt
             this.cursor = eventListParams.cursor
             this.limit = eventListParams.limit
-            this.associatedObjectId = eventListParams.associatedObjectId
-            this.createdAt = eventListParams.createdAt
-            this.category = eventListParams.category
             additionalQueryParams(eventListParams.additionalQueryParams)
             additionalHeaders(eventListParams.additionalHeaders)
         }
+
+        /** Filter Events to those belonging to the object with the provided identifier. */
+        fun associatedObjectId(associatedObjectId: String) = apply {
+            this.associatedObjectId = associatedObjectId
+        }
+
+        fun category(category: Category) = apply { this.category = category }
+
+        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String) = apply { this.cursor = cursor }
@@ -119,15 +128,6 @@ constructor(
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
         fun limit(limit: Long) = apply { this.limit = limit }
-
-        /** Filter Events to those belonging to the object with the provided identifier. */
-        fun associatedObjectId(associatedObjectId: String) = apply {
-            this.associatedObjectId = associatedObjectId
-        }
-
-        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
-
-        fun category(category: Category) = apply { this.category = category }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -171,11 +171,11 @@ constructor(
 
         fun build(): EventListParams =
             EventListParams(
+                associatedObjectId,
+                category,
+                createdAt,
                 cursor,
                 limit,
-                associatedObjectId,
-                createdAt,
-                category,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )

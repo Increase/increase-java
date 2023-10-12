@@ -12,9 +12,6 @@ class DocumentListParamsTest {
     @Test
     fun createDocumentListParams() {
         DocumentListParams.builder()
-            .cursor("string")
-            .limit(123L)
-            .entityId("string")
             .category(
                 DocumentListParams.Category.builder()
                     .in_(listOf(DocumentListParams.Category.In.FORM_1099_INT))
@@ -28,6 +25,9 @@ class DocumentListParamsTest {
                     .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
+            .cursor("string")
+            .entityId("string")
+            .limit(123L)
             .build()
     }
 
@@ -35,9 +35,6 @@ class DocumentListParamsTest {
     fun getQueryParams() {
         val params =
             DocumentListParams.builder()
-                .cursor("string")
-                .limit(123L)
-                .entityId("string")
                 .category(
                     DocumentListParams.Category.builder()
                         .in_(listOf(DocumentListParams.Category.In.FORM_1099_INT))
@@ -51,11 +48,11 @@ class DocumentListParamsTest {
                         .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
+                .cursor("string")
+                .entityId("string")
+                .limit(123L)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("cursor", listOf("string"))
-        expected.put("limit", listOf("123"))
-        expected.put("entity_id", listOf("string"))
         DocumentListParams.Category.builder()
             .in_(listOf(DocumentListParams.Category.In.FORM_1099_INT))
             .build()
@@ -67,6 +64,9 @@ class DocumentListParamsTest {
             .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
+        expected.put("cursor", listOf("string"))
+        expected.put("entity_id", listOf("string"))
+        expected.put("limit", listOf("123"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 

@@ -12,37 +12,37 @@ import java.util.Optional
 
 class RealTimePaymentsTransferListParams
 constructor(
-    private val cursor: String?,
-    private val limit: Long?,
     private val accountId: String?,
-    private val externalAccountId: String?,
-    private val uniqueIdentifier: String?,
     private val createdAt: CreatedAt?,
+    private val cursor: String?,
+    private val externalAccountId: String?,
+    private val limit: Long?,
+    private val uniqueIdentifier: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
 
-    fun cursor(): Optional<String> = Optional.ofNullable(cursor)
-
-    fun limit(): Optional<Long> = Optional.ofNullable(limit)
-
     fun accountId(): Optional<String> = Optional.ofNullable(accountId)
+
+    fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
+
+    fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
     fun externalAccountId(): Optional<String> = Optional.ofNullable(externalAccountId)
 
-    fun uniqueIdentifier(): Optional<String> = Optional.ofNullable(uniqueIdentifier)
+    fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
-    fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
+    fun uniqueIdentifier(): Optional<String> = Optional.ofNullable(uniqueIdentifier)
 
     @JvmSynthetic
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
-        this.cursor?.let { params.put("cursor", listOf(it.toString())) }
-        this.limit?.let { params.put("limit", listOf(it.toString())) }
         this.accountId?.let { params.put("account_id", listOf(it.toString())) }
-        this.externalAccountId?.let { params.put("external_account_id", listOf(it.toString())) }
-        this.uniqueIdentifier?.let { params.put("unique_identifier", listOf(it.toString())) }
         this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
+        this.cursor?.let { params.put("cursor", listOf(it.toString())) }
+        this.externalAccountId?.let { params.put("external_account_id", listOf(it.toString())) }
+        this.limit?.let { params.put("limit", listOf(it.toString())) }
+        this.uniqueIdentifier?.let { params.put("unique_identifier", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -59,31 +59,31 @@ constructor(
         }
 
         return other is RealTimePaymentsTransferListParams &&
-            this.cursor == other.cursor &&
-            this.limit == other.limit &&
             this.accountId == other.accountId &&
-            this.externalAccountId == other.externalAccountId &&
-            this.uniqueIdentifier == other.uniqueIdentifier &&
             this.createdAt == other.createdAt &&
+            this.cursor == other.cursor &&
+            this.externalAccountId == other.externalAccountId &&
+            this.limit == other.limit &&
+            this.uniqueIdentifier == other.uniqueIdentifier &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
         return Objects.hash(
-            cursor,
-            limit,
             accountId,
-            externalAccountId,
-            uniqueIdentifier,
             createdAt,
+            cursor,
+            externalAccountId,
+            limit,
+            uniqueIdentifier,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "RealTimePaymentsTransferListParams{cursor=$cursor, limit=$limit, accountId=$accountId, externalAccountId=$externalAccountId, uniqueIdentifier=$uniqueIdentifier, createdAt=$createdAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "RealTimePaymentsTransferListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, externalAccountId=$externalAccountId, limit=$limit, uniqueIdentifier=$uniqueIdentifier, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -95,50 +95,50 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var cursor: String? = null
-        private var limit: Long? = null
         private var accountId: String? = null
-        private var externalAccountId: String? = null
-        private var uniqueIdentifier: String? = null
         private var createdAt: CreatedAt? = null
+        private var cursor: String? = null
+        private var externalAccountId: String? = null
+        private var limit: Long? = null
+        private var uniqueIdentifier: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(realTimePaymentsTransferListParams: RealTimePaymentsTransferListParams) =
             apply {
-                this.cursor = realTimePaymentsTransferListParams.cursor
-                this.limit = realTimePaymentsTransferListParams.limit
                 this.accountId = realTimePaymentsTransferListParams.accountId
-                this.externalAccountId = realTimePaymentsTransferListParams.externalAccountId
-                this.uniqueIdentifier = realTimePaymentsTransferListParams.uniqueIdentifier
                 this.createdAt = realTimePaymentsTransferListParams.createdAt
+                this.cursor = realTimePaymentsTransferListParams.cursor
+                this.externalAccountId = realTimePaymentsTransferListParams.externalAccountId
+                this.limit = realTimePaymentsTransferListParams.limit
+                this.uniqueIdentifier = realTimePaymentsTransferListParams.uniqueIdentifier
                 additionalQueryParams(realTimePaymentsTransferListParams.additionalQueryParams)
                 additionalHeaders(realTimePaymentsTransferListParams.additionalHeaders)
             }
 
-        /** Return the page of entries after this one. */
-        fun cursor(cursor: String) = apply { this.cursor = cursor }
-
-        /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
-         */
-        fun limit(limit: Long) = apply { this.limit = limit }
-
         /** Filter Real-Time Payments Transfers to those belonging to the specified Account. */
         fun accountId(accountId: String) = apply { this.accountId = accountId }
+
+        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
+
+        /** Return the page of entries after this one. */
+        fun cursor(cursor: String) = apply { this.cursor = cursor }
 
         /** Filter Real-Time Payments Transfers to those made to the specified External Account. */
         fun externalAccountId(externalAccountId: String) = apply {
             this.externalAccountId = externalAccountId
         }
 
+        /**
+         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         */
+        fun limit(limit: Long) = apply { this.limit = limit }
+
         /** Filter ACH Transfers to the one with the specified unique identifier. */
         fun uniqueIdentifier(uniqueIdentifier: String) = apply {
             this.uniqueIdentifier = uniqueIdentifier
         }
-
-        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -182,12 +182,12 @@ constructor(
 
         fun build(): RealTimePaymentsTransferListParams =
             RealTimePaymentsTransferListParams(
-                cursor,
-                limit,
                 accountId,
-                externalAccountId,
-                uniqueIdentifier,
                 createdAt,
+                cursor,
+                externalAccountId,
+                limit,
+                uniqueIdentifier,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )

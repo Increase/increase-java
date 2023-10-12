@@ -16,14 +16,18 @@ import java.util.Optional
 
 class AccountNumberListParams
 constructor(
+    private val accountId: String?,
+    private val createdAt: CreatedAt?,
     private val cursor: String?,
     private val limit: Long?,
     private val status: Status?,
-    private val accountId: String?,
-    private val createdAt: CreatedAt?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
+
+    fun accountId(): Optional<String> = Optional.ofNullable(accountId)
+
+    fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
@@ -31,18 +35,14 @@ constructor(
 
     fun status(): Optional<Status> = Optional.ofNullable(status)
 
-    fun accountId(): Optional<String> = Optional.ofNullable(accountId)
-
-    fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
-
     @JvmSynthetic
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
+        this.accountId?.let { params.put("account_id", listOf(it.toString())) }
+        this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
         this.status?.let { params.put("status", listOf(it.toString())) }
-        this.accountId?.let { params.put("account_id", listOf(it.toString())) }
-        this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -59,29 +59,29 @@ constructor(
         }
 
         return other is AccountNumberListParams &&
+            this.accountId == other.accountId &&
+            this.createdAt == other.createdAt &&
             this.cursor == other.cursor &&
             this.limit == other.limit &&
             this.status == other.status &&
-            this.accountId == other.accountId &&
-            this.createdAt == other.createdAt &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
         return Objects.hash(
+            accountId,
+            createdAt,
             cursor,
             limit,
             status,
-            accountId,
-            createdAt,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "AccountNumberListParams{cursor=$cursor, limit=$limit, status=$status, accountId=$accountId, createdAt=$createdAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "AccountNumberListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, limit=$limit, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -93,24 +93,29 @@ constructor(
     @NoAutoDetect
     class Builder {
 
+        private var accountId: String? = null
+        private var createdAt: CreatedAt? = null
         private var cursor: String? = null
         private var limit: Long? = null
         private var status: Status? = null
-        private var accountId: String? = null
-        private var createdAt: CreatedAt? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(accountNumberListParams: AccountNumberListParams) = apply {
+            this.accountId = accountNumberListParams.accountId
+            this.createdAt = accountNumberListParams.createdAt
             this.cursor = accountNumberListParams.cursor
             this.limit = accountNumberListParams.limit
             this.status = accountNumberListParams.status
-            this.accountId = accountNumberListParams.accountId
-            this.createdAt = accountNumberListParams.createdAt
             additionalQueryParams(accountNumberListParams.additionalQueryParams)
             additionalHeaders(accountNumberListParams.additionalHeaders)
         }
+
+        /** Filter Account Numbers to those belonging to the specified Account. */
+        fun accountId(accountId: String) = apply { this.accountId = accountId }
+
+        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String) = apply { this.cursor = cursor }
@@ -122,11 +127,6 @@ constructor(
 
         /** The status to retrieve Account Numbers for. */
         fun status(status: Status) = apply { this.status = status }
-
-        /** Filter Account Numbers to those belonging to the specified Account. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
-
-        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -170,11 +170,11 @@ constructor(
 
         fun build(): AccountNumberListParams =
             AccountNumberListParams(
+                accountId,
+                createdAt,
                 cursor,
                 limit,
                 status,
-                accountId,
-                createdAt,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )

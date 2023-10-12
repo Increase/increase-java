@@ -12,9 +12,9 @@ class AccountStatementListParamsTest {
     @Test
     fun createAccountStatementListParams() {
         AccountStatementListParams.builder()
+            .accountId("string")
             .cursor("string")
             .limit(123L)
-            .accountId("string")
             .statementPeriodStart(
                 AccountStatementListParams.StatementPeriodStart.builder()
                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -30,9 +30,9 @@ class AccountStatementListParamsTest {
     fun getQueryParams() {
         val params =
             AccountStatementListParams.builder()
+                .accountId("string")
                 .cursor("string")
                 .limit(123L)
-                .accountId("string")
                 .statementPeriodStart(
                     AccountStatementListParams.StatementPeriodStart.builder()
                         .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -43,9 +43,9 @@ class AccountStatementListParamsTest {
                 )
                 .build()
         val expected = mutableMapOf<String, List<String>>()
+        expected.put("account_id", listOf("string"))
         expected.put("cursor", listOf("string"))
         expected.put("limit", listOf("123"))
-        expected.put("account_id", listOf("string"))
         AccountStatementListParams.StatementPeriodStart.builder()
             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

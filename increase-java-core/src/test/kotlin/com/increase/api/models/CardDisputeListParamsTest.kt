@@ -12,8 +12,6 @@ class CardDisputeListParamsTest {
     @Test
     fun createCardDisputeListParams() {
         CardDisputeListParams.builder()
-            .cursor("string")
-            .limit(123L)
             .createdAt(
                 CardDisputeListParams.CreatedAt.builder()
                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -22,6 +20,8 @@ class CardDisputeListParamsTest {
                     .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
+            .cursor("string")
+            .limit(123L)
             .status(
                 CardDisputeListParams.Status.builder()
                     .in_(listOf(CardDisputeListParams.Status.In.PENDING_REVIEWING))
@@ -34,8 +34,6 @@ class CardDisputeListParamsTest {
     fun getQueryParams() {
         val params =
             CardDisputeListParams.builder()
-                .cursor("string")
-                .limit(123L)
                 .createdAt(
                     CardDisputeListParams.CreatedAt.builder()
                         .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -44,6 +42,8 @@ class CardDisputeListParamsTest {
                         .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
+                .cursor("string")
+                .limit(123L)
                 .status(
                     CardDisputeListParams.Status.builder()
                         .in_(listOf(CardDisputeListParams.Status.In.PENDING_REVIEWING))
@@ -51,8 +51,6 @@ class CardDisputeListParamsTest {
                 )
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("cursor", listOf("string"))
-        expected.put("limit", listOf("123"))
         CardDisputeListParams.CreatedAt.builder()
             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -60,6 +58,8 @@ class CardDisputeListParamsTest {
             .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
+        expected.put("cursor", listOf("string"))
+        expected.put("limit", listOf("123"))
         CardDisputeListParams.Status.builder()
             .in_(listOf(CardDisputeListParams.Status.In.PENDING_REVIEWING))
             .build()

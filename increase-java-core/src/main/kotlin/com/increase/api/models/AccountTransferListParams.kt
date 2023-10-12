@@ -12,33 +12,33 @@ import java.util.Optional
 
 class AccountTransferListParams
 constructor(
+    private val accountId: String?,
+    private val createdAt: CreatedAt?,
     private val cursor: String?,
     private val limit: Long?,
-    private val accountId: String?,
     private val uniqueIdentifier: String?,
-    private val createdAt: CreatedAt?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
+
+    fun accountId(): Optional<String> = Optional.ofNullable(accountId)
+
+    fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
-    fun accountId(): Optional<String> = Optional.ofNullable(accountId)
-
     fun uniqueIdentifier(): Optional<String> = Optional.ofNullable(uniqueIdentifier)
-
-    fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
     @JvmSynthetic
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
+        this.accountId?.let { params.put("account_id", listOf(it.toString())) }
+        this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
-        this.accountId?.let { params.put("account_id", listOf(it.toString())) }
         this.uniqueIdentifier?.let { params.put("unique_identifier", listOf(it.toString())) }
-        this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -55,29 +55,29 @@ constructor(
         }
 
         return other is AccountTransferListParams &&
+            this.accountId == other.accountId &&
+            this.createdAt == other.createdAt &&
             this.cursor == other.cursor &&
             this.limit == other.limit &&
-            this.accountId == other.accountId &&
             this.uniqueIdentifier == other.uniqueIdentifier &&
-            this.createdAt == other.createdAt &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
         return Objects.hash(
+            accountId,
+            createdAt,
             cursor,
             limit,
-            accountId,
             uniqueIdentifier,
-            createdAt,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "AccountTransferListParams{cursor=$cursor, limit=$limit, accountId=$accountId, uniqueIdentifier=$uniqueIdentifier, createdAt=$createdAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "AccountTransferListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, limit=$limit, uniqueIdentifier=$uniqueIdentifier, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -89,24 +89,29 @@ constructor(
     @NoAutoDetect
     class Builder {
 
+        private var accountId: String? = null
+        private var createdAt: CreatedAt? = null
         private var cursor: String? = null
         private var limit: Long? = null
-        private var accountId: String? = null
         private var uniqueIdentifier: String? = null
-        private var createdAt: CreatedAt? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(accountTransferListParams: AccountTransferListParams) = apply {
+            this.accountId = accountTransferListParams.accountId
+            this.createdAt = accountTransferListParams.createdAt
             this.cursor = accountTransferListParams.cursor
             this.limit = accountTransferListParams.limit
-            this.accountId = accountTransferListParams.accountId
             this.uniqueIdentifier = accountTransferListParams.uniqueIdentifier
-            this.createdAt = accountTransferListParams.createdAt
             additionalQueryParams(accountTransferListParams.additionalQueryParams)
             additionalHeaders(accountTransferListParams.additionalHeaders)
         }
+
+        /** Filter Account Transfers to those that originated from the specified Account. */
+        fun accountId(accountId: String) = apply { this.accountId = accountId }
+
+        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String) = apply { this.cursor = cursor }
@@ -116,15 +121,10 @@ constructor(
          */
         fun limit(limit: Long) = apply { this.limit = limit }
 
-        /** Filter Account Transfers to those that originated from the specified Account. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
-
         /** Filter Account Transfers to the one with the specified unique identifier. */
         fun uniqueIdentifier(uniqueIdentifier: String) = apply {
             this.uniqueIdentifier = uniqueIdentifier
         }
-
-        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -168,11 +168,11 @@ constructor(
 
         fun build(): AccountTransferListParams =
             AccountTransferListParams(
+                accountId,
+                createdAt,
                 cursor,
                 limit,
-                accountId,
                 uniqueIdentifier,
-                createdAt,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )

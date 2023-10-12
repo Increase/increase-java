@@ -10,25 +10,25 @@ import java.util.Optional
 
 class EntitySupplementalDocumentListParams
 constructor(
+    private val entityId: String,
     private val cursor: String?,
     private val limit: Long?,
-    private val entityId: String,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
+
+    fun entityId(): String = entityId
 
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
-    fun entityId(): String = entityId
-
     @JvmSynthetic
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
+        this.entityId.let { params.put("entity_id", listOf(it.toString())) }
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
-        this.entityId.let { params.put("entity_id", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -45,25 +45,25 @@ constructor(
         }
 
         return other is EntitySupplementalDocumentListParams &&
+            this.entityId == other.entityId &&
             this.cursor == other.cursor &&
             this.limit == other.limit &&
-            this.entityId == other.entityId &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
         return Objects.hash(
+            entityId,
             cursor,
             limit,
-            entityId,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "EntitySupplementalDocumentListParams{cursor=$cursor, limit=$limit, entityId=$entityId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "EntitySupplementalDocumentListParams{entityId=$entityId, cursor=$cursor, limit=$limit, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -75,9 +75,9 @@ constructor(
     @NoAutoDetect
     class Builder {
 
+        private var entityId: String? = null
         private var cursor: String? = null
         private var limit: Long? = null
-        private var entityId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
@@ -85,12 +85,15 @@ constructor(
         internal fun from(
             entitySupplementalDocumentListParams: EntitySupplementalDocumentListParams
         ) = apply {
+            this.entityId = entitySupplementalDocumentListParams.entityId
             this.cursor = entitySupplementalDocumentListParams.cursor
             this.limit = entitySupplementalDocumentListParams.limit
-            this.entityId = entitySupplementalDocumentListParams.entityId
             additionalQueryParams(entitySupplementalDocumentListParams.additionalQueryParams)
             additionalHeaders(entitySupplementalDocumentListParams.additionalHeaders)
         }
+
+        /** The identifier of the Entity to list supplemental documents for. */
+        fun entityId(entityId: String) = apply { this.entityId = entityId }
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String) = apply { this.cursor = cursor }
@@ -99,9 +102,6 @@ constructor(
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
         fun limit(limit: Long) = apply { this.limit = limit }
-
-        /** The identifier of the Entity to list supplemental documents for. */
-        fun entityId(entityId: String) = apply { this.entityId = entityId }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -145,9 +145,9 @@ constructor(
 
         fun build(): EntitySupplementalDocumentListParams =
             EntitySupplementalDocumentListParams(
+                checkNotNull(entityId) { "`entityId` is required but was not set" },
                 cursor,
                 limit,
-                checkNotNull(entityId) { "`entityId` is required but was not set" },
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )

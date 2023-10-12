@@ -12,10 +12,7 @@ class AccountTransferListParamsTest {
     @Test
     fun createAccountTransferListParams() {
         AccountTransferListParams.builder()
-            .cursor("string")
-            .limit(123L)
             .accountId("string")
-            .uniqueIdentifier("x")
             .createdAt(
                 AccountTransferListParams.CreatedAt.builder()
                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -24,6 +21,9 @@ class AccountTransferListParamsTest {
                     .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
+            .cursor("string")
+            .limit(123L)
+            .uniqueIdentifier("x")
             .build()
     }
 
@@ -31,10 +31,7 @@ class AccountTransferListParamsTest {
     fun getQueryParams() {
         val params =
             AccountTransferListParams.builder()
-                .cursor("string")
-                .limit(123L)
                 .accountId("string")
-                .uniqueIdentifier("x")
                 .createdAt(
                     AccountTransferListParams.CreatedAt.builder()
                         .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -43,12 +40,12 @@ class AccountTransferListParamsTest {
                         .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
+                .cursor("string")
+                .limit(123L)
+                .uniqueIdentifier("x")
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("cursor", listOf("string"))
-        expected.put("limit", listOf("123"))
         expected.put("account_id", listOf("string"))
-        expected.put("unique_identifier", listOf("x"))
         AccountTransferListParams.CreatedAt.builder()
             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -56,6 +53,9 @@ class AccountTransferListParamsTest {
             .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
+        expected.put("cursor", listOf("string"))
+        expected.put("limit", listOf("123"))
+        expected.put("unique_identifier", listOf("x"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 

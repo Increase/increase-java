@@ -10,25 +10,25 @@ import java.util.Optional
 
 class RoutingNumberListParams
 constructor(
+    private val routingNumber: String,
     private val cursor: String?,
     private val limit: Long?,
-    private val routingNumber: String,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
+
+    fun routingNumber(): String = routingNumber
 
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
-    fun routingNumber(): String = routingNumber
-
     @JvmSynthetic
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
+        this.routingNumber.let { params.put("routing_number", listOf(it.toString())) }
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
-        this.routingNumber.let { params.put("routing_number", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -45,25 +45,25 @@ constructor(
         }
 
         return other is RoutingNumberListParams &&
+            this.routingNumber == other.routingNumber &&
             this.cursor == other.cursor &&
             this.limit == other.limit &&
-            this.routingNumber == other.routingNumber &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
         return Objects.hash(
+            routingNumber,
             cursor,
             limit,
-            routingNumber,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "RoutingNumberListParams{cursor=$cursor, limit=$limit, routingNumber=$routingNumber, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "RoutingNumberListParams{routingNumber=$routingNumber, cursor=$cursor, limit=$limit, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -75,20 +75,23 @@ constructor(
     @NoAutoDetect
     class Builder {
 
+        private var routingNumber: String? = null
         private var cursor: String? = null
         private var limit: Long? = null
-        private var routingNumber: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(routingNumberListParams: RoutingNumberListParams) = apply {
+            this.routingNumber = routingNumberListParams.routingNumber
             this.cursor = routingNumberListParams.cursor
             this.limit = routingNumberListParams.limit
-            this.routingNumber = routingNumberListParams.routingNumber
             additionalQueryParams(routingNumberListParams.additionalQueryParams)
             additionalHeaders(routingNumberListParams.additionalHeaders)
         }
+
+        /** Filter financial institutions by routing number. */
+        fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String) = apply { this.cursor = cursor }
@@ -97,9 +100,6 @@ constructor(
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
         fun limit(limit: Long) = apply { this.limit = limit }
-
-        /** Filter financial institutions by routing number. */
-        fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -143,9 +143,9 @@ constructor(
 
         fun build(): RoutingNumberListParams =
             RoutingNumberListParams(
+                checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
                 cursor,
                 limit,
-                checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )

@@ -12,29 +12,29 @@ import java.util.Optional
 
 class PhysicalCardListParams
 constructor(
-    private val cursor: String?,
-    private val limit: Long?,
     private val cardId: String?,
     private val createdAt: CreatedAt?,
+    private val cursor: String?,
+    private val limit: Long?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
-
-    fun cursor(): Optional<String> = Optional.ofNullable(cursor)
-
-    fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
     fun cardId(): Optional<String> = Optional.ofNullable(cardId)
 
     fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
+    fun cursor(): Optional<String> = Optional.ofNullable(cursor)
+
+    fun limit(): Optional<Long> = Optional.ofNullable(limit)
+
     @JvmSynthetic
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
-        this.cursor?.let { params.put("cursor", listOf(it.toString())) }
-        this.limit?.let { params.put("limit", listOf(it.toString())) }
         this.cardId?.let { params.put("card_id", listOf(it.toString())) }
         this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
+        this.cursor?.let { params.put("cursor", listOf(it.toString())) }
+        this.limit?.let { params.put("limit", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -51,27 +51,27 @@ constructor(
         }
 
         return other is PhysicalCardListParams &&
-            this.cursor == other.cursor &&
-            this.limit == other.limit &&
             this.cardId == other.cardId &&
             this.createdAt == other.createdAt &&
+            this.cursor == other.cursor &&
+            this.limit == other.limit &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
         return Objects.hash(
-            cursor,
-            limit,
             cardId,
             createdAt,
+            cursor,
+            limit,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "PhysicalCardListParams{cursor=$cursor, limit=$limit, cardId=$cardId, createdAt=$createdAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "PhysicalCardListParams{cardId=$cardId, createdAt=$createdAt, cursor=$cursor, limit=$limit, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -83,22 +83,27 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var cursor: String? = null
-        private var limit: Long? = null
         private var cardId: String? = null
         private var createdAt: CreatedAt? = null
+        private var cursor: String? = null
+        private var limit: Long? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(physicalCardListParams: PhysicalCardListParams) = apply {
-            this.cursor = physicalCardListParams.cursor
-            this.limit = physicalCardListParams.limit
             this.cardId = physicalCardListParams.cardId
             this.createdAt = physicalCardListParams.createdAt
+            this.cursor = physicalCardListParams.cursor
+            this.limit = physicalCardListParams.limit
             additionalQueryParams(physicalCardListParams.additionalQueryParams)
             additionalHeaders(physicalCardListParams.additionalHeaders)
         }
+
+        /** Filter Physical Cards to ones belonging to the specified Card. */
+        fun cardId(cardId: String) = apply { this.cardId = cardId }
+
+        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String) = apply { this.cursor = cursor }
@@ -107,11 +112,6 @@ constructor(
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
         fun limit(limit: Long) = apply { this.limit = limit }
-
-        /** Filter Physical Cards to ones belonging to the specified Card. */
-        fun cardId(cardId: String) = apply { this.cardId = cardId }
-
-        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -155,10 +155,10 @@ constructor(
 
         fun build(): PhysicalCardListParams =
             PhysicalCardListParams(
-                cursor,
-                limit,
                 cardId,
                 createdAt,
+                cursor,
+                limit,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )

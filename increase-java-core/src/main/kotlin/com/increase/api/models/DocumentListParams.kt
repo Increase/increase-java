@@ -16,33 +16,33 @@ import java.util.Optional
 
 class DocumentListParams
 constructor(
-    private val cursor: String?,
-    private val limit: Long?,
-    private val entityId: String?,
     private val category: Category?,
     private val createdAt: CreatedAt?,
+    private val cursor: String?,
+    private val entityId: String?,
+    private val limit: Long?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
-
-    fun cursor(): Optional<String> = Optional.ofNullable(cursor)
-
-    fun limit(): Optional<Long> = Optional.ofNullable(limit)
-
-    fun entityId(): Optional<String> = Optional.ofNullable(entityId)
 
     fun category(): Optional<Category> = Optional.ofNullable(category)
 
     fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
+    fun cursor(): Optional<String> = Optional.ofNullable(cursor)
+
+    fun entityId(): Optional<String> = Optional.ofNullable(entityId)
+
+    fun limit(): Optional<Long> = Optional.ofNullable(limit)
+
     @JvmSynthetic
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
-        this.cursor?.let { params.put("cursor", listOf(it.toString())) }
-        this.limit?.let { params.put("limit", listOf(it.toString())) }
-        this.entityId?.let { params.put("entity_id", listOf(it.toString())) }
         this.category?.forEachQueryParam { key, values -> params.put("category.$key", values) }
         this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
+        this.cursor?.let { params.put("cursor", listOf(it.toString())) }
+        this.entityId?.let { params.put("entity_id", listOf(it.toString())) }
+        this.limit?.let { params.put("limit", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -59,29 +59,29 @@ constructor(
         }
 
         return other is DocumentListParams &&
-            this.cursor == other.cursor &&
-            this.limit == other.limit &&
-            this.entityId == other.entityId &&
             this.category == other.category &&
             this.createdAt == other.createdAt &&
+            this.cursor == other.cursor &&
+            this.entityId == other.entityId &&
+            this.limit == other.limit &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
         return Objects.hash(
-            cursor,
-            limit,
-            entityId,
             category,
             createdAt,
+            cursor,
+            entityId,
+            limit,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "DocumentListParams{cursor=$cursor, limit=$limit, entityId=$entityId, category=$category, createdAt=$createdAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "DocumentListParams{category=$category, createdAt=$createdAt, cursor=$cursor, entityId=$entityId, limit=$limit, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -93,39 +93,39 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var cursor: String? = null
-        private var limit: Long? = null
-        private var entityId: String? = null
         private var category: Category? = null
         private var createdAt: CreatedAt? = null
+        private var cursor: String? = null
+        private var entityId: String? = null
+        private var limit: Long? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(documentListParams: DocumentListParams) = apply {
-            this.cursor = documentListParams.cursor
-            this.limit = documentListParams.limit
-            this.entityId = documentListParams.entityId
             this.category = documentListParams.category
             this.createdAt = documentListParams.createdAt
+            this.cursor = documentListParams.cursor
+            this.entityId = documentListParams.entityId
+            this.limit = documentListParams.limit
             additionalQueryParams(documentListParams.additionalQueryParams)
             additionalHeaders(documentListParams.additionalHeaders)
         }
 
+        fun category(category: Category) = apply { this.category = category }
+
+        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
+
         /** Return the page of entries after this one. */
         fun cursor(cursor: String) = apply { this.cursor = cursor }
+
+        /** Filter Documents to ones belonging to the specified Entity. */
+        fun entityId(entityId: String) = apply { this.entityId = entityId }
 
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
         fun limit(limit: Long) = apply { this.limit = limit }
-
-        /** Filter Documents to ones belonging to the specified Entity. */
-        fun entityId(entityId: String) = apply { this.entityId = entityId }
-
-        fun category(category: Category) = apply { this.category = category }
-
-        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -169,11 +169,11 @@ constructor(
 
         fun build(): DocumentListParams =
             DocumentListParams(
-                cursor,
-                limit,
-                entityId,
                 category,
                 createdAt,
+                cursor,
+                entityId,
+                limit,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )

@@ -12,10 +12,12 @@ class DeclinedTransactionListParamsTest {
     @Test
     fun createDeclinedTransactionListParams() {
         DeclinedTransactionListParams.builder()
-            .cursor("string")
-            .limit(123L)
             .accountId("string")
-            .routeId("string")
+            .category(
+                DeclinedTransactionListParams.Category.builder()
+                    .in_(listOf(DeclinedTransactionListParams.Category.In.ACH_DECLINE))
+                    .build()
+            )
             .createdAt(
                 DeclinedTransactionListParams.CreatedAt.builder()
                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -24,11 +26,9 @@ class DeclinedTransactionListParamsTest {
                     .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
-            .category(
-                DeclinedTransactionListParams.Category.builder()
-                    .in_(listOf(DeclinedTransactionListParams.Category.In.ACH_DECLINE))
-                    .build()
-            )
+            .cursor("string")
+            .limit(123L)
+            .routeId("string")
             .build()
     }
 
@@ -36,10 +36,12 @@ class DeclinedTransactionListParamsTest {
     fun getQueryParams() {
         val params =
             DeclinedTransactionListParams.builder()
-                .cursor("string")
-                .limit(123L)
                 .accountId("string")
-                .routeId("string")
+                .category(
+                    DeclinedTransactionListParams.Category.builder()
+                        .in_(listOf(DeclinedTransactionListParams.Category.In.ACH_DECLINE))
+                        .build()
+                )
                 .createdAt(
                     DeclinedTransactionListParams.CreatedAt.builder()
                         .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -48,17 +50,16 @@ class DeclinedTransactionListParamsTest {
                         .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
-                .category(
-                    DeclinedTransactionListParams.Category.builder()
-                        .in_(listOf(DeclinedTransactionListParams.Category.In.ACH_DECLINE))
-                        .build()
-                )
+                .cursor("string")
+                .limit(123L)
+                .routeId("string")
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("cursor", listOf("string"))
-        expected.put("limit", listOf("123"))
         expected.put("account_id", listOf("string"))
-        expected.put("route_id", listOf("string"))
+        DeclinedTransactionListParams.Category.builder()
+            .in_(listOf(DeclinedTransactionListParams.Category.In.ACH_DECLINE))
+            .build()
+            .forEachQueryParam { key, values -> expected.put("category.$key", values) }
         DeclinedTransactionListParams.CreatedAt.builder()
             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -66,10 +67,9 @@ class DeclinedTransactionListParamsTest {
             .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
-        DeclinedTransactionListParams.Category.builder()
-            .in_(listOf(DeclinedTransactionListParams.Category.In.ACH_DECLINE))
-            .build()
-            .forEachQueryParam { key, values -> expected.put("category.$key", values) }
+        expected.put("cursor", listOf("string"))
+        expected.put("limit", listOf("123"))
+        expected.put("route_id", listOf("string"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 

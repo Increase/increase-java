@@ -16,33 +16,33 @@ import java.util.Optional
 
 class InboundAchTransferListParams
 constructor(
+    private val accountId: String?,
+    private val createdAt: CreatedAt?,
     private val cursor: String?,
     private val limit: Long?,
-    private val accountId: String?,
     private val status: Status?,
-    private val createdAt: CreatedAt?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
+
+    fun accountId(): Optional<String> = Optional.ofNullable(accountId)
+
+    fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
-    fun accountId(): Optional<String> = Optional.ofNullable(accountId)
-
     fun status(): Optional<Status> = Optional.ofNullable(status)
-
-    fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
     @JvmSynthetic
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
+        this.accountId?.let { params.put("account_id", listOf(it.toString())) }
+        this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
-        this.accountId?.let { params.put("account_id", listOf(it.toString())) }
         this.status?.let { params.put("status", listOf(it.toString())) }
-        this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -59,29 +59,29 @@ constructor(
         }
 
         return other is InboundAchTransferListParams &&
+            this.accountId == other.accountId &&
+            this.createdAt == other.createdAt &&
             this.cursor == other.cursor &&
             this.limit == other.limit &&
-            this.accountId == other.accountId &&
             this.status == other.status &&
-            this.createdAt == other.createdAt &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
         return Objects.hash(
+            accountId,
+            createdAt,
             cursor,
             limit,
-            accountId,
             status,
-            createdAt,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "InboundAchTransferListParams{cursor=$cursor, limit=$limit, accountId=$accountId, status=$status, createdAt=$createdAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "InboundAchTransferListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, limit=$limit, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -93,24 +93,29 @@ constructor(
     @NoAutoDetect
     class Builder {
 
+        private var accountId: String? = null
+        private var createdAt: CreatedAt? = null
         private var cursor: String? = null
         private var limit: Long? = null
-        private var accountId: String? = null
         private var status: Status? = null
-        private var createdAt: CreatedAt? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(inboundAchTransferListParams: InboundAchTransferListParams) = apply {
+            this.accountId = inboundAchTransferListParams.accountId
+            this.createdAt = inboundAchTransferListParams.createdAt
             this.cursor = inboundAchTransferListParams.cursor
             this.limit = inboundAchTransferListParams.limit
-            this.accountId = inboundAchTransferListParams.accountId
             this.status = inboundAchTransferListParams.status
-            this.createdAt = inboundAchTransferListParams.createdAt
             additionalQueryParams(inboundAchTransferListParams.additionalQueryParams)
             additionalHeaders(inboundAchTransferListParams.additionalHeaders)
         }
+
+        /** Filter Inbound ACH Tranfers to ones belonging to the specified Account. */
+        fun accountId(accountId: String) = apply { this.accountId = accountId }
+
+        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String) = apply { this.cursor = cursor }
@@ -120,13 +125,8 @@ constructor(
          */
         fun limit(limit: Long) = apply { this.limit = limit }
 
-        /** Filter Inbound ACH Tranfers to ones belonging to the specified Account. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
-
         /** Filter Inbound ACH Transfers to those with the specified status. */
         fun status(status: Status) = apply { this.status = status }
-
-        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -170,11 +170,11 @@ constructor(
 
         fun build(): InboundAchTransferListParams =
             InboundAchTransferListParams(
+                accountId,
+                createdAt,
                 cursor,
                 limit,
-                accountId,
                 status,
-                createdAt,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )
