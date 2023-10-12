@@ -16,28 +16,28 @@ import java.util.Optional
 
 class FileListParams
 constructor(
+    private val createdAt: CreatedAt?,
     private val cursor: String?,
     private val limit: Long?,
-    private val createdAt: CreatedAt?,
     private val purpose: Purpose?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
 
+    fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
+
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
-
-    fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
     fun purpose(): Optional<Purpose> = Optional.ofNullable(purpose)
 
     @JvmSynthetic
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
+        this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
-        this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
         this.purpose?.forEachQueryParam { key, values -> params.put("purpose.$key", values) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
@@ -55,9 +55,9 @@ constructor(
         }
 
         return other is FileListParams &&
+            this.createdAt == other.createdAt &&
             this.cursor == other.cursor &&
             this.limit == other.limit &&
-            this.createdAt == other.createdAt &&
             this.purpose == other.purpose &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
@@ -65,9 +65,9 @@ constructor(
 
     override fun hashCode(): Int {
         return Objects.hash(
+            createdAt,
             cursor,
             limit,
-            createdAt,
             purpose,
             additionalQueryParams,
             additionalHeaders,
@@ -75,7 +75,7 @@ constructor(
     }
 
     override fun toString() =
-        "FileListParams{cursor=$cursor, limit=$limit, createdAt=$createdAt, purpose=$purpose, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "FileListParams{createdAt=$createdAt, cursor=$cursor, limit=$limit, purpose=$purpose, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -87,22 +87,24 @@ constructor(
     @NoAutoDetect
     class Builder {
 
+        private var createdAt: CreatedAt? = null
         private var cursor: String? = null
         private var limit: Long? = null
-        private var createdAt: CreatedAt? = null
         private var purpose: Purpose? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(fileListParams: FileListParams) = apply {
+            this.createdAt = fileListParams.createdAt
             this.cursor = fileListParams.cursor
             this.limit = fileListParams.limit
-            this.createdAt = fileListParams.createdAt
             this.purpose = fileListParams.purpose
             additionalQueryParams(fileListParams.additionalQueryParams)
             additionalHeaders(fileListParams.additionalHeaders)
         }
+
+        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String) = apply { this.cursor = cursor }
@@ -111,8 +113,6 @@ constructor(
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
         fun limit(limit: Long) = apply { this.limit = limit }
-
-        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
         fun purpose(purpose: Purpose) = apply { this.purpose = purpose }
 
@@ -158,9 +158,9 @@ constructor(
 
         fun build(): FileListParams =
             FileListParams(
+                createdAt,
                 cursor,
                 limit,
-                createdAt,
                 purpose,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),

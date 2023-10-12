@@ -11,9 +11,9 @@ class EntitySupplementalDocumentListParamsTest {
     @Test
     fun createEntitySupplementalDocumentListParams() {
         EntitySupplementalDocumentListParams.builder()
+            .entityId("string")
             .cursor("string")
             .limit(123L)
-            .entityId("string")
             .build()
     }
 
@@ -21,14 +21,14 @@ class EntitySupplementalDocumentListParamsTest {
     fun getQueryParams() {
         val params =
             EntitySupplementalDocumentListParams.builder()
+                .entityId("string")
                 .cursor("string")
                 .limit(123L)
-                .entityId("string")
                 .build()
         val expected = mutableMapOf<String, List<String>>()
+        expected.put("entity_id", listOf("string"))
         expected.put("cursor", listOf("string"))
         expected.put("limit", listOf("123"))
-        expected.put("entity_id", listOf("string"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 

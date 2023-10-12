@@ -16,37 +16,37 @@ import java.util.Optional
 
 class DeclinedTransactionListParams
 constructor(
+    private val accountId: String?,
+    private val category: Category?,
+    private val createdAt: CreatedAt?,
     private val cursor: String?,
     private val limit: Long?,
-    private val accountId: String?,
     private val routeId: String?,
-    private val createdAt: CreatedAt?,
-    private val category: Category?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
+
+    fun accountId(): Optional<String> = Optional.ofNullable(accountId)
+
+    fun category(): Optional<Category> = Optional.ofNullable(category)
+
+    fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
-    fun accountId(): Optional<String> = Optional.ofNullable(accountId)
-
     fun routeId(): Optional<String> = Optional.ofNullable(routeId)
-
-    fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
-
-    fun category(): Optional<Category> = Optional.ofNullable(category)
 
     @JvmSynthetic
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
+        this.accountId?.let { params.put("account_id", listOf(it.toString())) }
+        this.category?.forEachQueryParam { key, values -> params.put("category.$key", values) }
+        this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
-        this.accountId?.let { params.put("account_id", listOf(it.toString())) }
         this.routeId?.let { params.put("route_id", listOf(it.toString())) }
-        this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
-        this.category?.forEachQueryParam { key, values -> params.put("category.$key", values) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -63,31 +63,31 @@ constructor(
         }
 
         return other is DeclinedTransactionListParams &&
+            this.accountId == other.accountId &&
+            this.category == other.category &&
+            this.createdAt == other.createdAt &&
             this.cursor == other.cursor &&
             this.limit == other.limit &&
-            this.accountId == other.accountId &&
             this.routeId == other.routeId &&
-            this.createdAt == other.createdAt &&
-            this.category == other.category &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
         return Objects.hash(
+            accountId,
+            category,
+            createdAt,
             cursor,
             limit,
-            accountId,
             routeId,
-            createdAt,
-            category,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "DeclinedTransactionListParams{cursor=$cursor, limit=$limit, accountId=$accountId, routeId=$routeId, createdAt=$createdAt, category=$category, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "DeclinedTransactionListParams{accountId=$accountId, category=$category, createdAt=$createdAt, cursor=$cursor, limit=$limit, routeId=$routeId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -99,26 +99,33 @@ constructor(
     @NoAutoDetect
     class Builder {
 
+        private var accountId: String? = null
+        private var category: Category? = null
+        private var createdAt: CreatedAt? = null
         private var cursor: String? = null
         private var limit: Long? = null
-        private var accountId: String? = null
         private var routeId: String? = null
-        private var createdAt: CreatedAt? = null
-        private var category: Category? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(declinedTransactionListParams: DeclinedTransactionListParams) = apply {
+            this.accountId = declinedTransactionListParams.accountId
+            this.category = declinedTransactionListParams.category
+            this.createdAt = declinedTransactionListParams.createdAt
             this.cursor = declinedTransactionListParams.cursor
             this.limit = declinedTransactionListParams.limit
-            this.accountId = declinedTransactionListParams.accountId
             this.routeId = declinedTransactionListParams.routeId
-            this.createdAt = declinedTransactionListParams.createdAt
-            this.category = declinedTransactionListParams.category
             additionalQueryParams(declinedTransactionListParams.additionalQueryParams)
             additionalHeaders(declinedTransactionListParams.additionalHeaders)
         }
+
+        /** Filter Declined Transactions to ones belonging to the specified Account. */
+        fun accountId(accountId: String) = apply { this.accountId = accountId }
+
+        fun category(category: Category) = apply { this.category = category }
+
+        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String) = apply { this.cursor = cursor }
@@ -128,15 +135,8 @@ constructor(
          */
         fun limit(limit: Long) = apply { this.limit = limit }
 
-        /** Filter Declined Transactions to ones belonging to the specified Account. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
-
         /** Filter Declined Transactions to those belonging to the specified route. */
         fun routeId(routeId: String) = apply { this.routeId = routeId }
-
-        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
-
-        fun category(category: Category) = apply { this.category = category }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -180,12 +180,12 @@ constructor(
 
         fun build(): DeclinedTransactionListParams =
             DeclinedTransactionListParams(
+                accountId,
+                category,
+                createdAt,
                 cursor,
                 limit,
-                accountId,
                 routeId,
-                createdAt,
-                category,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )

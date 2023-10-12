@@ -12,8 +12,6 @@ class PhysicalCardListParamsTest {
     @Test
     fun createPhysicalCardListParams() {
         PhysicalCardListParams.builder()
-            .cursor("string")
-            .limit(123L)
             .cardId("string")
             .createdAt(
                 PhysicalCardListParams.CreatedAt.builder()
@@ -23,6 +21,8 @@ class PhysicalCardListParamsTest {
                     .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
+            .cursor("string")
+            .limit(123L)
             .build()
     }
 
@@ -30,8 +30,6 @@ class PhysicalCardListParamsTest {
     fun getQueryParams() {
         val params =
             PhysicalCardListParams.builder()
-                .cursor("string")
-                .limit(123L)
                 .cardId("string")
                 .createdAt(
                     PhysicalCardListParams.CreatedAt.builder()
@@ -41,10 +39,10 @@ class PhysicalCardListParamsTest {
                         .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
+                .cursor("string")
+                .limit(123L)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("cursor", listOf("string"))
-        expected.put("limit", listOf("123"))
         expected.put("card_id", listOf("string"))
         PhysicalCardListParams.CreatedAt.builder()
             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -53,6 +51,8 @@ class PhysicalCardListParamsTest {
             .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
+        expected.put("cursor", listOf("string"))
+        expected.put("limit", listOf("123"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 

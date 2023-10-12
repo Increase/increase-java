@@ -16,45 +16,45 @@ import java.util.Optional
 
 class PendingTransactionListParams
 constructor(
+    private val accountId: String?,
+    private val category: Category?,
+    private val createdAt: CreatedAt?,
     private val cursor: String?,
     private val limit: Long?,
-    private val accountId: String?,
     private val routeId: String?,
     private val sourceId: String?,
-    private val category: Category?,
     private val status: Status?,
-    private val createdAt: CreatedAt?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
+
+    fun accountId(): Optional<String> = Optional.ofNullable(accountId)
+
+    fun category(): Optional<Category> = Optional.ofNullable(category)
+
+    fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
-    fun accountId(): Optional<String> = Optional.ofNullable(accountId)
-
     fun routeId(): Optional<String> = Optional.ofNullable(routeId)
 
     fun sourceId(): Optional<String> = Optional.ofNullable(sourceId)
 
-    fun category(): Optional<Category> = Optional.ofNullable(category)
-
     fun status(): Optional<Status> = Optional.ofNullable(status)
-
-    fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
     @JvmSynthetic
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
+        this.accountId?.let { params.put("account_id", listOf(it.toString())) }
+        this.category?.forEachQueryParam { key, values -> params.put("category.$key", values) }
+        this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
-        this.accountId?.let { params.put("account_id", listOf(it.toString())) }
         this.routeId?.let { params.put("route_id", listOf(it.toString())) }
         this.sourceId?.let { params.put("source_id", listOf(it.toString())) }
-        this.category?.forEachQueryParam { key, values -> params.put("category.$key", values) }
         this.status?.forEachQueryParam { key, values -> params.put("status.$key", values) }
-        this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -71,35 +71,35 @@ constructor(
         }
 
         return other is PendingTransactionListParams &&
+            this.accountId == other.accountId &&
+            this.category == other.category &&
+            this.createdAt == other.createdAt &&
             this.cursor == other.cursor &&
             this.limit == other.limit &&
-            this.accountId == other.accountId &&
             this.routeId == other.routeId &&
             this.sourceId == other.sourceId &&
-            this.category == other.category &&
             this.status == other.status &&
-            this.createdAt == other.createdAt &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
         return Objects.hash(
+            accountId,
+            category,
+            createdAt,
             cursor,
             limit,
-            accountId,
             routeId,
             sourceId,
-            category,
             status,
-            createdAt,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "PendingTransactionListParams{cursor=$cursor, limit=$limit, accountId=$accountId, routeId=$routeId, sourceId=$sourceId, category=$category, status=$status, createdAt=$createdAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "PendingTransactionListParams{accountId=$accountId, category=$category, createdAt=$createdAt, cursor=$cursor, limit=$limit, routeId=$routeId, sourceId=$sourceId, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -111,30 +111,37 @@ constructor(
     @NoAutoDetect
     class Builder {
 
+        private var accountId: String? = null
+        private var category: Category? = null
+        private var createdAt: CreatedAt? = null
         private var cursor: String? = null
         private var limit: Long? = null
-        private var accountId: String? = null
         private var routeId: String? = null
         private var sourceId: String? = null
-        private var category: Category? = null
         private var status: Status? = null
-        private var createdAt: CreatedAt? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(pendingTransactionListParams: PendingTransactionListParams) = apply {
+            this.accountId = pendingTransactionListParams.accountId
+            this.category = pendingTransactionListParams.category
+            this.createdAt = pendingTransactionListParams.createdAt
             this.cursor = pendingTransactionListParams.cursor
             this.limit = pendingTransactionListParams.limit
-            this.accountId = pendingTransactionListParams.accountId
             this.routeId = pendingTransactionListParams.routeId
             this.sourceId = pendingTransactionListParams.sourceId
-            this.category = pendingTransactionListParams.category
             this.status = pendingTransactionListParams.status
-            this.createdAt = pendingTransactionListParams.createdAt
             additionalQueryParams(pendingTransactionListParams.additionalQueryParams)
             additionalHeaders(pendingTransactionListParams.additionalHeaders)
         }
+
+        /** Filter pending transactions to those belonging to the specified Account. */
+        fun accountId(accountId: String) = apply { this.accountId = accountId }
+
+        fun category(category: Category) = apply { this.category = category }
+
+        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String) = apply { this.cursor = cursor }
@@ -144,20 +151,13 @@ constructor(
          */
         fun limit(limit: Long) = apply { this.limit = limit }
 
-        /** Filter pending transactions to those belonging to the specified Account. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
-
         /** Filter pending transactions to those belonging to the specified Route. */
         fun routeId(routeId: String) = apply { this.routeId = routeId }
 
         /** Filter pending transactions to those caused by the specified source. */
         fun sourceId(sourceId: String) = apply { this.sourceId = sourceId }
 
-        fun category(category: Category) = apply { this.category = category }
-
         fun status(status: Status) = apply { this.status = status }
-
-        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -201,14 +201,14 @@ constructor(
 
         fun build(): PendingTransactionListParams =
             PendingTransactionListParams(
+                accountId,
+                category,
+                createdAt,
                 cursor,
                 limit,
-                accountId,
                 routeId,
                 sourceId,
-                category,
                 status,
-                createdAt,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )

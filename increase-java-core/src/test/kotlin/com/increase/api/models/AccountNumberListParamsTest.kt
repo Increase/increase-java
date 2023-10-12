@@ -12,9 +12,6 @@ class AccountNumberListParamsTest {
     @Test
     fun createAccountNumberListParams() {
         AccountNumberListParams.builder()
-            .cursor("string")
-            .limit(123L)
-            .status(AccountNumberListParams.Status.ACTIVE)
             .accountId("string")
             .createdAt(
                 AccountNumberListParams.CreatedAt.builder()
@@ -24,6 +21,9 @@ class AccountNumberListParamsTest {
                     .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
+            .cursor("string")
+            .limit(123L)
+            .status(AccountNumberListParams.Status.ACTIVE)
             .build()
     }
 
@@ -31,9 +31,6 @@ class AccountNumberListParamsTest {
     fun getQueryParams() {
         val params =
             AccountNumberListParams.builder()
-                .cursor("string")
-                .limit(123L)
-                .status(AccountNumberListParams.Status.ACTIVE)
                 .accountId("string")
                 .createdAt(
                     AccountNumberListParams.CreatedAt.builder()
@@ -43,11 +40,11 @@ class AccountNumberListParamsTest {
                         .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
+                .cursor("string")
+                .limit(123L)
+                .status(AccountNumberListParams.Status.ACTIVE)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("cursor", listOf("string"))
-        expected.put("limit", listOf("123"))
-        expected.put("status", listOf(AccountNumberListParams.Status.ACTIVE.toString()))
         expected.put("account_id", listOf("string"))
         AccountNumberListParams.CreatedAt.builder()
             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -56,6 +53,9 @@ class AccountNumberListParamsTest {
             .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
+        expected.put("cursor", listOf("string"))
+        expected.put("limit", listOf("123"))
+        expected.put("status", listOf(AccountNumberListParams.Status.ACTIVE.toString()))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 

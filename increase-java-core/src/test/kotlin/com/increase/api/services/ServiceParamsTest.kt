@@ -109,11 +109,6 @@ class ServiceParamsTest {
 
         val params =
             AccountListParams.builder()
-                .cursor("string")
-                .limit(123L)
-                .entityId("string")
-                .informationalEntityId("string")
-                .status(AccountListParams.Status.OPEN)
                 .createdAt(
                     AccountListParams.CreatedAt.builder()
                         .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -122,6 +117,11 @@ class ServiceParamsTest {
                         .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
+                .cursor("string")
+                .entityId("string")
+                .informationalEntityId("string")
+                .limit(123L)
+                .status(AccountListParams.Status.OPEN)
                 .additionalHeaders(additionalHeaders)
                 .additionalQueryParams(additionalQueryParams)
                 .build()

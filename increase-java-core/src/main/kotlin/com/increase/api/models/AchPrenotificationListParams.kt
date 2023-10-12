@@ -12,25 +12,25 @@ import java.util.Optional
 
 class AchPrenotificationListParams
 constructor(
+    private val createdAt: CreatedAt?,
     private val cursor: String?,
     private val limit: Long?,
-    private val createdAt: CreatedAt?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
+
+    fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
-    fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
-
     @JvmSynthetic
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
+        this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
-        this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -47,25 +47,25 @@ constructor(
         }
 
         return other is AchPrenotificationListParams &&
+            this.createdAt == other.createdAt &&
             this.cursor == other.cursor &&
             this.limit == other.limit &&
-            this.createdAt == other.createdAt &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
         return Objects.hash(
+            createdAt,
             cursor,
             limit,
-            createdAt,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "AchPrenotificationListParams{cursor=$cursor, limit=$limit, createdAt=$createdAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "AchPrenotificationListParams{createdAt=$createdAt, cursor=$cursor, limit=$limit, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -77,20 +77,22 @@ constructor(
     @NoAutoDetect
     class Builder {
 
+        private var createdAt: CreatedAt? = null
         private var cursor: String? = null
         private var limit: Long? = null
-        private var createdAt: CreatedAt? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(achPrenotificationListParams: AchPrenotificationListParams) = apply {
+            this.createdAt = achPrenotificationListParams.createdAt
             this.cursor = achPrenotificationListParams.cursor
             this.limit = achPrenotificationListParams.limit
-            this.createdAt = achPrenotificationListParams.createdAt
             additionalQueryParams(achPrenotificationListParams.additionalQueryParams)
             additionalHeaders(achPrenotificationListParams.additionalHeaders)
         }
+
+        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String) = apply { this.cursor = cursor }
@@ -99,8 +101,6 @@ constructor(
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
         fun limit(limit: Long) = apply { this.limit = limit }
-
-        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -144,9 +144,9 @@ constructor(
 
         fun build(): AchPrenotificationListParams =
             AchPrenotificationListParams(
+                createdAt,
                 cursor,
                 limit,
-                createdAt,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )
