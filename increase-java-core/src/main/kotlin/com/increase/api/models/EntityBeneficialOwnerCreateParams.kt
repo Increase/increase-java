@@ -304,7 +304,8 @@ constructor(
 
         /**
          * Why this person is considered a beneficial owner of the entity. At least one option is
-         * required.
+         * required, if a person is both a control person and owner, submit an array containing
+         * both.
          */
         @JsonProperty("prongs") fun prongs(): List<Prong>? = prongs
 
@@ -372,7 +373,8 @@ constructor(
 
             /**
              * Why this person is considered a beneficial owner of the entity. At least one option
-             * is required.
+             * is required, if a person is both a control person and owner, submit an array
+             * containing both.
              */
             @JsonProperty("prongs") fun prongs(prongs: List<Prong>) = apply { this.prongs = prongs }
 

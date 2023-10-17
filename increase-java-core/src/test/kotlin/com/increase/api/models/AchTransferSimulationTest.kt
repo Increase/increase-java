@@ -901,6 +901,7 @@ class AchTransferSimulationTest {
                                         )
                                         .frontImageFileId("string")
                                         .transactionId("string")
+                                        .transferId("string")
                                         .type(
                                             AchTransferSimulation.Transaction.Source
                                                 .CheckTransferDeposit
@@ -1248,6 +1249,24 @@ class AchTransferSimulationTest {
                                 .build()
                         )
                         .accountNumberId("string")
+                        .addenda(
+                            AchTransferSimulation.Transfer.Addenda.builder()
+                                .category(AchTransferSimulation.Transfer.Addenda.Category.FREEFORM)
+                                .freeform(
+                                    AchTransferSimulation.Transfer.Addenda.Freeform.builder()
+                                        .entries(
+                                            listOf(
+                                                AchTransferSimulation.Transfer.Addenda.Freeform
+                                                    .Entry
+                                                    .builder()
+                                                    .paymentRelatedInformation("string")
+                                                    .build()
+                                            )
+                                        )
+                                        .build()
+                                )
+                                .build()
+                        )
                         .amount(123L)
                         .automaticallyResolvesAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .decline(
@@ -2135,6 +2154,7 @@ class AchTransferSimulationTest {
                                     .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .frontImageFileId("string")
                                     .transactionId("string")
+                                    .transferId("string")
                                     .type(
                                         AchTransferSimulation.Transaction.Source
                                             .CheckTransferDeposit
@@ -2469,6 +2489,23 @@ class AchTransferSimulationTest {
                             .build()
                     )
                     .accountNumberId("string")
+                    .addenda(
+                        AchTransferSimulation.Transfer.Addenda.builder()
+                            .category(AchTransferSimulation.Transfer.Addenda.Category.FREEFORM)
+                            .freeform(
+                                AchTransferSimulation.Transfer.Addenda.Freeform.builder()
+                                    .entries(
+                                        listOf(
+                                            AchTransferSimulation.Transfer.Addenda.Freeform.Entry
+                                                .builder()
+                                                .paymentRelatedInformation("string")
+                                                .build()
+                                        )
+                                    )
+                                    .build()
+                            )
+                            .build()
+                    )
                     .amount(123L)
                     .automaticallyResolvesAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .decline(
