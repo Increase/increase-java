@@ -493,6 +493,7 @@ class TransactionTest {
                                 .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .frontImageFileId("string")
                                 .transactionId("string")
+                                .transferId("string")
                                 .type(
                                     Transaction.Source.CheckTransferDeposit.Type
                                         .CHECK_TRANSFER_DEPOSIT
@@ -1225,6 +1226,7 @@ class TransactionTest {
                             .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .frontImageFileId("string")
                             .transactionId("string")
+                            .transferId("string")
                             .type(
                                 Transaction.Source.CheckTransferDeposit.Type.CHECK_TRANSFER_DEPOSIT
                             )

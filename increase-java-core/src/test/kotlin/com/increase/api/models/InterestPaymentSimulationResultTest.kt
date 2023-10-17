@@ -707,6 +707,7 @@ class InterestPaymentSimulationResultTest {
                                         )
                                         .frontImageFileId("string")
                                         .transactionId("string")
+                                        .transferId("string")
                                         .type(
                                             InterestPaymentSimulationResult.Transaction.Source
                                                 .CheckTransferDeposit
@@ -1710,6 +1711,7 @@ class InterestPaymentSimulationResultTest {
                                     .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .frontImageFileId("string")
                                     .transactionId("string")
+                                    .transferId("string")
                                     .type(
                                         InterestPaymentSimulationResult.Transaction.Source
                                             .CheckTransferDeposit

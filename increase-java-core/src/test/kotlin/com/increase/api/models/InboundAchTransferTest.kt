@@ -20,6 +20,22 @@ class InboundAchTransferTest {
                         .build()
                 )
                 .accountNumberId("string")
+                .addenda(
+                    InboundAchTransfer.Addenda.builder()
+                        .category(InboundAchTransfer.Addenda.Category.FREEFORM)
+                        .freeform(
+                            InboundAchTransfer.Addenda.Freeform.builder()
+                                .entries(
+                                    listOf(
+                                        InboundAchTransfer.Addenda.Freeform.Entry.builder()
+                                            .paymentRelatedInformation("string")
+                                            .build()
+                                    )
+                                )
+                                .build()
+                        )
+                        .build()
+                )
                 .amount(123L)
                 .automaticallyResolvesAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .decline(
@@ -68,6 +84,23 @@ class InboundAchTransferTest {
                     .build()
             )
         assertThat(inboundAchTransfer.accountNumberId()).isEqualTo("string")
+        assertThat(inboundAchTransfer.addenda())
+            .contains(
+                InboundAchTransfer.Addenda.builder()
+                    .category(InboundAchTransfer.Addenda.Category.FREEFORM)
+                    .freeform(
+                        InboundAchTransfer.Addenda.Freeform.builder()
+                            .entries(
+                                listOf(
+                                    InboundAchTransfer.Addenda.Freeform.Entry.builder()
+                                        .paymentRelatedInformation("string")
+                                        .build()
+                                )
+                            )
+                            .build()
+                    )
+                    .build()
+            )
         assertThat(inboundAchTransfer.amount()).isEqualTo(123L)
         assertThat(inboundAchTransfer.automaticallyResolvesAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
