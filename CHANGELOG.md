@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.11.0 (2023-10-19)
+
+Full Changelog: [v0.10.5...v0.11.0](https://github.com/increase/increase-java/compare/v0.10.5...v0.11.0)
+
+### Features
+
+* **api:** add addenda details for ACH transfers ([#112](https://github.com/increase/increase-java/issues/112)) ([77c3b66](https://github.com/increase/increase-java/commit/77c3b662faf64888d99fd4438bac6186d6cc5f5f))
+* **api:** updates ([#113](https://github.com/increase/increase-java/issues/113)) ([e9d92f2](https://github.com/increase/increase-java/commit/e9d92f2c806d31e1d7229606999642e5782eacd3))
+
+
+### Chores
+
+* add case insensitive get header function ([#110](https://github.com/increase/increase-java/issues/110)) ([c8a6a01](https://github.com/increase/increase-java/commit/c8a6a010d7e206f4c78200712f7241de79fc130b))
+* **internal:** minor reformatting ([#108](https://github.com/increase/increase-java/issues/108)) ([df9d4a7](https://github.com/increase/increase-java/commit/df9d4a7f834cd70a4cf24705c99b246141300fd7))
+* **internal:** rearrange client arguments ([#106](https://github.com/increase/increase-java/issues/106)) ([42efa26](https://github.com/increase/increase-java/commit/42efa26e7f91e044a77fd199ac21a2e775e95365))
+* update README ([#105](https://github.com/increase/increase-java/issues/105)) ([a2b123b](https://github.com/increase/increase-java/commit/a2b123b13a8f02e2581aa0215fb66dad65f03ba4))
+
+
+### Documentation
+
+* organisation -&gt; organization (UK to US English) ([#111](https://github.com/increase/increase-java/issues/111)) ([48e3f4b](https://github.com/increase/increase-java/commit/48e3f4b2271c68702d1a6001848a170548e2e73d))
+
 ## 0.10.5 (2023-10-05)
 
 Full Changelog: [v0.10.4...v0.10.5](https://github.com/increase/increase-java/compare/v0.10.4...v0.10.5)
