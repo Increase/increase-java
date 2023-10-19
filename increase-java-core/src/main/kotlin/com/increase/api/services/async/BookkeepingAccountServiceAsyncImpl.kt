@@ -12,6 +12,7 @@ import com.increase.api.models.BookkeepingAccount
 import com.increase.api.models.BookkeepingAccountCreateParams
 import com.increase.api.models.BookkeepingAccountListPageAsync
 import com.increase.api.models.BookkeepingAccountListParams
+import com.increase.api.models.BookkeepingAccountUpdateParams
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
@@ -46,6 +47,35 @@ constructor(
             ->
             response
                 .use { createHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
+        }
+    }
+
+    private val updateHandler: Handler<BookkeepingAccount> =
+        jsonHandler<BookkeepingAccount>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+    /** Update a Bookkeeping Account */
+    override fun update(
+        params: BookkeepingAccountUpdateParams,
+        requestOptions: RequestOptions
+    ): CompletableFuture<BookkeepingAccount> {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.PATCH)
+                .addPathSegments("bookkeeping_accounts", params.getPathParam(0))
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .body(json(clientOptions.jsonMapper, params.getBody()))
+                .build()
+        return clientOptions.httpClient.executeAsync(request, requestOptions).thenApply { response
+            ->
+            response
+                .use { updateHandler.handle(it) }
                 .apply {
                     if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
                         validate()
