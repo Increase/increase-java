@@ -36,6 +36,25 @@ class BookkeepingAccountServiceTest {
     }
 
     @Test
+    fun callUpdate() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val bookkeepingAccountService = client.bookkeepingAccounts()
+        val bookkeepingAccount =
+            bookkeepingAccountService.update(
+                BookkeepingAccountUpdateParams.builder()
+                    .bookkeepingAccountId("string")
+                    .name("x")
+                    .build()
+            )
+        println(bookkeepingAccount)
+        bookkeepingAccount.validate()
+    }
+
+    @Test
     fun callList() {
         val client =
             IncreaseOkHttpClient.builder()

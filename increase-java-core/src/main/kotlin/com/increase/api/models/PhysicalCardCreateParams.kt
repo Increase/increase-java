@@ -542,7 +542,7 @@ constructor(
             /** The third line of the shipping address. */
             @JsonProperty("line3") fun line3(): String? = line3
 
-            /** The phone number of the receipient. */
+            /** The phone number of the recipient. */
             @JsonProperty("phone_number") fun phoneNumber(): String? = phoneNumber
 
             /** The city of the shipping address. */
@@ -640,7 +640,7 @@ constructor(
                 /** The third line of the shipping address. */
                 @JsonProperty("line3") fun line3(line3: String) = apply { this.line3 = line3 }
 
-                /** The phone number of the receipient. */
+                /** The phone number of the recipient. */
                 @JsonProperty("phone_number")
                 fun phoneNumber(phoneNumber: String) = apply { this.phoneNumber = phoneNumber }
 
