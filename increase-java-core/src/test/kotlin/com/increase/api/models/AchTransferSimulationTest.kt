@@ -1346,7 +1346,7 @@ class AchTransferSimulationTest {
                             AchTransferSimulation.Transfer.TransferReturn.builder()
                                 .reason(
                                     AchTransferSimulation.Transfer.TransferReturn.Reason
-                                        .AUTHORIZATION_REVOKED_BY_CUSTOMER
+                                        .RETURNED_PER_ODFI_REQUEST
                                 )
                                 .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .transactionId("string")
@@ -2629,7 +2629,7 @@ class AchTransferSimulationTest {
                         AchTransferSimulation.Transfer.TransferReturn.builder()
                             .reason(
                                 AchTransferSimulation.Transfer.TransferReturn.Reason
-                                    .AUTHORIZATION_REVOKED_BY_CUSTOMER
+                                    .RETURNED_PER_ODFI_REQUEST
                             )
                             .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .transactionId("string")
