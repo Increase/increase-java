@@ -25,6 +25,21 @@ class CardPaymentTest {
                                     .id("string")
                                     .amount(123L)
                                     .cardPaymentId("string")
+                                    .cardholderAddress(
+                                        CardPayment.Element.CardAuthorization.CardholderAddress
+                                            .builder()
+                                            .actualLine1("string")
+                                            .actualPostalCode("string")
+                                            .providedLine1("string")
+                                            .providedPostalCode("string")
+                                            .verificationResult(
+                                                CardPayment.Element.CardAuthorization
+                                                    .CardholderAddress
+                                                    .VerificationResult
+                                                    .NOT_CHECKED
+                                            )
+                                            .build()
+                                    )
                                     .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
                                     .digitalWalletTokenId("string")
                                     .direction(
@@ -97,6 +112,19 @@ class CardPaymentTest {
                                     .id("string")
                                     .amount(123L)
                                     .cardPaymentId("string")
+                                    .cardholderAddress(
+                                        CardPayment.Element.CardDecline.CardholderAddress.builder()
+                                            .actualLine1("string")
+                                            .actualPostalCode("string")
+                                            .providedLine1("string")
+                                            .providedPostalCode("string")
+                                            .verificationResult(
+                                                CardPayment.Element.CardDecline.CardholderAddress
+                                                    .VerificationResult
+                                                    .NOT_CHECKED
+                                            )
+                                            .build()
+                                    )
                                     .currency(CardPayment.Element.CardDecline.Currency.CAD)
                                     .digitalWalletTokenId("string")
                                     .merchantAcceptorId("string")
@@ -569,6 +597,20 @@ class CardPaymentTest {
                                 CardPayment.Element.CardValidation.builder()
                                     .id("string")
                                     .cardPaymentId("string")
+                                    .cardholderAddress(
+                                        CardPayment.Element.CardValidation.CardholderAddress
+                                            .builder()
+                                            .actualLine1("string")
+                                            .actualPostalCode("string")
+                                            .providedLine1("string")
+                                            .providedPostalCode("string")
+                                            .verificationResult(
+                                                CardPayment.Element.CardValidation.CardholderAddress
+                                                    .VerificationResult
+                                                    .NOT_CHECKED
+                                            )
+                                            .build()
+                                    )
                                     .currency(CardPayment.Element.CardValidation.Currency.CAD)
                                     .digitalWalletTokenId("string")
                                     .merchantAcceptorId("string")
@@ -639,6 +681,19 @@ class CardPaymentTest {
                             .id("string")
                             .amount(123L)
                             .cardPaymentId("string")
+                            .cardholderAddress(
+                                CardPayment.Element.CardAuthorization.CardholderAddress.builder()
+                                    .actualLine1("string")
+                                    .actualPostalCode("string")
+                                    .providedLine1("string")
+                                    .providedPostalCode("string")
+                                    .verificationResult(
+                                        CardPayment.Element.CardAuthorization.CardholderAddress
+                                            .VerificationResult
+                                            .NOT_CHECKED
+                                    )
+                                    .build()
+                            )
                             .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
                             .digitalWalletTokenId("string")
                             .direction(CardPayment.Element.CardAuthorization.Direction.SETTLEMENT)
@@ -698,6 +753,19 @@ class CardPaymentTest {
                             .id("string")
                             .amount(123L)
                             .cardPaymentId("string")
+                            .cardholderAddress(
+                                CardPayment.Element.CardDecline.CardholderAddress.builder()
+                                    .actualLine1("string")
+                                    .actualPostalCode("string")
+                                    .providedLine1("string")
+                                    .providedPostalCode("string")
+                                    .verificationResult(
+                                        CardPayment.Element.CardDecline.CardholderAddress
+                                            .VerificationResult
+                                            .NOT_CHECKED
+                                    )
+                                    .build()
+                            )
                             .currency(CardPayment.Element.CardDecline.Currency.CAD)
                             .digitalWalletTokenId("string")
                             .merchantAcceptorId("string")
@@ -1134,6 +1202,19 @@ class CardPaymentTest {
                         CardPayment.Element.CardValidation.builder()
                             .id("string")
                             .cardPaymentId("string")
+                            .cardholderAddress(
+                                CardPayment.Element.CardValidation.CardholderAddress.builder()
+                                    .actualLine1("string")
+                                    .actualPostalCode("string")
+                                    .providedLine1("string")
+                                    .providedPostalCode("string")
+                                    .verificationResult(
+                                        CardPayment.Element.CardValidation.CardholderAddress
+                                            .VerificationResult
+                                            .NOT_CHECKED
+                                    )
+                                    .build()
+                            )
                             .currency(CardPayment.Element.CardValidation.Currency.CAD)
                             .digitalWalletTokenId("string")
                             .merchantAcceptorId("string")

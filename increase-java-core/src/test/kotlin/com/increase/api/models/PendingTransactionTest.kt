@@ -44,6 +44,21 @@ class PendingTransactionTest {
                                 .id("string")
                                 .amount(123L)
                                 .cardPaymentId("string")
+                                .cardholderAddress(
+                                    PendingTransaction.Source.CardAuthorization.CardholderAddress
+                                        .builder()
+                                        .actualLine1("string")
+                                        .actualPostalCode("string")
+                                        .providedLine1("string")
+                                        .providedPostalCode("string")
+                                        .verificationResult(
+                                            PendingTransaction.Source.CardAuthorization
+                                                .CardholderAddress
+                                                .VerificationResult
+                                                .NOT_CHECKED
+                                        )
+                                        .build()
+                                )
                                 .currency(PendingTransaction.Source.CardAuthorization.Currency.CAD)
                                 .digitalWalletTokenId("string")
                                 .direction(
@@ -192,6 +207,21 @@ class PendingTransactionTest {
                             .id("string")
                             .amount(123L)
                             .cardPaymentId("string")
+                            .cardholderAddress(
+                                PendingTransaction.Source.CardAuthorization.CardholderAddress
+                                    .builder()
+                                    .actualLine1("string")
+                                    .actualPostalCode("string")
+                                    .providedLine1("string")
+                                    .providedPostalCode("string")
+                                    .verificationResult(
+                                        PendingTransaction.Source.CardAuthorization
+                                            .CardholderAddress
+                                            .VerificationResult
+                                            .NOT_CHECKED
+                                    )
+                                    .build()
+                            )
                             .currency(PendingTransaction.Source.CardAuthorization.Currency.CAD)
                             .digitalWalletTokenId("string")
                             .direction(
