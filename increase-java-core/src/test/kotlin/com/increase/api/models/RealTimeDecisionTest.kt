@@ -18,19 +18,6 @@ class RealTimeDecisionTest {
                     RealTimeDecision.CardAuthorization.builder()
                         .accountId("string")
                         .cardId("string")
-                        .cardholderAddress(
-                            RealTimeDecision.CardAuthorization.CardholderAddress.builder()
-                                .actualLine1("string")
-                                .actualPostalCode("string")
-                                .providedLine1("string")
-                                .providedPostalCode("string")
-                                .verificationResult(
-                                    RealTimeDecision.CardAuthorization.CardholderAddress
-                                        .VerificationResult
-                                        .NOT_CHECKED
-                                )
-                                .build()
-                        )
                         .decision(RealTimeDecision.CardAuthorization.Decision.APPROVE)
                         .digitalWalletTokenId("string")
                         .merchantAcceptorId("string")
@@ -81,6 +68,38 @@ class RealTimeDecisionTest {
                         )
                         .settlementAmount(123L)
                         .settlementCurrency("string")
+                        .verification(
+                            RealTimeDecision.CardAuthorization.Verification.builder()
+                                .cardVerificationCode(
+                                    RealTimeDecision.CardAuthorization.Verification
+                                        .CardVerificationCode
+                                        .builder()
+                                        .result(
+                                            RealTimeDecision.CardAuthorization.Verification
+                                                .CardVerificationCode
+                                                .Result
+                                                .NOT_CHECKED
+                                        )
+                                        .build()
+                                )
+                                .cardholderAddress(
+                                    RealTimeDecision.CardAuthorization.Verification
+                                        .CardholderAddress
+                                        .builder()
+                                        .actualLine1("string")
+                                        .actualPostalCode("string")
+                                        .providedLine1("string")
+                                        .providedPostalCode("string")
+                                        .result(
+                                            RealTimeDecision.CardAuthorization.Verification
+                                                .CardholderAddress
+                                                .Result
+                                                .NOT_CHECKED
+                                        )
+                                        .build()
+                                )
+                                .build()
+                        )
                         .build()
                 )
                 .category(RealTimeDecision.Category.CARD_AUTHORIZATION_REQUESTED)
@@ -117,19 +136,6 @@ class RealTimeDecisionTest {
                 RealTimeDecision.CardAuthorization.builder()
                     .accountId("string")
                     .cardId("string")
-                    .cardholderAddress(
-                        RealTimeDecision.CardAuthorization.CardholderAddress.builder()
-                            .actualLine1("string")
-                            .actualPostalCode("string")
-                            .providedLine1("string")
-                            .providedPostalCode("string")
-                            .verificationResult(
-                                RealTimeDecision.CardAuthorization.CardholderAddress
-                                    .VerificationResult
-                                    .NOT_CHECKED
-                            )
-                            .build()
-                    )
                     .decision(RealTimeDecision.CardAuthorization.Decision.APPROVE)
                     .digitalWalletTokenId("string")
                     .merchantAcceptorId("string")
@@ -180,6 +186,36 @@ class RealTimeDecisionTest {
                     )
                     .settlementAmount(123L)
                     .settlementCurrency("string")
+                    .verification(
+                        RealTimeDecision.CardAuthorization.Verification.builder()
+                            .cardVerificationCode(
+                                RealTimeDecision.CardAuthorization.Verification.CardVerificationCode
+                                    .builder()
+                                    .result(
+                                        RealTimeDecision.CardAuthorization.Verification
+                                            .CardVerificationCode
+                                            .Result
+                                            .NOT_CHECKED
+                                    )
+                                    .build()
+                            )
+                            .cardholderAddress(
+                                RealTimeDecision.CardAuthorization.Verification.CardholderAddress
+                                    .builder()
+                                    .actualLine1("string")
+                                    .actualPostalCode("string")
+                                    .providedLine1("string")
+                                    .providedPostalCode("string")
+                                    .result(
+                                        RealTimeDecision.CardAuthorization.Verification
+                                            .CardholderAddress
+                                            .Result
+                                            .NOT_CHECKED
+                                    )
+                                    .build()
+                            )
+                            .build()
+                    )
                     .build()
             )
         assertThat(realTimeDecision.category())

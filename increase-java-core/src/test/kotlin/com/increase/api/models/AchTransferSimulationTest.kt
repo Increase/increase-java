@@ -59,24 +59,6 @@ class AchTransferSimulationTest {
                                         .id("string")
                                         .amount(123L)
                                         .cardPaymentId("string")
-                                        .cardholderAddress(
-                                            AchTransferSimulation.DeclinedTransaction.Source
-                                                .CardDecline
-                                                .CardholderAddress
-                                                .builder()
-                                                .actualLine1("string")
-                                                .actualPostalCode("string")
-                                                .providedLine1("string")
-                                                .providedPostalCode("string")
-                                                .verificationResult(
-                                                    AchTransferSimulation.DeclinedTransaction.Source
-                                                        .CardDecline
-                                                        .CardholderAddress
-                                                        .VerificationResult
-                                                        .NOT_CHECKED
-                                                )
-                                                .build()
-                                        )
                                         .currency(
                                             AchTransferSimulation.DeclinedTransaction.Source
                                                 .CardDecline
@@ -139,6 +121,53 @@ class AchTransferSimulationTest {
                                                 .CardDecline
                                                 .Reason
                                                 .CARD_NOT_ACTIVE
+                                        )
+                                        .verification(
+                                            AchTransferSimulation.DeclinedTransaction.Source
+                                                .CardDecline
+                                                .Verification
+                                                .builder()
+                                                .cardVerificationCode(
+                                                    AchTransferSimulation.DeclinedTransaction.Source
+                                                        .CardDecline
+                                                        .Verification
+                                                        .CardVerificationCode
+                                                        .builder()
+                                                        .result(
+                                                            AchTransferSimulation
+                                                                .DeclinedTransaction
+                                                                .Source
+                                                                .CardDecline
+                                                                .Verification
+                                                                .CardVerificationCode
+                                                                .Result
+                                                                .NOT_CHECKED
+                                                        )
+                                                        .build()
+                                                )
+                                                .cardholderAddress(
+                                                    AchTransferSimulation.DeclinedTransaction.Source
+                                                        .CardDecline
+                                                        .Verification
+                                                        .CardholderAddress
+                                                        .builder()
+                                                        .actualLine1("string")
+                                                        .actualPostalCode("string")
+                                                        .providedLine1("string")
+                                                        .providedPostalCode("string")
+                                                        .result(
+                                                            AchTransferSimulation
+                                                                .DeclinedTransaction
+                                                                .Source
+                                                                .CardDecline
+                                                                .Verification
+                                                                .CardholderAddress
+                                                                .Result
+                                                                .NOT_CHECKED
+                                                        )
+                                                        .build()
+                                                )
+                                                .build()
                                         )
                                         .build()
                                 )
@@ -1372,23 +1401,6 @@ class AchTransferSimulationTest {
                                     .id("string")
                                     .amount(123L)
                                     .cardPaymentId("string")
-                                    .cardholderAddress(
-                                        AchTransferSimulation.DeclinedTransaction.Source.CardDecline
-                                            .CardholderAddress
-                                            .builder()
-                                            .actualLine1("string")
-                                            .actualPostalCode("string")
-                                            .providedLine1("string")
-                                            .providedPostalCode("string")
-                                            .verificationResult(
-                                                AchTransferSimulation.DeclinedTransaction.Source
-                                                    .CardDecline
-                                                    .CardholderAddress
-                                                    .VerificationResult
-                                                    .NOT_CHECKED
-                                            )
-                                            .build()
-                                    )
                                     .currency(
                                         AchTransferSimulation.DeclinedTransaction.Source.CardDecline
                                             .Currency
@@ -1446,6 +1458,50 @@ class AchTransferSimulationTest {
                                         AchTransferSimulation.DeclinedTransaction.Source.CardDecline
                                             .Reason
                                             .CARD_NOT_ACTIVE
+                                    )
+                                    .verification(
+                                        AchTransferSimulation.DeclinedTransaction.Source.CardDecline
+                                            .Verification
+                                            .builder()
+                                            .cardVerificationCode(
+                                                AchTransferSimulation.DeclinedTransaction.Source
+                                                    .CardDecline
+                                                    .Verification
+                                                    .CardVerificationCode
+                                                    .builder()
+                                                    .result(
+                                                        AchTransferSimulation.DeclinedTransaction
+                                                            .Source
+                                                            .CardDecline
+                                                            .Verification
+                                                            .CardVerificationCode
+                                                            .Result
+                                                            .NOT_CHECKED
+                                                    )
+                                                    .build()
+                                            )
+                                            .cardholderAddress(
+                                                AchTransferSimulation.DeclinedTransaction.Source
+                                                    .CardDecline
+                                                    .Verification
+                                                    .CardholderAddress
+                                                    .builder()
+                                                    .actualLine1("string")
+                                                    .actualPostalCode("string")
+                                                    .providedLine1("string")
+                                                    .providedPostalCode("string")
+                                                    .result(
+                                                        AchTransferSimulation.DeclinedTransaction
+                                                            .Source
+                                                            .CardDecline
+                                                            .Verification
+                                                            .CardholderAddress
+                                                            .Result
+                                                            .NOT_CHECKED
+                                                    )
+                                                    .build()
+                                            )
+                                            .build()
                                     )
                                     .build()
                             )
