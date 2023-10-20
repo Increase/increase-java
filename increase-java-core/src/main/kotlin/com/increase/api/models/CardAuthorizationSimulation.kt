@@ -1719,6 +1719,7 @@ private constructor(
                 private val merchantCountry: JsonField<String>,
                 private val digitalWalletTokenId: JsonField<String>,
                 private val physicalCardId: JsonField<String>,
+                private val cardholderAddress: JsonField<CardholderAddress>,
                 private val networkDetails: JsonField<NetworkDetails>,
                 private val id: JsonField<String>,
                 private val cardPaymentId: JsonField<String>,
@@ -1773,6 +1774,13 @@ private constructor(
                  */
                 fun physicalCardId(): Optional<String> =
                     Optional.ofNullable(physicalCardId.getNullable("physical_card_id"))
+
+                /**
+                 * Cardholder address provided in the authorization request and the address on file
+                 * we verified it against.
+                 */
+                fun cardholderAddress(): CardholderAddress =
+                    cardholderAddress.getRequired("cardholder_address")
 
                 /** Fields specific to the `network`. */
                 fun networkDetails(): NetworkDetails = networkDetails.getRequired("network_details")
@@ -1855,6 +1863,14 @@ private constructor(
                 @ExcludeMissing
                 fun _physicalCardId() = physicalCardId
 
+                /**
+                 * Cardholder address provided in the authorization request and the address on file
+                 * we verified it against.
+                 */
+                @JsonProperty("cardholder_address")
+                @ExcludeMissing
+                fun _cardholderAddress() = cardholderAddress
+
                 /** Fields specific to the `network`. */
                 @JsonProperty("network_details")
                 @ExcludeMissing
@@ -1907,6 +1923,7 @@ private constructor(
                         merchantCountry()
                         digitalWalletTokenId()
                         physicalCardId()
+                        cardholderAddress().validate()
                         networkDetails().validate()
                         id()
                         cardPaymentId()
@@ -1934,6 +1951,7 @@ private constructor(
                         this.merchantCountry == other.merchantCountry &&
                         this.digitalWalletTokenId == other.digitalWalletTokenId &&
                         this.physicalCardId == other.physicalCardId &&
+                        this.cardholderAddress == other.cardholderAddress &&
                         this.networkDetails == other.networkDetails &&
                         this.id == other.id &&
                         this.cardPaymentId == other.cardPaymentId &&
@@ -1956,6 +1974,7 @@ private constructor(
                                 merchantCountry,
                                 digitalWalletTokenId,
                                 physicalCardId,
+                                cardholderAddress,
                                 networkDetails,
                                 id,
                                 cardPaymentId,
@@ -1971,7 +1990,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "CardDecline{merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, digitalWalletTokenId=$digitalWalletTokenId, physicalCardId=$physicalCardId, networkDetails=$networkDetails, id=$id, cardPaymentId=$cardPaymentId, amount=$amount, currency=$currency, reason=$reason, merchantState=$merchantState, realTimeDecisionId=$realTimeDecisionId, additionalProperties=$additionalProperties}"
+                    "CardDecline{merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, digitalWalletTokenId=$digitalWalletTokenId, physicalCardId=$physicalCardId, cardholderAddress=$cardholderAddress, networkDetails=$networkDetails, id=$id, cardPaymentId=$cardPaymentId, amount=$amount, currency=$currency, reason=$reason, merchantState=$merchantState, realTimeDecisionId=$realTimeDecisionId, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -1987,6 +2006,7 @@ private constructor(
                     private var merchantCountry: JsonField<String> = JsonMissing.of()
                     private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
                     private var physicalCardId: JsonField<String> = JsonMissing.of()
+                    private var cardholderAddress: JsonField<CardholderAddress> = JsonMissing.of()
                     private var networkDetails: JsonField<NetworkDetails> = JsonMissing.of()
                     private var id: JsonField<String> = JsonMissing.of()
                     private var cardPaymentId: JsonField<String> = JsonMissing.of()
@@ -2006,6 +2026,7 @@ private constructor(
                         this.merchantCountry = cardDecline.merchantCountry
                         this.digitalWalletTokenId = cardDecline.digitalWalletTokenId
                         this.physicalCardId = cardDecline.physicalCardId
+                        this.cardholderAddress = cardDecline.cardholderAddress
                         this.networkDetails = cardDecline.networkDetails
                         this.id = cardDecline.id
                         this.cardPaymentId = cardDecline.cardPaymentId
@@ -2116,6 +2137,23 @@ private constructor(
                     @ExcludeMissing
                     fun physicalCardId(physicalCardId: JsonField<String>) = apply {
                         this.physicalCardId = physicalCardId
+                    }
+
+                    /**
+                     * Cardholder address provided in the authorization request and the address on
+                     * file we verified it against.
+                     */
+                    fun cardholderAddress(cardholderAddress: CardholderAddress) =
+                        cardholderAddress(JsonField.of(cardholderAddress))
+
+                    /**
+                     * Cardholder address provided in the authorization request and the address on
+                     * file we verified it against.
+                     */
+                    @JsonProperty("cardholder_address")
+                    @ExcludeMissing
+                    fun cardholderAddress(cardholderAddress: JsonField<CardholderAddress>) = apply {
+                        this.cardholderAddress = cardholderAddress
                     }
 
                     /** Fields specific to the `network`. */
@@ -2236,6 +2274,7 @@ private constructor(
                             merchantCountry,
                             digitalWalletTokenId,
                             physicalCardId,
+                            cardholderAddress,
                             networkDetails,
                             id,
                             cardPaymentId,
@@ -2246,6 +2285,348 @@ private constructor(
                             realTimeDecisionId,
                             additionalProperties.toUnmodifiable(),
                         )
+                }
+
+                /**
+                 * Cardholder address provided in the authorization request and the address on file
+                 * we verified it against.
+                 */
+                @JsonDeserialize(builder = CardholderAddress.Builder::class)
+                @NoAutoDetect
+                class CardholderAddress
+                private constructor(
+                    private val providedPostalCode: JsonField<String>,
+                    private val providedLine1: JsonField<String>,
+                    private val actualPostalCode: JsonField<String>,
+                    private val actualLine1: JsonField<String>,
+                    private val verificationResult: JsonField<VerificationResult>,
+                    private val additionalProperties: Map<String, JsonValue>,
+                ) {
+
+                    private var validated: Boolean = false
+
+                    private var hashCode: Int = 0
+
+                    /** The postal code provided for verification in the authorization request. */
+                    fun providedPostalCode(): Optional<String> =
+                        Optional.ofNullable(providedPostalCode.getNullable("provided_postal_code"))
+
+                    /**
+                     * The cardholder address line 1 provided for verification in the authorization
+                     * request.
+                     */
+                    fun providedLine1(): Optional<String> =
+                        Optional.ofNullable(providedLine1.getNullable("provided_line1"))
+
+                    /** The postal code of the address on file for the cardholder. */
+                    fun actualPostalCode(): Optional<String> =
+                        Optional.ofNullable(actualPostalCode.getNullable("actual_postal_code"))
+
+                    /** Line 1 of the address on file for the cardholder. */
+                    fun actualLine1(): Optional<String> =
+                        Optional.ofNullable(actualLine1.getNullable("actual_line1"))
+
+                    /** The address verification result returned to the card network. */
+                    fun verificationResult(): VerificationResult =
+                        verificationResult.getRequired("verification_result")
+
+                    /** The postal code provided for verification in the authorization request. */
+                    @JsonProperty("provided_postal_code")
+                    @ExcludeMissing
+                    fun _providedPostalCode() = providedPostalCode
+
+                    /**
+                     * The cardholder address line 1 provided for verification in the authorization
+                     * request.
+                     */
+                    @JsonProperty("provided_line1")
+                    @ExcludeMissing
+                    fun _providedLine1() = providedLine1
+
+                    /** The postal code of the address on file for the cardholder. */
+                    @JsonProperty("actual_postal_code")
+                    @ExcludeMissing
+                    fun _actualPostalCode() = actualPostalCode
+
+                    /** Line 1 of the address on file for the cardholder. */
+                    @JsonProperty("actual_line1") @ExcludeMissing fun _actualLine1() = actualLine1
+
+                    /** The address verification result returned to the card network. */
+                    @JsonProperty("verification_result")
+                    @ExcludeMissing
+                    fun _verificationResult() = verificationResult
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                    fun validate(): CardholderAddress = apply {
+                        if (!validated) {
+                            providedPostalCode()
+                            providedLine1()
+                            actualPostalCode()
+                            actualLine1()
+                            verificationResult()
+                            validated = true
+                        }
+                    }
+
+                    fun toBuilder() = Builder().from(this)
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is CardholderAddress &&
+                            this.providedPostalCode == other.providedPostalCode &&
+                            this.providedLine1 == other.providedLine1 &&
+                            this.actualPostalCode == other.actualPostalCode &&
+                            this.actualLine1 == other.actualLine1 &&
+                            this.verificationResult == other.verificationResult &&
+                            this.additionalProperties == other.additionalProperties
+                    }
+
+                    override fun hashCode(): Int {
+                        if (hashCode == 0) {
+                            hashCode =
+                                Objects.hash(
+                                    providedPostalCode,
+                                    providedLine1,
+                                    actualPostalCode,
+                                    actualLine1,
+                                    verificationResult,
+                                    additionalProperties,
+                                )
+                        }
+                        return hashCode
+                    }
+
+                    override fun toString() =
+                        "CardholderAddress{providedPostalCode=$providedPostalCode, providedLine1=$providedLine1, actualPostalCode=$actualPostalCode, actualLine1=$actualLine1, verificationResult=$verificationResult, additionalProperties=$additionalProperties}"
+
+                    companion object {
+
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    class Builder {
+
+                        private var providedPostalCode: JsonField<String> = JsonMissing.of()
+                        private var providedLine1: JsonField<String> = JsonMissing.of()
+                        private var actualPostalCode: JsonField<String> = JsonMissing.of()
+                        private var actualLine1: JsonField<String> = JsonMissing.of()
+                        private var verificationResult: JsonField<VerificationResult> =
+                            JsonMissing.of()
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(cardholderAddress: CardholderAddress) = apply {
+                            this.providedPostalCode = cardholderAddress.providedPostalCode
+                            this.providedLine1 = cardholderAddress.providedLine1
+                            this.actualPostalCode = cardholderAddress.actualPostalCode
+                            this.actualLine1 = cardholderAddress.actualLine1
+                            this.verificationResult = cardholderAddress.verificationResult
+                            additionalProperties(cardholderAddress.additionalProperties)
+                        }
+
+                        /**
+                         * The postal code provided for verification in the authorization request.
+                         */
+                        fun providedPostalCode(providedPostalCode: String) =
+                            providedPostalCode(JsonField.of(providedPostalCode))
+
+                        /**
+                         * The postal code provided for verification in the authorization request.
+                         */
+                        @JsonProperty("provided_postal_code")
+                        @ExcludeMissing
+                        fun providedPostalCode(providedPostalCode: JsonField<String>) = apply {
+                            this.providedPostalCode = providedPostalCode
+                        }
+
+                        /**
+                         * The cardholder address line 1 provided for verification in the
+                         * authorization request.
+                         */
+                        fun providedLine1(providedLine1: String) =
+                            providedLine1(JsonField.of(providedLine1))
+
+                        /**
+                         * The cardholder address line 1 provided for verification in the
+                         * authorization request.
+                         */
+                        @JsonProperty("provided_line1")
+                        @ExcludeMissing
+                        fun providedLine1(providedLine1: JsonField<String>) = apply {
+                            this.providedLine1 = providedLine1
+                        }
+
+                        /** The postal code of the address on file for the cardholder. */
+                        fun actualPostalCode(actualPostalCode: String) =
+                            actualPostalCode(JsonField.of(actualPostalCode))
+
+                        /** The postal code of the address on file for the cardholder. */
+                        @JsonProperty("actual_postal_code")
+                        @ExcludeMissing
+                        fun actualPostalCode(actualPostalCode: JsonField<String>) = apply {
+                            this.actualPostalCode = actualPostalCode
+                        }
+
+                        /** Line 1 of the address on file for the cardholder. */
+                        fun actualLine1(actualLine1: String) =
+                            actualLine1(JsonField.of(actualLine1))
+
+                        /** Line 1 of the address on file for the cardholder. */
+                        @JsonProperty("actual_line1")
+                        @ExcludeMissing
+                        fun actualLine1(actualLine1: JsonField<String>) = apply {
+                            this.actualLine1 = actualLine1
+                        }
+
+                        /** The address verification result returned to the card network. */
+                        fun verificationResult(verificationResult: VerificationResult) =
+                            verificationResult(JsonField.of(verificationResult))
+
+                        /** The address verification result returned to the card network. */
+                        @JsonProperty("verification_result")
+                        @ExcludeMissing
+                        fun verificationResult(verificationResult: JsonField<VerificationResult>) =
+                            apply {
+                                this.verificationResult = verificationResult
+                            }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                this.additionalProperties.putAll(additionalProperties)
+                            }
+
+                        @JsonAnySetter
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            this.additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun build(): CardholderAddress =
+                            CardholderAddress(
+                                providedPostalCode,
+                                providedLine1,
+                                actualPostalCode,
+                                actualLine1,
+                                verificationResult,
+                                additionalProperties.toUnmodifiable(),
+                            )
+                    }
+
+                    class VerificationResult
+                    @JsonCreator
+                    private constructor(
+                        private val value: JsonField<String>,
+                    ) {
+
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is VerificationResult && this.value == other.value
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+
+                        companion object {
+
+                            @JvmField
+                            val NOT_CHECKED = VerificationResult(JsonField.of("not_checked"))
+
+                            @JvmField
+                            val POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED =
+                                VerificationResult(
+                                    JsonField.of("postal_code_match_address_not_checked")
+                                )
+
+                            @JvmField
+                            val POSTAL_CODE_MATCH_ADDRESS_NO_MATCH =
+                                VerificationResult(
+                                    JsonField.of("postal_code_match_address_no_match")
+                                )
+
+                            @JvmField
+                            val POSTAL_CODE_NO_MATCH_ADDRESS_MATCH =
+                                VerificationResult(
+                                    JsonField.of("postal_code_no_match_address_match")
+                                )
+
+                            @JvmField val MATCH = VerificationResult(JsonField.of("match"))
+
+                            @JvmField val NO_MATCH = VerificationResult(JsonField.of("no_match"))
+
+                            @JvmStatic
+                            fun of(value: String) = VerificationResult(JsonField.of(value))
+                        }
+
+                        enum class Known {
+                            NOT_CHECKED,
+                            POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED,
+                            POSTAL_CODE_MATCH_ADDRESS_NO_MATCH,
+                            POSTAL_CODE_NO_MATCH_ADDRESS_MATCH,
+                            MATCH,
+                            NO_MATCH,
+                        }
+
+                        enum class Value {
+                            NOT_CHECKED,
+                            POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED,
+                            POSTAL_CODE_MATCH_ADDRESS_NO_MATCH,
+                            POSTAL_CODE_NO_MATCH_ADDRESS_MATCH,
+                            MATCH,
+                            NO_MATCH,
+                            _UNKNOWN,
+                        }
+
+                        fun value(): Value =
+                            when (this) {
+                                NOT_CHECKED -> Value.NOT_CHECKED
+                                POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED ->
+                                    Value.POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED
+                                POSTAL_CODE_MATCH_ADDRESS_NO_MATCH ->
+                                    Value.POSTAL_CODE_MATCH_ADDRESS_NO_MATCH
+                                POSTAL_CODE_NO_MATCH_ADDRESS_MATCH ->
+                                    Value.POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
+                                MATCH -> Value.MATCH
+                                NO_MATCH -> Value.NO_MATCH
+                                else -> Value._UNKNOWN
+                            }
+
+                        fun known(): Known =
+                            when (this) {
+                                NOT_CHECKED -> Known.NOT_CHECKED
+                                POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED ->
+                                    Known.POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED
+                                POSTAL_CODE_MATCH_ADDRESS_NO_MATCH ->
+                                    Known.POSTAL_CODE_MATCH_ADDRESS_NO_MATCH
+                                POSTAL_CODE_NO_MATCH_ADDRESS_MATCH ->
+                                    Known.POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
+                                MATCH -> Known.MATCH
+                                NO_MATCH -> Known.NO_MATCH
+                                else ->
+                                    throw IncreaseInvalidDataException(
+                                        "Unknown VerificationResult: $value"
+                                    )
+                            }
+
+                        fun asString(): String = _value().asStringOrThrow()
+                    }
                 }
 
                 class Currency
@@ -8344,6 +8725,7 @@ private constructor(
                 private val merchantCountry: JsonField<String>,
                 private val digitalWalletTokenId: JsonField<String>,
                 private val physicalCardId: JsonField<String>,
+                private val cardholderAddress: JsonField<CardholderAddress>,
                 private val networkDetails: JsonField<NetworkDetails>,
                 private val amount: JsonField<Long>,
                 private val currency: JsonField<Currency>,
@@ -8405,6 +8787,13 @@ private constructor(
                  */
                 fun physicalCardId(): Optional<String> =
                     Optional.ofNullable(physicalCardId.getNullable("physical_card_id"))
+
+                /**
+                 * Cardholder address provided in the authorization request and the address on file
+                 * we verified it against.
+                 */
+                fun cardholderAddress(): CardholderAddress =
+                    cardholderAddress.getRequired("cardholder_address")
 
                 /** Fields specific to the `network`. */
                 fun networkDetails(): NetworkDetails = networkDetails.getRequired("network_details")
@@ -8503,6 +8892,14 @@ private constructor(
                 @ExcludeMissing
                 fun _physicalCardId() = physicalCardId
 
+                /**
+                 * Cardholder address provided in the authorization request and the address on file
+                 * we verified it against.
+                 */
+                @JsonProperty("cardholder_address")
+                @ExcludeMissing
+                fun _cardholderAddress() = cardholderAddress
+
                 /** Fields specific to the `network`. */
                 @JsonProperty("network_details")
                 @ExcludeMissing
@@ -8566,6 +8963,7 @@ private constructor(
                         merchantCountry()
                         digitalWalletTokenId()
                         physicalCardId()
+                        cardholderAddress().validate()
                         networkDetails().validate()
                         amount()
                         currency()
@@ -8595,6 +8993,7 @@ private constructor(
                         this.merchantCountry == other.merchantCountry &&
                         this.digitalWalletTokenId == other.digitalWalletTokenId &&
                         this.physicalCardId == other.physicalCardId &&
+                        this.cardholderAddress == other.cardholderAddress &&
                         this.networkDetails == other.networkDetails &&
                         this.amount == other.amount &&
                         this.currency == other.currency &&
@@ -8619,6 +9018,7 @@ private constructor(
                                 merchantCountry,
                                 digitalWalletTokenId,
                                 physicalCardId,
+                                cardholderAddress,
                                 networkDetails,
                                 amount,
                                 currency,
@@ -8634,7 +9034,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "CardAuthorization{id=$id, cardPaymentId=$cardPaymentId, merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, digitalWalletTokenId=$digitalWalletTokenId, physicalCardId=$physicalCardId, networkDetails=$networkDetails, amount=$amount, currency=$currency, direction=$direction, expiresAt=$expiresAt, realTimeDecisionId=$realTimeDecisionId, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
+                    "CardAuthorization{id=$id, cardPaymentId=$cardPaymentId, merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, digitalWalletTokenId=$digitalWalletTokenId, physicalCardId=$physicalCardId, cardholderAddress=$cardholderAddress, networkDetails=$networkDetails, amount=$amount, currency=$currency, direction=$direction, expiresAt=$expiresAt, realTimeDecisionId=$realTimeDecisionId, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -8652,6 +9052,7 @@ private constructor(
                     private var merchantCountry: JsonField<String> = JsonMissing.of()
                     private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
                     private var physicalCardId: JsonField<String> = JsonMissing.of()
+                    private var cardholderAddress: JsonField<CardholderAddress> = JsonMissing.of()
                     private var networkDetails: JsonField<NetworkDetails> = JsonMissing.of()
                     private var amount: JsonField<Long> = JsonMissing.of()
                     private var currency: JsonField<Currency> = JsonMissing.of()
@@ -8673,6 +9074,7 @@ private constructor(
                         this.merchantCountry = cardAuthorization.merchantCountry
                         this.digitalWalletTokenId = cardAuthorization.digitalWalletTokenId
                         this.physicalCardId = cardAuthorization.physicalCardId
+                        this.cardholderAddress = cardAuthorization.cardholderAddress
                         this.networkDetails = cardAuthorization.networkDetails
                         this.amount = cardAuthorization.amount
                         this.currency = cardAuthorization.currency
@@ -8802,6 +9204,23 @@ private constructor(
                     @ExcludeMissing
                     fun physicalCardId(physicalCardId: JsonField<String>) = apply {
                         this.physicalCardId = physicalCardId
+                    }
+
+                    /**
+                     * Cardholder address provided in the authorization request and the address on
+                     * file we verified it against.
+                     */
+                    fun cardholderAddress(cardholderAddress: CardholderAddress) =
+                        cardholderAddress(JsonField.of(cardholderAddress))
+
+                    /**
+                     * Cardholder address provided in the authorization request and the address on
+                     * file we verified it against.
+                     */
+                    @JsonProperty("cardholder_address")
+                    @ExcludeMissing
+                    fun cardholderAddress(cardholderAddress: JsonField<CardholderAddress>) = apply {
+                        this.cardholderAddress = cardholderAddress
                     }
 
                     /** Fields specific to the `network`. */
@@ -8947,6 +9366,7 @@ private constructor(
                             merchantCountry,
                             digitalWalletTokenId,
                             physicalCardId,
+                            cardholderAddress,
                             networkDetails,
                             amount,
                             currency,
@@ -8957,6 +9377,348 @@ private constructor(
                             type,
                             additionalProperties.toUnmodifiable(),
                         )
+                }
+
+                /**
+                 * Cardholder address provided in the authorization request and the address on file
+                 * we verified it against.
+                 */
+                @JsonDeserialize(builder = CardholderAddress.Builder::class)
+                @NoAutoDetect
+                class CardholderAddress
+                private constructor(
+                    private val providedPostalCode: JsonField<String>,
+                    private val providedLine1: JsonField<String>,
+                    private val actualPostalCode: JsonField<String>,
+                    private val actualLine1: JsonField<String>,
+                    private val verificationResult: JsonField<VerificationResult>,
+                    private val additionalProperties: Map<String, JsonValue>,
+                ) {
+
+                    private var validated: Boolean = false
+
+                    private var hashCode: Int = 0
+
+                    /** The postal code provided for verification in the authorization request. */
+                    fun providedPostalCode(): Optional<String> =
+                        Optional.ofNullable(providedPostalCode.getNullable("provided_postal_code"))
+
+                    /**
+                     * The cardholder address line 1 provided for verification in the authorization
+                     * request.
+                     */
+                    fun providedLine1(): Optional<String> =
+                        Optional.ofNullable(providedLine1.getNullable("provided_line1"))
+
+                    /** The postal code of the address on file for the cardholder. */
+                    fun actualPostalCode(): Optional<String> =
+                        Optional.ofNullable(actualPostalCode.getNullable("actual_postal_code"))
+
+                    /** Line 1 of the address on file for the cardholder. */
+                    fun actualLine1(): Optional<String> =
+                        Optional.ofNullable(actualLine1.getNullable("actual_line1"))
+
+                    /** The address verification result returned to the card network. */
+                    fun verificationResult(): VerificationResult =
+                        verificationResult.getRequired("verification_result")
+
+                    /** The postal code provided for verification in the authorization request. */
+                    @JsonProperty("provided_postal_code")
+                    @ExcludeMissing
+                    fun _providedPostalCode() = providedPostalCode
+
+                    /**
+                     * The cardholder address line 1 provided for verification in the authorization
+                     * request.
+                     */
+                    @JsonProperty("provided_line1")
+                    @ExcludeMissing
+                    fun _providedLine1() = providedLine1
+
+                    /** The postal code of the address on file for the cardholder. */
+                    @JsonProperty("actual_postal_code")
+                    @ExcludeMissing
+                    fun _actualPostalCode() = actualPostalCode
+
+                    /** Line 1 of the address on file for the cardholder. */
+                    @JsonProperty("actual_line1") @ExcludeMissing fun _actualLine1() = actualLine1
+
+                    /** The address verification result returned to the card network. */
+                    @JsonProperty("verification_result")
+                    @ExcludeMissing
+                    fun _verificationResult() = verificationResult
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                    fun validate(): CardholderAddress = apply {
+                        if (!validated) {
+                            providedPostalCode()
+                            providedLine1()
+                            actualPostalCode()
+                            actualLine1()
+                            verificationResult()
+                            validated = true
+                        }
+                    }
+
+                    fun toBuilder() = Builder().from(this)
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is CardholderAddress &&
+                            this.providedPostalCode == other.providedPostalCode &&
+                            this.providedLine1 == other.providedLine1 &&
+                            this.actualPostalCode == other.actualPostalCode &&
+                            this.actualLine1 == other.actualLine1 &&
+                            this.verificationResult == other.verificationResult &&
+                            this.additionalProperties == other.additionalProperties
+                    }
+
+                    override fun hashCode(): Int {
+                        if (hashCode == 0) {
+                            hashCode =
+                                Objects.hash(
+                                    providedPostalCode,
+                                    providedLine1,
+                                    actualPostalCode,
+                                    actualLine1,
+                                    verificationResult,
+                                    additionalProperties,
+                                )
+                        }
+                        return hashCode
+                    }
+
+                    override fun toString() =
+                        "CardholderAddress{providedPostalCode=$providedPostalCode, providedLine1=$providedLine1, actualPostalCode=$actualPostalCode, actualLine1=$actualLine1, verificationResult=$verificationResult, additionalProperties=$additionalProperties}"
+
+                    companion object {
+
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    class Builder {
+
+                        private var providedPostalCode: JsonField<String> = JsonMissing.of()
+                        private var providedLine1: JsonField<String> = JsonMissing.of()
+                        private var actualPostalCode: JsonField<String> = JsonMissing.of()
+                        private var actualLine1: JsonField<String> = JsonMissing.of()
+                        private var verificationResult: JsonField<VerificationResult> =
+                            JsonMissing.of()
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(cardholderAddress: CardholderAddress) = apply {
+                            this.providedPostalCode = cardholderAddress.providedPostalCode
+                            this.providedLine1 = cardholderAddress.providedLine1
+                            this.actualPostalCode = cardholderAddress.actualPostalCode
+                            this.actualLine1 = cardholderAddress.actualLine1
+                            this.verificationResult = cardholderAddress.verificationResult
+                            additionalProperties(cardholderAddress.additionalProperties)
+                        }
+
+                        /**
+                         * The postal code provided for verification in the authorization request.
+                         */
+                        fun providedPostalCode(providedPostalCode: String) =
+                            providedPostalCode(JsonField.of(providedPostalCode))
+
+                        /**
+                         * The postal code provided for verification in the authorization request.
+                         */
+                        @JsonProperty("provided_postal_code")
+                        @ExcludeMissing
+                        fun providedPostalCode(providedPostalCode: JsonField<String>) = apply {
+                            this.providedPostalCode = providedPostalCode
+                        }
+
+                        /**
+                         * The cardholder address line 1 provided for verification in the
+                         * authorization request.
+                         */
+                        fun providedLine1(providedLine1: String) =
+                            providedLine1(JsonField.of(providedLine1))
+
+                        /**
+                         * The cardholder address line 1 provided for verification in the
+                         * authorization request.
+                         */
+                        @JsonProperty("provided_line1")
+                        @ExcludeMissing
+                        fun providedLine1(providedLine1: JsonField<String>) = apply {
+                            this.providedLine1 = providedLine1
+                        }
+
+                        /** The postal code of the address on file for the cardholder. */
+                        fun actualPostalCode(actualPostalCode: String) =
+                            actualPostalCode(JsonField.of(actualPostalCode))
+
+                        /** The postal code of the address on file for the cardholder. */
+                        @JsonProperty("actual_postal_code")
+                        @ExcludeMissing
+                        fun actualPostalCode(actualPostalCode: JsonField<String>) = apply {
+                            this.actualPostalCode = actualPostalCode
+                        }
+
+                        /** Line 1 of the address on file for the cardholder. */
+                        fun actualLine1(actualLine1: String) =
+                            actualLine1(JsonField.of(actualLine1))
+
+                        /** Line 1 of the address on file for the cardholder. */
+                        @JsonProperty("actual_line1")
+                        @ExcludeMissing
+                        fun actualLine1(actualLine1: JsonField<String>) = apply {
+                            this.actualLine1 = actualLine1
+                        }
+
+                        /** The address verification result returned to the card network. */
+                        fun verificationResult(verificationResult: VerificationResult) =
+                            verificationResult(JsonField.of(verificationResult))
+
+                        /** The address verification result returned to the card network. */
+                        @JsonProperty("verification_result")
+                        @ExcludeMissing
+                        fun verificationResult(verificationResult: JsonField<VerificationResult>) =
+                            apply {
+                                this.verificationResult = verificationResult
+                            }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                this.additionalProperties.putAll(additionalProperties)
+                            }
+
+                        @JsonAnySetter
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            this.additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun build(): CardholderAddress =
+                            CardholderAddress(
+                                providedPostalCode,
+                                providedLine1,
+                                actualPostalCode,
+                                actualLine1,
+                                verificationResult,
+                                additionalProperties.toUnmodifiable(),
+                            )
+                    }
+
+                    class VerificationResult
+                    @JsonCreator
+                    private constructor(
+                        private val value: JsonField<String>,
+                    ) {
+
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is VerificationResult && this.value == other.value
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+
+                        companion object {
+
+                            @JvmField
+                            val NOT_CHECKED = VerificationResult(JsonField.of("not_checked"))
+
+                            @JvmField
+                            val POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED =
+                                VerificationResult(
+                                    JsonField.of("postal_code_match_address_not_checked")
+                                )
+
+                            @JvmField
+                            val POSTAL_CODE_MATCH_ADDRESS_NO_MATCH =
+                                VerificationResult(
+                                    JsonField.of("postal_code_match_address_no_match")
+                                )
+
+                            @JvmField
+                            val POSTAL_CODE_NO_MATCH_ADDRESS_MATCH =
+                                VerificationResult(
+                                    JsonField.of("postal_code_no_match_address_match")
+                                )
+
+                            @JvmField val MATCH = VerificationResult(JsonField.of("match"))
+
+                            @JvmField val NO_MATCH = VerificationResult(JsonField.of("no_match"))
+
+                            @JvmStatic
+                            fun of(value: String) = VerificationResult(JsonField.of(value))
+                        }
+
+                        enum class Known {
+                            NOT_CHECKED,
+                            POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED,
+                            POSTAL_CODE_MATCH_ADDRESS_NO_MATCH,
+                            POSTAL_CODE_NO_MATCH_ADDRESS_MATCH,
+                            MATCH,
+                            NO_MATCH,
+                        }
+
+                        enum class Value {
+                            NOT_CHECKED,
+                            POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED,
+                            POSTAL_CODE_MATCH_ADDRESS_NO_MATCH,
+                            POSTAL_CODE_NO_MATCH_ADDRESS_MATCH,
+                            MATCH,
+                            NO_MATCH,
+                            _UNKNOWN,
+                        }
+
+                        fun value(): Value =
+                            when (this) {
+                                NOT_CHECKED -> Value.NOT_CHECKED
+                                POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED ->
+                                    Value.POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED
+                                POSTAL_CODE_MATCH_ADDRESS_NO_MATCH ->
+                                    Value.POSTAL_CODE_MATCH_ADDRESS_NO_MATCH
+                                POSTAL_CODE_NO_MATCH_ADDRESS_MATCH ->
+                                    Value.POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
+                                MATCH -> Value.MATCH
+                                NO_MATCH -> Value.NO_MATCH
+                                else -> Value._UNKNOWN
+                            }
+
+                        fun known(): Known =
+                            when (this) {
+                                NOT_CHECKED -> Known.NOT_CHECKED
+                                POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED ->
+                                    Known.POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED
+                                POSTAL_CODE_MATCH_ADDRESS_NO_MATCH ->
+                                    Known.POSTAL_CODE_MATCH_ADDRESS_NO_MATCH
+                                POSTAL_CODE_NO_MATCH_ADDRESS_MATCH ->
+                                    Known.POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
+                                MATCH -> Known.MATCH
+                                NO_MATCH -> Known.NO_MATCH
+                                else ->
+                                    throw IncreaseInvalidDataException(
+                                        "Unknown VerificationResult: $value"
+                                    )
+                            }
+
+                        fun asString(): String = _value().asStringOrThrow()
+                    }
                 }
 
                 class Currency

@@ -59,6 +59,24 @@ class AchTransferSimulationTest {
                                         .id("string")
                                         .amount(123L)
                                         .cardPaymentId("string")
+                                        .cardholderAddress(
+                                            AchTransferSimulation.DeclinedTransaction.Source
+                                                .CardDecline
+                                                .CardholderAddress
+                                                .builder()
+                                                .actualLine1("string")
+                                                .actualPostalCode("string")
+                                                .providedLine1("string")
+                                                .providedPostalCode("string")
+                                                .verificationResult(
+                                                    AchTransferSimulation.DeclinedTransaction.Source
+                                                        .CardDecline
+                                                        .CardholderAddress
+                                                        .VerificationResult
+                                                        .NOT_CHECKED
+                                                )
+                                                .build()
+                                        )
                                         .currency(
                                             AchTransferSimulation.DeclinedTransaction.Source
                                                 .CardDecline
@@ -1354,6 +1372,23 @@ class AchTransferSimulationTest {
                                     .id("string")
                                     .amount(123L)
                                     .cardPaymentId("string")
+                                    .cardholderAddress(
+                                        AchTransferSimulation.DeclinedTransaction.Source.CardDecline
+                                            .CardholderAddress
+                                            .builder()
+                                            .actualLine1("string")
+                                            .actualPostalCode("string")
+                                            .providedLine1("string")
+                                            .providedPostalCode("string")
+                                            .verificationResult(
+                                                AchTransferSimulation.DeclinedTransaction.Source
+                                                    .CardDecline
+                                                    .CardholderAddress
+                                                    .VerificationResult
+                                                    .NOT_CHECKED
+                                            )
+                                            .build()
+                                    )
                                     .currency(
                                         AchTransferSimulation.DeclinedTransaction.Source.CardDecline
                                             .Currency
