@@ -44,21 +44,6 @@ class PendingTransactionTest {
                                 .id("string")
                                 .amount(123L)
                                 .cardPaymentId("string")
-                                .cardholderAddress(
-                                    PendingTransaction.Source.CardAuthorization.CardholderAddress
-                                        .builder()
-                                        .actualLine1("string")
-                                        .actualPostalCode("string")
-                                        .providedLine1("string")
-                                        .providedPostalCode("string")
-                                        .verificationResult(
-                                            PendingTransaction.Source.CardAuthorization
-                                                .CardholderAddress
-                                                .VerificationResult
-                                                .NOT_CHECKED
-                                        )
-                                        .build()
-                                )
                                 .currency(PendingTransaction.Source.CardAuthorization.Currency.CAD)
                                 .digitalWalletTokenId("string")
                                 .direction(
@@ -108,6 +93,41 @@ class PendingTransactionTest {
                                 .type(
                                     PendingTransaction.Source.CardAuthorization.Type
                                         .CARD_AUTHORIZATION
+                                )
+                                .verification(
+                                    PendingTransaction.Source.CardAuthorization.Verification
+                                        .builder()
+                                        .cardVerificationCode(
+                                            PendingTransaction.Source.CardAuthorization.Verification
+                                                .CardVerificationCode
+                                                .builder()
+                                                .result(
+                                                    PendingTransaction.Source.CardAuthorization
+                                                        .Verification
+                                                        .CardVerificationCode
+                                                        .Result
+                                                        .NOT_CHECKED
+                                                )
+                                                .build()
+                                        )
+                                        .cardholderAddress(
+                                            PendingTransaction.Source.CardAuthorization.Verification
+                                                .CardholderAddress
+                                                .builder()
+                                                .actualLine1("string")
+                                                .actualPostalCode("string")
+                                                .providedLine1("string")
+                                                .providedPostalCode("string")
+                                                .result(
+                                                    PendingTransaction.Source.CardAuthorization
+                                                        .Verification
+                                                        .CardholderAddress
+                                                        .Result
+                                                        .NOT_CHECKED
+                                                )
+                                                .build()
+                                        )
+                                        .build()
                                 )
                                 .build()
                         )
@@ -207,21 +227,6 @@ class PendingTransactionTest {
                             .id("string")
                             .amount(123L)
                             .cardPaymentId("string")
-                            .cardholderAddress(
-                                PendingTransaction.Source.CardAuthorization.CardholderAddress
-                                    .builder()
-                                    .actualLine1("string")
-                                    .actualPostalCode("string")
-                                    .providedLine1("string")
-                                    .providedPostalCode("string")
-                                    .verificationResult(
-                                        PendingTransaction.Source.CardAuthorization
-                                            .CardholderAddress
-                                            .VerificationResult
-                                            .NOT_CHECKED
-                                    )
-                                    .build()
-                            )
                             .currency(PendingTransaction.Source.CardAuthorization.Currency.CAD)
                             .digitalWalletTokenId("string")
                             .direction(
@@ -267,6 +272,40 @@ class PendingTransactionTest {
                             .realTimeDecisionId("string")
                             .type(
                                 PendingTransaction.Source.CardAuthorization.Type.CARD_AUTHORIZATION
+                            )
+                            .verification(
+                                PendingTransaction.Source.CardAuthorization.Verification.builder()
+                                    .cardVerificationCode(
+                                        PendingTransaction.Source.CardAuthorization.Verification
+                                            .CardVerificationCode
+                                            .builder()
+                                            .result(
+                                                PendingTransaction.Source.CardAuthorization
+                                                    .Verification
+                                                    .CardVerificationCode
+                                                    .Result
+                                                    .NOT_CHECKED
+                                            )
+                                            .build()
+                                    )
+                                    .cardholderAddress(
+                                        PendingTransaction.Source.CardAuthorization.Verification
+                                            .CardholderAddress
+                                            .builder()
+                                            .actualLine1("string")
+                                            .actualPostalCode("string")
+                                            .providedLine1("string")
+                                            .providedPostalCode("string")
+                                            .result(
+                                                PendingTransaction.Source.CardAuthorization
+                                                    .Verification
+                                                    .CardholderAddress
+                                                    .Result
+                                                    .NOT_CHECKED
+                                            )
+                                            .build()
+                                    )
+                                    .build()
                             )
                             .build()
                     )

@@ -77,28 +77,6 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .id("string")
                                         .amount(123L)
                                         .cardPaymentId("string")
-                                        .cardholderAddress(
-                                            InboundRealTimePaymentsTransferSimulationResult
-                                                .DeclinedTransaction
-                                                .Source
-                                                .CardDecline
-                                                .CardholderAddress
-                                                .builder()
-                                                .actualLine1("string")
-                                                .actualPostalCode("string")
-                                                .providedLine1("string")
-                                                .providedPostalCode("string")
-                                                .verificationResult(
-                                                    InboundRealTimePaymentsTransferSimulationResult
-                                                        .DeclinedTransaction
-                                                        .Source
-                                                        .CardDecline
-                                                        .CardholderAddress
-                                                        .VerificationResult
-                                                        .NOT_CHECKED
-                                                )
-                                                .build()
-                                        )
                                         .currency(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .DeclinedTransaction
@@ -171,6 +149,59 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .CardDecline
                                                 .Reason
                                                 .CARD_NOT_ACTIVE
+                                        )
+                                        .verification(
+                                            InboundRealTimePaymentsTransferSimulationResult
+                                                .DeclinedTransaction
+                                                .Source
+                                                .CardDecline
+                                                .Verification
+                                                .builder()
+                                                .cardVerificationCode(
+                                                    InboundRealTimePaymentsTransferSimulationResult
+                                                        .DeclinedTransaction
+                                                        .Source
+                                                        .CardDecline
+                                                        .Verification
+                                                        .CardVerificationCode
+                                                        .builder()
+                                                        .result(
+                                                            InboundRealTimePaymentsTransferSimulationResult
+                                                                .DeclinedTransaction
+                                                                .Source
+                                                                .CardDecline
+                                                                .Verification
+                                                                .CardVerificationCode
+                                                                .Result
+                                                                .NOT_CHECKED
+                                                        )
+                                                        .build()
+                                                )
+                                                .cardholderAddress(
+                                                    InboundRealTimePaymentsTransferSimulationResult
+                                                        .DeclinedTransaction
+                                                        .Source
+                                                        .CardDecline
+                                                        .Verification
+                                                        .CardholderAddress
+                                                        .builder()
+                                                        .actualLine1("string")
+                                                        .actualPostalCode("string")
+                                                        .providedLine1("string")
+                                                        .providedPostalCode("string")
+                                                        .result(
+                                                            InboundRealTimePaymentsTransferSimulationResult
+                                                                .DeclinedTransaction
+                                                                .Source
+                                                                .CardDecline
+                                                                .Verification
+                                                                .CardholderAddress
+                                                                .Result
+                                                                .NOT_CHECKED
+                                                        )
+                                                        .build()
+                                                )
+                                                .build()
                                         )
                                         .build()
                                 )
@@ -1570,28 +1601,6 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .id("string")
                                     .amount(123L)
                                     .cardPaymentId("string")
-                                    .cardholderAddress(
-                                        InboundRealTimePaymentsTransferSimulationResult
-                                            .DeclinedTransaction
-                                            .Source
-                                            .CardDecline
-                                            .CardholderAddress
-                                            .builder()
-                                            .actualLine1("string")
-                                            .actualPostalCode("string")
-                                            .providedLine1("string")
-                                            .providedPostalCode("string")
-                                            .verificationResult(
-                                                InboundRealTimePaymentsTransferSimulationResult
-                                                    .DeclinedTransaction
-                                                    .Source
-                                                    .CardDecline
-                                                    .CardholderAddress
-                                                    .VerificationResult
-                                                    .NOT_CHECKED
-                                            )
-                                            .build()
-                                    )
                                     .currency(
                                         InboundRealTimePaymentsTransferSimulationResult
                                             .DeclinedTransaction
@@ -1664,6 +1673,59 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .CardDecline
                                             .Reason
                                             .CARD_NOT_ACTIVE
+                                    )
+                                    .verification(
+                                        InboundRealTimePaymentsTransferSimulationResult
+                                            .DeclinedTransaction
+                                            .Source
+                                            .CardDecline
+                                            .Verification
+                                            .builder()
+                                            .cardVerificationCode(
+                                                InboundRealTimePaymentsTransferSimulationResult
+                                                    .DeclinedTransaction
+                                                    .Source
+                                                    .CardDecline
+                                                    .Verification
+                                                    .CardVerificationCode
+                                                    .builder()
+                                                    .result(
+                                                        InboundRealTimePaymentsTransferSimulationResult
+                                                            .DeclinedTransaction
+                                                            .Source
+                                                            .CardDecline
+                                                            .Verification
+                                                            .CardVerificationCode
+                                                            .Result
+                                                            .NOT_CHECKED
+                                                    )
+                                                    .build()
+                                            )
+                                            .cardholderAddress(
+                                                InboundRealTimePaymentsTransferSimulationResult
+                                                    .DeclinedTransaction
+                                                    .Source
+                                                    .CardDecline
+                                                    .Verification
+                                                    .CardholderAddress
+                                                    .builder()
+                                                    .actualLine1("string")
+                                                    .actualPostalCode("string")
+                                                    .providedLine1("string")
+                                                    .providedPostalCode("string")
+                                                    .result(
+                                                        InboundRealTimePaymentsTransferSimulationResult
+                                                            .DeclinedTransaction
+                                                            .Source
+                                                            .CardDecline
+                                                            .Verification
+                                                            .CardholderAddress
+                                                            .Result
+                                                            .NOT_CHECKED
+                                                    )
+                                                    .build()
+                                            )
+                                            .build()
                                     )
                                     .build()
                             )
