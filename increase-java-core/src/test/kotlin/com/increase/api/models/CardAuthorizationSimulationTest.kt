@@ -60,25 +60,6 @@ class CardAuthorizationSimulationTest {
                                         .id("string")
                                         .amount(123L)
                                         .cardPaymentId("string")
-                                        .cardholderAddress(
-                                            CardAuthorizationSimulation.DeclinedTransaction.Source
-                                                .CardDecline
-                                                .CardholderAddress
-                                                .builder()
-                                                .actualLine1("string")
-                                                .actualPostalCode("string")
-                                                .providedLine1("string")
-                                                .providedPostalCode("string")
-                                                .verificationResult(
-                                                    CardAuthorizationSimulation.DeclinedTransaction
-                                                        .Source
-                                                        .CardDecline
-                                                        .CardholderAddress
-                                                        .VerificationResult
-                                                        .NOT_CHECKED
-                                                )
-                                                .build()
-                                        )
                                         .currency(
                                             CardAuthorizationSimulation.DeclinedTransaction.Source
                                                 .CardDecline
@@ -143,6 +124,55 @@ class CardAuthorizationSimulationTest {
                                                 .CardDecline
                                                 .Reason
                                                 .CARD_NOT_ACTIVE
+                                        )
+                                        .verification(
+                                            CardAuthorizationSimulation.DeclinedTransaction.Source
+                                                .CardDecline
+                                                .Verification
+                                                .builder()
+                                                .cardVerificationCode(
+                                                    CardAuthorizationSimulation.DeclinedTransaction
+                                                        .Source
+                                                        .CardDecline
+                                                        .Verification
+                                                        .CardVerificationCode
+                                                        .builder()
+                                                        .result(
+                                                            CardAuthorizationSimulation
+                                                                .DeclinedTransaction
+                                                                .Source
+                                                                .CardDecline
+                                                                .Verification
+                                                                .CardVerificationCode
+                                                                .Result
+                                                                .NOT_CHECKED
+                                                        )
+                                                        .build()
+                                                )
+                                                .cardholderAddress(
+                                                    CardAuthorizationSimulation.DeclinedTransaction
+                                                        .Source
+                                                        .CardDecline
+                                                        .Verification
+                                                        .CardholderAddress
+                                                        .builder()
+                                                        .actualLine1("string")
+                                                        .actualPostalCode("string")
+                                                        .providedLine1("string")
+                                                        .providedPostalCode("string")
+                                                        .result(
+                                                            CardAuthorizationSimulation
+                                                                .DeclinedTransaction
+                                                                .Source
+                                                                .CardDecline
+                                                                .Verification
+                                                                .CardholderAddress
+                                                                .Result
+                                                                .NOT_CHECKED
+                                                        )
+                                                        .build()
+                                                )
+                                                .build()
                                         )
                                         .build()
                                 )
@@ -339,25 +369,6 @@ class CardAuthorizationSimulationTest {
                                         .id("string")
                                         .amount(123L)
                                         .cardPaymentId("string")
-                                        .cardholderAddress(
-                                            CardAuthorizationSimulation.PendingTransaction.Source
-                                                .CardAuthorization
-                                                .CardholderAddress
-                                                .builder()
-                                                .actualLine1("string")
-                                                .actualPostalCode("string")
-                                                .providedLine1("string")
-                                                .providedPostalCode("string")
-                                                .verificationResult(
-                                                    CardAuthorizationSimulation.PendingTransaction
-                                                        .Source
-                                                        .CardAuthorization
-                                                        .CardholderAddress
-                                                        .VerificationResult
-                                                        .NOT_CHECKED
-                                                )
-                                                .build()
-                                        )
                                         .currency(
                                             CardAuthorizationSimulation.PendingTransaction.Source
                                                 .CardAuthorization
@@ -429,6 +440,55 @@ class CardAuthorizationSimulationTest {
                                                 .CardAuthorization
                                                 .Type
                                                 .CARD_AUTHORIZATION
+                                        )
+                                        .verification(
+                                            CardAuthorizationSimulation.PendingTransaction.Source
+                                                .CardAuthorization
+                                                .Verification
+                                                .builder()
+                                                .cardVerificationCode(
+                                                    CardAuthorizationSimulation.PendingTransaction
+                                                        .Source
+                                                        .CardAuthorization
+                                                        .Verification
+                                                        .CardVerificationCode
+                                                        .builder()
+                                                        .result(
+                                                            CardAuthorizationSimulation
+                                                                .PendingTransaction
+                                                                .Source
+                                                                .CardAuthorization
+                                                                .Verification
+                                                                .CardVerificationCode
+                                                                .Result
+                                                                .NOT_CHECKED
+                                                        )
+                                                        .build()
+                                                )
+                                                .cardholderAddress(
+                                                    CardAuthorizationSimulation.PendingTransaction
+                                                        .Source
+                                                        .CardAuthorization
+                                                        .Verification
+                                                        .CardholderAddress
+                                                        .builder()
+                                                        .actualLine1("string")
+                                                        .actualPostalCode("string")
+                                                        .providedLine1("string")
+                                                        .providedPostalCode("string")
+                                                        .result(
+                                                            CardAuthorizationSimulation
+                                                                .PendingTransaction
+                                                                .Source
+                                                                .CardAuthorization
+                                                                .Verification
+                                                                .CardholderAddress
+                                                                .Result
+                                                                .NOT_CHECKED
+                                                        )
+                                                        .build()
+                                                )
+                                                .build()
                                         )
                                         .build()
                                 )
@@ -578,25 +638,6 @@ class CardAuthorizationSimulationTest {
                                     .id("string")
                                     .amount(123L)
                                     .cardPaymentId("string")
-                                    .cardholderAddress(
-                                        CardAuthorizationSimulation.DeclinedTransaction.Source
-                                            .CardDecline
-                                            .CardholderAddress
-                                            .builder()
-                                            .actualLine1("string")
-                                            .actualPostalCode("string")
-                                            .providedLine1("string")
-                                            .providedPostalCode("string")
-                                            .verificationResult(
-                                                CardAuthorizationSimulation.DeclinedTransaction
-                                                    .Source
-                                                    .CardDecline
-                                                    .CardholderAddress
-                                                    .VerificationResult
-                                                    .NOT_CHECKED
-                                            )
-                                            .build()
-                                    )
                                     .currency(
                                         CardAuthorizationSimulation.DeclinedTransaction.Source
                                             .CardDecline
@@ -661,6 +702,55 @@ class CardAuthorizationSimulationTest {
                                             .CardDecline
                                             .Reason
                                             .CARD_NOT_ACTIVE
+                                    )
+                                    .verification(
+                                        CardAuthorizationSimulation.DeclinedTransaction.Source
+                                            .CardDecline
+                                            .Verification
+                                            .builder()
+                                            .cardVerificationCode(
+                                                CardAuthorizationSimulation.DeclinedTransaction
+                                                    .Source
+                                                    .CardDecline
+                                                    .Verification
+                                                    .CardVerificationCode
+                                                    .builder()
+                                                    .result(
+                                                        CardAuthorizationSimulation
+                                                            .DeclinedTransaction
+                                                            .Source
+                                                            .CardDecline
+                                                            .Verification
+                                                            .CardVerificationCode
+                                                            .Result
+                                                            .NOT_CHECKED
+                                                    )
+                                                    .build()
+                                            )
+                                            .cardholderAddress(
+                                                CardAuthorizationSimulation.DeclinedTransaction
+                                                    .Source
+                                                    .CardDecline
+                                                    .Verification
+                                                    .CardholderAddress
+                                                    .builder()
+                                                    .actualLine1("string")
+                                                    .actualPostalCode("string")
+                                                    .providedLine1("string")
+                                                    .providedPostalCode("string")
+                                                    .result(
+                                                        CardAuthorizationSimulation
+                                                            .DeclinedTransaction
+                                                            .Source
+                                                            .CardDecline
+                                                            .Verification
+                                                            .CardholderAddress
+                                                            .Result
+                                                            .NOT_CHECKED
+                                                    )
+                                                    .build()
+                                            )
+                                            .build()
                                     )
                                     .build()
                             )
@@ -853,25 +943,6 @@ class CardAuthorizationSimulationTest {
                                     .id("string")
                                     .amount(123L)
                                     .cardPaymentId("string")
-                                    .cardholderAddress(
-                                        CardAuthorizationSimulation.PendingTransaction.Source
-                                            .CardAuthorization
-                                            .CardholderAddress
-                                            .builder()
-                                            .actualLine1("string")
-                                            .actualPostalCode("string")
-                                            .providedLine1("string")
-                                            .providedPostalCode("string")
-                                            .verificationResult(
-                                                CardAuthorizationSimulation.PendingTransaction
-                                                    .Source
-                                                    .CardAuthorization
-                                                    .CardholderAddress
-                                                    .VerificationResult
-                                                    .NOT_CHECKED
-                                            )
-                                            .build()
-                                    )
                                     .currency(
                                         CardAuthorizationSimulation.PendingTransaction.Source
                                             .CardAuthorization
@@ -943,6 +1014,55 @@ class CardAuthorizationSimulationTest {
                                             .CardAuthorization
                                             .Type
                                             .CARD_AUTHORIZATION
+                                    )
+                                    .verification(
+                                        CardAuthorizationSimulation.PendingTransaction.Source
+                                            .CardAuthorization
+                                            .Verification
+                                            .builder()
+                                            .cardVerificationCode(
+                                                CardAuthorizationSimulation.PendingTransaction
+                                                    .Source
+                                                    .CardAuthorization
+                                                    .Verification
+                                                    .CardVerificationCode
+                                                    .builder()
+                                                    .result(
+                                                        CardAuthorizationSimulation
+                                                            .PendingTransaction
+                                                            .Source
+                                                            .CardAuthorization
+                                                            .Verification
+                                                            .CardVerificationCode
+                                                            .Result
+                                                            .NOT_CHECKED
+                                                    )
+                                                    .build()
+                                            )
+                                            .cardholderAddress(
+                                                CardAuthorizationSimulation.PendingTransaction
+                                                    .Source
+                                                    .CardAuthorization
+                                                    .Verification
+                                                    .CardholderAddress
+                                                    .builder()
+                                                    .actualLine1("string")
+                                                    .actualPostalCode("string")
+                                                    .providedLine1("string")
+                                                    .providedPostalCode("string")
+                                                    .result(
+                                                        CardAuthorizationSimulation
+                                                            .PendingTransaction
+                                                            .Source
+                                                            .CardAuthorization
+                                                            .Verification
+                                                            .CardholderAddress
+                                                            .Result
+                                                            .NOT_CHECKED
+                                                    )
+                                                    .build()
+                                            )
+                                            .build()
                                     )
                                     .build()
                             )

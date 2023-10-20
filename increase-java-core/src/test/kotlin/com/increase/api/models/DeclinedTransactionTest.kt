@@ -44,20 +44,6 @@ class DeclinedTransactionTest {
                                 .id("string")
                                 .amount(123L)
                                 .cardPaymentId("string")
-                                .cardholderAddress(
-                                    DeclinedTransaction.Source.CardDecline.CardholderAddress
-                                        .builder()
-                                        .actualLine1("string")
-                                        .actualPostalCode("string")
-                                        .providedLine1("string")
-                                        .providedPostalCode("string")
-                                        .verificationResult(
-                                            DeclinedTransaction.Source.CardDecline.CardholderAddress
-                                                .VerificationResult
-                                                .NOT_CHECKED
-                                        )
-                                        .build()
-                                )
                                 .currency(DeclinedTransaction.Source.CardDecline.Currency.CAD)
                                 .digitalWalletTokenId("string")
                                 .merchantAcceptorId("string")
@@ -99,6 +85,40 @@ class DeclinedTransactionTest {
                                 .realTimeDecisionId("string")
                                 .reason(
                                     DeclinedTransaction.Source.CardDecline.Reason.CARD_NOT_ACTIVE
+                                )
+                                .verification(
+                                    DeclinedTransaction.Source.CardDecline.Verification.builder()
+                                        .cardVerificationCode(
+                                            DeclinedTransaction.Source.CardDecline.Verification
+                                                .CardVerificationCode
+                                                .builder()
+                                                .result(
+                                                    DeclinedTransaction.Source.CardDecline
+                                                        .Verification
+                                                        .CardVerificationCode
+                                                        .Result
+                                                        .NOT_CHECKED
+                                                )
+                                                .build()
+                                        )
+                                        .cardholderAddress(
+                                            DeclinedTransaction.Source.CardDecline.Verification
+                                                .CardholderAddress
+                                                .builder()
+                                                .actualLine1("string")
+                                                .actualPostalCode("string")
+                                                .providedLine1("string")
+                                                .providedPostalCode("string")
+                                                .result(
+                                                    DeclinedTransaction.Source.CardDecline
+                                                        .Verification
+                                                        .CardholderAddress
+                                                        .Result
+                                                        .NOT_CHECKED
+                                                )
+                                                .build()
+                                        )
+                                        .build()
                                 )
                                 .build()
                         )
@@ -260,19 +280,6 @@ class DeclinedTransactionTest {
                             .id("string")
                             .amount(123L)
                             .cardPaymentId("string")
-                            .cardholderAddress(
-                                DeclinedTransaction.Source.CardDecline.CardholderAddress.builder()
-                                    .actualLine1("string")
-                                    .actualPostalCode("string")
-                                    .providedLine1("string")
-                                    .providedPostalCode("string")
-                                    .verificationResult(
-                                        DeclinedTransaction.Source.CardDecline.CardholderAddress
-                                            .VerificationResult
-                                            .NOT_CHECKED
-                                    )
-                                    .build()
-                            )
                             .currency(DeclinedTransaction.Source.CardDecline.Currency.CAD)
                             .digitalWalletTokenId("string")
                             .merchantAcceptorId("string")
@@ -312,6 +319,38 @@ class DeclinedTransactionTest {
                             .physicalCardId("string")
                             .realTimeDecisionId("string")
                             .reason(DeclinedTransaction.Source.CardDecline.Reason.CARD_NOT_ACTIVE)
+                            .verification(
+                                DeclinedTransaction.Source.CardDecline.Verification.builder()
+                                    .cardVerificationCode(
+                                        DeclinedTransaction.Source.CardDecline.Verification
+                                            .CardVerificationCode
+                                            .builder()
+                                            .result(
+                                                DeclinedTransaction.Source.CardDecline.Verification
+                                                    .CardVerificationCode
+                                                    .Result
+                                                    .NOT_CHECKED
+                                            )
+                                            .build()
+                                    )
+                                    .cardholderAddress(
+                                        DeclinedTransaction.Source.CardDecline.Verification
+                                            .CardholderAddress
+                                            .builder()
+                                            .actualLine1("string")
+                                            .actualPostalCode("string")
+                                            .providedLine1("string")
+                                            .providedPostalCode("string")
+                                            .result(
+                                                DeclinedTransaction.Source.CardDecline.Verification
+                                                    .CardholderAddress
+                                                    .Result
+                                                    .NOT_CHECKED
+                                            )
+                                            .build()
+                                    )
+                                    .build()
+                            )
                             .build()
                     )
                     .category(DeclinedTransaction.Source.Category.ACH_DECLINE)

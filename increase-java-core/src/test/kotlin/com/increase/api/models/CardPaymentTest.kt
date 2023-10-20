@@ -25,21 +25,6 @@ class CardPaymentTest {
                                     .id("string")
                                     .amount(123L)
                                     .cardPaymentId("string")
-                                    .cardholderAddress(
-                                        CardPayment.Element.CardAuthorization.CardholderAddress
-                                            .builder()
-                                            .actualLine1("string")
-                                            .actualPostalCode("string")
-                                            .providedLine1("string")
-                                            .providedPostalCode("string")
-                                            .verificationResult(
-                                                CardPayment.Element.CardAuthorization
-                                                    .CardholderAddress
-                                                    .VerificationResult
-                                                    .NOT_CHECKED
-                                            )
-                                            .build()
-                                    )
                                     .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
                                     .digitalWalletTokenId("string")
                                     .direction(
@@ -88,6 +73,40 @@ class CardPaymentTest {
                                         CardPayment.Element.CardAuthorization.Type
                                             .CARD_AUTHORIZATION
                                     )
+                                    .verification(
+                                        CardPayment.Element.CardAuthorization.Verification.builder()
+                                            .cardVerificationCode(
+                                                CardPayment.Element.CardAuthorization.Verification
+                                                    .CardVerificationCode
+                                                    .builder()
+                                                    .result(
+                                                        CardPayment.Element.CardAuthorization
+                                                            .Verification
+                                                            .CardVerificationCode
+                                                            .Result
+                                                            .NOT_CHECKED
+                                                    )
+                                                    .build()
+                                            )
+                                            .cardholderAddress(
+                                                CardPayment.Element.CardAuthorization.Verification
+                                                    .CardholderAddress
+                                                    .builder()
+                                                    .actualLine1("string")
+                                                    .actualPostalCode("string")
+                                                    .providedLine1("string")
+                                                    .providedPostalCode("string")
+                                                    .result(
+                                                        CardPayment.Element.CardAuthorization
+                                                            .Verification
+                                                            .CardholderAddress
+                                                            .Result
+                                                            .NOT_CHECKED
+                                                    )
+                                                    .build()
+                                            )
+                                            .build()
+                                    )
                                     .build()
                             )
                             .cardAuthorizationExpiration(
@@ -112,19 +131,6 @@ class CardPaymentTest {
                                     .id("string")
                                     .amount(123L)
                                     .cardPaymentId("string")
-                                    .cardholderAddress(
-                                        CardPayment.Element.CardDecline.CardholderAddress.builder()
-                                            .actualLine1("string")
-                                            .actualPostalCode("string")
-                                            .providedLine1("string")
-                                            .providedPostalCode("string")
-                                            .verificationResult(
-                                                CardPayment.Element.CardDecline.CardholderAddress
-                                                    .VerificationResult
-                                                    .NOT_CHECKED
-                                            )
-                                            .build()
-                                    )
                                     .currency(CardPayment.Element.CardDecline.Currency.CAD)
                                     .digitalWalletTokenId("string")
                                     .merchantAcceptorId("string")
@@ -164,6 +170,38 @@ class CardPaymentTest {
                                     .physicalCardId("string")
                                     .realTimeDecisionId("string")
                                     .reason(CardPayment.Element.CardDecline.Reason.CARD_NOT_ACTIVE)
+                                    .verification(
+                                        CardPayment.Element.CardDecline.Verification.builder()
+                                            .cardVerificationCode(
+                                                CardPayment.Element.CardDecline.Verification
+                                                    .CardVerificationCode
+                                                    .builder()
+                                                    .result(
+                                                        CardPayment.Element.CardDecline.Verification
+                                                            .CardVerificationCode
+                                                            .Result
+                                                            .NOT_CHECKED
+                                                    )
+                                                    .build()
+                                            )
+                                            .cardholderAddress(
+                                                CardPayment.Element.CardDecline.Verification
+                                                    .CardholderAddress
+                                                    .builder()
+                                                    .actualLine1("string")
+                                                    .actualPostalCode("string")
+                                                    .providedLine1("string")
+                                                    .providedPostalCode("string")
+                                                    .result(
+                                                        CardPayment.Element.CardDecline.Verification
+                                                            .CardholderAddress
+                                                            .Result
+                                                            .NOT_CHECKED
+                                                    )
+                                                    .build()
+                                            )
+                                            .build()
+                                    )
                                     .build()
                             )
                             .cardIncrement(
@@ -597,20 +635,6 @@ class CardPaymentTest {
                                 CardPayment.Element.CardValidation.builder()
                                     .id("string")
                                     .cardPaymentId("string")
-                                    .cardholderAddress(
-                                        CardPayment.Element.CardValidation.CardholderAddress
-                                            .builder()
-                                            .actualLine1("string")
-                                            .actualPostalCode("string")
-                                            .providedLine1("string")
-                                            .providedPostalCode("string")
-                                            .verificationResult(
-                                                CardPayment.Element.CardValidation.CardholderAddress
-                                                    .VerificationResult
-                                                    .NOT_CHECKED
-                                            )
-                                            .build()
-                                    )
                                     .currency(CardPayment.Element.CardValidation.Currency.CAD)
                                     .digitalWalletTokenId("string")
                                     .merchantAcceptorId("string")
@@ -650,6 +674,40 @@ class CardPaymentTest {
                                     .physicalCardId("string")
                                     .realTimeDecisionId("string")
                                     .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)
+                                    .verification(
+                                        CardPayment.Element.CardValidation.Verification.builder()
+                                            .cardVerificationCode(
+                                                CardPayment.Element.CardValidation.Verification
+                                                    .CardVerificationCode
+                                                    .builder()
+                                                    .result(
+                                                        CardPayment.Element.CardValidation
+                                                            .Verification
+                                                            .CardVerificationCode
+                                                            .Result
+                                                            .NOT_CHECKED
+                                                    )
+                                                    .build()
+                                            )
+                                            .cardholderAddress(
+                                                CardPayment.Element.CardValidation.Verification
+                                                    .CardholderAddress
+                                                    .builder()
+                                                    .actualLine1("string")
+                                                    .actualPostalCode("string")
+                                                    .providedLine1("string")
+                                                    .providedPostalCode("string")
+                                                    .result(
+                                                        CardPayment.Element.CardValidation
+                                                            .Verification
+                                                            .CardholderAddress
+                                                            .Result
+                                                            .NOT_CHECKED
+                                                    )
+                                                    .build()
+                                            )
+                                            .build()
+                                    )
                                     .build()
                             )
                             .category(CardPayment.Element.Category.CARD_AUTHORIZATION)
@@ -681,19 +739,6 @@ class CardPaymentTest {
                             .id("string")
                             .amount(123L)
                             .cardPaymentId("string")
-                            .cardholderAddress(
-                                CardPayment.Element.CardAuthorization.CardholderAddress.builder()
-                                    .actualLine1("string")
-                                    .actualPostalCode("string")
-                                    .providedLine1("string")
-                                    .providedPostalCode("string")
-                                    .verificationResult(
-                                        CardPayment.Element.CardAuthorization.CardholderAddress
-                                            .VerificationResult
-                                            .NOT_CHECKED
-                                    )
-                                    .build()
-                            )
                             .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
                             .digitalWalletTokenId("string")
                             .direction(CardPayment.Element.CardAuthorization.Direction.SETTLEMENT)
@@ -733,6 +778,38 @@ class CardPaymentTest {
                             .physicalCardId("string")
                             .realTimeDecisionId("string")
                             .type(CardPayment.Element.CardAuthorization.Type.CARD_AUTHORIZATION)
+                            .verification(
+                                CardPayment.Element.CardAuthorization.Verification.builder()
+                                    .cardVerificationCode(
+                                        CardPayment.Element.CardAuthorization.Verification
+                                            .CardVerificationCode
+                                            .builder()
+                                            .result(
+                                                CardPayment.Element.CardAuthorization.Verification
+                                                    .CardVerificationCode
+                                                    .Result
+                                                    .NOT_CHECKED
+                                            )
+                                            .build()
+                                    )
+                                    .cardholderAddress(
+                                        CardPayment.Element.CardAuthorization.Verification
+                                            .CardholderAddress
+                                            .builder()
+                                            .actualLine1("string")
+                                            .actualPostalCode("string")
+                                            .providedLine1("string")
+                                            .providedPostalCode("string")
+                                            .result(
+                                                CardPayment.Element.CardAuthorization.Verification
+                                                    .CardholderAddress
+                                                    .Result
+                                                    .NOT_CHECKED
+                                            )
+                                            .build()
+                                    )
+                                    .build()
+                            )
                             .build()
                     )
                     .cardAuthorizationExpiration(
@@ -753,19 +830,6 @@ class CardPaymentTest {
                             .id("string")
                             .amount(123L)
                             .cardPaymentId("string")
-                            .cardholderAddress(
-                                CardPayment.Element.CardDecline.CardholderAddress.builder()
-                                    .actualLine1("string")
-                                    .actualPostalCode("string")
-                                    .providedLine1("string")
-                                    .providedPostalCode("string")
-                                    .verificationResult(
-                                        CardPayment.Element.CardDecline.CardholderAddress
-                                            .VerificationResult
-                                            .NOT_CHECKED
-                                    )
-                                    .build()
-                            )
                             .currency(CardPayment.Element.CardDecline.Currency.CAD)
                             .digitalWalletTokenId("string")
                             .merchantAcceptorId("string")
@@ -799,6 +863,38 @@ class CardPaymentTest {
                             .physicalCardId("string")
                             .realTimeDecisionId("string")
                             .reason(CardPayment.Element.CardDecline.Reason.CARD_NOT_ACTIVE)
+                            .verification(
+                                CardPayment.Element.CardDecline.Verification.builder()
+                                    .cardVerificationCode(
+                                        CardPayment.Element.CardDecline.Verification
+                                            .CardVerificationCode
+                                            .builder()
+                                            .result(
+                                                CardPayment.Element.CardDecline.Verification
+                                                    .CardVerificationCode
+                                                    .Result
+                                                    .NOT_CHECKED
+                                            )
+                                            .build()
+                                    )
+                                    .cardholderAddress(
+                                        CardPayment.Element.CardDecline.Verification
+                                            .CardholderAddress
+                                            .builder()
+                                            .actualLine1("string")
+                                            .actualPostalCode("string")
+                                            .providedLine1("string")
+                                            .providedPostalCode("string")
+                                            .result(
+                                                CardPayment.Element.CardDecline.Verification
+                                                    .CardholderAddress
+                                                    .Result
+                                                    .NOT_CHECKED
+                                            )
+                                            .build()
+                                    )
+                                    .build()
+                            )
                             .build()
                     )
                     .cardIncrement(
@@ -1202,19 +1298,6 @@ class CardPaymentTest {
                         CardPayment.Element.CardValidation.builder()
                             .id("string")
                             .cardPaymentId("string")
-                            .cardholderAddress(
-                                CardPayment.Element.CardValidation.CardholderAddress.builder()
-                                    .actualLine1("string")
-                                    .actualPostalCode("string")
-                                    .providedLine1("string")
-                                    .providedPostalCode("string")
-                                    .verificationResult(
-                                        CardPayment.Element.CardValidation.CardholderAddress
-                                            .VerificationResult
-                                            .NOT_CHECKED
-                                    )
-                                    .build()
-                            )
                             .currency(CardPayment.Element.CardValidation.Currency.CAD)
                             .digitalWalletTokenId("string")
                             .merchantAcceptorId("string")
@@ -1250,6 +1333,38 @@ class CardPaymentTest {
                             .physicalCardId("string")
                             .realTimeDecisionId("string")
                             .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)
+                            .verification(
+                                CardPayment.Element.CardValidation.Verification.builder()
+                                    .cardVerificationCode(
+                                        CardPayment.Element.CardValidation.Verification
+                                            .CardVerificationCode
+                                            .builder()
+                                            .result(
+                                                CardPayment.Element.CardValidation.Verification
+                                                    .CardVerificationCode
+                                                    .Result
+                                                    .NOT_CHECKED
+                                            )
+                                            .build()
+                                    )
+                                    .cardholderAddress(
+                                        CardPayment.Element.CardValidation.Verification
+                                            .CardholderAddress
+                                            .builder()
+                                            .actualLine1("string")
+                                            .actualPostalCode("string")
+                                            .providedLine1("string")
+                                            .providedPostalCode("string")
+                                            .result(
+                                                CardPayment.Element.CardValidation.Verification
+                                                    .CardholderAddress
+                                                    .Result
+                                                    .NOT_CHECKED
+                                            )
+                                            .build()
+                                    )
+                                    .build()
+                            )
                             .build()
                     )
                     .category(CardPayment.Element.Category.CARD_AUTHORIZATION)
