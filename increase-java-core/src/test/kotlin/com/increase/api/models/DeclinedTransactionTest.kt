@@ -44,6 +44,20 @@ class DeclinedTransactionTest {
                                 .id("string")
                                 .amount(123L)
                                 .cardPaymentId("string")
+                                .cardholderAddress(
+                                    DeclinedTransaction.Source.CardDecline.CardholderAddress
+                                        .builder()
+                                        .actualLine1("string")
+                                        .actualPostalCode("string")
+                                        .providedLine1("string")
+                                        .providedPostalCode("string")
+                                        .verificationResult(
+                                            DeclinedTransaction.Source.CardDecline.CardholderAddress
+                                                .VerificationResult
+                                                .NOT_CHECKED
+                                        )
+                                        .build()
+                                )
                                 .currency(DeclinedTransaction.Source.CardDecline.Currency.CAD)
                                 .digitalWalletTokenId("string")
                                 .merchantAcceptorId("string")
@@ -246,6 +260,19 @@ class DeclinedTransactionTest {
                             .id("string")
                             .amount(123L)
                             .cardPaymentId("string")
+                            .cardholderAddress(
+                                DeclinedTransaction.Source.CardDecline.CardholderAddress.builder()
+                                    .actualLine1("string")
+                                    .actualPostalCode("string")
+                                    .providedLine1("string")
+                                    .providedPostalCode("string")
+                                    .verificationResult(
+                                        DeclinedTransaction.Source.CardDecline.CardholderAddress
+                                            .VerificationResult
+                                            .NOT_CHECKED
+                                    )
+                                    .build()
+                            )
                             .currency(DeclinedTransaction.Source.CardDecline.Currency.CAD)
                             .digitalWalletTokenId("string")
                             .merchantAcceptorId("string")

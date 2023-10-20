@@ -18,6 +18,19 @@ class RealTimeDecisionTest {
                     RealTimeDecision.CardAuthorization.builder()
                         .accountId("string")
                         .cardId("string")
+                        .cardholderAddress(
+                            RealTimeDecision.CardAuthorization.CardholderAddress.builder()
+                                .actualLine1("string")
+                                .actualPostalCode("string")
+                                .providedLine1("string")
+                                .providedPostalCode("string")
+                                .verificationResult(
+                                    RealTimeDecision.CardAuthorization.CardholderAddress
+                                        .VerificationResult
+                                        .NOT_CHECKED
+                                )
+                                .build()
+                        )
                         .decision(RealTimeDecision.CardAuthorization.Decision.APPROVE)
                         .digitalWalletTokenId("string")
                         .merchantAcceptorId("string")
@@ -104,6 +117,19 @@ class RealTimeDecisionTest {
                 RealTimeDecision.CardAuthorization.builder()
                     .accountId("string")
                     .cardId("string")
+                    .cardholderAddress(
+                        RealTimeDecision.CardAuthorization.CardholderAddress.builder()
+                            .actualLine1("string")
+                            .actualPostalCode("string")
+                            .providedLine1("string")
+                            .providedPostalCode("string")
+                            .verificationResult(
+                                RealTimeDecision.CardAuthorization.CardholderAddress
+                                    .VerificationResult
+                                    .NOT_CHECKED
+                            )
+                            .build()
+                    )
                     .decision(RealTimeDecision.CardAuthorization.Decision.APPROVE)
                     .digitalWalletTokenId("string")
                     .merchantAcceptorId("string")

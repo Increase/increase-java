@@ -77,6 +77,28 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .id("string")
                                         .amount(123L)
                                         .cardPaymentId("string")
+                                        .cardholderAddress(
+                                            InboundRealTimePaymentsTransferSimulationResult
+                                                .DeclinedTransaction
+                                                .Source
+                                                .CardDecline
+                                                .CardholderAddress
+                                                .builder()
+                                                .actualLine1("string")
+                                                .actualPostalCode("string")
+                                                .providedLine1("string")
+                                                .providedPostalCode("string")
+                                                .verificationResult(
+                                                    InboundRealTimePaymentsTransferSimulationResult
+                                                        .DeclinedTransaction
+                                                        .Source
+                                                        .CardDecline
+                                                        .CardholderAddress
+                                                        .VerificationResult
+                                                        .NOT_CHECKED
+                                                )
+                                                .build()
+                                        )
                                         .currency(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .DeclinedTransaction
@@ -1548,6 +1570,28 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .id("string")
                                     .amount(123L)
                                     .cardPaymentId("string")
+                                    .cardholderAddress(
+                                        InboundRealTimePaymentsTransferSimulationResult
+                                            .DeclinedTransaction
+                                            .Source
+                                            .CardDecline
+                                            .CardholderAddress
+                                            .builder()
+                                            .actualLine1("string")
+                                            .actualPostalCode("string")
+                                            .providedLine1("string")
+                                            .providedPostalCode("string")
+                                            .verificationResult(
+                                                InboundRealTimePaymentsTransferSimulationResult
+                                                    .DeclinedTransaction
+                                                    .Source
+                                                    .CardDecline
+                                                    .CardholderAddress
+                                                    .VerificationResult
+                                                    .NOT_CHECKED
+                                            )
+                                            .build()
+                                    )
                                     .currency(
                                         InboundRealTimePaymentsTransferSimulationResult
                                             .DeclinedTransaction
