@@ -90,10 +90,7 @@ class InboundAchTransferServiceTest {
             inboundAchTransferService.transferReturn(
                 InboundAchTransferTransferReturnParams.builder()
                     .inboundAchTransferId("string")
-                    .reason(
-                        InboundAchTransferTransferReturnParams.Reason
-                            .AUTHORIZATION_REVOKED_BY_CUSTOMER
-                    )
+                    .reason(InboundAchTransferTransferReturnParams.Reason.RETURNED_PER_ODFI_REQUEST)
                     .build()
             )
         println(inboundAchTransfer)

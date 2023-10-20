@@ -12,7 +12,7 @@ class InboundAchTransferTransferReturnParamsTest {
     fun createInboundAchTransferTransferReturnParams() {
         InboundAchTransferTransferReturnParams.builder()
             .inboundAchTransferId("string")
-            .reason(InboundAchTransferTransferReturnParams.Reason.AUTHORIZATION_REVOKED_BY_CUSTOMER)
+            .reason(InboundAchTransferTransferReturnParams.Reason.RETURNED_PER_ODFI_REQUEST)
             .build()
     }
 
@@ -21,16 +21,12 @@ class InboundAchTransferTransferReturnParamsTest {
         val params =
             InboundAchTransferTransferReturnParams.builder()
                 .inboundAchTransferId("string")
-                .reason(
-                    InboundAchTransferTransferReturnParams.Reason.AUTHORIZATION_REVOKED_BY_CUSTOMER
-                )
+                .reason(InboundAchTransferTransferReturnParams.Reason.RETURNED_PER_ODFI_REQUEST)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.reason())
-            .isEqualTo(
-                InboundAchTransferTransferReturnParams.Reason.AUTHORIZATION_REVOKED_BY_CUSTOMER
-            )
+            .isEqualTo(InboundAchTransferTransferReturnParams.Reason.RETURNED_PER_ODFI_REQUEST)
     }
 
     @Test
@@ -38,16 +34,12 @@ class InboundAchTransferTransferReturnParamsTest {
         val params =
             InboundAchTransferTransferReturnParams.builder()
                 .inboundAchTransferId("string")
-                .reason(
-                    InboundAchTransferTransferReturnParams.Reason.AUTHORIZATION_REVOKED_BY_CUSTOMER
-                )
+                .reason(InboundAchTransferTransferReturnParams.Reason.RETURNED_PER_ODFI_REQUEST)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.reason())
-            .isEqualTo(
-                InboundAchTransferTransferReturnParams.Reason.AUTHORIZATION_REVOKED_BY_CUSTOMER
-            )
+            .isEqualTo(InboundAchTransferTransferReturnParams.Reason.RETURNED_PER_ODFI_REQUEST)
     }
 
     @Test
@@ -55,9 +47,7 @@ class InboundAchTransferTransferReturnParamsTest {
         val params =
             InboundAchTransferTransferReturnParams.builder()
                 .inboundAchTransferId("string")
-                .reason(
-                    InboundAchTransferTransferReturnParams.Reason.AUTHORIZATION_REVOKED_BY_CUSTOMER
-                )
+                .reason(InboundAchTransferTransferReturnParams.Reason.RETURNED_PER_ODFI_REQUEST)
                 .build()
         assertThat(params).isNotNull
         // path param "inboundAchTransferId"

@@ -64,10 +64,7 @@ class InboundAchTransferTest {
                 .traceNumber("string")
                 .transferReturn(
                     InboundAchTransfer.TransferReturn.builder()
-                        .reason(
-                            InboundAchTransfer.TransferReturn.Reason
-                                .AUTHORIZATION_REVOKED_BY_CUSTOMER
-                        )
+                        .reason(InboundAchTransfer.TransferReturn.Reason.RETURNED_PER_ODFI_REQUEST)
                         .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .transactionId("string")
                         .build()
@@ -133,9 +130,7 @@ class InboundAchTransferTest {
         assertThat(inboundAchTransfer.transferReturn())
             .contains(
                 InboundAchTransfer.TransferReturn.builder()
-                    .reason(
-                        InboundAchTransfer.TransferReturn.Reason.AUTHORIZATION_REVOKED_BY_CUSTOMER
-                    )
+                    .reason(InboundAchTransfer.TransferReturn.Reason.RETURNED_PER_ODFI_REQUEST)
                     .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .transactionId("string")
                     .build()
