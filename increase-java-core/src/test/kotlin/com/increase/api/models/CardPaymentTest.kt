@@ -204,6 +204,19 @@ class CardPaymentTest {
                                     )
                                     .build()
                             )
+                            .cardFuelConfirmation(
+                                CardPayment.Element.CardFuelConfirmation.builder()
+                                    .id("string")
+                                    .cardAuthorizationId("string")
+                                    .currency(CardPayment.Element.CardFuelConfirmation.Currency.CAD)
+                                    .network(CardPayment.Element.CardFuelConfirmation.Network.VISA)
+                                    .type(
+                                        CardPayment.Element.CardFuelConfirmation.Type
+                                            .CARD_FUEL_CONFIRMATION
+                                    )
+                                    .updatedAuthorizationAmount(123L)
+                                    .build()
+                            )
                             .cardIncrement(
                                 CardPayment.Element.CardIncrement.builder()
                                     .id("string")
@@ -718,6 +731,7 @@ class CardPaymentTest {
                 .state(
                     CardPayment.State.builder()
                         .authorizedAmount(123L)
+                        .fuelConfirmedAmount(123L)
                         .incrementedAmount(123L)
                         .reversedAmount(123L)
                         .settledAmount(123L)
@@ -895,6 +909,18 @@ class CardPaymentTest {
                                     )
                                     .build()
                             )
+                            .build()
+                    )
+                    .cardFuelConfirmation(
+                        CardPayment.Element.CardFuelConfirmation.builder()
+                            .id("string")
+                            .cardAuthorizationId("string")
+                            .currency(CardPayment.Element.CardFuelConfirmation.Currency.CAD)
+                            .network(CardPayment.Element.CardFuelConfirmation.Network.VISA)
+                            .type(
+                                CardPayment.Element.CardFuelConfirmation.Type.CARD_FUEL_CONFIRMATION
+                            )
+                            .updatedAuthorizationAmount(123L)
                             .build()
                     )
                     .cardIncrement(
@@ -1375,6 +1401,7 @@ class CardPaymentTest {
             .isEqualTo(
                 CardPayment.State.builder()
                     .authorizedAmount(123L)
+                    .fuelConfirmedAmount(123L)
                     .incrementedAmount(123L)
                     .reversedAmount(123L)
                     .settledAmount(123L)

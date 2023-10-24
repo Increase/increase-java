@@ -284,6 +284,7 @@ private constructor(
         private val cardIncrement: JsonField<CardIncrement>,
         private val cardSettlement: JsonField<CardSettlement>,
         private val cardRefund: JsonField<CardRefund>,
+        private val cardFuelConfirmation: JsonField<CardFuelConfirmation>,
         private val createdAt: JsonField<OffsetDateTime>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -357,6 +358,13 @@ private constructor(
             Optional.ofNullable(cardRefund.getNullable("card_refund"))
 
         /**
+         * A Card Fuel Confirmation object. This field will be present in the JSON response if and
+         * only if `category` is equal to `card_fuel_confirmation`.
+         */
+        fun cardFuelConfirmation(): Optional<CardFuelConfirmation> =
+            Optional.ofNullable(cardFuelConfirmation.getNullable("card_fuel_confirmation"))
+
+        /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the card
          * payment element was created.
          */
@@ -421,6 +429,14 @@ private constructor(
         @JsonProperty("card_refund") @ExcludeMissing fun _cardRefund() = cardRefund
 
         /**
+         * A Card Fuel Confirmation object. This field will be present in the JSON response if and
+         * only if `category` is equal to `card_fuel_confirmation`.
+         */
+        @JsonProperty("card_fuel_confirmation")
+        @ExcludeMissing
+        fun _cardFuelConfirmation() = cardFuelConfirmation
+
+        /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the card
          * payment element was created.
          */
@@ -441,6 +457,7 @@ private constructor(
                 cardIncrement().map { it.validate() }
                 cardSettlement().map { it.validate() }
                 cardRefund().map { it.validate() }
+                cardFuelConfirmation().map { it.validate() }
                 createdAt()
                 validated = true
             }
@@ -463,6 +480,7 @@ private constructor(
                 this.cardIncrement == other.cardIncrement &&
                 this.cardSettlement == other.cardSettlement &&
                 this.cardRefund == other.cardRefund &&
+                this.cardFuelConfirmation == other.cardFuelConfirmation &&
                 this.createdAt == other.createdAt &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -480,6 +498,7 @@ private constructor(
                         cardIncrement,
                         cardSettlement,
                         cardRefund,
+                        cardFuelConfirmation,
                         createdAt,
                         additionalProperties,
                     )
@@ -488,7 +507,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Element{category=$category, cardAuthorization=$cardAuthorization, cardValidation=$cardValidation, cardDecline=$cardDecline, cardReversal=$cardReversal, cardAuthorizationExpiration=$cardAuthorizationExpiration, cardIncrement=$cardIncrement, cardSettlement=$cardSettlement, cardRefund=$cardRefund, createdAt=$createdAt, additionalProperties=$additionalProperties}"
+            "Element{category=$category, cardAuthorization=$cardAuthorization, cardValidation=$cardValidation, cardDecline=$cardDecline, cardReversal=$cardReversal, cardAuthorizationExpiration=$cardAuthorizationExpiration, cardIncrement=$cardIncrement, cardSettlement=$cardSettlement, cardRefund=$cardRefund, cardFuelConfirmation=$cardFuelConfirmation, createdAt=$createdAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -507,6 +526,7 @@ private constructor(
             private var cardIncrement: JsonField<CardIncrement> = JsonMissing.of()
             private var cardSettlement: JsonField<CardSettlement> = JsonMissing.of()
             private var cardRefund: JsonField<CardRefund> = JsonMissing.of()
+            private var cardFuelConfirmation: JsonField<CardFuelConfirmation> = JsonMissing.of()
             private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -521,6 +541,7 @@ private constructor(
                 this.cardIncrement = element.cardIncrement
                 this.cardSettlement = element.cardSettlement
                 this.cardRefund = element.cardRefund
+                this.cardFuelConfirmation = element.cardFuelConfirmation
                 this.createdAt = element.createdAt
                 additionalProperties(element.additionalProperties)
             }
@@ -674,6 +695,24 @@ private constructor(
             }
 
             /**
+             * A Card Fuel Confirmation object. This field will be present in the JSON response if
+             * and only if `category` is equal to `card_fuel_confirmation`.
+             */
+            fun cardFuelConfirmation(cardFuelConfirmation: CardFuelConfirmation) =
+                cardFuelConfirmation(JsonField.of(cardFuelConfirmation))
+
+            /**
+             * A Card Fuel Confirmation object. This field will be present in the JSON response if
+             * and only if `category` is equal to `card_fuel_confirmation`.
+             */
+            @JsonProperty("card_fuel_confirmation")
+            @ExcludeMissing
+            fun cardFuelConfirmation(cardFuelConfirmation: JsonField<CardFuelConfirmation>) =
+                apply {
+                    this.cardFuelConfirmation = cardFuelConfirmation
+                }
+
+            /**
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
              * card payment element was created.
              */
@@ -714,6 +753,7 @@ private constructor(
                     cardIncrement,
                     cardSettlement,
                     cardRefund,
+                    cardFuelConfirmation,
                     createdAt,
                     additionalProperties.toUnmodifiable(),
                 )
@@ -5283,6 +5323,451 @@ private constructor(
         }
 
         /**
+         * A Card Fuel Confirmation object. This field will be present in the JSON response if and
+         * only if `category` is equal to `card_fuel_confirmation`.
+         */
+        @JsonDeserialize(builder = CardFuelConfirmation.Builder::class)
+        @NoAutoDetect
+        class CardFuelConfirmation
+        private constructor(
+            private val id: JsonField<String>,
+            private val updatedAuthorizationAmount: JsonField<Long>,
+            private val currency: JsonField<Currency>,
+            private val cardAuthorizationId: JsonField<String>,
+            private val network: JsonField<Network>,
+            private val type: JsonField<Type>,
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
+
+            private var validated: Boolean = false
+
+            private var hashCode: Int = 0
+
+            /** The Card Fuel Confirmation identifier. */
+            fun id(): String = id.getRequired("id")
+
+            /**
+             * The updated authorization amount after this fuel confirmation, in the minor unit of
+             * the transaction's currency. For dollars, for example, this is cents.
+             */
+            fun updatedAuthorizationAmount(): Long =
+                updatedAuthorizationAmount.getRequired("updated_authorization_amount")
+
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the increment's
+             * currency.
+             */
+            fun currency(): Currency = currency.getRequired("currency")
+
+            /** The identifier for the Card Authorization this updates. */
+            fun cardAuthorizationId(): String =
+                cardAuthorizationId.getRequired("card_authorization_id")
+
+            /** The card network used to process this card authorization. */
+            fun network(): Network = network.getRequired("network")
+
+            /**
+             * A constant representing the object's type. For this resource it will always be
+             * `card_fuel_confirmation`.
+             */
+            fun type(): Type = type.getRequired("type")
+
+            /** The Card Fuel Confirmation identifier. */
+            @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+            /**
+             * The updated authorization amount after this fuel confirmation, in the minor unit of
+             * the transaction's currency. For dollars, for example, this is cents.
+             */
+            @JsonProperty("updated_authorization_amount")
+            @ExcludeMissing
+            fun _updatedAuthorizationAmount() = updatedAuthorizationAmount
+
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the increment's
+             * currency.
+             */
+            @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+
+            /** The identifier for the Card Authorization this updates. */
+            @JsonProperty("card_authorization_id")
+            @ExcludeMissing
+            fun _cardAuthorizationId() = cardAuthorizationId
+
+            /** The card network used to process this card authorization. */
+            @JsonProperty("network") @ExcludeMissing fun _network() = network
+
+            /**
+             * A constant representing the object's type. For this resource it will always be
+             * `card_fuel_confirmation`.
+             */
+            @JsonProperty("type") @ExcludeMissing fun _type() = type
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun validate(): CardFuelConfirmation = apply {
+                if (!validated) {
+                    id()
+                    updatedAuthorizationAmount()
+                    currency()
+                    cardAuthorizationId()
+                    network()
+                    type()
+                    validated = true
+                }
+            }
+
+            fun toBuilder() = Builder().from(this)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is CardFuelConfirmation &&
+                    this.id == other.id &&
+                    this.updatedAuthorizationAmount == other.updatedAuthorizationAmount &&
+                    this.currency == other.currency &&
+                    this.cardAuthorizationId == other.cardAuthorizationId &&
+                    this.network == other.network &&
+                    this.type == other.type &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            id,
+                            updatedAuthorizationAmount,
+                            currency,
+                            cardAuthorizationId,
+                            network,
+                            type,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "CardFuelConfirmation{id=$id, updatedAuthorizationAmount=$updatedAuthorizationAmount, currency=$currency, cardAuthorizationId=$cardAuthorizationId, network=$network, type=$type, additionalProperties=$additionalProperties}"
+
+            companion object {
+
+                @JvmStatic fun builder() = Builder()
+            }
+
+            class Builder {
+
+                private var id: JsonField<String> = JsonMissing.of()
+                private var updatedAuthorizationAmount: JsonField<Long> = JsonMissing.of()
+                private var currency: JsonField<Currency> = JsonMissing.of()
+                private var cardAuthorizationId: JsonField<String> = JsonMissing.of()
+                private var network: JsonField<Network> = JsonMissing.of()
+                private var type: JsonField<Type> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(cardFuelConfirmation: CardFuelConfirmation) = apply {
+                    this.id = cardFuelConfirmation.id
+                    this.updatedAuthorizationAmount =
+                        cardFuelConfirmation.updatedAuthorizationAmount
+                    this.currency = cardFuelConfirmation.currency
+                    this.cardAuthorizationId = cardFuelConfirmation.cardAuthorizationId
+                    this.network = cardFuelConfirmation.network
+                    this.type = cardFuelConfirmation.type
+                    additionalProperties(cardFuelConfirmation.additionalProperties)
+                }
+
+                /** The Card Fuel Confirmation identifier. */
+                fun id(id: String) = id(JsonField.of(id))
+
+                /** The Card Fuel Confirmation identifier. */
+                @JsonProperty("id")
+                @ExcludeMissing
+                fun id(id: JsonField<String>) = apply { this.id = id }
+
+                /**
+                 * The updated authorization amount after this fuel confirmation, in the minor unit
+                 * of the transaction's currency. For dollars, for example, this is cents.
+                 */
+                fun updatedAuthorizationAmount(updatedAuthorizationAmount: Long) =
+                    updatedAuthorizationAmount(JsonField.of(updatedAuthorizationAmount))
+
+                /**
+                 * The updated authorization amount after this fuel confirmation, in the minor unit
+                 * of the transaction's currency. For dollars, for example, this is cents.
+                 */
+                @JsonProperty("updated_authorization_amount")
+                @ExcludeMissing
+                fun updatedAuthorizationAmount(updatedAuthorizationAmount: JsonField<Long>) =
+                    apply {
+                        this.updatedAuthorizationAmount = updatedAuthorizationAmount
+                    }
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the increment's
+                 * currency.
+                 */
+                fun currency(currency: Currency) = currency(JsonField.of(currency))
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the increment's
+                 * currency.
+                 */
+                @JsonProperty("currency")
+                @ExcludeMissing
+                fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+                /** The identifier for the Card Authorization this updates. */
+                fun cardAuthorizationId(cardAuthorizationId: String) =
+                    cardAuthorizationId(JsonField.of(cardAuthorizationId))
+
+                /** The identifier for the Card Authorization this updates. */
+                @JsonProperty("card_authorization_id")
+                @ExcludeMissing
+                fun cardAuthorizationId(cardAuthorizationId: JsonField<String>) = apply {
+                    this.cardAuthorizationId = cardAuthorizationId
+                }
+
+                /** The card network used to process this card authorization. */
+                fun network(network: Network) = network(JsonField.of(network))
+
+                /** The card network used to process this card authorization. */
+                @JsonProperty("network")
+                @ExcludeMissing
+                fun network(network: JsonField<Network>) = apply { this.network = network }
+
+                /**
+                 * A constant representing the object's type. For this resource it will always be
+                 * `card_fuel_confirmation`.
+                 */
+                fun type(type: Type) = type(JsonField.of(type))
+
+                /**
+                 * A constant representing the object's type. For this resource it will always be
+                 * `card_fuel_confirmation`.
+                 */
+                @JsonProperty("type")
+                @ExcludeMissing
+                fun type(type: JsonField<Type>) = apply { this.type = type }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                @JsonAnySetter
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    this.additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun build(): CardFuelConfirmation =
+                    CardFuelConfirmation(
+                        id,
+                        updatedAuthorizationAmount,
+                        currency,
+                        cardAuthorizationId,
+                        network,
+                        type,
+                        additionalProperties.toUnmodifiable(),
+                    )
+            }
+
+            class Currency
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) {
+
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Currency && this.value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+
+                companion object {
+
+                    @JvmField val CAD = Currency(JsonField.of("CAD"))
+
+                    @JvmField val CHF = Currency(JsonField.of("CHF"))
+
+                    @JvmField val EUR = Currency(JsonField.of("EUR"))
+
+                    @JvmField val GBP = Currency(JsonField.of("GBP"))
+
+                    @JvmField val JPY = Currency(JsonField.of("JPY"))
+
+                    @JvmField val USD = Currency(JsonField.of("USD"))
+
+                    @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
+                }
+
+                enum class Known {
+                    CAD,
+                    CHF,
+                    EUR,
+                    GBP,
+                    JPY,
+                    USD,
+                }
+
+                enum class Value {
+                    CAD,
+                    CHF,
+                    EUR,
+                    GBP,
+                    JPY,
+                    USD,
+                    _UNKNOWN,
+                }
+
+                fun value(): Value =
+                    when (this) {
+                        CAD -> Value.CAD
+                        CHF -> Value.CHF
+                        EUR -> Value.EUR
+                        GBP -> Value.GBP
+                        JPY -> Value.JPY
+                        USD -> Value.USD
+                        else -> Value._UNKNOWN
+                    }
+
+                fun known(): Known =
+                    when (this) {
+                        CAD -> Known.CAD
+                        CHF -> Known.CHF
+                        EUR -> Known.EUR
+                        GBP -> Known.GBP
+                        JPY -> Known.JPY
+                        USD -> Known.USD
+                        else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+                    }
+
+                fun asString(): String = _value().asStringOrThrow()
+            }
+
+            class Network
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) {
+
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Network && this.value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+
+                companion object {
+
+                    @JvmField val VISA = Network(JsonField.of("visa"))
+
+                    @JvmStatic fun of(value: String) = Network(JsonField.of(value))
+                }
+
+                enum class Known {
+                    VISA,
+                }
+
+                enum class Value {
+                    VISA,
+                    _UNKNOWN,
+                }
+
+                fun value(): Value =
+                    when (this) {
+                        VISA -> Value.VISA
+                        else -> Value._UNKNOWN
+                    }
+
+                fun known(): Known =
+                    when (this) {
+                        VISA -> Known.VISA
+                        else -> throw IncreaseInvalidDataException("Unknown Network: $value")
+                    }
+
+                fun asString(): String = _value().asStringOrThrow()
+            }
+
+            class Type
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) {
+
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Type && this.value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+
+                companion object {
+
+                    @JvmField
+                    val CARD_FUEL_CONFIRMATION = Type(JsonField.of("card_fuel_confirmation"))
+
+                    @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+                }
+
+                enum class Known {
+                    CARD_FUEL_CONFIRMATION,
+                }
+
+                enum class Value {
+                    CARD_FUEL_CONFIRMATION,
+                    _UNKNOWN,
+                }
+
+                fun value(): Value =
+                    when (this) {
+                        CARD_FUEL_CONFIRMATION -> Value.CARD_FUEL_CONFIRMATION
+                        else -> Value._UNKNOWN
+                    }
+
+                fun known(): Known =
+                    when (this) {
+                        CARD_FUEL_CONFIRMATION -> Known.CARD_FUEL_CONFIRMATION
+                        else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+                    }
+
+                fun asString(): String = _value().asStringOrThrow()
+            }
+        }
+
+        /**
          * A Card Increment object. This field will be present in the JSON response if and only if
          * `category` is equal to `card_increment`.
          */
@@ -5327,7 +5812,7 @@ private constructor(
              */
             fun currency(): Currency = currency.getRequired("currency")
 
-            /** The identifier for the Card Authorization this reverses. */
+            /** The identifier for the Card Authorization this increments. */
             fun cardAuthorizationId(): String =
                 cardAuthorizationId.getRequired("card_authorization_id")
 
@@ -5370,7 +5855,7 @@ private constructor(
              */
             @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
 
-            /** The identifier for the Card Authorization this reverses. */
+            /** The identifier for the Card Authorization this increments. */
             @JsonProperty("card_authorization_id")
             @ExcludeMissing
             fun _cardAuthorizationId() = cardAuthorizationId
@@ -5534,11 +6019,11 @@ private constructor(
                 @ExcludeMissing
                 fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
-                /** The identifier for the Card Authorization this reverses. */
+                /** The identifier for the Card Authorization this increments. */
                 fun cardAuthorizationId(cardAuthorizationId: String) =
                     cardAuthorizationId(JsonField.of(cardAuthorizationId))
 
-                /** The identifier for the Card Authorization this reverses. */
+                /** The identifier for the Card Authorization this increments. */
                 @JsonProperty("card_authorization_id")
                 @ExcludeMissing
                 fun cardAuthorizationId(cardAuthorizationId: JsonField<String>) = apply {
@@ -17015,6 +17500,9 @@ private constructor(
 
                 @JvmField val CARD_REFUND = Category(JsonField.of("card_refund"))
 
+                @JvmField
+                val CARD_FUEL_CONFIRMATION = Category(JsonField.of("card_fuel_confirmation"))
+
                 @JvmField val OTHER = Category(JsonField.of("other"))
 
                 @JvmStatic fun of(value: String) = Category(JsonField.of(value))
@@ -17029,6 +17517,7 @@ private constructor(
                 CARD_INCREMENT,
                 CARD_SETTLEMENT,
                 CARD_REFUND,
+                CARD_FUEL_CONFIRMATION,
                 OTHER,
             }
 
@@ -17041,6 +17530,7 @@ private constructor(
                 CARD_INCREMENT,
                 CARD_SETTLEMENT,
                 CARD_REFUND,
+                CARD_FUEL_CONFIRMATION,
                 OTHER,
                 _UNKNOWN,
             }
@@ -17055,6 +17545,7 @@ private constructor(
                     CARD_INCREMENT -> Value.CARD_INCREMENT
                     CARD_SETTLEMENT -> Value.CARD_SETTLEMENT
                     CARD_REFUND -> Value.CARD_REFUND
+                    CARD_FUEL_CONFIRMATION -> Value.CARD_FUEL_CONFIRMATION
                     OTHER -> Value.OTHER
                     else -> Value._UNKNOWN
                 }
@@ -17069,6 +17560,7 @@ private constructor(
                     CARD_INCREMENT -> Known.CARD_INCREMENT
                     CARD_SETTLEMENT -> Known.CARD_SETTLEMENT
                     CARD_REFUND -> Known.CARD_REFUND
+                    CARD_FUEL_CONFIRMATION -> Known.CARD_FUEL_CONFIRMATION
                     OTHER -> Known.OTHER
                     else -> throw IncreaseInvalidDataException("Unknown Category: $value")
                 }
@@ -17085,6 +17577,7 @@ private constructor(
         private val authorizedAmount: JsonField<Long>,
         private val incrementedAmount: JsonField<Long>,
         private val reversedAmount: JsonField<Long>,
+        private val fuelConfirmedAmount: JsonField<Long>,
         private val settledAmount: JsonField<Long>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -17110,6 +17603,12 @@ private constructor(
          * for example, this is cents.
          */
         fun reversedAmount(): Long = reversedAmount.getRequired("reversed_amount")
+
+        /**
+         * The total amount from fuel confirmations in the minor unit of the transaction's currency.
+         * For dollars, for example, this is cents.
+         */
+        fun fuelConfirmedAmount(): Long = fuelConfirmedAmount.getRequired("fuel_confirmed_amount")
 
         /**
          * The total settled or refunded amount in the minor unit of the transaction's currency. For
@@ -17140,6 +17639,14 @@ private constructor(
         @JsonProperty("reversed_amount") @ExcludeMissing fun _reversedAmount() = reversedAmount
 
         /**
+         * The total amount from fuel confirmations in the minor unit of the transaction's currency.
+         * For dollars, for example, this is cents.
+         */
+        @JsonProperty("fuel_confirmed_amount")
+        @ExcludeMissing
+        fun _fuelConfirmedAmount() = fuelConfirmedAmount
+
+        /**
          * The total settled or refunded amount in the minor unit of the transaction's currency. For
          * dollars, for example, this is cents.
          */
@@ -17154,6 +17661,7 @@ private constructor(
                 authorizedAmount()
                 incrementedAmount()
                 reversedAmount()
+                fuelConfirmedAmount()
                 settledAmount()
                 validated = true
             }
@@ -17170,6 +17678,7 @@ private constructor(
                 this.authorizedAmount == other.authorizedAmount &&
                 this.incrementedAmount == other.incrementedAmount &&
                 this.reversedAmount == other.reversedAmount &&
+                this.fuelConfirmedAmount == other.fuelConfirmedAmount &&
                 this.settledAmount == other.settledAmount &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -17181,6 +17690,7 @@ private constructor(
                         authorizedAmount,
                         incrementedAmount,
                         reversedAmount,
+                        fuelConfirmedAmount,
                         settledAmount,
                         additionalProperties,
                     )
@@ -17189,7 +17699,7 @@ private constructor(
         }
 
         override fun toString() =
-            "State{authorizedAmount=$authorizedAmount, incrementedAmount=$incrementedAmount, reversedAmount=$reversedAmount, settledAmount=$settledAmount, additionalProperties=$additionalProperties}"
+            "State{authorizedAmount=$authorizedAmount, incrementedAmount=$incrementedAmount, reversedAmount=$reversedAmount, fuelConfirmedAmount=$fuelConfirmedAmount, settledAmount=$settledAmount, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -17201,6 +17711,7 @@ private constructor(
             private var authorizedAmount: JsonField<Long> = JsonMissing.of()
             private var incrementedAmount: JsonField<Long> = JsonMissing.of()
             private var reversedAmount: JsonField<Long> = JsonMissing.of()
+            private var fuelConfirmedAmount: JsonField<Long> = JsonMissing.of()
             private var settledAmount: JsonField<Long> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -17209,6 +17720,7 @@ private constructor(
                 this.authorizedAmount = state.authorizedAmount
                 this.incrementedAmount = state.incrementedAmount
                 this.reversedAmount = state.reversedAmount
+                this.fuelConfirmedAmount = state.fuelConfirmedAmount
                 this.settledAmount = state.settledAmount
                 additionalProperties(state.additionalProperties)
             }
@@ -17264,6 +17776,23 @@ private constructor(
             }
 
             /**
+             * The total amount from fuel confirmations in the minor unit of the transaction's
+             * currency. For dollars, for example, this is cents.
+             */
+            fun fuelConfirmedAmount(fuelConfirmedAmount: Long) =
+                fuelConfirmedAmount(JsonField.of(fuelConfirmedAmount))
+
+            /**
+             * The total amount from fuel confirmations in the minor unit of the transaction's
+             * currency. For dollars, for example, this is cents.
+             */
+            @JsonProperty("fuel_confirmed_amount")
+            @ExcludeMissing
+            fun fuelConfirmedAmount(fuelConfirmedAmount: JsonField<Long>) = apply {
+                this.fuelConfirmedAmount = fuelConfirmedAmount
+            }
+
+            /**
              * The total settled or refunded amount in the minor unit of the transaction's currency.
              * For dollars, for example, this is cents.
              */
@@ -17298,6 +17827,7 @@ private constructor(
                     authorizedAmount,
                     incrementedAmount,
                     reversedAmount,
+                    fuelConfirmedAmount,
                     settledAmount,
                     additionalProperties.toUnmodifiable(),
                 )
