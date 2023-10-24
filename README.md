@@ -2,7 +2,7 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-java)](https://central.sonatype.com/artifact/com.increase.api/increase-java/0.11.0)
+[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-java)](https://central.sonatype.com/artifact/com.increase.api/increase-java/0.12.0)
 
 <!-- x-release-please-end -->
 
@@ -25,7 +25,7 @@ The API documentation can be found [here](https://increase.com/documentation).
 <!-- x-release-please-start-version -->
 
 ```kotlin
-implementation("com.increase.api:increase-java:0.11.0")
+implementation("com.increase.api:increase-java:0.12.0")
 ```
 
 #### Maven
@@ -34,7 +34,7 @@ implementation("com.increase.api:increase-java:0.11.0")
 <dependency>
     <groupId>com.increase.api</groupId>
     <artifactId>increase-java</artifactId>
-    <version>0.11.0</version>
+    <version>0.12.0</version>
 </dependency>
 ```
 

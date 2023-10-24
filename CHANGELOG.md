@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.12.0 (2023-10-24)
+
+Full Changelog: [v0.11.0...v0.12.0](https://github.com/increase/increase-java/compare/v0.11.0...v0.12.0)
+
+### Features
+
+* **api:** add fuel confirmation functionality ([#119](https://github.com/increase/increase-java/issues/119)) ([21a4d0d](https://github.com/increase/increase-java/commit/21a4d0d17cc0c32c39aa151f7c6a7cd1b0094f75))
+* **api:** add returned_per_odfi_request enum ([#118](https://github.com/increase/increase-java/issues/118)) ([10154b3](https://github.com/increase/increase-java/commit/10154b3f46a4ac24422f9b7c18fb30cd7697b05b))
+* **api:** updates ([#116](https://github.com/increase/increase-java/issues/116)) ([3c1acdc](https://github.com/increase/increase-java/commit/3c1acdcfb986347c9d0bb423e8ecb5ce85e9dcba))
+* **api:** updates ([#117](https://github.com/increase/increase-java/issues/117)) ([a5515c1](https://github.com/increase/increase-java/commit/a5515c1aad75a14ba859c290891e3c0ea3ac0759))
+* **client:** adjust retry behavior ([#120](https://github.com/increase/increase-java/issues/120)) ([c632636](https://github.com/increase/increase-java/commit/c632636f2acdd1a9738b524408f218458134784e))
+
 ## 0.11.0 (2023-10-19)
 
 Full Changelog: [v0.10.5...v0.11.0](https://github.com/increase/increase-java/compare/v0.10.5...v0.11.0)
