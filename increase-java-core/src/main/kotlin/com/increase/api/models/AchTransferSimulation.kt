@@ -4139,6 +4139,10 @@ private constructor(
 
                         @JvmField val NOT_OUR_ITEM = Reason(JsonField.of("not_our_item"))
 
+                        @JvmField
+                        val NO_ACCOUNT_NUMBER_FOUND =
+                            Reason(JsonField.of("no_account_number_found"))
+
                         @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
                     }
 
@@ -4154,6 +4158,7 @@ private constructor(
                         NOT_AUTHORIZED,
                         AMOUNT_MISMATCH,
                         NOT_OUR_ITEM,
+                        NO_ACCOUNT_NUMBER_FOUND,
                     }
 
                     enum class Value {
@@ -4168,6 +4173,7 @@ private constructor(
                         NOT_AUTHORIZED,
                         AMOUNT_MISMATCH,
                         NOT_OUR_ITEM,
+                        NO_ACCOUNT_NUMBER_FOUND,
                         _UNKNOWN,
                     }
 
@@ -4184,6 +4190,7 @@ private constructor(
                             NOT_AUTHORIZED -> Value.NOT_AUTHORIZED
                             AMOUNT_MISMATCH -> Value.AMOUNT_MISMATCH
                             NOT_OUR_ITEM -> Value.NOT_OUR_ITEM
+                            NO_ACCOUNT_NUMBER_FOUND -> Value.NO_ACCOUNT_NUMBER_FOUND
                             else -> Value._UNKNOWN
                         }
 
@@ -4200,6 +4207,7 @@ private constructor(
                             NOT_AUTHORIZED -> Known.NOT_AUTHORIZED
                             AMOUNT_MISMATCH -> Known.AMOUNT_MISMATCH
                             NOT_OUR_ITEM -> Known.NOT_OUR_ITEM
+                            NO_ACCOUNT_NUMBER_FOUND -> Known.NO_ACCOUNT_NUMBER_FOUND
                             else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                         }
 
