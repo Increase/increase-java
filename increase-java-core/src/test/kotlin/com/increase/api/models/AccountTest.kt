@@ -14,6 +14,7 @@ class AccountTest {
         val account =
             Account.builder()
                 .id("string")
+                .bank(Account.Bank.BLUE_RIDGE_BANK)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .currency(Account.Currency.CAD)
                 .entityId("string")
@@ -27,6 +28,7 @@ class AccountTest {
                 .build()
         assertThat(account).isNotNull
         assertThat(account.id()).isEqualTo("string")
+        assertThat(account.bank()).isEqualTo(Account.Bank.BLUE_RIDGE_BANK)
         assertThat(account.createdAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(account.currency()).isEqualTo(Account.Currency.CAD)
         assertThat(account.entityId()).contains("string")

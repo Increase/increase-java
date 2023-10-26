@@ -27,6 +27,7 @@ import java.util.Optional
 @NoAutoDetect
 class Account
 private constructor(
+    private val bank: JsonField<Bank>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val currency: JsonField<Currency>,
     private val entityId: JsonField<String>,
@@ -44,6 +45,9 @@ private constructor(
     private var validated: Boolean = false
 
     private var hashCode: Int = 0
+
+    /** The bank the Account is with. */
+    fun bank(): Bank = bank.getRequired("bank")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was created.
@@ -93,6 +97,9 @@ private constructor(
 
     /** A constant representing the object's type. For this resource it will always be `account`. */
     fun type(): Type = type.getRequired("type")
+
+    /** The bank the Account is with. */
+    @JsonProperty("bank") @ExcludeMissing fun _bank() = bank
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was created.
@@ -151,6 +158,7 @@ private constructor(
 
     fun validate(): Account = apply {
         if (!validated) {
+            bank()
             createdAt()
             currency()
             entityId()
@@ -174,6 +182,7 @@ private constructor(
         }
 
         return other is Account &&
+            this.bank == other.bank &&
             this.createdAt == other.createdAt &&
             this.currency == other.currency &&
             this.entityId == other.entityId &&
@@ -192,6 +201,7 @@ private constructor(
         if (hashCode == 0) {
             hashCode =
                 Objects.hash(
+                    bank,
                     createdAt,
                     currency,
                     entityId,
@@ -210,7 +220,7 @@ private constructor(
     }
 
     override fun toString() =
-        "Account{createdAt=$createdAt, currency=$currency, entityId=$entityId, informationalEntityId=$informationalEntityId, id=$id, interestAccrued=$interestAccrued, interestAccruedAt=$interestAccruedAt, interestRate=$interestRate, name=$name, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "Account{bank=$bank, createdAt=$createdAt, currency=$currency, entityId=$entityId, informationalEntityId=$informationalEntityId, id=$id, interestAccrued=$interestAccrued, interestAccruedAt=$interestAccruedAt, interestRate=$interestRate, name=$name, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -219,6 +229,7 @@ private constructor(
 
     class Builder {
 
+        private var bank: JsonField<Bank> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var currency: JsonField<Currency> = JsonMissing.of()
         private var entityId: JsonField<String> = JsonMissing.of()
@@ -234,6 +245,7 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(account: Account) = apply {
+            this.bank = account.bank
             this.createdAt = account.createdAt
             this.currency = account.currency
             this.entityId = account.entityId
@@ -247,6 +259,14 @@ private constructor(
             this.type = account.type
             additionalProperties(account.additionalProperties)
         }
+
+        /** The bank the Account is with. */
+        fun bank(bank: Bank) = bank(JsonField.of(bank))
+
+        /** The bank the Account is with. */
+        @JsonProperty("bank")
+        @ExcludeMissing
+        fun bank(bank: JsonField<Bank>) = apply { this.bank = bank }
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was
@@ -395,6 +415,7 @@ private constructor(
 
         fun build(): Account =
             Account(
+                bank,
                 createdAt,
                 currency,
                 entityId,
@@ -408,6 +429,63 @@ private constructor(
                 type,
                 additionalProperties.toUnmodifiable(),
             )
+    }
+
+    class Bank
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Bank && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val BLUE_RIDGE_BANK = Bank(JsonField.of("blue_ridge_bank"))
+
+            @JvmField val FIRST_INTERNET_BANK = Bank(JsonField.of("first_internet_bank"))
+
+            @JvmStatic fun of(value: String) = Bank(JsonField.of(value))
+        }
+
+        enum class Known {
+            BLUE_RIDGE_BANK,
+            FIRST_INTERNET_BANK,
+        }
+
+        enum class Value {
+            BLUE_RIDGE_BANK,
+            FIRST_INTERNET_BANK,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                BLUE_RIDGE_BANK -> Value.BLUE_RIDGE_BANK
+                FIRST_INTERNET_BANK -> Value.FIRST_INTERNET_BANK
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                BLUE_RIDGE_BANK -> Known.BLUE_RIDGE_BANK
+                FIRST_INTERNET_BANK -> Known.FIRST_INTERNET_BANK
+                else -> throw IncreaseInvalidDataException("Unknown Bank: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 
     class Currency

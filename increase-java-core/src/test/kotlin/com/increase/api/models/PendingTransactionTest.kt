@@ -87,6 +87,14 @@ class PendingTransactionTest {
                                         )
                                         .build()
                                 )
+                                .networkIdentifiers(
+                                    PendingTransaction.Source.CardAuthorization.NetworkIdentifiers
+                                        .builder()
+                                        .retrievalReferenceNumber("string")
+                                        .traceNumber("string")
+                                        .transactionId("string")
+                                        .build()
+                                )
                                 .pendingTransactionId("string")
                                 .physicalCardId("string")
                                 .realTimeDecisionId("string")
@@ -265,6 +273,14 @@ class PendingTransactionTest {
                                             )
                                             .build()
                                     )
+                                    .build()
+                            )
+                            .networkIdentifiers(
+                                PendingTransaction.Source.CardAuthorization.NetworkIdentifiers
+                                    .builder()
+                                    .retrievalReferenceNumber("string")
+                                    .traceNumber("string")
+                                    .transactionId("string")
                                     .build()
                             )
                             .pendingTransactionId("string")

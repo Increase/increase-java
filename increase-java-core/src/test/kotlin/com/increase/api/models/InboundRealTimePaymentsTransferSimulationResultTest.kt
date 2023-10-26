@@ -140,6 +140,18 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 )
                                                 .build()
                                         )
+                                        .networkIdentifiers(
+                                            InboundRealTimePaymentsTransferSimulationResult
+                                                .DeclinedTransaction
+                                                .Source
+                                                .CardDecline
+                                                .NetworkIdentifiers
+                                                .builder()
+                                                .retrievalReferenceNumber("string")
+                                                .traceNumber("string")
+                                                .transactionId("string")
+                                                .build()
+                                        )
                                         .physicalCardId("string")
                                         .realTimeDecisionId("string")
                                         .reason(
@@ -1662,6 +1674,18 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                     )
                                                     .build()
                                             )
+                                            .build()
+                                    )
+                                    .networkIdentifiers(
+                                        InboundRealTimePaymentsTransferSimulationResult
+                                            .DeclinedTransaction
+                                            .Source
+                                            .CardDecline
+                                            .NetworkIdentifiers
+                                            .builder()
+                                            .retrievalReferenceNumber("string")
+                                            .traceNumber("string")
+                                            .transactionId("string")
                                             .build()
                                     )
                                     .physicalCardId("string")
