@@ -114,6 +114,16 @@ class AchTransferSimulationTest {
                                                 )
                                                 .build()
                                         )
+                                        .networkIdentifiers(
+                                            AchTransferSimulation.DeclinedTransaction.Source
+                                                .CardDecline
+                                                .NetworkIdentifiers
+                                                .builder()
+                                                .retrievalReferenceNumber("string")
+                                                .traceNumber("string")
+                                                .transactionId("string")
+                                                .build()
+                                        )
                                         .physicalCardId("string")
                                         .realTimeDecisionId("string")
                                         .reason(
@@ -1450,6 +1460,15 @@ class AchTransferSimulationTest {
                                                     )
                                                     .build()
                                             )
+                                            .build()
+                                    )
+                                    .networkIdentifiers(
+                                        AchTransferSimulation.DeclinedTransaction.Source.CardDecline
+                                            .NetworkIdentifiers
+                                            .builder()
+                                            .retrievalReferenceNumber("string")
+                                            .traceNumber("string")
+                                            .transactionId("string")
                                             .build()
                                     )
                                     .physicalCardId("string")
