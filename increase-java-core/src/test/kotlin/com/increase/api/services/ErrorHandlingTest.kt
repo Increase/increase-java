@@ -69,6 +69,7 @@ class ErrorHandlingTest {
         val expected =
             Account.builder()
                 .id("string")
+                .bank(Account.Bank.BLUE_RIDGE_BANK)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .currency(Account.Currency.CAD)
                 .entityId("string")
