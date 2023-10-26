@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.13.0 (2023-10-26)
+
+Full Changelog: [v0.12.0...v0.13.0](https://github.com/increase/increase-java/compare/v0.12.0...v0.13.0)
+
+### Features
+
+* **api:** updates ([#123](https://github.com/increase/increase-java/issues/123)) ([733ab3d](https://github.com/increase/increase-java/commit/733ab3df013fc7a59636c7072cf832a802329452))
+
 ## 0.12.0 (2023-10-24)
 
 Full Changelog: [v0.11.0...v0.12.0](https://github.com/increase/increase-java/compare/v0.11.0...v0.12.0)
