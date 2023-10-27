@@ -99,6 +99,15 @@ class WireTransferSimulationTest {
                                         .merchantCountry("string")
                                         .merchantName("string")
                                         .merchantState("string")
+                                        .networkIdentifiers(
+                                            WireTransferSimulation.Transaction.Source.CardRefund
+                                                .NetworkIdentifiers
+                                                .builder()
+                                                .acquirerBusinessId("string")
+                                                .acquirerReferenceNumber("string")
+                                                .transactionId("string")
+                                                .build()
+                                        )
                                         .purchaseDetails(
                                             WireTransferSimulation.Transaction.Source.CardRefund
                                                 .PurchaseDetails
@@ -370,6 +379,15 @@ class WireTransferSimulationTest {
                                         .merchantCountry("string")
                                         .merchantName("string")
                                         .merchantState("string")
+                                        .networkIdentifiers(
+                                            WireTransferSimulation.Transaction.Source.CardSettlement
+                                                .NetworkIdentifiers
+                                                .builder()
+                                                .acquirerBusinessId("string")
+                                                .acquirerReferenceNumber("string")
+                                                .transactionId("string")
+                                                .build()
+                                        )
                                         .pendingTransactionId("string")
                                         .presentmentAmount(123L)
                                         .presentmentCurrency("string")
@@ -1088,6 +1106,15 @@ class WireTransferSimulationTest {
                                     .merchantCountry("string")
                                     .merchantName("string")
                                     .merchantState("string")
+                                    .networkIdentifiers(
+                                        WireTransferSimulation.Transaction.Source.CardRefund
+                                            .NetworkIdentifiers
+                                            .builder()
+                                            .acquirerBusinessId("string")
+                                            .acquirerReferenceNumber("string")
+                                            .transactionId("string")
+                                            .build()
+                                    )
                                     .purchaseDetails(
                                         WireTransferSimulation.Transaction.Source.CardRefund
                                             .PurchaseDetails
@@ -1335,6 +1362,15 @@ class WireTransferSimulationTest {
                                     .merchantCountry("string")
                                     .merchantName("string")
                                     .merchantState("string")
+                                    .networkIdentifiers(
+                                        WireTransferSimulation.Transaction.Source.CardSettlement
+                                            .NetworkIdentifiers
+                                            .builder()
+                                            .acquirerBusinessId("string")
+                                            .acquirerReferenceNumber("string")
+                                            .transactionId("string")
+                                            .build()
+                                    )
                                     .pendingTransactionId("string")
                                     .presentmentAmount(123L)
                                     .presentmentCurrency("string")

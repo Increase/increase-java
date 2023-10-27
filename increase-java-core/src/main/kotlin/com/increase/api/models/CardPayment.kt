@@ -5792,6 +5792,7 @@ private constructor(
             private val cardAuthorizationId: JsonField<String>,
             private val network: JsonField<Network>,
             private val pendingTransactionId: JsonField<String>,
+            private val networkIdentifiers: JsonField<NetworkIdentifiers>,
             private val type: JsonField<Type>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
@@ -5829,6 +5830,10 @@ private constructor(
              */
             fun pendingTransactionId(): Optional<String> =
                 Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
+
+            /** Network-specific identifiers for a specific request or transaction. */
+            fun networkIdentifiers(): NetworkIdentifiers =
+                networkIdentifiers.getRequired("network_identifiers")
 
             /**
              * A constant representing the object's type. For this resource it will always be
@@ -5869,6 +5874,11 @@ private constructor(
             @ExcludeMissing
             fun _pendingTransactionId() = pendingTransactionId
 
+            /** Network-specific identifiers for a specific request or transaction. */
+            @JsonProperty("network_identifiers")
+            @ExcludeMissing
+            fun _networkIdentifiers() = networkIdentifiers
+
             /**
              * A constant representing the object's type. For this resource it will always be
              * `card_fuel_confirmation`.
@@ -5887,6 +5897,7 @@ private constructor(
                     cardAuthorizationId()
                     network()
                     pendingTransactionId()
+                    networkIdentifiers().validate()
                     type()
                     validated = true
                 }
@@ -5906,6 +5917,7 @@ private constructor(
                     this.cardAuthorizationId == other.cardAuthorizationId &&
                     this.network == other.network &&
                     this.pendingTransactionId == other.pendingTransactionId &&
+                    this.networkIdentifiers == other.networkIdentifiers &&
                     this.type == other.type &&
                     this.additionalProperties == other.additionalProperties
             }
@@ -5920,6 +5932,7 @@ private constructor(
                             cardAuthorizationId,
                             network,
                             pendingTransactionId,
+                            networkIdentifiers,
                             type,
                             additionalProperties,
                         )
@@ -5928,7 +5941,7 @@ private constructor(
             }
 
             override fun toString() =
-                "CardFuelConfirmation{id=$id, updatedAuthorizationAmount=$updatedAuthorizationAmount, currency=$currency, cardAuthorizationId=$cardAuthorizationId, network=$network, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
+                "CardFuelConfirmation{id=$id, updatedAuthorizationAmount=$updatedAuthorizationAmount, currency=$currency, cardAuthorizationId=$cardAuthorizationId, network=$network, pendingTransactionId=$pendingTransactionId, networkIdentifiers=$networkIdentifiers, type=$type, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -5943,6 +5956,7 @@ private constructor(
                 private var cardAuthorizationId: JsonField<String> = JsonMissing.of()
                 private var network: JsonField<Network> = JsonMissing.of()
                 private var pendingTransactionId: JsonField<String> = JsonMissing.of()
+                private var networkIdentifiers: JsonField<NetworkIdentifiers> = JsonMissing.of()
                 private var type: JsonField<Type> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -5955,6 +5969,7 @@ private constructor(
                     this.cardAuthorizationId = cardFuelConfirmation.cardAuthorizationId
                     this.network = cardFuelConfirmation.network
                     this.pendingTransactionId = cardFuelConfirmation.pendingTransactionId
+                    this.networkIdentifiers = cardFuelConfirmation.networkIdentifiers
                     this.type = cardFuelConfirmation.type
                     additionalProperties(cardFuelConfirmation.additionalProperties)
                 }
@@ -6035,6 +6050,17 @@ private constructor(
                     this.pendingTransactionId = pendingTransactionId
                 }
 
+                /** Network-specific identifiers for a specific request or transaction. */
+                fun networkIdentifiers(networkIdentifiers: NetworkIdentifiers) =
+                    networkIdentifiers(JsonField.of(networkIdentifiers))
+
+                /** Network-specific identifiers for a specific request or transaction. */
+                @JsonProperty("network_identifiers")
+                @ExcludeMissing
+                fun networkIdentifiers(networkIdentifiers: JsonField<NetworkIdentifiers>) = apply {
+                    this.networkIdentifiers = networkIdentifiers
+                }
+
                 /**
                  * A constant representing the object's type. For this resource it will always be
                  * `card_fuel_confirmation`.
@@ -6072,6 +6098,7 @@ private constructor(
                         cardAuthorizationId,
                         network,
                         pendingTransactionId,
+                        networkIdentifiers,
                         type,
                         additionalProperties.toUnmodifiable(),
                     )
@@ -6209,6 +6236,207 @@ private constructor(
                 fun asString(): String = _value().asStringOrThrow()
             }
 
+            /** Network-specific identifiers for a specific request or transaction. */
+            @JsonDeserialize(builder = NetworkIdentifiers.Builder::class)
+            @NoAutoDetect
+            class NetworkIdentifiers
+            private constructor(
+                private val transactionId: JsonField<String>,
+                private val traceNumber: JsonField<String>,
+                private val retrievalReferenceNumber: JsonField<String>,
+                private val additionalProperties: Map<String, JsonValue>,
+            ) {
+
+                private var validated: Boolean = false
+
+                private var hashCode: Int = 0
+
+                /**
+                 * A globally unique transaction identifier provided by the card network, used
+                 * across multiple life-cycle requests.
+                 */
+                fun transactionId(): Optional<String> =
+                    Optional.ofNullable(transactionId.getNullable("transaction_id"))
+
+                /**
+                 * A counter used to verify an individual authorization. Expected to be unique per
+                 * acquirer within a window of time.
+                 */
+                fun traceNumber(): Optional<String> =
+                    Optional.ofNullable(traceNumber.getNullable("trace_number"))
+
+                /**
+                 * A life-cycle identifier used across e.g., an authorization and a reversal.
+                 * Expected to be unique per acquirer within a window of time. For some card
+                 * networks the retrieval reference number includes the trace counter.
+                 */
+                fun retrievalReferenceNumber(): Optional<String> =
+                    Optional.ofNullable(
+                        retrievalReferenceNumber.getNullable("retrieval_reference_number")
+                    )
+
+                /**
+                 * A globally unique transaction identifier provided by the card network, used
+                 * across multiple life-cycle requests.
+                 */
+                @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+
+                /**
+                 * A counter used to verify an individual authorization. Expected to be unique per
+                 * acquirer within a window of time.
+                 */
+                @JsonProperty("trace_number") @ExcludeMissing fun _traceNumber() = traceNumber
+
+                /**
+                 * A life-cycle identifier used across e.g., an authorization and a reversal.
+                 * Expected to be unique per acquirer within a window of time. For some card
+                 * networks the retrieval reference number includes the trace counter.
+                 */
+                @JsonProperty("retrieval_reference_number")
+                @ExcludeMissing
+                fun _retrievalReferenceNumber() = retrievalReferenceNumber
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun validate(): NetworkIdentifiers = apply {
+                    if (!validated) {
+                        transactionId()
+                        traceNumber()
+                        retrievalReferenceNumber()
+                        validated = true
+                    }
+                }
+
+                fun toBuilder() = Builder().from(this)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is NetworkIdentifiers &&
+                        this.transactionId == other.transactionId &&
+                        this.traceNumber == other.traceNumber &&
+                        this.retrievalReferenceNumber == other.retrievalReferenceNumber &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode =
+                            Objects.hash(
+                                transactionId,
+                                traceNumber,
+                                retrievalReferenceNumber,
+                                additionalProperties,
+                            )
+                    }
+                    return hashCode
+                }
+
+                override fun toString() =
+                    "NetworkIdentifiers{transactionId=$transactionId, traceNumber=$traceNumber, retrievalReferenceNumber=$retrievalReferenceNumber, additionalProperties=$additionalProperties}"
+
+                companion object {
+
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                class Builder {
+
+                    private var transactionId: JsonField<String> = JsonMissing.of()
+                    private var traceNumber: JsonField<String> = JsonMissing.of()
+                    private var retrievalReferenceNumber: JsonField<String> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(networkIdentifiers: NetworkIdentifiers) = apply {
+                        this.transactionId = networkIdentifiers.transactionId
+                        this.traceNumber = networkIdentifiers.traceNumber
+                        this.retrievalReferenceNumber = networkIdentifiers.retrievalReferenceNumber
+                        additionalProperties(networkIdentifiers.additionalProperties)
+                    }
+
+                    /**
+                     * A globally unique transaction identifier provided by the card network, used
+                     * across multiple life-cycle requests.
+                     */
+                    fun transactionId(transactionId: String) =
+                        transactionId(JsonField.of(transactionId))
+
+                    /**
+                     * A globally unique transaction identifier provided by the card network, used
+                     * across multiple life-cycle requests.
+                     */
+                    @JsonProperty("transaction_id")
+                    @ExcludeMissing
+                    fun transactionId(transactionId: JsonField<String>) = apply {
+                        this.transactionId = transactionId
+                    }
+
+                    /**
+                     * A counter used to verify an individual authorization. Expected to be unique
+                     * per acquirer within a window of time.
+                     */
+                    fun traceNumber(traceNumber: String) = traceNumber(JsonField.of(traceNumber))
+
+                    /**
+                     * A counter used to verify an individual authorization. Expected to be unique
+                     * per acquirer within a window of time.
+                     */
+                    @JsonProperty("trace_number")
+                    @ExcludeMissing
+                    fun traceNumber(traceNumber: JsonField<String>) = apply {
+                        this.traceNumber = traceNumber
+                    }
+
+                    /**
+                     * A life-cycle identifier used across e.g., an authorization and a reversal.
+                     * Expected to be unique per acquirer within a window of time. For some card
+                     * networks the retrieval reference number includes the trace counter.
+                     */
+                    fun retrievalReferenceNumber(retrievalReferenceNumber: String) =
+                        retrievalReferenceNumber(JsonField.of(retrievalReferenceNumber))
+
+                    /**
+                     * A life-cycle identifier used across e.g., an authorization and a reversal.
+                     * Expected to be unique per acquirer within a window of time. For some card
+                     * networks the retrieval reference number includes the trace counter.
+                     */
+                    @JsonProperty("retrieval_reference_number")
+                    @ExcludeMissing
+                    fun retrievalReferenceNumber(retrievalReferenceNumber: JsonField<String>) =
+                        apply {
+                            this.retrievalReferenceNumber = retrievalReferenceNumber
+                        }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    @JsonAnySetter
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        this.additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun build(): NetworkIdentifiers =
+                        NetworkIdentifiers(
+                            transactionId,
+                            traceNumber,
+                            retrievalReferenceNumber,
+                            additionalProperties.toUnmodifiable(),
+                        )
+                }
+            }
+
             class Type
             @JsonCreator
             private constructor(
@@ -6278,6 +6506,7 @@ private constructor(
             private val network: JsonField<Network>,
             private val realTimeDecisionId: JsonField<String>,
             private val pendingTransactionId: JsonField<String>,
+            private val networkIdentifiers: JsonField<NetworkIdentifiers>,
             private val type: JsonField<Type>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
@@ -6325,6 +6554,10 @@ private constructor(
             /** The identifier of the Pending Transaction associated with this Card Increment. */
             fun pendingTransactionId(): Optional<String> =
                 Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
+
+            /** Network-specific identifiers for a specific request or transaction. */
+            fun networkIdentifiers(): NetworkIdentifiers =
+                networkIdentifiers.getRequired("network_identifiers")
 
             /**
              * A constant representing the object's type. For this resource it will always be
@@ -6376,6 +6609,11 @@ private constructor(
             @ExcludeMissing
             fun _pendingTransactionId() = pendingTransactionId
 
+            /** Network-specific identifiers for a specific request or transaction. */
+            @JsonProperty("network_identifiers")
+            @ExcludeMissing
+            fun _networkIdentifiers() = networkIdentifiers
+
             /**
              * A constant representing the object's type. For this resource it will always be
              * `card_increment`.
@@ -6396,6 +6634,7 @@ private constructor(
                     network()
                     realTimeDecisionId()
                     pendingTransactionId()
+                    networkIdentifiers().validate()
                     type()
                     validated = true
                 }
@@ -6417,6 +6656,7 @@ private constructor(
                     this.network == other.network &&
                     this.realTimeDecisionId == other.realTimeDecisionId &&
                     this.pendingTransactionId == other.pendingTransactionId &&
+                    this.networkIdentifiers == other.networkIdentifiers &&
                     this.type == other.type &&
                     this.additionalProperties == other.additionalProperties
             }
@@ -6433,6 +6673,7 @@ private constructor(
                             network,
                             realTimeDecisionId,
                             pendingTransactionId,
+                            networkIdentifiers,
                             type,
                             additionalProperties,
                         )
@@ -6441,7 +6682,7 @@ private constructor(
             }
 
             override fun toString() =
-                "CardIncrement{id=$id, amount=$amount, updatedAuthorizationAmount=$updatedAuthorizationAmount, currency=$currency, cardAuthorizationId=$cardAuthorizationId, network=$network, realTimeDecisionId=$realTimeDecisionId, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
+                "CardIncrement{id=$id, amount=$amount, updatedAuthorizationAmount=$updatedAuthorizationAmount, currency=$currency, cardAuthorizationId=$cardAuthorizationId, network=$network, realTimeDecisionId=$realTimeDecisionId, pendingTransactionId=$pendingTransactionId, networkIdentifiers=$networkIdentifiers, type=$type, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -6458,6 +6699,7 @@ private constructor(
                 private var network: JsonField<Network> = JsonMissing.of()
                 private var realTimeDecisionId: JsonField<String> = JsonMissing.of()
                 private var pendingTransactionId: JsonField<String> = JsonMissing.of()
+                private var networkIdentifiers: JsonField<NetworkIdentifiers> = JsonMissing.of()
                 private var type: JsonField<Type> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -6471,6 +6713,7 @@ private constructor(
                     this.network = cardIncrement.network
                     this.realTimeDecisionId = cardIncrement.realTimeDecisionId
                     this.pendingTransactionId = cardIncrement.pendingTransactionId
+                    this.networkIdentifiers = cardIncrement.networkIdentifiers
                     this.type = cardIncrement.type
                     additionalProperties(cardIncrement.additionalProperties)
                 }
@@ -6580,6 +6823,17 @@ private constructor(
                     this.pendingTransactionId = pendingTransactionId
                 }
 
+                /** Network-specific identifiers for a specific request or transaction. */
+                fun networkIdentifiers(networkIdentifiers: NetworkIdentifiers) =
+                    networkIdentifiers(JsonField.of(networkIdentifiers))
+
+                /** Network-specific identifiers for a specific request or transaction. */
+                @JsonProperty("network_identifiers")
+                @ExcludeMissing
+                fun networkIdentifiers(networkIdentifiers: JsonField<NetworkIdentifiers>) = apply {
+                    this.networkIdentifiers = networkIdentifiers
+                }
+
                 /**
                  * A constant representing the object's type. For this resource it will always be
                  * `card_increment`.
@@ -6619,6 +6873,7 @@ private constructor(
                         network,
                         realTimeDecisionId,
                         pendingTransactionId,
+                        networkIdentifiers,
                         type,
                         additionalProperties.toUnmodifiable(),
                     )
@@ -6756,6 +7011,207 @@ private constructor(
                 fun asString(): String = _value().asStringOrThrow()
             }
 
+            /** Network-specific identifiers for a specific request or transaction. */
+            @JsonDeserialize(builder = NetworkIdentifiers.Builder::class)
+            @NoAutoDetect
+            class NetworkIdentifiers
+            private constructor(
+                private val transactionId: JsonField<String>,
+                private val traceNumber: JsonField<String>,
+                private val retrievalReferenceNumber: JsonField<String>,
+                private val additionalProperties: Map<String, JsonValue>,
+            ) {
+
+                private var validated: Boolean = false
+
+                private var hashCode: Int = 0
+
+                /**
+                 * A globally unique transaction identifier provided by the card network, used
+                 * across multiple life-cycle requests.
+                 */
+                fun transactionId(): Optional<String> =
+                    Optional.ofNullable(transactionId.getNullable("transaction_id"))
+
+                /**
+                 * A counter used to verify an individual authorization. Expected to be unique per
+                 * acquirer within a window of time.
+                 */
+                fun traceNumber(): Optional<String> =
+                    Optional.ofNullable(traceNumber.getNullable("trace_number"))
+
+                /**
+                 * A life-cycle identifier used across e.g., an authorization and a reversal.
+                 * Expected to be unique per acquirer within a window of time. For some card
+                 * networks the retrieval reference number includes the trace counter.
+                 */
+                fun retrievalReferenceNumber(): Optional<String> =
+                    Optional.ofNullable(
+                        retrievalReferenceNumber.getNullable("retrieval_reference_number")
+                    )
+
+                /**
+                 * A globally unique transaction identifier provided by the card network, used
+                 * across multiple life-cycle requests.
+                 */
+                @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+
+                /**
+                 * A counter used to verify an individual authorization. Expected to be unique per
+                 * acquirer within a window of time.
+                 */
+                @JsonProperty("trace_number") @ExcludeMissing fun _traceNumber() = traceNumber
+
+                /**
+                 * A life-cycle identifier used across e.g., an authorization and a reversal.
+                 * Expected to be unique per acquirer within a window of time. For some card
+                 * networks the retrieval reference number includes the trace counter.
+                 */
+                @JsonProperty("retrieval_reference_number")
+                @ExcludeMissing
+                fun _retrievalReferenceNumber() = retrievalReferenceNumber
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun validate(): NetworkIdentifiers = apply {
+                    if (!validated) {
+                        transactionId()
+                        traceNumber()
+                        retrievalReferenceNumber()
+                        validated = true
+                    }
+                }
+
+                fun toBuilder() = Builder().from(this)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is NetworkIdentifiers &&
+                        this.transactionId == other.transactionId &&
+                        this.traceNumber == other.traceNumber &&
+                        this.retrievalReferenceNumber == other.retrievalReferenceNumber &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode =
+                            Objects.hash(
+                                transactionId,
+                                traceNumber,
+                                retrievalReferenceNumber,
+                                additionalProperties,
+                            )
+                    }
+                    return hashCode
+                }
+
+                override fun toString() =
+                    "NetworkIdentifiers{transactionId=$transactionId, traceNumber=$traceNumber, retrievalReferenceNumber=$retrievalReferenceNumber, additionalProperties=$additionalProperties}"
+
+                companion object {
+
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                class Builder {
+
+                    private var transactionId: JsonField<String> = JsonMissing.of()
+                    private var traceNumber: JsonField<String> = JsonMissing.of()
+                    private var retrievalReferenceNumber: JsonField<String> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(networkIdentifiers: NetworkIdentifiers) = apply {
+                        this.transactionId = networkIdentifiers.transactionId
+                        this.traceNumber = networkIdentifiers.traceNumber
+                        this.retrievalReferenceNumber = networkIdentifiers.retrievalReferenceNumber
+                        additionalProperties(networkIdentifiers.additionalProperties)
+                    }
+
+                    /**
+                     * A globally unique transaction identifier provided by the card network, used
+                     * across multiple life-cycle requests.
+                     */
+                    fun transactionId(transactionId: String) =
+                        transactionId(JsonField.of(transactionId))
+
+                    /**
+                     * A globally unique transaction identifier provided by the card network, used
+                     * across multiple life-cycle requests.
+                     */
+                    @JsonProperty("transaction_id")
+                    @ExcludeMissing
+                    fun transactionId(transactionId: JsonField<String>) = apply {
+                        this.transactionId = transactionId
+                    }
+
+                    /**
+                     * A counter used to verify an individual authorization. Expected to be unique
+                     * per acquirer within a window of time.
+                     */
+                    fun traceNumber(traceNumber: String) = traceNumber(JsonField.of(traceNumber))
+
+                    /**
+                     * A counter used to verify an individual authorization. Expected to be unique
+                     * per acquirer within a window of time.
+                     */
+                    @JsonProperty("trace_number")
+                    @ExcludeMissing
+                    fun traceNumber(traceNumber: JsonField<String>) = apply {
+                        this.traceNumber = traceNumber
+                    }
+
+                    /**
+                     * A life-cycle identifier used across e.g., an authorization and a reversal.
+                     * Expected to be unique per acquirer within a window of time. For some card
+                     * networks the retrieval reference number includes the trace counter.
+                     */
+                    fun retrievalReferenceNumber(retrievalReferenceNumber: String) =
+                        retrievalReferenceNumber(JsonField.of(retrievalReferenceNumber))
+
+                    /**
+                     * A life-cycle identifier used across e.g., an authorization and a reversal.
+                     * Expected to be unique per acquirer within a window of time. For some card
+                     * networks the retrieval reference number includes the trace counter.
+                     */
+                    @JsonProperty("retrieval_reference_number")
+                    @ExcludeMissing
+                    fun retrievalReferenceNumber(retrievalReferenceNumber: JsonField<String>) =
+                        apply {
+                            this.retrievalReferenceNumber = retrievalReferenceNumber
+                        }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    @JsonAnySetter
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        this.additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun build(): NetworkIdentifiers =
+                        NetworkIdentifiers(
+                            transactionId,
+                            traceNumber,
+                            retrievalReferenceNumber,
+                            additionalProperties.toUnmodifiable(),
+                        )
+                }
+            }
+
             class Type
             @JsonCreator
             private constructor(
@@ -6828,6 +7284,7 @@ private constructor(
             private val merchantCategoryCode: JsonField<String>,
             private val purchaseDetails: JsonField<PurchaseDetails>,
             private val transactionId: JsonField<String>,
+            private val networkIdentifiers: JsonField<NetworkIdentifiers>,
             private val type: JsonField<Type>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
@@ -6890,6 +7347,10 @@ private constructor(
             /** The identifier of the Transaction associated with this Transaction. */
             fun transactionId(): String = transactionId.getRequired("transaction_id")
 
+            /** Network-specific identifiers for this refund. */
+            fun networkIdentifiers(): NetworkIdentifiers =
+                networkIdentifiers.getRequired("network_identifiers")
+
             /**
              * A constant representing the object's type. For this resource it will always be
              * `card_refund`.
@@ -6951,6 +7412,11 @@ private constructor(
             /** The identifier of the Transaction associated with this Transaction. */
             @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
+            /** Network-specific identifiers for this refund. */
+            @JsonProperty("network_identifiers")
+            @ExcludeMissing
+            fun _networkIdentifiers() = networkIdentifiers
+
             /**
              * A constant representing the object's type. For this resource it will always be
              * `card_refund`.
@@ -6975,6 +7441,7 @@ private constructor(
                     merchantCategoryCode()
                     purchaseDetails().map { it.validate() }
                     transactionId()
+                    networkIdentifiers().validate()
                     type()
                     validated = true
                 }
@@ -7000,6 +7467,7 @@ private constructor(
                     this.merchantCategoryCode == other.merchantCategoryCode &&
                     this.purchaseDetails == other.purchaseDetails &&
                     this.transactionId == other.transactionId &&
+                    this.networkIdentifiers == other.networkIdentifiers &&
                     this.type == other.type &&
                     this.additionalProperties == other.additionalProperties
             }
@@ -7020,6 +7488,7 @@ private constructor(
                             merchantCategoryCode,
                             purchaseDetails,
                             transactionId,
+                            networkIdentifiers,
                             type,
                             additionalProperties,
                         )
@@ -7028,7 +7497,7 @@ private constructor(
             }
 
             override fun toString() =
-                "CardRefund{id=$id, cardPaymentId=$cardPaymentId, amount=$amount, currency=$currency, merchantAcceptorId=$merchantAcceptorId, merchantCity=$merchantCity, merchantState=$merchantState, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantCategoryCode=$merchantCategoryCode, purchaseDetails=$purchaseDetails, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+                "CardRefund{id=$id, cardPaymentId=$cardPaymentId, amount=$amount, currency=$currency, merchantAcceptorId=$merchantAcceptorId, merchantCity=$merchantCity, merchantState=$merchantState, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantCategoryCode=$merchantCategoryCode, purchaseDetails=$purchaseDetails, transactionId=$transactionId, networkIdentifiers=$networkIdentifiers, type=$type, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -7049,6 +7518,7 @@ private constructor(
                 private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
                 private var purchaseDetails: JsonField<PurchaseDetails> = JsonMissing.of()
                 private var transactionId: JsonField<String> = JsonMissing.of()
+                private var networkIdentifiers: JsonField<NetworkIdentifiers> = JsonMissing.of()
                 private var type: JsonField<Type> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -7066,6 +7536,7 @@ private constructor(
                     this.merchantCategoryCode = cardRefund.merchantCategoryCode
                     this.purchaseDetails = cardRefund.purchaseDetails
                     this.transactionId = cardRefund.transactionId
+                    this.networkIdentifiers = cardRefund.networkIdentifiers
                     this.type = cardRefund.type
                     additionalProperties(cardRefund.additionalProperties)
                 }
@@ -7215,6 +7686,17 @@ private constructor(
                     this.transactionId = transactionId
                 }
 
+                /** Network-specific identifiers for this refund. */
+                fun networkIdentifiers(networkIdentifiers: NetworkIdentifiers) =
+                    networkIdentifiers(JsonField.of(networkIdentifiers))
+
+                /** Network-specific identifiers for this refund. */
+                @JsonProperty("network_identifiers")
+                @ExcludeMissing
+                fun networkIdentifiers(networkIdentifiers: JsonField<NetworkIdentifiers>) = apply {
+                    this.networkIdentifiers = networkIdentifiers
+                }
+
                 /**
                  * A constant representing the object's type. For this resource it will always be
                  * `card_refund`.
@@ -7258,6 +7740,7 @@ private constructor(
                         merchantCategoryCode,
                         purchaseDetails,
                         transactionId,
+                        networkIdentifiers,
                         type,
                         additionalProperties.toUnmodifiable(),
                     )
@@ -7342,6 +7825,192 @@ private constructor(
                     }
 
                 fun asString(): String = _value().asStringOrThrow()
+            }
+
+            /** Network-specific identifiers for this refund. */
+            @JsonDeserialize(builder = NetworkIdentifiers.Builder::class)
+            @NoAutoDetect
+            class NetworkIdentifiers
+            private constructor(
+                private val transactionId: JsonField<String>,
+                private val acquirerReferenceNumber: JsonField<String>,
+                private val acquirerBusinessId: JsonField<String>,
+                private val additionalProperties: Map<String, JsonValue>,
+            ) {
+
+                private var validated: Boolean = false
+
+                private var hashCode: Int = 0
+
+                /**
+                 * A globally unique transaction identifier provided by the card network, used
+                 * across multiple life-cycle requests.
+                 */
+                fun transactionId(): Optional<String> =
+                    Optional.ofNullable(transactionId.getNullable("transaction_id"))
+
+                /** A globally unique identifier for this settlement. */
+                fun acquirerReferenceNumber(): String =
+                    acquirerReferenceNumber.getRequired("acquirer_reference_number")
+
+                /**
+                 * A network assigned business ID that identifies the acquirer that processed this
+                 * transaction.
+                 */
+                fun acquirerBusinessId(): String =
+                    acquirerBusinessId.getRequired("acquirer_business_id")
+
+                /**
+                 * A globally unique transaction identifier provided by the card network, used
+                 * across multiple life-cycle requests.
+                 */
+                @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+
+                /** A globally unique identifier for this settlement. */
+                @JsonProperty("acquirer_reference_number")
+                @ExcludeMissing
+                fun _acquirerReferenceNumber() = acquirerReferenceNumber
+
+                /**
+                 * A network assigned business ID that identifies the acquirer that processed this
+                 * transaction.
+                 */
+                @JsonProperty("acquirer_business_id")
+                @ExcludeMissing
+                fun _acquirerBusinessId() = acquirerBusinessId
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun validate(): NetworkIdentifiers = apply {
+                    if (!validated) {
+                        transactionId()
+                        acquirerReferenceNumber()
+                        acquirerBusinessId()
+                        validated = true
+                    }
+                }
+
+                fun toBuilder() = Builder().from(this)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is NetworkIdentifiers &&
+                        this.transactionId == other.transactionId &&
+                        this.acquirerReferenceNumber == other.acquirerReferenceNumber &&
+                        this.acquirerBusinessId == other.acquirerBusinessId &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode =
+                            Objects.hash(
+                                transactionId,
+                                acquirerReferenceNumber,
+                                acquirerBusinessId,
+                                additionalProperties,
+                            )
+                    }
+                    return hashCode
+                }
+
+                override fun toString() =
+                    "NetworkIdentifiers{transactionId=$transactionId, acquirerReferenceNumber=$acquirerReferenceNumber, acquirerBusinessId=$acquirerBusinessId, additionalProperties=$additionalProperties}"
+
+                companion object {
+
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                class Builder {
+
+                    private var transactionId: JsonField<String> = JsonMissing.of()
+                    private var acquirerReferenceNumber: JsonField<String> = JsonMissing.of()
+                    private var acquirerBusinessId: JsonField<String> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(networkIdentifiers: NetworkIdentifiers) = apply {
+                        this.transactionId = networkIdentifiers.transactionId
+                        this.acquirerReferenceNumber = networkIdentifiers.acquirerReferenceNumber
+                        this.acquirerBusinessId = networkIdentifiers.acquirerBusinessId
+                        additionalProperties(networkIdentifiers.additionalProperties)
+                    }
+
+                    /**
+                     * A globally unique transaction identifier provided by the card network, used
+                     * across multiple life-cycle requests.
+                     */
+                    fun transactionId(transactionId: String) =
+                        transactionId(JsonField.of(transactionId))
+
+                    /**
+                     * A globally unique transaction identifier provided by the card network, used
+                     * across multiple life-cycle requests.
+                     */
+                    @JsonProperty("transaction_id")
+                    @ExcludeMissing
+                    fun transactionId(transactionId: JsonField<String>) = apply {
+                        this.transactionId = transactionId
+                    }
+
+                    /** A globally unique identifier for this settlement. */
+                    fun acquirerReferenceNumber(acquirerReferenceNumber: String) =
+                        acquirerReferenceNumber(JsonField.of(acquirerReferenceNumber))
+
+                    /** A globally unique identifier for this settlement. */
+                    @JsonProperty("acquirer_reference_number")
+                    @ExcludeMissing
+                    fun acquirerReferenceNumber(acquirerReferenceNumber: JsonField<String>) =
+                        apply {
+                            this.acquirerReferenceNumber = acquirerReferenceNumber
+                        }
+
+                    /**
+                     * A network assigned business ID that identifies the acquirer that processed
+                     * this transaction.
+                     */
+                    fun acquirerBusinessId(acquirerBusinessId: String) =
+                        acquirerBusinessId(JsonField.of(acquirerBusinessId))
+
+                    /**
+                     * A network assigned business ID that identifies the acquirer that processed
+                     * this transaction.
+                     */
+                    @JsonProperty("acquirer_business_id")
+                    @ExcludeMissing
+                    fun acquirerBusinessId(acquirerBusinessId: JsonField<String>) = apply {
+                        this.acquirerBusinessId = acquirerBusinessId
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    @JsonAnySetter
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        this.additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun build(): NetworkIdentifiers =
+                        NetworkIdentifiers(
+                            transactionId,
+                            acquirerReferenceNumber,
+                            acquirerBusinessId,
+                            additionalProperties.toUnmodifiable(),
+                        )
+                }
             }
 
             /**
@@ -11157,6 +11826,7 @@ private constructor(
             private val cardAuthorizationId: JsonField<String>,
             private val network: JsonField<Network>,
             private val pendingTransactionId: JsonField<String>,
+            private val networkIdentifiers: JsonField<NetworkIdentifiers>,
             private val type: JsonField<Type>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
@@ -11197,6 +11867,10 @@ private constructor(
             /** The identifier of the Pending Transaction associated with this Card Reversal. */
             fun pendingTransactionId(): Optional<String> =
                 Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
+
+            /** Network-specific identifiers for a specific request or transaction. */
+            fun networkIdentifiers(): NetworkIdentifiers =
+                networkIdentifiers.getRequired("network_identifiers")
 
             /**
              * A constant representing the object's type. For this resource it will always be
@@ -11240,6 +11914,11 @@ private constructor(
             @ExcludeMissing
             fun _pendingTransactionId() = pendingTransactionId
 
+            /** Network-specific identifiers for a specific request or transaction. */
+            @JsonProperty("network_identifiers")
+            @ExcludeMissing
+            fun _networkIdentifiers() = networkIdentifiers
+
             /**
              * A constant representing the object's type. For this resource it will always be
              * `card_reversal`.
@@ -11259,6 +11938,7 @@ private constructor(
                     cardAuthorizationId()
                     network()
                     pendingTransactionId()
+                    networkIdentifiers().validate()
                     type()
                     validated = true
                 }
@@ -11279,6 +11959,7 @@ private constructor(
                     this.cardAuthorizationId == other.cardAuthorizationId &&
                     this.network == other.network &&
                     this.pendingTransactionId == other.pendingTransactionId &&
+                    this.networkIdentifiers == other.networkIdentifiers &&
                     this.type == other.type &&
                     this.additionalProperties == other.additionalProperties
             }
@@ -11294,6 +11975,7 @@ private constructor(
                             cardAuthorizationId,
                             network,
                             pendingTransactionId,
+                            networkIdentifiers,
                             type,
                             additionalProperties,
                         )
@@ -11302,7 +11984,7 @@ private constructor(
             }
 
             override fun toString() =
-                "CardReversal{id=$id, reversalAmount=$reversalAmount, updatedAuthorizationAmount=$updatedAuthorizationAmount, currency=$currency, cardAuthorizationId=$cardAuthorizationId, network=$network, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
+                "CardReversal{id=$id, reversalAmount=$reversalAmount, updatedAuthorizationAmount=$updatedAuthorizationAmount, currency=$currency, cardAuthorizationId=$cardAuthorizationId, network=$network, pendingTransactionId=$pendingTransactionId, networkIdentifiers=$networkIdentifiers, type=$type, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -11318,6 +12000,7 @@ private constructor(
                 private var cardAuthorizationId: JsonField<String> = JsonMissing.of()
                 private var network: JsonField<Network> = JsonMissing.of()
                 private var pendingTransactionId: JsonField<String> = JsonMissing.of()
+                private var networkIdentifiers: JsonField<NetworkIdentifiers> = JsonMissing.of()
                 private var type: JsonField<Type> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -11330,6 +12013,7 @@ private constructor(
                     this.cardAuthorizationId = cardReversal.cardAuthorizationId
                     this.network = cardReversal.network
                     this.pendingTransactionId = cardReversal.pendingTransactionId
+                    this.networkIdentifiers = cardReversal.networkIdentifiers
                     this.type = cardReversal.type
                     additionalProperties(cardReversal.additionalProperties)
                 }
@@ -11421,6 +12105,17 @@ private constructor(
                     this.pendingTransactionId = pendingTransactionId
                 }
 
+                /** Network-specific identifiers for a specific request or transaction. */
+                fun networkIdentifiers(networkIdentifiers: NetworkIdentifiers) =
+                    networkIdentifiers(JsonField.of(networkIdentifiers))
+
+                /** Network-specific identifiers for a specific request or transaction. */
+                @JsonProperty("network_identifiers")
+                @ExcludeMissing
+                fun networkIdentifiers(networkIdentifiers: JsonField<NetworkIdentifiers>) = apply {
+                    this.networkIdentifiers = networkIdentifiers
+                }
+
                 /**
                  * A constant representing the object's type. For this resource it will always be
                  * `card_reversal`.
@@ -11459,6 +12154,7 @@ private constructor(
                         cardAuthorizationId,
                         network,
                         pendingTransactionId,
+                        networkIdentifiers,
                         type,
                         additionalProperties.toUnmodifiable(),
                     )
@@ -11596,6 +12292,207 @@ private constructor(
                 fun asString(): String = _value().asStringOrThrow()
             }
 
+            /** Network-specific identifiers for a specific request or transaction. */
+            @JsonDeserialize(builder = NetworkIdentifiers.Builder::class)
+            @NoAutoDetect
+            class NetworkIdentifiers
+            private constructor(
+                private val transactionId: JsonField<String>,
+                private val traceNumber: JsonField<String>,
+                private val retrievalReferenceNumber: JsonField<String>,
+                private val additionalProperties: Map<String, JsonValue>,
+            ) {
+
+                private var validated: Boolean = false
+
+                private var hashCode: Int = 0
+
+                /**
+                 * A globally unique transaction identifier provided by the card network, used
+                 * across multiple life-cycle requests.
+                 */
+                fun transactionId(): Optional<String> =
+                    Optional.ofNullable(transactionId.getNullable("transaction_id"))
+
+                /**
+                 * A counter used to verify an individual authorization. Expected to be unique per
+                 * acquirer within a window of time.
+                 */
+                fun traceNumber(): Optional<String> =
+                    Optional.ofNullable(traceNumber.getNullable("trace_number"))
+
+                /**
+                 * A life-cycle identifier used across e.g., an authorization and a reversal.
+                 * Expected to be unique per acquirer within a window of time. For some card
+                 * networks the retrieval reference number includes the trace counter.
+                 */
+                fun retrievalReferenceNumber(): Optional<String> =
+                    Optional.ofNullable(
+                        retrievalReferenceNumber.getNullable("retrieval_reference_number")
+                    )
+
+                /**
+                 * A globally unique transaction identifier provided by the card network, used
+                 * across multiple life-cycle requests.
+                 */
+                @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+
+                /**
+                 * A counter used to verify an individual authorization. Expected to be unique per
+                 * acquirer within a window of time.
+                 */
+                @JsonProperty("trace_number") @ExcludeMissing fun _traceNumber() = traceNumber
+
+                /**
+                 * A life-cycle identifier used across e.g., an authorization and a reversal.
+                 * Expected to be unique per acquirer within a window of time. For some card
+                 * networks the retrieval reference number includes the trace counter.
+                 */
+                @JsonProperty("retrieval_reference_number")
+                @ExcludeMissing
+                fun _retrievalReferenceNumber() = retrievalReferenceNumber
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun validate(): NetworkIdentifiers = apply {
+                    if (!validated) {
+                        transactionId()
+                        traceNumber()
+                        retrievalReferenceNumber()
+                        validated = true
+                    }
+                }
+
+                fun toBuilder() = Builder().from(this)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is NetworkIdentifiers &&
+                        this.transactionId == other.transactionId &&
+                        this.traceNumber == other.traceNumber &&
+                        this.retrievalReferenceNumber == other.retrievalReferenceNumber &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode =
+                            Objects.hash(
+                                transactionId,
+                                traceNumber,
+                                retrievalReferenceNumber,
+                                additionalProperties,
+                            )
+                    }
+                    return hashCode
+                }
+
+                override fun toString() =
+                    "NetworkIdentifiers{transactionId=$transactionId, traceNumber=$traceNumber, retrievalReferenceNumber=$retrievalReferenceNumber, additionalProperties=$additionalProperties}"
+
+                companion object {
+
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                class Builder {
+
+                    private var transactionId: JsonField<String> = JsonMissing.of()
+                    private var traceNumber: JsonField<String> = JsonMissing.of()
+                    private var retrievalReferenceNumber: JsonField<String> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(networkIdentifiers: NetworkIdentifiers) = apply {
+                        this.transactionId = networkIdentifiers.transactionId
+                        this.traceNumber = networkIdentifiers.traceNumber
+                        this.retrievalReferenceNumber = networkIdentifiers.retrievalReferenceNumber
+                        additionalProperties(networkIdentifiers.additionalProperties)
+                    }
+
+                    /**
+                     * A globally unique transaction identifier provided by the card network, used
+                     * across multiple life-cycle requests.
+                     */
+                    fun transactionId(transactionId: String) =
+                        transactionId(JsonField.of(transactionId))
+
+                    /**
+                     * A globally unique transaction identifier provided by the card network, used
+                     * across multiple life-cycle requests.
+                     */
+                    @JsonProperty("transaction_id")
+                    @ExcludeMissing
+                    fun transactionId(transactionId: JsonField<String>) = apply {
+                        this.transactionId = transactionId
+                    }
+
+                    /**
+                     * A counter used to verify an individual authorization. Expected to be unique
+                     * per acquirer within a window of time.
+                     */
+                    fun traceNumber(traceNumber: String) = traceNumber(JsonField.of(traceNumber))
+
+                    /**
+                     * A counter used to verify an individual authorization. Expected to be unique
+                     * per acquirer within a window of time.
+                     */
+                    @JsonProperty("trace_number")
+                    @ExcludeMissing
+                    fun traceNumber(traceNumber: JsonField<String>) = apply {
+                        this.traceNumber = traceNumber
+                    }
+
+                    /**
+                     * A life-cycle identifier used across e.g., an authorization and a reversal.
+                     * Expected to be unique per acquirer within a window of time. For some card
+                     * networks the retrieval reference number includes the trace counter.
+                     */
+                    fun retrievalReferenceNumber(retrievalReferenceNumber: String) =
+                        retrievalReferenceNumber(JsonField.of(retrievalReferenceNumber))
+
+                    /**
+                     * A life-cycle identifier used across e.g., an authorization and a reversal.
+                     * Expected to be unique per acquirer within a window of time. For some card
+                     * networks the retrieval reference number includes the trace counter.
+                     */
+                    @JsonProperty("retrieval_reference_number")
+                    @ExcludeMissing
+                    fun retrievalReferenceNumber(retrievalReferenceNumber: JsonField<String>) =
+                        apply {
+                            this.retrievalReferenceNumber = retrievalReferenceNumber
+                        }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    @JsonAnySetter
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        this.additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun build(): NetworkIdentifiers =
+                        NetworkIdentifiers(
+                            transactionId,
+                            traceNumber,
+                            retrievalReferenceNumber,
+                            additionalProperties.toUnmodifiable(),
+                        )
+                }
+            }
+
             class Type
             @JsonCreator
             private constructor(
@@ -11672,6 +12569,7 @@ private constructor(
             private val transactionId: JsonField<String>,
             private val pendingTransactionId: JsonField<String>,
             private val purchaseDetails: JsonField<PurchaseDetails>,
+            private val networkIdentifiers: JsonField<NetworkIdentifiers>,
             private val type: JsonField<Type>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
@@ -11753,6 +12651,10 @@ private constructor(
              */
             fun purchaseDetails(): Optional<PurchaseDetails> =
                 Optional.ofNullable(purchaseDetails.getNullable("purchase_details"))
+
+            /** Network-specific identifiers for this refund. */
+            fun networkIdentifiers(): NetworkIdentifiers =
+                networkIdentifiers.getRequired("network_identifiers")
 
             /**
              * A constant representing the object's type. For this resource it will always be
@@ -11840,6 +12742,11 @@ private constructor(
             @ExcludeMissing
             fun _purchaseDetails() = purchaseDetails
 
+            /** Network-specific identifiers for this refund. */
+            @JsonProperty("network_identifiers")
+            @ExcludeMissing
+            fun _networkIdentifiers() = networkIdentifiers
+
             /**
              * A constant representing the object's type. For this resource it will always be
              * `card_settlement`.
@@ -11868,6 +12775,7 @@ private constructor(
                     transactionId()
                     pendingTransactionId()
                     purchaseDetails().map { it.validate() }
+                    networkIdentifiers().validate()
                     type()
                     validated = true
                 }
@@ -11897,6 +12805,7 @@ private constructor(
                     this.transactionId == other.transactionId &&
                     this.pendingTransactionId == other.pendingTransactionId &&
                     this.purchaseDetails == other.purchaseDetails &&
+                    this.networkIdentifiers == other.networkIdentifiers &&
                     this.type == other.type &&
                     this.additionalProperties == other.additionalProperties
             }
@@ -11921,6 +12830,7 @@ private constructor(
                             transactionId,
                             pendingTransactionId,
                             purchaseDetails,
+                            networkIdentifiers,
                             type,
                             additionalProperties,
                         )
@@ -11929,7 +12839,7 @@ private constructor(
             }
 
             override fun toString() =
-                "CardSettlement{id=$id, cardPaymentId=$cardPaymentId, cardAuthorization=$cardAuthorization, amount=$amount, currency=$currency, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, merchantAcceptorId=$merchantAcceptorId, merchantCity=$merchantCity, merchantState=$merchantState, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantCategoryCode=$merchantCategoryCode, transactionId=$transactionId, pendingTransactionId=$pendingTransactionId, purchaseDetails=$purchaseDetails, type=$type, additionalProperties=$additionalProperties}"
+                "CardSettlement{id=$id, cardPaymentId=$cardPaymentId, cardAuthorization=$cardAuthorization, amount=$amount, currency=$currency, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, merchantAcceptorId=$merchantAcceptorId, merchantCity=$merchantCity, merchantState=$merchantState, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantCategoryCode=$merchantCategoryCode, transactionId=$transactionId, pendingTransactionId=$pendingTransactionId, purchaseDetails=$purchaseDetails, networkIdentifiers=$networkIdentifiers, type=$type, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -11954,6 +12864,7 @@ private constructor(
                 private var transactionId: JsonField<String> = JsonMissing.of()
                 private var pendingTransactionId: JsonField<String> = JsonMissing.of()
                 private var purchaseDetails: JsonField<PurchaseDetails> = JsonMissing.of()
+                private var networkIdentifiers: JsonField<NetworkIdentifiers> = JsonMissing.of()
                 private var type: JsonField<Type> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -11975,6 +12886,7 @@ private constructor(
                     this.transactionId = cardSettlement.transactionId
                     this.pendingTransactionId = cardSettlement.pendingTransactionId
                     this.purchaseDetails = cardSettlement.purchaseDetails
+                    this.networkIdentifiers = cardSettlement.networkIdentifiers
                     this.type = cardSettlement.type
                     additionalProperties(cardSettlement.additionalProperties)
                 }
@@ -12180,6 +13092,17 @@ private constructor(
                     this.purchaseDetails = purchaseDetails
                 }
 
+                /** Network-specific identifiers for this refund. */
+                fun networkIdentifiers(networkIdentifiers: NetworkIdentifiers) =
+                    networkIdentifiers(JsonField.of(networkIdentifiers))
+
+                /** Network-specific identifiers for this refund. */
+                @JsonProperty("network_identifiers")
+                @ExcludeMissing
+                fun networkIdentifiers(networkIdentifiers: JsonField<NetworkIdentifiers>) = apply {
+                    this.networkIdentifiers = networkIdentifiers
+                }
+
                 /**
                  * A constant representing the object's type. For this resource it will always be
                  * `card_settlement`.
@@ -12227,6 +13150,7 @@ private constructor(
                         transactionId,
                         pendingTransactionId,
                         purchaseDetails,
+                        networkIdentifiers,
                         type,
                         additionalProperties.toUnmodifiable(),
                     )
@@ -12311,6 +13235,192 @@ private constructor(
                     }
 
                 fun asString(): String = _value().asStringOrThrow()
+            }
+
+            /** Network-specific identifiers for this refund. */
+            @JsonDeserialize(builder = NetworkIdentifiers.Builder::class)
+            @NoAutoDetect
+            class NetworkIdentifiers
+            private constructor(
+                private val transactionId: JsonField<String>,
+                private val acquirerReferenceNumber: JsonField<String>,
+                private val acquirerBusinessId: JsonField<String>,
+                private val additionalProperties: Map<String, JsonValue>,
+            ) {
+
+                private var validated: Boolean = false
+
+                private var hashCode: Int = 0
+
+                /**
+                 * A globally unique transaction identifier provided by the card network, used
+                 * across multiple life-cycle requests.
+                 */
+                fun transactionId(): Optional<String> =
+                    Optional.ofNullable(transactionId.getNullable("transaction_id"))
+
+                /** A globally unique identifier for this settlement. */
+                fun acquirerReferenceNumber(): String =
+                    acquirerReferenceNumber.getRequired("acquirer_reference_number")
+
+                /**
+                 * A network assigned business ID that identifies the acquirer that processed this
+                 * transaction.
+                 */
+                fun acquirerBusinessId(): String =
+                    acquirerBusinessId.getRequired("acquirer_business_id")
+
+                /**
+                 * A globally unique transaction identifier provided by the card network, used
+                 * across multiple life-cycle requests.
+                 */
+                @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+
+                /** A globally unique identifier for this settlement. */
+                @JsonProperty("acquirer_reference_number")
+                @ExcludeMissing
+                fun _acquirerReferenceNumber() = acquirerReferenceNumber
+
+                /**
+                 * A network assigned business ID that identifies the acquirer that processed this
+                 * transaction.
+                 */
+                @JsonProperty("acquirer_business_id")
+                @ExcludeMissing
+                fun _acquirerBusinessId() = acquirerBusinessId
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun validate(): NetworkIdentifiers = apply {
+                    if (!validated) {
+                        transactionId()
+                        acquirerReferenceNumber()
+                        acquirerBusinessId()
+                        validated = true
+                    }
+                }
+
+                fun toBuilder() = Builder().from(this)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is NetworkIdentifiers &&
+                        this.transactionId == other.transactionId &&
+                        this.acquirerReferenceNumber == other.acquirerReferenceNumber &&
+                        this.acquirerBusinessId == other.acquirerBusinessId &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode =
+                            Objects.hash(
+                                transactionId,
+                                acquirerReferenceNumber,
+                                acquirerBusinessId,
+                                additionalProperties,
+                            )
+                    }
+                    return hashCode
+                }
+
+                override fun toString() =
+                    "NetworkIdentifiers{transactionId=$transactionId, acquirerReferenceNumber=$acquirerReferenceNumber, acquirerBusinessId=$acquirerBusinessId, additionalProperties=$additionalProperties}"
+
+                companion object {
+
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                class Builder {
+
+                    private var transactionId: JsonField<String> = JsonMissing.of()
+                    private var acquirerReferenceNumber: JsonField<String> = JsonMissing.of()
+                    private var acquirerBusinessId: JsonField<String> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(networkIdentifiers: NetworkIdentifiers) = apply {
+                        this.transactionId = networkIdentifiers.transactionId
+                        this.acquirerReferenceNumber = networkIdentifiers.acquirerReferenceNumber
+                        this.acquirerBusinessId = networkIdentifiers.acquirerBusinessId
+                        additionalProperties(networkIdentifiers.additionalProperties)
+                    }
+
+                    /**
+                     * A globally unique transaction identifier provided by the card network, used
+                     * across multiple life-cycle requests.
+                     */
+                    fun transactionId(transactionId: String) =
+                        transactionId(JsonField.of(transactionId))
+
+                    /**
+                     * A globally unique transaction identifier provided by the card network, used
+                     * across multiple life-cycle requests.
+                     */
+                    @JsonProperty("transaction_id")
+                    @ExcludeMissing
+                    fun transactionId(transactionId: JsonField<String>) = apply {
+                        this.transactionId = transactionId
+                    }
+
+                    /** A globally unique identifier for this settlement. */
+                    fun acquirerReferenceNumber(acquirerReferenceNumber: String) =
+                        acquirerReferenceNumber(JsonField.of(acquirerReferenceNumber))
+
+                    /** A globally unique identifier for this settlement. */
+                    @JsonProperty("acquirer_reference_number")
+                    @ExcludeMissing
+                    fun acquirerReferenceNumber(acquirerReferenceNumber: JsonField<String>) =
+                        apply {
+                            this.acquirerReferenceNumber = acquirerReferenceNumber
+                        }
+
+                    /**
+                     * A network assigned business ID that identifies the acquirer that processed
+                     * this transaction.
+                     */
+                    fun acquirerBusinessId(acquirerBusinessId: String) =
+                        acquirerBusinessId(JsonField.of(acquirerBusinessId))
+
+                    /**
+                     * A network assigned business ID that identifies the acquirer that processed
+                     * this transaction.
+                     */
+                    @JsonProperty("acquirer_business_id")
+                    @ExcludeMissing
+                    fun acquirerBusinessId(acquirerBusinessId: JsonField<String>) = apply {
+                        this.acquirerBusinessId = acquirerBusinessId
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    @JsonAnySetter
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        this.additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun build(): NetworkIdentifiers =
+                        NetworkIdentifiers(
+                            transactionId,
+                            acquirerReferenceNumber,
+                            acquirerBusinessId,
+                            additionalProperties.toUnmodifiable(),
+                        )
+                }
             }
 
             /**
