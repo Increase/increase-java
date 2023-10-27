@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.14.0 (2023-10-27)
+
+Full Changelog: [v0.13.0...v0.14.0](https://github.com/increase/increase-java/compare/v0.13.0...v0.14.0)
+
+### Features
+
+* **api:** add network identifiers and effective date ([#125](https://github.com/increase/increase-java/issues/125)) ([3a24b45](https://github.com/increase/increase-java/commit/3a24b45e00b21c859fffa467a738bf226b01bdaa))
+
 ## 0.13.0 (2023-10-26)
 
 Full Changelog: [v0.12.0...v0.13.0](https://github.com/increase/increase-java/compare/v0.12.0...v0.13.0)
