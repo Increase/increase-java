@@ -411,6 +411,15 @@ class AchTransferSimulationTest {
                                         .merchantCountry("string")
                                         .merchantName("string")
                                         .merchantState("string")
+                                        .networkIdentifiers(
+                                            AchTransferSimulation.Transaction.Source.CardRefund
+                                                .NetworkIdentifiers
+                                                .builder()
+                                                .acquirerBusinessId("string")
+                                                .acquirerReferenceNumber("string")
+                                                .transactionId("string")
+                                                .build()
+                                        )
                                         .purchaseDetails(
                                             AchTransferSimulation.Transaction.Source.CardRefund
                                                 .PurchaseDetails
@@ -673,6 +682,15 @@ class AchTransferSimulationTest {
                                         .merchantCountry("string")
                                         .merchantName("string")
                                         .merchantState("string")
+                                        .networkIdentifiers(
+                                            AchTransferSimulation.Transaction.Source.CardSettlement
+                                                .NetworkIdentifiers
+                                                .builder()
+                                                .acquirerBusinessId("string")
+                                                .acquirerReferenceNumber("string")
+                                                .transactionId("string")
+                                                .build()
+                                        )
                                         .pendingTransactionId("string")
                                         .presentmentAmount(123L)
                                         .presentmentCurrency("string")
@@ -1748,6 +1766,15 @@ class AchTransferSimulationTest {
                                     .merchantCountry("string")
                                     .merchantName("string")
                                     .merchantState("string")
+                                    .networkIdentifiers(
+                                        AchTransferSimulation.Transaction.Source.CardRefund
+                                            .NetworkIdentifiers
+                                            .builder()
+                                            .acquirerBusinessId("string")
+                                            .acquirerReferenceNumber("string")
+                                            .transactionId("string")
+                                            .build()
+                                    )
                                     .purchaseDetails(
                                         AchTransferSimulation.Transaction.Source.CardRefund
                                             .PurchaseDetails
@@ -1994,6 +2021,15 @@ class AchTransferSimulationTest {
                                     .merchantCountry("string")
                                     .merchantName("string")
                                     .merchantState("string")
+                                    .networkIdentifiers(
+                                        AchTransferSimulation.Transaction.Source.CardSettlement
+                                            .NetworkIdentifiers
+                                            .builder()
+                                            .acquirerBusinessId("string")
+                                            .acquirerReferenceNumber("string")
+                                            .transactionId("string")
+                                            .build()
+                                    )
                                     .pendingTransactionId("string")
                                     .presentmentAmount(123L)
                                     .presentmentCurrency("string")

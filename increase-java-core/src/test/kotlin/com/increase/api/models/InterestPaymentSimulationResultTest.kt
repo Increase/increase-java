@@ -107,6 +107,16 @@ class InterestPaymentSimulationResultTest {
                                         .merchantCountry("string")
                                         .merchantName("string")
                                         .merchantState("string")
+                                        .networkIdentifiers(
+                                            InterestPaymentSimulationResult.Transaction.Source
+                                                .CardRefund
+                                                .NetworkIdentifiers
+                                                .builder()
+                                                .acquirerBusinessId("string")
+                                                .acquirerReferenceNumber("string")
+                                                .transactionId("string")
+                                                .build()
+                                        )
                                         .purchaseDetails(
                                             InterestPaymentSimulationResult.Transaction.Source
                                                 .CardRefund
@@ -396,6 +406,16 @@ class InterestPaymentSimulationResultTest {
                                         .merchantCountry("string")
                                         .merchantName("string")
                                         .merchantState("string")
+                                        .networkIdentifiers(
+                                            InterestPaymentSimulationResult.Transaction.Source
+                                                .CardSettlement
+                                                .NetworkIdentifiers
+                                                .builder()
+                                                .acquirerBusinessId("string")
+                                                .acquirerReferenceNumber("string")
+                                                .transactionId("string")
+                                                .build()
+                                        )
                                         .pendingTransactionId("string")
                                         .presentmentAmount(123L)
                                         .presentmentCurrency("string")
@@ -1154,6 +1174,16 @@ class InterestPaymentSimulationResultTest {
                                     .merchantCountry("string")
                                     .merchantName("string")
                                     .merchantState("string")
+                                    .networkIdentifiers(
+                                        InterestPaymentSimulationResult.Transaction.Source
+                                            .CardRefund
+                                            .NetworkIdentifiers
+                                            .builder()
+                                            .acquirerBusinessId("string")
+                                            .acquirerReferenceNumber("string")
+                                            .transactionId("string")
+                                            .build()
+                                    )
                                     .purchaseDetails(
                                         InterestPaymentSimulationResult.Transaction.Source
                                             .CardRefund
@@ -1422,6 +1452,16 @@ class InterestPaymentSimulationResultTest {
                                     .merchantCountry("string")
                                     .merchantName("string")
                                     .merchantState("string")
+                                    .networkIdentifiers(
+                                        InterestPaymentSimulationResult.Transaction.Source
+                                            .CardSettlement
+                                            .NetworkIdentifiers
+                                            .builder()
+                                            .acquirerBusinessId("string")
+                                            .acquirerReferenceNumber("string")
+                                            .transactionId("string")
+                                            .build()
+                                    )
                                     .pendingTransactionId("string")
                                     .presentmentAmount(123L)
                                     .presentmentCurrency("string")

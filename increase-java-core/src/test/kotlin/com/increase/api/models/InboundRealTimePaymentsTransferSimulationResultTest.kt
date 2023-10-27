@@ -506,6 +506,18 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .merchantCountry("string")
                                         .merchantName("string")
                                         .merchantState("string")
+                                        .networkIdentifiers(
+                                            InboundRealTimePaymentsTransferSimulationResult
+                                                .Transaction
+                                                .Source
+                                                .CardRefund
+                                                .NetworkIdentifiers
+                                                .builder()
+                                                .acquirerBusinessId("string")
+                                                .acquirerReferenceNumber("string")
+                                                .transactionId("string")
+                                                .build()
+                                        )
                                         .purchaseDetails(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .Transaction
@@ -809,6 +821,18 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .merchantCountry("string")
                                         .merchantName("string")
                                         .merchantState("string")
+                                        .networkIdentifiers(
+                                            InboundRealTimePaymentsTransferSimulationResult
+                                                .Transaction
+                                                .Source
+                                                .CardSettlement
+                                                .NetworkIdentifiers
+                                                .builder()
+                                                .acquirerBusinessId("string")
+                                                .acquirerReferenceNumber("string")
+                                                .transactionId("string")
+                                                .build()
+                                        )
                                         .pendingTransactionId("string")
                                         .presentmentAmount(123L)
                                         .presentmentCurrency("string")
@@ -2026,6 +2050,17 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .merchantCountry("string")
                                     .merchantName("string")
                                     .merchantState("string")
+                                    .networkIdentifiers(
+                                        InboundRealTimePaymentsTransferSimulationResult.Transaction
+                                            .Source
+                                            .CardRefund
+                                            .NetworkIdentifiers
+                                            .builder()
+                                            .acquirerBusinessId("string")
+                                            .acquirerReferenceNumber("string")
+                                            .transactionId("string")
+                                            .build()
+                                    )
                                     .purchaseDetails(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction
                                             .Source
@@ -2315,6 +2350,17 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .merchantCountry("string")
                                     .merchantName("string")
                                     .merchantState("string")
+                                    .networkIdentifiers(
+                                        InboundRealTimePaymentsTransferSimulationResult.Transaction
+                                            .Source
+                                            .CardSettlement
+                                            .NetworkIdentifiers
+                                            .builder()
+                                            .acquirerBusinessId("string")
+                                            .acquirerReferenceNumber("string")
+                                            .transactionId("string")
+                                            .build()
+                                    )
                                     .pendingTransactionId("string")
                                     .presentmentAmount(123L)
                                     .presentmentCurrency("string")

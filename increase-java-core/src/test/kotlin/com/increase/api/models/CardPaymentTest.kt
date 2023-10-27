@@ -225,6 +225,14 @@ class CardPaymentTest {
                                     .cardAuthorizationId("string")
                                     .currency(CardPayment.Element.CardFuelConfirmation.Currency.CAD)
                                     .network(CardPayment.Element.CardFuelConfirmation.Network.VISA)
+                                    .networkIdentifiers(
+                                        CardPayment.Element.CardFuelConfirmation.NetworkIdentifiers
+                                            .builder()
+                                            .retrievalReferenceNumber("string")
+                                            .traceNumber("string")
+                                            .transactionId("string")
+                                            .build()
+                                    )
                                     .pendingTransactionId("string")
                                     .type(
                                         CardPayment.Element.CardFuelConfirmation.Type
@@ -240,6 +248,14 @@ class CardPaymentTest {
                                     .cardAuthorizationId("string")
                                     .currency(CardPayment.Element.CardIncrement.Currency.CAD)
                                     .network(CardPayment.Element.CardIncrement.Network.VISA)
+                                    .networkIdentifiers(
+                                        CardPayment.Element.CardIncrement.NetworkIdentifiers
+                                            .builder()
+                                            .retrievalReferenceNumber("string")
+                                            .traceNumber("string")
+                                            .transactionId("string")
+                                            .build()
+                                    )
                                     .pendingTransactionId("string")
                                     .realTimeDecisionId("string")
                                     .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
@@ -258,6 +274,13 @@ class CardPaymentTest {
                                     .merchantCountry("string")
                                     .merchantName("string")
                                     .merchantState("string")
+                                    .networkIdentifiers(
+                                        CardPayment.Element.CardRefund.NetworkIdentifiers.builder()
+                                            .acquirerBusinessId("string")
+                                            .acquirerReferenceNumber("string")
+                                            .transactionId("string")
+                                            .build()
+                                    )
                                     .purchaseDetails(
                                         CardPayment.Element.CardRefund.PurchaseDetails.builder()
                                             .carRental(
@@ -451,6 +474,14 @@ class CardPaymentTest {
                                     .cardAuthorizationId("string")
                                     .currency(CardPayment.Element.CardReversal.Currency.CAD)
                                     .network(CardPayment.Element.CardReversal.Network.VISA)
+                                    .networkIdentifiers(
+                                        CardPayment.Element.CardReversal.NetworkIdentifiers
+                                            .builder()
+                                            .retrievalReferenceNumber("string")
+                                            .traceNumber("string")
+                                            .transactionId("string")
+                                            .build()
+                                    )
                                     .pendingTransactionId("string")
                                     .reversalAmount(123L)
                                     .type(CardPayment.Element.CardReversal.Type.CARD_REVERSAL)
@@ -470,6 +501,14 @@ class CardPaymentTest {
                                     .merchantCountry("string")
                                     .merchantName("string")
                                     .merchantState("string")
+                                    .networkIdentifiers(
+                                        CardPayment.Element.CardSettlement.NetworkIdentifiers
+                                            .builder()
+                                            .acquirerBusinessId("string")
+                                            .acquirerReferenceNumber("string")
+                                            .transactionId("string")
+                                            .build()
+                                    )
                                     .pendingTransactionId("string")
                                     .presentmentAmount(123L)
                                     .presentmentCurrency("string")
@@ -957,6 +996,14 @@ class CardPaymentTest {
                             .cardAuthorizationId("string")
                             .currency(CardPayment.Element.CardFuelConfirmation.Currency.CAD)
                             .network(CardPayment.Element.CardFuelConfirmation.Network.VISA)
+                            .networkIdentifiers(
+                                CardPayment.Element.CardFuelConfirmation.NetworkIdentifiers
+                                    .builder()
+                                    .retrievalReferenceNumber("string")
+                                    .traceNumber("string")
+                                    .transactionId("string")
+                                    .build()
+                            )
                             .pendingTransactionId("string")
                             .type(
                                 CardPayment.Element.CardFuelConfirmation.Type.CARD_FUEL_CONFIRMATION
@@ -971,6 +1018,13 @@ class CardPaymentTest {
                             .cardAuthorizationId("string")
                             .currency(CardPayment.Element.CardIncrement.Currency.CAD)
                             .network(CardPayment.Element.CardIncrement.Network.VISA)
+                            .networkIdentifiers(
+                                CardPayment.Element.CardIncrement.NetworkIdentifiers.builder()
+                                    .retrievalReferenceNumber("string")
+                                    .traceNumber("string")
+                                    .transactionId("string")
+                                    .build()
+                            )
                             .pendingTransactionId("string")
                             .realTimeDecisionId("string")
                             .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
@@ -989,6 +1043,13 @@ class CardPaymentTest {
                             .merchantCountry("string")
                             .merchantName("string")
                             .merchantState("string")
+                            .networkIdentifiers(
+                                CardPayment.Element.CardRefund.NetworkIdentifiers.builder()
+                                    .acquirerBusinessId("string")
+                                    .acquirerReferenceNumber("string")
+                                    .transactionId("string")
+                                    .build()
+                            )
                             .purchaseDetails(
                                 CardPayment.Element.CardRefund.PurchaseDetails.builder()
                                     .carRental(
@@ -1167,6 +1228,13 @@ class CardPaymentTest {
                             .cardAuthorizationId("string")
                             .currency(CardPayment.Element.CardReversal.Currency.CAD)
                             .network(CardPayment.Element.CardReversal.Network.VISA)
+                            .networkIdentifiers(
+                                CardPayment.Element.CardReversal.NetworkIdentifiers.builder()
+                                    .retrievalReferenceNumber("string")
+                                    .traceNumber("string")
+                                    .transactionId("string")
+                                    .build()
+                            )
                             .pendingTransactionId("string")
                             .reversalAmount(123L)
                             .type(CardPayment.Element.CardReversal.Type.CARD_REVERSAL)
@@ -1186,6 +1254,13 @@ class CardPaymentTest {
                             .merchantCountry("string")
                             .merchantName("string")
                             .merchantState("string")
+                            .networkIdentifiers(
+                                CardPayment.Element.CardSettlement.NetworkIdentifiers.builder()
+                                    .acquirerBusinessId("string")
+                                    .acquirerReferenceNumber("string")
+                                    .transactionId("string")
+                                    .build()
+                            )
                             .pendingTransactionId("string")
                             .presentmentAmount(123L)
                             .presentmentCurrency("string")
