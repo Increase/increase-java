@@ -78,6 +78,13 @@ class TransactionTest {
                                 .merchantCountry("string")
                                 .merchantName("string")
                                 .merchantState("string")
+                                .networkIdentifiers(
+                                    Transaction.Source.CardRefund.NetworkIdentifiers.builder()
+                                        .acquirerBusinessId("string")
+                                        .acquirerReferenceNumber("string")
+                                        .transactionId("string")
+                                        .build()
+                                )
                                 .purchaseDetails(
                                     Transaction.Source.CardRefund.PurchaseDetails.builder()
                                         .carRental(
@@ -274,6 +281,13 @@ class TransactionTest {
                                 .merchantCountry("string")
                                 .merchantName("string")
                                 .merchantState("string")
+                                .networkIdentifiers(
+                                    Transaction.Source.CardSettlement.NetworkIdentifiers.builder()
+                                        .acquirerBusinessId("string")
+                                        .acquirerReferenceNumber("string")
+                                        .transactionId("string")
+                                        .build()
+                                )
                                 .pendingTransactionId("string")
                                 .presentmentAmount(123L)
                                 .presentmentCurrency("string")
@@ -827,6 +841,13 @@ class TransactionTest {
                             .merchantCountry("string")
                             .merchantName("string")
                             .merchantState("string")
+                            .networkIdentifiers(
+                                Transaction.Source.CardRefund.NetworkIdentifiers.builder()
+                                    .acquirerBusinessId("string")
+                                    .acquirerReferenceNumber("string")
+                                    .transactionId("string")
+                                    .build()
+                            )
                             .purchaseDetails(
                                 Transaction.Source.CardRefund.PurchaseDetails.builder()
                                     .carRental(
@@ -1017,6 +1038,13 @@ class TransactionTest {
                             .merchantCountry("string")
                             .merchantName("string")
                             .merchantState("string")
+                            .networkIdentifiers(
+                                Transaction.Source.CardSettlement.NetworkIdentifiers.builder()
+                                    .acquirerBusinessId("string")
+                                    .acquirerReferenceNumber("string")
+                                    .transactionId("string")
+                                    .build()
+                            )
                             .pendingTransactionId("string")
                             .presentmentAmount(123L)
                             .presentmentCurrency("string")
