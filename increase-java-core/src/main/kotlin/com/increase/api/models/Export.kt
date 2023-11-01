@@ -389,17 +389,21 @@ private constructor(
 
             @JvmField val COMPLETE = Status(JsonField.of("complete"))
 
+            @JvmField val FAILED = Status(JsonField.of("failed"))
+
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
 
         enum class Known {
             PENDING,
             COMPLETE,
+            FAILED,
         }
 
         enum class Value {
             PENDING,
             COMPLETE,
+            FAILED,
             _UNKNOWN,
         }
 
@@ -407,6 +411,7 @@ private constructor(
             when (this) {
                 PENDING -> Value.PENDING
                 COMPLETE -> Value.COMPLETE
+                FAILED -> Value.FAILED
                 else -> Value._UNKNOWN
             }
 
@@ -414,6 +419,7 @@ private constructor(
             when (this) {
                 PENDING -> Known.PENDING
                 COMPLETE -> Known.COMPLETE
+                FAILED -> Known.FAILED
                 else -> throw IncreaseInvalidDataException("Unknown Status: $value")
             }
 
