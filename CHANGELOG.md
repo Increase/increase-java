@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.15.0 (2023-11-01)
+
+Full Changelog: [v0.14.0...v0.15.0](https://github.com/increase/increase-java/compare/v0.14.0...v0.15.0)
+
+### Features
+
+* **api:** add failed to export status enum ([#129](https://github.com/increase/increase-java/issues/129)) ([c4adbf4](https://github.com/increase/increase-java/commit/c4adbf49e763136385e8dec8d6e087f968709aa8))
+* **github:** include a devcontainer setup ([#127](https://github.com/increase/increase-java/issues/127)) ([d958435](https://github.com/increase/increase-java/commit/d958435e7ee726f7eba9b0decd7c039aa1f49954))
+
 ## 0.14.0 (2023-10-27)
 
 Full Changelog: [v0.13.0...v0.14.0](https://github.com/increase/increase-java/compare/v0.13.0...v0.14.0)
