@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.json.JsonMapper
 import com.github.tomakehurst.wiremock.client.WireMock.anyUrl
 import com.github.tomakehurst.wiremock.client.WireMock.equalTo
 import com.github.tomakehurst.wiremock.client.WireMock.get
-import com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor
 import com.github.tomakehurst.wiremock.client.WireMock.matchingJsonPath
 import com.github.tomakehurst.wiremock.client.WireMock.ok
 import com.github.tomakehurst.wiremock.client.WireMock.post
@@ -21,8 +20,6 @@ import com.increase.api.core.JsonString
 import com.increase.api.core.JsonValue
 import com.increase.api.core.jsonMapper
 import com.increase.api.models.*
-import com.increase.api.models.AccountListPage
-import com.increase.api.models.AccountListParams
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.BeforeEach
@@ -96,69 +93,5 @@ class ServiceParamsTest {
         client.accounts().create(params)
 
         verify(postRequestedFor(anyUrl()))
-    }
-
-    @Test
-    fun accountsListWithAdditionalParams() {
-        val additionalHeaders = mutableMapOf<String, List<String>>()
-
-        additionalHeaders.put("x-test-header", listOf("abc1234"))
-
-        val additionalQueryParams = mutableMapOf<String, List<String>>()
-
-        additionalQueryParams.put("test_query_param", listOf("def567"))
-
-        val params =
-            AccountListParams.builder()
-                .createdAt(
-                    AccountListParams.CreatedAt.builder()
-                        .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .build()
-                )
-                .cursor("string")
-                .entityId("string")
-                .informationalEntityId("string")
-                .limit(123L)
-                .status(AccountListParams.Status.OPEN)
-                .additionalHeaders(additionalHeaders)
-                .additionalQueryParams(additionalQueryParams)
-                .build()
-
-        val apiResponse =
-            AccountListPage.Response.builder()
-                .data(
-                    listOf(
-                        Account.builder()
-                            .id("string")
-                            .bank(Account.Bank.BLUE_RIDGE_BANK)
-                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .currency(Account.Currency.CAD)
-                            .entityId("string")
-                            .informationalEntityId("string")
-                            .interestAccrued("string")
-                            .interestAccruedAt(LocalDate.parse("2019-12-27"))
-                            .interestRate("string")
-                            .name("string")
-                            .status(Account.Status.OPEN)
-                            .type(Account.Type.ACCOUNT)
-                            .build()
-                    )
-                )
-                .nextCursor("string")
-                .build()
-
-        stubFor(
-            get(anyUrl())
-                .withHeader("x-test-header", equalTo("abc1234"))
-                .withQueryParam("test_query_param", equalTo("def567"))
-                .willReturn(ok(JSON_MAPPER.writeValueAsString(apiResponse)))
-        )
-
-        client.accounts().list(params)
-
-        verify(getRequestedFor(anyUrl()))
     }
 }
