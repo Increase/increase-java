@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.16.0 (2023-11-08)
+
+Full Changelog: [v0.15.0...v0.16.0](https://github.com/increase/increase-java/compare/v0.15.0...v0.16.0)
+
+### Features
+
+* **api:** restructure balance lookups ([#133](https://github.com/increase/increase-java/issues/133)) ([df5c606](https://github.com/increase/increase-java/commit/df5c6061d21f78c7c1efd1a1e67015728831b87e))
+* **client:** allow binary returns ([#130](https://github.com/increase/increase-java/issues/130)) ([42fa3f6](https://github.com/increase/increase-java/commit/42fa3f6b2a3d59db773864fa6777b3e64d244a3a))
+
+
+### Chores
+
+* remove bad tests ([#132](https://github.com/increase/increase-java/issues/132)) ([79de2de](https://github.com/increase/increase-java/commit/79de2de31d1709a02e66a3e340f988d6bb26cec2))
+
 ## 0.15.0 (2023-11-01)
 
 Full Changelog: [v0.14.0...v0.15.0](https://github.com/increase/increase-java/compare/v0.14.0...v0.15.0)
