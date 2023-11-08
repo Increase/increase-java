@@ -9,12 +9,14 @@ import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.Account
+import com.increase.api.models.AccountBalanceParams
 import com.increase.api.models.AccountCloseParams
 import com.increase.api.models.AccountCreateParams
 import com.increase.api.models.AccountListPageAsync
 import com.increase.api.models.AccountListParams
 import com.increase.api.models.AccountRetrieveParams
 import com.increase.api.models.AccountUpdateParams
+import com.increase.api.models.BalanceLookup
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
@@ -141,6 +143,34 @@ constructor(
                     }
                 }
                 .let { AccountListPageAsync.of(this, params, it) }
+        }
+    }
+
+    private val balanceHandler: Handler<BalanceLookup> =
+        jsonHandler<BalanceLookup>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+    /** Retrieve an Account Balance */
+    override fun balance(
+        params: AccountBalanceParams,
+        requestOptions: RequestOptions
+    ): CompletableFuture<BalanceLookup> {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.GET)
+                .addPathSegments("accounts", params.getPathParam(0), "balance")
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .build()
+        return clientOptions.httpClient.executeAsync(request, requestOptions).thenApply { response
+            ->
+            response
+                .use { balanceHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
         }
     }
 

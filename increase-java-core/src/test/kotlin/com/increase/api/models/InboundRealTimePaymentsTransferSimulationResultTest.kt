@@ -153,6 +153,14 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .build()
                                         )
                                         .physicalCardId("string")
+                                        .processingCategory(
+                                            InboundRealTimePaymentsTransferSimulationResult
+                                                .DeclinedTransaction
+                                                .Source
+                                                .CardDecline
+                                                .ProcessingCategory
+                                                .ACCOUNT_FUNDING
+                                        )
                                         .realTimeDecisionId("string")
                                         .reason(
                                             InboundRealTimePaymentsTransferSimulationResult
@@ -232,6 +240,8 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .builder()
                                         .amount(123L)
                                         .auxiliaryOnUs("string")
+                                        .backImageFileId("string")
+                                        .frontImageFileId("string")
                                         .reason(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .DeclinedTransaction
@@ -1713,6 +1723,14 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .build()
                                     )
                                     .physicalCardId("string")
+                                    .processingCategory(
+                                        InboundRealTimePaymentsTransferSimulationResult
+                                            .DeclinedTransaction
+                                            .Source
+                                            .CardDecline
+                                            .ProcessingCategory
+                                            .ACCOUNT_FUNDING
+                                    )
                                     .realTimeDecisionId("string")
                                     .reason(
                                         InboundRealTimePaymentsTransferSimulationResult
@@ -1790,6 +1808,8 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .builder()
                                     .amount(123L)
                                     .auxiliaryOnUs("string")
+                                    .backImageFileId("string")
+                                    .frontImageFileId("string")
                                     .reason(
                                         InboundRealTimePaymentsTransferSimulationResult
                                             .DeclinedTransaction

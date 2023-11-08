@@ -52,6 +52,15 @@ class ExportCreateParamsTest {
                     )
                     .build()
             )
+            .entityCsv(
+                ExportCreateParams.EntityCsv.builder()
+                    .status(
+                        ExportCreateParams.EntityCsv.Status.builder()
+                            .in_(listOf(ExportCreateParams.EntityCsv.Status.In.ACTIVE))
+                            .build()
+                    )
+                    .build()
+            )
             .transactionCsv(
                 ExportCreateParams.TransactionCsv.builder()
                     .accountId("string")
@@ -112,6 +121,15 @@ class ExportCreateParamsTest {
                         )
                         .build()
                 )
+                .entityCsv(
+                    ExportCreateParams.EntityCsv.builder()
+                        .status(
+                            ExportCreateParams.EntityCsv.Status.builder()
+                                .in_(listOf(ExportCreateParams.EntityCsv.Status.In.ACTIVE))
+                                .build()
+                        )
+                        .build()
+                )
                 .transactionCsv(
                     ExportCreateParams.TransactionCsv.builder()
                         .accountId("string")
@@ -167,6 +185,16 @@ class ExportCreateParamsTest {
                             .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .build()
+                    )
+                    .build()
+            )
+        assertThat(body.entityCsv())
+            .isEqualTo(
+                ExportCreateParams.EntityCsv.builder()
+                    .status(
+                        ExportCreateParams.EntityCsv.Status.builder()
+                            .in_(listOf(ExportCreateParams.EntityCsv.Status.In.ACTIVE))
                             .build()
                     )
                     .build()

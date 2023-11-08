@@ -6,12 +6,14 @@ package com.increase.api.services.blocking
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.Account
+import com.increase.api.models.AccountBalanceParams
 import com.increase.api.models.AccountCloseParams
 import com.increase.api.models.AccountCreateParams
 import com.increase.api.models.AccountListPage
 import com.increase.api.models.AccountListParams
 import com.increase.api.models.AccountRetrieveParams
 import com.increase.api.models.AccountUpdateParams
+import com.increase.api.models.BalanceLookup
 
 interface AccountService {
 
@@ -42,6 +44,13 @@ interface AccountService {
         params: AccountListParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): AccountListPage
+
+    /** Retrieve an Account Balance */
+    @JvmOverloads
+    fun balance(
+        params: AccountBalanceParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): BalanceLookup
 
     /** Close an Account */
     @JvmOverloads

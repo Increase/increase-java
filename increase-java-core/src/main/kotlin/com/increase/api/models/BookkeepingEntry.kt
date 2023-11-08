@@ -14,9 +14,14 @@ import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.time.OffsetDateTime
 import java.util.Objects
 
-/** Entries are T-account entries recording debits and credits. */
+/**
+ * Entries are T-account entries recording debits and credits. Your compliance setup might require
+ * annotating money movements using this API. Learn more in our
+ * [guide to Bookkeeping](https://increase.com/documentation/bookkeeping#bookkeeping).
+ */
 @JsonDeserialize(builder = BookkeepingEntry.Builder::class)
 @NoAutoDetect
 class BookkeepingEntry
@@ -25,6 +30,7 @@ private constructor(
     private val amount: JsonField<Long>,
     private val entrySetId: JsonField<String>,
     private val id: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -47,6 +53,9 @@ private constructor(
     /** The entry identifier. */
     fun id(): String = id.getRequired("id")
 
+    /** When the entry set was created. */
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
     /**
      * A constant representing the object's type. For this resource it will always be
      * `bookkeeping_entry`.
@@ -67,6 +76,9 @@ private constructor(
     /** The entry identifier. */
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
+    /** When the entry set was created. */
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
     /**
      * A constant representing the object's type. For this resource it will always be
      * `bookkeeping_entry`.
@@ -83,6 +95,7 @@ private constructor(
             amount()
             entrySetId()
             id()
+            createdAt()
             type()
             validated = true
         }
@@ -100,6 +113,7 @@ private constructor(
             this.amount == other.amount &&
             this.entrySetId == other.entrySetId &&
             this.id == other.id &&
+            this.createdAt == other.createdAt &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -112,6 +126,7 @@ private constructor(
                     amount,
                     entrySetId,
                     id,
+                    createdAt,
                     type,
                     additionalProperties,
                 )
@@ -120,7 +135,7 @@ private constructor(
     }
 
     override fun toString() =
-        "BookkeepingEntry{accountId=$accountId, amount=$amount, entrySetId=$entrySetId, id=$id, type=$type, additionalProperties=$additionalProperties}"
+        "BookkeepingEntry{accountId=$accountId, amount=$amount, entrySetId=$entrySetId, id=$id, createdAt=$createdAt, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -133,6 +148,7 @@ private constructor(
         private var amount: JsonField<Long> = JsonMissing.of()
         private var entrySetId: JsonField<String> = JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -142,6 +158,7 @@ private constructor(
             this.amount = bookkeepingEntry.amount
             this.entrySetId = bookkeepingEntry.entrySetId
             this.id = bookkeepingEntry.id
+            this.createdAt = bookkeepingEntry.createdAt
             this.type = bookkeepingEntry.type
             additionalProperties(bookkeepingEntry.additionalProperties)
         }
@@ -182,6 +199,14 @@ private constructor(
         /** The entry identifier. */
         @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
+        /** When the entry set was created. */
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        /** When the entry set was created. */
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
         /**
          * A constant representing the object's type. For this resource it will always be
          * `bookkeeping_entry`.
@@ -216,6 +241,7 @@ private constructor(
                 amount,
                 entrySetId,
                 id,
+                createdAt,
                 type,
                 additionalProperties.toUnmodifiable(),
             )

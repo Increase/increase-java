@@ -6,10 +6,12 @@ package com.increase.api.services.blocking
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.BookkeepingAccount
+import com.increase.api.models.BookkeepingAccountBalanceParams
 import com.increase.api.models.BookkeepingAccountCreateParams
 import com.increase.api.models.BookkeepingAccountListPage
 import com.increase.api.models.BookkeepingAccountListParams
 import com.increase.api.models.BookkeepingAccountUpdateParams
+import com.increase.api.models.BookkeepingBalanceLookup
 
 interface BookkeepingAccountService {
 
@@ -33,4 +35,11 @@ interface BookkeepingAccountService {
         params: BookkeepingAccountListParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): BookkeepingAccountListPage
+
+    /** Retrieve a Bookkeeping Account Balance */
+    @JvmOverloads
+    fun balance(
+        params: BookkeepingAccountBalanceParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): BookkeepingBalanceLookup
 }

@@ -13,6 +13,22 @@ import org.junit.jupiter.api.extension.ExtendWith
 class BookkeepingEntryServiceTest {
 
     @Test
+    fun callRetrieve() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val bookkeepingEntryService = client.bookkeepingEntries()
+        val bookkeepingEntry =
+            bookkeepingEntryService.retrieve(
+                BookkeepingEntryRetrieveParams.builder().bookkeepingEntryId("string").build()
+            )
+        println(bookkeepingEntry)
+        bookkeepingEntry.validate()
+    }
+
+    @Test
     fun callList() {
         val client =
             IncreaseOkHttpClient.builder()

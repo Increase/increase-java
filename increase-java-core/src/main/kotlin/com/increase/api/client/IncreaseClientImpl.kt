@@ -44,10 +44,6 @@ constructor(
         RealTimePaymentsTransferServiceImpl(clientOptions)
     }
 
-    private val balanceLookups: BalanceLookupService by lazy {
-        BalanceLookupServiceImpl(clientOptions)
-    }
-
     private val cards: CardService by lazy { CardServiceImpl(clientOptions) }
 
     private val cardDisputes: CardDisputeService by lazy { CardDisputeServiceImpl(clientOptions) }
@@ -164,8 +160,6 @@ constructor(
 
     override fun realTimePaymentsTransfers(): RealTimePaymentsTransferService =
         realTimePaymentsTransfers
-
-    override fun balanceLookups(): BalanceLookupService = balanceLookups
 
     override fun cards(): CardService = cards
 
