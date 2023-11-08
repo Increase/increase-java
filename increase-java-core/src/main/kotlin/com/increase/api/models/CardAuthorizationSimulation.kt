@@ -1726,6 +1726,7 @@ private constructor(
                 private val cardPaymentId: JsonField<String>,
                 private val amount: JsonField<Long>,
                 private val currency: JsonField<Currency>,
+                private val processingCategory: JsonField<ProcessingCategory>,
                 private val reason: JsonField<Reason>,
                 private val merchantState: JsonField<String>,
                 private val realTimeDecisionId: JsonField<String>,
@@ -1804,6 +1805,13 @@ private constructor(
                  * account currency.
                  */
                 fun currency(): Currency = currency.getRequired("currency")
+
+                /**
+                 * The processing category describes the intent behind the authorization, such as
+                 * whether it was used for bill payments or an automatic fuel dispenser.
+                 */
+                fun processingCategory(): ProcessingCategory =
+                    processingCategory.getRequired("processing_category")
 
                 /** Why the transaction was declined. */
                 fun reason(): Reason = reason.getRequired("reason")
@@ -1897,6 +1905,14 @@ private constructor(
                  */
                 @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
 
+                /**
+                 * The processing category describes the intent behind the authorization, such as
+                 * whether it was used for bill payments or an automatic fuel dispenser.
+                 */
+                @JsonProperty("processing_category")
+                @ExcludeMissing
+                fun _processingCategory() = processingCategory
+
                 /** Why the transaction was declined. */
                 @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
 
@@ -1931,6 +1947,7 @@ private constructor(
                         cardPaymentId()
                         amount()
                         currency()
+                        processingCategory()
                         reason()
                         merchantState()
                         realTimeDecisionId()
@@ -1960,6 +1977,7 @@ private constructor(
                         this.cardPaymentId == other.cardPaymentId &&
                         this.amount == other.amount &&
                         this.currency == other.currency &&
+                        this.processingCategory == other.processingCategory &&
                         this.reason == other.reason &&
                         this.merchantState == other.merchantState &&
                         this.realTimeDecisionId == other.realTimeDecisionId &&
@@ -1984,6 +2002,7 @@ private constructor(
                                 cardPaymentId,
                                 amount,
                                 currency,
+                                processingCategory,
                                 reason,
                                 merchantState,
                                 realTimeDecisionId,
@@ -1994,7 +2013,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "CardDecline{merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, digitalWalletTokenId=$digitalWalletTokenId, physicalCardId=$physicalCardId, verification=$verification, networkIdentifiers=$networkIdentifiers, networkDetails=$networkDetails, id=$id, cardPaymentId=$cardPaymentId, amount=$amount, currency=$currency, reason=$reason, merchantState=$merchantState, realTimeDecisionId=$realTimeDecisionId, additionalProperties=$additionalProperties}"
+                    "CardDecline{merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, digitalWalletTokenId=$digitalWalletTokenId, physicalCardId=$physicalCardId, verification=$verification, networkIdentifiers=$networkIdentifiers, networkDetails=$networkDetails, id=$id, cardPaymentId=$cardPaymentId, amount=$amount, currency=$currency, processingCategory=$processingCategory, reason=$reason, merchantState=$merchantState, realTimeDecisionId=$realTimeDecisionId, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -2017,6 +2036,7 @@ private constructor(
                     private var cardPaymentId: JsonField<String> = JsonMissing.of()
                     private var amount: JsonField<Long> = JsonMissing.of()
                     private var currency: JsonField<Currency> = JsonMissing.of()
+                    private var processingCategory: JsonField<ProcessingCategory> = JsonMissing.of()
                     private var reason: JsonField<Reason> = JsonMissing.of()
                     private var merchantState: JsonField<String> = JsonMissing.of()
                     private var realTimeDecisionId: JsonField<String> = JsonMissing.of()
@@ -2038,6 +2058,7 @@ private constructor(
                         this.cardPaymentId = cardDecline.cardPaymentId
                         this.amount = cardDecline.amount
                         this.currency = cardDecline.currency
+                        this.processingCategory = cardDecline.processingCategory
                         this.reason = cardDecline.reason
                         this.merchantState = cardDecline.merchantState
                         this.realTimeDecisionId = cardDecline.realTimeDecisionId
@@ -2226,6 +2247,24 @@ private constructor(
                     @ExcludeMissing
                     fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
+                    /**
+                     * The processing category describes the intent behind the authorization, such
+                     * as whether it was used for bill payments or an automatic fuel dispenser.
+                     */
+                    fun processingCategory(processingCategory: ProcessingCategory) =
+                        processingCategory(JsonField.of(processingCategory))
+
+                    /**
+                     * The processing category describes the intent behind the authorization, such
+                     * as whether it was used for bill payments or an automatic fuel dispenser.
+                     */
+                    @JsonProperty("processing_category")
+                    @ExcludeMissing
+                    fun processingCategory(processingCategory: JsonField<ProcessingCategory>) =
+                        apply {
+                            this.processingCategory = processingCategory
+                        }
+
                     /** Why the transaction was declined. */
                     fun reason(reason: Reason) = reason(JsonField.of(reason))
 
@@ -2293,6 +2332,7 @@ private constructor(
                             cardPaymentId,
                             amount,
                             currency,
+                            processingCategory,
                             reason,
                             merchantState,
                             realTimeDecisionId,
@@ -3226,6 +3266,95 @@ private constructor(
                     }
                 }
 
+                class ProcessingCategory
+                @JsonCreator
+                private constructor(
+                    private val value: JsonField<String>,
+                ) {
+
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is ProcessingCategory && this.value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+
+                    companion object {
+
+                        @JvmField
+                        val ACCOUNT_FUNDING = ProcessingCategory(JsonField.of("account_funding"))
+
+                        @JvmField
+                        val AUTOMATIC_FUEL_DISPENSER =
+                            ProcessingCategory(JsonField.of("automatic_fuel_dispenser"))
+
+                        @JvmField
+                        val BILL_PAYMENT = ProcessingCategory(JsonField.of("bill_payment"))
+
+                        @JvmField val PURCHASE = ProcessingCategory(JsonField.of("purchase"))
+
+                        @JvmField val QUASI_CASH = ProcessingCategory(JsonField.of("quasi_cash"))
+
+                        @JvmField val REFUND = ProcessingCategory(JsonField.of("refund"))
+
+                        @JvmStatic fun of(value: String) = ProcessingCategory(JsonField.of(value))
+                    }
+
+                    enum class Known {
+                        ACCOUNT_FUNDING,
+                        AUTOMATIC_FUEL_DISPENSER,
+                        BILL_PAYMENT,
+                        PURCHASE,
+                        QUASI_CASH,
+                        REFUND,
+                    }
+
+                    enum class Value {
+                        ACCOUNT_FUNDING,
+                        AUTOMATIC_FUEL_DISPENSER,
+                        BILL_PAYMENT,
+                        PURCHASE,
+                        QUASI_CASH,
+                        REFUND,
+                        _UNKNOWN,
+                    }
+
+                    fun value(): Value =
+                        when (this) {
+                            ACCOUNT_FUNDING -> Value.ACCOUNT_FUNDING
+                            AUTOMATIC_FUEL_DISPENSER -> Value.AUTOMATIC_FUEL_DISPENSER
+                            BILL_PAYMENT -> Value.BILL_PAYMENT
+                            PURCHASE -> Value.PURCHASE
+                            QUASI_CASH -> Value.QUASI_CASH
+                            REFUND -> Value.REFUND
+                            else -> Value._UNKNOWN
+                        }
+
+                    fun known(): Known =
+                        when (this) {
+                            ACCOUNT_FUNDING -> Known.ACCOUNT_FUNDING
+                            AUTOMATIC_FUEL_DISPENSER -> Known.AUTOMATIC_FUEL_DISPENSER
+                            BILL_PAYMENT -> Known.BILL_PAYMENT
+                            PURCHASE -> Known.PURCHASE
+                            QUASI_CASH -> Known.QUASI_CASH
+                            REFUND -> Known.REFUND
+                            else ->
+                                throw IncreaseInvalidDataException(
+                                    "Unknown ProcessingCategory: $value"
+                                )
+                        }
+
+                    fun asString(): String = _value().asStringOrThrow()
+                }
+
                 class Reason
                 @JsonCreator
                 private constructor(
@@ -4134,6 +4263,8 @@ private constructor(
                 private val amount: JsonField<Long>,
                 private val auxiliaryOnUs: JsonField<String>,
                 private val reason: JsonField<Reason>,
+                private val frontImageFileId: JsonField<String>,
+                private val backImageFileId: JsonField<String>,
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
 
@@ -4159,6 +4290,20 @@ private constructor(
                 fun reason(): Reason = reason.getRequired("reason")
 
                 /**
+                 * The identifier of the API File object containing an image of the front of the
+                 * declined check.
+                 */
+                fun frontImageFileId(): Optional<String> =
+                    Optional.ofNullable(frontImageFileId.getNullable("front_image_file_id"))
+
+                /**
+                 * The identifier of the API File object containing an image of the back of the
+                 * declined check.
+                 */
+                fun backImageFileId(): Optional<String> =
+                    Optional.ofNullable(backImageFileId.getNullable("back_image_file_id"))
+
+                /**
                  * The declined amount in the minor unit of the destination account currency. For
                  * dollars, for example, this is cents.
                  */
@@ -4176,6 +4321,22 @@ private constructor(
                 /** Why the check was declined. */
                 @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
 
+                /**
+                 * The identifier of the API File object containing an image of the front of the
+                 * declined check.
+                 */
+                @JsonProperty("front_image_file_id")
+                @ExcludeMissing
+                fun _frontImageFileId() = frontImageFileId
+
+                /**
+                 * The identifier of the API File object containing an image of the back of the
+                 * declined check.
+                 */
+                @JsonProperty("back_image_file_id")
+                @ExcludeMissing
+                fun _backImageFileId() = backImageFileId
+
                 @JsonAnyGetter
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -4185,6 +4346,8 @@ private constructor(
                         amount()
                         auxiliaryOnUs()
                         reason()
+                        frontImageFileId()
+                        backImageFileId()
                         validated = true
                     }
                 }
@@ -4200,6 +4363,8 @@ private constructor(
                         this.amount == other.amount &&
                         this.auxiliaryOnUs == other.auxiliaryOnUs &&
                         this.reason == other.reason &&
+                        this.frontImageFileId == other.frontImageFileId &&
+                        this.backImageFileId == other.backImageFileId &&
                         this.additionalProperties == other.additionalProperties
                 }
 
@@ -4210,6 +4375,8 @@ private constructor(
                                 amount,
                                 auxiliaryOnUs,
                                 reason,
+                                frontImageFileId,
+                                backImageFileId,
                                 additionalProperties,
                             )
                     }
@@ -4217,7 +4384,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "CheckDecline{amount=$amount, auxiliaryOnUs=$auxiliaryOnUs, reason=$reason, additionalProperties=$additionalProperties}"
+                    "CheckDecline{amount=$amount, auxiliaryOnUs=$auxiliaryOnUs, reason=$reason, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -4229,6 +4396,8 @@ private constructor(
                     private var amount: JsonField<Long> = JsonMissing.of()
                     private var auxiliaryOnUs: JsonField<String> = JsonMissing.of()
                     private var reason: JsonField<Reason> = JsonMissing.of()
+                    private var frontImageFileId: JsonField<String> = JsonMissing.of()
+                    private var backImageFileId: JsonField<String> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
@@ -4236,6 +4405,8 @@ private constructor(
                         this.amount = checkDecline.amount
                         this.auxiliaryOnUs = checkDecline.auxiliaryOnUs
                         this.reason = checkDecline.reason
+                        this.frontImageFileId = checkDecline.frontImageFileId
+                        this.backImageFileId = checkDecline.backImageFileId
                         additionalProperties(checkDecline.additionalProperties)
                     }
 
@@ -4280,6 +4451,40 @@ private constructor(
                     @ExcludeMissing
                     fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
+                    /**
+                     * The identifier of the API File object containing an image of the front of the
+                     * declined check.
+                     */
+                    fun frontImageFileId(frontImageFileId: String) =
+                        frontImageFileId(JsonField.of(frontImageFileId))
+
+                    /**
+                     * The identifier of the API File object containing an image of the front of the
+                     * declined check.
+                     */
+                    @JsonProperty("front_image_file_id")
+                    @ExcludeMissing
+                    fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
+                        this.frontImageFileId = frontImageFileId
+                    }
+
+                    /**
+                     * The identifier of the API File object containing an image of the back of the
+                     * declined check.
+                     */
+                    fun backImageFileId(backImageFileId: String) =
+                        backImageFileId(JsonField.of(backImageFileId))
+
+                    /**
+                     * The identifier of the API File object containing an image of the back of the
+                     * declined check.
+                     */
+                    @JsonProperty("back_image_file_id")
+                    @ExcludeMissing
+                    fun backImageFileId(backImageFileId: JsonField<String>) = apply {
+                        this.backImageFileId = backImageFileId
+                    }
+
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
                         this.additionalProperties.putAll(additionalProperties)
@@ -4300,6 +4505,8 @@ private constructor(
                             amount,
                             auxiliaryOnUs,
                             reason,
+                            frontImageFileId,
+                            backImageFileId,
                             additionalProperties.toUnmodifiable(),
                         )
                 }
@@ -9281,6 +9488,7 @@ private constructor(
                 private val amount: JsonField<Long>,
                 private val currency: JsonField<Currency>,
                 private val direction: JsonField<Direction>,
+                private val processingCategory: JsonField<ProcessingCategory>,
                 private val expiresAt: JsonField<OffsetDateTime>,
                 private val realTimeDecisionId: JsonField<String>,
                 private val pendingTransactionId: JsonField<String>,
@@ -9366,6 +9574,13 @@ private constructor(
                  * cardholder to the merchant or from the merchant to the cardholder.
                  */
                 fun direction(): Direction = direction.getRequired("direction")
+
+                /**
+                 * The processing category describes the intent behind the authorization, such as
+                 * whether it was used for bill payments or an automatic fuel dispenser.
+                 */
+                fun processingCategory(): ProcessingCategory =
+                    processingCategory.getRequired("processing_category")
 
                 /**
                  * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) when this authorization
@@ -9475,6 +9690,14 @@ private constructor(
                 @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
 
                 /**
+                 * The processing category describes the intent behind the authorization, such as
+                 * whether it was used for bill payments or an automatic fuel dispenser.
+                 */
+                @JsonProperty("processing_category")
+                @ExcludeMissing
+                fun _processingCategory() = processingCategory
+
+                /**
                  * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) when this authorization
                  * will expire and the pending transaction will be released.
                  */
@@ -9520,6 +9743,7 @@ private constructor(
                         amount()
                         currency()
                         direction()
+                        processingCategory()
                         expiresAt()
                         realTimeDecisionId()
                         pendingTransactionId()
@@ -9551,6 +9775,7 @@ private constructor(
                         this.amount == other.amount &&
                         this.currency == other.currency &&
                         this.direction == other.direction &&
+                        this.processingCategory == other.processingCategory &&
                         this.expiresAt == other.expiresAt &&
                         this.realTimeDecisionId == other.realTimeDecisionId &&
                         this.pendingTransactionId == other.pendingTransactionId &&
@@ -9577,6 +9802,7 @@ private constructor(
                                 amount,
                                 currency,
                                 direction,
+                                processingCategory,
                                 expiresAt,
                                 realTimeDecisionId,
                                 pendingTransactionId,
@@ -9588,7 +9814,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "CardAuthorization{id=$id, cardPaymentId=$cardPaymentId, merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, digitalWalletTokenId=$digitalWalletTokenId, physicalCardId=$physicalCardId, verification=$verification, networkIdentifiers=$networkIdentifiers, networkDetails=$networkDetails, amount=$amount, currency=$currency, direction=$direction, expiresAt=$expiresAt, realTimeDecisionId=$realTimeDecisionId, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
+                    "CardAuthorization{id=$id, cardPaymentId=$cardPaymentId, merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, digitalWalletTokenId=$digitalWalletTokenId, physicalCardId=$physicalCardId, verification=$verification, networkIdentifiers=$networkIdentifiers, networkDetails=$networkDetails, amount=$amount, currency=$currency, direction=$direction, processingCategory=$processingCategory, expiresAt=$expiresAt, realTimeDecisionId=$realTimeDecisionId, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -9612,6 +9838,7 @@ private constructor(
                     private var amount: JsonField<Long> = JsonMissing.of()
                     private var currency: JsonField<Currency> = JsonMissing.of()
                     private var direction: JsonField<Direction> = JsonMissing.of()
+                    private var processingCategory: JsonField<ProcessingCategory> = JsonMissing.of()
                     private var expiresAt: JsonField<OffsetDateTime> = JsonMissing.of()
                     private var realTimeDecisionId: JsonField<String> = JsonMissing.of()
                     private var pendingTransactionId: JsonField<String> = JsonMissing.of()
@@ -9635,6 +9862,7 @@ private constructor(
                         this.amount = cardAuthorization.amount
                         this.currency = cardAuthorization.currency
                         this.direction = cardAuthorization.direction
+                        this.processingCategory = cardAuthorization.processingCategory
                         this.expiresAt = cardAuthorization.expiresAt
                         this.realTimeDecisionId = cardAuthorization.realTimeDecisionId
                         this.pendingTransactionId = cardAuthorization.pendingTransactionId
@@ -9841,6 +10069,24 @@ private constructor(
                     }
 
                     /**
+                     * The processing category describes the intent behind the authorization, such
+                     * as whether it was used for bill payments or an automatic fuel dispenser.
+                     */
+                    fun processingCategory(processingCategory: ProcessingCategory) =
+                        processingCategory(JsonField.of(processingCategory))
+
+                    /**
+                     * The processing category describes the intent behind the authorization, such
+                     * as whether it was used for bill payments or an automatic fuel dispenser.
+                     */
+                    @JsonProperty("processing_category")
+                    @ExcludeMissing
+                    fun processingCategory(processingCategory: JsonField<ProcessingCategory>) =
+                        apply {
+                            this.processingCategory = processingCategory
+                        }
+
+                    /**
                      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) when this
                      * authorization will expire and the pending transaction will be released.
                      */
@@ -9934,6 +10180,7 @@ private constructor(
                             amount,
                             currency,
                             direction,
+                            processingCategory,
                             expiresAt,
                             realTimeDecisionId,
                             pendingTransactionId,
@@ -10924,6 +11171,95 @@ private constructor(
                                 additionalProperties.toUnmodifiable(),
                             )
                     }
+                }
+
+                class ProcessingCategory
+                @JsonCreator
+                private constructor(
+                    private val value: JsonField<String>,
+                ) {
+
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is ProcessingCategory && this.value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+
+                    companion object {
+
+                        @JvmField
+                        val ACCOUNT_FUNDING = ProcessingCategory(JsonField.of("account_funding"))
+
+                        @JvmField
+                        val AUTOMATIC_FUEL_DISPENSER =
+                            ProcessingCategory(JsonField.of("automatic_fuel_dispenser"))
+
+                        @JvmField
+                        val BILL_PAYMENT = ProcessingCategory(JsonField.of("bill_payment"))
+
+                        @JvmField val PURCHASE = ProcessingCategory(JsonField.of("purchase"))
+
+                        @JvmField val QUASI_CASH = ProcessingCategory(JsonField.of("quasi_cash"))
+
+                        @JvmField val REFUND = ProcessingCategory(JsonField.of("refund"))
+
+                        @JvmStatic fun of(value: String) = ProcessingCategory(JsonField.of(value))
+                    }
+
+                    enum class Known {
+                        ACCOUNT_FUNDING,
+                        AUTOMATIC_FUEL_DISPENSER,
+                        BILL_PAYMENT,
+                        PURCHASE,
+                        QUASI_CASH,
+                        REFUND,
+                    }
+
+                    enum class Value {
+                        ACCOUNT_FUNDING,
+                        AUTOMATIC_FUEL_DISPENSER,
+                        BILL_PAYMENT,
+                        PURCHASE,
+                        QUASI_CASH,
+                        REFUND,
+                        _UNKNOWN,
+                    }
+
+                    fun value(): Value =
+                        when (this) {
+                            ACCOUNT_FUNDING -> Value.ACCOUNT_FUNDING
+                            AUTOMATIC_FUEL_DISPENSER -> Value.AUTOMATIC_FUEL_DISPENSER
+                            BILL_PAYMENT -> Value.BILL_PAYMENT
+                            PURCHASE -> Value.PURCHASE
+                            QUASI_CASH -> Value.QUASI_CASH
+                            REFUND -> Value.REFUND
+                            else -> Value._UNKNOWN
+                        }
+
+                    fun known(): Known =
+                        when (this) {
+                            ACCOUNT_FUNDING -> Known.ACCOUNT_FUNDING
+                            AUTOMATIC_FUEL_DISPENSER -> Known.AUTOMATIC_FUEL_DISPENSER
+                            BILL_PAYMENT -> Known.BILL_PAYMENT
+                            PURCHASE -> Known.PURCHASE
+                            QUASI_CASH -> Known.QUASI_CASH
+                            REFUND -> Known.REFUND
+                            else ->
+                                throw IncreaseInvalidDataException(
+                                    "Unknown ProcessingCategory: $value"
+                                )
+                        }
+
+                    fun asString(): String = _value().asStringOrThrow()
                 }
 
                 class Type

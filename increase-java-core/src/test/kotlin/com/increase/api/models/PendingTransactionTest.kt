@@ -97,6 +97,10 @@ class PendingTransactionTest {
                                 )
                                 .pendingTransactionId("string")
                                 .physicalCardId("string")
+                                .processingCategory(
+                                    PendingTransaction.Source.CardAuthorization.ProcessingCategory
+                                        .ACCOUNT_FUNDING
+                                )
                                 .realTimeDecisionId("string")
                                 .type(
                                     PendingTransaction.Source.CardAuthorization.Type
@@ -285,6 +289,10 @@ class PendingTransactionTest {
                             )
                             .pendingTransactionId("string")
                             .physicalCardId("string")
+                            .processingCategory(
+                                PendingTransaction.Source.CardAuthorization.ProcessingCategory
+                                    .ACCOUNT_FUNDING
+                            )
                             .realTimeDecisionId("string")
                             .type(
                                 PendingTransaction.Source.CardAuthorization.Type.CARD_AUTHORIZATION

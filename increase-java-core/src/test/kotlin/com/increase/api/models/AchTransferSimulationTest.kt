@@ -125,6 +125,12 @@ class AchTransferSimulationTest {
                                                 .build()
                                         )
                                         .physicalCardId("string")
+                                        .processingCategory(
+                                            AchTransferSimulation.DeclinedTransaction.Source
+                                                .CardDecline
+                                                .ProcessingCategory
+                                                .ACCOUNT_FUNDING
+                                        )
                                         .realTimeDecisionId("string")
                                         .reason(
                                             AchTransferSimulation.DeclinedTransaction.Source
@@ -190,6 +196,8 @@ class AchTransferSimulationTest {
                                         .builder()
                                         .amount(123L)
                                         .auxiliaryOnUs("string")
+                                        .backImageFileId("string")
+                                        .frontImageFileId("string")
                                         .reason(
                                             AchTransferSimulation.DeclinedTransaction.Source
                                                 .CheckDecline
@@ -1490,6 +1498,11 @@ class AchTransferSimulationTest {
                                             .build()
                                     )
                                     .physicalCardId("string")
+                                    .processingCategory(
+                                        AchTransferSimulation.DeclinedTransaction.Source.CardDecline
+                                            .ProcessingCategory
+                                            .ACCOUNT_FUNDING
+                                    )
                                     .realTimeDecisionId("string")
                                     .reason(
                                         AchTransferSimulation.DeclinedTransaction.Source.CardDecline
@@ -1551,6 +1564,8 @@ class AchTransferSimulationTest {
                                     .builder()
                                     .amount(123L)
                                     .auxiliaryOnUs("string")
+                                    .backImageFileId("string")
+                                    .frontImageFileId("string")
                                     .reason(
                                         AchTransferSimulation.DeclinedTransaction.Source
                                             .CheckDecline

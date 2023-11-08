@@ -76,6 +76,10 @@ class CardPaymentTest {
                                     )
                                     .pendingTransactionId("string")
                                     .physicalCardId("string")
+                                    .processingCategory(
+                                        CardPayment.Element.CardAuthorization.ProcessingCategory
+                                            .ACCOUNT_FUNDING
+                                    )
                                     .realTimeDecisionId("string")
                                     .type(
                                         CardPayment.Element.CardAuthorization.Type
@@ -183,6 +187,10 @@ class CardPaymentTest {
                                             .build()
                                     )
                                     .physicalCardId("string")
+                                    .processingCategory(
+                                        CardPayment.Element.CardDecline.ProcessingCategory
+                                            .ACCOUNT_FUNDING
+                                    )
                                     .realTimeDecisionId("string")
                                     .reason(CardPayment.Element.CardDecline.Reason.CARD_NOT_ACTIVE)
                                     .verification(
@@ -862,6 +870,10 @@ class CardPaymentTest {
                             )
                             .pendingTransactionId("string")
                             .physicalCardId("string")
+                            .processingCategory(
+                                CardPayment.Element.CardAuthorization.ProcessingCategory
+                                    .ACCOUNT_FUNDING
+                            )
                             .realTimeDecisionId("string")
                             .type(CardPayment.Element.CardAuthorization.Type.CARD_AUTHORIZATION)
                             .verification(
@@ -954,6 +966,9 @@ class CardPaymentTest {
                                     .build()
                             )
                             .physicalCardId("string")
+                            .processingCategory(
+                                CardPayment.Element.CardDecline.ProcessingCategory.ACCOUNT_FUNDING
+                            )
                             .realTimeDecisionId("string")
                             .reason(CardPayment.Element.CardDecline.Reason.CARD_NOT_ACTIVE)
                             .verification(

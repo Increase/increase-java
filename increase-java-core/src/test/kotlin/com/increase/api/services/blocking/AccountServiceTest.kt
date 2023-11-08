@@ -6,6 +6,7 @@ import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.*
 import com.increase.api.models.AccountListParams
+import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -75,6 +76,25 @@ class AccountServiceTest {
         val accountList = accountService.list(AccountListParams.builder().build())
         println(accountList)
         accountList.data().forEach { it.validate() }
+    }
+
+    @Test
+    fun callBalance() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val accountService = client.accounts()
+        val balanceLookup =
+            accountService.balance(
+                AccountBalanceParams.builder()
+                    .accountId("string")
+                    .atTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
+        println(balanceLookup)
+        balanceLookup.validate()
     }
 
     @Disabled("Prism tests are broken")

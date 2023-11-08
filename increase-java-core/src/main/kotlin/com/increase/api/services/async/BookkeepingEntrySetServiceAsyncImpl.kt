@@ -10,6 +10,9 @@ import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.BookkeepingEntrySet
 import com.increase.api.models.BookkeepingEntrySetCreateParams
+import com.increase.api.models.BookkeepingEntrySetListPageAsync
+import com.increase.api.models.BookkeepingEntrySetListParams
+import com.increase.api.models.BookkeepingEntrySetRetrieveParams
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
@@ -49,6 +52,64 @@ constructor(
                         validate()
                     }
                 }
+        }
+    }
+
+    private val retrieveHandler: Handler<BookkeepingEntrySet> =
+        jsonHandler<BookkeepingEntrySet>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+    /** Retrieve a Bookkeeping Entry Set */
+    override fun retrieve(
+        params: BookkeepingEntrySetRetrieveParams,
+        requestOptions: RequestOptions
+    ): CompletableFuture<BookkeepingEntrySet> {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.GET)
+                .addPathSegments("bookkeeping_entry_sets", params.getPathParam(0))
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .build()
+        return clientOptions.httpClient.executeAsync(request, requestOptions).thenApply { response
+            ->
+            response
+                .use { retrieveHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
+        }
+    }
+
+    private val listHandler: Handler<BookkeepingEntrySetListPageAsync.Response> =
+        jsonHandler<BookkeepingEntrySetListPageAsync.Response>(clientOptions.jsonMapper)
+            .withErrorHandler(errorHandler)
+
+    /** List Bookkeeping Entry Sets */
+    override fun list(
+        params: BookkeepingEntrySetListParams,
+        requestOptions: RequestOptions
+    ): CompletableFuture<BookkeepingEntrySetListPageAsync> {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.GET)
+                .addPathSegments("bookkeeping_entry_sets")
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .build()
+        return clientOptions.httpClient.executeAsync(request, requestOptions).thenApply { response
+            ->
+            response
+                .use { listHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
+                .let { BookkeepingEntrySetListPageAsync.of(this, params, it) }
         }
     }
 }

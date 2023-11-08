@@ -25,8 +25,6 @@ interface IncreaseClientAsync {
 
     fun realTimePaymentsTransfers(): RealTimePaymentsTransferServiceAsync
 
-    fun balanceLookups(): BalanceLookupServiceAsync
-
     fun cards(): CardServiceAsync
 
     fun cardDisputes(): CardDisputeServiceAsync

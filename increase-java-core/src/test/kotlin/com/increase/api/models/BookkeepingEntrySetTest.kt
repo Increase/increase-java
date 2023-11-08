@@ -13,6 +13,7 @@ class BookkeepingEntrySetTest {
         val bookkeepingEntrySet =
             BookkeepingEntrySet.builder()
                 .id("string")
+                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .date(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .entries(
                     listOf(
@@ -28,6 +29,8 @@ class BookkeepingEntrySetTest {
                 .build()
         assertThat(bookkeepingEntrySet).isNotNull
         assertThat(bookkeepingEntrySet.id()).isEqualTo("string")
+        assertThat(bookkeepingEntrySet.createdAt())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(bookkeepingEntrySet.date())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(bookkeepingEntrySet.entries())
