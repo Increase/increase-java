@@ -90,6 +90,10 @@ class DeclinedTransactionTest {
                                         .build()
                                 )
                                 .physicalCardId("string")
+                                .processingCategory(
+                                    DeclinedTransaction.Source.CardDecline.ProcessingCategory
+                                        .ACCOUNT_FUNDING
+                                )
                                 .realTimeDecisionId("string")
                                 .reason(
                                     DeclinedTransaction.Source.CardDecline.Reason.CARD_NOT_ACTIVE
@@ -135,6 +139,8 @@ class DeclinedTransactionTest {
                             DeclinedTransaction.Source.CheckDecline.builder()
                                 .amount(123L)
                                 .auxiliaryOnUs("string")
+                                .backImageFileId("string")
+                                .frontImageFileId("string")
                                 .reason(
                                     DeclinedTransaction.Source.CheckDecline.Reason
                                         .ACH_ROUTE_DISABLED
@@ -332,6 +338,10 @@ class DeclinedTransactionTest {
                                     .build()
                             )
                             .physicalCardId("string")
+                            .processingCategory(
+                                DeclinedTransaction.Source.CardDecline.ProcessingCategory
+                                    .ACCOUNT_FUNDING
+                            )
                             .realTimeDecisionId("string")
                             .reason(DeclinedTransaction.Source.CardDecline.Reason.CARD_NOT_ACTIVE)
                             .verification(
@@ -373,6 +383,8 @@ class DeclinedTransactionTest {
                         DeclinedTransaction.Source.CheckDecline.builder()
                             .amount(123L)
                             .auxiliaryOnUs("string")
+                            .backImageFileId("string")
+                            .frontImageFileId("string")
                             .reason(
                                 DeclinedTransaction.Source.CheckDecline.Reason.ACH_ROUTE_DISABLED
                             )

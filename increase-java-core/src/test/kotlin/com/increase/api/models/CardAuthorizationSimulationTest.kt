@@ -128,6 +128,12 @@ class CardAuthorizationSimulationTest {
                                                 .build()
                                         )
                                         .physicalCardId("string")
+                                        .processingCategory(
+                                            CardAuthorizationSimulation.DeclinedTransaction.Source
+                                                .CardDecline
+                                                .ProcessingCategory
+                                                .ACCOUNT_FUNDING
+                                        )
                                         .realTimeDecisionId("string")
                                         .reason(
                                             CardAuthorizationSimulation.DeclinedTransaction.Source
@@ -196,6 +202,8 @@ class CardAuthorizationSimulationTest {
                                         .builder()
                                         .amount(123L)
                                         .auxiliaryOnUs("string")
+                                        .backImageFileId("string")
+                                        .frontImageFileId("string")
                                         .reason(
                                             CardAuthorizationSimulation.DeclinedTransaction.Source
                                                 .CheckDecline
@@ -454,6 +462,12 @@ class CardAuthorizationSimulationTest {
                                         )
                                         .pendingTransactionId("string")
                                         .physicalCardId("string")
+                                        .processingCategory(
+                                            CardAuthorizationSimulation.PendingTransaction.Source
+                                                .CardAuthorization
+                                                .ProcessingCategory
+                                                .ACCOUNT_FUNDING
+                                        )
                                         .realTimeDecisionId("string")
                                         .type(
                                             CardAuthorizationSimulation.PendingTransaction.Source
@@ -726,6 +740,12 @@ class CardAuthorizationSimulationTest {
                                             .build()
                                     )
                                     .physicalCardId("string")
+                                    .processingCategory(
+                                        CardAuthorizationSimulation.DeclinedTransaction.Source
+                                            .CardDecline
+                                            .ProcessingCategory
+                                            .ACCOUNT_FUNDING
+                                    )
                                     .realTimeDecisionId("string")
                                     .reason(
                                         CardAuthorizationSimulation.DeclinedTransaction.Source
@@ -793,6 +813,8 @@ class CardAuthorizationSimulationTest {
                                     .builder()
                                     .amount(123L)
                                     .auxiliaryOnUs("string")
+                                    .backImageFileId("string")
+                                    .frontImageFileId("string")
                                     .reason(
                                         CardAuthorizationSimulation.DeclinedTransaction.Source
                                             .CheckDecline
@@ -1048,6 +1070,12 @@ class CardAuthorizationSimulationTest {
                                     )
                                     .pendingTransactionId("string")
                                     .physicalCardId("string")
+                                    .processingCategory(
+                                        CardAuthorizationSimulation.PendingTransaction.Source
+                                            .CardAuthorization
+                                            .ProcessingCategory
+                                            .ACCOUNT_FUNDING
+                                    )
                                     .realTimeDecisionId("string")
                                     .type(
                                         CardAuthorizationSimulation.PendingTransaction.Source

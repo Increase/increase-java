@@ -25,8 +25,6 @@ interface IncreaseClient {
 
     fun realTimePaymentsTransfers(): RealTimePaymentsTransferService
 
-    fun balanceLookups(): BalanceLookupService
-
     fun cards(): CardService
 
     fun cardDisputes(): CardDisputeService

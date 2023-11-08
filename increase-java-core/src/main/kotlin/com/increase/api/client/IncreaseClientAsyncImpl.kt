@@ -44,10 +44,6 @@ constructor(
         RealTimePaymentsTransferServiceAsyncImpl(clientOptions)
     }
 
-    private val balanceLookups: BalanceLookupServiceAsync by lazy {
-        BalanceLookupServiceAsyncImpl(clientOptions)
-    }
-
     private val cards: CardServiceAsync by lazy { CardServiceAsyncImpl(clientOptions) }
 
     private val cardDisputes: CardDisputeServiceAsync by lazy {
@@ -176,8 +172,6 @@ constructor(
 
     override fun realTimePaymentsTransfers(): RealTimePaymentsTransferServiceAsync =
         realTimePaymentsTransfers
-
-    override fun balanceLookups(): BalanceLookupServiceAsync = balanceLookups
 
     override fun cards(): CardServiceAsync = cards
 

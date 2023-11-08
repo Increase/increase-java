@@ -9,10 +9,12 @@ import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.BookkeepingAccount
+import com.increase.api.models.BookkeepingAccountBalanceParams
 import com.increase.api.models.BookkeepingAccountCreateParams
 import com.increase.api.models.BookkeepingAccountListPage
 import com.increase.api.models.BookkeepingAccountListParams
 import com.increase.api.models.BookkeepingAccountUpdateParams
+import com.increase.api.models.BookkeepingBalanceLookup
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
@@ -107,6 +109,34 @@ constructor(
                     }
                 }
                 .let { BookkeepingAccountListPage.of(this, params, it) }
+        }
+    }
+
+    private val balanceHandler: Handler<BookkeepingBalanceLookup> =
+        jsonHandler<BookkeepingBalanceLookup>(clientOptions.jsonMapper)
+            .withErrorHandler(errorHandler)
+
+    /** Retrieve a Bookkeeping Account Balance */
+    override fun balance(
+        params: BookkeepingAccountBalanceParams,
+        requestOptions: RequestOptions
+    ): BookkeepingBalanceLookup {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.GET)
+                .addPathSegments("bookkeeping_accounts", params.getPathParam(0), "balance")
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .build()
+        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
+            response
+                .use { balanceHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
         }
     }
 }

@@ -17,9 +17,9 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
 /** Represents a request to lookup the balance of an Account at a given point in time. */
-@JsonDeserialize(builder = BalanceLookupLookupResponse.Builder::class)
+@JsonDeserialize(builder = BalanceLookup.Builder::class)
 @NoAutoDetect
-class BalanceLookupLookupResponse
+class BalanceLookup
 private constructor(
     private val accountId: JsonField<String>,
     private val currentBalance: JsonField<Long>,
@@ -78,7 +78,7 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    fun validate(): BalanceLookupLookupResponse = apply {
+    fun validate(): BalanceLookup = apply {
         if (!validated) {
             accountId()
             currentBalance()
@@ -95,7 +95,7 @@ private constructor(
             return true
         }
 
-        return other is BalanceLookupLookupResponse &&
+        return other is BalanceLookup &&
             this.accountId == other.accountId &&
             this.currentBalance == other.currentBalance &&
             this.availableBalance == other.availableBalance &&
@@ -118,7 +118,7 @@ private constructor(
     }
 
     override fun toString() =
-        "BalanceLookupLookupResponse{accountId=$accountId, currentBalance=$currentBalance, availableBalance=$availableBalance, type=$type, additionalProperties=$additionalProperties}"
+        "BalanceLookup{accountId=$accountId, currentBalance=$currentBalance, availableBalance=$availableBalance, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -134,12 +134,12 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(balanceLookupLookupResponse: BalanceLookupLookupResponse) = apply {
-            this.accountId = balanceLookupLookupResponse.accountId
-            this.currentBalance = balanceLookupLookupResponse.currentBalance
-            this.availableBalance = balanceLookupLookupResponse.availableBalance
-            this.type = balanceLookupLookupResponse.type
-            additionalProperties(balanceLookupLookupResponse.additionalProperties)
+        internal fun from(balanceLookup: BalanceLookup) = apply {
+            this.accountId = balanceLookup.accountId
+            this.currentBalance = balanceLookup.currentBalance
+            this.availableBalance = balanceLookup.availableBalance
+            this.type = balanceLookup.type
+            additionalProperties(balanceLookup.additionalProperties)
         }
 
         /** The identifier for the account for which the balance was queried. */
@@ -211,8 +211,8 @@ private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): BalanceLookupLookupResponse =
-            BalanceLookupLookupResponse(
+        fun build(): BalanceLookup =
+            BalanceLookup(
                 accountId,
                 currentBalance,
                 availableBalance,

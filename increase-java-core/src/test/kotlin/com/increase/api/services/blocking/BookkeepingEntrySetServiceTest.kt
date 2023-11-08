@@ -5,6 +5,7 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.*
+import com.increase.api.models.BookkeepingEntrySetListParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -37,5 +38,35 @@ class BookkeepingEntrySetServiceTest {
             )
         println(bookkeepingEntrySet)
         bookkeepingEntrySet.validate()
+    }
+
+    @Test
+    fun callRetrieve() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val bookkeepingEntrySetService = client.bookkeepingEntrySets()
+        val bookkeepingEntrySet =
+            bookkeepingEntrySetService.retrieve(
+                BookkeepingEntrySetRetrieveParams.builder().bookkeepingEntrySetId("string").build()
+            )
+        println(bookkeepingEntrySet)
+        bookkeepingEntrySet.validate()
+    }
+
+    @Test
+    fun callList() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val bookkeepingEntrySetService = client.bookkeepingEntrySets()
+        val bookkeepingEntrySetList =
+            bookkeepingEntrySetService.list(BookkeepingEntrySetListParams.builder().build())
+        println(bookkeepingEntrySetList)
+        bookkeepingEntrySetList.data().forEach { it.validate() }
     }
 }

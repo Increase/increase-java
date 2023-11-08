@@ -56,6 +56,9 @@ class RealTimeDecisionTest {
                         .physicalCardId("string")
                         .presentmentAmount(123L)
                         .presentmentCurrency("string")
+                        .processingCategory(
+                            RealTimeDecision.CardAuthorization.ProcessingCategory.ACCOUNT_FUNDING
+                        )
                         .requestDetails(
                             RealTimeDecision.CardAuthorization.RequestDetails.builder()
                                 .category(
@@ -181,6 +184,9 @@ class RealTimeDecisionTest {
                     .physicalCardId("string")
                     .presentmentAmount(123L)
                     .presentmentCurrency("string")
+                    .processingCategory(
+                        RealTimeDecision.CardAuthorization.ProcessingCategory.ACCOUNT_FUNDING
+                    )
                     .requestDetails(
                         RealTimeDecision.CardAuthorization.RequestDetails.builder()
                             .category(
