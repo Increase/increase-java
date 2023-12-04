@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.16.1 (2023-12-04)
+
+Full Changelog: [v0.16.0...v0.16.1](https://github.com/increase/increase-java/compare/v0.16.0...v0.16.1)
+
 ## 0.16.0 (2023-11-08)
 
 Full Changelog: [v0.15.0...v0.16.0](https://github.com/increase/increase-java/compare/v0.15.0...v0.16.0)
