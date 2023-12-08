@@ -14633,6 +14633,52 @@ private constructor(
                         val ENDORSEMENT_IRREGULAR =
                             ReturnReason(JsonField.of("endorsement_irregular"))
 
+                        @JvmField
+                        val ALTERED_OR_FICTITIOUS_ITEM =
+                            ReturnReason(JsonField.of("altered_or_fictitious_item"))
+
+                        @JvmField
+                        val FROZEN_OR_BLOCKED_ACCOUNT =
+                            ReturnReason(JsonField.of("frozen_or_blocked_account"))
+
+                        @JvmField val POST_DATED = ReturnReason(JsonField.of("post_dated"))
+
+                        @JvmField
+                        val ENDORSEMENT_MISSING = ReturnReason(JsonField.of("endorsement_missing"))
+
+                        @JvmField
+                        val SIGNATURE_MISSING = ReturnReason(JsonField.of("signature_missing"))
+
+                        @JvmField
+                        val STOP_PAYMENT_SUSPECT =
+                            ReturnReason(JsonField.of("stop_payment_suspect"))
+
+                        @JvmField val UNUSABLE_IMAGE = ReturnReason(JsonField.of("unusable_image"))
+
+                        @JvmField
+                        val IMAGE_FAILS_SECURITY_CHECK =
+                            ReturnReason(JsonField.of("image_fails_security_check"))
+
+                        @JvmField
+                        val CANNOT_DETERMINE_AMOUNT =
+                            ReturnReason(JsonField.of("cannot_determine_amount"))
+
+                        @JvmField
+                        val SIGNATURE_IRREGULAR = ReturnReason(JsonField.of("signature_irregular"))
+
+                        @JvmField val NON_CASH_ITEM = ReturnReason(JsonField.of("non_cash_item"))
+
+                        @JvmField
+                        val UNABLE_TO_PROCESS = ReturnReason(JsonField.of("unable_to_process"))
+
+                        @JvmField
+                        val ITEM_EXCEEDS_DOLLAR_LIMIT =
+                            ReturnReason(JsonField.of("item_exceeds_dollar_limit"))
+
+                        @JvmField
+                        val BRANCH_OR_ACCOUNT_SOLD =
+                            ReturnReason(JsonField.of("branch_or_account_sold"))
+
                         @JvmStatic fun of(value: String) = ReturnReason(JsonField.of(value))
                     }
 
@@ -14649,6 +14695,20 @@ private constructor(
                         UNMATCHED_DETAILS,
                         UNREADABLE_IMAGE,
                         ENDORSEMENT_IRREGULAR,
+                        ALTERED_OR_FICTITIOUS_ITEM,
+                        FROZEN_OR_BLOCKED_ACCOUNT,
+                        POST_DATED,
+                        ENDORSEMENT_MISSING,
+                        SIGNATURE_MISSING,
+                        STOP_PAYMENT_SUSPECT,
+                        UNUSABLE_IMAGE,
+                        IMAGE_FAILS_SECURITY_CHECK,
+                        CANNOT_DETERMINE_AMOUNT,
+                        SIGNATURE_IRREGULAR,
+                        NON_CASH_ITEM,
+                        UNABLE_TO_PROCESS,
+                        ITEM_EXCEEDS_DOLLAR_LIMIT,
+                        BRANCH_OR_ACCOUNT_SOLD,
                     }
 
                     enum class Value {
@@ -14664,6 +14724,20 @@ private constructor(
                         UNMATCHED_DETAILS,
                         UNREADABLE_IMAGE,
                         ENDORSEMENT_IRREGULAR,
+                        ALTERED_OR_FICTITIOUS_ITEM,
+                        FROZEN_OR_BLOCKED_ACCOUNT,
+                        POST_DATED,
+                        ENDORSEMENT_MISSING,
+                        SIGNATURE_MISSING,
+                        STOP_PAYMENT_SUSPECT,
+                        UNUSABLE_IMAGE,
+                        IMAGE_FAILS_SECURITY_CHECK,
+                        CANNOT_DETERMINE_AMOUNT,
+                        SIGNATURE_IRREGULAR,
+                        NON_CASH_ITEM,
+                        UNABLE_TO_PROCESS,
+                        ITEM_EXCEEDS_DOLLAR_LIMIT,
+                        BRANCH_OR_ACCOUNT_SOLD,
                         _UNKNOWN,
                     }
 
@@ -14681,6 +14755,20 @@ private constructor(
                             UNMATCHED_DETAILS -> Value.UNMATCHED_DETAILS
                             UNREADABLE_IMAGE -> Value.UNREADABLE_IMAGE
                             ENDORSEMENT_IRREGULAR -> Value.ENDORSEMENT_IRREGULAR
+                            ALTERED_OR_FICTITIOUS_ITEM -> Value.ALTERED_OR_FICTITIOUS_ITEM
+                            FROZEN_OR_BLOCKED_ACCOUNT -> Value.FROZEN_OR_BLOCKED_ACCOUNT
+                            POST_DATED -> Value.POST_DATED
+                            ENDORSEMENT_MISSING -> Value.ENDORSEMENT_MISSING
+                            SIGNATURE_MISSING -> Value.SIGNATURE_MISSING
+                            STOP_PAYMENT_SUSPECT -> Value.STOP_PAYMENT_SUSPECT
+                            UNUSABLE_IMAGE -> Value.UNUSABLE_IMAGE
+                            IMAGE_FAILS_SECURITY_CHECK -> Value.IMAGE_FAILS_SECURITY_CHECK
+                            CANNOT_DETERMINE_AMOUNT -> Value.CANNOT_DETERMINE_AMOUNT
+                            SIGNATURE_IRREGULAR -> Value.SIGNATURE_IRREGULAR
+                            NON_CASH_ITEM -> Value.NON_CASH_ITEM
+                            UNABLE_TO_PROCESS -> Value.UNABLE_TO_PROCESS
+                            ITEM_EXCEEDS_DOLLAR_LIMIT -> Value.ITEM_EXCEEDS_DOLLAR_LIMIT
+                            BRANCH_OR_ACCOUNT_SOLD -> Value.BRANCH_OR_ACCOUNT_SOLD
                             else -> Value._UNKNOWN
                         }
 
@@ -14698,6 +14786,20 @@ private constructor(
                             UNMATCHED_DETAILS -> Known.UNMATCHED_DETAILS
                             UNREADABLE_IMAGE -> Known.UNREADABLE_IMAGE
                             ENDORSEMENT_IRREGULAR -> Known.ENDORSEMENT_IRREGULAR
+                            ALTERED_OR_FICTITIOUS_ITEM -> Known.ALTERED_OR_FICTITIOUS_ITEM
+                            FROZEN_OR_BLOCKED_ACCOUNT -> Known.FROZEN_OR_BLOCKED_ACCOUNT
+                            POST_DATED -> Known.POST_DATED
+                            ENDORSEMENT_MISSING -> Known.ENDORSEMENT_MISSING
+                            SIGNATURE_MISSING -> Known.SIGNATURE_MISSING
+                            STOP_PAYMENT_SUSPECT -> Known.STOP_PAYMENT_SUSPECT
+                            UNUSABLE_IMAGE -> Known.UNUSABLE_IMAGE
+                            IMAGE_FAILS_SECURITY_CHECK -> Known.IMAGE_FAILS_SECURITY_CHECK
+                            CANNOT_DETERMINE_AMOUNT -> Known.CANNOT_DETERMINE_AMOUNT
+                            SIGNATURE_IRREGULAR -> Known.SIGNATURE_IRREGULAR
+                            NON_CASH_ITEM -> Known.NON_CASH_ITEM
+                            UNABLE_TO_PROCESS -> Known.UNABLE_TO_PROCESS
+                            ITEM_EXCEEDS_DOLLAR_LIMIT -> Known.ITEM_EXCEEDS_DOLLAR_LIMIT
+                            BRANCH_OR_ACCOUNT_SOLD -> Known.BRANCH_OR_ACCOUNT_SOLD
                             else ->
                                 throw IncreaseInvalidDataException("Unknown ReturnReason: $value")
                         }

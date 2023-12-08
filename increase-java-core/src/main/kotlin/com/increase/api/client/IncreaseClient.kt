@@ -88,4 +88,8 @@ interface IncreaseClient {
     fun physicalCards(): PhysicalCardService
 
     fun cardPayments(): CardPaymentService
+
+    fun proofOfAuthorizationRequests(): ProofOfAuthorizationRequestService
+
+    fun proofOfAuthorizationRequestSubmissions(): ProofOfAuthorizationRequestSubmissionService
 }
