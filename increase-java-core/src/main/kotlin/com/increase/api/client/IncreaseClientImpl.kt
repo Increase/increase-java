@@ -144,6 +144,15 @@ constructor(
 
     private val cardPayments: CardPaymentService by lazy { CardPaymentServiceImpl(clientOptions) }
 
+    private val proofOfAuthorizationRequests: ProofOfAuthorizationRequestService by lazy {
+        ProofOfAuthorizationRequestServiceImpl(clientOptions)
+    }
+
+    private val proofOfAuthorizationRequestSubmissions:
+        ProofOfAuthorizationRequestSubmissionService by lazy {
+        ProofOfAuthorizationRequestSubmissionServiceImpl(clientOptions)
+    }
+
     override fun async(): IncreaseClientAsync = async
 
     override fun accounts(): AccountService = accounts
@@ -225,4 +234,10 @@ constructor(
     override fun physicalCards(): PhysicalCardService = physicalCards
 
     override fun cardPayments(): CardPaymentService = cardPayments
+
+    override fun proofOfAuthorizationRequests(): ProofOfAuthorizationRequestService =
+        proofOfAuthorizationRequests
+
+    override fun proofOfAuthorizationRequestSubmissions():
+        ProofOfAuthorizationRequestSubmissionService = proofOfAuthorizationRequestSubmissions
 }

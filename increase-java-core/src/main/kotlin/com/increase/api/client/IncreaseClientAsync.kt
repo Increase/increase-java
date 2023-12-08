@@ -88,4 +88,8 @@ interface IncreaseClientAsync {
     fun physicalCards(): PhysicalCardServiceAsync
 
     fun cardPayments(): CardPaymentServiceAsync
+
+    fun proofOfAuthorizationRequests(): ProofOfAuthorizationRequestServiceAsync
+
+    fun proofOfAuthorizationRequestSubmissions(): ProofOfAuthorizationRequestSubmissionServiceAsync
 }
