@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.18.0 (2023-12-14)
+
+Full Changelog: [v0.17.0...v0.18.0](https://github.com/increase/increase-java/compare/v0.17.0...v0.18.0)
+
+### Features
+
+* **api:** add `suspected_fraud` rejection reason ([#139](https://github.com/increase/increase-java/issues/139)) ([59975c8](https://github.com/increase/increase-java/commit/59975c8621e1539cbcefed3f3fe7df8ce54c5992))
+
 ## 0.17.0 (2023-12-08)
 
 Full Changelog: [v0.16.1...v0.17.0](https://github.com/increase/increase-java/compare/v0.16.1...v0.17.0)
