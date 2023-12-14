@@ -165,6 +165,8 @@ constructor(
         ProofOfAuthorizationRequestSubmissionServiceAsyncImpl(clientOptions)
     }
 
+    private val intrafi: IntrafiServiceAsync by lazy { IntrafiServiceAsyncImpl(clientOptions) }
+
     override fun sync(): IncreaseClient = sync
 
     override fun accounts(): AccountServiceAsync = accounts
@@ -253,4 +255,6 @@ constructor(
 
     override fun proofOfAuthorizationRequestSubmissions():
         ProofOfAuthorizationRequestSubmissionServiceAsync = proofOfAuthorizationRequestSubmissions
+
+    override fun intrafi(): IntrafiServiceAsync = intrafi
 }

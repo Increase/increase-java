@@ -92,4 +92,6 @@ interface IncreaseClient {
     fun proofOfAuthorizationRequests(): ProofOfAuthorizationRequestService
 
     fun proofOfAuthorizationRequestSubmissions(): ProofOfAuthorizationRequestSubmissionService
+
+    fun intrafi(): IntrafiService
 }
