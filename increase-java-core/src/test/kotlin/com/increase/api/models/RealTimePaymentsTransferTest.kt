@@ -30,6 +30,7 @@ class RealTimePaymentsTransferTest {
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .creditorName("string")
                 .currency(RealTimePaymentsTransfer.Currency.CAD)
+                .debtorName("string")
                 .destinationAccountNumber("string")
                 .destinationRoutingNumber("string")
                 .externalAccountId("string")
@@ -54,6 +55,8 @@ class RealTimePaymentsTransferTest {
                 )
                 .transactionId("string")
                 .type(RealTimePaymentsTransfer.Type.REAL_TIME_PAYMENTS_TRANSFER)
+                .ultimateCreditorName("string")
+                .ultimateDebtorName("string")
                 .uniqueIdentifier("string")
                 .build()
         assertThat(realTimePaymentsTransfer).isNotNull
@@ -79,6 +82,7 @@ class RealTimePaymentsTransferTest {
         assertThat(realTimePaymentsTransfer.creditorName()).isEqualTo("string")
         assertThat(realTimePaymentsTransfer.currency())
             .isEqualTo(RealTimePaymentsTransfer.Currency.CAD)
+        assertThat(realTimePaymentsTransfer.debtorName()).contains("string")
         assertThat(realTimePaymentsTransfer.destinationAccountNumber()).isEqualTo("string")
         assertThat(realTimePaymentsTransfer.destinationRoutingNumber()).isEqualTo("string")
         assertThat(realTimePaymentsTransfer.externalAccountId()).contains("string")
@@ -107,6 +111,8 @@ class RealTimePaymentsTransferTest {
         assertThat(realTimePaymentsTransfer.transactionId()).contains("string")
         assertThat(realTimePaymentsTransfer.type())
             .isEqualTo(RealTimePaymentsTransfer.Type.REAL_TIME_PAYMENTS_TRANSFER)
+        assertThat(realTimePaymentsTransfer.ultimateCreditorName()).contains("string")
+        assertThat(realTimePaymentsTransfer.ultimateDebtorName()).contains("string")
         assertThat(realTimePaymentsTransfer.uniqueIdentifier()).contains("string")
     }
 }
