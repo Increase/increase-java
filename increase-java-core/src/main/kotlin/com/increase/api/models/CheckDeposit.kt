@@ -33,6 +33,7 @@ private constructor(
     private val backImageFileId: JsonField<String>,
     private val transactionId: JsonField<String>,
     private val depositAcceptance: JsonField<DepositAcceptance>,
+    private val depositSubmission: JsonField<DepositSubmission>,
     private val depositRejection: JsonField<DepositRejection>,
     private val depositReturn: JsonField<DepositReturn>,
     private val type: JsonField<Type>,
@@ -84,6 +85,13 @@ private constructor(
      */
     fun depositAcceptance(): Optional<DepositAcceptance> =
         Optional.ofNullable(depositAcceptance.getNullable("deposit_acceptance"))
+
+    /**
+     * After the check is parsed, it is submitted to the Check21 network for processing. This will
+     * contain details of the submission.
+     */
+    fun depositSubmission(): Optional<DepositSubmission> =
+        Optional.ofNullable(depositSubmission.getNullable("deposit_submission"))
 
     /**
      * If your deposit is rejected by Increase, this will contain details as to why it was rejected.
@@ -141,6 +149,12 @@ private constructor(
     @JsonProperty("deposit_acceptance") @ExcludeMissing fun _depositAcceptance() = depositAcceptance
 
     /**
+     * After the check is parsed, it is submitted to the Check21 network for processing. This will
+     * contain details of the submission.
+     */
+    @JsonProperty("deposit_submission") @ExcludeMissing fun _depositSubmission() = depositSubmission
+
+    /**
      * If your deposit is rejected by Increase, this will contain details as to why it was rejected.
      */
     @JsonProperty("deposit_rejection") @ExcludeMissing fun _depositRejection() = depositRejection
@@ -170,6 +184,7 @@ private constructor(
             backImageFileId()
             transactionId()
             depositAcceptance().map { it.validate() }
+            depositSubmission().map { it.validate() }
             depositRejection().map { it.validate() }
             depositReturn().map { it.validate() }
             type()
@@ -195,6 +210,7 @@ private constructor(
             this.backImageFileId == other.backImageFileId &&
             this.transactionId == other.transactionId &&
             this.depositAcceptance == other.depositAcceptance &&
+            this.depositSubmission == other.depositSubmission &&
             this.depositRejection == other.depositRejection &&
             this.depositReturn == other.depositReturn &&
             this.type == other.type &&
@@ -215,6 +231,7 @@ private constructor(
                     backImageFileId,
                     transactionId,
                     depositAcceptance,
+                    depositSubmission,
                     depositRejection,
                     depositReturn,
                     type,
@@ -225,7 +242,7 @@ private constructor(
     }
 
     override fun toString() =
-        "CheckDeposit{id=$id, amount=$amount, createdAt=$createdAt, currency=$currency, status=$status, accountId=$accountId, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, transactionId=$transactionId, depositAcceptance=$depositAcceptance, depositRejection=$depositRejection, depositReturn=$depositReturn, type=$type, additionalProperties=$additionalProperties}"
+        "CheckDeposit{id=$id, amount=$amount, createdAt=$createdAt, currency=$currency, status=$status, accountId=$accountId, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, transactionId=$transactionId, depositAcceptance=$depositAcceptance, depositSubmission=$depositSubmission, depositRejection=$depositRejection, depositReturn=$depositReturn, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -244,6 +261,7 @@ private constructor(
         private var backImageFileId: JsonField<String> = JsonMissing.of()
         private var transactionId: JsonField<String> = JsonMissing.of()
         private var depositAcceptance: JsonField<DepositAcceptance> = JsonMissing.of()
+        private var depositSubmission: JsonField<DepositSubmission> = JsonMissing.of()
         private var depositRejection: JsonField<DepositRejection> = JsonMissing.of()
         private var depositReturn: JsonField<DepositReturn> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
@@ -261,6 +279,7 @@ private constructor(
             this.backImageFileId = checkDeposit.backImageFileId
             this.transactionId = checkDeposit.transactionId
             this.depositAcceptance = checkDeposit.depositAcceptance
+            this.depositSubmission = checkDeposit.depositSubmission
             this.depositRejection = checkDeposit.depositRejection
             this.depositReturn = checkDeposit.depositReturn
             this.type = checkDeposit.type
@@ -375,6 +394,23 @@ private constructor(
         }
 
         /**
+         * After the check is parsed, it is submitted to the Check21 network for processing. This
+         * will contain details of the submission.
+         */
+        fun depositSubmission(depositSubmission: DepositSubmission) =
+            depositSubmission(JsonField.of(depositSubmission))
+
+        /**
+         * After the check is parsed, it is submitted to the Check21 network for processing. This
+         * will contain details of the submission.
+         */
+        @JsonProperty("deposit_submission")
+        @ExcludeMissing
+        fun depositSubmission(depositSubmission: JsonField<DepositSubmission>) = apply {
+            this.depositSubmission = depositSubmission
+        }
+
+        /**
          * If your deposit is rejected by Increase, this will contain details as to why it was
          * rejected.
          */
@@ -441,6 +477,7 @@ private constructor(
                 backImageFileId,
                 transactionId,
                 depositAcceptance,
+                depositSubmission,
                 depositRejection,
                 depositReturn,
                 type,
@@ -1841,6 +1878,120 @@ private constructor(
                 }
 
             fun asString(): String = _value().asStringOrThrow()
+        }
+    }
+
+    /**
+     * After the check is parsed, it is submitted to the Check21 network for processing. This will
+     * contain details of the submission.
+     */
+    @JsonDeserialize(builder = DepositSubmission.Builder::class)
+    @NoAutoDetect
+    class DepositSubmission
+    private constructor(
+        private val submittedAt: JsonField<OffsetDateTime>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        /**
+         * When the check deposit was submitted to the Check21 network for processing. During
+         * business days, this happens within a few hours of the check being accepted by Increase.
+         */
+        fun submittedAt(): OffsetDateTime = submittedAt.getRequired("submitted_at")
+
+        /**
+         * When the check deposit was submitted to the Check21 network for processing. During
+         * business days, this happens within a few hours of the check being accepted by Increase.
+         */
+        @JsonProperty("submitted_at") @ExcludeMissing fun _submittedAt() = submittedAt
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): DepositSubmission = apply {
+            if (!validated) {
+                submittedAt()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is DepositSubmission &&
+                this.submittedAt == other.submittedAt &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(submittedAt, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "DepositSubmission{submittedAt=$submittedAt, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var submittedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(depositSubmission: DepositSubmission) = apply {
+                this.submittedAt = depositSubmission.submittedAt
+                additionalProperties(depositSubmission.additionalProperties)
+            }
+
+            /**
+             * When the check deposit was submitted to the Check21 network for processing. During
+             * business days, this happens within a few hours of the check being accepted by
+             * Increase.
+             */
+            fun submittedAt(submittedAt: OffsetDateTime) = submittedAt(JsonField.of(submittedAt))
+
+            /**
+             * When the check deposit was submitted to the Check21 network for processing. During
+             * business days, this happens within a few hours of the check being accepted by
+             * Increase.
+             */
+            @JsonProperty("submitted_at")
+            @ExcludeMissing
+            fun submittedAt(submittedAt: JsonField<OffsetDateTime>) = apply {
+                this.submittedAt = submittedAt
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): DepositSubmission =
+                DepositSubmission(submittedAt, additionalProperties.toUnmodifiable())
         }
     }
 
