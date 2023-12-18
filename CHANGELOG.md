@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.19.0 (2023-12-18)
+
+Full Changelog: [v0.18.0...v0.19.0](https://github.com/increase/increase-java/compare/v0.18.0...v0.19.0)
+
+### Features
+
+* **api:** add deposit_submission property to check deposit ([#143](https://github.com/increase/increase-java/issues/143)) ([ded50cf](https://github.com/increase/increase-java/commit/ded50cfc67484b939ab806b3e347bd67e57756cf))
+
+
+### Chores
+
+* **ci:** run release workflow once per day ([#141](https://github.com/increase/increase-java/issues/141)) ([62b99da](https://github.com/increase/increase-java/commit/62b99da4f86ad849e49b4c6abdbeaf5f04507059))
+
 ## 0.18.0 (2023-12-14)
 
 Full Changelog: [v0.17.0...v0.18.0](https://github.com/increase/increase-java/compare/v0.17.0...v0.18.0)
