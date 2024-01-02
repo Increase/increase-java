@@ -155,6 +155,11 @@ constructor(
 
     private val intrafi: IntrafiService by lazy { IntrafiServiceImpl(clientOptions) }
 
+    private val realTimePaymentsRequestForPayments:
+        RealTimePaymentsRequestForPaymentService by lazy {
+        RealTimePaymentsRequestForPaymentServiceImpl(clientOptions)
+    }
+
     override fun async(): IncreaseClientAsync = async
 
     override fun accounts(): AccountService = accounts
@@ -244,4 +249,7 @@ constructor(
         ProofOfAuthorizationRequestSubmissionService = proofOfAuthorizationRequestSubmissions
 
     override fun intrafi(): IntrafiService = intrafi
+
+    override fun realTimePaymentsRequestForPayments(): RealTimePaymentsRequestForPaymentService =
+        realTimePaymentsRequestForPayments
 }

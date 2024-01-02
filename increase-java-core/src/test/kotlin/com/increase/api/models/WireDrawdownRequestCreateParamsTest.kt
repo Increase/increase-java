@@ -16,7 +16,7 @@ class WireDrawdownRequestCreateParamsTest {
             .messageToRecipient("x")
             .recipientAccountNumber("x")
             .recipientName("x")
-            .recipientRoutingNumber("x")
+            .recipientRoutingNumber("xxxxxxxxx")
             .recipientAddressLine1("x")
             .recipientAddressLine2("x")
             .recipientAddressLine3("x")
@@ -32,7 +32,7 @@ class WireDrawdownRequestCreateParamsTest {
                 .messageToRecipient("x")
                 .recipientAccountNumber("x")
                 .recipientName("x")
-                .recipientRoutingNumber("x")
+                .recipientRoutingNumber("xxxxxxxxx")
                 .recipientAddressLine1("x")
                 .recipientAddressLine2("x")
                 .recipientAddressLine3("x")
@@ -44,7 +44,7 @@ class WireDrawdownRequestCreateParamsTest {
         assertThat(body.messageToRecipient()).isEqualTo("x")
         assertThat(body.recipientAccountNumber()).isEqualTo("x")
         assertThat(body.recipientName()).isEqualTo("x")
-        assertThat(body.recipientRoutingNumber()).isEqualTo("x")
+        assertThat(body.recipientRoutingNumber()).isEqualTo("xxxxxxxxx")
         assertThat(body.recipientAddressLine1()).isEqualTo("x")
         assertThat(body.recipientAddressLine2()).isEqualTo("x")
         assertThat(body.recipientAddressLine3()).isEqualTo("x")
@@ -59,7 +59,7 @@ class WireDrawdownRequestCreateParamsTest {
                 .messageToRecipient("x")
                 .recipientAccountNumber("x")
                 .recipientName("x")
-                .recipientRoutingNumber("x")
+                .recipientRoutingNumber("xxxxxxxxx")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -68,6 +68,6 @@ class WireDrawdownRequestCreateParamsTest {
         assertThat(body.messageToRecipient()).isEqualTo("x")
         assertThat(body.recipientAccountNumber()).isEqualTo("x")
         assertThat(body.recipientName()).isEqualTo("x")
-        assertThat(body.recipientRoutingNumber()).isEqualTo("x")
+        assertThat(body.recipientRoutingNumber()).isEqualTo("xxxxxxxxx")
     }
 }
