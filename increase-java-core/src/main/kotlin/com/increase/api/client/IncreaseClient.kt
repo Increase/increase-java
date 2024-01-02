@@ -94,4 +94,6 @@ interface IncreaseClient {
     fun proofOfAuthorizationRequestSubmissions(): ProofOfAuthorizationRequestSubmissionService
 
     fun intrafi(): IntrafiService
+
+    fun realTimePaymentsRequestForPayments(): RealTimePaymentsRequestForPaymentService
 }
