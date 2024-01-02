@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.20.0 (2024-01-02)
+
+Full Changelog: [v0.19.0...v0.20.0](https://github.com/increase/increase-java/compare/v0.19.0...v0.20.0)
+
+### Features
+
+* **api:** add real-time payments request for payment endpoints ([#146](https://github.com/increase/increase-java/issues/146)) ([e90c253](https://github.com/increase/increase-java/commit/e90c2536f2f972e90bd292393ab4be9e23ee2b6c))
+
+
+### Chores
+
+* **internal:** bump license ([#144](https://github.com/increase/increase-java/issues/144)) ([ead155b](https://github.com/increase/increase-java/commit/ead155bed5957b0d56c2974b78bbe023412f18a9))
+
 ## 0.19.0 (2023-12-18)
 
 Full Changelog: [v0.18.0...v0.19.0](https://github.com/increase/increase-java/compare/v0.18.0...v0.19.0)
