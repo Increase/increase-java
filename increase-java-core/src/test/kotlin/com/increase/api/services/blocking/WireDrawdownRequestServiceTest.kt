@@ -30,7 +30,7 @@ class WireDrawdownRequestServiceTest {
                     .messageToRecipient("x")
                     .recipientAccountNumber("x")
                     .recipientName("x")
-                    .recipientRoutingNumber("x")
+                    .recipientRoutingNumber("xxxxxxxxx")
                     .recipientAddressLine1("x")
                     .recipientAddressLine2("x")
                     .recipientAddressLine3("x")
