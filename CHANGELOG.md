@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.21.0 (2024-01-08)
+
+Full Changelog: [v0.20.0...v0.21.0](https://github.com/increase/increase-java/compare/v0.20.0...v0.21.0)
+
+### Features
+
+* **api:** add `ach_debit_status` ([#147](https://github.com/increase/increase-java/issues/147)) ([684e7e3](https://github.com/increase/increase-java/commit/684e7e321a12575927fb6a6234e4fbfce2dd3be0))
+
 ## 0.20.0 (2024-01-02)
 
 Full Changelog: [v0.19.0...v0.20.0](https://github.com/increase/increase-java/compare/v0.19.0...v0.20.0)
