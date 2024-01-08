@@ -550,6 +550,30 @@ class TransactionTest {
                         )
                         .inboundAchTransfer(
                             Transaction.Source.InboundAchTransfer.builder()
+                                .addenda(
+                                    Transaction.Source.InboundAchTransfer.Addenda.builder()
+                                        .category(
+                                            Transaction.Source.InboundAchTransfer.Addenda.Category
+                                                .FREEFORM
+                                        )
+                                        .freeform(
+                                            Transaction.Source.InboundAchTransfer.Addenda.Freeform
+                                                .builder()
+                                                .entries(
+                                                    listOf(
+                                                        Transaction.Source.InboundAchTransfer
+                                                            .Addenda
+                                                            .Freeform
+                                                            .Entry
+                                                            .builder()
+                                                            .paymentRelatedInformation("string")
+                                                            .build()
+                                                    )
+                                                )
+                                                .build()
+                                        )
+                                        .build()
+                                )
                                 .amount(123L)
                                 .originatorCompanyDescriptiveDate("string")
                                 .originatorCompanyDiscretionaryData("string")
@@ -1296,6 +1320,29 @@ class TransactionTest {
                     )
                     .inboundAchTransfer(
                         Transaction.Source.InboundAchTransfer.builder()
+                            .addenda(
+                                Transaction.Source.InboundAchTransfer.Addenda.builder()
+                                    .category(
+                                        Transaction.Source.InboundAchTransfer.Addenda.Category
+                                            .FREEFORM
+                                    )
+                                    .freeform(
+                                        Transaction.Source.InboundAchTransfer.Addenda.Freeform
+                                            .builder()
+                                            .entries(
+                                                listOf(
+                                                    Transaction.Source.InboundAchTransfer.Addenda
+                                                        .Freeform
+                                                        .Entry
+                                                        .builder()
+                                                        .paymentRelatedInformation("string")
+                                                        .build()
+                                                )
+                                            )
+                                            .build()
+                                    )
+                                    .build()
+                            )
                             .amount(123L)
                             .originatorCompanyDescriptiveDate("string")
                             .originatorCompanyDiscretionaryData("string")

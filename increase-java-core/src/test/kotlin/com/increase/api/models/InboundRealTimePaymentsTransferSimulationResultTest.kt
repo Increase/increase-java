@@ -1256,6 +1256,50 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .Source
                                         .InboundAchTransfer
                                         .builder()
+                                        .addenda(
+                                            InboundRealTimePaymentsTransferSimulationResult
+                                                .Transaction
+                                                .Source
+                                                .InboundAchTransfer
+                                                .Addenda
+                                                .builder()
+                                                .category(
+                                                    InboundRealTimePaymentsTransferSimulationResult
+                                                        .Transaction
+                                                        .Source
+                                                        .InboundAchTransfer
+                                                        .Addenda
+                                                        .Category
+                                                        .FREEFORM
+                                                )
+                                                .freeform(
+                                                    InboundRealTimePaymentsTransferSimulationResult
+                                                        .Transaction
+                                                        .Source
+                                                        .InboundAchTransfer
+                                                        .Addenda
+                                                        .Freeform
+                                                        .builder()
+                                                        .entries(
+                                                            listOf(
+                                                                InboundRealTimePaymentsTransferSimulationResult
+                                                                    .Transaction
+                                                                    .Source
+                                                                    .InboundAchTransfer
+                                                                    .Addenda
+                                                                    .Freeform
+                                                                    .Entry
+                                                                    .builder()
+                                                                    .paymentRelatedInformation(
+                                                                        "string"
+                                                                    )
+                                                                    .build()
+                                                            )
+                                                        )
+                                                        .build()
+                                                )
+                                                .build()
+                                        )
                                         .amount(123L)
                                         .originatorCompanyDescriptiveDate("string")
                                         .originatorCompanyDiscretionaryData("string")
@@ -2764,6 +2808,47 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                 InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
                                     .InboundAchTransfer
                                     .builder()
+                                    .addenda(
+                                        InboundRealTimePaymentsTransferSimulationResult.Transaction
+                                            .Source
+                                            .InboundAchTransfer
+                                            .Addenda
+                                            .builder()
+                                            .category(
+                                                InboundRealTimePaymentsTransferSimulationResult
+                                                    .Transaction
+                                                    .Source
+                                                    .InboundAchTransfer
+                                                    .Addenda
+                                                    .Category
+                                                    .FREEFORM
+                                            )
+                                            .freeform(
+                                                InboundRealTimePaymentsTransferSimulationResult
+                                                    .Transaction
+                                                    .Source
+                                                    .InboundAchTransfer
+                                                    .Addenda
+                                                    .Freeform
+                                                    .builder()
+                                                    .entries(
+                                                        listOf(
+                                                            InboundRealTimePaymentsTransferSimulationResult
+                                                                .Transaction
+                                                                .Source
+                                                                .InboundAchTransfer
+                                                                .Addenda
+                                                                .Freeform
+                                                                .Entry
+                                                                .builder()
+                                                                .paymentRelatedInformation("string")
+                                                                .build()
+                                                        )
+                                                    )
+                                                    .build()
+                                            )
+                                            .build()
+                                    )
                                     .amount(123L)
                                     .originatorCompanyDescriptiveDate("string")
                                     .originatorCompanyDiscretionaryData("string")

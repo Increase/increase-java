@@ -13,6 +13,7 @@ class AccountNumberListParamsTest {
     fun createAccountNumberListParams() {
         AccountNumberListParams.builder()
             .accountId("string")
+            .achDebitStatus(AccountNumberListParams.AchDebitStatus.ALLOWED)
             .createdAt(
                 AccountNumberListParams.CreatedAt.builder()
                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -32,6 +33,7 @@ class AccountNumberListParamsTest {
         val params =
             AccountNumberListParams.builder()
                 .accountId("string")
+                .achDebitStatus(AccountNumberListParams.AchDebitStatus.ALLOWED)
                 .createdAt(
                     AccountNumberListParams.CreatedAt.builder()
                         .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -46,6 +48,10 @@ class AccountNumberListParamsTest {
                 .build()
         val expected = mutableMapOf<String, List<String>>()
         expected.put("account_id", listOf("string"))
+        expected.put(
+            "ach_debit_status",
+            listOf(AccountNumberListParams.AchDebitStatus.ALLOWED.toString())
+        )
         AccountNumberListParams.CreatedAt.builder()
             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
