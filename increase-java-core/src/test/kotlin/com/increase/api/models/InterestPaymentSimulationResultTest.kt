@@ -795,6 +795,46 @@ class InterestPaymentSimulationResultTest {
                                     InterestPaymentSimulationResult.Transaction.Source
                                         .InboundAchTransfer
                                         .builder()
+                                        .addenda(
+                                            InterestPaymentSimulationResult.Transaction.Source
+                                                .InboundAchTransfer
+                                                .Addenda
+                                                .builder()
+                                                .category(
+                                                    InterestPaymentSimulationResult.Transaction
+                                                        .Source
+                                                        .InboundAchTransfer
+                                                        .Addenda
+                                                        .Category
+                                                        .FREEFORM
+                                                )
+                                                .freeform(
+                                                    InterestPaymentSimulationResult.Transaction
+                                                        .Source
+                                                        .InboundAchTransfer
+                                                        .Addenda
+                                                        .Freeform
+                                                        .builder()
+                                                        .entries(
+                                                            listOf(
+                                                                InterestPaymentSimulationResult
+                                                                    .Transaction
+                                                                    .Source
+                                                                    .InboundAchTransfer
+                                                                    .Addenda
+                                                                    .Freeform
+                                                                    .Entry
+                                                                    .builder()
+                                                                    .paymentRelatedInformation(
+                                                                        "string"
+                                                                    )
+                                                                    .build()
+                                                            )
+                                                        )
+                                                        .build()
+                                                )
+                                                .build()
+                                        )
                                         .amount(123L)
                                         .originatorCompanyDescriptiveDate("string")
                                         .originatorCompanyDiscretionaryData("string")
@@ -1817,6 +1857,42 @@ class InterestPaymentSimulationResultTest {
                                 InterestPaymentSimulationResult.Transaction.Source
                                     .InboundAchTransfer
                                     .builder()
+                                    .addenda(
+                                        InterestPaymentSimulationResult.Transaction.Source
+                                            .InboundAchTransfer
+                                            .Addenda
+                                            .builder()
+                                            .category(
+                                                InterestPaymentSimulationResult.Transaction.Source
+                                                    .InboundAchTransfer
+                                                    .Addenda
+                                                    .Category
+                                                    .FREEFORM
+                                            )
+                                            .freeform(
+                                                InterestPaymentSimulationResult.Transaction.Source
+                                                    .InboundAchTransfer
+                                                    .Addenda
+                                                    .Freeform
+                                                    .builder()
+                                                    .entries(
+                                                        listOf(
+                                                            InterestPaymentSimulationResult
+                                                                .Transaction
+                                                                .Source
+                                                                .InboundAchTransfer
+                                                                .Addenda
+                                                                .Freeform
+                                                                .Entry
+                                                                .builder()
+                                                                .paymentRelatedInformation("string")
+                                                                .build()
+                                                        )
+                                                    )
+                                                    .build()
+                                            )
+                                            .build()
+                                    )
                                     .amount(123L)
                                     .originatorCompanyDescriptiveDate("string")
                                     .originatorCompanyDiscretionaryData("string")
