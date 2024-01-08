@@ -745,6 +745,43 @@ class WireTransferSimulationTest {
                                 .inboundAchTransfer(
                                     WireTransferSimulation.Transaction.Source.InboundAchTransfer
                                         .builder()
+                                        .addenda(
+                                            WireTransferSimulation.Transaction.Source
+                                                .InboundAchTransfer
+                                                .Addenda
+                                                .builder()
+                                                .category(
+                                                    WireTransferSimulation.Transaction.Source
+                                                        .InboundAchTransfer
+                                                        .Addenda
+                                                        .Category
+                                                        .FREEFORM
+                                                )
+                                                .freeform(
+                                                    WireTransferSimulation.Transaction.Source
+                                                        .InboundAchTransfer
+                                                        .Addenda
+                                                        .Freeform
+                                                        .builder()
+                                                        .entries(
+                                                            listOf(
+                                                                WireTransferSimulation.Transaction
+                                                                    .Source
+                                                                    .InboundAchTransfer
+                                                                    .Addenda
+                                                                    .Freeform
+                                                                    .Entry
+                                                                    .builder()
+                                                                    .paymentRelatedInformation(
+                                                                        "string"
+                                                                    )
+                                                                    .build()
+                                                            )
+                                                        )
+                                                        .build()
+                                                )
+                                                .build()
+                                        )
                                         .amount(123L)
                                         .originatorCompanyDescriptiveDate("string")
                                         .originatorCompanyDiscretionaryData("string")
@@ -1705,6 +1742,40 @@ class WireTransferSimulationTest {
                             .inboundAchTransfer(
                                 WireTransferSimulation.Transaction.Source.InboundAchTransfer
                                     .builder()
+                                    .addenda(
+                                        WireTransferSimulation.Transaction.Source.InboundAchTransfer
+                                            .Addenda
+                                            .builder()
+                                            .category(
+                                                WireTransferSimulation.Transaction.Source
+                                                    .InboundAchTransfer
+                                                    .Addenda
+                                                    .Category
+                                                    .FREEFORM
+                                            )
+                                            .freeform(
+                                                WireTransferSimulation.Transaction.Source
+                                                    .InboundAchTransfer
+                                                    .Addenda
+                                                    .Freeform
+                                                    .builder()
+                                                    .entries(
+                                                        listOf(
+                                                            WireTransferSimulation.Transaction
+                                                                .Source
+                                                                .InboundAchTransfer
+                                                                .Addenda
+                                                                .Freeform
+                                                                .Entry
+                                                                .builder()
+                                                                .paymentRelatedInformation("string")
+                                                                .build()
+                                                        )
+                                                    )
+                                                    .build()
+                                            )
+                                            .build()
+                                    )
                                     .amount(123L)
                                     .originatorCompanyDescriptiveDate("string")
                                     .originatorCompanyDiscretionaryData("string")
