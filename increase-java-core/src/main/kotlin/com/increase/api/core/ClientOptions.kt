@@ -90,7 +90,9 @@ private constructor(
             headers.put("X-Stainless-OS-Version", getOsVersion())
             headers.put("X-Stainless-Package-Version", getPackageVersion())
             headers.put("X-Stainless-Runtime-Version", getJavaVersion())
-            headers.put("Authorization", "Bearer ${apiKey}")
+            if (!apiKey.isNullOrEmpty()) {
+                headers.put("Authorization", "Bearer ${apiKey}")
+            }
             this.headers.forEach(headers::replaceValues)
 
             return ClientOptions(
