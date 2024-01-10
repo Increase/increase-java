@@ -53,6 +53,7 @@ class ErrorHandlingTest {
             IncreaseOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.getHttpBaseUrl())
                 .apiKey("My API Key")
+                .webhookSecret("My Webhook Secret")
                 .build()
     }
 
