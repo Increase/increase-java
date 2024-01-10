@@ -66,6 +66,10 @@ class IncreaseOkHttpClientAsync private constructor() {
 
         fun apiKey(apiKey: String) = apply { clientOptions.apiKey(apiKey) }
 
+        fun webhookSecret(webhookSecret: String?) = apply {
+            clientOptions.webhookSecret(webhookSecret)
+        }
+
         fun fromEnv() = apply { clientOptions.fromEnv() }
 
         fun build(): IncreaseClientAsync {

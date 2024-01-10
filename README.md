@@ -53,7 +53,7 @@ IncreaseClient client = IncreaseOkHttpClient.builder()
     .build();
 ```
 
-Alternately, set the environment with `INCREASE_API_KEY`, and use `IncreaseOkHttpClient.fromEnv()` to read from the environment.
+Alternately, set the environment with `INCREASE_API_KEY` or `INCREASE_WEBHOOK_SECRET`, and use `IncreaseOkHttpClient.fromEnv()` to read from the environment.
 
 ```java
 IncreaseClient client = IncreaseOkHttpClient.fromEnv();
@@ -65,9 +65,10 @@ IncreaseClient client = IncreaseOkHttpClient.builder()
     .build();
 ```
 
-| Property | Environment variable | Required | Default value |
-| -------- | -------------------- | -------- | ------------- |
-| apiKey   | `INCREASE_API_KEY`   | true     | —             |
+| Property      | Environment variable      | Required | Default value |
+| ------------- | ------------------------- | -------- | ------------- |
+| apiKey        | `INCREASE_API_KEY`        | true     | —             |
+| webhookSecret | `INCREASE_WEBHOOK_SECRET` | false    | —             |
 
 Read the documentation for more configuration options.
 
@@ -218,6 +219,20 @@ while (page != null) {
     page = page.getNextPage().orElse(null);
 }
 ```
+
+---
+
+---
+
+## Webhook Verification
+
+We provide helper methods for verifying that a webhook request came from Increase, and not a malicious third party.
+
+You can use `increase.webhooks().verifySignature(body, headers, secret?)` or `increase.webhooks().unwrap(body, headers, secret?)`,
+both of which will raise an error if the signature is invalid.
+
+Note that the "body" parameter must be the raw JSON string sent from the server (do not parse it first).
+The `.unwrap()` method can parse this JSON for you.
 
 ---
 

@@ -16,6 +16,7 @@ private constructor(
     @get:JvmName("clock") val clock: Clock,
     @get:JvmName("baseUrl") val baseUrl: String,
     @get:JvmName("apiKey") val apiKey: String,
+    @get:JvmName("webhookSecret") val webhookSecret: String?,
     @get:JvmName("headers") val headers: ListMultimap<String, String>,
     @get:JvmName("responseValidation") val responseValidation: Boolean,
 ) {
@@ -41,6 +42,7 @@ private constructor(
         private var responseValidation: Boolean = false
         private var maxRetries: Int = 2
         private var apiKey: String? = null
+        private var webhookSecret: String? = null
 
         fun httpClient(httpClient: HttpClient) = apply { this.httpClient = httpClient }
 
@@ -77,7 +79,12 @@ private constructor(
 
         fun apiKey(apiKey: String) = apply { this.apiKey = apiKey }
 
-        fun fromEnv() = apply { System.getenv("INCREASE_API_KEY")?.let { apiKey(it) } }
+        fun webhookSecret(webhookSecret: String?) = apply { this.webhookSecret = webhookSecret }
+
+        fun fromEnv() = apply {
+            System.getenv("INCREASE_API_KEY")?.let { apiKey(it) }
+            System.getenv("INCREASE_WEBHOOK_SECRET")?.let { webhookSecret(it) }
+        }
 
         fun build(): ClientOptions {
             checkNotNull(httpClient) { "`httpClient` is required but was not set" }
@@ -106,6 +113,7 @@ private constructor(
                 clock,
                 baseUrl,
                 apiKey!!,
+                webhookSecret,
                 headers.toUnmodifiable(),
                 responseValidation,
             )

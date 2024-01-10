@@ -37,6 +37,7 @@ class ServiceParamsTest {
         client =
             IncreaseOkHttpClient.builder()
                 .apiKey("My API Key")
+                .webhookSecret("My Webhook Secret")
                 .baseUrl(wmRuntimeInfo.getHttpBaseUrl())
                 .build()
     }
