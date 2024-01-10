@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.22.0 (2024-01-10)
+
+Full Changelog: [v0.21.0...v0.22.0](https://github.com/increase/increase-java/compare/v0.21.0...v0.22.0)
+
+### Features
+
+* **api:** new methods for handling webhooks ([#152](https://github.com/increase/increase-java/issues/152)) ([ce9dcd7](https://github.com/increase/increase-java/commit/ce9dcd79b07450ac63b71640d8d11fef848642c5))
+
+
+### Chores
+
+* add .keep files for examples and custom code directories ([#149](https://github.com/increase/increase-java/issues/149)) ([2128c4a](https://github.com/increase/increase-java/commit/2128c4a26a2bb68db9bdadac79a0e8e5f6171cdf))
+* **internal:** minor improvements to auth code ([#151](https://github.com/increase/increase-java/issues/151)) ([049724d](https://github.com/increase/increase-java/commit/049724da12a9f808c83c2a2756660958cf80bc80))
+
 ## 0.21.0 (2024-01-08)
 
 Full Changelog: [v0.20.0...v0.21.0](https://github.com/increase/increase-java/compare/v0.20.0...v0.21.0)
