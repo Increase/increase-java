@@ -96,4 +96,6 @@ interface IncreaseClient {
     fun intrafi(): IntrafiService
 
     fun realTimePaymentsRequestForPayments(): RealTimePaymentsRequestForPaymentService
+
+    fun webhooks(): WebhookService
 }

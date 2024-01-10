@@ -172,6 +172,8 @@ constructor(
         RealTimePaymentsRequestForPaymentServiceAsyncImpl(clientOptions)
     }
 
+    private val webhooks: WebhookServiceAsync by lazy { WebhookServiceAsyncImpl(clientOptions) }
+
     override fun sync(): IncreaseClient = sync
 
     override fun accounts(): AccountServiceAsync = accounts
@@ -265,4 +267,6 @@ constructor(
 
     override fun realTimePaymentsRequestForPayments():
         RealTimePaymentsRequestForPaymentServiceAsync = realTimePaymentsRequestForPayments
+
+    override fun webhooks(): WebhookServiceAsync = webhooks
 }
