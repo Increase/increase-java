@@ -19,11 +19,52 @@ import org.junit.jupiter.api.extension.ExtendWith
 class WebhookServiceTest {
 
     @Test
-    fun unwrap() {
+    fun unwrapConfiguredSecret() {
         val client =
             IncreaseOkHttpClient.builder()
                 .apiKey("test-api-key")
                 .webhookSecret("whsec_zlFsbBZ8Xcodlpcu6NDTdSzZRLSdhkst")
+                .clock(Clock.fixed(Instant.parse("2022-01-31T23:59:59Z"), ZoneOffset.UTC))
+                .build()
+
+        val payload = "{\"id\":\"event_123abc\",\"created_at\":\"2020-01-31T23:59:59Z\"}"
+        val headers =
+            ImmutableListMultimap.of(
+                "Increase-Webhook-Signature",
+                "t=2022-01-31T23:59:59Z,v1=3f9c3dcc820ca3adfae8e196d05b09dfef63b91db5ce5ac1407090f2aa424a6f"
+            )
+
+        val event = client.webhooks().unwrap(payload, headers, null)
+
+        assertThat(event).isNotNull()
+    }
+
+    @Test
+    fun unwrapPassedSecret() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .apiKey("test-api-key")
+                .clock(Clock.fixed(Instant.parse("2022-01-31T23:59:59Z"), ZoneOffset.UTC))
+                .build()
+
+        val payload = "{\"id\":\"event_123abc\",\"created_at\":\"2020-01-31T23:59:59Z\"}"
+        val headers =
+            ImmutableListMultimap.of(
+                "Increase-Webhook-Signature",
+                "t=2022-01-31T23:59:59Z,v1=3f9c3dcc820ca3adfae8e196d05b09dfef63b91db5ce5ac1407090f2aa424a6f"
+            )
+
+        val event =
+            client.webhooks().unwrap(payload, headers, "whsec_zlFsbBZ8Xcodlpcu6NDTdSzZRLSdhkst")
+
+        assertThat(event).isNotNull()
+    }
+
+    @Test
+    fun noSecret() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .apiKey("test-api-key")
                 .clock(Clock.fixed(Instant.parse("2022-01-31T23:59:59Z"), ZoneOffset.UTC))
                 .build()
 
