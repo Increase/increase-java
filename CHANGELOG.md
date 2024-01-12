@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.23.0 (2024-01-12)
+
+Full Changelog: [v0.22.0...v0.23.0](https://github.com/increase/increase-java/compare/v0.22.0...v0.23.0)
+
+### Features
+
+* **api:** allow webhook unwrapping without providing secret ([#153](https://github.com/increase/increase-java/issues/153)) ([4d43deb](https://github.com/increase/increase-java/commit/4d43debf14c0c189832e3927bc1ac321165c45e6))
+
 ## 0.22.0 (2024-01-10)
 
 Full Changelog: [v0.21.0...v0.22.0](https://github.com/increase/increase-java/compare/v0.21.0...v0.22.0)
