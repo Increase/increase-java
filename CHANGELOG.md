@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.24.0 (2024-01-12)
+
+Full Changelog: [v0.23.0...v0.24.0](https://github.com/increase/increase-java/compare/v0.23.0...v0.24.0)
+
+### Features
+
+* **api:** add merchant data to simulation api ([#157](https://github.com/increase/increase-java/issues/157)) ([4c03acb](https://github.com/increase/increase-java/commit/4c03acbbc6b849ccbc50fd915d42c3ff5256fc3c))
+
+
+### Documentation
+
+* **readme:** improve api reference ([#155](https://github.com/increase/increase-java/issues/155)) ([ab22ff4](https://github.com/increase/increase-java/commit/ab22ff40913341ba11e63917530d3d2920686790))
+
 ## 0.23.0 (2024-01-12)
 
 Full Changelog: [v0.22.0...v0.23.0](https://github.com/increase/increase-java/compare/v0.22.0...v0.23.0)
