@@ -52,7 +52,10 @@ constructor(
 
         private var hashCode: Int = 0
 
-        /** The entity's physical address. Post Office Boxes are disallowed. */
+        /**
+         * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
+         * disallowed.
+         */
         @JsonProperty("address") fun address(): Address? = address
 
         @JsonAnyGetter
@@ -97,7 +100,10 @@ constructor(
                 additionalProperties(entityUpdateAddressBody.additionalProperties)
             }
 
-            /** The entity's physical address. Post Office Boxes are disallowed. */
+            /**
+             * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
+             * disallowed.
+             */
             @JsonProperty("address")
             fun address(address: Address) = apply { this.address = address }
 
@@ -183,7 +189,10 @@ constructor(
         /** The identifier of the Entity to archive. */
         fun entityId(entityId: String) = apply { this.entityId = entityId }
 
-        /** The entity's physical address. Post Office Boxes are disallowed. */
+        /**
+         * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
+         * disallowed.
+         */
         fun address(address: Address) = apply { this.address = address }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
@@ -250,7 +259,10 @@ constructor(
             )
     }
 
-    /** The entity's physical address. Post Office Boxes are disallowed. */
+    /**
+     * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
+     * disallowed.
+     */
     @JsonDeserialize(builder = Address.Builder::class)
     @NoAutoDetect
     class Address
