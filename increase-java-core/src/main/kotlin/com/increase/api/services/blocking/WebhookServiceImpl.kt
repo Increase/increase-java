@@ -28,7 +28,10 @@ constructor(
         headers: ListMultimap<String, String>,
         secret: String?
     ): JsonValue {
-        verifySignature(payload, headers, secret)
+        if (secret != null) {
+            verifySignature(payload, headers, secret)
+        }
+
         return try {
             clientOptions.jsonMapper.readValue(payload, JsonValue::class.java)
         } catch (e: JsonProcessingException) {
