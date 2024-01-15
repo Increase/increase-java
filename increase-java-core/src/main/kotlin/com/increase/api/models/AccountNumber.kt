@@ -71,7 +71,7 @@ private constructor(
     /** Properties related to how this Account Number handles inbound ACH transfers. */
     fun inboundAch(): InboundAch = inboundAch.getRequired("inbound_ach")
 
-    /** Properties related to how this Account Number should handle inbound check withdrawls. */
+    /** Properties related to how this Account Number should handle inbound check withdrawals. */
     fun inboundChecks(): InboundChecks = inboundChecks.getRequired("inbound_checks")
 
     /**
@@ -107,7 +107,7 @@ private constructor(
     /** Properties related to how this Account Number handles inbound ACH transfers. */
     @JsonProperty("inbound_ach") @ExcludeMissing fun _inboundAch() = inboundAch
 
-    /** Properties related to how this Account Number should handle inbound check withdrawls. */
+    /** Properties related to how this Account Number should handle inbound check withdrawals. */
     @JsonProperty("inbound_checks") @ExcludeMissing fun _inboundChecks() = inboundChecks
 
     /**
@@ -286,10 +286,14 @@ private constructor(
         @ExcludeMissing
         fun inboundAch(inboundAch: JsonField<InboundAch>) = apply { this.inboundAch = inboundAch }
 
-        /** Properties related to how this Account Number should handle inbound check withdrawls. */
+        /**
+         * Properties related to how this Account Number should handle inbound check withdrawals.
+         */
         fun inboundChecks(inboundChecks: InboundChecks) = inboundChecks(JsonField.of(inboundChecks))
 
-        /** Properties related to how this Account Number should handle inbound check withdrawls. */
+        /**
+         * Properties related to how this Account Number should handle inbound check withdrawals.
+         */
         @JsonProperty("inbound_checks")
         @ExcludeMissing
         fun inboundChecks(inboundChecks: JsonField<InboundChecks>) = apply {
@@ -505,7 +509,7 @@ private constructor(
         }
     }
 
-    /** Properties related to how this Account Number should handle inbound check withdrawls. */
+    /** Properties related to how this Account Number should handle inbound check withdrawals. */
     @JsonDeserialize(builder = InboundChecks.Builder::class)
     @NoAutoDetect
     class InboundChecks
