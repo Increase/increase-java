@@ -73,7 +73,7 @@ constructor(
         /** Options related to how this Account Number should handle inbound ACH transfers. */
         @JsonProperty("inbound_ach") fun inboundAch(): InboundAch? = inboundAch
 
-        /** Options related to how this Account Number should handle inbound check withdrawls. */
+        /** Options related to how this Account Number should handle inbound check withdrawals. */
         @JsonProperty("inbound_checks") fun inboundChecks(): InboundChecks? = inboundChecks
 
         @JsonAnyGetter
@@ -146,7 +146,7 @@ constructor(
             fun inboundAch(inboundAch: InboundAch) = apply { this.inboundAch = inboundAch }
 
             /**
-             * Options related to how this Account Number should handle inbound check withdrawls.
+             * Options related to how this Account Number should handle inbound check withdrawals.
              */
             @JsonProperty("inbound_checks")
             fun inboundChecks(inboundChecks: InboundChecks) = apply {
@@ -252,7 +252,7 @@ constructor(
         /** Options related to how this Account Number should handle inbound ACH transfers. */
         fun inboundAch(inboundAch: InboundAch) = apply { this.inboundAch = inboundAch }
 
-        /** Options related to how this Account Number should handle inbound check withdrawls. */
+        /** Options related to how this Account Number should handle inbound check withdrawals. */
         fun inboundChecks(inboundChecks: InboundChecks) = apply {
             this.inboundChecks = inboundChecks
         }
@@ -468,7 +468,7 @@ constructor(
         }
     }
 
-    /** Options related to how this Account Number should handle inbound check withdrawls. */
+    /** Options related to how this Account Number should handle inbound check withdrawals. */
     @JsonDeserialize(builder = InboundChecks.Builder::class)
     @NoAutoDetect
     class InboundChecks
