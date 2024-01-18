@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.24.1 (2024-01-18)
+
+Full Changelog: [v0.24.0...v0.24.1](https://github.com/increase/increase-java/compare/v0.24.0...v0.24.1)
+
+### Bug Fixes
+
+* **ci:** ignore stainless-app edits to release PR title ([#162](https://github.com/increase/increase-java/issues/162)) ([53f2ce3](https://github.com/increase/increase-java/commit/53f2ce3da46d316fadebdbc58f767c9b3d2d21ff))
+
+
+### Chores
+
+* **internal:** speculative retry-after-ms support ([#161](https://github.com/increase/increase-java/issues/161)) ([835be55](https://github.com/increase/increase-java/commit/835be5523a85169eb1e6a61a3601011e200d2842))
+* remove Alex Rattray from reviewers ([#160](https://github.com/increase/increase-java/issues/160)) ([4fe0791](https://github.com/increase/increase-java/commit/4fe079107efea77e189d1d7c25a7762314b73f6b))
+
+
+### Documentation
+
+* **api:** fix typo ([#158](https://github.com/increase/increase-java/issues/158)) ([9ca5281](https://github.com/increase/increase-java/commit/9ca5281938d52d5113c0cf27153d197bead8401a))
+
 ## 0.24.0 (2024-01-12)
 
 Full Changelog: [v0.23.0...v0.24.0](https://github.com/increase/increase-java/compare/v0.23.0...v0.24.0)
