@@ -5,25 +5,25 @@
 package com.increase.api.services.async
 
 import com.increase.api.core.RequestOptions
-import com.increase.api.models.OauthConnection
-import com.increase.api.models.OauthConnectionListPageAsync
-import com.increase.api.models.OauthConnectionListParams
-import com.increase.api.models.OauthConnectionRetrieveParams
+import com.increase.api.models.OAuthConnection
+import com.increase.api.models.OAuthConnectionListPageAsync
+import com.increase.api.models.OAuthConnectionListParams
+import com.increase.api.models.OAuthConnectionRetrieveParams
 import java.util.concurrent.CompletableFuture
 
-interface OauthConnectionServiceAsync {
+interface OAuthConnectionServiceAsync {
 
     /** Retrieve an OAuth Connection */
     @JvmOverloads
     fun retrieve(
-        params: OauthConnectionRetrieveParams,
+        params: OAuthConnectionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): CompletableFuture<OauthConnection>
+    ): CompletableFuture<OAuthConnection>
 
     /** List OAuth Connections */
     @JvmOverloads
     fun list(
-        params: OauthConnectionListParams,
+        params: OAuthConnectionListParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): CompletableFuture<OauthConnectionListPageAsync>
+    ): CompletableFuture<OAuthConnectionListPageAsync>
 }

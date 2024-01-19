@@ -6,16 +6,16 @@ import com.increase.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class OauthConnectionRetrieveParamsTest {
+class OAuthConnectionRetrieveParamsTest {
 
     @Test
-    fun createOauthConnectionRetrieveParams() {
-        OauthConnectionRetrieveParams.builder().oauthConnectionId("string").build()
+    fun createOAuthConnectionRetrieveParams() {
+        OAuthConnectionRetrieveParams.builder().oauthConnectionId("string").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = OauthConnectionRetrieveParams.builder().oauthConnectionId("string").build()
+        val params = OAuthConnectionRetrieveParams.builder().oauthConnectionId("string").build()
         assertThat(params).isNotNull
         // path param "oauthConnectionId"
         assertThat(params.getPathParam(0)).isEqualTo("string")
