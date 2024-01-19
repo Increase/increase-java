@@ -120,8 +120,8 @@ constructor(
 
     private val groups: GroupService by lazy { GroupServiceImpl(clientOptions) }
 
-    private val oauthConnections: OauthConnectionService by lazy {
-        OauthConnectionServiceImpl(clientOptions)
+    private val oauthConnections: OAuthConnectionService by lazy {
+        OAuthConnectionServiceImpl(clientOptions)
     }
 
     private val checkDeposits: CheckDepositService by lazy {
@@ -230,7 +230,7 @@ constructor(
 
     override fun groups(): GroupService = groups
 
-    override fun oauthConnections(): OauthConnectionService = oauthConnections
+    override fun oauthConnections(): OAuthConnectionService = oauthConnections
 
     override fun checkDeposits(): CheckDepositService = checkDeposits
 

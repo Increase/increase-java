@@ -128,8 +128,8 @@ constructor(
 
     private val groups: GroupServiceAsync by lazy { GroupServiceAsyncImpl(clientOptions) }
 
-    private val oauthConnections: OauthConnectionServiceAsync by lazy {
-        OauthConnectionServiceAsyncImpl(clientOptions)
+    private val oauthConnections: OAuthConnectionServiceAsync by lazy {
+        OAuthConnectionServiceAsyncImpl(clientOptions)
     }
 
     private val checkDeposits: CheckDepositServiceAsync by lazy {
@@ -243,7 +243,7 @@ constructor(
 
     override fun groups(): GroupServiceAsync = groups
 
-    override fun oauthConnections(): OauthConnectionServiceAsync = oauthConnections
+    override fun oauthConnections(): OAuthConnectionServiceAsync = oauthConnections
 
     override fun checkDeposits(): CheckDepositServiceAsync = checkDeposits
 

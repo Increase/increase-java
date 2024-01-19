@@ -8,29 +8,29 @@ import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.OauthConnection
-import com.increase.api.models.OauthConnectionListPage
-import com.increase.api.models.OauthConnectionListParams
-import com.increase.api.models.OauthConnectionRetrieveParams
+import com.increase.api.models.OAuthConnection
+import com.increase.api.models.OAuthConnectionListPage
+import com.increase.api.models.OAuthConnectionListParams
+import com.increase.api.models.OAuthConnectionRetrieveParams
 import com.increase.api.services.errorHandler
 import com.increase.api.services.jsonHandler
 import com.increase.api.services.withErrorHandler
 
-class OauthConnectionServiceImpl
+class OAuthConnectionServiceImpl
 constructor(
     private val clientOptions: ClientOptions,
-) : OauthConnectionService {
+) : OAuthConnectionService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-    private val retrieveHandler: Handler<OauthConnection> =
-        jsonHandler<OauthConnection>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+    private val retrieveHandler: Handler<OAuthConnection> =
+        jsonHandler<OAuthConnection>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** Retrieve an OAuth Connection */
     override fun retrieve(
-        params: OauthConnectionRetrieveParams,
+        params: OAuthConnectionRetrieveParams,
         requestOptions: RequestOptions
-    ): OauthConnection {
+    ): OAuthConnection {
         val request =
             HttpRequest.builder()
                 .method(HttpMethod.GET)
@@ -50,15 +50,15 @@ constructor(
         }
     }
 
-    private val listHandler: Handler<OauthConnectionListPage.Response> =
-        jsonHandler<OauthConnectionListPage.Response>(clientOptions.jsonMapper)
+    private val listHandler: Handler<OAuthConnectionListPage.Response> =
+        jsonHandler<OAuthConnectionListPage.Response>(clientOptions.jsonMapper)
             .withErrorHandler(errorHandler)
 
     /** List OAuth Connections */
     override fun list(
-        params: OauthConnectionListParams,
+        params: OAuthConnectionListParams,
         requestOptions: RequestOptions
-    ): OauthConnectionListPage {
+    ): OAuthConnectionListPage {
         val request =
             HttpRequest.builder()
                 .method(HttpMethod.GET)
@@ -75,7 +75,7 @@ constructor(
                         validate()
                     }
                 }
-                .let { OauthConnectionListPage.of(this, params, it) }
+                .let { OAuthConnectionListPage.of(this, params, it) }
         }
     }
 }

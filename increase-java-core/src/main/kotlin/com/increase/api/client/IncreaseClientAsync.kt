@@ -75,7 +75,7 @@ interface IncreaseClientAsync {
 
     fun groups(): GroupServiceAsync
 
-    fun oauthConnections(): OauthConnectionServiceAsync
+    fun oauthConnections(): OAuthConnectionServiceAsync
 
     fun checkDeposits(): CheckDepositServiceAsync
 

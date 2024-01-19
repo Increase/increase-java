@@ -18,9 +18,9 @@ import java.time.OffsetDateTime
 import java.util.Objects
 
 /** When a user authorizes your OAuth application, an OAuth Connection object is created. */
-@JsonDeserialize(builder = OauthConnection.Builder::class)
+@JsonDeserialize(builder = OAuthConnection.Builder::class)
 @NoAutoDetect
-class OauthConnection
+class OAuthConnection
 private constructor(
     private val id: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
@@ -80,7 +80,7 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    fun validate(): OauthConnection = apply {
+    fun validate(): OAuthConnection = apply {
         if (!validated) {
             id()
             createdAt()
@@ -98,7 +98,7 @@ private constructor(
             return true
         }
 
-        return other is OauthConnection &&
+        return other is OAuthConnection &&
             this.id == other.id &&
             this.createdAt == other.createdAt &&
             this.groupId == other.groupId &&
@@ -123,7 +123,7 @@ private constructor(
     }
 
     override fun toString() =
-        "OauthConnection{id=$id, createdAt=$createdAt, groupId=$groupId, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "OAuthConnection{id=$id, createdAt=$createdAt, groupId=$groupId, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -140,7 +140,7 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(oauthConnection: OauthConnection) = apply {
+        internal fun from(oauthConnection: OAuthConnection) = apply {
             this.id = oauthConnection.id
             this.createdAt = oauthConnection.createdAt
             this.groupId = oauthConnection.groupId
@@ -213,8 +213,8 @@ private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): OauthConnection =
-            OauthConnection(
+        fun build(): OAuthConnection =
+            OAuthConnection(
                 id,
                 createdAt,
                 groupId,

@@ -6,16 +6,16 @@ import com.increase.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class OauthConnectionListParamsTest {
+class OAuthConnectionListParamsTest {
 
     @Test
-    fun createOauthConnectionListParams() {
-        OauthConnectionListParams.builder().cursor("string").limit(123L).build()
+    fun createOAuthConnectionListParams() {
+        OAuthConnectionListParams.builder().cursor("string").limit(123L).build()
     }
 
     @Test
     fun getQueryParams() {
-        val params = OauthConnectionListParams.builder().cursor("string").limit(123L).build()
+        val params = OAuthConnectionListParams.builder().cursor("string").limit(123L).build()
         val expected = mutableMapOf<String, List<String>>()
         expected.put("cursor", listOf("string"))
         expected.put("limit", listOf("123"))
@@ -24,7 +24,7 @@ class OauthConnectionListParamsTest {
 
     @Test
     fun getQueryParamsWithoutOptionalFields() {
-        val params = OauthConnectionListParams.builder().build()
+        val params = OAuthConnectionListParams.builder().build()
         val expected = mutableMapOf<String, List<String>>()
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
