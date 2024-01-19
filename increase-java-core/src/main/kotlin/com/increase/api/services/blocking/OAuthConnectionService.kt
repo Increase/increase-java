@@ -5,24 +5,24 @@
 package com.increase.api.services.blocking
 
 import com.increase.api.core.RequestOptions
-import com.increase.api.models.OauthConnection
-import com.increase.api.models.OauthConnectionListPage
-import com.increase.api.models.OauthConnectionListParams
-import com.increase.api.models.OauthConnectionRetrieveParams
+import com.increase.api.models.OAuthConnection
+import com.increase.api.models.OAuthConnectionListPage
+import com.increase.api.models.OAuthConnectionListParams
+import com.increase.api.models.OAuthConnectionRetrieveParams
 
-interface OauthConnectionService {
+interface OAuthConnectionService {
 
     /** Retrieve an OAuth Connection */
     @JvmOverloads
     fun retrieve(
-        params: OauthConnectionRetrieveParams,
+        params: OAuthConnectionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): OauthConnection
+    ): OAuthConnection
 
     /** List OAuth Connections */
     @JvmOverloads
     fun list(
-        params: OauthConnectionListParams,
+        params: OAuthConnectionListParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): OauthConnectionListPage
+    ): OAuthConnectionListPage
 }

@@ -12,23 +12,22 @@ import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
-import com.increase.api.services.async.OauthConnectionServiceAsync
+import com.increase.api.services.blocking.OAuthConnectionService
 import java.util.Objects
 import java.util.Optional
-import java.util.concurrent.CompletableFuture
-import java.util.concurrent.Executor
-import java.util.function.Predicate
+import java.util.stream.Stream
+import java.util.stream.StreamSupport
 
-class OauthConnectionListPageAsync
+class OAuthConnectionListPage
 private constructor(
-    private val oauthConnectionsService: OauthConnectionServiceAsync,
-    private val params: OauthConnectionListParams,
+    private val oauthConnectionsService: OAuthConnectionService,
+    private val params: OAuthConnectionListParams,
     private val response: Response,
 ) {
 
     fun response(): Response = response
 
-    fun data(): List<OauthConnection> = response().data()
+    fun data(): List<OAuthConnection> = response().data()
 
     fun nextCursor(): Optional<String> = response().nextCursor()
 
@@ -37,7 +36,7 @@ private constructor(
             return true
         }
 
-        return other is OauthConnectionListPageAsync &&
+        return other is OAuthConnectionListPage &&
             this.oauthConnectionsService == other.oauthConnectionsService &&
             this.params == other.params &&
             this.response == other.response
@@ -52,7 +51,7 @@ private constructor(
     }
 
     override fun toString() =
-        "OauthConnectionListPageAsync{oauthConnectionsService=$oauthConnectionsService, params=$params, response=$response}"
+        "OAuthConnectionListPage{oauthConnectionsService=$oauthConnectionsService, params=$params, response=$response}"
 
     fun hasNextPage(): Boolean {
         if (data().isEmpty()) {
@@ -62,23 +61,21 @@ private constructor(
         return nextCursor().isPresent()
     }
 
-    fun getNextPageParams(): Optional<OauthConnectionListParams> {
+    fun getNextPageParams(): Optional<OAuthConnectionListParams> {
         if (!hasNextPage()) {
             return Optional.empty()
         }
 
         return Optional.of(
-            OauthConnectionListParams.builder()
+            OAuthConnectionListParams.builder()
                 .from(params)
                 .apply { nextCursor().ifPresent { this.cursor(it) } }
                 .build()
         )
     }
 
-    fun getNextPage(): CompletableFuture<Optional<OauthConnectionListPageAsync>> {
-        return getNextPageParams()
-            .map { oauthConnectionsService.list(it).thenApply { Optional.of(it) } }
-            .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
+    fun getNextPage(): Optional<OAuthConnectionListPage> {
+        return getNextPageParams().map { oauthConnectionsService.list(it) }
     }
 
     fun autoPager(): AutoPager = AutoPager(this)
@@ -87,11 +84,11 @@ private constructor(
 
         @JvmStatic
         fun of(
-            oauthConnectionsService: OauthConnectionServiceAsync,
-            params: OauthConnectionListParams,
+            oauthConnectionsService: OAuthConnectionService,
+            params: OAuthConnectionListParams,
             response: Response
         ) =
-            OauthConnectionListPageAsync(
+            OAuthConnectionListPage(
                 oauthConnectionsService,
                 params,
                 response,
@@ -102,20 +99,20 @@ private constructor(
     @NoAutoDetect
     class Response
     constructor(
-        private val data: JsonField<List<OauthConnection>>,
+        private val data: JsonField<List<OAuthConnection>>,
         private val nextCursor: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var validated: Boolean = false
 
-        fun data(): List<OauthConnection> = data.getNullable("data") ?: listOf()
+        fun data(): List<OAuthConnection> = data.getNullable("data") ?: listOf()
 
         fun nextCursor(): Optional<String> =
             Optional.ofNullable(nextCursor.getNullable("next_cursor"))
 
         @JsonProperty("data")
-        fun _data(): Optional<JsonField<List<OauthConnection>>> = Optional.ofNullable(data)
+        fun _data(): Optional<JsonField<List<OAuthConnection>>> = Optional.ofNullable(data)
 
         @JsonProperty("next_cursor")
         fun _nextCursor(): Optional<JsonField<String>> = Optional.ofNullable(nextCursor)
@@ -154,7 +151,7 @@ private constructor(
         }
 
         override fun toString() =
-            "OauthConnectionListPageAsync.Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
+            "OAuthConnectionListPage.Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -163,7 +160,7 @@ private constructor(
 
         class Builder {
 
-            private var data: JsonField<List<OauthConnection>> = JsonMissing.of()
+            private var data: JsonField<List<OAuthConnection>> = JsonMissing.of()
             private var nextCursor: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -174,10 +171,10 @@ private constructor(
                 this.additionalProperties.putAll(page.additionalProperties)
             }
 
-            fun data(data: List<OauthConnection>) = data(JsonField.of(data))
+            fun data(data: List<OAuthConnection>) = data(JsonField.of(data))
 
             @JsonProperty("data")
-            fun data(data: JsonField<List<OauthConnection>>) = apply { this.data = data }
+            fun data(data: JsonField<List<OAuthConnection>>) = apply { this.data = data }
 
             fun nextCursor(nextCursor: String) = nextCursor(JsonField.of(nextCursor))
 
@@ -200,33 +197,23 @@ private constructor(
 
     class AutoPager
     constructor(
-        private val firstPage: OauthConnectionListPageAsync,
-    ) {
+        private val firstPage: OAuthConnectionListPage,
+    ) : Iterable<OAuthConnection> {
 
-        fun forEach(
-            action: Predicate<OauthConnection>,
-            executor: Executor
-        ): CompletableFuture<Void> {
-            fun CompletableFuture<Optional<OauthConnectionListPageAsync>>.forEach(
-                action: (OauthConnection) -> Boolean,
-                executor: Executor
-            ): CompletableFuture<Void> =
-                thenComposeAsync(
-                    { page ->
-                        page
-                            .filter { it.data().all(action) }
-                            .map { it.getNextPage().forEach(action, executor) }
-                            .orElseGet { CompletableFuture.completedFuture(null) }
-                    },
-                    executor
-                )
-            return CompletableFuture.completedFuture(Optional.of(firstPage))
-                .forEach(action::test, executor)
+        override fun iterator(): Iterator<OAuthConnection> = iterator {
+            var page = firstPage
+            var index = 0
+            while (true) {
+                while (index < page.data().size) {
+                    yield(page.data()[index++])
+                }
+                page = page.getNextPage().orElse(null) ?: break
+                index = 0
+            }
         }
 
-        fun toList(executor: Executor): CompletableFuture<List<OauthConnection>> {
-            val values = mutableListOf<OauthConnection>()
-            return forEach(values::add, executor).thenApply { values }
+        fun stream(): Stream<OAuthConnection> {
+            return StreamSupport.stream(spliterator(), false)
         }
     }
 }

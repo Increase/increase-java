@@ -6,26 +6,30 @@ import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
 import com.increase.api.models.*
 import java.util.Objects
+import java.util.Optional
 
-class OauthConnectionRetrieveParams
+class OAuthConnectionListParams
 constructor(
-    private val oauthConnectionId: String,
+    private val cursor: String?,
+    private val limit: Long?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
 
-    fun oauthConnectionId(): String = oauthConnectionId
+    fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
-    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    fun limit(): Optional<Long> = Optional.ofNullable(limit)
+
+    @JvmSynthetic
+    internal fun getQueryParams(): Map<String, List<String>> {
+        val params = mutableMapOf<String, List<String>>()
+        this.cursor?.let { params.put("cursor", listOf(it.toString())) }
+        this.limit?.let { params.put("limit", listOf(it.toString())) }
+        params.putAll(additionalQueryParams)
+        return params.toUnmodifiable()
+    }
 
     @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
-
-    fun getPathParam(index: Int): String {
-        return when (index) {
-            0 -> oauthConnectionId
-            else -> ""
-        }
-    }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
 
@@ -36,22 +40,24 @@ constructor(
             return true
         }
 
-        return other is OauthConnectionRetrieveParams &&
-            this.oauthConnectionId == other.oauthConnectionId &&
+        return other is OAuthConnectionListParams &&
+            this.cursor == other.cursor &&
+            this.limit == other.limit &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
         return Objects.hash(
-            oauthConnectionId,
+            cursor,
+            limit,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "OauthConnectionRetrieveParams{oauthConnectionId=$oauthConnectionId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "OAuthConnectionListParams{cursor=$cursor, limit=$limit, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -63,21 +69,26 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var oauthConnectionId: String? = null
+        private var cursor: String? = null
+        private var limit: Long? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(oauthConnectionRetrieveParams: OauthConnectionRetrieveParams) = apply {
-            this.oauthConnectionId = oauthConnectionRetrieveParams.oauthConnectionId
-            additionalQueryParams(oauthConnectionRetrieveParams.additionalQueryParams)
-            additionalHeaders(oauthConnectionRetrieveParams.additionalHeaders)
+        internal fun from(oauthConnectionListParams: OAuthConnectionListParams) = apply {
+            this.cursor = oauthConnectionListParams.cursor
+            this.limit = oauthConnectionListParams.limit
+            additionalQueryParams(oauthConnectionListParams.additionalQueryParams)
+            additionalHeaders(oauthConnectionListParams.additionalHeaders)
         }
 
-        /** The identifier of the OAuth Connection. */
-        fun oauthConnectionId(oauthConnectionId: String) = apply {
-            this.oauthConnectionId = oauthConnectionId
-        }
+        /** Return the page of entries after this one. */
+        fun cursor(cursor: String) = apply { this.cursor = cursor }
+
+        /**
+         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         */
+        fun limit(limit: Long) = apply { this.limit = limit }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -119,11 +130,10 @@ constructor(
 
         fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
-        fun build(): OauthConnectionRetrieveParams =
-            OauthConnectionRetrieveParams(
-                checkNotNull(oauthConnectionId) {
-                    "`oauthConnectionId` is required but was not set"
-                },
+        fun build(): OAuthConnectionListParams =
+            OAuthConnectionListParams(
+                cursor,
+                limit,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )

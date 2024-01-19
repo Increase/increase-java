@@ -75,7 +75,7 @@ interface IncreaseClient {
 
     fun groups(): GroupService
 
-    fun oauthConnections(): OauthConnectionService
+    fun oauthConnections(): OAuthConnectionService
 
     fun checkDeposits(): CheckDepositService
 
