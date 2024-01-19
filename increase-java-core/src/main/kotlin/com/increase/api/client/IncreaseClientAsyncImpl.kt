@@ -174,6 +174,14 @@ constructor(
 
     private val webhooks: WebhookServiceAsync by lazy { WebhookServiceAsyncImpl(clientOptions) }
 
+    private val oauthTokens: OAuthTokenServiceAsync by lazy {
+        OAuthTokenServiceAsyncImpl(clientOptions)
+    }
+
+    private val inboundWireTransfers: InboundWireTransferServiceAsync by lazy {
+        InboundWireTransferServiceAsyncImpl(clientOptions)
+    }
+
     override fun sync(): IncreaseClient = sync
 
     override fun accounts(): AccountServiceAsync = accounts
@@ -269,4 +277,8 @@ constructor(
         RealTimePaymentsRequestForPaymentServiceAsync = realTimePaymentsRequestForPayments
 
     override fun webhooks(): WebhookServiceAsync = webhooks
+
+    override fun oauthTokens(): OAuthTokenServiceAsync = oauthTokens
+
+    override fun inboundWireTransfers(): InboundWireTransferServiceAsync = inboundWireTransfers
 }

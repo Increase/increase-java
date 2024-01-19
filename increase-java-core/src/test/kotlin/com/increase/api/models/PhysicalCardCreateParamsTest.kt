@@ -33,6 +33,7 @@ class PhysicalCardCreateParamsTest {
                     .method(PhysicalCardCreateParams.Shipment.Method.USPS)
                     .build()
             )
+            .physicalCardProfileId("string")
             .build()
     }
 
@@ -65,6 +66,7 @@ class PhysicalCardCreateParamsTest {
                         .method(PhysicalCardCreateParams.Shipment.Method.USPS)
                         .build()
                 )
+                .physicalCardProfileId("string")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -92,6 +94,7 @@ class PhysicalCardCreateParamsTest {
                     .method(PhysicalCardCreateParams.Shipment.Method.USPS)
                     .build()
             )
+        assertThat(body.physicalCardProfileId()).isEqualTo("string")
     }
 
     @Test

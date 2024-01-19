@@ -22,6 +22,10 @@ constructor(
     private val recipientAccountNumber: String,
     private val recipientName: String,
     private val recipientRoutingNumber: String,
+    private val originatorAddressLine1: String?,
+    private val originatorAddressLine2: String?,
+    private val originatorAddressLine3: String?,
+    private val originatorName: String?,
     private val recipientAddressLine1: String?,
     private val recipientAddressLine2: String?,
     private val recipientAddressLine3: String?,
@@ -42,6 +46,14 @@ constructor(
 
     fun recipientRoutingNumber(): String = recipientRoutingNumber
 
+    fun originatorAddressLine1(): Optional<String> = Optional.ofNullable(originatorAddressLine1)
+
+    fun originatorAddressLine2(): Optional<String> = Optional.ofNullable(originatorAddressLine2)
+
+    fun originatorAddressLine3(): Optional<String> = Optional.ofNullable(originatorAddressLine3)
+
+    fun originatorName(): Optional<String> = Optional.ofNullable(originatorName)
+
     fun recipientAddressLine1(): Optional<String> = Optional.ofNullable(recipientAddressLine1)
 
     fun recipientAddressLine2(): Optional<String> = Optional.ofNullable(recipientAddressLine2)
@@ -57,6 +69,10 @@ constructor(
             recipientAccountNumber,
             recipientName,
             recipientRoutingNumber,
+            originatorAddressLine1,
+            originatorAddressLine2,
+            originatorAddressLine3,
+            originatorName,
             recipientAddressLine1,
             recipientAddressLine2,
             recipientAddressLine3,
@@ -78,6 +94,10 @@ constructor(
         private val recipientAccountNumber: String?,
         private val recipientName: String?,
         private val recipientRoutingNumber: String?,
+        private val originatorAddressLine1: String?,
+        private val originatorAddressLine2: String?,
+        private val originatorAddressLine3: String?,
+        private val originatorName: String?,
         private val recipientAddressLine1: String?,
         private val recipientAddressLine2: String?,
         private val recipientAddressLine3: String?,
@@ -105,6 +125,36 @@ constructor(
         /** The drawdown request's recipient's routing number. */
         @JsonProperty("recipient_routing_number")
         fun recipientRoutingNumber(): String? = recipientRoutingNumber
+
+        /**
+         * The drawdown request originator's address line 1. This is only necessary if you're
+         * requesting a payment to a commingled account. Otherwise, we'll use the associated
+         * entity's details.
+         */
+        @JsonProperty("originator_address_line1")
+        fun originatorAddressLine1(): String? = originatorAddressLine1
+
+        /**
+         * The drawdown request originator's address line 2. This is only necessary if you're
+         * requesting a payment to a commingled account. Otherwise, we'll use the associated
+         * entity's details.
+         */
+        @JsonProperty("originator_address_line2")
+        fun originatorAddressLine2(): String? = originatorAddressLine2
+
+        /**
+         * The drawdown request originator's address line 3. This is only necessary if you're
+         * requesting a payment to a commingled account. Otherwise, we'll use the associated
+         * entity's details.
+         */
+        @JsonProperty("originator_address_line3")
+        fun originatorAddressLine3(): String? = originatorAddressLine3
+
+        /**
+         * The drawdown request originator's name. This is only necessary if you're requesting a
+         * payment to a commingled account. Otherwise, we'll use the associated entity's details.
+         */
+        @JsonProperty("originator_name") fun originatorName(): String? = originatorName
 
         /** Line 1 of the drawdown request's recipient's address. */
         @JsonProperty("recipient_address_line1")
@@ -136,6 +186,10 @@ constructor(
                 this.recipientAccountNumber == other.recipientAccountNumber &&
                 this.recipientName == other.recipientName &&
                 this.recipientRoutingNumber == other.recipientRoutingNumber &&
+                this.originatorAddressLine1 == other.originatorAddressLine1 &&
+                this.originatorAddressLine2 == other.originatorAddressLine2 &&
+                this.originatorAddressLine3 == other.originatorAddressLine3 &&
+                this.originatorName == other.originatorName &&
                 this.recipientAddressLine1 == other.recipientAddressLine1 &&
                 this.recipientAddressLine2 == other.recipientAddressLine2 &&
                 this.recipientAddressLine3 == other.recipientAddressLine3 &&
@@ -152,6 +206,10 @@ constructor(
                         recipientAccountNumber,
                         recipientName,
                         recipientRoutingNumber,
+                        originatorAddressLine1,
+                        originatorAddressLine2,
+                        originatorAddressLine3,
+                        originatorName,
                         recipientAddressLine1,
                         recipientAddressLine2,
                         recipientAddressLine3,
@@ -162,7 +220,7 @@ constructor(
         }
 
         override fun toString() =
-            "WireDrawdownRequestCreateBody{accountNumberId=$accountNumberId, amount=$amount, messageToRecipient=$messageToRecipient, recipientAccountNumber=$recipientAccountNumber, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, additionalProperties=$additionalProperties}"
+            "WireDrawdownRequestCreateBody{accountNumberId=$accountNumberId, amount=$amount, messageToRecipient=$messageToRecipient, recipientAccountNumber=$recipientAccountNumber, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -177,6 +235,10 @@ constructor(
             private var recipientAccountNumber: String? = null
             private var recipientName: String? = null
             private var recipientRoutingNumber: String? = null
+            private var originatorAddressLine1: String? = null
+            private var originatorAddressLine2: String? = null
+            private var originatorAddressLine3: String? = null
+            private var originatorName: String? = null
             private var recipientAddressLine1: String? = null
             private var recipientAddressLine2: String? = null
             private var recipientAddressLine3: String? = null
@@ -193,6 +255,13 @@ constructor(
                     this.recipientName = wireDrawdownRequestCreateBody.recipientName
                     this.recipientRoutingNumber =
                         wireDrawdownRequestCreateBody.recipientRoutingNumber
+                    this.originatorAddressLine1 =
+                        wireDrawdownRequestCreateBody.originatorAddressLine1
+                    this.originatorAddressLine2 =
+                        wireDrawdownRequestCreateBody.originatorAddressLine2
+                    this.originatorAddressLine3 =
+                        wireDrawdownRequestCreateBody.originatorAddressLine3
+                    this.originatorName = wireDrawdownRequestCreateBody.originatorName
                     this.recipientAddressLine1 = wireDrawdownRequestCreateBody.recipientAddressLine1
                     this.recipientAddressLine2 = wireDrawdownRequestCreateBody.recipientAddressLine2
                     this.recipientAddressLine3 = wireDrawdownRequestCreateBody.recipientAddressLine3
@@ -228,6 +297,46 @@ constructor(
             @JsonProperty("recipient_routing_number")
             fun recipientRoutingNumber(recipientRoutingNumber: String) = apply {
                 this.recipientRoutingNumber = recipientRoutingNumber
+            }
+
+            /**
+             * The drawdown request originator's address line 1. This is only necessary if you're
+             * requesting a payment to a commingled account. Otherwise, we'll use the associated
+             * entity's details.
+             */
+            @JsonProperty("originator_address_line1")
+            fun originatorAddressLine1(originatorAddressLine1: String) = apply {
+                this.originatorAddressLine1 = originatorAddressLine1
+            }
+
+            /**
+             * The drawdown request originator's address line 2. This is only necessary if you're
+             * requesting a payment to a commingled account. Otherwise, we'll use the associated
+             * entity's details.
+             */
+            @JsonProperty("originator_address_line2")
+            fun originatorAddressLine2(originatorAddressLine2: String) = apply {
+                this.originatorAddressLine2 = originatorAddressLine2
+            }
+
+            /**
+             * The drawdown request originator's address line 3. This is only necessary if you're
+             * requesting a payment to a commingled account. Otherwise, we'll use the associated
+             * entity's details.
+             */
+            @JsonProperty("originator_address_line3")
+            fun originatorAddressLine3(originatorAddressLine3: String) = apply {
+                this.originatorAddressLine3 = originatorAddressLine3
+            }
+
+            /**
+             * The drawdown request originator's name. This is only necessary if you're requesting a
+             * payment to a commingled account. Otherwise, we'll use the associated entity's
+             * details.
+             */
+            @JsonProperty("originator_name")
+            fun originatorName(originatorName: String) = apply {
+                this.originatorName = originatorName
             }
 
             /** Line 1 of the drawdown request's recipient's address. */
@@ -278,6 +387,10 @@ constructor(
                     checkNotNull(recipientRoutingNumber) {
                         "`recipientRoutingNumber` is required but was not set"
                     },
+                    originatorAddressLine1,
+                    originatorAddressLine2,
+                    originatorAddressLine3,
+                    originatorName,
                     recipientAddressLine1,
                     recipientAddressLine2,
                     recipientAddressLine3,
@@ -304,6 +417,10 @@ constructor(
             this.recipientAccountNumber == other.recipientAccountNumber &&
             this.recipientName == other.recipientName &&
             this.recipientRoutingNumber == other.recipientRoutingNumber &&
+            this.originatorAddressLine1 == other.originatorAddressLine1 &&
+            this.originatorAddressLine2 == other.originatorAddressLine2 &&
+            this.originatorAddressLine3 == other.originatorAddressLine3 &&
+            this.originatorName == other.originatorName &&
             this.recipientAddressLine1 == other.recipientAddressLine1 &&
             this.recipientAddressLine2 == other.recipientAddressLine2 &&
             this.recipientAddressLine3 == other.recipientAddressLine3 &&
@@ -320,6 +437,10 @@ constructor(
             recipientAccountNumber,
             recipientName,
             recipientRoutingNumber,
+            originatorAddressLine1,
+            originatorAddressLine2,
+            originatorAddressLine3,
+            originatorName,
             recipientAddressLine1,
             recipientAddressLine2,
             recipientAddressLine3,
@@ -330,7 +451,7 @@ constructor(
     }
 
     override fun toString() =
-        "WireDrawdownRequestCreateParams{accountNumberId=$accountNumberId, amount=$amount, messageToRecipient=$messageToRecipient, recipientAccountNumber=$recipientAccountNumber, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "WireDrawdownRequestCreateParams{accountNumberId=$accountNumberId, amount=$amount, messageToRecipient=$messageToRecipient, recipientAccountNumber=$recipientAccountNumber, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -348,6 +469,10 @@ constructor(
         private var recipientAccountNumber: String? = null
         private var recipientName: String? = null
         private var recipientRoutingNumber: String? = null
+        private var originatorAddressLine1: String? = null
+        private var originatorAddressLine2: String? = null
+        private var originatorAddressLine3: String? = null
+        private var originatorName: String? = null
         private var recipientAddressLine1: String? = null
         private var recipientAddressLine2: String? = null
         private var recipientAddressLine3: String? = null
@@ -364,6 +489,10 @@ constructor(
                 this.recipientAccountNumber = wireDrawdownRequestCreateParams.recipientAccountNumber
                 this.recipientName = wireDrawdownRequestCreateParams.recipientName
                 this.recipientRoutingNumber = wireDrawdownRequestCreateParams.recipientRoutingNumber
+                this.originatorAddressLine1 = wireDrawdownRequestCreateParams.originatorAddressLine1
+                this.originatorAddressLine2 = wireDrawdownRequestCreateParams.originatorAddressLine2
+                this.originatorAddressLine3 = wireDrawdownRequestCreateParams.originatorAddressLine3
+                this.originatorName = wireDrawdownRequestCreateParams.originatorName
                 this.recipientAddressLine1 = wireDrawdownRequestCreateParams.recipientAddressLine1
                 this.recipientAddressLine2 = wireDrawdownRequestCreateParams.recipientAddressLine2
                 this.recipientAddressLine3 = wireDrawdownRequestCreateParams.recipientAddressLine3
@@ -397,6 +526,39 @@ constructor(
         fun recipientRoutingNumber(recipientRoutingNumber: String) = apply {
             this.recipientRoutingNumber = recipientRoutingNumber
         }
+
+        /**
+         * The drawdown request originator's address line 1. This is only necessary if you're
+         * requesting a payment to a commingled account. Otherwise, we'll use the associated
+         * entity's details.
+         */
+        fun originatorAddressLine1(originatorAddressLine1: String) = apply {
+            this.originatorAddressLine1 = originatorAddressLine1
+        }
+
+        /**
+         * The drawdown request originator's address line 2. This is only necessary if you're
+         * requesting a payment to a commingled account. Otherwise, we'll use the associated
+         * entity's details.
+         */
+        fun originatorAddressLine2(originatorAddressLine2: String) = apply {
+            this.originatorAddressLine2 = originatorAddressLine2
+        }
+
+        /**
+         * The drawdown request originator's address line 3. This is only necessary if you're
+         * requesting a payment to a commingled account. Otherwise, we'll use the associated
+         * entity's details.
+         */
+        fun originatorAddressLine3(originatorAddressLine3: String) = apply {
+            this.originatorAddressLine3 = originatorAddressLine3
+        }
+
+        /**
+         * The drawdown request originator's name. This is only necessary if you're requesting a
+         * payment to a commingled account. Otherwise, we'll use the associated entity's details.
+         */
+        fun originatorName(originatorName: String) = apply { this.originatorName = originatorName }
 
         /** Line 1 of the drawdown request's recipient's address. */
         fun recipientAddressLine1(recipientAddressLine1: String) = apply {
@@ -481,6 +643,10 @@ constructor(
                 checkNotNull(recipientRoutingNumber) {
                     "`recipientRoutingNumber` is required but was not set"
                 },
+                originatorAddressLine1,
+                originatorAddressLine2,
+                originatorAddressLine3,
+                originatorName,
                 recipientAddressLine1,
                 recipientAddressLine2,
                 recipientAddressLine3,

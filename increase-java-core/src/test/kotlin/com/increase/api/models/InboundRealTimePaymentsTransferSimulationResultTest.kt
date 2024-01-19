@@ -1511,6 +1511,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .Source
                                         .InboundWireTransfer
                                         .builder()
+                                        .id("string")
                                         .amount(123L)
                                         .beneficiaryAddressLine1("string")
                                         .beneficiaryAddressLine2("string")
@@ -1529,6 +1530,15 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .originatorToBeneficiaryInformationLine2("string")
                                         .originatorToBeneficiaryInformationLine3("string")
                                         .originatorToBeneficiaryInformationLine4("string")
+                                        .transferId("string")
+                                        .type(
+                                            InboundRealTimePaymentsTransferSimulationResult
+                                                .Transaction
+                                                .Source
+                                                .InboundWireTransfer
+                                                .Type
+                                                .INBOUND_WIRE_TRANSFER
+                                        )
                                         .build()
                                 )
                                 .interestPayment(
@@ -3040,6 +3050,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                 InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
                                     .InboundWireTransfer
                                     .builder()
+                                    .id("string")
                                     .amount(123L)
                                     .beneficiaryAddressLine1("string")
                                     .beneficiaryAddressLine2("string")
@@ -3058,6 +3069,14 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .originatorToBeneficiaryInformationLine2("string")
                                     .originatorToBeneficiaryInformationLine3("string")
                                     .originatorToBeneficiaryInformationLine4("string")
+                                    .transferId("string")
+                                    .type(
+                                        InboundRealTimePaymentsTransferSimulationResult.Transaction
+                                            .Source
+                                            .InboundWireTransfer
+                                            .Type
+                                            .INBOUND_WIRE_TRANSFER
+                                    )
                                     .build()
                             )
                             .interestPayment(

@@ -38,6 +38,10 @@ class WireTransferTest {
                 .externalAccountId("string")
                 .messageToRecipient("string")
                 .network(WireTransfer.Network.WIRE)
+                .originatorAddressLine1("string")
+                .originatorAddressLine2("string")
+                .originatorAddressLine3("string")
+                .originatorName("string")
                 .pendingTransactionId("string")
                 .reversal(
                     WireTransfer.Reversal.builder()
@@ -100,6 +104,10 @@ class WireTransferTest {
         assertThat(wireTransfer.externalAccountId()).contains("string")
         assertThat(wireTransfer.messageToRecipient()).contains("string")
         assertThat(wireTransfer.network()).isEqualTo(WireTransfer.Network.WIRE)
+        assertThat(wireTransfer.originatorAddressLine1()).contains("string")
+        assertThat(wireTransfer.originatorAddressLine2()).contains("string")
+        assertThat(wireTransfer.originatorAddressLine3()).contains("string")
+        assertThat(wireTransfer.originatorName()).contains("string")
         assertThat(wireTransfer.pendingTransactionId()).contains("string")
         assertThat(wireTransfer.reversal())
             .contains(

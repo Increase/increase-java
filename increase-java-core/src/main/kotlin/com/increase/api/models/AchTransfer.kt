@@ -1611,7 +1611,13 @@ private constructor(
          */
         fun changeCode(): ChangeCode = changeCode.getRequired("change_code")
 
-        /** The corrected data that should be used in future ACHs to this account. */
+        /**
+         * The corrected data that should be used in future ACHs to this account. This may contain
+         * the suggested new account number or routing number. When the `change_code` is
+         * `incorrect_transaction_code`, this field contains an integer. Numbers starting with a 2
+         * encourage changing the `funding` parameter to checking; numbers starting with a 3
+         * encourage changing to savings.
+         */
         fun correctedData(): String = correctedData.getRequired("corrected_data")
 
         /**
@@ -1626,7 +1632,13 @@ private constructor(
          */
         @JsonProperty("change_code") @ExcludeMissing fun _changeCode() = changeCode
 
-        /** The corrected data that should be used in future ACHs to this account. */
+        /**
+         * The corrected data that should be used in future ACHs to this account. This may contain
+         * the suggested new account number or routing number. When the `change_code` is
+         * `incorrect_transaction_code`, this field contains an integer. Numbers starting with a 2
+         * encourage changing the `funding` parameter to checking; numbers starting with a 3
+         * encourage changing to savings.
+         */
         @JsonProperty("corrected_data") @ExcludeMissing fun _correctedData() = correctedData
 
         @JsonAnyGetter
@@ -1724,10 +1736,22 @@ private constructor(
                 this.changeCode = changeCode
             }
 
-            /** The corrected data that should be used in future ACHs to this account. */
+            /**
+             * The corrected data that should be used in future ACHs to this account. This may
+             * contain the suggested new account number or routing number. When the `change_code` is
+             * `incorrect_transaction_code`, this field contains an integer. Numbers starting with a
+             * 2 encourage changing the `funding` parameter to checking; numbers starting with a 3
+             * encourage changing to savings.
+             */
             fun correctedData(correctedData: String) = correctedData(JsonField.of(correctedData))
 
-            /** The corrected data that should be used in future ACHs to this account. */
+            /**
+             * The corrected data that should be used in future ACHs to this account. This may
+             * contain the suggested new account number or routing number. When the `change_code` is
+             * `incorrect_transaction_code`, this field contains an integer. Numbers starting with a
+             * 2 encourage changing the `funding` parameter to checking; numbers starting with a 3
+             * encourage changing to savings.
+             */
             @JsonProperty("corrected_data")
             @ExcludeMissing
             fun correctedData(correctedData: JsonField<String>) = apply {

@@ -37,6 +37,10 @@ private constructor(
     private val recipientAddressLine1: JsonField<String>,
     private val recipientAddressLine2: JsonField<String>,
     private val recipientAddressLine3: JsonField<String>,
+    private val originatorName: JsonField<String>,
+    private val originatorAddressLine1: JsonField<String>,
+    private val originatorAddressLine2: JsonField<String>,
+    private val originatorAddressLine3: JsonField<String>,
     private val submission: JsonField<Submission>,
     private val fulfillmentTransactionId: JsonField<String>,
     private val status: JsonField<Status>,
@@ -96,6 +100,22 @@ private constructor(
     /** Line 3 of the drawdown request's recipient's address. */
     fun recipientAddressLine3(): Optional<String> =
         Optional.ofNullable(recipientAddressLine3.getNullable("recipient_address_line3"))
+
+    /** The originator's name. */
+    fun originatorName(): Optional<String> =
+        Optional.ofNullable(originatorName.getNullable("originator_name"))
+
+    /** The originator's address line 1. */
+    fun originatorAddressLine1(): Optional<String> =
+        Optional.ofNullable(originatorAddressLine1.getNullable("originator_address_line1"))
+
+    /** The originator's address line 2. */
+    fun originatorAddressLine2(): Optional<String> =
+        Optional.ofNullable(originatorAddressLine2.getNullable("originator_address_line2"))
+
+    /** The originator's address line 3. */
+    fun originatorAddressLine3(): Optional<String> =
+        Optional.ofNullable(originatorAddressLine3.getNullable("originator_address_line3"))
 
     /**
      * After the drawdown request is submitted to Fedwire, this will contain supplemental details.
@@ -169,6 +189,24 @@ private constructor(
     @ExcludeMissing
     fun _recipientAddressLine3() = recipientAddressLine3
 
+    /** The originator's name. */
+    @JsonProperty("originator_name") @ExcludeMissing fun _originatorName() = originatorName
+
+    /** The originator's address line 1. */
+    @JsonProperty("originator_address_line1")
+    @ExcludeMissing
+    fun _originatorAddressLine1() = originatorAddressLine1
+
+    /** The originator's address line 2. */
+    @JsonProperty("originator_address_line2")
+    @ExcludeMissing
+    fun _originatorAddressLine2() = originatorAddressLine2
+
+    /** The originator's address line 3. */
+    @JsonProperty("originator_address_line3")
+    @ExcludeMissing
+    fun _originatorAddressLine3() = originatorAddressLine3
+
     /**
      * After the drawdown request is submitted to Fedwire, this will contain supplemental details.
      */
@@ -203,6 +241,10 @@ private constructor(
             recipientAddressLine1()
             recipientAddressLine2()
             recipientAddressLine3()
+            originatorName()
+            originatorAddressLine1()
+            originatorAddressLine2()
+            originatorAddressLine3()
             submission().map { it.validate() }
             fulfillmentTransactionId()
             status()
@@ -230,6 +272,10 @@ private constructor(
             this.recipientAddressLine1 == other.recipientAddressLine1 &&
             this.recipientAddressLine2 == other.recipientAddressLine2 &&
             this.recipientAddressLine3 == other.recipientAddressLine3 &&
+            this.originatorName == other.originatorName &&
+            this.originatorAddressLine1 == other.originatorAddressLine1 &&
+            this.originatorAddressLine2 == other.originatorAddressLine2 &&
+            this.originatorAddressLine3 == other.originatorAddressLine3 &&
             this.submission == other.submission &&
             this.fulfillmentTransactionId == other.fulfillmentTransactionId &&
             this.status == other.status &&
@@ -252,6 +298,10 @@ private constructor(
                     recipientAddressLine1,
                     recipientAddressLine2,
                     recipientAddressLine3,
+                    originatorName,
+                    originatorAddressLine1,
+                    originatorAddressLine2,
+                    originatorAddressLine3,
                     submission,
                     fulfillmentTransactionId,
                     status,
@@ -262,7 +312,7 @@ private constructor(
     }
 
     override fun toString() =
-        "WireDrawdownRequest{type=$type, id=$id, accountNumberId=$accountNumberId, recipientAccountNumber=$recipientAccountNumber, recipientRoutingNumber=$recipientRoutingNumber, amount=$amount, currency=$currency, messageToRecipient=$messageToRecipient, recipientName=$recipientName, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, submission=$submission, fulfillmentTransactionId=$fulfillmentTransactionId, status=$status, additionalProperties=$additionalProperties}"
+        "WireDrawdownRequest{type=$type, id=$id, accountNumberId=$accountNumberId, recipientAccountNumber=$recipientAccountNumber, recipientRoutingNumber=$recipientRoutingNumber, amount=$amount, currency=$currency, messageToRecipient=$messageToRecipient, recipientName=$recipientName, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, originatorName=$originatorName, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, submission=$submission, fulfillmentTransactionId=$fulfillmentTransactionId, status=$status, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -283,6 +333,10 @@ private constructor(
         private var recipientAddressLine1: JsonField<String> = JsonMissing.of()
         private var recipientAddressLine2: JsonField<String> = JsonMissing.of()
         private var recipientAddressLine3: JsonField<String> = JsonMissing.of()
+        private var originatorName: JsonField<String> = JsonMissing.of()
+        private var originatorAddressLine1: JsonField<String> = JsonMissing.of()
+        private var originatorAddressLine2: JsonField<String> = JsonMissing.of()
+        private var originatorAddressLine3: JsonField<String> = JsonMissing.of()
         private var submission: JsonField<Submission> = JsonMissing.of()
         private var fulfillmentTransactionId: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
@@ -302,6 +356,10 @@ private constructor(
             this.recipientAddressLine1 = wireDrawdownRequest.recipientAddressLine1
             this.recipientAddressLine2 = wireDrawdownRequest.recipientAddressLine2
             this.recipientAddressLine3 = wireDrawdownRequest.recipientAddressLine3
+            this.originatorName = wireDrawdownRequest.originatorName
+            this.originatorAddressLine1 = wireDrawdownRequest.originatorAddressLine1
+            this.originatorAddressLine2 = wireDrawdownRequest.originatorAddressLine2
+            this.originatorAddressLine3 = wireDrawdownRequest.originatorAddressLine3
             this.submission = wireDrawdownRequest.submission
             this.fulfillmentTransactionId = wireDrawdownRequest.fulfillmentTransactionId
             this.status = wireDrawdownRequest.status
@@ -443,6 +501,49 @@ private constructor(
             this.recipientAddressLine3 = recipientAddressLine3
         }
 
+        /** The originator's name. */
+        fun originatorName(originatorName: String) = originatorName(JsonField.of(originatorName))
+
+        /** The originator's name. */
+        @JsonProperty("originator_name")
+        @ExcludeMissing
+        fun originatorName(originatorName: JsonField<String>) = apply {
+            this.originatorName = originatorName
+        }
+
+        /** The originator's address line 1. */
+        fun originatorAddressLine1(originatorAddressLine1: String) =
+            originatorAddressLine1(JsonField.of(originatorAddressLine1))
+
+        /** The originator's address line 1. */
+        @JsonProperty("originator_address_line1")
+        @ExcludeMissing
+        fun originatorAddressLine1(originatorAddressLine1: JsonField<String>) = apply {
+            this.originatorAddressLine1 = originatorAddressLine1
+        }
+
+        /** The originator's address line 2. */
+        fun originatorAddressLine2(originatorAddressLine2: String) =
+            originatorAddressLine2(JsonField.of(originatorAddressLine2))
+
+        /** The originator's address line 2. */
+        @JsonProperty("originator_address_line2")
+        @ExcludeMissing
+        fun originatorAddressLine2(originatorAddressLine2: JsonField<String>) = apply {
+            this.originatorAddressLine2 = originatorAddressLine2
+        }
+
+        /** The originator's address line 3. */
+        fun originatorAddressLine3(originatorAddressLine3: String) =
+            originatorAddressLine3(JsonField.of(originatorAddressLine3))
+
+        /** The originator's address line 3. */
+        @JsonProperty("originator_address_line3")
+        @ExcludeMissing
+        fun originatorAddressLine3(originatorAddressLine3: JsonField<String>) = apply {
+            this.originatorAddressLine3 = originatorAddressLine3
+        }
+
         /**
          * After the drawdown request is submitted to Fedwire, this will contain supplemental
          * details.
@@ -510,6 +611,10 @@ private constructor(
                 recipientAddressLine1,
                 recipientAddressLine2,
                 recipientAddressLine3,
+                originatorName,
+                originatorAddressLine1,
+                originatorAddressLine2,
+                originatorAddressLine3,
                 submission,
                 fulfillmentTransactionId,
                 status,
