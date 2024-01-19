@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.25.0 (2024-01-19)
+
+Full Changelog: [v0.24.1...v0.25.0](https://github.com/increase/increase-java/compare/v0.24.1...v0.25.0)
+
+### ⚠ BREAKING CHANGES
+
+* fix oauth casing ([#163](https://github.com/increase/increase-java/issues/163))
+
+### Features
+
+* **api:** add oauth token and inbound wire transfer methods ([#165](https://github.com/increase/increase-java/issues/165)) ([c84f5c7](https://github.com/increase/increase-java/commit/c84f5c76d166cc5ba20ce7903e1b4e0fa0678f33))
+
+
+### Refactors
+
+* fix oauth casing ([#163](https://github.com/increase/increase-java/issues/163)) ([97f8bc3](https://github.com/increase/increase-java/commit/97f8bc33b24f8249baeae3161a21e9d7af893cfc))
+
 ## 0.24.1 (2024-01-18)
 
 Full Changelog: [v0.24.0...v0.24.1](https://github.com/increase/increase-java/compare/v0.24.0...v0.24.1)
