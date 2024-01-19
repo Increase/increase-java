@@ -36,6 +36,10 @@ private constructor(
     private val beneficiaryAddressLine1: JsonField<String>,
     private val beneficiaryAddressLine2: JsonField<String>,
     private val beneficiaryAddressLine3: JsonField<String>,
+    private val originatorName: JsonField<String>,
+    private val originatorAddressLine1: JsonField<String>,
+    private val originatorAddressLine2: JsonField<String>,
+    private val originatorAddressLine3: JsonField<String>,
     private val accountId: JsonField<String>,
     private val externalAccountId: JsonField<String>,
     private val routingNumber: JsonField<String>,
@@ -91,6 +95,22 @@ private constructor(
     /** The beneficiary's address line 3. */
     fun beneficiaryAddressLine3(): Optional<String> =
         Optional.ofNullable(beneficiaryAddressLine3.getNullable("beneficiary_address_line3"))
+
+    /** The originator's name. */
+    fun originatorName(): Optional<String> =
+        Optional.ofNullable(originatorName.getNullable("originator_name"))
+
+    /** The originator's address line 1. */
+    fun originatorAddressLine1(): Optional<String> =
+        Optional.ofNullable(originatorAddressLine1.getNullable("originator_address_line1"))
+
+    /** The originator's address line 2. */
+    fun originatorAddressLine2(): Optional<String> =
+        Optional.ofNullable(originatorAddressLine2.getNullable("originator_address_line2"))
+
+    /** The originator's address line 3. */
+    fun originatorAddressLine3(): Optional<String> =
+        Optional.ofNullable(originatorAddressLine3.getNullable("originator_address_line3"))
 
     /** The Account to which the transfer belongs. */
     fun accountId(): String = accountId.getRequired("account_id")
@@ -195,6 +215,24 @@ private constructor(
     @ExcludeMissing
     fun _beneficiaryAddressLine3() = beneficiaryAddressLine3
 
+    /** The originator's name. */
+    @JsonProperty("originator_name") @ExcludeMissing fun _originatorName() = originatorName
+
+    /** The originator's address line 1. */
+    @JsonProperty("originator_address_line1")
+    @ExcludeMissing
+    fun _originatorAddressLine1() = originatorAddressLine1
+
+    /** The originator's address line 2. */
+    @JsonProperty("originator_address_line2")
+    @ExcludeMissing
+    fun _originatorAddressLine2() = originatorAddressLine2
+
+    /** The originator's address line 3. */
+    @JsonProperty("originator_address_line3")
+    @ExcludeMissing
+    fun _originatorAddressLine3() = originatorAddressLine3
+
     /** The Account to which the transfer belongs. */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
 
@@ -273,6 +311,10 @@ private constructor(
             beneficiaryAddressLine1()
             beneficiaryAddressLine2()
             beneficiaryAddressLine3()
+            originatorName()
+            originatorAddressLine1()
+            originatorAddressLine2()
+            originatorAddressLine3()
             accountId()
             externalAccountId()
             routingNumber()
@@ -308,6 +350,10 @@ private constructor(
             this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
             this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
             this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
+            this.originatorName == other.originatorName &&
+            this.originatorAddressLine1 == other.originatorAddressLine1 &&
+            this.originatorAddressLine2 == other.originatorAddressLine2 &&
+            this.originatorAddressLine3 == other.originatorAddressLine3 &&
             this.accountId == other.accountId &&
             this.externalAccountId == other.externalAccountId &&
             this.routingNumber == other.routingNumber &&
@@ -338,6 +384,10 @@ private constructor(
                     beneficiaryAddressLine1,
                     beneficiaryAddressLine2,
                     beneficiaryAddressLine3,
+                    originatorName,
+                    originatorAddressLine1,
+                    originatorAddressLine2,
+                    originatorAddressLine3,
                     accountId,
                     externalAccountId,
                     routingNumber,
@@ -359,7 +409,7 @@ private constructor(
     }
 
     override fun toString() =
-        "WireTransfer{id=$id, messageToRecipient=$messageToRecipient, amount=$amount, currency=$currency, accountNumber=$accountNumber, beneficiaryName=$beneficiaryName, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, accountId=$accountId, externalAccountId=$externalAccountId, routingNumber=$routingNumber, approval=$approval, cancellation=$cancellation, reversal=$reversal, createdAt=$createdAt, network=$network, status=$status, submission=$submission, transactionId=$transactionId, pendingTransactionId=$pendingTransactionId, uniqueIdentifier=$uniqueIdentifier, type=$type, additionalProperties=$additionalProperties}"
+        "WireTransfer{id=$id, messageToRecipient=$messageToRecipient, amount=$amount, currency=$currency, accountNumber=$accountNumber, beneficiaryName=$beneficiaryName, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, originatorName=$originatorName, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, accountId=$accountId, externalAccountId=$externalAccountId, routingNumber=$routingNumber, approval=$approval, cancellation=$cancellation, reversal=$reversal, createdAt=$createdAt, network=$network, status=$status, submission=$submission, transactionId=$transactionId, pendingTransactionId=$pendingTransactionId, uniqueIdentifier=$uniqueIdentifier, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -377,6 +427,10 @@ private constructor(
         private var beneficiaryAddressLine1: JsonField<String> = JsonMissing.of()
         private var beneficiaryAddressLine2: JsonField<String> = JsonMissing.of()
         private var beneficiaryAddressLine3: JsonField<String> = JsonMissing.of()
+        private var originatorName: JsonField<String> = JsonMissing.of()
+        private var originatorAddressLine1: JsonField<String> = JsonMissing.of()
+        private var originatorAddressLine2: JsonField<String> = JsonMissing.of()
+        private var originatorAddressLine3: JsonField<String> = JsonMissing.of()
         private var accountId: JsonField<String> = JsonMissing.of()
         private var externalAccountId: JsonField<String> = JsonMissing.of()
         private var routingNumber: JsonField<String> = JsonMissing.of()
@@ -404,6 +458,10 @@ private constructor(
             this.beneficiaryAddressLine1 = wireTransfer.beneficiaryAddressLine1
             this.beneficiaryAddressLine2 = wireTransfer.beneficiaryAddressLine2
             this.beneficiaryAddressLine3 = wireTransfer.beneficiaryAddressLine3
+            this.originatorName = wireTransfer.originatorName
+            this.originatorAddressLine1 = wireTransfer.originatorAddressLine1
+            this.originatorAddressLine2 = wireTransfer.originatorAddressLine2
+            this.originatorAddressLine3 = wireTransfer.originatorAddressLine3
             this.accountId = wireTransfer.accountId
             this.externalAccountId = wireTransfer.externalAccountId
             this.routingNumber = wireTransfer.routingNumber
@@ -512,6 +570,49 @@ private constructor(
         @ExcludeMissing
         fun beneficiaryAddressLine3(beneficiaryAddressLine3: JsonField<String>) = apply {
             this.beneficiaryAddressLine3 = beneficiaryAddressLine3
+        }
+
+        /** The originator's name. */
+        fun originatorName(originatorName: String) = originatorName(JsonField.of(originatorName))
+
+        /** The originator's name. */
+        @JsonProperty("originator_name")
+        @ExcludeMissing
+        fun originatorName(originatorName: JsonField<String>) = apply {
+            this.originatorName = originatorName
+        }
+
+        /** The originator's address line 1. */
+        fun originatorAddressLine1(originatorAddressLine1: String) =
+            originatorAddressLine1(JsonField.of(originatorAddressLine1))
+
+        /** The originator's address line 1. */
+        @JsonProperty("originator_address_line1")
+        @ExcludeMissing
+        fun originatorAddressLine1(originatorAddressLine1: JsonField<String>) = apply {
+            this.originatorAddressLine1 = originatorAddressLine1
+        }
+
+        /** The originator's address line 2. */
+        fun originatorAddressLine2(originatorAddressLine2: String) =
+            originatorAddressLine2(JsonField.of(originatorAddressLine2))
+
+        /** The originator's address line 2. */
+        @JsonProperty("originator_address_line2")
+        @ExcludeMissing
+        fun originatorAddressLine2(originatorAddressLine2: JsonField<String>) = apply {
+            this.originatorAddressLine2 = originatorAddressLine2
+        }
+
+        /** The originator's address line 3. */
+        fun originatorAddressLine3(originatorAddressLine3: String) =
+            originatorAddressLine3(JsonField.of(originatorAddressLine3))
+
+        /** The originator's address line 3. */
+        @JsonProperty("originator_address_line3")
+        @ExcludeMissing
+        fun originatorAddressLine3(originatorAddressLine3: JsonField<String>) = apply {
+            this.originatorAddressLine3 = originatorAddressLine3
         }
 
         /** The Account to which the transfer belongs. */
@@ -700,6 +801,10 @@ private constructor(
                 beneficiaryAddressLine1,
                 beneficiaryAddressLine2,
                 beneficiaryAddressLine3,
+                originatorName,
+                originatorAddressLine1,
+                originatorAddressLine2,
+                originatorAddressLine3,
                 accountId,
                 externalAccountId,
                 routingNumber,

@@ -48,6 +48,7 @@ class PhysicalCardServiceTest {
                             .method(PhysicalCardCreateParams.Shipment.Method.USPS)
                             .build()
                     )
+                    .physicalCardProfileId("string")
                     .build()
             )
         println(physicalCard)

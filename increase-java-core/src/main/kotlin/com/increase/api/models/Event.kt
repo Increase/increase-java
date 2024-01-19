@@ -339,6 +339,14 @@ private constructor(
                 Category(JsonField.of("declined_transaction.created"))
 
             @JvmField
+            val DIGITAL_CARD_PROFILE_CREATED =
+                Category(JsonField.of("digital_card_profile.created"))
+
+            @JvmField
+            val DIGITAL_CARD_PROFILE_UPDATED =
+                Category(JsonField.of("digital_card_profile.updated"))
+
+            @JvmField
             val DIGITAL_WALLET_TOKEN_CREATED =
                 Category(JsonField.of("digital_wallet_token.created"))
 
@@ -424,6 +432,14 @@ private constructor(
             @JvmField val PHYSICAL_CARD_CREATED = Category(JsonField.of("physical_card.created"))
 
             @JvmField val PHYSICAL_CARD_UPDATED = Category(JsonField.of("physical_card.updated"))
+
+            @JvmField
+            val PHYSICAL_CARD_PROFILE_CREATED =
+                Category(JsonField.of("physical_card_profile.created"))
+
+            @JvmField
+            val PHYSICAL_CARD_PROFILE_UPDATED =
+                Category(JsonField.of("physical_card_profile.updated"))
 
             @JvmField
             val PROOF_OF_AUTHORIZATION_REQUEST_CREATED =
@@ -514,6 +530,8 @@ private constructor(
             CHECK_TRANSFER_CREATED,
             CHECK_TRANSFER_UPDATED,
             DECLINED_TRANSACTION_CREATED,
+            DIGITAL_CARD_PROFILE_CREATED,
+            DIGITAL_CARD_PROFILE_UPDATED,
             DIGITAL_WALLET_TOKEN_CREATED,
             DIGITAL_WALLET_TOKEN_UPDATED,
             DOCUMENT_CREATED,
@@ -543,6 +561,8 @@ private constructor(
             PENDING_TRANSACTION_UPDATED,
             PHYSICAL_CARD_CREATED,
             PHYSICAL_CARD_UPDATED,
+            PHYSICAL_CARD_PROFILE_CREATED,
+            PHYSICAL_CARD_PROFILE_UPDATED,
             PROOF_OF_AUTHORIZATION_REQUEST_CREATED,
             PROOF_OF_AUTHORIZATION_REQUEST_UPDATED,
             PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED,
@@ -589,6 +609,8 @@ private constructor(
             CHECK_TRANSFER_CREATED,
             CHECK_TRANSFER_UPDATED,
             DECLINED_TRANSACTION_CREATED,
+            DIGITAL_CARD_PROFILE_CREATED,
+            DIGITAL_CARD_PROFILE_UPDATED,
             DIGITAL_WALLET_TOKEN_CREATED,
             DIGITAL_WALLET_TOKEN_UPDATED,
             DOCUMENT_CREATED,
@@ -618,6 +640,8 @@ private constructor(
             PENDING_TRANSACTION_UPDATED,
             PHYSICAL_CARD_CREATED,
             PHYSICAL_CARD_UPDATED,
+            PHYSICAL_CARD_PROFILE_CREATED,
+            PHYSICAL_CARD_PROFILE_UPDATED,
             PROOF_OF_AUTHORIZATION_REQUEST_CREATED,
             PROOF_OF_AUTHORIZATION_REQUEST_UPDATED,
             PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED,
@@ -666,6 +690,8 @@ private constructor(
                 CHECK_TRANSFER_CREATED -> Value.CHECK_TRANSFER_CREATED
                 CHECK_TRANSFER_UPDATED -> Value.CHECK_TRANSFER_UPDATED
                 DECLINED_TRANSACTION_CREATED -> Value.DECLINED_TRANSACTION_CREATED
+                DIGITAL_CARD_PROFILE_CREATED -> Value.DIGITAL_CARD_PROFILE_CREATED
+                DIGITAL_CARD_PROFILE_UPDATED -> Value.DIGITAL_CARD_PROFILE_UPDATED
                 DIGITAL_WALLET_TOKEN_CREATED -> Value.DIGITAL_WALLET_TOKEN_CREATED
                 DIGITAL_WALLET_TOKEN_UPDATED -> Value.DIGITAL_WALLET_TOKEN_UPDATED
                 DOCUMENT_CREATED -> Value.DOCUMENT_CREATED
@@ -695,6 +721,8 @@ private constructor(
                 PENDING_TRANSACTION_UPDATED -> Value.PENDING_TRANSACTION_UPDATED
                 PHYSICAL_CARD_CREATED -> Value.PHYSICAL_CARD_CREATED
                 PHYSICAL_CARD_UPDATED -> Value.PHYSICAL_CARD_UPDATED
+                PHYSICAL_CARD_PROFILE_CREATED -> Value.PHYSICAL_CARD_PROFILE_CREATED
+                PHYSICAL_CARD_PROFILE_UPDATED -> Value.PHYSICAL_CARD_PROFILE_UPDATED
                 PROOF_OF_AUTHORIZATION_REQUEST_CREATED ->
                     Value.PROOF_OF_AUTHORIZATION_REQUEST_CREATED
                 PROOF_OF_AUTHORIZATION_REQUEST_UPDATED ->
@@ -752,6 +780,8 @@ private constructor(
                 CHECK_TRANSFER_CREATED -> Known.CHECK_TRANSFER_CREATED
                 CHECK_TRANSFER_UPDATED -> Known.CHECK_TRANSFER_UPDATED
                 DECLINED_TRANSACTION_CREATED -> Known.DECLINED_TRANSACTION_CREATED
+                DIGITAL_CARD_PROFILE_CREATED -> Known.DIGITAL_CARD_PROFILE_CREATED
+                DIGITAL_CARD_PROFILE_UPDATED -> Known.DIGITAL_CARD_PROFILE_UPDATED
                 DIGITAL_WALLET_TOKEN_CREATED -> Known.DIGITAL_WALLET_TOKEN_CREATED
                 DIGITAL_WALLET_TOKEN_UPDATED -> Known.DIGITAL_WALLET_TOKEN_UPDATED
                 DOCUMENT_CREATED -> Known.DOCUMENT_CREATED
@@ -781,6 +811,8 @@ private constructor(
                 PENDING_TRANSACTION_UPDATED -> Known.PENDING_TRANSACTION_UPDATED
                 PHYSICAL_CARD_CREATED -> Known.PHYSICAL_CARD_CREATED
                 PHYSICAL_CARD_UPDATED -> Known.PHYSICAL_CARD_UPDATED
+                PHYSICAL_CARD_PROFILE_CREATED -> Known.PHYSICAL_CARD_PROFILE_CREATED
+                PHYSICAL_CARD_PROFILE_UPDATED -> Known.PHYSICAL_CARD_PROFILE_UPDATED
                 PROOF_OF_AUTHORIZATION_REQUEST_CREATED ->
                     Known.PROOF_OF_AUTHORIZATION_REQUEST_CREATED
                 PROOF_OF_AUTHORIZATION_REQUEST_UPDATED ->

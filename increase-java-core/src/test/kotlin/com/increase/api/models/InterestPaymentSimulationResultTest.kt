@@ -1024,6 +1024,7 @@ class InterestPaymentSimulationResultTest {
                                     InterestPaymentSimulationResult.Transaction.Source
                                         .InboundWireTransfer
                                         .builder()
+                                        .id("string")
                                         .amount(123L)
                                         .beneficiaryAddressLine1("string")
                                         .beneficiaryAddressLine2("string")
@@ -1042,6 +1043,13 @@ class InterestPaymentSimulationResultTest {
                                         .originatorToBeneficiaryInformationLine2("string")
                                         .originatorToBeneficiaryInformationLine3("string")
                                         .originatorToBeneficiaryInformationLine4("string")
+                                        .transferId("string")
+                                        .type(
+                                            InterestPaymentSimulationResult.Transaction.Source
+                                                .InboundWireTransfer
+                                                .Type
+                                                .INBOUND_WIRE_TRANSFER
+                                        )
                                         .build()
                                 )
                                 .interestPayment(
@@ -2076,6 +2084,7 @@ class InterestPaymentSimulationResultTest {
                                 InterestPaymentSimulationResult.Transaction.Source
                                     .InboundWireTransfer
                                     .builder()
+                                    .id("string")
                                     .amount(123L)
                                     .beneficiaryAddressLine1("string")
                                     .beneficiaryAddressLine2("string")
@@ -2094,6 +2103,13 @@ class InterestPaymentSimulationResultTest {
                                     .originatorToBeneficiaryInformationLine2("string")
                                     .originatorToBeneficiaryInformationLine3("string")
                                     .originatorToBeneficiaryInformationLine4("string")
+                                    .transferId("string")
+                                    .type(
+                                        InterestPaymentSimulationResult.Transaction.Source
+                                            .InboundWireTransfer
+                                            .Type
+                                            .INBOUND_WIRE_TRANSFER
+                                    )
                                     .build()
                             )
                             .interestPayment(
