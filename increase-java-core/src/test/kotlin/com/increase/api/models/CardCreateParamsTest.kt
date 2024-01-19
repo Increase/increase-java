@@ -25,6 +25,7 @@ class CardCreateParamsTest {
             .digitalWallet(
                 CardCreateParams.DigitalWallet.builder()
                     .cardProfileId("string")
+                    .digitalCardProfileId("string")
                     .email("x")
                     .phone("x")
                     .build()
@@ -51,6 +52,7 @@ class CardCreateParamsTest {
                 .digitalWallet(
                     CardCreateParams.DigitalWallet.builder()
                         .cardProfileId("string")
+                        .digitalCardProfileId("string")
                         .email("x")
                         .phone("x")
                         .build()
@@ -75,6 +77,7 @@ class CardCreateParamsTest {
             .isEqualTo(
                 CardCreateParams.DigitalWallet.builder()
                     .cardProfileId("string")
+                    .digitalCardProfileId("string")
                     .email("x")
                     .phone("x")
                     .build()

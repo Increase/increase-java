@@ -17,7 +17,10 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 
-/** When a user authorizes your OAuth application, an OAuth Connection object is created. */
+/**
+ * When a user authorizes your OAuth application, an OAuth Connection object is created. Learn more
+ * about OAuth [here](https://increase.com/documentation/oauth).
+ */
 @JsonDeserialize(builder = OAuthConnection.Builder::class)
 @NoAutoDetect
 class OAuthConnection
