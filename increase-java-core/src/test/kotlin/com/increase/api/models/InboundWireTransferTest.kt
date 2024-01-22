@@ -30,7 +30,6 @@ class InboundWireTransferTest {
                 .originatorToBeneficiaryInformationLine2("string")
                 .originatorToBeneficiaryInformationLine3("string")
                 .originatorToBeneficiaryInformationLine4("string")
-                .transferId("string")
                 .type(InboundWireTransfer.Type.INBOUND_WIRE_TRANSFER)
                 .build()
         assertThat(inboundWireTransfer).isNotNull
@@ -53,7 +52,6 @@ class InboundWireTransferTest {
         assertThat(inboundWireTransfer.originatorToBeneficiaryInformationLine2()).contains("string")
         assertThat(inboundWireTransfer.originatorToBeneficiaryInformationLine3()).contains("string")
         assertThat(inboundWireTransfer.originatorToBeneficiaryInformationLine4()).contains("string")
-        assertThat(inboundWireTransfer.transferId()).isEqualTo("string")
         assertThat(inboundWireTransfer.type())
             .isEqualTo(InboundWireTransfer.Type.INBOUND_WIRE_TRANSFER)
     }

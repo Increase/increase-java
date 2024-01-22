@@ -922,8 +922,8 @@ private constructor(
                 Optional.ofNullable(inboundWireReversal.getNullable("inbound_wire_reversal"))
 
             /**
-             * An Inbound Wire Transfer object. This field will be present in the JSON response if
-             * and only if `category` is equal to `inbound_wire_transfer`.
+             * An Inbound Wire Transfer Intention object. This field will be present in the JSON
+             * response if and only if `category` is equal to `inbound_wire_transfer`.
              */
             fun inboundWireTransfer(): Optional<InboundWireTransfer> =
                 Optional.ofNullable(inboundWireTransfer.getNullable("inbound_wire_transfer"))
@@ -1146,8 +1146,8 @@ private constructor(
             fun _inboundWireReversal() = inboundWireReversal
 
             /**
-             * An Inbound Wire Transfer object. This field will be present in the JSON response if
-             * and only if `category` is equal to `inbound_wire_transfer`.
+             * An Inbound Wire Transfer Intention object. This field will be present in the JSON
+             * response if and only if `category` is equal to `inbound_wire_transfer`.
              */
             @JsonProperty("inbound_wire_transfer")
             @ExcludeMissing
@@ -1816,15 +1816,15 @@ private constructor(
                     }
 
                 /**
-                 * An Inbound Wire Transfer object. This field will be present in the JSON response
-                 * if and only if `category` is equal to `inbound_wire_transfer`.
+                 * An Inbound Wire Transfer Intention object. This field will be present in the JSON
+                 * response if and only if `category` is equal to `inbound_wire_transfer`.
                  */
                 fun inboundWireTransfer(inboundWireTransfer: InboundWireTransfer) =
                     inboundWireTransfer(JsonField.of(inboundWireTransfer))
 
                 /**
-                 * An Inbound Wire Transfer object. This field will be present in the JSON response
-                 * if and only if `category` is equal to `inbound_wire_transfer`.
+                 * An Inbound Wire Transfer Intention object. This field will be present in the JSON
+                 * response if and only if `category` is equal to `inbound_wire_transfer`.
                  */
                 @JsonProperty("inbound_wire_transfer")
                 @ExcludeMissing
@@ -21646,14 +21646,13 @@ private constructor(
             }
 
             /**
-             * An Inbound Wire Transfer object. This field will be present in the JSON response if
-             * and only if `category` is equal to `inbound_wire_transfer`.
+             * An Inbound Wire Transfer Intention object. This field will be present in the JSON
+             * response if and only if `category` is equal to `inbound_wire_transfer`.
              */
             @JsonDeserialize(builder = InboundWireTransfer.Builder::class)
             @NoAutoDetect
             class InboundWireTransfer
             private constructor(
-                private val id: JsonField<String>,
                 private val amount: JsonField<Long>,
                 private val beneficiaryAddressLine1: JsonField<String>,
                 private val beneficiaryAddressLine2: JsonField<String>,
@@ -21673,16 +21672,12 @@ private constructor(
                 private val originatorToBeneficiaryInformationLine4: JsonField<String>,
                 private val originatorToBeneficiaryInformation: JsonField<String>,
                 private val transferId: JsonField<String>,
-                private val type: JsonField<Type>,
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
 
                 private var validated: Boolean = false
 
                 private var hashCode: Int = 0
-
-                /** The inbound wire transfer's identifier. */
-                fun id(): String = id.getRequired("id")
 
                 /** The amount in USD cents. */
                 fun amount(): Long = amount.getRequired("amount")
@@ -21804,15 +21799,6 @@ private constructor(
                 /** The ID of the Inbound Wire Transfer object that resulted in this Transaction. */
                 fun transferId(): String = transferId.getRequired("transfer_id")
 
-                /**
-                 * A constant representing the object's type. For this resource it will always be
-                 * `inbound_wire_transfer`.
-                 */
-                fun type(): Type = type.getRequired("type")
-
-                /** The inbound wire transfer's identifier. */
-                @JsonProperty("id") @ExcludeMissing fun _id() = id
-
                 /** The amount in USD cents. */
                 @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
@@ -21915,19 +21901,12 @@ private constructor(
                 /** The ID of the Inbound Wire Transfer object that resulted in this Transaction. */
                 @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
 
-                /**
-                 * A constant representing the object's type. For this resource it will always be
-                 * `inbound_wire_transfer`.
-                 */
-                @JsonProperty("type") @ExcludeMissing fun _type() = type
-
                 @JsonAnyGetter
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
                 fun validate(): InboundWireTransfer = apply {
                     if (!validated) {
-                        id()
                         amount()
                         beneficiaryAddressLine1()
                         beneficiaryAddressLine2()
@@ -21947,7 +21926,6 @@ private constructor(
                         originatorToBeneficiaryInformationLine4()
                         originatorToBeneficiaryInformation()
                         transferId()
-                        type()
                         validated = true
                     }
                 }
@@ -21960,7 +21938,6 @@ private constructor(
                     }
 
                     return other is InboundWireTransfer &&
-                        this.id == other.id &&
                         this.amount == other.amount &&
                         this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
                         this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
@@ -21986,7 +21963,6 @@ private constructor(
                         this.originatorToBeneficiaryInformation ==
                             other.originatorToBeneficiaryInformation &&
                         this.transferId == other.transferId &&
-                        this.type == other.type &&
                         this.additionalProperties == other.additionalProperties
                 }
 
@@ -21994,7 +21970,6 @@ private constructor(
                     if (hashCode == 0) {
                         hashCode =
                             Objects.hash(
-                                id,
                                 amount,
                                 beneficiaryAddressLine1,
                                 beneficiaryAddressLine2,
@@ -22014,7 +21989,6 @@ private constructor(
                                 originatorToBeneficiaryInformationLine4,
                                 originatorToBeneficiaryInformation,
                                 transferId,
-                                type,
                                 additionalProperties,
                             )
                     }
@@ -22022,7 +21996,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "InboundWireTransfer{id=$id, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, description=$description, inputMessageAccountabilityData=$inputMessageAccountabilityData, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, originatorToBeneficiaryInformation=$originatorToBeneficiaryInformation, transferId=$transferId, type=$type, additionalProperties=$additionalProperties}"
+                    "InboundWireTransfer{amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, description=$description, inputMessageAccountabilityData=$inputMessageAccountabilityData, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, originatorToBeneficiaryInformation=$originatorToBeneficiaryInformation, transferId=$transferId, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -22031,7 +22005,6 @@ private constructor(
 
                 class Builder {
 
-                    private var id: JsonField<String> = JsonMissing.of()
                     private var amount: JsonField<Long> = JsonMissing.of()
                     private var beneficiaryAddressLine1: JsonField<String> = JsonMissing.of()
                     private var beneficiaryAddressLine2: JsonField<String> = JsonMissing.of()
@@ -22056,12 +22029,10 @@ private constructor(
                     private var originatorToBeneficiaryInformation: JsonField<String> =
                         JsonMissing.of()
                     private var transferId: JsonField<String> = JsonMissing.of()
-                    private var type: JsonField<Type> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
                     internal fun from(inboundWireTransfer: InboundWireTransfer) = apply {
-                        this.id = inboundWireTransfer.id
                         this.amount = inboundWireTransfer.amount
                         this.beneficiaryAddressLine1 = inboundWireTransfer.beneficiaryAddressLine1
                         this.beneficiaryAddressLine2 = inboundWireTransfer.beneficiaryAddressLine2
@@ -22087,17 +22058,8 @@ private constructor(
                         this.originatorToBeneficiaryInformation =
                             inboundWireTransfer.originatorToBeneficiaryInformation
                         this.transferId = inboundWireTransfer.transferId
-                        this.type = inboundWireTransfer.type
                         additionalProperties(inboundWireTransfer.additionalProperties)
                     }
-
-                    /** The inbound wire transfer's identifier. */
-                    fun id(id: String) = id(JsonField.of(id))
-
-                    /** The inbound wire transfer's identifier. */
-                    @JsonProperty("id")
-                    @ExcludeMissing
-                    fun id(id: JsonField<String>) = apply { this.id = id }
 
                     /** The amount in USD cents. */
                     fun amount(amount: Long) = amount(JsonField.of(amount))
@@ -22369,20 +22331,6 @@ private constructor(
                         this.transferId = transferId
                     }
 
-                    /**
-                     * A constant representing the object's type. For this resource it will always
-                     * be `inbound_wire_transfer`.
-                     */
-                    fun type(type: Type) = type(JsonField.of(type))
-
-                    /**
-                     * A constant representing the object's type. For this resource it will always
-                     * be `inbound_wire_transfer`.
-                     */
-                    @JsonProperty("type")
-                    @ExcludeMissing
-                    fun type(type: JsonField<Type>) = apply { this.type = type }
-
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
                         this.additionalProperties.putAll(additionalProperties)
@@ -22400,7 +22348,6 @@ private constructor(
 
                     fun build(): InboundWireTransfer =
                         InboundWireTransfer(
-                            id,
                             amount,
                             beneficiaryAddressLine1,
                             beneficiaryAddressLine2,
@@ -22420,62 +22367,8 @@ private constructor(
                             originatorToBeneficiaryInformationLine4,
                             originatorToBeneficiaryInformation,
                             transferId,
-                            type,
                             additionalProperties.toUnmodifiable(),
                         )
-                }
-
-                class Type
-                @JsonCreator
-                private constructor(
-                    private val value: JsonField<String>,
-                ) {
-
-                    @com.fasterxml.jackson.annotation.JsonValue
-                    fun _value(): JsonField<String> = value
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is Type && this.value == other.value
-                    }
-
-                    override fun hashCode() = value.hashCode()
-
-                    override fun toString() = value.toString()
-
-                    companion object {
-
-                        @JvmField
-                        val INBOUND_WIRE_TRANSFER = Type(JsonField.of("inbound_wire_transfer"))
-
-                        @JvmStatic fun of(value: String) = Type(JsonField.of(value))
-                    }
-
-                    enum class Known {
-                        INBOUND_WIRE_TRANSFER,
-                    }
-
-                    enum class Value {
-                        INBOUND_WIRE_TRANSFER,
-                        _UNKNOWN,
-                    }
-
-                    fun value(): Value =
-                        when (this) {
-                            INBOUND_WIRE_TRANSFER -> Value.INBOUND_WIRE_TRANSFER
-                            else -> Value._UNKNOWN
-                        }
-
-                    fun known(): Known =
-                        when (this) {
-                            INBOUND_WIRE_TRANSFER -> Known.INBOUND_WIRE_TRANSFER
-                            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-                        }
-
-                    fun asString(): String = _value().asStringOrThrow()
                 }
             }
 

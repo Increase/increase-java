@@ -370,23 +370,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .Source
                                         .WireDecline
                                         .builder()
-                                        .amount(123L)
-                                        .beneficiaryAddressLine1("string")
-                                        .beneficiaryAddressLine2("string")
-                                        .beneficiaryAddressLine3("string")
-                                        .beneficiaryName("string")
-                                        .beneficiaryReference("string")
-                                        .description("string")
-                                        .inputMessageAccountabilityData("string")
-                                        .originatorAddressLine1("string")
-                                        .originatorAddressLine2("string")
-                                        .originatorAddressLine3("string")
-                                        .originatorName("string")
-                                        .originatorRoutingNumber("string")
-                                        .originatorToBeneficiaryInformationLine1("string")
-                                        .originatorToBeneficiaryInformationLine2("string")
-                                        .originatorToBeneficiaryInformationLine3("string")
-                                        .originatorToBeneficiaryInformationLine4("string")
+                                        .inboundWireTransferId("string")
                                         .reason(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .DeclinedTransaction
@@ -1511,7 +1495,6 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .Source
                                         .InboundWireTransfer
                                         .builder()
-                                        .id("string")
                                         .amount(123L)
                                         .beneficiaryAddressLine1("string")
                                         .beneficiaryAddressLine2("string")
@@ -1531,14 +1514,6 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .originatorToBeneficiaryInformationLine3("string")
                                         .originatorToBeneficiaryInformationLine4("string")
                                         .transferId("string")
-                                        .type(
-                                            InboundRealTimePaymentsTransferSimulationResult
-                                                .Transaction
-                                                .Source
-                                                .InboundWireTransfer
-                                                .Type
-                                                .INBOUND_WIRE_TRANSFER
-                                        )
                                         .build()
                                 )
                                 .interestPayment(
@@ -1989,23 +1964,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .Source
                                     .WireDecline
                                     .builder()
-                                    .amount(123L)
-                                    .beneficiaryAddressLine1("string")
-                                    .beneficiaryAddressLine2("string")
-                                    .beneficiaryAddressLine3("string")
-                                    .beneficiaryName("string")
-                                    .beneficiaryReference("string")
-                                    .description("string")
-                                    .inputMessageAccountabilityData("string")
-                                    .originatorAddressLine1("string")
-                                    .originatorAddressLine2("string")
-                                    .originatorAddressLine3("string")
-                                    .originatorName("string")
-                                    .originatorRoutingNumber("string")
-                                    .originatorToBeneficiaryInformationLine1("string")
-                                    .originatorToBeneficiaryInformationLine2("string")
-                                    .originatorToBeneficiaryInformationLine3("string")
-                                    .originatorToBeneficiaryInformationLine4("string")
+                                    .inboundWireTransferId("string")
                                     .reason(
                                         InboundRealTimePaymentsTransferSimulationResult
                                             .DeclinedTransaction
@@ -3050,7 +3009,6 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                 InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
                                     .InboundWireTransfer
                                     .builder()
-                                    .id("string")
                                     .amount(123L)
                                     .beneficiaryAddressLine1("string")
                                     .beneficiaryAddressLine2("string")
@@ -3070,13 +3028,6 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .originatorToBeneficiaryInformationLine3("string")
                                     .originatorToBeneficiaryInformationLine4("string")
                                     .transferId("string")
-                                    .type(
-                                        InboundRealTimePaymentsTransferSimulationResult.Transaction
-                                            .Source
-                                            .InboundWireTransfer
-                                            .Type
-                                            .INBOUND_WIRE_TRANSFER
-                                    )
                                     .build()
                             )
                             .interestPayment(

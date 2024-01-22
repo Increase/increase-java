@@ -41,7 +41,6 @@ private constructor(
     private val originatorToBeneficiaryInformationLine3: JsonField<String>,
     private val originatorToBeneficiaryInformationLine4: JsonField<String>,
     private val originatorToBeneficiaryInformation: JsonField<String>,
-    private val transferId: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -149,9 +148,6 @@ private constructor(
             originatorToBeneficiaryInformation.getNullable("originator_to_beneficiary_information")
         )
 
-    /** The ID of the Inbound Wire Transfer object that resulted in this Transaction. */
-    fun transferId(): String = transferId.getRequired("transfer_id")
-
     /**
      * A constant representing the object's type. For this resource it will always be
      * `inbound_wire_transfer`.
@@ -249,9 +245,6 @@ private constructor(
     @ExcludeMissing
     fun _originatorToBeneficiaryInformation() = originatorToBeneficiaryInformation
 
-    /** The ID of the Inbound Wire Transfer object that resulted in this Transaction. */
-    @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
-
     /**
      * A constant representing the object's type. For this resource it will always be
      * `inbound_wire_transfer`.
@@ -283,7 +276,6 @@ private constructor(
             originatorToBeneficiaryInformationLine3()
             originatorToBeneficiaryInformationLine4()
             originatorToBeneficiaryInformation()
-            transferId()
             type()
             validated = true
         }
@@ -320,7 +312,6 @@ private constructor(
             this.originatorToBeneficiaryInformationLine4 ==
                 other.originatorToBeneficiaryInformationLine4 &&
             this.originatorToBeneficiaryInformation == other.originatorToBeneficiaryInformation &&
-            this.transferId == other.transferId &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -348,7 +339,6 @@ private constructor(
                     originatorToBeneficiaryInformationLine3,
                     originatorToBeneficiaryInformationLine4,
                     originatorToBeneficiaryInformation,
-                    transferId,
                     type,
                     additionalProperties,
                 )
@@ -357,7 +347,7 @@ private constructor(
     }
 
     override fun toString() =
-        "InboundWireTransfer{id=$id, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, description=$description, inputMessageAccountabilityData=$inputMessageAccountabilityData, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, originatorToBeneficiaryInformation=$originatorToBeneficiaryInformation, transferId=$transferId, type=$type, additionalProperties=$additionalProperties}"
+        "InboundWireTransfer{id=$id, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, description=$description, inputMessageAccountabilityData=$inputMessageAccountabilityData, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, originatorToBeneficiaryInformation=$originatorToBeneficiaryInformation, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -385,7 +375,6 @@ private constructor(
         private var originatorToBeneficiaryInformationLine3: JsonField<String> = JsonMissing.of()
         private var originatorToBeneficiaryInformationLine4: JsonField<String> = JsonMissing.of()
         private var originatorToBeneficiaryInformation: JsonField<String> = JsonMissing.of()
-        private var transferId: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -415,7 +404,6 @@ private constructor(
                 inboundWireTransfer.originatorToBeneficiaryInformationLine4
             this.originatorToBeneficiaryInformation =
                 inboundWireTransfer.originatorToBeneficiaryInformation
-            this.transferId = inboundWireTransfer.transferId
             this.type = inboundWireTransfer.type
             additionalProperties(inboundWireTransfer.additionalProperties)
         }
@@ -656,14 +644,6 @@ private constructor(
             originatorToBeneficiaryInformation: JsonField<String>
         ) = apply { this.originatorToBeneficiaryInformation = originatorToBeneficiaryInformation }
 
-        /** The ID of the Inbound Wire Transfer object that resulted in this Transaction. */
-        fun transferId(transferId: String) = transferId(JsonField.of(transferId))
-
-        /** The ID of the Inbound Wire Transfer object that resulted in this Transaction. */
-        @JsonProperty("transfer_id")
-        @ExcludeMissing
-        fun transferId(transferId: JsonField<String>) = apply { this.transferId = transferId }
-
         /**
          * A constant representing the object's type. For this resource it will always be
          * `inbound_wire_transfer`.
@@ -713,7 +693,6 @@ private constructor(
                 originatorToBeneficiaryInformationLine3,
                 originatorToBeneficiaryInformationLine4,
                 originatorToBeneficiaryInformation,
-                transferId,
                 type,
                 additionalProperties.toUnmodifiable(),
             )
