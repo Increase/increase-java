@@ -233,23 +233,7 @@ class DeclinedTransactionTest {
                         )
                         .wireDecline(
                             DeclinedTransaction.Source.WireDecline.builder()
-                                .amount(123L)
-                                .beneficiaryAddressLine1("string")
-                                .beneficiaryAddressLine2("string")
-                                .beneficiaryAddressLine3("string")
-                                .beneficiaryName("string")
-                                .beneficiaryReference("string")
-                                .description("string")
-                                .inputMessageAccountabilityData("string")
-                                .originatorAddressLine1("string")
-                                .originatorAddressLine2("string")
-                                .originatorAddressLine3("string")
-                                .originatorName("string")
-                                .originatorRoutingNumber("string")
-                                .originatorToBeneficiaryInformationLine1("string")
-                                .originatorToBeneficiaryInformationLine2("string")
-                                .originatorToBeneficiaryInformationLine3("string")
-                                .originatorToBeneficiaryInformationLine4("string")
+                                .inboundWireTransferId("string")
                                 .reason(
                                     DeclinedTransaction.Source.WireDecline.Reason
                                         .ACCOUNT_NUMBER_CANCELED
@@ -473,23 +457,7 @@ class DeclinedTransactionTest {
                     )
                     .wireDecline(
                         DeclinedTransaction.Source.WireDecline.builder()
-                            .amount(123L)
-                            .beneficiaryAddressLine1("string")
-                            .beneficiaryAddressLine2("string")
-                            .beneficiaryAddressLine3("string")
-                            .beneficiaryName("string")
-                            .beneficiaryReference("string")
-                            .description("string")
-                            .inputMessageAccountabilityData("string")
-                            .originatorAddressLine1("string")
-                            .originatorAddressLine2("string")
-                            .originatorAddressLine3("string")
-                            .originatorName("string")
-                            .originatorRoutingNumber("string")
-                            .originatorToBeneficiaryInformationLine1("string")
-                            .originatorToBeneficiaryInformationLine2("string")
-                            .originatorToBeneficiaryInformationLine3("string")
-                            .originatorToBeneficiaryInformationLine4("string")
+                            .inboundWireTransferId("string")
                             .reason(
                                 DeclinedTransaction.Source.WireDecline.Reason
                                     .ACCOUNT_NUMBER_CANCELED

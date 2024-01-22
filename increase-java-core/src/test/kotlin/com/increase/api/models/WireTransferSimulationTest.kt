@@ -967,7 +967,6 @@ class WireTransferSimulationTest {
                                 .inboundWireTransfer(
                                     WireTransferSimulation.Transaction.Source.InboundWireTransfer
                                         .builder()
-                                        .id("string")
                                         .amount(123L)
                                         .beneficiaryAddressLine1("string")
                                         .beneficiaryAddressLine2("string")
@@ -987,12 +986,6 @@ class WireTransferSimulationTest {
                                         .originatorToBeneficiaryInformationLine3("string")
                                         .originatorToBeneficiaryInformationLine4("string")
                                         .transferId("string")
-                                        .type(
-                                            WireTransferSimulation.Transaction.Source
-                                                .InboundWireTransfer
-                                                .Type
-                                                .INBOUND_WIRE_TRANSFER
-                                        )
                                         .build()
                                 )
                                 .interestPayment(
@@ -1962,7 +1955,6 @@ class WireTransferSimulationTest {
                             .inboundWireTransfer(
                                 WireTransferSimulation.Transaction.Source.InboundWireTransfer
                                     .builder()
-                                    .id("string")
                                     .amount(123L)
                                     .beneficiaryAddressLine1("string")
                                     .beneficiaryAddressLine2("string")
@@ -1982,12 +1974,6 @@ class WireTransferSimulationTest {
                                     .originatorToBeneficiaryInformationLine3("string")
                                     .originatorToBeneficiaryInformationLine4("string")
                                     .transferId("string")
-                                    .type(
-                                        WireTransferSimulation.Transaction.Source
-                                            .InboundWireTransfer
-                                            .Type
-                                            .INBOUND_WIRE_TRANSFER
-                                    )
                                     .build()
                             )
                             .interestPayment(

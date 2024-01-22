@@ -731,7 +731,6 @@ class TransactionTest {
                         )
                         .inboundWireTransfer(
                             Transaction.Source.InboundWireTransfer.builder()
-                                .id("string")
                                 .amount(123L)
                                 .beneficiaryAddressLine1("string")
                                 .beneficiaryAddressLine2("string")
@@ -751,10 +750,6 @@ class TransactionTest {
                                 .originatorToBeneficiaryInformationLine3("string")
                                 .originatorToBeneficiaryInformationLine4("string")
                                 .transferId("string")
-                                .type(
-                                    Transaction.Source.InboundWireTransfer.Type
-                                        .INBOUND_WIRE_TRANSFER
-                                )
                                 .build()
                         )
                         .interestPayment(
@@ -1506,7 +1501,6 @@ class TransactionTest {
                     )
                     .inboundWireTransfer(
                         Transaction.Source.InboundWireTransfer.builder()
-                            .id("string")
                             .amount(123L)
                             .beneficiaryAddressLine1("string")
                             .beneficiaryAddressLine2("string")
@@ -1526,7 +1520,6 @@ class TransactionTest {
                             .originatorToBeneficiaryInformationLine3("string")
                             .originatorToBeneficiaryInformationLine4("string")
                             .transferId("string")
-                            .type(Transaction.Source.InboundWireTransfer.Type.INBOUND_WIRE_TRANSFER)
                             .build()
                     )
                     .interestPayment(
