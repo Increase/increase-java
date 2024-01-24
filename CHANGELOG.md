@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.27.0 (2024-01-24)
+
+Full Changelog: [v0.26.0...v0.27.0](https://github.com/increase/increase-java/compare/v0.26.0...v0.27.0)
+
+### Features
+
+* **api:** list Inbound Wire Transfers, change transfer simulation return types ([#168](https://github.com/increase/increase-java/issues/168)) ([f1f92e4](https://github.com/increase/increase-java/commit/f1f92e4057550adb7666d68e8e155fa5a742196d))
+
 ## 0.26.0 (2024-01-22)
 
 Full Changelog: [v0.25.0...v0.26.0](https://github.com/increase/increase-java/compare/v0.25.0...v0.26.0)
