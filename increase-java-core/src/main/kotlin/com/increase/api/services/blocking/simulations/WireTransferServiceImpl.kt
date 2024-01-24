@@ -8,8 +8,8 @@ import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
+import com.increase.api.models.InboundWireTransfer
 import com.increase.api.models.SimulationWireTransferCreateInboundParams
-import com.increase.api.models.WireTransferSimulation
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
@@ -22,14 +22,14 @@ constructor(
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-    private val createInboundHandler: Handler<WireTransferSimulation> =
-        jsonHandler<WireTransferSimulation>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+    private val createInboundHandler: Handler<InboundWireTransfer> =
+        jsonHandler<InboundWireTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** Simulates an inbound Wire Transfer to your account. */
     override fun createInbound(
         params: SimulationWireTransferCreateInboundParams,
         requestOptions: RequestOptions
-    ): WireTransferSimulation {
+    ): InboundWireTransfer {
         val request =
             HttpRequest.builder()
                 .method(HttpMethod.POST)

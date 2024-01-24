@@ -69,7 +69,10 @@ constructor(
 
         private var hashCode: Int = 0
 
-        /** The credential you request in exchange for the code. */
+        /**
+         * The credential you request in exchange for the code. In Production, this is always
+         * `authorization_code`. In Sandbox, you can pass either enum value.
+         */
         @JsonProperty("grant_type") fun grantType(): GrantType? = grantType
 
         /** The public identifier for your application. */
@@ -152,7 +155,10 @@ constructor(
                 additionalProperties(oauthTokenCreateBody.additionalProperties)
             }
 
-            /** The credential you request in exchange for the code. */
+            /**
+             * The credential you request in exchange for the code. In Production, this is always
+             * `authorization_code`. In Sandbox, you can pass either enum value.
+             */
             @JsonProperty("grant_type")
             fun grantType(grantType: GrantType) = apply { this.grantType = grantType }
 
@@ -276,7 +282,10 @@ constructor(
             additionalBodyProperties(oauthTokenCreateParams.additionalBodyProperties)
         }
 
-        /** The credential you request in exchange for the code. */
+        /**
+         * The credential you request in exchange for the code. In Production, this is always
+         * `authorization_code`. In Sandbox, you can pass either enum value.
+         */
         fun grantType(grantType: GrantType) = apply { this.grantType = grantType }
 
         /** The public identifier for your application. */

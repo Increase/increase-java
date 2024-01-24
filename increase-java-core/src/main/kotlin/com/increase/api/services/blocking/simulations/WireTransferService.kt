@@ -5,8 +5,8 @@
 package com.increase.api.services.blocking.simulations
 
 import com.increase.api.core.RequestOptions
+import com.increase.api.models.InboundWireTransfer
 import com.increase.api.models.SimulationWireTransferCreateInboundParams
-import com.increase.api.models.WireTransferSimulation
 
 interface WireTransferService {
 
@@ -15,5 +15,5 @@ interface WireTransferService {
     fun createInbound(
         params: SimulationWireTransferCreateInboundParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): WireTransferSimulation
+    ): InboundWireTransfer
 }

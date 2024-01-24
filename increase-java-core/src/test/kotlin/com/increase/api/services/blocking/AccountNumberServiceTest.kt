@@ -35,6 +35,7 @@ class AccountNumberServiceTest {
                             .status(AccountNumberCreateParams.InboundChecks.Status.ALLOWED)
                             .build()
                     )
+                    .uniqueIdentifier("x")
                     .build()
             )
         println(accountNumber)

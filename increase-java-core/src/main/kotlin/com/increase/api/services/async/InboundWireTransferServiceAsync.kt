@@ -6,6 +6,8 @@ package com.increase.api.services.async
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.InboundWireTransfer
+import com.increase.api.models.InboundWireTransferListPageAsync
+import com.increase.api.models.InboundWireTransferListParams
 import com.increase.api.models.InboundWireTransferRetrieveParams
 import java.util.concurrent.CompletableFuture
 
@@ -17,4 +19,11 @@ interface InboundWireTransferServiceAsync {
         params: InboundWireTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<InboundWireTransfer>
+
+    /** List Inbound Wire Transfers */
+    @JvmOverloads
+    fun list(
+        params: InboundWireTransferListParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): CompletableFuture<InboundWireTransferListPageAsync>
 }

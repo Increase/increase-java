@@ -5,8 +5,8 @@
 package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
+import com.increase.api.models.InboundWireTransfer
 import com.increase.api.models.SimulationWireTransferCreateInboundParams
-import com.increase.api.models.WireTransferSimulation
 import java.util.concurrent.CompletableFuture
 
 interface WireTransferServiceAsync {
@@ -16,5 +16,5 @@ interface WireTransferServiceAsync {
     fun createInbound(
         params: SimulationWireTransferCreateInboundParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): CompletableFuture<WireTransferSimulation>
+    ): CompletableFuture<InboundWireTransfer>
 }
