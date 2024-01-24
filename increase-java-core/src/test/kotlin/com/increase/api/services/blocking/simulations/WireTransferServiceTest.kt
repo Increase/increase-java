@@ -19,7 +19,7 @@ class WireTransferServiceTest {
                 .apiKey("My API Key")
                 .build()
         val wireTransferService = client.simulations().wireTransfers()
-        val wireTransferSimulation =
+        val inboundWireTransfer =
             wireTransferService.createInbound(
                 SimulationWireTransferCreateInboundParams.builder()
                     .accountNumberId("string")
@@ -40,7 +40,7 @@ class WireTransferServiceTest {
                     .originatorToBeneficiaryInformationLine4("x")
                     .build()
             )
-        println(wireTransferSimulation)
-        wireTransferSimulation.validate()
+        println(inboundWireTransfer)
+        inboundWireTransfer.validate()
     }
 }

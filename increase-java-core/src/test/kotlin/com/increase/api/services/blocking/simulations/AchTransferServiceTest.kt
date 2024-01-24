@@ -21,7 +21,7 @@ class AchTransferServiceTest {
                 .apiKey("My API Key")
                 .build()
         val achTransferService = client.simulations().achTransfers()
-        val achTransferSimulation =
+        val inboundAchTransfer =
             achTransferService.createInbound(
                 SimulationAchTransferCreateInboundParams.builder()
                     .accountNumberId("string")
@@ -34,8 +34,8 @@ class AchTransferServiceTest {
                     .resolveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
-        println(achTransferSimulation)
-        achTransferSimulation.validate()
+        println(inboundAchTransfer)
+        inboundAchTransfer.validate()
     }
 
     @Disabled("Prism incorrectly returns an invalid JSON error")

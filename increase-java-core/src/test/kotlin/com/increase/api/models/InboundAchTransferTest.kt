@@ -19,6 +19,7 @@ class InboundAchTransferTest {
                         .transactionId("string")
                         .build()
                 )
+                .accountId("string")
                 .accountNumberId("string")
                 .addenda(
                     InboundAchTransfer.Addenda.builder()
@@ -80,6 +81,7 @@ class InboundAchTransferTest {
                     .transactionId("string")
                     .build()
             )
+        assertThat(inboundAchTransfer.accountId()).isEqualTo("string")
         assertThat(inboundAchTransfer.accountNumberId()).isEqualTo("string")
         assertThat(inboundAchTransfer.addenda())
             .contains(

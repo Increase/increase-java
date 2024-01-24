@@ -9,6 +9,8 @@ import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.InboundWireTransfer
+import com.increase.api.models.InboundWireTransferListPage
+import com.increase.api.models.InboundWireTransferListParams
 import com.increase.api.models.InboundWireTransferRetrieveParams
 import com.increase.api.services.errorHandler
 import com.increase.api.services.jsonHandler
@@ -45,6 +47,35 @@ constructor(
                         validate()
                     }
                 }
+        }
+    }
+
+    private val listHandler: Handler<InboundWireTransferListPage.Response> =
+        jsonHandler<InboundWireTransferListPage.Response>(clientOptions.jsonMapper)
+            .withErrorHandler(errorHandler)
+
+    /** List Inbound Wire Transfers */
+    override fun list(
+        params: InboundWireTransferListParams,
+        requestOptions: RequestOptions
+    ): InboundWireTransferListPage {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.GET)
+                .addPathSegments("inbound_wire_transfers")
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .build()
+        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
+            response
+                .use { listHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
+                .let { InboundWireTransferListPage.of(this, params, it) }
         }
     }
 }

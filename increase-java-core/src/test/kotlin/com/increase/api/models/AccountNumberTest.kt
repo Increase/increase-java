@@ -30,6 +30,7 @@ class AccountNumberTest {
                 .routingNumber("string")
                 .status(AccountNumber.Status.ACTIVE)
                 .type(AccountNumber.Type.ACCOUNT_NUMBER)
+                .uniqueIdentifier("string")
                 .build()
         assertThat(accountNumber).isNotNull
         assertThat(accountNumber.id()).isEqualTo("string")
@@ -53,5 +54,6 @@ class AccountNumberTest {
         assertThat(accountNumber.routingNumber()).isEqualTo("string")
         assertThat(accountNumber.status()).isEqualTo(AccountNumber.Status.ACTIVE)
         assertThat(accountNumber.type()).isEqualTo(AccountNumber.Type.ACCOUNT_NUMBER)
+        assertThat(accountNumber.uniqueIdentifier()).contains("string")
     }
 }

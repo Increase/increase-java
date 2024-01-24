@@ -25,6 +25,7 @@ class InboundAchTransfer
 private constructor(
     private val id: JsonField<String>,
     private val amount: JsonField<Long>,
+    private val accountId: JsonField<String>,
     private val accountNumberId: JsonField<String>,
     private val direction: JsonField<Direction>,
     private val status: JsonField<Status>,
@@ -56,6 +57,9 @@ private constructor(
 
     /** The transfer amount in USD cents. */
     fun amount(): Long = amount.getRequired("amount")
+
+    /** The Account to which the transfer belongs. */
+    fun accountId(): String = accountId.getRequired("account_id")
 
     /** The identifier of the Account Number to which this transfer was sent. */
     fun accountNumberId(): String = accountNumberId.getRequired("account_number_id")
@@ -142,6 +146,9 @@ private constructor(
 
     /** The transfer amount in USD cents. */
     @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+    /** The Account to which the transfer belongs. */
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
 
     /** The identifier of the Account Number to which this transfer was sent. */
     @JsonProperty("account_number_id") @ExcludeMissing fun _accountNumberId() = accountNumberId
@@ -232,6 +239,7 @@ private constructor(
         if (!validated) {
             id()
             amount()
+            accountId()
             accountNumberId()
             direction()
             status()
@@ -265,6 +273,7 @@ private constructor(
         return other is InboundAchTransfer &&
             this.id == other.id &&
             this.amount == other.amount &&
+            this.accountId == other.accountId &&
             this.accountNumberId == other.accountNumberId &&
             this.direction == other.direction &&
             this.status == other.status &&
@@ -293,6 +302,7 @@ private constructor(
                 Objects.hash(
                     id,
                     amount,
+                    accountId,
                     accountNumberId,
                     direction,
                     status,
@@ -319,7 +329,7 @@ private constructor(
     }
 
     override fun toString() =
-        "InboundAchTransfer{id=$id, amount=$amount, accountNumberId=$accountNumberId, direction=$direction, status=$status, originatorCompanyName=$originatorCompanyName, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, originatorRoutingNumber=$originatorRoutingNumber, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, traceNumber=$traceNumber, automaticallyResolvesAt=$automaticallyResolvesAt, addenda=$addenda, acceptance=$acceptance, decline=$decline, transferReturn=$transferReturn, notificationOfChange=$notificationOfChange, type=$type, additionalProperties=$additionalProperties}"
+        "InboundAchTransfer{id=$id, amount=$amount, accountId=$accountId, accountNumberId=$accountNumberId, direction=$direction, status=$status, originatorCompanyName=$originatorCompanyName, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, originatorRoutingNumber=$originatorRoutingNumber, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, traceNumber=$traceNumber, automaticallyResolvesAt=$automaticallyResolvesAt, addenda=$addenda, acceptance=$acceptance, decline=$decline, transferReturn=$transferReturn, notificationOfChange=$notificationOfChange, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -330,6 +340,7 @@ private constructor(
 
         private var id: JsonField<String> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
+        private var accountId: JsonField<String> = JsonMissing.of()
         private var accountNumberId: JsonField<String> = JsonMissing.of()
         private var direction: JsonField<Direction> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
@@ -355,6 +366,7 @@ private constructor(
         internal fun from(inboundAchTransfer: InboundAchTransfer) = apply {
             this.id = inboundAchTransfer.id
             this.amount = inboundAchTransfer.amount
+            this.accountId = inboundAchTransfer.accountId
             this.accountNumberId = inboundAchTransfer.accountNumberId
             this.direction = inboundAchTransfer.direction
             this.status = inboundAchTransfer.status
@@ -393,6 +405,14 @@ private constructor(
         @JsonProperty("amount")
         @ExcludeMissing
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+        /** The Account to which the transfer belongs. */
+        fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+
+        /** The Account to which the transfer belongs. */
+        @JsonProperty("account_id")
+        @ExcludeMissing
+        fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /** The identifier of the Account Number to which this transfer was sent. */
         fun accountNumberId(accountNumberId: String) =
@@ -618,6 +638,7 @@ private constructor(
             InboundAchTransfer(
                 id,
                 amount,
+                accountId,
                 accountNumberId,
                 direction,
                 status,
