@@ -9,7 +9,7 @@ import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.AchTransfer
-import com.increase.api.models.AchTransferSimulation
+import com.increase.api.models.InboundAchTransfer
 import com.increase.api.models.SimulationAchTransferCreateInboundParams
 import com.increase.api.models.SimulationAchTransferReturnParams
 import com.increase.api.models.SimulationAchTransferSubmitParams
@@ -25,8 +25,8 @@ constructor(
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-    private val createInboundHandler: Handler<AchTransferSimulation> =
-        jsonHandler<AchTransferSimulation>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+    private val createInboundHandler: Handler<InboundAchTransfer> =
+        jsonHandler<InboundAchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /**
      * Simulates an inbound ACH transfer to your account. This imitates initiating a transfer to an
@@ -42,7 +42,7 @@ constructor(
     override fun createInbound(
         params: SimulationAchTransferCreateInboundParams,
         requestOptions: RequestOptions
-    ): AchTransferSimulation {
+    ): InboundAchTransfer {
         val request =
             HttpRequest.builder()
                 .method(HttpMethod.POST)

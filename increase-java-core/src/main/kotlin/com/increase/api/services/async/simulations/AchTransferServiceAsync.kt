@@ -6,7 +6,7 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.AchTransfer
-import com.increase.api.models.AchTransferSimulation
+import com.increase.api.models.InboundAchTransfer
 import com.increase.api.models.SimulationAchTransferCreateInboundParams
 import com.increase.api.models.SimulationAchTransferReturnParams
 import com.increase.api.models.SimulationAchTransferSubmitParams
@@ -29,7 +29,7 @@ interface AchTransferServiceAsync {
     fun createInbound(
         params: SimulationAchTransferCreateInboundParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): CompletableFuture<AchTransferSimulation>
+    ): CompletableFuture<InboundAchTransfer>
 
     /**
      * Simulates the return of an [ACH Transfer](#ach-transfers) by the Federal Reserve due to an

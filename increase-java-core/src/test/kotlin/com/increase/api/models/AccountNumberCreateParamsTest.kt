@@ -23,6 +23,7 @@ class AccountNumberCreateParamsTest {
                     .status(AccountNumberCreateParams.InboundChecks.Status.ALLOWED)
                     .build()
             )
+            .uniqueIdentifier("x")
             .build()
     }
 
@@ -42,6 +43,7 @@ class AccountNumberCreateParamsTest {
                         .status(AccountNumberCreateParams.InboundChecks.Status.ALLOWED)
                         .build()
                 )
+                .uniqueIdentifier("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -59,6 +61,7 @@ class AccountNumberCreateParamsTest {
                     .status(AccountNumberCreateParams.InboundChecks.Status.ALLOWED)
                     .build()
             )
+        assertThat(body.uniqueIdentifier()).isEqualTo("x")
     }
 
     @Test

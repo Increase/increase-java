@@ -411,6 +411,14 @@ constructor(
                     In(JsonField.of("inbound_wire_drawdown_request.created"))
 
                 @JvmField
+                val INBOUND_WIRE_TRANSFER_CREATED =
+                    In(JsonField.of("inbound_wire_transfer.created"))
+
+                @JvmField
+                val INBOUND_WIRE_TRANSFER_UPDATED =
+                    In(JsonField.of("inbound_wire_transfer.updated"))
+
+                @JvmField
                 val INTRAFI_ACCOUNT_ENROLLMENT_CREATED =
                     In(JsonField.of("intrafi_account_enrollment.created"))
 
@@ -558,6 +566,8 @@ constructor(
                 INBOUND_ACH_TRANSFER_RETURN_CREATED,
                 INBOUND_ACH_TRANSFER_RETURN_UPDATED,
                 INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED,
+                INBOUND_WIRE_TRANSFER_CREATED,
+                INBOUND_WIRE_TRANSFER_UPDATED,
                 INTRAFI_ACCOUNT_ENROLLMENT_CREATED,
                 INTRAFI_ACCOUNT_ENROLLMENT_UPDATED,
                 INTRAFI_EXCLUSION_CREATED,
@@ -637,6 +647,8 @@ constructor(
                 INBOUND_ACH_TRANSFER_RETURN_CREATED,
                 INBOUND_ACH_TRANSFER_RETURN_UPDATED,
                 INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED,
+                INBOUND_WIRE_TRANSFER_CREATED,
+                INBOUND_WIRE_TRANSFER_UPDATED,
                 INTRAFI_ACCOUNT_ENROLLMENT_CREATED,
                 INTRAFI_ACCOUNT_ENROLLMENT_UPDATED,
                 INTRAFI_EXCLUSION_CREATED,
@@ -719,6 +731,8 @@ constructor(
                     INBOUND_ACH_TRANSFER_RETURN_UPDATED -> Value.INBOUND_ACH_TRANSFER_RETURN_UPDATED
                     INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED ->
                         Value.INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED
+                    INBOUND_WIRE_TRANSFER_CREATED -> Value.INBOUND_WIRE_TRANSFER_CREATED
+                    INBOUND_WIRE_TRANSFER_UPDATED -> Value.INBOUND_WIRE_TRANSFER_UPDATED
                     INTRAFI_ACCOUNT_ENROLLMENT_CREATED -> Value.INTRAFI_ACCOUNT_ENROLLMENT_CREATED
                     INTRAFI_ACCOUNT_ENROLLMENT_UPDATED -> Value.INTRAFI_ACCOUNT_ENROLLMENT_UPDATED
                     INTRAFI_EXCLUSION_CREATED -> Value.INTRAFI_EXCLUSION_CREATED
@@ -810,6 +824,8 @@ constructor(
                     INBOUND_ACH_TRANSFER_RETURN_UPDATED -> Known.INBOUND_ACH_TRANSFER_RETURN_UPDATED
                     INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED ->
                         Known.INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED
+                    INBOUND_WIRE_TRANSFER_CREATED -> Known.INBOUND_WIRE_TRANSFER_CREATED
+                    INBOUND_WIRE_TRANSFER_UPDATED -> Known.INBOUND_WIRE_TRANSFER_UPDATED
                     INTRAFI_ACCOUNT_ENROLLMENT_CREATED -> Known.INTRAFI_ACCOUNT_ENROLLMENT_CREATED
                     INTRAFI_ACCOUNT_ENROLLMENT_UPDATED -> Known.INTRAFI_ACCOUNT_ENROLLMENT_UPDATED
                     INTRAFI_EXCLUSION_CREATED -> Known.INTRAFI_EXCLUSION_CREATED

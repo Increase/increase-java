@@ -20,7 +20,8 @@ import java.util.Optional
 
 /**
  * Real Time Decisions are created when your application needs to take action in real-time to some
- * event such as a card authorization.
+ * event such as a card authorization. For more information, see our
+ * [Real-Time Decisions guide](https://increase.com/documentation/real-time-decisions).
  */
 @JsonDeserialize(builder = RealTimeDecision.Builder::class)
 @NoAutoDetect
