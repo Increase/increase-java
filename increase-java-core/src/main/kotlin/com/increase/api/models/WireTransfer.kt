@@ -167,7 +167,7 @@ private constructor(
     fun pendingTransactionId(): Optional<String> =
         Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
 
-    /** The unique identifier you chose for this transfer. */
+    /** The unique identifier you chose for this object. */
     fun uniqueIdentifier(): Optional<String> =
         Optional.ofNullable(uniqueIdentifier.getNullable("unique_identifier"))
 
@@ -287,7 +287,7 @@ private constructor(
     @ExcludeMissing
     fun _pendingTransactionId() = pendingTransactionId
 
-    /** The unique identifier you chose for this transfer. */
+    /** The unique identifier you chose for this object. */
     @JsonProperty("unique_identifier") @ExcludeMissing fun _uniqueIdentifier() = uniqueIdentifier
 
     /**
@@ -751,11 +751,11 @@ private constructor(
             this.pendingTransactionId = pendingTransactionId
         }
 
-        /** The unique identifier you chose for this transfer. */
+        /** The unique identifier you chose for this object. */
         fun uniqueIdentifier(uniqueIdentifier: String) =
             uniqueIdentifier(JsonField.of(uniqueIdentifier))
 
-        /** The unique identifier you chose for this transfer. */
+        /** The unique identifier you chose for this object. */
         @JsonProperty("unique_identifier")
         @ExcludeMissing
         fun uniqueIdentifier(uniqueIdentifier: JsonField<String>) = apply {
