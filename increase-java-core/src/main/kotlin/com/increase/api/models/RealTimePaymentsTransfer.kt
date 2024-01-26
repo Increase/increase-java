@@ -161,7 +161,7 @@ private constructor(
      */
     fun rejection(): Optional<Rejection> = Optional.ofNullable(rejection.getNullable("rejection"))
 
-    /** The unique identifier you chose for this transfer. */
+    /** The unique identifier you chose for this object. */
     fun uniqueIdentifier(): Optional<String> =
         Optional.ofNullable(uniqueIdentifier.getNullable("unique_identifier"))
 
@@ -275,7 +275,7 @@ private constructor(
      */
     @JsonProperty("rejection") @ExcludeMissing fun _rejection() = rejection
 
-    /** The unique identifier you chose for this transfer. */
+    /** The unique identifier you chose for this object. */
     @JsonProperty("unique_identifier") @ExcludeMissing fun _uniqueIdentifier() = uniqueIdentifier
 
     @JsonAnyGetter
@@ -703,11 +703,11 @@ private constructor(
         @ExcludeMissing
         fun rejection(rejection: JsonField<Rejection>) = apply { this.rejection = rejection }
 
-        /** The unique identifier you chose for this transfer. */
+        /** The unique identifier you chose for this object. */
         fun uniqueIdentifier(uniqueIdentifier: String) =
             uniqueIdentifier(JsonField.of(uniqueIdentifier))
 
-        /** The unique identifier you chose for this transfer. */
+        /** The unique identifier you chose for this object. */
         @JsonProperty("unique_identifier")
         @ExcludeMissing
         fun uniqueIdentifier(uniqueIdentifier: JsonField<String>) = apply {

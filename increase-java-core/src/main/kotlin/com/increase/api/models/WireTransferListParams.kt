@@ -134,7 +134,7 @@ constructor(
          */
         fun limit(limit: Long) = apply { this.limit = limit }
 
-        /** Filter Wire Transfers to the one with the specified unique identifier. */
+        /** Filter records to the one with the specified `unique_identifier`. */
         fun uniqueIdentifier(uniqueIdentifier: String) = apply {
             this.uniqueIdentifier = uniqueIdentifier
         }

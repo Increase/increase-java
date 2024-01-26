@@ -133,7 +133,7 @@ private constructor(
     /** After a check transfer is deposited, this will contain supplemental details. */
     fun deposit(): Optional<Deposit> = Optional.ofNullable(deposit.getNullable("deposit"))
 
-    /** The unique identifier you chose for this transfer. */
+    /** The unique identifier you chose for this object. */
     fun uniqueIdentifier(): Optional<String> =
         Optional.ofNullable(uniqueIdentifier.getNullable("unique_identifier"))
 
@@ -225,7 +225,7 @@ private constructor(
     /** After a check transfer is deposited, this will contain supplemental details. */
     @JsonProperty("deposit") @ExcludeMissing fun _deposit() = deposit
 
-    /** The unique identifier you chose for this transfer. */
+    /** The unique identifier you chose for this object. */
     @JsonProperty("unique_identifier") @ExcludeMissing fun _uniqueIdentifier() = uniqueIdentifier
 
     /**
@@ -601,11 +601,11 @@ private constructor(
         @ExcludeMissing
         fun deposit(deposit: JsonField<Deposit>) = apply { this.deposit = deposit }
 
-        /** The unique identifier you chose for this transfer. */
+        /** The unique identifier you chose for this object. */
         fun uniqueIdentifier(uniqueIdentifier: String) =
             uniqueIdentifier(JsonField.of(uniqueIdentifier))
 
-        /** The unique identifier you chose for this transfer. */
+        /** The unique identifier you chose for this object. */
         @JsonProperty("unique_identifier")
         @ExcludeMissing
         fun uniqueIdentifier(uniqueIdentifier: JsonField<String>) = apply {

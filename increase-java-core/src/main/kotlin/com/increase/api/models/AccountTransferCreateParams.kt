@@ -91,9 +91,9 @@ constructor(
         @JsonProperty("require_approval") fun requireApproval(): Boolean? = requireApproval
 
         /**
-         * A unique identifier you choose for the transfer. Reusing this identifier for another
-         * transfer will result in an error. You can query for the transfer associated with this
-         * identifier using the List endpoint.
+         * A unique identifier you choose for the object. Reusing this identifier for another object
+         * will result in an error. You can query for the object associated with this identifier
+         * using the List endpoint.
          */
         @JsonProperty("unique_identifier") fun uniqueIdentifier(): String? = uniqueIdentifier
 
@@ -190,8 +190,8 @@ constructor(
             }
 
             /**
-             * A unique identifier you choose for the transfer. Reusing this identifier for another
-             * transfer will result in an error. You can query for the transfer associated with this
+             * A unique identifier you choose for the object. Reusing this identifier for another
+             * object will result in an error. You can query for the object associated with this
              * identifier using the List endpoint.
              */
             @JsonProperty("unique_identifier")
@@ -324,9 +324,9 @@ constructor(
         }
 
         /**
-         * A unique identifier you choose for the transfer. Reusing this identifier for another
-         * transfer will result in an error. You can query for the transfer associated with this
-         * identifier using the List endpoint.
+         * A unique identifier you choose for the object. Reusing this identifier for another object
+         * will result in an error. You can query for the object associated with this identifier
+         * using the List endpoint.
          */
         fun uniqueIdentifier(uniqueIdentifier: String) = apply {
             this.uniqueIdentifier = uniqueIdentifier
