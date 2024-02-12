@@ -45,7 +45,7 @@ implementation("com.increase.api:increase-java:0.28.0")
 Use `IncreaseOkHttpClient.builder()` to configure the client. At a minimum you need to set `.apiKey()`:
 
 ```java
-import com.increase.api.client.IncreaseOkHttpClient;
+import com.increase.api.client.IncreaseClient;
 import com.increase.api.client.okhttp.IncreaseOkHttpClient;
 
 IncreaseClient client = IncreaseOkHttpClient.builder()
