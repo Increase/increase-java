@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.28.1 (2024-02-13)
+
+Full Changelog: [v0.28.0...v0.28.1](https://github.com/Increase/increase-java/compare/v0.28.0...v0.28.1)
+
+### Bug Fixes
+
+* **docs:** wrong client import in readme usage example ([#175](https://github.com/Increase/increase-java/issues/175)) ([20ca22a](https://github.com/Increase/increase-java/commit/20ca22acdc345c2bd57ede5cb40fa36f74ea79e5))
+
+
+### Chores
+
+* **interal:** make link to api.md relative ([#174](https://github.com/Increase/increase-java/issues/174)) ([0de109d](https://github.com/Increase/increase-java/commit/0de109ddfb846193f9bf50f49c29669346f5cb43))
+* **internal:** support pre-release versioning ([#172](https://github.com/Increase/increase-java/issues/172)) ([2499513](https://github.com/Increase/increase-java/commit/2499513cc830f3b9017f78ba18bf5632a8293c88))
+
 ## 0.28.0 (2024-01-26)
 
 Full Changelog: [v0.27.0...v0.28.0](https://github.com/increase/increase-java/compare/v0.27.0...v0.28.0)
