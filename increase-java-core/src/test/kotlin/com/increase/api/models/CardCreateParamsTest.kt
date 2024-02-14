@@ -24,7 +24,6 @@ class CardCreateParamsTest {
             .description("x")
             .digitalWallet(
                 CardCreateParams.DigitalWallet.builder()
-                    .cardProfileId("string")
                     .digitalCardProfileId("string")
                     .email("x")
                     .phone("x")
@@ -51,7 +50,6 @@ class CardCreateParamsTest {
                 .description("x")
                 .digitalWallet(
                     CardCreateParams.DigitalWallet.builder()
-                        .cardProfileId("string")
                         .digitalCardProfileId("string")
                         .email("x")
                         .phone("x")
@@ -76,7 +74,6 @@ class CardCreateParamsTest {
         assertThat(body.digitalWallet())
             .isEqualTo(
                 CardCreateParams.DigitalWallet.builder()
-                    .cardProfileId("string")
                     .digitalCardProfileId("string")
                     .email("x")
                     .phone("x")

@@ -23,7 +23,6 @@ constructor(
     private val name: String,
     private val inboundAch: InboundAch?,
     private val inboundChecks: InboundChecks?,
-    private val uniqueIdentifier: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -37,8 +36,6 @@ constructor(
 
     fun inboundChecks(): Optional<InboundChecks> = Optional.ofNullable(inboundChecks)
 
-    fun uniqueIdentifier(): Optional<String> = Optional.ofNullable(uniqueIdentifier)
-
     @JvmSynthetic
     internal fun getBody(): AccountNumberCreateBody {
         return AccountNumberCreateBody(
@@ -46,7 +43,6 @@ constructor(
             name,
             inboundAch,
             inboundChecks,
-            uniqueIdentifier,
             additionalBodyProperties,
         )
     }
@@ -63,7 +59,6 @@ constructor(
         private val name: String?,
         private val inboundAch: InboundAch?,
         private val inboundChecks: InboundChecks?,
-        private val uniqueIdentifier: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -81,13 +76,6 @@ constructor(
         /** Options related to how this Account Number should handle inbound check withdrawals. */
         @JsonProperty("inbound_checks") fun inboundChecks(): InboundChecks? = inboundChecks
 
-        /**
-         * A unique identifier you choose for the object. Reusing this identifier for another object
-         * will result in an error. You can query for the object associated with this identifier
-         * using the List endpoint.
-         */
-        @JsonProperty("unique_identifier") fun uniqueIdentifier(): String? = uniqueIdentifier
-
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -104,7 +92,6 @@ constructor(
                 this.name == other.name &&
                 this.inboundAch == other.inboundAch &&
                 this.inboundChecks == other.inboundChecks &&
-                this.uniqueIdentifier == other.uniqueIdentifier &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -116,7 +103,6 @@ constructor(
                         name,
                         inboundAch,
                         inboundChecks,
-                        uniqueIdentifier,
                         additionalProperties,
                     )
             }
@@ -124,7 +110,7 @@ constructor(
         }
 
         override fun toString() =
-            "AccountNumberCreateBody{accountId=$accountId, name=$name, inboundAch=$inboundAch, inboundChecks=$inboundChecks, uniqueIdentifier=$uniqueIdentifier, additionalProperties=$additionalProperties}"
+            "AccountNumberCreateBody{accountId=$accountId, name=$name, inboundAch=$inboundAch, inboundChecks=$inboundChecks, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -137,7 +123,6 @@ constructor(
             private var name: String? = null
             private var inboundAch: InboundAch? = null
             private var inboundChecks: InboundChecks? = null
-            private var uniqueIdentifier: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -146,7 +131,6 @@ constructor(
                 this.name = accountNumberCreateBody.name
                 this.inboundAch = accountNumberCreateBody.inboundAch
                 this.inboundChecks = accountNumberCreateBody.inboundChecks
-                this.uniqueIdentifier = accountNumberCreateBody.uniqueIdentifier
                 additionalProperties(accountNumberCreateBody.additionalProperties)
             }
 
@@ -169,16 +153,6 @@ constructor(
                 this.inboundChecks = inboundChecks
             }
 
-            /**
-             * A unique identifier you choose for the object. Reusing this identifier for another
-             * object will result in an error. You can query for the object associated with this
-             * identifier using the List endpoint.
-             */
-            @JsonProperty("unique_identifier")
-            fun uniqueIdentifier(uniqueIdentifier: String) = apply {
-                this.uniqueIdentifier = uniqueIdentifier
-            }
-
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -199,7 +173,6 @@ constructor(
                     checkNotNull(name) { "`name` is required but was not set" },
                     inboundAch,
                     inboundChecks,
-                    uniqueIdentifier,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -221,7 +194,6 @@ constructor(
             this.name == other.name &&
             this.inboundAch == other.inboundAch &&
             this.inboundChecks == other.inboundChecks &&
-            this.uniqueIdentifier == other.uniqueIdentifier &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -233,7 +205,6 @@ constructor(
             name,
             inboundAch,
             inboundChecks,
-            uniqueIdentifier,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -241,7 +212,7 @@ constructor(
     }
 
     override fun toString() =
-        "AccountNumberCreateParams{accountId=$accountId, name=$name, inboundAch=$inboundAch, inboundChecks=$inboundChecks, uniqueIdentifier=$uniqueIdentifier, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "AccountNumberCreateParams{accountId=$accountId, name=$name, inboundAch=$inboundAch, inboundChecks=$inboundChecks, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -257,7 +228,6 @@ constructor(
         private var name: String? = null
         private var inboundAch: InboundAch? = null
         private var inboundChecks: InboundChecks? = null
-        private var uniqueIdentifier: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -268,7 +238,6 @@ constructor(
             this.name = accountNumberCreateParams.name
             this.inboundAch = accountNumberCreateParams.inboundAch
             this.inboundChecks = accountNumberCreateParams.inboundChecks
-            this.uniqueIdentifier = accountNumberCreateParams.uniqueIdentifier
             additionalQueryParams(accountNumberCreateParams.additionalQueryParams)
             additionalHeaders(accountNumberCreateParams.additionalHeaders)
             additionalBodyProperties(accountNumberCreateParams.additionalBodyProperties)
@@ -286,15 +255,6 @@ constructor(
         /** Options related to how this Account Number should handle inbound check withdrawals. */
         fun inboundChecks(inboundChecks: InboundChecks) = apply {
             this.inboundChecks = inboundChecks
-        }
-
-        /**
-         * A unique identifier you choose for the object. Reusing this identifier for another object
-         * will result in an error. You can query for the object associated with this identifier
-         * using the List endpoint.
-         */
-        fun uniqueIdentifier(uniqueIdentifier: String) = apply {
-            this.uniqueIdentifier = uniqueIdentifier
         }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
@@ -357,7 +317,6 @@ constructor(
                 checkNotNull(name) { "`name` is required but was not set" },
                 inboundAch,
                 inboundChecks,
-                uniqueIdentifier,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

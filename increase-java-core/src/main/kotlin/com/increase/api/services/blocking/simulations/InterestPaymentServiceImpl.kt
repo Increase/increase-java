@@ -8,8 +8,8 @@ import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.InterestPaymentSimulationResult
 import com.increase.api.models.SimulationInterestPaymentCreateParams
+import com.increase.api.models.Transaction
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
@@ -22,9 +22,8 @@ constructor(
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-    private val createHandler: Handler<InterestPaymentSimulationResult> =
-        jsonHandler<InterestPaymentSimulationResult>(clientOptions.jsonMapper)
-            .withErrorHandler(errorHandler)
+    private val createHandler: Handler<Transaction> =
+        jsonHandler<Transaction>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /**
      * Simulates an interest payment to your account. In production, this happens automatically on
@@ -33,7 +32,7 @@ constructor(
     override fun create(
         params: SimulationInterestPaymentCreateParams,
         requestOptions: RequestOptions
-    ): InterestPaymentSimulationResult {
+    ): Transaction {
         val request =
             HttpRequest.builder()
                 .method(HttpMethod.POST)

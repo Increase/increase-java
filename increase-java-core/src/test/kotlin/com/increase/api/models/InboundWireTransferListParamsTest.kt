@@ -13,6 +13,7 @@ class InboundWireTransferListParamsTest {
     fun createInboundWireTransferListParams() {
         InboundWireTransferListParams.builder()
             .accountId("string")
+            .accountNumberId("string")
             .createdAt(
                 InboundWireTransferListParams.CreatedAt.builder()
                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -32,6 +33,7 @@ class InboundWireTransferListParamsTest {
         val params =
             InboundWireTransferListParams.builder()
                 .accountId("string")
+                .accountNumberId("string")
                 .createdAt(
                     InboundWireTransferListParams.CreatedAt.builder()
                         .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -46,6 +48,7 @@ class InboundWireTransferListParamsTest {
                 .build()
         val expected = mutableMapOf<String, List<String>>()
         expected.put("account_id", listOf("string"))
+        expected.put("account_number_id", listOf("string"))
         InboundWireTransferListParams.CreatedAt.builder()
             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

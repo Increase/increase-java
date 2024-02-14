@@ -34,7 +34,6 @@ class RealTimePaymentsTransferServiceTest {
                     .requireApproval(true)
                     .ultimateCreditorName("x")
                     .ultimateDebtorName("x")
-                    .uniqueIdentifier("x")
                     .build()
             )
         println(realTimePaymentsTransfer)

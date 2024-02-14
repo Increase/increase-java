@@ -23,9 +23,9 @@ class AccountNumberListParamsTest {
                     .build()
             )
             .cursor("string")
+            .idempotencyKey("x")
             .limit(123L)
             .status(AccountNumberListParams.Status.ACTIVE)
-            .uniqueIdentifier("x")
             .build()
     }
 
@@ -44,9 +44,9 @@ class AccountNumberListParamsTest {
                         .build()
                 )
                 .cursor("string")
+                .idempotencyKey("x")
                 .limit(123L)
                 .status(AccountNumberListParams.Status.ACTIVE)
-                .uniqueIdentifier("x")
                 .build()
         val expected = mutableMapOf<String, List<String>>()
         expected.put("account_id", listOf("string"))
@@ -62,9 +62,9 @@ class AccountNumberListParamsTest {
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
         expected.put("cursor", listOf("string"))
+        expected.put("idempotency_key", listOf("x"))
         expected.put("limit", listOf("123"))
         expected.put("status", listOf(AccountNumberListParams.Status.ACTIVE.toString()))
-        expected.put("unique_identifier", listOf("x"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 

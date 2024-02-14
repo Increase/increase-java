@@ -56,7 +56,6 @@ class CheckTransferServiceTest {
                     )
                     .requireApproval(true)
                     .sourceAccountNumberId("string")
-                    .uniqueIdentifier("x")
                     .build()
             )
         println(checkTransfer)

@@ -20,6 +20,7 @@ import java.util.Optional
 class ExternalAccountUpdateParams
 constructor(
     private val externalAccountId: String,
+    private val accountHolder: AccountHolder?,
     private val description: String?,
     private val status: Status?,
     private val additionalQueryParams: Map<String, List<String>>,
@@ -29,6 +30,8 @@ constructor(
 
     fun externalAccountId(): String = externalAccountId
 
+    fun accountHolder(): Optional<AccountHolder> = Optional.ofNullable(accountHolder)
+
     fun description(): Optional<String> = Optional.ofNullable(description)
 
     fun status(): Optional<Status> = Optional.ofNullable(status)
@@ -36,6 +39,7 @@ constructor(
     @JvmSynthetic
     internal fun getBody(): ExternalAccountUpdateBody {
         return ExternalAccountUpdateBody(
+            accountHolder,
             description,
             status,
             additionalBodyProperties,
@@ -57,12 +61,16 @@ constructor(
     @NoAutoDetect
     class ExternalAccountUpdateBody
     internal constructor(
+        private val accountHolder: AccountHolder?,
         private val description: String?,
         private val status: Status?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
+
+        /** The type of entity that owns the External Account. */
+        @JsonProperty("account_holder") fun accountHolder(): AccountHolder? = accountHolder
 
         /** The description you choose to give the external account. */
         @JsonProperty("description") fun description(): String? = description
@@ -82,6 +90,7 @@ constructor(
             }
 
             return other is ExternalAccountUpdateBody &&
+                this.accountHolder == other.accountHolder &&
                 this.description == other.description &&
                 this.status == other.status &&
                 this.additionalProperties == other.additionalProperties
@@ -91,6 +100,7 @@ constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
+                        accountHolder,
                         description,
                         status,
                         additionalProperties,
@@ -100,7 +110,7 @@ constructor(
         }
 
         override fun toString() =
-            "ExternalAccountUpdateBody{description=$description, status=$status, additionalProperties=$additionalProperties}"
+            "ExternalAccountUpdateBody{accountHolder=$accountHolder, description=$description, status=$status, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -109,15 +119,23 @@ constructor(
 
         class Builder {
 
+            private var accountHolder: AccountHolder? = null
             private var description: String? = null
             private var status: Status? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(externalAccountUpdateBody: ExternalAccountUpdateBody) = apply {
+                this.accountHolder = externalAccountUpdateBody.accountHolder
                 this.description = externalAccountUpdateBody.description
                 this.status = externalAccountUpdateBody.status
                 additionalProperties(externalAccountUpdateBody.additionalProperties)
+            }
+
+            /** The type of entity that owns the External Account. */
+            @JsonProperty("account_holder")
+            fun accountHolder(accountHolder: AccountHolder) = apply {
+                this.accountHolder = accountHolder
             }
 
             /** The description you choose to give the external account. */
@@ -143,6 +161,7 @@ constructor(
 
             fun build(): ExternalAccountUpdateBody =
                 ExternalAccountUpdateBody(
+                    accountHolder,
                     description,
                     status,
                     additionalProperties.toUnmodifiable(),
@@ -163,6 +182,7 @@ constructor(
 
         return other is ExternalAccountUpdateParams &&
             this.externalAccountId == other.externalAccountId &&
+            this.accountHolder == other.accountHolder &&
             this.description == other.description &&
             this.status == other.status &&
             this.additionalQueryParams == other.additionalQueryParams &&
@@ -173,6 +193,7 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             externalAccountId,
+            accountHolder,
             description,
             status,
             additionalQueryParams,
@@ -182,7 +203,7 @@ constructor(
     }
 
     override fun toString() =
-        "ExternalAccountUpdateParams{externalAccountId=$externalAccountId, description=$description, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "ExternalAccountUpdateParams{externalAccountId=$externalAccountId, accountHolder=$accountHolder, description=$description, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -195,6 +216,7 @@ constructor(
     class Builder {
 
         private var externalAccountId: String? = null
+        private var accountHolder: AccountHolder? = null
         private var description: String? = null
         private var status: Status? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -204,6 +226,7 @@ constructor(
         @JvmSynthetic
         internal fun from(externalAccountUpdateParams: ExternalAccountUpdateParams) = apply {
             this.externalAccountId = externalAccountUpdateParams.externalAccountId
+            this.accountHolder = externalAccountUpdateParams.accountHolder
             this.description = externalAccountUpdateParams.description
             this.status = externalAccountUpdateParams.status
             additionalQueryParams(externalAccountUpdateParams.additionalQueryParams)
@@ -214,6 +237,11 @@ constructor(
         /** The external account identifier. */
         fun externalAccountId(externalAccountId: String) = apply {
             this.externalAccountId = externalAccountId
+        }
+
+        /** The type of entity that owns the External Account. */
+        fun accountHolder(accountHolder: AccountHolder) = apply {
+            this.accountHolder = accountHolder
         }
 
         /** The description you choose to give the external account. */
@@ -281,12 +309,70 @@ constructor(
                 checkNotNull(externalAccountId) {
                     "`externalAccountId` is required but was not set"
                 },
+                accountHolder,
                 description,
                 status,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),
             )
+    }
+
+    class AccountHolder
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is AccountHolder && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val BUSINESS = AccountHolder(JsonField.of("business"))
+
+            @JvmField val INDIVIDUAL = AccountHolder(JsonField.of("individual"))
+
+            @JvmStatic fun of(value: String) = AccountHolder(JsonField.of(value))
+        }
+
+        enum class Known {
+            BUSINESS,
+            INDIVIDUAL,
+        }
+
+        enum class Value {
+            BUSINESS,
+            INDIVIDUAL,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                BUSINESS -> Value.BUSINESS
+                INDIVIDUAL -> Value.INDIVIDUAL
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                BUSINESS -> Known.BUSINESS
+                INDIVIDUAL -> Known.INDIVIDUAL
+                else -> throw IncreaseInvalidDataException("Unknown AccountHolder: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 
     class Status

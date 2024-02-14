@@ -36,6 +36,7 @@ class WireTransferTest {
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .currency(WireTransfer.Currency.CAD)
                 .externalAccountId("string")
+                .idempotencyKey("string")
                 .messageToRecipient("string")
                 .network(WireTransfer.Network.WIRE)
                 .originatorAddressLine1("string")
@@ -73,7 +74,6 @@ class WireTransferTest {
                 )
                 .transactionId("string")
                 .type(WireTransfer.Type.WIRE_TRANSFER)
-                .uniqueIdentifier("string")
                 .build()
         assertThat(wireTransfer).isNotNull
         assertThat(wireTransfer.id()).isEqualTo("string")
@@ -102,6 +102,7 @@ class WireTransferTest {
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(wireTransfer.currency()).isEqualTo(WireTransfer.Currency.CAD)
         assertThat(wireTransfer.externalAccountId()).contains("string")
+        assertThat(wireTransfer.idempotencyKey()).contains("string")
         assertThat(wireTransfer.messageToRecipient()).contains("string")
         assertThat(wireTransfer.network()).isEqualTo(WireTransfer.Network.WIRE)
         assertThat(wireTransfer.originatorAddressLine1()).contains("string")
@@ -141,6 +142,5 @@ class WireTransferTest {
             )
         assertThat(wireTransfer.transactionId()).contains("string")
         assertThat(wireTransfer.type()).isEqualTo(WireTransfer.Type.WIRE_TRANSFER)
-        assertThat(wireTransfer.uniqueIdentifier()).contains("string")
     }
 }

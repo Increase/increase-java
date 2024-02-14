@@ -12,6 +12,7 @@ class ExternalAccountUpdateParamsTest {
     fun createExternalAccountUpdateParams() {
         ExternalAccountUpdateParams.builder()
             .externalAccountId("string")
+            .accountHolder(ExternalAccountUpdateParams.AccountHolder.BUSINESS)
             .description("x")
             .status(ExternalAccountUpdateParams.Status.ACTIVE)
             .build()
@@ -22,11 +23,14 @@ class ExternalAccountUpdateParamsTest {
         val params =
             ExternalAccountUpdateParams.builder()
                 .externalAccountId("string")
+                .accountHolder(ExternalAccountUpdateParams.AccountHolder.BUSINESS)
                 .description("x")
                 .status(ExternalAccountUpdateParams.Status.ACTIVE)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
+        assertThat(body.accountHolder())
+            .isEqualTo(ExternalAccountUpdateParams.AccountHolder.BUSINESS)
         assertThat(body.description()).isEqualTo("x")
         assertThat(body.status()).isEqualTo(ExternalAccountUpdateParams.Status.ACTIVE)
     }

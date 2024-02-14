@@ -531,6 +531,7 @@ constructor(
         private val email: String?,
         private val phone: String?,
         private val cardProfileId: String?,
+        private val digitalCardProfileId: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -553,6 +554,10 @@ constructor(
          */
         @JsonProperty("card_profile_id") fun cardProfileId(): String? = cardProfileId
 
+        /** The digital card profile assigned to this digital card. */
+        @JsonProperty("digital_card_profile_id")
+        fun digitalCardProfileId(): String? = digitalCardProfileId
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -568,6 +573,7 @@ constructor(
                 this.email == other.email &&
                 this.phone == other.phone &&
                 this.cardProfileId == other.cardProfileId &&
+                this.digitalCardProfileId == other.digitalCardProfileId &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -578,6 +584,7 @@ constructor(
                         email,
                         phone,
                         cardProfileId,
+                        digitalCardProfileId,
                         additionalProperties,
                     )
             }
@@ -585,7 +592,7 @@ constructor(
         }
 
         override fun toString() =
-            "DigitalWallet{email=$email, phone=$phone, cardProfileId=$cardProfileId, additionalProperties=$additionalProperties}"
+            "DigitalWallet{email=$email, phone=$phone, cardProfileId=$cardProfileId, digitalCardProfileId=$digitalCardProfileId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -597,6 +604,7 @@ constructor(
             private var email: String? = null
             private var phone: String? = null
             private var cardProfileId: String? = null
+            private var digitalCardProfileId: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -604,6 +612,7 @@ constructor(
                 this.email = digitalWallet.email
                 this.phone = digitalWallet.phone
                 this.cardProfileId = digitalWallet.cardProfileId
+                this.digitalCardProfileId = digitalWallet.digitalCardProfileId
                 additionalProperties(digitalWallet.additionalProperties)
             }
 
@@ -626,6 +635,12 @@ constructor(
             @JsonProperty("card_profile_id")
             fun cardProfileId(cardProfileId: String) = apply { this.cardProfileId = cardProfileId }
 
+            /** The digital card profile assigned to this digital card. */
+            @JsonProperty("digital_card_profile_id")
+            fun digitalCardProfileId(digitalCardProfileId: String) = apply {
+                this.digitalCardProfileId = digitalCardProfileId
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -645,6 +660,7 @@ constructor(
                     email,
                     phone,
                     cardProfileId,
+                    digitalCardProfileId,
                     additionalProperties.toUnmodifiable(),
                 )
         }

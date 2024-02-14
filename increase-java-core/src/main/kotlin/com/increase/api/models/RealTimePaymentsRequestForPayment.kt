@@ -47,6 +47,7 @@ private constructor(
     private val submission: JsonField<Submission>,
     private val rejection: JsonField<Rejection>,
     private val refusal: JsonField<Refusal>,
+    private val idempotencyKey: JsonField<String>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -128,6 +129,14 @@ private constructor(
     fun refusal(): Optional<Refusal> = Optional.ofNullable(refusal.getNullable("refusal"))
 
     /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    fun idempotencyKey(): Optional<String> =
+        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+
+    /**
      * A constant representing the object's type. For this resource it will always be
      * `real_time_payments_request_for_payment`.
      */
@@ -206,6 +215,13 @@ private constructor(
      */
     @JsonProperty("refusal") @ExcludeMissing fun _refusal() = refusal
 
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+
     @JsonAnyGetter
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -228,6 +244,7 @@ private constructor(
             submission().map { it.validate() }
             rejection().map { it.validate() }
             refusal().map { it.validate() }
+            idempotencyKey()
             validated = true
         }
     }
@@ -256,6 +273,7 @@ private constructor(
             this.submission == other.submission &&
             this.rejection == other.rejection &&
             this.refusal == other.refusal &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -279,6 +297,7 @@ private constructor(
                     submission,
                     rejection,
                     refusal,
+                    idempotencyKey,
                     additionalProperties,
                 )
         }
@@ -286,7 +305,7 @@ private constructor(
     }
 
     override fun toString() =
-        "RealTimePaymentsRequestForPayment{type=$type, id=$id, status=$status, createdAt=$createdAt, destinationAccountNumberId=$destinationAccountNumberId, debtorName=$debtorName, remittanceInformation=$remittanceInformation, expiresAt=$expiresAt, amount=$amount, currency=$currency, sourceAccountNumber=$sourceAccountNumber, sourceRoutingNumber=$sourceRoutingNumber, fulfillmentTransactionId=$fulfillmentTransactionId, submission=$submission, rejection=$rejection, refusal=$refusal, additionalProperties=$additionalProperties}"
+        "RealTimePaymentsRequestForPayment{type=$type, id=$id, status=$status, createdAt=$createdAt, destinationAccountNumberId=$destinationAccountNumberId, debtorName=$debtorName, remittanceInformation=$remittanceInformation, expiresAt=$expiresAt, amount=$amount, currency=$currency, sourceAccountNumber=$sourceAccountNumber, sourceRoutingNumber=$sourceRoutingNumber, fulfillmentTransactionId=$fulfillmentTransactionId, submission=$submission, rejection=$rejection, refusal=$refusal, idempotencyKey=$idempotencyKey, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -311,6 +330,7 @@ private constructor(
         private var submission: JsonField<Submission> = JsonMissing.of()
         private var rejection: JsonField<Rejection> = JsonMissing.of()
         private var refusal: JsonField<Refusal> = JsonMissing.of()
+        private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -334,6 +354,7 @@ private constructor(
                 this.submission = realTimePaymentsRequestForPayment.submission
                 this.rejection = realTimePaymentsRequestForPayment.rejection
                 this.refusal = realTimePaymentsRequestForPayment.refusal
+                this.idempotencyKey = realTimePaymentsRequestForPayment.idempotencyKey
                 additionalProperties(realTimePaymentsRequestForPayment.additionalProperties)
             }
 
@@ -520,6 +541,24 @@ private constructor(
         @ExcludeMissing
         fun refusal(refusal: JsonField<Refusal>) = apply { this.refusal = refusal }
 
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
+        }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             this.additionalProperties.putAll(additionalProperties)
@@ -552,6 +591,7 @@ private constructor(
                 submission,
                 rejection,
                 refusal,
+                idempotencyKey,
                 additionalProperties.toUnmodifiable(),
             )
     }

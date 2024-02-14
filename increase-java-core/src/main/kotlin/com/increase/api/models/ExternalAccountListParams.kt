@@ -16,6 +16,7 @@ import java.util.Optional
 class ExternalAccountListParams
 constructor(
     private val cursor: String?,
+    private val idempotencyKey: String?,
     private val limit: Long?,
     private val routingNumber: String?,
     private val status: Status?,
@@ -24,6 +25,8 @@ constructor(
 ) {
 
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
+
+    fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey)
 
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
@@ -35,6 +38,7 @@ constructor(
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
+        this.idempotencyKey?.let { params.put("idempotency_key", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
         this.routingNumber?.let { params.put("routing_number", listOf(it.toString())) }
         this.status?.forEachQueryParam { key, values -> params.put("status.$key", values) }
@@ -55,6 +59,7 @@ constructor(
 
         return other is ExternalAccountListParams &&
             this.cursor == other.cursor &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.limit == other.limit &&
             this.routingNumber == other.routingNumber &&
             this.status == other.status &&
@@ -65,6 +70,7 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             cursor,
+            idempotencyKey,
             limit,
             routingNumber,
             status,
@@ -74,7 +80,7 @@ constructor(
     }
 
     override fun toString() =
-        "ExternalAccountListParams{cursor=$cursor, limit=$limit, routingNumber=$routingNumber, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "ExternalAccountListParams{cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, routingNumber=$routingNumber, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -87,6 +93,7 @@ constructor(
     class Builder {
 
         private var cursor: String? = null
+        private var idempotencyKey: String? = null
         private var limit: Long? = null
         private var routingNumber: String? = null
         private var status: Status? = null
@@ -96,6 +103,7 @@ constructor(
         @JvmSynthetic
         internal fun from(externalAccountListParams: ExternalAccountListParams) = apply {
             this.cursor = externalAccountListParams.cursor
+            this.idempotencyKey = externalAccountListParams.idempotencyKey
             this.limit = externalAccountListParams.limit
             this.routingNumber = externalAccountListParams.routingNumber
             this.status = externalAccountListParams.status
@@ -105,6 +113,14 @@ constructor(
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String) = apply { this.cursor = cursor }
+
+        /**
+         * Filter records to the one with the specified `idempotency_key` you chose for that object.
+         * This value is unique across Increase and is used to ensure that a request is only
+         * processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = apply { this.idempotencyKey = idempotencyKey }
 
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
@@ -159,6 +175,7 @@ constructor(
         fun build(): ExternalAccountListParams =
             ExternalAccountListParams(
                 cursor,
+                idempotencyKey,
                 limit,
                 routingNumber,
                 status,

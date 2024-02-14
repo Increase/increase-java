@@ -29,12 +29,13 @@ class AchTransfer
 private constructor(
     private val accountId: JsonField<String>,
     private val accountNumber: JsonField<String>,
-    private val addendum: JsonField<String>,
+    private val addenda: JsonField<Addenda>,
     private val amount: JsonField<Long>,
     private val currency: JsonField<Currency>,
     private val approval: JsonField<Approval>,
     private val cancellation: JsonField<Cancellation>,
     private val createdAt: JsonField<OffsetDateTime>,
+    private val destinationAccountHolder: JsonField<DestinationAccountHolder>,
     private val externalAccountId: JsonField<String>,
     private val id: JsonField<String>,
     private val network: JsonField<Network>,
@@ -56,7 +57,7 @@ private constructor(
     private val individualName: JsonField<String>,
     private val effectiveDate: JsonField<LocalDate>,
     private val standardEntryClassCode: JsonField<StandardEntryClassCode>,
-    private val uniqueIdentifier: JsonField<String>,
+    private val idempotencyKey: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -72,7 +73,7 @@ private constructor(
     fun accountNumber(): String = accountNumber.getRequired("account_number")
 
     /** Additional information that will be sent to the recipient. */
-    fun addendum(): Optional<String> = Optional.ofNullable(addendum.getNullable("addendum"))
+    fun addenda(): Optional<Addenda> = Optional.ofNullable(addenda.getNullable("addenda"))
 
     /**
      * The transfer amount in USD cents. A positive amount indicates a credit transfer pushing funds
@@ -105,6 +106,10 @@ private constructor(
      * was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+    /** The type of entity that owns the account to which the ACH Transfer is being sent. */
+    fun destinationAccountHolder(): DestinationAccountHolder =
+        destinationAccountHolder.getRequired("destination_account_holder")
 
     /** The identifier of the External Account the transfer was made to, if any. */
     fun externalAccountId(): Optional<String> =
@@ -203,9 +208,13 @@ private constructor(
     fun standardEntryClassCode(): StandardEntryClassCode =
         standardEntryClassCode.getRequired("standard_entry_class_code")
 
-    /** The unique identifier you chose for this object. */
-    fun uniqueIdentifier(): Optional<String> =
-        Optional.ofNullable(uniqueIdentifier.getNullable("unique_identifier"))
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    fun idempotencyKey(): Optional<String> =
+        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -220,7 +229,7 @@ private constructor(
     @JsonProperty("account_number") @ExcludeMissing fun _accountNumber() = accountNumber
 
     /** Additional information that will be sent to the recipient. */
-    @JsonProperty("addendum") @ExcludeMissing fun _addendum() = addendum
+    @JsonProperty("addenda") @ExcludeMissing fun _addenda() = addenda
 
     /**
      * The transfer amount in USD cents. A positive amount indicates a credit transfer pushing funds
@@ -252,6 +261,11 @@ private constructor(
      * was created.
      */
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+    /** The type of entity that owns the account to which the ACH Transfer is being sent. */
+    @JsonProperty("destination_account_holder")
+    @ExcludeMissing
+    fun _destinationAccountHolder() = destinationAccountHolder
 
     /** The identifier of the External Account the transfer was made to, if any. */
     @JsonProperty("external_account_id")
@@ -352,8 +366,12 @@ private constructor(
     @ExcludeMissing
     fun _standardEntryClassCode() = standardEntryClassCode
 
-    /** The unique identifier you chose for this object. */
-    @JsonProperty("unique_identifier") @ExcludeMissing fun _uniqueIdentifier() = uniqueIdentifier
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -369,12 +387,13 @@ private constructor(
         if (!validated) {
             accountId()
             accountNumber()
-            addendum()
+            addenda().map { it.validate() }
             amount()
             currency()
             approval().map { it.validate() }
             cancellation().map { it.validate() }
             createdAt()
+            destinationAccountHolder()
             externalAccountId()
             id()
             network()
@@ -396,7 +415,7 @@ private constructor(
             individualName()
             effectiveDate()
             standardEntryClassCode()
-            uniqueIdentifier()
+            idempotencyKey()
             type()
             validated = true
         }
@@ -412,12 +431,13 @@ private constructor(
         return other is AchTransfer &&
             this.accountId == other.accountId &&
             this.accountNumber == other.accountNumber &&
-            this.addendum == other.addendum &&
+            this.addenda == other.addenda &&
             this.amount == other.amount &&
             this.currency == other.currency &&
             this.approval == other.approval &&
             this.cancellation == other.cancellation &&
             this.createdAt == other.createdAt &&
+            this.destinationAccountHolder == other.destinationAccountHolder &&
             this.externalAccountId == other.externalAccountId &&
             this.id == other.id &&
             this.network == other.network &&
@@ -439,7 +459,7 @@ private constructor(
             this.individualName == other.individualName &&
             this.effectiveDate == other.effectiveDate &&
             this.standardEntryClassCode == other.standardEntryClassCode &&
-            this.uniqueIdentifier == other.uniqueIdentifier &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -450,12 +470,13 @@ private constructor(
                 Objects.hash(
                     accountId,
                     accountNumber,
-                    addendum,
+                    addenda,
                     amount,
                     currency,
                     approval,
                     cancellation,
                     createdAt,
+                    destinationAccountHolder,
                     externalAccountId,
                     id,
                     network,
@@ -477,7 +498,7 @@ private constructor(
                     individualName,
                     effectiveDate,
                     standardEntryClassCode,
-                    uniqueIdentifier,
+                    idempotencyKey,
                     type,
                     additionalProperties,
                 )
@@ -486,7 +507,7 @@ private constructor(
     }
 
     override fun toString() =
-        "AchTransfer{accountId=$accountId, accountNumber=$accountNumber, addendum=$addendum, amount=$amount, currency=$currency, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, externalAccountId=$externalAccountId, id=$id, network=$network, notificationsOfChange=$notificationsOfChange, return_=$return_, routingNumber=$routingNumber, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, acknowledgement=$acknowledgement, transactionId=$transactionId, pendingTransactionId=$pendingTransactionId, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, funding=$funding, individualId=$individualId, individualName=$individualName, effectiveDate=$effectiveDate, standardEntryClassCode=$standardEntryClassCode, uniqueIdentifier=$uniqueIdentifier, type=$type, additionalProperties=$additionalProperties}"
+        "AchTransfer{accountId=$accountId, accountNumber=$accountNumber, addenda=$addenda, amount=$amount, currency=$currency, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, destinationAccountHolder=$destinationAccountHolder, externalAccountId=$externalAccountId, id=$id, network=$network, notificationsOfChange=$notificationsOfChange, return_=$return_, routingNumber=$routingNumber, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, acknowledgement=$acknowledgement, transactionId=$transactionId, pendingTransactionId=$pendingTransactionId, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, funding=$funding, individualId=$individualId, individualName=$individualName, effectiveDate=$effectiveDate, standardEntryClassCode=$standardEntryClassCode, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -497,12 +518,13 @@ private constructor(
 
         private var accountId: JsonField<String> = JsonMissing.of()
         private var accountNumber: JsonField<String> = JsonMissing.of()
-        private var addendum: JsonField<String> = JsonMissing.of()
+        private var addenda: JsonField<Addenda> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
         private var currency: JsonField<Currency> = JsonMissing.of()
         private var approval: JsonField<Approval> = JsonMissing.of()
         private var cancellation: JsonField<Cancellation> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var destinationAccountHolder: JsonField<DestinationAccountHolder> = JsonMissing.of()
         private var externalAccountId: JsonField<String> = JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
         private var network: JsonField<Network> = JsonMissing.of()
@@ -524,7 +546,7 @@ private constructor(
         private var individualName: JsonField<String> = JsonMissing.of()
         private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
         private var standardEntryClassCode: JsonField<StandardEntryClassCode> = JsonMissing.of()
-        private var uniqueIdentifier: JsonField<String> = JsonMissing.of()
+        private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -532,12 +554,13 @@ private constructor(
         internal fun from(achTransfer: AchTransfer) = apply {
             this.accountId = achTransfer.accountId
             this.accountNumber = achTransfer.accountNumber
-            this.addendum = achTransfer.addendum
+            this.addenda = achTransfer.addenda
             this.amount = achTransfer.amount
             this.currency = achTransfer.currency
             this.approval = achTransfer.approval
             this.cancellation = achTransfer.cancellation
             this.createdAt = achTransfer.createdAt
+            this.destinationAccountHolder = achTransfer.destinationAccountHolder
             this.externalAccountId = achTransfer.externalAccountId
             this.id = achTransfer.id
             this.network = achTransfer.network
@@ -559,7 +582,7 @@ private constructor(
             this.individualName = achTransfer.individualName
             this.effectiveDate = achTransfer.effectiveDate
             this.standardEntryClassCode = achTransfer.standardEntryClassCode
-            this.uniqueIdentifier = achTransfer.uniqueIdentifier
+            this.idempotencyKey = achTransfer.idempotencyKey
             this.type = achTransfer.type
             additionalProperties(achTransfer.additionalProperties)
         }
@@ -583,12 +606,12 @@ private constructor(
         }
 
         /** Additional information that will be sent to the recipient. */
-        fun addendum(addendum: String) = addendum(JsonField.of(addendum))
+        fun addenda(addenda: Addenda) = addenda(JsonField.of(addenda))
 
         /** Additional information that will be sent to the recipient. */
-        @JsonProperty("addendum")
+        @JsonProperty("addenda")
         @ExcludeMissing
-        fun addendum(addendum: JsonField<String>) = apply { this.addendum = addendum }
+        fun addenda(addenda: JsonField<Addenda>) = apply { this.addenda = addenda }
 
         /**
          * The transfer amount in USD cents. A positive amount indicates a credit transfer pushing
@@ -663,6 +686,17 @@ private constructor(
         @JsonProperty("created_at")
         @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /** The type of entity that owns the account to which the ACH Transfer is being sent. */
+        fun destinationAccountHolder(destinationAccountHolder: DestinationAccountHolder) =
+            destinationAccountHolder(JsonField.of(destinationAccountHolder))
+
+        /** The type of entity that owns the account to which the ACH Transfer is being sent. */
+        @JsonProperty("destination_account_holder")
+        @ExcludeMissing
+        fun destinationAccountHolder(
+            destinationAccountHolder: JsonField<DestinationAccountHolder>
+        ) = apply { this.destinationAccountHolder = destinationAccountHolder }
 
         /** The identifier of the External Account the transfer was made to, if any. */
         fun externalAccountId(externalAccountId: String) =
@@ -913,15 +947,22 @@ private constructor(
                 this.standardEntryClassCode = standardEntryClassCode
             }
 
-        /** The unique identifier you chose for this object. */
-        fun uniqueIdentifier(uniqueIdentifier: String) =
-            uniqueIdentifier(JsonField.of(uniqueIdentifier))
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
 
-        /** The unique identifier you chose for this object. */
-        @JsonProperty("unique_identifier")
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        @JsonProperty("idempotency_key")
         @ExcludeMissing
-        fun uniqueIdentifier(uniqueIdentifier: JsonField<String>) = apply {
-            this.uniqueIdentifier = uniqueIdentifier
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
         }
 
         /**
@@ -956,12 +997,13 @@ private constructor(
             AchTransfer(
                 accountId,
                 accountNumber,
-                addendum,
+                addenda,
                 amount,
                 currency,
                 approval,
                 cancellation,
                 createdAt,
+                destinationAccountHolder,
                 externalAccountId,
                 id,
                 network,
@@ -983,7 +1025,7 @@ private constructor(
                 individualName,
                 effectiveDate,
                 standardEntryClassCode,
-                uniqueIdentifier,
+                idempotencyKey,
                 type,
                 additionalProperties.toUnmodifiable(),
             )
@@ -1091,6 +1133,725 @@ private constructor(
 
             fun build(): Acknowledgement =
                 Acknowledgement(acknowledgedAt, additionalProperties.toUnmodifiable())
+        }
+    }
+
+    /** Additional information that will be sent to the recipient. */
+    @JsonDeserialize(builder = Addenda.Builder::class)
+    @NoAutoDetect
+    class Addenda
+    private constructor(
+        private val category: JsonField<Category>,
+        private val freeform: JsonField<Freeform>,
+        private val paymentOrderRemittanceAdvice: JsonField<PaymentOrderRemittanceAdvice>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        /**
+         * The type of the resource. We may add additional possible values for this enum over time;
+         * your application should be able to handle such additions gracefully.
+         */
+        fun category(): Category = category.getRequired("category")
+
+        /**
+         * An ACH Transfer Freeform Addenda object. This field will be present in the JSON response
+         * if and only if `category` is equal to `freeform`.
+         */
+        fun freeform(): Optional<Freeform> = Optional.ofNullable(freeform.getNullable("freeform"))
+
+        /**
+         * An ACH Transfer Payment Order Remittance Advice Addenda object. This field will be
+         * present in the JSON response if and only if `category` is equal to
+         * `payment_order_remittance_advice`.
+         */
+        fun paymentOrderRemittanceAdvice(): Optional<PaymentOrderRemittanceAdvice> =
+            Optional.ofNullable(
+                paymentOrderRemittanceAdvice.getNullable("payment_order_remittance_advice")
+            )
+
+        /**
+         * The type of the resource. We may add additional possible values for this enum over time;
+         * your application should be able to handle such additions gracefully.
+         */
+        @JsonProperty("category") @ExcludeMissing fun _category() = category
+
+        /**
+         * An ACH Transfer Freeform Addenda object. This field will be present in the JSON response
+         * if and only if `category` is equal to `freeform`.
+         */
+        @JsonProperty("freeform") @ExcludeMissing fun _freeform() = freeform
+
+        /**
+         * An ACH Transfer Payment Order Remittance Advice Addenda object. This field will be
+         * present in the JSON response if and only if `category` is equal to
+         * `payment_order_remittance_advice`.
+         */
+        @JsonProperty("payment_order_remittance_advice")
+        @ExcludeMissing
+        fun _paymentOrderRemittanceAdvice() = paymentOrderRemittanceAdvice
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): Addenda = apply {
+            if (!validated) {
+                category()
+                freeform().map { it.validate() }
+                paymentOrderRemittanceAdvice().map { it.validate() }
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Addenda &&
+                this.category == other.category &&
+                this.freeform == other.freeform &&
+                this.paymentOrderRemittanceAdvice == other.paymentOrderRemittanceAdvice &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        category,
+                        freeform,
+                        paymentOrderRemittanceAdvice,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Addenda{category=$category, freeform=$freeform, paymentOrderRemittanceAdvice=$paymentOrderRemittanceAdvice, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var category: JsonField<Category> = JsonMissing.of()
+            private var freeform: JsonField<Freeform> = JsonMissing.of()
+            private var paymentOrderRemittanceAdvice: JsonField<PaymentOrderRemittanceAdvice> =
+                JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(addenda: Addenda) = apply {
+                this.category = addenda.category
+                this.freeform = addenda.freeform
+                this.paymentOrderRemittanceAdvice = addenda.paymentOrderRemittanceAdvice
+                additionalProperties(addenda.additionalProperties)
+            }
+
+            /**
+             * The type of the resource. We may add additional possible values for this enum over
+             * time; your application should be able to handle such additions gracefully.
+             */
+            fun category(category: Category) = category(JsonField.of(category))
+
+            /**
+             * The type of the resource. We may add additional possible values for this enum over
+             * time; your application should be able to handle such additions gracefully.
+             */
+            @JsonProperty("category")
+            @ExcludeMissing
+            fun category(category: JsonField<Category>) = apply { this.category = category }
+
+            /**
+             * An ACH Transfer Freeform Addenda object. This field will be present in the JSON
+             * response if and only if `category` is equal to `freeform`.
+             */
+            fun freeform(freeform: Freeform) = freeform(JsonField.of(freeform))
+
+            /**
+             * An ACH Transfer Freeform Addenda object. This field will be present in the JSON
+             * response if and only if `category` is equal to `freeform`.
+             */
+            @JsonProperty("freeform")
+            @ExcludeMissing
+            fun freeform(freeform: JsonField<Freeform>) = apply { this.freeform = freeform }
+
+            /**
+             * An ACH Transfer Payment Order Remittance Advice Addenda object. This field will be
+             * present in the JSON response if and only if `category` is equal to
+             * `payment_order_remittance_advice`.
+             */
+            fun paymentOrderRemittanceAdvice(
+                paymentOrderRemittanceAdvice: PaymentOrderRemittanceAdvice
+            ) = paymentOrderRemittanceAdvice(JsonField.of(paymentOrderRemittanceAdvice))
+
+            /**
+             * An ACH Transfer Payment Order Remittance Advice Addenda object. This field will be
+             * present in the JSON response if and only if `category` is equal to
+             * `payment_order_remittance_advice`.
+             */
+            @JsonProperty("payment_order_remittance_advice")
+            @ExcludeMissing
+            fun paymentOrderRemittanceAdvice(
+                paymentOrderRemittanceAdvice: JsonField<PaymentOrderRemittanceAdvice>
+            ) = apply { this.paymentOrderRemittanceAdvice = paymentOrderRemittanceAdvice }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): Addenda =
+                Addenda(
+                    category,
+                    freeform,
+                    paymentOrderRemittanceAdvice,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
+
+        class Category
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Category && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                @JvmField val FREEFORM = Category(JsonField.of("freeform"))
+
+                @JvmField
+                val PAYMENT_ORDER_REMITTANCE_ADVICE =
+                    Category(JsonField.of("payment_order_remittance_advice"))
+
+                @JvmField val OTHER = Category(JsonField.of("other"))
+
+                @JvmStatic fun of(value: String) = Category(JsonField.of(value))
+            }
+
+            enum class Known {
+                FREEFORM,
+                PAYMENT_ORDER_REMITTANCE_ADVICE,
+                OTHER,
+            }
+
+            enum class Value {
+                FREEFORM,
+                PAYMENT_ORDER_REMITTANCE_ADVICE,
+                OTHER,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    FREEFORM -> Value.FREEFORM
+                    PAYMENT_ORDER_REMITTANCE_ADVICE -> Value.PAYMENT_ORDER_REMITTANCE_ADVICE
+                    OTHER -> Value.OTHER
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    FREEFORM -> Known.FREEFORM
+                    PAYMENT_ORDER_REMITTANCE_ADVICE -> Known.PAYMENT_ORDER_REMITTANCE_ADVICE
+                    OTHER -> Known.OTHER
+                    else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
+
+        /**
+         * An ACH Transfer Freeform Addenda object. This field will be present in the JSON response
+         * if and only if `category` is equal to `freeform`.
+         */
+        @JsonDeserialize(builder = Freeform.Builder::class)
+        @NoAutoDetect
+        class Freeform
+        private constructor(
+            private val entries: JsonField<List<Entry>>,
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
+
+            private var validated: Boolean = false
+
+            private var hashCode: Int = 0
+
+            /** Each entry represents an addendum sent with the transfer. */
+            fun entries(): List<Entry> = entries.getRequired("entries")
+
+            /** Each entry represents an addendum sent with the transfer. */
+            @JsonProperty("entries") @ExcludeMissing fun _entries() = entries
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun validate(): Freeform = apply {
+                if (!validated) {
+                    entries().forEach { it.validate() }
+                    validated = true
+                }
+            }
+
+            fun toBuilder() = Builder().from(this)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Freeform &&
+                    this.entries == other.entries &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode = Objects.hash(entries, additionalProperties)
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "Freeform{entries=$entries, additionalProperties=$additionalProperties}"
+
+            companion object {
+
+                @JvmStatic fun builder() = Builder()
+            }
+
+            class Builder {
+
+                private var entries: JsonField<List<Entry>> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(freeform: Freeform) = apply {
+                    this.entries = freeform.entries
+                    additionalProperties(freeform.additionalProperties)
+                }
+
+                /** Each entry represents an addendum sent with the transfer. */
+                fun entries(entries: List<Entry>) = entries(JsonField.of(entries))
+
+                /** Each entry represents an addendum sent with the transfer. */
+                @JsonProperty("entries")
+                @ExcludeMissing
+                fun entries(entries: JsonField<List<Entry>>) = apply { this.entries = entries }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                @JsonAnySetter
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    this.additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun build(): Freeform =
+                    Freeform(
+                        entries.map { it.toUnmodifiable() },
+                        additionalProperties.toUnmodifiable()
+                    )
+            }
+
+            @JsonDeserialize(builder = Entry.Builder::class)
+            @NoAutoDetect
+            class Entry
+            private constructor(
+                private val paymentRelatedInformation: JsonField<String>,
+                private val additionalProperties: Map<String, JsonValue>,
+            ) {
+
+                private var validated: Boolean = false
+
+                private var hashCode: Int = 0
+
+                /** The payment related information passed in the addendum. */
+                fun paymentRelatedInformation(): String =
+                    paymentRelatedInformation.getRequired("payment_related_information")
+
+                /** The payment related information passed in the addendum. */
+                @JsonProperty("payment_related_information")
+                @ExcludeMissing
+                fun _paymentRelatedInformation() = paymentRelatedInformation
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun validate(): Entry = apply {
+                    if (!validated) {
+                        paymentRelatedInformation()
+                        validated = true
+                    }
+                }
+
+                fun toBuilder() = Builder().from(this)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Entry &&
+                        this.paymentRelatedInformation == other.paymentRelatedInformation &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode = Objects.hash(paymentRelatedInformation, additionalProperties)
+                    }
+                    return hashCode
+                }
+
+                override fun toString() =
+                    "Entry{paymentRelatedInformation=$paymentRelatedInformation, additionalProperties=$additionalProperties}"
+
+                companion object {
+
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                class Builder {
+
+                    private var paymentRelatedInformation: JsonField<String> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(entry: Entry) = apply {
+                        this.paymentRelatedInformation = entry.paymentRelatedInformation
+                        additionalProperties(entry.additionalProperties)
+                    }
+
+                    /** The payment related information passed in the addendum. */
+                    fun paymentRelatedInformation(paymentRelatedInformation: String) =
+                        paymentRelatedInformation(JsonField.of(paymentRelatedInformation))
+
+                    /** The payment related information passed in the addendum. */
+                    @JsonProperty("payment_related_information")
+                    @ExcludeMissing
+                    fun paymentRelatedInformation(paymentRelatedInformation: JsonField<String>) =
+                        apply {
+                            this.paymentRelatedInformation = paymentRelatedInformation
+                        }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    @JsonAnySetter
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        this.additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun build(): Entry =
+                        Entry(paymentRelatedInformation, additionalProperties.toUnmodifiable())
+                }
+            }
+        }
+
+        /**
+         * An ACH Transfer Payment Order Remittance Advice Addenda object. This field will be
+         * present in the JSON response if and only if `category` is equal to
+         * `payment_order_remittance_advice`.
+         */
+        @JsonDeserialize(builder = PaymentOrderRemittanceAdvice.Builder::class)
+        @NoAutoDetect
+        class PaymentOrderRemittanceAdvice
+        private constructor(
+            private val invoices: JsonField<List<Invoice>>,
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
+
+            private var validated: Boolean = false
+
+            private var hashCode: Int = 0
+
+            /** ASC X12 RMR records for this specific transfer. */
+            fun invoices(): List<Invoice> = invoices.getRequired("invoices")
+
+            /** ASC X12 RMR records for this specific transfer. */
+            @JsonProperty("invoices") @ExcludeMissing fun _invoices() = invoices
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun validate(): PaymentOrderRemittanceAdvice = apply {
+                if (!validated) {
+                    invoices().forEach { it.validate() }
+                    validated = true
+                }
+            }
+
+            fun toBuilder() = Builder().from(this)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is PaymentOrderRemittanceAdvice &&
+                    this.invoices == other.invoices &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode = Objects.hash(invoices, additionalProperties)
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "PaymentOrderRemittanceAdvice{invoices=$invoices, additionalProperties=$additionalProperties}"
+
+            companion object {
+
+                @JvmStatic fun builder() = Builder()
+            }
+
+            class Builder {
+
+                private var invoices: JsonField<List<Invoice>> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(paymentOrderRemittanceAdvice: PaymentOrderRemittanceAdvice) =
+                    apply {
+                        this.invoices = paymentOrderRemittanceAdvice.invoices
+                        additionalProperties(paymentOrderRemittanceAdvice.additionalProperties)
+                    }
+
+                /** ASC X12 RMR records for this specific transfer. */
+                fun invoices(invoices: List<Invoice>) = invoices(JsonField.of(invoices))
+
+                /** ASC X12 RMR records for this specific transfer. */
+                @JsonProperty("invoices")
+                @ExcludeMissing
+                fun invoices(invoices: JsonField<List<Invoice>>) = apply {
+                    this.invoices = invoices
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                @JsonAnySetter
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    this.additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun build(): PaymentOrderRemittanceAdvice =
+                    PaymentOrderRemittanceAdvice(
+                        invoices.map { it.toUnmodifiable() },
+                        additionalProperties.toUnmodifiable()
+                    )
+            }
+
+            @JsonDeserialize(builder = Invoice.Builder::class)
+            @NoAutoDetect
+            class Invoice
+            private constructor(
+                private val invoiceNumber: JsonField<String>,
+                private val paidAmount: JsonField<Long>,
+                private val additionalProperties: Map<String, JsonValue>,
+            ) {
+
+                private var validated: Boolean = false
+
+                private var hashCode: Int = 0
+
+                /**
+                 * The invoice number for this reference, determined in advance with the receiver.
+                 */
+                fun invoiceNumber(): String = invoiceNumber.getRequired("invoice_number")
+
+                /**
+                 * The amount that was paid for this invoice in the minor unit of its currency. For
+                 * dollars, for example, this is cents.
+                 */
+                fun paidAmount(): Long = paidAmount.getRequired("paid_amount")
+
+                /**
+                 * The invoice number for this reference, determined in advance with the receiver.
+                 */
+                @JsonProperty("invoice_number") @ExcludeMissing fun _invoiceNumber() = invoiceNumber
+
+                /**
+                 * The amount that was paid for this invoice in the minor unit of its currency. For
+                 * dollars, for example, this is cents.
+                 */
+                @JsonProperty("paid_amount") @ExcludeMissing fun _paidAmount() = paidAmount
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun validate(): Invoice = apply {
+                    if (!validated) {
+                        invoiceNumber()
+                        paidAmount()
+                        validated = true
+                    }
+                }
+
+                fun toBuilder() = Builder().from(this)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Invoice &&
+                        this.invoiceNumber == other.invoiceNumber &&
+                        this.paidAmount == other.paidAmount &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode =
+                            Objects.hash(
+                                invoiceNumber,
+                                paidAmount,
+                                additionalProperties,
+                            )
+                    }
+                    return hashCode
+                }
+
+                override fun toString() =
+                    "Invoice{invoiceNumber=$invoiceNumber, paidAmount=$paidAmount, additionalProperties=$additionalProperties}"
+
+                companion object {
+
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                class Builder {
+
+                    private var invoiceNumber: JsonField<String> = JsonMissing.of()
+                    private var paidAmount: JsonField<Long> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(invoice: Invoice) = apply {
+                        this.invoiceNumber = invoice.invoiceNumber
+                        this.paidAmount = invoice.paidAmount
+                        additionalProperties(invoice.additionalProperties)
+                    }
+
+                    /**
+                     * The invoice number for this reference, determined in advance with the
+                     * receiver.
+                     */
+                    fun invoiceNumber(invoiceNumber: String) =
+                        invoiceNumber(JsonField.of(invoiceNumber))
+
+                    /**
+                     * The invoice number for this reference, determined in advance with the
+                     * receiver.
+                     */
+                    @JsonProperty("invoice_number")
+                    @ExcludeMissing
+                    fun invoiceNumber(invoiceNumber: JsonField<String>) = apply {
+                        this.invoiceNumber = invoiceNumber
+                    }
+
+                    /**
+                     * The amount that was paid for this invoice in the minor unit of its currency.
+                     * For dollars, for example, this is cents.
+                     */
+                    fun paidAmount(paidAmount: Long) = paidAmount(JsonField.of(paidAmount))
+
+                    /**
+                     * The amount that was paid for this invoice in the minor unit of its currency.
+                     * For dollars, for example, this is cents.
+                     */
+                    @JsonProperty("paid_amount")
+                    @ExcludeMissing
+                    fun paidAmount(paidAmount: JsonField<Long>) = apply {
+                        this.paidAmount = paidAmount
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    @JsonAnySetter
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        this.additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun build(): Invoice =
+                        Invoice(
+                            invoiceNumber,
+                            paidAmount,
+                            additionalProperties.toUnmodifiable(),
+                        )
+                }
+            }
         }
     }
 
@@ -1472,6 +2233,70 @@ private constructor(
                 JPY -> Known.JPY
                 USD -> Known.USD
                 else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    class DestinationAccountHolder
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is DestinationAccountHolder && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val BUSINESS = DestinationAccountHolder(JsonField.of("business"))
+
+            @JvmField val INDIVIDUAL = DestinationAccountHolder(JsonField.of("individual"))
+
+            @JvmField val UNKNOWN = DestinationAccountHolder(JsonField.of("unknown"))
+
+            @JvmStatic fun of(value: String) = DestinationAccountHolder(JsonField.of(value))
+        }
+
+        enum class Known {
+            BUSINESS,
+            INDIVIDUAL,
+            UNKNOWN,
+        }
+
+        enum class Value {
+            BUSINESS,
+            INDIVIDUAL,
+            UNKNOWN,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                BUSINESS -> Value.BUSINESS
+                INDIVIDUAL -> Value.INDIVIDUAL
+                UNKNOWN -> Value.UNKNOWN
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                BUSINESS -> Known.BUSINESS
+                INDIVIDUAL -> Known.INDIVIDUAL
+                UNKNOWN -> Known.UNKNOWN
+                else ->
+                    throw IncreaseInvalidDataException("Unknown DestinationAccountHolder: $value")
             }
 
         fun asString(): String = _value().asStringOrThrow()

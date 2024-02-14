@@ -4571,6 +4571,10 @@ private constructor(
                         val NO_ACCOUNT_NUMBER_FOUND =
                             Reason(JsonField.of("no_account_number_found"))
 
+                        @JvmField val REFER_TO_IMAGE = Reason(JsonField.of("refer_to_image"))
+
+                        @JvmField val UNABLE_TO_PROCESS = Reason(JsonField.of("unable_to_process"))
+
                         @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
                     }
 
@@ -4587,6 +4591,8 @@ private constructor(
                         AMOUNT_MISMATCH,
                         NOT_OUR_ITEM,
                         NO_ACCOUNT_NUMBER_FOUND,
+                        REFER_TO_IMAGE,
+                        UNABLE_TO_PROCESS,
                     }
 
                     enum class Value {
@@ -4602,6 +4608,8 @@ private constructor(
                         AMOUNT_MISMATCH,
                         NOT_OUR_ITEM,
                         NO_ACCOUNT_NUMBER_FOUND,
+                        REFER_TO_IMAGE,
+                        UNABLE_TO_PROCESS,
                         _UNKNOWN,
                     }
 
@@ -4619,6 +4627,8 @@ private constructor(
                             AMOUNT_MISMATCH -> Value.AMOUNT_MISMATCH
                             NOT_OUR_ITEM -> Value.NOT_OUR_ITEM
                             NO_ACCOUNT_NUMBER_FOUND -> Value.NO_ACCOUNT_NUMBER_FOUND
+                            REFER_TO_IMAGE -> Value.REFER_TO_IMAGE
+                            UNABLE_TO_PROCESS -> Value.UNABLE_TO_PROCESS
                             else -> Value._UNKNOWN
                         }
 
@@ -4636,6 +4646,8 @@ private constructor(
                             AMOUNT_MISMATCH -> Known.AMOUNT_MISMATCH
                             NOT_OUR_ITEM -> Known.NOT_OUR_ITEM
                             NO_ACCOUNT_NUMBER_FOUND -> Known.NO_ACCOUNT_NUMBER_FOUND
+                            REFER_TO_IMAGE -> Known.REFER_TO_IMAGE
+                            UNABLE_TO_PROCESS -> Known.UNABLE_TO_PROCESS
                             else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                         }
 
@@ -30272,6 +30284,9 @@ private constructor(
                         @JvmField val CHECK_ADJUSTMENT = Reason(JsonField.of("check_adjustment"))
 
                         @JvmField
+                        val COLLECTION_PAYMENT = Reason(JsonField.of("collection_payment"))
+
+                        @JvmField
                         val COLLECTION_RECEIVABLE = Reason(JsonField.of("collection_receivable"))
 
                         @JvmField
@@ -30302,6 +30317,7 @@ private constructor(
                         BANK_MIGRATION,
                         CASHBACK,
                         CHECK_ADJUSTMENT,
+                        COLLECTION_PAYMENT,
                         COLLECTION_RECEIVABLE,
                         EMPYREAL_ADJUSTMENT,
                         ERROR,
@@ -30318,6 +30334,7 @@ private constructor(
                         BANK_MIGRATION,
                         CASHBACK,
                         CHECK_ADJUSTMENT,
+                        COLLECTION_PAYMENT,
                         COLLECTION_RECEIVABLE,
                         EMPYREAL_ADJUSTMENT,
                         ERROR,
@@ -30336,6 +30353,7 @@ private constructor(
                             BANK_MIGRATION -> Value.BANK_MIGRATION
                             CASHBACK -> Value.CASHBACK
                             CHECK_ADJUSTMENT -> Value.CHECK_ADJUSTMENT
+                            COLLECTION_PAYMENT -> Value.COLLECTION_PAYMENT
                             COLLECTION_RECEIVABLE -> Value.COLLECTION_RECEIVABLE
                             EMPYREAL_ADJUSTMENT -> Value.EMPYREAL_ADJUSTMENT
                             ERROR -> Value.ERROR
@@ -30354,6 +30372,7 @@ private constructor(
                             BANK_MIGRATION -> Known.BANK_MIGRATION
                             CASHBACK -> Known.CASHBACK
                             CHECK_ADJUSTMENT -> Known.CHECK_ADJUSTMENT
+                            COLLECTION_PAYMENT -> Known.COLLECTION_PAYMENT
                             COLLECTION_RECEIVABLE -> Known.COLLECTION_RECEIVABLE
                             EMPYREAL_ADJUSTMENT -> Known.EMPYREAL_ADJUSTMENT
                             ERROR -> Known.ERROR

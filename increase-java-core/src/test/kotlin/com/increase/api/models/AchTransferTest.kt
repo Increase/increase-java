@@ -19,7 +19,35 @@ class AchTransferTest {
                 .acknowledgement(
                     AchTransfer.Acknowledgement.builder().acknowledgedAt("string").build()
                 )
-                .addendum("string")
+                .addenda(
+                    AchTransfer.Addenda.builder()
+                        .category(AchTransfer.Addenda.Category.FREEFORM)
+                        .freeform(
+                            AchTransfer.Addenda.Freeform.builder()
+                                .entries(
+                                    listOf(
+                                        AchTransfer.Addenda.Freeform.Entry.builder()
+                                            .paymentRelatedInformation("string")
+                                            .build()
+                                    )
+                                )
+                                .build()
+                        )
+                        .paymentOrderRemittanceAdvice(
+                            AchTransfer.Addenda.PaymentOrderRemittanceAdvice.builder()
+                                .invoices(
+                                    listOf(
+                                        AchTransfer.Addenda.PaymentOrderRemittanceAdvice.Invoice
+                                            .builder()
+                                            .invoiceNumber("string")
+                                            .paidAmount(123L)
+                                            .build()
+                                    )
+                                )
+                                .build()
+                        )
+                        .build()
+                )
                 .amount(123L)
                 .approval(
                     AchTransfer.Approval.builder()
@@ -39,9 +67,11 @@ class AchTransferTest {
                 .companyName("string")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .currency(AchTransfer.Currency.CAD)
+                .destinationAccountHolder(AchTransfer.DestinationAccountHolder.BUSINESS)
                 .effectiveDate(LocalDate.parse("2019-12-27"))
                 .externalAccountId("string")
                 .funding(AchTransfer.Funding.CHECKING)
+                .idempotencyKey("string")
                 .individualId("string")
                 .individualName("string")
                 .network(AchTransfer.Network.ACH)
@@ -83,7 +113,6 @@ class AchTransferTest {
                 )
                 .transactionId("string")
                 .type(AchTransfer.Type.ACH_TRANSFER)
-                .uniqueIdentifier("string")
                 .build()
         assertThat(achTransfer).isNotNull
         assertThat(achTransfer.id()).isEqualTo("string")
@@ -91,7 +120,36 @@ class AchTransferTest {
         assertThat(achTransfer.accountNumber()).isEqualTo("string")
         assertThat(achTransfer.acknowledgement())
             .contains(AchTransfer.Acknowledgement.builder().acknowledgedAt("string").build())
-        assertThat(achTransfer.addendum()).contains("string")
+        assertThat(achTransfer.addenda())
+            .contains(
+                AchTransfer.Addenda.builder()
+                    .category(AchTransfer.Addenda.Category.FREEFORM)
+                    .freeform(
+                        AchTransfer.Addenda.Freeform.builder()
+                            .entries(
+                                listOf(
+                                    AchTransfer.Addenda.Freeform.Entry.builder()
+                                        .paymentRelatedInformation("string")
+                                        .build()
+                                )
+                            )
+                            .build()
+                    )
+                    .paymentOrderRemittanceAdvice(
+                        AchTransfer.Addenda.PaymentOrderRemittanceAdvice.builder()
+                            .invoices(
+                                listOf(
+                                    AchTransfer.Addenda.PaymentOrderRemittanceAdvice.Invoice
+                                        .builder()
+                                        .invoiceNumber("string")
+                                        .paidAmount(123L)
+                                        .build()
+                                )
+                            )
+                            .build()
+                    )
+                    .build()
+            )
         assertThat(achTransfer.amount()).isEqualTo(123L)
         assertThat(achTransfer.approval())
             .contains(
@@ -114,9 +172,12 @@ class AchTransferTest {
         assertThat(achTransfer.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(achTransfer.currency()).isEqualTo(AchTransfer.Currency.CAD)
+        assertThat(achTransfer.destinationAccountHolder())
+            .isEqualTo(AchTransfer.DestinationAccountHolder.BUSINESS)
         assertThat(achTransfer.effectiveDate()).contains(LocalDate.parse("2019-12-27"))
         assertThat(achTransfer.externalAccountId()).contains("string")
         assertThat(achTransfer.funding()).isEqualTo(AchTransfer.Funding.CHECKING)
+        assertThat(achTransfer.idempotencyKey()).contains("string")
         assertThat(achTransfer.individualId()).contains("string")
         assertThat(achTransfer.individualName()).contains("string")
         assertThat(achTransfer.network()).isEqualTo(AchTransfer.Network.ACH)
@@ -157,6 +218,5 @@ class AchTransferTest {
             )
         assertThat(achTransfer.transactionId()).contains("string")
         assertThat(achTransfer.type()).isEqualTo(AchTransfer.Type.ACH_TRANSFER)
-        assertThat(achTransfer.uniqueIdentifier()).contains("string")
     }
 }

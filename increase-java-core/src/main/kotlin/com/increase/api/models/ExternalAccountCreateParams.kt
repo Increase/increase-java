@@ -22,6 +22,7 @@ constructor(
     private val accountNumber: String,
     private val description: String,
     private val routingNumber: String,
+    private val accountHolder: AccountHolder?,
     private val funding: Funding?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -34,6 +35,8 @@ constructor(
 
     fun routingNumber(): String = routingNumber
 
+    fun accountHolder(): Optional<AccountHolder> = Optional.ofNullable(accountHolder)
+
     fun funding(): Optional<Funding> = Optional.ofNullable(funding)
 
     @JvmSynthetic
@@ -42,6 +45,7 @@ constructor(
             accountNumber,
             description,
             routingNumber,
+            accountHolder,
             funding,
             additionalBodyProperties,
         )
@@ -58,6 +62,7 @@ constructor(
         private val accountNumber: String?,
         private val description: String?,
         private val routingNumber: String?,
+        private val accountHolder: AccountHolder?,
         private val funding: Funding?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -75,6 +80,9 @@ constructor(
          * account.
          */
         @JsonProperty("routing_number") fun routingNumber(): String? = routingNumber
+
+        /** The type of entity that owns the External Account. */
+        @JsonProperty("account_holder") fun accountHolder(): AccountHolder? = accountHolder
 
         /** The type of the destination account. Defaults to `checking`. */
         @JsonProperty("funding") fun funding(): Funding? = funding
@@ -94,6 +102,7 @@ constructor(
                 this.accountNumber == other.accountNumber &&
                 this.description == other.description &&
                 this.routingNumber == other.routingNumber &&
+                this.accountHolder == other.accountHolder &&
                 this.funding == other.funding &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -105,6 +114,7 @@ constructor(
                         accountNumber,
                         description,
                         routingNumber,
+                        accountHolder,
                         funding,
                         additionalProperties,
                     )
@@ -113,7 +123,7 @@ constructor(
         }
 
         override fun toString() =
-            "ExternalAccountCreateBody{accountNumber=$accountNumber, description=$description, routingNumber=$routingNumber, funding=$funding, additionalProperties=$additionalProperties}"
+            "ExternalAccountCreateBody{accountNumber=$accountNumber, description=$description, routingNumber=$routingNumber, accountHolder=$accountHolder, funding=$funding, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -125,6 +135,7 @@ constructor(
             private var accountNumber: String? = null
             private var description: String? = null
             private var routingNumber: String? = null
+            private var accountHolder: AccountHolder? = null
             private var funding: Funding? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -133,6 +144,7 @@ constructor(
                 this.accountNumber = externalAccountCreateBody.accountNumber
                 this.description = externalAccountCreateBody.description
                 this.routingNumber = externalAccountCreateBody.routingNumber
+                this.accountHolder = externalAccountCreateBody.accountHolder
                 this.funding = externalAccountCreateBody.funding
                 additionalProperties(externalAccountCreateBody.additionalProperties)
             }
@@ -151,6 +163,12 @@ constructor(
              */
             @JsonProperty("routing_number")
             fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
+
+            /** The type of entity that owns the External Account. */
+            @JsonProperty("account_holder")
+            fun accountHolder(accountHolder: AccountHolder) = apply {
+                this.accountHolder = accountHolder
+            }
 
             /** The type of the destination account. Defaults to `checking`. */
             @JsonProperty("funding")
@@ -175,6 +193,7 @@ constructor(
                     checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
                     checkNotNull(description) { "`description` is required but was not set" },
                     checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
+                    accountHolder,
                     funding,
                     additionalProperties.toUnmodifiable(),
                 )
@@ -196,6 +215,7 @@ constructor(
             this.accountNumber == other.accountNumber &&
             this.description == other.description &&
             this.routingNumber == other.routingNumber &&
+            this.accountHolder == other.accountHolder &&
             this.funding == other.funding &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
@@ -207,6 +227,7 @@ constructor(
             accountNumber,
             description,
             routingNumber,
+            accountHolder,
             funding,
             additionalQueryParams,
             additionalHeaders,
@@ -215,7 +236,7 @@ constructor(
     }
 
     override fun toString() =
-        "ExternalAccountCreateParams{accountNumber=$accountNumber, description=$description, routingNumber=$routingNumber, funding=$funding, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "ExternalAccountCreateParams{accountNumber=$accountNumber, description=$description, routingNumber=$routingNumber, accountHolder=$accountHolder, funding=$funding, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -230,6 +251,7 @@ constructor(
         private var accountNumber: String? = null
         private var description: String? = null
         private var routingNumber: String? = null
+        private var accountHolder: AccountHolder? = null
         private var funding: Funding? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -240,6 +262,7 @@ constructor(
             this.accountNumber = externalAccountCreateParams.accountNumber
             this.description = externalAccountCreateParams.description
             this.routingNumber = externalAccountCreateParams.routingNumber
+            this.accountHolder = externalAccountCreateParams.accountHolder
             this.funding = externalAccountCreateParams.funding
             additionalQueryParams(externalAccountCreateParams.additionalQueryParams)
             additionalHeaders(externalAccountCreateParams.additionalHeaders)
@@ -257,6 +280,11 @@ constructor(
          * account.
          */
         fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
+
+        /** The type of entity that owns the External Account. */
+        fun accountHolder(accountHolder: AccountHolder) = apply {
+            this.accountHolder = accountHolder
+        }
 
         /** The type of the destination account. Defaults to `checking`. */
         fun funding(funding: Funding) = apply { this.funding = funding }
@@ -320,11 +348,75 @@ constructor(
                 checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
                 checkNotNull(description) { "`description` is required but was not set" },
                 checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
+                accountHolder,
                 funding,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),
             )
+    }
+
+    class AccountHolder
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is AccountHolder && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val BUSINESS = AccountHolder(JsonField.of("business"))
+
+            @JvmField val INDIVIDUAL = AccountHolder(JsonField.of("individual"))
+
+            @JvmField val UNKNOWN = AccountHolder(JsonField.of("unknown"))
+
+            @JvmStatic fun of(value: String) = AccountHolder(JsonField.of(value))
+        }
+
+        enum class Known {
+            BUSINESS,
+            INDIVIDUAL,
+            UNKNOWN,
+        }
+
+        enum class Value {
+            BUSINESS,
+            INDIVIDUAL,
+            UNKNOWN,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                BUSINESS -> Value.BUSINESS
+                INDIVIDUAL -> Value.INDIVIDUAL
+                UNKNOWN -> Value.UNKNOWN
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                BUSINESS -> Known.BUSINESS
+                INDIVIDUAL -> Known.INDIVIDUAL
+                UNKNOWN -> Known.UNKNOWN
+                else -> throw IncreaseInvalidDataException("Unknown AccountHolder: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 
     class Funding

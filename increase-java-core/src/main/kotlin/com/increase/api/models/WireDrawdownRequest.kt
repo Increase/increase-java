@@ -44,6 +44,7 @@ private constructor(
     private val submission: JsonField<Submission>,
     private val fulfillmentTransactionId: JsonField<String>,
     private val status: JsonField<Status>,
+    private val idempotencyKey: JsonField<String>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -132,6 +133,14 @@ private constructor(
 
     /** The lifecycle status of the drawdown request. */
     fun status(): Status = status.getRequired("status")
+
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    fun idempotencyKey(): Optional<String> =
+        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -223,6 +232,13 @@ private constructor(
     /** The lifecycle status of the drawdown request. */
     @JsonProperty("status") @ExcludeMissing fun _status() = status
 
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+
     @JsonAnyGetter
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -248,6 +264,7 @@ private constructor(
             submission().map { it.validate() }
             fulfillmentTransactionId()
             status()
+            idempotencyKey()
             validated = true
         }
     }
@@ -279,6 +296,7 @@ private constructor(
             this.submission == other.submission &&
             this.fulfillmentTransactionId == other.fulfillmentTransactionId &&
             this.status == other.status &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -305,6 +323,7 @@ private constructor(
                     submission,
                     fulfillmentTransactionId,
                     status,
+                    idempotencyKey,
                     additionalProperties,
                 )
         }
@@ -312,7 +331,7 @@ private constructor(
     }
 
     override fun toString() =
-        "WireDrawdownRequest{type=$type, id=$id, accountNumberId=$accountNumberId, recipientAccountNumber=$recipientAccountNumber, recipientRoutingNumber=$recipientRoutingNumber, amount=$amount, currency=$currency, messageToRecipient=$messageToRecipient, recipientName=$recipientName, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, originatorName=$originatorName, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, submission=$submission, fulfillmentTransactionId=$fulfillmentTransactionId, status=$status, additionalProperties=$additionalProperties}"
+        "WireDrawdownRequest{type=$type, id=$id, accountNumberId=$accountNumberId, recipientAccountNumber=$recipientAccountNumber, recipientRoutingNumber=$recipientRoutingNumber, amount=$amount, currency=$currency, messageToRecipient=$messageToRecipient, recipientName=$recipientName, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, originatorName=$originatorName, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, submission=$submission, fulfillmentTransactionId=$fulfillmentTransactionId, status=$status, idempotencyKey=$idempotencyKey, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -340,6 +359,7 @@ private constructor(
         private var submission: JsonField<Submission> = JsonMissing.of()
         private var fulfillmentTransactionId: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
+        private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -363,6 +383,7 @@ private constructor(
             this.submission = wireDrawdownRequest.submission
             this.fulfillmentTransactionId = wireDrawdownRequest.fulfillmentTransactionId
             this.status = wireDrawdownRequest.status
+            this.idempotencyKey = wireDrawdownRequest.idempotencyKey
             additionalProperties(wireDrawdownRequest.additionalProperties)
         }
 
@@ -583,6 +604,24 @@ private constructor(
         @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
+        }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             this.additionalProperties.putAll(additionalProperties)
@@ -618,6 +657,7 @@ private constructor(
                 submission,
                 fulfillmentTransactionId,
                 status,
+                idempotencyKey,
                 additionalProperties.toUnmodifiable(),
             )
     }

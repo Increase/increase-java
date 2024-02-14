@@ -29,8 +29,6 @@ interface IncreaseClientAsync {
 
     fun cardDisputes(): CardDisputeServiceAsync
 
-    fun cardProfiles(): CardProfileServiceAsync
-
     fun cardPurchaseSupplements(): CardPurchaseSupplementServiceAsync
 
     fun externalAccounts(): ExternalAccountServiceAsync
@@ -102,4 +100,8 @@ interface IncreaseClientAsync {
     fun oauthTokens(): OAuthTokenServiceAsync
 
     fun inboundWireTransfers(): InboundWireTransferServiceAsync
+
+    fun digitalCardProfiles(): DigitalCardProfileServiceAsync
+
+    fun physicalCardProfiles(): PhysicalCardProfileServiceAsync
 }

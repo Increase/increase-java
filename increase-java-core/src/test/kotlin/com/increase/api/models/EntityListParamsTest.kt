@@ -21,6 +21,7 @@ class EntityListParamsTest {
                     .build()
             )
             .cursor("string")
+            .idempotencyKey("x")
             .limit(123L)
             .status(
                 EntityListParams.Status.builder()
@@ -43,6 +44,7 @@ class EntityListParamsTest {
                         .build()
                 )
                 .cursor("string")
+                .idempotencyKey("x")
                 .limit(123L)
                 .status(
                     EntityListParams.Status.builder()
@@ -59,6 +61,7 @@ class EntityListParamsTest {
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
         expected.put("cursor", listOf("string"))
+        expected.put("idempotency_key", listOf("x"))
         expected.put("limit", listOf("123"))
         EntityListParams.Status.builder()
             .in_(listOf(EntityListParams.Status.In.ACTIVE))

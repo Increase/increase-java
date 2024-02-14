@@ -33,6 +33,7 @@ private constructor(
     private val status: JsonField<Status>,
     private val selectedEventCategory: JsonField<SelectedEventCategory>,
     private val url: JsonField<String>,
+    private val idempotencyKey: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -61,6 +62,14 @@ private constructor(
     fun url(): String = url.getRequired("url")
 
     /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    fun idempotencyKey(): Optional<String> =
+        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+
+    /**
      * A constant representing the object's type. For this resource it will always be
      * `event_subscription`.
      */
@@ -87,6 +96,13 @@ private constructor(
     @JsonProperty("url") @ExcludeMissing fun _url() = url
 
     /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+
+    /**
      * A constant representing the object's type. For this resource it will always be
      * `event_subscription`.
      */
@@ -103,6 +119,7 @@ private constructor(
             status()
             selectedEventCategory()
             url()
+            idempotencyKey()
             type()
             validated = true
         }
@@ -121,6 +138,7 @@ private constructor(
             this.status == other.status &&
             this.selectedEventCategory == other.selectedEventCategory &&
             this.url == other.url &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -134,6 +152,7 @@ private constructor(
                     status,
                     selectedEventCategory,
                     url,
+                    idempotencyKey,
                     type,
                     additionalProperties,
                 )
@@ -142,7 +161,7 @@ private constructor(
     }
 
     override fun toString() =
-        "EventSubscription{id=$id, createdAt=$createdAt, status=$status, selectedEventCategory=$selectedEventCategory, url=$url, type=$type, additionalProperties=$additionalProperties}"
+        "EventSubscription{id=$id, createdAt=$createdAt, status=$status, selectedEventCategory=$selectedEventCategory, url=$url, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -156,6 +175,7 @@ private constructor(
         private var status: JsonField<Status> = JsonMissing.of()
         private var selectedEventCategory: JsonField<SelectedEventCategory> = JsonMissing.of()
         private var url: JsonField<String> = JsonMissing.of()
+        private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -166,6 +186,7 @@ private constructor(
             this.status = eventSubscription.status
             this.selectedEventCategory = eventSubscription.selectedEventCategory
             this.url = eventSubscription.url
+            this.idempotencyKey = eventSubscription.idempotencyKey
             this.type = eventSubscription.type
             additionalProperties(eventSubscription.additionalProperties)
         }
@@ -218,6 +239,24 @@ private constructor(
         fun url(url: JsonField<String>) = apply { this.url = url }
 
         /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
+        }
+
+        /**
          * A constant representing the object's type. For this resource it will always be
          * `event_subscription`.
          */
@@ -252,6 +291,7 @@ private constructor(
                 status,
                 selectedEventCategory,
                 url,
+                idempotencyKey,
                 type,
                 additionalProperties.toUnmodifiable(),
             )

@@ -16,6 +16,7 @@ class AccountNumberTest {
                 .accountId("string")
                 .accountNumber("string")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .idempotencyKey("string")
                 .inboundAch(
                     AccountNumber.InboundAch.builder()
                         .debitStatus(AccountNumber.InboundAch.DebitStatus.ALLOWED)
@@ -30,7 +31,6 @@ class AccountNumberTest {
                 .routingNumber("string")
                 .status(AccountNumber.Status.ACTIVE)
                 .type(AccountNumber.Type.ACCOUNT_NUMBER)
-                .uniqueIdentifier("string")
                 .build()
         assertThat(accountNumber).isNotNull
         assertThat(accountNumber.id()).isEqualTo("string")
@@ -38,6 +38,7 @@ class AccountNumberTest {
         assertThat(accountNumber.accountNumber()).isEqualTo("string")
         assertThat(accountNumber.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(accountNumber.idempotencyKey()).contains("string")
         assertThat(accountNumber.inboundAch())
             .isEqualTo(
                 AccountNumber.InboundAch.builder()
@@ -54,6 +55,5 @@ class AccountNumberTest {
         assertThat(accountNumber.routingNumber()).isEqualTo("string")
         assertThat(accountNumber.status()).isEqualTo(AccountNumber.Status.ACTIVE)
         assertThat(accountNumber.type()).isEqualTo(AccountNumber.Type.ACCOUNT_NUMBER)
-        assertThat(accountNumber.uniqueIdentifier()).contains("string")
     }
 }

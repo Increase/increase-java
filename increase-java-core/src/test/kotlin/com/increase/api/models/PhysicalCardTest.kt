@@ -19,6 +19,8 @@ class PhysicalCardTest {
                     PhysicalCard.Cardholder.builder().firstName("string").lastName("string").build()
                 )
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .idempotencyKey("string")
+                .physicalCardProfileId("string")
                 .shipment(
                     PhysicalCard.Shipment.builder()
                         .address(
@@ -57,6 +59,8 @@ class PhysicalCardTest {
             )
         assertThat(physicalCard.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(physicalCard.idempotencyKey()).contains("string")
+        assertThat(physicalCard.physicalCardProfileId()).contains("string")
         assertThat(physicalCard.shipment())
             .isEqualTo(
                 PhysicalCard.Shipment.builder()
