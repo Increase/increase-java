@@ -36,7 +36,6 @@ class CardServiceTest {
                     .description("x")
                     .digitalWallet(
                         CardCreateParams.DigitalWallet.builder()
-                            .cardProfileId("string")
                             .digitalCardProfileId("string")
                             .email("x")
                             .phone("x")
@@ -87,6 +86,7 @@ class CardServiceTest {
                     .digitalWallet(
                         CardUpdateParams.DigitalWallet.builder()
                             .cardProfileId("string")
+                            .digitalCardProfileId("string")
                             .email("x")
                             .phone("x")
                             .build()

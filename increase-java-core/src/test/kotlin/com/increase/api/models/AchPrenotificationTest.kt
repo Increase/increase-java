@@ -22,6 +22,7 @@ class AchPrenotificationTest {
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .creditDebitIndicator(AchPrenotification.CreditDebitIndicator.CREDIT)
                 .effectiveDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .idempotencyKey("string")
                 .notificationsOfChange(
                     listOf(
                         AchPrenotification.NotificationsOfChange.builder()
@@ -61,6 +62,7 @@ class AchPrenotificationTest {
             .contains(AchPrenotification.CreditDebitIndicator.CREDIT)
         assertThat(achPrenotification.effectiveDate())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(achPrenotification.idempotencyKey()).contains("string")
         assertThat(achPrenotification.notificationsOfChange())
             .containsExactly(
                 AchPrenotification.NotificationsOfChange.builder()

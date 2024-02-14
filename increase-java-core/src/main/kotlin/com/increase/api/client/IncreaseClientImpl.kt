@@ -48,8 +48,6 @@ constructor(
 
     private val cardDisputes: CardDisputeService by lazy { CardDisputeServiceImpl(clientOptions) }
 
-    private val cardProfiles: CardProfileService by lazy { CardProfileServiceImpl(clientOptions) }
-
     private val cardPurchaseSupplements: CardPurchaseSupplementService by lazy {
         CardPurchaseSupplementServiceImpl(clientOptions)
     }
@@ -168,6 +166,14 @@ constructor(
         InboundWireTransferServiceImpl(clientOptions)
     }
 
+    private val digitalCardProfiles: DigitalCardProfileService by lazy {
+        DigitalCardProfileServiceImpl(clientOptions)
+    }
+
+    private val physicalCardProfiles: PhysicalCardProfileService by lazy {
+        PhysicalCardProfileServiceImpl(clientOptions)
+    }
+
     override fun async(): IncreaseClientAsync = async
 
     override fun accounts(): AccountService = accounts
@@ -188,8 +194,6 @@ constructor(
     override fun cards(): CardService = cards
 
     override fun cardDisputes(): CardDisputeService = cardDisputes
-
-    override fun cardProfiles(): CardProfileService = cardProfiles
 
     override fun cardPurchaseSupplements(): CardPurchaseSupplementService = cardPurchaseSupplements
 
@@ -266,4 +270,8 @@ constructor(
     override fun oauthTokens(): OAuthTokenService = oauthTokens
 
     override fun inboundWireTransfers(): InboundWireTransferService = inboundWireTransfers
+
+    override fun digitalCardProfiles(): DigitalCardProfileService = digitalCardProfiles
+
+    override fun physicalCardProfiles(): PhysicalCardProfileService = physicalCardProfiles
 }

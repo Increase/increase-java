@@ -28,7 +28,6 @@ class AccountTransferServiceTest {
                     .description("x")
                     .destinationAccountId("string")
                     .requireApproval(true)
-                    .uniqueIdentifier("x")
                     .build()
             )
         println(accountTransfer)

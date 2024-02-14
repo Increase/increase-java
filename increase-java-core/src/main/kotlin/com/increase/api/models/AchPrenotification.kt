@@ -41,6 +41,7 @@ private constructor(
     private val createdAt: JsonField<OffsetDateTime>,
     private val status: JsonField<Status>,
     private val type: JsonField<Type>,
+    private val idempotencyKey: JsonField<String>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -110,6 +111,14 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    fun idempotencyKey(): Optional<String> =
+        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+
     /** The ACH Prenotification's identifier. */
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
@@ -176,6 +185,13 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type() = type
 
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+
     @JsonAnyGetter
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -197,6 +213,7 @@ private constructor(
             createdAt()
             status()
             type()
+            idempotencyKey()
             validated = true
         }
     }
@@ -224,6 +241,7 @@ private constructor(
             this.createdAt == other.createdAt &&
             this.status == other.status &&
             this.type == other.type &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -246,6 +264,7 @@ private constructor(
                     createdAt,
                     status,
                     type,
+                    idempotencyKey,
                     additionalProperties,
                 )
         }
@@ -253,7 +272,7 @@ private constructor(
     }
 
     override fun toString() =
-        "AchPrenotification{id=$id, accountNumber=$accountNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, routingNumber=$routingNumber, prenotificationReturn=$prenotificationReturn, notificationsOfChange=$notificationsOfChange, createdAt=$createdAt, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "AchPrenotification{id=$id, accountNumber=$accountNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, routingNumber=$routingNumber, prenotificationReturn=$prenotificationReturn, notificationsOfChange=$notificationsOfChange, createdAt=$createdAt, status=$status, type=$type, idempotencyKey=$idempotencyKey, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -277,6 +296,7 @@ private constructor(
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
+        private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -296,6 +316,7 @@ private constructor(
             this.createdAt = achPrenotification.createdAt
             this.status = achPrenotification.status
             this.type = achPrenotification.type
+            this.idempotencyKey = achPrenotification.idempotencyKey
             additionalProperties(achPrenotification.additionalProperties)
         }
 
@@ -461,6 +482,24 @@ private constructor(
         @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
+        }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             this.additionalProperties.putAll(additionalProperties)
@@ -492,6 +531,7 @@ private constructor(
                 createdAt,
                 status,
                 type,
+                idempotencyKey,
                 additionalProperties.toUnmodifiable(),
             )
     }

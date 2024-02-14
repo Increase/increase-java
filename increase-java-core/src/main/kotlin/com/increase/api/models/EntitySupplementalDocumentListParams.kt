@@ -12,6 +12,7 @@ class EntitySupplementalDocumentListParams
 constructor(
     private val entityId: String,
     private val cursor: String?,
+    private val idempotencyKey: String?,
     private val limit: Long?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -21,6 +22,8 @@ constructor(
 
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
+    fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey)
+
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
     @JvmSynthetic
@@ -28,6 +31,7 @@ constructor(
         val params = mutableMapOf<String, List<String>>()
         this.entityId.let { params.put("entity_id", listOf(it.toString())) }
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
+        this.idempotencyKey?.let { params.put("idempotency_key", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
@@ -47,6 +51,7 @@ constructor(
         return other is EntitySupplementalDocumentListParams &&
             this.entityId == other.entityId &&
             this.cursor == other.cursor &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.limit == other.limit &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
@@ -56,6 +61,7 @@ constructor(
         return Objects.hash(
             entityId,
             cursor,
+            idempotencyKey,
             limit,
             additionalQueryParams,
             additionalHeaders,
@@ -63,7 +69,7 @@ constructor(
     }
 
     override fun toString() =
-        "EntitySupplementalDocumentListParams{entityId=$entityId, cursor=$cursor, limit=$limit, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "EntitySupplementalDocumentListParams{entityId=$entityId, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -77,6 +83,7 @@ constructor(
 
         private var entityId: String? = null
         private var cursor: String? = null
+        private var idempotencyKey: String? = null
         private var limit: Long? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -87,6 +94,7 @@ constructor(
         ) = apply {
             this.entityId = entitySupplementalDocumentListParams.entityId
             this.cursor = entitySupplementalDocumentListParams.cursor
+            this.idempotencyKey = entitySupplementalDocumentListParams.idempotencyKey
             this.limit = entitySupplementalDocumentListParams.limit
             additionalQueryParams(entitySupplementalDocumentListParams.additionalQueryParams)
             additionalHeaders(entitySupplementalDocumentListParams.additionalHeaders)
@@ -97,6 +105,14 @@ constructor(
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String) = apply { this.cursor = cursor }
+
+        /**
+         * Filter records to the one with the specified `idempotency_key` you chose for that object.
+         * This value is unique across Increase and is used to ensure that a request is only
+         * processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = apply { this.idempotencyKey = idempotencyKey }
 
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
@@ -147,6 +163,7 @@ constructor(
             EntitySupplementalDocumentListParams(
                 checkNotNull(entityId) { "`entityId` is required but was not set" },
                 cursor,
+                idempotencyKey,
                 limit,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),

@@ -3,8 +3,16 @@
 package com.increase.api.services.async
 
 import com.increase.api.core.ClientOptions
+import com.increase.api.core.RequestOptions
+import com.increase.api.core.http.HttpMethod
+import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
+import com.increase.api.models.CardPayment
+import com.increase.api.models.SimulationCardAuthorizationExpirationsParams
+import com.increase.api.models.SimulationCardFuelConfirmationsParams
+import com.increase.api.models.SimulationCardIncrementsParams
+import com.increase.api.models.SimulationCardReversalsParams
 import com.increase.api.services.async.simulations.AccountStatementServiceAsync
 import com.increase.api.services.async.simulations.AccountStatementServiceAsyncImpl
 import com.increase.api.services.async.simulations.AccountTransferServiceAsync
@@ -13,8 +21,6 @@ import com.increase.api.services.async.simulations.AchTransferServiceAsync
 import com.increase.api.services.async.simulations.AchTransferServiceAsyncImpl
 import com.increase.api.services.async.simulations.CardDisputeServiceAsync
 import com.increase.api.services.async.simulations.CardDisputeServiceAsyncImpl
-import com.increase.api.services.async.simulations.CardProfileServiceAsync
-import com.increase.api.services.async.simulations.CardProfileServiceAsyncImpl
 import com.increase.api.services.async.simulations.CardRefundServiceAsync
 import com.increase.api.services.async.simulations.CardRefundServiceAsyncImpl
 import com.increase.api.services.async.simulations.CardServiceAsync
@@ -42,6 +48,10 @@ import com.increase.api.services.async.simulations.RealTimePaymentsTransferServi
 import com.increase.api.services.async.simulations.WireTransferServiceAsync
 import com.increase.api.services.async.simulations.WireTransferServiceAsyncImpl
 import com.increase.api.services.errorHandler
+import com.increase.api.services.json
+import com.increase.api.services.jsonHandler
+import com.increase.api.services.withErrorHandler
+import java.util.concurrent.CompletableFuture
 
 class SimulationServiceAsyncImpl
 constructor(
@@ -64,10 +74,6 @@ constructor(
 
     private val cardDisputes: CardDisputeServiceAsync by lazy {
         CardDisputeServiceAsyncImpl(clientOptions)
-    }
-
-    private val cardProfiles: CardProfileServiceAsync by lazy {
-        CardProfileServiceAsyncImpl(clientOptions)
     }
 
     private val cardRefunds: CardRefundServiceAsync by lazy {
@@ -124,8 +130,6 @@ constructor(
 
     override fun cardDisputes(): CardDisputeServiceAsync = cardDisputes
 
-    override fun cardProfiles(): CardProfileServiceAsync = cardProfiles
-
     override fun cardRefunds(): CardRefundServiceAsync = cardRefunds
 
     override fun checkTransfers(): CheckTransferServiceAsync = checkTransfers
@@ -154,4 +158,131 @@ constructor(
         realTimePaymentsTransfers
 
     override fun physicalCards(): PhysicalCardServiceAsync = physicalCards
+
+    private val cardAuthorizationExpirationsHandler: Handler<CardPayment> =
+        jsonHandler<CardPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+    /** Simulates expiring a card authorization immediately. */
+    override fun cardAuthorizationExpirations(
+        params: SimulationCardAuthorizationExpirationsParams,
+        requestOptions: RequestOptions
+    ): CompletableFuture<CardPayment> {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.POST)
+                .addPathSegments("simulations", "card_authorization_expirations")
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .body(json(clientOptions.jsonMapper, params.getBody()))
+                .build()
+        return clientOptions.httpClient.executeAsync(request, requestOptions).thenApply { response
+            ->
+            response
+                .use { cardAuthorizationExpirationsHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
+        }
+    }
+
+    private val cardFuelConfirmationsHandler: Handler<CardPayment> =
+        jsonHandler<CardPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+    /**
+     * Simulates the fuel confirmation of an authorization by a card acquirer. This happens
+     * asynchronously right after a fuel pump transaction is completed. A fuel confirmation can only
+     * happen once per authorization.
+     */
+    override fun cardFuelConfirmations(
+        params: SimulationCardFuelConfirmationsParams,
+        requestOptions: RequestOptions
+    ): CompletableFuture<CardPayment> {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.POST)
+                .addPathSegments("simulations", "card_fuel_confirmations")
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .body(json(clientOptions.jsonMapper, params.getBody()))
+                .build()
+        return clientOptions.httpClient.executeAsync(request, requestOptions).thenApply { response
+            ->
+            response
+                .use { cardFuelConfirmationsHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
+        }
+    }
+
+    private val cardIncrementsHandler: Handler<CardPayment> =
+        jsonHandler<CardPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+    /**
+     * Simulates the increment of an authorization by a card acquirer. An authorization can be
+     * incremented multiple times.
+     */
+    override fun cardIncrements(
+        params: SimulationCardIncrementsParams,
+        requestOptions: RequestOptions
+    ): CompletableFuture<CardPayment> {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.POST)
+                .addPathSegments("simulations", "card_increments")
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .body(json(clientOptions.jsonMapper, params.getBody()))
+                .build()
+        return clientOptions.httpClient.executeAsync(request, requestOptions).thenApply { response
+            ->
+            response
+                .use { cardIncrementsHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
+        }
+    }
+
+    private val cardReversalsHandler: Handler<CardPayment> =
+        jsonHandler<CardPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+    /**
+     * Simulates the reversal of an authorization by a card acquirer. An authorization can be
+     * partially reversed multiple times, up until the total authorized amount. Marks the pending
+     * transaction as complete if the authorization is fully reversed.
+     */
+    override fun cardReversals(
+        params: SimulationCardReversalsParams,
+        requestOptions: RequestOptions
+    ): CompletableFuture<CardPayment> {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.POST)
+                .addPathSegments("simulations", "card_reversals")
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .body(json(clientOptions.jsonMapper, params.getBody()))
+                .build()
+        return clientOptions.httpClient.executeAsync(request, requestOptions).thenApply { response
+            ->
+            response
+                .use { cardReversalsHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
+        }
+    }
 }

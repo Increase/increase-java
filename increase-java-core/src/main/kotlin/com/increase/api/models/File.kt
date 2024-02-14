@@ -35,6 +35,7 @@ private constructor(
     private val mimeType: JsonField<String>,
     private val filename: JsonField<String>,
     private val downloadUrl: JsonField<String>,
+    private val idempotencyKey: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -75,6 +76,14 @@ private constructor(
     fun downloadUrl(): Optional<String> =
         Optional.ofNullable(downloadUrl.getNullable("download_url"))
 
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    fun idempotencyKey(): Optional<String> =
+        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+
     /** A constant representing the object's type. For this resource it will always be `file`. */
     fun type(): Type = type.getRequired("type")
 
@@ -108,6 +117,13 @@ private constructor(
      */
     @JsonProperty("download_url") @ExcludeMissing fun _downloadUrl() = downloadUrl
 
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+
     /** A constant representing the object's type. For this resource it will always be `file`. */
     @JsonProperty("type") @ExcludeMissing fun _type() = type
 
@@ -125,6 +141,7 @@ private constructor(
             mimeType()
             filename()
             downloadUrl()
+            idempotencyKey()
             type()
             validated = true
         }
@@ -146,6 +163,7 @@ private constructor(
             this.mimeType == other.mimeType &&
             this.filename == other.filename &&
             this.downloadUrl == other.downloadUrl &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -162,6 +180,7 @@ private constructor(
                     mimeType,
                     filename,
                     downloadUrl,
+                    idempotencyKey,
                     type,
                     additionalProperties,
                 )
@@ -170,7 +189,7 @@ private constructor(
     }
 
     override fun toString() =
-        "File{createdAt=$createdAt, id=$id, purpose=$purpose, description=$description, direction=$direction, mimeType=$mimeType, filename=$filename, downloadUrl=$downloadUrl, type=$type, additionalProperties=$additionalProperties}"
+        "File{createdAt=$createdAt, id=$id, purpose=$purpose, description=$description, direction=$direction, mimeType=$mimeType, filename=$filename, downloadUrl=$downloadUrl, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -187,6 +206,7 @@ private constructor(
         private var mimeType: JsonField<String> = JsonMissing.of()
         private var filename: JsonField<String> = JsonMissing.of()
         private var downloadUrl: JsonField<String> = JsonMissing.of()
+        private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -200,6 +220,7 @@ private constructor(
             this.mimeType = file.mimeType
             this.filename = file.filename
             this.downloadUrl = file.downloadUrl
+            this.idempotencyKey = file.idempotencyKey
             this.type = file.type
             additionalProperties(file.additionalProperties)
         }
@@ -279,6 +300,24 @@ private constructor(
         fun downloadUrl(downloadUrl: JsonField<String>) = apply { this.downloadUrl = downloadUrl }
 
         /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
+        }
+
+        /**
          * A constant representing the object's type. For this resource it will always be `file`.
          */
         fun type(type: Type) = type(JsonField.of(type))
@@ -314,6 +353,7 @@ private constructor(
                 mimeType,
                 filename,
                 downloadUrl,
+                idempotencyKey,
                 type,
                 additionalProperties.toUnmodifiable(),
             )

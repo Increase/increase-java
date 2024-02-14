@@ -13,6 +13,7 @@ class InboundAchTransferListParamsTest {
     fun createInboundAchTransferListParams() {
         InboundAchTransferListParams.builder()
             .accountId("string")
+            .accountNumberId("string")
             .createdAt(
                 InboundAchTransferListParams.CreatedAt.builder()
                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -32,6 +33,7 @@ class InboundAchTransferListParamsTest {
         val params =
             InboundAchTransferListParams.builder()
                 .accountId("string")
+                .accountNumberId("string")
                 .createdAt(
                     InboundAchTransferListParams.CreatedAt.builder()
                         .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -46,6 +48,7 @@ class InboundAchTransferListParamsTest {
                 .build()
         val expected = mutableMapOf<String, List<String>>()
         expected.put("account_id", listOf("string"))
+        expected.put("account_number_id", listOf("string"))
         InboundAchTransferListParams.CreatedAt.builder()
             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

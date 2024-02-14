@@ -72,6 +72,7 @@ class EntityTest {
                         .build()
                 )
                 .description("string")
+                .idempotencyKey("string")
                 .joint(
                     Entity.Joint.builder()
                         .individuals(
@@ -134,6 +135,7 @@ class EntityTest {
                         Entity.SupplementalDocument.builder()
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .fileId("string")
+                            .idempotencyKey("string")
                             .type(Entity.SupplementalDocument.Type.ENTITY_SUPPLEMENTAL_DOCUMENT)
                             .build()
                     )
@@ -275,6 +277,7 @@ class EntityTest {
                     .build()
             )
         assertThat(entity.description()).contains("string")
+        assertThat(entity.idempotencyKey()).contains("string")
         assertThat(entity.joint())
             .contains(
                 Entity.Joint.builder()
@@ -338,6 +341,7 @@ class EntityTest {
                 Entity.SupplementalDocument.builder()
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .fileId("string")
+                    .idempotencyKey("string")
                     .type(Entity.SupplementalDocument.Type.ENTITY_SUPPLEMENTAL_DOCUMENT)
                     .build()
             )

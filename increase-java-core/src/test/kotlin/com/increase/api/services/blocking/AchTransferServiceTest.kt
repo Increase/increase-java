@@ -28,11 +28,45 @@ class AchTransferServiceTest {
                     .amount(123L)
                     .statementDescriptor("x")
                     .accountNumber("x")
-                    .addendum("x")
+                    .addenda(
+                        AchTransferCreateParams.Addenda.builder()
+                            .category(AchTransferCreateParams.Addenda.Category.FREEFORM)
+                            .freeform(
+                                AchTransferCreateParams.Addenda.Freeform.builder()
+                                    .entries(
+                                        listOf(
+                                            AchTransferCreateParams.Addenda.Freeform.Entry.builder()
+                                                .paymentRelatedInformation("x")
+                                                .build()
+                                        )
+                                    )
+                                    .build()
+                            )
+                            .paymentOrderRemittanceAdvice(
+                                AchTransferCreateParams.Addenda.PaymentOrderRemittanceAdvice
+                                    .builder()
+                                    .invoices(
+                                        listOf(
+                                            AchTransferCreateParams.Addenda
+                                                .PaymentOrderRemittanceAdvice
+                                                .Invoice
+                                                .builder()
+                                                .invoiceNumber("x")
+                                                .paidAmount(123L)
+                                                .build()
+                                        )
+                                    )
+                                    .build()
+                            )
+                            .build()
+                    )
                     .companyDescriptiveDate("x")
                     .companyDiscretionaryData("x")
                     .companyEntryDescription("x")
                     .companyName("x")
+                    .destinationAccountHolder(
+                        AchTransferCreateParams.DestinationAccountHolder.BUSINESS
+                    )
                     .effectiveDate(LocalDate.parse("2019-12-27"))
                     .externalAccountId("string")
                     .funding(AchTransferCreateParams.Funding.CHECKING)
@@ -43,7 +77,6 @@ class AchTransferServiceTest {
                     .standardEntryClassCode(
                         AchTransferCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
                     )
-                    .uniqueIdentifier("x")
                     .build()
             )
         println(achTransfer)

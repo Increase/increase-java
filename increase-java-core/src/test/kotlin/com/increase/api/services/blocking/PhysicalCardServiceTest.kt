@@ -24,7 +24,6 @@ class PhysicalCardServiceTest {
             physicalCardService.create(
                 PhysicalCardCreateParams.builder()
                     .cardId("string")
-                    .cardProfileId("string")
                     .cardholder(
                         PhysicalCardCreateParams.Cardholder.builder()
                             .firstName("x")

@@ -19,6 +19,7 @@ constructor(
     private val createdAt: CreatedAt?,
     private val cursor: String?,
     private val entityId: String?,
+    private val idempotencyKey: String?,
     private val informationalEntityId: String?,
     private val limit: Long?,
     private val status: Status?,
@@ -32,6 +33,8 @@ constructor(
 
     fun entityId(): Optional<String> = Optional.ofNullable(entityId)
 
+    fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey)
+
     fun informationalEntityId(): Optional<String> = Optional.ofNullable(informationalEntityId)
 
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
@@ -44,6 +47,7 @@ constructor(
         this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
         this.entityId?.let { params.put("entity_id", listOf(it.toString())) }
+        this.idempotencyKey?.let { params.put("idempotency_key", listOf(it.toString())) }
         this.informationalEntityId?.let {
             params.put("informational_entity_id", listOf(it.toString()))
         }
@@ -68,6 +72,7 @@ constructor(
             this.createdAt == other.createdAt &&
             this.cursor == other.cursor &&
             this.entityId == other.entityId &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.informationalEntityId == other.informationalEntityId &&
             this.limit == other.limit &&
             this.status == other.status &&
@@ -80,6 +85,7 @@ constructor(
             createdAt,
             cursor,
             entityId,
+            idempotencyKey,
             informationalEntityId,
             limit,
             status,
@@ -89,7 +95,7 @@ constructor(
     }
 
     override fun toString() =
-        "AccountListParams{createdAt=$createdAt, cursor=$cursor, entityId=$entityId, informationalEntityId=$informationalEntityId, limit=$limit, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "AccountListParams{createdAt=$createdAt, cursor=$cursor, entityId=$entityId, idempotencyKey=$idempotencyKey, informationalEntityId=$informationalEntityId, limit=$limit, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -104,6 +110,7 @@ constructor(
         private var createdAt: CreatedAt? = null
         private var cursor: String? = null
         private var entityId: String? = null
+        private var idempotencyKey: String? = null
         private var informationalEntityId: String? = null
         private var limit: Long? = null
         private var status: Status? = null
@@ -115,6 +122,7 @@ constructor(
             this.createdAt = accountListParams.createdAt
             this.cursor = accountListParams.cursor
             this.entityId = accountListParams.entityId
+            this.idempotencyKey = accountListParams.idempotencyKey
             this.informationalEntityId = accountListParams.informationalEntityId
             this.limit = accountListParams.limit
             this.status = accountListParams.status
@@ -129,6 +137,14 @@ constructor(
 
         /** Filter Accounts for those belonging to the specified Entity. */
         fun entityId(entityId: String) = apply { this.entityId = entityId }
+
+        /**
+         * Filter records to the one with the specified `idempotency_key` you chose for that object.
+         * This value is unique across Increase and is used to ensure that a request is only
+         * processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = apply { this.idempotencyKey = idempotencyKey }
 
         /** Filter Accounts for those belonging to the specified Entity as informational. */
         fun informationalEntityId(informationalEntityId: String) = apply {
@@ -188,6 +204,7 @@ constructor(
                 createdAt,
                 cursor,
                 entityId,
+                idempotencyKey,
                 informationalEntityId,
                 limit,
                 status,

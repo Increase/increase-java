@@ -31,10 +31,12 @@ private constructor(
     private val id: JsonField<String>,
     private val cardId: JsonField<String>,
     private val cardProfileId: JsonField<String>,
+    private val physicalCardProfileId: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val status: JsonField<Status>,
     private val cardholder: JsonField<Cardholder>,
     private val shipment: JsonField<Shipment>,
+    private val idempotencyKey: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -53,6 +55,10 @@ private constructor(
     fun cardProfileId(): Optional<String> =
         Optional.ofNullable(cardProfileId.getNullable("card_profile_id"))
 
+    /** The Physical Card Profile used for this Physical Card. */
+    fun physicalCardProfileId(): Optional<String> =
+        Optional.ofNullable(physicalCardProfileId.getNullable("physical_card_profile_id"))
+
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Physical
      * Card was created.
@@ -70,6 +76,14 @@ private constructor(
     fun shipment(): Shipment = shipment.getRequired("shipment")
 
     /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    fun idempotencyKey(): Optional<String> =
+        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+
+    /**
      * A constant representing the object's type. For this resource it will always be
      * `physical_card`.
      */
@@ -83,6 +97,11 @@ private constructor(
 
     /** The Card Profile used for this Physical Card. */
     @JsonProperty("card_profile_id") @ExcludeMissing fun _cardProfileId() = cardProfileId
+
+    /** The Physical Card Profile used for this Physical Card. */
+    @JsonProperty("physical_card_profile_id")
+    @ExcludeMissing
+    fun _physicalCardProfileId() = physicalCardProfileId
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Physical
@@ -100,6 +119,13 @@ private constructor(
     @JsonProperty("shipment") @ExcludeMissing fun _shipment() = shipment
 
     /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+
+    /**
      * A constant representing the object's type. For this resource it will always be
      * `physical_card`.
      */
@@ -114,10 +140,12 @@ private constructor(
             id()
             cardId()
             cardProfileId()
+            physicalCardProfileId()
             createdAt()
             status()
             cardholder().map { it.validate() }
             shipment().validate()
+            idempotencyKey()
             type()
             validated = true
         }
@@ -134,10 +162,12 @@ private constructor(
             this.id == other.id &&
             this.cardId == other.cardId &&
             this.cardProfileId == other.cardProfileId &&
+            this.physicalCardProfileId == other.physicalCardProfileId &&
             this.createdAt == other.createdAt &&
             this.status == other.status &&
             this.cardholder == other.cardholder &&
             this.shipment == other.shipment &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -149,10 +179,12 @@ private constructor(
                     id,
                     cardId,
                     cardProfileId,
+                    physicalCardProfileId,
                     createdAt,
                     status,
                     cardholder,
                     shipment,
+                    idempotencyKey,
                     type,
                     additionalProperties,
                 )
@@ -161,7 +193,7 @@ private constructor(
     }
 
     override fun toString() =
-        "PhysicalCard{id=$id, cardId=$cardId, cardProfileId=$cardProfileId, createdAt=$createdAt, status=$status, cardholder=$cardholder, shipment=$shipment, type=$type, additionalProperties=$additionalProperties}"
+        "PhysicalCard{id=$id, cardId=$cardId, cardProfileId=$cardProfileId, physicalCardProfileId=$physicalCardProfileId, createdAt=$createdAt, status=$status, cardholder=$cardholder, shipment=$shipment, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -173,10 +205,12 @@ private constructor(
         private var id: JsonField<String> = JsonMissing.of()
         private var cardId: JsonField<String> = JsonMissing.of()
         private var cardProfileId: JsonField<String> = JsonMissing.of()
+        private var physicalCardProfileId: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var cardholder: JsonField<Cardholder> = JsonMissing.of()
         private var shipment: JsonField<Shipment> = JsonMissing.of()
+        private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -185,10 +219,12 @@ private constructor(
             this.id = physicalCard.id
             this.cardId = physicalCard.cardId
             this.cardProfileId = physicalCard.cardProfileId
+            this.physicalCardProfileId = physicalCard.physicalCardProfileId
             this.createdAt = physicalCard.createdAt
             this.status = physicalCard.status
             this.cardholder = physicalCard.cardholder
             this.shipment = physicalCard.shipment
+            this.idempotencyKey = physicalCard.idempotencyKey
             this.type = physicalCard.type
             additionalProperties(physicalCard.additionalProperties)
         }
@@ -215,6 +251,17 @@ private constructor(
         @ExcludeMissing
         fun cardProfileId(cardProfileId: JsonField<String>) = apply {
             this.cardProfileId = cardProfileId
+        }
+
+        /** The Physical Card Profile used for this Physical Card. */
+        fun physicalCardProfileId(physicalCardProfileId: String) =
+            physicalCardProfileId(JsonField.of(physicalCardProfileId))
+
+        /** The Physical Card Profile used for this Physical Card. */
+        @JsonProperty("physical_card_profile_id")
+        @ExcludeMissing
+        fun physicalCardProfileId(physicalCardProfileId: JsonField<String>) = apply {
+            this.physicalCardProfileId = physicalCardProfileId
         }
 
         /**
@@ -256,6 +303,24 @@ private constructor(
         fun shipment(shipment: JsonField<Shipment>) = apply { this.shipment = shipment }
 
         /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
+        }
+
+        /**
          * A constant representing the object's type. For this resource it will always be
          * `physical_card`.
          */
@@ -288,10 +353,12 @@ private constructor(
                 id,
                 cardId,
                 cardProfileId,
+                physicalCardProfileId,
                 createdAt,
                 status,
                 cardholder,
                 shipment,
+                idempotencyKey,
                 type,
                 additionalProperties.toUnmodifiable(),
             )

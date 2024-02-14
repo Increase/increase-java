@@ -39,6 +39,7 @@ private constructor(
     private val name: JsonField<String>,
     private val status: JsonField<Status>,
     private val type: JsonField<Type>,
+    private val idempotencyKey: JsonField<String>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -98,6 +99,14 @@ private constructor(
     /** A constant representing the object's type. For this resource it will always be `account`. */
     fun type(): Type = type.getRequired("type")
 
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    fun idempotencyKey(): Optional<String> =
+        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+
     /** The bank the Account is with. */
     @JsonProperty("bank") @ExcludeMissing fun _bank() = bank
 
@@ -152,6 +161,13 @@ private constructor(
     /** A constant representing the object's type. For this resource it will always be `account`. */
     @JsonProperty("type") @ExcludeMissing fun _type() = type
 
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+
     @JsonAnyGetter
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -170,6 +186,7 @@ private constructor(
             name()
             status()
             type()
+            idempotencyKey()
             validated = true
         }
     }
@@ -194,6 +211,7 @@ private constructor(
             this.name == other.name &&
             this.status == other.status &&
             this.type == other.type &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -213,6 +231,7 @@ private constructor(
                     name,
                     status,
                     type,
+                    idempotencyKey,
                     additionalProperties,
                 )
         }
@@ -220,7 +239,7 @@ private constructor(
     }
 
     override fun toString() =
-        "Account{bank=$bank, createdAt=$createdAt, currency=$currency, entityId=$entityId, informationalEntityId=$informationalEntityId, id=$id, interestAccrued=$interestAccrued, interestAccruedAt=$interestAccruedAt, interestRate=$interestRate, name=$name, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "Account{bank=$bank, createdAt=$createdAt, currency=$currency, entityId=$entityId, informationalEntityId=$informationalEntityId, id=$id, interestAccrued=$interestAccrued, interestAccruedAt=$interestAccruedAt, interestRate=$interestRate, name=$name, status=$status, type=$type, idempotencyKey=$idempotencyKey, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -241,6 +260,7 @@ private constructor(
         private var name: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
+        private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -257,6 +277,7 @@ private constructor(
             this.name = account.name
             this.status = account.status
             this.type = account.type
+            this.idempotencyKey = account.idempotencyKey
             additionalProperties(account.additionalProperties)
         }
 
@@ -399,6 +420,24 @@ private constructor(
         @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
+        }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             this.additionalProperties.putAll(additionalProperties)
@@ -427,6 +466,7 @@ private constructor(
                 name,
                 status,
                 type,
+                idempotencyKey,
                 additionalProperties.toUnmodifiable(),
             )
     }

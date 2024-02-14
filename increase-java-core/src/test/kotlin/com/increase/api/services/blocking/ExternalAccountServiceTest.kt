@@ -26,6 +26,7 @@ class ExternalAccountServiceTest {
                     .accountNumber("x")
                     .description("x")
                     .routingNumber("xxxxxxxxx")
+                    .accountHolder(ExternalAccountCreateParams.AccountHolder.BUSINESS)
                     .funding(ExternalAccountCreateParams.Funding.CHECKING)
                     .build()
             )
@@ -61,6 +62,7 @@ class ExternalAccountServiceTest {
             externalAccountService.update(
                 ExternalAccountUpdateParams.builder()
                     .externalAccountId("string")
+                    .accountHolder(ExternalAccountUpdateParams.AccountHolder.BUSINESS)
                     .description("x")
                     .status(ExternalAccountUpdateParams.Status.ACTIVE)
                     .build()

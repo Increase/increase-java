@@ -34,6 +34,7 @@ private constructor(
     private val fdicCertificateNumber: JsonField<String>,
     private val entityId: JsonField<String>,
     private val status: JsonField<Status>,
+    private val idempotencyKey: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -67,6 +68,14 @@ private constructor(
     fun status(): Status = status.getRequired("status")
 
     /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    fun idempotencyKey(): Optional<String> =
+        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+
+    /**
      * A constant representing the object's type. For this resource it will always be
      * `intrafi_exclusion`.
      */
@@ -96,6 +105,13 @@ private constructor(
     @JsonProperty("status") @ExcludeMissing fun _status() = status
 
     /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+
+    /**
      * A constant representing the object's type. For this resource it will always be
      * `intrafi_exclusion`.
      */
@@ -114,6 +130,7 @@ private constructor(
             fdicCertificateNumber()
             entityId()
             status()
+            idempotencyKey()
             type()
             validated = true
         }
@@ -134,6 +151,7 @@ private constructor(
             this.fdicCertificateNumber == other.fdicCertificateNumber &&
             this.entityId == other.entityId &&
             this.status == other.status &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -149,6 +167,7 @@ private constructor(
                     fdicCertificateNumber,
                     entityId,
                     status,
+                    idempotencyKey,
                     type,
                     additionalProperties,
                 )
@@ -157,7 +176,7 @@ private constructor(
     }
 
     override fun toString() =
-        "IntrafiExclusion{id=$id, submittedAt=$submittedAt, excludedAt=$excludedAt, bankName=$bankName, fdicCertificateNumber=$fdicCertificateNumber, entityId=$entityId, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "IntrafiExclusion{id=$id, submittedAt=$submittedAt, excludedAt=$excludedAt, bankName=$bankName, fdicCertificateNumber=$fdicCertificateNumber, entityId=$entityId, status=$status, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -173,6 +192,7 @@ private constructor(
         private var fdicCertificateNumber: JsonField<String> = JsonMissing.of()
         private var entityId: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
+        private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -185,6 +205,7 @@ private constructor(
             this.fdicCertificateNumber = intrafiExclusion.fdicCertificateNumber
             this.entityId = intrafiExclusion.entityId
             this.status = intrafiExclusion.status
+            this.idempotencyKey = intrafiExclusion.idempotencyKey
             this.type = intrafiExclusion.type
             additionalProperties(intrafiExclusion.additionalProperties)
         }
@@ -251,6 +272,24 @@ private constructor(
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
+        }
+
+        /**
          * A constant representing the object's type. For this resource it will always be
          * `intrafi_exclusion`.
          */
@@ -287,6 +326,7 @@ private constructor(
                 fdicCertificateNumber,
                 entityId,
                 status,
+                idempotencyKey,
                 type,
                 additionalProperties.toUnmodifiable(),
             )

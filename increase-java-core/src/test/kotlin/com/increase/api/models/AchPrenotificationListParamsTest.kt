@@ -21,6 +21,7 @@ class AchPrenotificationListParamsTest {
                     .build()
             )
             .cursor("string")
+            .idempotencyKey("x")
             .limit(123L)
             .build()
     }
@@ -38,6 +39,7 @@ class AchPrenotificationListParamsTest {
                         .build()
                 )
                 .cursor("string")
+                .idempotencyKey("x")
                 .limit(123L)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
@@ -49,6 +51,7 @@ class AchPrenotificationListParamsTest {
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
         expected.put("cursor", listOf("string"))
+        expected.put("idempotency_key", listOf("x"))
         expected.put("limit", listOf("123"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }

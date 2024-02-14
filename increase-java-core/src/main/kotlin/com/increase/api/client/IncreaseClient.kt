@@ -29,8 +29,6 @@ interface IncreaseClient {
 
     fun cardDisputes(): CardDisputeService
 
-    fun cardProfiles(): CardProfileService
-
     fun cardPurchaseSupplements(): CardPurchaseSupplementService
 
     fun externalAccounts(): ExternalAccountService
@@ -102,4 +100,8 @@ interface IncreaseClient {
     fun oauthTokens(): OAuthTokenService
 
     fun inboundWireTransfers(): InboundWireTransferService
+
+    fun digitalCardProfiles(): DigitalCardProfileService
+
+    fun physicalCardProfiles(): PhysicalCardProfileService
 }

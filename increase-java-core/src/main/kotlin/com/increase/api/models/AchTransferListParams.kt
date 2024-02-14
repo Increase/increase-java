@@ -16,8 +16,8 @@ constructor(
     private val createdAt: CreatedAt?,
     private val cursor: String?,
     private val externalAccountId: String?,
+    private val idempotencyKey: String?,
     private val limit: Long?,
-    private val uniqueIdentifier: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
@@ -30,9 +30,9 @@ constructor(
 
     fun externalAccountId(): Optional<String> = Optional.ofNullable(externalAccountId)
 
-    fun limit(): Optional<Long> = Optional.ofNullable(limit)
+    fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey)
 
-    fun uniqueIdentifier(): Optional<String> = Optional.ofNullable(uniqueIdentifier)
+    fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
     @JvmSynthetic
     internal fun getQueryParams(): Map<String, List<String>> {
@@ -41,8 +41,8 @@ constructor(
         this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
         this.externalAccountId?.let { params.put("external_account_id", listOf(it.toString())) }
+        this.idempotencyKey?.let { params.put("idempotency_key", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
-        this.uniqueIdentifier?.let { params.put("unique_identifier", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -63,8 +63,8 @@ constructor(
             this.createdAt == other.createdAt &&
             this.cursor == other.cursor &&
             this.externalAccountId == other.externalAccountId &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.limit == other.limit &&
-            this.uniqueIdentifier == other.uniqueIdentifier &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
@@ -75,15 +75,15 @@ constructor(
             createdAt,
             cursor,
             externalAccountId,
+            idempotencyKey,
             limit,
-            uniqueIdentifier,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "AchTransferListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, externalAccountId=$externalAccountId, limit=$limit, uniqueIdentifier=$uniqueIdentifier, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "AchTransferListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, externalAccountId=$externalAccountId, idempotencyKey=$idempotencyKey, limit=$limit, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -99,8 +99,8 @@ constructor(
         private var createdAt: CreatedAt? = null
         private var cursor: String? = null
         private var externalAccountId: String? = null
+        private var idempotencyKey: String? = null
         private var limit: Long? = null
-        private var uniqueIdentifier: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
@@ -110,8 +110,8 @@ constructor(
             this.createdAt = achTransferListParams.createdAt
             this.cursor = achTransferListParams.cursor
             this.externalAccountId = achTransferListParams.externalAccountId
+            this.idempotencyKey = achTransferListParams.idempotencyKey
             this.limit = achTransferListParams.limit
-            this.uniqueIdentifier = achTransferListParams.uniqueIdentifier
             additionalQueryParams(achTransferListParams.additionalQueryParams)
             additionalHeaders(achTransferListParams.additionalHeaders)
         }
@@ -130,14 +130,17 @@ constructor(
         }
 
         /**
+         * Filter records to the one with the specified `idempotency_key` you chose for that object.
+         * This value is unique across Increase and is used to ensure that a request is only
+         * processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = apply { this.idempotencyKey = idempotencyKey }
+
+        /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
         fun limit(limit: Long) = apply { this.limit = limit }
-
-        /** Filter records to the one with the specified `unique_identifier`. */
-        fun uniqueIdentifier(uniqueIdentifier: String) = apply {
-            this.uniqueIdentifier = uniqueIdentifier
-        }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -185,8 +188,8 @@ constructor(
                 createdAt,
                 cursor,
                 externalAccountId,
+                idempotencyKey,
                 limit,
-                uniqueIdentifier,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )

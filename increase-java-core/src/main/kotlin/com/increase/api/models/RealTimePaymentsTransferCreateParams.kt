@@ -27,7 +27,6 @@ constructor(
     private val requireApproval: Boolean?,
     private val ultimateCreditorName: String?,
     private val ultimateDebtorName: String?,
-    private val uniqueIdentifier: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -55,8 +54,6 @@ constructor(
 
     fun ultimateDebtorName(): Optional<String> = Optional.ofNullable(ultimateDebtorName)
 
-    fun uniqueIdentifier(): Optional<String> = Optional.ofNullable(uniqueIdentifier)
-
     @JvmSynthetic
     internal fun getBody(): RealTimePaymentsTransferCreateBody {
         return RealTimePaymentsTransferCreateBody(
@@ -71,7 +68,6 @@ constructor(
             requireApproval,
             ultimateCreditorName,
             ultimateDebtorName,
-            uniqueIdentifier,
             additionalBodyProperties,
         )
     }
@@ -95,7 +91,6 @@ constructor(
         private val requireApproval: Boolean?,
         private val ultimateCreditorName: String?,
         private val ultimateDebtorName: String?,
-        private val uniqueIdentifier: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -145,13 +140,6 @@ constructor(
         /** The name of the the party on whose behalf the debtor is instructing the payment. */
         @JsonProperty("ultimate_debtor_name") fun ultimateDebtorName(): String? = ultimateDebtorName
 
-        /**
-         * A unique identifier you choose for the transfer. Reusing this identifier for another
-         * transfer will result in an error. You can query for the transfer associated with this
-         * identifier using the List endpoint.
-         */
-        @JsonProperty("unique_identifier") fun uniqueIdentifier(): String? = uniqueIdentifier
-
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -175,7 +163,6 @@ constructor(
                 this.requireApproval == other.requireApproval &&
                 this.ultimateCreditorName == other.ultimateCreditorName &&
                 this.ultimateDebtorName == other.ultimateDebtorName &&
-                this.uniqueIdentifier == other.uniqueIdentifier &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -194,7 +181,6 @@ constructor(
                         requireApproval,
                         ultimateCreditorName,
                         ultimateDebtorName,
-                        uniqueIdentifier,
                         additionalProperties,
                     )
             }
@@ -202,7 +188,7 @@ constructor(
         }
 
         override fun toString() =
-            "RealTimePaymentsTransferCreateBody{amount=$amount, creditorName=$creditorName, remittanceInformation=$remittanceInformation, sourceAccountNumberId=$sourceAccountNumberId, debtorName=$debtorName, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, externalAccountId=$externalAccountId, requireApproval=$requireApproval, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, uniqueIdentifier=$uniqueIdentifier, additionalProperties=$additionalProperties}"
+            "RealTimePaymentsTransferCreateBody{amount=$amount, creditorName=$creditorName, remittanceInformation=$remittanceInformation, sourceAccountNumberId=$sourceAccountNumberId, debtorName=$debtorName, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, externalAccountId=$externalAccountId, requireApproval=$requireApproval, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -222,7 +208,6 @@ constructor(
             private var requireApproval: Boolean? = null
             private var ultimateCreditorName: String? = null
             private var ultimateDebtorName: String? = null
-            private var uniqueIdentifier: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -244,7 +229,6 @@ constructor(
                 this.requireApproval = realTimePaymentsTransferCreateBody.requireApproval
                 this.ultimateCreditorName = realTimePaymentsTransferCreateBody.ultimateCreditorName
                 this.ultimateDebtorName = realTimePaymentsTransferCreateBody.ultimateDebtorName
-                this.uniqueIdentifier = realTimePaymentsTransferCreateBody.uniqueIdentifier
                 additionalProperties(realTimePaymentsTransferCreateBody.additionalProperties)
             }
 
@@ -316,16 +300,6 @@ constructor(
                 this.ultimateDebtorName = ultimateDebtorName
             }
 
-            /**
-             * A unique identifier you choose for the transfer. Reusing this identifier for another
-             * transfer will result in an error. You can query for the transfer associated with this
-             * identifier using the List endpoint.
-             */
-            @JsonProperty("unique_identifier")
-            fun uniqueIdentifier(uniqueIdentifier: String) = apply {
-                this.uniqueIdentifier = uniqueIdentifier
-            }
-
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -357,7 +331,6 @@ constructor(
                     requireApproval,
                     ultimateCreditorName,
                     ultimateDebtorName,
-                    uniqueIdentifier,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -386,7 +359,6 @@ constructor(
             this.requireApproval == other.requireApproval &&
             this.ultimateCreditorName == other.ultimateCreditorName &&
             this.ultimateDebtorName == other.ultimateDebtorName &&
-            this.uniqueIdentifier == other.uniqueIdentifier &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -405,7 +377,6 @@ constructor(
             requireApproval,
             ultimateCreditorName,
             ultimateDebtorName,
-            uniqueIdentifier,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -413,7 +384,7 @@ constructor(
     }
 
     override fun toString() =
-        "RealTimePaymentsTransferCreateParams{amount=$amount, creditorName=$creditorName, remittanceInformation=$remittanceInformation, sourceAccountNumberId=$sourceAccountNumberId, debtorName=$debtorName, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, externalAccountId=$externalAccountId, requireApproval=$requireApproval, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, uniqueIdentifier=$uniqueIdentifier, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "RealTimePaymentsTransferCreateParams{amount=$amount, creditorName=$creditorName, remittanceInformation=$remittanceInformation, sourceAccountNumberId=$sourceAccountNumberId, debtorName=$debtorName, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, externalAccountId=$externalAccountId, requireApproval=$requireApproval, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -436,7 +407,6 @@ constructor(
         private var requireApproval: Boolean? = null
         private var ultimateCreditorName: String? = null
         private var ultimateDebtorName: String? = null
-        private var uniqueIdentifier: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -458,7 +428,6 @@ constructor(
             this.requireApproval = realTimePaymentsTransferCreateParams.requireApproval
             this.ultimateCreditorName = realTimePaymentsTransferCreateParams.ultimateCreditorName
             this.ultimateDebtorName = realTimePaymentsTransferCreateParams.ultimateDebtorName
-            this.uniqueIdentifier = realTimePaymentsTransferCreateParams.uniqueIdentifier
             additionalQueryParams(realTimePaymentsTransferCreateParams.additionalQueryParams)
             additionalHeaders(realTimePaymentsTransferCreateParams.additionalHeaders)
             additionalBodyProperties(realTimePaymentsTransferCreateParams.additionalBodyProperties)
@@ -517,15 +486,6 @@ constructor(
         /** The name of the the party on whose behalf the debtor is instructing the payment. */
         fun ultimateDebtorName(ultimateDebtorName: String) = apply {
             this.ultimateDebtorName = ultimateDebtorName
-        }
-
-        /**
-         * A unique identifier you choose for the transfer. Reusing this identifier for another
-         * transfer will result in an error. You can query for the transfer associated with this
-         * identifier using the List endpoint.
-         */
-        fun uniqueIdentifier(uniqueIdentifier: String) = apply {
-            this.uniqueIdentifier = uniqueIdentifier
         }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
@@ -599,7 +559,6 @@ constructor(
                 requireApproval,
                 ultimateCreditorName,
                 ultimateDebtorName,
-                uniqueIdentifier,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

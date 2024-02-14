@@ -11,6 +11,7 @@ import java.util.Optional
 class ProofOfAuthorizationRequestSubmissionListParams
 constructor(
     private val cursor: String?,
+    private val idempotencyKey: String?,
     private val limit: Long?,
     private val proofOfAuthorizationRequestId: String?,
     private val additionalQueryParams: Map<String, List<String>>,
@@ -18,6 +19,8 @@ constructor(
 ) {
 
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
+
+    fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey)
 
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
@@ -28,6 +31,7 @@ constructor(
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
+        this.idempotencyKey?.let { params.put("idempotency_key", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
         this.proofOfAuthorizationRequestId?.let {
             params.put("proof_of_authorization_request_id", listOf(it.toString()))
@@ -49,6 +53,7 @@ constructor(
 
         return other is ProofOfAuthorizationRequestSubmissionListParams &&
             this.cursor == other.cursor &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.limit == other.limit &&
             this.proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId &&
             this.additionalQueryParams == other.additionalQueryParams &&
@@ -58,6 +63,7 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             cursor,
+            idempotencyKey,
             limit,
             proofOfAuthorizationRequestId,
             additionalQueryParams,
@@ -66,7 +72,7 @@ constructor(
     }
 
     override fun toString() =
-        "ProofOfAuthorizationRequestSubmissionListParams{cursor=$cursor, limit=$limit, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "ProofOfAuthorizationRequestSubmissionListParams{cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -79,6 +85,7 @@ constructor(
     class Builder {
 
         private var cursor: String? = null
+        private var idempotencyKey: String? = null
         private var limit: Long? = null
         private var proofOfAuthorizationRequestId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -90,6 +97,7 @@ constructor(
                 ProofOfAuthorizationRequestSubmissionListParams
         ) = apply {
             this.cursor = proofOfAuthorizationRequestSubmissionListParams.cursor
+            this.idempotencyKey = proofOfAuthorizationRequestSubmissionListParams.idempotencyKey
             this.limit = proofOfAuthorizationRequestSubmissionListParams.limit
             this.proofOfAuthorizationRequestId =
                 proofOfAuthorizationRequestSubmissionListParams.proofOfAuthorizationRequestId
@@ -101,6 +109,14 @@ constructor(
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String) = apply { this.cursor = cursor }
+
+        /**
+         * Filter records to the one with the specified `idempotency_key` you chose for that object.
+         * This value is unique across Increase and is used to ensure that a request is only
+         * processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = apply { this.idempotencyKey = idempotencyKey }
 
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
@@ -155,6 +171,7 @@ constructor(
         fun build(): ProofOfAuthorizationRequestSubmissionListParams =
             ProofOfAuthorizationRequestSubmissionListParams(
                 cursor,
+                idempotencyKey,
                 limit,
                 proofOfAuthorizationRequestId,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),

@@ -14,6 +14,7 @@ class ExternalAccountCreateParamsTest {
             .accountNumber("x")
             .description("x")
             .routingNumber("xxxxxxxxx")
+            .accountHolder(ExternalAccountCreateParams.AccountHolder.BUSINESS)
             .funding(ExternalAccountCreateParams.Funding.CHECKING)
             .build()
     }
@@ -25,6 +26,7 @@ class ExternalAccountCreateParamsTest {
                 .accountNumber("x")
                 .description("x")
                 .routingNumber("xxxxxxxxx")
+                .accountHolder(ExternalAccountCreateParams.AccountHolder.BUSINESS)
                 .funding(ExternalAccountCreateParams.Funding.CHECKING)
                 .build()
         val body = params.getBody()
@@ -32,6 +34,8 @@ class ExternalAccountCreateParamsTest {
         assertThat(body.accountNumber()).isEqualTo("x")
         assertThat(body.description()).isEqualTo("x")
         assertThat(body.routingNumber()).isEqualTo("xxxxxxxxx")
+        assertThat(body.accountHolder())
+            .isEqualTo(ExternalAccountCreateParams.AccountHolder.BUSINESS)
         assertThat(body.funding()).isEqualTo(ExternalAccountCreateParams.Funding.CHECKING)
     }
 

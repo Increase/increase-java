@@ -22,7 +22,6 @@ class RealTimePaymentsTransferCreateParamsTest {
             .requireApproval(true)
             .ultimateCreditorName("x")
             .ultimateDebtorName("x")
-            .uniqueIdentifier("x")
             .build()
     }
 
@@ -41,7 +40,6 @@ class RealTimePaymentsTransferCreateParamsTest {
                 .requireApproval(true)
                 .ultimateCreditorName("x")
                 .ultimateDebtorName("x")
-                .uniqueIdentifier("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -56,7 +54,6 @@ class RealTimePaymentsTransferCreateParamsTest {
         assertThat(body.requireApproval()).isEqualTo(true)
         assertThat(body.ultimateCreditorName()).isEqualTo("x")
         assertThat(body.ultimateDebtorName()).isEqualTo("x")
-        assertThat(body.uniqueIdentifier()).isEqualTo("x")
     }
 
     @Test

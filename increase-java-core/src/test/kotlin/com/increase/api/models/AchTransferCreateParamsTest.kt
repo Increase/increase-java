@@ -16,11 +16,41 @@ class AchTransferCreateParamsTest {
             .amount(123L)
             .statementDescriptor("x")
             .accountNumber("x")
-            .addendum("x")
+            .addenda(
+                AchTransferCreateParams.Addenda.builder()
+                    .category(AchTransferCreateParams.Addenda.Category.FREEFORM)
+                    .freeform(
+                        AchTransferCreateParams.Addenda.Freeform.builder()
+                            .entries(
+                                listOf(
+                                    AchTransferCreateParams.Addenda.Freeform.Entry.builder()
+                                        .paymentRelatedInformation("x")
+                                        .build()
+                                )
+                            )
+                            .build()
+                    )
+                    .paymentOrderRemittanceAdvice(
+                        AchTransferCreateParams.Addenda.PaymentOrderRemittanceAdvice.builder()
+                            .invoices(
+                                listOf(
+                                    AchTransferCreateParams.Addenda.PaymentOrderRemittanceAdvice
+                                        .Invoice
+                                        .builder()
+                                        .invoiceNumber("x")
+                                        .paidAmount(123L)
+                                        .build()
+                                )
+                            )
+                            .build()
+                    )
+                    .build()
+            )
             .companyDescriptiveDate("x")
             .companyDiscretionaryData("x")
             .companyEntryDescription("x")
             .companyName("x")
+            .destinationAccountHolder(AchTransferCreateParams.DestinationAccountHolder.BUSINESS)
             .effectiveDate(LocalDate.parse("2019-12-27"))
             .externalAccountId("string")
             .funding(AchTransferCreateParams.Funding.CHECKING)
@@ -31,7 +61,6 @@ class AchTransferCreateParamsTest {
             .standardEntryClassCode(
                 AchTransferCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
             )
-            .uniqueIdentifier("x")
             .build()
     }
 
@@ -43,11 +72,41 @@ class AchTransferCreateParamsTest {
                 .amount(123L)
                 .statementDescriptor("x")
                 .accountNumber("x")
-                .addendum("x")
+                .addenda(
+                    AchTransferCreateParams.Addenda.builder()
+                        .category(AchTransferCreateParams.Addenda.Category.FREEFORM)
+                        .freeform(
+                            AchTransferCreateParams.Addenda.Freeform.builder()
+                                .entries(
+                                    listOf(
+                                        AchTransferCreateParams.Addenda.Freeform.Entry.builder()
+                                            .paymentRelatedInformation("x")
+                                            .build()
+                                    )
+                                )
+                                .build()
+                        )
+                        .paymentOrderRemittanceAdvice(
+                            AchTransferCreateParams.Addenda.PaymentOrderRemittanceAdvice.builder()
+                                .invoices(
+                                    listOf(
+                                        AchTransferCreateParams.Addenda.PaymentOrderRemittanceAdvice
+                                            .Invoice
+                                            .builder()
+                                            .invoiceNumber("x")
+                                            .paidAmount(123L)
+                                            .build()
+                                    )
+                                )
+                                .build()
+                        )
+                        .build()
+                )
                 .companyDescriptiveDate("x")
                 .companyDiscretionaryData("x")
                 .companyEntryDescription("x")
                 .companyName("x")
+                .destinationAccountHolder(AchTransferCreateParams.DestinationAccountHolder.BUSINESS)
                 .effectiveDate(LocalDate.parse("2019-12-27"))
                 .externalAccountId("string")
                 .funding(AchTransferCreateParams.Funding.CHECKING)
@@ -58,7 +117,6 @@ class AchTransferCreateParamsTest {
                 .standardEntryClassCode(
                     AchTransferCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
                 )
-                .uniqueIdentifier("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -66,11 +124,43 @@ class AchTransferCreateParamsTest {
         assertThat(body.amount()).isEqualTo(123L)
         assertThat(body.statementDescriptor()).isEqualTo("x")
         assertThat(body.accountNumber()).isEqualTo("x")
-        assertThat(body.addendum()).isEqualTo("x")
+        assertThat(body.addenda())
+            .isEqualTo(
+                AchTransferCreateParams.Addenda.builder()
+                    .category(AchTransferCreateParams.Addenda.Category.FREEFORM)
+                    .freeform(
+                        AchTransferCreateParams.Addenda.Freeform.builder()
+                            .entries(
+                                listOf(
+                                    AchTransferCreateParams.Addenda.Freeform.Entry.builder()
+                                        .paymentRelatedInformation("x")
+                                        .build()
+                                )
+                            )
+                            .build()
+                    )
+                    .paymentOrderRemittanceAdvice(
+                        AchTransferCreateParams.Addenda.PaymentOrderRemittanceAdvice.builder()
+                            .invoices(
+                                listOf(
+                                    AchTransferCreateParams.Addenda.PaymentOrderRemittanceAdvice
+                                        .Invoice
+                                        .builder()
+                                        .invoiceNumber("x")
+                                        .paidAmount(123L)
+                                        .build()
+                                )
+                            )
+                            .build()
+                    )
+                    .build()
+            )
         assertThat(body.companyDescriptiveDate()).isEqualTo("x")
         assertThat(body.companyDiscretionaryData()).isEqualTo("x")
         assertThat(body.companyEntryDescription()).isEqualTo("x")
         assertThat(body.companyName()).isEqualTo("x")
+        assertThat(body.destinationAccountHolder())
+            .isEqualTo(AchTransferCreateParams.DestinationAccountHolder.BUSINESS)
         assertThat(body.effectiveDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(body.externalAccountId()).isEqualTo("string")
         assertThat(body.funding()).isEqualTo(AchTransferCreateParams.Funding.CHECKING)
@@ -80,7 +170,6 @@ class AchTransferCreateParamsTest {
         assertThat(body.routingNumber()).isEqualTo("xxxxxxxxx")
         assertThat(body.standardEntryClassCode())
             .isEqualTo(AchTransferCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT)
-        assertThat(body.uniqueIdentifier()).isEqualTo("x")
     }
 
     @Test
