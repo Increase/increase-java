@@ -17,6 +17,7 @@ import java.util.Optional
 class InboundWireTransferListParams
 constructor(
     private val accountId: String?,
+    private val accountNumberId: String?,
     private val createdAt: CreatedAt?,
     private val cursor: String?,
     private val limit: Long?,
@@ -26,6 +27,8 @@ constructor(
 ) {
 
     fun accountId(): Optional<String> = Optional.ofNullable(accountId)
+
+    fun accountNumberId(): Optional<String> = Optional.ofNullable(accountNumberId)
 
     fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
@@ -39,6 +42,7 @@ constructor(
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
         this.accountId?.let { params.put("account_id", listOf(it.toString())) }
+        this.accountNumberId?.let { params.put("account_number_id", listOf(it.toString())) }
         this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
@@ -60,6 +64,7 @@ constructor(
 
         return other is InboundWireTransferListParams &&
             this.accountId == other.accountId &&
+            this.accountNumberId == other.accountNumberId &&
             this.createdAt == other.createdAt &&
             this.cursor == other.cursor &&
             this.limit == other.limit &&
@@ -71,6 +76,7 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             accountId,
+            accountNumberId,
             createdAt,
             cursor,
             limit,
@@ -81,7 +87,7 @@ constructor(
     }
 
     override fun toString() =
-        "InboundWireTransferListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, limit=$limit, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "InboundWireTransferListParams{accountId=$accountId, accountNumberId=$accountNumberId, createdAt=$createdAt, cursor=$cursor, limit=$limit, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -94,6 +100,7 @@ constructor(
     class Builder {
 
         private var accountId: String? = null
+        private var accountNumberId: String? = null
         private var createdAt: CreatedAt? = null
         private var cursor: String? = null
         private var limit: Long? = null
@@ -104,6 +111,7 @@ constructor(
         @JvmSynthetic
         internal fun from(inboundWireTransferListParams: InboundWireTransferListParams) = apply {
             this.accountId = inboundWireTransferListParams.accountId
+            this.accountNumberId = inboundWireTransferListParams.accountNumberId
             this.createdAt = inboundWireTransferListParams.createdAt
             this.cursor = inboundWireTransferListParams.cursor
             this.limit = inboundWireTransferListParams.limit
@@ -114,6 +122,11 @@ constructor(
 
         /** Filter Inbound Wire Tranfers to ones belonging to the specified Account. */
         fun accountId(accountId: String) = apply { this.accountId = accountId }
+
+        /** Filter Inbound Wire Tranfers to ones belonging to the specified Account Number. */
+        fun accountNumberId(accountNumberId: String) = apply {
+            this.accountNumberId = accountNumberId
+        }
 
         fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
@@ -171,6 +184,7 @@ constructor(
         fun build(): InboundWireTransferListParams =
             InboundWireTransferListParams(
                 accountId,
+                accountNumberId,
                 createdAt,
                 cursor,
                 limit,

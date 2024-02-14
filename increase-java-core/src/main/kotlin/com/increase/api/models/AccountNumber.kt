@@ -37,7 +37,7 @@ private constructor(
     private val status: JsonField<Status>,
     private val inboundAch: JsonField<InboundAch>,
     private val inboundChecks: JsonField<InboundChecks>,
-    private val uniqueIdentifier: JsonField<String>,
+    private val idempotencyKey: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -76,9 +76,13 @@ private constructor(
     /** Properties related to how this Account Number should handle inbound check withdrawals. */
     fun inboundChecks(): InboundChecks = inboundChecks.getRequired("inbound_checks")
 
-    /** The unique identifier you chose for this object. */
-    fun uniqueIdentifier(): Optional<String> =
-        Optional.ofNullable(uniqueIdentifier.getNullable("unique_identifier"))
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    fun idempotencyKey(): Optional<String> =
+        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -116,8 +120,12 @@ private constructor(
     /** Properties related to how this Account Number should handle inbound check withdrawals. */
     @JsonProperty("inbound_checks") @ExcludeMissing fun _inboundChecks() = inboundChecks
 
-    /** The unique identifier you chose for this object. */
-    @JsonProperty("unique_identifier") @ExcludeMissing fun _uniqueIdentifier() = uniqueIdentifier
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -140,7 +148,7 @@ private constructor(
             status()
             inboundAch().validate()
             inboundChecks().validate()
-            uniqueIdentifier()
+            idempotencyKey()
             type()
             validated = true
         }
@@ -163,7 +171,7 @@ private constructor(
             this.status == other.status &&
             this.inboundAch == other.inboundAch &&
             this.inboundChecks == other.inboundChecks &&
-            this.uniqueIdentifier == other.uniqueIdentifier &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -181,7 +189,7 @@ private constructor(
                     status,
                     inboundAch,
                     inboundChecks,
-                    uniqueIdentifier,
+                    idempotencyKey,
                     type,
                     additionalProperties,
                 )
@@ -190,7 +198,7 @@ private constructor(
     }
 
     override fun toString() =
-        "AccountNumber{accountId=$accountId, accountNumber=$accountNumber, id=$id, createdAt=$createdAt, name=$name, routingNumber=$routingNumber, status=$status, inboundAch=$inboundAch, inboundChecks=$inboundChecks, uniqueIdentifier=$uniqueIdentifier, type=$type, additionalProperties=$additionalProperties}"
+        "AccountNumber{accountId=$accountId, accountNumber=$accountNumber, id=$id, createdAt=$createdAt, name=$name, routingNumber=$routingNumber, status=$status, inboundAch=$inboundAch, inboundChecks=$inboundChecks, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -208,7 +216,7 @@ private constructor(
         private var status: JsonField<Status> = JsonMissing.of()
         private var inboundAch: JsonField<InboundAch> = JsonMissing.of()
         private var inboundChecks: JsonField<InboundChecks> = JsonMissing.of()
-        private var uniqueIdentifier: JsonField<String> = JsonMissing.of()
+        private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -223,7 +231,7 @@ private constructor(
             this.status = accountNumber.status
             this.inboundAch = accountNumber.inboundAch
             this.inboundChecks = accountNumber.inboundChecks
-            this.uniqueIdentifier = accountNumber.uniqueIdentifier
+            this.idempotencyKey = accountNumber.idempotencyKey
             this.type = accountNumber.type
             additionalProperties(accountNumber.additionalProperties)
         }
@@ -314,15 +322,22 @@ private constructor(
             this.inboundChecks = inboundChecks
         }
 
-        /** The unique identifier you chose for this object. */
-        fun uniqueIdentifier(uniqueIdentifier: String) =
-            uniqueIdentifier(JsonField.of(uniqueIdentifier))
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
 
-        /** The unique identifier you chose for this object. */
-        @JsonProperty("unique_identifier")
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        @JsonProperty("idempotency_key")
         @ExcludeMissing
-        fun uniqueIdentifier(uniqueIdentifier: JsonField<String>) = apply {
-            this.uniqueIdentifier = uniqueIdentifier
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
         }
 
         /**
@@ -364,7 +379,7 @@ private constructor(
                 status,
                 inboundAch,
                 inboundChecks,
-                uniqueIdentifier,
+                idempotencyKey,
                 type,
                 additionalProperties.toUnmodifiable(),
             )

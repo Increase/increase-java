@@ -13,6 +13,7 @@ class IntrafiAccountEnrollmentListParamsTest {
         IntrafiAccountEnrollmentListParams.builder()
             .accountId("string")
             .cursor("string")
+            .idempotencyKey("x")
             .limit(123L)
             .status(
                 IntrafiAccountEnrollmentListParams.Status.builder()
@@ -28,6 +29,7 @@ class IntrafiAccountEnrollmentListParamsTest {
             IntrafiAccountEnrollmentListParams.builder()
                 .accountId("string")
                 .cursor("string")
+                .idempotencyKey("x")
                 .limit(123L)
                 .status(
                     IntrafiAccountEnrollmentListParams.Status.builder()
@@ -38,6 +40,7 @@ class IntrafiAccountEnrollmentListParamsTest {
         val expected = mutableMapOf<String, List<String>>()
         expected.put("account_id", listOf("string"))
         expected.put("cursor", listOf("string"))
+        expected.put("idempotency_key", listOf("x"))
         expected.put("limit", listOf("123"))
         IntrafiAccountEnrollmentListParams.Status.builder()
             .in_(listOf(IntrafiAccountEnrollmentListParams.Status.In.PENDING_ENROLLING))

@@ -36,6 +36,7 @@ private constructor(
     private val depositSubmission: JsonField<DepositSubmission>,
     private val depositRejection: JsonField<DepositRejection>,
     private val depositReturn: JsonField<DepositReturn>,
+    private val idempotencyKey: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -104,6 +105,14 @@ private constructor(
         Optional.ofNullable(depositReturn.getNullable("deposit_return"))
 
     /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    fun idempotencyKey(): Optional<String> =
+        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+
+    /**
      * A constant representing the object's type. For this resource it will always be
      * `check_deposit`.
      */
@@ -163,6 +172,13 @@ private constructor(
     @JsonProperty("deposit_return") @ExcludeMissing fun _depositReturn() = depositReturn
 
     /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+
+    /**
      * A constant representing the object's type. For this resource it will always be
      * `check_deposit`.
      */
@@ -187,6 +203,7 @@ private constructor(
             depositSubmission().map { it.validate() }
             depositRejection().map { it.validate() }
             depositReturn().map { it.validate() }
+            idempotencyKey()
             type()
             validated = true
         }
@@ -213,6 +230,7 @@ private constructor(
             this.depositSubmission == other.depositSubmission &&
             this.depositRejection == other.depositRejection &&
             this.depositReturn == other.depositReturn &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -234,6 +252,7 @@ private constructor(
                     depositSubmission,
                     depositRejection,
                     depositReturn,
+                    idempotencyKey,
                     type,
                     additionalProperties,
                 )
@@ -242,7 +261,7 @@ private constructor(
     }
 
     override fun toString() =
-        "CheckDeposit{id=$id, amount=$amount, createdAt=$createdAt, currency=$currency, status=$status, accountId=$accountId, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, transactionId=$transactionId, depositAcceptance=$depositAcceptance, depositSubmission=$depositSubmission, depositRejection=$depositRejection, depositReturn=$depositReturn, type=$type, additionalProperties=$additionalProperties}"
+        "CheckDeposit{id=$id, amount=$amount, createdAt=$createdAt, currency=$currency, status=$status, accountId=$accountId, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, transactionId=$transactionId, depositAcceptance=$depositAcceptance, depositSubmission=$depositSubmission, depositRejection=$depositRejection, depositReturn=$depositReturn, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -264,6 +283,7 @@ private constructor(
         private var depositSubmission: JsonField<DepositSubmission> = JsonMissing.of()
         private var depositRejection: JsonField<DepositRejection> = JsonMissing.of()
         private var depositReturn: JsonField<DepositReturn> = JsonMissing.of()
+        private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -282,6 +302,7 @@ private constructor(
             this.depositSubmission = checkDeposit.depositSubmission
             this.depositRejection = checkDeposit.depositRejection
             this.depositReturn = checkDeposit.depositReturn
+            this.idempotencyKey = checkDeposit.idempotencyKey
             this.type = checkDeposit.type
             additionalProperties(checkDeposit.additionalProperties)
         }
@@ -438,6 +459,24 @@ private constructor(
         }
 
         /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
+        }
+
+        /**
          * A constant representing the object's type. For this resource it will always be
          * `check_deposit`.
          */
@@ -480,6 +519,7 @@ private constructor(
                 depositSubmission,
                 depositRejection,
                 depositReturn,
+                idempotencyKey,
                 type,
                 additionalProperties.toUnmodifiable(),
             )
@@ -1258,6 +1298,9 @@ private constructor(
 
                 @JvmField val SUSPECTED_FRAUD = Reason(JsonField.of("suspected_fraud"))
 
+                @JvmField
+                val DEPOSIT_WINDOW_EXPIRED = Reason(JsonField.of("deposit_window_expired"))
+
                 @JvmField val UNKNOWN = Reason(JsonField.of("unknown"))
 
                 @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
@@ -1272,6 +1315,7 @@ private constructor(
                 NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT,
                 MISSING_REQUIRED_DATA_ELEMENTS,
                 SUSPECTED_FRAUD,
+                DEPOSIT_WINDOW_EXPIRED,
                 UNKNOWN,
             }
 
@@ -1284,6 +1328,7 @@ private constructor(
                 NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT,
                 MISSING_REQUIRED_DATA_ELEMENTS,
                 SUSPECTED_FRAUD,
+                DEPOSIT_WINDOW_EXPIRED,
                 UNKNOWN,
                 _UNKNOWN,
             }
@@ -1298,6 +1343,7 @@ private constructor(
                     NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT -> Value.NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT
                     MISSING_REQUIRED_DATA_ELEMENTS -> Value.MISSING_REQUIRED_DATA_ELEMENTS
                     SUSPECTED_FRAUD -> Value.SUSPECTED_FRAUD
+                    DEPOSIT_WINDOW_EXPIRED -> Value.DEPOSIT_WINDOW_EXPIRED
                     UNKNOWN -> Value.UNKNOWN
                     else -> Value._UNKNOWN
                 }
@@ -1312,6 +1358,7 @@ private constructor(
                     NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT -> Known.NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT
                     MISSING_REQUIRED_DATA_ELEMENTS -> Known.MISSING_REQUIRED_DATA_ELEMENTS
                     SUSPECTED_FRAUD -> Known.SUSPECTED_FRAUD
+                    DEPOSIT_WINDOW_EXPIRED -> Known.DEPOSIT_WINDOW_EXPIRED
                     UNKNOWN -> Known.UNKNOWN
                     else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                 }

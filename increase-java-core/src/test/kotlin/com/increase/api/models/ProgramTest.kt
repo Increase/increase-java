@@ -13,6 +13,7 @@ class ProgramTest {
         val program =
             Program.builder()
                 .id("string")
+                .billingAccountId("string")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .name("string")
                 .type(Program.Type.PROGRAM)
@@ -20,6 +21,7 @@ class ProgramTest {
                 .build()
         assertThat(program).isNotNull
         assertThat(program.id()).isEqualTo("string")
+        assertThat(program.billingAccountId()).contains("string")
         assertThat(program.createdAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(program.name()).isEqualTo("string")
         assertThat(program.type()).isEqualTo(Program.Type.PROGRAM)

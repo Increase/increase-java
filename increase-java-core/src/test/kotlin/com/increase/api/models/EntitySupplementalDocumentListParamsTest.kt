@@ -13,6 +13,7 @@ class EntitySupplementalDocumentListParamsTest {
         EntitySupplementalDocumentListParams.builder()
             .entityId("string")
             .cursor("string")
+            .idempotencyKey("x")
             .limit(123L)
             .build()
     }
@@ -23,11 +24,13 @@ class EntitySupplementalDocumentListParamsTest {
             EntitySupplementalDocumentListParams.builder()
                 .entityId("string")
                 .cursor("string")
+                .idempotencyKey("x")
                 .limit(123L)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
         expected.put("entity_id", listOf("string"))
         expected.put("cursor", listOf("string"))
+        expected.put("idempotency_key", listOf("x"))
         expected.put("limit", listOf("123"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }

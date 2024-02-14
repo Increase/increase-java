@@ -32,12 +32,12 @@ class AccountTransferTest {
                 .description("string")
                 .destinationAccountId("string")
                 .destinationTransactionId("string")
+                .idempotencyKey("string")
                 .network(AccountTransfer.Network.ACCOUNT)
                 .pendingTransactionId("string")
                 .status(AccountTransfer.Status.PENDING_APPROVAL)
                 .transactionId("string")
                 .type(AccountTransfer.Type.ACCOUNT_TRANSFER)
-                .uniqueIdentifier("string")
                 .build()
         assertThat(accountTransfer).isNotNull
         assertThat(accountTransfer.id()).isEqualTo("string")
@@ -63,11 +63,11 @@ class AccountTransferTest {
         assertThat(accountTransfer.description()).isEqualTo("string")
         assertThat(accountTransfer.destinationAccountId()).isEqualTo("string")
         assertThat(accountTransfer.destinationTransactionId()).contains("string")
+        assertThat(accountTransfer.idempotencyKey()).contains("string")
         assertThat(accountTransfer.network()).isEqualTo(AccountTransfer.Network.ACCOUNT)
         assertThat(accountTransfer.pendingTransactionId()).contains("string")
         assertThat(accountTransfer.status()).isEqualTo(AccountTransfer.Status.PENDING_APPROVAL)
         assertThat(accountTransfer.transactionId()).contains("string")
         assertThat(accountTransfer.type()).isEqualTo(AccountTransfer.Type.ACCOUNT_TRANSFER)
-        assertThat(accountTransfer.uniqueIdentifier()).contains("string")
     }
 }

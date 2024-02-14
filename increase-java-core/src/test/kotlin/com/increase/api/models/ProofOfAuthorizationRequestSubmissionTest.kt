@@ -20,6 +20,7 @@ class ProofOfAuthorizationRequestSubmissionTest {
                 .authorizerIpAddress("string")
                 .authorizerName("string")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .idempotencyKey("string")
                 .proofOfAuthorizationRequestId("string")
                 .status(ProofOfAuthorizationRequestSubmission.Status.PENDING_REVIEW)
                 .type(
@@ -39,6 +40,7 @@ class ProofOfAuthorizationRequestSubmissionTest {
         assertThat(proofOfAuthorizationRequestSubmission.authorizerName()).contains("string")
         assertThat(proofOfAuthorizationRequestSubmission.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(proofOfAuthorizationRequestSubmission.idempotencyKey()).contains("string")
         assertThat(proofOfAuthorizationRequestSubmission.proofOfAuthorizationRequestId())
             .isEqualTo("string")
         assertThat(proofOfAuthorizationRequestSubmission.status())

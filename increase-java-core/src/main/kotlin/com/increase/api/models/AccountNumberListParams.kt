@@ -20,9 +20,9 @@ constructor(
     private val achDebitStatus: AchDebitStatus?,
     private val createdAt: CreatedAt?,
     private val cursor: String?,
+    private val idempotencyKey: String?,
     private val limit: Long?,
     private val status: Status?,
-    private val uniqueIdentifier: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
@@ -35,11 +35,11 @@ constructor(
 
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
+    fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey)
+
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
     fun status(): Optional<Status> = Optional.ofNullable(status)
-
-    fun uniqueIdentifier(): Optional<String> = Optional.ofNullable(uniqueIdentifier)
 
     @JvmSynthetic
     internal fun getQueryParams(): Map<String, List<String>> {
@@ -48,9 +48,9 @@ constructor(
         this.achDebitStatus?.let { params.put("ach_debit_status", listOf(it.toString())) }
         this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
+        this.idempotencyKey?.let { params.put("idempotency_key", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
         this.status?.let { params.put("status", listOf(it.toString())) }
-        this.uniqueIdentifier?.let { params.put("unique_identifier", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -71,9 +71,9 @@ constructor(
             this.achDebitStatus == other.achDebitStatus &&
             this.createdAt == other.createdAt &&
             this.cursor == other.cursor &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.limit == other.limit &&
             this.status == other.status &&
-            this.uniqueIdentifier == other.uniqueIdentifier &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
@@ -84,16 +84,16 @@ constructor(
             achDebitStatus,
             createdAt,
             cursor,
+            idempotencyKey,
             limit,
             status,
-            uniqueIdentifier,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "AccountNumberListParams{accountId=$accountId, achDebitStatus=$achDebitStatus, createdAt=$createdAt, cursor=$cursor, limit=$limit, status=$status, uniqueIdentifier=$uniqueIdentifier, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "AccountNumberListParams{accountId=$accountId, achDebitStatus=$achDebitStatus, createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -109,9 +109,9 @@ constructor(
         private var achDebitStatus: AchDebitStatus? = null
         private var createdAt: CreatedAt? = null
         private var cursor: String? = null
+        private var idempotencyKey: String? = null
         private var limit: Long? = null
         private var status: Status? = null
-        private var uniqueIdentifier: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
@@ -121,9 +121,9 @@ constructor(
             this.achDebitStatus = accountNumberListParams.achDebitStatus
             this.createdAt = accountNumberListParams.createdAt
             this.cursor = accountNumberListParams.cursor
+            this.idempotencyKey = accountNumberListParams.idempotencyKey
             this.limit = accountNumberListParams.limit
             this.status = accountNumberListParams.status
-            this.uniqueIdentifier = accountNumberListParams.uniqueIdentifier
             additionalQueryParams(accountNumberListParams.additionalQueryParams)
             additionalHeaders(accountNumberListParams.additionalHeaders)
         }
@@ -142,17 +142,20 @@ constructor(
         fun cursor(cursor: String) = apply { this.cursor = cursor }
 
         /**
+         * Filter records to the one with the specified `idempotency_key` you chose for that object.
+         * This value is unique across Increase and is used to ensure that a request is only
+         * processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = apply { this.idempotencyKey = idempotencyKey }
+
+        /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
         fun limit(limit: Long) = apply { this.limit = limit }
 
         /** The status to retrieve Account Numbers for. */
         fun status(status: Status) = apply { this.status = status }
-
-        /** Filter records to the one with the specified `unique_identifier`. */
-        fun uniqueIdentifier(uniqueIdentifier: String) = apply {
-            this.uniqueIdentifier = uniqueIdentifier
-        }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -200,9 +203,9 @@ constructor(
                 achDebitStatus,
                 createdAt,
                 cursor,
+                idempotencyKey,
                 limit,
                 status,
-                uniqueIdentifier,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )

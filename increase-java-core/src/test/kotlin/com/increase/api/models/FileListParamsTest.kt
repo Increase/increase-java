@@ -21,6 +21,7 @@ class FileListParamsTest {
                     .build()
             )
             .cursor("string")
+            .idempotencyKey("x")
             .limit(123L)
             .purpose(
                 FileListParams.Purpose.builder()
@@ -43,6 +44,7 @@ class FileListParamsTest {
                         .build()
                 )
                 .cursor("string")
+                .idempotencyKey("x")
                 .limit(123L)
                 .purpose(
                     FileListParams.Purpose.builder()
@@ -59,6 +61,7 @@ class FileListParamsTest {
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
         expected.put("cursor", listOf("string"))
+        expected.put("idempotency_key", listOf("x"))
         expected.put("limit", listOf("123"))
         FileListParams.Purpose.builder()
             .in_(listOf(FileListParams.Purpose.In.CHECK_IMAGE_FRONT))

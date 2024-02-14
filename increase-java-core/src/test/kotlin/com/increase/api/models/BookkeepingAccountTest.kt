@@ -15,6 +15,7 @@ class BookkeepingAccountTest {
                 .accountId("string")
                 .complianceCategory(BookkeepingAccount.ComplianceCategory.COMMINGLED_CASH)
                 .entityId("string")
+                .idempotencyKey("string")
                 .name("string")
                 .type(BookkeepingAccount.Type.BOOKKEEPING_ACCOUNT)
                 .build()
@@ -24,6 +25,7 @@ class BookkeepingAccountTest {
         assertThat(bookkeepingAccount.complianceCategory())
             .contains(BookkeepingAccount.ComplianceCategory.COMMINGLED_CASH)
         assertThat(bookkeepingAccount.entityId()).contains("string")
+        assertThat(bookkeepingAccount.idempotencyKey()).contains("string")
         assertThat(bookkeepingAccount.name()).isEqualTo("string")
         assertThat(bookkeepingAccount.type()).isEqualTo(BookkeepingAccount.Type.BOOKKEEPING_ACCOUNT)
     }

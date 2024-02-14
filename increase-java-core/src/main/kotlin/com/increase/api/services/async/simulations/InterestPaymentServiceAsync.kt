@@ -5,8 +5,8 @@
 package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
-import com.increase.api.models.InterestPaymentSimulationResult
 import com.increase.api.models.SimulationInterestPaymentCreateParams
+import com.increase.api.models.Transaction
 import java.util.concurrent.CompletableFuture
 
 interface InterestPaymentServiceAsync {
@@ -19,5 +19,5 @@ interface InterestPaymentServiceAsync {
     fun create(
         params: SimulationInterestPaymentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): CompletableFuture<InterestPaymentSimulationResult>
+    ): CompletableFuture<Transaction>
 }

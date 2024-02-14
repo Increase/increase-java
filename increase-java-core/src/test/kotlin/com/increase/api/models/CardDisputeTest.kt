@@ -23,6 +23,7 @@ class CardDisputeTest {
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .disputedTransactionId("string")
                 .explanation("string")
+                .idempotencyKey("string")
                 .rejection(
                     CardDispute.Rejection.builder()
                         .cardDisputeId("string")
@@ -47,6 +48,7 @@ class CardDisputeTest {
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(cardDispute.disputedTransactionId()).isEqualTo("string")
         assertThat(cardDispute.explanation()).isEqualTo("string")
+        assertThat(cardDispute.idempotencyKey()).contains("string")
         assertThat(cardDispute.rejection())
             .contains(
                 CardDispute.Rejection.builder()

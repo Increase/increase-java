@@ -13,6 +13,7 @@ class IntrafiAccountEnrollmentTest {
             IntrafiAccountEnrollment.builder()
                 .id("string")
                 .accountId("string")
+                .idempotencyKey("string")
                 .intrafiId("string")
                 .status(IntrafiAccountEnrollment.Status.PENDING_ENROLLING)
                 .type(IntrafiAccountEnrollment.Type.INTRAFI_ACCOUNT_ENROLLMENT)
@@ -20,6 +21,7 @@ class IntrafiAccountEnrollmentTest {
         assertThat(intrafiAccountEnrollment).isNotNull
         assertThat(intrafiAccountEnrollment.id()).isEqualTo("string")
         assertThat(intrafiAccountEnrollment.accountId()).isEqualTo("string")
+        assertThat(intrafiAccountEnrollment.idempotencyKey()).contains("string")
         assertThat(intrafiAccountEnrollment.intrafiId()).isEqualTo("string")
         assertThat(intrafiAccountEnrollment.status())
             .isEqualTo(IntrafiAccountEnrollment.Status.PENDING_ENROLLING)

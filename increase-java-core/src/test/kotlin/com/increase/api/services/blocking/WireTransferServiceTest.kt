@@ -39,7 +39,6 @@ class WireTransferServiceTest {
                     .originatorName("x")
                     .requireApproval(true)
                     .routingNumber("xxxxxxxxx")
-                    .uniqueIdentifier("x")
                     .build()
             )
         println(wireTransfer)

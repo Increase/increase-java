@@ -12,7 +12,6 @@ class PhysicalCardCreateParamsTest {
     fun createPhysicalCardCreateParams() {
         PhysicalCardCreateParams.builder()
             .cardId("string")
-            .cardProfileId("string")
             .cardholder(
                 PhysicalCardCreateParams.Cardholder.builder().firstName("x").lastName("x").build()
             )
@@ -42,7 +41,6 @@ class PhysicalCardCreateParamsTest {
         val params =
             PhysicalCardCreateParams.builder()
                 .cardId("string")
-                .cardProfileId("string")
                 .cardholder(
                     PhysicalCardCreateParams.Cardholder.builder()
                         .firstName("x")
@@ -71,7 +69,6 @@ class PhysicalCardCreateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.cardId()).isEqualTo("string")
-        assertThat(body.cardProfileId()).isEqualTo("string")
         assertThat(body.cardholder())
             .isEqualTo(
                 PhysicalCardCreateParams.Cardholder.builder().firstName("x").lastName("x").build()
@@ -102,7 +99,6 @@ class PhysicalCardCreateParamsTest {
         val params =
             PhysicalCardCreateParams.builder()
                 .cardId("string")
-                .cardProfileId("string")
                 .cardholder(
                     PhysicalCardCreateParams.Cardholder.builder()
                         .firstName("x")
@@ -127,7 +123,6 @@ class PhysicalCardCreateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.cardId()).isEqualTo("string")
-        assertThat(body.cardProfileId()).isEqualTo("string")
         assertThat(body.cardholder())
             .isEqualTo(
                 PhysicalCardCreateParams.Cardholder.builder().firstName("x").lastName("x").build()

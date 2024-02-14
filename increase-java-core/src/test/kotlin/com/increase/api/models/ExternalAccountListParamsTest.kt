@@ -12,6 +12,7 @@ class ExternalAccountListParamsTest {
     fun createExternalAccountListParams() {
         ExternalAccountListParams.builder()
             .cursor("string")
+            .idempotencyKey("x")
             .limit(123L)
             .routingNumber("xxxxxxxxx")
             .status(
@@ -27,6 +28,7 @@ class ExternalAccountListParamsTest {
         val params =
             ExternalAccountListParams.builder()
                 .cursor("string")
+                .idempotencyKey("x")
                 .limit(123L)
                 .routingNumber("xxxxxxxxx")
                 .status(
@@ -37,6 +39,7 @@ class ExternalAccountListParamsTest {
                 .build()
         val expected = mutableMapOf<String, List<String>>()
         expected.put("cursor", listOf("string"))
+        expected.put("idempotency_key", listOf("x"))
         expected.put("limit", listOf("123"))
         expected.put("routing_number", listOf("xxxxxxxxx"))
         ExternalAccountListParams.Status.builder()

@@ -34,6 +34,7 @@ class RealTimePaymentsTransferTest {
                 .destinationAccountNumber("string")
                 .destinationRoutingNumber("string")
                 .externalAccountId("string")
+                .idempotencyKey("string")
                 .pendingTransactionId("string")
                 .rejection(
                     RealTimePaymentsTransfer.Rejection.builder()
@@ -57,7 +58,6 @@ class RealTimePaymentsTransferTest {
                 .type(RealTimePaymentsTransfer.Type.REAL_TIME_PAYMENTS_TRANSFER)
                 .ultimateCreditorName("string")
                 .ultimateDebtorName("string")
-                .uniqueIdentifier("string")
                 .build()
         assertThat(realTimePaymentsTransfer).isNotNull
         assertThat(realTimePaymentsTransfer.id()).isEqualTo("string")
@@ -86,6 +86,7 @@ class RealTimePaymentsTransferTest {
         assertThat(realTimePaymentsTransfer.destinationAccountNumber()).isEqualTo("string")
         assertThat(realTimePaymentsTransfer.destinationRoutingNumber()).isEqualTo("string")
         assertThat(realTimePaymentsTransfer.externalAccountId()).contains("string")
+        assertThat(realTimePaymentsTransfer.idempotencyKey()).contains("string")
         assertThat(realTimePaymentsTransfer.pendingTransactionId()).contains("string")
         assertThat(realTimePaymentsTransfer.rejection())
             .contains(
@@ -113,6 +114,5 @@ class RealTimePaymentsTransferTest {
             .isEqualTo(RealTimePaymentsTransfer.Type.REAL_TIME_PAYMENTS_TRANSFER)
         assertThat(realTimePaymentsTransfer.ultimateCreditorName()).contains("string")
         assertThat(realTimePaymentsTransfer.ultimateDebtorName()).contains("string")
-        assertThat(realTimePaymentsTransfer.uniqueIdentifier()).contains("string")
     }
 }

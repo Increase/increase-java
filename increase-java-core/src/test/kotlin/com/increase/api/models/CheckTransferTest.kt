@@ -43,6 +43,7 @@ class CheckTransferTest {
                         .build()
                 )
                 .fulfillmentMethod(CheckTransfer.FulfillmentMethod.PHYSICAL_CHECK)
+                .idempotencyKey("string")
                 .mailing(
                     CheckTransfer.Mailing.builder()
                         .imageId("string")
@@ -97,7 +98,6 @@ class CheckTransferTest {
                         .build()
                 )
                 .type(CheckTransfer.Type.CHECK_TRANSFER)
-                .uniqueIdentifier("string")
                 .build()
         assertThat(checkTransfer).isNotNull
         assertThat(checkTransfer.id()).isEqualTo("string")
@@ -136,6 +136,7 @@ class CheckTransferTest {
             )
         assertThat(checkTransfer.fulfillmentMethod())
             .isEqualTo(CheckTransfer.FulfillmentMethod.PHYSICAL_CHECK)
+        assertThat(checkTransfer.idempotencyKey()).contains("string")
         assertThat(checkTransfer.mailing())
             .contains(
                 CheckTransfer.Mailing.builder()
@@ -191,6 +192,5 @@ class CheckTransferTest {
                     .build()
             )
         assertThat(checkTransfer.type()).isEqualTo(CheckTransfer.Type.CHECK_TRANSFER)
-        assertThat(checkTransfer.uniqueIdentifier()).contains("string")
     }
 }

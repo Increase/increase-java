@@ -43,7 +43,6 @@ class CheckTransferCreateParamsTest {
             )
             .requireApproval(true)
             .sourceAccountNumberId("string")
-            .uniqueIdentifier("x")
             .build()
     }
 
@@ -83,7 +82,6 @@ class CheckTransferCreateParamsTest {
                 )
                 .requireApproval(true)
                 .sourceAccountNumberId("string")
-                .uniqueIdentifier("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -121,7 +119,6 @@ class CheckTransferCreateParamsTest {
             )
         assertThat(body.requireApproval()).isEqualTo(true)
         assertThat(body.sourceAccountNumberId()).isEqualTo("string")
-        assertThat(body.uniqueIdentifier()).isEqualTo("x")
     }
 
     @Test

@@ -74,6 +74,7 @@ class ErrorHandlingTest {
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .currency(Account.Currency.CAD)
                 .entityId("string")
+                .idempotencyKey("string")
                 .informationalEntityId("string")
                 .interestAccrued("string")
                 .interestAccruedAt(LocalDate.parse("2019-12-27"))
