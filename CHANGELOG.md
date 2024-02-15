@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.29.0 (2024-02-15)
+
+Full Changelog: [v0.28.1...v0.29.0](https://github.com/Increase/increase-java/compare/v0.28.1...v0.29.0)
+
+### ⚠ BREAKING CHANGES
+
+* **api:** split card profile resource into digital and physical card profile resources ([#178](https://github.com/Increase/increase-java/issues/178))
+
+### Features
+
+* **api:** split card profile resource into digital and physical card profile resources ([#178](https://github.com/Increase/increase-java/issues/178)) ([bfa4264](https://github.com/Increase/increase-java/commit/bfa4264bd3a62f38bae72e42baac81c9ff931f91))
+
+
+### Chores
+
+* **ci:** uses Stainless GitHub App for releases ([#176](https://github.com/Increase/increase-java/issues/176)) ([90d7eb3](https://github.com/Increase/increase-java/commit/90d7eb33b8be0628894fcec202272323f7818d6f))
+
 ## 0.28.1 (2024-02-13)
 
 Full Changelog: [v0.28.0...v0.28.1](https://github.com/Increase/increase-java/compare/v0.28.0...v0.28.1)
