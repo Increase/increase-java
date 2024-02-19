@@ -21,6 +21,7 @@ class AccountNumberUpdateParams
 constructor(
     private val accountNumberId: String,
     private val inboundAch: InboundAch?,
+    private val inboundChecks: InboundChecks?,
     private val name: String?,
     private val status: Status?,
     private val additionalQueryParams: Map<String, List<String>>,
@@ -32,6 +33,8 @@ constructor(
 
     fun inboundAch(): Optional<InboundAch> = Optional.ofNullable(inboundAch)
 
+    fun inboundChecks(): Optional<InboundChecks> = Optional.ofNullable(inboundChecks)
+
     fun name(): Optional<String> = Optional.ofNullable(name)
 
     fun status(): Optional<Status> = Optional.ofNullable(status)
@@ -40,6 +43,7 @@ constructor(
     internal fun getBody(): AccountNumberUpdateBody {
         return AccountNumberUpdateBody(
             inboundAch,
+            inboundChecks,
             name,
             status,
             additionalBodyProperties,
@@ -62,6 +66,7 @@ constructor(
     class AccountNumberUpdateBody
     internal constructor(
         private val inboundAch: InboundAch?,
+        private val inboundChecks: InboundChecks?,
         private val name: String?,
         private val status: Status?,
         private val additionalProperties: Map<String, JsonValue>,
@@ -71,6 +76,9 @@ constructor(
 
         /** Options related to how this Account Number handles inbound ACH transfers. */
         @JsonProperty("inbound_ach") fun inboundAch(): InboundAch? = inboundAch
+
+        /** Options related to how this Account Number should handle inbound check withdrawals. */
+        @JsonProperty("inbound_checks") fun inboundChecks(): InboundChecks? = inboundChecks
 
         /** The name you choose for the Account Number. */
         @JsonProperty("name") fun name(): String? = name
@@ -91,6 +99,7 @@ constructor(
 
             return other is AccountNumberUpdateBody &&
                 this.inboundAch == other.inboundAch &&
+                this.inboundChecks == other.inboundChecks &&
                 this.name == other.name &&
                 this.status == other.status &&
                 this.additionalProperties == other.additionalProperties
@@ -101,6 +110,7 @@ constructor(
                 hashCode =
                     Objects.hash(
                         inboundAch,
+                        inboundChecks,
                         name,
                         status,
                         additionalProperties,
@@ -110,7 +120,7 @@ constructor(
         }
 
         override fun toString() =
-            "AccountNumberUpdateBody{inboundAch=$inboundAch, name=$name, status=$status, additionalProperties=$additionalProperties}"
+            "AccountNumberUpdateBody{inboundAch=$inboundAch, inboundChecks=$inboundChecks, name=$name, status=$status, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -120,6 +130,7 @@ constructor(
         class Builder {
 
             private var inboundAch: InboundAch? = null
+            private var inboundChecks: InboundChecks? = null
             private var name: String? = null
             private var status: Status? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -127,6 +138,7 @@ constructor(
             @JvmSynthetic
             internal fun from(accountNumberUpdateBody: AccountNumberUpdateBody) = apply {
                 this.inboundAch = accountNumberUpdateBody.inboundAch
+                this.inboundChecks = accountNumberUpdateBody.inboundChecks
                 this.name = accountNumberUpdateBody.name
                 this.status = accountNumberUpdateBody.status
                 additionalProperties(accountNumberUpdateBody.additionalProperties)
@@ -135,6 +147,14 @@ constructor(
             /** Options related to how this Account Number handles inbound ACH transfers. */
             @JsonProperty("inbound_ach")
             fun inboundAch(inboundAch: InboundAch) = apply { this.inboundAch = inboundAch }
+
+            /**
+             * Options related to how this Account Number should handle inbound check withdrawals.
+             */
+            @JsonProperty("inbound_checks")
+            fun inboundChecks(inboundChecks: InboundChecks) = apply {
+                this.inboundChecks = inboundChecks
+            }
 
             /** The name you choose for the Account Number. */
             @JsonProperty("name") fun name(name: String) = apply { this.name = name }
@@ -159,6 +179,7 @@ constructor(
             fun build(): AccountNumberUpdateBody =
                 AccountNumberUpdateBody(
                     inboundAch,
+                    inboundChecks,
                     name,
                     status,
                     additionalProperties.toUnmodifiable(),
@@ -180,6 +201,7 @@ constructor(
         return other is AccountNumberUpdateParams &&
             this.accountNumberId == other.accountNumberId &&
             this.inboundAch == other.inboundAch &&
+            this.inboundChecks == other.inboundChecks &&
             this.name == other.name &&
             this.status == other.status &&
             this.additionalQueryParams == other.additionalQueryParams &&
@@ -191,6 +213,7 @@ constructor(
         return Objects.hash(
             accountNumberId,
             inboundAch,
+            inboundChecks,
             name,
             status,
             additionalQueryParams,
@@ -200,7 +223,7 @@ constructor(
     }
 
     override fun toString() =
-        "AccountNumberUpdateParams{accountNumberId=$accountNumberId, inboundAch=$inboundAch, name=$name, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "AccountNumberUpdateParams{accountNumberId=$accountNumberId, inboundAch=$inboundAch, inboundChecks=$inboundChecks, name=$name, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -214,6 +237,7 @@ constructor(
 
         private var accountNumberId: String? = null
         private var inboundAch: InboundAch? = null
+        private var inboundChecks: InboundChecks? = null
         private var name: String? = null
         private var status: Status? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -224,6 +248,7 @@ constructor(
         internal fun from(accountNumberUpdateParams: AccountNumberUpdateParams) = apply {
             this.accountNumberId = accountNumberUpdateParams.accountNumberId
             this.inboundAch = accountNumberUpdateParams.inboundAch
+            this.inboundChecks = accountNumberUpdateParams.inboundChecks
             this.name = accountNumberUpdateParams.name
             this.status = accountNumberUpdateParams.status
             additionalQueryParams(accountNumberUpdateParams.additionalQueryParams)
@@ -238,6 +263,11 @@ constructor(
 
         /** Options related to how this Account Number handles inbound ACH transfers. */
         fun inboundAch(inboundAch: InboundAch) = apply { this.inboundAch = inboundAch }
+
+        /** Options related to how this Account Number should handle inbound check withdrawals. */
+        fun inboundChecks(inboundChecks: InboundChecks) = apply {
+            this.inboundChecks = inboundChecks
+        }
 
         /** The name you choose for the Account Number. */
         fun name(name: String) = apply { this.name = name }
@@ -303,6 +333,7 @@ constructor(
             AccountNumberUpdateParams(
                 checkNotNull(accountNumberId) { "`accountNumberId` is required but was not set" },
                 inboundAch,
+                inboundChecks,
                 name,
                 status,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
@@ -446,6 +477,144 @@ constructor(
                     ALLOWED -> Known.ALLOWED
                     BLOCKED -> Known.BLOCKED
                     else -> throw IncreaseInvalidDataException("Unknown DebitStatus: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
+    }
+
+    /** Options related to how this Account Number should handle inbound check withdrawals. */
+    @JsonDeserialize(builder = InboundChecks.Builder::class)
+    @NoAutoDetect
+    class InboundChecks
+    private constructor(
+        private val status: Status?,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        /** How Increase should process checks with this account number printed on them. */
+        @JsonProperty("status") fun status(): Status? = status
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is InboundChecks &&
+                this.status == other.status &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(status, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "InboundChecks{status=$status, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var status: Status? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(inboundChecks: InboundChecks) = apply {
+                this.status = inboundChecks.status
+                additionalProperties(inboundChecks.additionalProperties)
+            }
+
+            /** How Increase should process checks with this account number printed on them. */
+            @JsonProperty("status") fun status(status: Status) = apply { this.status = status }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): InboundChecks =
+                InboundChecks(
+                    checkNotNull(status) { "`status` is required but was not set" },
+                    additionalProperties.toUnmodifiable()
+                )
+        }
+
+        class Status
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Status && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                @JvmField val ALLOWED = Status(JsonField.of("allowed"))
+
+                @JvmField val CHECK_TRANSFERS_ONLY = Status(JsonField.of("check_transfers_only"))
+
+                @JvmStatic fun of(value: String) = Status(JsonField.of(value))
+            }
+
+            enum class Known {
+                ALLOWED,
+                CHECK_TRANSFERS_ONLY,
+            }
+
+            enum class Value {
+                ALLOWED,
+                CHECK_TRANSFERS_ONLY,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    ALLOWED -> Value.ALLOWED
+                    CHECK_TRANSFERS_ONLY -> Value.CHECK_TRANSFERS_ONLY
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    ALLOWED -> Known.ALLOWED
+                    CHECK_TRANSFERS_ONLY -> Known.CHECK_TRANSFERS_ONLY
+                    else -> throw IncreaseInvalidDataException("Unknown Status: $value")
                 }
 
             fun asString(): String = _value().asStringOrThrow()
