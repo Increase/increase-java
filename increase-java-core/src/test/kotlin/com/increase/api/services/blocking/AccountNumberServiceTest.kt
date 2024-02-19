@@ -74,6 +74,11 @@ class AccountNumberServiceTest {
                             .debitStatus(AccountNumberUpdateParams.InboundAch.DebitStatus.ALLOWED)
                             .build()
                     )
+                    .inboundChecks(
+                        AccountNumberUpdateParams.InboundChecks.builder()
+                            .status(AccountNumberUpdateParams.InboundChecks.Status.ALLOWED)
+                            .build()
+                    )
                     .name("x")
                     .status(AccountNumberUpdateParams.Status.ACTIVE)
                     .build()
