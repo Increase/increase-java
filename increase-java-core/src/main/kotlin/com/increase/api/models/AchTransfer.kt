@@ -1157,16 +1157,12 @@ private constructor(
          */
         fun category(): Category = category.getRequired("category")
 
-        /**
-         * An ACH Transfer Freeform Addenda object. This field will be present in the JSON response
-         * if and only if `category` is equal to `freeform`.
-         */
+        /** Unstructured `payment_related_information` passed through with the transfer. */
         fun freeform(): Optional<Freeform> = Optional.ofNullable(freeform.getNullable("freeform"))
 
         /**
-         * An ACH Transfer Payment Order Remittance Advice Addenda object. This field will be
-         * present in the JSON response if and only if `category` is equal to
-         * `payment_order_remittance_advice`.
+         * Structured ASC X12 820 remittance advice records. Please reach out to
+         * [support@increase.com](mailto:support@increase.com) for more information.
          */
         fun paymentOrderRemittanceAdvice(): Optional<PaymentOrderRemittanceAdvice> =
             Optional.ofNullable(
@@ -1179,16 +1175,12 @@ private constructor(
          */
         @JsonProperty("category") @ExcludeMissing fun _category() = category
 
-        /**
-         * An ACH Transfer Freeform Addenda object. This field will be present in the JSON response
-         * if and only if `category` is equal to `freeform`.
-         */
+        /** Unstructured `payment_related_information` passed through with the transfer. */
         @JsonProperty("freeform") @ExcludeMissing fun _freeform() = freeform
 
         /**
-         * An ACH Transfer Payment Order Remittance Advice Addenda object. This field will be
-         * present in the JSON response if and only if `category` is equal to
-         * `payment_order_remittance_advice`.
+         * Structured ASC X12 820 remittance advice records. Please reach out to
+         * [support@increase.com](mailto:support@increase.com) for more information.
          */
         @JsonProperty("payment_order_remittance_advice")
         @ExcludeMissing
@@ -1272,33 +1264,25 @@ private constructor(
             @ExcludeMissing
             fun category(category: JsonField<Category>) = apply { this.category = category }
 
-            /**
-             * An ACH Transfer Freeform Addenda object. This field will be present in the JSON
-             * response if and only if `category` is equal to `freeform`.
-             */
+            /** Unstructured `payment_related_information` passed through with the transfer. */
             fun freeform(freeform: Freeform) = freeform(JsonField.of(freeform))
 
-            /**
-             * An ACH Transfer Freeform Addenda object. This field will be present in the JSON
-             * response if and only if `category` is equal to `freeform`.
-             */
+            /** Unstructured `payment_related_information` passed through with the transfer. */
             @JsonProperty("freeform")
             @ExcludeMissing
             fun freeform(freeform: JsonField<Freeform>) = apply { this.freeform = freeform }
 
             /**
-             * An ACH Transfer Payment Order Remittance Advice Addenda object. This field will be
-             * present in the JSON response if and only if `category` is equal to
-             * `payment_order_remittance_advice`.
+             * Structured ASC X12 820 remittance advice records. Please reach out to
+             * [support@increase.com](mailto:support@increase.com) for more information.
              */
             fun paymentOrderRemittanceAdvice(
                 paymentOrderRemittanceAdvice: PaymentOrderRemittanceAdvice
             ) = paymentOrderRemittanceAdvice(JsonField.of(paymentOrderRemittanceAdvice))
 
             /**
-             * An ACH Transfer Payment Order Remittance Advice Addenda object. This field will be
-             * present in the JSON response if and only if `category` is equal to
-             * `payment_order_remittance_advice`.
+             * Structured ASC X12 820 remittance advice records. Please reach out to
+             * [support@increase.com](mailto:support@increase.com) for more information.
              */
             @JsonProperty("payment_order_remittance_advice")
             @ExcludeMissing
@@ -1394,10 +1378,7 @@ private constructor(
             fun asString(): String = _value().asStringOrThrow()
         }
 
-        /**
-         * An ACH Transfer Freeform Addenda object. This field will be present in the JSON response
-         * if and only if `category` is equal to `freeform`.
-         */
+        /** Unstructured `payment_related_information` passed through with the transfer. */
         @JsonDeserialize(builder = Freeform.Builder::class)
         @NoAutoDetect
         class Freeform
@@ -1599,9 +1580,8 @@ private constructor(
         }
 
         /**
-         * An ACH Transfer Payment Order Remittance Advice Addenda object. This field will be
-         * present in the JSON response if and only if `category` is equal to
-         * `payment_order_remittance_advice`.
+         * Structured ASC X12 820 remittance advice records. Please reach out to
+         * [support@increase.com](mailto:support@increase.com) for more information.
          */
         @JsonDeserialize(builder = PaymentOrderRemittanceAdvice.Builder::class)
         @NoAutoDetect
