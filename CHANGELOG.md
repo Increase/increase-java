@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.30.0 (2024-02-22)
+
+Full Changelog: [v0.29.0...v0.30.0](https://github.com/Increase/increase-java/compare/v0.29.0...v0.30.0)
+
+### Features
+
+* **api:** inbound checks ([#182](https://github.com/Increase/increase-java/issues/182)) ([38b0ee3](https://github.com/Increase/increase-java/commit/38b0ee36e009c450d0db4b353a5ac1658505b405))
+
+
+### Chores
+
+* **internal:** refactor release environment script ([#179](https://github.com/Increase/increase-java/issues/179)) ([2aa8446](https://github.com/Increase/increase-java/commit/2aa8446857ea18a1adea586281079a12bf92c811))
+* update dependency org.apache.httpcomponents.core5:httpcore5 to v5.2.4 ([#183](https://github.com/Increase/increase-java/issues/183)) ([5201774](https://github.com/Increase/increase-java/commit/520177448d3a2df38697014d164bad33c8eee410))
+
 ## 0.29.0 (2024-02-15)
 
 Full Changelog: [v0.28.1...v0.29.0](https://github.com/Increase/increase-java/compare/v0.28.1...v0.29.0)
