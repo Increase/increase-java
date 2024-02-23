@@ -95,6 +95,12 @@ class PhysicalCardProfileServiceTest {
                     .contactPhone("x")
                     .description("x")
                     .frontImageFileId("string")
+                    .frontText(
+                        PhysicalCardProfileCloneParams.FrontText.builder()
+                            .line1("x")
+                            .line2("x")
+                            .build()
+                    )
                     .build()
             )
         println(physicalCardProfile)
