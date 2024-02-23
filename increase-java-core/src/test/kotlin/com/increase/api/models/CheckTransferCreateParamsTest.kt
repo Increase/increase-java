@@ -13,6 +13,7 @@ class CheckTransferCreateParamsTest {
         CheckTransferCreateParams.builder()
             .accountId("string")
             .amount(123L)
+            .sourceAccountNumberId("string")
             .fulfillmentMethod(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
             .physicalCheck(
                 CheckTransferCreateParams.PhysicalCheck.builder()
@@ -42,7 +43,6 @@ class CheckTransferCreateParamsTest {
                     .build()
             )
             .requireApproval(true)
-            .sourceAccountNumberId("string")
             .build()
     }
 
@@ -52,6 +52,7 @@ class CheckTransferCreateParamsTest {
             CheckTransferCreateParams.builder()
                 .accountId("string")
                 .amount(123L)
+                .sourceAccountNumberId("string")
                 .fulfillmentMethod(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
                 .physicalCheck(
                     CheckTransferCreateParams.PhysicalCheck.builder()
@@ -81,12 +82,12 @@ class CheckTransferCreateParamsTest {
                         .build()
                 )
                 .requireApproval(true)
-                .sourceAccountNumberId("string")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("string")
         assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.sourceAccountNumberId()).isEqualTo("string")
         assertThat(body.fulfillmentMethod())
             .isEqualTo(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
         assertThat(body.physicalCheck())
@@ -118,15 +119,20 @@ class CheckTransferCreateParamsTest {
                     .build()
             )
         assertThat(body.requireApproval()).isEqualTo(true)
-        assertThat(body.sourceAccountNumberId()).isEqualTo("string")
     }
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = CheckTransferCreateParams.builder().accountId("string").amount(123L).build()
+        val params =
+            CheckTransferCreateParams.builder()
+                .accountId("string")
+                .amount(123L)
+                .sourceAccountNumberId("string")
+                .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("string")
         assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.sourceAccountNumberId()).isEqualTo("string")
     }
 }
