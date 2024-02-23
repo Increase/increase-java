@@ -144,8 +144,7 @@ private constructor(
      * After the transfer is submitted to FedACH, this will contain supplemental details. Increase
      * batches transfers and submits a file to the Federal Reserve roughly every 30 minutes. The
      * Federal Reserve processes ACH transfers during weekdays according to their
-     * [posted schedule](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html)
-     * .
+     * [posted schedule](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
      */
     fun submission(): Optional<Submission> =
         Optional.ofNullable(submission.getNullable("submission"))
@@ -304,8 +303,7 @@ private constructor(
      * After the transfer is submitted to FedACH, this will contain supplemental details. Increase
      * batches transfers and submits a file to the Federal Reserve roughly every 30 minutes. The
      * Federal Reserve processes ACH transfers during weekdays according to their
-     * [posted schedule](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html)
-     * .
+     * [posted schedule](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
      */
     @JsonProperty("submission") @ExcludeMissing fun _submission() = submission
 
@@ -782,8 +780,7 @@ private constructor(
          * After the transfer is submitted to FedACH, this will contain supplemental details.
          * Increase batches transfers and submits a file to the Federal Reserve roughly every 30
          * minutes. The Federal Reserve processes ACH transfers during weekdays according to their
-         * [posted schedule](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html)
-         * .
+         * [posted schedule](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
          */
         fun submission(submission: Submission) = submission(JsonField.of(submission))
 
@@ -791,8 +788,7 @@ private constructor(
          * After the transfer is submitted to FedACH, this will contain supplemental details.
          * Increase batches transfers and submits a file to the Federal Reserve roughly every 30
          * minutes. The Federal Reserve processes ACH transfers during weekdays according to their
-         * [posted schedule](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html)
-         * .
+         * [posted schedule](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
          */
         @JsonProperty("submission")
         @ExcludeMissing
@@ -3852,8 +3848,7 @@ private constructor(
      * After the transfer is submitted to FedACH, this will contain supplemental details. Increase
      * batches transfers and submits a file to the Federal Reserve roughly every 30 minutes. The
      * Federal Reserve processes ACH transfers during weekdays according to their
-     * [posted schedule](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html)
-     * .
+     * [posted schedule](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
      */
     @JsonDeserialize(builder = Submission.Builder::class)
     @NoAutoDetect
@@ -3884,8 +3879,7 @@ private constructor(
         /**
          * When the funds transfer is expected to settle in the recipient's account. Credits may be
          * available sooner, at the receiving banks discretion. The FedACH schedule is published
-         * [here](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html)
-         * .
+         * [here](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
          */
         fun expectedFundsSettlementAt(): OffsetDateTime =
             expectedFundsSettlementAt.getRequired("expected_funds_settlement_at")
@@ -3911,8 +3905,7 @@ private constructor(
         /**
          * When the funds transfer is expected to settle in the recipient's account. Credits may be
          * available sooner, at the receiving banks discretion. The FedACH schedule is published
-         * [here](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html)
-         * .
+         * [here](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
          */
         @JsonProperty("expected_funds_settlement_at")
         @ExcludeMissing
@@ -4027,8 +4020,7 @@ private constructor(
              * When the funds transfer is expected to settle in the recipient's account. Credits may
              * be available sooner, at the receiving banks discretion. The FedACH schedule is
              * published
-             * [here](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html)
-             * .
+             * [here](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
              */
             fun expectedFundsSettlementAt(expectedFundsSettlementAt: OffsetDateTime) =
                 expectedFundsSettlementAt(JsonField.of(expectedFundsSettlementAt))
@@ -4037,8 +4029,7 @@ private constructor(
              * When the funds transfer is expected to settle in the recipient's account. Credits may
              * be available sooner, at the receiving banks discretion. The FedACH schedule is
              * published
-             * [here](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html)
-             * .
+             * [here](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
              */
             @JsonProperty("expected_funds_settlement_at")
             @ExcludeMissing

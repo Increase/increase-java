@@ -9,5 +9,6 @@ constructor(
     private val body: String
 ) : IncreaseServiceException(headers, "Unexpected status code: ${statusCode}") {
     override fun statusCode(): Int = statusCode
+
     fun body() = body
 }

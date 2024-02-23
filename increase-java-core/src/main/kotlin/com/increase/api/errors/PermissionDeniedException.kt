@@ -8,5 +8,6 @@ constructor(
     private val error: IncreaseError,
 ) : IncreaseServiceException(headers, "${error}") {
     override fun statusCode(): Int = 403
+
     fun error(): IncreaseError = error
 }
