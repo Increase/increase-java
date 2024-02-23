@@ -47,7 +47,7 @@ constructor(
         val webhookSecret =
             secret
                 ?: clientOptions.webhookSecret
-                    ?: throw IncreaseException(
+                ?: throw IncreaseException(
                     "The webhook secret must either be set using the env var, INCREASE_WEBHOOK_SECRET, on the client class, or passed to this method"
                 )
 
