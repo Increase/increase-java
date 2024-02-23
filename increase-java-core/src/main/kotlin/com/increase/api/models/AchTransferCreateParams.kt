@@ -1541,6 +1541,10 @@ constructor(
                 StandardEntryClassCode(JsonField.of("corporate_credit_or_debit"))
 
             @JvmField
+            val CORPORATE_TRADE_EXCHANGE =
+                StandardEntryClassCode(JsonField.of("corporate_trade_exchange"))
+
+            @JvmField
             val PREARRANGED_PAYMENTS_AND_DEPOSIT =
                 StandardEntryClassCode(JsonField.of("prearranged_payments_and_deposit"))
 
@@ -1552,12 +1556,14 @@ constructor(
 
         enum class Known {
             CORPORATE_CREDIT_OR_DEBIT,
+            CORPORATE_TRADE_EXCHANGE,
             PREARRANGED_PAYMENTS_AND_DEPOSIT,
             INTERNET_INITIATED,
         }
 
         enum class Value {
             CORPORATE_CREDIT_OR_DEBIT,
+            CORPORATE_TRADE_EXCHANGE,
             PREARRANGED_PAYMENTS_AND_DEPOSIT,
             INTERNET_INITIATED,
             _UNKNOWN,
@@ -1566,6 +1572,7 @@ constructor(
         fun value(): Value =
             when (this) {
                 CORPORATE_CREDIT_OR_DEBIT -> Value.CORPORATE_CREDIT_OR_DEBIT
+                CORPORATE_TRADE_EXCHANGE -> Value.CORPORATE_TRADE_EXCHANGE
                 PREARRANGED_PAYMENTS_AND_DEPOSIT -> Value.PREARRANGED_PAYMENTS_AND_DEPOSIT
                 INTERNET_INITIATED -> Value.INTERNET_INITIATED
                 else -> Value._UNKNOWN
@@ -1574,6 +1581,7 @@ constructor(
         fun known(): Known =
             when (this) {
                 CORPORATE_CREDIT_OR_DEBIT -> Known.CORPORATE_CREDIT_OR_DEBIT
+                CORPORATE_TRADE_EXCHANGE -> Known.CORPORATE_TRADE_EXCHANGE
                 PREARRANGED_PAYMENTS_AND_DEPOSIT -> Known.PREARRANGED_PAYMENTS_AND_DEPOSIT
                 INTERNET_INITIATED -> Known.INTERNET_INITIATED
                 else -> throw IncreaseInvalidDataException("Unknown StandardEntryClassCode: $value")

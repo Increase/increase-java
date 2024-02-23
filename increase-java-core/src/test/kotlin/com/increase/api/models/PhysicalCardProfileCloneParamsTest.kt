@@ -16,6 +16,9 @@ class PhysicalCardProfileCloneParamsTest {
             .contactPhone("x")
             .description("x")
             .frontImageFileId("string")
+            .frontText(
+                PhysicalCardProfileCloneParams.FrontText.builder().line1("x").line2("x").build()
+            )
             .build()
     }
 
@@ -28,6 +31,9 @@ class PhysicalCardProfileCloneParamsTest {
                 .contactPhone("x")
                 .description("x")
                 .frontImageFileId("string")
+                .frontText(
+                    PhysicalCardProfileCloneParams.FrontText.builder().line1("x").line2("x").build()
+                )
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -35,6 +41,10 @@ class PhysicalCardProfileCloneParamsTest {
         assertThat(body.contactPhone()).isEqualTo("x")
         assertThat(body.description()).isEqualTo("x")
         assertThat(body.frontImageFileId()).isEqualTo("string")
+        assertThat(body.frontText())
+            .isEqualTo(
+                PhysicalCardProfileCloneParams.FrontText.builder().line1("x").line2("x").build()
+            )
     }
 
     @Test
