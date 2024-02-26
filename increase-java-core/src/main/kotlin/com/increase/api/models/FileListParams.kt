@@ -476,6 +476,10 @@ constructor(
 
                 @JvmField val EXPORT = In(JsonField.of("export"))
 
+                @JvmField
+                val UNUSUAL_ACTIVITY_REPORT_ATTACHMENT =
+                    In(JsonField.of("unusual_activity_report_attachment"))
+
                 @JvmStatic fun of(value: String) = In(JsonField.of(value))
             }
 
@@ -497,6 +501,7 @@ constructor(
                 DOCUMENT_REQUEST,
                 ENTITY_SUPPLEMENTAL_DOCUMENT,
                 EXPORT,
+                UNUSUAL_ACTIVITY_REPORT_ATTACHMENT,
             }
 
             enum class Value {
@@ -517,6 +522,7 @@ constructor(
                 DOCUMENT_REQUEST,
                 ENTITY_SUPPLEMENTAL_DOCUMENT,
                 EXPORT,
+                UNUSUAL_ACTIVITY_REPORT_ATTACHMENT,
                 _UNKNOWN,
             }
 
@@ -539,6 +545,7 @@ constructor(
                     DOCUMENT_REQUEST -> Value.DOCUMENT_REQUEST
                     ENTITY_SUPPLEMENTAL_DOCUMENT -> Value.ENTITY_SUPPLEMENTAL_DOCUMENT
                     EXPORT -> Value.EXPORT
+                    UNUSUAL_ACTIVITY_REPORT_ATTACHMENT -> Value.UNUSUAL_ACTIVITY_REPORT_ATTACHMENT
                     else -> Value._UNKNOWN
                 }
 
@@ -561,6 +568,7 @@ constructor(
                     DOCUMENT_REQUEST -> Known.DOCUMENT_REQUEST
                     ENTITY_SUPPLEMENTAL_DOCUMENT -> Known.ENTITY_SUPPLEMENTAL_DOCUMENT
                     EXPORT -> Known.EXPORT
+                    UNUSUAL_ACTIVITY_REPORT_ATTACHMENT -> Known.UNUSUAL_ACTIVITY_REPORT_ATTACHMENT
                     else -> throw IncreaseInvalidDataException("Unknown In: $value")
                 }
 
