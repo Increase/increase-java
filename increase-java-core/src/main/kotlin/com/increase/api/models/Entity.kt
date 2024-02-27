@@ -417,6 +417,7 @@ private constructor(
         private val website: JsonField<String>,
         private val taxIdentifier: JsonField<String>,
         private val incorporationState: JsonField<String>,
+        private val industryCode: JsonField<String>,
         private val address: JsonField<Address>,
         private val beneficialOwners: JsonField<List<BeneficialOwner>>,
         private val additionalProperties: Map<String, JsonValue>,
@@ -442,6 +443,13 @@ private constructor(
          */
         fun incorporationState(): Optional<String> =
             Optional.ofNullable(incorporationState.getNullable("incorporation_state"))
+
+        /**
+         * The numeric North American Industry Classification System (NAICS) code submitted for the
+         * corporation.
+         */
+        fun industryCode(): Optional<String> =
+            Optional.ofNullable(industryCode.getNullable("industry_code"))
 
         /** The corporation's address. */
         fun address(): Address = address.getRequired("address")
@@ -469,6 +477,12 @@ private constructor(
         @ExcludeMissing
         fun _incorporationState() = incorporationState
 
+        /**
+         * The numeric North American Industry Classification System (NAICS) code submitted for the
+         * corporation.
+         */
+        @JsonProperty("industry_code") @ExcludeMissing fun _industryCode() = industryCode
+
         /** The corporation's address. */
         @JsonProperty("address") @ExcludeMissing fun _address() = address
 
@@ -489,6 +503,7 @@ private constructor(
                 website()
                 taxIdentifier()
                 incorporationState()
+                industryCode()
                 address().validate()
                 beneficialOwners().forEach { it.validate() }
                 validated = true
@@ -507,6 +522,7 @@ private constructor(
                 this.website == other.website &&
                 this.taxIdentifier == other.taxIdentifier &&
                 this.incorporationState == other.incorporationState &&
+                this.industryCode == other.industryCode &&
                 this.address == other.address &&
                 this.beneficialOwners == other.beneficialOwners &&
                 this.additionalProperties == other.additionalProperties
@@ -520,6 +536,7 @@ private constructor(
                         website,
                         taxIdentifier,
                         incorporationState,
+                        industryCode,
                         address,
                         beneficialOwners,
                         additionalProperties,
@@ -529,7 +546,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Corporation{name=$name, website=$website, taxIdentifier=$taxIdentifier, incorporationState=$incorporationState, address=$address, beneficialOwners=$beneficialOwners, additionalProperties=$additionalProperties}"
+            "Corporation{name=$name, website=$website, taxIdentifier=$taxIdentifier, incorporationState=$incorporationState, industryCode=$industryCode, address=$address, beneficialOwners=$beneficialOwners, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -542,6 +559,7 @@ private constructor(
             private var website: JsonField<String> = JsonMissing.of()
             private var taxIdentifier: JsonField<String> = JsonMissing.of()
             private var incorporationState: JsonField<String> = JsonMissing.of()
+            private var industryCode: JsonField<String> = JsonMissing.of()
             private var address: JsonField<Address> = JsonMissing.of()
             private var beneficialOwners: JsonField<List<BeneficialOwner>> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -552,6 +570,7 @@ private constructor(
                 this.website = corporation.website
                 this.taxIdentifier = corporation.taxIdentifier
                 this.incorporationState = corporation.incorporationState
+                this.industryCode = corporation.industryCode
                 this.address = corporation.address
                 this.beneficialOwners = corporation.beneficialOwners
                 additionalProperties(corporation.additionalProperties)
@@ -600,6 +619,22 @@ private constructor(
                 this.incorporationState = incorporationState
             }
 
+            /**
+             * The numeric North American Industry Classification System (NAICS) code submitted for
+             * the corporation.
+             */
+            fun industryCode(industryCode: String) = industryCode(JsonField.of(industryCode))
+
+            /**
+             * The numeric North American Industry Classification System (NAICS) code submitted for
+             * the corporation.
+             */
+            @JsonProperty("industry_code")
+            @ExcludeMissing
+            fun industryCode(industryCode: JsonField<String>) = apply {
+                this.industryCode = industryCode
+            }
+
             /** The corporation's address. */
             fun address(address: Address) = address(JsonField.of(address))
 
@@ -645,6 +680,7 @@ private constructor(
                     website,
                     taxIdentifier,
                     incorporationState,
+                    industryCode,
                     address,
                     beneficialOwners.map { it.toUnmodifiable() },
                     additionalProperties.toUnmodifiable(),

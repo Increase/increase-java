@@ -134,6 +134,7 @@ class EntityServiceTest {
                             .name("x")
                             .taxIdentifier("x")
                             .incorporationState("x")
+                            .industryCode("x")
                             .website("string")
                             .build()
                     )
