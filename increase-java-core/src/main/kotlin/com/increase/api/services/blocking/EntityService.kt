@@ -13,6 +13,7 @@ import com.increase.api.models.EntityListParams
 import com.increase.api.models.EntityRetrieveParams
 import com.increase.api.models.EntityUpdateAddressParams
 import com.increase.api.services.blocking.entities.BeneficialOwnerService
+import com.increase.api.services.blocking.entities.IndustryCodeService
 import com.increase.api.services.blocking.entities.SupplementalDocumentService
 
 interface EntityService {
@@ -20,6 +21,8 @@ interface EntityService {
     fun beneficialOwners(): BeneficialOwnerService
 
     fun supplementalDocuments(): SupplementalDocumentService
+
+    fun industryCode(): IndustryCodeService
 
     /** Create an Entity */
     @JvmOverloads
