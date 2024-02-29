@@ -17,6 +17,8 @@ import com.increase.api.models.EntityRetrieveParams
 import com.increase.api.models.EntityUpdateAddressParams
 import com.increase.api.services.blocking.entities.BeneficialOwnerService
 import com.increase.api.services.blocking.entities.BeneficialOwnerServiceImpl
+import com.increase.api.services.blocking.entities.IndustryCodeService
+import com.increase.api.services.blocking.entities.IndustryCodeServiceImpl
 import com.increase.api.services.blocking.entities.SupplementalDocumentService
 import com.increase.api.services.blocking.entities.SupplementalDocumentServiceImpl
 import com.increase.api.services.errorHandler
@@ -39,9 +41,13 @@ constructor(
         SupplementalDocumentServiceImpl(clientOptions)
     }
 
+    private val industryCode: IndustryCodeService by lazy { IndustryCodeServiceImpl(clientOptions) }
+
     override fun beneficialOwners(): BeneficialOwnerService = beneficialOwners
 
     override fun supplementalDocuments(): SupplementalDocumentService = supplementalDocuments
+
+    override fun industryCode(): IndustryCodeService = industryCode
 
     private val createHandler: Handler<Entity> =
         jsonHandler<Entity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

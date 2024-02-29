@@ -13,6 +13,7 @@ import com.increase.api.models.EntityListParams
 import com.increase.api.models.EntityRetrieveParams
 import com.increase.api.models.EntityUpdateAddressParams
 import com.increase.api.services.async.entities.BeneficialOwnerServiceAsync
+import com.increase.api.services.async.entities.IndustryCodeServiceAsync
 import com.increase.api.services.async.entities.SupplementalDocumentServiceAsync
 import java.util.concurrent.CompletableFuture
 
@@ -21,6 +22,8 @@ interface EntityServiceAsync {
     fun beneficialOwners(): BeneficialOwnerServiceAsync
 
     fun supplementalDocuments(): SupplementalDocumentServiceAsync
+
+    fun industryCode(): IndustryCodeServiceAsync
 
     /** Create an Entity */
     @JvmOverloads

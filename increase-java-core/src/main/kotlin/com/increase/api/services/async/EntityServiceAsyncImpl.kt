@@ -17,6 +17,8 @@ import com.increase.api.models.EntityRetrieveParams
 import com.increase.api.models.EntityUpdateAddressParams
 import com.increase.api.services.async.entities.BeneficialOwnerServiceAsync
 import com.increase.api.services.async.entities.BeneficialOwnerServiceAsyncImpl
+import com.increase.api.services.async.entities.IndustryCodeServiceAsync
+import com.increase.api.services.async.entities.IndustryCodeServiceAsyncImpl
 import com.increase.api.services.async.entities.SupplementalDocumentServiceAsync
 import com.increase.api.services.async.entities.SupplementalDocumentServiceAsyncImpl
 import com.increase.api.services.errorHandler
@@ -40,9 +42,15 @@ constructor(
         SupplementalDocumentServiceAsyncImpl(clientOptions)
     }
 
+    private val industryCode: IndustryCodeServiceAsync by lazy {
+        IndustryCodeServiceAsyncImpl(clientOptions)
+    }
+
     override fun beneficialOwners(): BeneficialOwnerServiceAsync = beneficialOwners
 
     override fun supplementalDocuments(): SupplementalDocumentServiceAsync = supplementalDocuments
+
+    override fun industryCode(): IndustryCodeServiceAsync = industryCode
 
     private val createHandler: Handler<Entity> =
         jsonHandler<Entity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
