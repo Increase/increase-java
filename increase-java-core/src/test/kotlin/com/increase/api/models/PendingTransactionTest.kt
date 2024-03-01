@@ -42,6 +42,7 @@ class PendingTransactionTest {
                         .cardAuthorization(
                             PendingTransaction.Source.CardAuthorization.builder()
                                 .id("string")
+                                .actioner(PendingTransaction.Source.CardAuthorization.Actioner.USER)
                                 .amount(123L)
                                 .cardPaymentId("string")
                                 .currency(PendingTransaction.Source.CardAuthorization.Currency.CAD)
@@ -237,6 +238,7 @@ class PendingTransactionTest {
                     .cardAuthorization(
                         PendingTransaction.Source.CardAuthorization.builder()
                             .id("string")
+                            .actioner(PendingTransaction.Source.CardAuthorization.Actioner.USER)
                             .amount(123L)
                             .cardPaymentId("string")
                             .currency(PendingTransaction.Source.CardAuthorization.Currency.CAD)

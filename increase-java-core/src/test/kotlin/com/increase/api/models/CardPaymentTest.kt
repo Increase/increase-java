@@ -23,6 +23,7 @@ class CardPaymentTest {
                             .cardAuthorization(
                                 CardPayment.Element.CardAuthorization.builder()
                                     .id("string")
+                                    .actioner(CardPayment.Element.CardAuthorization.Actioner.USER)
                                     .amount(123L)
                                     .cardPaymentId("string")
                                     .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
@@ -141,6 +142,7 @@ class CardPaymentTest {
                             .cardDecline(
                                 CardPayment.Element.CardDecline.builder()
                                     .id("string")
+                                    .actioner(CardPayment.Element.CardDecline.Actioner.USER)
                                     .amount(123L)
                                     .cardPaymentId("string")
                                     .currency(CardPayment.Element.CardDecline.Currency.CAD)
@@ -252,6 +254,7 @@ class CardPaymentTest {
                             .cardIncrement(
                                 CardPayment.Element.CardIncrement.builder()
                                     .id("string")
+                                    .actioner(CardPayment.Element.CardIncrement.Actioner.USER)
                                     .amount(123L)
                                     .cardAuthorizationId("string")
                                     .currency(CardPayment.Element.CardIncrement.Currency.CAD)
@@ -712,6 +715,7 @@ class CardPaymentTest {
                             .cardValidation(
                                 CardPayment.Element.CardValidation.builder()
                                     .id("string")
+                                    .actioner(CardPayment.Element.CardValidation.Actioner.USER)
                                     .cardPaymentId("string")
                                     .currency(CardPayment.Element.CardValidation.Currency.CAD)
                                     .digitalWalletTokenId("string")
@@ -824,6 +828,7 @@ class CardPaymentTest {
                     .cardAuthorization(
                         CardPayment.Element.CardAuthorization.builder()
                             .id("string")
+                            .actioner(CardPayment.Element.CardAuthorization.Actioner.USER)
                             .amount(123L)
                             .cardPaymentId("string")
                             .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
@@ -926,6 +931,7 @@ class CardPaymentTest {
                     .cardDecline(
                         CardPayment.Element.CardDecline.builder()
                             .id("string")
+                            .actioner(CardPayment.Element.CardDecline.Actioner.USER)
                             .amount(123L)
                             .cardPaymentId("string")
                             .currency(CardPayment.Element.CardDecline.Currency.CAD)
@@ -1029,6 +1035,7 @@ class CardPaymentTest {
                     .cardIncrement(
                         CardPayment.Element.CardIncrement.builder()
                             .id("string")
+                            .actioner(CardPayment.Element.CardIncrement.Actioner.USER)
                             .amount(123L)
                             .cardAuthorizationId("string")
                             .currency(CardPayment.Element.CardIncrement.Currency.CAD)
@@ -1456,6 +1463,7 @@ class CardPaymentTest {
                     .cardValidation(
                         CardPayment.Element.CardValidation.builder()
                             .id("string")
+                            .actioner(CardPayment.Element.CardValidation.Actioner.USER)
                             .cardPaymentId("string")
                             .currency(CardPayment.Element.CardValidation.Currency.CAD)
                             .digitalWalletTokenId("string")

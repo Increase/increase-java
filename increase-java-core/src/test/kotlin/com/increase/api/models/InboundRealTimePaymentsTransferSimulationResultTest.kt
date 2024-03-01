@@ -75,6 +75,14 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .CardDecline
                                         .builder()
                                         .id("string")
+                                        .actioner(
+                                            InboundRealTimePaymentsTransferSimulationResult
+                                                .DeclinedTransaction
+                                                .Source
+                                                .CardDecline
+                                                .Actioner
+                                                .USER
+                                        )
                                         .amount(123L)
                                         .cardPaymentId("string")
                                         .currency(
@@ -1674,6 +1682,14 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .CardDecline
                                     .builder()
                                     .id("string")
+                                    .actioner(
+                                        InboundRealTimePaymentsTransferSimulationResult
+                                            .DeclinedTransaction
+                                            .Source
+                                            .CardDecline
+                                            .Actioner
+                                            .USER
+                                    )
                                     .amount(123L)
                                     .cardPaymentId("string")
                                     .currency(

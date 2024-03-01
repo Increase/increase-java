@@ -58,6 +58,12 @@ class CardAuthorizationSimulationTest {
                                         .CardDecline
                                         .builder()
                                         .id("string")
+                                        .actioner(
+                                            CardAuthorizationSimulation.DeclinedTransaction.Source
+                                                .CardDecline
+                                                .Actioner
+                                                .USER
+                                        )
                                         .amount(123L)
                                         .cardPaymentId("string")
                                         .currency(
@@ -369,6 +375,12 @@ class CardAuthorizationSimulationTest {
                                         .CardAuthorization
                                         .builder()
                                         .id("string")
+                                        .actioner(
+                                            CardAuthorizationSimulation.PendingTransaction.Source
+                                                .CardAuthorization
+                                                .Actioner
+                                                .USER
+                                        )
                                         .amount(123L)
                                         .cardPaymentId("string")
                                         .currency(
@@ -654,6 +666,12 @@ class CardAuthorizationSimulationTest {
                                 CardAuthorizationSimulation.DeclinedTransaction.Source.CardDecline
                                     .builder()
                                     .id("string")
+                                    .actioner(
+                                        CardAuthorizationSimulation.DeclinedTransaction.Source
+                                            .CardDecline
+                                            .Actioner
+                                            .USER
+                                    )
                                     .amount(123L)
                                     .cardPaymentId("string")
                                     .currency(
@@ -961,6 +979,12 @@ class CardAuthorizationSimulationTest {
                                     .CardAuthorization
                                     .builder()
                                     .id("string")
+                                    .actioner(
+                                        CardAuthorizationSimulation.PendingTransaction.Source
+                                            .CardAuthorization
+                                            .Actioner
+                                            .USER
+                                    )
                                     .amount(123L)
                                     .cardPaymentId("string")
                                     .currency(
