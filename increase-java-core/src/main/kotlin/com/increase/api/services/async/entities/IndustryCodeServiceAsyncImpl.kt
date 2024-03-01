@@ -26,7 +26,7 @@ constructor(
     private val createHandler: Handler<Entity> =
         jsonHandler<Entity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-    /** Update a Corporation Entity's industry code */
+    /** Update the industry code for a corporate Entity */
     override fun create(
         params: EntityIndustryCodeCreateParams,
         requestOptions: RequestOptions

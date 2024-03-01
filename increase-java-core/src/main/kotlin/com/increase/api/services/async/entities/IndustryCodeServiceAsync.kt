@@ -11,7 +11,7 @@ import java.util.concurrent.CompletableFuture
 
 interface IndustryCodeServiceAsync {
 
-    /** Update a Corporation Entity's industry code */
+    /** Update the industry code for a corporate Entity */
     @JvmOverloads
     fun create(
         params: EntityIndustryCodeCreateParams,
