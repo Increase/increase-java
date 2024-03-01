@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.32.0 (2024-03-01)
+
+Full Changelog: [v0.31.0...v0.32.0](https://github.com/Increase/increase-java/compare/v0.31.0...v0.32.0)
+
+### Features
+
+* **api:** add actioner properties ([#201](https://github.com/Increase/increase-java/issues/201)) ([6a510e7](https://github.com/Increase/increase-java/commit/6a510e77daa3a4a3f0131d25f1c5fe3efb0ca054))
+
 ## 0.31.0 (2024-03-01)
 
 Full Changelog: [v0.30.0...v0.31.0](https://github.com/Increase/increase-java/compare/v0.30.0...v0.31.0)
