@@ -42,6 +42,7 @@ class DeclinedTransactionTest {
                         .cardDecline(
                             DeclinedTransaction.Source.CardDecline.builder()
                                 .id("string")
+                                .actioner(DeclinedTransaction.Source.CardDecline.Actioner.USER)
                                 .amount(123L)
                                 .cardPaymentId("string")
                                 .currency(DeclinedTransaction.Source.CardDecline.Currency.CAD)
@@ -276,6 +277,7 @@ class DeclinedTransactionTest {
                     .cardDecline(
                         DeclinedTransaction.Source.CardDecline.builder()
                             .id("string")
+                            .actioner(DeclinedTransaction.Source.CardDecline.Actioner.USER)
                             .amount(123L)
                             .cardPaymentId("string")
                             .currency(DeclinedTransaction.Source.CardDecline.Currency.CAD)
