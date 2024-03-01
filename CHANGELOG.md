@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.31.0 (2024-03-01)
+
+Full Changelog: [v0.30.0...v0.31.0](https://github.com/Increase/increase-java/compare/v0.30.0...v0.31.0)
+
+### Features
+
+* **api:** add `industry_code` property to methods ([#198](https://github.com/Increase/increase-java/issues/198)) ([c41e0ab](https://github.com/Increase/increase-java/commit/c41e0ab2a3a8b798ac86a637b8b3902b6094538d))
+* **api:** add post /entities/{entity_id}/industry_code endpoint ([#199](https://github.com/Increase/increase-java/issues/199)) ([95aa092](https://github.com/Increase/increase-java/commit/95aa0925b60e48f14ca6295cc47f227672fe084d))
+* **api:** add unusual_activity_report_attachment enum member ([#197](https://github.com/Increase/increase-java/issues/197)) ([491799f](https://github.com/Increase/increase-java/commit/491799f312aa5ba6df79b78f8aa8a7c58a4f02a2))
+* **api:** physical card clone update ([#196](https://github.com/Increase/increase-java/issues/196)) ([1852f66](https://github.com/Increase/increase-java/commit/1852f667568c6ff9423d7f65fd930294503d85d5))
+
+
+### Chores
+
+* **ci:** update actions/setup-java action to v4 ([#190](https://github.com/Increase/increase-java/issues/190)) ([9b75807](https://github.com/Increase/increase-java/commit/9b75807c77fca667b42a0a770e5da1b225d1471c))
+* **internal:** update deps ([#188](https://github.com/Increase/increase-java/issues/188)) ([833ee4d](https://github.com/Increase/increase-java/commit/833ee4d3034686e63aceac842ef563a690645753))
+* update dependency com.diffplug.spotless:spotless-plugin-gradle to v6.25.0 ([#192](https://github.com/Increase/increase-java/issues/192)) ([756e67e](https://github.com/Increase/increase-java/commit/756e67ecd5cd7a33ae7adb44441fe85d81226b2d))
+* update dependency com.github.tomakehurst:wiremock-jre8 to v2.35.2 ([#195](https://github.com/Increase/increase-java/issues/195)) ([f823c68](https://github.com/Increase/increase-java/commit/f823c689ee406a28705c128dc941882700157756))
+* update dependency com.google.guava:guava to v33 ([#193](https://github.com/Increase/increase-java/issues/193)) ([5f3335c](https://github.com/Increase/increase-java/commit/5f3335c1a11e6de82c608afd5b52f567e3e97e88))
+* update dependency com.squareup.okhttp3:okhttp to v4.12.0 ([#191](https://github.com/Increase/increase-java/issues/191)) ([d53f274](https://github.com/Increase/increase-java/commit/d53f274184d2df85db724595e8d4ab7c83caf562))
+* update dependency org.apache.httpcomponents.client5:httpclient5 to v5.3.1 ([#189](https://github.com/Increase/increase-java/issues/189)) ([09181a3](https://github.com/Increase/increase-java/commit/09181a3fd3be3a84ac2b5f424df6cdcb7e928023))
+* update dependency org.assertj:assertj-core to v3.25.3 ([#186](https://github.com/Increase/increase-java/issues/186)) ([eee7389](https://github.com/Increase/increase-java/commit/eee7389190447d9be5c2134f3899a720c544ae8a))
+* update dependency org.assertj:assertj-guava to v3.25.3 ([#187](https://github.com/Increase/increase-java/issues/187)) ([e5fad50](https://github.com/Increase/increase-java/commit/e5fad50fb8471eb8d048fadf123d922715827e77))
+* update dependency org.slf4j:slf4j-simple to v1.7.36 ([#184](https://github.com/Increase/increase-java/issues/184)) ([3cc80f1](https://github.com/Increase/increase-java/commit/3cc80f1bdd02fd604fa9e880bbfeb9eb1f49e463))
+* update dependency org.slf4j:slf4j-simple to v2 ([#194](https://github.com/Increase/increase-java/issues/194)) ([ebfb90a](https://github.com/Increase/increase-java/commit/ebfb90ad7915e550a241e04c818f1bf20e2ac8d9))
+
+
+### Documentation
+
+* change industry code docstring ([#200](https://github.com/Increase/increase-java/issues/200)) ([5cc962b](https://github.com/Increase/increase-java/commit/5cc962b92db5ed905e3f5bfa46e5928d788ba67f))
+
 ## 0.30.0 (2024-02-22)
 
 Full Changelog: [v0.29.0...v0.30.0](https://github.com/Increase/increase-java/compare/v0.29.0...v0.30.0)
