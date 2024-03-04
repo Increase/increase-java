@@ -27,7 +27,7 @@ class CardTest {
                 .description("string")
                 .digitalWallet(
                     Card.DigitalWallet.builder()
-                        .cardProfileId("string")
+                        .digitalCardProfileId("string")
                         .email("string")
                         .phone("string")
                         .build()
@@ -58,7 +58,7 @@ class CardTest {
         assertThat(card.digitalWallet())
             .contains(
                 Card.DigitalWallet.builder()
-                    .cardProfileId("string")
+                    .digitalCardProfileId("string")
                     .email("string")
                     .phone("string")
                     .build()
