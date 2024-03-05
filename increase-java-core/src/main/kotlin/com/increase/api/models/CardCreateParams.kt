@@ -526,13 +526,14 @@ constructor(
         private var hashCode: Int = 0
 
         /**
-         * An email address that can be used to verify the cardholder via one-time passcode over
-         * email.
+         * An email address that can be used to contact and verify the cardholder via one-time
+         * passcode over email.
          */
         @JsonProperty("email") fun email(): String? = email
 
         /**
-         * A phone number that can be used to verify the cardholder via one-time passcode over SMS.
+         * A phone number that can be used to contact and verify the cardholder via one-time
+         * passcode over SMS.
          */
         @JsonProperty("phone") fun phone(): String? = phone
 
@@ -595,14 +596,14 @@ constructor(
             }
 
             /**
-             * An email address that can be used to verify the cardholder via one-time passcode over
-             * email.
+             * An email address that can be used to contact and verify the cardholder via one-time
+             * passcode over email.
              */
             @JsonProperty("email") fun email(email: String) = apply { this.email = email }
 
             /**
-             * A phone number that can be used to verify the cardholder via one-time passcode over
-             * SMS.
+             * A phone number that can be used to contact and verify the cardholder via one-time
+             * passcode over SMS.
              */
             @JsonProperty("phone") fun phone(phone: String) = apply { this.phone = phone }
 
