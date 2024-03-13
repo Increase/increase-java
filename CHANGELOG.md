@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.33.0 (2024-03-13)
+
+Full Changelog: [v0.32.0...v0.33.0](https://github.com/Increase/increase-java/compare/v0.32.0...v0.33.0)
+
+### ⚠ BREAKING CHANGES
+
+* rename card_profile_id -> digital_card_profile_id ([#203](https://github.com/Increase/increase-java/issues/203))
+
+### Features
+
+* **api:** confirm entities ([#207](https://github.com/Increase/increase-java/issues/207)) ([5a9c53f](https://github.com/Increase/increase-java/commit/5a9c53fc3744c66b48eb32157141bd1e1ff5a14e))
+
+
+### Bug Fixes
+
+* rename card_profile_id -&gt; digital_card_profile_id ([#203](https://github.com/Increase/increase-java/issues/203)) ([103dd50](https://github.com/Increase/increase-java/commit/103dd508774eedee0908672284256e363dceb459))
+
+
+### Chores
+
+* add api.md ([#205](https://github.com/Increase/increase-java/issues/205)) ([97ff8f5](https://github.com/Increase/increase-java/commit/97ff8f5c57ba8e8ee5cf35e82c521f8bc0ae3ab8))
+
+
+### Documentation
+
+* update docs for digital wallet phone/email ([#206](https://github.com/Increase/increase-java/issues/206)) ([8cf9e96](https://github.com/Increase/increase-java/commit/8cf9e9602695b768de40a5e28f07cf00b9ab5644))
+
 ## 0.32.0 (2024-03-01)
 
 Full Changelog: [v0.31.0...v0.32.0](https://github.com/Increase/increase-java/compare/v0.31.0...v0.32.0)
