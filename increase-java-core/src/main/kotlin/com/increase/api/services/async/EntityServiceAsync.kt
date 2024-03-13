@@ -7,6 +7,7 @@ package com.increase.api.services.async
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.Entity
 import com.increase.api.models.EntityArchiveParams
+import com.increase.api.models.EntityConfirmParams
 import com.increase.api.models.EntityCreateParams
 import com.increase.api.models.EntityListPageAsync
 import com.increase.api.models.EntityListParams
@@ -50,6 +51,17 @@ interface EntityServiceAsync {
     @JvmOverloads
     fun archive(
         params: EntityArchiveParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): CompletableFuture<Entity>
+
+    /**
+     * Depending on your program, you may be required to re-confirm an Entity's details on a
+     * recurring basis. After making any required updates, call this endpoint to record that your
+     * user confirmed their details.
+     */
+    @JvmOverloads
+    fun confirm(
+        params: EntityConfirmParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<Entity>
 
