@@ -25,6 +25,7 @@ private constructor(
     private val id: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val updatedAt: JsonField<OffsetDateTime>,
+    private val dueOn: JsonField<OffsetDateTime>,
     private val achTransfers: JsonField<List<AchTransfer>>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
@@ -42,6 +43,9 @@ private constructor(
 
     /** The time the Proof of Authorization Request was last updated. */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
+
+    /** The time the Proof of Authorization Request is due. */
+    fun dueOn(): OffsetDateTime = dueOn.getRequired("due_on")
 
     /** The ACH Transfers associated with the request. */
     fun achTransfers(): List<AchTransfer> = achTransfers.getRequired("ach_transfers")
@@ -61,6 +65,9 @@ private constructor(
     /** The time the Proof of Authorization Request was last updated. */
     @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
 
+    /** The time the Proof of Authorization Request is due. */
+    @JsonProperty("due_on") @ExcludeMissing fun _dueOn() = dueOn
+
     /** The ACH Transfers associated with the request. */
     @JsonProperty("ach_transfers") @ExcludeMissing fun _achTransfers() = achTransfers
 
@@ -79,6 +86,7 @@ private constructor(
             id()
             createdAt()
             updatedAt()
+            dueOn()
             achTransfers().forEach { it.validate() }
             type()
             validated = true
@@ -96,6 +104,7 @@ private constructor(
             this.id == other.id &&
             this.createdAt == other.createdAt &&
             this.updatedAt == other.updatedAt &&
+            this.dueOn == other.dueOn &&
             this.achTransfers == other.achTransfers &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
@@ -108,6 +117,7 @@ private constructor(
                     id,
                     createdAt,
                     updatedAt,
+                    dueOn,
                     achTransfers,
                     type,
                     additionalProperties,
@@ -117,7 +127,7 @@ private constructor(
     }
 
     override fun toString() =
-        "ProofOfAuthorizationRequest{id=$id, createdAt=$createdAt, updatedAt=$updatedAt, achTransfers=$achTransfers, type=$type, additionalProperties=$additionalProperties}"
+        "ProofOfAuthorizationRequest{id=$id, createdAt=$createdAt, updatedAt=$updatedAt, dueOn=$dueOn, achTransfers=$achTransfers, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -129,6 +139,7 @@ private constructor(
         private var id: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var dueOn: JsonField<OffsetDateTime> = JsonMissing.of()
         private var achTransfers: JsonField<List<AchTransfer>> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -138,6 +149,7 @@ private constructor(
             this.id = proofOfAuthorizationRequest.id
             this.createdAt = proofOfAuthorizationRequest.createdAt
             this.updatedAt = proofOfAuthorizationRequest.updatedAt
+            this.dueOn = proofOfAuthorizationRequest.dueOn
             this.achTransfers = proofOfAuthorizationRequest.achTransfers
             this.type = proofOfAuthorizationRequest.type
             additionalProperties(proofOfAuthorizationRequest.additionalProperties)
@@ -164,6 +176,14 @@ private constructor(
         @JsonProperty("updated_at")
         @ExcludeMissing
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
+
+        /** The time the Proof of Authorization Request is due. */
+        fun dueOn(dueOn: OffsetDateTime) = dueOn(JsonField.of(dueOn))
+
+        /** The time the Proof of Authorization Request is due. */
+        @JsonProperty("due_on")
+        @ExcludeMissing
+        fun dueOn(dueOn: JsonField<OffsetDateTime>) = apply { this.dueOn = dueOn }
 
         /** The ACH Transfers associated with the request. */
         fun achTransfers(achTransfers: List<AchTransfer>) = achTransfers(JsonField.of(achTransfers))
@@ -208,6 +228,7 @@ private constructor(
                 id,
                 createdAt,
                 updatedAt,
+                dueOn,
                 achTransfers.map { it.toUnmodifiable() },
                 type,
                 additionalProperties.toUnmodifiable(),
