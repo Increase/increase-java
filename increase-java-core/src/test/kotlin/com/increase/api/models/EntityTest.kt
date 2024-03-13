@@ -73,6 +73,7 @@ class EntityTest {
                         .build()
                 )
                 .description("string")
+                .detailsConfirmedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .idempotencyKey("string")
                 .joint(
                     Entity.Joint.builder()
@@ -279,6 +280,8 @@ class EntityTest {
                     .build()
             )
         assertThat(entity.description()).contains("string")
+        assertThat(entity.detailsConfirmedAt())
+            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(entity.idempotencyKey()).contains("string")
         assertThat(entity.joint())
             .contains(
