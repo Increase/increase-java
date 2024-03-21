@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.34.0 (2024-03-21)
+
+Full Changelog: [v0.33.0...v0.34.0](https://github.com/Increase/increase-java/compare/v0.33.0...v0.34.0)
+
+### Features
+
+* add HttpRequestBody.contentLength() ([#208](https://github.com/Increase/increase-java/issues/208)) ([24727c1](https://github.com/Increase/increase-java/commit/24727c17b9d4bb324187f537b31c8add4dd84f1b))
+* **api:** adding `pending_reviewing` wire transfer state ([ae838ff](https://github.com/Increase/increase-java/commit/ae838ffff9f76727bf663e77127315e59cea4a88))
+* **api:** introduce `network_risk_score` ([#211](https://github.com/Increase/increase-java/issues/211)) ([ae838ff](https://github.com/Increase/increase-java/commit/ae838ffff9f76727bf663e77127315e59cea4a88))
+* **api:** remove Card Profile ID properties ([ae838ff](https://github.com/Increase/increase-java/commit/ae838ffff9f76727bf663e77127315e59cea4a88))
+
+
+### Documentation
+
+* **readme:** consistent use of sentence case in headings ([#210](https://github.com/Increase/increase-java/issues/210)) ([9e35083](https://github.com/Increase/increase-java/commit/9e35083919f45e8fe6ee711d5decc3eb9bfeffce))
+
 ## 0.33.0 (2024-03-13)
 
 Full Changelog: [v0.32.0...v0.33.0](https://github.com/Increase/increase-java/compare/v0.32.0...v0.33.0)
