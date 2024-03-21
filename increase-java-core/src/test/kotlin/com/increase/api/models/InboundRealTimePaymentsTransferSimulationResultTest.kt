@@ -160,6 +160,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .transactionId("string")
                                                 .build()
                                         )
+                                        .networkRiskScore(123L)
                                         .physicalCardId("string")
                                         .processingCategory(
                                             InboundRealTimePaymentsTransferSimulationResult
@@ -1767,6 +1768,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .transactionId("string")
                                             .build()
                                     )
+                                    .networkRiskScore(123L)
                                     .physicalCardId("string")
                                     .processingCategory(
                                         InboundRealTimePaymentsTransferSimulationResult

@@ -1584,6 +1584,8 @@ private constructor(
 
             @JvmField val CANCELED = Status(JsonField.of("canceled"))
 
+            @JvmField val PENDING_REVIEWING = Status(JsonField.of("pending_reviewing"))
+
             @JvmField val PENDING_SUBMISSION = Status(JsonField.of("pending_submission"))
 
             @JvmField val SUBMITTED = Status(JsonField.of("submitted"))
@@ -1600,6 +1602,7 @@ private constructor(
         enum class Known {
             PENDING_APPROVAL,
             CANCELED,
+            PENDING_REVIEWING,
             PENDING_SUBMISSION,
             SUBMITTED,
             COMPLETE,
@@ -1610,6 +1613,7 @@ private constructor(
         enum class Value {
             PENDING_APPROVAL,
             CANCELED,
+            PENDING_REVIEWING,
             PENDING_SUBMISSION,
             SUBMITTED,
             COMPLETE,
@@ -1622,6 +1626,7 @@ private constructor(
             when (this) {
                 PENDING_APPROVAL -> Value.PENDING_APPROVAL
                 CANCELED -> Value.CANCELED
+                PENDING_REVIEWING -> Value.PENDING_REVIEWING
                 PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
                 SUBMITTED -> Value.SUBMITTED
                 COMPLETE -> Value.COMPLETE
@@ -1634,6 +1639,7 @@ private constructor(
             when (this) {
                 PENDING_APPROVAL -> Known.PENDING_APPROVAL
                 CANCELED -> Known.CANCELED
+                PENDING_REVIEWING -> Known.PENDING_REVIEWING
                 PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
                 SUBMITTED -> Known.SUBMITTED
                 COMPLETE -> Known.COMPLETE

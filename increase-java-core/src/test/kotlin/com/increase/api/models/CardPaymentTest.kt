@@ -75,6 +75,7 @@ class CardPaymentTest {
                                             .transactionId("string")
                                             .build()
                                     )
+                                    .networkRiskScore(123L)
                                     .pendingTransactionId("string")
                                     .physicalCardId("string")
                                     .processingCategory(
@@ -188,6 +189,7 @@ class CardPaymentTest {
                                             .transactionId("string")
                                             .build()
                                     )
+                                    .networkRiskScore(123L)
                                     .physicalCardId("string")
                                     .processingCategory(
                                         CardPayment.Element.CardDecline.ProcessingCategory
@@ -267,6 +269,7 @@ class CardPaymentTest {
                                             .transactionId("string")
                                             .build()
                                     )
+                                    .networkRiskScore(123L)
                                     .pendingTransactionId("string")
                                     .realTimeDecisionId("string")
                                     .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
@@ -761,6 +764,7 @@ class CardPaymentTest {
                                             .transactionId("string")
                                             .build()
                                     )
+                                    .networkRiskScore(123L)
                                     .physicalCardId("string")
                                     .realTimeDecisionId("string")
                                     .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)
@@ -873,6 +877,7 @@ class CardPaymentTest {
                                     .transactionId("string")
                                     .build()
                             )
+                            .networkRiskScore(123L)
                             .pendingTransactionId("string")
                             .physicalCardId("string")
                             .processingCategory(
@@ -971,6 +976,7 @@ class CardPaymentTest {
                                     .transactionId("string")
                                     .build()
                             )
+                            .networkRiskScore(123L)
                             .physicalCardId("string")
                             .processingCategory(
                                 CardPayment.Element.CardDecline.ProcessingCategory.ACCOUNT_FUNDING
@@ -1047,6 +1053,7 @@ class CardPaymentTest {
                                     .transactionId("string")
                                     .build()
                             )
+                            .networkRiskScore(123L)
                             .pendingTransactionId("string")
                             .realTimeDecisionId("string")
                             .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
@@ -1504,6 +1511,7 @@ class CardPaymentTest {
                                     .transactionId("string")
                                     .build()
                             )
+                            .networkRiskScore(123L)
                             .physicalCardId("string")
                             .realTimeDecisionId("string")
                             .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)

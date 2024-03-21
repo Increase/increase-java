@@ -24,7 +24,6 @@ class CardUpdateParamsTest {
             .description("x")
             .digitalWallet(
                 CardUpdateParams.DigitalWallet.builder()
-                    .cardProfileId("string")
                     .digitalCardProfileId("string")
                     .email("x")
                     .phone("x")
@@ -52,7 +51,6 @@ class CardUpdateParamsTest {
                 .description("x")
                 .digitalWallet(
                     CardUpdateParams.DigitalWallet.builder()
-                        .cardProfileId("string")
                         .digitalCardProfileId("string")
                         .email("x")
                         .phone("x")
@@ -77,7 +75,6 @@ class CardUpdateParamsTest {
         assertThat(body.digitalWallet())
             .isEqualTo(
                 CardUpdateParams.DigitalWallet.builder()
-                    .cardProfileId("string")
                     .digitalCardProfileId("string")
                     .email("x")
                     .phone("x")

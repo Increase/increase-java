@@ -19,6 +19,8 @@ class SimulationAchTransferCreateInboundParamsTest {
             .companyEntryDescription("x")
             .companyId("x")
             .companyName("x")
+            .receiverIdNumber("x")
+            .receiverName("x")
             .resolveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
     }
@@ -34,6 +36,8 @@ class SimulationAchTransferCreateInboundParamsTest {
                 .companyEntryDescription("x")
                 .companyId("x")
                 .companyName("x")
+                .receiverIdNumber("x")
+                .receiverName("x")
                 .resolveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
         val body = params.getBody()
@@ -45,6 +49,8 @@ class SimulationAchTransferCreateInboundParamsTest {
         assertThat(body.companyEntryDescription()).isEqualTo("x")
         assertThat(body.companyId()).isEqualTo("x")
         assertThat(body.companyName()).isEqualTo("x")
+        assertThat(body.receiverIdNumber()).isEqualTo("x")
+        assertThat(body.receiverName()).isEqualTo("x")
         assertThat(body.resolveAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }
 
