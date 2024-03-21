@@ -14,7 +14,6 @@ class PhysicalCardTest {
             PhysicalCard.builder()
                 .id("string")
                 .cardId("string")
-                .cardProfileId("string")
                 .cardholder(
                     PhysicalCard.Cardholder.builder().firstName("string").lastName("string").build()
                 )
@@ -52,7 +51,6 @@ class PhysicalCardTest {
         assertThat(physicalCard).isNotNull
         assertThat(physicalCard.id()).isEqualTo("string")
         assertThat(physicalCard.cardId()).isEqualTo("string")
-        assertThat(physicalCard.cardProfileId()).contains("string")
         assertThat(physicalCard.cardholder())
             .contains(
                 PhysicalCard.Cardholder.builder().firstName("string").lastName("string").build()

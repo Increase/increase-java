@@ -26,8 +26,6 @@ class RealTimeDecisionActionParamsTest {
                 RealTimeDecisionActionParams.DigitalWalletToken.builder()
                     .approval(
                         RealTimeDecisionActionParams.DigitalWalletToken.Approval.builder()
-                            .cardProfileId("string")
-                            .digitalCardProfileId("string")
                             .email("x")
                             .phone("x")
                             .build()
@@ -63,8 +61,6 @@ class RealTimeDecisionActionParamsTest {
                     RealTimeDecisionActionParams.DigitalWalletToken.builder()
                         .approval(
                             RealTimeDecisionActionParams.DigitalWalletToken.Approval.builder()
-                                .cardProfileId("string")
-                                .digitalCardProfileId("string")
                                 .email("x")
                                 .phone("x")
                                 .build()
@@ -96,8 +92,6 @@ class RealTimeDecisionActionParamsTest {
                 RealTimeDecisionActionParams.DigitalWalletToken.builder()
                     .approval(
                         RealTimeDecisionActionParams.DigitalWalletToken.Approval.builder()
-                            .cardProfileId("string")
-                            .digitalCardProfileId("string")
                             .email("x")
                             .phone("x")
                             .build()

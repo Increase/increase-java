@@ -96,6 +96,7 @@ class PendingTransactionTest {
                                         .transactionId("string")
                                         .build()
                                 )
+                                .networkRiskScore(123L)
                                 .pendingTransactionId("string")
                                 .physicalCardId("string")
                                 .processingCategory(
@@ -289,6 +290,7 @@ class PendingTransactionTest {
                                     .transactionId("string")
                                     .build()
                             )
+                            .networkRiskScore(123L)
                             .pendingTransactionId("string")
                             .physicalCardId("string")
                             .processingCategory(
