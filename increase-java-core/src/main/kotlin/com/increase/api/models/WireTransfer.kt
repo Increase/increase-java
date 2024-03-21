@@ -1874,6 +1874,8 @@ private constructor(
 
             @JvmField val REQUIRES_ATTENTION = Status(JsonField.of("requires_attention"))
 
+            @JvmField val PENDING_REVIEWING = Status(JsonField.of("pending_reviewing"))
+
             @JvmField val PENDING_APPROVAL = Status(JsonField.of("pending_approval"))
 
             @JvmField val REJECTED = Status(JsonField.of("rejected"))
@@ -1890,6 +1892,7 @@ private constructor(
         enum class Known {
             CANCELED,
             REQUIRES_ATTENTION,
+            PENDING_REVIEWING,
             PENDING_APPROVAL,
             REJECTED,
             REVERSED,
@@ -1900,6 +1903,7 @@ private constructor(
         enum class Value {
             CANCELED,
             REQUIRES_ATTENTION,
+            PENDING_REVIEWING,
             PENDING_APPROVAL,
             REJECTED,
             REVERSED,
@@ -1912,6 +1916,7 @@ private constructor(
             when (this) {
                 CANCELED -> Value.CANCELED
                 REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
+                PENDING_REVIEWING -> Value.PENDING_REVIEWING
                 PENDING_APPROVAL -> Value.PENDING_APPROVAL
                 REJECTED -> Value.REJECTED
                 REVERSED -> Value.REVERSED
@@ -1924,6 +1929,7 @@ private constructor(
             when (this) {
                 CANCELED -> Known.CANCELED
                 REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
+                PENDING_REVIEWING -> Known.PENDING_REVIEWING
                 PENDING_APPROVAL -> Known.PENDING_APPROVAL
                 REJECTED -> Known.REJECTED
                 REVERSED -> Known.REVERSED

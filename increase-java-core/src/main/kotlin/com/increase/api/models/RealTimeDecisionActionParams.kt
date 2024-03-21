@@ -766,21 +766,12 @@ constructor(
         @NoAutoDetect
         class Approval
         private constructor(
-            private val cardProfileId: String?,
-            private val digitalCardProfileId: String?,
             private val phone: String?,
             private val email: String?,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
             private var hashCode: Int = 0
-
-            /** The identifier of the Card Profile to assign to the Digital Wallet token. */
-            @JsonProperty("card_profile_id") fun cardProfileId(): String? = cardProfileId
-
-            /** The identifier of the Digital Card Profile to assign to the Digital Wallet token. */
-            @JsonProperty("digital_card_profile_id")
-            fun digitalCardProfileId(): String? = digitalCardProfileId
 
             /**
              * A phone number that can be used to verify the cardholder via one-time passcode over
@@ -803,8 +794,6 @@ constructor(
                 }
 
                 return other is Approval &&
-                    this.cardProfileId == other.cardProfileId &&
-                    this.digitalCardProfileId == other.digitalCardProfileId &&
                     this.phone == other.phone &&
                     this.email == other.email &&
                     this.additionalProperties == other.additionalProperties
@@ -814,8 +803,6 @@ constructor(
                 if (hashCode == 0) {
                     hashCode =
                         Objects.hash(
-                            cardProfileId,
-                            digitalCardProfileId,
                             phone,
                             email,
                             additionalProperties,
@@ -825,7 +812,7 @@ constructor(
             }
 
             override fun toString() =
-                "Approval{cardProfileId=$cardProfileId, digitalCardProfileId=$digitalCardProfileId, phone=$phone, email=$email, additionalProperties=$additionalProperties}"
+                "Approval{phone=$phone, email=$email, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -834,33 +821,15 @@ constructor(
 
             class Builder {
 
-                private var cardProfileId: String? = null
-                private var digitalCardProfileId: String? = null
                 private var phone: String? = null
                 private var email: String? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
                 internal fun from(approval: Approval) = apply {
-                    this.cardProfileId = approval.cardProfileId
-                    this.digitalCardProfileId = approval.digitalCardProfileId
                     this.phone = approval.phone
                     this.email = approval.email
                     additionalProperties(approval.additionalProperties)
-                }
-
-                /** The identifier of the Card Profile to assign to the Digital Wallet token. */
-                @JsonProperty("card_profile_id")
-                fun cardProfileId(cardProfileId: String) = apply {
-                    this.cardProfileId = cardProfileId
-                }
-
-                /**
-                 * The identifier of the Digital Card Profile to assign to the Digital Wallet token.
-                 */
-                @JsonProperty("digital_card_profile_id")
-                fun digitalCardProfileId(digitalCardProfileId: String) = apply {
-                    this.digitalCardProfileId = digitalCardProfileId
                 }
 
                 /**
@@ -891,8 +860,6 @@ constructor(
 
                 fun build(): Approval =
                     Approval(
-                        cardProfileId,
-                        digitalCardProfileId,
                         phone,
                         email,
                         additionalProperties.toUnmodifiable(),

@@ -133,6 +133,7 @@ class CardAuthorizationSimulationTest {
                                                 .transactionId("string")
                                                 .build()
                                         )
+                                        .networkRiskScore(123L)
                                         .physicalCardId("string")
                                         .processingCategory(
                                             CardAuthorizationSimulation.DeclinedTransaction.Source
@@ -456,6 +457,7 @@ class CardAuthorizationSimulationTest {
                                                 .transactionId("string")
                                                 .build()
                                         )
+                                        .networkRiskScore(123L)
                                         .pendingTransactionId("string")
                                         .physicalCardId("string")
                                         .processingCategory(
@@ -741,6 +743,7 @@ class CardAuthorizationSimulationTest {
                                             .transactionId("string")
                                             .build()
                                     )
+                                    .networkRiskScore(123L)
                                     .physicalCardId("string")
                                     .processingCategory(
                                         CardAuthorizationSimulation.DeclinedTransaction.Source
@@ -1060,6 +1063,7 @@ class CardAuthorizationSimulationTest {
                                             .transactionId("string")
                                             .build()
                                     )
+                                    .networkRiskScore(123L)
                                     .pendingTransactionId("string")
                                     .physicalCardId("string")
                                     .processingCategory(

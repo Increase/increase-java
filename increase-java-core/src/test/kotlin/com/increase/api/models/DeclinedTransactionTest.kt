@@ -90,6 +90,7 @@ class DeclinedTransactionTest {
                                         .transactionId("string")
                                         .build()
                                 )
+                                .networkRiskScore(123L)
                                 .physicalCardId("string")
                                 .processingCategory(
                                     DeclinedTransaction.Source.CardDecline.ProcessingCategory
@@ -323,6 +324,7 @@ class DeclinedTransactionTest {
                                     .transactionId("string")
                                     .build()
                             )
+                            .networkRiskScore(123L)
                             .physicalCardId("string")
                             .processingCategory(
                                 DeclinedTransaction.Source.CardDecline.ProcessingCategory
