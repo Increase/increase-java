@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.36.1 (2024-03-27)
+
+Full Changelog: [v0.36.0...v0.36.1](https://github.com/Increase/increase-java/compare/v0.36.0...v0.36.1)
+
+### Chores
+
+* revert temporary commit ([8b358d6](https://github.com/Increase/increase-java/commit/8b358d62829e96cb0229ad289fea6442ef85ceef))
+* temporary commit ([#216](https://github.com/Increase/increase-java/issues/216)) ([d27aa4b](https://github.com/Increase/increase-java/commit/d27aa4be9140ddf26cd875b0f36f11b424a01b52))
+
 ## 0.36.0 (2024-03-27)
 
 Full Changelog: [v0.35.0...v0.36.0](https://github.com/Increase/increase-java/compare/v0.35.0...v0.36.0)
