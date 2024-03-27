@@ -158,8 +158,6 @@ constructor(
         RealTimePaymentsRequestForPaymentServiceImpl(clientOptions)
     }
 
-    private val webhooks: WebhookService by lazy { WebhookServiceImpl(clientOptions) }
-
     private val oauthTokens: OAuthTokenService by lazy { OAuthTokenServiceImpl(clientOptions) }
 
     private val inboundWireTransfers: InboundWireTransferService by lazy {
@@ -264,8 +262,6 @@ constructor(
 
     override fun realTimePaymentsRequestForPayments(): RealTimePaymentsRequestForPaymentService =
         realTimePaymentsRequestForPayments
-
-    override fun webhooks(): WebhookService = webhooks
 
     override fun oauthTokens(): OAuthTokenService = oauthTokens
 
