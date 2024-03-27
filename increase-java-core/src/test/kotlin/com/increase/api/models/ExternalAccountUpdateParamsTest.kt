@@ -14,6 +14,7 @@ class ExternalAccountUpdateParamsTest {
             .externalAccountId("string")
             .accountHolder(ExternalAccountUpdateParams.AccountHolder.BUSINESS)
             .description("x")
+            .funding(ExternalAccountUpdateParams.Funding.CHECKING)
             .status(ExternalAccountUpdateParams.Status.ACTIVE)
             .build()
     }
@@ -25,6 +26,7 @@ class ExternalAccountUpdateParamsTest {
                 .externalAccountId("string")
                 .accountHolder(ExternalAccountUpdateParams.AccountHolder.BUSINESS)
                 .description("x")
+                .funding(ExternalAccountUpdateParams.Funding.CHECKING)
                 .status(ExternalAccountUpdateParams.Status.ACTIVE)
                 .build()
         val body = params.getBody()
@@ -32,6 +34,7 @@ class ExternalAccountUpdateParamsTest {
         assertThat(body.accountHolder())
             .isEqualTo(ExternalAccountUpdateParams.AccountHolder.BUSINESS)
         assertThat(body.description()).isEqualTo("x")
+        assertThat(body.funding()).isEqualTo(ExternalAccountUpdateParams.Funding.CHECKING)
         assertThat(body.status()).isEqualTo(ExternalAccountUpdateParams.Status.ACTIVE)
     }
 
