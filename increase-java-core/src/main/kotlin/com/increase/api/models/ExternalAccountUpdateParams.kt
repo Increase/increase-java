@@ -22,6 +22,7 @@ constructor(
     private val externalAccountId: String,
     private val accountHolder: AccountHolder?,
     private val description: String?,
+    private val funding: Funding?,
     private val status: Status?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -34,6 +35,8 @@ constructor(
 
     fun description(): Optional<String> = Optional.ofNullable(description)
 
+    fun funding(): Optional<Funding> = Optional.ofNullable(funding)
+
     fun status(): Optional<Status> = Optional.ofNullable(status)
 
     @JvmSynthetic
@@ -41,6 +44,7 @@ constructor(
         return ExternalAccountUpdateBody(
             accountHolder,
             description,
+            funding,
             status,
             additionalBodyProperties,
         )
@@ -63,6 +67,7 @@ constructor(
     internal constructor(
         private val accountHolder: AccountHolder?,
         private val description: String?,
+        private val funding: Funding?,
         private val status: Status?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -74,6 +79,9 @@ constructor(
 
         /** The description you choose to give the external account. */
         @JsonProperty("description") fun description(): String? = description
+
+        /** The funding type of the External Account. */
+        @JsonProperty("funding") fun funding(): Funding? = funding
 
         /** The status of the External Account. */
         @JsonProperty("status") fun status(): Status? = status
@@ -92,6 +100,7 @@ constructor(
             return other is ExternalAccountUpdateBody &&
                 this.accountHolder == other.accountHolder &&
                 this.description == other.description &&
+                this.funding == other.funding &&
                 this.status == other.status &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -102,6 +111,7 @@ constructor(
                     Objects.hash(
                         accountHolder,
                         description,
+                        funding,
                         status,
                         additionalProperties,
                     )
@@ -110,7 +120,7 @@ constructor(
         }
 
         override fun toString() =
-            "ExternalAccountUpdateBody{accountHolder=$accountHolder, description=$description, status=$status, additionalProperties=$additionalProperties}"
+            "ExternalAccountUpdateBody{accountHolder=$accountHolder, description=$description, funding=$funding, status=$status, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -121,6 +131,7 @@ constructor(
 
             private var accountHolder: AccountHolder? = null
             private var description: String? = null
+            private var funding: Funding? = null
             private var status: Status? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -128,6 +139,7 @@ constructor(
             internal fun from(externalAccountUpdateBody: ExternalAccountUpdateBody) = apply {
                 this.accountHolder = externalAccountUpdateBody.accountHolder
                 this.description = externalAccountUpdateBody.description
+                this.funding = externalAccountUpdateBody.funding
                 this.status = externalAccountUpdateBody.status
                 additionalProperties(externalAccountUpdateBody.additionalProperties)
             }
@@ -141,6 +153,10 @@ constructor(
             /** The description you choose to give the external account. */
             @JsonProperty("description")
             fun description(description: String) = apply { this.description = description }
+
+            /** The funding type of the External Account. */
+            @JsonProperty("funding")
+            fun funding(funding: Funding) = apply { this.funding = funding }
 
             /** The status of the External Account. */
             @JsonProperty("status") fun status(status: Status) = apply { this.status = status }
@@ -163,6 +179,7 @@ constructor(
                 ExternalAccountUpdateBody(
                     accountHolder,
                     description,
+                    funding,
                     status,
                     additionalProperties.toUnmodifiable(),
                 )
@@ -184,6 +201,7 @@ constructor(
             this.externalAccountId == other.externalAccountId &&
             this.accountHolder == other.accountHolder &&
             this.description == other.description &&
+            this.funding == other.funding &&
             this.status == other.status &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
@@ -195,6 +213,7 @@ constructor(
             externalAccountId,
             accountHolder,
             description,
+            funding,
             status,
             additionalQueryParams,
             additionalHeaders,
@@ -203,7 +222,7 @@ constructor(
     }
 
     override fun toString() =
-        "ExternalAccountUpdateParams{externalAccountId=$externalAccountId, accountHolder=$accountHolder, description=$description, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "ExternalAccountUpdateParams{externalAccountId=$externalAccountId, accountHolder=$accountHolder, description=$description, funding=$funding, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -218,6 +237,7 @@ constructor(
         private var externalAccountId: String? = null
         private var accountHolder: AccountHolder? = null
         private var description: String? = null
+        private var funding: Funding? = null
         private var status: Status? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -228,6 +248,7 @@ constructor(
             this.externalAccountId = externalAccountUpdateParams.externalAccountId
             this.accountHolder = externalAccountUpdateParams.accountHolder
             this.description = externalAccountUpdateParams.description
+            this.funding = externalAccountUpdateParams.funding
             this.status = externalAccountUpdateParams.status
             additionalQueryParams(externalAccountUpdateParams.additionalQueryParams)
             additionalHeaders(externalAccountUpdateParams.additionalHeaders)
@@ -246,6 +267,9 @@ constructor(
 
         /** The description you choose to give the external account. */
         fun description(description: String) = apply { this.description = description }
+
+        /** The funding type of the External Account. */
+        fun funding(funding: Funding) = apply { this.funding = funding }
 
         /** The status of the External Account. */
         fun status(status: Status) = apply { this.status = status }
@@ -311,6 +335,7 @@ constructor(
                 },
                 accountHolder,
                 description,
+                funding,
                 status,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
@@ -370,6 +395,69 @@ constructor(
                 BUSINESS -> Known.BUSINESS
                 INDIVIDUAL -> Known.INDIVIDUAL
                 else -> throw IncreaseInvalidDataException("Unknown AccountHolder: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    class Funding
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Funding && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val CHECKING = Funding(JsonField.of("checking"))
+
+            @JvmField val SAVINGS = Funding(JsonField.of("savings"))
+
+            @JvmField val OTHER = Funding(JsonField.of("other"))
+
+            @JvmStatic fun of(value: String) = Funding(JsonField.of(value))
+        }
+
+        enum class Known {
+            CHECKING,
+            SAVINGS,
+            OTHER,
+        }
+
+        enum class Value {
+            CHECKING,
+            SAVINGS,
+            OTHER,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                CHECKING -> Value.CHECKING
+                SAVINGS -> Value.SAVINGS
+                OTHER -> Value.OTHER
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                CHECKING -> Known.CHECKING
+                SAVINGS -> Known.SAVINGS
+                OTHER -> Known.OTHER
+                else -> throw IncreaseInvalidDataException("Unknown Funding: $value")
             }
 
         fun asString(): String = _value().asStringOrThrow()

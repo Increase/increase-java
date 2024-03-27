@@ -64,6 +64,7 @@ class ExternalAccountServiceTest {
                     .externalAccountId("string")
                     .accountHolder(ExternalAccountUpdateParams.AccountHolder.BUSINESS)
                     .description("x")
+                    .funding(ExternalAccountUpdateParams.Funding.CHECKING)
                     .status(ExternalAccountUpdateParams.Status.ACTIVE)
                     .build()
             )
