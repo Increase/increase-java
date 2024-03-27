@@ -222,20 +222,6 @@ while (page != null) {
 
 ---
 
----
-
-## Webhook Verification
-
-We provide helper methods for verifying that a webhook request came from Increase, and not a malicious third party.
-
-You can use `increase.webhooks().verifySignature(body, headers, secret?)` or `increase.webhooks().unwrap(body, headers, secret?)`,
-both of which will raise an error if the signature is invalid. If secret is omitted, the body will be unwrapped without any validation.
-
-Note that the "body" parameter must be the raw JSON string sent from the server (do not parse it first).
-The `.unwrap()` method can parse this JSON for you.
-
----
-
 ## Error handling
 
 This library throws exceptions in a single hierarchy for easy handling:
