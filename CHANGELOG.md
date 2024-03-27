@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.36.0 (2024-03-27)
+
+Full Changelog: [v0.35.0...v0.36.0](https://github.com/Increase/increase-java/compare/v0.35.0...v0.36.0)
+
+### Features
+
+* **api:** add `funding` parameter to external account update ([#214](https://github.com/Increase/increase-java/issues/214)) ([33eb902](https://github.com/Increase/increase-java/commit/33eb902cfe5d3f5d45e39793a7c834e0b6ce66bd))
+
 ## 0.35.0 (2024-03-25)
 
 Full Changelog: [v0.34.0...v0.35.0](https://github.com/Increase/increase-java/compare/v0.34.0...v0.35.0)
