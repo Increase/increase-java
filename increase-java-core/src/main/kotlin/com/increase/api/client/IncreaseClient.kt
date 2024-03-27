@@ -95,6 +95,8 @@ interface IncreaseClient {
 
     fun realTimePaymentsRequestForPayments(): RealTimePaymentsRequestForPaymentService
 
+    fun webhooks(): WebhookService
+
     fun oauthTokens(): OAuthTokenService
 
     fun inboundWireTransfers(): InboundWireTransferService
