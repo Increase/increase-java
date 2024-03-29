@@ -557,7 +557,6 @@ private constructor(
         private val checkDepositAcceptance: JsonField<CheckDepositAcceptance>,
         private val checkDepositReturn: JsonField<CheckDepositReturn>,
         private val checkTransferDeposit: JsonField<CheckTransferDeposit>,
-        private val checkTransferIntention: JsonField<CheckTransferIntention>,
         private val checkTransferStopPaymentRequest: JsonField<CheckTransferStopPaymentRequest>,
         private val feePayment: JsonField<FeePayment>,
         private val inboundAchTransfer: JsonField<InboundAchTransfer>,
@@ -666,13 +665,6 @@ private constructor(
          */
         fun checkTransferDeposit(): Optional<CheckTransferDeposit> =
             Optional.ofNullable(checkTransferDeposit.getNullable("check_transfer_deposit"))
-
-        /**
-         * A Check Transfer Intention object. This field will be present in the JSON response if and
-         * only if `category` is equal to `check_transfer_intention`.
-         */
-        fun checkTransferIntention(): Optional<CheckTransferIntention> =
-            Optional.ofNullable(checkTransferIntention.getNullable("check_transfer_intention"))
 
         /**
          * A Check Transfer Stop Payment Request object. This field will be present in the JSON
@@ -899,14 +891,6 @@ private constructor(
         fun _checkTransferDeposit() = checkTransferDeposit
 
         /**
-         * A Check Transfer Intention object. This field will be present in the JSON response if and
-         * only if `category` is equal to `check_transfer_intention`.
-         */
-        @JsonProperty("check_transfer_intention")
-        @ExcludeMissing
-        fun _checkTransferIntention() = checkTransferIntention
-
-        /**
          * A Check Transfer Stop Payment Request object. This field will be present in the JSON
          * response if and only if `category` is equal to `check_transfer_stop_payment_request`.
          */
@@ -1045,7 +1029,6 @@ private constructor(
                 checkDepositAcceptance().map { it.validate() }
                 checkDepositReturn().map { it.validate() }
                 checkTransferDeposit().map { it.validate() }
-                checkTransferIntention().map { it.validate() }
                 checkTransferStopPaymentRequest().map { it.validate() }
                 feePayment().map { it.validate() }
                 inboundAchTransfer().map { it.validate() }
@@ -1086,7 +1069,6 @@ private constructor(
                 this.checkDepositAcceptance == other.checkDepositAcceptance &&
                 this.checkDepositReturn == other.checkDepositReturn &&
                 this.checkTransferDeposit == other.checkTransferDeposit &&
-                this.checkTransferIntention == other.checkTransferIntention &&
                 this.checkTransferStopPaymentRequest == other.checkTransferStopPaymentRequest &&
                 this.feePayment == other.feePayment &&
                 this.inboundAchTransfer == other.inboundAchTransfer &&
@@ -1125,7 +1107,6 @@ private constructor(
                         checkDepositAcceptance,
                         checkDepositReturn,
                         checkTransferDeposit,
-                        checkTransferIntention,
                         checkTransferStopPaymentRequest,
                         feePayment,
                         inboundAchTransfer,
@@ -1149,7 +1130,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Source{category=$category, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardRefund=$cardRefund, cardSettlement=$cardSettlement, cardRevenuePayment=$cardRevenuePayment, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, checkTransferIntention=$checkTransferIntention, checkTransferStopPaymentRequest=$checkTransferStopPaymentRequest, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundCheck=$inboundCheck, inboundInternationalAchTransfer=$inboundInternationalAchTransfer, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireDrawdownPaymentReversal=$inboundWireDrawdownPaymentReversal, inboundWireDrawdownPayment=$inboundWireDrawdownPayment, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, interestPayment=$interestPayment, internalSource=$internalSource, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, wireTransferIntention=$wireTransferIntention, wireTransferRejection=$wireTransferRejection, additionalProperties=$additionalProperties}"
+            "Source{category=$category, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardRefund=$cardRefund, cardSettlement=$cardSettlement, cardRevenuePayment=$cardRevenuePayment, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, checkTransferStopPaymentRequest=$checkTransferStopPaymentRequest, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundCheck=$inboundCheck, inboundInternationalAchTransfer=$inboundInternationalAchTransfer, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireDrawdownPaymentReversal=$inboundWireDrawdownPaymentReversal, inboundWireDrawdownPayment=$inboundWireDrawdownPayment, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, interestPayment=$interestPayment, internalSource=$internalSource, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, wireTransferIntention=$wireTransferIntention, wireTransferRejection=$wireTransferRejection, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1171,7 +1152,6 @@ private constructor(
             private var checkDepositAcceptance: JsonField<CheckDepositAcceptance> = JsonMissing.of()
             private var checkDepositReturn: JsonField<CheckDepositReturn> = JsonMissing.of()
             private var checkTransferDeposit: JsonField<CheckTransferDeposit> = JsonMissing.of()
-            private var checkTransferIntention: JsonField<CheckTransferIntention> = JsonMissing.of()
             private var checkTransferStopPaymentRequest:
                 JsonField<CheckTransferStopPaymentRequest> =
                 JsonMissing.of()
@@ -1215,7 +1195,6 @@ private constructor(
                 this.checkDepositAcceptance = source.checkDepositAcceptance
                 this.checkDepositReturn = source.checkDepositReturn
                 this.checkTransferDeposit = source.checkTransferDeposit
-                this.checkTransferIntention = source.checkTransferIntention
                 this.checkTransferStopPaymentRequest = source.checkTransferStopPaymentRequest
                 this.feePayment = source.feePayment
                 this.inboundAchTransfer = source.inboundAchTransfer
@@ -1440,24 +1419,6 @@ private constructor(
             fun checkTransferDeposit(checkTransferDeposit: JsonField<CheckTransferDeposit>) =
                 apply {
                     this.checkTransferDeposit = checkTransferDeposit
-                }
-
-            /**
-             * A Check Transfer Intention object. This field will be present in the JSON response if
-             * and only if `category` is equal to `check_transfer_intention`.
-             */
-            fun checkTransferIntention(checkTransferIntention: CheckTransferIntention) =
-                checkTransferIntention(JsonField.of(checkTransferIntention))
-
-            /**
-             * A Check Transfer Intention object. This field will be present in the JSON response if
-             * and only if `category` is equal to `check_transfer_intention`.
-             */
-            @JsonProperty("check_transfer_intention")
-            @ExcludeMissing
-            fun checkTransferIntention(checkTransferIntention: JsonField<CheckTransferIntention>) =
-                apply {
-                    this.checkTransferIntention = checkTransferIntention
                 }
 
             /**
@@ -1787,7 +1748,6 @@ private constructor(
                     checkDepositAcceptance,
                     checkDepositReturn,
                     checkTransferDeposit,
-                    checkTransferIntention,
                     checkTransferStopPaymentRequest,
                     feePayment,
                     inboundAchTransfer,
@@ -13116,9 +13076,6 @@ private constructor(
                 val CHECK_TRANSFER_DEPOSIT = Category(JsonField.of("check_transfer_deposit"))
 
                 @JvmField
-                val CHECK_TRANSFER_INTENTION = Category(JsonField.of("check_transfer_intention"))
-
-                @JvmField
                 val CHECK_TRANSFER_STOP_PAYMENT_REQUEST =
                     Category(JsonField.of("check_transfer_stop_payment_request"))
 
@@ -13191,7 +13148,6 @@ private constructor(
                 CHECK_DEPOSIT_ACCEPTANCE,
                 CHECK_DEPOSIT_RETURN,
                 CHECK_TRANSFER_DEPOSIT,
-                CHECK_TRANSFER_INTENTION,
                 CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
                 FEE_PAYMENT,
                 INBOUND_ACH_TRANSFER,
@@ -13225,7 +13181,6 @@ private constructor(
                 CHECK_DEPOSIT_ACCEPTANCE,
                 CHECK_DEPOSIT_RETURN,
                 CHECK_TRANSFER_DEPOSIT,
-                CHECK_TRANSFER_INTENTION,
                 CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
                 FEE_PAYMENT,
                 INBOUND_ACH_TRANSFER,
@@ -13261,7 +13216,6 @@ private constructor(
                     CHECK_DEPOSIT_ACCEPTANCE -> Value.CHECK_DEPOSIT_ACCEPTANCE
                     CHECK_DEPOSIT_RETURN -> Value.CHECK_DEPOSIT_RETURN
                     CHECK_TRANSFER_DEPOSIT -> Value.CHECK_TRANSFER_DEPOSIT
-                    CHECK_TRANSFER_INTENTION -> Value.CHECK_TRANSFER_INTENTION
                     CHECK_TRANSFER_STOP_PAYMENT_REQUEST -> Value.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
                     FEE_PAYMENT -> Value.FEE_PAYMENT
                     INBOUND_ACH_TRANSFER -> Value.INBOUND_ACH_TRANSFER
@@ -13301,7 +13255,6 @@ private constructor(
                     CHECK_DEPOSIT_ACCEPTANCE -> Known.CHECK_DEPOSIT_ACCEPTANCE
                     CHECK_DEPOSIT_RETURN -> Known.CHECK_DEPOSIT_RETURN
                     CHECK_TRANSFER_DEPOSIT -> Known.CHECK_TRANSFER_DEPOSIT
-                    CHECK_TRANSFER_INTENTION -> Known.CHECK_TRANSFER_INTENTION
                     CHECK_TRANSFER_STOP_PAYMENT_REQUEST -> Known.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
                     FEE_PAYMENT -> Known.FEE_PAYMENT
                     INBOUND_ACH_TRANSFER -> Known.INBOUND_ACH_TRANSFER
@@ -14343,7 +14296,8 @@ private constructor(
                 )
 
             /** The identifier of the Check Transfer object that was deposited. */
-            fun transferId(): String = transferId.getRequired("transfer_id")
+            fun transferId(): Optional<String> =
+                Optional.ofNullable(transferId.getNullable("transfer_id"))
 
             /**
              * A constant representing the object's type. For this resource it will always be
@@ -14653,392 +14607,6 @@ private constructor(
                     when (this) {
                         CHECK_TRANSFER_DEPOSIT -> Known.CHECK_TRANSFER_DEPOSIT
                         else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-                    }
-
-                fun asString(): String = _value().asStringOrThrow()
-            }
-        }
-
-        /**
-         * A Check Transfer Intention object. This field will be present in the JSON response if and
-         * only if `category` is equal to `check_transfer_intention`.
-         */
-        @JsonDeserialize(builder = CheckTransferIntention.Builder::class)
-        @NoAutoDetect
-        class CheckTransferIntention
-        private constructor(
-            private val addressLine1: JsonField<String>,
-            private val addressLine2: JsonField<String>,
-            private val addressCity: JsonField<String>,
-            private val addressState: JsonField<String>,
-            private val addressZip: JsonField<String>,
-            private val amount: JsonField<Long>,
-            private val currency: JsonField<Currency>,
-            private val recipientName: JsonField<String>,
-            private val transferId: JsonField<String>,
-            private val additionalProperties: Map<String, JsonValue>,
-        ) {
-
-            private var validated: Boolean = false
-
-            private var hashCode: Int = 0
-
-            /** The street address of the check's destination. */
-            fun addressLine1(): Optional<String> =
-                Optional.ofNullable(addressLine1.getNullable("address_line1"))
-
-            /** The second line of the address of the check's destination. */
-            fun addressLine2(): Optional<String> =
-                Optional.ofNullable(addressLine2.getNullable("address_line2"))
-
-            /** The city of the check's destination. */
-            fun addressCity(): Optional<String> =
-                Optional.ofNullable(addressCity.getNullable("address_city"))
-
-            /** The state of the check's destination. */
-            fun addressState(): Optional<String> =
-                Optional.ofNullable(addressState.getNullable("address_state"))
-
-            /** The postal code of the check's destination. */
-            fun addressZip(): Optional<String> =
-                Optional.ofNullable(addressZip.getNullable("address_zip"))
-
-            /** The transfer amount in USD cents. */
-            fun amount(): Long = amount.getRequired("amount")
-
-            /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency.
-             */
-            fun currency(): Currency = currency.getRequired("currency")
-
-            /** The name that will be printed on the check. */
-            fun recipientName(): Optional<String> =
-                Optional.ofNullable(recipientName.getNullable("recipient_name"))
-
-            /** The identifier of the Check Transfer with which this is associated. */
-            fun transferId(): String = transferId.getRequired("transfer_id")
-
-            /** The street address of the check's destination. */
-            @JsonProperty("address_line1") @ExcludeMissing fun _addressLine1() = addressLine1
-
-            /** The second line of the address of the check's destination. */
-            @JsonProperty("address_line2") @ExcludeMissing fun _addressLine2() = addressLine2
-
-            /** The city of the check's destination. */
-            @JsonProperty("address_city") @ExcludeMissing fun _addressCity() = addressCity
-
-            /** The state of the check's destination. */
-            @JsonProperty("address_state") @ExcludeMissing fun _addressState() = addressState
-
-            /** The postal code of the check's destination. */
-            @JsonProperty("address_zip") @ExcludeMissing fun _addressZip() = addressZip
-
-            /** The transfer amount in USD cents. */
-            @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
-
-            /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency.
-             */
-            @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
-
-            /** The name that will be printed on the check. */
-            @JsonProperty("recipient_name") @ExcludeMissing fun _recipientName() = recipientName
-
-            /** The identifier of the Check Transfer with which this is associated. */
-            @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            fun validate(): CheckTransferIntention = apply {
-                if (!validated) {
-                    addressLine1()
-                    addressLine2()
-                    addressCity()
-                    addressState()
-                    addressZip()
-                    amount()
-                    currency()
-                    recipientName()
-                    transferId()
-                    validated = true
-                }
-            }
-
-            fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is CheckTransferIntention &&
-                    this.addressLine1 == other.addressLine1 &&
-                    this.addressLine2 == other.addressLine2 &&
-                    this.addressCity == other.addressCity &&
-                    this.addressState == other.addressState &&
-                    this.addressZip == other.addressZip &&
-                    this.amount == other.amount &&
-                    this.currency == other.currency &&
-                    this.recipientName == other.recipientName &&
-                    this.transferId == other.transferId &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            addressLine1,
-                            addressLine2,
-                            addressCity,
-                            addressState,
-                            addressZip,
-                            amount,
-                            currency,
-                            recipientName,
-                            transferId,
-                            additionalProperties,
-                        )
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "CheckTransferIntention{addressLine1=$addressLine1, addressLine2=$addressLine2, addressCity=$addressCity, addressState=$addressState, addressZip=$addressZip, amount=$amount, currency=$currency, recipientName=$recipientName, transferId=$transferId, additionalProperties=$additionalProperties}"
-
-            companion object {
-
-                @JvmStatic fun builder() = Builder()
-            }
-
-            class Builder {
-
-                private var addressLine1: JsonField<String> = JsonMissing.of()
-                private var addressLine2: JsonField<String> = JsonMissing.of()
-                private var addressCity: JsonField<String> = JsonMissing.of()
-                private var addressState: JsonField<String> = JsonMissing.of()
-                private var addressZip: JsonField<String> = JsonMissing.of()
-                private var amount: JsonField<Long> = JsonMissing.of()
-                private var currency: JsonField<Currency> = JsonMissing.of()
-                private var recipientName: JsonField<String> = JsonMissing.of()
-                private var transferId: JsonField<String> = JsonMissing.of()
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(checkTransferIntention: CheckTransferIntention) = apply {
-                    this.addressLine1 = checkTransferIntention.addressLine1
-                    this.addressLine2 = checkTransferIntention.addressLine2
-                    this.addressCity = checkTransferIntention.addressCity
-                    this.addressState = checkTransferIntention.addressState
-                    this.addressZip = checkTransferIntention.addressZip
-                    this.amount = checkTransferIntention.amount
-                    this.currency = checkTransferIntention.currency
-                    this.recipientName = checkTransferIntention.recipientName
-                    this.transferId = checkTransferIntention.transferId
-                    additionalProperties(checkTransferIntention.additionalProperties)
-                }
-
-                /** The street address of the check's destination. */
-                fun addressLine1(addressLine1: String) = addressLine1(JsonField.of(addressLine1))
-
-                /** The street address of the check's destination. */
-                @JsonProperty("address_line1")
-                @ExcludeMissing
-                fun addressLine1(addressLine1: JsonField<String>) = apply {
-                    this.addressLine1 = addressLine1
-                }
-
-                /** The second line of the address of the check's destination. */
-                fun addressLine2(addressLine2: String) = addressLine2(JsonField.of(addressLine2))
-
-                /** The second line of the address of the check's destination. */
-                @JsonProperty("address_line2")
-                @ExcludeMissing
-                fun addressLine2(addressLine2: JsonField<String>) = apply {
-                    this.addressLine2 = addressLine2
-                }
-
-                /** The city of the check's destination. */
-                fun addressCity(addressCity: String) = addressCity(JsonField.of(addressCity))
-
-                /** The city of the check's destination. */
-                @JsonProperty("address_city")
-                @ExcludeMissing
-                fun addressCity(addressCity: JsonField<String>) = apply {
-                    this.addressCity = addressCity
-                }
-
-                /** The state of the check's destination. */
-                fun addressState(addressState: String) = addressState(JsonField.of(addressState))
-
-                /** The state of the check's destination. */
-                @JsonProperty("address_state")
-                @ExcludeMissing
-                fun addressState(addressState: JsonField<String>) = apply {
-                    this.addressState = addressState
-                }
-
-                /** The postal code of the check's destination. */
-                fun addressZip(addressZip: String) = addressZip(JsonField.of(addressZip))
-
-                /** The postal code of the check's destination. */
-                @JsonProperty("address_zip")
-                @ExcludeMissing
-                fun addressZip(addressZip: JsonField<String>) = apply {
-                    this.addressZip = addressZip
-                }
-
-                /** The transfer amount in USD cents. */
-                fun amount(amount: Long) = amount(JsonField.of(amount))
-
-                /** The transfer amount in USD cents. */
-                @JsonProperty("amount")
-                @ExcludeMissing
-                fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-                /**
-                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's
-                 * currency.
-                 */
-                fun currency(currency: Currency) = currency(JsonField.of(currency))
-
-                /**
-                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's
-                 * currency.
-                 */
-                @JsonProperty("currency")
-                @ExcludeMissing
-                fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
-
-                /** The name that will be printed on the check. */
-                fun recipientName(recipientName: String) =
-                    recipientName(JsonField.of(recipientName))
-
-                /** The name that will be printed on the check. */
-                @JsonProperty("recipient_name")
-                @ExcludeMissing
-                fun recipientName(recipientName: JsonField<String>) = apply {
-                    this.recipientName = recipientName
-                }
-
-                /** The identifier of the Check Transfer with which this is associated. */
-                fun transferId(transferId: String) = transferId(JsonField.of(transferId))
-
-                /** The identifier of the Check Transfer with which this is associated. */
-                @JsonProperty("transfer_id")
-                @ExcludeMissing
-                fun transferId(transferId: JsonField<String>) = apply {
-                    this.transferId = transferId
-                }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
-                }
-
-                @JsonAnySetter
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun build(): CheckTransferIntention =
-                    CheckTransferIntention(
-                        addressLine1,
-                        addressLine2,
-                        addressCity,
-                        addressState,
-                        addressZip,
-                        amount,
-                        currency,
-                        recipientName,
-                        transferId,
-                        additionalProperties.toUnmodifiable(),
-                    )
-            }
-
-            class Currency
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) {
-
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Currency && this.value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-
-                companion object {
-
-                    @JvmField val CAD = Currency(JsonField.of("CAD"))
-
-                    @JvmField val CHF = Currency(JsonField.of("CHF"))
-
-                    @JvmField val EUR = Currency(JsonField.of("EUR"))
-
-                    @JvmField val GBP = Currency(JsonField.of("GBP"))
-
-                    @JvmField val JPY = Currency(JsonField.of("JPY"))
-
-                    @JvmField val USD = Currency(JsonField.of("USD"))
-
-                    @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
-                }
-
-                enum class Known {
-                    CAD,
-                    CHF,
-                    EUR,
-                    GBP,
-                    JPY,
-                    USD,
-                }
-
-                enum class Value {
-                    CAD,
-                    CHF,
-                    EUR,
-                    GBP,
-                    JPY,
-                    USD,
-                    _UNKNOWN,
-                }
-
-                fun value(): Value =
-                    when (this) {
-                        CAD -> Value.CAD
-                        CHF -> Value.CHF
-                        EUR -> Value.EUR
-                        GBP -> Value.GBP
-                        JPY -> Value.JPY
-                        USD -> Value.USD
-                        else -> Value._UNKNOWN
-                    }
-
-                fun known(): Known =
-                    when (this) {
-                        CAD -> Known.CAD
-                        CHF -> Known.CHF
-                        EUR -> Known.EUR
-                        GBP -> Known.GBP
-                        JPY -> Known.JPY
-                        USD -> Known.USD
-                        else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
                     }
 
                 fun asString(): String = _value().asStringOrThrow()
