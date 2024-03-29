@@ -33,6 +33,7 @@ private constructor(
     private val entityId: JsonField<String>,
     private val informationalEntityId: JsonField<String>,
     private val id: JsonField<String>,
+    private val programId: JsonField<String>,
     private val interestAccrued: JsonField<String>,
     private val interestAccruedAt: JsonField<LocalDate>,
     private val interestRate: JsonField<String>,
@@ -70,6 +71,12 @@ private constructor(
 
     /** The Account identifier. */
     fun id(): String = id.getRequired("id")
+
+    /**
+     * The identifier of the Program determining the compliance and commercial terms of this
+     * Account.
+     */
+    fun programId(): String = programId.getRequired("program_id")
 
     /**
      * The interest accrued but not yet paid, expressed as a string containing a floating-point
@@ -133,6 +140,12 @@ private constructor(
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
+     * The identifier of the Program determining the compliance and commercial terms of this
+     * Account.
+     */
+    @JsonProperty("program_id") @ExcludeMissing fun _programId() = programId
+
+    /**
      * The interest accrued but not yet paid, expressed as a string containing a floating-point
      * value.
      */
@@ -180,6 +193,7 @@ private constructor(
             entityId()
             informationalEntityId()
             id()
+            programId()
             interestAccrued()
             interestAccruedAt()
             interestRate()
@@ -205,6 +219,7 @@ private constructor(
             this.entityId == other.entityId &&
             this.informationalEntityId == other.informationalEntityId &&
             this.id == other.id &&
+            this.programId == other.programId &&
             this.interestAccrued == other.interestAccrued &&
             this.interestAccruedAt == other.interestAccruedAt &&
             this.interestRate == other.interestRate &&
@@ -225,6 +240,7 @@ private constructor(
                     entityId,
                     informationalEntityId,
                     id,
+                    programId,
                     interestAccrued,
                     interestAccruedAt,
                     interestRate,
@@ -239,7 +255,7 @@ private constructor(
     }
 
     override fun toString() =
-        "Account{bank=$bank, createdAt=$createdAt, currency=$currency, entityId=$entityId, informationalEntityId=$informationalEntityId, id=$id, interestAccrued=$interestAccrued, interestAccruedAt=$interestAccruedAt, interestRate=$interestRate, name=$name, status=$status, type=$type, idempotencyKey=$idempotencyKey, additionalProperties=$additionalProperties}"
+        "Account{bank=$bank, createdAt=$createdAt, currency=$currency, entityId=$entityId, informationalEntityId=$informationalEntityId, id=$id, programId=$programId, interestAccrued=$interestAccrued, interestAccruedAt=$interestAccruedAt, interestRate=$interestRate, name=$name, status=$status, type=$type, idempotencyKey=$idempotencyKey, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -254,6 +270,7 @@ private constructor(
         private var entityId: JsonField<String> = JsonMissing.of()
         private var informationalEntityId: JsonField<String> = JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
+        private var programId: JsonField<String> = JsonMissing.of()
         private var interestAccrued: JsonField<String> = JsonMissing.of()
         private var interestAccruedAt: JsonField<LocalDate> = JsonMissing.of()
         private var interestRate: JsonField<String> = JsonMissing.of()
@@ -271,6 +288,7 @@ private constructor(
             this.entityId = account.entityId
             this.informationalEntityId = account.informationalEntityId
             this.id = account.id
+            this.programId = account.programId
             this.interestAccrued = account.interestAccrued
             this.interestAccruedAt = account.interestAccruedAt
             this.interestRate = account.interestRate
@@ -341,6 +359,20 @@ private constructor(
 
         /** The Account identifier. */
         @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /**
+         * The identifier of the Program determining the compliance and commercial terms of this
+         * Account.
+         */
+        fun programId(programId: String) = programId(JsonField.of(programId))
+
+        /**
+         * The identifier of the Program determining the compliance and commercial terms of this
+         * Account.
+         */
+        @JsonProperty("program_id")
+        @ExcludeMissing
+        fun programId(programId: JsonField<String>) = apply { this.programId = programId }
 
         /**
          * The interest accrued but not yet paid, expressed as a string containing a floating-point
@@ -460,6 +492,7 @@ private constructor(
                 entityId,
                 informationalEntityId,
                 id,
+                programId,
                 interestAccrued,
                 interestAccruedAt,
                 interestRate,
@@ -497,21 +530,17 @@ private constructor(
 
             @JvmField val FIRST_INTERNET_BANK = Bank(JsonField.of("first_internet_bank"))
 
-            @JvmField val GRASSHOPPER_BANK = Bank(JsonField.of("grasshopper_bank"))
-
             @JvmStatic fun of(value: String) = Bank(JsonField.of(value))
         }
 
         enum class Known {
             BLUE_RIDGE_BANK,
             FIRST_INTERNET_BANK,
-            GRASSHOPPER_BANK,
         }
 
         enum class Value {
             BLUE_RIDGE_BANK,
             FIRST_INTERNET_BANK,
-            GRASSHOPPER_BANK,
             _UNKNOWN,
         }
 
@@ -519,7 +548,6 @@ private constructor(
             when (this) {
                 BLUE_RIDGE_BANK -> Value.BLUE_RIDGE_BANK
                 FIRST_INTERNET_BANK -> Value.FIRST_INTERNET_BANK
-                GRASSHOPPER_BANK -> Value.GRASSHOPPER_BANK
                 else -> Value._UNKNOWN
             }
 
@@ -527,7 +555,6 @@ private constructor(
             when (this) {
                 BLUE_RIDGE_BANK -> Known.BLUE_RIDGE_BANK
                 FIRST_INTERNET_BANK -> Known.FIRST_INTERNET_BANK
-                GRASSHOPPER_BANK -> Known.GRASSHOPPER_BANK
                 else -> throw IncreaseInvalidDataException("Unknown Bank: $value")
             }
 

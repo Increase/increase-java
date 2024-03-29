@@ -1177,29 +1177,6 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         )
                                         .build()
                                 )
-                                .checkTransferIntention(
-                                    InboundRealTimePaymentsTransferSimulationResult.Transaction
-                                        .Source
-                                        .CheckTransferIntention
-                                        .builder()
-                                        .addressCity("string")
-                                        .addressLine1("string")
-                                        .addressLine2("string")
-                                        .addressState("string")
-                                        .addressZip("string")
-                                        .amount(123L)
-                                        .currency(
-                                            InboundRealTimePaymentsTransferSimulationResult
-                                                .Transaction
-                                                .Source
-                                                .CheckTransferIntention
-                                                .Currency
-                                                .CAD
-                                        )
-                                        .recipientName("string")
-                                        .transferId("string")
-                                        .build()
-                                )
                                 .checkTransferStopPaymentRequest(
                                     InboundRealTimePaymentsTransferSimulationResult.Transaction
                                         .Source
@@ -2731,27 +2708,6 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .Type
                                             .CHECK_TRANSFER_DEPOSIT
                                     )
-                                    .build()
-                            )
-                            .checkTransferIntention(
-                                InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
-                                    .CheckTransferIntention
-                                    .builder()
-                                    .addressCity("string")
-                                    .addressLine1("string")
-                                    .addressLine2("string")
-                                    .addressState("string")
-                                    .addressZip("string")
-                                    .amount(123L)
-                                    .currency(
-                                        InboundRealTimePaymentsTransferSimulationResult.Transaction
-                                            .Source
-                                            .CheckTransferIntention
-                                            .Currency
-                                            .CAD
-                                    )
-                                    .recipientName("string")
-                                    .transferId("string")
                                     .build()
                             )
                             .checkTransferStopPaymentRequest(
