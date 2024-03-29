@@ -497,17 +497,21 @@ private constructor(
 
             @JvmField val FIRST_INTERNET_BANK = Bank(JsonField.of("first_internet_bank"))
 
+            @JvmField val GRASSHOPPER_BANK = Bank(JsonField.of("grasshopper_bank"))
+
             @JvmStatic fun of(value: String) = Bank(JsonField.of(value))
         }
 
         enum class Known {
             BLUE_RIDGE_BANK,
             FIRST_INTERNET_BANK,
+            GRASSHOPPER_BANK,
         }
 
         enum class Value {
             BLUE_RIDGE_BANK,
             FIRST_INTERNET_BANK,
+            GRASSHOPPER_BANK,
             _UNKNOWN,
         }
 
@@ -515,6 +519,7 @@ private constructor(
             when (this) {
                 BLUE_RIDGE_BANK -> Value.BLUE_RIDGE_BANK
                 FIRST_INTERNET_BANK -> Value.FIRST_INTERNET_BANK
+                GRASSHOPPER_BANK -> Value.GRASSHOPPER_BANK
                 else -> Value._UNKNOWN
             }
 
@@ -522,6 +527,7 @@ private constructor(
             when (this) {
                 BLUE_RIDGE_BANK -> Known.BLUE_RIDGE_BANK
                 FIRST_INTERNET_BANK -> Known.FIRST_INTERNET_BANK
+                GRASSHOPPER_BANK -> Known.GRASSHOPPER_BANK
                 else -> throw IncreaseInvalidDataException("Unknown Bank: $value")
             }
 
