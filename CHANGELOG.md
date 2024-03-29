@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.38.0 (2024-03-29)
+
+Full Changelog: [v0.37.0...v0.38.0](https://github.com/Increase/increase-java/compare/v0.37.0...v0.38.0)
+
+### Features
+
+* **api:** remove check transfer intention ([#219](https://github.com/Increase/increase-java/issues/219)) ([2fc2783](https://github.com/Increase/increase-java/commit/2fc2783e84ca811030e9c2969986f0208d19c270))
+
 ## 0.37.0 (2024-03-29)
 
 Full Changelog: [v0.36.0...v0.37.0](https://github.com/Increase/increase-java/compare/v0.36.0...v0.37.0)
