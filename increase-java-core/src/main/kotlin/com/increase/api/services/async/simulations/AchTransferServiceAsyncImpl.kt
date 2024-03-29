@@ -11,6 +11,7 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.AchTransfer
 import com.increase.api.models.InboundAchTransfer
 import com.increase.api.models.SimulationAchTransferCreateInboundParams
+import com.increase.api.models.SimulationAchTransferNotificationOfChangeParams
 import com.increase.api.models.SimulationAchTransferReturnParams
 import com.increase.api.models.SimulationAchTransferSubmitParams
 import com.increase.api.services.errorHandler
@@ -57,6 +58,40 @@ constructor(
             ->
             response
                 .use { createInboundHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
+        }
+    }
+
+    private val notificationOfChangeHandler: Handler<AchTransfer> =
+        jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+    /** Simulates receiving a Notification of Change for an [ACH Transfer](#ach-transfers). */
+    override fun notificationOfChange(
+        params: SimulationAchTransferNotificationOfChangeParams,
+        requestOptions: RequestOptions
+    ): CompletableFuture<AchTransfer> {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.POST)
+                .addPathSegments(
+                    "simulations",
+                    "ach_transfers",
+                    params.getPathParam(0),
+                    "notification_of_change"
+                )
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .body(json(clientOptions.jsonMapper, params.getBody()))
+                .build()
+        return clientOptions.httpClient.executeAsync(request, requestOptions).thenApply { response
+            ->
+            response
+                .use { notificationOfChangeHandler.handle(it) }
                 .apply {
                     if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
                         validate()
