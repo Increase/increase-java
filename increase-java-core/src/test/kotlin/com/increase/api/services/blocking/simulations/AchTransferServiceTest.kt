@@ -40,6 +40,29 @@ class AchTransferServiceTest {
         inboundAchTransfer.validate()
     }
 
+    @Test
+    fun callNotificationOfChange() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val achTransferService = client.simulations().achTransfers()
+        val achTransfer =
+            achTransferService.notificationOfChange(
+                SimulationAchTransferNotificationOfChangeParams.builder()
+                    .achTransferId("string")
+                    .changeCode(
+                        SimulationAchTransferNotificationOfChangeParams.ChangeCode
+                            .INCORRECT_ACCOUNT_NUMBER
+                    )
+                    .correctedData("x")
+                    .build()
+            )
+        println(achTransfer)
+        achTransfer.validate()
+    }
+
     @Disabled("Prism incorrectly returns an invalid JSON error")
     @Test
     fun callReturn() {
