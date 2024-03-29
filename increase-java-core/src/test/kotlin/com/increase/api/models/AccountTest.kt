@@ -24,6 +24,7 @@ class AccountTest {
                 .interestAccruedAt(LocalDate.parse("2019-12-27"))
                 .interestRate("string")
                 .name("string")
+                .programId("string")
                 .status(Account.Status.OPEN)
                 .type(Account.Type.ACCOUNT)
                 .build()
@@ -39,6 +40,7 @@ class AccountTest {
         assertThat(account.interestAccruedAt()).contains(LocalDate.parse("2019-12-27"))
         assertThat(account.interestRate()).isEqualTo("string")
         assertThat(account.name()).isEqualTo("string")
+        assertThat(account.programId()).isEqualTo("string")
         assertThat(account.status()).isEqualTo(Account.Status.OPEN)
         assertThat(account.type()).isEqualTo(Account.Type.ACCOUNT)
     }

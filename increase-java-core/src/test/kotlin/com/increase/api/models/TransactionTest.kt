@@ -514,19 +514,6 @@ class TransactionTest {
                                 )
                                 .build()
                         )
-                        .checkTransferIntention(
-                            Transaction.Source.CheckTransferIntention.builder()
-                                .addressCity("string")
-                                .addressLine1("string")
-                                .addressLine2("string")
-                                .addressState("string")
-                                .addressZip("string")
-                                .amount(123L)
-                                .currency(Transaction.Source.CheckTransferIntention.Currency.CAD)
-                                .recipientName("string")
-                                .transferId("string")
-                                .build()
-                        )
                         .checkTransferStopPaymentRequest(
                             Transaction.Source.CheckTransferStopPaymentRequest.builder()
                                 .reason(
@@ -1283,19 +1270,6 @@ class TransactionTest {
                             .type(
                                 Transaction.Source.CheckTransferDeposit.Type.CHECK_TRANSFER_DEPOSIT
                             )
-                            .build()
-                    )
-                    .checkTransferIntention(
-                        Transaction.Source.CheckTransferIntention.builder()
-                            .addressCity("string")
-                            .addressLine1("string")
-                            .addressLine2("string")
-                            .addressState("string")
-                            .addressZip("string")
-                            .amount(123L)
-                            .currency(Transaction.Source.CheckTransferIntention.Currency.CAD)
-                            .recipientName("string")
-                            .transferId("string")
                             .build()
                     )
                     .checkTransferStopPaymentRequest(

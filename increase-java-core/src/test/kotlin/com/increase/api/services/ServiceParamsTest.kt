@@ -80,6 +80,7 @@ class ServiceParamsTest {
                 .interestAccruedAt(LocalDate.parse("2019-12-27"))
                 .interestRate("string")
                 .name("string")
+                .programId("string")
                 .status(Account.Status.OPEN)
                 .type(Account.Type.ACCOUNT)
                 .build()
