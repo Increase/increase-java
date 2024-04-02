@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.39.0 (2024-04-02)
+
+Full Changelog: [v0.38.0...v0.39.0](https://github.com/Increase/increase-java/compare/v0.38.0...v0.39.0)
+
+### Features
+
+* **api:** filter OAuth connections by their status ([#222](https://github.com/Increase/increase-java/issues/222)) ([2a76296](https://github.com/Increase/increase-java/commit/2a762960c5fd7ff82b8afe19311818a52f7de3d4))
+
 ## 0.38.0 (2024-03-29)
 
 Full Changelog: [v0.37.0...v0.38.0](https://github.com/Increase/increase-java/compare/v0.37.0...v0.38.0)
