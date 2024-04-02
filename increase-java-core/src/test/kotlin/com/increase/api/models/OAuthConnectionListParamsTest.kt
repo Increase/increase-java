@@ -10,15 +10,36 @@ class OAuthConnectionListParamsTest {
 
     @Test
     fun createOAuthConnectionListParams() {
-        OAuthConnectionListParams.builder().cursor("string").limit(123L).build()
+        OAuthConnectionListParams.builder()
+            .cursor("string")
+            .limit(123L)
+            .status(
+                OAuthConnectionListParams.Status.builder()
+                    .in_(listOf(OAuthConnectionListParams.Status.In.ACTIVE))
+                    .build()
+            )
+            .build()
     }
 
     @Test
     fun getQueryParams() {
-        val params = OAuthConnectionListParams.builder().cursor("string").limit(123L).build()
+        val params =
+            OAuthConnectionListParams.builder()
+                .cursor("string")
+                .limit(123L)
+                .status(
+                    OAuthConnectionListParams.Status.builder()
+                        .in_(listOf(OAuthConnectionListParams.Status.In.ACTIVE))
+                        .build()
+                )
+                .build()
         val expected = mutableMapOf<String, List<String>>()
         expected.put("cursor", listOf("string"))
         expected.put("limit", listOf("123"))
+        OAuthConnectionListParams.Status.builder()
+            .in_(listOf(OAuthConnectionListParams.Status.In.ACTIVE))
+            .build()
+            .forEachQueryParam { key, values -> expected.put("status.$key", values) }
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 

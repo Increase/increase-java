@@ -5601,7 +5601,7 @@ private constructor(
                  * originating and receiving bank. Along with the amount, date, and originating
                  * routing number, this can be used to identify the ACH transfer at either bank. ACH
                  * trace numbers are not unique, but are
-                 * [used to correlate returns](https://increase.com/documentation/ach#returns).
+                 * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
                  */
                 fun traceNumber(): String = traceNumber.getRequired("trace_number")
 
@@ -5844,7 +5844,7 @@ private constructor(
                  * originating and receiving bank. Along with the amount, date, and originating
                  * routing number, this can be used to identify the ACH transfer at either bank. ACH
                  * trace numbers are not unique, but are
-                 * [used to correlate returns](https://increase.com/documentation/ach#returns).
+                 * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
                  */
                 @JsonProperty("trace_number") @ExcludeMissing fun _traceNumber() = traceNumber
 
@@ -6731,7 +6731,7 @@ private constructor(
                      * originating and receiving bank. Along with the amount, date, and originating
                      * routing number, this can be used to identify the ACH transfer at either bank.
                      * ACH trace numbers are not unique, but are
-                     * [used to correlate returns](https://increase.com/documentation/ach#returns).
+                     * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
                      */
                     fun traceNumber(traceNumber: String) = traceNumber(JsonField.of(traceNumber))
 
@@ -6740,7 +6740,7 @@ private constructor(
                      * originating and receiving bank. Along with the amount, date, and originating
                      * routing number, this can be used to identify the ACH transfer at either bank.
                      * ACH trace numbers are not unique, but are
-                     * [used to correlate returns](https://increase.com/documentation/ach#returns).
+                     * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
                      */
                     @JsonProperty("trace_number")
                     @ExcludeMissing
@@ -23246,7 +23246,7 @@ private constructor(
                  * originating and receiving bank. Along with the amount, date, and originating
                  * routing number, this can be used to identify the ACH transfer at either bank. ACH
                  * trace numbers are not unique, but are
-                 * [used to correlate returns](https://increase.com/documentation/ach#returns).
+                 * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
                  */
                 fun traceNumber(): String = traceNumber.getRequired("trace_number")
 
@@ -23307,7 +23307,7 @@ private constructor(
                  * originating and receiving bank. Along with the amount, date, and originating
                  * routing number, this can be used to identify the ACH transfer at either bank. ACH
                  * trace numbers are not unique, but are
-                 * [used to correlate returns](https://increase.com/documentation/ach#returns).
+                 * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
                  */
                 @JsonProperty("trace_number") @ExcludeMissing fun _traceNumber() = traceNumber
 
@@ -23557,7 +23557,7 @@ private constructor(
                      * originating and receiving bank. Along with the amount, date, and originating
                      * routing number, this can be used to identify the ACH transfer at either bank.
                      * ACH trace numbers are not unique, but are
-                     * [used to correlate returns](https://increase.com/documentation/ach#returns).
+                     * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
                      */
                     fun traceNumber(traceNumber: String) = traceNumber(JsonField.of(traceNumber))
 
@@ -23566,7 +23566,7 @@ private constructor(
                      * originating and receiving bank. Along with the amount, date, and originating
                      * routing number, this can be used to identify the ACH transfer at either bank.
                      * ACH trace numbers are not unique, but are
-                     * [used to correlate returns](https://increase.com/documentation/ach#returns).
+                     * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
                      */
                     @JsonProperty("trace_number")
                     @ExcludeMissing
@@ -24709,7 +24709,7 @@ private constructor(
                  * originating and receiving bank. Along with the amount, date, and originating
                  * routing number, this can be used to identify the ACH transfer at either bank. ACH
                  * trace numbers are not unique, but are
-                 * [used to correlate returns](https://increase.com/documentation/ach#returns).
+                 * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
                  */
                 fun traceNumber(): String = traceNumber.getRequired("trace_number")
 
@@ -24952,7 +24952,7 @@ private constructor(
                  * originating and receiving bank. Along with the amount, date, and originating
                  * routing number, this can be used to identify the ACH transfer at either bank. ACH
                  * trace numbers are not unique, but are
-                 * [used to correlate returns](https://increase.com/documentation/ach#returns).
+                 * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
                  */
                 @JsonProperty("trace_number") @ExcludeMissing fun _traceNumber() = traceNumber
 
@@ -25850,7 +25850,7 @@ private constructor(
                      * originating and receiving bank. Along with the amount, date, and originating
                      * routing number, this can be used to identify the ACH transfer at either bank.
                      * ACH trace numbers are not unique, but are
-                     * [used to correlate returns](https://increase.com/documentation/ach#returns).
+                     * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
                      */
                     fun traceNumber(traceNumber: String) = traceNumber(JsonField.of(traceNumber))
 
@@ -25859,7 +25859,7 @@ private constructor(
                      * originating and receiving bank. Along with the amount, date, and originating
                      * routing number, this can be used to identify the ACH transfer at either bank.
                      * ACH trace numbers are not unique, but are
-                     * [used to correlate returns](https://increase.com/documentation/ach#returns).
+                     * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
                      */
                     @JsonProperty("trace_number")
                     @ExcludeMissing
