@@ -24,6 +24,7 @@ class EventSubscriptionServiceTest {
             eventSubscriptionService.create(
                 EventSubscriptionCreateParams.builder()
                     .url("string")
+                    .oauthConnectionId("string")
                     .selectedEventCategory(
                         EventSubscriptionCreateParams.SelectedEventCategory.ACCOUNT_CREATED
                     )
