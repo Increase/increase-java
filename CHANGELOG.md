@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.40.0 (2024-04-04)
+
+Full Changelog: [v0.39.0...v0.40.0](https://github.com/Increase/increase-java/compare/v0.39.0...v0.40.0)
+
+### Features
+
+* **api:** remove inbound_check category, rename check_deposit_mail_item, add inbound_mail_item ([#228](https://github.com/Increase/increase-java/issues/228)) ([c332f48](https://github.com/Increase/increase-java/commit/c332f483d74f0cc02ab626a1c49963970f6e51de))
+
+
+### Chores
+
+* **deps:** update jackson to v2.14.3 ([#224](https://github.com/Increase/increase-java/issues/224)) ([5fcadd1](https://github.com/Increase/increase-java/commit/5fcadd1bb13e3c18712414f078437a98f2070e7d))
+* **deps:** update junit5 to v5.9.3 ([#227](https://github.com/Increase/increase-java/issues/227)) ([ba52abf](https://github.com/Increase/increase-java/commit/ba52abf954d12f1261cbf01e6a88c22b5b576ffd))
+* **deps:** update kotlin-gradle-plugin to v1.9.23 ([#226](https://github.com/Increase/increase-java/issues/226)) ([305ff58](https://github.com/Increase/increase-java/commit/305ff58b6bbe7d48e3cebe56adc4b86cfa0a6f93))
+
 ## 0.39.0 (2024-04-02)
 
 Full Changelog: [v0.38.0...v0.39.0](https://github.com/Increase/increase-java/compare/v0.38.0...v0.39.0)
