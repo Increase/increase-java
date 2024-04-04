@@ -38,6 +38,7 @@ private constructor(
     private val description: JsonField<String>,
     private val status: JsonField<Status>,
     private val detailsConfirmedAt: JsonField<OffsetDateTime>,
+    private val createdAt: JsonField<OffsetDateTime>,
     private val supplementalDocuments: JsonField<List<SupplementalDocument>>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -89,9 +90,17 @@ private constructor(
     /** The status of the entity. */
     fun status(): Status = status.getRequired("status")
 
-    /** The date and time at which the entity's details were most recently confirmed. */
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity's details
+     * were most recently confirmed.
+     */
     fun detailsConfirmedAt(): Optional<OffsetDateTime> =
         Optional.ofNullable(detailsConfirmedAt.getNullable("details_confirmed_at"))
+
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity was created.
+     */
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
      * Additional documentation associated with the entity. This is limited to the first 10
@@ -140,10 +149,18 @@ private constructor(
     /** The status of the entity. */
     @JsonProperty("status") @ExcludeMissing fun _status() = status
 
-    /** The date and time at which the entity's details were most recently confirmed. */
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity's details
+     * were most recently confirmed.
+     */
     @JsonProperty("details_confirmed_at")
     @ExcludeMissing
     fun _detailsConfirmedAt() = detailsConfirmedAt
+
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity was created.
+     */
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
     /**
      * Additional documentation associated with the entity. This is limited to the first 10
@@ -171,6 +188,7 @@ private constructor(
             description()
             status()
             detailsConfirmedAt()
+            createdAt()
             supplementalDocuments().forEach { it.validate() }
             validated = true
         }
@@ -195,6 +213,7 @@ private constructor(
             this.description == other.description &&
             this.status == other.status &&
             this.detailsConfirmedAt == other.detailsConfirmedAt &&
+            this.createdAt == other.createdAt &&
             this.supplementalDocuments == other.supplementalDocuments &&
             this.additionalProperties == other.additionalProperties
     }
@@ -214,6 +233,7 @@ private constructor(
                     description,
                     status,
                     detailsConfirmedAt,
+                    createdAt,
                     supplementalDocuments,
                     additionalProperties,
                 )
@@ -222,7 +242,7 @@ private constructor(
     }
 
     override fun toString() =
-        "Entity{id=$id, structure=$structure, corporation=$corporation, naturalPerson=$naturalPerson, joint=$joint, trust=$trust, type=$type, idempotencyKey=$idempotencyKey, description=$description, status=$status, detailsConfirmedAt=$detailsConfirmedAt, supplementalDocuments=$supplementalDocuments, additionalProperties=$additionalProperties}"
+        "Entity{id=$id, structure=$structure, corporation=$corporation, naturalPerson=$naturalPerson, joint=$joint, trust=$trust, type=$type, idempotencyKey=$idempotencyKey, description=$description, status=$status, detailsConfirmedAt=$detailsConfirmedAt, createdAt=$createdAt, supplementalDocuments=$supplementalDocuments, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -242,6 +262,7 @@ private constructor(
         private var description: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var detailsConfirmedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var supplementalDocuments: JsonField<List<SupplementalDocument>> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -258,6 +279,7 @@ private constructor(
             this.description = entity.description
             this.status = entity.status
             this.detailsConfirmedAt = entity.detailsConfirmedAt
+            this.createdAt = entity.createdAt
             this.supplementalDocuments = entity.supplementalDocuments
             additionalProperties(entity.additionalProperties)
         }
@@ -370,16 +392,36 @@ private constructor(
         @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
-        /** The date and time at which the entity's details were most recently confirmed. */
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity's details
+         * were most recently confirmed.
+         */
         fun detailsConfirmedAt(detailsConfirmedAt: OffsetDateTime) =
             detailsConfirmedAt(JsonField.of(detailsConfirmedAt))
 
-        /** The date and time at which the entity's details were most recently confirmed. */
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity's details
+         * were most recently confirmed.
+         */
         @JsonProperty("details_confirmed_at")
         @ExcludeMissing
         fun detailsConfirmedAt(detailsConfirmedAt: JsonField<OffsetDateTime>) = apply {
             this.detailsConfirmedAt = detailsConfirmedAt
         }
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity was
+         * created.
+         */
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity was
+         * created.
+         */
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
          * Additional documentation associated with the entity. This is limited to the first 10
@@ -428,6 +470,7 @@ private constructor(
                 description,
                 status,
                 detailsConfirmedAt,
+                createdAt,
                 supplementalDocuments.map { it.toUnmodifiable() },
                 additionalProperties.toUnmodifiable(),
             )
