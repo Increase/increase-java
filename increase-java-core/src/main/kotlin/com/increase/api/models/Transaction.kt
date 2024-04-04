@@ -560,7 +560,6 @@ private constructor(
         private val checkTransferStopPaymentRequest: JsonField<CheckTransferStopPaymentRequest>,
         private val feePayment: JsonField<FeePayment>,
         private val inboundAchTransfer: JsonField<InboundAchTransfer>,
-        private val inboundCheck: JsonField<InboundCheck>,
         private val inboundInternationalAchTransfer: JsonField<InboundInternationalAchTransfer>,
         private val inboundRealTimePaymentsTransferConfirmation:
             JsonField<InboundRealTimePaymentsTransferConfirmation>,
@@ -688,13 +687,6 @@ private constructor(
          */
         fun inboundAchTransfer(): Optional<InboundAchTransfer> =
             Optional.ofNullable(inboundAchTransfer.getNullable("inbound_ach_transfer"))
-
-        /**
-         * An Inbound Check object. This field will be present in the JSON response if and only if
-         * `category` is equal to `inbound_check`.
-         */
-        fun inboundCheck(): Optional<InboundCheck> =
-            Optional.ofNullable(inboundCheck.getNullable("inbound_check"))
 
         /**
          * An Inbound International ACH Transfer object. This field will be present in the JSON
@@ -913,12 +905,6 @@ private constructor(
         fun _inboundAchTransfer() = inboundAchTransfer
 
         /**
-         * An Inbound Check object. This field will be present in the JSON response if and only if
-         * `category` is equal to `inbound_check`.
-         */
-        @JsonProperty("inbound_check") @ExcludeMissing fun _inboundCheck() = inboundCheck
-
-        /**
          * An Inbound International ACH Transfer object. This field will be present in the JSON
          * response if and only if `category` is equal to `inbound_international_ach_transfer`.
          */
@@ -1032,7 +1018,6 @@ private constructor(
                 checkTransferStopPaymentRequest().map { it.validate() }
                 feePayment().map { it.validate() }
                 inboundAchTransfer().map { it.validate() }
-                inboundCheck().map { it.validate() }
                 inboundInternationalAchTransfer().map { it.validate() }
                 inboundRealTimePaymentsTransferConfirmation().map { it.validate() }
                 inboundWireDrawdownPaymentReversal().map { it.validate() }
@@ -1072,7 +1057,6 @@ private constructor(
                 this.checkTransferStopPaymentRequest == other.checkTransferStopPaymentRequest &&
                 this.feePayment == other.feePayment &&
                 this.inboundAchTransfer == other.inboundAchTransfer &&
-                this.inboundCheck == other.inboundCheck &&
                 this.inboundInternationalAchTransfer == other.inboundInternationalAchTransfer &&
                 this.inboundRealTimePaymentsTransferConfirmation ==
                     other.inboundRealTimePaymentsTransferConfirmation &&
@@ -1110,7 +1094,6 @@ private constructor(
                         checkTransferStopPaymentRequest,
                         feePayment,
                         inboundAchTransfer,
-                        inboundCheck,
                         inboundInternationalAchTransfer,
                         inboundRealTimePaymentsTransferConfirmation,
                         inboundWireDrawdownPaymentReversal,
@@ -1130,7 +1113,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Source{category=$category, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardRefund=$cardRefund, cardSettlement=$cardSettlement, cardRevenuePayment=$cardRevenuePayment, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, checkTransferStopPaymentRequest=$checkTransferStopPaymentRequest, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundCheck=$inboundCheck, inboundInternationalAchTransfer=$inboundInternationalAchTransfer, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireDrawdownPaymentReversal=$inboundWireDrawdownPaymentReversal, inboundWireDrawdownPayment=$inboundWireDrawdownPayment, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, interestPayment=$interestPayment, internalSource=$internalSource, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, wireTransferIntention=$wireTransferIntention, wireTransferRejection=$wireTransferRejection, additionalProperties=$additionalProperties}"
+            "Source{category=$category, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardRefund=$cardRefund, cardSettlement=$cardSettlement, cardRevenuePayment=$cardRevenuePayment, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, checkTransferStopPaymentRequest=$checkTransferStopPaymentRequest, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundInternationalAchTransfer=$inboundInternationalAchTransfer, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireDrawdownPaymentReversal=$inboundWireDrawdownPaymentReversal, inboundWireDrawdownPayment=$inboundWireDrawdownPayment, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, interestPayment=$interestPayment, internalSource=$internalSource, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, wireTransferIntention=$wireTransferIntention, wireTransferRejection=$wireTransferRejection, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1157,7 +1140,6 @@ private constructor(
                 JsonMissing.of()
             private var feePayment: JsonField<FeePayment> = JsonMissing.of()
             private var inboundAchTransfer: JsonField<InboundAchTransfer> = JsonMissing.of()
-            private var inboundCheck: JsonField<InboundCheck> = JsonMissing.of()
             private var inboundInternationalAchTransfer:
                 JsonField<InboundInternationalAchTransfer> =
                 JsonMissing.of()
@@ -1198,7 +1180,6 @@ private constructor(
                 this.checkTransferStopPaymentRequest = source.checkTransferStopPaymentRequest
                 this.feePayment = source.feePayment
                 this.inboundAchTransfer = source.inboundAchTransfer
-                this.inboundCheck = source.inboundCheck
                 this.inboundInternationalAchTransfer = source.inboundInternationalAchTransfer
                 this.inboundRealTimePaymentsTransferConfirmation =
                     source.inboundRealTimePaymentsTransferConfirmation
@@ -1473,22 +1454,6 @@ private constructor(
             }
 
             /**
-             * An Inbound Check object. This field will be present in the JSON response if and only
-             * if `category` is equal to `inbound_check`.
-             */
-            fun inboundCheck(inboundCheck: InboundCheck) = inboundCheck(JsonField.of(inboundCheck))
-
-            /**
-             * An Inbound Check object. This field will be present in the JSON response if and only
-             * if `category` is equal to `inbound_check`.
-             */
-            @JsonProperty("inbound_check")
-            @ExcludeMissing
-            fun inboundCheck(inboundCheck: JsonField<InboundCheck>) = apply {
-                this.inboundCheck = inboundCheck
-            }
-
-            /**
              * An Inbound International ACH Transfer object. This field will be present in the JSON
              * response if and only if `category` is equal to `inbound_international_ach_transfer`.
              */
@@ -1751,7 +1716,6 @@ private constructor(
                     checkTransferStopPaymentRequest,
                     feePayment,
                     inboundAchTransfer,
-                    inboundCheck,
                     inboundInternationalAchTransfer,
                     inboundRealTimePaymentsTransferConfirmation,
                     inboundWireDrawdownPaymentReversal,
@@ -13087,8 +13051,6 @@ private constructor(
                 val INBOUND_ACH_TRANSFER_RETURN_INTENTION =
                     Category(JsonField.of("inbound_ach_transfer_return_intention"))
 
-                @JvmField val INBOUND_CHECK = Category(JsonField.of("inbound_check"))
-
                 @JvmField
                 val INBOUND_INTERNATIONAL_ACH_TRANSFER =
                     Category(JsonField.of("inbound_international_ach_transfer"))
@@ -13152,7 +13114,6 @@ private constructor(
                 FEE_PAYMENT,
                 INBOUND_ACH_TRANSFER,
                 INBOUND_ACH_TRANSFER_RETURN_INTENTION,
-                INBOUND_CHECK,
                 INBOUND_INTERNATIONAL_ACH_TRANSFER,
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
                 INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL,
@@ -13185,7 +13146,6 @@ private constructor(
                 FEE_PAYMENT,
                 INBOUND_ACH_TRANSFER,
                 INBOUND_ACH_TRANSFER_RETURN_INTENTION,
-                INBOUND_CHECK,
                 INBOUND_INTERNATIONAL_ACH_TRANSFER,
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
                 INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL,
@@ -13221,7 +13181,6 @@ private constructor(
                     INBOUND_ACH_TRANSFER -> Value.INBOUND_ACH_TRANSFER
                     INBOUND_ACH_TRANSFER_RETURN_INTENTION ->
                         Value.INBOUND_ACH_TRANSFER_RETURN_INTENTION
-                    INBOUND_CHECK -> Value.INBOUND_CHECK
                     INBOUND_INTERNATIONAL_ACH_TRANSFER -> Value.INBOUND_INTERNATIONAL_ACH_TRANSFER
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                         Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
@@ -13260,7 +13219,6 @@ private constructor(
                     INBOUND_ACH_TRANSFER -> Known.INBOUND_ACH_TRANSFER
                     INBOUND_ACH_TRANSFER_RETURN_INTENTION ->
                         Known.INBOUND_ACH_TRANSFER_RETURN_INTENTION
-                    INBOUND_CHECK -> Known.INBOUND_CHECK
                     INBOUND_INTERNATIONAL_ACH_TRANSFER -> Known.INBOUND_INTERNATIONAL_ACH_TRANSFER
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                         Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
@@ -16015,376 +15973,6 @@ private constructor(
                         }
                     }
                 }
-            }
-        }
-
-        /**
-         * An Inbound Check object. This field will be present in the JSON response if and only if
-         * `category` is equal to `inbound_check`.
-         */
-        @JsonDeserialize(builder = InboundCheck.Builder::class)
-        @NoAutoDetect
-        class InboundCheck
-        private constructor(
-            private val amount: JsonField<Long>,
-            private val currency: JsonField<Currency>,
-            private val checkNumber: JsonField<String>,
-            private val checkFrontImageFileId: JsonField<String>,
-            private val checkRearImageFileId: JsonField<String>,
-            private val bankOfFirstDepositRoutingNumber: JsonField<String>,
-            private val additionalProperties: Map<String, JsonValue>,
-        ) {
-
-            private var validated: Boolean = false
-
-            private var hashCode: Int = 0
-
-            /**
-             * The amount in the minor unit of the destination account currency. For dollars, for
-             * example, this is cents.
-             */
-            fun amount(): Long = amount.getRequired("amount")
-
-            /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
-             * currency.
-             */
-            fun currency(): Currency = currency.getRequired("currency")
-
-            /**
-             * The number of the check. This field is set by the depositing bank and can be
-             * unreliable.
-             */
-            fun checkNumber(): Optional<String> =
-                Optional.ofNullable(checkNumber.getNullable("check_number"))
-
-            /** The front image of the check. This is a black and white TIFF image file. */
-            fun checkFrontImageFileId(): Optional<String> =
-                Optional.ofNullable(checkFrontImageFileId.getNullable("check_front_image_file_id"))
-
-            /** The rear image of the check. This is a black and white TIFF image file. */
-            fun checkRearImageFileId(): Optional<String> =
-                Optional.ofNullable(checkRearImageFileId.getNullable("check_rear_image_file_id"))
-
-            /**
-             * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank
-             * depositing this check. In some rare cases, this is not transmitted via Check21 and
-             * the value will be null.
-             */
-            fun bankOfFirstDepositRoutingNumber(): Optional<String> =
-                Optional.ofNullable(
-                    bankOfFirstDepositRoutingNumber.getNullable(
-                        "bank_of_first_deposit_routing_number"
-                    )
-                )
-
-            /**
-             * The amount in the minor unit of the destination account currency. For dollars, for
-             * example, this is cents.
-             */
-            @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
-
-            /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
-             * currency.
-             */
-            @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
-
-            /**
-             * The number of the check. This field is set by the depositing bank and can be
-             * unreliable.
-             */
-            @JsonProperty("check_number") @ExcludeMissing fun _checkNumber() = checkNumber
-
-            /** The front image of the check. This is a black and white TIFF image file. */
-            @JsonProperty("check_front_image_file_id")
-            @ExcludeMissing
-            fun _checkFrontImageFileId() = checkFrontImageFileId
-
-            /** The rear image of the check. This is a black and white TIFF image file. */
-            @JsonProperty("check_rear_image_file_id")
-            @ExcludeMissing
-            fun _checkRearImageFileId() = checkRearImageFileId
-
-            /**
-             * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank
-             * depositing this check. In some rare cases, this is not transmitted via Check21 and
-             * the value will be null.
-             */
-            @JsonProperty("bank_of_first_deposit_routing_number")
-            @ExcludeMissing
-            fun _bankOfFirstDepositRoutingNumber() = bankOfFirstDepositRoutingNumber
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            fun validate(): InboundCheck = apply {
-                if (!validated) {
-                    amount()
-                    currency()
-                    checkNumber()
-                    checkFrontImageFileId()
-                    checkRearImageFileId()
-                    bankOfFirstDepositRoutingNumber()
-                    validated = true
-                }
-            }
-
-            fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is InboundCheck &&
-                    this.amount == other.amount &&
-                    this.currency == other.currency &&
-                    this.checkNumber == other.checkNumber &&
-                    this.checkFrontImageFileId == other.checkFrontImageFileId &&
-                    this.checkRearImageFileId == other.checkRearImageFileId &&
-                    this.bankOfFirstDepositRoutingNumber == other.bankOfFirstDepositRoutingNumber &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            amount,
-                            currency,
-                            checkNumber,
-                            checkFrontImageFileId,
-                            checkRearImageFileId,
-                            bankOfFirstDepositRoutingNumber,
-                            additionalProperties,
-                        )
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "InboundCheck{amount=$amount, currency=$currency, checkNumber=$checkNumber, checkFrontImageFileId=$checkFrontImageFileId, checkRearImageFileId=$checkRearImageFileId, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, additionalProperties=$additionalProperties}"
-
-            companion object {
-
-                @JvmStatic fun builder() = Builder()
-            }
-
-            class Builder {
-
-                private var amount: JsonField<Long> = JsonMissing.of()
-                private var currency: JsonField<Currency> = JsonMissing.of()
-                private var checkNumber: JsonField<String> = JsonMissing.of()
-                private var checkFrontImageFileId: JsonField<String> = JsonMissing.of()
-                private var checkRearImageFileId: JsonField<String> = JsonMissing.of()
-                private var bankOfFirstDepositRoutingNumber: JsonField<String> = JsonMissing.of()
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(inboundCheck: InboundCheck) = apply {
-                    this.amount = inboundCheck.amount
-                    this.currency = inboundCheck.currency
-                    this.checkNumber = inboundCheck.checkNumber
-                    this.checkFrontImageFileId = inboundCheck.checkFrontImageFileId
-                    this.checkRearImageFileId = inboundCheck.checkRearImageFileId
-                    this.bankOfFirstDepositRoutingNumber =
-                        inboundCheck.bankOfFirstDepositRoutingNumber
-                    additionalProperties(inboundCheck.additionalProperties)
-                }
-
-                /**
-                 * The amount in the minor unit of the destination account currency. For dollars,
-                 * for example, this is cents.
-                 */
-                fun amount(amount: Long) = amount(JsonField.of(amount))
-
-                /**
-                 * The amount in the minor unit of the destination account currency. For dollars,
-                 * for example, this is cents.
-                 */
-                @JsonProperty("amount")
-                @ExcludeMissing
-                fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-                /**
-                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
-                 * currency.
-                 */
-                fun currency(currency: Currency) = currency(JsonField.of(currency))
-
-                /**
-                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
-                 * currency.
-                 */
-                @JsonProperty("currency")
-                @ExcludeMissing
-                fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
-
-                /**
-                 * The number of the check. This field is set by the depositing bank and can be
-                 * unreliable.
-                 */
-                fun checkNumber(checkNumber: String) = checkNumber(JsonField.of(checkNumber))
-
-                /**
-                 * The number of the check. This field is set by the depositing bank and can be
-                 * unreliable.
-                 */
-                @JsonProperty("check_number")
-                @ExcludeMissing
-                fun checkNumber(checkNumber: JsonField<String>) = apply {
-                    this.checkNumber = checkNumber
-                }
-
-                /** The front image of the check. This is a black and white TIFF image file. */
-                fun checkFrontImageFileId(checkFrontImageFileId: String) =
-                    checkFrontImageFileId(JsonField.of(checkFrontImageFileId))
-
-                /** The front image of the check. This is a black and white TIFF image file. */
-                @JsonProperty("check_front_image_file_id")
-                @ExcludeMissing
-                fun checkFrontImageFileId(checkFrontImageFileId: JsonField<String>) = apply {
-                    this.checkFrontImageFileId = checkFrontImageFileId
-                }
-
-                /** The rear image of the check. This is a black and white TIFF image file. */
-                fun checkRearImageFileId(checkRearImageFileId: String) =
-                    checkRearImageFileId(JsonField.of(checkRearImageFileId))
-
-                /** The rear image of the check. This is a black and white TIFF image file. */
-                @JsonProperty("check_rear_image_file_id")
-                @ExcludeMissing
-                fun checkRearImageFileId(checkRearImageFileId: JsonField<String>) = apply {
-                    this.checkRearImageFileId = checkRearImageFileId
-                }
-
-                /**
-                 * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank
-                 * depositing this check. In some rare cases, this is not transmitted via Check21
-                 * and the value will be null.
-                 */
-                fun bankOfFirstDepositRoutingNumber(bankOfFirstDepositRoutingNumber: String) =
-                    bankOfFirstDepositRoutingNumber(JsonField.of(bankOfFirstDepositRoutingNumber))
-
-                /**
-                 * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank
-                 * depositing this check. In some rare cases, this is not transmitted via Check21
-                 * and the value will be null.
-                 */
-                @JsonProperty("bank_of_first_deposit_routing_number")
-                @ExcludeMissing
-                fun bankOfFirstDepositRoutingNumber(
-                    bankOfFirstDepositRoutingNumber: JsonField<String>
-                ) = apply { this.bankOfFirstDepositRoutingNumber = bankOfFirstDepositRoutingNumber }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
-                }
-
-                @JsonAnySetter
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun build(): InboundCheck =
-                    InboundCheck(
-                        amount,
-                        currency,
-                        checkNumber,
-                        checkFrontImageFileId,
-                        checkRearImageFileId,
-                        bankOfFirstDepositRoutingNumber,
-                        additionalProperties.toUnmodifiable(),
-                    )
-            }
-
-            class Currency
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) {
-
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Currency && this.value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-
-                companion object {
-
-                    @JvmField val CAD = Currency(JsonField.of("CAD"))
-
-                    @JvmField val CHF = Currency(JsonField.of("CHF"))
-
-                    @JvmField val EUR = Currency(JsonField.of("EUR"))
-
-                    @JvmField val GBP = Currency(JsonField.of("GBP"))
-
-                    @JvmField val JPY = Currency(JsonField.of("JPY"))
-
-                    @JvmField val USD = Currency(JsonField.of("USD"))
-
-                    @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
-                }
-
-                enum class Known {
-                    CAD,
-                    CHF,
-                    EUR,
-                    GBP,
-                    JPY,
-                    USD,
-                }
-
-                enum class Value {
-                    CAD,
-                    CHF,
-                    EUR,
-                    GBP,
-                    JPY,
-                    USD,
-                    _UNKNOWN,
-                }
-
-                fun value(): Value =
-                    when (this) {
-                        CAD -> Value.CAD
-                        CHF -> Value.CHF
-                        EUR -> Value.EUR
-                        GBP -> Value.GBP
-                        JPY -> Value.JPY
-                        USD -> Value.USD
-                        else -> Value._UNKNOWN
-                    }
-
-                fun known(): Known =
-                    when (this) {
-                        CAD -> Known.CAD
-                        CHF -> Known.CHF
-                        EUR -> Known.EUR
-                        GBP -> Known.GBP
-                        JPY -> Known.JPY
-                        USD -> Known.USD
-                        else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
-                    }
-
-                fun asString(): String = _value().asStringOrThrow()
             }
         }
 

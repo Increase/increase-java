@@ -446,7 +446,7 @@ constructor(
 
                 @JvmField val MAILED_CHECK_IMAGE = In(JsonField.of("mailed_check_image"))
 
-                @JvmField val CHECK_DEPOSIT_MAIL_ITEM = In(JsonField.of("check_deposit_mail_item"))
+                @JvmField val INBOUND_MAIL_ITEM = In(JsonField.of("inbound_mail_item"))
 
                 @JvmField val FORM_1099_INT = In(JsonField.of("form_1099_int"))
 
@@ -489,7 +489,7 @@ constructor(
                 CHECK_IMAGE_FRONT,
                 CHECK_IMAGE_BACK,
                 MAILED_CHECK_IMAGE,
-                CHECK_DEPOSIT_MAIL_ITEM,
+                INBOUND_MAIL_ITEM,
                 FORM_1099_INT,
                 FORM_SS_4,
                 IDENTITY_DOCUMENT,
@@ -511,7 +511,7 @@ constructor(
                 CHECK_IMAGE_FRONT,
                 CHECK_IMAGE_BACK,
                 MAILED_CHECK_IMAGE,
-                CHECK_DEPOSIT_MAIL_ITEM,
+                INBOUND_MAIL_ITEM,
                 FORM_1099_INT,
                 FORM_SS_4,
                 IDENTITY_DOCUMENT,
@@ -535,7 +535,7 @@ constructor(
                     CHECK_IMAGE_FRONT -> Value.CHECK_IMAGE_FRONT
                     CHECK_IMAGE_BACK -> Value.CHECK_IMAGE_BACK
                     MAILED_CHECK_IMAGE -> Value.MAILED_CHECK_IMAGE
-                    CHECK_DEPOSIT_MAIL_ITEM -> Value.CHECK_DEPOSIT_MAIL_ITEM
+                    INBOUND_MAIL_ITEM -> Value.INBOUND_MAIL_ITEM
                     FORM_1099_INT -> Value.FORM_1099_INT
                     FORM_SS_4 -> Value.FORM_SS_4
                     IDENTITY_DOCUMENT -> Value.IDENTITY_DOCUMENT
@@ -559,7 +559,7 @@ constructor(
                     CHECK_IMAGE_FRONT -> Known.CHECK_IMAGE_FRONT
                     CHECK_IMAGE_BACK -> Known.CHECK_IMAGE_BACK
                     MAILED_CHECK_IMAGE -> Known.MAILED_CHECK_IMAGE
-                    CHECK_DEPOSIT_MAIL_ITEM -> Known.CHECK_DEPOSIT_MAIL_ITEM
+                    INBOUND_MAIL_ITEM -> Known.INBOUND_MAIL_ITEM
                     FORM_1099_INT -> Known.FORM_1099_INT
                     FORM_SS_4 -> Known.FORM_SS_4
                     IDENTITY_DOCUMENT -> Known.IDENTITY_DOCUMENT

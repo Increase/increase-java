@@ -1282,26 +1282,6 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .transferId("string")
                                         .build()
                                 )
-                                .inboundCheck(
-                                    InboundRealTimePaymentsTransferSimulationResult.Transaction
-                                        .Source
-                                        .InboundCheck
-                                        .builder()
-                                        .amount(123L)
-                                        .bankOfFirstDepositRoutingNumber("string")
-                                        .checkFrontImageFileId("string")
-                                        .checkNumber("string")
-                                        .checkRearImageFileId("string")
-                                        .currency(
-                                            InboundRealTimePaymentsTransferSimulationResult
-                                                .Transaction
-                                                .Source
-                                                .InboundCheck
-                                                .Currency
-                                                .CAD
-                                        )
-                                        .build()
-                                )
                                 .inboundInternationalAchTransfer(
                                     InboundRealTimePaymentsTransferSimulationResult.Transaction
                                         .Source
@@ -2802,24 +2782,6 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .receiverName("string")
                                     .traceNumber("string")
                                     .transferId("string")
-                                    .build()
-                            )
-                            .inboundCheck(
-                                InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
-                                    .InboundCheck
-                                    .builder()
-                                    .amount(123L)
-                                    .bankOfFirstDepositRoutingNumber("string")
-                                    .checkFrontImageFileId("string")
-                                    .checkNumber("string")
-                                    .checkRearImageFileId("string")
-                                    .currency(
-                                        InboundRealTimePaymentsTransferSimulationResult.Transaction
-                                            .Source
-                                            .InboundCheck
-                                            .Currency
-                                            .CAD
-                                    )
                                     .build()
                             )
                             .inboundInternationalAchTransfer(
