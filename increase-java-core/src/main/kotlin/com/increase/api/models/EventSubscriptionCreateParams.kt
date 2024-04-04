@@ -20,6 +20,7 @@ import java.util.Optional
 class EventSubscriptionCreateParams
 constructor(
     private val url: String,
+    private val oauthConnectionId: String?,
     private val selectedEventCategory: SelectedEventCategory?,
     private val sharedSecret: String?,
     private val additionalQueryParams: Map<String, List<String>>,
@@ -28,6 +29,8 @@ constructor(
 ) {
 
     fun url(): String = url
+
+    fun oauthConnectionId(): Optional<String> = Optional.ofNullable(oauthConnectionId)
 
     fun selectedEventCategory(): Optional<SelectedEventCategory> =
         Optional.ofNullable(selectedEventCategory)
@@ -38,6 +41,7 @@ constructor(
     internal fun getBody(): EventSubscriptionCreateBody {
         return EventSubscriptionCreateBody(
             url,
+            oauthConnectionId,
             selectedEventCategory,
             sharedSecret,
             additionalBodyProperties,
@@ -53,6 +57,7 @@ constructor(
     class EventSubscriptionCreateBody
     internal constructor(
         private val url: String?,
+        private val oauthConnectionId: String?,
         private val selectedEventCategory: SelectedEventCategory?,
         private val sharedSecret: String?,
         private val additionalProperties: Map<String, JsonValue>,
@@ -62,6 +67,12 @@ constructor(
 
         /** The URL you'd like us to send webhooks to. */
         @JsonProperty("url") fun url(): String? = url
+
+        /**
+         * If specified, this subscription will only receive webhooks for Events associated with the
+         * specified OAuth Connection.
+         */
+        @JsonProperty("oauth_connection_id") fun oauthConnectionId(): String? = oauthConnectionId
 
         /**
          * If specified, this subscription will only receive webhooks for Events with the specified
@@ -89,6 +100,7 @@ constructor(
 
             return other is EventSubscriptionCreateBody &&
                 this.url == other.url &&
+                this.oauthConnectionId == other.oauthConnectionId &&
                 this.selectedEventCategory == other.selectedEventCategory &&
                 this.sharedSecret == other.sharedSecret &&
                 this.additionalProperties == other.additionalProperties
@@ -99,6 +111,7 @@ constructor(
                 hashCode =
                     Objects.hash(
                         url,
+                        oauthConnectionId,
                         selectedEventCategory,
                         sharedSecret,
                         additionalProperties,
@@ -108,7 +121,7 @@ constructor(
         }
 
         override fun toString() =
-            "EventSubscriptionCreateBody{url=$url, selectedEventCategory=$selectedEventCategory, sharedSecret=$sharedSecret, additionalProperties=$additionalProperties}"
+            "EventSubscriptionCreateBody{url=$url, oauthConnectionId=$oauthConnectionId, selectedEventCategory=$selectedEventCategory, sharedSecret=$sharedSecret, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -118,6 +131,7 @@ constructor(
         class Builder {
 
             private var url: String? = null
+            private var oauthConnectionId: String? = null
             private var selectedEventCategory: SelectedEventCategory? = null
             private var sharedSecret: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -125,6 +139,7 @@ constructor(
             @JvmSynthetic
             internal fun from(eventSubscriptionCreateBody: EventSubscriptionCreateBody) = apply {
                 this.url = eventSubscriptionCreateBody.url
+                this.oauthConnectionId = eventSubscriptionCreateBody.oauthConnectionId
                 this.selectedEventCategory = eventSubscriptionCreateBody.selectedEventCategory
                 this.sharedSecret = eventSubscriptionCreateBody.sharedSecret
                 additionalProperties(eventSubscriptionCreateBody.additionalProperties)
@@ -132,6 +147,15 @@ constructor(
 
             /** The URL you'd like us to send webhooks to. */
             @JsonProperty("url") fun url(url: String) = apply { this.url = url }
+
+            /**
+             * If specified, this subscription will only receive webhooks for Events associated with
+             * the specified OAuth Connection.
+             */
+            @JsonProperty("oauth_connection_id")
+            fun oauthConnectionId(oauthConnectionId: String) = apply {
+                this.oauthConnectionId = oauthConnectionId
+            }
 
             /**
              * If specified, this subscription will only receive webhooks for Events with the
@@ -166,6 +190,7 @@ constructor(
             fun build(): EventSubscriptionCreateBody =
                 EventSubscriptionCreateBody(
                     checkNotNull(url) { "`url` is required but was not set" },
+                    oauthConnectionId,
                     selectedEventCategory,
                     sharedSecret,
                     additionalProperties.toUnmodifiable(),
@@ -186,6 +211,7 @@ constructor(
 
         return other is EventSubscriptionCreateParams &&
             this.url == other.url &&
+            this.oauthConnectionId == other.oauthConnectionId &&
             this.selectedEventCategory == other.selectedEventCategory &&
             this.sharedSecret == other.sharedSecret &&
             this.additionalQueryParams == other.additionalQueryParams &&
@@ -196,6 +222,7 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             url,
+            oauthConnectionId,
             selectedEventCategory,
             sharedSecret,
             additionalQueryParams,
@@ -205,7 +232,7 @@ constructor(
     }
 
     override fun toString() =
-        "EventSubscriptionCreateParams{url=$url, selectedEventCategory=$selectedEventCategory, sharedSecret=$sharedSecret, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "EventSubscriptionCreateParams{url=$url, oauthConnectionId=$oauthConnectionId, selectedEventCategory=$selectedEventCategory, sharedSecret=$sharedSecret, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -218,6 +245,7 @@ constructor(
     class Builder {
 
         private var url: String? = null
+        private var oauthConnectionId: String? = null
         private var selectedEventCategory: SelectedEventCategory? = null
         private var sharedSecret: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -227,6 +255,7 @@ constructor(
         @JvmSynthetic
         internal fun from(eventSubscriptionCreateParams: EventSubscriptionCreateParams) = apply {
             this.url = eventSubscriptionCreateParams.url
+            this.oauthConnectionId = eventSubscriptionCreateParams.oauthConnectionId
             this.selectedEventCategory = eventSubscriptionCreateParams.selectedEventCategory
             this.sharedSecret = eventSubscriptionCreateParams.sharedSecret
             additionalQueryParams(eventSubscriptionCreateParams.additionalQueryParams)
@@ -236,6 +265,14 @@ constructor(
 
         /** The URL you'd like us to send webhooks to. */
         fun url(url: String) = apply { this.url = url }
+
+        /**
+         * If specified, this subscription will only receive webhooks for Events associated with the
+         * specified OAuth Connection.
+         */
+        fun oauthConnectionId(oauthConnectionId: String) = apply {
+            this.oauthConnectionId = oauthConnectionId
+        }
 
         /**
          * If specified, this subscription will only receive webhooks for Events with the specified
@@ -308,6 +345,7 @@ constructor(
         fun build(): EventSubscriptionCreateParams =
             EventSubscriptionCreateParams(
                 checkNotNull(url) { "`url` is required but was not set" },
+                oauthConnectionId,
                 selectedEventCategory,
                 sharedSecret,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
@@ -493,6 +531,14 @@ constructor(
                 SelectedEventCategory(JsonField.of("inbound_ach_transfer_return.updated"))
 
             @JvmField
+            val INBOUND_MAIL_ITEM_CREATED =
+                SelectedEventCategory(JsonField.of("inbound_mail_item.created"))
+
+            @JvmField
+            val INBOUND_MAIL_ITEM_UPDATED =
+                SelectedEventCategory(JsonField.of("inbound_mail_item.updated"))
+
+            @JvmField
             val INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED =
                 SelectedEventCategory(JsonField.of("inbound_wire_drawdown_request.created"))
 
@@ -676,6 +722,8 @@ constructor(
             INBOUND_ACH_TRANSFER_UPDATED,
             INBOUND_ACH_TRANSFER_RETURN_CREATED,
             INBOUND_ACH_TRANSFER_RETURN_UPDATED,
+            INBOUND_MAIL_ITEM_CREATED,
+            INBOUND_MAIL_ITEM_UPDATED,
             INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED,
             INBOUND_WIRE_TRANSFER_CREATED,
             INBOUND_WIRE_TRANSFER_UPDATED,
@@ -757,6 +805,8 @@ constructor(
             INBOUND_ACH_TRANSFER_UPDATED,
             INBOUND_ACH_TRANSFER_RETURN_CREATED,
             INBOUND_ACH_TRANSFER_RETURN_UPDATED,
+            INBOUND_MAIL_ITEM_CREATED,
+            INBOUND_MAIL_ITEM_UPDATED,
             INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED,
             INBOUND_WIRE_TRANSFER_CREATED,
             INBOUND_WIRE_TRANSFER_UPDATED,
@@ -840,6 +890,8 @@ constructor(
                 INBOUND_ACH_TRANSFER_UPDATED -> Value.INBOUND_ACH_TRANSFER_UPDATED
                 INBOUND_ACH_TRANSFER_RETURN_CREATED -> Value.INBOUND_ACH_TRANSFER_RETURN_CREATED
                 INBOUND_ACH_TRANSFER_RETURN_UPDATED -> Value.INBOUND_ACH_TRANSFER_RETURN_UPDATED
+                INBOUND_MAIL_ITEM_CREATED -> Value.INBOUND_MAIL_ITEM_CREATED
+                INBOUND_MAIL_ITEM_UPDATED -> Value.INBOUND_MAIL_ITEM_UPDATED
                 INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED -> Value.INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED
                 INBOUND_WIRE_TRANSFER_CREATED -> Value.INBOUND_WIRE_TRANSFER_CREATED
                 INBOUND_WIRE_TRANSFER_UPDATED -> Value.INBOUND_WIRE_TRANSFER_UPDATED
@@ -932,6 +984,8 @@ constructor(
                 INBOUND_ACH_TRANSFER_UPDATED -> Known.INBOUND_ACH_TRANSFER_UPDATED
                 INBOUND_ACH_TRANSFER_RETURN_CREATED -> Known.INBOUND_ACH_TRANSFER_RETURN_CREATED
                 INBOUND_ACH_TRANSFER_RETURN_UPDATED -> Known.INBOUND_ACH_TRANSFER_RETURN_UPDATED
+                INBOUND_MAIL_ITEM_CREATED -> Known.INBOUND_MAIL_ITEM_CREATED
+                INBOUND_MAIL_ITEM_UPDATED -> Known.INBOUND_MAIL_ITEM_UPDATED
                 INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED -> Known.INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED
                 INBOUND_WIRE_TRANSFER_CREATED -> Known.INBOUND_WIRE_TRANSFER_CREATED
                 INBOUND_WIRE_TRANSFER_UPDATED -> Known.INBOUND_WIRE_TRANSFER_UPDATED

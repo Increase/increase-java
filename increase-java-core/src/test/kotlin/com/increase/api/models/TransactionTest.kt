@@ -573,16 +573,6 @@ class TransactionTest {
                                 .transferId("string")
                                 .build()
                         )
-                        .inboundCheck(
-                            Transaction.Source.InboundCheck.builder()
-                                .amount(123L)
-                                .bankOfFirstDepositRoutingNumber("string")
-                                .checkFrontImageFileId("string")
-                                .checkNumber("string")
-                                .checkRearImageFileId("string")
-                                .currency(Transaction.Source.InboundCheck.Currency.CAD)
-                                .build()
-                        )
                         .inboundInternationalAchTransfer(
                             Transaction.Source.InboundInternationalAchTransfer.builder()
                                 .amount(123L)
@@ -1328,16 +1318,6 @@ class TransactionTest {
                             .receiverName("string")
                             .traceNumber("string")
                             .transferId("string")
-                            .build()
-                    )
-                    .inboundCheck(
-                        Transaction.Source.InboundCheck.builder()
-                            .amount(123L)
-                            .bankOfFirstDepositRoutingNumber("string")
-                            .checkFrontImageFileId("string")
-                            .checkNumber("string")
-                            .checkRearImageFileId("string")
-                            .currency(Transaction.Source.InboundCheck.Currency.CAD)
                             .build()
                     )
                     .inboundInternationalAchTransfer(
