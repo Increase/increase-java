@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.41.0 (2024-04-05)
+
+Full Changelog: [v0.40.0...v0.41.0](https://github.com/Increase/increase-java/compare/v0.40.0...v0.41.0)
+
+### Features
+
+* **api:** add inbound check deposit return intention ([#229](https://github.com/Increase/increase-java/issues/229)) ([b551fb6](https://github.com/Increase/increase-java/commit/b551fb6fb524c48f34d8235c9c25268b8b1ec1aa))
+
 ## 0.40.0 (2024-04-04)
 
 Full Changelog: [v0.39.0...v0.40.0](https://github.com/Increase/increase-java/compare/v0.39.0...v0.40.0)
