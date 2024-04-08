@@ -55,7 +55,8 @@ constructor(
         /**
          * The North American Industry Classification System (NAICS) code for the corporation's
          * primary line of business. This is a number, like `5132` for `Software Publishers`. A full
-         * list of classification codes is available at https://www.naics.com.
+         * list of classification codes is available
+         * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
          */
         @JsonProperty("industry_code") fun industryCode(): String? = industryCode
 
@@ -104,7 +105,8 @@ constructor(
             /**
              * The North American Industry Classification System (NAICS) code for the corporation's
              * primary line of business. This is a number, like `5132` for `Software Publishers`. A
-             * full list of classification codes is available at https://www.naics.com.
+             * full list of classification codes is available
+             * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
              */
             @JsonProperty("industry_code")
             fun industryCode(industryCode: String) = apply { this.industryCode = industryCode }
@@ -197,7 +199,8 @@ constructor(
         /**
          * The North American Industry Classification System (NAICS) code for the corporation's
          * primary line of business. This is a number, like `5132` for `Software Publishers`. A full
-         * list of classification codes is available at https://www.naics.com.
+         * list of classification codes is available
+         * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
          */
         fun industryCode(industryCode: String) = apply { this.industryCode = industryCode }
 
