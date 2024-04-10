@@ -2,6 +2,7 @@
 
 package com.increase.api.models
 
+import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
 import com.increase.api.models.*
@@ -12,6 +13,7 @@ constructor(
     private val bookkeepingEntryId: String,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
+    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun bookkeepingEntryId(): String = bookkeepingEntryId
@@ -31,6 +33,8 @@ constructor(
 
     fun _additionalHeaders(): Map<String, List<String>> = additionalHeaders
 
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -39,7 +43,8 @@ constructor(
         return other is BookkeepingEntryRetrieveParams &&
             this.bookkeepingEntryId == other.bookkeepingEntryId &&
             this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+            this.additionalHeaders == other.additionalHeaders &&
+            this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
@@ -47,11 +52,12 @@ constructor(
             bookkeepingEntryId,
             additionalQueryParams,
             additionalHeaders,
+            additionalBodyProperties,
         )
     }
 
     override fun toString() =
-        "BookkeepingEntryRetrieveParams{bookkeepingEntryId=$bookkeepingEntryId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "BookkeepingEntryRetrieveParams{bookkeepingEntryId=$bookkeepingEntryId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -66,12 +72,14 @@ constructor(
         private var bookkeepingEntryId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
+        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(bookkeepingEntryRetrieveParams: BookkeepingEntryRetrieveParams) = apply {
             this.bookkeepingEntryId = bookkeepingEntryRetrieveParams.bookkeepingEntryId
             additionalQueryParams(bookkeepingEntryRetrieveParams.additionalQueryParams)
             additionalHeaders(bookkeepingEntryRetrieveParams.additionalHeaders)
+            additionalBodyProperties(bookkeepingEntryRetrieveParams.additionalBodyProperties)
         }
 
         /** The identifier of the Bookkeeping Entry. */
@@ -119,6 +127,20 @@ constructor(
 
         fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            this.additionalBodyProperties.clear()
+            this.additionalBodyProperties.putAll(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            this.additionalBodyProperties.put(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
+
         fun build(): BookkeepingEntryRetrieveParams =
             BookkeepingEntryRetrieveParams(
                 checkNotNull(bookkeepingEntryId) {
@@ -126,6 +148,7 @@ constructor(
                 },
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalBodyProperties.toUnmodifiable(),
             )
     }
 }

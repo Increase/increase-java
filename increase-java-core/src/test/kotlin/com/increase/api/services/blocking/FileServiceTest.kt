@@ -25,7 +25,7 @@ class FileServiceTest {
         val file =
             fileService.create(
                 FileCreateParams.builder()
-                    .file("file.txt")
+                    .file("some content".toByteArray())
                     .purpose(FileCreateParams.Purpose.CHECK_IMAGE_FRONT)
                     .description("x")
                     .build()
