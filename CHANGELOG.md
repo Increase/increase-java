@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.42.0 (2024-04-10)
+
+Full Changelog: [v0.41.0...v0.42.0](https://github.com/Increase/increase-java/compare/v0.41.0...v0.42.0)
+
+### Features
+
+* **api:** updates ([#234](https://github.com/Increase/increase-java/issues/234)) ([ad5a63d](https://github.com/Increase/increase-java/commit/ad5a63d869686c77bd42ac10555e313d94f1ae18))
+
+
+### Chores
+
+* **tests:** import wiremock.client.WireMock.put ([#233](https://github.com/Increase/increase-java/issues/233)) ([0c95c45](https://github.com/Increase/increase-java/commit/0c95c45e4fa68b5bb19662dbcdff4865c1206b15))
+
+
+### Documentation
+
+* **api:** update links to NAICS classification codes ([#231](https://github.com/Increase/increase-java/issues/231)) ([0c2d8e3](https://github.com/Increase/increase-java/commit/0c2d8e36fe0925bb0774c6a3237a061e575174ed))
+
 ## 0.41.0 (2024-04-05)
 
 Full Changelog: [v0.40.0...v0.41.0](https://github.com/Increase/increase-java/compare/v0.40.0...v0.41.0)
