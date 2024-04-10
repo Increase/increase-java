@@ -8147,6 +8147,7 @@ private constructor(
             private val achTransferIntention: JsonField<AchTransferIntention>,
             private val achTransferRejection: JsonField<AchTransferRejection>,
             private val achTransferReturn: JsonField<AchTransferReturn>,
+            private val cashbackPayment: JsonField<CashbackPayment>,
             private val cardDisputeAcceptance: JsonField<CardDisputeAcceptance>,
             private val cardRefund: JsonField<CardRefund>,
             private val cardSettlement: JsonField<CardSettlement>,
@@ -8214,6 +8215,13 @@ private constructor(
              */
             fun achTransferReturn(): Optional<AchTransferReturn> =
                 Optional.ofNullable(achTransferReturn.getNullable("ach_transfer_return"))
+
+            /**
+             * A Cashback Payment object. This field will be present in the JSON response if and
+             * only if `category` is equal to `cashback_payment`.
+             */
+            fun cashbackPayment(): Optional<CashbackPayment> =
+                Optional.ofNullable(cashbackPayment.getNullable("cashback_payment"))
 
             /**
              * A Card Dispute Acceptance object. This field will be present in the JSON response if
@@ -8435,6 +8443,14 @@ private constructor(
             fun _achTransferReturn() = achTransferReturn
 
             /**
+             * A Cashback Payment object. This field will be present in the JSON response if and
+             * only if `category` is equal to `cashback_payment`.
+             */
+            @JsonProperty("cashback_payment")
+            @ExcludeMissing
+            fun _cashbackPayment() = cashbackPayment
+
+            /**
              * A Card Dispute Acceptance object. This field will be present in the JSON response if
              * and only if `category` is equal to `card_dispute_acceptance`.
              */
@@ -8615,6 +8631,7 @@ private constructor(
                     achTransferIntention().map { it.validate() }
                     achTransferRejection().map { it.validate() }
                     achTransferReturn().map { it.validate() }
+                    cashbackPayment().map { it.validate() }
                     cardDisputeAcceptance().map { it.validate() }
                     cardRefund().map { it.validate() }
                     cardSettlement().map { it.validate() }
@@ -8654,6 +8671,7 @@ private constructor(
                     this.achTransferIntention == other.achTransferIntention &&
                     this.achTransferRejection == other.achTransferRejection &&
                     this.achTransferReturn == other.achTransferReturn &&
+                    this.cashbackPayment == other.cashbackPayment &&
                     this.cardDisputeAcceptance == other.cardDisputeAcceptance &&
                     this.cardRefund == other.cardRefund &&
                     this.cardSettlement == other.cardSettlement &&
@@ -8691,6 +8709,7 @@ private constructor(
                             achTransferIntention,
                             achTransferRejection,
                             achTransferReturn,
+                            cashbackPayment,
                             cardDisputeAcceptance,
                             cardRefund,
                             cardSettlement,
@@ -8720,7 +8739,7 @@ private constructor(
             }
 
             override fun toString() =
-                "Source{category=$category, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardRefund=$cardRefund, cardSettlement=$cardSettlement, cardRevenuePayment=$cardRevenuePayment, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, checkTransferStopPaymentRequest=$checkTransferStopPaymentRequest, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundInternationalAchTransfer=$inboundInternationalAchTransfer, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireDrawdownPaymentReversal=$inboundWireDrawdownPaymentReversal, inboundWireDrawdownPayment=$inboundWireDrawdownPayment, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, interestPayment=$interestPayment, internalSource=$internalSource, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, wireTransferIntention=$wireTransferIntention, wireTransferRejection=$wireTransferRejection, additionalProperties=$additionalProperties}"
+                "Source{category=$category, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cashbackPayment=$cashbackPayment, cardDisputeAcceptance=$cardDisputeAcceptance, cardRefund=$cardRefund, cardSettlement=$cardSettlement, cardRevenuePayment=$cardRevenuePayment, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, checkTransferStopPaymentRequest=$checkTransferStopPaymentRequest, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundInternationalAchTransfer=$inboundInternationalAchTransfer, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireDrawdownPaymentReversal=$inboundWireDrawdownPaymentReversal, inboundWireDrawdownPayment=$inboundWireDrawdownPayment, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, interestPayment=$interestPayment, internalSource=$internalSource, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, wireTransferIntention=$wireTransferIntention, wireTransferRejection=$wireTransferRejection, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -8735,6 +8754,7 @@ private constructor(
                 private var achTransferIntention: JsonField<AchTransferIntention> = JsonMissing.of()
                 private var achTransferRejection: JsonField<AchTransferRejection> = JsonMissing.of()
                 private var achTransferReturn: JsonField<AchTransferReturn> = JsonMissing.of()
+                private var cashbackPayment: JsonField<CashbackPayment> = JsonMissing.of()
                 private var cardDisputeAcceptance: JsonField<CardDisputeAcceptance> =
                     JsonMissing.of()
                 private var cardRefund: JsonField<CardRefund> = JsonMissing.of()
@@ -8781,6 +8801,7 @@ private constructor(
                     this.achTransferIntention = source.achTransferIntention
                     this.achTransferRejection = source.achTransferRejection
                     this.achTransferReturn = source.achTransferReturn
+                    this.cashbackPayment = source.cashbackPayment
                     this.cardDisputeAcceptance = source.cardDisputeAcceptance
                     this.cardRefund = source.cardRefund
                     this.cardSettlement = source.cardSettlement
@@ -8891,6 +8912,23 @@ private constructor(
                 @ExcludeMissing
                 fun achTransferReturn(achTransferReturn: JsonField<AchTransferReturn>) = apply {
                     this.achTransferReturn = achTransferReturn
+                }
+
+                /**
+                 * A Cashback Payment object. This field will be present in the JSON response if and
+                 * only if `category` is equal to `cashback_payment`.
+                 */
+                fun cashbackPayment(cashbackPayment: CashbackPayment) =
+                    cashbackPayment(JsonField.of(cashbackPayment))
+
+                /**
+                 * A Cashback Payment object. This field will be present in the JSON response if and
+                 * only if `category` is equal to `cashback_payment`.
+                 */
+                @JsonProperty("cashback_payment")
+                @ExcludeMissing
+                fun cashbackPayment(cashbackPayment: JsonField<CashbackPayment>) = apply {
+                    this.cashbackPayment = cashbackPayment
                 }
 
                 /**
@@ -9329,6 +9367,7 @@ private constructor(
                         achTransferIntention,
                         achTransferRejection,
                         achTransferReturn,
+                        cashbackPayment,
                         cardDisputeAcceptance,
                         cardRefund,
                         cardSettlement,
@@ -20920,6 +20959,312 @@ private constructor(
                 }
             }
 
+            /**
+             * A Cashback Payment object. This field will be present in the JSON response if and
+             * only if `category` is equal to `cashback_payment`.
+             */
+            @JsonDeserialize(builder = CashbackPayment.Builder::class)
+            @NoAutoDetect
+            class CashbackPayment
+            private constructor(
+                private val amount: JsonField<Long>,
+                private val currency: JsonField<Currency>,
+                private val periodStart: JsonField<OffsetDateTime>,
+                private val periodEnd: JsonField<OffsetDateTime>,
+                private val accruedOnCardId: JsonField<String>,
+                private val additionalProperties: Map<String, JsonValue>,
+            ) {
+
+                private var validated: Boolean = false
+
+                private var hashCode: Int = 0
+
+                /**
+                 * The amount in the minor unit of the transaction's currency. For dollars, for
+                 * example, this is cents.
+                 */
+                fun amount(): Long = amount.getRequired("amount")
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction
+                 * currency.
+                 */
+                fun currency(): Currency = currency.getRequired("currency")
+
+                /** The start of the period for which this transaction paid cashback. */
+                fun periodStart(): OffsetDateTime = periodStart.getRequired("period_start")
+
+                /** The end of the period for which this transaction paid cashback. */
+                fun periodEnd(): OffsetDateTime = periodEnd.getRequired("period_end")
+
+                /** The card on which the cashback was accrued. */
+                fun accruedOnCardId(): String = accruedOnCardId.getRequired("accrued_on_card_id")
+
+                /**
+                 * The amount in the minor unit of the transaction's currency. For dollars, for
+                 * example, this is cents.
+                 */
+                @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction
+                 * currency.
+                 */
+                @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+
+                /** The start of the period for which this transaction paid cashback. */
+                @JsonProperty("period_start") @ExcludeMissing fun _periodStart() = periodStart
+
+                /** The end of the period for which this transaction paid cashback. */
+                @JsonProperty("period_end") @ExcludeMissing fun _periodEnd() = periodEnd
+
+                /** The card on which the cashback was accrued. */
+                @JsonProperty("accrued_on_card_id")
+                @ExcludeMissing
+                fun _accruedOnCardId() = accruedOnCardId
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun validate(): CashbackPayment = apply {
+                    if (!validated) {
+                        amount()
+                        currency()
+                        periodStart()
+                        periodEnd()
+                        accruedOnCardId()
+                        validated = true
+                    }
+                }
+
+                fun toBuilder() = Builder().from(this)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is CashbackPayment &&
+                        this.amount == other.amount &&
+                        this.currency == other.currency &&
+                        this.periodStart == other.periodStart &&
+                        this.periodEnd == other.periodEnd &&
+                        this.accruedOnCardId == other.accruedOnCardId &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode =
+                            Objects.hash(
+                                amount,
+                                currency,
+                                periodStart,
+                                periodEnd,
+                                accruedOnCardId,
+                                additionalProperties,
+                            )
+                    }
+                    return hashCode
+                }
+
+                override fun toString() =
+                    "CashbackPayment{amount=$amount, currency=$currency, periodStart=$periodStart, periodEnd=$periodEnd, accruedOnCardId=$accruedOnCardId, additionalProperties=$additionalProperties}"
+
+                companion object {
+
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                class Builder {
+
+                    private var amount: JsonField<Long> = JsonMissing.of()
+                    private var currency: JsonField<Currency> = JsonMissing.of()
+                    private var periodStart: JsonField<OffsetDateTime> = JsonMissing.of()
+                    private var periodEnd: JsonField<OffsetDateTime> = JsonMissing.of()
+                    private var accruedOnCardId: JsonField<String> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(cashbackPayment: CashbackPayment) = apply {
+                        this.amount = cashbackPayment.amount
+                        this.currency = cashbackPayment.currency
+                        this.periodStart = cashbackPayment.periodStart
+                        this.periodEnd = cashbackPayment.periodEnd
+                        this.accruedOnCardId = cashbackPayment.accruedOnCardId
+                        additionalProperties(cashbackPayment.additionalProperties)
+                    }
+
+                    /**
+                     * The amount in the minor unit of the transaction's currency. For dollars, for
+                     * example, this is cents.
+                     */
+                    fun amount(amount: Long) = amount(JsonField.of(amount))
+
+                    /**
+                     * The amount in the minor unit of the transaction's currency. For dollars, for
+                     * example, this is cents.
+                     */
+                    @JsonProperty("amount")
+                    @ExcludeMissing
+                    fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                     * transaction currency.
+                     */
+                    fun currency(currency: Currency) = currency(JsonField.of(currency))
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                     * transaction currency.
+                     */
+                    @JsonProperty("currency")
+                    @ExcludeMissing
+                    fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+                    /** The start of the period for which this transaction paid cashback. */
+                    fun periodStart(periodStart: OffsetDateTime) =
+                        periodStart(JsonField.of(periodStart))
+
+                    /** The start of the period for which this transaction paid cashback. */
+                    @JsonProperty("period_start")
+                    @ExcludeMissing
+                    fun periodStart(periodStart: JsonField<OffsetDateTime>) = apply {
+                        this.periodStart = periodStart
+                    }
+
+                    /** The end of the period for which this transaction paid cashback. */
+                    fun periodEnd(periodEnd: OffsetDateTime) = periodEnd(JsonField.of(periodEnd))
+
+                    /** The end of the period for which this transaction paid cashback. */
+                    @JsonProperty("period_end")
+                    @ExcludeMissing
+                    fun periodEnd(periodEnd: JsonField<OffsetDateTime>) = apply {
+                        this.periodEnd = periodEnd
+                    }
+
+                    /** The card on which the cashback was accrued. */
+                    fun accruedOnCardId(accruedOnCardId: String) =
+                        accruedOnCardId(JsonField.of(accruedOnCardId))
+
+                    /** The card on which the cashback was accrued. */
+                    @JsonProperty("accrued_on_card_id")
+                    @ExcludeMissing
+                    fun accruedOnCardId(accruedOnCardId: JsonField<String>) = apply {
+                        this.accruedOnCardId = accruedOnCardId
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    @JsonAnySetter
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        this.additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun build(): CashbackPayment =
+                        CashbackPayment(
+                            amount,
+                            currency,
+                            periodStart,
+                            periodEnd,
+                            accruedOnCardId,
+                            additionalProperties.toUnmodifiable(),
+                        )
+                }
+
+                class Currency
+                @JsonCreator
+                private constructor(
+                    private val value: JsonField<String>,
+                ) {
+
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Currency && this.value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+
+                    companion object {
+
+                        @JvmField val CAD = Currency(JsonField.of("CAD"))
+
+                        @JvmField val CHF = Currency(JsonField.of("CHF"))
+
+                        @JvmField val EUR = Currency(JsonField.of("EUR"))
+
+                        @JvmField val GBP = Currency(JsonField.of("GBP"))
+
+                        @JvmField val JPY = Currency(JsonField.of("JPY"))
+
+                        @JvmField val USD = Currency(JsonField.of("USD"))
+
+                        @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
+                    }
+
+                    enum class Known {
+                        CAD,
+                        CHF,
+                        EUR,
+                        GBP,
+                        JPY,
+                        USD,
+                    }
+
+                    enum class Value {
+                        CAD,
+                        CHF,
+                        EUR,
+                        GBP,
+                        JPY,
+                        USD,
+                        _UNKNOWN,
+                    }
+
+                    fun value(): Value =
+                        when (this) {
+                            CAD -> Value.CAD
+                            CHF -> Value.CHF
+                            EUR -> Value.EUR
+                            GBP -> Value.GBP
+                            JPY -> Value.JPY
+                            USD -> Value.USD
+                            else -> Value._UNKNOWN
+                        }
+
+                    fun known(): Known =
+                        when (this) {
+                            CAD -> Known.CAD
+                            CHF -> Known.CHF
+                            EUR -> Known.EUR
+                            GBP -> Known.GBP
+                            JPY -> Known.JPY
+                            USD -> Known.USD
+                            else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+                        }
+
+                    fun asString(): String = _value().asStringOrThrow()
+                }
+            }
+
             class Category
             @JsonCreator
             private constructor(
@@ -20954,6 +21299,8 @@ private constructor(
 
                     @JvmField
                     val ACH_TRANSFER_RETURN = Category(JsonField.of("ach_transfer_return"))
+
+                    @JvmField val CASHBACK_PAYMENT = Category(JsonField.of("cashback_payment"))
 
                     @JvmField
                     val CARD_DISPUTE_ACCEPTANCE = Category(JsonField.of("card_dispute_acceptance"))
@@ -21044,6 +21391,7 @@ private constructor(
                     ACH_TRANSFER_INTENTION,
                     ACH_TRANSFER_REJECTION,
                     ACH_TRANSFER_RETURN,
+                    CASHBACK_PAYMENT,
                     CARD_DISPUTE_ACCEPTANCE,
                     CARD_REFUND,
                     CARD_SETTLEMENT,
@@ -21077,6 +21425,7 @@ private constructor(
                     ACH_TRANSFER_INTENTION,
                     ACH_TRANSFER_REJECTION,
                     ACH_TRANSFER_RETURN,
+                    CASHBACK_PAYMENT,
                     CARD_DISPUTE_ACCEPTANCE,
                     CARD_REFUND,
                     CARD_SETTLEMENT,
@@ -21112,6 +21461,7 @@ private constructor(
                         ACH_TRANSFER_INTENTION -> Value.ACH_TRANSFER_INTENTION
                         ACH_TRANSFER_REJECTION -> Value.ACH_TRANSFER_REJECTION
                         ACH_TRANSFER_RETURN -> Value.ACH_TRANSFER_RETURN
+                        CASHBACK_PAYMENT -> Value.CASHBACK_PAYMENT
                         CARD_DISPUTE_ACCEPTANCE -> Value.CARD_DISPUTE_ACCEPTANCE
                         CARD_REFUND -> Value.CARD_REFUND
                         CARD_SETTLEMENT -> Value.CARD_SETTLEMENT
@@ -21154,6 +21504,7 @@ private constructor(
                         ACH_TRANSFER_INTENTION -> Known.ACH_TRANSFER_INTENTION
                         ACH_TRANSFER_REJECTION -> Known.ACH_TRANSFER_REJECTION
                         ACH_TRANSFER_RETURN -> Known.ACH_TRANSFER_RETURN
+                        CASHBACK_PAYMENT -> Known.CASHBACK_PAYMENT
                         CARD_DISPUTE_ACCEPTANCE -> Known.CARD_DISPUTE_ACCEPTANCE
                         CARD_REFUND -> Known.CARD_REFUND
                         CARD_SETTLEMENT -> Known.CARD_SETTLEMENT

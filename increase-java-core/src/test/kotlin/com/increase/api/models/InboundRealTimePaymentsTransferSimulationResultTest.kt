@@ -1098,6 +1098,27 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         )
                                         .build()
                                 )
+                                .cashbackPayment(
+                                    InboundRealTimePaymentsTransferSimulationResult.Transaction
+                                        .Source
+                                        .CashbackPayment
+                                        .builder()
+                                        .accruedOnCardId("string")
+                                        .amount(123L)
+                                        .currency(
+                                            InboundRealTimePaymentsTransferSimulationResult
+                                                .Transaction
+                                                .Source
+                                                .CashbackPayment
+                                                .Currency
+                                                .CAD
+                                        )
+                                        .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .periodStart(
+                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                        )
+                                        .build()
+                                )
                                 .category(
                                     InboundRealTimePaymentsTransferSimulationResult.Transaction
                                         .Source
@@ -2621,6 +2642,23 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .Type
                                             .CARD_SETTLEMENT
                                     )
+                                    .build()
+                            )
+                            .cashbackPayment(
+                                InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
+                                    .CashbackPayment
+                                    .builder()
+                                    .accruedOnCardId("string")
+                                    .amount(123L)
+                                    .currency(
+                                        InboundRealTimePaymentsTransferSimulationResult.Transaction
+                                            .Source
+                                            .CashbackPayment
+                                            .Currency
+                                            .CAD
+                                    )
+                                    .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .build()
                             )
                             .category(
