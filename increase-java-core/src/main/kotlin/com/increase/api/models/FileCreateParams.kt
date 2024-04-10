@@ -2,44 +2,42 @@
 
 package com.increase.api.models
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter
-import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.ContentTypes
+import com.increase.api.core.Enum
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonValue
+import com.increase.api.core.MultipartFormValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
 import java.util.Objects
 import java.util.Optional
+import org.apache.hc.core5.http.ContentType
 
 class FileCreateParams
 constructor(
-    private val file: String,
-    private val purpose: Purpose,
-    private val description: String?,
+    private val file: MultipartFormValue<ByteArray>,
+    private val purpose: MultipartFormValue<Purpose>,
+    private val description: MultipartFormValue<String>?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun file(): String = file
+    fun file(): MultipartFormValue<ByteArray> = file
 
-    fun purpose(): Purpose = purpose
+    fun purpose(): MultipartFormValue<Purpose> = purpose
 
-    fun description(): Optional<String> = Optional.ofNullable(description)
+    fun description(): Optional<MultipartFormValue<String>> = Optional.ofNullable(description)
 
     @JvmSynthetic
-    internal fun getBody(): FileCreateBody {
-        return FileCreateBody(
+    internal fun getBody(): Array<MultipartFormValue<*>?> {
+        return arrayOf(
             file,
             purpose,
             description,
-            additionalBodyProperties,
         )
     }
 
@@ -51,10 +49,9 @@ constructor(
     @NoAutoDetect
     class FileCreateBody
     internal constructor(
-        private val file: String?,
+        private val file: ByteArray?,
         private val purpose: Purpose?,
         private val description: String?,
-        private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
@@ -64,17 +61,13 @@ constructor(
          * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
          * for the multipart/form-data protocol.
          */
-        @JsonProperty("file") fun file(): String? = file
+        fun file(): ByteArray? = file
 
         /** What the File will be used for in Increase's systems. */
-        @JsonProperty("purpose") fun purpose(): Purpose? = purpose
+        fun purpose(): Purpose? = purpose
 
         /** The description you choose to give the File. */
-        @JsonProperty("description") fun description(): String? = description
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+        fun description(): String? = description
 
         fun toBuilder() = Builder().from(this)
 
@@ -86,8 +79,7 @@ constructor(
             return other is FileCreateBody &&
                 this.file == other.file &&
                 this.purpose == other.purpose &&
-                this.description == other.description &&
-                this.additionalProperties == other.additionalProperties
+                this.description == other.description
         }
 
         override fun hashCode(): Int {
@@ -97,14 +89,13 @@ constructor(
                         file,
                         purpose,
                         description,
-                        additionalProperties,
                     )
             }
             return hashCode
         }
 
         override fun toString() =
-            "FileCreateBody{file=$file, purpose=$purpose, description=$description, additionalProperties=$additionalProperties}"
+            "FileCreateBody{file=$file, purpose=$purpose, description=$description}"
 
         companion object {
 
@@ -113,17 +104,15 @@ constructor(
 
         class Builder {
 
-            private var file: String? = null
+            private var file: ByteArray? = null
             private var purpose: Purpose? = null
             private var description: String? = null
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(fileCreateBody: FileCreateBody) = apply {
                 this.file = fileCreateBody.file
                 this.purpose = fileCreateBody.purpose
                 this.description = fileCreateBody.description
-                additionalProperties(fileCreateBody.additionalProperties)
             }
 
             /**
@@ -131,45 +120,19 @@ constructor(
              * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
              * transfers for the multipart/form-data protocol.
              */
-            @JsonProperty("file") fun file(file: String) = apply { this.file = file }
+            fun file(file: ByteArray) = apply { this.file = file }
 
             /** What the File will be used for in Increase's systems. */
-            @JsonProperty("purpose")
             fun purpose(purpose: Purpose) = apply { this.purpose = purpose }
 
             /** The description you choose to give the File. */
-            @JsonProperty("description")
             fun description(description: String) = apply { this.description = description }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            @JsonAnySetter
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun build(): FileCreateBody =
-                FileCreateBody(
-                    checkNotNull(file) { "`file` is required but was not set" },
-                    checkNotNull(purpose) { "`purpose` is required but was not set" },
-                    description,
-                    additionalProperties.toUnmodifiable(),
-                )
         }
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
 
     fun _additionalHeaders(): Map<String, List<String>> = additionalHeaders
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -181,8 +144,7 @@ constructor(
             this.purpose == other.purpose &&
             this.description == other.description &&
             this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+            this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
@@ -192,12 +154,11 @@ constructor(
             description,
             additionalQueryParams,
             additionalHeaders,
-            additionalBodyProperties,
         )
     }
 
     override fun toString() =
-        "FileCreateParams{file=$file, purpose=$purpose, description=$description, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "FileCreateParams{file=$file, purpose=$purpose, description=$description, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -209,12 +170,11 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var file: String? = null
-        private var purpose: Purpose? = null
-        private var description: String? = null
+        private var file: MultipartFormValue<ByteArray>? = null
+        private var purpose: MultipartFormValue<Purpose>? = null
+        private var description: MultipartFormValue<String>? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(fileCreateParams: FileCreateParams) = apply {
@@ -223,7 +183,6 @@ constructor(
             this.description = fileCreateParams.description
             additionalQueryParams(fileCreateParams.additionalQueryParams)
             additionalHeaders(fileCreateParams.additionalHeaders)
-            additionalBodyProperties(fileCreateParams.additionalBodyProperties)
         }
 
         /**
@@ -231,13 +190,25 @@ constructor(
          * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
          * for the multipart/form-data protocol.
          */
-        fun file(file: String) = apply { this.file = file }
+        fun file(
+            content: ByteArray,
+            filename: String? = null,
+            contentType: ContentType = ContentTypes.DefaultBinary
+        ) = apply {
+            this.file = MultipartFormValue.fromByteArray("file", content, contentType, filename)
+        }
 
         /** What the File will be used for in Increase's systems. */
-        fun purpose(purpose: Purpose) = apply { this.purpose = purpose }
+        fun purpose(purpose: Purpose, contentType: ContentType = ContentTypes.DefaultText) = apply {
+            this.purpose = MultipartFormValue.fromEnum("purpose", purpose, contentType)
+        }
 
         /** The description you choose to give the File. */
-        fun description(description: String) = apply { this.description = description }
+        fun description(description: String, contentType: ContentType = ContentTypes.DefaultText) =
+            apply {
+                this.description =
+                    MultipartFormValue.fromString("description", description, contentType)
+            }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -279,20 +250,6 @@ constructor(
 
         fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            this.additionalBodyProperties.putAll(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            this.additionalBodyProperties.put(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
-            }
-
         fun build(): FileCreateParams =
             FileCreateParams(
                 checkNotNull(file) { "`file` is required but was not set" },
@@ -300,7 +257,6 @@ constructor(
                 description,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
             )
     }
 
@@ -308,7 +264,7 @@ constructor(
     @JsonCreator
     private constructor(
         private val value: JsonField<String>,
-    ) {
+    ) : Enum {
 
         @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
