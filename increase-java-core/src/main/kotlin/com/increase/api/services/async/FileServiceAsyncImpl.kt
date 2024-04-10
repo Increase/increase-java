@@ -14,8 +14,8 @@ import com.increase.api.models.FileListPageAsync
 import com.increase.api.models.FileListParams
 import com.increase.api.models.FileRetrieveParams
 import com.increase.api.services.errorHandler
-import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
+import com.increase.api.services.multipartFormData
 import com.increase.api.services.withErrorHandler
 import java.util.concurrent.CompletableFuture
 
@@ -45,7 +45,7 @@ constructor(
                 .putAllQueryParams(params.getQueryParams())
                 .putAllHeaders(clientOptions.headers)
                 .putAllHeaders(params.getHeaders())
-                .body(json(clientOptions.jsonMapper, params.getBody()))
+                .body(multipartFormData(clientOptions.jsonMapper, params.getBody()))
                 .build()
         return clientOptions.httpClient.executeAsync(request, requestOptions).thenApply { response
             ->
