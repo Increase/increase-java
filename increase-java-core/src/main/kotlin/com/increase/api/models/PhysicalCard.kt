@@ -65,8 +65,7 @@ private constructor(
     fun status(): Status = status.getRequired("status")
 
     /** Details about the cardholder, as it appears on the printed card. */
-    fun cardholder(): Optional<Cardholder> =
-        Optional.ofNullable(cardholder.getNullable("cardholder"))
+    fun cardholder(): Cardholder = cardholder.getRequired("cardholder")
 
     /** The details used to ship this physical card. */
     fun shipment(): Shipment = shipment.getRequired("shipment")
@@ -135,7 +134,7 @@ private constructor(
             physicalCardProfileId()
             createdAt()
             status()
-            cardholder().map { it.validate() }
+            cardholder().validate()
             shipment().validate()
             idempotencyKey()
             type()
