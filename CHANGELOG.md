@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.43.0 (2024-04-11)
+
+Full Changelog: [v0.42.0...v0.43.0](https://github.com/Increase/increase-java/compare/v0.42.0...v0.43.0)
+
+### Features
+
+* **client:** implement support for multipart/form-data body requests ([#235](https://github.com/Increase/increase-java/issues/235)) ([5307396](https://github.com/Increase/increase-java/commit/530739685b055629b32e75fdd51bd26a3a67a10e))
+
+
+### Bug Fixes
+
+* **types:** mark physical card cardholder as required ([#237](https://github.com/Increase/increase-java/issues/237)) ([04fecc5](https://github.com/Increase/increase-java/commit/04fecc5ceb02bc4b5ece9ffb9bdce596e45fab50))
+
 ## 0.42.0 (2024-04-10)
 
 Full Changelog: [v0.41.0...v0.42.0](https://github.com/Increase/increase-java/compare/v0.41.0...v0.42.0)
