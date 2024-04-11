@@ -52,7 +52,7 @@ class PhysicalCardTest {
         assertThat(physicalCard.id()).isEqualTo("string")
         assertThat(physicalCard.cardId()).isEqualTo("string")
         assertThat(physicalCard.cardholder())
-            .contains(
+            .isEqualTo(
                 PhysicalCard.Cardholder.builder().firstName("string").lastName("string").build()
             )
         assertThat(physicalCard.createdAt())
