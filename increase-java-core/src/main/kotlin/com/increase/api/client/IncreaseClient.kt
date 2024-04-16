@@ -104,4 +104,6 @@ interface IncreaseClient {
     fun digitalCardProfiles(): DigitalCardProfileService
 
     fun physicalCardProfiles(): PhysicalCardProfileService
+
+    fun inboundCheckDeposits(): InboundCheckDepositService
 }

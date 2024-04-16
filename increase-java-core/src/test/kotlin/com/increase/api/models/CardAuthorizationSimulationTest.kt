@@ -32,6 +32,7 @@ class CardAuthorizationSimulationTest {
                                         .builder()
                                         .id("string")
                                         .amount(123L)
+                                        .inboundAchTransferId("string")
                                         .originatorCompanyDescriptiveDate("string")
                                         .originatorCompanyDiscretionaryData("string")
                                         .originatorCompanyId("string")
@@ -210,7 +211,9 @@ class CardAuthorizationSimulationTest {
                                         .amount(123L)
                                         .auxiliaryOnUs("string")
                                         .backImageFileId("string")
+                                        .checkTransferId("string")
                                         .frontImageFileId("string")
+                                        .inboundCheckDepositId("string")
                                         .reason(
                                             CardAuthorizationSimulation.DeclinedTransaction.Source
                                                 .CheckDecline
@@ -643,6 +646,7 @@ class CardAuthorizationSimulationTest {
                                     .builder()
                                     .id("string")
                                     .amount(123L)
+                                    .inboundAchTransferId("string")
                                     .originatorCompanyDescriptiveDate("string")
                                     .originatorCompanyDiscretionaryData("string")
                                     .originatorCompanyId("string")
@@ -819,7 +823,9 @@ class CardAuthorizationSimulationTest {
                                     .amount(123L)
                                     .auxiliaryOnUs("string")
                                     .backImageFileId("string")
+                                    .checkTransferId("string")
                                     .frontImageFileId("string")
+                                    .inboundCheckDepositId("string")
                                     .reason(
                                         CardAuthorizationSimulation.DeclinedTransaction.Source
                                             .CheckDecline

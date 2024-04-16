@@ -1133,6 +1133,7 @@ private constructor(
                 private val receiverIdNumber: JsonField<String>,
                 private val receiverName: JsonField<String>,
                 private val traceNumber: JsonField<String>,
+                private val inboundAchTransferId: JsonField<String>,
                 private val type: JsonField<Type>,
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
@@ -1189,6 +1190,12 @@ private constructor(
                 fun traceNumber(): String = traceNumber.getRequired("trace_number")
 
                 /**
+                 * The identifier of the Inbound ACH Transfer object associated with this decline.
+                 */
+                fun inboundAchTransferId(): String =
+                    inboundAchTransferId.getRequired("inbound_ach_transfer_id")
+
+                /**
                  * A constant representing the object's type. For this resource it will always be
                  * `ach_decline`.
                  */
@@ -1238,6 +1245,13 @@ private constructor(
                 @JsonProperty("trace_number") @ExcludeMissing fun _traceNumber() = traceNumber
 
                 /**
+                 * The identifier of the Inbound ACH Transfer object associated with this decline.
+                 */
+                @JsonProperty("inbound_ach_transfer_id")
+                @ExcludeMissing
+                fun _inboundAchTransferId() = inboundAchTransferId
+
+                /**
                  * A constant representing the object's type. For this resource it will always be
                  * `ach_decline`.
                  */
@@ -1259,6 +1273,7 @@ private constructor(
                         receiverIdNumber()
                         receiverName()
                         traceNumber()
+                        inboundAchTransferId()
                         type()
                         validated = true
                     }
@@ -1284,6 +1299,7 @@ private constructor(
                         this.receiverIdNumber == other.receiverIdNumber &&
                         this.receiverName == other.receiverName &&
                         this.traceNumber == other.traceNumber &&
+                        this.inboundAchTransferId == other.inboundAchTransferId &&
                         this.type == other.type &&
                         this.additionalProperties == other.additionalProperties
                 }
@@ -1302,6 +1318,7 @@ private constructor(
                                 receiverIdNumber,
                                 receiverName,
                                 traceNumber,
+                                inboundAchTransferId,
                                 type,
                                 additionalProperties,
                             )
@@ -1310,7 +1327,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "AchDecline{id=$id, amount=$amount, originatorCompanyName=$originatorCompanyName, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyId=$originatorCompanyId, reason=$reason, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, traceNumber=$traceNumber, type=$type, additionalProperties=$additionalProperties}"
+                    "AchDecline{id=$id, amount=$amount, originatorCompanyName=$originatorCompanyName, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyId=$originatorCompanyId, reason=$reason, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, traceNumber=$traceNumber, inboundAchTransferId=$inboundAchTransferId, type=$type, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -1331,6 +1348,7 @@ private constructor(
                     private var receiverIdNumber: JsonField<String> = JsonMissing.of()
                     private var receiverName: JsonField<String> = JsonMissing.of()
                     private var traceNumber: JsonField<String> = JsonMissing.of()
+                    private var inboundAchTransferId: JsonField<String> = JsonMissing.of()
                     private var type: JsonField<Type> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1348,6 +1366,7 @@ private constructor(
                         this.receiverIdNumber = achDecline.receiverIdNumber
                         this.receiverName = achDecline.receiverName
                         this.traceNumber = achDecline.traceNumber
+                        this.inboundAchTransferId = achDecline.inboundAchTransferId
                         this.type = achDecline.type
                         additionalProperties(achDecline.additionalProperties)
                     }
@@ -1469,6 +1488,23 @@ private constructor(
                     }
 
                     /**
+                     * The identifier of the Inbound ACH Transfer object associated with this
+                     * decline.
+                     */
+                    fun inboundAchTransferId(inboundAchTransferId: String) =
+                        inboundAchTransferId(JsonField.of(inboundAchTransferId))
+
+                    /**
+                     * The identifier of the Inbound ACH Transfer object associated with this
+                     * decline.
+                     */
+                    @JsonProperty("inbound_ach_transfer_id")
+                    @ExcludeMissing
+                    fun inboundAchTransferId(inboundAchTransferId: JsonField<String>) = apply {
+                        this.inboundAchTransferId = inboundAchTransferId
+                    }
+
+                    /**
                      * A constant representing the object's type. For this resource it will always
                      * be `ach_decline`.
                      */
@@ -1509,6 +1545,7 @@ private constructor(
                             receiverIdNumber,
                             receiverName,
                             traceNumber,
+                            inboundAchTransferId,
                             type,
                             additionalProperties.toUnmodifiable(),
                         )
@@ -4408,6 +4445,8 @@ private constructor(
                 private val reason: JsonField<Reason>,
                 private val frontImageFileId: JsonField<String>,
                 private val backImageFileId: JsonField<String>,
+                private val inboundCheckDepositId: JsonField<String>,
+                private val checkTransferId: JsonField<String>,
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
 
@@ -4447,6 +4486,18 @@ private constructor(
                     Optional.ofNullable(backImageFileId.getNullable("back_image_file_id"))
 
                 /**
+                 * The identifier of the Inbound Check Deposit object associated with this decline.
+                 */
+                fun inboundCheckDepositId(): Optional<String> =
+                    Optional.ofNullable(
+                        inboundCheckDepositId.getNullable("inbound_check_deposit_id")
+                    )
+
+                /** The identifier of the Check Transfer object associated with this decline. */
+                fun checkTransferId(): Optional<String> =
+                    Optional.ofNullable(checkTransferId.getNullable("check_transfer_id"))
+
+                /**
                  * The declined amount in the minor unit of the destination account currency. For
                  * dollars, for example, this is cents.
                  */
@@ -4480,6 +4531,18 @@ private constructor(
                 @ExcludeMissing
                 fun _backImageFileId() = backImageFileId
 
+                /**
+                 * The identifier of the Inbound Check Deposit object associated with this decline.
+                 */
+                @JsonProperty("inbound_check_deposit_id")
+                @ExcludeMissing
+                fun _inboundCheckDepositId() = inboundCheckDepositId
+
+                /** The identifier of the Check Transfer object associated with this decline. */
+                @JsonProperty("check_transfer_id")
+                @ExcludeMissing
+                fun _checkTransferId() = checkTransferId
+
                 @JsonAnyGetter
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -4491,6 +4554,8 @@ private constructor(
                         reason()
                         frontImageFileId()
                         backImageFileId()
+                        inboundCheckDepositId()
+                        checkTransferId()
                         validated = true
                     }
                 }
@@ -4508,6 +4573,8 @@ private constructor(
                         this.reason == other.reason &&
                         this.frontImageFileId == other.frontImageFileId &&
                         this.backImageFileId == other.backImageFileId &&
+                        this.inboundCheckDepositId == other.inboundCheckDepositId &&
+                        this.checkTransferId == other.checkTransferId &&
                         this.additionalProperties == other.additionalProperties
                 }
 
@@ -4520,6 +4587,8 @@ private constructor(
                                 reason,
                                 frontImageFileId,
                                 backImageFileId,
+                                inboundCheckDepositId,
+                                checkTransferId,
                                 additionalProperties,
                             )
                     }
@@ -4527,7 +4596,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "CheckDecline{amount=$amount, auxiliaryOnUs=$auxiliaryOnUs, reason=$reason, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, additionalProperties=$additionalProperties}"
+                    "CheckDecline{amount=$amount, auxiliaryOnUs=$auxiliaryOnUs, reason=$reason, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, inboundCheckDepositId=$inboundCheckDepositId, checkTransferId=$checkTransferId, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -4541,6 +4610,8 @@ private constructor(
                     private var reason: JsonField<Reason> = JsonMissing.of()
                     private var frontImageFileId: JsonField<String> = JsonMissing.of()
                     private var backImageFileId: JsonField<String> = JsonMissing.of()
+                    private var inboundCheckDepositId: JsonField<String> = JsonMissing.of()
+                    private var checkTransferId: JsonField<String> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
@@ -4550,6 +4621,8 @@ private constructor(
                         this.reason = checkDecline.reason
                         this.frontImageFileId = checkDecline.frontImageFileId
                         this.backImageFileId = checkDecline.backImageFileId
+                        this.inboundCheckDepositId = checkDecline.inboundCheckDepositId
+                        this.checkTransferId = checkDecline.checkTransferId
                         additionalProperties(checkDecline.additionalProperties)
                     }
 
@@ -4628,6 +4701,34 @@ private constructor(
                         this.backImageFileId = backImageFileId
                     }
 
+                    /**
+                     * The identifier of the Inbound Check Deposit object associated with this
+                     * decline.
+                     */
+                    fun inboundCheckDepositId(inboundCheckDepositId: String) =
+                        inboundCheckDepositId(JsonField.of(inboundCheckDepositId))
+
+                    /**
+                     * The identifier of the Inbound Check Deposit object associated with this
+                     * decline.
+                     */
+                    @JsonProperty("inbound_check_deposit_id")
+                    @ExcludeMissing
+                    fun inboundCheckDepositId(inboundCheckDepositId: JsonField<String>) = apply {
+                        this.inboundCheckDepositId = inboundCheckDepositId
+                    }
+
+                    /** The identifier of the Check Transfer object associated with this decline. */
+                    fun checkTransferId(checkTransferId: String) =
+                        checkTransferId(JsonField.of(checkTransferId))
+
+                    /** The identifier of the Check Transfer object associated with this decline. */
+                    @JsonProperty("check_transfer_id")
+                    @ExcludeMissing
+                    fun checkTransferId(checkTransferId: JsonField<String>) = apply {
+                        this.checkTransferId = checkTransferId
+                    }
+
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
                         this.additionalProperties.putAll(additionalProperties)
@@ -4650,6 +4751,8 @@ private constructor(
                             reason,
                             frontImageFileId,
                             backImageFileId,
+                            inboundCheckDepositId,
+                            checkTransferId,
                             additionalProperties.toUnmodifiable(),
                         )
                 }
@@ -22536,6 +22639,7 @@ private constructor(
                 private val frontImageFileId: JsonField<String>,
                 private val backImageFileId: JsonField<String>,
                 private val bankOfFirstDepositRoutingNumber: JsonField<String>,
+                private val inboundCheckDepositId: JsonField<String>,
                 private val transferId: JsonField<String>,
                 private val type: JsonField<Type>,
                 private val additionalProperties: Map<String, JsonValue>,
@@ -22578,6 +22682,15 @@ private constructor(
                         bankOfFirstDepositRoutingNumber.getNullable(
                             "bank_of_first_deposit_routing_number"
                         )
+                    )
+
+                /**
+                 * The identifier of the Inbound Check Deposit object associated with this
+                 * transaction.
+                 */
+                fun inboundCheckDepositId(): Optional<String> =
+                    Optional.ofNullable(
+                        inboundCheckDepositId.getNullable("inbound_check_deposit_id")
                     )
 
                 /** The identifier of the Check Transfer object that was deposited. */
@@ -22623,6 +22736,14 @@ private constructor(
                 @ExcludeMissing
                 fun _bankOfFirstDepositRoutingNumber() = bankOfFirstDepositRoutingNumber
 
+                /**
+                 * The identifier of the Inbound Check Deposit object associated with this
+                 * transaction.
+                 */
+                @JsonProperty("inbound_check_deposit_id")
+                @ExcludeMissing
+                fun _inboundCheckDepositId() = inboundCheckDepositId
+
                 /** The identifier of the Check Transfer object that was deposited. */
                 @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
 
@@ -22643,6 +22764,7 @@ private constructor(
                         frontImageFileId()
                         backImageFileId()
                         bankOfFirstDepositRoutingNumber()
+                        inboundCheckDepositId()
                         transferId()
                         type()
                         validated = true
@@ -22663,6 +22785,7 @@ private constructor(
                         this.backImageFileId == other.backImageFileId &&
                         this.bankOfFirstDepositRoutingNumber ==
                             other.bankOfFirstDepositRoutingNumber &&
+                        this.inboundCheckDepositId == other.inboundCheckDepositId &&
                         this.transferId == other.transferId &&
                         this.type == other.type &&
                         this.additionalProperties == other.additionalProperties
@@ -22677,6 +22800,7 @@ private constructor(
                                 frontImageFileId,
                                 backImageFileId,
                                 bankOfFirstDepositRoutingNumber,
+                                inboundCheckDepositId,
                                 transferId,
                                 type,
                                 additionalProperties,
@@ -22686,7 +22810,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "CheckTransferDeposit{depositedAt=$depositedAt, transactionId=$transactionId, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, transferId=$transferId, type=$type, additionalProperties=$additionalProperties}"
+                    "CheckTransferDeposit{depositedAt=$depositedAt, transactionId=$transactionId, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, inboundCheckDepositId=$inboundCheckDepositId, transferId=$transferId, type=$type, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -22701,6 +22825,7 @@ private constructor(
                     private var backImageFileId: JsonField<String> = JsonMissing.of()
                     private var bankOfFirstDepositRoutingNumber: JsonField<String> =
                         JsonMissing.of()
+                    private var inboundCheckDepositId: JsonField<String> = JsonMissing.of()
                     private var transferId: JsonField<String> = JsonMissing.of()
                     private var type: JsonField<Type> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -22713,6 +22838,7 @@ private constructor(
                         this.backImageFileId = checkTransferDeposit.backImageFileId
                         this.bankOfFirstDepositRoutingNumber =
                             checkTransferDeposit.bankOfFirstDepositRoutingNumber
+                        this.inboundCheckDepositId = checkTransferDeposit.inboundCheckDepositId
                         this.transferId = checkTransferDeposit.transferId
                         this.type = checkTransferDeposit.type
                         additionalProperties(checkTransferDeposit.additionalProperties)
@@ -22803,6 +22929,23 @@ private constructor(
                         this.bankOfFirstDepositRoutingNumber = bankOfFirstDepositRoutingNumber
                     }
 
+                    /**
+                     * The identifier of the Inbound Check Deposit object associated with this
+                     * transaction.
+                     */
+                    fun inboundCheckDepositId(inboundCheckDepositId: String) =
+                        inboundCheckDepositId(JsonField.of(inboundCheckDepositId))
+
+                    /**
+                     * The identifier of the Inbound Check Deposit object associated with this
+                     * transaction.
+                     */
+                    @JsonProperty("inbound_check_deposit_id")
+                    @ExcludeMissing
+                    fun inboundCheckDepositId(inboundCheckDepositId: JsonField<String>) = apply {
+                        this.inboundCheckDepositId = inboundCheckDepositId
+                    }
+
                     /** The identifier of the Check Transfer object that was deposited. */
                     fun transferId(transferId: String) = transferId(JsonField.of(transferId))
 
@@ -22849,6 +22992,7 @@ private constructor(
                             frontImageFileId,
                             backImageFileId,
                             bankOfFirstDepositRoutingNumber,
+                            inboundCheckDepositId,
                             transferId,
                             type,
                             additionalProperties.toUnmodifiable(),
@@ -23569,7 +23713,7 @@ private constructor(
                  */
                 fun traceNumber(): String = traceNumber.getRequired("trace_number")
 
-                /** The inbound ach transfer's identifier. */
+                /** The Inbound ACH Transfer's identifier. */
                 fun transferId(): String = transferId.getRequired("transfer_id")
 
                 /** Additional information sent from the originator. */
@@ -23630,7 +23774,7 @@ private constructor(
                  */
                 @JsonProperty("trace_number") @ExcludeMissing fun _traceNumber() = traceNumber
 
-                /** The inbound ach transfer's identifier. */
+                /** The Inbound ACH Transfer's identifier. */
                 @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
 
                 /** Additional information sent from the originator. */
@@ -23893,10 +24037,10 @@ private constructor(
                         this.traceNumber = traceNumber
                     }
 
-                    /** The inbound ach transfer's identifier. */
+                    /** The Inbound ACH Transfer's identifier. */
                     fun transferId(transferId: String) = transferId(JsonField.of(transferId))
 
-                    /** The inbound ach transfer's identifier. */
+                    /** The Inbound ACH Transfer's identifier. */
                     @JsonProperty("transfer_id")
                     @ExcludeMissing
                     fun transferId(transferId: JsonField<String>) = apply {

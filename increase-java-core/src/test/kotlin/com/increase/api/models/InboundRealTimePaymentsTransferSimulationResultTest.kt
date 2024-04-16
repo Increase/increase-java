@@ -43,6 +43,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .builder()
                                         .id("string")
                                         .amount(123L)
+                                        .inboundAchTransferId("string")
                                         .originatorCompanyDescriptiveDate("string")
                                         .originatorCompanyDiscretionaryData("string")
                                         .originatorCompanyId("string")
@@ -250,7 +251,9 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .amount(123L)
                                         .auxiliaryOnUs("string")
                                         .backImageFileId("string")
+                                        .checkTransferId("string")
                                         .frontImageFileId("string")
+                                        .inboundCheckDepositId("string")
                                         .reason(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .DeclinedTransaction
@@ -1186,6 +1189,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
                                         .frontImageFileId("string")
+                                        .inboundCheckDepositId("string")
                                         .transactionId("string")
                                         .transferId("string")
                                         .type(
@@ -1630,6 +1634,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .builder()
                                     .id("string")
                                     .amount(123L)
+                                    .inboundAchTransferId("string")
                                     .originatorCompanyDescriptiveDate("string")
                                     .originatorCompanyDiscretionaryData("string")
                                     .originatorCompanyId("string")
@@ -1834,7 +1839,9 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .amount(123L)
                                     .auxiliaryOnUs("string")
                                     .backImageFileId("string")
+                                    .checkTransferId("string")
                                     .frontImageFileId("string")
+                                    .inboundCheckDepositId("string")
                                     .reason(
                                         InboundRealTimePaymentsTransferSimulationResult
                                             .DeclinedTransaction
@@ -2717,6 +2724,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .bankOfFirstDepositRoutingNumber("string")
                                     .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .frontImageFileId("string")
+                                    .inboundCheckDepositId("string")
                                     .transactionId("string")
                                     .transferId("string")
                                     .type(
