@@ -33,6 +33,8 @@ import com.increase.api.services.async.simulations.DigitalWalletTokenRequestServ
 import com.increase.api.services.async.simulations.DigitalWalletTokenRequestServiceAsyncImpl
 import com.increase.api.services.async.simulations.DocumentServiceAsync
 import com.increase.api.services.async.simulations.DocumentServiceAsyncImpl
+import com.increase.api.services.async.simulations.InboundCheckDepositServiceAsync
+import com.increase.api.services.async.simulations.InboundCheckDepositServiceAsyncImpl
 import com.increase.api.services.async.simulations.InboundFundsHoldServiceAsync
 import com.increase.api.services.async.simulations.InboundFundsHoldServiceAsyncImpl
 import com.increase.api.services.async.simulations.InboundWireDrawdownRequestServiceAsync
@@ -122,6 +124,10 @@ constructor(
         PhysicalCardServiceAsyncImpl(clientOptions)
     }
 
+    private val inboundCheckDeposits: InboundCheckDepositServiceAsync by lazy {
+        InboundCheckDepositServiceAsyncImpl(clientOptions)
+    }
+
     override fun accountTransfers(): AccountTransferServiceAsync = accountTransfers
 
     override fun accountStatements(): AccountStatementServiceAsync = accountStatements
@@ -158,6 +164,8 @@ constructor(
         realTimePaymentsTransfers
 
     override fun physicalCards(): PhysicalCardServiceAsync = physicalCards
+
+    override fun inboundCheckDeposits(): InboundCheckDepositServiceAsync = inboundCheckDeposits
 
     private val cardAuthorizationExpirationsHandler: Handler<CardPayment> =
         jsonHandler<CardPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

@@ -10,15 +10,31 @@ class WireDrawdownRequestListParamsTest {
 
     @Test
     fun createWireDrawdownRequestListParams() {
-        WireDrawdownRequestListParams.builder().cursor("string").limit(123L).build()
+        WireDrawdownRequestListParams.builder()
+            .cursor("string")
+            .idempotencyKey("x")
+            .limit(123L)
+            .status(WireDrawdownRequestListParams.Status.PENDING_SUBMISSION)
+            .build()
     }
 
     @Test
     fun getQueryParams() {
-        val params = WireDrawdownRequestListParams.builder().cursor("string").limit(123L).build()
+        val params =
+            WireDrawdownRequestListParams.builder()
+                .cursor("string")
+                .idempotencyKey("x")
+                .limit(123L)
+                .status(WireDrawdownRequestListParams.Status.PENDING_SUBMISSION)
+                .build()
         val expected = mutableMapOf<String, List<String>>()
         expected.put("cursor", listOf("string"))
+        expected.put("idempotency_key", listOf("x"))
         expected.put("limit", listOf("123"))
+        expected.put(
+            "status",
+            listOf(WireDrawdownRequestListParams.Status.PENDING_SUBMISSION.toString())
+        )
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 

@@ -515,6 +515,7 @@ class TransactionTest {
                                 .bankOfFirstDepositRoutingNumber("string")
                                 .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .frontImageFileId("string")
+                                .inboundCheckDepositId("string")
                                 .transactionId("string")
                                 .transferId("string")
                                 .type(
@@ -1273,6 +1274,7 @@ class TransactionTest {
                             .bankOfFirstDepositRoutingNumber("string")
                             .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .frontImageFileId("string")
+                            .inboundCheckDepositId("string")
                             .transactionId("string")
                             .transferId("string")
                             .type(
