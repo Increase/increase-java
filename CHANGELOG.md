@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.44.0 (2024-04-16)
+
+Full Changelog: [v0.43.0...v0.44.0](https://github.com/Increase/increase-java/compare/v0.43.0...v0.44.0)
+
+### Features
+
+* **api:** add /inbound_check_deposits endpoints ([#240](https://github.com/Increase/increase-java/issues/240)) ([a4db634](https://github.com/Increase/increase-java/commit/a4db63492c2896058dd478631600a7801ca69905))
+
+
+### Chores
+
+* **internal:** formatting ([#238](https://github.com/Increase/increase-java/issues/238)) ([6afa709](https://github.com/Increase/increase-java/commit/6afa7099adca07e7c91703e11f67b178d82bf29e))
+
 ## 0.43.0 (2024-04-11)
 
 Full Changelog: [v0.42.0...v0.43.0](https://github.com/Increase/increase-java/compare/v0.42.0...v0.43.0)
