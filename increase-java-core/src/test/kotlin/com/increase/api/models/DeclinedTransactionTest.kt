@@ -26,6 +26,7 @@ class DeclinedTransactionTest {
                             DeclinedTransaction.Source.AchDecline.builder()
                                 .id("string")
                                 .amount(123L)
+                                .inboundAchTransferId("string")
                                 .originatorCompanyDescriptiveDate("string")
                                 .originatorCompanyDiscretionaryData("string")
                                 .originatorCompanyId("string")
@@ -142,7 +143,9 @@ class DeclinedTransactionTest {
                                 .amount(123L)
                                 .auxiliaryOnUs("string")
                                 .backImageFileId("string")
+                                .checkTransferId("string")
                                 .frontImageFileId("string")
+                                .inboundCheckDepositId("string")
                                 .reason(
                                     DeclinedTransaction.Source.CheckDecline.Reason
                                         .ACH_ROUTE_DISABLED
@@ -264,6 +267,7 @@ class DeclinedTransactionTest {
                         DeclinedTransaction.Source.AchDecline.builder()
                             .id("string")
                             .amount(123L)
+                            .inboundAchTransferId("string")
                             .originatorCompanyDescriptiveDate("string")
                             .originatorCompanyDiscretionaryData("string")
                             .originatorCompanyId("string")
@@ -372,7 +376,9 @@ class DeclinedTransactionTest {
                             .amount(123L)
                             .auxiliaryOnUs("string")
                             .backImageFileId("string")
+                            .checkTransferId("string")
                             .frontImageFileId("string")
+                            .inboundCheckDepositId("string")
                             .reason(
                                 DeclinedTransaction.Source.CheckDecline.Reason.ACH_ROUTE_DISABLED
                             )

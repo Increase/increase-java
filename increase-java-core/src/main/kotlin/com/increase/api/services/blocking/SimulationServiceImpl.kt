@@ -33,6 +33,8 @@ import com.increase.api.services.blocking.simulations.DigitalWalletTokenRequestS
 import com.increase.api.services.blocking.simulations.DigitalWalletTokenRequestServiceImpl
 import com.increase.api.services.blocking.simulations.DocumentService
 import com.increase.api.services.blocking.simulations.DocumentServiceImpl
+import com.increase.api.services.blocking.simulations.InboundCheckDepositService
+import com.increase.api.services.blocking.simulations.InboundCheckDepositServiceImpl
 import com.increase.api.services.blocking.simulations.InboundFundsHoldService
 import com.increase.api.services.blocking.simulations.InboundFundsHoldServiceImpl
 import com.increase.api.services.blocking.simulations.InboundWireDrawdownRequestService
@@ -115,6 +117,10 @@ constructor(
         PhysicalCardServiceImpl(clientOptions)
     }
 
+    private val inboundCheckDeposits: InboundCheckDepositService by lazy {
+        InboundCheckDepositServiceImpl(clientOptions)
+    }
+
     override fun accountTransfers(): AccountTransferService = accountTransfers
 
     override fun accountStatements(): AccountStatementService = accountStatements
@@ -151,6 +157,8 @@ constructor(
         realTimePaymentsTransfers
 
     override fun physicalCards(): PhysicalCardService = physicalCards
+
+    override fun inboundCheckDeposits(): InboundCheckDepositService = inboundCheckDeposits
 
     private val cardAuthorizationExpirationsHandler: Handler<CardPayment> =
         jsonHandler<CardPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
