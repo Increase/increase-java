@@ -7,22 +7,16 @@ import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
 import com.increase.api.models.*
 import java.util.Objects
-import java.util.Optional
 
-class SimulationCheckTransferDepositParams
+class InboundCheckDepositRetrieveParams
 constructor(
-    private val checkTransferId: String,
+    private val inboundCheckDepositId: String,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun checkTransferId(): String = checkTransferId
-
-    @JvmSynthetic
-    internal fun getBody(): Optional<Map<String, JsonValue>> {
-        return Optional.ofNullable(additionalBodyProperties.ifEmpty { null })
-    }
+    fun inboundCheckDepositId(): String = inboundCheckDepositId
 
     @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
@@ -30,7 +24,7 @@ constructor(
 
     fun getPathParam(index: Int): String {
         return when (index) {
-            0 -> checkTransferId
+            0 -> inboundCheckDepositId
             else -> ""
         }
     }
@@ -46,8 +40,8 @@ constructor(
             return true
         }
 
-        return other is SimulationCheckTransferDepositParams &&
-            this.checkTransferId == other.checkTransferId &&
+        return other is InboundCheckDepositRetrieveParams &&
+            this.inboundCheckDepositId == other.inboundCheckDepositId &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -55,7 +49,7 @@ constructor(
 
     override fun hashCode(): Int {
         return Objects.hash(
-            checkTransferId,
+            inboundCheckDepositId,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -63,7 +57,7 @@ constructor(
     }
 
     override fun toString() =
-        "SimulationCheckTransferDepositParams{checkTransferId=$checkTransferId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "InboundCheckDepositRetrieveParams{inboundCheckDepositId=$inboundCheckDepositId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -75,24 +69,23 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var checkTransferId: String? = null
+        private var inboundCheckDepositId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(
-            simulationCheckTransferDepositParams: SimulationCheckTransferDepositParams
-        ) = apply {
-            this.checkTransferId = simulationCheckTransferDepositParams.checkTransferId
-            additionalQueryParams(simulationCheckTransferDepositParams.additionalQueryParams)
-            additionalHeaders(simulationCheckTransferDepositParams.additionalHeaders)
-            additionalBodyProperties(simulationCheckTransferDepositParams.additionalBodyProperties)
-        }
+        internal fun from(inboundCheckDepositRetrieveParams: InboundCheckDepositRetrieveParams) =
+            apply {
+                this.inboundCheckDepositId = inboundCheckDepositRetrieveParams.inboundCheckDepositId
+                additionalQueryParams(inboundCheckDepositRetrieveParams.additionalQueryParams)
+                additionalHeaders(inboundCheckDepositRetrieveParams.additionalHeaders)
+                additionalBodyProperties(inboundCheckDepositRetrieveParams.additionalBodyProperties)
+            }
 
-        /** The identifier of the Check Transfer you wish to mark deposited. */
-        fun checkTransferId(checkTransferId: String) = apply {
-            this.checkTransferId = checkTransferId
+        /** The identifier of the Inbound Check Deposit to get details for. */
+        fun inboundCheckDepositId(inboundCheckDepositId: String) = apply {
+            this.inboundCheckDepositId = inboundCheckDepositId
         }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
@@ -149,9 +142,11 @@ constructor(
                 this.additionalBodyProperties.putAll(additionalBodyProperties)
             }
 
-        fun build(): SimulationCheckTransferDepositParams =
-            SimulationCheckTransferDepositParams(
-                checkNotNull(checkTransferId) { "`checkTransferId` is required but was not set" },
+        fun build(): InboundCheckDepositRetrieveParams =
+            InboundCheckDepositRetrieveParams(
+                checkNotNull(inboundCheckDepositId) {
+                    "`inboundCheckDepositId` is required but was not set"
+                },
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

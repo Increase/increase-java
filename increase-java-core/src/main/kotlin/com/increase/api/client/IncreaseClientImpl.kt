@@ -172,6 +172,10 @@ constructor(
         PhysicalCardProfileServiceImpl(clientOptions)
     }
 
+    private val inboundCheckDeposits: InboundCheckDepositService by lazy {
+        InboundCheckDepositServiceImpl(clientOptions)
+    }
+
     override fun async(): IncreaseClientAsync = async
 
     override fun accounts(): AccountService = accounts
@@ -270,4 +274,6 @@ constructor(
     override fun digitalCardProfiles(): DigitalCardProfileService = digitalCardProfiles
 
     override fun physicalCardProfiles(): PhysicalCardProfileService = physicalCardProfiles
+
+    override fun inboundCheckDeposits(): InboundCheckDepositService = inboundCheckDeposits
 }
