@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.45.0 (2024-04-16)
+
+Full Changelog: [v0.44.0...v0.45.0](https://github.com/Increase/increase-java/compare/v0.44.0...v0.45.0)
+
+### Features
+
+* **api:** remove deposit field from check transfer ([#243](https://github.com/Increase/increase-java/issues/243)) ([e2a4058](https://github.com/Increase/increase-java/commit/e2a4058baa46dad1535847c157a9b7185ff4f08f))
+
+
+### Build System
+
+* configure UTF-8 locale in devcontainer ([#241](https://github.com/Increase/increase-java/issues/241)) ([bf564d7](https://github.com/Increase/increase-java/commit/bf564d7b56af1fd53bf3f1d2de3cfb5f62f6e52b))
+
 ## 0.44.0 (2024-04-16)
 
 Full Changelog: [v0.43.0...v0.44.0](https://github.com/Increase/increase-java/compare/v0.43.0...v0.44.0)
