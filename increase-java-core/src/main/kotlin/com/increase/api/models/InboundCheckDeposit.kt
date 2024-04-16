@@ -74,7 +74,8 @@ private constructor(
     fun accountId(): String = accountId.getRequired("account_id")
 
     /** The Account Number the check is being deposited against. */
-    fun accountNumberId(): String = accountNumberId.getRequired("account_number_id")
+    fun accountNumberId(): Optional<String> =
+        Optional.ofNullable(accountNumberId.getNullable("account_number_id"))
 
     /** If this deposit is for an existing Check Transfer, the identifier of that Check Transfer. */
     fun checkTransferId(): Optional<String> =
