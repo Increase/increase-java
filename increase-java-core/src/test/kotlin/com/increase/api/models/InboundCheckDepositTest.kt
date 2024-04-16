@@ -31,7 +31,7 @@ class InboundCheckDepositTest {
         assertThat(inboundCheckDeposit).isNotNull
         assertThat(inboundCheckDeposit.id()).isEqualTo("string")
         assertThat(inboundCheckDeposit.accountId()).isEqualTo("string")
-        assertThat(inboundCheckDeposit.accountNumberId()).isEqualTo("string")
+        assertThat(inboundCheckDeposit.accountNumberId()).contains("string")
         assertThat(inboundCheckDeposit.amount()).isEqualTo(123L)
         assertThat(inboundCheckDeposit.backImageFileId()).contains("string")
         assertThat(inboundCheckDeposit.bankOfFirstDepositRoutingNumber()).contains("string")
