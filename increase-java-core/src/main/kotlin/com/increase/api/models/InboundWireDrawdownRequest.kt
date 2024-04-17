@@ -15,6 +15,7 @@ import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
 
@@ -28,6 +29,7 @@ class InboundWireDrawdownRequest
 private constructor(
     private val type: JsonField<Type>,
     private val id: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
     private val recipientAccountNumberId: JsonField<String>,
     private val originatorAccountNumber: JsonField<String>,
     private val originatorRoutingNumber: JsonField<String>,
@@ -63,6 +65,12 @@ private constructor(
 
     /** The Wire drawdown request identifier. */
     fun id(): String = id.getRequired("id")
+
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the inbound
+     * wire drawdown requested was created.
+     */
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
      * The Account Number from which the recipient of this request is being requested to send funds.
@@ -173,6 +181,12 @@ private constructor(
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the inbound
+     * wire drawdown requested was created.
+     */
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+    /**
      * The Account Number from which the recipient of this request is being requested to send funds.
      */
     @JsonProperty("recipient_account_number_id")
@@ -277,6 +291,7 @@ private constructor(
         if (!validated) {
             type()
             id()
+            createdAt()
             recipientAccountNumberId()
             originatorAccountNumber()
             originatorRoutingNumber()
@@ -311,6 +326,7 @@ private constructor(
         return other is InboundWireDrawdownRequest &&
             this.type == other.type &&
             this.id == other.id &&
+            this.createdAt == other.createdAt &&
             this.recipientAccountNumberId == other.recipientAccountNumberId &&
             this.originatorAccountNumber == other.originatorAccountNumber &&
             this.originatorRoutingNumber == other.originatorRoutingNumber &&
@@ -344,6 +360,7 @@ private constructor(
                 Objects.hash(
                     type,
                     id,
+                    createdAt,
                     recipientAccountNumberId,
                     originatorAccountNumber,
                     originatorRoutingNumber,
@@ -371,7 +388,7 @@ private constructor(
     }
 
     override fun toString() =
-        "InboundWireDrawdownRequest{type=$type, id=$id, recipientAccountNumberId=$recipientAccountNumberId, originatorAccountNumber=$originatorAccountNumber, originatorRoutingNumber=$originatorRoutingNumber, beneficiaryAccountNumber=$beneficiaryAccountNumber, beneficiaryRoutingNumber=$beneficiaryRoutingNumber, amount=$amount, currency=$currency, messageToRecipient=$messageToRecipient, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, originatorName=$originatorName, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, additionalProperties=$additionalProperties}"
+        "InboundWireDrawdownRequest{type=$type, id=$id, createdAt=$createdAt, recipientAccountNumberId=$recipientAccountNumberId, originatorAccountNumber=$originatorAccountNumber, originatorRoutingNumber=$originatorRoutingNumber, beneficiaryAccountNumber=$beneficiaryAccountNumber, beneficiaryRoutingNumber=$beneficiaryRoutingNumber, amount=$amount, currency=$currency, messageToRecipient=$messageToRecipient, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, originatorName=$originatorName, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -382,6 +399,7 @@ private constructor(
 
         private var type: JsonField<Type> = JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var recipientAccountNumberId: JsonField<String> = JsonMissing.of()
         private var originatorAccountNumber: JsonField<String> = JsonMissing.of()
         private var originatorRoutingNumber: JsonField<String> = JsonMissing.of()
@@ -408,6 +426,7 @@ private constructor(
         internal fun from(inboundWireDrawdownRequest: InboundWireDrawdownRequest) = apply {
             this.type = inboundWireDrawdownRequest.type
             this.id = inboundWireDrawdownRequest.id
+            this.createdAt = inboundWireDrawdownRequest.createdAt
             this.recipientAccountNumberId = inboundWireDrawdownRequest.recipientAccountNumberId
             this.originatorAccountNumber = inboundWireDrawdownRequest.originatorAccountNumber
             this.originatorRoutingNumber = inboundWireDrawdownRequest.originatorRoutingNumber
@@ -454,6 +473,20 @@ private constructor(
 
         /** The Wire drawdown request identifier. */
         @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the inbound
+         * wire drawdown requested was created.
+         */
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the inbound
+         * wire drawdown requested was created.
+         */
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
          * The Account Number from which the recipient of this request is being requested to send
@@ -738,6 +771,7 @@ private constructor(
             InboundWireDrawdownRequest(
                 type,
                 id,
+                createdAt,
                 recipientAccountNumberId,
                 originatorAccountNumber,
                 originatorRoutingNumber,

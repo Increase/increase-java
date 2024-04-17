@@ -2,6 +2,7 @@
 
 package com.increase.api.models
 
+import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -19,6 +20,7 @@ class InboundWireDrawdownRequestTest {
                 .beneficiaryAddressLine3("string")
                 .beneficiaryName("string")
                 .beneficiaryRoutingNumber("string")
+                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .currency("string")
                 .messageToRecipient("string")
                 .originatorAccountNumber("string")
@@ -43,6 +45,8 @@ class InboundWireDrawdownRequestTest {
         assertThat(inboundWireDrawdownRequest.beneficiaryAddressLine3()).contains("string")
         assertThat(inboundWireDrawdownRequest.beneficiaryName()).contains("string")
         assertThat(inboundWireDrawdownRequest.beneficiaryRoutingNumber()).isEqualTo("string")
+        assertThat(inboundWireDrawdownRequest.createdAt())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(inboundWireDrawdownRequest.currency()).isEqualTo("string")
         assertThat(inboundWireDrawdownRequest.messageToRecipient()).contains("string")
         assertThat(inboundWireDrawdownRequest.originatorAccountNumber()).isEqualTo("string")
