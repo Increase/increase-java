@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.46.0 (2024-04-17)
+
+Full Changelog: [v0.45.0...v0.46.0](https://github.com/Increase/increase-java/compare/v0.45.0...v0.46.0)
+
+### Features
+
+* **api:** add altered_or_fictitious check decline reason ([#244](https://github.com/Increase/increase-java/issues/244)) ([47fae0b](https://github.com/Increase/increase-java/commit/47fae0becb5023cb234d1b881cbedce32118209b))
+
 ## 0.45.0 (2024-04-16)
 
 Full Changelog: [v0.44.0...v0.45.0](https://github.com/Increase/increase-java/compare/v0.44.0...v0.45.0)
