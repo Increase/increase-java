@@ -9,10 +9,12 @@ import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.InboundCheckDeposit
+import com.increase.api.models.InboundCheckDepositDeclineParams
 import com.increase.api.models.InboundCheckDepositListPageAsync
 import com.increase.api.models.InboundCheckDepositListParams
 import com.increase.api.models.InboundCheckDepositRetrieveParams
 import com.increase.api.services.errorHandler
+import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
 import com.increase.api.services.withErrorHandler
 import java.util.concurrent.CompletableFuture
@@ -79,6 +81,35 @@ constructor(
                     }
                 }
                 .let { InboundCheckDepositListPageAsync.of(this, params, it) }
+        }
+    }
+
+    private val declineHandler: Handler<InboundCheckDeposit> =
+        jsonHandler<InboundCheckDeposit>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+    /** Decline an Inbound Check Deposit */
+    override fun decline(
+        params: InboundCheckDepositDeclineParams,
+        requestOptions: RequestOptions
+    ): CompletableFuture<InboundCheckDeposit> {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.POST)
+                .addPathSegments("inbound_check_deposits", params.getPathParam(0), "decline")
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .apply { params.getBody().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                .build()
+        return clientOptions.httpClient.executeAsync(request, requestOptions).thenApply { response
+            ->
+            response
+                .use { declineHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
         }
     }
 }
