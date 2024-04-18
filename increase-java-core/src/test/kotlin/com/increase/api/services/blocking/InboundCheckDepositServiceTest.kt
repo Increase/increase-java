@@ -41,4 +41,20 @@ class InboundCheckDepositServiceTest {
         println(inboundCheckDepositList)
         inboundCheckDepositList.data().forEach { it.validate() }
     }
+
+    @Test
+    fun callDecline() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val inboundCheckDepositService = client.inboundCheckDeposits()
+        val inboundCheckDeposit =
+            inboundCheckDepositService.decline(
+                InboundCheckDepositDeclineParams.builder().inboundCheckDepositId("string").build()
+            )
+        println(inboundCheckDeposit)
+        inboundCheckDeposit.validate()
+    }
 }
