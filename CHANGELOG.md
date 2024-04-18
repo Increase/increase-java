@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.47.0 (2024-04-18)
+
+Full Changelog: [v0.46.0...v0.47.0](https://github.com/Increase/increase-java/compare/v0.46.0...v0.47.0)
+
+### Features
+
+* **api:** add inbound_check_deposits decline endpoint ([#246](https://github.com/Increase/increase-java/issues/246)) ([1330f1c](https://github.com/Increase/increase-java/commit/1330f1c8b77dc792eff41be60a543a798753bd97))
+
 ## 0.46.0 (2024-04-17)
 
 Full Changelog: [v0.45.0...v0.46.0](https://github.com/Increase/increase-java/compare/v0.45.0...v0.46.0)
