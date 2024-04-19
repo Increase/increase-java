@@ -43,6 +43,7 @@ class CheckTransferCreateParamsTest {
                     .build()
             )
             .requireApproval(true)
+            .thirdParty(CheckTransferCreateParams.ThirdParty.builder().checkNumber("x").build())
             .build()
     }
 
@@ -82,6 +83,7 @@ class CheckTransferCreateParamsTest {
                         .build()
                 )
                 .requireApproval(true)
+                .thirdParty(CheckTransferCreateParams.ThirdParty.builder().checkNumber("x").build())
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -119,6 +121,8 @@ class CheckTransferCreateParamsTest {
                     .build()
             )
         assertThat(body.requireApproval()).isEqualTo(true)
+        assertThat(body.thirdParty())
+            .isEqualTo(CheckTransferCreateParams.ThirdParty.builder().checkNumber("x").build())
     }
 
     @Test
