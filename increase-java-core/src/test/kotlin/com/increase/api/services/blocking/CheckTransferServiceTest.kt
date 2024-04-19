@@ -56,6 +56,9 @@ class CheckTransferServiceTest {
                             .build()
                     )
                     .requireApproval(true)
+                    .thirdParty(
+                        CheckTransferCreateParams.ThirdParty.builder().checkNumber("x").build()
+                    )
                     .build()
             )
         println(checkTransfer)

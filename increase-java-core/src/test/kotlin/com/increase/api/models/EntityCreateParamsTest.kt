@@ -234,7 +234,6 @@ class EntityCreateParamsTest {
                     .confirmedNoUsTaxId(true)
                     .build()
             )
-            .relationship(EntityCreateParams.Relationship.AFFILIATED)
             .supplementalDocuments(
                 listOf(EntityCreateParams.SupplementalDocument.builder().fileId("string").build())
             )
@@ -620,7 +619,6 @@ class EntityCreateParamsTest {
                         .confirmedNoUsTaxId(true)
                         .build()
                 )
-                .relationship(EntityCreateParams.Relationship.AFFILIATED)
                 .supplementalDocuments(
                     listOf(
                         EntityCreateParams.SupplementalDocument.builder().fileId("string").build()
@@ -1003,7 +1001,6 @@ class EntityCreateParamsTest {
                     .confirmedNoUsTaxId(true)
                     .build()
             )
-        assertThat(body.relationship()).isEqualTo(EntityCreateParams.Relationship.AFFILIATED)
         assertThat(body.supplementalDocuments())
             .isEqualTo(
                 listOf(EntityCreateParams.SupplementalDocument.builder().fileId("string").build())

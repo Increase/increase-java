@@ -14,6 +14,7 @@ import java.util.Optional
 class InboundCheckDepositListParams
 constructor(
     private val accountId: String?,
+    private val checkTransferId: String?,
     private val createdAt: CreatedAt?,
     private val cursor: String?,
     private val limit: Long?,
@@ -23,6 +24,8 @@ constructor(
 ) {
 
     fun accountId(): Optional<String> = Optional.ofNullable(accountId)
+
+    fun checkTransferId(): Optional<String> = Optional.ofNullable(checkTransferId)
 
     fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
@@ -34,6 +37,7 @@ constructor(
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
         this.accountId?.let { params.put("account_id", listOf(it.toString())) }
+        this.checkTransferId?.let { params.put("check_transfer_id", listOf(it.toString())) }
         this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
@@ -56,6 +60,7 @@ constructor(
 
         return other is InboundCheckDepositListParams &&
             this.accountId == other.accountId &&
+            this.checkTransferId == other.checkTransferId &&
             this.createdAt == other.createdAt &&
             this.cursor == other.cursor &&
             this.limit == other.limit &&
@@ -67,6 +72,7 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             accountId,
+            checkTransferId,
             createdAt,
             cursor,
             limit,
@@ -77,7 +83,7 @@ constructor(
     }
 
     override fun toString() =
-        "InboundCheckDepositListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, limit=$limit, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "InboundCheckDepositListParams{accountId=$accountId, checkTransferId=$checkTransferId, createdAt=$createdAt, cursor=$cursor, limit=$limit, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -90,6 +96,7 @@ constructor(
     class Builder {
 
         private var accountId: String? = null
+        private var checkTransferId: String? = null
         private var createdAt: CreatedAt? = null
         private var cursor: String? = null
         private var limit: Long? = null
@@ -100,6 +107,7 @@ constructor(
         @JvmSynthetic
         internal fun from(inboundCheckDepositListParams: InboundCheckDepositListParams) = apply {
             this.accountId = inboundCheckDepositListParams.accountId
+            this.checkTransferId = inboundCheckDepositListParams.checkTransferId
             this.createdAt = inboundCheckDepositListParams.createdAt
             this.cursor = inboundCheckDepositListParams.cursor
             this.limit = inboundCheckDepositListParams.limit
@@ -110,6 +118,11 @@ constructor(
 
         /** Filter Inbound Check Deposits to those belonging to the specified Account. */
         fun accountId(accountId: String) = apply { this.accountId = accountId }
+
+        /** Filter Inbound Check Deposits to those belonging to the specified Check Transfer. */
+        fun checkTransferId(checkTransferId: String) = apply {
+            this.checkTransferId = checkTransferId
+        }
 
         fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
@@ -178,6 +191,7 @@ constructor(
         fun build(): InboundCheckDepositListParams =
             InboundCheckDepositListParams(
                 accountId,
+                checkTransferId,
                 createdAt,
                 cursor,
                 limit,
