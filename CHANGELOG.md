@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.48.0 (2024-04-19)
+
+Full Changelog: [v0.47.0...v0.48.0](https://github.com/Increase/increase-java/compare/v0.47.0...v0.48.0)
+
+### Features
+
+* **api:** add account_id param to ach_prenotification and third_party to check_transfer ([#248](https://github.com/Increase/increase-java/issues/248)) ([afa60ff](https://github.com/Increase/increase-java/commit/afa60ff7adf26c25414c7d852b93883ed89a47b9))
+
 ## 0.47.0 (2024-04-18)
 
 Full Changelog: [v0.46.0...v0.47.0](https://github.com/Increase/increase-java/compare/v0.46.0...v0.47.0)
