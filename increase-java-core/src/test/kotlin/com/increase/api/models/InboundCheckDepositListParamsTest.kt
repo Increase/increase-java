@@ -13,6 +13,7 @@ class InboundCheckDepositListParamsTest {
     fun createInboundCheckDepositListParams() {
         InboundCheckDepositListParams.builder()
             .accountId("string")
+            .checkTransferId("string")
             .createdAt(
                 InboundCheckDepositListParams.CreatedAt.builder()
                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -31,6 +32,7 @@ class InboundCheckDepositListParamsTest {
         val params =
             InboundCheckDepositListParams.builder()
                 .accountId("string")
+                .checkTransferId("string")
                 .createdAt(
                     InboundCheckDepositListParams.CreatedAt.builder()
                         .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -44,6 +46,7 @@ class InboundCheckDepositListParamsTest {
                 .build()
         val expected = mutableMapOf<String, List<String>>()
         expected.put("account_id", listOf("string"))
+        expected.put("check_transfer_id", listOf("string"))
         InboundCheckDepositListParams.CreatedAt.builder()
             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

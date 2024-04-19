@@ -267,7 +267,6 @@ class EntityServiceTest {
                             .confirmedNoUsTaxId(true)
                             .build()
                     )
-                    .relationship(EntityCreateParams.Relationship.AFFILIATED)
                     .supplementalDocuments(
                         listOf(
                             EntityCreateParams.SupplementalDocument.builder()

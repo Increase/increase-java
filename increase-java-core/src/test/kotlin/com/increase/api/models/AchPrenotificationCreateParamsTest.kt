@@ -14,6 +14,7 @@ class AchPrenotificationCreateParamsTest {
         AchPrenotificationCreateParams.builder()
             .accountNumber("x")
             .routingNumber("xxxxxxxxx")
+            .accountId("string")
             .addendum("x")
             .companyDescriptiveDate("x")
             .companyDiscretionaryData("x")
@@ -35,6 +36,7 @@ class AchPrenotificationCreateParamsTest {
             AchPrenotificationCreateParams.builder()
                 .accountNumber("x")
                 .routingNumber("xxxxxxxxx")
+                .accountId("string")
                 .addendum("x")
                 .companyDescriptiveDate("x")
                 .companyDiscretionaryData("x")
@@ -52,6 +54,7 @@ class AchPrenotificationCreateParamsTest {
         assertThat(body).isNotNull
         assertThat(body.accountNumber()).isEqualTo("x")
         assertThat(body.routingNumber()).isEqualTo("xxxxxxxxx")
+        assertThat(body.accountId()).isEqualTo("string")
         assertThat(body.addendum()).isEqualTo("x")
         assertThat(body.companyDescriptiveDate()).isEqualTo("x")
         assertThat(body.companyDiscretionaryData()).isEqualTo("x")

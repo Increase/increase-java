@@ -87,6 +87,7 @@ class CheckTransferTest {
                         .submittedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
+                .thirdParty(CheckTransfer.ThirdParty.builder().checkNumber("string").build())
                 .type(CheckTransfer.Type.CHECK_TRANSFER)
                 .build()
         assertThat(checkTransfer).isNotNull
@@ -170,6 +171,8 @@ class CheckTransferTest {
                     .submittedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
+        assertThat(checkTransfer.thirdParty())
+            .contains(CheckTransfer.ThirdParty.builder().checkNumber("string").build())
         assertThat(checkTransfer.type()).isEqualTo(CheckTransfer.Type.CHECK_TRANSFER)
     }
 }
