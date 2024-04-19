@@ -26,6 +26,7 @@ class AchPrenotificationServiceTest {
                 AchPrenotificationCreateParams.builder()
                     .accountNumber("x")
                     .routingNumber("xxxxxxxxx")
+                    .accountId("string")
                     .addendum("x")
                     .companyDescriptiveDate("x")
                     .companyDiscretionaryData("x")

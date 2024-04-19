@@ -39,6 +39,8 @@ private constructor(
     private val backImageFileId: JsonField<String>,
     private val transactionId: JsonField<String>,
     private val declinedTransactionId: JsonField<String>,
+    private val acceptedAt: JsonField<OffsetDateTime>,
+    private val declinedAt: JsonField<OffsetDateTime>,
     private val bankOfFirstDepositRoutingNumber: JsonField<String>,
     private val checkNumber: JsonField<String>,
     private val type: JsonField<Type>,
@@ -102,6 +104,20 @@ private constructor(
      */
     fun declinedTransactionId(): Optional<String> =
         Optional.ofNullable(declinedTransactionId.getNullable("declined_transaction_id"))
+
+    /**
+     * If the Inbound Check Deposit was accepted, the
+     * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took place.
+     */
+    fun acceptedAt(): Optional<OffsetDateTime> =
+        Optional.ofNullable(acceptedAt.getNullable("accepted_at"))
+
+    /**
+     * If the Inbound Check Deposit was declined, the
+     * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took place.
+     */
+    fun declinedAt(): Optional<OffsetDateTime> =
+        Optional.ofNullable(declinedAt.getNullable("declined_at"))
 
     /**
      * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank depositing
@@ -174,6 +190,18 @@ private constructor(
     fun _declinedTransactionId() = declinedTransactionId
 
     /**
+     * If the Inbound Check Deposit was accepted, the
+     * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took place.
+     */
+    @JsonProperty("accepted_at") @ExcludeMissing fun _acceptedAt() = acceptedAt
+
+    /**
+     * If the Inbound Check Deposit was declined, the
+     * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took place.
+     */
+    @JsonProperty("declined_at") @ExcludeMissing fun _declinedAt() = declinedAt
+
+    /**
      * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank depositing
      * this check. In some rare cases, this is not transmitted via Check21 and the value will be
      * null.
@@ -209,6 +237,8 @@ private constructor(
             backImageFileId()
             transactionId()
             declinedTransactionId()
+            acceptedAt()
+            declinedAt()
             bankOfFirstDepositRoutingNumber()
             checkNumber()
             type()
@@ -236,6 +266,8 @@ private constructor(
             this.backImageFileId == other.backImageFileId &&
             this.transactionId == other.transactionId &&
             this.declinedTransactionId == other.declinedTransactionId &&
+            this.acceptedAt == other.acceptedAt &&
+            this.declinedAt == other.declinedAt &&
             this.bankOfFirstDepositRoutingNumber == other.bankOfFirstDepositRoutingNumber &&
             this.checkNumber == other.checkNumber &&
             this.type == other.type &&
@@ -258,6 +290,8 @@ private constructor(
                     backImageFileId,
                     transactionId,
                     declinedTransactionId,
+                    acceptedAt,
+                    declinedAt,
                     bankOfFirstDepositRoutingNumber,
                     checkNumber,
                     type,
@@ -268,7 +302,7 @@ private constructor(
     }
 
     override fun toString() =
-        "InboundCheckDeposit{id=$id, amount=$amount, createdAt=$createdAt, currency=$currency, status=$status, accountId=$accountId, accountNumberId=$accountNumberId, checkTransferId=$checkTransferId, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, transactionId=$transactionId, declinedTransactionId=$declinedTransactionId, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, checkNumber=$checkNumber, type=$type, additionalProperties=$additionalProperties}"
+        "InboundCheckDeposit{id=$id, amount=$amount, createdAt=$createdAt, currency=$currency, status=$status, accountId=$accountId, accountNumberId=$accountNumberId, checkTransferId=$checkTransferId, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, transactionId=$transactionId, declinedTransactionId=$declinedTransactionId, acceptedAt=$acceptedAt, declinedAt=$declinedAt, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, checkNumber=$checkNumber, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -289,6 +323,8 @@ private constructor(
         private var backImageFileId: JsonField<String> = JsonMissing.of()
         private var transactionId: JsonField<String> = JsonMissing.of()
         private var declinedTransactionId: JsonField<String> = JsonMissing.of()
+        private var acceptedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var declinedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var bankOfFirstDepositRoutingNumber: JsonField<String> = JsonMissing.of()
         private var checkNumber: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
@@ -308,6 +344,8 @@ private constructor(
             this.backImageFileId = inboundCheckDeposit.backImageFileId
             this.transactionId = inboundCheckDeposit.transactionId
             this.declinedTransactionId = inboundCheckDeposit.declinedTransactionId
+            this.acceptedAt = inboundCheckDeposit.acceptedAt
+            this.declinedAt = inboundCheckDeposit.declinedAt
             this.bankOfFirstDepositRoutingNumber =
                 inboundCheckDeposit.bankOfFirstDepositRoutingNumber
             this.checkNumber = inboundCheckDeposit.checkNumber
@@ -455,6 +493,42 @@ private constructor(
         }
 
         /**
+         * If the Inbound Check Deposit was accepted, the
+         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took
+         * place.
+         */
+        fun acceptedAt(acceptedAt: OffsetDateTime) = acceptedAt(JsonField.of(acceptedAt))
+
+        /**
+         * If the Inbound Check Deposit was accepted, the
+         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took
+         * place.
+         */
+        @JsonProperty("accepted_at")
+        @ExcludeMissing
+        fun acceptedAt(acceptedAt: JsonField<OffsetDateTime>) = apply {
+            this.acceptedAt = acceptedAt
+        }
+
+        /**
+         * If the Inbound Check Deposit was declined, the
+         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took
+         * place.
+         */
+        fun declinedAt(declinedAt: OffsetDateTime) = declinedAt(JsonField.of(declinedAt))
+
+        /**
+         * If the Inbound Check Deposit was declined, the
+         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took
+         * place.
+         */
+        @JsonProperty("declined_at")
+        @ExcludeMissing
+        fun declinedAt(declinedAt: JsonField<OffsetDateTime>) = apply {
+            this.declinedAt = declinedAt
+        }
+
+        /**
          * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank
          * depositing this check. In some rare cases, this is not transmitted via Check21 and the
          * value will be null.
@@ -524,6 +598,8 @@ private constructor(
                 backImageFileId,
                 transactionId,
                 declinedTransactionId,
+                acceptedAt,
+                declinedAt,
                 bankOfFirstDepositRoutingNumber,
                 checkNumber,
                 type,
@@ -638,7 +714,7 @@ private constructor(
 
             @JvmField val ACCEPTED = Status(JsonField.of("accepted"))
 
-            @JvmField val REJECTED = Status(JsonField.of("rejected"))
+            @JvmField val DECLINED = Status(JsonField.of("declined"))
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
@@ -646,13 +722,13 @@ private constructor(
         enum class Known {
             PENDING,
             ACCEPTED,
-            REJECTED,
+            DECLINED,
         }
 
         enum class Value {
             PENDING,
             ACCEPTED,
-            REJECTED,
+            DECLINED,
             _UNKNOWN,
         }
 
@@ -660,7 +736,7 @@ private constructor(
             when (this) {
                 PENDING -> Value.PENDING
                 ACCEPTED -> Value.ACCEPTED
-                REJECTED -> Value.REJECTED
+                DECLINED -> Value.DECLINED
                 else -> Value._UNKNOWN
             }
 
@@ -668,7 +744,7 @@ private constructor(
             when (this) {
                 PENDING -> Known.PENDING
                 ACCEPTED -> Known.ACCEPTED
-                REJECTED -> Known.REJECTED
+                DECLINED -> Known.DECLINED
                 else -> throw IncreaseInvalidDataException("Unknown Status: $value")
             }
 
