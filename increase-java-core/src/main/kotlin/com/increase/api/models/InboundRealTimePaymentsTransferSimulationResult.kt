@@ -8278,8 +8278,6 @@ private constructor(
             private val inboundInternationalAchTransfer: JsonField<InboundInternationalAchTransfer>,
             private val inboundRealTimePaymentsTransferConfirmation:
                 JsonField<InboundRealTimePaymentsTransferConfirmation>,
-            private val inboundWireDrawdownPaymentReversal:
-                JsonField<InboundWireDrawdownPaymentReversal>,
             private val inboundWireDrawdownPayment: JsonField<InboundWireDrawdownPayment>,
             private val inboundWireReversal: JsonField<InboundWireReversal>,
             private val inboundWireTransfer: JsonField<InboundWireTransfer>,
@@ -8435,18 +8433,6 @@ private constructor(
                 Optional.ofNullable(
                     inboundRealTimePaymentsTransferConfirmation.getNullable(
                         "inbound_real_time_payments_transfer_confirmation"
-                    )
-                )
-
-            /**
-             * An Inbound Wire Drawdown Payment Reversal object. This field will be present in the
-             * JSON response if and only if `category` is equal to
-             * `inbound_wire_drawdown_payment_reversal`.
-             */
-            fun inboundWireDrawdownPaymentReversal(): Optional<InboundWireDrawdownPaymentReversal> =
-                Optional.ofNullable(
-                    inboundWireDrawdownPaymentReversal.getNullable(
-                        "inbound_wire_drawdown_payment_reversal"
                     )
                 )
 
@@ -8660,15 +8646,6 @@ private constructor(
                 inboundRealTimePaymentsTransferConfirmation
 
             /**
-             * An Inbound Wire Drawdown Payment Reversal object. This field will be present in the
-             * JSON response if and only if `category` is equal to
-             * `inbound_wire_drawdown_payment_reversal`.
-             */
-            @JsonProperty("inbound_wire_drawdown_payment_reversal")
-            @ExcludeMissing
-            fun _inboundWireDrawdownPaymentReversal() = inboundWireDrawdownPaymentReversal
-
-            /**
              * An Inbound Wire Drawdown Payment object. This field will be present in the JSON
              * response if and only if `category` is equal to `inbound_wire_drawdown_payment`.
              */
@@ -8761,7 +8738,6 @@ private constructor(
                     inboundAchTransfer().map { it.validate() }
                     inboundInternationalAchTransfer().map { it.validate() }
                     inboundRealTimePaymentsTransferConfirmation().map { it.validate() }
-                    inboundWireDrawdownPaymentReversal().map { it.validate() }
                     inboundWireDrawdownPayment().map { it.validate() }
                     inboundWireReversal().map { it.validate() }
                     inboundWireTransfer().map { it.validate() }
@@ -8802,8 +8778,6 @@ private constructor(
                     this.inboundInternationalAchTransfer == other.inboundInternationalAchTransfer &&
                     this.inboundRealTimePaymentsTransferConfirmation ==
                         other.inboundRealTimePaymentsTransferConfirmation &&
-                    this.inboundWireDrawdownPaymentReversal ==
-                        other.inboundWireDrawdownPaymentReversal &&
                     this.inboundWireDrawdownPayment == other.inboundWireDrawdownPayment &&
                     this.inboundWireReversal == other.inboundWireReversal &&
                     this.inboundWireTransfer == other.inboundWireTransfer &&
@@ -8839,7 +8813,6 @@ private constructor(
                             inboundAchTransfer,
                             inboundInternationalAchTransfer,
                             inboundRealTimePaymentsTransferConfirmation,
-                            inboundWireDrawdownPaymentReversal,
                             inboundWireDrawdownPayment,
                             inboundWireReversal,
                             inboundWireTransfer,
@@ -8856,7 +8829,7 @@ private constructor(
             }
 
             override fun toString() =
-                "Source{category=$category, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cashbackPayment=$cashbackPayment, cardDisputeAcceptance=$cardDisputeAcceptance, cardRefund=$cardRefund, cardSettlement=$cardSettlement, cardRevenuePayment=$cardRevenuePayment, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, checkTransferStopPaymentRequest=$checkTransferStopPaymentRequest, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundInternationalAchTransfer=$inboundInternationalAchTransfer, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireDrawdownPaymentReversal=$inboundWireDrawdownPaymentReversal, inboundWireDrawdownPayment=$inboundWireDrawdownPayment, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, interestPayment=$interestPayment, internalSource=$internalSource, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, wireTransferIntention=$wireTransferIntention, wireTransferRejection=$wireTransferRejection, additionalProperties=$additionalProperties}"
+                "Source{category=$category, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cashbackPayment=$cashbackPayment, cardDisputeAcceptance=$cardDisputeAcceptance, cardRefund=$cardRefund, cardSettlement=$cardSettlement, cardRevenuePayment=$cardRevenuePayment, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, checkTransferStopPaymentRequest=$checkTransferStopPaymentRequest, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundInternationalAchTransfer=$inboundInternationalAchTransfer, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireDrawdownPayment=$inboundWireDrawdownPayment, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, interestPayment=$interestPayment, internalSource=$internalSource, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, wireTransferIntention=$wireTransferIntention, wireTransferRejection=$wireTransferRejection, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -8891,9 +8864,6 @@ private constructor(
                     JsonMissing.of()
                 private var inboundRealTimePaymentsTransferConfirmation:
                     JsonField<InboundRealTimePaymentsTransferConfirmation> =
-                    JsonMissing.of()
-                private var inboundWireDrawdownPaymentReversal:
-                    JsonField<InboundWireDrawdownPaymentReversal> =
                     JsonMissing.of()
                 private var inboundWireDrawdownPayment: JsonField<InboundWireDrawdownPayment> =
                     JsonMissing.of()
@@ -8932,8 +8902,6 @@ private constructor(
                     this.inboundInternationalAchTransfer = source.inboundInternationalAchTransfer
                     this.inboundRealTimePaymentsTransferConfirmation =
                         source.inboundRealTimePaymentsTransferConfirmation
-                    this.inboundWireDrawdownPaymentReversal =
-                        source.inboundWireDrawdownPaymentReversal
                     this.inboundWireDrawdownPayment = source.inboundWireDrawdownPayment
                     this.inboundWireReversal = source.inboundWireReversal
                     this.inboundWireTransfer = source.inboundWireTransfer
@@ -9270,32 +9238,6 @@ private constructor(
                 }
 
                 /**
-                 * An Inbound Wire Drawdown Payment Reversal object. This field will be present in
-                 * the JSON response if and only if `category` is equal to
-                 * `inbound_wire_drawdown_payment_reversal`.
-                 */
-                fun inboundWireDrawdownPaymentReversal(
-                    inboundWireDrawdownPaymentReversal: InboundWireDrawdownPaymentReversal
-                ) =
-                    inboundWireDrawdownPaymentReversal(
-                        JsonField.of(inboundWireDrawdownPaymentReversal)
-                    )
-
-                /**
-                 * An Inbound Wire Drawdown Payment Reversal object. This field will be present in
-                 * the JSON response if and only if `category` is equal to
-                 * `inbound_wire_drawdown_payment_reversal`.
-                 */
-                @JsonProperty("inbound_wire_drawdown_payment_reversal")
-                @ExcludeMissing
-                fun inboundWireDrawdownPaymentReversal(
-                    inboundWireDrawdownPaymentReversal:
-                        JsonField<InboundWireDrawdownPaymentReversal>
-                ) = apply {
-                    this.inboundWireDrawdownPaymentReversal = inboundWireDrawdownPaymentReversal
-                }
-
-                /**
                  * An Inbound Wire Drawdown Payment object. This field will be present in the JSON
                  * response if and only if `category` is equal to `inbound_wire_drawdown_payment`.
                  */
@@ -9497,7 +9439,6 @@ private constructor(
                         inboundAchTransfer,
                         inboundInternationalAchTransfer,
                         inboundRealTimePaymentsTransferConfirmation,
-                        inboundWireDrawdownPaymentReversal,
                         inboundWireDrawdownPayment,
                         inboundWireReversal,
                         inboundWireTransfer,
@@ -21466,10 +21407,6 @@ private constructor(
                         Category(JsonField.of("inbound_real_time_payments_transfer_confirmation"))
 
                     @JvmField
-                    val INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL =
-                        Category(JsonField.of("inbound_wire_drawdown_payment_reversal"))
-
-                    @JvmField
                     val INBOUND_WIRE_DRAWDOWN_PAYMENT =
                         Category(JsonField.of("inbound_wire_drawdown_payment"))
 
@@ -21524,7 +21461,6 @@ private constructor(
                     INBOUND_CHECK_DEPOSIT_RETURN_INTENTION,
                     INBOUND_INTERNATIONAL_ACH_TRANSFER,
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
-                    INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL,
                     INBOUND_WIRE_DRAWDOWN_PAYMENT,
                     INBOUND_WIRE_REVERSAL,
                     INBOUND_WIRE_TRANSFER,
@@ -21558,7 +21494,6 @@ private constructor(
                     INBOUND_CHECK_DEPOSIT_RETURN_INTENTION,
                     INBOUND_INTERNATIONAL_ACH_TRANSFER,
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
-                    INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL,
                     INBOUND_WIRE_DRAWDOWN_PAYMENT,
                     INBOUND_WIRE_REVERSAL,
                     INBOUND_WIRE_TRANSFER,
@@ -21599,8 +21534,6 @@ private constructor(
                             Value.INBOUND_INTERNATIONAL_ACH_TRANSFER
                         INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                             Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
-                        INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL ->
-                            Value.INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL
                         INBOUND_WIRE_DRAWDOWN_PAYMENT -> Value.INBOUND_WIRE_DRAWDOWN_PAYMENT
                         INBOUND_WIRE_REVERSAL -> Value.INBOUND_WIRE_REVERSAL
                         INBOUND_WIRE_TRANSFER -> Value.INBOUND_WIRE_TRANSFER
@@ -21642,8 +21575,6 @@ private constructor(
                             Known.INBOUND_INTERNATIONAL_ACH_TRANSFER
                         INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                             Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
-                        INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL ->
-                            Known.INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL
                         INBOUND_WIRE_DRAWDOWN_PAYMENT -> Known.INBOUND_WIRE_DRAWDOWN_PAYMENT
                         INBOUND_WIRE_REVERSAL -> Known.INBOUND_WIRE_REVERSAL
                         INBOUND_WIRE_TRANSFER -> Known.INBOUND_WIRE_TRANSFER
@@ -27667,436 +27598,6 @@ private constructor(
                             originatorToBeneficiaryInformationLine3,
                             originatorToBeneficiaryInformationLine4,
                             originatorToBeneficiaryInformation,
-                            additionalProperties.toUnmodifiable(),
-                        )
-                }
-            }
-
-            /**
-             * An Inbound Wire Drawdown Payment Reversal object. This field will be present in the
-             * JSON response if and only if `category` is equal to
-             * `inbound_wire_drawdown_payment_reversal`.
-             */
-            @JsonDeserialize(builder = InboundWireDrawdownPaymentReversal.Builder::class)
-            @NoAutoDetect
-            class InboundWireDrawdownPaymentReversal
-            private constructor(
-                private val amount: JsonField<Long>,
-                private val description: JsonField<String>,
-                private val inputCycleDate: JsonField<LocalDate>,
-                private val inputSequenceNumber: JsonField<String>,
-                private val inputSource: JsonField<String>,
-                private val inputMessageAccountabilityData: JsonField<String>,
-                private val previousMessageInputMessageAccountabilityData: JsonField<String>,
-                private val previousMessageInputCycleDate: JsonField<LocalDate>,
-                private val previousMessageInputSequenceNumber: JsonField<String>,
-                private val previousMessageInputSource: JsonField<String>,
-                private val originatorRoutingNumber: JsonField<String>,
-                private val additionalProperties: Map<String, JsonValue>,
-            ) {
-
-                private var validated: Boolean = false
-
-                private var hashCode: Int = 0
-
-                /** The amount that was reversed. */
-                fun amount(): Long = amount.getRequired("amount")
-
-                /** The description on the reversal message from Fedwire. */
-                fun description(): String = description.getRequired("description")
-
-                /** The Fedwire cycle date for the wire reversal. */
-                fun inputCycleDate(): LocalDate = inputCycleDate.getRequired("input_cycle_date")
-
-                /** The Fedwire sequence number. */
-                fun inputSequenceNumber(): String =
-                    inputSequenceNumber.getRequired("input_sequence_number")
-
-                /** The Fedwire input source identifier. */
-                fun inputSource(): String = inputSource.getRequired("input_source")
-
-                /** The Fedwire transaction identifier. */
-                fun inputMessageAccountabilityData(): String =
-                    inputMessageAccountabilityData.getRequired("input_message_accountability_data")
-
-                /** The Fedwire transaction identifier for the wire transfer that was reversed. */
-                fun previousMessageInputMessageAccountabilityData(): String =
-                    previousMessageInputMessageAccountabilityData.getRequired(
-                        "previous_message_input_message_accountability_data"
-                    )
-
-                /** The Fedwire cycle date for the wire transfer that was reversed. */
-                fun previousMessageInputCycleDate(): LocalDate =
-                    previousMessageInputCycleDate.getRequired("previous_message_input_cycle_date")
-
-                /** The Fedwire sequence number for the wire transfer that was reversed. */
-                fun previousMessageInputSequenceNumber(): String =
-                    previousMessageInputSequenceNumber.getRequired(
-                        "previous_message_input_sequence_number"
-                    )
-
-                /** The Fedwire input source identifier for the wire transfer that was reversed. */
-                fun previousMessageInputSource(): String =
-                    previousMessageInputSource.getRequired("previous_message_input_source")
-
-                /**
-                 * The American Banking Association (ABA) routing number of the bank originating the
-                 * transfer.
-                 */
-                fun originatorRoutingNumber(): Optional<String> =
-                    Optional.ofNullable(
-                        originatorRoutingNumber.getNullable("originator_routing_number")
-                    )
-
-                /** The amount that was reversed. */
-                @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
-
-                /** The description on the reversal message from Fedwire. */
-                @JsonProperty("description") @ExcludeMissing fun _description() = description
-
-                /** The Fedwire cycle date for the wire reversal. */
-                @JsonProperty("input_cycle_date")
-                @ExcludeMissing
-                fun _inputCycleDate() = inputCycleDate
-
-                /** The Fedwire sequence number. */
-                @JsonProperty("input_sequence_number")
-                @ExcludeMissing
-                fun _inputSequenceNumber() = inputSequenceNumber
-
-                /** The Fedwire input source identifier. */
-                @JsonProperty("input_source") @ExcludeMissing fun _inputSource() = inputSource
-
-                /** The Fedwire transaction identifier. */
-                @JsonProperty("input_message_accountability_data")
-                @ExcludeMissing
-                fun _inputMessageAccountabilityData() = inputMessageAccountabilityData
-
-                /** The Fedwire transaction identifier for the wire transfer that was reversed. */
-                @JsonProperty("previous_message_input_message_accountability_data")
-                @ExcludeMissing
-                fun _previousMessageInputMessageAccountabilityData() =
-                    previousMessageInputMessageAccountabilityData
-
-                /** The Fedwire cycle date for the wire transfer that was reversed. */
-                @JsonProperty("previous_message_input_cycle_date")
-                @ExcludeMissing
-                fun _previousMessageInputCycleDate() = previousMessageInputCycleDate
-
-                /** The Fedwire sequence number for the wire transfer that was reversed. */
-                @JsonProperty("previous_message_input_sequence_number")
-                @ExcludeMissing
-                fun _previousMessageInputSequenceNumber() = previousMessageInputSequenceNumber
-
-                /** The Fedwire input source identifier for the wire transfer that was reversed. */
-                @JsonProperty("previous_message_input_source")
-                @ExcludeMissing
-                fun _previousMessageInputSource() = previousMessageInputSource
-
-                /**
-                 * The American Banking Association (ABA) routing number of the bank originating the
-                 * transfer.
-                 */
-                @JsonProperty("originator_routing_number")
-                @ExcludeMissing
-                fun _originatorRoutingNumber() = originatorRoutingNumber
-
-                @JsonAnyGetter
-                @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                fun validate(): InboundWireDrawdownPaymentReversal = apply {
-                    if (!validated) {
-                        amount()
-                        description()
-                        inputCycleDate()
-                        inputSequenceNumber()
-                        inputSource()
-                        inputMessageAccountabilityData()
-                        previousMessageInputMessageAccountabilityData()
-                        previousMessageInputCycleDate()
-                        previousMessageInputSequenceNumber()
-                        previousMessageInputSource()
-                        originatorRoutingNumber()
-                        validated = true
-                    }
-                }
-
-                fun toBuilder() = Builder().from(this)
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is InboundWireDrawdownPaymentReversal &&
-                        this.amount == other.amount &&
-                        this.description == other.description &&
-                        this.inputCycleDate == other.inputCycleDate &&
-                        this.inputSequenceNumber == other.inputSequenceNumber &&
-                        this.inputSource == other.inputSource &&
-                        this.inputMessageAccountabilityData ==
-                            other.inputMessageAccountabilityData &&
-                        this.previousMessageInputMessageAccountabilityData ==
-                            other.previousMessageInputMessageAccountabilityData &&
-                        this.previousMessageInputCycleDate == other.previousMessageInputCycleDate &&
-                        this.previousMessageInputSequenceNumber ==
-                            other.previousMessageInputSequenceNumber &&
-                        this.previousMessageInputSource == other.previousMessageInputSource &&
-                        this.originatorRoutingNumber == other.originatorRoutingNumber &&
-                        this.additionalProperties == other.additionalProperties
-                }
-
-                override fun hashCode(): Int {
-                    if (hashCode == 0) {
-                        hashCode =
-                            Objects.hash(
-                                amount,
-                                description,
-                                inputCycleDate,
-                                inputSequenceNumber,
-                                inputSource,
-                                inputMessageAccountabilityData,
-                                previousMessageInputMessageAccountabilityData,
-                                previousMessageInputCycleDate,
-                                previousMessageInputSequenceNumber,
-                                previousMessageInputSource,
-                                originatorRoutingNumber,
-                                additionalProperties,
-                            )
-                    }
-                    return hashCode
-                }
-
-                override fun toString() =
-                    "InboundWireDrawdownPaymentReversal{amount=$amount, description=$description, inputCycleDate=$inputCycleDate, inputSequenceNumber=$inputSequenceNumber, inputSource=$inputSource, inputMessageAccountabilityData=$inputMessageAccountabilityData, previousMessageInputMessageAccountabilityData=$previousMessageInputMessageAccountabilityData, previousMessageInputCycleDate=$previousMessageInputCycleDate, previousMessageInputSequenceNumber=$previousMessageInputSequenceNumber, previousMessageInputSource=$previousMessageInputSource, originatorRoutingNumber=$originatorRoutingNumber, additionalProperties=$additionalProperties}"
-
-                companion object {
-
-                    @JvmStatic fun builder() = Builder()
-                }
-
-                class Builder {
-
-                    private var amount: JsonField<Long> = JsonMissing.of()
-                    private var description: JsonField<String> = JsonMissing.of()
-                    private var inputCycleDate: JsonField<LocalDate> = JsonMissing.of()
-                    private var inputSequenceNumber: JsonField<String> = JsonMissing.of()
-                    private var inputSource: JsonField<String> = JsonMissing.of()
-                    private var inputMessageAccountabilityData: JsonField<String> = JsonMissing.of()
-                    private var previousMessageInputMessageAccountabilityData: JsonField<String> =
-                        JsonMissing.of()
-                    private var previousMessageInputCycleDate: JsonField<LocalDate> =
-                        JsonMissing.of()
-                    private var previousMessageInputSequenceNumber: JsonField<String> =
-                        JsonMissing.of()
-                    private var previousMessageInputSource: JsonField<String> = JsonMissing.of()
-                    private var originatorRoutingNumber: JsonField<String> = JsonMissing.of()
-                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                    @JvmSynthetic
-                    internal fun from(
-                        inboundWireDrawdownPaymentReversal: InboundWireDrawdownPaymentReversal
-                    ) = apply {
-                        this.amount = inboundWireDrawdownPaymentReversal.amount
-                        this.description = inboundWireDrawdownPaymentReversal.description
-                        this.inputCycleDate = inboundWireDrawdownPaymentReversal.inputCycleDate
-                        this.inputSequenceNumber =
-                            inboundWireDrawdownPaymentReversal.inputSequenceNumber
-                        this.inputSource = inboundWireDrawdownPaymentReversal.inputSource
-                        this.inputMessageAccountabilityData =
-                            inboundWireDrawdownPaymentReversal.inputMessageAccountabilityData
-                        this.previousMessageInputMessageAccountabilityData =
-                            inboundWireDrawdownPaymentReversal
-                                .previousMessageInputMessageAccountabilityData
-                        this.previousMessageInputCycleDate =
-                            inboundWireDrawdownPaymentReversal.previousMessageInputCycleDate
-                        this.previousMessageInputSequenceNumber =
-                            inboundWireDrawdownPaymentReversal.previousMessageInputSequenceNumber
-                        this.previousMessageInputSource =
-                            inboundWireDrawdownPaymentReversal.previousMessageInputSource
-                        this.originatorRoutingNumber =
-                            inboundWireDrawdownPaymentReversal.originatorRoutingNumber
-                        additionalProperties(
-                            inboundWireDrawdownPaymentReversal.additionalProperties
-                        )
-                    }
-
-                    /** The amount that was reversed. */
-                    fun amount(amount: Long) = amount(JsonField.of(amount))
-
-                    /** The amount that was reversed. */
-                    @JsonProperty("amount")
-                    @ExcludeMissing
-                    fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-                    /** The description on the reversal message from Fedwire. */
-                    fun description(description: String) = description(JsonField.of(description))
-
-                    /** The description on the reversal message from Fedwire. */
-                    @JsonProperty("description")
-                    @ExcludeMissing
-                    fun description(description: JsonField<String>) = apply {
-                        this.description = description
-                    }
-
-                    /** The Fedwire cycle date for the wire reversal. */
-                    fun inputCycleDate(inputCycleDate: LocalDate) =
-                        inputCycleDate(JsonField.of(inputCycleDate))
-
-                    /** The Fedwire cycle date for the wire reversal. */
-                    @JsonProperty("input_cycle_date")
-                    @ExcludeMissing
-                    fun inputCycleDate(inputCycleDate: JsonField<LocalDate>) = apply {
-                        this.inputCycleDate = inputCycleDate
-                    }
-
-                    /** The Fedwire sequence number. */
-                    fun inputSequenceNumber(inputSequenceNumber: String) =
-                        inputSequenceNumber(JsonField.of(inputSequenceNumber))
-
-                    /** The Fedwire sequence number. */
-                    @JsonProperty("input_sequence_number")
-                    @ExcludeMissing
-                    fun inputSequenceNumber(inputSequenceNumber: JsonField<String>) = apply {
-                        this.inputSequenceNumber = inputSequenceNumber
-                    }
-
-                    /** The Fedwire input source identifier. */
-                    fun inputSource(inputSource: String) = inputSource(JsonField.of(inputSource))
-
-                    /** The Fedwire input source identifier. */
-                    @JsonProperty("input_source")
-                    @ExcludeMissing
-                    fun inputSource(inputSource: JsonField<String>) = apply {
-                        this.inputSource = inputSource
-                    }
-
-                    /** The Fedwire transaction identifier. */
-                    fun inputMessageAccountabilityData(inputMessageAccountabilityData: String) =
-                        inputMessageAccountabilityData(JsonField.of(inputMessageAccountabilityData))
-
-                    /** The Fedwire transaction identifier. */
-                    @JsonProperty("input_message_accountability_data")
-                    @ExcludeMissing
-                    fun inputMessageAccountabilityData(
-                        inputMessageAccountabilityData: JsonField<String>
-                    ) = apply {
-                        this.inputMessageAccountabilityData = inputMessageAccountabilityData
-                    }
-
-                    /**
-                     * The Fedwire transaction identifier for the wire transfer that was reversed.
-                     */
-                    fun previousMessageInputMessageAccountabilityData(
-                        previousMessageInputMessageAccountabilityData: String
-                    ) =
-                        previousMessageInputMessageAccountabilityData(
-                            JsonField.of(previousMessageInputMessageAccountabilityData)
-                        )
-
-                    /**
-                     * The Fedwire transaction identifier for the wire transfer that was reversed.
-                     */
-                    @JsonProperty("previous_message_input_message_accountability_data")
-                    @ExcludeMissing
-                    fun previousMessageInputMessageAccountabilityData(
-                        previousMessageInputMessageAccountabilityData: JsonField<String>
-                    ) = apply {
-                        this.previousMessageInputMessageAccountabilityData =
-                            previousMessageInputMessageAccountabilityData
-                    }
-
-                    /** The Fedwire cycle date for the wire transfer that was reversed. */
-                    fun previousMessageInputCycleDate(previousMessageInputCycleDate: LocalDate) =
-                        previousMessageInputCycleDate(JsonField.of(previousMessageInputCycleDate))
-
-                    /** The Fedwire cycle date for the wire transfer that was reversed. */
-                    @JsonProperty("previous_message_input_cycle_date")
-                    @ExcludeMissing
-                    fun previousMessageInputCycleDate(
-                        previousMessageInputCycleDate: JsonField<LocalDate>
-                    ) = apply { this.previousMessageInputCycleDate = previousMessageInputCycleDate }
-
-                    /** The Fedwire sequence number for the wire transfer that was reversed. */
-                    fun previousMessageInputSequenceNumber(
-                        previousMessageInputSequenceNumber: String
-                    ) =
-                        previousMessageInputSequenceNumber(
-                            JsonField.of(previousMessageInputSequenceNumber)
-                        )
-
-                    /** The Fedwire sequence number for the wire transfer that was reversed. */
-                    @JsonProperty("previous_message_input_sequence_number")
-                    @ExcludeMissing
-                    fun previousMessageInputSequenceNumber(
-                        previousMessageInputSequenceNumber: JsonField<String>
-                    ) = apply {
-                        this.previousMessageInputSequenceNumber = previousMessageInputSequenceNumber
-                    }
-
-                    /**
-                     * The Fedwire input source identifier for the wire transfer that was reversed.
-                     */
-                    fun previousMessageInputSource(previousMessageInputSource: String) =
-                        previousMessageInputSource(JsonField.of(previousMessageInputSource))
-
-                    /**
-                     * The Fedwire input source identifier for the wire transfer that was reversed.
-                     */
-                    @JsonProperty("previous_message_input_source")
-                    @ExcludeMissing
-                    fun previousMessageInputSource(previousMessageInputSource: JsonField<String>) =
-                        apply {
-                            this.previousMessageInputSource = previousMessageInputSource
-                        }
-
-                    /**
-                     * The American Banking Association (ABA) routing number of the bank originating
-                     * the transfer.
-                     */
-                    fun originatorRoutingNumber(originatorRoutingNumber: String) =
-                        originatorRoutingNumber(JsonField.of(originatorRoutingNumber))
-
-                    /**
-                     * The American Banking Association (ABA) routing number of the bank originating
-                     * the transfer.
-                     */
-                    @JsonProperty("originator_routing_number")
-                    @ExcludeMissing
-                    fun originatorRoutingNumber(originatorRoutingNumber: JsonField<String>) =
-                        apply {
-                            this.originatorRoutingNumber = originatorRoutingNumber
-                        }
-
-                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.clear()
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                    @JsonAnySetter
-                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        this.additionalProperties.put(key, value)
-                    }
-
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
-
-                    fun build(): InboundWireDrawdownPaymentReversal =
-                        InboundWireDrawdownPaymentReversal(
-                            amount,
-                            description,
-                            inputCycleDate,
-                            inputSequenceNumber,
-                            inputSource,
-                            inputMessageAccountabilityData,
-                            previousMessageInputMessageAccountabilityData,
-                            previousMessageInputCycleDate,
-                            previousMessageInputSequenceNumber,
-                            previousMessageInputSource,
-                            originatorRoutingNumber,
                             additionalProperties.toUnmodifiable(),
                         )
                 }
