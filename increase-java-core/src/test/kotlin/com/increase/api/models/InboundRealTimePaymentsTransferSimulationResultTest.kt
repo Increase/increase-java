@@ -1434,26 +1434,6 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .originatorToBeneficiaryInformationLine4("string")
                                         .build()
                                 )
-                                .inboundWireDrawdownPaymentReversal(
-                                    InboundRealTimePaymentsTransferSimulationResult.Transaction
-                                        .Source
-                                        .InboundWireDrawdownPaymentReversal
-                                        .builder()
-                                        .amount(123L)
-                                        .description("string")
-                                        .inputCycleDate(LocalDate.parse("2019-12-27"))
-                                        .inputMessageAccountabilityData("string")
-                                        .inputSequenceNumber("string")
-                                        .inputSource("string")
-                                        .originatorRoutingNumber("string")
-                                        .previousMessageInputCycleDate(
-                                            LocalDate.parse("2019-12-27")
-                                        )
-                                        .previousMessageInputMessageAccountabilityData("string")
-                                        .previousMessageInputSequenceNumber("string")
-                                        .previousMessageInputSource("string")
-                                        .build()
-                                )
                                 .inboundWireReversal(
                                     InboundRealTimePaymentsTransferSimulationResult.Transaction
                                         .Source
@@ -2946,23 +2926,6 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .originatorToBeneficiaryInformationLine2("string")
                                     .originatorToBeneficiaryInformationLine3("string")
                                     .originatorToBeneficiaryInformationLine4("string")
-                                    .build()
-                            )
-                            .inboundWireDrawdownPaymentReversal(
-                                InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
-                                    .InboundWireDrawdownPaymentReversal
-                                    .builder()
-                                    .amount(123L)
-                                    .description("string")
-                                    .inputCycleDate(LocalDate.parse("2019-12-27"))
-                                    .inputMessageAccountabilityData("string")
-                                    .inputSequenceNumber("string")
-                                    .inputSource("string")
-                                    .originatorRoutingNumber("string")
-                                    .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
-                                    .previousMessageInputMessageAccountabilityData("string")
-                                    .previousMessageInputSequenceNumber("string")
-                                    .previousMessageInputSource("string")
                                     .build()
                             )
                             .inboundWireReversal(
