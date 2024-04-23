@@ -30,7 +30,7 @@ jobs:
 
       - name: Publish to Sonatype
         run: |
-          ./gradlew publish --stacktrace
+          ./gradlew --parallel --no-daemon publish
         env:
           SONATYPE_USERNAME: ${{ secrets.INCREASE_SONATYPE_USERNAME || secrets.SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.INCREASE_SONATYPE_PASSWORD || secrets.SONATYPE_PASSWORD }}
