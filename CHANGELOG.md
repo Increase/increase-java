@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.49.0 (2024-04-24)
+
+Full Changelog: [v0.48.0...v0.49.0](https://github.com/Increase/increase-java/compare/v0.48.0...v0.49.0)
+
+### Features
+
+* **api:** remove inbound_wire_drawdown_payment_reversal ([#253](https://github.com/Increase/increase-java/issues/253)) ([4953686](https://github.com/Increase/increase-java/commit/49536867ab18cb4150d28bae0071e5cb4ab9c0be))
+
+
+### Chores
+
+* **ci:** validate Gradle wrapper ([#250](https://github.com/Increase/increase-java/issues/250)) ([fcc8f2d](https://github.com/Increase/increase-java/commit/fcc8f2d7e2c4da8d155e9ce4951c1bb0c6077a0b))
+* **internal:** gradlew v8.7, use gradle task config avoidance APIs ([#252](https://github.com/Increase/increase-java/issues/252)) ([e3e52bc](https://github.com/Increase/increase-java/commit/e3e52bcd3983446a0af7cc0ab57e59aa6b3c7f48))
+* **internal:** use actions/checkout@v4 for codeflow ([#254](https://github.com/Increase/increase-java/issues/254)) ([696d9ba](https://github.com/Increase/increase-java/commit/696d9ba15a6de322a19c4539309e3d43e39b7a85))
+
 ## 0.48.0 (2024-04-19)
 
 Full Changelog: [v0.47.0...v0.48.0](https://github.com/Increase/increase-java/compare/v0.47.0...v0.48.0)
