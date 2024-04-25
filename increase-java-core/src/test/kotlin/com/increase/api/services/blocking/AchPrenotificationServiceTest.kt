@@ -24,9 +24,9 @@ class AchPrenotificationServiceTest {
         val achPrenotification =
             achPrenotificationService.create(
                 AchPrenotificationCreateParams.builder()
+                    .accountId("string")
                     .accountNumber("x")
                     .routingNumber("xxxxxxxxx")
-                    .accountId("string")
                     .addendum("x")
                     .companyDescriptiveDate("x")
                     .companyDiscretionaryData("x")
