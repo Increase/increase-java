@@ -21,9 +21,9 @@ import java.util.Optional
 
 class AchPrenotificationCreateParams
 constructor(
+    private val accountId: String,
     private val accountNumber: String,
     private val routingNumber: String,
-    private val accountId: String?,
     private val addendum: String?,
     private val companyDescriptiveDate: String?,
     private val companyDiscretionaryData: String?,
@@ -39,11 +39,11 @@ constructor(
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
+    fun accountId(): String = accountId
+
     fun accountNumber(): String = accountNumber
 
     fun routingNumber(): String = routingNumber
-
-    fun accountId(): Optional<String> = Optional.ofNullable(accountId)
 
     fun addendum(): Optional<String> = Optional.ofNullable(addendum)
 
@@ -70,9 +70,9 @@ constructor(
     @JvmSynthetic
     internal fun getBody(): AchPrenotificationCreateBody {
         return AchPrenotificationCreateBody(
+            accountId,
             accountNumber,
             routingNumber,
-            accountId,
             addendum,
             companyDescriptiveDate,
             companyDiscretionaryData,
@@ -95,9 +95,9 @@ constructor(
     @NoAutoDetect
     class AchPrenotificationCreateBody
     internal constructor(
+        private val accountId: String?,
         private val accountNumber: String?,
         private val routingNumber: String?,
-        private val accountId: String?,
         private val addendum: String?,
         private val companyDescriptiveDate: String?,
         private val companyDiscretionaryData: String?,
@@ -113,6 +113,9 @@ constructor(
 
         private var hashCode: Int = 0
 
+        /** The Increase identifier for the account that will send the transfer. */
+        @JsonProperty("account_id") fun accountId(): String? = accountId
+
         /** The account number for the destination account. */
         @JsonProperty("account_number") fun accountNumber(): String? = accountNumber
 
@@ -121,9 +124,6 @@ constructor(
          * account.
          */
         @JsonProperty("routing_number") fun routingNumber(): String? = routingNumber
-
-        /** The Increase identifier for the account that will send the transfer. */
-        @JsonProperty("account_id") fun accountId(): String? = accountId
 
         /** Additional information that will be sent to the recipient. */
         @JsonProperty("addendum") fun addendum(): String? = addendum
@@ -177,9 +177,9 @@ constructor(
             }
 
             return other is AchPrenotificationCreateBody &&
+                this.accountId == other.accountId &&
                 this.accountNumber == other.accountNumber &&
                 this.routingNumber == other.routingNumber &&
-                this.accountId == other.accountId &&
                 this.addendum == other.addendum &&
                 this.companyDescriptiveDate == other.companyDescriptiveDate &&
                 this.companyDiscretionaryData == other.companyDiscretionaryData &&
@@ -197,9 +197,9 @@ constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
+                        accountId,
                         accountNumber,
                         routingNumber,
-                        accountId,
                         addendum,
                         companyDescriptiveDate,
                         companyDiscretionaryData,
@@ -217,7 +217,7 @@ constructor(
         }
 
         override fun toString() =
-            "AchPrenotificationCreateBody{accountNumber=$accountNumber, routingNumber=$routingNumber, accountId=$accountId, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, individualId=$individualId, individualName=$individualName, standardEntryClassCode=$standardEntryClassCode, additionalProperties=$additionalProperties}"
+            "AchPrenotificationCreateBody{accountId=$accountId, accountNumber=$accountNumber, routingNumber=$routingNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, individualId=$individualId, individualName=$individualName, standardEntryClassCode=$standardEntryClassCode, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -226,9 +226,9 @@ constructor(
 
         class Builder {
 
+            private var accountId: String? = null
             private var accountNumber: String? = null
             private var routingNumber: String? = null
-            private var accountId: String? = null
             private var addendum: String? = null
             private var companyDescriptiveDate: String? = null
             private var companyDiscretionaryData: String? = null
@@ -243,9 +243,9 @@ constructor(
 
             @JvmSynthetic
             internal fun from(achPrenotificationCreateBody: AchPrenotificationCreateBody) = apply {
+                this.accountId = achPrenotificationCreateBody.accountId
                 this.accountNumber = achPrenotificationCreateBody.accountNumber
                 this.routingNumber = achPrenotificationCreateBody.routingNumber
-                this.accountId = achPrenotificationCreateBody.accountId
                 this.addendum = achPrenotificationCreateBody.addendum
                 this.companyDescriptiveDate = achPrenotificationCreateBody.companyDescriptiveDate
                 this.companyDiscretionaryData =
@@ -260,6 +260,10 @@ constructor(
                 additionalProperties(achPrenotificationCreateBody.additionalProperties)
             }
 
+            /** The Increase identifier for the account that will send the transfer. */
+            @JsonProperty("account_id")
+            fun accountId(accountId: String) = apply { this.accountId = accountId }
+
             /** The account number for the destination account. */
             @JsonProperty("account_number")
             fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
@@ -270,10 +274,6 @@ constructor(
              */
             @JsonProperty("routing_number")
             fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
-
-            /** The Increase identifier for the account that will send the transfer. */
-            @JsonProperty("account_id")
-            fun accountId(accountId: String) = apply { this.accountId = accountId }
 
             /** Additional information that will be sent to the recipient. */
             @JsonProperty("addendum")
@@ -351,9 +351,9 @@ constructor(
 
             fun build(): AchPrenotificationCreateBody =
                 AchPrenotificationCreateBody(
+                    checkNotNull(accountId) { "`accountId` is required but was not set" },
                     checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
                     checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
-                    accountId,
                     addendum,
                     companyDescriptiveDate,
                     companyDiscretionaryData,
@@ -381,9 +381,9 @@ constructor(
         }
 
         return other is AchPrenotificationCreateParams &&
+            this.accountId == other.accountId &&
             this.accountNumber == other.accountNumber &&
             this.routingNumber == other.routingNumber &&
-            this.accountId == other.accountId &&
             this.addendum == other.addendum &&
             this.companyDescriptiveDate == other.companyDescriptiveDate &&
             this.companyDiscretionaryData == other.companyDiscretionaryData &&
@@ -401,9 +401,9 @@ constructor(
 
     override fun hashCode(): Int {
         return Objects.hash(
+            accountId,
             accountNumber,
             routingNumber,
-            accountId,
             addendum,
             companyDescriptiveDate,
             companyDiscretionaryData,
@@ -421,7 +421,7 @@ constructor(
     }
 
     override fun toString() =
-        "AchPrenotificationCreateParams{accountNumber=$accountNumber, routingNumber=$routingNumber, accountId=$accountId, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, individualId=$individualId, individualName=$individualName, standardEntryClassCode=$standardEntryClassCode, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "AchPrenotificationCreateParams{accountId=$accountId, accountNumber=$accountNumber, routingNumber=$routingNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, individualId=$individualId, individualName=$individualName, standardEntryClassCode=$standardEntryClassCode, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -433,9 +433,9 @@ constructor(
     @NoAutoDetect
     class Builder {
 
+        private var accountId: String? = null
         private var accountNumber: String? = null
         private var routingNumber: String? = null
-        private var accountId: String? = null
         private var addendum: String? = null
         private var companyDescriptiveDate: String? = null
         private var companyDiscretionaryData: String? = null
@@ -452,9 +452,9 @@ constructor(
 
         @JvmSynthetic
         internal fun from(achPrenotificationCreateParams: AchPrenotificationCreateParams) = apply {
+            this.accountId = achPrenotificationCreateParams.accountId
             this.accountNumber = achPrenotificationCreateParams.accountNumber
             this.routingNumber = achPrenotificationCreateParams.routingNumber
-            this.accountId = achPrenotificationCreateParams.accountId
             this.addendum = achPrenotificationCreateParams.addendum
             this.companyDescriptiveDate = achPrenotificationCreateParams.companyDescriptiveDate
             this.companyDiscretionaryData = achPrenotificationCreateParams.companyDiscretionaryData
@@ -470,6 +470,9 @@ constructor(
             additionalBodyProperties(achPrenotificationCreateParams.additionalBodyProperties)
         }
 
+        /** The Increase identifier for the account that will send the transfer. */
+        fun accountId(accountId: String) = apply { this.accountId = accountId }
+
         /** The account number for the destination account. */
         fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
 
@@ -478,9 +481,6 @@ constructor(
          * account.
          */
         fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
-
-        /** The Increase identifier for the account that will send the transfer. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
 
         /** Additional information that will be sent to the recipient. */
         fun addendum(addendum: String) = apply { this.addendum = addendum }
@@ -583,9 +583,9 @@ constructor(
 
         fun build(): AchPrenotificationCreateParams =
             AchPrenotificationCreateParams(
+                checkNotNull(accountId) { "`accountId` is required but was not set" },
                 checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
                 checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
-                accountId,
                 addendum,
                 companyDescriptiveDate,
                 companyDiscretionaryData,
