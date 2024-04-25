@@ -12,9 +12,9 @@ class AchPrenotificationCreateParamsTest {
     @Test
     fun createAchPrenotificationCreateParams() {
         AchPrenotificationCreateParams.builder()
+            .accountId("string")
             .accountNumber("x")
             .routingNumber("xxxxxxxxx")
-            .accountId("string")
             .addendum("x")
             .companyDescriptiveDate("x")
             .companyDiscretionaryData("x")
@@ -34,9 +34,9 @@ class AchPrenotificationCreateParamsTest {
     fun getBody() {
         val params =
             AchPrenotificationCreateParams.builder()
+                .accountId("string")
                 .accountNumber("x")
                 .routingNumber("xxxxxxxxx")
-                .accountId("string")
                 .addendum("x")
                 .companyDescriptiveDate("x")
                 .companyDiscretionaryData("x")
@@ -52,9 +52,9 @@ class AchPrenotificationCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
+        assertThat(body.accountId()).isEqualTo("string")
         assertThat(body.accountNumber()).isEqualTo("x")
         assertThat(body.routingNumber()).isEqualTo("xxxxxxxxx")
-        assertThat(body.accountId()).isEqualTo("string")
         assertThat(body.addendum()).isEqualTo("x")
         assertThat(body.companyDescriptiveDate()).isEqualTo("x")
         assertThat(body.companyDiscretionaryData()).isEqualTo("x")
@@ -75,11 +75,13 @@ class AchPrenotificationCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             AchPrenotificationCreateParams.builder()
+                .accountId("string")
                 .accountNumber("x")
                 .routingNumber("xxxxxxxxx")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
+        assertThat(body.accountId()).isEqualTo("string")
         assertThat(body.accountNumber()).isEqualTo("x")
         assertThat(body.routingNumber()).isEqualTo("xxxxxxxxx")
     }
