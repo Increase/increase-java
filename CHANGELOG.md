@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.50.1 (2024-04-29)
+
+Full Changelog: [v0.50.0...v0.50.1](https://github.com/Increase/increase-java/compare/v0.50.0...v0.50.1)
+
+### Bug Fixes
+
+* **client:** do not strip date-time 00 seconds when getQueryParams() is called ([#257](https://github.com/Increase/increase-java/issues/257)) ([49aa73e](https://github.com/Increase/increase-java/commit/49aa73ec0f106322b6315e19bf062c6175fb51f6))
+
 ## 0.50.0 (2024-04-25)
 
 Full Changelog: [v0.49.0...v0.50.0](https://github.com/Increase/increase-java/compare/v0.49.0...v0.50.0)
