@@ -90,7 +90,7 @@ class InboundAchTransferServiceTest {
             inboundAchTransferService.transferReturn(
                 InboundAchTransferTransferReturnParams.builder()
                     .inboundAchTransferId("string")
-                    .reason(InboundAchTransferTransferReturnParams.Reason.RETURNED_PER_ODFI_REQUEST)
+                    .reason(InboundAchTransferTransferReturnParams.Reason.INSUFFICIENT_FUNDS)
                     .build()
             )
         println(inboundAchTransfer)

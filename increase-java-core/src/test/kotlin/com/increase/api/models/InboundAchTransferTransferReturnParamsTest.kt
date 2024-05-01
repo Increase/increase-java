@@ -12,7 +12,7 @@ class InboundAchTransferTransferReturnParamsTest {
     fun createInboundAchTransferTransferReturnParams() {
         InboundAchTransferTransferReturnParams.builder()
             .inboundAchTransferId("string")
-            .reason(InboundAchTransferTransferReturnParams.Reason.RETURNED_PER_ODFI_REQUEST)
+            .reason(InboundAchTransferTransferReturnParams.Reason.INSUFFICIENT_FUNDS)
             .build()
     }
 
@@ -21,12 +21,12 @@ class InboundAchTransferTransferReturnParamsTest {
         val params =
             InboundAchTransferTransferReturnParams.builder()
                 .inboundAchTransferId("string")
-                .reason(InboundAchTransferTransferReturnParams.Reason.RETURNED_PER_ODFI_REQUEST)
+                .reason(InboundAchTransferTransferReturnParams.Reason.INSUFFICIENT_FUNDS)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.reason())
-            .isEqualTo(InboundAchTransferTransferReturnParams.Reason.RETURNED_PER_ODFI_REQUEST)
+            .isEqualTo(InboundAchTransferTransferReturnParams.Reason.INSUFFICIENT_FUNDS)
     }
 
     @Test
@@ -34,12 +34,12 @@ class InboundAchTransferTransferReturnParamsTest {
         val params =
             InboundAchTransferTransferReturnParams.builder()
                 .inboundAchTransferId("string")
-                .reason(InboundAchTransferTransferReturnParams.Reason.RETURNED_PER_ODFI_REQUEST)
+                .reason(InboundAchTransferTransferReturnParams.Reason.INSUFFICIENT_FUNDS)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.reason())
-            .isEqualTo(InboundAchTransferTransferReturnParams.Reason.RETURNED_PER_ODFI_REQUEST)
+            .isEqualTo(InboundAchTransferTransferReturnParams.Reason.INSUFFICIENT_FUNDS)
     }
 
     @Test
@@ -47,7 +47,7 @@ class InboundAchTransferTransferReturnParamsTest {
         val params =
             InboundAchTransferTransferReturnParams.builder()
                 .inboundAchTransferId("string")
-                .reason(InboundAchTransferTransferReturnParams.Reason.RETURNED_PER_ODFI_REQUEST)
+                .reason(InboundAchTransferTransferReturnParams.Reason.INSUFFICIENT_FUNDS)
                 .build()
         assertThat(params).isNotNull
         // path param "inboundAchTransferId"
