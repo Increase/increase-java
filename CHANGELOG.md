@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.51.0 (2024-05-09)
+
+Full Changelog: [v0.50.1...v0.51.0](https://github.com/Increase/increase-java/compare/v0.50.1...v0.51.0)
+
+### Features
+
+* **api:** updates ([#263](https://github.com/Increase/increase-java/issues/263)) ([27c07a8](https://github.com/Increase/increase-java/commit/27c07a8a26bb88fd931e0dc7670c9f61d8c67808))
+* propagate resource description field from stainless config to SDK docs ([#265](https://github.com/Increase/increase-java/issues/265)) ([f7bebfb](https://github.com/Increase/increase-java/commit/f7bebfbd2429a611ba5d0b26a7bf59b93113aaaf))
+
+
+### Chores
+
+* **internal:** add link to openapi spec ([#259](https://github.com/Increase/increase-java/issues/259)) ([648eb58](https://github.com/Increase/increase-java/commit/648eb58d2460e5227b022cd43a28c6b0ef142ad9))
+* **internal:** add scripts/mock ([#261](https://github.com/Increase/increase-java/issues/261)) ([d54b66e](https://github.com/Increase/increase-java/commit/d54b66e4699e83b53ee5169a9d941ab03801c642))
+* **internal:** bump mock server version to ~5.8.0 ([#262](https://github.com/Increase/increase-java/issues/262)) ([12edc8e](https://github.com/Increase/increase-java/commit/12edc8e3cefcbc816d7f35848e2443a61286d61a))
+
 ## 0.50.1 (2024-04-29)
 
 Full Changelog: [v0.50.0...v0.50.1](https://github.com/Increase/increase-java/compare/v0.50.0...v0.50.1)
