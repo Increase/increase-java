@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.52.0 (2024-05-10)
+
+Full Changelog: [v0.51.0...v0.52.0](https://github.com/Increase/increase-java/compare/v0.51.0...v0.52.0)
+
+### Features
+
+* **api:** enhance API with extended transaction details and new entity types ([#267](https://github.com/Increase/increase-java/issues/267)) ([19334c8](https://github.com/Increase/increase-java/commit/19334c81ff465cda1661bd230f676202ac72925f))
+
 ## 0.51.0 (2024-05-09)
 
 Full Changelog: [v0.50.1...v0.51.0](https://github.com/Increase/increase-java/compare/v0.50.1...v0.51.0)
