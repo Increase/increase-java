@@ -93,6 +93,8 @@ class DeclinedTransactionTest {
                                 )
                                 .networkRiskScore(123L)
                                 .physicalCardId("string")
+                                .presentmentAmount(123L)
+                                .presentmentCurrency("string")
                                 .processingCategory(
                                     DeclinedTransaction.Source.CardDecline.ProcessingCategory
                                         .ACCOUNT_FUNDING
@@ -330,6 +332,8 @@ class DeclinedTransactionTest {
                             )
                             .networkRiskScore(123L)
                             .physicalCardId("string")
+                            .presentmentAmount(123L)
+                            .presentmentCurrency("string")
                             .processingCategory(
                                 DeclinedTransaction.Source.CardDecline.ProcessingCategory
                                     .ACCOUNT_FUNDING
