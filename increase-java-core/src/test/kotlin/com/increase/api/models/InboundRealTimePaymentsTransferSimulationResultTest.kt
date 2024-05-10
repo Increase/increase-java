@@ -163,6 +163,8 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         )
                                         .networkRiskScore(123L)
                                         .physicalCardId("string")
+                                        .presentmentAmount(123L)
+                                        .presentmentCurrency("string")
                                         .processingCategory(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .DeclinedTransaction
@@ -1733,6 +1735,8 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     )
                                     .networkRiskScore(123L)
                                     .physicalCardId("string")
+                                    .presentmentAmount(123L)
+                                    .presentmentCurrency("string")
                                     .processingCategory(
                                         InboundRealTimePaymentsTransferSimulationResult
                                             .DeclinedTransaction

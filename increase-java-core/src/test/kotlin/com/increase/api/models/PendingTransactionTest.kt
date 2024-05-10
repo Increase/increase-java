@@ -99,6 +99,8 @@ class PendingTransactionTest {
                                 .networkRiskScore(123L)
                                 .pendingTransactionId("string")
                                 .physicalCardId("string")
+                                .presentmentAmount(123L)
+                                .presentmentCurrency("string")
                                 .processingCategory(
                                     PendingTransaction.Source.CardAuthorization.ProcessingCategory
                                         .ACCOUNT_FUNDING
@@ -293,6 +295,8 @@ class PendingTransactionTest {
                             .networkRiskScore(123L)
                             .pendingTransactionId("string")
                             .physicalCardId("string")
+                            .presentmentAmount(123L)
+                            .presentmentCurrency("string")
                             .processingCategory(
                                 PendingTransaction.Source.CardAuthorization.ProcessingCategory
                                     .ACCOUNT_FUNDING
