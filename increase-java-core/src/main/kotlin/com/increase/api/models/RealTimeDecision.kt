@@ -363,6 +363,7 @@ private constructor(
         private val networkDetails: JsonField<NetworkDetails>,
         private val decision: JsonField<Decision>,
         private val cardId: JsonField<String>,
+        private val cardPaymentId: JsonField<String>,
         private val accountId: JsonField<String>,
         private val presentmentAmount: JsonField<Long>,
         private val presentmentCurrency: JsonField<String>,
@@ -437,6 +438,9 @@ private constructor(
 
         /** The identifier of the Card that is being authorized. */
         fun cardId(): String = cardId.getRequired("card_id")
+
+        /** The identifier of the Card Payment this authorization belongs to. */
+        fun cardPaymentId(): String = cardPaymentId.getRequired("card_payment_id")
 
         /** The identifier of the Account the authorization will debit. */
         fun accountId(): String = accountId.getRequired("account_id")
@@ -541,6 +545,9 @@ private constructor(
         /** The identifier of the Card that is being authorized. */
         @JsonProperty("card_id") @ExcludeMissing fun _cardId() = cardId
 
+        /** The identifier of the Card Payment this authorization belongs to. */
+        @JsonProperty("card_payment_id") @ExcludeMissing fun _cardPaymentId() = cardPaymentId
+
         /** The identifier of the Account the authorization will debit. */
         @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
 
@@ -606,6 +613,7 @@ private constructor(
                 networkDetails().validate()
                 decision()
                 cardId()
+                cardPaymentId()
                 accountId()
                 presentmentAmount()
                 presentmentCurrency()
@@ -638,6 +646,7 @@ private constructor(
                 this.networkDetails == other.networkDetails &&
                 this.decision == other.decision &&
                 this.cardId == other.cardId &&
+                this.cardPaymentId == other.cardPaymentId &&
                 this.accountId == other.accountId &&
                 this.presentmentAmount == other.presentmentAmount &&
                 this.presentmentCurrency == other.presentmentCurrency &&
@@ -665,6 +674,7 @@ private constructor(
                         networkDetails,
                         decision,
                         cardId,
+                        cardPaymentId,
                         accountId,
                         presentmentAmount,
                         presentmentCurrency,
@@ -679,7 +689,7 @@ private constructor(
         }
 
         override fun toString() =
-            "CardAuthorization{merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, digitalWalletTokenId=$digitalWalletTokenId, physicalCardId=$physicalCardId, verification=$verification, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, networkDetails=$networkDetails, decision=$decision, cardId=$cardId, accountId=$accountId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, settlementAmount=$settlementAmount, settlementCurrency=$settlementCurrency, processingCategory=$processingCategory, requestDetails=$requestDetails, additionalProperties=$additionalProperties}"
+            "CardAuthorization{merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, digitalWalletTokenId=$digitalWalletTokenId, physicalCardId=$physicalCardId, verification=$verification, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, networkDetails=$networkDetails, decision=$decision, cardId=$cardId, cardPaymentId=$cardPaymentId, accountId=$accountId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, settlementAmount=$settlementAmount, settlementCurrency=$settlementCurrency, processingCategory=$processingCategory, requestDetails=$requestDetails, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -701,6 +711,7 @@ private constructor(
             private var networkDetails: JsonField<NetworkDetails> = JsonMissing.of()
             private var decision: JsonField<Decision> = JsonMissing.of()
             private var cardId: JsonField<String> = JsonMissing.of()
+            private var cardPaymentId: JsonField<String> = JsonMissing.of()
             private var accountId: JsonField<String> = JsonMissing.of()
             private var presentmentAmount: JsonField<Long> = JsonMissing.of()
             private var presentmentCurrency: JsonField<String> = JsonMissing.of()
@@ -725,6 +736,7 @@ private constructor(
                 this.networkDetails = cardAuthorization.networkDetails
                 this.decision = cardAuthorization.decision
                 this.cardId = cardAuthorization.cardId
+                this.cardPaymentId = cardAuthorization.cardPaymentId
                 this.accountId = cardAuthorization.accountId
                 this.presentmentAmount = cardAuthorization.presentmentAmount
                 this.presentmentCurrency = cardAuthorization.presentmentCurrency
@@ -900,6 +912,16 @@ private constructor(
             @ExcludeMissing
             fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
 
+            /** The identifier of the Card Payment this authorization belongs to. */
+            fun cardPaymentId(cardPaymentId: String) = cardPaymentId(JsonField.of(cardPaymentId))
+
+            /** The identifier of the Card Payment this authorization belongs to. */
+            @JsonProperty("card_payment_id")
+            @ExcludeMissing
+            fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
+                this.cardPaymentId = cardPaymentId
+            }
+
             /** The identifier of the Account the authorization will debit. */
             fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
@@ -1035,6 +1057,7 @@ private constructor(
                     networkDetails,
                     decision,
                     cardId,
+                    cardPaymentId,
                     accountId,
                     presentmentAmount,
                     presentmentCurrency,

@@ -136,6 +136,8 @@ class CardAuthorizationSimulationTest {
                                         )
                                         .networkRiskScore(123L)
                                         .physicalCardId("string")
+                                        .presentmentAmount(123L)
+                                        .presentmentCurrency("string")
                                         .processingCategory(
                                             CardAuthorizationSimulation.DeclinedTransaction.Source
                                                 .CardDecline
@@ -463,6 +465,8 @@ class CardAuthorizationSimulationTest {
                                         .networkRiskScore(123L)
                                         .pendingTransactionId("string")
                                         .physicalCardId("string")
+                                        .presentmentAmount(123L)
+                                        .presentmentCurrency("string")
                                         .processingCategory(
                                             CardAuthorizationSimulation.PendingTransaction.Source
                                                 .CardAuthorization
@@ -749,6 +753,8 @@ class CardAuthorizationSimulationTest {
                                     )
                                     .networkRiskScore(123L)
                                     .physicalCardId("string")
+                                    .presentmentAmount(123L)
+                                    .presentmentCurrency("string")
                                     .processingCategory(
                                         CardAuthorizationSimulation.DeclinedTransaction.Source
                                             .CardDecline
@@ -1072,6 +1078,8 @@ class CardAuthorizationSimulationTest {
                                     .networkRiskScore(123L)
                                     .pendingTransactionId("string")
                                     .physicalCardId("string")
+                                    .presentmentAmount(123L)
+                                    .presentmentCurrency("string")
                                     .processingCategory(
                                         CardAuthorizationSimulation.PendingTransaction.Source
                                             .CardAuthorization
