@@ -122,6 +122,30 @@ class EntityCreateParamsTest {
                     .build()
             )
             .description("x")
+            .governmentAuthority(
+                EntityCreateParams.GovernmentAuthority.builder()
+                    .address(
+                        EntityCreateParams.GovernmentAuthority.Address.builder()
+                            .city("x")
+                            .line1("x")
+                            .state("x")
+                            .zip("x")
+                            .line2("x")
+                            .build()
+                    )
+                    .authorizedPersons(
+                        listOf(
+                            EntityCreateParams.GovernmentAuthority.AuthorizedPerson.builder()
+                                .name("x")
+                                .build()
+                        )
+                    )
+                    .category(EntityCreateParams.GovernmentAuthority.Category.MUNICIPALITY)
+                    .name("x")
+                    .taxIdentifier("x")
+                    .website("string")
+                    .build()
+            )
             .joint(
                 EntityCreateParams.Joint.builder()
                     .individuals(
@@ -505,6 +529,30 @@ class EntityCreateParamsTest {
                         .build()
                 )
                 .description("x")
+                .governmentAuthority(
+                    EntityCreateParams.GovernmentAuthority.builder()
+                        .address(
+                            EntityCreateParams.GovernmentAuthority.Address.builder()
+                                .city("x")
+                                .line1("x")
+                                .state("x")
+                                .zip("x")
+                                .line2("x")
+                                .build()
+                        )
+                        .authorizedPersons(
+                            listOf(
+                                EntityCreateParams.GovernmentAuthority.AuthorizedPerson.builder()
+                                    .name("x")
+                                    .build()
+                            )
+                        )
+                        .category(EntityCreateParams.GovernmentAuthority.Category.MUNICIPALITY)
+                        .name("x")
+                        .taxIdentifier("x")
+                        .website("string")
+                        .build()
+                )
                 .joint(
                     EntityCreateParams.Joint.builder()
                         .individuals(
@@ -887,6 +935,31 @@ class EntityCreateParamsTest {
                     .build()
             )
         assertThat(body.description()).isEqualTo("x")
+        assertThat(body.governmentAuthority())
+            .isEqualTo(
+                EntityCreateParams.GovernmentAuthority.builder()
+                    .address(
+                        EntityCreateParams.GovernmentAuthority.Address.builder()
+                            .city("x")
+                            .line1("x")
+                            .state("x")
+                            .zip("x")
+                            .line2("x")
+                            .build()
+                    )
+                    .authorizedPersons(
+                        listOf(
+                            EntityCreateParams.GovernmentAuthority.AuthorizedPerson.builder()
+                                .name("x")
+                                .build()
+                        )
+                    )
+                    .category(EntityCreateParams.GovernmentAuthority.Category.MUNICIPALITY)
+                    .name("x")
+                    .taxIdentifier("x")
+                    .website("string")
+                    .build()
+            )
         assertThat(body.joint())
             .isEqualTo(
                 EntityCreateParams.Joint.builder()

@@ -24,6 +24,7 @@ constructor(
     private val structure: Structure,
     private val corporation: Corporation?,
     private val description: String?,
+    private val governmentAuthority: GovernmentAuthority?,
     private val joint: Joint?,
     private val naturalPerson: NaturalPerson?,
     private val supplementalDocuments: List<SupplementalDocument>?,
@@ -38,6 +39,9 @@ constructor(
     fun corporation(): Optional<Corporation> = Optional.ofNullable(corporation)
 
     fun description(): Optional<String> = Optional.ofNullable(description)
+
+    fun governmentAuthority(): Optional<GovernmentAuthority> =
+        Optional.ofNullable(governmentAuthority)
 
     fun joint(): Optional<Joint> = Optional.ofNullable(joint)
 
@@ -54,6 +58,7 @@ constructor(
             structure,
             corporation,
             description,
+            governmentAuthority,
             joint,
             naturalPerson,
             supplementalDocuments,
@@ -73,6 +78,7 @@ constructor(
         private val structure: Structure?,
         private val corporation: Corporation?,
         private val description: String?,
+        private val governmentAuthority: GovernmentAuthority?,
         private val joint: Joint?,
         private val naturalPerson: NaturalPerson?,
         private val supplementalDocuments: List<SupplementalDocument>?,
@@ -93,6 +99,13 @@ constructor(
 
         /** The description you choose to give the entity. */
         @JsonProperty("description") fun description(): String? = description
+
+        /**
+         * Details of the Government Authority entity to create. Required if `structure` is equal to
+         * `Government Authority`.
+         */
+        @JsonProperty("government_authority")
+        fun governmentAuthority(): GovernmentAuthority? = governmentAuthority
 
         /** Details of the joint entity to create. Required if `structure` is equal to `joint`. */
         @JsonProperty("joint") fun joint(): Joint? = joint
@@ -127,6 +140,7 @@ constructor(
                 this.structure == other.structure &&
                 this.corporation == other.corporation &&
                 this.description == other.description &&
+                this.governmentAuthority == other.governmentAuthority &&
                 this.joint == other.joint &&
                 this.naturalPerson == other.naturalPerson &&
                 this.supplementalDocuments == other.supplementalDocuments &&
@@ -141,6 +155,7 @@ constructor(
                         structure,
                         corporation,
                         description,
+                        governmentAuthority,
                         joint,
                         naturalPerson,
                         supplementalDocuments,
@@ -152,7 +167,7 @@ constructor(
         }
 
         override fun toString() =
-            "EntityCreateBody{structure=$structure, corporation=$corporation, description=$description, joint=$joint, naturalPerson=$naturalPerson, supplementalDocuments=$supplementalDocuments, trust=$trust, additionalProperties=$additionalProperties}"
+            "EntityCreateBody{structure=$structure, corporation=$corporation, description=$description, governmentAuthority=$governmentAuthority, joint=$joint, naturalPerson=$naturalPerson, supplementalDocuments=$supplementalDocuments, trust=$trust, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -164,6 +179,7 @@ constructor(
             private var structure: Structure? = null
             private var corporation: Corporation? = null
             private var description: String? = null
+            private var governmentAuthority: GovernmentAuthority? = null
             private var joint: Joint? = null
             private var naturalPerson: NaturalPerson? = null
             private var supplementalDocuments: List<SupplementalDocument>? = null
@@ -175,6 +191,7 @@ constructor(
                 this.structure = entityCreateBody.structure
                 this.corporation = entityCreateBody.corporation
                 this.description = entityCreateBody.description
+                this.governmentAuthority = entityCreateBody.governmentAuthority
                 this.joint = entityCreateBody.joint
                 this.naturalPerson = entityCreateBody.naturalPerson
                 this.supplementalDocuments = entityCreateBody.supplementalDocuments
@@ -196,6 +213,15 @@ constructor(
             /** The description you choose to give the entity. */
             @JsonProperty("description")
             fun description(description: String) = apply { this.description = description }
+
+            /**
+             * Details of the Government Authority entity to create. Required if `structure` is
+             * equal to `Government Authority`.
+             */
+            @JsonProperty("government_authority")
+            fun governmentAuthority(governmentAuthority: GovernmentAuthority) = apply {
+                this.governmentAuthority = governmentAuthority
+            }
 
             /**
              * Details of the joint entity to create. Required if `structure` is equal to `joint`.
@@ -243,6 +269,7 @@ constructor(
                     checkNotNull(structure) { "`structure` is required but was not set" },
                     corporation,
                     description,
+                    governmentAuthority,
                     joint,
                     naturalPerson,
                     supplementalDocuments?.toUnmodifiable(),
@@ -267,6 +294,7 @@ constructor(
             this.structure == other.structure &&
             this.corporation == other.corporation &&
             this.description == other.description &&
+            this.governmentAuthority == other.governmentAuthority &&
             this.joint == other.joint &&
             this.naturalPerson == other.naturalPerson &&
             this.supplementalDocuments == other.supplementalDocuments &&
@@ -281,6 +309,7 @@ constructor(
             structure,
             corporation,
             description,
+            governmentAuthority,
             joint,
             naturalPerson,
             supplementalDocuments,
@@ -292,7 +321,7 @@ constructor(
     }
 
     override fun toString() =
-        "EntityCreateParams{structure=$structure, corporation=$corporation, description=$description, joint=$joint, naturalPerson=$naturalPerson, supplementalDocuments=$supplementalDocuments, trust=$trust, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "EntityCreateParams{structure=$structure, corporation=$corporation, description=$description, governmentAuthority=$governmentAuthority, joint=$joint, naturalPerson=$naturalPerson, supplementalDocuments=$supplementalDocuments, trust=$trust, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -307,6 +336,7 @@ constructor(
         private var structure: Structure? = null
         private var corporation: Corporation? = null
         private var description: String? = null
+        private var governmentAuthority: GovernmentAuthority? = null
         private var joint: Joint? = null
         private var naturalPerson: NaturalPerson? = null
         private var supplementalDocuments: MutableList<SupplementalDocument> = mutableListOf()
@@ -320,6 +350,7 @@ constructor(
             this.structure = entityCreateParams.structure
             this.corporation = entityCreateParams.corporation
             this.description = entityCreateParams.description
+            this.governmentAuthority = entityCreateParams.governmentAuthority
             this.joint = entityCreateParams.joint
             this.naturalPerson = entityCreateParams.naturalPerson
             this.supplementalDocuments(entityCreateParams.supplementalDocuments ?: listOf())
@@ -340,6 +371,14 @@ constructor(
 
         /** The description you choose to give the entity. */
         fun description(description: String) = apply { this.description = description }
+
+        /**
+         * Details of the Government Authority entity to create. Required if `structure` is equal to
+         * `Government Authority`.
+         */
+        fun governmentAuthority(governmentAuthority: GovernmentAuthority) = apply {
+            this.governmentAuthority = governmentAuthority
+        }
 
         /** Details of the joint entity to create. Required if `structure` is equal to `joint`. */
         fun joint(joint: Joint) = apply { this.joint = joint }
@@ -427,6 +466,7 @@ constructor(
                 checkNotNull(structure) { "`structure` is required but was not set" },
                 corporation,
                 description,
+                governmentAuthority,
                 joint,
                 naturalPerson,
                 if (supplementalDocuments.size == 0) null
@@ -468,6 +508,8 @@ constructor(
 
             @JvmField val TRUST = Structure(JsonField.of("trust"))
 
+            @JvmField val GOVERNMENT_AUTHORITY = Structure(JsonField.of("government_authority"))
+
             @JvmStatic fun of(value: String) = Structure(JsonField.of(value))
         }
 
@@ -476,6 +518,7 @@ constructor(
             NATURAL_PERSON,
             JOINT,
             TRUST,
+            GOVERNMENT_AUTHORITY,
         }
 
         enum class Value {
@@ -483,6 +526,7 @@ constructor(
             NATURAL_PERSON,
             JOINT,
             TRUST,
+            GOVERNMENT_AUTHORITY,
             _UNKNOWN,
         }
 
@@ -492,6 +536,7 @@ constructor(
                 NATURAL_PERSON -> Value.NATURAL_PERSON
                 JOINT -> Value.JOINT
                 TRUST -> Value.TRUST
+                GOVERNMENT_AUTHORITY -> Value.GOVERNMENT_AUTHORITY
                 else -> Value._UNKNOWN
             }
 
@@ -501,6 +546,7 @@ constructor(
                 NATURAL_PERSON -> Known.NATURAL_PERSON
                 JOINT -> Known.JOINT
                 TRUST -> Known.TRUST
+                GOVERNMENT_AUTHORITY -> Known.GOVERNMENT_AUTHORITY
                 else -> throw IncreaseInvalidDataException("Unknown Structure: $value")
             }
 
@@ -2031,6 +2077,445 @@ constructor(
 
                 fun asString(): String = _value().asStringOrThrow()
             }
+        }
+    }
+
+    /**
+     * Details of the Government Authority entity to create. Required if `structure` is equal to
+     * `Government Authority`.
+     */
+    @JsonDeserialize(builder = GovernmentAuthority.Builder::class)
+    @NoAutoDetect
+    class GovernmentAuthority
+    private constructor(
+        private val name: String?,
+        private val website: String?,
+        private val category: Category?,
+        private val taxIdentifier: String?,
+        private val address: Address?,
+        private val authorizedPersons: List<AuthorizedPerson>?,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        /** The legal name of the government authority. */
+        @JsonProperty("name") fun name(): String? = name
+
+        /** The website of the government authority. */
+        @JsonProperty("website") fun website(): String? = website
+
+        /** The category of the government authority. */
+        @JsonProperty("category") fun category(): Category? = category
+
+        /** The Employer Identification Number (EIN) for the government authority. */
+        @JsonProperty("tax_identifier") fun taxIdentifier(): String? = taxIdentifier
+
+        /**
+         * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
+         * disallowed.
+         */
+        @JsonProperty("address") fun address(): Address? = address
+
+        /** The identifying details of authorized officials acting on the entity's behalf. */
+        @JsonProperty("authorized_persons")
+        fun authorizedPersons(): List<AuthorizedPerson>? = authorizedPersons
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is GovernmentAuthority &&
+                this.name == other.name &&
+                this.website == other.website &&
+                this.category == other.category &&
+                this.taxIdentifier == other.taxIdentifier &&
+                this.address == other.address &&
+                this.authorizedPersons == other.authorizedPersons &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        name,
+                        website,
+                        category,
+                        taxIdentifier,
+                        address,
+                        authorizedPersons,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "GovernmentAuthority{name=$name, website=$website, category=$category, taxIdentifier=$taxIdentifier, address=$address, authorizedPersons=$authorizedPersons, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var name: String? = null
+            private var website: String? = null
+            private var category: Category? = null
+            private var taxIdentifier: String? = null
+            private var address: Address? = null
+            private var authorizedPersons: List<AuthorizedPerson>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(governmentAuthority: GovernmentAuthority) = apply {
+                this.name = governmentAuthority.name
+                this.website = governmentAuthority.website
+                this.category = governmentAuthority.category
+                this.taxIdentifier = governmentAuthority.taxIdentifier
+                this.address = governmentAuthority.address
+                this.authorizedPersons = governmentAuthority.authorizedPersons
+                additionalProperties(governmentAuthority.additionalProperties)
+            }
+
+            /** The legal name of the government authority. */
+            @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+
+            /** The website of the government authority. */
+            @JsonProperty("website") fun website(website: String) = apply { this.website = website }
+
+            /** The category of the government authority. */
+            @JsonProperty("category")
+            fun category(category: Category) = apply { this.category = category }
+
+            /** The Employer Identification Number (EIN) for the government authority. */
+            @JsonProperty("tax_identifier")
+            fun taxIdentifier(taxIdentifier: String) = apply { this.taxIdentifier = taxIdentifier }
+
+            /**
+             * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
+             * disallowed.
+             */
+            @JsonProperty("address")
+            fun address(address: Address) = apply { this.address = address }
+
+            /** The identifying details of authorized officials acting on the entity's behalf. */
+            @JsonProperty("authorized_persons")
+            fun authorizedPersons(authorizedPersons: List<AuthorizedPerson>) = apply {
+                this.authorizedPersons = authorizedPersons
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): GovernmentAuthority =
+                GovernmentAuthority(
+                    checkNotNull(name) { "`name` is required but was not set" },
+                    website,
+                    checkNotNull(category) { "`category` is required but was not set" },
+                    checkNotNull(taxIdentifier) { "`taxIdentifier` is required but was not set" },
+                    checkNotNull(address) { "`address` is required but was not set" },
+                    checkNotNull(authorizedPersons) {
+                            "`authorizedPersons` is required but was not set"
+                        }
+                        .toUnmodifiable(),
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
+
+        /**
+         * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
+         * disallowed.
+         */
+        @JsonDeserialize(builder = Address.Builder::class)
+        @NoAutoDetect
+        class Address
+        private constructor(
+            private val line1: String?,
+            private val line2: String?,
+            private val city: String?,
+            private val state: String?,
+            private val zip: String?,
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
+
+            private var hashCode: Int = 0
+
+            /** The first line of the address. This is usually the street number and street. */
+            @JsonProperty("line1") fun line1(): String? = line1
+
+            /** The second line of the address. This might be the floor or room number. */
+            @JsonProperty("line2") fun line2(): String? = line2
+
+            /** The city of the address. */
+            @JsonProperty("city") fun city(): String? = city
+
+            /**
+             * The two-letter United States Postal Service (USPS) abbreviation for the state of the
+             * address.
+             */
+            @JsonProperty("state") fun state(): String? = state
+
+            /** The ZIP code of the address. */
+            @JsonProperty("zip") fun zip(): String? = zip
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Address &&
+                    this.line1 == other.line1 &&
+                    this.line2 == other.line2 &&
+                    this.city == other.city &&
+                    this.state == other.state &&
+                    this.zip == other.zip &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            line1,
+                            line2,
+                            city,
+                            state,
+                            zip,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "Address{line1=$line1, line2=$line2, city=$city, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
+
+            companion object {
+
+                @JvmStatic fun builder() = Builder()
+            }
+
+            class Builder {
+
+                private var line1: String? = null
+                private var line2: String? = null
+                private var city: String? = null
+                private var state: String? = null
+                private var zip: String? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(address: Address) = apply {
+                    this.line1 = address.line1
+                    this.line2 = address.line2
+                    this.city = address.city
+                    this.state = address.state
+                    this.zip = address.zip
+                    additionalProperties(address.additionalProperties)
+                }
+
+                /** The first line of the address. This is usually the street number and street. */
+                @JsonProperty("line1") fun line1(line1: String) = apply { this.line1 = line1 }
+
+                /** The second line of the address. This might be the floor or room number. */
+                @JsonProperty("line2") fun line2(line2: String) = apply { this.line2 = line2 }
+
+                /** The city of the address. */
+                @JsonProperty("city") fun city(city: String) = apply { this.city = city }
+
+                /**
+                 * The two-letter United States Postal Service (USPS) abbreviation for the state of
+                 * the address.
+                 */
+                @JsonProperty("state") fun state(state: String) = apply { this.state = state }
+
+                /** The ZIP code of the address. */
+                @JsonProperty("zip") fun zip(zip: String) = apply { this.zip = zip }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                @JsonAnySetter
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    this.additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun build(): Address =
+                    Address(
+                        checkNotNull(line1) { "`line1` is required but was not set" },
+                        line2,
+                        checkNotNull(city) { "`city` is required but was not set" },
+                        checkNotNull(state) { "`state` is required but was not set" },
+                        checkNotNull(zip) { "`zip` is required but was not set" },
+                        additionalProperties.toUnmodifiable(),
+                    )
+            }
+        }
+
+        @JsonDeserialize(builder = AuthorizedPerson.Builder::class)
+        @NoAutoDetect
+        class AuthorizedPerson
+        private constructor(
+            private val name: String?,
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
+
+            private var hashCode: Int = 0
+
+            /** The person's legal name. */
+            @JsonProperty("name") fun name(): String? = name
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is AuthorizedPerson &&
+                    this.name == other.name &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode = Objects.hash(name, additionalProperties)
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "AuthorizedPerson{name=$name, additionalProperties=$additionalProperties}"
+
+            companion object {
+
+                @JvmStatic fun builder() = Builder()
+            }
+
+            class Builder {
+
+                private var name: String? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(authorizedPerson: AuthorizedPerson) = apply {
+                    this.name = authorizedPerson.name
+                    additionalProperties(authorizedPerson.additionalProperties)
+                }
+
+                /** The person's legal name. */
+                @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                @JsonAnySetter
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    this.additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun build(): AuthorizedPerson =
+                    AuthorizedPerson(
+                        checkNotNull(name) { "`name` is required but was not set" },
+                        additionalProperties.toUnmodifiable()
+                    )
+            }
+        }
+
+        class Category
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Category && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                @JvmField val MUNICIPALITY = Category(JsonField.of("municipality"))
+
+                @JvmStatic fun of(value: String) = Category(JsonField.of(value))
+            }
+
+            enum class Known {
+                MUNICIPALITY,
+            }
+
+            enum class Value {
+                MUNICIPALITY,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    MUNICIPALITY -> Value.MUNICIPALITY
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    MUNICIPALITY -> Known.MUNICIPALITY
+                    else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
         }
     }
 

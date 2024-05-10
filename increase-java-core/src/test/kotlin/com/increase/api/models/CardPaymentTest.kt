@@ -78,6 +78,8 @@ class CardPaymentTest {
                                     .networkRiskScore(123L)
                                     .pendingTransactionId("string")
                                     .physicalCardId("string")
+                                    .presentmentAmount(123L)
+                                    .presentmentCurrency("string")
                                     .processingCategory(
                                         CardPayment.Element.CardAuthorization.ProcessingCategory
                                             .ACCOUNT_FUNDING
@@ -191,6 +193,8 @@ class CardPaymentTest {
                                     )
                                     .networkRiskScore(123L)
                                     .physicalCardId("string")
+                                    .presentmentAmount(123L)
+                                    .presentmentCurrency("string")
                                     .processingCategory(
                                         CardPayment.Element.CardDecline.ProcessingCategory
                                             .ACCOUNT_FUNDING
@@ -880,6 +884,8 @@ class CardPaymentTest {
                             .networkRiskScore(123L)
                             .pendingTransactionId("string")
                             .physicalCardId("string")
+                            .presentmentAmount(123L)
+                            .presentmentCurrency("string")
                             .processingCategory(
                                 CardPayment.Element.CardAuthorization.ProcessingCategory
                                     .ACCOUNT_FUNDING
@@ -978,6 +984,8 @@ class CardPaymentTest {
                             )
                             .networkRiskScore(123L)
                             .physicalCardId("string")
+                            .presentmentAmount(123L)
+                            .presentmentCurrency("string")
                             .processingCategory(
                                 CardPayment.Element.CardDecline.ProcessingCategory.ACCOUNT_FUNDING
                             )
