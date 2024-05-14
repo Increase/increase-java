@@ -22,11 +22,11 @@ import java.util.Objects
 @NoAutoDetect
 class RoutingNumber
 private constructor(
+    private val achTransfers: JsonField<AchTransfers>,
     private val name: JsonField<String>,
+    private val realTimePaymentsTransfers: JsonField<RealTimePaymentsTransfers>,
     private val routingNumber: JsonField<String>,
     private val type: JsonField<Type>,
-    private val achTransfers: JsonField<AchTransfers>,
-    private val realTimePaymentsTransfers: JsonField<RealTimePaymentsTransfers>,
     private val wireTransfers: JsonField<WireTransfers>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -35,8 +35,15 @@ private constructor(
 
     private var hashCode: Int = 0
 
+    /** This routing number's support for ACH Transfers. */
+    fun achTransfers(): AchTransfers = achTransfers.getRequired("ach_transfers")
+
     /** The name of the financial institution belonging to a routing number. */
     fun name(): String = name.getRequired("name")
+
+    /** This routing number's support for Real-Time Payments Transfers. */
+    fun realTimePaymentsTransfers(): RealTimePaymentsTransfers =
+        realTimePaymentsTransfers.getRequired("real_time_payments_transfers")
 
     /** The nine digit routing number identifier. */
     fun routingNumber(): String = routingNumber.getRequired("routing_number")
@@ -47,18 +54,19 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
-    /** This routing number's support for ACH Transfers. */
-    fun achTransfers(): AchTransfers = achTransfers.getRequired("ach_transfers")
-
-    /** This routing number's support for Real-Time Payments Transfers. */
-    fun realTimePaymentsTransfers(): RealTimePaymentsTransfers =
-        realTimePaymentsTransfers.getRequired("real_time_payments_transfers")
-
     /** This routing number's support for Wire Transfers. */
     fun wireTransfers(): WireTransfers = wireTransfers.getRequired("wire_transfers")
 
+    /** This routing number's support for ACH Transfers. */
+    @JsonProperty("ach_transfers") @ExcludeMissing fun _achTransfers() = achTransfers
+
     /** The name of the financial institution belonging to a routing number. */
     @JsonProperty("name") @ExcludeMissing fun _name() = name
+
+    /** This routing number's support for Real-Time Payments Transfers. */
+    @JsonProperty("real_time_payments_transfers")
+    @ExcludeMissing
+    fun _realTimePaymentsTransfers() = realTimePaymentsTransfers
 
     /** The nine digit routing number identifier. */
     @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
@@ -69,14 +77,6 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type() = type
 
-    /** This routing number's support for ACH Transfers. */
-    @JsonProperty("ach_transfers") @ExcludeMissing fun _achTransfers() = achTransfers
-
-    /** This routing number's support for Real-Time Payments Transfers. */
-    @JsonProperty("real_time_payments_transfers")
-    @ExcludeMissing
-    fun _realTimePaymentsTransfers() = realTimePaymentsTransfers
-
     /** This routing number's support for Wire Transfers. */
     @JsonProperty("wire_transfers") @ExcludeMissing fun _wireTransfers() = wireTransfers
 
@@ -86,11 +86,11 @@ private constructor(
 
     fun validate(): RoutingNumber = apply {
         if (!validated) {
+            achTransfers()
             name()
+            realTimePaymentsTransfers()
             routingNumber()
             type()
-            achTransfers()
-            realTimePaymentsTransfers()
             wireTransfers()
             validated = true
         }
@@ -104,11 +104,11 @@ private constructor(
         }
 
         return other is RoutingNumber &&
+            this.achTransfers == other.achTransfers &&
             this.name == other.name &&
+            this.realTimePaymentsTransfers == other.realTimePaymentsTransfers &&
             this.routingNumber == other.routingNumber &&
             this.type == other.type &&
-            this.achTransfers == other.achTransfers &&
-            this.realTimePaymentsTransfers == other.realTimePaymentsTransfers &&
             this.wireTransfers == other.wireTransfers &&
             this.additionalProperties == other.additionalProperties
     }
@@ -117,11 +117,11 @@ private constructor(
         if (hashCode == 0) {
             hashCode =
                 Objects.hash(
+                    achTransfers,
                     name,
+                    realTimePaymentsTransfers,
                     routingNumber,
                     type,
-                    achTransfers,
-                    realTimePaymentsTransfers,
                     wireTransfers,
                     additionalProperties,
                 )
@@ -130,7 +130,7 @@ private constructor(
     }
 
     override fun toString() =
-        "RoutingNumber{name=$name, routingNumber=$routingNumber, type=$type, achTransfers=$achTransfers, realTimePaymentsTransfers=$realTimePaymentsTransfers, wireTransfers=$wireTransfers, additionalProperties=$additionalProperties}"
+        "RoutingNumber{achTransfers=$achTransfers, name=$name, realTimePaymentsTransfers=$realTimePaymentsTransfers, routingNumber=$routingNumber, type=$type, wireTransfers=$wireTransfers, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -139,24 +139,34 @@ private constructor(
 
     class Builder {
 
-        private var name: JsonField<String> = JsonMissing.of()
-        private var routingNumber: JsonField<String> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
         private var achTransfers: JsonField<AchTransfers> = JsonMissing.of()
+        private var name: JsonField<String> = JsonMissing.of()
         private var realTimePaymentsTransfers: JsonField<RealTimePaymentsTransfers> =
             JsonMissing.of()
+        private var routingNumber: JsonField<String> = JsonMissing.of()
+        private var type: JsonField<Type> = JsonMissing.of()
         private var wireTransfers: JsonField<WireTransfers> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(routingNumber: RoutingNumber) = apply {
+            this.achTransfers = routingNumber.achTransfers
             this.name = routingNumber.name
+            this.realTimePaymentsTransfers = routingNumber.realTimePaymentsTransfers
             this.routingNumber = routingNumber.routingNumber
             this.type = routingNumber.type
-            this.achTransfers = routingNumber.achTransfers
-            this.realTimePaymentsTransfers = routingNumber.realTimePaymentsTransfers
             this.wireTransfers = routingNumber.wireTransfers
             additionalProperties(routingNumber.additionalProperties)
+        }
+
+        /** This routing number's support for ACH Transfers. */
+        fun achTransfers(achTransfers: AchTransfers) = achTransfers(JsonField.of(achTransfers))
+
+        /** This routing number's support for ACH Transfers. */
+        @JsonProperty("ach_transfers")
+        @ExcludeMissing
+        fun achTransfers(achTransfers: JsonField<AchTransfers>) = apply {
+            this.achTransfers = achTransfers
         }
 
         /** The name of the financial institution belonging to a routing number. */
@@ -166,6 +176,17 @@ private constructor(
         @JsonProperty("name")
         @ExcludeMissing
         fun name(name: JsonField<String>) = apply { this.name = name }
+
+        /** This routing number's support for Real-Time Payments Transfers. */
+        fun realTimePaymentsTransfers(realTimePaymentsTransfers: RealTimePaymentsTransfers) =
+            realTimePaymentsTransfers(JsonField.of(realTimePaymentsTransfers))
+
+        /** This routing number's support for Real-Time Payments Transfers. */
+        @JsonProperty("real_time_payments_transfers")
+        @ExcludeMissing
+        fun realTimePaymentsTransfers(
+            realTimePaymentsTransfers: JsonField<RealTimePaymentsTransfers>
+        ) = apply { this.realTimePaymentsTransfers = realTimePaymentsTransfers }
 
         /** The nine digit routing number identifier. */
         fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
@@ -190,27 +211,6 @@ private constructor(
         @JsonProperty("type")
         @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
-
-        /** This routing number's support for ACH Transfers. */
-        fun achTransfers(achTransfers: AchTransfers) = achTransfers(JsonField.of(achTransfers))
-
-        /** This routing number's support for ACH Transfers. */
-        @JsonProperty("ach_transfers")
-        @ExcludeMissing
-        fun achTransfers(achTransfers: JsonField<AchTransfers>) = apply {
-            this.achTransfers = achTransfers
-        }
-
-        /** This routing number's support for Real-Time Payments Transfers. */
-        fun realTimePaymentsTransfers(realTimePaymentsTransfers: RealTimePaymentsTransfers) =
-            realTimePaymentsTransfers(JsonField.of(realTimePaymentsTransfers))
-
-        /** This routing number's support for Real-Time Payments Transfers. */
-        @JsonProperty("real_time_payments_transfers")
-        @ExcludeMissing
-        fun realTimePaymentsTransfers(
-            realTimePaymentsTransfers: JsonField<RealTimePaymentsTransfers>
-        ) = apply { this.realTimePaymentsTransfers = realTimePaymentsTransfers }
 
         /** This routing number's support for Wire Transfers. */
         fun wireTransfers(wireTransfers: WireTransfers) = wireTransfers(JsonField.of(wireTransfers))
@@ -238,11 +238,11 @@ private constructor(
 
         fun build(): RoutingNumber =
             RoutingNumber(
+                achTransfers,
                 name,
+                realTimePaymentsTransfers,
                 routingNumber,
                 type,
-                achTransfers,
-                realTimePaymentsTransfers,
                 wireTransfers,
                 additionalProperties.toUnmodifiable(),
             )

@@ -27,31 +27,28 @@ import java.util.Optional
 @NoAutoDetect
 class AchPrenotification
 private constructor(
-    private val id: JsonField<String>,
     private val accountNumber: JsonField<String>,
     private val addendum: JsonField<String>,
     private val companyDescriptiveDate: JsonField<String>,
     private val companyDiscretionaryData: JsonField<String>,
     private val companyEntryDescription: JsonField<String>,
     private val companyName: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
     private val creditDebitIndicator: JsonField<CreditDebitIndicator>,
     private val effectiveDate: JsonField<OffsetDateTime>,
-    private val routingNumber: JsonField<String>,
-    private val prenotificationReturn: JsonField<PrenotificationReturn>,
+    private val id: JsonField<String>,
+    private val idempotencyKey: JsonField<String>,
     private val notificationsOfChange: JsonField<List<NotificationsOfChange>>,
-    private val createdAt: JsonField<OffsetDateTime>,
+    private val prenotificationReturn: JsonField<PrenotificationReturn>,
+    private val routingNumber: JsonField<String>,
     private val status: JsonField<Status>,
     private val type: JsonField<Type>,
-    private val idempotencyKey: JsonField<String>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
     private var validated: Boolean = false
 
     private var hashCode: Int = 0
-
-    /** The ACH Prenotification's identifier. */
-    fun id(): String = id.getRequired("id")
 
     /** The destination account number. */
     fun accountNumber(): String = accountNumber.getRequired("account_number")
@@ -75,6 +72,12 @@ private constructor(
     fun companyName(): Optional<String> =
         Optional.ofNullable(companyName.getNullable("company_name"))
 
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+     * prenotification was created.
+     */
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
     /** If the notification is for a future credit or debit. */
     fun creditDebitIndicator(): Optional<CreditDebitIndicator> =
         Optional.ofNullable(creditDebitIndicator.getNullable("credit_debit_indicator"))
@@ -83,34 +86,8 @@ private constructor(
     fun effectiveDate(): Optional<OffsetDateTime> =
         Optional.ofNullable(effectiveDate.getNullable("effective_date"))
 
-    /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
-    fun routingNumber(): String = routingNumber.getRequired("routing_number")
-
-    /** If your prenotification is returned, this will contain details of the return. */
-    fun prenotificationReturn(): Optional<PrenotificationReturn> =
-        Optional.ofNullable(prenotificationReturn.getNullable("prenotification_return"))
-
-    /**
-     * If the receiving bank notifies that future transfers should use different details, this will
-     * contain those details.
-     */
-    fun notificationsOfChange(): List<NotificationsOfChange> =
-        notificationsOfChange.getRequired("notifications_of_change")
-
-    /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-     * prenotification was created.
-     */
-    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-    /** The lifecycle status of the ACH Prenotification. */
-    fun status(): Status = status.getRequired("status")
-
-    /**
-     * A constant representing the object's type. For this resource it will always be
-     * `ach_prenotification`.
-     */
-    fun type(): Type = type.getRequired("type")
+    /** The ACH Prenotification's identifier. */
+    fun id(): String = id.getRequired("id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -120,8 +97,28 @@ private constructor(
     fun idempotencyKey(): Optional<String> =
         Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
-    /** The ACH Prenotification's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    /**
+     * If the receiving bank notifies that future transfers should use different details, this will
+     * contain those details.
+     */
+    fun notificationsOfChange(): List<NotificationsOfChange> =
+        notificationsOfChange.getRequired("notifications_of_change")
+
+    /** If your prenotification is returned, this will contain details of the return. */
+    fun prenotificationReturn(): Optional<PrenotificationReturn> =
+        Optional.ofNullable(prenotificationReturn.getNullable("prenotification_return"))
+
+    /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
+    fun routingNumber(): String = routingNumber.getRequired("routing_number")
+
+    /** The lifecycle status of the ACH Prenotification. */
+    fun status(): Status = status.getRequired("status")
+
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `ach_prenotification`.
+     */
+    fun type(): Type = type.getRequired("type")
 
     /** The destination account number. */
     @JsonProperty("account_number") @ExcludeMissing fun _accountNumber() = accountNumber
@@ -147,6 +144,12 @@ private constructor(
     /** The name by which you know the company. */
     @JsonProperty("company_name") @ExcludeMissing fun _companyName() = companyName
 
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+     * prenotification was created.
+     */
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
     /** If the notification is for a future credit or debit. */
     @JsonProperty("credit_debit_indicator")
     @ExcludeMissing
@@ -155,13 +158,15 @@ private constructor(
     /** The effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
     @JsonProperty("effective_date") @ExcludeMissing fun _effectiveDate() = effectiveDate
 
-    /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
-    @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
+    /** The ACH Prenotification's identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
-    /** If your prenotification is returned, this will contain details of the return. */
-    @JsonProperty("prenotification_return")
-    @ExcludeMissing
-    fun _prenotificationReturn() = prenotificationReturn
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
 
     /**
      * If the receiving bank notifies that future transfers should use different details, this will
@@ -171,11 +176,13 @@ private constructor(
     @ExcludeMissing
     fun _notificationsOfChange() = notificationsOfChange
 
-    /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-     * prenotification was created.
-     */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    /** If your prenotification is returned, this will contain details of the return. */
+    @JsonProperty("prenotification_return")
+    @ExcludeMissing
+    fun _prenotificationReturn() = prenotificationReturn
+
+    /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
+    @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
 
     /** The lifecycle status of the ACH Prenotification. */
     @JsonProperty("status") @ExcludeMissing fun _status() = status
@@ -186,35 +193,28 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type() = type
 
-    /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
-     */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
-
     @JsonAnyGetter
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
     fun validate(): AchPrenotification = apply {
         if (!validated) {
-            id()
             accountNumber()
             addendum()
             companyDescriptiveDate()
             companyDiscretionaryData()
             companyEntryDescription()
             companyName()
+            createdAt()
             creditDebitIndicator()
             effectiveDate()
-            routingNumber()
-            prenotificationReturn().map { it.validate() }
+            id()
+            idempotencyKey()
             notificationsOfChange().forEach { it.validate() }
-            createdAt()
+            prenotificationReturn().map { it.validate() }
+            routingNumber()
             status()
             type()
-            idempotencyKey()
             validated = true
         }
     }
@@ -227,22 +227,22 @@ private constructor(
         }
 
         return other is AchPrenotification &&
-            this.id == other.id &&
             this.accountNumber == other.accountNumber &&
             this.addendum == other.addendum &&
             this.companyDescriptiveDate == other.companyDescriptiveDate &&
             this.companyDiscretionaryData == other.companyDiscretionaryData &&
             this.companyEntryDescription == other.companyEntryDescription &&
             this.companyName == other.companyName &&
+            this.createdAt == other.createdAt &&
             this.creditDebitIndicator == other.creditDebitIndicator &&
             this.effectiveDate == other.effectiveDate &&
-            this.routingNumber == other.routingNumber &&
-            this.prenotificationReturn == other.prenotificationReturn &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.notificationsOfChange == other.notificationsOfChange &&
-            this.createdAt == other.createdAt &&
+            this.prenotificationReturn == other.prenotificationReturn &&
+            this.routingNumber == other.routingNumber &&
             this.status == other.status &&
             this.type == other.type &&
-            this.idempotencyKey == other.idempotencyKey &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -250,22 +250,22 @@ private constructor(
         if (hashCode == 0) {
             hashCode =
                 Objects.hash(
-                    id,
                     accountNumber,
                     addendum,
                     companyDescriptiveDate,
                     companyDiscretionaryData,
                     companyEntryDescription,
                     companyName,
+                    createdAt,
                     creditDebitIndicator,
                     effectiveDate,
-                    routingNumber,
-                    prenotificationReturn,
+                    id,
+                    idempotencyKey,
                     notificationsOfChange,
-                    createdAt,
+                    prenotificationReturn,
+                    routingNumber,
                     status,
                     type,
-                    idempotencyKey,
                     additionalProperties,
                 )
         }
@@ -273,7 +273,7 @@ private constructor(
     }
 
     override fun toString() =
-        "AchPrenotification{id=$id, accountNumber=$accountNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, routingNumber=$routingNumber, prenotificationReturn=$prenotificationReturn, notificationsOfChange=$notificationsOfChange, createdAt=$createdAt, status=$status, type=$type, idempotencyKey=$idempotencyKey, additionalProperties=$additionalProperties}"
+        "AchPrenotification{accountNumber=$accountNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, createdAt=$createdAt, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, id=$id, idempotencyKey=$idempotencyKey, notificationsOfChange=$notificationsOfChange, prenotificationReturn=$prenotificationReturn, routingNumber=$routingNumber, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -282,50 +282,44 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
         private var accountNumber: JsonField<String> = JsonMissing.of()
         private var addendum: JsonField<String> = JsonMissing.of()
         private var companyDescriptiveDate: JsonField<String> = JsonMissing.of()
         private var companyDiscretionaryData: JsonField<String> = JsonMissing.of()
         private var companyEntryDescription: JsonField<String> = JsonMissing.of()
         private var companyName: JsonField<String> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var creditDebitIndicator: JsonField<CreditDebitIndicator> = JsonMissing.of()
         private var effectiveDate: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var routingNumber: JsonField<String> = JsonMissing.of()
-        private var prenotificationReturn: JsonField<PrenotificationReturn> = JsonMissing.of()
+        private var id: JsonField<String> = JsonMissing.of()
+        private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var notificationsOfChange: JsonField<List<NotificationsOfChange>> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var prenotificationReturn: JsonField<PrenotificationReturn> = JsonMissing.of()
+        private var routingNumber: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(achPrenotification: AchPrenotification) = apply {
-            this.id = achPrenotification.id
             this.accountNumber = achPrenotification.accountNumber
             this.addendum = achPrenotification.addendum
             this.companyDescriptiveDate = achPrenotification.companyDescriptiveDate
             this.companyDiscretionaryData = achPrenotification.companyDiscretionaryData
             this.companyEntryDescription = achPrenotification.companyEntryDescription
             this.companyName = achPrenotification.companyName
+            this.createdAt = achPrenotification.createdAt
             this.creditDebitIndicator = achPrenotification.creditDebitIndicator
             this.effectiveDate = achPrenotification.effectiveDate
-            this.routingNumber = achPrenotification.routingNumber
-            this.prenotificationReturn = achPrenotification.prenotificationReturn
+            this.id = achPrenotification.id
+            this.idempotencyKey = achPrenotification.idempotencyKey
             this.notificationsOfChange = achPrenotification.notificationsOfChange
-            this.createdAt = achPrenotification.createdAt
+            this.prenotificationReturn = achPrenotification.prenotificationReturn
+            this.routingNumber = achPrenotification.routingNumber
             this.status = achPrenotification.status
             this.type = achPrenotification.type
-            this.idempotencyKey = achPrenotification.idempotencyKey
             additionalProperties(achPrenotification.additionalProperties)
         }
-
-        /** The ACH Prenotification's identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The ACH Prenotification's identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The destination account number. */
         fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
@@ -386,6 +380,20 @@ private constructor(
         @ExcludeMissing
         fun companyName(companyName: JsonField<String>) = apply { this.companyName = companyName }
 
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * prenotification was created.
+         */
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * prenotification was created.
+         */
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
         /** If the notification is for a future credit or debit. */
         fun creditDebitIndicator(creditDebitIndicator: CreditDebitIndicator) =
             creditDebitIndicator(JsonField.of(creditDebitIndicator))
@@ -408,25 +416,28 @@ private constructor(
             this.effectiveDate = effectiveDate
         }
 
-        /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
-        fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
+        /** The ACH Prenotification's identifier. */
+        fun id(id: String) = id(JsonField.of(id))
 
-        /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
-        @JsonProperty("routing_number")
+        /** The ACH Prenotification's identifier. */
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        @JsonProperty("idempotency_key")
         @ExcludeMissing
-        fun routingNumber(routingNumber: JsonField<String>) = apply {
-            this.routingNumber = routingNumber
-        }
-
-        /** If your prenotification is returned, this will contain details of the return. */
-        fun prenotificationReturn(prenotificationReturn: PrenotificationReturn) =
-            prenotificationReturn(JsonField.of(prenotificationReturn))
-
-        /** If your prenotification is returned, this will contain details of the return. */
-        @JsonProperty("prenotification_return")
-        @ExcludeMissing
-        fun prenotificationReturn(prenotificationReturn: JsonField<PrenotificationReturn>) = apply {
-            this.prenotificationReturn = prenotificationReturn
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
         }
 
         /**
@@ -447,19 +458,26 @@ private constructor(
                 this.notificationsOfChange = notificationsOfChange
             }
 
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * prenotification was created.
-         */
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+        /** If your prenotification is returned, this will contain details of the return. */
+        fun prenotificationReturn(prenotificationReturn: PrenotificationReturn) =
+            prenotificationReturn(JsonField.of(prenotificationReturn))
 
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * prenotification was created.
-         */
-        @JsonProperty("created_at")
+        /** If your prenotification is returned, this will contain details of the return. */
+        @JsonProperty("prenotification_return")
         @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun prenotificationReturn(prenotificationReturn: JsonField<PrenotificationReturn>) = apply {
+            this.prenotificationReturn = prenotificationReturn
+        }
+
+        /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
+        fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
+
+        /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
+        @JsonProperty("routing_number")
+        @ExcludeMissing
+        fun routingNumber(routingNumber: JsonField<String>) = apply {
+            this.routingNumber = routingNumber
+        }
 
         /** The lifecycle status of the ACH Prenotification. */
         fun status(status: Status) = status(JsonField.of(status))
@@ -483,24 +501,6 @@ private constructor(
         @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
-        /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
-         */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
-
-        /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
-         */
-        @JsonProperty("idempotency_key")
-        @ExcludeMissing
-        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
-            this.idempotencyKey = idempotencyKey
-        }
-
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             this.additionalProperties.putAll(additionalProperties)
@@ -517,22 +517,22 @@ private constructor(
 
         fun build(): AchPrenotification =
             AchPrenotification(
-                id,
                 accountNumber,
                 addendum,
                 companyDescriptiveDate,
                 companyDiscretionaryData,
                 companyEntryDescription,
                 companyName,
+                createdAt,
                 creditDebitIndicator,
                 effectiveDate,
-                routingNumber,
-                prenotificationReturn,
+                id,
+                idempotencyKey,
                 notificationsOfChange.map { it.toUnmodifiable() },
-                createdAt,
+                prenotificationReturn,
+                routingNumber,
                 status,
                 type,
-                idempotencyKey,
                 additionalProperties.toUnmodifiable(),
             )
     }
@@ -598,21 +598,15 @@ private constructor(
     @NoAutoDetect
     class NotificationsOfChange
     private constructor(
-        private val createdAt: JsonField<OffsetDateTime>,
         private val changeCode: JsonField<ChangeCode>,
         private val correctedData: JsonField<String>,
+        private val createdAt: JsonField<OffsetDateTime>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * notification occurred.
-         */
-        fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
         /**
          * The required type of change that is being signaled by the receiving financial
@@ -633,7 +627,7 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * notification occurred.
          */
-        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+        fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
         /**
          * The required type of change that is being signaled by the receiving financial
@@ -650,15 +644,21 @@ private constructor(
          */
         @JsonProperty("corrected_data") @ExcludeMissing fun _correctedData() = correctedData
 
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * notification occurred.
+         */
+        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun validate(): NotificationsOfChange = apply {
             if (!validated) {
-                createdAt()
                 changeCode()
                 correctedData()
+                createdAt()
                 validated = true
             }
         }
@@ -671,9 +671,9 @@ private constructor(
             }
 
             return other is NotificationsOfChange &&
-                this.createdAt == other.createdAt &&
                 this.changeCode == other.changeCode &&
                 this.correctedData == other.correctedData &&
+                this.createdAt == other.createdAt &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -681,9 +681,9 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        createdAt,
                         changeCode,
                         correctedData,
+                        createdAt,
                         additionalProperties,
                     )
             }
@@ -691,7 +691,7 @@ private constructor(
         }
 
         override fun toString() =
-            "NotificationsOfChange{createdAt=$createdAt, changeCode=$changeCode, correctedData=$correctedData, additionalProperties=$additionalProperties}"
+            "NotificationsOfChange{changeCode=$changeCode, correctedData=$correctedData, createdAt=$createdAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -700,33 +700,17 @@ private constructor(
 
         class Builder {
 
-            private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var changeCode: JsonField<ChangeCode> = JsonMissing.of()
             private var correctedData: JsonField<String> = JsonMissing.of()
+            private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(notificationsOfChange: NotificationsOfChange) = apply {
-                this.createdAt = notificationsOfChange.createdAt
                 this.changeCode = notificationsOfChange.changeCode
                 this.correctedData = notificationsOfChange.correctedData
+                this.createdAt = notificationsOfChange.createdAt
                 additionalProperties(notificationsOfChange.additionalProperties)
-            }
-
-            /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * notification occurred.
-             */
-            fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-            /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * notification occurred.
-             */
-            @JsonProperty("created_at")
-            @ExcludeMissing
-            fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
-                this.createdAt = createdAt
             }
 
             /**
@@ -767,6 +751,22 @@ private constructor(
                 this.correctedData = correctedData
             }
 
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * notification occurred.
+             */
+            fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * notification occurred.
+             */
+            @JsonProperty("created_at")
+            @ExcludeMissing
+            fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                this.createdAt = createdAt
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -783,9 +783,9 @@ private constructor(
 
             fun build(): NotificationsOfChange =
                 NotificationsOfChange(
-                    createdAt,
                     changeCode,
                     correctedData,
+                    createdAt,
                     additionalProperties.toUnmodifiable(),
                 )
         }

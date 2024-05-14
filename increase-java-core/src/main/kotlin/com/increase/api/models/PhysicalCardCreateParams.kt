@@ -436,18 +436,18 @@ constructor(
     @NoAutoDetect
     class Shipment
     private constructor(
-        private val method: Method?,
         private val address: Address?,
+        private val method: Method?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
 
-        /** The shipping method to use. */
-        @JsonProperty("method") fun method(): Method? = method
-
         /** The address to where the card should be shipped. */
         @JsonProperty("address") fun address(): Address? = address
+
+        /** The shipping method to use. */
+        @JsonProperty("method") fun method(): Method? = method
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -461,8 +461,8 @@ constructor(
             }
 
             return other is Shipment &&
-                this.method == other.method &&
                 this.address == other.address &&
+                this.method == other.method &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -470,8 +470,8 @@ constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        method,
                         address,
+                        method,
                         additionalProperties,
                     )
             }
@@ -479,7 +479,7 @@ constructor(
         }
 
         override fun toString() =
-            "Shipment{method=$method, address=$address, additionalProperties=$additionalProperties}"
+            "Shipment{address=$address, method=$method, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -488,23 +488,23 @@ constructor(
 
         class Builder {
 
-            private var method: Method? = null
             private var address: Address? = null
+            private var method: Method? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(shipment: Shipment) = apply {
-                this.method = shipment.method
                 this.address = shipment.address
+                this.method = shipment.method
                 additionalProperties(shipment.additionalProperties)
             }
-
-            /** The shipping method to use. */
-            @JsonProperty("method") fun method(method: Method) = apply { this.method = method }
 
             /** The address to where the card should be shipped. */
             @JsonProperty("address")
             fun address(address: Address) = apply { this.address = address }
+
+            /** The shipping method to use. */
+            @JsonProperty("method") fun method(method: Method) = apply { this.method = method }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -522,8 +522,8 @@ constructor(
 
             fun build(): Shipment =
                 Shipment(
-                    checkNotNull(method) { "`method` is required but was not set" },
                     checkNotNull(address) { "`address` is required but was not set" },
+                    checkNotNull(method) { "`method` is required but was not set" },
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -533,21 +533,21 @@ constructor(
         @NoAutoDetect
         class Address
         private constructor(
-            private val name: String?,
+            private val city: String?,
             private val line1: String?,
             private val line2: String?,
             private val line3: String?,
+            private val name: String?,
             private val phoneNumber: String?,
-            private val city: String?,
-            private val state: String?,
             private val postalCode: String?,
+            private val state: String?,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
             private var hashCode: Int = 0
 
-            /** The name of the recipient. */
-            @JsonProperty("name") fun name(): String? = name
+            /** The city of the shipping address. */
+            @JsonProperty("city") fun city(): String? = city
 
             /** The first line of the shipping address. */
             @JsonProperty("line1") fun line1(): String? = line1
@@ -558,17 +558,17 @@ constructor(
             /** The third line of the shipping address. */
             @JsonProperty("line3") fun line3(): String? = line3
 
+            /** The name of the recipient. */
+            @JsonProperty("name") fun name(): String? = name
+
             /** The phone number of the recipient. */
             @JsonProperty("phone_number") fun phoneNumber(): String? = phoneNumber
 
-            /** The city of the shipping address. */
-            @JsonProperty("city") fun city(): String? = city
+            /** The postal code of the shipping address. */
+            @JsonProperty("postal_code") fun postalCode(): String? = postalCode
 
             /** The US state of the shipping address. */
             @JsonProperty("state") fun state(): String? = state
-
-            /** The postal code of the shipping address. */
-            @JsonProperty("postal_code") fun postalCode(): String? = postalCode
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -582,14 +582,14 @@ constructor(
                 }
 
                 return other is Address &&
-                    this.name == other.name &&
+                    this.city == other.city &&
                     this.line1 == other.line1 &&
                     this.line2 == other.line2 &&
                     this.line3 == other.line3 &&
+                    this.name == other.name &&
                     this.phoneNumber == other.phoneNumber &&
-                    this.city == other.city &&
-                    this.state == other.state &&
                     this.postalCode == other.postalCode &&
+                    this.state == other.state &&
                     this.additionalProperties == other.additionalProperties
             }
 
@@ -597,14 +597,14 @@ constructor(
                 if (hashCode == 0) {
                     hashCode =
                         Objects.hash(
-                            name,
+                            city,
                             line1,
                             line2,
                             line3,
+                            name,
                             phoneNumber,
-                            city,
-                            state,
                             postalCode,
+                            state,
                             additionalProperties,
                         )
                 }
@@ -612,7 +612,7 @@ constructor(
             }
 
             override fun toString() =
-                "Address{name=$name, line1=$line1, line2=$line2, line3=$line3, phoneNumber=$phoneNumber, city=$city, state=$state, postalCode=$postalCode, additionalProperties=$additionalProperties}"
+                "Address{city=$city, line1=$line1, line2=$line2, line3=$line3, name=$name, phoneNumber=$phoneNumber, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -621,31 +621,31 @@ constructor(
 
             class Builder {
 
-                private var name: String? = null
+                private var city: String? = null
                 private var line1: String? = null
                 private var line2: String? = null
                 private var line3: String? = null
+                private var name: String? = null
                 private var phoneNumber: String? = null
-                private var city: String? = null
-                private var state: String? = null
                 private var postalCode: String? = null
+                private var state: String? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
                 internal fun from(address: Address) = apply {
-                    this.name = address.name
+                    this.city = address.city
                     this.line1 = address.line1
                     this.line2 = address.line2
                     this.line3 = address.line3
+                    this.name = address.name
                     this.phoneNumber = address.phoneNumber
-                    this.city = address.city
-                    this.state = address.state
                     this.postalCode = address.postalCode
+                    this.state = address.state
                     additionalProperties(address.additionalProperties)
                 }
 
-                /** The name of the recipient. */
-                @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+                /** The city of the shipping address. */
+                @JsonProperty("city") fun city(city: String) = apply { this.city = city }
 
                 /** The first line of the shipping address. */
                 @JsonProperty("line1") fun line1(line1: String) = apply { this.line1 = line1 }
@@ -656,19 +656,19 @@ constructor(
                 /** The third line of the shipping address. */
                 @JsonProperty("line3") fun line3(line3: String) = apply { this.line3 = line3 }
 
+                /** The name of the recipient. */
+                @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+
                 /** The phone number of the recipient. */
                 @JsonProperty("phone_number")
                 fun phoneNumber(phoneNumber: String) = apply { this.phoneNumber = phoneNumber }
 
-                /** The city of the shipping address. */
-                @JsonProperty("city") fun city(city: String) = apply { this.city = city }
-
-                /** The US state of the shipping address. */
-                @JsonProperty("state") fun state(state: String) = apply { this.state = state }
-
                 /** The postal code of the shipping address. */
                 @JsonProperty("postal_code")
                 fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
+
+                /** The US state of the shipping address. */
+                @JsonProperty("state") fun state(state: String) = apply { this.state = state }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -687,14 +687,14 @@ constructor(
 
                 fun build(): Address =
                     Address(
-                        checkNotNull(name) { "`name` is required but was not set" },
+                        checkNotNull(city) { "`city` is required but was not set" },
                         checkNotNull(line1) { "`line1` is required but was not set" },
                         line2,
                         line3,
+                        checkNotNull(name) { "`name` is required but was not set" },
                         phoneNumber,
-                        checkNotNull(city) { "`city` is required but was not set" },
-                        checkNotNull(state) { "`state` is required but was not set" },
                         checkNotNull(postalCode) { "`postalCode` is required but was not set" },
+                        checkNotNull(state) { "`state` is required but was not set" },
                         additionalProperties.toUnmodifiable(),
                     )
             }

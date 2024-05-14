@@ -27,22 +27,22 @@ import java.util.Optional
 @NoAutoDetect
 class InboundCheckDeposit
 private constructor(
-    private val id: JsonField<String>,
-    private val amount: JsonField<Long>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val currency: JsonField<Currency>,
-    private val status: JsonField<Status>,
+    private val acceptedAt: JsonField<OffsetDateTime>,
     private val accountId: JsonField<String>,
     private val accountNumberId: JsonField<String>,
-    private val checkTransferId: JsonField<String>,
-    private val frontImageFileId: JsonField<String>,
+    private val amount: JsonField<Long>,
     private val backImageFileId: JsonField<String>,
-    private val transactionId: JsonField<String>,
-    private val declinedTransactionId: JsonField<String>,
-    private val acceptedAt: JsonField<OffsetDateTime>,
-    private val declinedAt: JsonField<OffsetDateTime>,
     private val bankOfFirstDepositRoutingNumber: JsonField<String>,
     private val checkNumber: JsonField<String>,
+    private val checkTransferId: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val currency: JsonField<Currency>,
+    private val declinedAt: JsonField<OffsetDateTime>,
+    private val declinedTransactionId: JsonField<String>,
+    private val frontImageFileId: JsonField<String>,
+    private val id: JsonField<String>,
+    private val status: JsonField<Status>,
+    private val transactionId: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -51,26 +51,12 @@ private constructor(
 
     private var hashCode: Int = 0
 
-    /** The deposit's identifier. */
-    fun id(): String = id.getRequired("id")
-
     /**
-     * The deposited amount in the minor unit of the destination account currency. For dollars, for
-     * example, this is cents.
+     * If the Inbound Check Deposit was accepted, the
+     * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took place.
      */
-    fun amount(): Long = amount.getRequired("amount")
-
-    /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the deposit was
-     * attempted.
-     */
-    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-    /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the deposit. */
-    fun currency(): Currency = currency.getRequired("currency")
-
-    /** The status of the Inbound Check Deposit. */
-    fun status(): Status = status.getRequired("status")
+    fun acceptedAt(): Optional<OffsetDateTime> =
+        Optional.ofNullable(acceptedAt.getNullable("accepted_at"))
 
     /** The Account the check is being deposited against. */
     fun accountId(): String = accountId.getRequired("account_id")
@@ -79,45 +65,15 @@ private constructor(
     fun accountNumberId(): Optional<String> =
         Optional.ofNullable(accountNumberId.getNullable("account_number_id"))
 
-    /** If this deposit is for an existing Check Transfer, the identifier of that Check Transfer. */
-    fun checkTransferId(): Optional<String> =
-        Optional.ofNullable(checkTransferId.getNullable("check_transfer_id"))
-
-    /** The ID for the File containing the image of the front of the check. */
-    fun frontImageFileId(): Optional<String> =
-        Optional.ofNullable(frontImageFileId.getNullable("front_image_file_id"))
+    /**
+     * The deposited amount in the minor unit of the destination account currency. For dollars, for
+     * example, this is cents.
+     */
+    fun amount(): Long = amount.getRequired("amount")
 
     /** The ID for the File containing the image of the back of the check. */
     fun backImageFileId(): Optional<String> =
         Optional.ofNullable(backImageFileId.getNullable("back_image_file_id"))
-
-    /**
-     * If the deposit attempt has been accepted, the identifier of the Transaction object created as
-     * a result of the successful deposit.
-     */
-    fun transactionId(): Optional<String> =
-        Optional.ofNullable(transactionId.getNullable("transaction_id"))
-
-    /**
-     * If the deposit attempt has been rejected, the identifier of the Declined Transaction object
-     * created as a result of the failed deposit.
-     */
-    fun declinedTransactionId(): Optional<String> =
-        Optional.ofNullable(declinedTransactionId.getNullable("declined_transaction_id"))
-
-    /**
-     * If the Inbound Check Deposit was accepted, the
-     * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took place.
-     */
-    fun acceptedAt(): Optional<OffsetDateTime> =
-        Optional.ofNullable(acceptedAt.getNullable("accepted_at"))
-
-    /**
-     * If the Inbound Check Deposit was declined, the
-     * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took place.
-     */
-    fun declinedAt(): Optional<OffsetDateTime> =
-        Optional.ofNullable(declinedAt.getNullable("declined_at"))
 
     /**
      * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank depositing
@@ -133,61 +89,55 @@ private constructor(
     fun checkNumber(): Optional<String> =
         Optional.ofNullable(checkNumber.getNullable("check_number"))
 
-    /**
-     * A constant representing the object's type. For this resource it will always be
-     * `inbound_check_deposit`.
-     */
-    fun type(): Type = type.getRequired("type")
-
-    /** The deposit's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
-    /**
-     * The deposited amount in the minor unit of the destination account currency. For dollars, for
-     * example, this is cents.
-     */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+    /** If this deposit is for an existing Check Transfer, the identifier of that Check Transfer. */
+    fun checkTransferId(): Optional<String> =
+        Optional.ofNullable(checkTransferId.getNullable("check_transfer_id"))
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the deposit was
      * attempted.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the deposit. */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
-
-    /** The status of the Inbound Check Deposit. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
-
-    /** The Account the check is being deposited against. */
-    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
-
-    /** The Account Number the check is being deposited against. */
-    @JsonProperty("account_number_id") @ExcludeMissing fun _accountNumberId() = accountNumberId
-
-    /** If this deposit is for an existing Check Transfer, the identifier of that Check Transfer. */
-    @JsonProperty("check_transfer_id") @ExcludeMissing fun _checkTransferId() = checkTransferId
-
-    /** The ID for the File containing the image of the front of the check. */
-    @JsonProperty("front_image_file_id") @ExcludeMissing fun _frontImageFileId() = frontImageFileId
-
-    /** The ID for the File containing the image of the back of the check. */
-    @JsonProperty("back_image_file_id") @ExcludeMissing fun _backImageFileId() = backImageFileId
+    fun currency(): Currency = currency.getRequired("currency")
 
     /**
-     * If the deposit attempt has been accepted, the identifier of the Transaction object created as
-     * a result of the successful deposit.
+     * If the Inbound Check Deposit was declined, the
+     * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took place.
      */
-    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+    fun declinedAt(): Optional<OffsetDateTime> =
+        Optional.ofNullable(declinedAt.getNullable("declined_at"))
 
     /**
      * If the deposit attempt has been rejected, the identifier of the Declined Transaction object
      * created as a result of the failed deposit.
      */
-    @JsonProperty("declined_transaction_id")
-    @ExcludeMissing
-    fun _declinedTransactionId() = declinedTransactionId
+    fun declinedTransactionId(): Optional<String> =
+        Optional.ofNullable(declinedTransactionId.getNullable("declined_transaction_id"))
+
+    /** The ID for the File containing the image of the front of the check. */
+    fun frontImageFileId(): Optional<String> =
+        Optional.ofNullable(frontImageFileId.getNullable("front_image_file_id"))
+
+    /** The deposit's identifier. */
+    fun id(): String = id.getRequired("id")
+
+    /** The status of the Inbound Check Deposit. */
+    fun status(): Status = status.getRequired("status")
+
+    /**
+     * If the deposit attempt has been accepted, the identifier of the Transaction object created as
+     * a result of the successful deposit.
+     */
+    fun transactionId(): Optional<String> =
+        Optional.ofNullable(transactionId.getNullable("transaction_id"))
+
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `inbound_check_deposit`.
+     */
+    fun type(): Type = type.getRequired("type")
 
     /**
      * If the Inbound Check Deposit was accepted, the
@@ -195,11 +145,20 @@ private constructor(
      */
     @JsonProperty("accepted_at") @ExcludeMissing fun _acceptedAt() = acceptedAt
 
+    /** The Account the check is being deposited against. */
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+
+    /** The Account Number the check is being deposited against. */
+    @JsonProperty("account_number_id") @ExcludeMissing fun _accountNumberId() = accountNumberId
+
     /**
-     * If the Inbound Check Deposit was declined, the
-     * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took place.
+     * The deposited amount in the minor unit of the destination account currency. For dollars, for
+     * example, this is cents.
      */
-    @JsonProperty("declined_at") @ExcludeMissing fun _declinedAt() = declinedAt
+    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+    /** The ID for the File containing the image of the back of the check. */
+    @JsonProperty("back_image_file_id") @ExcludeMissing fun _backImageFileId() = backImageFileId
 
     /**
      * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank depositing
@@ -213,6 +172,47 @@ private constructor(
     /** The check number printed on the check being deposited. */
     @JsonProperty("check_number") @ExcludeMissing fun _checkNumber() = checkNumber
 
+    /** If this deposit is for an existing Check Transfer, the identifier of that Check Transfer. */
+    @JsonProperty("check_transfer_id") @ExcludeMissing fun _checkTransferId() = checkTransferId
+
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the deposit was
+     * attempted.
+     */
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+    /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the deposit. */
+    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+
+    /**
+     * If the Inbound Check Deposit was declined, the
+     * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took place.
+     */
+    @JsonProperty("declined_at") @ExcludeMissing fun _declinedAt() = declinedAt
+
+    /**
+     * If the deposit attempt has been rejected, the identifier of the Declined Transaction object
+     * created as a result of the failed deposit.
+     */
+    @JsonProperty("declined_transaction_id")
+    @ExcludeMissing
+    fun _declinedTransactionId() = declinedTransactionId
+
+    /** The ID for the File containing the image of the front of the check. */
+    @JsonProperty("front_image_file_id") @ExcludeMissing fun _frontImageFileId() = frontImageFileId
+
+    /** The deposit's identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+    /** The status of the Inbound Check Deposit. */
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
+
+    /**
+     * If the deposit attempt has been accepted, the identifier of the Transaction object created as
+     * a result of the successful deposit.
+     */
+    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+
     /**
      * A constant representing the object's type. For this resource it will always be
      * `inbound_check_deposit`.
@@ -225,22 +225,22 @@ private constructor(
 
     fun validate(): InboundCheckDeposit = apply {
         if (!validated) {
-            id()
-            amount()
-            createdAt()
-            currency()
-            status()
+            acceptedAt()
             accountId()
             accountNumberId()
-            checkTransferId()
-            frontImageFileId()
+            amount()
             backImageFileId()
-            transactionId()
-            declinedTransactionId()
-            acceptedAt()
-            declinedAt()
             bankOfFirstDepositRoutingNumber()
             checkNumber()
+            checkTransferId()
+            createdAt()
+            currency()
+            declinedAt()
+            declinedTransactionId()
+            frontImageFileId()
+            id()
+            status()
+            transactionId()
             type()
             validated = true
         }
@@ -254,22 +254,22 @@ private constructor(
         }
 
         return other is InboundCheckDeposit &&
-            this.id == other.id &&
-            this.amount == other.amount &&
-            this.createdAt == other.createdAt &&
-            this.currency == other.currency &&
-            this.status == other.status &&
+            this.acceptedAt == other.acceptedAt &&
             this.accountId == other.accountId &&
             this.accountNumberId == other.accountNumberId &&
-            this.checkTransferId == other.checkTransferId &&
-            this.frontImageFileId == other.frontImageFileId &&
+            this.amount == other.amount &&
             this.backImageFileId == other.backImageFileId &&
-            this.transactionId == other.transactionId &&
-            this.declinedTransactionId == other.declinedTransactionId &&
-            this.acceptedAt == other.acceptedAt &&
-            this.declinedAt == other.declinedAt &&
             this.bankOfFirstDepositRoutingNumber == other.bankOfFirstDepositRoutingNumber &&
             this.checkNumber == other.checkNumber &&
+            this.checkTransferId == other.checkTransferId &&
+            this.createdAt == other.createdAt &&
+            this.currency == other.currency &&
+            this.declinedAt == other.declinedAt &&
+            this.declinedTransactionId == other.declinedTransactionId &&
+            this.frontImageFileId == other.frontImageFileId &&
+            this.id == other.id &&
+            this.status == other.status &&
+            this.transactionId == other.transactionId &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -278,22 +278,22 @@ private constructor(
         if (hashCode == 0) {
             hashCode =
                 Objects.hash(
-                    id,
-                    amount,
-                    createdAt,
-                    currency,
-                    status,
+                    acceptedAt,
                     accountId,
                     accountNumberId,
-                    checkTransferId,
-                    frontImageFileId,
+                    amount,
                     backImageFileId,
-                    transactionId,
-                    declinedTransactionId,
-                    acceptedAt,
-                    declinedAt,
                     bankOfFirstDepositRoutingNumber,
                     checkNumber,
+                    checkTransferId,
+                    createdAt,
+                    currency,
+                    declinedAt,
+                    declinedTransactionId,
+                    frontImageFileId,
+                    id,
+                    status,
+                    transactionId,
                     type,
                     additionalProperties,
                 )
@@ -302,7 +302,7 @@ private constructor(
     }
 
     override fun toString() =
-        "InboundCheckDeposit{id=$id, amount=$amount, createdAt=$createdAt, currency=$currency, status=$status, accountId=$accountId, accountNumberId=$accountNumberId, checkTransferId=$checkTransferId, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, transactionId=$transactionId, declinedTransactionId=$declinedTransactionId, acceptedAt=$acceptedAt, declinedAt=$declinedAt, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, checkNumber=$checkNumber, type=$type, additionalProperties=$additionalProperties}"
+        "InboundCheckDeposit{acceptedAt=$acceptedAt, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, backImageFileId=$backImageFileId, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, checkNumber=$checkNumber, checkTransferId=$checkTransferId, createdAt=$createdAt, currency=$currency, declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, frontImageFileId=$frontImageFileId, id=$id, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -311,97 +311,65 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var amount: JsonField<Long> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var currency: JsonField<Currency> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
+        private var acceptedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var accountId: JsonField<String> = JsonMissing.of()
         private var accountNumberId: JsonField<String> = JsonMissing.of()
-        private var checkTransferId: JsonField<String> = JsonMissing.of()
-        private var frontImageFileId: JsonField<String> = JsonMissing.of()
+        private var amount: JsonField<Long> = JsonMissing.of()
         private var backImageFileId: JsonField<String> = JsonMissing.of()
-        private var transactionId: JsonField<String> = JsonMissing.of()
-        private var declinedTransactionId: JsonField<String> = JsonMissing.of()
-        private var acceptedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var declinedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var bankOfFirstDepositRoutingNumber: JsonField<String> = JsonMissing.of()
         private var checkNumber: JsonField<String> = JsonMissing.of()
+        private var checkTransferId: JsonField<String> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var currency: JsonField<Currency> = JsonMissing.of()
+        private var declinedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var declinedTransactionId: JsonField<String> = JsonMissing.of()
+        private var frontImageFileId: JsonField<String> = JsonMissing.of()
+        private var id: JsonField<String> = JsonMissing.of()
+        private var status: JsonField<Status> = JsonMissing.of()
+        private var transactionId: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(inboundCheckDeposit: InboundCheckDeposit) = apply {
-            this.id = inboundCheckDeposit.id
-            this.amount = inboundCheckDeposit.amount
-            this.createdAt = inboundCheckDeposit.createdAt
-            this.currency = inboundCheckDeposit.currency
-            this.status = inboundCheckDeposit.status
+            this.acceptedAt = inboundCheckDeposit.acceptedAt
             this.accountId = inboundCheckDeposit.accountId
             this.accountNumberId = inboundCheckDeposit.accountNumberId
-            this.checkTransferId = inboundCheckDeposit.checkTransferId
-            this.frontImageFileId = inboundCheckDeposit.frontImageFileId
+            this.amount = inboundCheckDeposit.amount
             this.backImageFileId = inboundCheckDeposit.backImageFileId
-            this.transactionId = inboundCheckDeposit.transactionId
-            this.declinedTransactionId = inboundCheckDeposit.declinedTransactionId
-            this.acceptedAt = inboundCheckDeposit.acceptedAt
-            this.declinedAt = inboundCheckDeposit.declinedAt
             this.bankOfFirstDepositRoutingNumber =
                 inboundCheckDeposit.bankOfFirstDepositRoutingNumber
             this.checkNumber = inboundCheckDeposit.checkNumber
+            this.checkTransferId = inboundCheckDeposit.checkTransferId
+            this.createdAt = inboundCheckDeposit.createdAt
+            this.currency = inboundCheckDeposit.currency
+            this.declinedAt = inboundCheckDeposit.declinedAt
+            this.declinedTransactionId = inboundCheckDeposit.declinedTransactionId
+            this.frontImageFileId = inboundCheckDeposit.frontImageFileId
+            this.id = inboundCheckDeposit.id
+            this.status = inboundCheckDeposit.status
+            this.transactionId = inboundCheckDeposit.transactionId
             this.type = inboundCheckDeposit.type
             additionalProperties(inboundCheckDeposit.additionalProperties)
         }
 
-        /** The deposit's identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The deposit's identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        /**
+         * If the Inbound Check Deposit was accepted, the
+         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took
+         * place.
+         */
+        fun acceptedAt(acceptedAt: OffsetDateTime) = acceptedAt(JsonField.of(acceptedAt))
 
         /**
-         * The deposited amount in the minor unit of the destination account currency. For dollars,
-         * for example, this is cents.
+         * If the Inbound Check Deposit was accepted, the
+         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took
+         * place.
          */
-        fun amount(amount: Long) = amount(JsonField.of(amount))
-
-        /**
-         * The deposited amount in the minor unit of the destination account currency. For dollars,
-         * for example, this is cents.
-         */
-        @JsonProperty("amount")
+        @JsonProperty("accepted_at")
         @ExcludeMissing
-        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the deposit
-         * was attempted.
-         */
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the deposit
-         * was attempted.
-         */
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the deposit. */
-        fun currency(currency: Currency) = currency(JsonField.of(currency))
-
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the deposit. */
-        @JsonProperty("currency")
-        @ExcludeMissing
-        fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
-
-        /** The status of the Inbound Check Deposit. */
-        fun status(status: Status) = status(JsonField.of(status))
-
-        /** The status of the Inbound Check Deposit. */
-        @JsonProperty("status")
-        @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply { this.status = status }
+        fun acceptedAt(acceptedAt: JsonField<OffsetDateTime>) = apply {
+            this.acceptedAt = acceptedAt
+        }
 
         /** The Account the check is being deposited against. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
@@ -423,30 +391,18 @@ private constructor(
         }
 
         /**
-         * If this deposit is for an existing Check Transfer, the identifier of that Check Transfer.
+         * The deposited amount in the minor unit of the destination account currency. For dollars,
+         * for example, this is cents.
          */
-        fun checkTransferId(checkTransferId: String) =
-            checkTransferId(JsonField.of(checkTransferId))
+        fun amount(amount: Long) = amount(JsonField.of(amount))
 
         /**
-         * If this deposit is for an existing Check Transfer, the identifier of that Check Transfer.
+         * The deposited amount in the minor unit of the destination account currency. For dollars,
+         * for example, this is cents.
          */
-        @JsonProperty("check_transfer_id")
+        @JsonProperty("amount")
         @ExcludeMissing
-        fun checkTransferId(checkTransferId: JsonField<String>) = apply {
-            this.checkTransferId = checkTransferId
-        }
-
-        /** The ID for the File containing the image of the front of the check. */
-        fun frontImageFileId(frontImageFileId: String) =
-            frontImageFileId(JsonField.of(frontImageFileId))
-
-        /** The ID for the File containing the image of the front of the check. */
-        @JsonProperty("front_image_file_id")
-        @ExcludeMissing
-        fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
-            this.frontImageFileId = frontImageFileId
-        }
+        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /** The ID for the File containing the image of the back of the check. */
         fun backImageFileId(backImageFileId: String) =
@@ -457,75 +413,6 @@ private constructor(
         @ExcludeMissing
         fun backImageFileId(backImageFileId: JsonField<String>) = apply {
             this.backImageFileId = backImageFileId
-        }
-
-        /**
-         * If the deposit attempt has been accepted, the identifier of the Transaction object
-         * created as a result of the successful deposit.
-         */
-        fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
-
-        /**
-         * If the deposit attempt has been accepted, the identifier of the Transaction object
-         * created as a result of the successful deposit.
-         */
-        @JsonProperty("transaction_id")
-        @ExcludeMissing
-        fun transactionId(transactionId: JsonField<String>) = apply {
-            this.transactionId = transactionId
-        }
-
-        /**
-         * If the deposit attempt has been rejected, the identifier of the Declined Transaction
-         * object created as a result of the failed deposit.
-         */
-        fun declinedTransactionId(declinedTransactionId: String) =
-            declinedTransactionId(JsonField.of(declinedTransactionId))
-
-        /**
-         * If the deposit attempt has been rejected, the identifier of the Declined Transaction
-         * object created as a result of the failed deposit.
-         */
-        @JsonProperty("declined_transaction_id")
-        @ExcludeMissing
-        fun declinedTransactionId(declinedTransactionId: JsonField<String>) = apply {
-            this.declinedTransactionId = declinedTransactionId
-        }
-
-        /**
-         * If the Inbound Check Deposit was accepted, the
-         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took
-         * place.
-         */
-        fun acceptedAt(acceptedAt: OffsetDateTime) = acceptedAt(JsonField.of(acceptedAt))
-
-        /**
-         * If the Inbound Check Deposit was accepted, the
-         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took
-         * place.
-         */
-        @JsonProperty("accepted_at")
-        @ExcludeMissing
-        fun acceptedAt(acceptedAt: JsonField<OffsetDateTime>) = apply {
-            this.acceptedAt = acceptedAt
-        }
-
-        /**
-         * If the Inbound Check Deposit was declined, the
-         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took
-         * place.
-         */
-        fun declinedAt(declinedAt: OffsetDateTime) = declinedAt(JsonField.of(declinedAt))
-
-        /**
-         * If the Inbound Check Deposit was declined, the
-         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took
-         * place.
-         */
-        @JsonProperty("declined_at")
-        @ExcludeMissing
-        fun declinedAt(declinedAt: JsonField<OffsetDateTime>) = apply {
-            this.declinedAt = declinedAt
         }
 
         /**
@@ -557,6 +444,119 @@ private constructor(
         fun checkNumber(checkNumber: JsonField<String>) = apply { this.checkNumber = checkNumber }
 
         /**
+         * If this deposit is for an existing Check Transfer, the identifier of that Check Transfer.
+         */
+        fun checkTransferId(checkTransferId: String) =
+            checkTransferId(JsonField.of(checkTransferId))
+
+        /**
+         * If this deposit is for an existing Check Transfer, the identifier of that Check Transfer.
+         */
+        @JsonProperty("check_transfer_id")
+        @ExcludeMissing
+        fun checkTransferId(checkTransferId: JsonField<String>) = apply {
+            this.checkTransferId = checkTransferId
+        }
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the deposit
+         * was attempted.
+         */
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the deposit
+         * was attempted.
+         */
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the deposit. */
+        fun currency(currency: Currency) = currency(JsonField.of(currency))
+
+        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the deposit. */
+        @JsonProperty("currency")
+        @ExcludeMissing
+        fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+        /**
+         * If the Inbound Check Deposit was declined, the
+         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took
+         * place.
+         */
+        fun declinedAt(declinedAt: OffsetDateTime) = declinedAt(JsonField.of(declinedAt))
+
+        /**
+         * If the Inbound Check Deposit was declined, the
+         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took
+         * place.
+         */
+        @JsonProperty("declined_at")
+        @ExcludeMissing
+        fun declinedAt(declinedAt: JsonField<OffsetDateTime>) = apply {
+            this.declinedAt = declinedAt
+        }
+
+        /**
+         * If the deposit attempt has been rejected, the identifier of the Declined Transaction
+         * object created as a result of the failed deposit.
+         */
+        fun declinedTransactionId(declinedTransactionId: String) =
+            declinedTransactionId(JsonField.of(declinedTransactionId))
+
+        /**
+         * If the deposit attempt has been rejected, the identifier of the Declined Transaction
+         * object created as a result of the failed deposit.
+         */
+        @JsonProperty("declined_transaction_id")
+        @ExcludeMissing
+        fun declinedTransactionId(declinedTransactionId: JsonField<String>) = apply {
+            this.declinedTransactionId = declinedTransactionId
+        }
+
+        /** The ID for the File containing the image of the front of the check. */
+        fun frontImageFileId(frontImageFileId: String) =
+            frontImageFileId(JsonField.of(frontImageFileId))
+
+        /** The ID for the File containing the image of the front of the check. */
+        @JsonProperty("front_image_file_id")
+        @ExcludeMissing
+        fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
+            this.frontImageFileId = frontImageFileId
+        }
+
+        /** The deposit's identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The deposit's identifier. */
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /** The status of the Inbound Check Deposit. */
+        fun status(status: Status) = status(JsonField.of(status))
+
+        /** The status of the Inbound Check Deposit. */
+        @JsonProperty("status")
+        @ExcludeMissing
+        fun status(status: JsonField<Status>) = apply { this.status = status }
+
+        /**
+         * If the deposit attempt has been accepted, the identifier of the Transaction object
+         * created as a result of the successful deposit.
+         */
+        fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
+
+        /**
+         * If the deposit attempt has been accepted, the identifier of the Transaction object
+         * created as a result of the successful deposit.
+         */
+        @JsonProperty("transaction_id")
+        @ExcludeMissing
+        fun transactionId(transactionId: JsonField<String>) = apply {
+            this.transactionId = transactionId
+        }
+
+        /**
          * A constant representing the object's type. For this resource it will always be
          * `inbound_check_deposit`.
          */
@@ -586,22 +586,22 @@ private constructor(
 
         fun build(): InboundCheckDeposit =
             InboundCheckDeposit(
-                id,
-                amount,
-                createdAt,
-                currency,
-                status,
+                acceptedAt,
                 accountId,
                 accountNumberId,
-                checkTransferId,
-                frontImageFileId,
+                amount,
                 backImageFileId,
-                transactionId,
-                declinedTransactionId,
-                acceptedAt,
-                declinedAt,
                 bankOfFirstDepositRoutingNumber,
                 checkNumber,
+                checkTransferId,
+                createdAt,
+                currency,
+                declinedAt,
+                declinedTransactionId,
+                frontImageFileId,
+                id,
+                status,
+                transactionId,
                 type,
                 additionalProperties.toUnmodifiable(),
             )

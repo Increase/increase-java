@@ -29,12 +29,12 @@ import java.util.Optional
 @NoAutoDetect
 class IntrafiAccountEnrollment
 private constructor(
-    private val id: JsonField<String>,
     private val accountId: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val intrafiId: JsonField<String>,
-    private val type: JsonField<Type>,
+    private val id: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
+    private val intrafiId: JsonField<String>,
+    private val status: JsonField<Status>,
+    private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -42,29 +42,11 @@ private constructor(
 
     private var hashCode: Int = 0
 
-    /** The identifier of this enrollment at IntraFi. */
-    fun id(): String = id.getRequired("id")
-
     /** The identifier of the Increase Account being swept into the network. */
     fun accountId(): String = accountId.getRequired("account_id")
 
-    /**
-     * The status of the account in the network. An account takes about one business day to go from
-     * `pending_enrolling` to `enrolled`.
-     */
-    fun status(): Status = status.getRequired("status")
-
-    /**
-     * The identifier of the account in IntraFi's system. This identifier will be printed on any
-     * IntraFi statements or documents.
-     */
-    fun intrafiId(): String = intrafiId.getRequired("intrafi_id")
-
-    /**
-     * A constant representing the object's type. For this resource it will always be
-     * `intrafi_account_enrollment`.
-     */
-    fun type(): Type = type.getRequired("type")
+    /** The identifier of this enrollment at IntraFi. */
+    fun id(): String = id.getRequired("id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -74,29 +56,29 @@ private constructor(
     fun idempotencyKey(): Optional<String> =
         Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
-    /** The identifier of this enrollment at IntraFi. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
-    /** The identifier of the Increase Account being swept into the network. */
-    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+    /**
+     * The identifier of the account in IntraFi's system. This identifier will be printed on any
+     * IntraFi statements or documents.
+     */
+    fun intrafiId(): String = intrafiId.getRequired("intrafi_id")
 
     /**
      * The status of the account in the network. An account takes about one business day to go from
      * `pending_enrolling` to `enrolled`.
      */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
-
-    /**
-     * The identifier of the account in IntraFi's system. This identifier will be printed on any
-     * IntraFi statements or documents.
-     */
-    @JsonProperty("intrafi_id") @ExcludeMissing fun _intrafiId() = intrafiId
+    fun status(): Status = status.getRequired("status")
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `intrafi_account_enrollment`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    fun type(): Type = type.getRequired("type")
+
+    /** The identifier of the Increase Account being swept into the network. */
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+
+    /** The identifier of this enrollment at IntraFi. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -105,18 +87,36 @@ private constructor(
      */
     @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
 
+    /**
+     * The identifier of the account in IntraFi's system. This identifier will be printed on any
+     * IntraFi statements or documents.
+     */
+    @JsonProperty("intrafi_id") @ExcludeMissing fun _intrafiId() = intrafiId
+
+    /**
+     * The status of the account in the network. An account takes about one business day to go from
+     * `pending_enrolling` to `enrolled`.
+     */
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
+
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `intrafi_account_enrollment`.
+     */
+    @JsonProperty("type") @ExcludeMissing fun _type() = type
+
     @JsonAnyGetter
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
     fun validate(): IntrafiAccountEnrollment = apply {
         if (!validated) {
-            id()
             accountId()
-            status()
-            intrafiId()
-            type()
+            id()
             idempotencyKey()
+            intrafiId()
+            status()
+            type()
             validated = true
         }
     }
@@ -129,12 +129,12 @@ private constructor(
         }
 
         return other is IntrafiAccountEnrollment &&
-            this.id == other.id &&
             this.accountId == other.accountId &&
-            this.status == other.status &&
-            this.intrafiId == other.intrafiId &&
-            this.type == other.type &&
+            this.id == other.id &&
             this.idempotencyKey == other.idempotencyKey &&
+            this.intrafiId == other.intrafiId &&
+            this.status == other.status &&
+            this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -142,12 +142,12 @@ private constructor(
         if (hashCode == 0) {
             hashCode =
                 Objects.hash(
-                    id,
                     accountId,
-                    status,
-                    intrafiId,
-                    type,
+                    id,
                     idempotencyKey,
+                    intrafiId,
+                    status,
+                    type,
                     additionalProperties,
                 )
         }
@@ -155,7 +155,7 @@ private constructor(
     }
 
     override fun toString() =
-        "IntrafiAccountEnrollment{id=$id, accountId=$accountId, status=$status, intrafiId=$intrafiId, type=$type, idempotencyKey=$idempotencyKey, additionalProperties=$additionalProperties}"
+        "IntrafiAccountEnrollment{accountId=$accountId, id=$id, idempotencyKey=$idempotencyKey, intrafiId=$intrafiId, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -164,30 +164,24 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
         private var accountId: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var intrafiId: JsonField<String> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
+        private var intrafiId: JsonField<String> = JsonMissing.of()
+        private var status: JsonField<Status> = JsonMissing.of()
+        private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(intrafiAccountEnrollment: IntrafiAccountEnrollment) = apply {
-            this.id = intrafiAccountEnrollment.id
             this.accountId = intrafiAccountEnrollment.accountId
-            this.status = intrafiAccountEnrollment.status
-            this.intrafiId = intrafiAccountEnrollment.intrafiId
-            this.type = intrafiAccountEnrollment.type
+            this.id = intrafiAccountEnrollment.id
             this.idempotencyKey = intrafiAccountEnrollment.idempotencyKey
+            this.intrafiId = intrafiAccountEnrollment.intrafiId
+            this.status = intrafiAccountEnrollment.status
+            this.type = intrafiAccountEnrollment.type
             additionalProperties(intrafiAccountEnrollment.additionalProperties)
         }
-
-        /** The identifier of this enrollment at IntraFi. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The identifier of this enrollment at IntraFi. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The identifier of the Increase Account being swept into the network. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
@@ -197,47 +191,11 @@ private constructor(
         @ExcludeMissing
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
-        /**
-         * The status of the account in the network. An account takes about one business day to go
-         * from `pending_enrolling` to `enrolled`.
-         */
-        fun status(status: Status) = status(JsonField.of(status))
+        /** The identifier of this enrollment at IntraFi. */
+        fun id(id: String) = id(JsonField.of(id))
 
-        /**
-         * The status of the account in the network. An account takes about one business day to go
-         * from `pending_enrolling` to `enrolled`.
-         */
-        @JsonProperty("status")
-        @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply { this.status = status }
-
-        /**
-         * The identifier of the account in IntraFi's system. This identifier will be printed on any
-         * IntraFi statements or documents.
-         */
-        fun intrafiId(intrafiId: String) = intrafiId(JsonField.of(intrafiId))
-
-        /**
-         * The identifier of the account in IntraFi's system. This identifier will be printed on any
-         * IntraFi statements or documents.
-         */
-        @JsonProperty("intrafi_id")
-        @ExcludeMissing
-        fun intrafiId(intrafiId: JsonField<String>) = apply { this.intrafiId = intrafiId }
-
-        /**
-         * A constant representing the object's type. For this resource it will always be
-         * `intrafi_account_enrollment`.
-         */
-        fun type(type: Type) = type(JsonField.of(type))
-
-        /**
-         * A constant representing the object's type. For this resource it will always be
-         * `intrafi_account_enrollment`.
-         */
-        @JsonProperty("type")
-        @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        /** The identifier of this enrollment at IntraFi. */
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -257,6 +215,48 @@ private constructor(
             this.idempotencyKey = idempotencyKey
         }
 
+        /**
+         * The identifier of the account in IntraFi's system. This identifier will be printed on any
+         * IntraFi statements or documents.
+         */
+        fun intrafiId(intrafiId: String) = intrafiId(JsonField.of(intrafiId))
+
+        /**
+         * The identifier of the account in IntraFi's system. This identifier will be printed on any
+         * IntraFi statements or documents.
+         */
+        @JsonProperty("intrafi_id")
+        @ExcludeMissing
+        fun intrafiId(intrafiId: JsonField<String>) = apply { this.intrafiId = intrafiId }
+
+        /**
+         * The status of the account in the network. An account takes about one business day to go
+         * from `pending_enrolling` to `enrolled`.
+         */
+        fun status(status: Status) = status(JsonField.of(status))
+
+        /**
+         * The status of the account in the network. An account takes about one business day to go
+         * from `pending_enrolling` to `enrolled`.
+         */
+        @JsonProperty("status")
+        @ExcludeMissing
+        fun status(status: JsonField<Status>) = apply { this.status = status }
+
+        /**
+         * A constant representing the object's type. For this resource it will always be
+         * `intrafi_account_enrollment`.
+         */
+        fun type(type: Type) = type(JsonField.of(type))
+
+        /**
+         * A constant representing the object's type. For this resource it will always be
+         * `intrafi_account_enrollment`.
+         */
+        @JsonProperty("type")
+        @ExcludeMissing
+        fun type(type: JsonField<Type>) = apply { this.type = type }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             this.additionalProperties.putAll(additionalProperties)
@@ -273,12 +273,12 @@ private constructor(
 
         fun build(): IntrafiAccountEnrollment =
             IntrafiAccountEnrollment(
-                id,
                 accountId,
-                status,
-                intrafiId,
-                type,
+                id,
                 idempotencyKey,
+                intrafiId,
+                status,
+                type,
                 additionalProperties.toUnmodifiable(),
             )
     }

@@ -29,14 +29,14 @@ import java.util.Optional
 @NoAutoDetect
 class EventSubscription
 private constructor(
-    private val id: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
-    private val status: JsonField<Status>,
-    private val selectedEventCategory: JsonField<SelectedEventCategory>,
-    private val oauthConnectionId: JsonField<String>,
-    private val url: JsonField<String>,
+    private val id: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
+    private val oauthConnectionId: JsonField<String>,
+    private val selectedEventCategory: JsonField<SelectedEventCategory>,
+    private val status: JsonField<Status>,
     private val type: JsonField<Type>,
+    private val url: JsonField<String>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -44,31 +44,11 @@ private constructor(
 
     private var hashCode: Int = 0
 
-    /** The event subscription identifier. */
-    fun id(): String = id.getRequired("id")
-
     /** The time the event subscription was created. */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** This indicates if we'll send notifications to this subscription. */
-    fun status(): Status = status.getRequired("status")
-
-    /**
-     * If specified, this subscription will only receive webhooks for Events with the specified
-     * `category`.
-     */
-    fun selectedEventCategory(): Optional<SelectedEventCategory> =
-        Optional.ofNullable(selectedEventCategory.getNullable("selected_event_category"))
-
-    /**
-     * If specified, this subscription will only receive webhooks for Events associated with this
-     * OAuth Connection.
-     */
-    fun oauthConnectionId(): Optional<String> =
-        Optional.ofNullable(oauthConnectionId.getNullable("oauth_connection_id"))
-
-    /** The webhook url where we'll send notifications. */
-    fun url(): String = url.getRequired("url")
+    /** The event subscription identifier. */
+    fun id(): String = id.getRequired("id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -79,38 +59,36 @@ private constructor(
         Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `event_subscription`.
+     * If specified, this subscription will only receive webhooks for Events associated with this
+     * OAuth Connection.
      */
-    fun type(): Type = type.getRequired("type")
-
-    /** The event subscription identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
-    /** The time the event subscription was created. */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
-    /** This indicates if we'll send notifications to this subscription. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    fun oauthConnectionId(): Optional<String> =
+        Optional.ofNullable(oauthConnectionId.getNullable("oauth_connection_id"))
 
     /**
      * If specified, this subscription will only receive webhooks for Events with the specified
      * `category`.
      */
-    @JsonProperty("selected_event_category")
-    @ExcludeMissing
-    fun _selectedEventCategory() = selectedEventCategory
+    fun selectedEventCategory(): Optional<SelectedEventCategory> =
+        Optional.ofNullable(selectedEventCategory.getNullable("selected_event_category"))
+
+    /** This indicates if we'll send notifications to this subscription. */
+    fun status(): Status = status.getRequired("status")
 
     /**
-     * If specified, this subscription will only receive webhooks for Events associated with this
-     * OAuth Connection.
+     * A constant representing the object's type. For this resource it will always be
+     * `event_subscription`.
      */
-    @JsonProperty("oauth_connection_id")
-    @ExcludeMissing
-    fun _oauthConnectionId() = oauthConnectionId
+    fun type(): Type = type.getRequired("type")
 
     /** The webhook url where we'll send notifications. */
-    @JsonProperty("url") @ExcludeMissing fun _url() = url
+    fun url(): String = url.getRequired("url")
+
+    /** The time the event subscription was created. */
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+    /** The event subscription identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -120,10 +98,32 @@ private constructor(
     @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
 
     /**
+     * If specified, this subscription will only receive webhooks for Events associated with this
+     * OAuth Connection.
+     */
+    @JsonProperty("oauth_connection_id")
+    @ExcludeMissing
+    fun _oauthConnectionId() = oauthConnectionId
+
+    /**
+     * If specified, this subscription will only receive webhooks for Events with the specified
+     * `category`.
+     */
+    @JsonProperty("selected_event_category")
+    @ExcludeMissing
+    fun _selectedEventCategory() = selectedEventCategory
+
+    /** This indicates if we'll send notifications to this subscription. */
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
+
+    /**
      * A constant representing the object's type. For this resource it will always be
      * `event_subscription`.
      */
     @JsonProperty("type") @ExcludeMissing fun _type() = type
+
+    /** The webhook url where we'll send notifications. */
+    @JsonProperty("url") @ExcludeMissing fun _url() = url
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -131,14 +131,14 @@ private constructor(
 
     fun validate(): EventSubscription = apply {
         if (!validated) {
-            id()
             createdAt()
-            status()
-            selectedEventCategory()
-            oauthConnectionId()
-            url()
+            id()
             idempotencyKey()
+            oauthConnectionId()
+            selectedEventCategory()
+            status()
             type()
+            url()
             validated = true
         }
     }
@@ -151,14 +151,14 @@ private constructor(
         }
 
         return other is EventSubscription &&
-            this.id == other.id &&
             this.createdAt == other.createdAt &&
-            this.status == other.status &&
-            this.selectedEventCategory == other.selectedEventCategory &&
-            this.oauthConnectionId == other.oauthConnectionId &&
-            this.url == other.url &&
+            this.id == other.id &&
             this.idempotencyKey == other.idempotencyKey &&
+            this.oauthConnectionId == other.oauthConnectionId &&
+            this.selectedEventCategory == other.selectedEventCategory &&
+            this.status == other.status &&
             this.type == other.type &&
+            this.url == other.url &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -166,14 +166,14 @@ private constructor(
         if (hashCode == 0) {
             hashCode =
                 Objects.hash(
-                    id,
                     createdAt,
-                    status,
-                    selectedEventCategory,
-                    oauthConnectionId,
-                    url,
+                    id,
                     idempotencyKey,
+                    oauthConnectionId,
+                    selectedEventCategory,
+                    status,
                     type,
+                    url,
                     additionalProperties,
                 )
         }
@@ -181,7 +181,7 @@ private constructor(
     }
 
     override fun toString() =
-        "EventSubscription{id=$id, createdAt=$createdAt, status=$status, selectedEventCategory=$selectedEventCategory, oauthConnectionId=$oauthConnectionId, url=$url, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
+        "EventSubscription{createdAt=$createdAt, id=$id, idempotencyKey=$idempotencyKey, oauthConnectionId=$oauthConnectionId, selectedEventCategory=$selectedEventCategory, status=$status, type=$type, url=$url, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -190,34 +190,28 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var selectedEventCategory: JsonField<SelectedEventCategory> = JsonMissing.of()
-        private var oauthConnectionId: JsonField<String> = JsonMissing.of()
-        private var url: JsonField<String> = JsonMissing.of()
+        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
+        private var oauthConnectionId: JsonField<String> = JsonMissing.of()
+        private var selectedEventCategory: JsonField<SelectedEventCategory> = JsonMissing.of()
+        private var status: JsonField<Status> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
+        private var url: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(eventSubscription: EventSubscription) = apply {
-            this.id = eventSubscription.id
             this.createdAt = eventSubscription.createdAt
-            this.status = eventSubscription.status
-            this.selectedEventCategory = eventSubscription.selectedEventCategory
-            this.oauthConnectionId = eventSubscription.oauthConnectionId
-            this.url = eventSubscription.url
+            this.id = eventSubscription.id
             this.idempotencyKey = eventSubscription.idempotencyKey
+            this.oauthConnectionId = eventSubscription.oauthConnectionId
+            this.selectedEventCategory = eventSubscription.selectedEventCategory
+            this.status = eventSubscription.status
             this.type = eventSubscription.type
+            this.url = eventSubscription.url
             additionalProperties(eventSubscription.additionalProperties)
         }
-
-        /** The event subscription identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The event subscription identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The time the event subscription was created. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
@@ -227,55 +221,11 @@ private constructor(
         @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        /** This indicates if we'll send notifications to this subscription. */
-        fun status(status: Status) = status(JsonField.of(status))
+        /** The event subscription identifier. */
+        fun id(id: String) = id(JsonField.of(id))
 
-        /** This indicates if we'll send notifications to this subscription. */
-        @JsonProperty("status")
-        @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply { this.status = status }
-
-        /**
-         * If specified, this subscription will only receive webhooks for Events with the specified
-         * `category`.
-         */
-        fun selectedEventCategory(selectedEventCategory: SelectedEventCategory) =
-            selectedEventCategory(JsonField.of(selectedEventCategory))
-
-        /**
-         * If specified, this subscription will only receive webhooks for Events with the specified
-         * `category`.
-         */
-        @JsonProperty("selected_event_category")
-        @ExcludeMissing
-        fun selectedEventCategory(selectedEventCategory: JsonField<SelectedEventCategory>) = apply {
-            this.selectedEventCategory = selectedEventCategory
-        }
-
-        /**
-         * If specified, this subscription will only receive webhooks for Events associated with
-         * this OAuth Connection.
-         */
-        fun oauthConnectionId(oauthConnectionId: String) =
-            oauthConnectionId(JsonField.of(oauthConnectionId))
-
-        /**
-         * If specified, this subscription will only receive webhooks for Events associated with
-         * this OAuth Connection.
-         */
-        @JsonProperty("oauth_connection_id")
-        @ExcludeMissing
-        fun oauthConnectionId(oauthConnectionId: JsonField<String>) = apply {
-            this.oauthConnectionId = oauthConnectionId
-        }
-
-        /** The webhook url where we'll send notifications. */
-        fun url(url: String) = url(JsonField.of(url))
-
-        /** The webhook url where we'll send notifications. */
-        @JsonProperty("url")
-        @ExcludeMissing
-        fun url(url: JsonField<String>) = apply { this.url = url }
+        /** The event subscription identifier. */
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -296,6 +246,48 @@ private constructor(
         }
 
         /**
+         * If specified, this subscription will only receive webhooks for Events associated with
+         * this OAuth Connection.
+         */
+        fun oauthConnectionId(oauthConnectionId: String) =
+            oauthConnectionId(JsonField.of(oauthConnectionId))
+
+        /**
+         * If specified, this subscription will only receive webhooks for Events associated with
+         * this OAuth Connection.
+         */
+        @JsonProperty("oauth_connection_id")
+        @ExcludeMissing
+        fun oauthConnectionId(oauthConnectionId: JsonField<String>) = apply {
+            this.oauthConnectionId = oauthConnectionId
+        }
+
+        /**
+         * If specified, this subscription will only receive webhooks for Events with the specified
+         * `category`.
+         */
+        fun selectedEventCategory(selectedEventCategory: SelectedEventCategory) =
+            selectedEventCategory(JsonField.of(selectedEventCategory))
+
+        /**
+         * If specified, this subscription will only receive webhooks for Events with the specified
+         * `category`.
+         */
+        @JsonProperty("selected_event_category")
+        @ExcludeMissing
+        fun selectedEventCategory(selectedEventCategory: JsonField<SelectedEventCategory>) = apply {
+            this.selectedEventCategory = selectedEventCategory
+        }
+
+        /** This indicates if we'll send notifications to this subscription. */
+        fun status(status: Status) = status(JsonField.of(status))
+
+        /** This indicates if we'll send notifications to this subscription. */
+        @JsonProperty("status")
+        @ExcludeMissing
+        fun status(status: JsonField<Status>) = apply { this.status = status }
+
+        /**
          * A constant representing the object's type. For this resource it will always be
          * `event_subscription`.
          */
@@ -308,6 +300,14 @@ private constructor(
         @JsonProperty("type")
         @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
+
+        /** The webhook url where we'll send notifications. */
+        fun url(url: String) = url(JsonField.of(url))
+
+        /** The webhook url where we'll send notifications. */
+        @JsonProperty("url")
+        @ExcludeMissing
+        fun url(url: JsonField<String>) = apply { this.url = url }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -325,14 +325,14 @@ private constructor(
 
         fun build(): EventSubscription =
             EventSubscription(
-                id,
                 createdAt,
-                status,
-                selectedEventCategory,
-                oauthConnectionId,
-                url,
+                id,
                 idempotencyKey,
+                oauthConnectionId,
+                selectedEventCategory,
+                status,
                 type,
+                url,
                 additionalProperties.toUnmodifiable(),
             )
     }

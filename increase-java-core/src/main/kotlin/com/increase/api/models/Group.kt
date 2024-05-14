@@ -27,8 +27,8 @@ import java.util.Objects
 @NoAutoDetect
 class Group
 private constructor(
-    private val activationStatus: JsonField<ActivationStatus>,
     private val achDebitStatus: JsonField<AchDebitStatus>,
+    private val activationStatus: JsonField<ActivationStatus>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val id: JsonField<String>,
     private val type: JsonField<Type>,
@@ -39,11 +39,11 @@ private constructor(
 
     private var hashCode: Int = 0
 
-    /** If the Group is activated or not. */
-    fun activationStatus(): ActivationStatus = activationStatus.getRequired("activation_status")
-
     /** If the Group is allowed to create ACH debits. */
     fun achDebitStatus(): AchDebitStatus = achDebitStatus.getRequired("ach_debit_status")
+
+    /** If the Group is activated or not. */
+    fun activationStatus(): ActivationStatus = activationStatus.getRequired("activation_status")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Group was created.
@@ -56,11 +56,11 @@ private constructor(
     /** A constant representing the object's type. For this resource it will always be `group`. */
     fun type(): Type = type.getRequired("type")
 
-    /** If the Group is activated or not. */
-    @JsonProperty("activation_status") @ExcludeMissing fun _activationStatus() = activationStatus
-
     /** If the Group is allowed to create ACH debits. */
     @JsonProperty("ach_debit_status") @ExcludeMissing fun _achDebitStatus() = achDebitStatus
+
+    /** If the Group is activated or not. */
+    @JsonProperty("activation_status") @ExcludeMissing fun _activationStatus() = activationStatus
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Group was created.
@@ -79,8 +79,8 @@ private constructor(
 
     fun validate(): Group = apply {
         if (!validated) {
-            activationStatus()
             achDebitStatus()
+            activationStatus()
             createdAt()
             id()
             type()
@@ -96,8 +96,8 @@ private constructor(
         }
 
         return other is Group &&
-            this.activationStatus == other.activationStatus &&
             this.achDebitStatus == other.achDebitStatus &&
+            this.activationStatus == other.activationStatus &&
             this.createdAt == other.createdAt &&
             this.id == other.id &&
             this.type == other.type &&
@@ -108,8 +108,8 @@ private constructor(
         if (hashCode == 0) {
             hashCode =
                 Objects.hash(
-                    activationStatus,
                     achDebitStatus,
+                    activationStatus,
                     createdAt,
                     id,
                     type,
@@ -120,7 +120,7 @@ private constructor(
     }
 
     override fun toString() =
-        "Group{activationStatus=$activationStatus, achDebitStatus=$achDebitStatus, createdAt=$createdAt, id=$id, type=$type, additionalProperties=$additionalProperties}"
+        "Group{achDebitStatus=$achDebitStatus, activationStatus=$activationStatus, createdAt=$createdAt, id=$id, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -129,8 +129,8 @@ private constructor(
 
     class Builder {
 
-        private var activationStatus: JsonField<ActivationStatus> = JsonMissing.of()
         private var achDebitStatus: JsonField<AchDebitStatus> = JsonMissing.of()
+        private var activationStatus: JsonField<ActivationStatus> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
@@ -138,23 +138,12 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(group: Group) = apply {
-            this.activationStatus = group.activationStatus
             this.achDebitStatus = group.achDebitStatus
+            this.activationStatus = group.activationStatus
             this.createdAt = group.createdAt
             this.id = group.id
             this.type = group.type
             additionalProperties(group.additionalProperties)
-        }
-
-        /** If the Group is activated or not. */
-        fun activationStatus(activationStatus: ActivationStatus) =
-            activationStatus(JsonField.of(activationStatus))
-
-        /** If the Group is activated or not. */
-        @JsonProperty("activation_status")
-        @ExcludeMissing
-        fun activationStatus(activationStatus: JsonField<ActivationStatus>) = apply {
-            this.activationStatus = activationStatus
         }
 
         /** If the Group is allowed to create ACH debits. */
@@ -166,6 +155,17 @@ private constructor(
         @ExcludeMissing
         fun achDebitStatus(achDebitStatus: JsonField<AchDebitStatus>) = apply {
             this.achDebitStatus = achDebitStatus
+        }
+
+        /** If the Group is activated or not. */
+        fun activationStatus(activationStatus: ActivationStatus) =
+            activationStatus(JsonField.of(activationStatus))
+
+        /** If the Group is activated or not. */
+        @JsonProperty("activation_status")
+        @ExcludeMissing
+        fun activationStatus(activationStatus: JsonField<ActivationStatus>) = apply {
+            this.activationStatus = activationStatus
         }
 
         /**
@@ -216,8 +216,8 @@ private constructor(
 
         fun build(): Group =
             Group(
-                activationStatus,
                 achDebitStatus,
+                activationStatus,
                 createdAt,
                 id,
                 type,
