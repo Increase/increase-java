@@ -767,21 +767,21 @@ constructor(
         @NoAutoDetect
         class Approval
         private constructor(
-            private val phone: String?,
             private val email: String?,
+            private val phone: String?,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
             private var hashCode: Int = 0
+
+            /** An email address that can be used to verify the cardholder via one-time passcode. */
+            @JsonProperty("email") fun email(): String? = email
 
             /**
              * A phone number that can be used to verify the cardholder via one-time passcode over
              * SMS.
              */
             @JsonProperty("phone") fun phone(): String? = phone
-
-            /** An email address that can be used to verify the cardholder via one-time passcode. */
-            @JsonProperty("email") fun email(): String? = email
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -795,8 +795,8 @@ constructor(
                 }
 
                 return other is Approval &&
-                    this.phone == other.phone &&
                     this.email == other.email &&
+                    this.phone == other.phone &&
                     this.additionalProperties == other.additionalProperties
             }
 
@@ -804,8 +804,8 @@ constructor(
                 if (hashCode == 0) {
                     hashCode =
                         Objects.hash(
-                            phone,
                             email,
+                            phone,
                             additionalProperties,
                         )
                 }
@@ -813,7 +813,7 @@ constructor(
             }
 
             override fun toString() =
-                "Approval{phone=$phone, email=$email, additionalProperties=$additionalProperties}"
+                "Approval{email=$email, phone=$phone, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -822,27 +822,27 @@ constructor(
 
             class Builder {
 
-                private var phone: String? = null
                 private var email: String? = null
+                private var phone: String? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
                 internal fun from(approval: Approval) = apply {
-                    this.phone = approval.phone
                     this.email = approval.email
+                    this.phone = approval.phone
                     additionalProperties(approval.additionalProperties)
                 }
+
+                /**
+                 * An email address that can be used to verify the cardholder via one-time passcode.
+                 */
+                @JsonProperty("email") fun email(email: String) = apply { this.email = email }
 
                 /**
                  * A phone number that can be used to verify the cardholder via one-time passcode
                  * over SMS.
                  */
                 @JsonProperty("phone") fun phone(phone: String) = apply { this.phone = phone }
-
-                /**
-                 * An email address that can be used to verify the cardholder via one-time passcode.
-                 */
-                @JsonProperty("email") fun email(email: String) = apply { this.email = email }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -861,8 +861,8 @@ constructor(
 
                 fun build(): Approval =
                     Approval(
-                        phone,
                         email,
+                        phone,
                         additionalProperties.toUnmodifiable(),
                     )
             }

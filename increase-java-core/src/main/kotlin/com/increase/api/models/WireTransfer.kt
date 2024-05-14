@@ -28,32 +28,32 @@ import java.util.Optional
 @NoAutoDetect
 class WireTransfer
 private constructor(
-    private val id: JsonField<String>,
-    private val messageToRecipient: JsonField<String>,
-    private val amount: JsonField<Long>,
-    private val currency: JsonField<Currency>,
+    private val accountId: JsonField<String>,
     private val accountNumber: JsonField<String>,
-    private val beneficiaryName: JsonField<String>,
+    private val amount: JsonField<Long>,
+    private val approval: JsonField<Approval>,
     private val beneficiaryAddressLine1: JsonField<String>,
     private val beneficiaryAddressLine2: JsonField<String>,
     private val beneficiaryAddressLine3: JsonField<String>,
-    private val originatorName: JsonField<String>,
+    private val beneficiaryName: JsonField<String>,
+    private val cancellation: JsonField<Cancellation>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val currency: JsonField<Currency>,
+    private val externalAccountId: JsonField<String>,
+    private val id: JsonField<String>,
+    private val idempotencyKey: JsonField<String>,
+    private val messageToRecipient: JsonField<String>,
+    private val network: JsonField<Network>,
     private val originatorAddressLine1: JsonField<String>,
     private val originatorAddressLine2: JsonField<String>,
     private val originatorAddressLine3: JsonField<String>,
-    private val accountId: JsonField<String>,
-    private val externalAccountId: JsonField<String>,
-    private val routingNumber: JsonField<String>,
-    private val approval: JsonField<Approval>,
-    private val cancellation: JsonField<Cancellation>,
+    private val originatorName: JsonField<String>,
+    private val pendingTransactionId: JsonField<String>,
     private val reversal: JsonField<Reversal>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val network: JsonField<Network>,
+    private val routingNumber: JsonField<String>,
     private val status: JsonField<Status>,
     private val submission: JsonField<Submission>,
     private val transactionId: JsonField<String>,
-    private val pendingTransactionId: JsonField<String>,
-    private val idempotencyKey: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -62,28 +62,20 @@ private constructor(
 
     private var hashCode: Int = 0
 
-    /** The wire transfer's identifier. */
-    fun id(): String = id.getRequired("id")
+    /** The Account to which the transfer belongs. */
+    fun accountId(): String = accountId.getRequired("account_id")
 
-    /** The message that will show on the recipient's bank statement. */
-    fun messageToRecipient(): Optional<String> =
-        Optional.ofNullable(messageToRecipient.getNullable("message_to_recipient"))
+    /** The destination account number. */
+    fun accountNumber(): String = accountNumber.getRequired("account_number")
 
     /** The transfer amount in USD cents. */
     fun amount(): Long = amount.getRequired("amount")
 
     /**
-     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
-     * wire transfers this is always equal to `usd`.
+     * If your account requires approvals for transfers and the transfer was approved, this will
+     * contain details of the approval.
      */
-    fun currency(): Currency = currency.getRequired("currency")
-
-    /** The destination account number. */
-    fun accountNumber(): String = accountNumber.getRequired("account_number")
-
-    /** The beneficiary's name. */
-    fun beneficiaryName(): Optional<String> =
-        Optional.ofNullable(beneficiaryName.getNullable("beneficiary_name"))
+    fun approval(): Optional<Approval> = Optional.ofNullable(approval.getNullable("approval"))
 
     /** The beneficiary's address line 1. */
     fun beneficiaryAddressLine1(): Optional<String> =
@@ -97,9 +89,50 @@ private constructor(
     fun beneficiaryAddressLine3(): Optional<String> =
         Optional.ofNullable(beneficiaryAddressLine3.getNullable("beneficiary_address_line3"))
 
-    /** The originator's name. */
-    fun originatorName(): Optional<String> =
-        Optional.ofNullable(originatorName.getNullable("originator_name"))
+    /** The beneficiary's name. */
+    fun beneficiaryName(): Optional<String> =
+        Optional.ofNullable(beneficiaryName.getNullable("beneficiary_name"))
+
+    /**
+     * If your account requires approvals for transfers and the transfer was not approved, this will
+     * contain details of the cancellation.
+     */
+    fun cancellation(): Optional<Cancellation> =
+        Optional.ofNullable(cancellation.getNullable("cancellation"))
+
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
+     * was created.
+     */
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+    /**
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
+     * wire transfers this is always equal to `usd`.
+     */
+    fun currency(): Currency = currency.getRequired("currency")
+
+    /** The identifier of the External Account the transfer was made to, if any. */
+    fun externalAccountId(): Optional<String> =
+        Optional.ofNullable(externalAccountId.getNullable("external_account_id"))
+
+    /** The wire transfer's identifier. */
+    fun id(): String = id.getRequired("id")
+
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    fun idempotencyKey(): Optional<String> =
+        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+
+    /** The message that will show on the recipient's bank statement. */
+    fun messageToRecipient(): Optional<String> =
+        Optional.ofNullable(messageToRecipient.getNullable("message_to_recipient"))
+
+    /** The transfer's network. */
+    fun network(): Network = network.getRequired("network")
 
     /** The originator's address line 1. */
     fun originatorAddressLine1(): Optional<String> =
@@ -113,40 +146,24 @@ private constructor(
     fun originatorAddressLine3(): Optional<String> =
         Optional.ofNullable(originatorAddressLine3.getNullable("originator_address_line3"))
 
-    /** The Account to which the transfer belongs. */
-    fun accountId(): String = accountId.getRequired("account_id")
-
-    /** The identifier of the External Account the transfer was made to, if any. */
-    fun externalAccountId(): Optional<String> =
-        Optional.ofNullable(externalAccountId.getNullable("external_account_id"))
-
-    /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
-    fun routingNumber(): String = routingNumber.getRequired("routing_number")
+    /** The originator's name. */
+    fun originatorName(): Optional<String> =
+        Optional.ofNullable(originatorName.getNullable("originator_name"))
 
     /**
-     * If your account requires approvals for transfers and the transfer was approved, this will
-     * contain details of the approval.
+     * The ID for the pending transaction representing the transfer. A pending transaction is
+     * created when the transfer
+     * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+     * by someone else in your organization.
      */
-    fun approval(): Optional<Approval> = Optional.ofNullable(approval.getNullable("approval"))
-
-    /**
-     * If your account requires approvals for transfers and the transfer was not approved, this will
-     * contain details of the cancellation.
-     */
-    fun cancellation(): Optional<Cancellation> =
-        Optional.ofNullable(cancellation.getNullable("cancellation"))
+    fun pendingTransactionId(): Optional<String> =
+        Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
 
     /** If your transfer is reversed, this will contain details of the reversal. */
     fun reversal(): Optional<Reversal> = Optional.ofNullable(reversal.getNullable("reversal"))
 
-    /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
-     * was created.
-     */
-    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-    /** The transfer's network. */
-    fun network(): Network = network.getRequired("network")
+    /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
+    fun routingNumber(): String = routingNumber.getRequired("routing_number")
 
     /** The lifecycle status of the transfer. */
     fun status(): Status = status.getRequired("status")
@@ -160,50 +177,25 @@ private constructor(
         Optional.ofNullable(transactionId.getNullable("transaction_id"))
 
     /**
-     * The ID for the pending transaction representing the transfer. A pending transaction is
-     * created when the transfer
-     * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
-     * by someone else in your organization.
-     */
-    fun pendingTransactionId(): Optional<String> =
-        Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
-
-    /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
-     */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
-
-    /**
      * A constant representing the object's type. For this resource it will always be
      * `wire_transfer`.
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The wire transfer's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    /** The Account to which the transfer belongs. */
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
 
-    /** The message that will show on the recipient's bank statement. */
-    @JsonProperty("message_to_recipient")
-    @ExcludeMissing
-    fun _messageToRecipient() = messageToRecipient
+    /** The destination account number. */
+    @JsonProperty("account_number") @ExcludeMissing fun _accountNumber() = accountNumber
 
     /** The transfer amount in USD cents. */
     @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
     /**
-     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
-     * wire transfers this is always equal to `usd`.
+     * If your account requires approvals for transfers and the transfer was approved, this will
+     * contain details of the approval.
      */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
-
-    /** The destination account number. */
-    @JsonProperty("account_number") @ExcludeMissing fun _accountNumber() = accountNumber
-
-    /** The beneficiary's name. */
-    @JsonProperty("beneficiary_name") @ExcludeMissing fun _beneficiaryName() = beneficiaryName
+    @JsonProperty("approval") @ExcludeMissing fun _approval() = approval
 
     /** The beneficiary's address line 1. */
     @JsonProperty("beneficiary_address_line1")
@@ -220,8 +212,49 @@ private constructor(
     @ExcludeMissing
     fun _beneficiaryAddressLine3() = beneficiaryAddressLine3
 
-    /** The originator's name. */
-    @JsonProperty("originator_name") @ExcludeMissing fun _originatorName() = originatorName
+    /** The beneficiary's name. */
+    @JsonProperty("beneficiary_name") @ExcludeMissing fun _beneficiaryName() = beneficiaryName
+
+    /**
+     * If your account requires approvals for transfers and the transfer was not approved, this will
+     * contain details of the cancellation.
+     */
+    @JsonProperty("cancellation") @ExcludeMissing fun _cancellation() = cancellation
+
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
+     * was created.
+     */
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+    /**
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
+     * wire transfers this is always equal to `usd`.
+     */
+    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+
+    /** The identifier of the External Account the transfer was made to, if any. */
+    @JsonProperty("external_account_id")
+    @ExcludeMissing
+    fun _externalAccountId() = externalAccountId
+
+    /** The wire transfer's identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+
+    /** The message that will show on the recipient's bank statement. */
+    @JsonProperty("message_to_recipient")
+    @ExcludeMissing
+    fun _messageToRecipient() = messageToRecipient
+
+    /** The transfer's network. */
+    @JsonProperty("network") @ExcludeMissing fun _network() = network
 
     /** The originator's address line 1. */
     @JsonProperty("originator_address_line1")
@@ -238,49 +271,8 @@ private constructor(
     @ExcludeMissing
     fun _originatorAddressLine3() = originatorAddressLine3
 
-    /** The Account to which the transfer belongs. */
-    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
-
-    /** The identifier of the External Account the transfer was made to, if any. */
-    @JsonProperty("external_account_id")
-    @ExcludeMissing
-    fun _externalAccountId() = externalAccountId
-
-    /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
-    @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
-
-    /**
-     * If your account requires approvals for transfers and the transfer was approved, this will
-     * contain details of the approval.
-     */
-    @JsonProperty("approval") @ExcludeMissing fun _approval() = approval
-
-    /**
-     * If your account requires approvals for transfers and the transfer was not approved, this will
-     * contain details of the cancellation.
-     */
-    @JsonProperty("cancellation") @ExcludeMissing fun _cancellation() = cancellation
-
-    /** If your transfer is reversed, this will contain details of the reversal. */
-    @JsonProperty("reversal") @ExcludeMissing fun _reversal() = reversal
-
-    /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
-     * was created.
-     */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
-    /** The transfer's network. */
-    @JsonProperty("network") @ExcludeMissing fun _network() = network
-
-    /** The lifecycle status of the transfer. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
-
-    /** After the transfer is submitted to Fedwire, this will contain supplemental details. */
-    @JsonProperty("submission") @ExcludeMissing fun _submission() = submission
-
-    /** The ID for the transaction funding the transfer. */
-    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+    /** The originator's name. */
+    @JsonProperty("originator_name") @ExcludeMissing fun _originatorName() = originatorName
 
     /**
      * The ID for the pending transaction representing the transfer. A pending transaction is
@@ -292,12 +284,20 @@ private constructor(
     @ExcludeMissing
     fun _pendingTransactionId() = pendingTransactionId
 
-    /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
-     */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    /** If your transfer is reversed, this will contain details of the reversal. */
+    @JsonProperty("reversal") @ExcludeMissing fun _reversal() = reversal
+
+    /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
+    @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
+
+    /** The lifecycle status of the transfer. */
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
+
+    /** After the transfer is submitted to Fedwire, this will contain supplemental details. */
+    @JsonProperty("submission") @ExcludeMissing fun _submission() = submission
+
+    /** The ID for the transaction funding the transfer. */
+    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -311,32 +311,32 @@ private constructor(
 
     fun validate(): WireTransfer = apply {
         if (!validated) {
-            id()
-            messageToRecipient()
-            amount()
-            currency()
+            accountId()
             accountNumber()
-            beneficiaryName()
+            amount()
+            approval().map { it.validate() }
             beneficiaryAddressLine1()
             beneficiaryAddressLine2()
             beneficiaryAddressLine3()
-            originatorName()
+            beneficiaryName()
+            cancellation().map { it.validate() }
+            createdAt()
+            currency()
+            externalAccountId()
+            id()
+            idempotencyKey()
+            messageToRecipient()
+            network()
             originatorAddressLine1()
             originatorAddressLine2()
             originatorAddressLine3()
-            accountId()
-            externalAccountId()
-            routingNumber()
-            approval().map { it.validate() }
-            cancellation().map { it.validate() }
+            originatorName()
+            pendingTransactionId()
             reversal().map { it.validate() }
-            createdAt()
-            network()
+            routingNumber()
             status()
             submission().map { it.validate() }
             transactionId()
-            pendingTransactionId()
-            idempotencyKey()
             type()
             validated = true
         }
@@ -350,32 +350,32 @@ private constructor(
         }
 
         return other is WireTransfer &&
-            this.id == other.id &&
-            this.messageToRecipient == other.messageToRecipient &&
-            this.amount == other.amount &&
-            this.currency == other.currency &&
+            this.accountId == other.accountId &&
             this.accountNumber == other.accountNumber &&
-            this.beneficiaryName == other.beneficiaryName &&
+            this.amount == other.amount &&
+            this.approval == other.approval &&
             this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
             this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
             this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
-            this.originatorName == other.originatorName &&
+            this.beneficiaryName == other.beneficiaryName &&
+            this.cancellation == other.cancellation &&
+            this.createdAt == other.createdAt &&
+            this.currency == other.currency &&
+            this.externalAccountId == other.externalAccountId &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.messageToRecipient == other.messageToRecipient &&
+            this.network == other.network &&
             this.originatorAddressLine1 == other.originatorAddressLine1 &&
             this.originatorAddressLine2 == other.originatorAddressLine2 &&
             this.originatorAddressLine3 == other.originatorAddressLine3 &&
-            this.accountId == other.accountId &&
-            this.externalAccountId == other.externalAccountId &&
-            this.routingNumber == other.routingNumber &&
-            this.approval == other.approval &&
-            this.cancellation == other.cancellation &&
+            this.originatorName == other.originatorName &&
+            this.pendingTransactionId == other.pendingTransactionId &&
             this.reversal == other.reversal &&
-            this.createdAt == other.createdAt &&
-            this.network == other.network &&
+            this.routingNumber == other.routingNumber &&
             this.status == other.status &&
             this.submission == other.submission &&
             this.transactionId == other.transactionId &&
-            this.pendingTransactionId == other.pendingTransactionId &&
-            this.idempotencyKey == other.idempotencyKey &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -384,32 +384,32 @@ private constructor(
         if (hashCode == 0) {
             hashCode =
                 Objects.hash(
-                    id,
-                    messageToRecipient,
-                    amount,
-                    currency,
+                    accountId,
                     accountNumber,
-                    beneficiaryName,
+                    amount,
+                    approval,
                     beneficiaryAddressLine1,
                     beneficiaryAddressLine2,
                     beneficiaryAddressLine3,
-                    originatorName,
+                    beneficiaryName,
+                    cancellation,
+                    createdAt,
+                    currency,
+                    externalAccountId,
+                    id,
+                    idempotencyKey,
+                    messageToRecipient,
+                    network,
                     originatorAddressLine1,
                     originatorAddressLine2,
                     originatorAddressLine3,
-                    accountId,
-                    externalAccountId,
-                    routingNumber,
-                    approval,
-                    cancellation,
+                    originatorName,
+                    pendingTransactionId,
                     reversal,
-                    createdAt,
-                    network,
+                    routingNumber,
                     status,
                     submission,
                     transactionId,
-                    pendingTransactionId,
-                    idempotencyKey,
                     type,
                     additionalProperties,
                 )
@@ -418,7 +418,7 @@ private constructor(
     }
 
     override fun toString() =
-        "WireTransfer{id=$id, messageToRecipient=$messageToRecipient, amount=$amount, currency=$currency, accountNumber=$accountNumber, beneficiaryName=$beneficiaryName, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, originatorName=$originatorName, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, accountId=$accountId, externalAccountId=$externalAccountId, routingNumber=$routingNumber, approval=$approval, cancellation=$cancellation, reversal=$reversal, createdAt=$createdAt, network=$network, status=$status, submission=$submission, transactionId=$transactionId, pendingTransactionId=$pendingTransactionId, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
+        "WireTransfer{accountId=$accountId, accountNumber=$accountNumber, amount=$amount, approval=$approval, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, cancellation=$cancellation, createdAt=$createdAt, currency=$currency, externalAccountId=$externalAccountId, id=$id, idempotencyKey=$idempotencyKey, messageToRecipient=$messageToRecipient, network=$network, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, pendingTransactionId=$pendingTransactionId, reversal=$reversal, routingNumber=$routingNumber, status=$status, submission=$submission, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -427,105 +427,74 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var messageToRecipient: JsonField<String> = JsonMissing.of()
-        private var amount: JsonField<Long> = JsonMissing.of()
-        private var currency: JsonField<Currency> = JsonMissing.of()
+        private var accountId: JsonField<String> = JsonMissing.of()
         private var accountNumber: JsonField<String> = JsonMissing.of()
-        private var beneficiaryName: JsonField<String> = JsonMissing.of()
+        private var amount: JsonField<Long> = JsonMissing.of()
+        private var approval: JsonField<Approval> = JsonMissing.of()
         private var beneficiaryAddressLine1: JsonField<String> = JsonMissing.of()
         private var beneficiaryAddressLine2: JsonField<String> = JsonMissing.of()
         private var beneficiaryAddressLine3: JsonField<String> = JsonMissing.of()
-        private var originatorName: JsonField<String> = JsonMissing.of()
+        private var beneficiaryName: JsonField<String> = JsonMissing.of()
+        private var cancellation: JsonField<Cancellation> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var currency: JsonField<Currency> = JsonMissing.of()
+        private var externalAccountId: JsonField<String> = JsonMissing.of()
+        private var id: JsonField<String> = JsonMissing.of()
+        private var idempotencyKey: JsonField<String> = JsonMissing.of()
+        private var messageToRecipient: JsonField<String> = JsonMissing.of()
+        private var network: JsonField<Network> = JsonMissing.of()
         private var originatorAddressLine1: JsonField<String> = JsonMissing.of()
         private var originatorAddressLine2: JsonField<String> = JsonMissing.of()
         private var originatorAddressLine3: JsonField<String> = JsonMissing.of()
-        private var accountId: JsonField<String> = JsonMissing.of()
-        private var externalAccountId: JsonField<String> = JsonMissing.of()
-        private var routingNumber: JsonField<String> = JsonMissing.of()
-        private var approval: JsonField<Approval> = JsonMissing.of()
-        private var cancellation: JsonField<Cancellation> = JsonMissing.of()
+        private var originatorName: JsonField<String> = JsonMissing.of()
+        private var pendingTransactionId: JsonField<String> = JsonMissing.of()
         private var reversal: JsonField<Reversal> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var network: JsonField<Network> = JsonMissing.of()
+        private var routingNumber: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var submission: JsonField<Submission> = JsonMissing.of()
         private var transactionId: JsonField<String> = JsonMissing.of()
-        private var pendingTransactionId: JsonField<String> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(wireTransfer: WireTransfer) = apply {
-            this.id = wireTransfer.id
-            this.messageToRecipient = wireTransfer.messageToRecipient
-            this.amount = wireTransfer.amount
-            this.currency = wireTransfer.currency
+            this.accountId = wireTransfer.accountId
             this.accountNumber = wireTransfer.accountNumber
-            this.beneficiaryName = wireTransfer.beneficiaryName
+            this.amount = wireTransfer.amount
+            this.approval = wireTransfer.approval
             this.beneficiaryAddressLine1 = wireTransfer.beneficiaryAddressLine1
             this.beneficiaryAddressLine2 = wireTransfer.beneficiaryAddressLine2
             this.beneficiaryAddressLine3 = wireTransfer.beneficiaryAddressLine3
-            this.originatorName = wireTransfer.originatorName
+            this.beneficiaryName = wireTransfer.beneficiaryName
+            this.cancellation = wireTransfer.cancellation
+            this.createdAt = wireTransfer.createdAt
+            this.currency = wireTransfer.currency
+            this.externalAccountId = wireTransfer.externalAccountId
+            this.id = wireTransfer.id
+            this.idempotencyKey = wireTransfer.idempotencyKey
+            this.messageToRecipient = wireTransfer.messageToRecipient
+            this.network = wireTransfer.network
             this.originatorAddressLine1 = wireTransfer.originatorAddressLine1
             this.originatorAddressLine2 = wireTransfer.originatorAddressLine2
             this.originatorAddressLine3 = wireTransfer.originatorAddressLine3
-            this.accountId = wireTransfer.accountId
-            this.externalAccountId = wireTransfer.externalAccountId
-            this.routingNumber = wireTransfer.routingNumber
-            this.approval = wireTransfer.approval
-            this.cancellation = wireTransfer.cancellation
+            this.originatorName = wireTransfer.originatorName
+            this.pendingTransactionId = wireTransfer.pendingTransactionId
             this.reversal = wireTransfer.reversal
-            this.createdAt = wireTransfer.createdAt
-            this.network = wireTransfer.network
+            this.routingNumber = wireTransfer.routingNumber
             this.status = wireTransfer.status
             this.submission = wireTransfer.submission
             this.transactionId = wireTransfer.transactionId
-            this.pendingTransactionId = wireTransfer.pendingTransactionId
-            this.idempotencyKey = wireTransfer.idempotencyKey
             this.type = wireTransfer.type
             additionalProperties(wireTransfer.additionalProperties)
         }
 
-        /** The wire transfer's identifier. */
-        fun id(id: String) = id(JsonField.of(id))
+        /** The Account to which the transfer belongs. */
+        fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
-        /** The wire transfer's identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
-
-        /** The message that will show on the recipient's bank statement. */
-        fun messageToRecipient(messageToRecipient: String) =
-            messageToRecipient(JsonField.of(messageToRecipient))
-
-        /** The message that will show on the recipient's bank statement. */
-        @JsonProperty("message_to_recipient")
+        /** The Account to which the transfer belongs. */
+        @JsonProperty("account_id")
         @ExcludeMissing
-        fun messageToRecipient(messageToRecipient: JsonField<String>) = apply {
-            this.messageToRecipient = messageToRecipient
-        }
-
-        /** The transfer amount in USD cents. */
-        fun amount(amount: Long) = amount(JsonField.of(amount))
-
-        /** The transfer amount in USD cents. */
-        @JsonProperty("amount")
-        @ExcludeMissing
-        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-        /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency.
-         * For wire transfers this is always equal to `usd`.
-         */
-        fun currency(currency: Currency) = currency(JsonField.of(currency))
-
-        /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency.
-         * For wire transfers this is always equal to `usd`.
-         */
-        @JsonProperty("currency")
-        @ExcludeMissing
-        fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+        fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /** The destination account number. */
         fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
@@ -537,16 +506,27 @@ private constructor(
             this.accountNumber = accountNumber
         }
 
-        /** The beneficiary's name. */
-        fun beneficiaryName(beneficiaryName: String) =
-            beneficiaryName(JsonField.of(beneficiaryName))
+        /** The transfer amount in USD cents. */
+        fun amount(amount: Long) = amount(JsonField.of(amount))
 
-        /** The beneficiary's name. */
-        @JsonProperty("beneficiary_name")
+        /** The transfer amount in USD cents. */
+        @JsonProperty("amount")
         @ExcludeMissing
-        fun beneficiaryName(beneficiaryName: JsonField<String>) = apply {
-            this.beneficiaryName = beneficiaryName
-        }
+        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+        /**
+         * If your account requires approvals for transfers and the transfer was approved, this will
+         * contain details of the approval.
+         */
+        fun approval(approval: Approval) = approval(JsonField.of(approval))
+
+        /**
+         * If your account requires approvals for transfers and the transfer was approved, this will
+         * contain details of the approval.
+         */
+        @JsonProperty("approval")
+        @ExcludeMissing
+        fun approval(approval: JsonField<Approval>) = apply { this.approval = approval }
 
         /** The beneficiary's address line 1. */
         fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) =
@@ -581,15 +561,114 @@ private constructor(
             this.beneficiaryAddressLine3 = beneficiaryAddressLine3
         }
 
-        /** The originator's name. */
-        fun originatorName(originatorName: String) = originatorName(JsonField.of(originatorName))
+        /** The beneficiary's name. */
+        fun beneficiaryName(beneficiaryName: String) =
+            beneficiaryName(JsonField.of(beneficiaryName))
 
-        /** The originator's name. */
-        @JsonProperty("originator_name")
+        /** The beneficiary's name. */
+        @JsonProperty("beneficiary_name")
         @ExcludeMissing
-        fun originatorName(originatorName: JsonField<String>) = apply {
-            this.originatorName = originatorName
+        fun beneficiaryName(beneficiaryName: JsonField<String>) = apply {
+            this.beneficiaryName = beneficiaryName
         }
+
+        /**
+         * If your account requires approvals for transfers and the transfer was not approved, this
+         * will contain details of the cancellation.
+         */
+        fun cancellation(cancellation: Cancellation) = cancellation(JsonField.of(cancellation))
+
+        /**
+         * If your account requires approvals for transfers and the transfer was not approved, this
+         * will contain details of the cancellation.
+         */
+        @JsonProperty("cancellation")
+        @ExcludeMissing
+        fun cancellation(cancellation: JsonField<Cancellation>) = apply {
+            this.cancellation = cancellation
+        }
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * transfer was created.
+         */
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * transfer was created.
+         */
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /**
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency.
+         * For wire transfers this is always equal to `usd`.
+         */
+        fun currency(currency: Currency) = currency(JsonField.of(currency))
+
+        /**
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency.
+         * For wire transfers this is always equal to `usd`.
+         */
+        @JsonProperty("currency")
+        @ExcludeMissing
+        fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+        /** The identifier of the External Account the transfer was made to, if any. */
+        fun externalAccountId(externalAccountId: String) =
+            externalAccountId(JsonField.of(externalAccountId))
+
+        /** The identifier of the External Account the transfer was made to, if any. */
+        @JsonProperty("external_account_id")
+        @ExcludeMissing
+        fun externalAccountId(externalAccountId: JsonField<String>) = apply {
+            this.externalAccountId = externalAccountId
+        }
+
+        /** The wire transfer's identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The wire transfer's identifier. */
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
+        }
+
+        /** The message that will show on the recipient's bank statement. */
+        fun messageToRecipient(messageToRecipient: String) =
+            messageToRecipient(JsonField.of(messageToRecipient))
+
+        /** The message that will show on the recipient's bank statement. */
+        @JsonProperty("message_to_recipient")
+        @ExcludeMissing
+        fun messageToRecipient(messageToRecipient: JsonField<String>) = apply {
+            this.messageToRecipient = messageToRecipient
+        }
+
+        /** The transfer's network. */
+        fun network(network: Network) = network(JsonField.of(network))
+
+        /** The transfer's network. */
+        @JsonProperty("network")
+        @ExcludeMissing
+        fun network(network: JsonField<Network>) = apply { this.network = network }
 
         /** The originator's address line 1. */
         fun originatorAddressLine1(originatorAddressLine1: String) =
@@ -624,63 +703,35 @@ private constructor(
             this.originatorAddressLine3 = originatorAddressLine3
         }
 
-        /** The Account to which the transfer belongs. */
-        fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+        /** The originator's name. */
+        fun originatorName(originatorName: String) = originatorName(JsonField.of(originatorName))
 
-        /** The Account to which the transfer belongs. */
-        @JsonProperty("account_id")
+        /** The originator's name. */
+        @JsonProperty("originator_name")
         @ExcludeMissing
-        fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
-
-        /** The identifier of the External Account the transfer was made to, if any. */
-        fun externalAccountId(externalAccountId: String) =
-            externalAccountId(JsonField.of(externalAccountId))
-
-        /** The identifier of the External Account the transfer was made to, if any. */
-        @JsonProperty("external_account_id")
-        @ExcludeMissing
-        fun externalAccountId(externalAccountId: JsonField<String>) = apply {
-            this.externalAccountId = externalAccountId
-        }
-
-        /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
-        fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
-
-        /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
-        @JsonProperty("routing_number")
-        @ExcludeMissing
-        fun routingNumber(routingNumber: JsonField<String>) = apply {
-            this.routingNumber = routingNumber
+        fun originatorName(originatorName: JsonField<String>) = apply {
+            this.originatorName = originatorName
         }
 
         /**
-         * If your account requires approvals for transfers and the transfer was approved, this will
-         * contain details of the approval.
+         * The ID for the pending transaction representing the transfer. A pending transaction is
+         * created when the transfer
+         * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+         * by someone else in your organization.
          */
-        fun approval(approval: Approval) = approval(JsonField.of(approval))
+        fun pendingTransactionId(pendingTransactionId: String) =
+            pendingTransactionId(JsonField.of(pendingTransactionId))
 
         /**
-         * If your account requires approvals for transfers and the transfer was approved, this will
-         * contain details of the approval.
+         * The ID for the pending transaction representing the transfer. A pending transaction is
+         * created when the transfer
+         * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+         * by someone else in your organization.
          */
-        @JsonProperty("approval")
+        @JsonProperty("pending_transaction_id")
         @ExcludeMissing
-        fun approval(approval: JsonField<Approval>) = apply { this.approval = approval }
-
-        /**
-         * If your account requires approvals for transfers and the transfer was not approved, this
-         * will contain details of the cancellation.
-         */
-        fun cancellation(cancellation: Cancellation) = cancellation(JsonField.of(cancellation))
-
-        /**
-         * If your account requires approvals for transfers and the transfer was not approved, this
-         * will contain details of the cancellation.
-         */
-        @JsonProperty("cancellation")
-        @ExcludeMissing
-        fun cancellation(cancellation: JsonField<Cancellation>) = apply {
-            this.cancellation = cancellation
+        fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
+            this.pendingTransactionId = pendingTransactionId
         }
 
         /** If your transfer is reversed, this will contain details of the reversal. */
@@ -691,27 +742,15 @@ private constructor(
         @ExcludeMissing
         fun reversal(reversal: JsonField<Reversal>) = apply { this.reversal = reversal }
 
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * transfer was created.
-         */
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+        /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
+        fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
 
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * transfer was created.
-         */
-        @JsonProperty("created_at")
+        /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
+        @JsonProperty("routing_number")
         @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
-        /** The transfer's network. */
-        fun network(network: Network) = network(JsonField.of(network))
-
-        /** The transfer's network. */
-        @JsonProperty("network")
-        @ExcludeMissing
-        fun network(network: JsonField<Network>) = apply { this.network = network }
+        fun routingNumber(routingNumber: JsonField<String>) = apply {
+            this.routingNumber = routingNumber
+        }
 
         /** The lifecycle status of the transfer. */
         fun status(status: Status) = status(JsonField.of(status))
@@ -737,45 +776,6 @@ private constructor(
         @ExcludeMissing
         fun transactionId(transactionId: JsonField<String>) = apply {
             this.transactionId = transactionId
-        }
-
-        /**
-         * The ID for the pending transaction representing the transfer. A pending transaction is
-         * created when the transfer
-         * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
-         * by someone else in your organization.
-         */
-        fun pendingTransactionId(pendingTransactionId: String) =
-            pendingTransactionId(JsonField.of(pendingTransactionId))
-
-        /**
-         * The ID for the pending transaction representing the transfer. A pending transaction is
-         * created when the transfer
-         * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
-         * by someone else in your organization.
-         */
-        @JsonProperty("pending_transaction_id")
-        @ExcludeMissing
-        fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
-            this.pendingTransactionId = pendingTransactionId
-        }
-
-        /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
-         */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
-
-        /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
-         */
-        @JsonProperty("idempotency_key")
-        @ExcludeMissing
-        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
-            this.idempotencyKey = idempotencyKey
         }
 
         /**
@@ -808,32 +808,32 @@ private constructor(
 
         fun build(): WireTransfer =
             WireTransfer(
-                id,
-                messageToRecipient,
-                amount,
-                currency,
+                accountId,
                 accountNumber,
-                beneficiaryName,
+                amount,
+                approval,
                 beneficiaryAddressLine1,
                 beneficiaryAddressLine2,
                 beneficiaryAddressLine3,
-                originatorName,
+                beneficiaryName,
+                cancellation,
+                createdAt,
+                currency,
+                externalAccountId,
+                id,
+                idempotencyKey,
+                messageToRecipient,
+                network,
                 originatorAddressLine1,
                 originatorAddressLine2,
                 originatorAddressLine3,
-                accountId,
-                externalAccountId,
-                routingNumber,
-                approval,
-                cancellation,
+                originatorName,
+                pendingTransactionId,
                 reversal,
-                createdAt,
-                network,
+                routingNumber,
                 status,
                 submission,
                 transactionId,
-                pendingTransactionId,
-                idempotencyKey,
                 type,
                 additionalProperties.toUnmodifiable(),
             )
@@ -1281,19 +1281,19 @@ private constructor(
         private val amount: JsonField<Long>,
         private val createdAt: JsonField<OffsetDateTime>,
         private val description: JsonField<String>,
+        private val financialInstitutionToFinancialInstitutionInformation: JsonField<String>,
         private val inputCycleDate: JsonField<LocalDate>,
+        private val inputMessageAccountabilityData: JsonField<String>,
         private val inputSequenceNumber: JsonField<String>,
         private val inputSource: JsonField<String>,
-        private val inputMessageAccountabilityData: JsonField<String>,
-        private val previousMessageInputMessageAccountabilityData: JsonField<String>,
+        private val originatorRoutingNumber: JsonField<String>,
         private val previousMessageInputCycleDate: JsonField<LocalDate>,
+        private val previousMessageInputMessageAccountabilityData: JsonField<String>,
         private val previousMessageInputSequenceNumber: JsonField<String>,
         private val previousMessageInputSource: JsonField<String>,
         private val receiverFinancialInstitutionInformation: JsonField<String>,
-        private val financialInstitutionToFinancialInstitutionInformation: JsonField<String>,
         private val transactionId: JsonField<String>,
         private val wireTransferId: JsonField<String>,
-        private val originatorRoutingNumber: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -1313,11 +1313,23 @@ private constructor(
         /** The description on the reversal message from Fedwire, set by the reversing bank. */
         fun description(): String = description.getRequired("description")
 
+        /** Additional financial institution information included in the wire reversal. */
+        fun financialInstitutionToFinancialInstitutionInformation(): Optional<String> =
+            Optional.ofNullable(
+                financialInstitutionToFinancialInstitutionInformation.getNullable(
+                    "financial_institution_to_financial_institution_information"
+                )
+            )
+
         /**
          * The Fedwire cycle date for the wire reversal. The "Fedwire day" begins at 9:00 PM Eastern
          * Time on the evening before the `cycle date`.
          */
         fun inputCycleDate(): LocalDate = inputCycleDate.getRequired("input_cycle_date")
+
+        /** The Fedwire transaction identifier. */
+        fun inputMessageAccountabilityData(): String =
+            inputMessageAccountabilityData.getRequired("input_message_accountability_data")
 
         /** The Fedwire sequence number. */
         fun inputSequenceNumber(): String = inputSequenceNumber.getRequired("input_sequence_number")
@@ -1325,19 +1337,22 @@ private constructor(
         /** The Fedwire input source identifier. */
         fun inputSource(): String = inputSource.getRequired("input_source")
 
-        /** The Fedwire transaction identifier. */
-        fun inputMessageAccountabilityData(): String =
-            inputMessageAccountabilityData.getRequired("input_message_accountability_data")
+        /**
+         * The American Banking Association (ABA) routing number of the bank originating the
+         * transfer.
+         */
+        fun originatorRoutingNumber(): Optional<String> =
+            Optional.ofNullable(originatorRoutingNumber.getNullable("originator_routing_number"))
+
+        /** The Fedwire cycle date for the wire transfer that is being reversed by this message. */
+        fun previousMessageInputCycleDate(): LocalDate =
+            previousMessageInputCycleDate.getRequired("previous_message_input_cycle_date")
 
         /** The Fedwire transaction identifier for the wire transfer that was reversed. */
         fun previousMessageInputMessageAccountabilityData(): String =
             previousMessageInputMessageAccountabilityData.getRequired(
                 "previous_message_input_message_accountability_data"
             )
-
-        /** The Fedwire cycle date for the wire transfer that is being reversed by this message. */
-        fun previousMessageInputCycleDate(): LocalDate =
-            previousMessageInputCycleDate.getRequired("previous_message_input_cycle_date")
 
         /** The Fedwire sequence number for the wire transfer that was reversed. */
         fun previousMessageInputSequenceNumber(): String =
@@ -1355,26 +1370,11 @@ private constructor(
                 )
             )
 
-        /** Additional financial institution information included in the wire reversal. */
-        fun financialInstitutionToFinancialInstitutionInformation(): Optional<String> =
-            Optional.ofNullable(
-                financialInstitutionToFinancialInstitutionInformation.getNullable(
-                    "financial_institution_to_financial_institution_information"
-                )
-            )
-
         /** The ID for the Transaction associated with the transfer reversal. */
         fun transactionId(): String = transactionId.getRequired("transaction_id")
 
         /** The ID for the Wire Transfer that is being reversed. */
         fun wireTransferId(): String = wireTransferId.getRequired("wire_transfer_id")
-
-        /**
-         * The American Banking Association (ABA) routing number of the bank originating the
-         * transfer.
-         */
-        fun originatorRoutingNumber(): Optional<String> =
-            Optional.ofNullable(originatorRoutingNumber.getNullable("originator_routing_number"))
 
         /** The amount that was reversed in USD cents. */
         @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
@@ -1388,11 +1388,22 @@ private constructor(
         /** The description on the reversal message from Fedwire, set by the reversing bank. */
         @JsonProperty("description") @ExcludeMissing fun _description() = description
 
+        /** Additional financial institution information included in the wire reversal. */
+        @JsonProperty("financial_institution_to_financial_institution_information")
+        @ExcludeMissing
+        fun _financialInstitutionToFinancialInstitutionInformation() =
+            financialInstitutionToFinancialInstitutionInformation
+
         /**
          * The Fedwire cycle date for the wire reversal. The "Fedwire day" begins at 9:00 PM Eastern
          * Time on the evening before the `cycle date`.
          */
         @JsonProperty("input_cycle_date") @ExcludeMissing fun _inputCycleDate() = inputCycleDate
+
+        /** The Fedwire transaction identifier. */
+        @JsonProperty("input_message_accountability_data")
+        @ExcludeMissing
+        fun _inputMessageAccountabilityData() = inputMessageAccountabilityData
 
         /** The Fedwire sequence number. */
         @JsonProperty("input_sequence_number")
@@ -1402,21 +1413,24 @@ private constructor(
         /** The Fedwire input source identifier. */
         @JsonProperty("input_source") @ExcludeMissing fun _inputSource() = inputSource
 
-        /** The Fedwire transaction identifier. */
-        @JsonProperty("input_message_accountability_data")
+        /**
+         * The American Banking Association (ABA) routing number of the bank originating the
+         * transfer.
+         */
+        @JsonProperty("originator_routing_number")
         @ExcludeMissing
-        fun _inputMessageAccountabilityData() = inputMessageAccountabilityData
+        fun _originatorRoutingNumber() = originatorRoutingNumber
+
+        /** The Fedwire cycle date for the wire transfer that is being reversed by this message. */
+        @JsonProperty("previous_message_input_cycle_date")
+        @ExcludeMissing
+        fun _previousMessageInputCycleDate() = previousMessageInputCycleDate
 
         /** The Fedwire transaction identifier for the wire transfer that was reversed. */
         @JsonProperty("previous_message_input_message_accountability_data")
         @ExcludeMissing
         fun _previousMessageInputMessageAccountabilityData() =
             previousMessageInputMessageAccountabilityData
-
-        /** The Fedwire cycle date for the wire transfer that is being reversed by this message. */
-        @JsonProperty("previous_message_input_cycle_date")
-        @ExcludeMissing
-        fun _previousMessageInputCycleDate() = previousMessageInputCycleDate
 
         /** The Fedwire sequence number for the wire transfer that was reversed. */
         @JsonProperty("previous_message_input_sequence_number")
@@ -1433,25 +1447,11 @@ private constructor(
         @ExcludeMissing
         fun _receiverFinancialInstitutionInformation() = receiverFinancialInstitutionInformation
 
-        /** Additional financial institution information included in the wire reversal. */
-        @JsonProperty("financial_institution_to_financial_institution_information")
-        @ExcludeMissing
-        fun _financialInstitutionToFinancialInstitutionInformation() =
-            financialInstitutionToFinancialInstitutionInformation
-
         /** The ID for the Transaction associated with the transfer reversal. */
         @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
         /** The ID for the Wire Transfer that is being reversed. */
         @JsonProperty("wire_transfer_id") @ExcludeMissing fun _wireTransferId() = wireTransferId
-
-        /**
-         * The American Banking Association (ABA) routing number of the bank originating the
-         * transfer.
-         */
-        @JsonProperty("originator_routing_number")
-        @ExcludeMissing
-        fun _originatorRoutingNumber() = originatorRoutingNumber
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1462,19 +1462,19 @@ private constructor(
                 amount()
                 createdAt()
                 description()
+                financialInstitutionToFinancialInstitutionInformation()
                 inputCycleDate()
+                inputMessageAccountabilityData()
                 inputSequenceNumber()
                 inputSource()
-                inputMessageAccountabilityData()
-                previousMessageInputMessageAccountabilityData()
+                originatorRoutingNumber()
                 previousMessageInputCycleDate()
+                previousMessageInputMessageAccountabilityData()
                 previousMessageInputSequenceNumber()
                 previousMessageInputSource()
                 receiverFinancialInstitutionInformation()
-                financialInstitutionToFinancialInstitutionInformation()
                 transactionId()
                 wireTransferId()
-                originatorRoutingNumber()
                 validated = true
             }
         }
@@ -1490,23 +1490,23 @@ private constructor(
                 this.amount == other.amount &&
                 this.createdAt == other.createdAt &&
                 this.description == other.description &&
+                this.financialInstitutionToFinancialInstitutionInformation ==
+                    other.financialInstitutionToFinancialInstitutionInformation &&
                 this.inputCycleDate == other.inputCycleDate &&
+                this.inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
                 this.inputSequenceNumber == other.inputSequenceNumber &&
                 this.inputSource == other.inputSource &&
-                this.inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
+                this.originatorRoutingNumber == other.originatorRoutingNumber &&
+                this.previousMessageInputCycleDate == other.previousMessageInputCycleDate &&
                 this.previousMessageInputMessageAccountabilityData ==
                     other.previousMessageInputMessageAccountabilityData &&
-                this.previousMessageInputCycleDate == other.previousMessageInputCycleDate &&
                 this.previousMessageInputSequenceNumber ==
                     other.previousMessageInputSequenceNumber &&
                 this.previousMessageInputSource == other.previousMessageInputSource &&
                 this.receiverFinancialInstitutionInformation ==
                     other.receiverFinancialInstitutionInformation &&
-                this.financialInstitutionToFinancialInstitutionInformation ==
-                    other.financialInstitutionToFinancialInstitutionInformation &&
                 this.transactionId == other.transactionId &&
                 this.wireTransferId == other.wireTransferId &&
-                this.originatorRoutingNumber == other.originatorRoutingNumber &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -1517,19 +1517,19 @@ private constructor(
                         amount,
                         createdAt,
                         description,
+                        financialInstitutionToFinancialInstitutionInformation,
                         inputCycleDate,
+                        inputMessageAccountabilityData,
                         inputSequenceNumber,
                         inputSource,
-                        inputMessageAccountabilityData,
-                        previousMessageInputMessageAccountabilityData,
+                        originatorRoutingNumber,
                         previousMessageInputCycleDate,
+                        previousMessageInputMessageAccountabilityData,
                         previousMessageInputSequenceNumber,
                         previousMessageInputSource,
                         receiverFinancialInstitutionInformation,
-                        financialInstitutionToFinancialInstitutionInformation,
                         transactionId,
                         wireTransferId,
-                        originatorRoutingNumber,
                         additionalProperties,
                     )
             }
@@ -1537,7 +1537,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Reversal{amount=$amount, createdAt=$createdAt, description=$description, inputCycleDate=$inputCycleDate, inputSequenceNumber=$inputSequenceNumber, inputSource=$inputSource, inputMessageAccountabilityData=$inputMessageAccountabilityData, previousMessageInputMessageAccountabilityData=$previousMessageInputMessageAccountabilityData, previousMessageInputCycleDate=$previousMessageInputCycleDate, previousMessageInputSequenceNumber=$previousMessageInputSequenceNumber, previousMessageInputSource=$previousMessageInputSource, receiverFinancialInstitutionInformation=$receiverFinancialInstitutionInformation, financialInstitutionToFinancialInstitutionInformation=$financialInstitutionToFinancialInstitutionInformation, transactionId=$transactionId, wireTransferId=$wireTransferId, originatorRoutingNumber=$originatorRoutingNumber, additionalProperties=$additionalProperties}"
+            "Reversal{amount=$amount, createdAt=$createdAt, description=$description, financialInstitutionToFinancialInstitutionInformation=$financialInstitutionToFinancialInstitutionInformation, inputCycleDate=$inputCycleDate, inputMessageAccountabilityData=$inputMessageAccountabilityData, inputSequenceNumber=$inputSequenceNumber, inputSource=$inputSource, originatorRoutingNumber=$originatorRoutingNumber, previousMessageInputCycleDate=$previousMessageInputCycleDate, previousMessageInputMessageAccountabilityData=$previousMessageInputMessageAccountabilityData, previousMessageInputSequenceNumber=$previousMessageInputSequenceNumber, previousMessageInputSource=$previousMessageInputSource, receiverFinancialInstitutionInformation=$receiverFinancialInstitutionInformation, transactionId=$transactionId, wireTransferId=$wireTransferId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1549,22 +1549,22 @@ private constructor(
             private var amount: JsonField<Long> = JsonMissing.of()
             private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var description: JsonField<String> = JsonMissing.of()
+            private var financialInstitutionToFinancialInstitutionInformation: JsonField<String> =
+                JsonMissing.of()
             private var inputCycleDate: JsonField<LocalDate> = JsonMissing.of()
+            private var inputMessageAccountabilityData: JsonField<String> = JsonMissing.of()
             private var inputSequenceNumber: JsonField<String> = JsonMissing.of()
             private var inputSource: JsonField<String> = JsonMissing.of()
-            private var inputMessageAccountabilityData: JsonField<String> = JsonMissing.of()
+            private var originatorRoutingNumber: JsonField<String> = JsonMissing.of()
+            private var previousMessageInputCycleDate: JsonField<LocalDate> = JsonMissing.of()
             private var previousMessageInputMessageAccountabilityData: JsonField<String> =
                 JsonMissing.of()
-            private var previousMessageInputCycleDate: JsonField<LocalDate> = JsonMissing.of()
             private var previousMessageInputSequenceNumber: JsonField<String> = JsonMissing.of()
             private var previousMessageInputSource: JsonField<String> = JsonMissing.of()
             private var receiverFinancialInstitutionInformation: JsonField<String> =
                 JsonMissing.of()
-            private var financialInstitutionToFinancialInstitutionInformation: JsonField<String> =
-                JsonMissing.of()
             private var transactionId: JsonField<String> = JsonMissing.of()
             private var wireTransferId: JsonField<String> = JsonMissing.of()
-            private var originatorRoutingNumber: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -1572,23 +1572,23 @@ private constructor(
                 this.amount = reversal.amount
                 this.createdAt = reversal.createdAt
                 this.description = reversal.description
+                this.financialInstitutionToFinancialInstitutionInformation =
+                    reversal.financialInstitutionToFinancialInstitutionInformation
                 this.inputCycleDate = reversal.inputCycleDate
+                this.inputMessageAccountabilityData = reversal.inputMessageAccountabilityData
                 this.inputSequenceNumber = reversal.inputSequenceNumber
                 this.inputSource = reversal.inputSource
-                this.inputMessageAccountabilityData = reversal.inputMessageAccountabilityData
+                this.originatorRoutingNumber = reversal.originatorRoutingNumber
+                this.previousMessageInputCycleDate = reversal.previousMessageInputCycleDate
                 this.previousMessageInputMessageAccountabilityData =
                     reversal.previousMessageInputMessageAccountabilityData
-                this.previousMessageInputCycleDate = reversal.previousMessageInputCycleDate
                 this.previousMessageInputSequenceNumber =
                     reversal.previousMessageInputSequenceNumber
                 this.previousMessageInputSource = reversal.previousMessageInputSource
                 this.receiverFinancialInstitutionInformation =
                     reversal.receiverFinancialInstitutionInformation
-                this.financialInstitutionToFinancialInstitutionInformation =
-                    reversal.financialInstitutionToFinancialInstitutionInformation
                 this.transactionId = reversal.transactionId
                 this.wireTransferId = reversal.wireTransferId
-                this.originatorRoutingNumber = reversal.originatorRoutingNumber
                 additionalProperties(reversal.additionalProperties)
             }
 
@@ -1626,6 +1626,24 @@ private constructor(
                 this.description = description
             }
 
+            /** Additional financial institution information included in the wire reversal. */
+            fun financialInstitutionToFinancialInstitutionInformation(
+                financialInstitutionToFinancialInstitutionInformation: String
+            ) =
+                financialInstitutionToFinancialInstitutionInformation(
+                    JsonField.of(financialInstitutionToFinancialInstitutionInformation)
+                )
+
+            /** Additional financial institution information included in the wire reversal. */
+            @JsonProperty("financial_institution_to_financial_institution_information")
+            @ExcludeMissing
+            fun financialInstitutionToFinancialInstitutionInformation(
+                financialInstitutionToFinancialInstitutionInformation: JsonField<String>
+            ) = apply {
+                this.financialInstitutionToFinancialInstitutionInformation =
+                    financialInstitutionToFinancialInstitutionInformation
+            }
+
             /**
              * The Fedwire cycle date for the wire reversal. The "Fedwire day" begins at 9:00 PM
              * Eastern Time on the evening before the `cycle date`.
@@ -1642,6 +1660,18 @@ private constructor(
             fun inputCycleDate(inputCycleDate: JsonField<LocalDate>) = apply {
                 this.inputCycleDate = inputCycleDate
             }
+
+            /** The Fedwire transaction identifier. */
+            fun inputMessageAccountabilityData(inputMessageAccountabilityData: String) =
+                inputMessageAccountabilityData(JsonField.of(inputMessageAccountabilityData))
+
+            /** The Fedwire transaction identifier. */
+            @JsonProperty("input_message_accountability_data")
+            @ExcludeMissing
+            fun inputMessageAccountabilityData(inputMessageAccountabilityData: JsonField<String>) =
+                apply {
+                    this.inputMessageAccountabilityData = inputMessageAccountabilityData
+                }
 
             /** The Fedwire sequence number. */
             fun inputSequenceNumber(inputSequenceNumber: String) =
@@ -1664,16 +1694,37 @@ private constructor(
                 this.inputSource = inputSource
             }
 
-            /** The Fedwire transaction identifier. */
-            fun inputMessageAccountabilityData(inputMessageAccountabilityData: String) =
-                inputMessageAccountabilityData(JsonField.of(inputMessageAccountabilityData))
+            /**
+             * The American Banking Association (ABA) routing number of the bank originating the
+             * transfer.
+             */
+            fun originatorRoutingNumber(originatorRoutingNumber: String) =
+                originatorRoutingNumber(JsonField.of(originatorRoutingNumber))
 
-            /** The Fedwire transaction identifier. */
-            @JsonProperty("input_message_accountability_data")
+            /**
+             * The American Banking Association (ABA) routing number of the bank originating the
+             * transfer.
+             */
+            @JsonProperty("originator_routing_number")
             @ExcludeMissing
-            fun inputMessageAccountabilityData(inputMessageAccountabilityData: JsonField<String>) =
+            fun originatorRoutingNumber(originatorRoutingNumber: JsonField<String>) = apply {
+                this.originatorRoutingNumber = originatorRoutingNumber
+            }
+
+            /**
+             * The Fedwire cycle date for the wire transfer that is being reversed by this message.
+             */
+            fun previousMessageInputCycleDate(previousMessageInputCycleDate: LocalDate) =
+                previousMessageInputCycleDate(JsonField.of(previousMessageInputCycleDate))
+
+            /**
+             * The Fedwire cycle date for the wire transfer that is being reversed by this message.
+             */
+            @JsonProperty("previous_message_input_cycle_date")
+            @ExcludeMissing
+            fun previousMessageInputCycleDate(previousMessageInputCycleDate: JsonField<LocalDate>) =
                 apply {
-                    this.inputMessageAccountabilityData = inputMessageAccountabilityData
+                    this.previousMessageInputCycleDate = previousMessageInputCycleDate
                 }
 
             /** The Fedwire transaction identifier for the wire transfer that was reversed. */
@@ -1693,22 +1744,6 @@ private constructor(
                 this.previousMessageInputMessageAccountabilityData =
                     previousMessageInputMessageAccountabilityData
             }
-
-            /**
-             * The Fedwire cycle date for the wire transfer that is being reversed by this message.
-             */
-            fun previousMessageInputCycleDate(previousMessageInputCycleDate: LocalDate) =
-                previousMessageInputCycleDate(JsonField.of(previousMessageInputCycleDate))
-
-            /**
-             * The Fedwire cycle date for the wire transfer that is being reversed by this message.
-             */
-            @JsonProperty("previous_message_input_cycle_date")
-            @ExcludeMissing
-            fun previousMessageInputCycleDate(previousMessageInputCycleDate: JsonField<LocalDate>) =
-                apply {
-                    this.previousMessageInputCycleDate = previousMessageInputCycleDate
-                }
 
             /** The Fedwire sequence number for the wire transfer that was reversed. */
             fun previousMessageInputSequenceNumber(previousMessageInputSequenceNumber: String) =
@@ -1756,24 +1791,6 @@ private constructor(
                     receiverFinancialInstitutionInformation
             }
 
-            /** Additional financial institution information included in the wire reversal. */
-            fun financialInstitutionToFinancialInstitutionInformation(
-                financialInstitutionToFinancialInstitutionInformation: String
-            ) =
-                financialInstitutionToFinancialInstitutionInformation(
-                    JsonField.of(financialInstitutionToFinancialInstitutionInformation)
-                )
-
-            /** Additional financial institution information included in the wire reversal. */
-            @JsonProperty("financial_institution_to_financial_institution_information")
-            @ExcludeMissing
-            fun financialInstitutionToFinancialInstitutionInformation(
-                financialInstitutionToFinancialInstitutionInformation: JsonField<String>
-            ) = apply {
-                this.financialInstitutionToFinancialInstitutionInformation =
-                    financialInstitutionToFinancialInstitutionInformation
-            }
-
             /** The ID for the Transaction associated with the transfer reversal. */
             fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
 
@@ -1795,23 +1812,6 @@ private constructor(
                 this.wireTransferId = wireTransferId
             }
 
-            /**
-             * The American Banking Association (ABA) routing number of the bank originating the
-             * transfer.
-             */
-            fun originatorRoutingNumber(originatorRoutingNumber: String) =
-                originatorRoutingNumber(JsonField.of(originatorRoutingNumber))
-
-            /**
-             * The American Banking Association (ABA) routing number of the bank originating the
-             * transfer.
-             */
-            @JsonProperty("originator_routing_number")
-            @ExcludeMissing
-            fun originatorRoutingNumber(originatorRoutingNumber: JsonField<String>) = apply {
-                this.originatorRoutingNumber = originatorRoutingNumber
-            }
-
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -1831,19 +1831,19 @@ private constructor(
                     amount,
                     createdAt,
                     description,
+                    financialInstitutionToFinancialInstitutionInformation,
                     inputCycleDate,
+                    inputMessageAccountabilityData,
                     inputSequenceNumber,
                     inputSource,
-                    inputMessageAccountabilityData,
-                    previousMessageInputMessageAccountabilityData,
+                    originatorRoutingNumber,
                     previousMessageInputCycleDate,
+                    previousMessageInputMessageAccountabilityData,
                     previousMessageInputSequenceNumber,
                     previousMessageInputSource,
                     receiverFinancialInstitutionInformation,
-                    financialInstitutionToFinancialInstitutionInformation,
                     transactionId,
                     wireTransferId,
-                    originatorRoutingNumber,
                     additionalProperties.toUnmodifiable(),
                 )
         }

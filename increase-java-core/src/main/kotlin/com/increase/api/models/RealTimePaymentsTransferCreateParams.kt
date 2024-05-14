@@ -111,8 +111,8 @@ constructor(
         fun sourceAccountNumberId(): String? = sourceAccountNumberId
 
         /**
-         * The name of the transfer's sender. If not provided, the account's entity name will be
-         * used.
+         * The name of the transfer's sender. If not provided, defaults to the name of the account's
+         * entity.
          */
         @JsonProperty("debtor_name") fun debtorName(): String? = debtorName
 
@@ -133,11 +133,17 @@ constructor(
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         @JsonProperty("require_approval") fun requireApproval(): Boolean? = requireApproval
 
-        /** The name of the party on whose behalf the creditor is receiving the payment. */
+        /**
+         * The name of the ultimate recipient of the transfer. Set this if the creditor is an
+         * intermediary receiving the payment for someone else.
+         */
         @JsonProperty("ultimate_creditor_name")
         fun ultimateCreditorName(): String? = ultimateCreditorName
 
-        /** The name of the the party on whose behalf the debtor is instructing the payment. */
+        /**
+         * The name of the ultimate sender of the transfer. Set this if the funds are being sent on
+         * behalf of someone who is not the account holder at Increase.
+         */
         @JsonProperty("ultimate_debtor_name") fun ultimateDebtorName(): String? = ultimateDebtorName
 
         @JsonAnyGetter
@@ -254,8 +260,8 @@ constructor(
             }
 
             /**
-             * The name of the transfer's sender. If not provided, the account's entity name will be
-             * used.
+             * The name of the transfer's sender. If not provided, defaults to the name of the
+             * account's entity.
              */
             @JsonProperty("debtor_name")
             fun debtorName(debtorName: String) = apply { this.debtorName = debtorName }
@@ -288,13 +294,19 @@ constructor(
                 this.requireApproval = requireApproval
             }
 
-            /** The name of the party on whose behalf the creditor is receiving the payment. */
+            /**
+             * The name of the ultimate recipient of the transfer. Set this if the creditor is an
+             * intermediary receiving the payment for someone else.
+             */
             @JsonProperty("ultimate_creditor_name")
             fun ultimateCreditorName(ultimateCreditorName: String) = apply {
                 this.ultimateCreditorName = ultimateCreditorName
             }
 
-            /** The name of the the party on whose behalf the debtor is instructing the payment. */
+            /**
+             * The name of the ultimate sender of the transfer. Set this if the funds are being sent
+             * on behalf of someone who is not the account holder at Increase.
+             */
             @JsonProperty("ultimate_debtor_name")
             fun ultimateDebtorName(ultimateDebtorName: String) = apply {
                 this.ultimateDebtorName = ultimateDebtorName
@@ -450,8 +462,8 @@ constructor(
         }
 
         /**
-         * The name of the transfer's sender. If not provided, the account's entity name will be
-         * used.
+         * The name of the transfer's sender. If not provided, defaults to the name of the account's
+         * entity.
          */
         fun debtorName(debtorName: String) = apply { this.debtorName = debtorName }
 
@@ -478,12 +490,18 @@ constructor(
             this.requireApproval = requireApproval
         }
 
-        /** The name of the party on whose behalf the creditor is receiving the payment. */
+        /**
+         * The name of the ultimate recipient of the transfer. Set this if the creditor is an
+         * intermediary receiving the payment for someone else.
+         */
         fun ultimateCreditorName(ultimateCreditorName: String) = apply {
             this.ultimateCreditorName = ultimateCreditorName
         }
 
-        /** The name of the the party on whose behalf the debtor is instructing the payment. */
+        /**
+         * The name of the ultimate sender of the transfer. Set this if the funds are being sent on
+         * behalf of someone who is not the account holder at Increase.
+         */
         fun ultimateDebtorName(ultimateDebtorName: String) = apply {
             this.ultimateDebtorName = ultimateDebtorName
         }

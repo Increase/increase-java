@@ -31,14 +31,14 @@ class AccountNumber
 private constructor(
     private val accountId: JsonField<String>,
     private val accountNumber: JsonField<String>,
-    private val id: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
+    private val id: JsonField<String>,
+    private val idempotencyKey: JsonField<String>,
+    private val inboundAch: JsonField<InboundAch>,
+    private val inboundChecks: JsonField<InboundChecks>,
     private val name: JsonField<String>,
     private val routingNumber: JsonField<String>,
     private val status: JsonField<Status>,
-    private val inboundAch: JsonField<InboundAch>,
-    private val inboundChecks: JsonField<InboundChecks>,
-    private val idempotencyKey: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -53,14 +53,28 @@ private constructor(
     /** The account number. */
     fun accountNumber(): String = accountNumber.getRequired("account_number")
 
-    /** The Account Number identifier. */
-    fun id(): String = id.getRequired("id")
-
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account Number was
      * created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+    /** The Account Number identifier. */
+    fun id(): String = id.getRequired("id")
+
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    fun idempotencyKey(): Optional<String> =
+        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+
+    /** Properties related to how this Account Number handles inbound ACH transfers. */
+    fun inboundAch(): InboundAch = inboundAch.getRequired("inbound_ach")
+
+    /** Properties related to how this Account Number should handle inbound check withdrawals. */
+    fun inboundChecks(): InboundChecks = inboundChecks.getRequired("inbound_checks")
 
     /** The name you choose for the Account Number. */
     fun name(): String = name.getRequired("name")
@@ -70,20 +84,6 @@ private constructor(
 
     /** This indicates if payments can be made to the Account Number. */
     fun status(): Status = status.getRequired("status")
-
-    /** Properties related to how this Account Number handles inbound ACH transfers. */
-    fun inboundAch(): InboundAch = inboundAch.getRequired("inbound_ach")
-
-    /** Properties related to how this Account Number should handle inbound check withdrawals. */
-    fun inboundChecks(): InboundChecks = inboundChecks.getRequired("inbound_checks")
-
-    /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
-     */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -97,14 +97,27 @@ private constructor(
     /** The account number. */
     @JsonProperty("account_number") @ExcludeMissing fun _accountNumber() = accountNumber
 
-    /** The Account Number identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account Number was
      * created.
      */
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+    /** The Account Number identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+
+    /** Properties related to how this Account Number handles inbound ACH transfers. */
+    @JsonProperty("inbound_ach") @ExcludeMissing fun _inboundAch() = inboundAch
+
+    /** Properties related to how this Account Number should handle inbound check withdrawals. */
+    @JsonProperty("inbound_checks") @ExcludeMissing fun _inboundChecks() = inboundChecks
 
     /** The name you choose for the Account Number. */
     @JsonProperty("name") @ExcludeMissing fun _name() = name
@@ -114,19 +127,6 @@ private constructor(
 
     /** This indicates if payments can be made to the Account Number. */
     @JsonProperty("status") @ExcludeMissing fun _status() = status
-
-    /** Properties related to how this Account Number handles inbound ACH transfers. */
-    @JsonProperty("inbound_ach") @ExcludeMissing fun _inboundAch() = inboundAch
-
-    /** Properties related to how this Account Number should handle inbound check withdrawals. */
-    @JsonProperty("inbound_checks") @ExcludeMissing fun _inboundChecks() = inboundChecks
-
-    /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
-     */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -142,14 +142,14 @@ private constructor(
         if (!validated) {
             accountId()
             accountNumber()
-            id()
             createdAt()
+            id()
+            idempotencyKey()
+            inboundAch().validate()
+            inboundChecks().validate()
             name()
             routingNumber()
             status()
-            inboundAch().validate()
-            inboundChecks().validate()
-            idempotencyKey()
             type()
             validated = true
         }
@@ -165,14 +165,14 @@ private constructor(
         return other is AccountNumber &&
             this.accountId == other.accountId &&
             this.accountNumber == other.accountNumber &&
-            this.id == other.id &&
             this.createdAt == other.createdAt &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.inboundAch == other.inboundAch &&
+            this.inboundChecks == other.inboundChecks &&
             this.name == other.name &&
             this.routingNumber == other.routingNumber &&
             this.status == other.status &&
-            this.inboundAch == other.inboundAch &&
-            this.inboundChecks == other.inboundChecks &&
-            this.idempotencyKey == other.idempotencyKey &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -183,14 +183,14 @@ private constructor(
                 Objects.hash(
                     accountId,
                     accountNumber,
-                    id,
                     createdAt,
+                    id,
+                    idempotencyKey,
+                    inboundAch,
+                    inboundChecks,
                     name,
                     routingNumber,
                     status,
-                    inboundAch,
-                    inboundChecks,
-                    idempotencyKey,
                     type,
                     additionalProperties,
                 )
@@ -199,7 +199,7 @@ private constructor(
     }
 
     override fun toString() =
-        "AccountNumber{accountId=$accountId, accountNumber=$accountNumber, id=$id, createdAt=$createdAt, name=$name, routingNumber=$routingNumber, status=$status, inboundAch=$inboundAch, inboundChecks=$inboundChecks, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
+        "AccountNumber{accountId=$accountId, accountNumber=$accountNumber, createdAt=$createdAt, id=$id, idempotencyKey=$idempotencyKey, inboundAch=$inboundAch, inboundChecks=$inboundChecks, name=$name, routingNumber=$routingNumber, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -210,14 +210,14 @@ private constructor(
 
         private var accountId: JsonField<String> = JsonMissing.of()
         private var accountNumber: JsonField<String> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var id: JsonField<String> = JsonMissing.of()
+        private var idempotencyKey: JsonField<String> = JsonMissing.of()
+        private var inboundAch: JsonField<InboundAch> = JsonMissing.of()
+        private var inboundChecks: JsonField<InboundChecks> = JsonMissing.of()
         private var name: JsonField<String> = JsonMissing.of()
         private var routingNumber: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
-        private var inboundAch: JsonField<InboundAch> = JsonMissing.of()
-        private var inboundChecks: JsonField<InboundChecks> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -225,14 +225,14 @@ private constructor(
         internal fun from(accountNumber: AccountNumber) = apply {
             this.accountId = accountNumber.accountId
             this.accountNumber = accountNumber.accountNumber
-            this.id = accountNumber.id
             this.createdAt = accountNumber.createdAt
+            this.id = accountNumber.id
+            this.idempotencyKey = accountNumber.idempotencyKey
+            this.inboundAch = accountNumber.inboundAch
+            this.inboundChecks = accountNumber.inboundChecks
             this.name = accountNumber.name
             this.routingNumber = accountNumber.routingNumber
             this.status = accountNumber.status
-            this.inboundAch = accountNumber.inboundAch
-            this.inboundChecks = accountNumber.inboundChecks
-            this.idempotencyKey = accountNumber.idempotencyKey
             this.type = accountNumber.type
             additionalProperties(accountNumber.additionalProperties)
         }
@@ -255,12 +255,6 @@ private constructor(
             this.accountNumber = accountNumber
         }
 
-        /** The Account Number identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Account Number identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
-
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account Number
          * was created.
@@ -274,6 +268,52 @@ private constructor(
         @JsonProperty("created_at")
         @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /** The Account Number identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Account Number identifier. */
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
+        }
+
+        /** Properties related to how this Account Number handles inbound ACH transfers. */
+        fun inboundAch(inboundAch: InboundAch) = inboundAch(JsonField.of(inboundAch))
+
+        /** Properties related to how this Account Number handles inbound ACH transfers. */
+        @JsonProperty("inbound_ach")
+        @ExcludeMissing
+        fun inboundAch(inboundAch: JsonField<InboundAch>) = apply { this.inboundAch = inboundAch }
+
+        /**
+         * Properties related to how this Account Number should handle inbound check withdrawals.
+         */
+        fun inboundChecks(inboundChecks: InboundChecks) = inboundChecks(JsonField.of(inboundChecks))
+
+        /**
+         * Properties related to how this Account Number should handle inbound check withdrawals.
+         */
+        @JsonProperty("inbound_checks")
+        @ExcludeMissing
+        fun inboundChecks(inboundChecks: JsonField<InboundChecks>) = apply {
+            this.inboundChecks = inboundChecks
+        }
 
         /** The name you choose for the Account Number. */
         fun name(name: String) = name(JsonField.of(name))
@@ -300,46 +340,6 @@ private constructor(
         @JsonProperty("status")
         @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
-
-        /** Properties related to how this Account Number handles inbound ACH transfers. */
-        fun inboundAch(inboundAch: InboundAch) = inboundAch(JsonField.of(inboundAch))
-
-        /** Properties related to how this Account Number handles inbound ACH transfers. */
-        @JsonProperty("inbound_ach")
-        @ExcludeMissing
-        fun inboundAch(inboundAch: JsonField<InboundAch>) = apply { this.inboundAch = inboundAch }
-
-        /**
-         * Properties related to how this Account Number should handle inbound check withdrawals.
-         */
-        fun inboundChecks(inboundChecks: InboundChecks) = inboundChecks(JsonField.of(inboundChecks))
-
-        /**
-         * Properties related to how this Account Number should handle inbound check withdrawals.
-         */
-        @JsonProperty("inbound_checks")
-        @ExcludeMissing
-        fun inboundChecks(inboundChecks: JsonField<InboundChecks>) = apply {
-            this.inboundChecks = inboundChecks
-        }
-
-        /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
-         */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
-
-        /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
-         */
-        @JsonProperty("idempotency_key")
-        @ExcludeMissing
-        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
-            this.idempotencyKey = idempotencyKey
-        }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -373,14 +373,14 @@ private constructor(
             AccountNumber(
                 accountId,
                 accountNumber,
-                id,
                 createdAt,
+                id,
+                idempotencyKey,
+                inboundAch,
+                inboundChecks,
                 name,
                 routingNumber,
                 status,
-                inboundAch,
-                inboundChecks,
-                idempotencyKey,
                 type,
                 additionalProperties.toUnmodifiable(),
             )

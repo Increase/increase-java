@@ -26,26 +26,26 @@ import java.util.Optional
 @NoAutoDetect
 class WireDrawdownRequest
 private constructor(
-    private val type: JsonField<Type>,
-    private val id: JsonField<String>,
     private val accountNumberId: JsonField<String>,
-    private val recipientAccountNumber: JsonField<String>,
-    private val recipientRoutingNumber: JsonField<String>,
     private val amount: JsonField<Long>,
     private val currency: JsonField<String>,
+    private val fulfillmentTransactionId: JsonField<String>,
+    private val id: JsonField<String>,
+    private val idempotencyKey: JsonField<String>,
     private val messageToRecipient: JsonField<String>,
-    private val recipientName: JsonField<String>,
-    private val recipientAddressLine1: JsonField<String>,
-    private val recipientAddressLine2: JsonField<String>,
-    private val recipientAddressLine3: JsonField<String>,
-    private val originatorName: JsonField<String>,
     private val originatorAddressLine1: JsonField<String>,
     private val originatorAddressLine2: JsonField<String>,
     private val originatorAddressLine3: JsonField<String>,
-    private val submission: JsonField<Submission>,
-    private val fulfillmentTransactionId: JsonField<String>,
+    private val originatorName: JsonField<String>,
+    private val recipientAccountNumber: JsonField<String>,
+    private val recipientAddressLine1: JsonField<String>,
+    private val recipientAddressLine2: JsonField<String>,
+    private val recipientAddressLine3: JsonField<String>,
+    private val recipientName: JsonField<String>,
+    private val recipientRoutingNumber: JsonField<String>,
     private val status: JsonField<Status>,
-    private val idempotencyKey: JsonField<String>,
+    private val submission: JsonField<Submission>,
+    private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -54,26 +54,9 @@ private constructor(
     private var hashCode: Int = 0
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `wire_drawdown_request`.
-     */
-    fun type(): Type = type.getRequired("type")
-
-    /** The Wire drawdown request identifier. */
-    fun id(): String = id.getRequired("id")
-
-    /**
      * The Account Number to which the recipient of this request is being requested to send funds.
      */
     fun accountNumberId(): String = accountNumberId.getRequired("account_number_id")
-
-    /** The drawdown request's recipient's account number. */
-    fun recipientAccountNumber(): String =
-        recipientAccountNumber.getRequired("recipient_account_number")
-
-    /** The drawdown request's recipient's routing number. */
-    fun recipientRoutingNumber(): String =
-        recipientRoutingNumber.getRequired("recipient_routing_number")
 
     /** The amount being requested in cents. */
     fun amount(): Long = amount.getRequired("amount")
@@ -84,28 +67,26 @@ private constructor(
      */
     fun currency(): String = currency.getRequired("currency")
 
+    /**
+     * If the recipient fulfills the drawdown request by sending funds, then this will be the
+     * identifier of the corresponding Transaction.
+     */
+    fun fulfillmentTransactionId(): Optional<String> =
+        Optional.ofNullable(fulfillmentTransactionId.getNullable("fulfillment_transaction_id"))
+
+    /** The Wire drawdown request identifier. */
+    fun id(): String = id.getRequired("id")
+
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    fun idempotencyKey(): Optional<String> =
+        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+
     /** The message the recipient will see as part of the drawdown request. */
     fun messageToRecipient(): String = messageToRecipient.getRequired("message_to_recipient")
-
-    /** The drawdown request's recipient's name. */
-    fun recipientName(): Optional<String> =
-        Optional.ofNullable(recipientName.getNullable("recipient_name"))
-
-    /** Line 1 of the drawdown request's recipient's address. */
-    fun recipientAddressLine1(): Optional<String> =
-        Optional.ofNullable(recipientAddressLine1.getNullable("recipient_address_line1"))
-
-    /** Line 2 of the drawdown request's recipient's address. */
-    fun recipientAddressLine2(): Optional<String> =
-        Optional.ofNullable(recipientAddressLine2.getNullable("recipient_address_line2"))
-
-    /** Line 3 of the drawdown request's recipient's address. */
-    fun recipientAddressLine3(): Optional<String> =
-        Optional.ofNullable(recipientAddressLine3.getNullable("recipient_address_line3"))
-
-    /** The originator's name. */
-    fun originatorName(): Optional<String> =
-        Optional.ofNullable(originatorName.getNullable("originator_name"))
 
     /** The originator's address line 1. */
     fun originatorAddressLine1(): Optional<String> =
@@ -119,6 +100,37 @@ private constructor(
     fun originatorAddressLine3(): Optional<String> =
         Optional.ofNullable(originatorAddressLine3.getNullable("originator_address_line3"))
 
+    /** The originator's name. */
+    fun originatorName(): Optional<String> =
+        Optional.ofNullable(originatorName.getNullable("originator_name"))
+
+    /** The drawdown request's recipient's account number. */
+    fun recipientAccountNumber(): String =
+        recipientAccountNumber.getRequired("recipient_account_number")
+
+    /** Line 1 of the drawdown request's recipient's address. */
+    fun recipientAddressLine1(): Optional<String> =
+        Optional.ofNullable(recipientAddressLine1.getNullable("recipient_address_line1"))
+
+    /** Line 2 of the drawdown request's recipient's address. */
+    fun recipientAddressLine2(): Optional<String> =
+        Optional.ofNullable(recipientAddressLine2.getNullable("recipient_address_line2"))
+
+    /** Line 3 of the drawdown request's recipient's address. */
+    fun recipientAddressLine3(): Optional<String> =
+        Optional.ofNullable(recipientAddressLine3.getNullable("recipient_address_line3"))
+
+    /** The drawdown request's recipient's name. */
+    fun recipientName(): Optional<String> =
+        Optional.ofNullable(recipientName.getNullable("recipient_name"))
+
+    /** The drawdown request's recipient's routing number. */
+    fun recipientRoutingNumber(): String =
+        recipientRoutingNumber.getRequired("recipient_routing_number")
+
+    /** The lifecycle status of the drawdown request. */
+    fun status(): Status = status.getRequired("status")
+
     /**
      * After the drawdown request is submitted to Fedwire, this will contain supplemental details.
      */
@@ -126,46 +138,15 @@ private constructor(
         Optional.ofNullable(submission.getNullable("submission"))
 
     /**
-     * If the recipient fulfills the drawdown request by sending funds, then this will be the
-     * identifier of the corresponding Transaction.
-     */
-    fun fulfillmentTransactionId(): Optional<String> =
-        Optional.ofNullable(fulfillmentTransactionId.getNullable("fulfillment_transaction_id"))
-
-    /** The lifecycle status of the drawdown request. */
-    fun status(): Status = status.getRequired("status")
-
-    /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
-     */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
-
-    /**
      * A constant representing the object's type. For this resource it will always be
      * `wire_drawdown_request`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
-
-    /** The Wire drawdown request identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    fun type(): Type = type.getRequired("type")
 
     /**
      * The Account Number to which the recipient of this request is being requested to send funds.
      */
     @JsonProperty("account_number_id") @ExcludeMissing fun _accountNumberId() = accountNumberId
-
-    /** The drawdown request's recipient's account number. */
-    @JsonProperty("recipient_account_number")
-    @ExcludeMissing
-    fun _recipientAccountNumber() = recipientAccountNumber
-
-    /** The drawdown request's recipient's routing number. */
-    @JsonProperty("recipient_routing_number")
-    @ExcludeMissing
-    fun _recipientRoutingNumber() = recipientRoutingNumber
 
     /** The amount being requested in cents. */
     @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
@@ -176,31 +157,28 @@ private constructor(
      */
     @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
 
+    /**
+     * If the recipient fulfills the drawdown request by sending funds, then this will be the
+     * identifier of the corresponding Transaction.
+     */
+    @JsonProperty("fulfillment_transaction_id")
+    @ExcludeMissing
+    fun _fulfillmentTransactionId() = fulfillmentTransactionId
+
+    /** The Wire drawdown request identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+
     /** The message the recipient will see as part of the drawdown request. */
     @JsonProperty("message_to_recipient")
     @ExcludeMissing
     fun _messageToRecipient() = messageToRecipient
-
-    /** The drawdown request's recipient's name. */
-    @JsonProperty("recipient_name") @ExcludeMissing fun _recipientName() = recipientName
-
-    /** Line 1 of the drawdown request's recipient's address. */
-    @JsonProperty("recipient_address_line1")
-    @ExcludeMissing
-    fun _recipientAddressLine1() = recipientAddressLine1
-
-    /** Line 2 of the drawdown request's recipient's address. */
-    @JsonProperty("recipient_address_line2")
-    @ExcludeMissing
-    fun _recipientAddressLine2() = recipientAddressLine2
-
-    /** Line 3 of the drawdown request's recipient's address. */
-    @JsonProperty("recipient_address_line3")
-    @ExcludeMissing
-    fun _recipientAddressLine3() = recipientAddressLine3
-
-    /** The originator's name. */
-    @JsonProperty("originator_name") @ExcludeMissing fun _originatorName() = originatorName
 
     /** The originator's address line 1. */
     @JsonProperty("originator_address_line1")
@@ -217,28 +195,50 @@ private constructor(
     @ExcludeMissing
     fun _originatorAddressLine3() = originatorAddressLine3
 
+    /** The originator's name. */
+    @JsonProperty("originator_name") @ExcludeMissing fun _originatorName() = originatorName
+
+    /** The drawdown request's recipient's account number. */
+    @JsonProperty("recipient_account_number")
+    @ExcludeMissing
+    fun _recipientAccountNumber() = recipientAccountNumber
+
+    /** Line 1 of the drawdown request's recipient's address. */
+    @JsonProperty("recipient_address_line1")
+    @ExcludeMissing
+    fun _recipientAddressLine1() = recipientAddressLine1
+
+    /** Line 2 of the drawdown request's recipient's address. */
+    @JsonProperty("recipient_address_line2")
+    @ExcludeMissing
+    fun _recipientAddressLine2() = recipientAddressLine2
+
+    /** Line 3 of the drawdown request's recipient's address. */
+    @JsonProperty("recipient_address_line3")
+    @ExcludeMissing
+    fun _recipientAddressLine3() = recipientAddressLine3
+
+    /** The drawdown request's recipient's name. */
+    @JsonProperty("recipient_name") @ExcludeMissing fun _recipientName() = recipientName
+
+    /** The drawdown request's recipient's routing number. */
+    @JsonProperty("recipient_routing_number")
+    @ExcludeMissing
+    fun _recipientRoutingNumber() = recipientRoutingNumber
+
+    /** The lifecycle status of the drawdown request. */
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
+
     /**
      * After the drawdown request is submitted to Fedwire, this will contain supplemental details.
      */
     @JsonProperty("submission") @ExcludeMissing fun _submission() = submission
 
     /**
-     * If the recipient fulfills the drawdown request by sending funds, then this will be the
-     * identifier of the corresponding Transaction.
+     * A constant representing the object's type. For this resource it will always be
+     * `wire_drawdown_request`.
      */
-    @JsonProperty("fulfillment_transaction_id")
-    @ExcludeMissing
-    fun _fulfillmentTransactionId() = fulfillmentTransactionId
-
-    /** The lifecycle status of the drawdown request. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
-
-    /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
-     */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("type") @ExcludeMissing fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -246,26 +246,26 @@ private constructor(
 
     fun validate(): WireDrawdownRequest = apply {
         if (!validated) {
-            type()
-            id()
             accountNumberId()
-            recipientAccountNumber()
-            recipientRoutingNumber()
             amount()
             currency()
+            fulfillmentTransactionId()
+            id()
+            idempotencyKey()
             messageToRecipient()
-            recipientName()
-            recipientAddressLine1()
-            recipientAddressLine2()
-            recipientAddressLine3()
-            originatorName()
             originatorAddressLine1()
             originatorAddressLine2()
             originatorAddressLine3()
-            submission().map { it.validate() }
-            fulfillmentTransactionId()
+            originatorName()
+            recipientAccountNumber()
+            recipientAddressLine1()
+            recipientAddressLine2()
+            recipientAddressLine3()
+            recipientName()
+            recipientRoutingNumber()
             status()
-            idempotencyKey()
+            submission().map { it.validate() }
+            type()
             validated = true
         }
     }
@@ -278,26 +278,26 @@ private constructor(
         }
 
         return other is WireDrawdownRequest &&
-            this.type == other.type &&
-            this.id == other.id &&
             this.accountNumberId == other.accountNumberId &&
-            this.recipientAccountNumber == other.recipientAccountNumber &&
-            this.recipientRoutingNumber == other.recipientRoutingNumber &&
             this.amount == other.amount &&
             this.currency == other.currency &&
+            this.fulfillmentTransactionId == other.fulfillmentTransactionId &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.messageToRecipient == other.messageToRecipient &&
-            this.recipientName == other.recipientName &&
-            this.recipientAddressLine1 == other.recipientAddressLine1 &&
-            this.recipientAddressLine2 == other.recipientAddressLine2 &&
-            this.recipientAddressLine3 == other.recipientAddressLine3 &&
-            this.originatorName == other.originatorName &&
             this.originatorAddressLine1 == other.originatorAddressLine1 &&
             this.originatorAddressLine2 == other.originatorAddressLine2 &&
             this.originatorAddressLine3 == other.originatorAddressLine3 &&
-            this.submission == other.submission &&
-            this.fulfillmentTransactionId == other.fulfillmentTransactionId &&
+            this.originatorName == other.originatorName &&
+            this.recipientAccountNumber == other.recipientAccountNumber &&
+            this.recipientAddressLine1 == other.recipientAddressLine1 &&
+            this.recipientAddressLine2 == other.recipientAddressLine2 &&
+            this.recipientAddressLine3 == other.recipientAddressLine3 &&
+            this.recipientName == other.recipientName &&
+            this.recipientRoutingNumber == other.recipientRoutingNumber &&
             this.status == other.status &&
-            this.idempotencyKey == other.idempotencyKey &&
+            this.submission == other.submission &&
+            this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -305,26 +305,26 @@ private constructor(
         if (hashCode == 0) {
             hashCode =
                 Objects.hash(
-                    type,
-                    id,
                     accountNumberId,
-                    recipientAccountNumber,
-                    recipientRoutingNumber,
                     amount,
                     currency,
+                    fulfillmentTransactionId,
+                    id,
+                    idempotencyKey,
                     messageToRecipient,
-                    recipientName,
-                    recipientAddressLine1,
-                    recipientAddressLine2,
-                    recipientAddressLine3,
-                    originatorName,
                     originatorAddressLine1,
                     originatorAddressLine2,
                     originatorAddressLine3,
-                    submission,
-                    fulfillmentTransactionId,
+                    originatorName,
+                    recipientAccountNumber,
+                    recipientAddressLine1,
+                    recipientAddressLine2,
+                    recipientAddressLine3,
+                    recipientName,
+                    recipientRoutingNumber,
                     status,
-                    idempotencyKey,
+                    submission,
+                    type,
                     additionalProperties,
                 )
         }
@@ -332,7 +332,7 @@ private constructor(
     }
 
     override fun toString() =
-        "WireDrawdownRequest{type=$type, id=$id, accountNumberId=$accountNumberId, recipientAccountNumber=$recipientAccountNumber, recipientRoutingNumber=$recipientRoutingNumber, amount=$amount, currency=$currency, messageToRecipient=$messageToRecipient, recipientName=$recipientName, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, originatorName=$originatorName, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, submission=$submission, fulfillmentTransactionId=$fulfillmentTransactionId, status=$status, idempotencyKey=$idempotencyKey, additionalProperties=$additionalProperties}"
+        "WireDrawdownRequest{accountNumberId=$accountNumberId, amount=$amount, currency=$currency, fulfillmentTransactionId=$fulfillmentTransactionId, id=$id, idempotencyKey=$idempotencyKey, messageToRecipient=$messageToRecipient, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, recipientAccountNumber=$recipientAccountNumber, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -341,72 +341,52 @@ private constructor(
 
     class Builder {
 
-        private var type: JsonField<Type> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var accountNumberId: JsonField<String> = JsonMissing.of()
-        private var recipientAccountNumber: JsonField<String> = JsonMissing.of()
-        private var recipientRoutingNumber: JsonField<String> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
         private var currency: JsonField<String> = JsonMissing.of()
+        private var fulfillmentTransactionId: JsonField<String> = JsonMissing.of()
+        private var id: JsonField<String> = JsonMissing.of()
+        private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var messageToRecipient: JsonField<String> = JsonMissing.of()
-        private var recipientName: JsonField<String> = JsonMissing.of()
-        private var recipientAddressLine1: JsonField<String> = JsonMissing.of()
-        private var recipientAddressLine2: JsonField<String> = JsonMissing.of()
-        private var recipientAddressLine3: JsonField<String> = JsonMissing.of()
-        private var originatorName: JsonField<String> = JsonMissing.of()
         private var originatorAddressLine1: JsonField<String> = JsonMissing.of()
         private var originatorAddressLine2: JsonField<String> = JsonMissing.of()
         private var originatorAddressLine3: JsonField<String> = JsonMissing.of()
-        private var submission: JsonField<Submission> = JsonMissing.of()
-        private var fulfillmentTransactionId: JsonField<String> = JsonMissing.of()
+        private var originatorName: JsonField<String> = JsonMissing.of()
+        private var recipientAccountNumber: JsonField<String> = JsonMissing.of()
+        private var recipientAddressLine1: JsonField<String> = JsonMissing.of()
+        private var recipientAddressLine2: JsonField<String> = JsonMissing.of()
+        private var recipientAddressLine3: JsonField<String> = JsonMissing.of()
+        private var recipientName: JsonField<String> = JsonMissing.of()
+        private var recipientRoutingNumber: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
+        private var submission: JsonField<Submission> = JsonMissing.of()
+        private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(wireDrawdownRequest: WireDrawdownRequest) = apply {
-            this.type = wireDrawdownRequest.type
-            this.id = wireDrawdownRequest.id
             this.accountNumberId = wireDrawdownRequest.accountNumberId
-            this.recipientAccountNumber = wireDrawdownRequest.recipientAccountNumber
-            this.recipientRoutingNumber = wireDrawdownRequest.recipientRoutingNumber
             this.amount = wireDrawdownRequest.amount
             this.currency = wireDrawdownRequest.currency
+            this.fulfillmentTransactionId = wireDrawdownRequest.fulfillmentTransactionId
+            this.id = wireDrawdownRequest.id
+            this.idempotencyKey = wireDrawdownRequest.idempotencyKey
             this.messageToRecipient = wireDrawdownRequest.messageToRecipient
-            this.recipientName = wireDrawdownRequest.recipientName
-            this.recipientAddressLine1 = wireDrawdownRequest.recipientAddressLine1
-            this.recipientAddressLine2 = wireDrawdownRequest.recipientAddressLine2
-            this.recipientAddressLine3 = wireDrawdownRequest.recipientAddressLine3
-            this.originatorName = wireDrawdownRequest.originatorName
             this.originatorAddressLine1 = wireDrawdownRequest.originatorAddressLine1
             this.originatorAddressLine2 = wireDrawdownRequest.originatorAddressLine2
             this.originatorAddressLine3 = wireDrawdownRequest.originatorAddressLine3
-            this.submission = wireDrawdownRequest.submission
-            this.fulfillmentTransactionId = wireDrawdownRequest.fulfillmentTransactionId
+            this.originatorName = wireDrawdownRequest.originatorName
+            this.recipientAccountNumber = wireDrawdownRequest.recipientAccountNumber
+            this.recipientAddressLine1 = wireDrawdownRequest.recipientAddressLine1
+            this.recipientAddressLine2 = wireDrawdownRequest.recipientAddressLine2
+            this.recipientAddressLine3 = wireDrawdownRequest.recipientAddressLine3
+            this.recipientName = wireDrawdownRequest.recipientName
+            this.recipientRoutingNumber = wireDrawdownRequest.recipientRoutingNumber
             this.status = wireDrawdownRequest.status
-            this.idempotencyKey = wireDrawdownRequest.idempotencyKey
+            this.submission = wireDrawdownRequest.submission
+            this.type = wireDrawdownRequest.type
             additionalProperties(wireDrawdownRequest.additionalProperties)
         }
-
-        /**
-         * A constant representing the object's type. For this resource it will always be
-         * `wire_drawdown_request`.
-         */
-        fun type(type: Type) = type(JsonField.of(type))
-
-        /**
-         * A constant representing the object's type. For this resource it will always be
-         * `wire_drawdown_request`.
-         */
-        @JsonProperty("type")
-        @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply { this.type = type }
-
-        /** The Wire drawdown request identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Wire drawdown request identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The Account Number to which the recipient of this request is being requested to send
@@ -423,28 +403,6 @@ private constructor(
         @ExcludeMissing
         fun accountNumberId(accountNumberId: JsonField<String>) = apply {
             this.accountNumberId = accountNumberId
-        }
-
-        /** The drawdown request's recipient's account number. */
-        fun recipientAccountNumber(recipientAccountNumber: String) =
-            recipientAccountNumber(JsonField.of(recipientAccountNumber))
-
-        /** The drawdown request's recipient's account number. */
-        @JsonProperty("recipient_account_number")
-        @ExcludeMissing
-        fun recipientAccountNumber(recipientAccountNumber: JsonField<String>) = apply {
-            this.recipientAccountNumber = recipientAccountNumber
-        }
-
-        /** The drawdown request's recipient's routing number. */
-        fun recipientRoutingNumber(recipientRoutingNumber: String) =
-            recipientRoutingNumber(JsonField.of(recipientRoutingNumber))
-
-        /** The drawdown request's recipient's routing number. */
-        @JsonProperty("recipient_routing_number")
-        @ExcludeMissing
-        fun recipientRoutingNumber(recipientRoutingNumber: JsonField<String>) = apply {
-            this.recipientRoutingNumber = recipientRoutingNumber
         }
 
         /** The amount being requested in cents. */
@@ -469,6 +427,47 @@ private constructor(
         @ExcludeMissing
         fun currency(currency: JsonField<String>) = apply { this.currency = currency }
 
+        /**
+         * If the recipient fulfills the drawdown request by sending funds, then this will be the
+         * identifier of the corresponding Transaction.
+         */
+        fun fulfillmentTransactionId(fulfillmentTransactionId: String) =
+            fulfillmentTransactionId(JsonField.of(fulfillmentTransactionId))
+
+        /**
+         * If the recipient fulfills the drawdown request by sending funds, then this will be the
+         * identifier of the corresponding Transaction.
+         */
+        @JsonProperty("fulfillment_transaction_id")
+        @ExcludeMissing
+        fun fulfillmentTransactionId(fulfillmentTransactionId: JsonField<String>) = apply {
+            this.fulfillmentTransactionId = fulfillmentTransactionId
+        }
+
+        /** The Wire drawdown request identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Wire drawdown request identifier. */
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
+        }
+
         /** The message the recipient will see as part of the drawdown request. */
         fun messageToRecipient(messageToRecipient: String) =
             messageToRecipient(JsonField.of(messageToRecipient))
@@ -478,59 +477,6 @@ private constructor(
         @ExcludeMissing
         fun messageToRecipient(messageToRecipient: JsonField<String>) = apply {
             this.messageToRecipient = messageToRecipient
-        }
-
-        /** The drawdown request's recipient's name. */
-        fun recipientName(recipientName: String) = recipientName(JsonField.of(recipientName))
-
-        /** The drawdown request's recipient's name. */
-        @JsonProperty("recipient_name")
-        @ExcludeMissing
-        fun recipientName(recipientName: JsonField<String>) = apply {
-            this.recipientName = recipientName
-        }
-
-        /** Line 1 of the drawdown request's recipient's address. */
-        fun recipientAddressLine1(recipientAddressLine1: String) =
-            recipientAddressLine1(JsonField.of(recipientAddressLine1))
-
-        /** Line 1 of the drawdown request's recipient's address. */
-        @JsonProperty("recipient_address_line1")
-        @ExcludeMissing
-        fun recipientAddressLine1(recipientAddressLine1: JsonField<String>) = apply {
-            this.recipientAddressLine1 = recipientAddressLine1
-        }
-
-        /** Line 2 of the drawdown request's recipient's address. */
-        fun recipientAddressLine2(recipientAddressLine2: String) =
-            recipientAddressLine2(JsonField.of(recipientAddressLine2))
-
-        /** Line 2 of the drawdown request's recipient's address. */
-        @JsonProperty("recipient_address_line2")
-        @ExcludeMissing
-        fun recipientAddressLine2(recipientAddressLine2: JsonField<String>) = apply {
-            this.recipientAddressLine2 = recipientAddressLine2
-        }
-
-        /** Line 3 of the drawdown request's recipient's address. */
-        fun recipientAddressLine3(recipientAddressLine3: String) =
-            recipientAddressLine3(JsonField.of(recipientAddressLine3))
-
-        /** Line 3 of the drawdown request's recipient's address. */
-        @JsonProperty("recipient_address_line3")
-        @ExcludeMissing
-        fun recipientAddressLine3(recipientAddressLine3: JsonField<String>) = apply {
-            this.recipientAddressLine3 = recipientAddressLine3
-        }
-
-        /** The originator's name. */
-        fun originatorName(originatorName: String) = originatorName(JsonField.of(originatorName))
-
-        /** The originator's name. */
-        @JsonProperty("originator_name")
-        @ExcludeMissing
-        fun originatorName(originatorName: JsonField<String>) = apply {
-            this.originatorName = originatorName
         }
 
         /** The originator's address line 1. */
@@ -566,6 +512,89 @@ private constructor(
             this.originatorAddressLine3 = originatorAddressLine3
         }
 
+        /** The originator's name. */
+        fun originatorName(originatorName: String) = originatorName(JsonField.of(originatorName))
+
+        /** The originator's name. */
+        @JsonProperty("originator_name")
+        @ExcludeMissing
+        fun originatorName(originatorName: JsonField<String>) = apply {
+            this.originatorName = originatorName
+        }
+
+        /** The drawdown request's recipient's account number. */
+        fun recipientAccountNumber(recipientAccountNumber: String) =
+            recipientAccountNumber(JsonField.of(recipientAccountNumber))
+
+        /** The drawdown request's recipient's account number. */
+        @JsonProperty("recipient_account_number")
+        @ExcludeMissing
+        fun recipientAccountNumber(recipientAccountNumber: JsonField<String>) = apply {
+            this.recipientAccountNumber = recipientAccountNumber
+        }
+
+        /** Line 1 of the drawdown request's recipient's address. */
+        fun recipientAddressLine1(recipientAddressLine1: String) =
+            recipientAddressLine1(JsonField.of(recipientAddressLine1))
+
+        /** Line 1 of the drawdown request's recipient's address. */
+        @JsonProperty("recipient_address_line1")
+        @ExcludeMissing
+        fun recipientAddressLine1(recipientAddressLine1: JsonField<String>) = apply {
+            this.recipientAddressLine1 = recipientAddressLine1
+        }
+
+        /** Line 2 of the drawdown request's recipient's address. */
+        fun recipientAddressLine2(recipientAddressLine2: String) =
+            recipientAddressLine2(JsonField.of(recipientAddressLine2))
+
+        /** Line 2 of the drawdown request's recipient's address. */
+        @JsonProperty("recipient_address_line2")
+        @ExcludeMissing
+        fun recipientAddressLine2(recipientAddressLine2: JsonField<String>) = apply {
+            this.recipientAddressLine2 = recipientAddressLine2
+        }
+
+        /** Line 3 of the drawdown request's recipient's address. */
+        fun recipientAddressLine3(recipientAddressLine3: String) =
+            recipientAddressLine3(JsonField.of(recipientAddressLine3))
+
+        /** Line 3 of the drawdown request's recipient's address. */
+        @JsonProperty("recipient_address_line3")
+        @ExcludeMissing
+        fun recipientAddressLine3(recipientAddressLine3: JsonField<String>) = apply {
+            this.recipientAddressLine3 = recipientAddressLine3
+        }
+
+        /** The drawdown request's recipient's name. */
+        fun recipientName(recipientName: String) = recipientName(JsonField.of(recipientName))
+
+        /** The drawdown request's recipient's name. */
+        @JsonProperty("recipient_name")
+        @ExcludeMissing
+        fun recipientName(recipientName: JsonField<String>) = apply {
+            this.recipientName = recipientName
+        }
+
+        /** The drawdown request's recipient's routing number. */
+        fun recipientRoutingNumber(recipientRoutingNumber: String) =
+            recipientRoutingNumber(JsonField.of(recipientRoutingNumber))
+
+        /** The drawdown request's recipient's routing number. */
+        @JsonProperty("recipient_routing_number")
+        @ExcludeMissing
+        fun recipientRoutingNumber(recipientRoutingNumber: JsonField<String>) = apply {
+            this.recipientRoutingNumber = recipientRoutingNumber
+        }
+
+        /** The lifecycle status of the drawdown request. */
+        fun status(status: Status) = status(JsonField.of(status))
+
+        /** The lifecycle status of the drawdown request. */
+        @JsonProperty("status")
+        @ExcludeMissing
+        fun status(status: JsonField<Status>) = apply { this.status = status }
+
         /**
          * After the drawdown request is submitted to Fedwire, this will contain supplemental
          * details.
@@ -581,47 +610,18 @@ private constructor(
         fun submission(submission: JsonField<Submission>) = apply { this.submission = submission }
 
         /**
-         * If the recipient fulfills the drawdown request by sending funds, then this will be the
-         * identifier of the corresponding Transaction.
+         * A constant representing the object's type. For this resource it will always be
+         * `wire_drawdown_request`.
          */
-        fun fulfillmentTransactionId(fulfillmentTransactionId: String) =
-            fulfillmentTransactionId(JsonField.of(fulfillmentTransactionId))
+        fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * If the recipient fulfills the drawdown request by sending funds, then this will be the
-         * identifier of the corresponding Transaction.
+         * A constant representing the object's type. For this resource it will always be
+         * `wire_drawdown_request`.
          */
-        @JsonProperty("fulfillment_transaction_id")
+        @JsonProperty("type")
         @ExcludeMissing
-        fun fulfillmentTransactionId(fulfillmentTransactionId: JsonField<String>) = apply {
-            this.fulfillmentTransactionId = fulfillmentTransactionId
-        }
-
-        /** The lifecycle status of the drawdown request. */
-        fun status(status: Status) = status(JsonField.of(status))
-
-        /** The lifecycle status of the drawdown request. */
-        @JsonProperty("status")
-        @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply { this.status = status }
-
-        /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
-         */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
-
-        /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
-         */
-        @JsonProperty("idempotency_key")
-        @ExcludeMissing
-        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
-            this.idempotencyKey = idempotencyKey
-        }
+        fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -639,26 +639,26 @@ private constructor(
 
         fun build(): WireDrawdownRequest =
             WireDrawdownRequest(
-                type,
-                id,
                 accountNumberId,
-                recipientAccountNumber,
-                recipientRoutingNumber,
                 amount,
                 currency,
+                fulfillmentTransactionId,
+                id,
+                idempotencyKey,
                 messageToRecipient,
-                recipientName,
-                recipientAddressLine1,
-                recipientAddressLine2,
-                recipientAddressLine3,
-                originatorName,
                 originatorAddressLine1,
                 originatorAddressLine2,
                 originatorAddressLine3,
-                submission,
-                fulfillmentTransactionId,
+                originatorName,
+                recipientAccountNumber,
+                recipientAddressLine1,
+                recipientAddressLine2,
+                recipientAddressLine3,
+                recipientName,
+                recipientRoutingNumber,
                 status,
-                idempotencyKey,
+                submission,
+                type,
                 additionalProperties.toUnmodifiable(),
             )
     }

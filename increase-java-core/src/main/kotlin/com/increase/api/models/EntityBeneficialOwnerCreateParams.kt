@@ -289,19 +289,19 @@ constructor(
     @NoAutoDetect
     class BeneficialOwner
     private constructor(
-        private val individual: Individual?,
         private val companyTitle: String?,
+        private val individual: Individual?,
         private val prongs: List<Prong>?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
 
-        /** Personal details for the beneficial owner. */
-        @JsonProperty("individual") fun individual(): Individual? = individual
-
         /** This person's role or title within the entity. */
         @JsonProperty("company_title") fun companyTitle(): String? = companyTitle
+
+        /** Personal details for the beneficial owner. */
+        @JsonProperty("individual") fun individual(): Individual? = individual
 
         /**
          * Why this person is considered a beneficial owner of the entity. At least one option is
@@ -322,8 +322,8 @@ constructor(
             }
 
             return other is BeneficialOwner &&
-                this.individual == other.individual &&
                 this.companyTitle == other.companyTitle &&
+                this.individual == other.individual &&
                 this.prongs == other.prongs &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -332,8 +332,8 @@ constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        individual,
                         companyTitle,
+                        individual,
                         prongs,
                         additionalProperties,
                     )
@@ -342,7 +342,7 @@ constructor(
         }
 
         override fun toString() =
-            "BeneficialOwner{individual=$individual, companyTitle=$companyTitle, prongs=$prongs, additionalProperties=$additionalProperties}"
+            "BeneficialOwner{companyTitle=$companyTitle, individual=$individual, prongs=$prongs, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -351,26 +351,26 @@ constructor(
 
         class Builder {
 
-            private var individual: Individual? = null
             private var companyTitle: String? = null
+            private var individual: Individual? = null
             private var prongs: List<Prong>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(beneficialOwner: BeneficialOwner) = apply {
-                this.individual = beneficialOwner.individual
                 this.companyTitle = beneficialOwner.companyTitle
+                this.individual = beneficialOwner.individual
                 this.prongs = beneficialOwner.prongs
                 additionalProperties(beneficialOwner.additionalProperties)
             }
 
-            /** Personal details for the beneficial owner. */
-            @JsonProperty("individual")
-            fun individual(individual: Individual) = apply { this.individual = individual }
-
             /** This person's role or title within the entity. */
             @JsonProperty("company_title")
             fun companyTitle(companyTitle: String) = apply { this.companyTitle = companyTitle }
+
+            /** Personal details for the beneficial owner. */
+            @JsonProperty("individual")
+            fun individual(individual: Individual) = apply { this.individual = individual }
 
             /**
              * Why this person is considered a beneficial owner of the entity. At least one option
@@ -395,8 +395,8 @@ constructor(
 
             fun build(): BeneficialOwner =
                 BeneficialOwner(
-                    checkNotNull(individual) { "`individual` is required but was not set" },
                     companyTitle,
+                    checkNotNull(individual) { "`individual` is required but was not set" },
                     checkNotNull(prongs) { "`prongs` is required but was not set" }
                         .toUnmodifiable(),
                     additionalProperties.toUnmodifiable(),
@@ -408,21 +408,15 @@ constructor(
         @NoAutoDetect
         class Individual
         private constructor(
-            private val name: String?,
-            private val dateOfBirth: LocalDate?,
             private val address: Address?,
             private val confirmedNoUsTaxId: Boolean?,
+            private val dateOfBirth: LocalDate?,
             private val identification: Identification?,
+            private val name: String?,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
             private var hashCode: Int = 0
-
-            /** The person's legal name. */
-            @JsonProperty("name") fun name(): String? = name
-
-            /** The person's date of birth in YYYY-MM-DD format. */
-            @JsonProperty("date_of_birth") fun dateOfBirth(): LocalDate? = dateOfBirth
 
             /**
              * The individual's physical address. Mail receiving locations like PO Boxes and PMB's
@@ -438,8 +432,14 @@ constructor(
             @JsonProperty("confirmed_no_us_tax_id")
             fun confirmedNoUsTaxId(): Boolean? = confirmedNoUsTaxId
 
+            /** The person's date of birth in YYYY-MM-DD format. */
+            @JsonProperty("date_of_birth") fun dateOfBirth(): LocalDate? = dateOfBirth
+
             /** A means of verifying the person's identity. */
             @JsonProperty("identification") fun identification(): Identification? = identification
+
+            /** The person's legal name. */
+            @JsonProperty("name") fun name(): String? = name
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -453,11 +453,11 @@ constructor(
                 }
 
                 return other is Individual &&
-                    this.name == other.name &&
-                    this.dateOfBirth == other.dateOfBirth &&
                     this.address == other.address &&
                     this.confirmedNoUsTaxId == other.confirmedNoUsTaxId &&
+                    this.dateOfBirth == other.dateOfBirth &&
                     this.identification == other.identification &&
+                    this.name == other.name &&
                     this.additionalProperties == other.additionalProperties
             }
 
@@ -465,11 +465,11 @@ constructor(
                 if (hashCode == 0) {
                     hashCode =
                         Objects.hash(
-                            name,
-                            dateOfBirth,
                             address,
                             confirmedNoUsTaxId,
+                            dateOfBirth,
                             identification,
+                            name,
                             additionalProperties,
                         )
                 }
@@ -477,7 +477,7 @@ constructor(
             }
 
             override fun toString() =
-                "Individual{name=$name, dateOfBirth=$dateOfBirth, address=$address, confirmedNoUsTaxId=$confirmedNoUsTaxId, identification=$identification, additionalProperties=$additionalProperties}"
+                "Individual{address=$address, confirmedNoUsTaxId=$confirmedNoUsTaxId, dateOfBirth=$dateOfBirth, identification=$identification, name=$name, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -486,29 +486,22 @@ constructor(
 
             class Builder {
 
-                private var name: String? = null
-                private var dateOfBirth: LocalDate? = null
                 private var address: Address? = null
                 private var confirmedNoUsTaxId: Boolean? = null
+                private var dateOfBirth: LocalDate? = null
                 private var identification: Identification? = null
+                private var name: String? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
                 internal fun from(individual: Individual) = apply {
-                    this.name = individual.name
-                    this.dateOfBirth = individual.dateOfBirth
                     this.address = individual.address
                     this.confirmedNoUsTaxId = individual.confirmedNoUsTaxId
+                    this.dateOfBirth = individual.dateOfBirth
                     this.identification = individual.identification
+                    this.name = individual.name
                     additionalProperties(individual.additionalProperties)
                 }
-
-                /** The person's legal name. */
-                @JsonProperty("name") fun name(name: String) = apply { this.name = name }
-
-                /** The person's date of birth in YYYY-MM-DD format. */
-                @JsonProperty("date_of_birth")
-                fun dateOfBirth(dateOfBirth: LocalDate) = apply { this.dateOfBirth = dateOfBirth }
 
                 /**
                  * The individual's physical address. Mail receiving locations like PO Boxes and
@@ -528,11 +521,18 @@ constructor(
                     this.confirmedNoUsTaxId = confirmedNoUsTaxId
                 }
 
+                /** The person's date of birth in YYYY-MM-DD format. */
+                @JsonProperty("date_of_birth")
+                fun dateOfBirth(dateOfBirth: LocalDate) = apply { this.dateOfBirth = dateOfBirth }
+
                 /** A means of verifying the person's identity. */
                 @JsonProperty("identification")
                 fun identification(identification: Identification) = apply {
                     this.identification = identification
                 }
+
+                /** The person's legal name. */
+                @JsonProperty("name") fun name(name: String) = apply { this.name = name }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -551,13 +551,13 @@ constructor(
 
                 fun build(): Individual =
                     Individual(
-                        checkNotNull(name) { "`name` is required but was not set" },
-                        checkNotNull(dateOfBirth) { "`dateOfBirth` is required but was not set" },
                         checkNotNull(address) { "`address` is required but was not set" },
                         confirmedNoUsTaxId,
+                        checkNotNull(dateOfBirth) { "`dateOfBirth` is required but was not set" },
                         checkNotNull(identification) {
                             "`identification` is required but was not set"
                         },
+                        checkNotNull(name) { "`name` is required but was not set" },
                         additionalProperties.toUnmodifiable(),
                     )
             }
@@ -570,9 +570,9 @@ constructor(
             @NoAutoDetect
             class Address
             private constructor(
+                private val city: String?,
                 private val line1: String?,
                 private val line2: String?,
-                private val city: String?,
                 private val state: String?,
                 private val zip: String?,
                 private val additionalProperties: Map<String, JsonValue>,
@@ -580,14 +580,14 @@ constructor(
 
                 private var hashCode: Int = 0
 
+                /** The city of the address. */
+                @JsonProperty("city") fun city(): String? = city
+
                 /** The first line of the address. This is usually the street number and street. */
                 @JsonProperty("line1") fun line1(): String? = line1
 
                 /** The second line of the address. This might be the floor or room number. */
                 @JsonProperty("line2") fun line2(): String? = line2
-
-                /** The city of the address. */
-                @JsonProperty("city") fun city(): String? = city
 
                 /**
                  * The two-letter United States Postal Service (USPS) abbreviation for the state of
@@ -610,9 +610,9 @@ constructor(
                     }
 
                     return other is Address &&
+                        this.city == other.city &&
                         this.line1 == other.line1 &&
                         this.line2 == other.line2 &&
-                        this.city == other.city &&
                         this.state == other.state &&
                         this.zip == other.zip &&
                         this.additionalProperties == other.additionalProperties
@@ -622,9 +622,9 @@ constructor(
                     if (hashCode == 0) {
                         hashCode =
                             Objects.hash(
+                                city,
                                 line1,
                                 line2,
-                                city,
                                 state,
                                 zip,
                                 additionalProperties,
@@ -634,7 +634,7 @@ constructor(
                 }
 
                 override fun toString() =
-                    "Address{line1=$line1, line2=$line2, city=$city, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
+                    "Address{city=$city, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -643,22 +643,25 @@ constructor(
 
                 class Builder {
 
+                    private var city: String? = null
                     private var line1: String? = null
                     private var line2: String? = null
-                    private var city: String? = null
                     private var state: String? = null
                     private var zip: String? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
                     internal fun from(address: Address) = apply {
+                        this.city = address.city
                         this.line1 = address.line1
                         this.line2 = address.line2
-                        this.city = address.city
                         this.state = address.state
                         this.zip = address.zip
                         additionalProperties(address.additionalProperties)
                     }
+
+                    /** The city of the address. */
+                    @JsonProperty("city") fun city(city: String) = apply { this.city = city }
 
                     /**
                      * The first line of the address. This is usually the street number and street.
@@ -667,9 +670,6 @@ constructor(
 
                     /** The second line of the address. This might be the floor or room number. */
                     @JsonProperty("line2") fun line2(line2: String) = apply { this.line2 = line2 }
-
-                    /** The city of the address. */
-                    @JsonProperty("city") fun city(city: String) = apply { this.city = city }
 
                     /**
                      * The two-letter United States Postal Service (USPS) abbreviation for the state
@@ -697,9 +697,9 @@ constructor(
 
                     fun build(): Address =
                         Address(
+                            checkNotNull(city) { "`city` is required but was not set" },
                             checkNotNull(line1) { "`line1` is required but was not set" },
                             line2,
-                            checkNotNull(city) { "`city` is required but was not set" },
                             checkNotNull(state) { "`state` is required but was not set" },
                             checkNotNull(zip) { "`zip` is required but was not set" },
                             additionalProperties.toUnmodifiable(),
@@ -712,15 +712,22 @@ constructor(
             @NoAutoDetect
             class Identification
             private constructor(
+                private val driversLicense: DriversLicense?,
                 private val method: Method?,
                 private val number: String?,
-                private val passport: Passport?,
-                private val driversLicense: DriversLicense?,
                 private val other: Other?,
+                private val passport: Passport?,
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
 
                 private var hashCode: Int = 0
+
+                /**
+                 * Information about the United States driver's license used for identification.
+                 * Required if `method` is equal to `drivers_license`.
+                 */
+                @JsonProperty("drivers_license")
+                fun driversLicense(): DriversLicense? = driversLicense
 
                 /** A method that can be used to verify the individual's identity. */
                 @JsonProperty("method") fun method(): Method? = method
@@ -732,23 +739,16 @@ constructor(
                 @JsonProperty("number") fun number(): String? = number
 
                 /**
-                 * Information about the passport used for identification. Required if `method` is
-                 * equal to `passport`.
-                 */
-                @JsonProperty("passport") fun passport(): Passport? = passport
-
-                /**
-                 * Information about the United States driver's license used for identification.
-                 * Required if `method` is equal to `drivers_license`.
-                 */
-                @JsonProperty("drivers_license")
-                fun driversLicense(): DriversLicense? = driversLicense
-
-                /**
                  * Information about the identification document provided. Required if `method` is
                  * equal to `other`.
                  */
                 @JsonProperty("other") fun other(): Other? = other
+
+                /**
+                 * Information about the passport used for identification. Required if `method` is
+                 * equal to `passport`.
+                 */
+                @JsonProperty("passport") fun passport(): Passport? = passport
 
                 @JsonAnyGetter
                 @ExcludeMissing
@@ -762,11 +762,11 @@ constructor(
                     }
 
                     return other is Identification &&
+                        this.driversLicense == other.driversLicense &&
                         this.method == other.method &&
                         this.number == other.number &&
-                        this.passport == other.passport &&
-                        this.driversLicense == other.driversLicense &&
                         this.other == other.other &&
+                        this.passport == other.passport &&
                         this.additionalProperties == other.additionalProperties
                 }
 
@@ -774,11 +774,11 @@ constructor(
                     if (hashCode == 0) {
                         hashCode =
                             Objects.hash(
+                                driversLicense,
                                 method,
                                 number,
-                                passport,
-                                driversLicense,
                                 other,
+                                passport,
                                 additionalProperties,
                             )
                     }
@@ -786,7 +786,7 @@ constructor(
                 }
 
                 override fun toString() =
-                    "Identification{method=$method, number=$number, passport=$passport, driversLicense=$driversLicense, other=$other, additionalProperties=$additionalProperties}"
+                    "Identification{driversLicense=$driversLicense, method=$method, number=$number, other=$other, passport=$passport, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -795,21 +795,30 @@ constructor(
 
                 class Builder {
 
+                    private var driversLicense: DriversLicense? = null
                     private var method: Method? = null
                     private var number: String? = null
-                    private var passport: Passport? = null
-                    private var driversLicense: DriversLicense? = null
                     private var other: Other? = null
+                    private var passport: Passport? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
                     internal fun from(identification: Identification) = apply {
+                        this.driversLicense = identification.driversLicense
                         this.method = identification.method
                         this.number = identification.number
-                        this.passport = identification.passport
-                        this.driversLicense = identification.driversLicense
                         this.other = identification.other
+                        this.passport = identification.passport
                         additionalProperties(identification.additionalProperties)
+                    }
+
+                    /**
+                     * Information about the United States driver's license used for identification.
+                     * Required if `method` is equal to `drivers_license`.
+                     */
+                    @JsonProperty("drivers_license")
+                    fun driversLicense(driversLicense: DriversLicense) = apply {
+                        this.driversLicense = driversLicense
                     }
 
                     /** A method that can be used to verify the individual's identity. */
@@ -824,26 +833,17 @@ constructor(
                     fun number(number: String) = apply { this.number = number }
 
                     /**
+                     * Information about the identification document provided. Required if `method`
+                     * is equal to `other`.
+                     */
+                    @JsonProperty("other") fun other(other: Other) = apply { this.other = other }
+
+                    /**
                      * Information about the passport used for identification. Required if `method`
                      * is equal to `passport`.
                      */
                     @JsonProperty("passport")
                     fun passport(passport: Passport) = apply { this.passport = passport }
-
-                    /**
-                     * Information about the United States driver's license used for identification.
-                     * Required if `method` is equal to `drivers_license`.
-                     */
-                    @JsonProperty("drivers_license")
-                    fun driversLicense(driversLicense: DriversLicense) = apply {
-                        this.driversLicense = driversLicense
-                    }
-
-                    /**
-                     * Information about the identification document provided. Required if `method`
-                     * is equal to `other`.
-                     */
-                    @JsonProperty("other") fun other(other: Other) = apply { this.other = other }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -862,11 +862,11 @@ constructor(
 
                     fun build(): Identification =
                         Identification(
+                            driversLicense,
                             checkNotNull(method) { "`method` is required but was not set" },
                             checkNotNull(number) { "`number` is required but was not set" },
-                            passport,
-                            driversLicense,
                             other,
+                            passport,
                             additionalProperties.toUnmodifiable(),
                         )
                 }
@@ -960,17 +960,14 @@ constructor(
                 @NoAutoDetect
                 class DriversLicense
                 private constructor(
-                    private val fileId: String?,
                     private val backFileId: String?,
                     private val expirationDate: LocalDate?,
+                    private val fileId: String?,
                     private val state: String?,
                     private val additionalProperties: Map<String, JsonValue>,
                 ) {
 
                     private var hashCode: Int = 0
-
-                    /** The identifier of the File containing the front of the driver's license. */
-                    @JsonProperty("file_id") fun fileId(): String? = fileId
 
                     /** The identifier of the File containing the back of the driver's license. */
                     @JsonProperty("back_file_id") fun backFileId(): String? = backFileId
@@ -978,6 +975,9 @@ constructor(
                     /** The driver's license's expiration date in YYYY-MM-DD format. */
                     @JsonProperty("expiration_date")
                     fun expirationDate(): LocalDate? = expirationDate
+
+                    /** The identifier of the File containing the front of the driver's license. */
+                    @JsonProperty("file_id") fun fileId(): String? = fileId
 
                     /** The state that issued the provided driver's license. */
                     @JsonProperty("state") fun state(): String? = state
@@ -994,9 +994,9 @@ constructor(
                         }
 
                         return other is DriversLicense &&
-                            this.fileId == other.fileId &&
                             this.backFileId == other.backFileId &&
                             this.expirationDate == other.expirationDate &&
+                            this.fileId == other.fileId &&
                             this.state == other.state &&
                             this.additionalProperties == other.additionalProperties
                     }
@@ -1005,9 +1005,9 @@ constructor(
                         if (hashCode == 0) {
                             hashCode =
                                 Objects.hash(
-                                    fileId,
                                     backFileId,
                                     expirationDate,
+                                    fileId,
                                     state,
                                     additionalProperties,
                                 )
@@ -1016,7 +1016,7 @@ constructor(
                     }
 
                     override fun toString() =
-                        "DriversLicense{fileId=$fileId, backFileId=$backFileId, expirationDate=$expirationDate, state=$state, additionalProperties=$additionalProperties}"
+                        "DriversLicense{backFileId=$backFileId, expirationDate=$expirationDate, fileId=$fileId, state=$state, additionalProperties=$additionalProperties}"
 
                     companion object {
 
@@ -1025,27 +1025,21 @@ constructor(
 
                     class Builder {
 
-                        private var fileId: String? = null
                         private var backFileId: String? = null
                         private var expirationDate: LocalDate? = null
+                        private var fileId: String? = null
                         private var state: String? = null
                         private var additionalProperties: MutableMap<String, JsonValue> =
                             mutableMapOf()
 
                         @JvmSynthetic
                         internal fun from(driversLicense: DriversLicense) = apply {
-                            this.fileId = driversLicense.fileId
                             this.backFileId = driversLicense.backFileId
                             this.expirationDate = driversLicense.expirationDate
+                            this.fileId = driversLicense.fileId
                             this.state = driversLicense.state
                             additionalProperties(driversLicense.additionalProperties)
                         }
-
-                        /**
-                         * The identifier of the File containing the front of the driver's license.
-                         */
-                        @JsonProperty("file_id")
-                        fun fileId(fileId: String) = apply { this.fileId = fileId }
 
                         /**
                          * The identifier of the File containing the back of the driver's license.
@@ -1058,6 +1052,12 @@ constructor(
                         fun expirationDate(expirationDate: LocalDate) = apply {
                             this.expirationDate = expirationDate
                         }
+
+                        /**
+                         * The identifier of the File containing the front of the driver's license.
+                         */
+                        @JsonProperty("file_id")
+                        fun fileId(fileId: String) = apply { this.fileId = fileId }
 
                         /** The state that issued the provided driver's license. */
                         @JsonProperty("state")
@@ -1080,11 +1080,11 @@ constructor(
 
                         fun build(): DriversLicense =
                             DriversLicense(
-                                checkNotNull(fileId) { "`fileId` is required but was not set" },
                                 backFileId,
                                 checkNotNull(expirationDate) {
                                     "`expirationDate` is required but was not set"
                                 },
+                                checkNotNull(fileId) { "`fileId` is required but was not set" },
                                 checkNotNull(state) { "`state` is required but was not set" },
                                 additionalProperties.toUnmodifiable(),
                             )
@@ -1099,15 +1099,21 @@ constructor(
                 @NoAutoDetect
                 class Other
                 private constructor(
+                    private val backFileId: String?,
                     private val country: String?,
                     private val description: String?,
                     private val expirationDate: LocalDate?,
                     private val fileId: String?,
-                    private val backFileId: String?,
                     private val additionalProperties: Map<String, JsonValue>,
                 ) {
 
                     private var hashCode: Int = 0
+
+                    /**
+                     * The identifier of the File containing the back of the document. Not every
+                     * document has a reverse side.
+                     */
+                    @JsonProperty("back_file_id") fun backFileId(): String? = backFileId
 
                     /**
                      * The two-character ISO 3166-1 code representing the country that issued the
@@ -1125,12 +1131,6 @@ constructor(
                     /** The identifier of the File containing the front of the document. */
                     @JsonProperty("file_id") fun fileId(): String? = fileId
 
-                    /**
-                     * The identifier of the File containing the back of the document. Not every
-                     * document has a reverse side.
-                     */
-                    @JsonProperty("back_file_id") fun backFileId(): String? = backFileId
-
                     @JsonAnyGetter
                     @ExcludeMissing
                     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -1143,11 +1143,11 @@ constructor(
                         }
 
                         return other is Other &&
+                            this.backFileId == other.backFileId &&
                             this.country == other.country &&
                             this.description == other.description &&
                             this.expirationDate == other.expirationDate &&
                             this.fileId == other.fileId &&
-                            this.backFileId == other.backFileId &&
                             this.additionalProperties == other.additionalProperties
                     }
 
@@ -1155,11 +1155,11 @@ constructor(
                         if (hashCode == 0) {
                             hashCode =
                                 Objects.hash(
+                                    backFileId,
                                     country,
                                     description,
                                     expirationDate,
                                     fileId,
-                                    backFileId,
                                     additionalProperties,
                                 )
                         }
@@ -1167,7 +1167,7 @@ constructor(
                     }
 
                     override fun toString() =
-                        "Other{country=$country, description=$description, expirationDate=$expirationDate, fileId=$fileId, backFileId=$backFileId, additionalProperties=$additionalProperties}"
+                        "Other{backFileId=$backFileId, country=$country, description=$description, expirationDate=$expirationDate, fileId=$fileId, additionalProperties=$additionalProperties}"
 
                     companion object {
 
@@ -1176,23 +1176,30 @@ constructor(
 
                     class Builder {
 
+                        private var backFileId: String? = null
                         private var country: String? = null
                         private var description: String? = null
                         private var expirationDate: LocalDate? = null
                         private var fileId: String? = null
-                        private var backFileId: String? = null
                         private var additionalProperties: MutableMap<String, JsonValue> =
                             mutableMapOf()
 
                         @JvmSynthetic
                         internal fun from(other: Other) = apply {
+                            this.backFileId = other.backFileId
                             this.country = other.country
                             this.description = other.description
                             this.expirationDate = other.expirationDate
                             this.fileId = other.fileId
-                            this.backFileId = other.backFileId
                             additionalProperties(other.additionalProperties)
                         }
+
+                        /**
+                         * The identifier of the File containing the back of the document. Not every
+                         * document has a reverse side.
+                         */
+                        @JsonProperty("back_file_id")
+                        fun backFileId(backFileId: String) = apply { this.backFileId = backFileId }
 
                         /**
                          * The two-character ISO 3166-1 code representing the country that issued
@@ -1217,13 +1224,6 @@ constructor(
                         @JsonProperty("file_id")
                         fun fileId(fileId: String) = apply { this.fileId = fileId }
 
-                        /**
-                         * The identifier of the File containing the back of the document. Not every
-                         * document has a reverse side.
-                         */
-                        @JsonProperty("back_file_id")
-                        fun backFileId(backFileId: String) = apply { this.backFileId = backFileId }
-
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
                                 this.additionalProperties.clear()
@@ -1241,13 +1241,13 @@ constructor(
 
                         fun build(): Other =
                             Other(
+                                backFileId,
                                 checkNotNull(country) { "`country` is required but was not set" },
                                 checkNotNull(description) {
                                     "`description` is required but was not set"
                                 },
                                 expirationDate,
                                 checkNotNull(fileId) { "`fileId` is required but was not set" },
-                                backFileId,
                                 additionalProperties.toUnmodifiable(),
                             )
                     }
@@ -1261,23 +1261,23 @@ constructor(
                 @NoAutoDetect
                 class Passport
                 private constructor(
-                    private val fileId: String?,
-                    private val expirationDate: LocalDate?,
                     private val country: String?,
+                    private val expirationDate: LocalDate?,
+                    private val fileId: String?,
                     private val additionalProperties: Map<String, JsonValue>,
                 ) {
 
                     private var hashCode: Int = 0
 
-                    /** The identifier of the File containing the passport. */
-                    @JsonProperty("file_id") fun fileId(): String? = fileId
+                    /** The country that issued the passport. */
+                    @JsonProperty("country") fun country(): String? = country
 
                     /** The passport's expiration date in YYYY-MM-DD format. */
                     @JsonProperty("expiration_date")
                     fun expirationDate(): LocalDate? = expirationDate
 
-                    /** The country that issued the passport. */
-                    @JsonProperty("country") fun country(): String? = country
+                    /** The identifier of the File containing the passport. */
+                    @JsonProperty("file_id") fun fileId(): String? = fileId
 
                     @JsonAnyGetter
                     @ExcludeMissing
@@ -1291,9 +1291,9 @@ constructor(
                         }
 
                         return other is Passport &&
-                            this.fileId == other.fileId &&
-                            this.expirationDate == other.expirationDate &&
                             this.country == other.country &&
+                            this.expirationDate == other.expirationDate &&
+                            this.fileId == other.fileId &&
                             this.additionalProperties == other.additionalProperties
                     }
 
@@ -1301,9 +1301,9 @@ constructor(
                         if (hashCode == 0) {
                             hashCode =
                                 Objects.hash(
-                                    fileId,
-                                    expirationDate,
                                     country,
+                                    expirationDate,
+                                    fileId,
                                     additionalProperties,
                                 )
                         }
@@ -1311,7 +1311,7 @@ constructor(
                     }
 
                     override fun toString() =
-                        "Passport{fileId=$fileId, expirationDate=$expirationDate, country=$country, additionalProperties=$additionalProperties}"
+                        "Passport{country=$country, expirationDate=$expirationDate, fileId=$fileId, additionalProperties=$additionalProperties}"
 
                     companion object {
 
@@ -1320,23 +1320,23 @@ constructor(
 
                     class Builder {
 
-                        private var fileId: String? = null
-                        private var expirationDate: LocalDate? = null
                         private var country: String? = null
+                        private var expirationDate: LocalDate? = null
+                        private var fileId: String? = null
                         private var additionalProperties: MutableMap<String, JsonValue> =
                             mutableMapOf()
 
                         @JvmSynthetic
                         internal fun from(passport: Passport) = apply {
-                            this.fileId = passport.fileId
-                            this.expirationDate = passport.expirationDate
                             this.country = passport.country
+                            this.expirationDate = passport.expirationDate
+                            this.fileId = passport.fileId
                             additionalProperties(passport.additionalProperties)
                         }
 
-                        /** The identifier of the File containing the passport. */
-                        @JsonProperty("file_id")
-                        fun fileId(fileId: String) = apply { this.fileId = fileId }
+                        /** The country that issued the passport. */
+                        @JsonProperty("country")
+                        fun country(country: String) = apply { this.country = country }
 
                         /** The passport's expiration date in YYYY-MM-DD format. */
                         @JsonProperty("expiration_date")
@@ -1344,9 +1344,9 @@ constructor(
                             this.expirationDate = expirationDate
                         }
 
-                        /** The country that issued the passport. */
-                        @JsonProperty("country")
-                        fun country(country: String) = apply { this.country = country }
+                        /** The identifier of the File containing the passport. */
+                        @JsonProperty("file_id")
+                        fun fileId(fileId: String) = apply { this.fileId = fileId }
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
@@ -1365,11 +1365,11 @@ constructor(
 
                         fun build(): Passport =
                             Passport(
-                                checkNotNull(fileId) { "`fileId` is required but was not set" },
+                                checkNotNull(country) { "`country` is required but was not set" },
                                 checkNotNull(expirationDate) {
                                     "`expirationDate` is required but was not set"
                                 },
-                                checkNotNull(country) { "`country` is required but was not set" },
+                                checkNotNull(fileId) { "`fileId` is required but was not set" },
                                 additionalProperties.toUnmodifiable(),
                             )
                     }

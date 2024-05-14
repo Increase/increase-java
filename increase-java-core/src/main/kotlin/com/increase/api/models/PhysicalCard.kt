@@ -29,14 +29,14 @@ import java.util.Optional
 @NoAutoDetect
 class PhysicalCard
 private constructor(
-    private val id: JsonField<String>,
     private val cardId: JsonField<String>,
-    private val physicalCardProfileId: JsonField<String>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val status: JsonField<Status>,
     private val cardholder: JsonField<Cardholder>,
-    private val shipment: JsonField<Shipment>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val id: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
+    private val physicalCardProfileId: JsonField<String>,
+    private val shipment: JsonField<Shipment>,
+    private val status: JsonField<Status>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -45,15 +45,11 @@ private constructor(
 
     private var hashCode: Int = 0
 
-    /** The physical card identifier. */
-    fun id(): String = id.getRequired("id")
-
     /** The identifier for the Card this Physical Card represents. */
     fun cardId(): String = cardId.getRequired("card_id")
 
-    /** The Physical Card Profile used for this Physical Card. */
-    fun physicalCardProfileId(): Optional<String> =
-        Optional.ofNullable(physicalCardProfileId.getNullable("physical_card_profile_id"))
+    /** Details about the cardholder, as it appears on the printed card. */
+    fun cardholder(): Cardholder = cardholder.getRequired("cardholder")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Physical
@@ -61,14 +57,8 @@ private constructor(
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** The status of the Physical Card. */
-    fun status(): Status = status.getRequired("status")
-
-    /** Details about the cardholder, as it appears on the printed card. */
-    fun cardholder(): Cardholder = cardholder.getRequired("cardholder")
-
-    /** The details used to ship this physical card. */
-    fun shipment(): Shipment = shipment.getRequired("shipment")
+    /** The physical card identifier. */
+    fun id(): String = id.getRequired("id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -78,22 +68,27 @@ private constructor(
     fun idempotencyKey(): Optional<String> =
         Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
+    /** The Physical Card Profile used for this Physical Card. */
+    fun physicalCardProfileId(): Optional<String> =
+        Optional.ofNullable(physicalCardProfileId.getNullable("physical_card_profile_id"))
+
+    /** The details used to ship this physical card. */
+    fun shipment(): Shipment = shipment.getRequired("shipment")
+
+    /** The status of the Physical Card. */
+    fun status(): Status = status.getRequired("status")
+
     /**
      * A constant representing the object's type. For this resource it will always be
      * `physical_card`.
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The physical card identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
     /** The identifier for the Card this Physical Card represents. */
     @JsonProperty("card_id") @ExcludeMissing fun _cardId() = cardId
 
-    /** The Physical Card Profile used for this Physical Card. */
-    @JsonProperty("physical_card_profile_id")
-    @ExcludeMissing
-    fun _physicalCardProfileId() = physicalCardProfileId
+    /** Details about the cardholder, as it appears on the printed card. */
+    @JsonProperty("cardholder") @ExcludeMissing fun _cardholder() = cardholder
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Physical
@@ -101,14 +96,8 @@ private constructor(
      */
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
-    /** The status of the Physical Card. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
-
-    /** Details about the cardholder, as it appears on the printed card. */
-    @JsonProperty("cardholder") @ExcludeMissing fun _cardholder() = cardholder
-
-    /** The details used to ship this physical card. */
-    @JsonProperty("shipment") @ExcludeMissing fun _shipment() = shipment
+    /** The physical card identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -116,6 +105,17 @@ private constructor(
      * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
     @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+
+    /** The Physical Card Profile used for this Physical Card. */
+    @JsonProperty("physical_card_profile_id")
+    @ExcludeMissing
+    fun _physicalCardProfileId() = physicalCardProfileId
+
+    /** The details used to ship this physical card. */
+    @JsonProperty("shipment") @ExcludeMissing fun _shipment() = shipment
+
+    /** The status of the Physical Card. */
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -129,14 +129,14 @@ private constructor(
 
     fun validate(): PhysicalCard = apply {
         if (!validated) {
-            id()
             cardId()
-            physicalCardProfileId()
-            createdAt()
-            status()
             cardholder().validate()
-            shipment().validate()
+            createdAt()
+            id()
             idempotencyKey()
+            physicalCardProfileId()
+            shipment().validate()
+            status()
             type()
             validated = true
         }
@@ -150,14 +150,14 @@ private constructor(
         }
 
         return other is PhysicalCard &&
-            this.id == other.id &&
             this.cardId == other.cardId &&
-            this.physicalCardProfileId == other.physicalCardProfileId &&
-            this.createdAt == other.createdAt &&
-            this.status == other.status &&
             this.cardholder == other.cardholder &&
-            this.shipment == other.shipment &&
+            this.createdAt == other.createdAt &&
+            this.id == other.id &&
             this.idempotencyKey == other.idempotencyKey &&
+            this.physicalCardProfileId == other.physicalCardProfileId &&
+            this.shipment == other.shipment &&
+            this.status == other.status &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -166,14 +166,14 @@ private constructor(
         if (hashCode == 0) {
             hashCode =
                 Objects.hash(
-                    id,
                     cardId,
-                    physicalCardProfileId,
-                    createdAt,
-                    status,
                     cardholder,
-                    shipment,
+                    createdAt,
+                    id,
                     idempotencyKey,
+                    physicalCardProfileId,
+                    shipment,
+                    status,
                     type,
                     additionalProperties,
                 )
@@ -182,7 +182,7 @@ private constructor(
     }
 
     override fun toString() =
-        "PhysicalCard{id=$id, cardId=$cardId, physicalCardProfileId=$physicalCardProfileId, createdAt=$createdAt, status=$status, cardholder=$cardholder, shipment=$shipment, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
+        "PhysicalCard{cardId=$cardId, cardholder=$cardholder, createdAt=$createdAt, id=$id, idempotencyKey=$idempotencyKey, physicalCardProfileId=$physicalCardProfileId, shipment=$shipment, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -191,36 +191,30 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
         private var cardId: JsonField<String> = JsonMissing.of()
-        private var physicalCardProfileId: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
         private var cardholder: JsonField<Cardholder> = JsonMissing.of()
-        private var shipment: JsonField<Shipment> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
+        private var physicalCardProfileId: JsonField<String> = JsonMissing.of()
+        private var shipment: JsonField<Shipment> = JsonMissing.of()
+        private var status: JsonField<Status> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(physicalCard: PhysicalCard) = apply {
-            this.id = physicalCard.id
             this.cardId = physicalCard.cardId
-            this.physicalCardProfileId = physicalCard.physicalCardProfileId
-            this.createdAt = physicalCard.createdAt
-            this.status = physicalCard.status
             this.cardholder = physicalCard.cardholder
-            this.shipment = physicalCard.shipment
+            this.createdAt = physicalCard.createdAt
+            this.id = physicalCard.id
             this.idempotencyKey = physicalCard.idempotencyKey
+            this.physicalCardProfileId = physicalCard.physicalCardProfileId
+            this.shipment = physicalCard.shipment
+            this.status = physicalCard.status
             this.type = physicalCard.type
             additionalProperties(physicalCard.additionalProperties)
         }
-
-        /** The physical card identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The physical card identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The identifier for the Card this Physical Card represents. */
         fun cardId(cardId: String) = cardId(JsonField.of(cardId))
@@ -230,16 +224,13 @@ private constructor(
         @ExcludeMissing
         fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
 
-        /** The Physical Card Profile used for this Physical Card. */
-        fun physicalCardProfileId(physicalCardProfileId: String) =
-            physicalCardProfileId(JsonField.of(physicalCardProfileId))
+        /** Details about the cardholder, as it appears on the printed card. */
+        fun cardholder(cardholder: Cardholder) = cardholder(JsonField.of(cardholder))
 
-        /** The Physical Card Profile used for this Physical Card. */
-        @JsonProperty("physical_card_profile_id")
+        /** Details about the cardholder, as it appears on the printed card. */
+        @JsonProperty("cardholder")
         @ExcludeMissing
-        fun physicalCardProfileId(physicalCardProfileId: JsonField<String>) = apply {
-            this.physicalCardProfileId = physicalCardProfileId
-        }
+        fun cardholder(cardholder: JsonField<Cardholder>) = apply { this.cardholder = cardholder }
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
@@ -255,29 +246,11 @@ private constructor(
         @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        /** The status of the Physical Card. */
-        fun status(status: Status) = status(JsonField.of(status))
+        /** The physical card identifier. */
+        fun id(id: String) = id(JsonField.of(id))
 
-        /** The status of the Physical Card. */
-        @JsonProperty("status")
-        @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply { this.status = status }
-
-        /** Details about the cardholder, as it appears on the printed card. */
-        fun cardholder(cardholder: Cardholder) = cardholder(JsonField.of(cardholder))
-
-        /** Details about the cardholder, as it appears on the printed card. */
-        @JsonProperty("cardholder")
-        @ExcludeMissing
-        fun cardholder(cardholder: JsonField<Cardholder>) = apply { this.cardholder = cardholder }
-
-        /** The details used to ship this physical card. */
-        fun shipment(shipment: Shipment) = shipment(JsonField.of(shipment))
-
-        /** The details used to ship this physical card. */
-        @JsonProperty("shipment")
-        @ExcludeMissing
-        fun shipment(shipment: JsonField<Shipment>) = apply { this.shipment = shipment }
+        /** The physical card identifier. */
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -296,6 +269,33 @@ private constructor(
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
         }
+
+        /** The Physical Card Profile used for this Physical Card. */
+        fun physicalCardProfileId(physicalCardProfileId: String) =
+            physicalCardProfileId(JsonField.of(physicalCardProfileId))
+
+        /** The Physical Card Profile used for this Physical Card. */
+        @JsonProperty("physical_card_profile_id")
+        @ExcludeMissing
+        fun physicalCardProfileId(physicalCardProfileId: JsonField<String>) = apply {
+            this.physicalCardProfileId = physicalCardProfileId
+        }
+
+        /** The details used to ship this physical card. */
+        fun shipment(shipment: Shipment) = shipment(JsonField.of(shipment))
+
+        /** The details used to ship this physical card. */
+        @JsonProperty("shipment")
+        @ExcludeMissing
+        fun shipment(shipment: JsonField<Shipment>) = apply { this.shipment = shipment }
+
+        /** The status of the Physical Card. */
+        fun status(status: Status) = status(JsonField.of(status))
+
+        /** The status of the Physical Card. */
+        @JsonProperty("status")
+        @ExcludeMissing
+        fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -327,14 +327,14 @@ private constructor(
 
         fun build(): PhysicalCard =
             PhysicalCard(
-                id,
                 cardId,
-                physicalCardProfileId,
-                createdAt,
-                status,
                 cardholder,
-                shipment,
+                createdAt,
+                id,
                 idempotencyKey,
+                physicalCardProfileId,
+                shipment,
+                status,
                 type,
                 additionalProperties.toUnmodifiable(),
             )
@@ -468,16 +468,19 @@ private constructor(
     @NoAutoDetect
     class Shipment
     private constructor(
+        private val address: JsonField<Address>,
         private val method: JsonField<Method>,
         private val status: JsonField<Status>,
         private val tracking: JsonField<Tracking>,
-        private val address: JsonField<Address>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
+
+        /** The location to where the card's packing label is addressed. */
+        fun address(): Address = address.getRequired("address")
 
         /** The shipping method. */
         fun method(): Method = method.getRequired("method")
@@ -489,7 +492,7 @@ private constructor(
         fun tracking(): Optional<Tracking> = Optional.ofNullable(tracking.getNullable("tracking"))
 
         /** The location to where the card's packing label is addressed. */
-        fun address(): Address = address.getRequired("address")
+        @JsonProperty("address") @ExcludeMissing fun _address() = address
 
         /** The shipping method. */
         @JsonProperty("method") @ExcludeMissing fun _method() = method
@@ -500,19 +503,16 @@ private constructor(
         /** Tracking details for the shipment. */
         @JsonProperty("tracking") @ExcludeMissing fun _tracking() = tracking
 
-        /** The location to where the card's packing label is addressed. */
-        @JsonProperty("address") @ExcludeMissing fun _address() = address
-
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun validate(): Shipment = apply {
             if (!validated) {
+                address().validate()
                 method()
                 status()
                 tracking().map { it.validate() }
-                address().validate()
                 validated = true
             }
         }
@@ -525,10 +525,10 @@ private constructor(
             }
 
             return other is Shipment &&
+                this.address == other.address &&
                 this.method == other.method &&
                 this.status == other.status &&
                 this.tracking == other.tracking &&
-                this.address == other.address &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -536,10 +536,10 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
+                        address,
                         method,
                         status,
                         tracking,
-                        address,
                         additionalProperties,
                     )
             }
@@ -547,7 +547,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Shipment{method=$method, status=$status, tracking=$tracking, address=$address, additionalProperties=$additionalProperties}"
+            "Shipment{address=$address, method=$method, status=$status, tracking=$tracking, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -556,20 +556,28 @@ private constructor(
 
         class Builder {
 
+            private var address: JsonField<Address> = JsonMissing.of()
             private var method: JsonField<Method> = JsonMissing.of()
             private var status: JsonField<Status> = JsonMissing.of()
             private var tracking: JsonField<Tracking> = JsonMissing.of()
-            private var address: JsonField<Address> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(shipment: Shipment) = apply {
+                this.address = shipment.address
                 this.method = shipment.method
                 this.status = shipment.status
                 this.tracking = shipment.tracking
-                this.address = shipment.address
                 additionalProperties(shipment.additionalProperties)
             }
+
+            /** The location to where the card's packing label is addressed. */
+            fun address(address: Address) = address(JsonField.of(address))
+
+            /** The location to where the card's packing label is addressed. */
+            @JsonProperty("address")
+            @ExcludeMissing
+            fun address(address: JsonField<Address>) = apply { this.address = address }
 
             /** The shipping method. */
             fun method(method: Method) = method(JsonField.of(method))
@@ -595,14 +603,6 @@ private constructor(
             @ExcludeMissing
             fun tracking(tracking: JsonField<Tracking>) = apply { this.tracking = tracking }
 
-            /** The location to where the card's packing label is addressed. */
-            fun address(address: Address) = address(JsonField.of(address))
-
-            /** The location to where the card's packing label is addressed. */
-            @JsonProperty("address")
-            @ExcludeMissing
-            fun address(address: JsonField<Address>) = apply { this.address = address }
-
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -619,10 +619,10 @@ private constructor(
 
             fun build(): Shipment =
                 Shipment(
+                    address,
                     method,
                     status,
                     tracking,
-                    address,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -632,13 +632,13 @@ private constructor(
         @NoAutoDetect
         class Address
         private constructor(
-            private val name: JsonField<String>,
+            private val city: JsonField<String>,
             private val line1: JsonField<String>,
             private val line2: JsonField<String>,
             private val line3: JsonField<String>,
-            private val city: JsonField<String>,
-            private val state: JsonField<String>,
+            private val name: JsonField<String>,
             private val postalCode: JsonField<String>,
+            private val state: JsonField<String>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
@@ -646,8 +646,8 @@ private constructor(
 
             private var hashCode: Int = 0
 
-            /** The name of the recipient. */
-            fun name(): String = name.getRequired("name")
+            /** The city of the shipping address. */
+            fun city(): String = city.getRequired("city")
 
             /** The first line of the shipping address. */
             fun line1(): String = line1.getRequired("line1")
@@ -658,17 +658,17 @@ private constructor(
             /** The third line of the shipping address. */
             fun line3(): Optional<String> = Optional.ofNullable(line3.getNullable("line3"))
 
-            /** The city of the shipping address. */
-            fun city(): String = city.getRequired("city")
-
-            /** The US state of the shipping address. */
-            fun state(): String = state.getRequired("state")
+            /** The name of the recipient. */
+            fun name(): String = name.getRequired("name")
 
             /** The postal code of the shipping address. */
             fun postalCode(): String = postalCode.getRequired("postal_code")
 
-            /** The name of the recipient. */
-            @JsonProperty("name") @ExcludeMissing fun _name() = name
+            /** The US state of the shipping address. */
+            fun state(): String = state.getRequired("state")
+
+            /** The city of the shipping address. */
+            @JsonProperty("city") @ExcludeMissing fun _city() = city
 
             /** The first line of the shipping address. */
             @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
@@ -679,14 +679,14 @@ private constructor(
             /** The third line of the shipping address. */
             @JsonProperty("line3") @ExcludeMissing fun _line3() = line3
 
-            /** The city of the shipping address. */
-            @JsonProperty("city") @ExcludeMissing fun _city() = city
-
-            /** The US state of the shipping address. */
-            @JsonProperty("state") @ExcludeMissing fun _state() = state
+            /** The name of the recipient. */
+            @JsonProperty("name") @ExcludeMissing fun _name() = name
 
             /** The postal code of the shipping address. */
             @JsonProperty("postal_code") @ExcludeMissing fun _postalCode() = postalCode
+
+            /** The US state of the shipping address. */
+            @JsonProperty("state") @ExcludeMissing fun _state() = state
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -694,13 +694,13 @@ private constructor(
 
             fun validate(): Address = apply {
                 if (!validated) {
-                    name()
+                    city()
                     line1()
                     line2()
                     line3()
-                    city()
-                    state()
+                    name()
                     postalCode()
+                    state()
                     validated = true
                 }
             }
@@ -713,13 +713,13 @@ private constructor(
                 }
 
                 return other is Address &&
-                    this.name == other.name &&
+                    this.city == other.city &&
                     this.line1 == other.line1 &&
                     this.line2 == other.line2 &&
                     this.line3 == other.line3 &&
-                    this.city == other.city &&
-                    this.state == other.state &&
+                    this.name == other.name &&
                     this.postalCode == other.postalCode &&
+                    this.state == other.state &&
                     this.additionalProperties == other.additionalProperties
             }
 
@@ -727,13 +727,13 @@ private constructor(
                 if (hashCode == 0) {
                     hashCode =
                         Objects.hash(
-                            name,
+                            city,
                             line1,
                             line2,
                             line3,
-                            city,
-                            state,
+                            name,
                             postalCode,
+                            state,
                             additionalProperties,
                         )
                 }
@@ -741,7 +741,7 @@ private constructor(
             }
 
             override fun toString() =
-                "Address{name=$name, line1=$line1, line2=$line2, line3=$line3, city=$city, state=$state, postalCode=$postalCode, additionalProperties=$additionalProperties}"
+                "Address{city=$city, line1=$line1, line2=$line2, line3=$line3, name=$name, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -750,34 +750,34 @@ private constructor(
 
             class Builder {
 
-                private var name: JsonField<String> = JsonMissing.of()
+                private var city: JsonField<String> = JsonMissing.of()
                 private var line1: JsonField<String> = JsonMissing.of()
                 private var line2: JsonField<String> = JsonMissing.of()
                 private var line3: JsonField<String> = JsonMissing.of()
-                private var city: JsonField<String> = JsonMissing.of()
-                private var state: JsonField<String> = JsonMissing.of()
+                private var name: JsonField<String> = JsonMissing.of()
                 private var postalCode: JsonField<String> = JsonMissing.of()
+                private var state: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
                 internal fun from(address: Address) = apply {
-                    this.name = address.name
+                    this.city = address.city
                     this.line1 = address.line1
                     this.line2 = address.line2
                     this.line3 = address.line3
-                    this.city = address.city
-                    this.state = address.state
+                    this.name = address.name
                     this.postalCode = address.postalCode
+                    this.state = address.state
                     additionalProperties(address.additionalProperties)
                 }
 
-                /** The name of the recipient. */
-                fun name(name: String) = name(JsonField.of(name))
+                /** The city of the shipping address. */
+                fun city(city: String) = city(JsonField.of(city))
 
-                /** The name of the recipient. */
-                @JsonProperty("name")
+                /** The city of the shipping address. */
+                @JsonProperty("city")
                 @ExcludeMissing
-                fun name(name: JsonField<String>) = apply { this.name = name }
+                fun city(city: JsonField<String>) = apply { this.city = city }
 
                 /** The first line of the shipping address. */
                 fun line1(line1: String) = line1(JsonField.of(line1))
@@ -803,21 +803,13 @@ private constructor(
                 @ExcludeMissing
                 fun line3(line3: JsonField<String>) = apply { this.line3 = line3 }
 
-                /** The city of the shipping address. */
-                fun city(city: String) = city(JsonField.of(city))
+                /** The name of the recipient. */
+                fun name(name: String) = name(JsonField.of(name))
 
-                /** The city of the shipping address. */
-                @JsonProperty("city")
+                /** The name of the recipient. */
+                @JsonProperty("name")
                 @ExcludeMissing
-                fun city(city: JsonField<String>) = apply { this.city = city }
-
-                /** The US state of the shipping address. */
-                fun state(state: String) = state(JsonField.of(state))
-
-                /** The US state of the shipping address. */
-                @JsonProperty("state")
-                @ExcludeMissing
-                fun state(state: JsonField<String>) = apply { this.state = state }
+                fun name(name: JsonField<String>) = apply { this.name = name }
 
                 /** The postal code of the shipping address. */
                 fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
@@ -828,6 +820,14 @@ private constructor(
                 fun postalCode(postalCode: JsonField<String>) = apply {
                     this.postalCode = postalCode
                 }
+
+                /** The US state of the shipping address. */
+                fun state(state: String) = state(JsonField.of(state))
+
+                /** The US state of the shipping address. */
+                @JsonProperty("state")
+                @ExcludeMissing
+                fun state(state: JsonField<String>) = apply { this.state = state }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -846,13 +846,13 @@ private constructor(
 
                 fun build(): Address =
                     Address(
-                        name,
+                        city,
                         line1,
                         line2,
                         line3,
-                        city,
-                        state,
+                        name,
                         postalCode,
+                        state,
                         additionalProperties.toUnmodifiable(),
                     )
             }
@@ -1015,9 +1015,9 @@ private constructor(
         class Tracking
         private constructor(
             private val number: JsonField<String>,
-            private val shippedAt: JsonField<OffsetDateTime>,
-            private val returnReason: JsonField<String>,
             private val returnNumber: JsonField<String>,
+            private val returnReason: JsonField<String>,
+            private val shippedAt: JsonField<OffsetDateTime>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
@@ -1028,34 +1028,34 @@ private constructor(
             /** The tracking number. */
             fun number(): String = number.getRequired("number")
 
+            /** For returned shipments, the tracking number of the return shipment. */
+            fun returnNumber(): Optional<String> =
+                Optional.ofNullable(returnNumber.getNullable("return_number"))
+
+            /** For returned shipments, this describes why the package was returned. */
+            fun returnReason(): Optional<String> =
+                Optional.ofNullable(returnReason.getNullable("return_reason"))
+
             /**
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
              * fulfillment provider marked the card as ready for pick-up by the shipment carrier.
              */
             fun shippedAt(): OffsetDateTime = shippedAt.getRequired("shipped_at")
 
-            /** For returned shipments, this describes why the package was returned. */
-            fun returnReason(): Optional<String> =
-                Optional.ofNullable(returnReason.getNullable("return_reason"))
-
-            /** For returned shipments, the tracking number of the return shipment. */
-            fun returnNumber(): Optional<String> =
-                Optional.ofNullable(returnNumber.getNullable("return_number"))
-
             /** The tracking number. */
             @JsonProperty("number") @ExcludeMissing fun _number() = number
+
+            /** For returned shipments, the tracking number of the return shipment. */
+            @JsonProperty("return_number") @ExcludeMissing fun _returnNumber() = returnNumber
+
+            /** For returned shipments, this describes why the package was returned. */
+            @JsonProperty("return_reason") @ExcludeMissing fun _returnReason() = returnReason
 
             /**
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
              * fulfillment provider marked the card as ready for pick-up by the shipment carrier.
              */
             @JsonProperty("shipped_at") @ExcludeMissing fun _shippedAt() = shippedAt
-
-            /** For returned shipments, this describes why the package was returned. */
-            @JsonProperty("return_reason") @ExcludeMissing fun _returnReason() = returnReason
-
-            /** For returned shipments, the tracking number of the return shipment. */
-            @JsonProperty("return_number") @ExcludeMissing fun _returnNumber() = returnNumber
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1064,9 +1064,9 @@ private constructor(
             fun validate(): Tracking = apply {
                 if (!validated) {
                     number()
-                    shippedAt()
-                    returnReason()
                     returnNumber()
+                    returnReason()
+                    shippedAt()
                     validated = true
                 }
             }
@@ -1080,9 +1080,9 @@ private constructor(
 
                 return other is Tracking &&
                     this.number == other.number &&
-                    this.shippedAt == other.shippedAt &&
-                    this.returnReason == other.returnReason &&
                     this.returnNumber == other.returnNumber &&
+                    this.returnReason == other.returnReason &&
+                    this.shippedAt == other.shippedAt &&
                     this.additionalProperties == other.additionalProperties
             }
 
@@ -1091,9 +1091,9 @@ private constructor(
                     hashCode =
                         Objects.hash(
                             number,
-                            shippedAt,
-                            returnReason,
                             returnNumber,
+                            returnReason,
+                            shippedAt,
                             additionalProperties,
                         )
                 }
@@ -1101,7 +1101,7 @@ private constructor(
             }
 
             override fun toString() =
-                "Tracking{number=$number, shippedAt=$shippedAt, returnReason=$returnReason, returnNumber=$returnNumber, additionalProperties=$additionalProperties}"
+                "Tracking{number=$number, returnNumber=$returnNumber, returnReason=$returnReason, shippedAt=$shippedAt, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1111,17 +1111,17 @@ private constructor(
             class Builder {
 
                 private var number: JsonField<String> = JsonMissing.of()
-                private var shippedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-                private var returnReason: JsonField<String> = JsonMissing.of()
                 private var returnNumber: JsonField<String> = JsonMissing.of()
+                private var returnReason: JsonField<String> = JsonMissing.of()
+                private var shippedAt: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
                 internal fun from(tracking: Tracking) = apply {
                     this.number = tracking.number
-                    this.shippedAt = tracking.shippedAt
-                    this.returnReason = tracking.returnReason
                     this.returnNumber = tracking.returnNumber
+                    this.returnReason = tracking.returnReason
+                    this.shippedAt = tracking.shippedAt
                     additionalProperties(tracking.additionalProperties)
                 }
 
@@ -1132,6 +1132,26 @@ private constructor(
                 @JsonProperty("number")
                 @ExcludeMissing
                 fun number(number: JsonField<String>) = apply { this.number = number }
+
+                /** For returned shipments, the tracking number of the return shipment. */
+                fun returnNumber(returnNumber: String) = returnNumber(JsonField.of(returnNumber))
+
+                /** For returned shipments, the tracking number of the return shipment. */
+                @JsonProperty("return_number")
+                @ExcludeMissing
+                fun returnNumber(returnNumber: JsonField<String>) = apply {
+                    this.returnNumber = returnNumber
+                }
+
+                /** For returned shipments, this describes why the package was returned. */
+                fun returnReason(returnReason: String) = returnReason(JsonField.of(returnReason))
+
+                /** For returned shipments, this describes why the package was returned. */
+                @JsonProperty("return_reason")
+                @ExcludeMissing
+                fun returnReason(returnReason: JsonField<String>) = apply {
+                    this.returnReason = returnReason
+                }
 
                 /**
                  * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
@@ -1149,26 +1169,6 @@ private constructor(
                 @ExcludeMissing
                 fun shippedAt(shippedAt: JsonField<OffsetDateTime>) = apply {
                     this.shippedAt = shippedAt
-                }
-
-                /** For returned shipments, this describes why the package was returned. */
-                fun returnReason(returnReason: String) = returnReason(JsonField.of(returnReason))
-
-                /** For returned shipments, this describes why the package was returned. */
-                @JsonProperty("return_reason")
-                @ExcludeMissing
-                fun returnReason(returnReason: JsonField<String>) = apply {
-                    this.returnReason = returnReason
-                }
-
-                /** For returned shipments, the tracking number of the return shipment. */
-                fun returnNumber(returnNumber: String) = returnNumber(JsonField.of(returnNumber))
-
-                /** For returned shipments, the tracking number of the return shipment. */
-                @JsonProperty("return_number")
-                @ExcludeMissing
-                fun returnNumber(returnNumber: JsonField<String>) = apply {
-                    this.returnNumber = returnNumber
                 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1189,9 +1189,9 @@ private constructor(
                 fun build(): Tracking =
                     Tracking(
                         number,
-                        shippedAt,
-                        returnReason,
                         returnNumber,
+                        returnReason,
+                        shippedAt,
                         additionalProperties.toUnmodifiable(),
                     )
             }

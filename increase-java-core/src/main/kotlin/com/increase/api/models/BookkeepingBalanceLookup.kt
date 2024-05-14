@@ -24,8 +24,8 @@ import java.util.Objects
 @NoAutoDetect
 class BookkeepingBalanceLookup
 private constructor(
-    private val bookkeepingAccountId: JsonField<String>,
     private val balance: JsonField<Long>,
+    private val bookkeepingAccountId: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -34,14 +34,14 @@ private constructor(
 
     private var hashCode: Int = 0
 
-    /** The identifier for the account for which the balance was queried. */
-    fun bookkeepingAccountId(): String = bookkeepingAccountId.getRequired("bookkeeping_account_id")
-
     /**
      * The Bookkeeping Account's current balance, representing the sum of all Bookkeeping Entries on
      * the Bookkeeping Account.
      */
     fun balance(): Long = balance.getRequired("balance")
+
+    /** The identifier for the account for which the balance was queried. */
+    fun bookkeepingAccountId(): String = bookkeepingAccountId.getRequired("bookkeeping_account_id")
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -49,16 +49,16 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The identifier for the account for which the balance was queried. */
-    @JsonProperty("bookkeeping_account_id")
-    @ExcludeMissing
-    fun _bookkeepingAccountId() = bookkeepingAccountId
-
     /**
      * The Bookkeeping Account's current balance, representing the sum of all Bookkeeping Entries on
      * the Bookkeeping Account.
      */
     @JsonProperty("balance") @ExcludeMissing fun _balance() = balance
+
+    /** The identifier for the account for which the balance was queried. */
+    @JsonProperty("bookkeeping_account_id")
+    @ExcludeMissing
+    fun _bookkeepingAccountId() = bookkeepingAccountId
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -72,8 +72,8 @@ private constructor(
 
     fun validate(): BookkeepingBalanceLookup = apply {
         if (!validated) {
-            bookkeepingAccountId()
             balance()
+            bookkeepingAccountId()
             type()
             validated = true
         }
@@ -87,8 +87,8 @@ private constructor(
         }
 
         return other is BookkeepingBalanceLookup &&
-            this.bookkeepingAccountId == other.bookkeepingAccountId &&
             this.balance == other.balance &&
+            this.bookkeepingAccountId == other.bookkeepingAccountId &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -97,8 +97,8 @@ private constructor(
         if (hashCode == 0) {
             hashCode =
                 Objects.hash(
-                    bookkeepingAccountId,
                     balance,
+                    bookkeepingAccountId,
                     type,
                     additionalProperties,
                 )
@@ -107,7 +107,7 @@ private constructor(
     }
 
     override fun toString() =
-        "BookkeepingBalanceLookup{bookkeepingAccountId=$bookkeepingAccountId, balance=$balance, type=$type, additionalProperties=$additionalProperties}"
+        "BookkeepingBalanceLookup{balance=$balance, bookkeepingAccountId=$bookkeepingAccountId, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -116,28 +116,17 @@ private constructor(
 
     class Builder {
 
-        private var bookkeepingAccountId: JsonField<String> = JsonMissing.of()
         private var balance: JsonField<Long> = JsonMissing.of()
+        private var bookkeepingAccountId: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(bookkeepingBalanceLookup: BookkeepingBalanceLookup) = apply {
-            this.bookkeepingAccountId = bookkeepingBalanceLookup.bookkeepingAccountId
             this.balance = bookkeepingBalanceLookup.balance
+            this.bookkeepingAccountId = bookkeepingBalanceLookup.bookkeepingAccountId
             this.type = bookkeepingBalanceLookup.type
             additionalProperties(bookkeepingBalanceLookup.additionalProperties)
-        }
-
-        /** The identifier for the account for which the balance was queried. */
-        fun bookkeepingAccountId(bookkeepingAccountId: String) =
-            bookkeepingAccountId(JsonField.of(bookkeepingAccountId))
-
-        /** The identifier for the account for which the balance was queried. */
-        @JsonProperty("bookkeeping_account_id")
-        @ExcludeMissing
-        fun bookkeepingAccountId(bookkeepingAccountId: JsonField<String>) = apply {
-            this.bookkeepingAccountId = bookkeepingAccountId
         }
 
         /**
@@ -153,6 +142,17 @@ private constructor(
         @JsonProperty("balance")
         @ExcludeMissing
         fun balance(balance: JsonField<Long>) = apply { this.balance = balance }
+
+        /** The identifier for the account for which the balance was queried. */
+        fun bookkeepingAccountId(bookkeepingAccountId: String) =
+            bookkeepingAccountId(JsonField.of(bookkeepingAccountId))
+
+        /** The identifier for the account for which the balance was queried. */
+        @JsonProperty("bookkeeping_account_id")
+        @ExcludeMissing
+        fun bookkeepingAccountId(bookkeepingAccountId: JsonField<String>) = apply {
+            this.bookkeepingAccountId = bookkeepingAccountId
+        }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -184,8 +184,8 @@ private constructor(
 
         fun build(): BookkeepingBalanceLookup =
             BookkeepingBalanceLookup(
-                bookkeepingAccountId,
                 balance,
+                bookkeepingAccountId,
                 type,
                 additionalProperties.toUnmodifiable(),
             )

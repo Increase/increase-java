@@ -26,14 +26,14 @@ import java.util.Objects
 @NoAutoDetect
 class AccountStatement
 private constructor(
-    private val id: JsonField<String>,
     private val accountId: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
-    private val fileId: JsonField<String>,
-    private val statementPeriodStart: JsonField<OffsetDateTime>,
-    private val statementPeriodEnd: JsonField<OffsetDateTime>,
-    private val startingBalance: JsonField<Long>,
     private val endingBalance: JsonField<Long>,
+    private val fileId: JsonField<String>,
+    private val id: JsonField<String>,
+    private val startingBalance: JsonField<Long>,
+    private val statementPeriodEnd: JsonField<OffsetDateTime>,
+    private val statementPeriodStart: JsonField<OffsetDateTime>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -41,9 +41,6 @@ private constructor(
     private var validated: Boolean = false
 
     private var hashCode: Int = 0
-
-    /** The Account Statement identifier. */
-    fun id(): String = id.getRequired("id")
 
     /** The identifier for the Account this Account Statement belongs to. */
     fun accountId(): String = accountId.getRequired("account_id")
@@ -54,8 +51,24 @@ private constructor(
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
+    /** The Account's balance at the start of its statement period. */
+    fun endingBalance(): Long = endingBalance.getRequired("ending_balance")
+
     /** The identifier of the File containing a PDF of the statement. */
     fun fileId(): String = fileId.getRequired("file_id")
+
+    /** The Account Statement identifier. */
+    fun id(): String = id.getRequired("id")
+
+    /** The Account's balance at the start of its statement period. */
+    fun startingBalance(): Long = startingBalance.getRequired("starting_balance")
+
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the end of the
+     * period the Account Statement covers.
+     */
+    fun statementPeriodEnd(): OffsetDateTime =
+        statementPeriodEnd.getRequired("statement_period_end")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the start of the
@@ -65,26 +78,10 @@ private constructor(
         statementPeriodStart.getRequired("statement_period_start")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the end of the
-     * period the Account Statement covers.
-     */
-    fun statementPeriodEnd(): OffsetDateTime =
-        statementPeriodEnd.getRequired("statement_period_end")
-
-    /** The Account's balance at the start of its statement period. */
-    fun startingBalance(): Long = startingBalance.getRequired("starting_balance")
-
-    /** The Account's balance at the start of its statement period. */
-    fun endingBalance(): Long = endingBalance.getRequired("ending_balance")
-
-    /**
      * A constant representing the object's type. For this resource it will always be
      * `account_statement`.
      */
     fun type(): Type = type.getRequired("type")
-
-    /** The Account Statement identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /** The identifier for the Account this Account Statement belongs to. */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
@@ -95,16 +92,17 @@ private constructor(
      */
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
+    /** The Account's balance at the start of its statement period. */
+    @JsonProperty("ending_balance") @ExcludeMissing fun _endingBalance() = endingBalance
+
     /** The identifier of the File containing a PDF of the statement. */
     @JsonProperty("file_id") @ExcludeMissing fun _fileId() = fileId
 
-    /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the start of the
-     * period the Account Statement covers.
-     */
-    @JsonProperty("statement_period_start")
-    @ExcludeMissing
-    fun _statementPeriodStart() = statementPeriodStart
+    /** The Account Statement identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+    /** The Account's balance at the start of its statement period. */
+    @JsonProperty("starting_balance") @ExcludeMissing fun _startingBalance() = startingBalance
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the end of the
@@ -114,11 +112,13 @@ private constructor(
     @ExcludeMissing
     fun _statementPeriodEnd() = statementPeriodEnd
 
-    /** The Account's balance at the start of its statement period. */
-    @JsonProperty("starting_balance") @ExcludeMissing fun _startingBalance() = startingBalance
-
-    /** The Account's balance at the start of its statement period. */
-    @JsonProperty("ending_balance") @ExcludeMissing fun _endingBalance() = endingBalance
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the start of the
+     * period the Account Statement covers.
+     */
+    @JsonProperty("statement_period_start")
+    @ExcludeMissing
+    fun _statementPeriodStart() = statementPeriodStart
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -132,14 +132,14 @@ private constructor(
 
     fun validate(): AccountStatement = apply {
         if (!validated) {
-            id()
             accountId()
             createdAt()
-            fileId()
-            statementPeriodStart()
-            statementPeriodEnd()
-            startingBalance()
             endingBalance()
+            fileId()
+            id()
+            startingBalance()
+            statementPeriodEnd()
+            statementPeriodStart()
             type()
             validated = true
         }
@@ -153,14 +153,14 @@ private constructor(
         }
 
         return other is AccountStatement &&
-            this.id == other.id &&
             this.accountId == other.accountId &&
             this.createdAt == other.createdAt &&
-            this.fileId == other.fileId &&
-            this.statementPeriodStart == other.statementPeriodStart &&
-            this.statementPeriodEnd == other.statementPeriodEnd &&
-            this.startingBalance == other.startingBalance &&
             this.endingBalance == other.endingBalance &&
+            this.fileId == other.fileId &&
+            this.id == other.id &&
+            this.startingBalance == other.startingBalance &&
+            this.statementPeriodEnd == other.statementPeriodEnd &&
+            this.statementPeriodStart == other.statementPeriodStart &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -169,14 +169,14 @@ private constructor(
         if (hashCode == 0) {
             hashCode =
                 Objects.hash(
-                    id,
                     accountId,
                     createdAt,
-                    fileId,
-                    statementPeriodStart,
-                    statementPeriodEnd,
-                    startingBalance,
                     endingBalance,
+                    fileId,
+                    id,
+                    startingBalance,
+                    statementPeriodEnd,
+                    statementPeriodStart,
                     type,
                     additionalProperties,
                 )
@@ -185,7 +185,7 @@ private constructor(
     }
 
     override fun toString() =
-        "AccountStatement{id=$id, accountId=$accountId, createdAt=$createdAt, fileId=$fileId, statementPeriodStart=$statementPeriodStart, statementPeriodEnd=$statementPeriodEnd, startingBalance=$startingBalance, endingBalance=$endingBalance, type=$type, additionalProperties=$additionalProperties}"
+        "AccountStatement{accountId=$accountId, createdAt=$createdAt, endingBalance=$endingBalance, fileId=$fileId, id=$id, startingBalance=$startingBalance, statementPeriodEnd=$statementPeriodEnd, statementPeriodStart=$statementPeriodStart, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -194,36 +194,30 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
         private var accountId: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var fileId: JsonField<String> = JsonMissing.of()
-        private var statementPeriodStart: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var statementPeriodEnd: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var startingBalance: JsonField<Long> = JsonMissing.of()
         private var endingBalance: JsonField<Long> = JsonMissing.of()
+        private var fileId: JsonField<String> = JsonMissing.of()
+        private var id: JsonField<String> = JsonMissing.of()
+        private var startingBalance: JsonField<Long> = JsonMissing.of()
+        private var statementPeriodEnd: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var statementPeriodStart: JsonField<OffsetDateTime> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(accountStatement: AccountStatement) = apply {
-            this.id = accountStatement.id
             this.accountId = accountStatement.accountId
             this.createdAt = accountStatement.createdAt
-            this.fileId = accountStatement.fileId
-            this.statementPeriodStart = accountStatement.statementPeriodStart
-            this.statementPeriodEnd = accountStatement.statementPeriodEnd
-            this.startingBalance = accountStatement.startingBalance
             this.endingBalance = accountStatement.endingBalance
+            this.fileId = accountStatement.fileId
+            this.id = accountStatement.id
+            this.startingBalance = accountStatement.startingBalance
+            this.statementPeriodEnd = accountStatement.statementPeriodEnd
+            this.statementPeriodStart = accountStatement.statementPeriodStart
             this.type = accountStatement.type
             additionalProperties(accountStatement.additionalProperties)
         }
-
-        /** The Account Statement identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Account Statement identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The identifier for the Account this Account Statement belongs to. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
@@ -247,6 +241,16 @@ private constructor(
         @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
+        /** The Account's balance at the start of its statement period. */
+        fun endingBalance(endingBalance: Long) = endingBalance(JsonField.of(endingBalance))
+
+        /** The Account's balance at the start of its statement period. */
+        @JsonProperty("ending_balance")
+        @ExcludeMissing
+        fun endingBalance(endingBalance: JsonField<Long>) = apply {
+            this.endingBalance = endingBalance
+        }
+
         /** The identifier of the File containing a PDF of the statement. */
         fun fileId(fileId: String) = fileId(JsonField.of(fileId))
 
@@ -255,21 +259,20 @@ private constructor(
         @ExcludeMissing
         fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the start of the
-         * period the Account Statement covers.
-         */
-        fun statementPeriodStart(statementPeriodStart: OffsetDateTime) =
-            statementPeriodStart(JsonField.of(statementPeriodStart))
+        /** The Account Statement identifier. */
+        fun id(id: String) = id(JsonField.of(id))
 
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the start of the
-         * period the Account Statement covers.
-         */
-        @JsonProperty("statement_period_start")
+        /** The Account Statement identifier. */
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /** The Account's balance at the start of its statement period. */
+        fun startingBalance(startingBalance: Long) = startingBalance(JsonField.of(startingBalance))
+
+        /** The Account's balance at the start of its statement period. */
+        @JsonProperty("starting_balance")
         @ExcludeMissing
-        fun statementPeriodStart(statementPeriodStart: JsonField<OffsetDateTime>) = apply {
-            this.statementPeriodStart = statementPeriodStart
+        fun startingBalance(startingBalance: JsonField<Long>) = apply {
+            this.startingBalance = startingBalance
         }
 
         /**
@@ -289,24 +292,21 @@ private constructor(
             this.statementPeriodEnd = statementPeriodEnd
         }
 
-        /** The Account's balance at the start of its statement period. */
-        fun startingBalance(startingBalance: Long) = startingBalance(JsonField.of(startingBalance))
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the start of the
+         * period the Account Statement covers.
+         */
+        fun statementPeriodStart(statementPeriodStart: OffsetDateTime) =
+            statementPeriodStart(JsonField.of(statementPeriodStart))
 
-        /** The Account's balance at the start of its statement period. */
-        @JsonProperty("starting_balance")
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the start of the
+         * period the Account Statement covers.
+         */
+        @JsonProperty("statement_period_start")
         @ExcludeMissing
-        fun startingBalance(startingBalance: JsonField<Long>) = apply {
-            this.startingBalance = startingBalance
-        }
-
-        /** The Account's balance at the start of its statement period. */
-        fun endingBalance(endingBalance: Long) = endingBalance(JsonField.of(endingBalance))
-
-        /** The Account's balance at the start of its statement period. */
-        @JsonProperty("ending_balance")
-        @ExcludeMissing
-        fun endingBalance(endingBalance: JsonField<Long>) = apply {
-            this.endingBalance = endingBalance
+        fun statementPeriodStart(statementPeriodStart: JsonField<OffsetDateTime>) = apply {
+            this.statementPeriodStart = statementPeriodStart
         }
 
         /**
@@ -339,14 +339,14 @@ private constructor(
 
         fun build(): AccountStatement =
             AccountStatement(
-                id,
                 accountId,
                 createdAt,
-                fileId,
-                statementPeriodStart,
-                statementPeriodEnd,
-                startingBalance,
                 endingBalance,
+                fileId,
+                id,
+                startingBalance,
+                statementPeriodEnd,
+                statementPeriodStart,
                 type,
                 additionalProperties.toUnmodifiable(),
             )

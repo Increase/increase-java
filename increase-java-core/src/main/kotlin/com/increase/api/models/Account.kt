@@ -29,20 +29,20 @@ import java.util.Optional
 class Account
 private constructor(
     private val bank: JsonField<Bank>,
-    private val createdAt: JsonField<OffsetDateTime>,
     private val closedAt: JsonField<OffsetDateTime>,
+    private val createdAt: JsonField<OffsetDateTime>,
     private val currency: JsonField<Currency>,
     private val entityId: JsonField<String>,
-    private val informationalEntityId: JsonField<String>,
     private val id: JsonField<String>,
-    private val programId: JsonField<String>,
+    private val idempotencyKey: JsonField<String>,
+    private val informationalEntityId: JsonField<String>,
     private val interestAccrued: JsonField<String>,
     private val interestAccruedAt: JsonField<LocalDate>,
     private val interestRate: JsonField<String>,
     private val name: JsonField<String>,
+    private val programId: JsonField<String>,
     private val status: JsonField<Status>,
     private val type: JsonField<Type>,
-    private val idempotencyKey: JsonField<String>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -54,15 +54,15 @@ private constructor(
     fun bank(): Bank = bank.getRequired("bank")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was created.
-     */
-    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-    /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was closed.
      */
     fun closedAt(): Optional<OffsetDateTime> =
         Optional.ofNullable(closedAt.getNullable("closed_at"))
+
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was created.
+     */
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Account currency. */
     fun currency(): Currency = currency.getRequired("currency")
@@ -70,21 +70,23 @@ private constructor(
     /** The identifier for the Entity the Account belongs to. */
     fun entityId(): Optional<String> = Optional.ofNullable(entityId.getNullable("entity_id"))
 
+    /** The Account identifier. */
+    fun id(): String = id.getRequired("id")
+
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    fun idempotencyKey(): Optional<String> =
+        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+
     /**
      * The identifier of an Entity that, while not owning the Account, is associated with its
      * activity.
      */
     fun informationalEntityId(): Optional<String> =
         Optional.ofNullable(informationalEntityId.getNullable("informational_entity_id"))
-
-    /** The Account identifier. */
-    fun id(): String = id.getRequired("id")
-
-    /**
-     * The identifier of the Program determining the compliance and commercial terms of this
-     * Account.
-     */
-    fun programId(): String = programId.getRequired("program_id")
 
     /**
      * The interest accrued but not yet paid, expressed as a string containing a floating-point
@@ -108,38 +110,46 @@ private constructor(
     /** The name you choose for the Account. */
     fun name(): String = name.getRequired("name")
 
+    /**
+     * The identifier of the Program determining the compliance and commercial terms of this
+     * Account.
+     */
+    fun programId(): String = programId.getRequired("program_id")
+
     /** The status of the Account. */
     fun status(): Status = status.getRequired("status")
 
     /** A constant representing the object's type. For this resource it will always be `account`. */
     fun type(): Type = type.getRequired("type")
 
-    /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
-     */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
-
     /** The bank the Account is with. */
     @JsonProperty("bank") @ExcludeMissing fun _bank() = bank
-
-    /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was created.
-     */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was closed.
      */
     @JsonProperty("closed_at") @ExcludeMissing fun _closedAt() = closedAt
 
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was created.
+     */
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
     /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Account currency. */
     @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
 
     /** The identifier for the Entity the Account belongs to. */
     @JsonProperty("entity_id") @ExcludeMissing fun _entityId() = entityId
+
+    /** The Account identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
 
     /**
      * The identifier of an Entity that, while not owning the Account, is associated with its
@@ -148,15 +158,6 @@ private constructor(
     @JsonProperty("informational_entity_id")
     @ExcludeMissing
     fun _informationalEntityId() = informationalEntityId
-
-    /** The Account identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
-    /**
-     * The identifier of the Program determining the compliance and commercial terms of this
-     * Account.
-     */
-    @JsonProperty("program_id") @ExcludeMissing fun _programId() = programId
 
     /**
      * The interest accrued but not yet paid, expressed as a string containing a floating-point
@@ -181,18 +182,17 @@ private constructor(
     /** The name you choose for the Account. */
     @JsonProperty("name") @ExcludeMissing fun _name() = name
 
+    /**
+     * The identifier of the Program determining the compliance and commercial terms of this
+     * Account.
+     */
+    @JsonProperty("program_id") @ExcludeMissing fun _programId() = programId
+
     /** The status of the Account. */
     @JsonProperty("status") @ExcludeMissing fun _status() = status
 
     /** A constant representing the object's type. For this resource it will always be `account`. */
     @JsonProperty("type") @ExcludeMissing fun _type() = type
-
-    /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
-     */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -201,20 +201,20 @@ private constructor(
     fun validate(): Account = apply {
         if (!validated) {
             bank()
-            createdAt()
             closedAt()
+            createdAt()
             currency()
             entityId()
-            informationalEntityId()
             id()
-            programId()
+            idempotencyKey()
+            informationalEntityId()
             interestAccrued()
             interestAccruedAt()
             interestRate()
             name()
+            programId()
             status()
             type()
-            idempotencyKey()
             validated = true
         }
     }
@@ -228,20 +228,20 @@ private constructor(
 
         return other is Account &&
             this.bank == other.bank &&
-            this.createdAt == other.createdAt &&
             this.closedAt == other.closedAt &&
+            this.createdAt == other.createdAt &&
             this.currency == other.currency &&
             this.entityId == other.entityId &&
-            this.informationalEntityId == other.informationalEntityId &&
             this.id == other.id &&
-            this.programId == other.programId &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.informationalEntityId == other.informationalEntityId &&
             this.interestAccrued == other.interestAccrued &&
             this.interestAccruedAt == other.interestAccruedAt &&
             this.interestRate == other.interestRate &&
             this.name == other.name &&
+            this.programId == other.programId &&
             this.status == other.status &&
             this.type == other.type &&
-            this.idempotencyKey == other.idempotencyKey &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -250,20 +250,20 @@ private constructor(
             hashCode =
                 Objects.hash(
                     bank,
-                    createdAt,
                     closedAt,
+                    createdAt,
                     currency,
                     entityId,
-                    informationalEntityId,
                     id,
-                    programId,
+                    idempotencyKey,
+                    informationalEntityId,
                     interestAccrued,
                     interestAccruedAt,
                     interestRate,
                     name,
+                    programId,
                     status,
                     type,
-                    idempotencyKey,
                     additionalProperties,
                 )
         }
@@ -271,7 +271,7 @@ private constructor(
     }
 
     override fun toString() =
-        "Account{bank=$bank, createdAt=$createdAt, closedAt=$closedAt, currency=$currency, entityId=$entityId, informationalEntityId=$informationalEntityId, id=$id, programId=$programId, interestAccrued=$interestAccrued, interestAccruedAt=$interestAccruedAt, interestRate=$interestRate, name=$name, status=$status, type=$type, idempotencyKey=$idempotencyKey, additionalProperties=$additionalProperties}"
+        "Account{bank=$bank, closedAt=$closedAt, createdAt=$createdAt, currency=$currency, entityId=$entityId, id=$id, idempotencyKey=$idempotencyKey, informationalEntityId=$informationalEntityId, interestAccrued=$interestAccrued, interestAccruedAt=$interestAccruedAt, interestRate=$interestRate, name=$name, programId=$programId, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -281,39 +281,39 @@ private constructor(
     class Builder {
 
         private var bank: JsonField<Bank> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var closedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var currency: JsonField<Currency> = JsonMissing.of()
         private var entityId: JsonField<String> = JsonMissing.of()
-        private var informationalEntityId: JsonField<String> = JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
-        private var programId: JsonField<String> = JsonMissing.of()
+        private var idempotencyKey: JsonField<String> = JsonMissing.of()
+        private var informationalEntityId: JsonField<String> = JsonMissing.of()
         private var interestAccrued: JsonField<String> = JsonMissing.of()
         private var interestAccruedAt: JsonField<LocalDate> = JsonMissing.of()
         private var interestRate: JsonField<String> = JsonMissing.of()
         private var name: JsonField<String> = JsonMissing.of()
+        private var programId: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(account: Account) = apply {
             this.bank = account.bank
-            this.createdAt = account.createdAt
             this.closedAt = account.closedAt
+            this.createdAt = account.createdAt
             this.currency = account.currency
             this.entityId = account.entityId
-            this.informationalEntityId = account.informationalEntityId
             this.id = account.id
-            this.programId = account.programId
+            this.idempotencyKey = account.idempotencyKey
+            this.informationalEntityId = account.informationalEntityId
             this.interestAccrued = account.interestAccrued
             this.interestAccruedAt = account.interestAccruedAt
             this.interestRate = account.interestRate
             this.name = account.name
+            this.programId = account.programId
             this.status = account.status
             this.type = account.type
-            this.idempotencyKey = account.idempotencyKey
             additionalProperties(account.additionalProperties)
         }
 
@@ -324,20 +324,6 @@ private constructor(
         @JsonProperty("bank")
         @ExcludeMissing
         fun bank(bank: JsonField<Bank>) = apply { this.bank = bank }
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was
-         * created.
-         */
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was
-         * created.
-         */
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was
@@ -352,6 +338,20 @@ private constructor(
         @JsonProperty("closed_at")
         @ExcludeMissing
         fun closedAt(closedAt: JsonField<OffsetDateTime>) = apply { this.closedAt = closedAt }
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was
+         * created.
+         */
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was
+         * created.
+         */
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Account currency. */
         fun currency(currency: Currency) = currency(JsonField.of(currency))
@@ -369,6 +369,30 @@ private constructor(
         @ExcludeMissing
         fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
 
+        /** The Account identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Account identifier. */
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
+        }
+
         /**
          * The identifier of an Entity that, while not owning the Account, is associated with its
          * activity.
@@ -385,26 +409,6 @@ private constructor(
         fun informationalEntityId(informationalEntityId: JsonField<String>) = apply {
             this.informationalEntityId = informationalEntityId
         }
-
-        /** The Account identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Account identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
-
-        /**
-         * The identifier of the Program determining the compliance and commercial terms of this
-         * Account.
-         */
-        fun programId(programId: String) = programId(JsonField.of(programId))
-
-        /**
-         * The identifier of the Program determining the compliance and commercial terms of this
-         * Account.
-         */
-        @JsonProperty("program_id")
-        @ExcludeMissing
-        fun programId(programId: JsonField<String>) = apply { this.programId = programId }
 
         /**
          * The interest accrued but not yet paid, expressed as a string containing a floating-point
@@ -464,6 +468,20 @@ private constructor(
         @ExcludeMissing
         fun name(name: JsonField<String>) = apply { this.name = name }
 
+        /**
+         * The identifier of the Program determining the compliance and commercial terms of this
+         * Account.
+         */
+        fun programId(programId: String) = programId(JsonField.of(programId))
+
+        /**
+         * The identifier of the Program determining the compliance and commercial terms of this
+         * Account.
+         */
+        @JsonProperty("program_id")
+        @ExcludeMissing
+        fun programId(programId: JsonField<String>) = apply { this.programId = programId }
+
         /** The status of the Account. */
         fun status(status: Status) = status(JsonField.of(status))
 
@@ -484,24 +502,6 @@ private constructor(
         @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
-        /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
-         */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
-
-        /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
-         */
-        @JsonProperty("idempotency_key")
-        @ExcludeMissing
-        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
-            this.idempotencyKey = idempotencyKey
-        }
-
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             this.additionalProperties.putAll(additionalProperties)
@@ -519,20 +519,20 @@ private constructor(
         fun build(): Account =
             Account(
                 bank,
-                createdAt,
                 closedAt,
+                createdAt,
                 currency,
                 entityId,
-                informationalEntityId,
                 id,
-                programId,
+                idempotencyKey,
+                informationalEntityId,
                 interestAccrued,
                 interestAccruedAt,
                 interestRate,
                 name,
+                programId,
                 status,
                 type,
-                idempotencyKey,
                 additionalProperties.toUnmodifiable(),
             )
     }
