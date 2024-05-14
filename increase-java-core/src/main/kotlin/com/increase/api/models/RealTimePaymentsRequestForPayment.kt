@@ -32,23 +32,23 @@ import java.util.Optional
 @NoAutoDetect
 class RealTimePaymentsRequestForPayment
 private constructor(
-    private val type: JsonField<Type>,
-    private val id: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val destinationAccountNumberId: JsonField<String>,
-    private val debtorName: JsonField<String>,
-    private val remittanceInformation: JsonField<String>,
-    private val expiresAt: JsonField<LocalDate>,
     private val amount: JsonField<Long>,
+    private val createdAt: JsonField<OffsetDateTime>,
     private val currency: JsonField<Currency>,
+    private val debtorName: JsonField<String>,
+    private val destinationAccountNumberId: JsonField<String>,
+    private val expiresAt: JsonField<LocalDate>,
+    private val fulfillmentTransactionId: JsonField<String>,
+    private val id: JsonField<String>,
+    private val idempotencyKey: JsonField<String>,
+    private val refusal: JsonField<Refusal>,
+    private val rejection: JsonField<Rejection>,
+    private val remittanceInformation: JsonField<String>,
     private val sourceAccountNumber: JsonField<String>,
     private val sourceRoutingNumber: JsonField<String>,
-    private val fulfillmentTransactionId: JsonField<String>,
+    private val status: JsonField<Status>,
     private val submission: JsonField<Submission>,
-    private val rejection: JsonField<Rejection>,
-    private val refusal: JsonField<Refusal>,
-    private val idempotencyKey: JsonField<String>,
+    private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -56,17 +56,8 @@ private constructor(
 
     private var hashCode: Int = 0
 
-    /**
-     * A constant representing the object's type. For this resource it will always be
-     * `real_time_payments_request_for_payment`.
-     */
-    fun type(): Type = type.getRequired("type")
-
-    /** The Real-Time Payments Request for Payment's identifier. */
-    fun id(): String = id.getRequired("id")
-
-    /** The lifecycle status of the request for payment. */
-    fun status(): Status = status.getRequired("status")
+    /** The transfer amount in USD cents. */
+    fun amount(): Long = amount.getRequired("amount")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the request for
@@ -74,16 +65,18 @@ private constructor(
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** The Account Number in which a successful transfer will arrive. */
-    fun destinationAccountNumberId(): String =
-        destinationAccountNumberId.getRequired("destination_account_number_id")
+    /**
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
+     * real-time payments transfers this is always equal to `USD`.
+     */
+    fun currency(): Currency = currency.getRequired("currency")
 
     /** The name of the recipient the sender is requesting a transfer from. */
     fun debtorName(): String = debtorName.getRequired("debtor_name")
 
-    /** Unstructured information that will show on the recipient's bank statement. */
-    fun remittanceInformation(): String =
-        remittanceInformation.getRequired("remittance_information")
+    /** The Account Number in which a successful transfer will arrive. */
+    fun destinationAccountNumberId(): String =
+        destinationAccountNumberId.getRequired("destination_account_number_id")
 
     /**
      * The expiration time for this request, in UTC. The requestee will not be able to pay after
@@ -91,43 +84,12 @@ private constructor(
      */
     fun expiresAt(): LocalDate = expiresAt.getRequired("expires_at")
 
-    /** The transfer amount in USD cents. */
-    fun amount(): Long = amount.getRequired("amount")
-
-    /**
-     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
-     * real-time payments transfers this is always equal to `USD`.
-     */
-    fun currency(): Currency = currency.getRequired("currency")
-
-    /** The account number the request is sent to. */
-    fun sourceAccountNumber(): String = sourceAccountNumber.getRequired("source_account_number")
-
-    /** The receiver's American Bankers' Association (ABA) Routing Transit Number (RTN). */
-    fun sourceRoutingNumber(): String = sourceRoutingNumber.getRequired("source_routing_number")
-
     /** The transaction that fulfilled this request. */
     fun fulfillmentTransactionId(): Optional<String> =
         Optional.ofNullable(fulfillmentTransactionId.getNullable("fulfillment_transaction_id"))
 
-    /**
-     * After the request for payment is submitted to Real-Time Payments, this will contain
-     * supplemental details.
-     */
-    fun submission(): Optional<Submission> =
-        Optional.ofNullable(submission.getNullable("submission"))
-
-    /**
-     * If the request for payment is rejected by Real-Time Payments or the destination financial
-     * institution, this will contain supplemental details.
-     */
-    fun rejection(): Optional<Rejection> = Optional.ofNullable(rejection.getNullable("rejection"))
-
-    /**
-     * If the request for payment is refused by the destination financial institution or the
-     * receiving customer, this will contain supplemental details.
-     */
-    fun refusal(): Optional<Refusal> = Optional.ofNullable(refusal.getNullable("refusal"))
+    /** The Real-Time Payments Request for Payment's identifier. */
+    fun id(): String = id.getRequired("id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -138,16 +100,45 @@ private constructor(
         Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
     /**
+     * If the request for payment is refused by the destination financial institution or the
+     * receiving customer, this will contain supplemental details.
+     */
+    fun refusal(): Optional<Refusal> = Optional.ofNullable(refusal.getNullable("refusal"))
+
+    /**
+     * If the request for payment is rejected by Real-Time Payments or the destination financial
+     * institution, this will contain supplemental details.
+     */
+    fun rejection(): Optional<Rejection> = Optional.ofNullable(rejection.getNullable("rejection"))
+
+    /** Unstructured information that will show on the recipient's bank statement. */
+    fun remittanceInformation(): String =
+        remittanceInformation.getRequired("remittance_information")
+
+    /** The account number the request is sent to. */
+    fun sourceAccountNumber(): String = sourceAccountNumber.getRequired("source_account_number")
+
+    /** The receiver's American Bankers' Association (ABA) Routing Transit Number (RTN). */
+    fun sourceRoutingNumber(): String = sourceRoutingNumber.getRequired("source_routing_number")
+
+    /** The lifecycle status of the request for payment. */
+    fun status(): Status = status.getRequired("status")
+
+    /**
+     * After the request for payment is submitted to Real-Time Payments, this will contain
+     * supplemental details.
+     */
+    fun submission(): Optional<Submission> =
+        Optional.ofNullable(submission.getNullable("submission"))
+
+    /**
      * A constant representing the object's type. For this resource it will always be
      * `real_time_payments_request_for_payment`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    fun type(): Type = type.getRequired("type")
 
-    /** The Real-Time Payments Request for Payment's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
-    /** The lifecycle status of the request for payment. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    /** The transfer amount in USD cents. */
+    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the request for
@@ -155,18 +146,19 @@ private constructor(
      */
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
-    /** The Account Number in which a successful transfer will arrive. */
-    @JsonProperty("destination_account_number_id")
-    @ExcludeMissing
-    fun _destinationAccountNumberId() = destinationAccountNumberId
+    /**
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
+     * real-time payments transfers this is always equal to `USD`.
+     */
+    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
 
     /** The name of the recipient the sender is requesting a transfer from. */
     @JsonProperty("debtor_name") @ExcludeMissing fun _debtorName() = debtorName
 
-    /** Unstructured information that will show on the recipient's bank statement. */
-    @JsonProperty("remittance_information")
+    /** The Account Number in which a successful transfer will arrive. */
+    @JsonProperty("destination_account_number_id")
     @ExcludeMissing
-    fun _remittanceInformation() = remittanceInformation
+    fun _destinationAccountNumberId() = destinationAccountNumberId
 
     /**
      * The expiration time for this request, in UTC. The requestee will not be able to pay after
@@ -174,14 +166,37 @@ private constructor(
      */
     @JsonProperty("expires_at") @ExcludeMissing fun _expiresAt() = expiresAt
 
-    /** The transfer amount in USD cents. */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+    /** The transaction that fulfilled this request. */
+    @JsonProperty("fulfillment_transaction_id")
+    @ExcludeMissing
+    fun _fulfillmentTransactionId() = fulfillmentTransactionId
+
+    /** The Real-Time Payments Request for Payment's identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
-     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
-     * real-time payments transfers this is always equal to `USD`.
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+
+    /**
+     * If the request for payment is refused by the destination financial institution or the
+     * receiving customer, this will contain supplemental details.
+     */
+    @JsonProperty("refusal") @ExcludeMissing fun _refusal() = refusal
+
+    /**
+     * If the request for payment is rejected by Real-Time Payments or the destination financial
+     * institution, this will contain supplemental details.
+     */
+    @JsonProperty("rejection") @ExcludeMissing fun _rejection() = rejection
+
+    /** Unstructured information that will show on the recipient's bank statement. */
+    @JsonProperty("remittance_information")
+    @ExcludeMissing
+    fun _remittanceInformation() = remittanceInformation
 
     /** The account number the request is sent to. */
     @JsonProperty("source_account_number")
@@ -193,10 +208,8 @@ private constructor(
     @ExcludeMissing
     fun _sourceRoutingNumber() = sourceRoutingNumber
 
-    /** The transaction that fulfilled this request. */
-    @JsonProperty("fulfillment_transaction_id")
-    @ExcludeMissing
-    fun _fulfillmentTransactionId() = fulfillmentTransactionId
+    /** The lifecycle status of the request for payment. */
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
 
     /**
      * After the request for payment is submitted to Real-Time Payments, this will contain
@@ -205,23 +218,10 @@ private constructor(
     @JsonProperty("submission") @ExcludeMissing fun _submission() = submission
 
     /**
-     * If the request for payment is rejected by Real-Time Payments or the destination financial
-     * institution, this will contain supplemental details.
+     * A constant representing the object's type. For this resource it will always be
+     * `real_time_payments_request_for_payment`.
      */
-    @JsonProperty("rejection") @ExcludeMissing fun _rejection() = rejection
-
-    /**
-     * If the request for payment is refused by the destination financial institution or the
-     * receiving customer, this will contain supplemental details.
-     */
-    @JsonProperty("refusal") @ExcludeMissing fun _refusal() = refusal
-
-    /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
-     */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("type") @ExcludeMissing fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -229,23 +229,23 @@ private constructor(
 
     fun validate(): RealTimePaymentsRequestForPayment = apply {
         if (!validated) {
-            type()
-            id()
-            status()
-            createdAt()
-            destinationAccountNumberId()
-            debtorName()
-            remittanceInformation()
-            expiresAt()
             amount()
+            createdAt()
             currency()
+            debtorName()
+            destinationAccountNumberId()
+            expiresAt()
+            fulfillmentTransactionId()
+            id()
+            idempotencyKey()
+            refusal().map { it.validate() }
+            rejection().map { it.validate() }
+            remittanceInformation()
             sourceAccountNumber()
             sourceRoutingNumber()
-            fulfillmentTransactionId()
+            status()
             submission().map { it.validate() }
-            rejection().map { it.validate() }
-            refusal().map { it.validate() }
-            idempotencyKey()
+            type()
             validated = true
         }
     }
@@ -258,23 +258,23 @@ private constructor(
         }
 
         return other is RealTimePaymentsRequestForPayment &&
-            this.type == other.type &&
-            this.id == other.id &&
-            this.status == other.status &&
-            this.createdAt == other.createdAt &&
-            this.destinationAccountNumberId == other.destinationAccountNumberId &&
-            this.debtorName == other.debtorName &&
-            this.remittanceInformation == other.remittanceInformation &&
-            this.expiresAt == other.expiresAt &&
             this.amount == other.amount &&
+            this.createdAt == other.createdAt &&
             this.currency == other.currency &&
+            this.debtorName == other.debtorName &&
+            this.destinationAccountNumberId == other.destinationAccountNumberId &&
+            this.expiresAt == other.expiresAt &&
+            this.fulfillmentTransactionId == other.fulfillmentTransactionId &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.refusal == other.refusal &&
+            this.rejection == other.rejection &&
+            this.remittanceInformation == other.remittanceInformation &&
             this.sourceAccountNumber == other.sourceAccountNumber &&
             this.sourceRoutingNumber == other.sourceRoutingNumber &&
-            this.fulfillmentTransactionId == other.fulfillmentTransactionId &&
+            this.status == other.status &&
             this.submission == other.submission &&
-            this.rejection == other.rejection &&
-            this.refusal == other.refusal &&
-            this.idempotencyKey == other.idempotencyKey &&
+            this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -282,23 +282,23 @@ private constructor(
         if (hashCode == 0) {
             hashCode =
                 Objects.hash(
-                    type,
-                    id,
-                    status,
-                    createdAt,
-                    destinationAccountNumberId,
-                    debtorName,
-                    remittanceInformation,
-                    expiresAt,
                     amount,
+                    createdAt,
                     currency,
+                    debtorName,
+                    destinationAccountNumberId,
+                    expiresAt,
+                    fulfillmentTransactionId,
+                    id,
+                    idempotencyKey,
+                    refusal,
+                    rejection,
+                    remittanceInformation,
                     sourceAccountNumber,
                     sourceRoutingNumber,
-                    fulfillmentTransactionId,
+                    status,
                     submission,
-                    rejection,
-                    refusal,
-                    idempotencyKey,
+                    type,
                     additionalProperties,
                 )
         }
@@ -306,7 +306,7 @@ private constructor(
     }
 
     override fun toString() =
-        "RealTimePaymentsRequestForPayment{type=$type, id=$id, status=$status, createdAt=$createdAt, destinationAccountNumberId=$destinationAccountNumberId, debtorName=$debtorName, remittanceInformation=$remittanceInformation, expiresAt=$expiresAt, amount=$amount, currency=$currency, sourceAccountNumber=$sourceAccountNumber, sourceRoutingNumber=$sourceRoutingNumber, fulfillmentTransactionId=$fulfillmentTransactionId, submission=$submission, rejection=$rejection, refusal=$refusal, idempotencyKey=$idempotencyKey, additionalProperties=$additionalProperties}"
+        "RealTimePaymentsRequestForPayment{amount=$amount, createdAt=$createdAt, currency=$currency, debtorName=$debtorName, destinationAccountNumberId=$destinationAccountNumberId, expiresAt=$expiresAt, fulfillmentTransactionId=$fulfillmentTransactionId, id=$id, idempotencyKey=$idempotencyKey, refusal=$refusal, rejection=$rejection, remittanceInformation=$remittanceInformation, sourceAccountNumber=$sourceAccountNumber, sourceRoutingNumber=$sourceRoutingNumber, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -315,77 +315,57 @@ private constructor(
 
     class Builder {
 
-        private var type: JsonField<Type> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var destinationAccountNumberId: JsonField<String> = JsonMissing.of()
-        private var debtorName: JsonField<String> = JsonMissing.of()
-        private var remittanceInformation: JsonField<String> = JsonMissing.of()
-        private var expiresAt: JsonField<LocalDate> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var currency: JsonField<Currency> = JsonMissing.of()
+        private var debtorName: JsonField<String> = JsonMissing.of()
+        private var destinationAccountNumberId: JsonField<String> = JsonMissing.of()
+        private var expiresAt: JsonField<LocalDate> = JsonMissing.of()
+        private var fulfillmentTransactionId: JsonField<String> = JsonMissing.of()
+        private var id: JsonField<String> = JsonMissing.of()
+        private var idempotencyKey: JsonField<String> = JsonMissing.of()
+        private var refusal: JsonField<Refusal> = JsonMissing.of()
+        private var rejection: JsonField<Rejection> = JsonMissing.of()
+        private var remittanceInformation: JsonField<String> = JsonMissing.of()
         private var sourceAccountNumber: JsonField<String> = JsonMissing.of()
         private var sourceRoutingNumber: JsonField<String> = JsonMissing.of()
-        private var fulfillmentTransactionId: JsonField<String> = JsonMissing.of()
+        private var status: JsonField<Status> = JsonMissing.of()
         private var submission: JsonField<Submission> = JsonMissing.of()
-        private var rejection: JsonField<Rejection> = JsonMissing.of()
-        private var refusal: JsonField<Refusal> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
+        private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(realTimePaymentsRequestForPayment: RealTimePaymentsRequestForPayment) =
             apply {
-                this.type = realTimePaymentsRequestForPayment.type
-                this.id = realTimePaymentsRequestForPayment.id
-                this.status = realTimePaymentsRequestForPayment.status
+                this.amount = realTimePaymentsRequestForPayment.amount
                 this.createdAt = realTimePaymentsRequestForPayment.createdAt
+                this.currency = realTimePaymentsRequestForPayment.currency
+                this.debtorName = realTimePaymentsRequestForPayment.debtorName
                 this.destinationAccountNumberId =
                     realTimePaymentsRequestForPayment.destinationAccountNumberId
-                this.debtorName = realTimePaymentsRequestForPayment.debtorName
-                this.remittanceInformation = realTimePaymentsRequestForPayment.remittanceInformation
                 this.expiresAt = realTimePaymentsRequestForPayment.expiresAt
-                this.amount = realTimePaymentsRequestForPayment.amount
-                this.currency = realTimePaymentsRequestForPayment.currency
-                this.sourceAccountNumber = realTimePaymentsRequestForPayment.sourceAccountNumber
-                this.sourceRoutingNumber = realTimePaymentsRequestForPayment.sourceRoutingNumber
                 this.fulfillmentTransactionId =
                     realTimePaymentsRequestForPayment.fulfillmentTransactionId
-                this.submission = realTimePaymentsRequestForPayment.submission
-                this.rejection = realTimePaymentsRequestForPayment.rejection
-                this.refusal = realTimePaymentsRequestForPayment.refusal
+                this.id = realTimePaymentsRequestForPayment.id
                 this.idempotencyKey = realTimePaymentsRequestForPayment.idempotencyKey
+                this.refusal = realTimePaymentsRequestForPayment.refusal
+                this.rejection = realTimePaymentsRequestForPayment.rejection
+                this.remittanceInformation = realTimePaymentsRequestForPayment.remittanceInformation
+                this.sourceAccountNumber = realTimePaymentsRequestForPayment.sourceAccountNumber
+                this.sourceRoutingNumber = realTimePaymentsRequestForPayment.sourceRoutingNumber
+                this.status = realTimePaymentsRequestForPayment.status
+                this.submission = realTimePaymentsRequestForPayment.submission
+                this.type = realTimePaymentsRequestForPayment.type
                 additionalProperties(realTimePaymentsRequestForPayment.additionalProperties)
             }
 
-        /**
-         * A constant representing the object's type. For this resource it will always be
-         * `real_time_payments_request_for_payment`.
-         */
-        fun type(type: Type) = type(JsonField.of(type))
+        /** The transfer amount in USD cents. */
+        fun amount(amount: Long) = amount(JsonField.of(amount))
 
-        /**
-         * A constant representing the object's type. For this resource it will always be
-         * `real_time_payments_request_for_payment`.
-         */
-        @JsonProperty("type")
+        /** The transfer amount in USD cents. */
+        @JsonProperty("amount")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply { this.type = type }
-
-        /** The Real-Time Payments Request for Payment's identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Real-Time Payments Request for Payment's identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
-
-        /** The lifecycle status of the request for payment. */
-        fun status(status: Status) = status(JsonField.of(status))
-
-        /** The lifecycle status of the request for payment. */
-        @JsonProperty("status")
-        @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply { this.status = status }
+        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the request
@@ -401,16 +381,19 @@ private constructor(
         @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        /** The Account Number in which a successful transfer will arrive. */
-        fun destinationAccountNumberId(destinationAccountNumberId: String) =
-            destinationAccountNumberId(JsonField.of(destinationAccountNumberId))
+        /**
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency.
+         * For real-time payments transfers this is always equal to `USD`.
+         */
+        fun currency(currency: Currency) = currency(JsonField.of(currency))
 
-        /** The Account Number in which a successful transfer will arrive. */
-        @JsonProperty("destination_account_number_id")
+        /**
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency.
+         * For real-time payments transfers this is always equal to `USD`.
+         */
+        @JsonProperty("currency")
         @ExcludeMissing
-        fun destinationAccountNumberId(destinationAccountNumberId: JsonField<String>) = apply {
-            this.destinationAccountNumberId = destinationAccountNumberId
-        }
+        fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /** The name of the recipient the sender is requesting a transfer from. */
         fun debtorName(debtorName: String) = debtorName(JsonField.of(debtorName))
@@ -420,15 +403,15 @@ private constructor(
         @ExcludeMissing
         fun debtorName(debtorName: JsonField<String>) = apply { this.debtorName = debtorName }
 
-        /** Unstructured information that will show on the recipient's bank statement. */
-        fun remittanceInformation(remittanceInformation: String) =
-            remittanceInformation(JsonField.of(remittanceInformation))
+        /** The Account Number in which a successful transfer will arrive. */
+        fun destinationAccountNumberId(destinationAccountNumberId: String) =
+            destinationAccountNumberId(JsonField.of(destinationAccountNumberId))
 
-        /** Unstructured information that will show on the recipient's bank statement. */
-        @JsonProperty("remittance_information")
+        /** The Account Number in which a successful transfer will arrive. */
+        @JsonProperty("destination_account_number_id")
         @ExcludeMissing
-        fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
-            this.remittanceInformation = remittanceInformation
+        fun destinationAccountNumberId(destinationAccountNumberId: JsonField<String>) = apply {
+            this.destinationAccountNumberId = destinationAccountNumberId
         }
 
         /**
@@ -445,27 +428,79 @@ private constructor(
         @ExcludeMissing
         fun expiresAt(expiresAt: JsonField<LocalDate>) = apply { this.expiresAt = expiresAt }
 
-        /** The transfer amount in USD cents. */
-        fun amount(amount: Long) = amount(JsonField.of(amount))
+        /** The transaction that fulfilled this request. */
+        fun fulfillmentTransactionId(fulfillmentTransactionId: String) =
+            fulfillmentTransactionId(JsonField.of(fulfillmentTransactionId))
 
-        /** The transfer amount in USD cents. */
-        @JsonProperty("amount")
+        /** The transaction that fulfilled this request. */
+        @JsonProperty("fulfillment_transaction_id")
         @ExcludeMissing
-        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+        fun fulfillmentTransactionId(fulfillmentTransactionId: JsonField<String>) = apply {
+            this.fulfillmentTransactionId = fulfillmentTransactionId
+        }
+
+        /** The Real-Time Payments Request for Payment's identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Real-Time Payments Request for Payment's identifier. */
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency.
-         * For real-time payments transfers this is always equal to `USD`.
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun currency(currency: Currency) = currency(JsonField.of(currency))
+        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
 
         /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency.
-         * For real-time payments transfers this is always equal to `USD`.
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        @JsonProperty("currency")
+        @JsonProperty("idempotency_key")
         @ExcludeMissing
-        fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
+        }
+
+        /**
+         * If the request for payment is refused by the destination financial institution or the
+         * receiving customer, this will contain supplemental details.
+         */
+        fun refusal(refusal: Refusal) = refusal(JsonField.of(refusal))
+
+        /**
+         * If the request for payment is refused by the destination financial institution or the
+         * receiving customer, this will contain supplemental details.
+         */
+        @JsonProperty("refusal")
+        @ExcludeMissing
+        fun refusal(refusal: JsonField<Refusal>) = apply { this.refusal = refusal }
+
+        /**
+         * If the request for payment is rejected by Real-Time Payments or the destination financial
+         * institution, this will contain supplemental details.
+         */
+        fun rejection(rejection: Rejection) = rejection(JsonField.of(rejection))
+
+        /**
+         * If the request for payment is rejected by Real-Time Payments or the destination financial
+         * institution, this will contain supplemental details.
+         */
+        @JsonProperty("rejection")
+        @ExcludeMissing
+        fun rejection(rejection: JsonField<Rejection>) = apply { this.rejection = rejection }
+
+        /** Unstructured information that will show on the recipient's bank statement. */
+        fun remittanceInformation(remittanceInformation: String) =
+            remittanceInformation(JsonField.of(remittanceInformation))
+
+        /** Unstructured information that will show on the recipient's bank statement. */
+        @JsonProperty("remittance_information")
+        @ExcludeMissing
+        fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
+            this.remittanceInformation = remittanceInformation
+        }
 
         /** The account number the request is sent to. */
         fun sourceAccountNumber(sourceAccountNumber: String) =
@@ -489,16 +524,13 @@ private constructor(
             this.sourceRoutingNumber = sourceRoutingNumber
         }
 
-        /** The transaction that fulfilled this request. */
-        fun fulfillmentTransactionId(fulfillmentTransactionId: String) =
-            fulfillmentTransactionId(JsonField.of(fulfillmentTransactionId))
+        /** The lifecycle status of the request for payment. */
+        fun status(status: Status) = status(JsonField.of(status))
 
-        /** The transaction that fulfilled this request. */
-        @JsonProperty("fulfillment_transaction_id")
+        /** The lifecycle status of the request for payment. */
+        @JsonProperty("status")
         @ExcludeMissing
-        fun fulfillmentTransactionId(fulfillmentTransactionId: JsonField<String>) = apply {
-            this.fulfillmentTransactionId = fulfillmentTransactionId
-        }
+        fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
          * After the request for payment is submitted to Real-Time Payments, this will contain
@@ -515,50 +547,18 @@ private constructor(
         fun submission(submission: JsonField<Submission>) = apply { this.submission = submission }
 
         /**
-         * If the request for payment is rejected by Real-Time Payments or the destination financial
-         * institution, this will contain supplemental details.
+         * A constant representing the object's type. For this resource it will always be
+         * `real_time_payments_request_for_payment`.
          */
-        fun rejection(rejection: Rejection) = rejection(JsonField.of(rejection))
+        fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * If the request for payment is rejected by Real-Time Payments or the destination financial
-         * institution, this will contain supplemental details.
+         * A constant representing the object's type. For this resource it will always be
+         * `real_time_payments_request_for_payment`.
          */
-        @JsonProperty("rejection")
+        @JsonProperty("type")
         @ExcludeMissing
-        fun rejection(rejection: JsonField<Rejection>) = apply { this.rejection = rejection }
-
-        /**
-         * If the request for payment is refused by the destination financial institution or the
-         * receiving customer, this will contain supplemental details.
-         */
-        fun refusal(refusal: Refusal) = refusal(JsonField.of(refusal))
-
-        /**
-         * If the request for payment is refused by the destination financial institution or the
-         * receiving customer, this will contain supplemental details.
-         */
-        @JsonProperty("refusal")
-        @ExcludeMissing
-        fun refusal(refusal: JsonField<Refusal>) = apply { this.refusal = refusal }
-
-        /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
-         */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
-
-        /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
-         */
-        @JsonProperty("idempotency_key")
-        @ExcludeMissing
-        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
-            this.idempotencyKey = idempotencyKey
-        }
+        fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -576,23 +576,23 @@ private constructor(
 
         fun build(): RealTimePaymentsRequestForPayment =
             RealTimePaymentsRequestForPayment(
-                type,
-                id,
-                status,
-                createdAt,
-                destinationAccountNumberId,
-                debtorName,
-                remittanceInformation,
-                expiresAt,
                 amount,
+                createdAt,
                 currency,
+                debtorName,
+                destinationAccountNumberId,
+                expiresAt,
+                fulfillmentTransactionId,
+                id,
+                idempotencyKey,
+                refusal,
+                rejection,
+                remittanceInformation,
                 sourceAccountNumber,
                 sourceRoutingNumber,
-                fulfillmentTransactionId,
+                status,
                 submission,
-                rejection,
-                refusal,
-                idempotencyKey,
+                type,
                 additionalProperties.toUnmodifiable(),
             )
     }

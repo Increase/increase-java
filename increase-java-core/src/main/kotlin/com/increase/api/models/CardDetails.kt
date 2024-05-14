@@ -23,11 +23,11 @@ import java.util.Objects
 class CardDetails
 private constructor(
     private val cardId: JsonField<String>,
-    private val primaryAccountNumber: JsonField<String>,
     private val expirationMonth: JsonField<Long>,
     private val expirationYear: JsonField<Long>,
-    private val verificationCode: JsonField<String>,
+    private val primaryAccountNumber: JsonField<String>,
     private val type: JsonField<Type>,
+    private val verificationCode: JsonField<String>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -38,20 +38,14 @@ private constructor(
     /** The identifier for the Card for which sensitive details have been returned. */
     fun cardId(): String = cardId.getRequired("card_id")
 
-    /** The card number. */
-    fun primaryAccountNumber(): String = primaryAccountNumber.getRequired("primary_account_number")
-
     /** The month the card expires in M format (e.g., August is 8). */
     fun expirationMonth(): Long = expirationMonth.getRequired("expiration_month")
 
     /** The year the card expires in YYYY format (e.g., 2025). */
     fun expirationYear(): Long = expirationYear.getRequired("expiration_year")
 
-    /**
-     * The three-digit verification code for the card. It's also known as the Card Verification Code
-     * (CVC), the Card Verification Value (CVV), or the Card Identification (CID).
-     */
-    fun verificationCode(): String = verificationCode.getRequired("verification_code")
+    /** The card number. */
+    fun primaryAccountNumber(): String = primaryAccountNumber.getRequired("primary_account_number")
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -59,13 +53,14 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
+    /**
+     * The three-digit verification code for the card. It's also known as the Card Verification Code
+     * (CVC), the Card Verification Value (CVV), or the Card Identification (CID).
+     */
+    fun verificationCode(): String = verificationCode.getRequired("verification_code")
+
     /** The identifier for the Card for which sensitive details have been returned. */
     @JsonProperty("card_id") @ExcludeMissing fun _cardId() = cardId
-
-    /** The card number. */
-    @JsonProperty("primary_account_number")
-    @ExcludeMissing
-    fun _primaryAccountNumber() = primaryAccountNumber
 
     /** The month the card expires in M format (e.g., August is 8). */
     @JsonProperty("expiration_month") @ExcludeMissing fun _expirationMonth() = expirationMonth
@@ -73,17 +68,22 @@ private constructor(
     /** The year the card expires in YYYY format (e.g., 2025). */
     @JsonProperty("expiration_year") @ExcludeMissing fun _expirationYear() = expirationYear
 
-    /**
-     * The three-digit verification code for the card. It's also known as the Card Verification Code
-     * (CVC), the Card Verification Value (CVV), or the Card Identification (CID).
-     */
-    @JsonProperty("verification_code") @ExcludeMissing fun _verificationCode() = verificationCode
+    /** The card number. */
+    @JsonProperty("primary_account_number")
+    @ExcludeMissing
+    fun _primaryAccountNumber() = primaryAccountNumber
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `card_details`.
      */
     @JsonProperty("type") @ExcludeMissing fun _type() = type
+
+    /**
+     * The three-digit verification code for the card. It's also known as the Card Verification Code
+     * (CVC), the Card Verification Value (CVV), or the Card Identification (CID).
+     */
+    @JsonProperty("verification_code") @ExcludeMissing fun _verificationCode() = verificationCode
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -92,11 +92,11 @@ private constructor(
     fun validate(): CardDetails = apply {
         if (!validated) {
             cardId()
-            primaryAccountNumber()
             expirationMonth()
             expirationYear()
-            verificationCode()
+            primaryAccountNumber()
             type()
+            verificationCode()
             validated = true
         }
     }
@@ -110,11 +110,11 @@ private constructor(
 
         return other is CardDetails &&
             this.cardId == other.cardId &&
-            this.primaryAccountNumber == other.primaryAccountNumber &&
             this.expirationMonth == other.expirationMonth &&
             this.expirationYear == other.expirationYear &&
-            this.verificationCode == other.verificationCode &&
+            this.primaryAccountNumber == other.primaryAccountNumber &&
             this.type == other.type &&
+            this.verificationCode == other.verificationCode &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -123,11 +123,11 @@ private constructor(
             hashCode =
                 Objects.hash(
                     cardId,
-                    primaryAccountNumber,
                     expirationMonth,
                     expirationYear,
-                    verificationCode,
+                    primaryAccountNumber,
                     type,
+                    verificationCode,
                     additionalProperties,
                 )
         }
@@ -135,7 +135,7 @@ private constructor(
     }
 
     override fun toString() =
-        "CardDetails{cardId=$cardId, primaryAccountNumber=$primaryAccountNumber, expirationMonth=$expirationMonth, expirationYear=$expirationYear, verificationCode=$verificationCode, type=$type, additionalProperties=$additionalProperties}"
+        "CardDetails{cardId=$cardId, expirationMonth=$expirationMonth, expirationYear=$expirationYear, primaryAccountNumber=$primaryAccountNumber, type=$type, verificationCode=$verificationCode, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -145,21 +145,21 @@ private constructor(
     class Builder {
 
         private var cardId: JsonField<String> = JsonMissing.of()
-        private var primaryAccountNumber: JsonField<String> = JsonMissing.of()
         private var expirationMonth: JsonField<Long> = JsonMissing.of()
         private var expirationYear: JsonField<Long> = JsonMissing.of()
-        private var verificationCode: JsonField<String> = JsonMissing.of()
+        private var primaryAccountNumber: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
+        private var verificationCode: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(cardDetails: CardDetails) = apply {
             this.cardId = cardDetails.cardId
-            this.primaryAccountNumber = cardDetails.primaryAccountNumber
             this.expirationMonth = cardDetails.expirationMonth
             this.expirationYear = cardDetails.expirationYear
-            this.verificationCode = cardDetails.verificationCode
+            this.primaryAccountNumber = cardDetails.primaryAccountNumber
             this.type = cardDetails.type
+            this.verificationCode = cardDetails.verificationCode
             additionalProperties(cardDetails.additionalProperties)
         }
 
@@ -170,17 +170,6 @@ private constructor(
         @JsonProperty("card_id")
         @ExcludeMissing
         fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
-
-        /** The card number. */
-        fun primaryAccountNumber(primaryAccountNumber: String) =
-            primaryAccountNumber(JsonField.of(primaryAccountNumber))
-
-        /** The card number. */
-        @JsonProperty("primary_account_number")
-        @ExcludeMissing
-        fun primaryAccountNumber(primaryAccountNumber: JsonField<String>) = apply {
-            this.primaryAccountNumber = primaryAccountNumber
-        }
 
         /** The month the card expires in M format (e.g., August is 8). */
         fun expirationMonth(expirationMonth: Long) = expirationMonth(JsonField.of(expirationMonth))
@@ -202,6 +191,31 @@ private constructor(
             this.expirationYear = expirationYear
         }
 
+        /** The card number. */
+        fun primaryAccountNumber(primaryAccountNumber: String) =
+            primaryAccountNumber(JsonField.of(primaryAccountNumber))
+
+        /** The card number. */
+        @JsonProperty("primary_account_number")
+        @ExcludeMissing
+        fun primaryAccountNumber(primaryAccountNumber: JsonField<String>) = apply {
+            this.primaryAccountNumber = primaryAccountNumber
+        }
+
+        /**
+         * A constant representing the object's type. For this resource it will always be
+         * `card_details`.
+         */
+        fun type(type: Type) = type(JsonField.of(type))
+
+        /**
+         * A constant representing the object's type. For this resource it will always be
+         * `card_details`.
+         */
+        @JsonProperty("type")
+        @ExcludeMissing
+        fun type(type: JsonField<Type>) = apply { this.type = type }
+
         /**
          * The three-digit verification code for the card. It's also known as the Card Verification
          * Code (CVC), the Card Verification Value (CVV), or the Card Identification (CID).
@@ -218,20 +232,6 @@ private constructor(
         fun verificationCode(verificationCode: JsonField<String>) = apply {
             this.verificationCode = verificationCode
         }
-
-        /**
-         * A constant representing the object's type. For this resource it will always be
-         * `card_details`.
-         */
-        fun type(type: Type) = type(JsonField.of(type))
-
-        /**
-         * A constant representing the object's type. For this resource it will always be
-         * `card_details`.
-         */
-        @JsonProperty("type")
-        @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -250,11 +250,11 @@ private constructor(
         fun build(): CardDetails =
             CardDetails(
                 cardId,
-                primaryAccountNumber,
                 expirationMonth,
                 expirationYear,
-                verificationCode,
+                primaryAccountNumber,
                 type,
+                verificationCode,
                 additionalProperties.toUnmodifiable(),
             )
     }

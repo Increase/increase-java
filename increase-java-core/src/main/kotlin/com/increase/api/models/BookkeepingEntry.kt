@@ -29,9 +29,9 @@ class BookkeepingEntry
 private constructor(
     private val accountId: JsonField<String>,
     private val amount: JsonField<Long>,
+    private val createdAt: JsonField<OffsetDateTime>,
     private val entrySetId: JsonField<String>,
     private val id: JsonField<String>,
-    private val createdAt: JsonField<OffsetDateTime>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -48,14 +48,14 @@ private constructor(
      */
     fun amount(): Long = amount.getRequired("amount")
 
+    /** When the entry set was created. */
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
     /** The identifier for the Account the Entry belongs to. */
     fun entrySetId(): String = entrySetId.getRequired("entry_set_id")
 
     /** The entry identifier. */
     fun id(): String = id.getRequired("id")
-
-    /** When the entry set was created. */
-    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -71,14 +71,14 @@ private constructor(
      */
     @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
+    /** When the entry set was created. */
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
     /** The identifier for the Account the Entry belongs to. */
     @JsonProperty("entry_set_id") @ExcludeMissing fun _entrySetId() = entrySetId
 
     /** The entry identifier. */
     @JsonProperty("id") @ExcludeMissing fun _id() = id
-
-    /** When the entry set was created. */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -94,9 +94,9 @@ private constructor(
         if (!validated) {
             accountId()
             amount()
+            createdAt()
             entrySetId()
             id()
-            createdAt()
             type()
             validated = true
         }
@@ -112,9 +112,9 @@ private constructor(
         return other is BookkeepingEntry &&
             this.accountId == other.accountId &&
             this.amount == other.amount &&
+            this.createdAt == other.createdAt &&
             this.entrySetId == other.entrySetId &&
             this.id == other.id &&
-            this.createdAt == other.createdAt &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -125,9 +125,9 @@ private constructor(
                 Objects.hash(
                     accountId,
                     amount,
+                    createdAt,
                     entrySetId,
                     id,
-                    createdAt,
                     type,
                     additionalProperties,
                 )
@@ -136,7 +136,7 @@ private constructor(
     }
 
     override fun toString() =
-        "BookkeepingEntry{accountId=$accountId, amount=$amount, entrySetId=$entrySetId, id=$id, createdAt=$createdAt, type=$type, additionalProperties=$additionalProperties}"
+        "BookkeepingEntry{accountId=$accountId, amount=$amount, createdAt=$createdAt, entrySetId=$entrySetId, id=$id, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -147,9 +147,9 @@ private constructor(
 
         private var accountId: JsonField<String> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var entrySetId: JsonField<String> = JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -157,9 +157,9 @@ private constructor(
         internal fun from(bookkeepingEntry: BookkeepingEntry) = apply {
             this.accountId = bookkeepingEntry.accountId
             this.amount = bookkeepingEntry.amount
+            this.createdAt = bookkeepingEntry.createdAt
             this.entrySetId = bookkeepingEntry.entrySetId
             this.id = bookkeepingEntry.id
-            this.createdAt = bookkeepingEntry.createdAt
             this.type = bookkeepingEntry.type
             additionalProperties(bookkeepingEntry.additionalProperties)
         }
@@ -186,6 +186,14 @@ private constructor(
         @ExcludeMissing
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
+        /** When the entry set was created. */
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        /** When the entry set was created. */
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
         /** The identifier for the Account the Entry belongs to. */
         fun entrySetId(entrySetId: String) = entrySetId(JsonField.of(entrySetId))
 
@@ -199,14 +207,6 @@ private constructor(
 
         /** The entry identifier. */
         @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
-
-        /** When the entry set was created. */
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-        /** When the entry set was created. */
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -240,9 +240,9 @@ private constructor(
             BookkeepingEntry(
                 accountId,
                 amount,
+                createdAt,
                 entrySetId,
                 id,
-                createdAt,
                 type,
                 additionalProperties.toUnmodifiable(),
             )

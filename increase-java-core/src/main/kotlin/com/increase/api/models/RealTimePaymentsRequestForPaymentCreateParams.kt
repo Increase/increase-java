@@ -458,18 +458,18 @@ constructor(
     @NoAutoDetect
     class Debtor
     private constructor(
-        private val name: String?,
         private val address: Address?,
+        private val name: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
 
-        /** The name of the debtor. */
-        @JsonProperty("name") fun name(): String? = name
-
         /** Address of the debtor. */
         @JsonProperty("address") fun address(): Address? = address
+
+        /** The name of the debtor. */
+        @JsonProperty("name") fun name(): String? = name
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -483,8 +483,8 @@ constructor(
             }
 
             return other is Debtor &&
-                this.name == other.name &&
                 this.address == other.address &&
+                this.name == other.name &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -492,8 +492,8 @@ constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        name,
                         address,
+                        name,
                         additionalProperties,
                     )
             }
@@ -501,7 +501,7 @@ constructor(
         }
 
         override fun toString() =
-            "Debtor{name=$name, address=$address, additionalProperties=$additionalProperties}"
+            "Debtor{address=$address, name=$name, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -510,23 +510,23 @@ constructor(
 
         class Builder {
 
-            private var name: String? = null
             private var address: Address? = null
+            private var name: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(debtor: Debtor) = apply {
-                this.name = debtor.name
                 this.address = debtor.address
+                this.name = debtor.name
                 additionalProperties(debtor.additionalProperties)
             }
-
-            /** The name of the debtor. */
-            @JsonProperty("name") fun name(name: String) = apply { this.name = name }
 
             /** Address of the debtor. */
             @JsonProperty("address")
             fun address(address: Address) = apply { this.address = address }
+
+            /** The name of the debtor. */
+            @JsonProperty("name") fun name(name: String) = apply { this.name = name }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -544,8 +544,8 @@ constructor(
 
             fun build(): Debtor =
                 Debtor(
-                    checkNotNull(name) { "`name` is required but was not set" },
                     checkNotNull(address) { "`address` is required but was not set" },
+                    checkNotNull(name) { "`name` is required but was not set" },
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -555,26 +555,26 @@ constructor(
         @NoAutoDetect
         class Address
         private constructor(
-            private val streetName: String?,
-            private val postCode: String?,
             private val city: String?,
             private val country: String?,
+            private val postCode: String?,
+            private val streetName: String?,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
             private var hashCode: Int = 0
-
-            /** The street name without the street number. */
-            @JsonProperty("street_name") fun streetName(): String? = streetName
-
-            /** The postal code or zip. */
-            @JsonProperty("post_code") fun postCode(): String? = postCode
 
             /** The town or city. */
             @JsonProperty("city") fun city(): String? = city
 
             /** The ISO 3166, Alpha-2 country code. */
             @JsonProperty("country") fun country(): String? = country
+
+            /** The postal code or zip. */
+            @JsonProperty("post_code") fun postCode(): String? = postCode
+
+            /** The street name without the street number. */
+            @JsonProperty("street_name") fun streetName(): String? = streetName
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -588,10 +588,10 @@ constructor(
                 }
 
                 return other is Address &&
-                    this.streetName == other.streetName &&
-                    this.postCode == other.postCode &&
                     this.city == other.city &&
                     this.country == other.country &&
+                    this.postCode == other.postCode &&
+                    this.streetName == other.streetName &&
                     this.additionalProperties == other.additionalProperties
             }
 
@@ -599,10 +599,10 @@ constructor(
                 if (hashCode == 0) {
                     hashCode =
                         Objects.hash(
-                            streetName,
-                            postCode,
                             city,
                             country,
+                            postCode,
+                            streetName,
                             additionalProperties,
                         )
                 }
@@ -610,7 +610,7 @@ constructor(
             }
 
             override fun toString() =
-                "Address{streetName=$streetName, postCode=$postCode, city=$city, country=$country, additionalProperties=$additionalProperties}"
+                "Address{city=$city, country=$country, postCode=$postCode, streetName=$streetName, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -619,28 +619,20 @@ constructor(
 
             class Builder {
 
-                private var streetName: String? = null
-                private var postCode: String? = null
                 private var city: String? = null
                 private var country: String? = null
+                private var postCode: String? = null
+                private var streetName: String? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
                 internal fun from(address: Address) = apply {
-                    this.streetName = address.streetName
-                    this.postCode = address.postCode
                     this.city = address.city
                     this.country = address.country
+                    this.postCode = address.postCode
+                    this.streetName = address.streetName
                     additionalProperties(address.additionalProperties)
                 }
-
-                /** The street name without the street number. */
-                @JsonProperty("street_name")
-                fun streetName(streetName: String) = apply { this.streetName = streetName }
-
-                /** The postal code or zip. */
-                @JsonProperty("post_code")
-                fun postCode(postCode: String) = apply { this.postCode = postCode }
 
                 /** The town or city. */
                 @JsonProperty("city") fun city(city: String) = apply { this.city = city }
@@ -648,6 +640,14 @@ constructor(
                 /** The ISO 3166, Alpha-2 country code. */
                 @JsonProperty("country")
                 fun country(country: String) = apply { this.country = country }
+
+                /** The postal code or zip. */
+                @JsonProperty("post_code")
+                fun postCode(postCode: String) = apply { this.postCode = postCode }
+
+                /** The street name without the street number. */
+                @JsonProperty("street_name")
+                fun streetName(streetName: String) = apply { this.streetName = streetName }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -666,10 +666,10 @@ constructor(
 
                 fun build(): Address =
                     Address(
-                        streetName,
-                        postCode,
                         city,
                         checkNotNull(country) { "`country` is required but was not set" },
+                        postCode,
+                        streetName,
                         additionalProperties.toUnmodifiable(),
                     )
             }

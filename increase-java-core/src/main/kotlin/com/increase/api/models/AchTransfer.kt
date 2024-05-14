@@ -30,35 +30,35 @@ class AchTransfer
 private constructor(
     private val accountId: JsonField<String>,
     private val accountNumber: JsonField<String>,
+    private val acknowledgement: JsonField<Acknowledgement>,
     private val addenda: JsonField<Addenda>,
     private val amount: JsonField<Long>,
-    private val currency: JsonField<Currency>,
     private val approval: JsonField<Approval>,
     private val cancellation: JsonField<Cancellation>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val destinationAccountHolder: JsonField<DestinationAccountHolder>,
-    private val externalAccountId: JsonField<String>,
-    private val id: JsonField<String>,
-    private val network: JsonField<Network>,
-    private val notificationsOfChange: JsonField<List<NotificationsOfChange>>,
-    private val return_: JsonField<Return>,
-    private val routingNumber: JsonField<String>,
-    private val statementDescriptor: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val submission: JsonField<Submission>,
-    private val acknowledgement: JsonField<Acknowledgement>,
-    private val transactionId: JsonField<String>,
-    private val pendingTransactionId: JsonField<String>,
     private val companyDescriptiveDate: JsonField<String>,
     private val companyDiscretionaryData: JsonField<String>,
     private val companyEntryDescription: JsonField<String>,
     private val companyName: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val currency: JsonField<Currency>,
+    private val destinationAccountHolder: JsonField<DestinationAccountHolder>,
+    private val effectiveDate: JsonField<LocalDate>,
+    private val externalAccountId: JsonField<String>,
     private val funding: JsonField<Funding>,
+    private val id: JsonField<String>,
+    private val idempotencyKey: JsonField<String>,
     private val individualId: JsonField<String>,
     private val individualName: JsonField<String>,
-    private val effectiveDate: JsonField<LocalDate>,
+    private val network: JsonField<Network>,
+    private val notificationsOfChange: JsonField<List<NotificationsOfChange>>,
+    private val pendingTransactionId: JsonField<String>,
+    private val return_: JsonField<Return>,
+    private val routingNumber: JsonField<String>,
     private val standardEntryClassCode: JsonField<StandardEntryClassCode>,
-    private val idempotencyKey: JsonField<String>,
+    private val statementDescriptor: JsonField<String>,
+    private val status: JsonField<Status>,
+    private val submission: JsonField<Submission>,
+    private val transactionId: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -73,6 +73,13 @@ private constructor(
     /** The destination account number. */
     fun accountNumber(): String = accountNumber.getRequired("account_number")
 
+    /**
+     * After the transfer is acknowledged by FedACH, this will contain supplemental details. The
+     * Federal Reserve sends an acknowledgement message for each file that Increase submits.
+     */
+    fun acknowledgement(): Optional<Acknowledgement> =
+        Optional.ofNullable(acknowledgement.getNullable("acknowledgement"))
+
     /** Additional information that will be sent to the recipient. */
     fun addenda(): Optional<Addenda> = Optional.ofNullable(addenda.getNullable("addenda"))
 
@@ -82,12 +89,6 @@ private constructor(
      * receiving account.
      */
     fun amount(): Long = amount.getRequired("amount")
-
-    /**
-     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
-     * ACH transfers this is always equal to `usd`.
-     */
-    fun currency(): Currency = currency.getRequired("currency")
 
     /**
      * If your account requires approvals for transfers and the transfer was approved, this will
@@ -101,74 +102,6 @@ private constructor(
      */
     fun cancellation(): Optional<Cancellation> =
         Optional.ofNullable(cancellation.getNullable("cancellation"))
-
-    /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
-     * was created.
-     */
-    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-    /** The type of entity that owns the account to which the ACH Transfer is being sent. */
-    fun destinationAccountHolder(): DestinationAccountHolder =
-        destinationAccountHolder.getRequired("destination_account_holder")
-
-    /** The identifier of the External Account the transfer was made to, if any. */
-    fun externalAccountId(): Optional<String> =
-        Optional.ofNullable(externalAccountId.getNullable("external_account_id"))
-
-    /** The ACH transfer's identifier. */
-    fun id(): String = id.getRequired("id")
-
-    /** The transfer's network. */
-    fun network(): Network = network.getRequired("network")
-
-    /**
-     * If the receiving bank accepts the transfer but notifies that future transfers should use
-     * different details, this will contain those details.
-     */
-    fun notificationsOfChange(): List<NotificationsOfChange> =
-        notificationsOfChange.getRequired("notifications_of_change")
-
-    /** If your transfer is returned, this will contain details of the return. */
-    fun return_(): Optional<Return> = Optional.ofNullable(return_.getNullable("return"))
-
-    /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
-    fun routingNumber(): String = routingNumber.getRequired("routing_number")
-
-    /** The descriptor that will show on the recipient's bank statement. */
-    fun statementDescriptor(): String = statementDescriptor.getRequired("statement_descriptor")
-
-    /** The lifecycle status of the transfer. */
-    fun status(): Status = status.getRequired("status")
-
-    /**
-     * After the transfer is submitted to FedACH, this will contain supplemental details. Increase
-     * batches transfers and submits a file to the Federal Reserve roughly every 30 minutes. The
-     * Federal Reserve processes ACH transfers during weekdays according to their
-     * [posted schedule](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
-     */
-    fun submission(): Optional<Submission> =
-        Optional.ofNullable(submission.getNullable("submission"))
-
-    /**
-     * After the transfer is acknowledged by FedACH, this will contain supplemental details. The
-     * Federal Reserve sends an acknowledgement message for each file that Increase submits.
-     */
-    fun acknowledgement(): Optional<Acknowledgement> =
-        Optional.ofNullable(acknowledgement.getNullable("acknowledgement"))
-
-    /** The ID for the transaction funding the transfer. */
-    fun transactionId(): Optional<String> =
-        Optional.ofNullable(transactionId.getNullable("transaction_id"))
-
-    /**
-     * The ID for the pending transaction representing the transfer. A pending transaction is
-     * created when the transfer
-     * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
-     * by someone else in your organization.
-     */
-    fun pendingTransactionId(): Optional<String> =
-        Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
 
     /** The description of the date of the transfer. */
     fun companyDescriptiveDate(): Optional<String> =
@@ -186,8 +119,43 @@ private constructor(
     fun companyName(): Optional<String> =
         Optional.ofNullable(companyName.getNullable("company_name"))
 
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
+     * was created.
+     */
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+    /**
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
+     * ACH transfers this is always equal to `usd`.
+     */
+    fun currency(): Currency = currency.getRequired("currency")
+
+    /** The type of entity that owns the account to which the ACH Transfer is being sent. */
+    fun destinationAccountHolder(): DestinationAccountHolder =
+        destinationAccountHolder.getRequired("destination_account_holder")
+
+    /** The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
+    fun effectiveDate(): Optional<LocalDate> =
+        Optional.ofNullable(effectiveDate.getNullable("effective_date"))
+
+    /** The identifier of the External Account the transfer was made to, if any. */
+    fun externalAccountId(): Optional<String> =
+        Optional.ofNullable(externalAccountId.getNullable("external_account_id"))
+
     /** The type of the account to which the transfer will be sent. */
     fun funding(): Funding = funding.getRequired("funding")
+
+    /** The ACH transfer's identifier. */
+    fun id(): String = id.getRequired("id")
+
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    fun idempotencyKey(): Optional<String> =
+        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
     /** Your identifier for the transfer recipient. */
     fun individualId(): Optional<String> =
@@ -200,21 +168,53 @@ private constructor(
     fun individualName(): Optional<String> =
         Optional.ofNullable(individualName.getNullable("individual_name"))
 
-    /** The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
-    fun effectiveDate(): Optional<LocalDate> =
-        Optional.ofNullable(effectiveDate.getNullable("effective_date"))
+    /** The transfer's network. */
+    fun network(): Network = network.getRequired("network")
+
+    /**
+     * If the receiving bank accepts the transfer but notifies that future transfers should use
+     * different details, this will contain those details.
+     */
+    fun notificationsOfChange(): List<NotificationsOfChange> =
+        notificationsOfChange.getRequired("notifications_of_change")
+
+    /**
+     * The ID for the pending transaction representing the transfer. A pending transaction is
+     * created when the transfer
+     * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+     * by someone else in your organization.
+     */
+    fun pendingTransactionId(): Optional<String> =
+        Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
+
+    /** If your transfer is returned, this will contain details of the return. */
+    fun return_(): Optional<Return> = Optional.ofNullable(return_.getNullable("return"))
+
+    /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
+    fun routingNumber(): String = routingNumber.getRequired("routing_number")
 
     /** The Standard Entry Class (SEC) code to use for the transfer. */
     fun standardEntryClassCode(): StandardEntryClassCode =
         standardEntryClassCode.getRequired("standard_entry_class_code")
 
+    /** The descriptor that will show on the recipient's bank statement. */
+    fun statementDescriptor(): String = statementDescriptor.getRequired("statement_descriptor")
+
+    /** The lifecycle status of the transfer. */
+    fun status(): Status = status.getRequired("status")
+
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * After the transfer is submitted to FedACH, this will contain supplemental details. Increase
+     * batches transfers and submits a file to the Federal Reserve roughly every 30 minutes. The
+     * Federal Reserve processes ACH transfers during weekdays according to their
+     * [posted schedule](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
      */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun submission(): Optional<Submission> =
+        Optional.ofNullable(submission.getNullable("submission"))
+
+    /** The ID for the transaction funding the transfer. */
+    fun transactionId(): Optional<String> =
+        Optional.ofNullable(transactionId.getNullable("transaction_id"))
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -228,6 +228,12 @@ private constructor(
     /** The destination account number. */
     @JsonProperty("account_number") @ExcludeMissing fun _accountNumber() = accountNumber
 
+    /**
+     * After the transfer is acknowledged by FedACH, this will contain supplemental details. The
+     * Federal Reserve sends an acknowledgement message for each file that Increase submits.
+     */
+    @JsonProperty("acknowledgement") @ExcludeMissing fun _acknowledgement() = acknowledgement
+
     /** Additional information that will be sent to the recipient. */
     @JsonProperty("addenda") @ExcludeMissing fun _addenda() = addenda
 
@@ -237,12 +243,6 @@ private constructor(
      * receiving account.
      */
     @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
-
-    /**
-     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
-     * ACH transfers this is always equal to `usd`.
-     */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
 
     /**
      * If your account requires approvals for transfers and the transfer was approved, this will
@@ -255,77 +255,6 @@ private constructor(
      * contain details of the cancellation.
      */
     @JsonProperty("cancellation") @ExcludeMissing fun _cancellation() = cancellation
-
-    /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
-     * was created.
-     */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
-    /** The type of entity that owns the account to which the ACH Transfer is being sent. */
-    @JsonProperty("destination_account_holder")
-    @ExcludeMissing
-    fun _destinationAccountHolder() = destinationAccountHolder
-
-    /** The identifier of the External Account the transfer was made to, if any. */
-    @JsonProperty("external_account_id")
-    @ExcludeMissing
-    fun _externalAccountId() = externalAccountId
-
-    /** The ACH transfer's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
-    /** The transfer's network. */
-    @JsonProperty("network") @ExcludeMissing fun _network() = network
-
-    /**
-     * If the receiving bank accepts the transfer but notifies that future transfers should use
-     * different details, this will contain those details.
-     */
-    @JsonProperty("notifications_of_change")
-    @ExcludeMissing
-    fun _notificationsOfChange() = notificationsOfChange
-
-    /** If your transfer is returned, this will contain details of the return. */
-    @JsonProperty("return") @ExcludeMissing fun _return_() = return_
-
-    /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
-    @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
-
-    /** The descriptor that will show on the recipient's bank statement. */
-    @JsonProperty("statement_descriptor")
-    @ExcludeMissing
-    fun _statementDescriptor() = statementDescriptor
-
-    /** The lifecycle status of the transfer. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
-
-    /**
-     * After the transfer is submitted to FedACH, this will contain supplemental details. Increase
-     * batches transfers and submits a file to the Federal Reserve roughly every 30 minutes. The
-     * Federal Reserve processes ACH transfers during weekdays according to their
-     * [posted schedule](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
-     */
-    @JsonProperty("submission") @ExcludeMissing fun _submission() = submission
-
-    /**
-     * After the transfer is acknowledged by FedACH, this will contain supplemental details. The
-     * Federal Reserve sends an acknowledgement message for each file that Increase submits.
-     */
-    @JsonProperty("acknowledgement") @ExcludeMissing fun _acknowledgement() = acknowledgement
-
-    /** The ID for the transaction funding the transfer. */
-    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
-
-    /**
-     * The ID for the pending transaction representing the transfer. A pending transaction is
-     * created when the transfer
-     * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
-     * by someone else in your organization.
-     */
-    @JsonProperty("pending_transaction_id")
-    @ExcludeMissing
-    fun _pendingTransactionId() = pendingTransactionId
 
     /** The description of the date of the transfer. */
     @JsonProperty("company_descriptive_date")
@@ -345,8 +274,43 @@ private constructor(
     /** The name by which the recipient knows you. */
     @JsonProperty("company_name") @ExcludeMissing fun _companyName() = companyName
 
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
+     * was created.
+     */
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+    /**
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
+     * ACH transfers this is always equal to `usd`.
+     */
+    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+
+    /** The type of entity that owns the account to which the ACH Transfer is being sent. */
+    @JsonProperty("destination_account_holder")
+    @ExcludeMissing
+    fun _destinationAccountHolder() = destinationAccountHolder
+
+    /** The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
+    @JsonProperty("effective_date") @ExcludeMissing fun _effectiveDate() = effectiveDate
+
+    /** The identifier of the External Account the transfer was made to, if any. */
+    @JsonProperty("external_account_id")
+    @ExcludeMissing
+    fun _externalAccountId() = externalAccountId
+
     /** The type of the account to which the transfer will be sent. */
     @JsonProperty("funding") @ExcludeMissing fun _funding() = funding
+
+    /** The ACH transfer's identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
 
     /** Your identifier for the transfer recipient. */
     @JsonProperty("individual_id") @ExcludeMissing fun _individualId() = individualId
@@ -357,20 +321,56 @@ private constructor(
      */
     @JsonProperty("individual_name") @ExcludeMissing fun _individualName() = individualName
 
-    /** The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
-    @JsonProperty("effective_date") @ExcludeMissing fun _effectiveDate() = effectiveDate
+    /** The transfer's network. */
+    @JsonProperty("network") @ExcludeMissing fun _network() = network
+
+    /**
+     * If the receiving bank accepts the transfer but notifies that future transfers should use
+     * different details, this will contain those details.
+     */
+    @JsonProperty("notifications_of_change")
+    @ExcludeMissing
+    fun _notificationsOfChange() = notificationsOfChange
+
+    /**
+     * The ID for the pending transaction representing the transfer. A pending transaction is
+     * created when the transfer
+     * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+     * by someone else in your organization.
+     */
+    @JsonProperty("pending_transaction_id")
+    @ExcludeMissing
+    fun _pendingTransactionId() = pendingTransactionId
+
+    /** If your transfer is returned, this will contain details of the return. */
+    @JsonProperty("return") @ExcludeMissing fun _return_() = return_
+
+    /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
+    @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
 
     /** The Standard Entry Class (SEC) code to use for the transfer. */
     @JsonProperty("standard_entry_class_code")
     @ExcludeMissing
     fun _standardEntryClassCode() = standardEntryClassCode
 
+    /** The descriptor that will show on the recipient's bank statement. */
+    @JsonProperty("statement_descriptor")
+    @ExcludeMissing
+    fun _statementDescriptor() = statementDescriptor
+
+    /** The lifecycle status of the transfer. */
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
+
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * After the transfer is submitted to FedACH, this will contain supplemental details. Increase
+     * batches transfers and submits a file to the Federal Reserve roughly every 30 minutes. The
+     * Federal Reserve processes ACH transfers during weekdays according to their
+     * [posted schedule](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("submission") @ExcludeMissing fun _submission() = submission
+
+    /** The ID for the transaction funding the transfer. */
+    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -386,35 +386,35 @@ private constructor(
         if (!validated) {
             accountId()
             accountNumber()
+            acknowledgement().map { it.validate() }
             addenda().map { it.validate() }
             amount()
-            currency()
             approval().map { it.validate() }
             cancellation().map { it.validate() }
-            createdAt()
-            destinationAccountHolder()
-            externalAccountId()
-            id()
-            network()
-            notificationsOfChange().forEach { it.validate() }
-            return_().map { it.validate() }
-            routingNumber()
-            statementDescriptor()
-            status()
-            submission().map { it.validate() }
-            acknowledgement().map { it.validate() }
-            transactionId()
-            pendingTransactionId()
             companyDescriptiveDate()
             companyDiscretionaryData()
             companyEntryDescription()
             companyName()
+            createdAt()
+            currency()
+            destinationAccountHolder()
+            effectiveDate()
+            externalAccountId()
             funding()
+            id()
+            idempotencyKey()
             individualId()
             individualName()
-            effectiveDate()
+            network()
+            notificationsOfChange().forEach { it.validate() }
+            pendingTransactionId()
+            return_().map { it.validate() }
+            routingNumber()
             standardEntryClassCode()
-            idempotencyKey()
+            statementDescriptor()
+            status()
+            submission().map { it.validate() }
+            transactionId()
             type()
             validated = true
         }
@@ -430,35 +430,35 @@ private constructor(
         return other is AchTransfer &&
             this.accountId == other.accountId &&
             this.accountNumber == other.accountNumber &&
+            this.acknowledgement == other.acknowledgement &&
             this.addenda == other.addenda &&
             this.amount == other.amount &&
-            this.currency == other.currency &&
             this.approval == other.approval &&
             this.cancellation == other.cancellation &&
-            this.createdAt == other.createdAt &&
-            this.destinationAccountHolder == other.destinationAccountHolder &&
-            this.externalAccountId == other.externalAccountId &&
-            this.id == other.id &&
-            this.network == other.network &&
-            this.notificationsOfChange == other.notificationsOfChange &&
-            this.return_ == other.return_ &&
-            this.routingNumber == other.routingNumber &&
-            this.statementDescriptor == other.statementDescriptor &&
-            this.status == other.status &&
-            this.submission == other.submission &&
-            this.acknowledgement == other.acknowledgement &&
-            this.transactionId == other.transactionId &&
-            this.pendingTransactionId == other.pendingTransactionId &&
             this.companyDescriptiveDate == other.companyDescriptiveDate &&
             this.companyDiscretionaryData == other.companyDiscretionaryData &&
             this.companyEntryDescription == other.companyEntryDescription &&
             this.companyName == other.companyName &&
+            this.createdAt == other.createdAt &&
+            this.currency == other.currency &&
+            this.destinationAccountHolder == other.destinationAccountHolder &&
+            this.effectiveDate == other.effectiveDate &&
+            this.externalAccountId == other.externalAccountId &&
             this.funding == other.funding &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.individualId == other.individualId &&
             this.individualName == other.individualName &&
-            this.effectiveDate == other.effectiveDate &&
+            this.network == other.network &&
+            this.notificationsOfChange == other.notificationsOfChange &&
+            this.pendingTransactionId == other.pendingTransactionId &&
+            this.return_ == other.return_ &&
+            this.routingNumber == other.routingNumber &&
             this.standardEntryClassCode == other.standardEntryClassCode &&
-            this.idempotencyKey == other.idempotencyKey &&
+            this.statementDescriptor == other.statementDescriptor &&
+            this.status == other.status &&
+            this.submission == other.submission &&
+            this.transactionId == other.transactionId &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -469,35 +469,35 @@ private constructor(
                 Objects.hash(
                     accountId,
                     accountNumber,
+                    acknowledgement,
                     addenda,
                     amount,
-                    currency,
                     approval,
                     cancellation,
-                    createdAt,
-                    destinationAccountHolder,
-                    externalAccountId,
-                    id,
-                    network,
-                    notificationsOfChange,
-                    return_,
-                    routingNumber,
-                    statementDescriptor,
-                    status,
-                    submission,
-                    acknowledgement,
-                    transactionId,
-                    pendingTransactionId,
                     companyDescriptiveDate,
                     companyDiscretionaryData,
                     companyEntryDescription,
                     companyName,
+                    createdAt,
+                    currency,
+                    destinationAccountHolder,
+                    effectiveDate,
+                    externalAccountId,
                     funding,
+                    id,
+                    idempotencyKey,
                     individualId,
                     individualName,
-                    effectiveDate,
+                    network,
+                    notificationsOfChange,
+                    pendingTransactionId,
+                    return_,
+                    routingNumber,
                     standardEntryClassCode,
-                    idempotencyKey,
+                    statementDescriptor,
+                    status,
+                    submission,
+                    transactionId,
                     type,
                     additionalProperties,
                 )
@@ -506,7 +506,7 @@ private constructor(
     }
 
     override fun toString() =
-        "AchTransfer{accountId=$accountId, accountNumber=$accountNumber, addenda=$addenda, amount=$amount, currency=$currency, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, destinationAccountHolder=$destinationAccountHolder, externalAccountId=$externalAccountId, id=$id, network=$network, notificationsOfChange=$notificationsOfChange, return_=$return_, routingNumber=$routingNumber, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, acknowledgement=$acknowledgement, transactionId=$transactionId, pendingTransactionId=$pendingTransactionId, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, funding=$funding, individualId=$individualId, individualName=$individualName, effectiveDate=$effectiveDate, standardEntryClassCode=$standardEntryClassCode, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
+        "AchTransfer{accountId=$accountId, accountNumber=$accountNumber, acknowledgement=$acknowledgement, addenda=$addenda, amount=$amount, approval=$approval, cancellation=$cancellation, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, createdAt=$createdAt, currency=$currency, destinationAccountHolder=$destinationAccountHolder, effectiveDate=$effectiveDate, externalAccountId=$externalAccountId, funding=$funding, id=$id, idempotencyKey=$idempotencyKey, individualId=$individualId, individualName=$individualName, network=$network, notificationsOfChange=$notificationsOfChange, pendingTransactionId=$pendingTransactionId, return_=$return_, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -517,35 +517,35 @@ private constructor(
 
         private var accountId: JsonField<String> = JsonMissing.of()
         private var accountNumber: JsonField<String> = JsonMissing.of()
+        private var acknowledgement: JsonField<Acknowledgement> = JsonMissing.of()
         private var addenda: JsonField<Addenda> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
-        private var currency: JsonField<Currency> = JsonMissing.of()
         private var approval: JsonField<Approval> = JsonMissing.of()
         private var cancellation: JsonField<Cancellation> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var destinationAccountHolder: JsonField<DestinationAccountHolder> = JsonMissing.of()
-        private var externalAccountId: JsonField<String> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
-        private var network: JsonField<Network> = JsonMissing.of()
-        private var notificationsOfChange: JsonField<List<NotificationsOfChange>> = JsonMissing.of()
-        private var return_: JsonField<Return> = JsonMissing.of()
-        private var routingNumber: JsonField<String> = JsonMissing.of()
-        private var statementDescriptor: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var submission: JsonField<Submission> = JsonMissing.of()
-        private var acknowledgement: JsonField<Acknowledgement> = JsonMissing.of()
-        private var transactionId: JsonField<String> = JsonMissing.of()
-        private var pendingTransactionId: JsonField<String> = JsonMissing.of()
         private var companyDescriptiveDate: JsonField<String> = JsonMissing.of()
         private var companyDiscretionaryData: JsonField<String> = JsonMissing.of()
         private var companyEntryDescription: JsonField<String> = JsonMissing.of()
         private var companyName: JsonField<String> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var currency: JsonField<Currency> = JsonMissing.of()
+        private var destinationAccountHolder: JsonField<DestinationAccountHolder> = JsonMissing.of()
+        private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
+        private var externalAccountId: JsonField<String> = JsonMissing.of()
         private var funding: JsonField<Funding> = JsonMissing.of()
+        private var id: JsonField<String> = JsonMissing.of()
+        private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var individualId: JsonField<String> = JsonMissing.of()
         private var individualName: JsonField<String> = JsonMissing.of()
-        private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
+        private var network: JsonField<Network> = JsonMissing.of()
+        private var notificationsOfChange: JsonField<List<NotificationsOfChange>> = JsonMissing.of()
+        private var pendingTransactionId: JsonField<String> = JsonMissing.of()
+        private var return_: JsonField<Return> = JsonMissing.of()
+        private var routingNumber: JsonField<String> = JsonMissing.of()
         private var standardEntryClassCode: JsonField<StandardEntryClassCode> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
+        private var statementDescriptor: JsonField<String> = JsonMissing.of()
+        private var status: JsonField<Status> = JsonMissing.of()
+        private var submission: JsonField<Submission> = JsonMissing.of()
+        private var transactionId: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -553,35 +553,35 @@ private constructor(
         internal fun from(achTransfer: AchTransfer) = apply {
             this.accountId = achTransfer.accountId
             this.accountNumber = achTransfer.accountNumber
+            this.acknowledgement = achTransfer.acknowledgement
             this.addenda = achTransfer.addenda
             this.amount = achTransfer.amount
-            this.currency = achTransfer.currency
             this.approval = achTransfer.approval
             this.cancellation = achTransfer.cancellation
-            this.createdAt = achTransfer.createdAt
-            this.destinationAccountHolder = achTransfer.destinationAccountHolder
-            this.externalAccountId = achTransfer.externalAccountId
-            this.id = achTransfer.id
-            this.network = achTransfer.network
-            this.notificationsOfChange = achTransfer.notificationsOfChange
-            this.return_ = achTransfer.return_
-            this.routingNumber = achTransfer.routingNumber
-            this.statementDescriptor = achTransfer.statementDescriptor
-            this.status = achTransfer.status
-            this.submission = achTransfer.submission
-            this.acknowledgement = achTransfer.acknowledgement
-            this.transactionId = achTransfer.transactionId
-            this.pendingTransactionId = achTransfer.pendingTransactionId
             this.companyDescriptiveDate = achTransfer.companyDescriptiveDate
             this.companyDiscretionaryData = achTransfer.companyDiscretionaryData
             this.companyEntryDescription = achTransfer.companyEntryDescription
             this.companyName = achTransfer.companyName
+            this.createdAt = achTransfer.createdAt
+            this.currency = achTransfer.currency
+            this.destinationAccountHolder = achTransfer.destinationAccountHolder
+            this.effectiveDate = achTransfer.effectiveDate
+            this.externalAccountId = achTransfer.externalAccountId
             this.funding = achTransfer.funding
+            this.id = achTransfer.id
+            this.idempotencyKey = achTransfer.idempotencyKey
             this.individualId = achTransfer.individualId
             this.individualName = achTransfer.individualName
-            this.effectiveDate = achTransfer.effectiveDate
+            this.network = achTransfer.network
+            this.notificationsOfChange = achTransfer.notificationsOfChange
+            this.pendingTransactionId = achTransfer.pendingTransactionId
+            this.return_ = achTransfer.return_
+            this.routingNumber = achTransfer.routingNumber
             this.standardEntryClassCode = achTransfer.standardEntryClassCode
-            this.idempotencyKey = achTransfer.idempotencyKey
+            this.statementDescriptor = achTransfer.statementDescriptor
+            this.status = achTransfer.status
+            this.submission = achTransfer.submission
+            this.transactionId = achTransfer.transactionId
             this.type = achTransfer.type
             additionalProperties(achTransfer.additionalProperties)
         }
@@ -602,6 +602,23 @@ private constructor(
         @ExcludeMissing
         fun accountNumber(accountNumber: JsonField<String>) = apply {
             this.accountNumber = accountNumber
+        }
+
+        /**
+         * After the transfer is acknowledged by FedACH, this will contain supplemental details. The
+         * Federal Reserve sends an acknowledgement message for each file that Increase submits.
+         */
+        fun acknowledgement(acknowledgement: Acknowledgement) =
+            acknowledgement(JsonField.of(acknowledgement))
+
+        /**
+         * After the transfer is acknowledged by FedACH, this will contain supplemental details. The
+         * Federal Reserve sends an acknowledgement message for each file that Increase submits.
+         */
+        @JsonProperty("acknowledgement")
+        @ExcludeMissing
+        fun acknowledgement(acknowledgement: JsonField<Acknowledgement>) = apply {
+            this.acknowledgement = acknowledgement
         }
 
         /** Additional information that will be sent to the recipient. */
@@ -627,20 +644,6 @@ private constructor(
         @JsonProperty("amount")
         @ExcludeMissing
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-        /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency.
-         * For ACH transfers this is always equal to `usd`.
-         */
-        fun currency(currency: Currency) = currency(JsonField.of(currency))
-
-        /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency.
-         * For ACH transfers this is always equal to `usd`.
-         */
-        @JsonProperty("currency")
-        @ExcludeMissing
-        fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /**
          * If your account requires approvals for transfers and the transfer was approved, this will
@@ -670,177 +673,6 @@ private constructor(
         @ExcludeMissing
         fun cancellation(cancellation: JsonField<Cancellation>) = apply {
             this.cancellation = cancellation
-        }
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * transfer was created.
-         */
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * transfer was created.
-         */
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
-        /** The type of entity that owns the account to which the ACH Transfer is being sent. */
-        fun destinationAccountHolder(destinationAccountHolder: DestinationAccountHolder) =
-            destinationAccountHolder(JsonField.of(destinationAccountHolder))
-
-        /** The type of entity that owns the account to which the ACH Transfer is being sent. */
-        @JsonProperty("destination_account_holder")
-        @ExcludeMissing
-        fun destinationAccountHolder(
-            destinationAccountHolder: JsonField<DestinationAccountHolder>
-        ) = apply { this.destinationAccountHolder = destinationAccountHolder }
-
-        /** The identifier of the External Account the transfer was made to, if any. */
-        fun externalAccountId(externalAccountId: String) =
-            externalAccountId(JsonField.of(externalAccountId))
-
-        /** The identifier of the External Account the transfer was made to, if any. */
-        @JsonProperty("external_account_id")
-        @ExcludeMissing
-        fun externalAccountId(externalAccountId: JsonField<String>) = apply {
-            this.externalAccountId = externalAccountId
-        }
-
-        /** The ACH transfer's identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The ACH transfer's identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
-
-        /** The transfer's network. */
-        fun network(network: Network) = network(JsonField.of(network))
-
-        /** The transfer's network. */
-        @JsonProperty("network")
-        @ExcludeMissing
-        fun network(network: JsonField<Network>) = apply { this.network = network }
-
-        /**
-         * If the receiving bank accepts the transfer but notifies that future transfers should use
-         * different details, this will contain those details.
-         */
-        fun notificationsOfChange(notificationsOfChange: List<NotificationsOfChange>) =
-            notificationsOfChange(JsonField.of(notificationsOfChange))
-
-        /**
-         * If the receiving bank accepts the transfer but notifies that future transfers should use
-         * different details, this will contain those details.
-         */
-        @JsonProperty("notifications_of_change")
-        @ExcludeMissing
-        fun notificationsOfChange(notificationsOfChange: JsonField<List<NotificationsOfChange>>) =
-            apply {
-                this.notificationsOfChange = notificationsOfChange
-            }
-
-        /** If your transfer is returned, this will contain details of the return. */
-        fun return_(return_: Return) = return_(JsonField.of(return_))
-
-        /** If your transfer is returned, this will contain details of the return. */
-        @JsonProperty("return")
-        @ExcludeMissing
-        fun return_(return_: JsonField<Return>) = apply { this.return_ = return_ }
-
-        /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
-        fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
-
-        /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
-        @JsonProperty("routing_number")
-        @ExcludeMissing
-        fun routingNumber(routingNumber: JsonField<String>) = apply {
-            this.routingNumber = routingNumber
-        }
-
-        /** The descriptor that will show on the recipient's bank statement. */
-        fun statementDescriptor(statementDescriptor: String) =
-            statementDescriptor(JsonField.of(statementDescriptor))
-
-        /** The descriptor that will show on the recipient's bank statement. */
-        @JsonProperty("statement_descriptor")
-        @ExcludeMissing
-        fun statementDescriptor(statementDescriptor: JsonField<String>) = apply {
-            this.statementDescriptor = statementDescriptor
-        }
-
-        /** The lifecycle status of the transfer. */
-        fun status(status: Status) = status(JsonField.of(status))
-
-        /** The lifecycle status of the transfer. */
-        @JsonProperty("status")
-        @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply { this.status = status }
-
-        /**
-         * After the transfer is submitted to FedACH, this will contain supplemental details.
-         * Increase batches transfers and submits a file to the Federal Reserve roughly every 30
-         * minutes. The Federal Reserve processes ACH transfers during weekdays according to their
-         * [posted schedule](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
-         */
-        fun submission(submission: Submission) = submission(JsonField.of(submission))
-
-        /**
-         * After the transfer is submitted to FedACH, this will contain supplemental details.
-         * Increase batches transfers and submits a file to the Federal Reserve roughly every 30
-         * minutes. The Federal Reserve processes ACH transfers during weekdays according to their
-         * [posted schedule](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
-         */
-        @JsonProperty("submission")
-        @ExcludeMissing
-        fun submission(submission: JsonField<Submission>) = apply { this.submission = submission }
-
-        /**
-         * After the transfer is acknowledged by FedACH, this will contain supplemental details. The
-         * Federal Reserve sends an acknowledgement message for each file that Increase submits.
-         */
-        fun acknowledgement(acknowledgement: Acknowledgement) =
-            acknowledgement(JsonField.of(acknowledgement))
-
-        /**
-         * After the transfer is acknowledged by FedACH, this will contain supplemental details. The
-         * Federal Reserve sends an acknowledgement message for each file that Increase submits.
-         */
-        @JsonProperty("acknowledgement")
-        @ExcludeMissing
-        fun acknowledgement(acknowledgement: JsonField<Acknowledgement>) = apply {
-            this.acknowledgement = acknowledgement
-        }
-
-        /** The ID for the transaction funding the transfer. */
-        fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
-
-        /** The ID for the transaction funding the transfer. */
-        @JsonProperty("transaction_id")
-        @ExcludeMissing
-        fun transactionId(transactionId: JsonField<String>) = apply {
-            this.transactionId = transactionId
-        }
-
-        /**
-         * The ID for the pending transaction representing the transfer. A pending transaction is
-         * created when the transfer
-         * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
-         * by someone else in your organization.
-         */
-        fun pendingTransactionId(pendingTransactionId: String) =
-            pendingTransactionId(JsonField.of(pendingTransactionId))
-
-        /**
-         * The ID for the pending transaction representing the transfer. A pending transaction is
-         * created when the transfer
-         * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
-         * by someone else in your organization.
-         */
-        @JsonProperty("pending_transaction_id")
-        @ExcludeMissing
-        fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
-            this.pendingTransactionId = pendingTransactionId
         }
 
         /** The description of the date of the transfer. */
@@ -884,6 +716,70 @@ private constructor(
         @ExcludeMissing
         fun companyName(companyName: JsonField<String>) = apply { this.companyName = companyName }
 
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * transfer was created.
+         */
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * transfer was created.
+         */
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /**
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency.
+         * For ACH transfers this is always equal to `usd`.
+         */
+        fun currency(currency: Currency) = currency(JsonField.of(currency))
+
+        /**
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency.
+         * For ACH transfers this is always equal to `usd`.
+         */
+        @JsonProperty("currency")
+        @ExcludeMissing
+        fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+        /** The type of entity that owns the account to which the ACH Transfer is being sent. */
+        fun destinationAccountHolder(destinationAccountHolder: DestinationAccountHolder) =
+            destinationAccountHolder(JsonField.of(destinationAccountHolder))
+
+        /** The type of entity that owns the account to which the ACH Transfer is being sent. */
+        @JsonProperty("destination_account_holder")
+        @ExcludeMissing
+        fun destinationAccountHolder(
+            destinationAccountHolder: JsonField<DestinationAccountHolder>
+        ) = apply { this.destinationAccountHolder = destinationAccountHolder }
+
+        /**
+         * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+         */
+        fun effectiveDate(effectiveDate: LocalDate) = effectiveDate(JsonField.of(effectiveDate))
+
+        /**
+         * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+         */
+        @JsonProperty("effective_date")
+        @ExcludeMissing
+        fun effectiveDate(effectiveDate: JsonField<LocalDate>) = apply {
+            this.effectiveDate = effectiveDate
+        }
+
+        /** The identifier of the External Account the transfer was made to, if any. */
+        fun externalAccountId(externalAccountId: String) =
+            externalAccountId(JsonField.of(externalAccountId))
+
+        /** The identifier of the External Account the transfer was made to, if any. */
+        @JsonProperty("external_account_id")
+        @ExcludeMissing
+        fun externalAccountId(externalAccountId: JsonField<String>) = apply {
+            this.externalAccountId = externalAccountId
+        }
+
         /** The type of the account to which the transfer will be sent. */
         fun funding(funding: Funding) = funding(JsonField.of(funding))
 
@@ -891,6 +787,30 @@ private constructor(
         @JsonProperty("funding")
         @ExcludeMissing
         fun funding(funding: JsonField<Funding>) = apply { this.funding = funding }
+
+        /** The ACH transfer's identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The ACH transfer's identifier. */
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
+        }
 
         /** Your identifier for the transfer recipient. */
         fun individualId(individualId: String) = individualId(JsonField.of(individualId))
@@ -918,18 +838,69 @@ private constructor(
             this.individualName = individualName
         }
 
-        /**
-         * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-         */
-        fun effectiveDate(effectiveDate: LocalDate) = effectiveDate(JsonField.of(effectiveDate))
+        /** The transfer's network. */
+        fun network(network: Network) = network(JsonField.of(network))
+
+        /** The transfer's network. */
+        @JsonProperty("network")
+        @ExcludeMissing
+        fun network(network: JsonField<Network>) = apply { this.network = network }
 
         /**
-         * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+         * If the receiving bank accepts the transfer but notifies that future transfers should use
+         * different details, this will contain those details.
          */
-        @JsonProperty("effective_date")
+        fun notificationsOfChange(notificationsOfChange: List<NotificationsOfChange>) =
+            notificationsOfChange(JsonField.of(notificationsOfChange))
+
+        /**
+         * If the receiving bank accepts the transfer but notifies that future transfers should use
+         * different details, this will contain those details.
+         */
+        @JsonProperty("notifications_of_change")
         @ExcludeMissing
-        fun effectiveDate(effectiveDate: JsonField<LocalDate>) = apply {
-            this.effectiveDate = effectiveDate
+        fun notificationsOfChange(notificationsOfChange: JsonField<List<NotificationsOfChange>>) =
+            apply {
+                this.notificationsOfChange = notificationsOfChange
+            }
+
+        /**
+         * The ID for the pending transaction representing the transfer. A pending transaction is
+         * created when the transfer
+         * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+         * by someone else in your organization.
+         */
+        fun pendingTransactionId(pendingTransactionId: String) =
+            pendingTransactionId(JsonField.of(pendingTransactionId))
+
+        /**
+         * The ID for the pending transaction representing the transfer. A pending transaction is
+         * created when the transfer
+         * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+         * by someone else in your organization.
+         */
+        @JsonProperty("pending_transaction_id")
+        @ExcludeMissing
+        fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
+            this.pendingTransactionId = pendingTransactionId
+        }
+
+        /** If your transfer is returned, this will contain details of the return. */
+        fun return_(return_: Return) = return_(JsonField.of(return_))
+
+        /** If your transfer is returned, this will contain details of the return. */
+        @JsonProperty("return")
+        @ExcludeMissing
+        fun return_(return_: JsonField<Return>) = apply { this.return_ = return_ }
+
+        /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
+        fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
+
+        /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
+        @JsonProperty("routing_number")
+        @ExcludeMissing
+        fun routingNumber(routingNumber: JsonField<String>) = apply {
+            this.routingNumber = routingNumber
         }
 
         /** The Standard Entry Class (SEC) code to use for the transfer. */
@@ -944,22 +915,51 @@ private constructor(
                 this.standardEntryClassCode = standardEntryClassCode
             }
 
-        /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
-         */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+        /** The descriptor that will show on the recipient's bank statement. */
+        fun statementDescriptor(statementDescriptor: String) =
+            statementDescriptor(JsonField.of(statementDescriptor))
+
+        /** The descriptor that will show on the recipient's bank statement. */
+        @JsonProperty("statement_descriptor")
+        @ExcludeMissing
+        fun statementDescriptor(statementDescriptor: JsonField<String>) = apply {
+            this.statementDescriptor = statementDescriptor
+        }
+
+        /** The lifecycle status of the transfer. */
+        fun status(status: Status) = status(JsonField.of(status))
+
+        /** The lifecycle status of the transfer. */
+        @JsonProperty("status")
+        @ExcludeMissing
+        fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * After the transfer is submitted to FedACH, this will contain supplemental details.
+         * Increase batches transfers and submits a file to the Federal Reserve roughly every 30
+         * minutes. The Federal Reserve processes ACH transfers during weekdays according to their
+         * [posted schedule](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
          */
-        @JsonProperty("idempotency_key")
+        fun submission(submission: Submission) = submission(JsonField.of(submission))
+
+        /**
+         * After the transfer is submitted to FedACH, this will contain supplemental details.
+         * Increase batches transfers and submits a file to the Federal Reserve roughly every 30
+         * minutes. The Federal Reserve processes ACH transfers during weekdays according to their
+         * [posted schedule](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
+         */
+        @JsonProperty("submission")
         @ExcludeMissing
-        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
-            this.idempotencyKey = idempotencyKey
+        fun submission(submission: JsonField<Submission>) = apply { this.submission = submission }
+
+        /** The ID for the transaction funding the transfer. */
+        fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
+
+        /** The ID for the transaction funding the transfer. */
+        @JsonProperty("transaction_id")
+        @ExcludeMissing
+        fun transactionId(transactionId: JsonField<String>) = apply {
+            this.transactionId = transactionId
         }
 
         /**
@@ -994,35 +994,35 @@ private constructor(
             AchTransfer(
                 accountId,
                 accountNumber,
+                acknowledgement,
                 addenda,
                 amount,
-                currency,
                 approval,
                 cancellation,
-                createdAt,
-                destinationAccountHolder,
-                externalAccountId,
-                id,
-                network,
-                notificationsOfChange.map { it.toUnmodifiable() },
-                return_,
-                routingNumber,
-                statementDescriptor,
-                status,
-                submission,
-                acknowledgement,
-                transactionId,
-                pendingTransactionId,
                 companyDescriptiveDate,
                 companyDiscretionaryData,
                 companyEntryDescription,
                 companyName,
+                createdAt,
+                currency,
+                destinationAccountHolder,
+                effectiveDate,
+                externalAccountId,
                 funding,
+                id,
+                idempotencyKey,
                 individualId,
                 individualName,
-                effectiveDate,
+                network,
+                notificationsOfChange.map { it.toUnmodifiable() },
+                pendingTransactionId,
+                return_,
+                routingNumber,
                 standardEntryClassCode,
-                idempotencyKey,
+                statementDescriptor,
+                status,
+                submission,
+                transactionId,
                 type,
                 additionalProperties.toUnmodifiable(),
             )
@@ -2391,21 +2391,15 @@ private constructor(
     @NoAutoDetect
     class NotificationsOfChange
     private constructor(
-        private val createdAt: JsonField<OffsetDateTime>,
         private val changeCode: JsonField<ChangeCode>,
         private val correctedData: JsonField<String>,
+        private val createdAt: JsonField<OffsetDateTime>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * notification occurred.
-         */
-        fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
         /**
          * The required type of change that is being signaled by the receiving financial
@@ -2426,7 +2420,7 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * notification occurred.
          */
-        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+        fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
         /**
          * The required type of change that is being signaled by the receiving financial
@@ -2443,15 +2437,21 @@ private constructor(
          */
         @JsonProperty("corrected_data") @ExcludeMissing fun _correctedData() = correctedData
 
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * notification occurred.
+         */
+        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun validate(): NotificationsOfChange = apply {
             if (!validated) {
-                createdAt()
                 changeCode()
                 correctedData()
+                createdAt()
                 validated = true
             }
         }
@@ -2464,9 +2464,9 @@ private constructor(
             }
 
             return other is NotificationsOfChange &&
-                this.createdAt == other.createdAt &&
                 this.changeCode == other.changeCode &&
                 this.correctedData == other.correctedData &&
+                this.createdAt == other.createdAt &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -2474,9 +2474,9 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        createdAt,
                         changeCode,
                         correctedData,
+                        createdAt,
                         additionalProperties,
                     )
             }
@@ -2484,7 +2484,7 @@ private constructor(
         }
 
         override fun toString() =
-            "NotificationsOfChange{createdAt=$createdAt, changeCode=$changeCode, correctedData=$correctedData, additionalProperties=$additionalProperties}"
+            "NotificationsOfChange{changeCode=$changeCode, correctedData=$correctedData, createdAt=$createdAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -2493,33 +2493,17 @@ private constructor(
 
         class Builder {
 
-            private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var changeCode: JsonField<ChangeCode> = JsonMissing.of()
             private var correctedData: JsonField<String> = JsonMissing.of()
+            private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(notificationsOfChange: NotificationsOfChange) = apply {
-                this.createdAt = notificationsOfChange.createdAt
                 this.changeCode = notificationsOfChange.changeCode
                 this.correctedData = notificationsOfChange.correctedData
+                this.createdAt = notificationsOfChange.createdAt
                 additionalProperties(notificationsOfChange.additionalProperties)
-            }
-
-            /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * notification occurred.
-             */
-            fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-            /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * notification occurred.
-             */
-            @JsonProperty("created_at")
-            @ExcludeMissing
-            fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
-                this.createdAt = createdAt
             }
 
             /**
@@ -2560,6 +2544,22 @@ private constructor(
                 this.correctedData = correctedData
             }
 
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * notification occurred.
+             */
+            fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * notification occurred.
+             */
+            @JsonProperty("created_at")
+            @ExcludeMissing
+            fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                this.createdAt = createdAt
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -2576,9 +2576,9 @@ private constructor(
 
             fun build(): NotificationsOfChange =
                 NotificationsOfChange(
-                    createdAt,
                     changeCode,
                     correctedData,
+                    createdAt,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -2827,10 +2827,10 @@ private constructor(
     class Return
     private constructor(
         private val createdAt: JsonField<OffsetDateTime>,
-        private val returnReasonCode: JsonField<ReturnReasonCode>,
         private val rawReturnReasonCode: JsonField<String>,
-        private val transferId: JsonField<String>,
+        private val returnReasonCode: JsonField<ReturnReasonCode>,
         private val transactionId: JsonField<String>,
+        private val transferId: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -2844,6 +2844,10 @@ private constructor(
          */
         fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
+        /** The three character ACH return code, in the range R01 to R85. */
+        fun rawReturnReasonCode(): String =
+            rawReturnReasonCode.getRequired("raw_return_reason_code")
+
         /**
          * Why the ACH Transfer was returned. This reason code is sent by the receiving bank back to
          * Increase.
@@ -2851,21 +2855,22 @@ private constructor(
         fun returnReasonCode(): ReturnReasonCode =
             returnReasonCode.getRequired("return_reason_code")
 
-        /** The three character ACH return code, in the range R01 to R85. */
-        fun rawReturnReasonCode(): String =
-            rawReturnReasonCode.getRequired("raw_return_reason_code")
+        /** The identifier of the Transaction associated with this return. */
+        fun transactionId(): String = transactionId.getRequired("transaction_id")
 
         /** The identifier of the ACH Transfer associated with this return. */
         fun transferId(): String = transferId.getRequired("transfer_id")
-
-        /** The identifier of the Transaction associated with this return. */
-        fun transactionId(): String = transactionId.getRequired("transaction_id")
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * transfer was created.
          */
         @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+        /** The three character ACH return code, in the range R01 to R85. */
+        @JsonProperty("raw_return_reason_code")
+        @ExcludeMissing
+        fun _rawReturnReasonCode() = rawReturnReasonCode
 
         /**
          * Why the ACH Transfer was returned. This reason code is sent by the receiving bank back to
@@ -2875,16 +2880,11 @@ private constructor(
         @ExcludeMissing
         fun _returnReasonCode() = returnReasonCode
 
-        /** The three character ACH return code, in the range R01 to R85. */
-        @JsonProperty("raw_return_reason_code")
-        @ExcludeMissing
-        fun _rawReturnReasonCode() = rawReturnReasonCode
+        /** The identifier of the Transaction associated with this return. */
+        @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
         /** The identifier of the ACH Transfer associated with this return. */
         @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
-
-        /** The identifier of the Transaction associated with this return. */
-        @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -2893,10 +2893,10 @@ private constructor(
         fun validate(): Return = apply {
             if (!validated) {
                 createdAt()
-                returnReasonCode()
                 rawReturnReasonCode()
-                transferId()
+                returnReasonCode()
                 transactionId()
+                transferId()
                 validated = true
             }
         }
@@ -2910,10 +2910,10 @@ private constructor(
 
             return other is Return &&
                 this.createdAt == other.createdAt &&
-                this.returnReasonCode == other.returnReasonCode &&
                 this.rawReturnReasonCode == other.rawReturnReasonCode &&
-                this.transferId == other.transferId &&
+                this.returnReasonCode == other.returnReasonCode &&
                 this.transactionId == other.transactionId &&
+                this.transferId == other.transferId &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -2922,10 +2922,10 @@ private constructor(
                 hashCode =
                     Objects.hash(
                         createdAt,
-                        returnReasonCode,
                         rawReturnReasonCode,
-                        transferId,
+                        returnReasonCode,
                         transactionId,
+                        transferId,
                         additionalProperties,
                     )
             }
@@ -2933,7 +2933,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Return{createdAt=$createdAt, returnReasonCode=$returnReasonCode, rawReturnReasonCode=$rawReturnReasonCode, transferId=$transferId, transactionId=$transactionId, additionalProperties=$additionalProperties}"
+            "Return{createdAt=$createdAt, rawReturnReasonCode=$rawReturnReasonCode, returnReasonCode=$returnReasonCode, transactionId=$transactionId, transferId=$transferId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -2943,19 +2943,19 @@ private constructor(
         class Builder {
 
             private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var returnReasonCode: JsonField<ReturnReasonCode> = JsonMissing.of()
             private var rawReturnReasonCode: JsonField<String> = JsonMissing.of()
-            private var transferId: JsonField<String> = JsonMissing.of()
+            private var returnReasonCode: JsonField<ReturnReasonCode> = JsonMissing.of()
             private var transactionId: JsonField<String> = JsonMissing.of()
+            private var transferId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(return_: Return) = apply {
                 this.createdAt = return_.createdAt
-                this.returnReasonCode = return_.returnReasonCode
                 this.rawReturnReasonCode = return_.rawReturnReasonCode
-                this.transferId = return_.transferId
+                this.returnReasonCode = return_.returnReasonCode
                 this.transactionId = return_.transactionId
+                this.transferId = return_.transferId
                 additionalProperties(return_.additionalProperties)
             }
 
@@ -2975,6 +2975,17 @@ private constructor(
                 this.createdAt = createdAt
             }
 
+            /** The three character ACH return code, in the range R01 to R85. */
+            fun rawReturnReasonCode(rawReturnReasonCode: String) =
+                rawReturnReasonCode(JsonField.of(rawReturnReasonCode))
+
+            /** The three character ACH return code, in the range R01 to R85. */
+            @JsonProperty("raw_return_reason_code")
+            @ExcludeMissing
+            fun rawReturnReasonCode(rawReturnReasonCode: JsonField<String>) = apply {
+                this.rawReturnReasonCode = rawReturnReasonCode
+            }
+
             /**
              * Why the ACH Transfer was returned. This reason code is sent by the receiving bank
              * back to Increase.
@@ -2992,25 +3003,6 @@ private constructor(
                 this.returnReasonCode = returnReasonCode
             }
 
-            /** The three character ACH return code, in the range R01 to R85. */
-            fun rawReturnReasonCode(rawReturnReasonCode: String) =
-                rawReturnReasonCode(JsonField.of(rawReturnReasonCode))
-
-            /** The three character ACH return code, in the range R01 to R85. */
-            @JsonProperty("raw_return_reason_code")
-            @ExcludeMissing
-            fun rawReturnReasonCode(rawReturnReasonCode: JsonField<String>) = apply {
-                this.rawReturnReasonCode = rawReturnReasonCode
-            }
-
-            /** The identifier of the ACH Transfer associated with this return. */
-            fun transferId(transferId: String) = transferId(JsonField.of(transferId))
-
-            /** The identifier of the ACH Transfer associated with this return. */
-            @JsonProperty("transfer_id")
-            @ExcludeMissing
-            fun transferId(transferId: JsonField<String>) = apply { this.transferId = transferId }
-
             /** The identifier of the Transaction associated with this return. */
             fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
 
@@ -3020,6 +3012,14 @@ private constructor(
             fun transactionId(transactionId: JsonField<String>) = apply {
                 this.transactionId = transactionId
             }
+
+            /** The identifier of the ACH Transfer associated with this return. */
+            fun transferId(transferId: String) = transferId(JsonField.of(transferId))
+
+            /** The identifier of the ACH Transfer associated with this return. */
+            @JsonProperty("transfer_id")
+            @ExcludeMissing
+            fun transferId(transferId: JsonField<String>) = apply { this.transferId = transferId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -3038,10 +3038,10 @@ private constructor(
             fun build(): Return =
                 Return(
                     createdAt,
-                    returnReasonCode,
                     rawReturnReasonCode,
-                    transferId,
+                    returnReasonCode,
                     transactionId,
+                    transferId,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -3863,35 +3863,16 @@ private constructor(
     @NoAutoDetect
     class Submission
     private constructor(
-        private val traceNumber: JsonField<String>,
-        private val submittedAt: JsonField<OffsetDateTime>,
-        private val expectedFundsSettlementAt: JsonField<OffsetDateTime>,
         private val effectiveDate: JsonField<LocalDate>,
+        private val expectedFundsSettlementAt: JsonField<OffsetDateTime>,
+        private val submittedAt: JsonField<OffsetDateTime>,
+        private val traceNumber: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
-
-        /**
-         * A 15 digit number recorded in the Nacha file and transmitted to the receiving bank. Along
-         * with the amount, date, and originating routing number, this can be used to identify the
-         * ACH transfer at the receiving bank. ACH trace numbers are not unique, but are
-         * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
-         */
-        fun traceNumber(): String = traceNumber.getRequired("trace_number")
-
-        /** When the ACH transfer was sent to FedACH. */
-        fun submittedAt(): OffsetDateTime = submittedAt.getRequired("submitted_at")
-
-        /**
-         * When the funds transfer is expected to settle in the recipient's account. Credits may be
-         * available sooner, at the receiving banks discretion. The FedACH schedule is published
-         * [here](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
-         */
-        fun expectedFundsSettlementAt(): OffsetDateTime =
-            expectedFundsSettlementAt.getRequired("expected_funds_settlement_at")
 
         /**
          * The ACH's effective date sent to the receiving bank. If `effective_date` is configured in
@@ -3901,15 +3882,30 @@ private constructor(
         fun effectiveDate(): LocalDate = effectiveDate.getRequired("effective_date")
 
         /**
+         * When the funds transfer is expected to settle in the recipient's account. Credits may be
+         * available sooner, at the receiving banks discretion. The FedACH schedule is published
+         * [here](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
+         */
+        fun expectedFundsSettlementAt(): OffsetDateTime =
+            expectedFundsSettlementAt.getRequired("expected_funds_settlement_at")
+
+        /** When the ACH transfer was sent to FedACH. */
+        fun submittedAt(): OffsetDateTime = submittedAt.getRequired("submitted_at")
+
+        /**
          * A 15 digit number recorded in the Nacha file and transmitted to the receiving bank. Along
          * with the amount, date, and originating routing number, this can be used to identify the
          * ACH transfer at the receiving bank. ACH trace numbers are not unique, but are
          * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
          */
-        @JsonProperty("trace_number") @ExcludeMissing fun _traceNumber() = traceNumber
+        fun traceNumber(): String = traceNumber.getRequired("trace_number")
 
-        /** When the ACH transfer was sent to FedACH. */
-        @JsonProperty("submitted_at") @ExcludeMissing fun _submittedAt() = submittedAt
+        /**
+         * The ACH's effective date sent to the receiving bank. If `effective_date` is configured in
+         * the ACH transfer, this will match the value there. Otherwise, it will the date that the
+         * ACH transfer was processed, which is usually the current or subsequent business day.
+         */
+        @JsonProperty("effective_date") @ExcludeMissing fun _effectiveDate() = effectiveDate
 
         /**
          * When the funds transfer is expected to settle in the recipient's account. Credits may be
@@ -3920,12 +3916,16 @@ private constructor(
         @ExcludeMissing
         fun _expectedFundsSettlementAt() = expectedFundsSettlementAt
 
+        /** When the ACH transfer was sent to FedACH. */
+        @JsonProperty("submitted_at") @ExcludeMissing fun _submittedAt() = submittedAt
+
         /**
-         * The ACH's effective date sent to the receiving bank. If `effective_date` is configured in
-         * the ACH transfer, this will match the value there. Otherwise, it will the date that the
-         * ACH transfer was processed, which is usually the current or subsequent business day.
+         * A 15 digit number recorded in the Nacha file and transmitted to the receiving bank. Along
+         * with the amount, date, and originating routing number, this can be used to identify the
+         * ACH transfer at the receiving bank. ACH trace numbers are not unique, but are
+         * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
          */
-        @JsonProperty("effective_date") @ExcludeMissing fun _effectiveDate() = effectiveDate
+        @JsonProperty("trace_number") @ExcludeMissing fun _traceNumber() = traceNumber
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -3933,10 +3933,10 @@ private constructor(
 
         fun validate(): Submission = apply {
             if (!validated) {
-                traceNumber()
-                submittedAt()
-                expectedFundsSettlementAt()
                 effectiveDate()
+                expectedFundsSettlementAt()
+                submittedAt()
+                traceNumber()
                 validated = true
             }
         }
@@ -3949,10 +3949,10 @@ private constructor(
             }
 
             return other is Submission &&
-                this.traceNumber == other.traceNumber &&
-                this.submittedAt == other.submittedAt &&
-                this.expectedFundsSettlementAt == other.expectedFundsSettlementAt &&
                 this.effectiveDate == other.effectiveDate &&
+                this.expectedFundsSettlementAt == other.expectedFundsSettlementAt &&
+                this.submittedAt == other.submittedAt &&
+                this.traceNumber == other.traceNumber &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -3960,10 +3960,10 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        traceNumber,
-                        submittedAt,
-                        expectedFundsSettlementAt,
                         effectiveDate,
+                        expectedFundsSettlementAt,
+                        submittedAt,
+                        traceNumber,
                         additionalProperties,
                     )
             }
@@ -3971,7 +3971,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Submission{traceNumber=$traceNumber, submittedAt=$submittedAt, expectedFundsSettlementAt=$expectedFundsSettlementAt, effectiveDate=$effectiveDate, additionalProperties=$additionalProperties}"
+            "Submission{effectiveDate=$effectiveDate, expectedFundsSettlementAt=$expectedFundsSettlementAt, submittedAt=$submittedAt, traceNumber=$traceNumber, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -3980,51 +3980,39 @@ private constructor(
 
         class Builder {
 
-            private var traceNumber: JsonField<String> = JsonMissing.of()
-            private var submittedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var expectedFundsSettlementAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
+            private var expectedFundsSettlementAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var submittedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var traceNumber: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(submission: Submission) = apply {
-                this.traceNumber = submission.traceNumber
-                this.submittedAt = submission.submittedAt
-                this.expectedFundsSettlementAt = submission.expectedFundsSettlementAt
                 this.effectiveDate = submission.effectiveDate
+                this.expectedFundsSettlementAt = submission.expectedFundsSettlementAt
+                this.submittedAt = submission.submittedAt
+                this.traceNumber = submission.traceNumber
                 additionalProperties(submission.additionalProperties)
             }
 
             /**
-             * A 15 digit number recorded in the Nacha file and transmitted to the receiving bank.
-             * Along with the amount, date, and originating routing number, this can be used to
-             * identify the ACH transfer at the receiving bank. ACH trace numbers are not unique,
-             * but are
-             * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
+             * The ACH's effective date sent to the receiving bank. If `effective_date` is
+             * configured in the ACH transfer, this will match the value there. Otherwise, it will
+             * the date that the ACH transfer was processed, which is usually the current or
+             * subsequent business day.
              */
-            fun traceNumber(traceNumber: String) = traceNumber(JsonField.of(traceNumber))
+            fun effectiveDate(effectiveDate: LocalDate) = effectiveDate(JsonField.of(effectiveDate))
 
             /**
-             * A 15 digit number recorded in the Nacha file and transmitted to the receiving bank.
-             * Along with the amount, date, and originating routing number, this can be used to
-             * identify the ACH transfer at the receiving bank. ACH trace numbers are not unique,
-             * but are
-             * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
+             * The ACH's effective date sent to the receiving bank. If `effective_date` is
+             * configured in the ACH transfer, this will match the value there. Otherwise, it will
+             * the date that the ACH transfer was processed, which is usually the current or
+             * subsequent business day.
              */
-            @JsonProperty("trace_number")
+            @JsonProperty("effective_date")
             @ExcludeMissing
-            fun traceNumber(traceNumber: JsonField<String>) = apply {
-                this.traceNumber = traceNumber
-            }
-
-            /** When the ACH transfer was sent to FedACH. */
-            fun submittedAt(submittedAt: OffsetDateTime) = submittedAt(JsonField.of(submittedAt))
-
-            /** When the ACH transfer was sent to FedACH. */
-            @JsonProperty("submitted_at")
-            @ExcludeMissing
-            fun submittedAt(submittedAt: JsonField<OffsetDateTime>) = apply {
-                this.submittedAt = submittedAt
+            fun effectiveDate(effectiveDate: JsonField<LocalDate>) = apply {
+                this.effectiveDate = effectiveDate
             }
 
             /**
@@ -4049,24 +4037,36 @@ private constructor(
                     this.expectedFundsSettlementAt = expectedFundsSettlementAt
                 }
 
-            /**
-             * The ACH's effective date sent to the receiving bank. If `effective_date` is
-             * configured in the ACH transfer, this will match the value there. Otherwise, it will
-             * the date that the ACH transfer was processed, which is usually the current or
-             * subsequent business day.
-             */
-            fun effectiveDate(effectiveDate: LocalDate) = effectiveDate(JsonField.of(effectiveDate))
+            /** When the ACH transfer was sent to FedACH. */
+            fun submittedAt(submittedAt: OffsetDateTime) = submittedAt(JsonField.of(submittedAt))
+
+            /** When the ACH transfer was sent to FedACH. */
+            @JsonProperty("submitted_at")
+            @ExcludeMissing
+            fun submittedAt(submittedAt: JsonField<OffsetDateTime>) = apply {
+                this.submittedAt = submittedAt
+            }
 
             /**
-             * The ACH's effective date sent to the receiving bank. If `effective_date` is
-             * configured in the ACH transfer, this will match the value there. Otherwise, it will
-             * the date that the ACH transfer was processed, which is usually the current or
-             * subsequent business day.
+             * A 15 digit number recorded in the Nacha file and transmitted to the receiving bank.
+             * Along with the amount, date, and originating routing number, this can be used to
+             * identify the ACH transfer at the receiving bank. ACH trace numbers are not unique,
+             * but are
+             * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
              */
-            @JsonProperty("effective_date")
+            fun traceNumber(traceNumber: String) = traceNumber(JsonField.of(traceNumber))
+
+            /**
+             * A 15 digit number recorded in the Nacha file and transmitted to the receiving bank.
+             * Along with the amount, date, and originating routing number, this can be used to
+             * identify the ACH transfer at the receiving bank. ACH trace numbers are not unique,
+             * but are
+             * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
+             */
+            @JsonProperty("trace_number")
             @ExcludeMissing
-            fun effectiveDate(effectiveDate: JsonField<LocalDate>) = apply {
-                this.effectiveDate = effectiveDate
+            fun traceNumber(traceNumber: JsonField<String>) = apply {
+                this.traceNumber = traceNumber
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -4085,10 +4085,10 @@ private constructor(
 
             fun build(): Submission =
                 Submission(
-                    traceNumber,
-                    submittedAt,
-                    expectedFundsSettlementAt,
                     effectiveDate,
+                    expectedFundsSettlementAt,
+                    submittedAt,
+                    traceNumber,
                     additionalProperties.toUnmodifiable(),
                 )
         }

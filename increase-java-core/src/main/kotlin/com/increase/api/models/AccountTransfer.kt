@@ -24,21 +24,21 @@ import java.util.Optional
 @NoAutoDetect
 class AccountTransfer
 private constructor(
-    private val id: JsonField<String>,
-    private val amount: JsonField<Long>,
     private val accountId: JsonField<String>,
-    private val currency: JsonField<Currency>,
-    private val destinationAccountId: JsonField<String>,
-    private val destinationTransactionId: JsonField<String>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val description: JsonField<String>,
-    private val network: JsonField<Network>,
-    private val status: JsonField<Status>,
-    private val transactionId: JsonField<String>,
-    private val pendingTransactionId: JsonField<String>,
+    private val amount: JsonField<Long>,
     private val approval: JsonField<Approval>,
     private val cancellation: JsonField<Cancellation>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val currency: JsonField<Currency>,
+    private val description: JsonField<String>,
+    private val destinationAccountId: JsonField<String>,
+    private val destinationTransactionId: JsonField<String>,
+    private val id: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
+    private val network: JsonField<Network>,
+    private val pendingTransactionId: JsonField<String>,
+    private val status: JsonField<Status>,
+    private val transactionId: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -47,58 +47,14 @@ private constructor(
 
     private var hashCode: Int = 0
 
-    /** The account transfer's identifier. */
-    fun id(): String = id.getRequired("id")
+    /** The Account to which the transfer belongs. */
+    fun accountId(): String = accountId.getRequired("account_id")
 
     /**
      * The transfer amount in the minor unit of the destination account currency. For dollars, for
      * example, this is cents.
      */
     fun amount(): Long = amount.getRequired("amount")
-
-    /** The Account to which the transfer belongs. */
-    fun accountId(): String = accountId.getRequired("account_id")
-
-    /**
-     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination account
-     * currency.
-     */
-    fun currency(): Currency = currency.getRequired("currency")
-
-    /** The destination account's identifier. */
-    fun destinationAccountId(): String = destinationAccountId.getRequired("destination_account_id")
-
-    /** The ID for the transaction receiving the transfer. */
-    fun destinationTransactionId(): Optional<String> =
-        Optional.ofNullable(destinationTransactionId.getNullable("destination_transaction_id"))
-
-    /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
-     * was created.
-     */
-    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-    /** The description that will show on the transactions. */
-    fun description(): String = description.getRequired("description")
-
-    /** The transfer's network. */
-    fun network(): Network = network.getRequired("network")
-
-    /** The lifecycle status of the transfer. */
-    fun status(): Status = status.getRequired("status")
-
-    /** The ID for the transaction funding the transfer. */
-    fun transactionId(): Optional<String> =
-        Optional.ofNullable(transactionId.getNullable("transaction_id"))
-
-    /**
-     * The ID for the pending transaction representing the transfer. A pending transaction is
-     * created when the transfer
-     * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
-     * by someone else in your organization.
-     */
-    fun pendingTransactionId(): Optional<String> =
-        Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
 
     /**
      * If your account requires approvals for transfers and the transfer was approved, this will
@@ -114,6 +70,31 @@ private constructor(
         Optional.ofNullable(cancellation.getNullable("cancellation"))
 
     /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
+     * was created.
+     */
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+    /**
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination account
+     * currency.
+     */
+    fun currency(): Currency = currency.getRequired("currency")
+
+    /** The description that will show on the transactions. */
+    fun description(): String = description.getRequired("description")
+
+    /** The destination account's identifier. */
+    fun destinationAccountId(): String = destinationAccountId.getRequired("destination_account_id")
+
+    /** The ID for the transaction receiving the transfer. */
+    fun destinationTransactionId(): Optional<String> =
+        Optional.ofNullable(destinationTransactionId.getNullable("destination_transaction_id"))
+
+    /** The account transfer's identifier. */
+    fun id(): String = id.getRequired("id")
+
+    /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
@@ -121,57 +102,8 @@ private constructor(
     fun idempotencyKey(): Optional<String> =
         Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
-    /**
-     * A constant representing the object's type. For this resource it will always be
-     * `account_transfer`.
-     */
-    fun type(): Type = type.getRequired("type")
-
-    /** The account transfer's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
-    /**
-     * The transfer amount in the minor unit of the destination account currency. For dollars, for
-     * example, this is cents.
-     */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
-
-    /** The Account to which the transfer belongs. */
-    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
-
-    /**
-     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination account
-     * currency.
-     */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
-
-    /** The destination account's identifier. */
-    @JsonProperty("destination_account_id")
-    @ExcludeMissing
-    fun _destinationAccountId() = destinationAccountId
-
-    /** The ID for the transaction receiving the transfer. */
-    @JsonProperty("destination_transaction_id")
-    @ExcludeMissing
-    fun _destinationTransactionId() = destinationTransactionId
-
-    /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
-     * was created.
-     */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
-    /** The description that will show on the transactions. */
-    @JsonProperty("description") @ExcludeMissing fun _description() = description
-
     /** The transfer's network. */
-    @JsonProperty("network") @ExcludeMissing fun _network() = network
-
-    /** The lifecycle status of the transfer. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
-
-    /** The ID for the transaction funding the transfer. */
-    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+    fun network(): Network = network.getRequired("network")
 
     /**
      * The ID for the pending transaction representing the transfer. A pending transaction is
@@ -179,9 +111,30 @@ private constructor(
      * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
      * by someone else in your organization.
      */
-    @JsonProperty("pending_transaction_id")
-    @ExcludeMissing
-    fun _pendingTransactionId() = pendingTransactionId
+    fun pendingTransactionId(): Optional<String> =
+        Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
+
+    /** The lifecycle status of the transfer. */
+    fun status(): Status = status.getRequired("status")
+
+    /** The ID for the transaction funding the transfer. */
+    fun transactionId(): Optional<String> =
+        Optional.ofNullable(transactionId.getNullable("transaction_id"))
+
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `account_transfer`.
+     */
+    fun type(): Type = type.getRequired("type")
+
+    /** The Account to which the transfer belongs. */
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+
+    /**
+     * The transfer amount in the minor unit of the destination account currency. For dollars, for
+     * example, this is cents.
+     */
+    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
     /**
      * If your account requires approvals for transfers and the transfer was approved, this will
@@ -196,11 +149,58 @@ private constructor(
     @JsonProperty("cancellation") @ExcludeMissing fun _cancellation() = cancellation
 
     /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
+     * was created.
+     */
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+    /**
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination account
+     * currency.
+     */
+    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+
+    /** The description that will show on the transactions. */
+    @JsonProperty("description") @ExcludeMissing fun _description() = description
+
+    /** The destination account's identifier. */
+    @JsonProperty("destination_account_id")
+    @ExcludeMissing
+    fun _destinationAccountId() = destinationAccountId
+
+    /** The ID for the transaction receiving the transfer. */
+    @JsonProperty("destination_transaction_id")
+    @ExcludeMissing
+    fun _destinationTransactionId() = destinationTransactionId
+
+    /** The account transfer's identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+    /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
     @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+
+    /** The transfer's network. */
+    @JsonProperty("network") @ExcludeMissing fun _network() = network
+
+    /**
+     * The ID for the pending transaction representing the transfer. A pending transaction is
+     * created when the transfer
+     * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+     * by someone else in your organization.
+     */
+    @JsonProperty("pending_transaction_id")
+    @ExcludeMissing
+    fun _pendingTransactionId() = pendingTransactionId
+
+    /** The lifecycle status of the transfer. */
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
+
+    /** The ID for the transaction funding the transfer. */
+    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -214,21 +214,21 @@ private constructor(
 
     fun validate(): AccountTransfer = apply {
         if (!validated) {
-            id()
-            amount()
             accountId()
-            currency()
-            destinationAccountId()
-            destinationTransactionId()
-            createdAt()
-            description()
-            network()
-            status()
-            transactionId()
-            pendingTransactionId()
+            amount()
             approval().map { it.validate() }
             cancellation().map { it.validate() }
+            createdAt()
+            currency()
+            description()
+            destinationAccountId()
+            destinationTransactionId()
+            id()
             idempotencyKey()
+            network()
+            pendingTransactionId()
+            status()
+            transactionId()
             type()
             validated = true
         }
@@ -242,21 +242,21 @@ private constructor(
         }
 
         return other is AccountTransfer &&
-            this.id == other.id &&
-            this.amount == other.amount &&
             this.accountId == other.accountId &&
-            this.currency == other.currency &&
-            this.destinationAccountId == other.destinationAccountId &&
-            this.destinationTransactionId == other.destinationTransactionId &&
-            this.createdAt == other.createdAt &&
-            this.description == other.description &&
-            this.network == other.network &&
-            this.status == other.status &&
-            this.transactionId == other.transactionId &&
-            this.pendingTransactionId == other.pendingTransactionId &&
+            this.amount == other.amount &&
             this.approval == other.approval &&
             this.cancellation == other.cancellation &&
+            this.createdAt == other.createdAt &&
+            this.currency == other.currency &&
+            this.description == other.description &&
+            this.destinationAccountId == other.destinationAccountId &&
+            this.destinationTransactionId == other.destinationTransactionId &&
+            this.id == other.id &&
             this.idempotencyKey == other.idempotencyKey &&
+            this.network == other.network &&
+            this.pendingTransactionId == other.pendingTransactionId &&
+            this.status == other.status &&
+            this.transactionId == other.transactionId &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -265,21 +265,21 @@ private constructor(
         if (hashCode == 0) {
             hashCode =
                 Objects.hash(
-                    id,
-                    amount,
                     accountId,
-                    currency,
-                    destinationAccountId,
-                    destinationTransactionId,
-                    createdAt,
-                    description,
-                    network,
-                    status,
-                    transactionId,
-                    pendingTransactionId,
+                    amount,
                     approval,
                     cancellation,
+                    createdAt,
+                    currency,
+                    description,
+                    destinationAccountId,
+                    destinationTransactionId,
+                    id,
                     idempotencyKey,
+                    network,
+                    pendingTransactionId,
+                    status,
+                    transactionId,
                     type,
                     additionalProperties,
                 )
@@ -288,7 +288,7 @@ private constructor(
     }
 
     override fun toString() =
-        "AccountTransfer{id=$id, amount=$amount, accountId=$accountId, currency=$currency, destinationAccountId=$destinationAccountId, destinationTransactionId=$destinationTransactionId, createdAt=$createdAt, description=$description, network=$network, status=$status, transactionId=$transactionId, pendingTransactionId=$pendingTransactionId, approval=$approval, cancellation=$cancellation, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
+        "AccountTransfer{accountId=$accountId, amount=$amount, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, currency=$currency, description=$description, destinationAccountId=$destinationAccountId, destinationTransactionId=$destinationTransactionId, id=$id, idempotencyKey=$idempotencyKey, network=$network, pendingTransactionId=$pendingTransactionId, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -297,50 +297,52 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var amount: JsonField<Long> = JsonMissing.of()
         private var accountId: JsonField<String> = JsonMissing.of()
-        private var currency: JsonField<Currency> = JsonMissing.of()
-        private var destinationAccountId: JsonField<String> = JsonMissing.of()
-        private var destinationTransactionId: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var description: JsonField<String> = JsonMissing.of()
-        private var network: JsonField<Network> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var transactionId: JsonField<String> = JsonMissing.of()
-        private var pendingTransactionId: JsonField<String> = JsonMissing.of()
+        private var amount: JsonField<Long> = JsonMissing.of()
         private var approval: JsonField<Approval> = JsonMissing.of()
         private var cancellation: JsonField<Cancellation> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var currency: JsonField<Currency> = JsonMissing.of()
+        private var description: JsonField<String> = JsonMissing.of()
+        private var destinationAccountId: JsonField<String> = JsonMissing.of()
+        private var destinationTransactionId: JsonField<String> = JsonMissing.of()
+        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
+        private var network: JsonField<Network> = JsonMissing.of()
+        private var pendingTransactionId: JsonField<String> = JsonMissing.of()
+        private var status: JsonField<Status> = JsonMissing.of()
+        private var transactionId: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(accountTransfer: AccountTransfer) = apply {
-            this.id = accountTransfer.id
-            this.amount = accountTransfer.amount
             this.accountId = accountTransfer.accountId
-            this.currency = accountTransfer.currency
-            this.destinationAccountId = accountTransfer.destinationAccountId
-            this.destinationTransactionId = accountTransfer.destinationTransactionId
-            this.createdAt = accountTransfer.createdAt
-            this.description = accountTransfer.description
-            this.network = accountTransfer.network
-            this.status = accountTransfer.status
-            this.transactionId = accountTransfer.transactionId
-            this.pendingTransactionId = accountTransfer.pendingTransactionId
+            this.amount = accountTransfer.amount
             this.approval = accountTransfer.approval
             this.cancellation = accountTransfer.cancellation
+            this.createdAt = accountTransfer.createdAt
+            this.currency = accountTransfer.currency
+            this.description = accountTransfer.description
+            this.destinationAccountId = accountTransfer.destinationAccountId
+            this.destinationTransactionId = accountTransfer.destinationTransactionId
+            this.id = accountTransfer.id
             this.idempotencyKey = accountTransfer.idempotencyKey
+            this.network = accountTransfer.network
+            this.pendingTransactionId = accountTransfer.pendingTransactionId
+            this.status = accountTransfer.status
+            this.transactionId = accountTransfer.transactionId
             this.type = accountTransfer.type
             additionalProperties(accountTransfer.additionalProperties)
         }
 
-        /** The account transfer's identifier. */
-        fun id(id: String) = id(JsonField.of(id))
+        /** The Account to which the transfer belongs. */
+        fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
-        /** The account transfer's identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        /** The Account to which the transfer belongs. */
+        @JsonProperty("account_id")
+        @ExcludeMissing
+        fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /**
          * The transfer amount in the minor unit of the destination account currency. For dollars,
@@ -355,119 +357,6 @@ private constructor(
         @JsonProperty("amount")
         @ExcludeMissing
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-        /** The Account to which the transfer belongs. */
-        fun accountId(accountId: String) = accountId(JsonField.of(accountId))
-
-        /** The Account to which the transfer belongs. */
-        @JsonProperty("account_id")
-        @ExcludeMissing
-        fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
-
-        /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination account
-         * currency.
-         */
-        fun currency(currency: Currency) = currency(JsonField.of(currency))
-
-        /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination account
-         * currency.
-         */
-        @JsonProperty("currency")
-        @ExcludeMissing
-        fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
-
-        /** The destination account's identifier. */
-        fun destinationAccountId(destinationAccountId: String) =
-            destinationAccountId(JsonField.of(destinationAccountId))
-
-        /** The destination account's identifier. */
-        @JsonProperty("destination_account_id")
-        @ExcludeMissing
-        fun destinationAccountId(destinationAccountId: JsonField<String>) = apply {
-            this.destinationAccountId = destinationAccountId
-        }
-
-        /** The ID for the transaction receiving the transfer. */
-        fun destinationTransactionId(destinationTransactionId: String) =
-            destinationTransactionId(JsonField.of(destinationTransactionId))
-
-        /** The ID for the transaction receiving the transfer. */
-        @JsonProperty("destination_transaction_id")
-        @ExcludeMissing
-        fun destinationTransactionId(destinationTransactionId: JsonField<String>) = apply {
-            this.destinationTransactionId = destinationTransactionId
-        }
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * transfer was created.
-         */
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * transfer was created.
-         */
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
-        /** The description that will show on the transactions. */
-        fun description(description: String) = description(JsonField.of(description))
-
-        /** The description that will show on the transactions. */
-        @JsonProperty("description")
-        @ExcludeMissing
-        fun description(description: JsonField<String>) = apply { this.description = description }
-
-        /** The transfer's network. */
-        fun network(network: Network) = network(JsonField.of(network))
-
-        /** The transfer's network. */
-        @JsonProperty("network")
-        @ExcludeMissing
-        fun network(network: JsonField<Network>) = apply { this.network = network }
-
-        /** The lifecycle status of the transfer. */
-        fun status(status: Status) = status(JsonField.of(status))
-
-        /** The lifecycle status of the transfer. */
-        @JsonProperty("status")
-        @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply { this.status = status }
-
-        /** The ID for the transaction funding the transfer. */
-        fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
-
-        /** The ID for the transaction funding the transfer. */
-        @JsonProperty("transaction_id")
-        @ExcludeMissing
-        fun transactionId(transactionId: JsonField<String>) = apply {
-            this.transactionId = transactionId
-        }
-
-        /**
-         * The ID for the pending transaction representing the transfer. A pending transaction is
-         * created when the transfer
-         * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
-         * by someone else in your organization.
-         */
-        fun pendingTransactionId(pendingTransactionId: String) =
-            pendingTransactionId(JsonField.of(pendingTransactionId))
-
-        /**
-         * The ID for the pending transaction representing the transfer. A pending transaction is
-         * created when the transfer
-         * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
-         * by someone else in your organization.
-         */
-        @JsonProperty("pending_transaction_id")
-        @ExcludeMissing
-        fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
-            this.pendingTransactionId = pendingTransactionId
-        }
 
         /**
          * If your account requires approvals for transfers and the transfer was approved, this will
@@ -500,6 +389,70 @@ private constructor(
         }
 
         /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * transfer was created.
+         */
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * transfer was created.
+         */
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /**
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination account
+         * currency.
+         */
+        fun currency(currency: Currency) = currency(JsonField.of(currency))
+
+        /**
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination account
+         * currency.
+         */
+        @JsonProperty("currency")
+        @ExcludeMissing
+        fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+        /** The description that will show on the transactions. */
+        fun description(description: String) = description(JsonField.of(description))
+
+        /** The description that will show on the transactions. */
+        @JsonProperty("description")
+        @ExcludeMissing
+        fun description(description: JsonField<String>) = apply { this.description = description }
+
+        /** The destination account's identifier. */
+        fun destinationAccountId(destinationAccountId: String) =
+            destinationAccountId(JsonField.of(destinationAccountId))
+
+        /** The destination account's identifier. */
+        @JsonProperty("destination_account_id")
+        @ExcludeMissing
+        fun destinationAccountId(destinationAccountId: JsonField<String>) = apply {
+            this.destinationAccountId = destinationAccountId
+        }
+
+        /** The ID for the transaction receiving the transfer. */
+        fun destinationTransactionId(destinationTransactionId: String) =
+            destinationTransactionId(JsonField.of(destinationTransactionId))
+
+        /** The ID for the transaction receiving the transfer. */
+        @JsonProperty("destination_transaction_id")
+        @ExcludeMissing
+        fun destinationTransactionId(destinationTransactionId: JsonField<String>) = apply {
+            this.destinationTransactionId = destinationTransactionId
+        }
+
+        /** The account transfer's identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The account transfer's identifier. */
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /**
          * The idempotency key you chose for this object. This value is unique across Increase and
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
@@ -515,6 +468,53 @@ private constructor(
         @ExcludeMissing
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
+        }
+
+        /** The transfer's network. */
+        fun network(network: Network) = network(JsonField.of(network))
+
+        /** The transfer's network. */
+        @JsonProperty("network")
+        @ExcludeMissing
+        fun network(network: JsonField<Network>) = apply { this.network = network }
+
+        /**
+         * The ID for the pending transaction representing the transfer. A pending transaction is
+         * created when the transfer
+         * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+         * by someone else in your organization.
+         */
+        fun pendingTransactionId(pendingTransactionId: String) =
+            pendingTransactionId(JsonField.of(pendingTransactionId))
+
+        /**
+         * The ID for the pending transaction representing the transfer. A pending transaction is
+         * created when the transfer
+         * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+         * by someone else in your organization.
+         */
+        @JsonProperty("pending_transaction_id")
+        @ExcludeMissing
+        fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
+            this.pendingTransactionId = pendingTransactionId
+        }
+
+        /** The lifecycle status of the transfer. */
+        fun status(status: Status) = status(JsonField.of(status))
+
+        /** The lifecycle status of the transfer. */
+        @JsonProperty("status")
+        @ExcludeMissing
+        fun status(status: JsonField<Status>) = apply { this.status = status }
+
+        /** The ID for the transaction funding the transfer. */
+        fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
+
+        /** The ID for the transaction funding the transfer. */
+        @JsonProperty("transaction_id")
+        @ExcludeMissing
+        fun transactionId(transactionId: JsonField<String>) = apply {
+            this.transactionId = transactionId
         }
 
         /**
@@ -547,21 +547,21 @@ private constructor(
 
         fun build(): AccountTransfer =
             AccountTransfer(
-                id,
-                amount,
                 accountId,
-                currency,
-                destinationAccountId,
-                destinationTransactionId,
-                createdAt,
-                description,
-                network,
-                status,
-                transactionId,
-                pendingTransactionId,
+                amount,
                 approval,
                 cancellation,
+                createdAt,
+                currency,
+                description,
+                destinationAccountId,
+                destinationTransactionId,
+                id,
                 idempotencyKey,
+                network,
+                pendingTransactionId,
+                status,
+                transactionId,
                 type,
                 additionalProperties.toUnmodifiable(),
             )

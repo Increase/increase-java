@@ -24,27 +24,27 @@ import java.util.Optional
 @NoAutoDetect
 class InboundAchTransfer
 private constructor(
-    private val id: JsonField<String>,
-    private val amount: JsonField<Long>,
+    private val acceptance: JsonField<Acceptance>,
     private val accountId: JsonField<String>,
     private val accountNumberId: JsonField<String>,
+    private val addenda: JsonField<Addenda>,
+    private val amount: JsonField<Long>,
+    private val automaticallyResolvesAt: JsonField<OffsetDateTime>,
+    private val decline: JsonField<Decline>,
     private val direction: JsonField<Direction>,
-    private val status: JsonField<Status>,
-    private val originatorCompanyName: JsonField<String>,
+    private val id: JsonField<String>,
+    private val notificationOfChange: JsonField<NotificationOfChange>,
     private val originatorCompanyDescriptiveDate: JsonField<String>,
     private val originatorCompanyDiscretionaryData: JsonField<String>,
     private val originatorCompanyEntryDescription: JsonField<String>,
     private val originatorCompanyId: JsonField<String>,
+    private val originatorCompanyName: JsonField<String>,
     private val originatorRoutingNumber: JsonField<String>,
     private val receiverIdNumber: JsonField<String>,
     private val receiverName: JsonField<String>,
+    private val status: JsonField<Status>,
     private val traceNumber: JsonField<String>,
-    private val automaticallyResolvesAt: JsonField<OffsetDateTime>,
-    private val addenda: JsonField<Addenda>,
-    private val acceptance: JsonField<Acceptance>,
-    private val decline: JsonField<Decline>,
     private val transferReturn: JsonField<TransferReturn>,
-    private val notificationOfChange: JsonField<NotificationOfChange>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -53,11 +53,9 @@ private constructor(
 
     private var hashCode: Int = 0
 
-    /** The inbound ACH transfer's identifier. */
-    fun id(): String = id.getRequired("id")
-
-    /** The transfer amount in USD cents. */
-    fun amount(): Long = amount.getRequired("amount")
+    /** If your transfer is accepted, this will contain details of the acceptance. */
+    fun acceptance(): Optional<Acceptance> =
+        Optional.ofNullable(acceptance.getNullable("acceptance"))
 
     /** The Account to which the transfer belongs. */
     fun accountId(): String = accountId.getRequired("account_id")
@@ -65,15 +63,31 @@ private constructor(
     /** The identifier of the Account Number to which this transfer was sent. */
     fun accountNumberId(): String = accountNumberId.getRequired("account_number_id")
 
+    /** Additional information sent from the originator. */
+    fun addenda(): Optional<Addenda> = Optional.ofNullable(addenda.getNullable("addenda"))
+
+    /** The transfer amount in USD cents. */
+    fun amount(): Long = amount.getRequired("amount")
+
+    /** The time at which the transfer will be automatically resolved. */
+    fun automaticallyResolvesAt(): OffsetDateTime =
+        automaticallyResolvesAt.getRequired("automatically_resolves_at")
+
+    /** If your transfer is declined, this will contain details of the decline. */
+    fun decline(): Optional<Decline> = Optional.ofNullable(decline.getNullable("decline"))
+
     /** The direction of the transfer. */
     fun direction(): Direction = direction.getRequired("direction")
 
-    /** The status of the transfer. */
-    fun status(): Status = status.getRequired("status")
+    /** The inbound ACH transfer's identifier. */
+    fun id(): String = id.getRequired("id")
 
-    /** The name of the company that initiated the transfer. */
-    fun originatorCompanyName(): String =
-        originatorCompanyName.getRequired("originator_company_name")
+    /**
+     * If you initiate a notification of change in response to the transfer, this will contain its
+     * details.
+     */
+    fun notificationOfChange(): Optional<NotificationOfChange> =
+        Optional.ofNullable(notificationOfChange.getNullable("notification_of_change"))
 
     /** The descriptive date of the transfer. */
     fun originatorCompanyDescriptiveDate(): Optional<String> =
@@ -94,6 +108,10 @@ private constructor(
     /** The id of the company that initiated the transfer. */
     fun originatorCompanyId(): String = originatorCompanyId.getRequired("originator_company_id")
 
+    /** The name of the company that initiated the transfer. */
+    fun originatorCompanyName(): String =
+        originatorCompanyName.getRequired("originator_company_name")
+
     /**
      * The American Banking Association (ABA) routing number of the bank originating the transfer.
      */
@@ -108,33 +126,15 @@ private constructor(
     fun receiverName(): Optional<String> =
         Optional.ofNullable(receiverName.getNullable("receiver_name"))
 
+    /** The status of the transfer. */
+    fun status(): Status = status.getRequired("status")
+
     /** The trace number of the transfer. */
     fun traceNumber(): String = traceNumber.getRequired("trace_number")
-
-    /** The time at which the transfer will be automatically resolved. */
-    fun automaticallyResolvesAt(): OffsetDateTime =
-        automaticallyResolvesAt.getRequired("automatically_resolves_at")
-
-    /** Additional information sent from the originator. */
-    fun addenda(): Optional<Addenda> = Optional.ofNullable(addenda.getNullable("addenda"))
-
-    /** If your transfer is accepted, this will contain details of the acceptance. */
-    fun acceptance(): Optional<Acceptance> =
-        Optional.ofNullable(acceptance.getNullable("acceptance"))
-
-    /** If your transfer is declined, this will contain details of the decline. */
-    fun decline(): Optional<Decline> = Optional.ofNullable(decline.getNullable("decline"))
 
     /** If your transfer is returned, this will contain details of the return. */
     fun transferReturn(): Optional<TransferReturn> =
         Optional.ofNullable(transferReturn.getNullable("transfer_return"))
-
-    /**
-     * If you initiate a notification of change in response to the transfer, this will contain its
-     * details.
-     */
-    fun notificationOfChange(): Optional<NotificationOfChange> =
-        Optional.ofNullable(notificationOfChange.getNullable("notification_of_change"))
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -142,11 +142,8 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The inbound ACH transfer's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
-    /** The transfer amount in USD cents. */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+    /** If your transfer is accepted, this will contain details of the acceptance. */
+    @JsonProperty("acceptance") @ExcludeMissing fun _acceptance() = acceptance
 
     /** The Account to which the transfer belongs. */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
@@ -154,16 +151,33 @@ private constructor(
     /** The identifier of the Account Number to which this transfer was sent. */
     @JsonProperty("account_number_id") @ExcludeMissing fun _accountNumberId() = accountNumberId
 
+    /** Additional information sent from the originator. */
+    @JsonProperty("addenda") @ExcludeMissing fun _addenda() = addenda
+
+    /** The transfer amount in USD cents. */
+    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+    /** The time at which the transfer will be automatically resolved. */
+    @JsonProperty("automatically_resolves_at")
+    @ExcludeMissing
+    fun _automaticallyResolvesAt() = automaticallyResolvesAt
+
+    /** If your transfer is declined, this will contain details of the decline. */
+    @JsonProperty("decline") @ExcludeMissing fun _decline() = decline
+
     /** The direction of the transfer. */
     @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
 
-    /** The status of the transfer. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    /** The inbound ACH transfer's identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
-    /** The name of the company that initiated the transfer. */
-    @JsonProperty("originator_company_name")
+    /**
+     * If you initiate a notification of change in response to the transfer, this will contain its
+     * details.
+     */
+    @JsonProperty("notification_of_change")
     @ExcludeMissing
-    fun _originatorCompanyName() = originatorCompanyName
+    fun _notificationOfChange() = notificationOfChange
 
     /** The descriptive date of the transfer. */
     @JsonProperty("originator_company_descriptive_date")
@@ -185,6 +199,11 @@ private constructor(
     @ExcludeMissing
     fun _originatorCompanyId() = originatorCompanyId
 
+    /** The name of the company that initiated the transfer. */
+    @JsonProperty("originator_company_name")
+    @ExcludeMissing
+    fun _originatorCompanyName() = originatorCompanyName
+
     /**
      * The American Banking Association (ABA) routing number of the bank originating the transfer.
      */
@@ -198,33 +217,14 @@ private constructor(
     /** The name of the receiver of the transfer. */
     @JsonProperty("receiver_name") @ExcludeMissing fun _receiverName() = receiverName
 
+    /** The status of the transfer. */
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
+
     /** The trace number of the transfer. */
     @JsonProperty("trace_number") @ExcludeMissing fun _traceNumber() = traceNumber
 
-    /** The time at which the transfer will be automatically resolved. */
-    @JsonProperty("automatically_resolves_at")
-    @ExcludeMissing
-    fun _automaticallyResolvesAt() = automaticallyResolvesAt
-
-    /** Additional information sent from the originator. */
-    @JsonProperty("addenda") @ExcludeMissing fun _addenda() = addenda
-
-    /** If your transfer is accepted, this will contain details of the acceptance. */
-    @JsonProperty("acceptance") @ExcludeMissing fun _acceptance() = acceptance
-
-    /** If your transfer is declined, this will contain details of the decline. */
-    @JsonProperty("decline") @ExcludeMissing fun _decline() = decline
-
     /** If your transfer is returned, this will contain details of the return. */
     @JsonProperty("transfer_return") @ExcludeMissing fun _transferReturn() = transferReturn
-
-    /**
-     * If you initiate a notification of change in response to the transfer, this will contain its
-     * details.
-     */
-    @JsonProperty("notification_of_change")
-    @ExcludeMissing
-    fun _notificationOfChange() = notificationOfChange
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -238,27 +238,27 @@ private constructor(
 
     fun validate(): InboundAchTransfer = apply {
         if (!validated) {
-            id()
-            amount()
+            acceptance().map { it.validate() }
             accountId()
             accountNumberId()
+            addenda().map { it.validate() }
+            amount()
+            automaticallyResolvesAt()
+            decline().map { it.validate() }
             direction()
-            status()
-            originatorCompanyName()
+            id()
+            notificationOfChange().map { it.validate() }
             originatorCompanyDescriptiveDate()
             originatorCompanyDiscretionaryData()
             originatorCompanyEntryDescription()
             originatorCompanyId()
+            originatorCompanyName()
             originatorRoutingNumber()
             receiverIdNumber()
             receiverName()
+            status()
             traceNumber()
-            automaticallyResolvesAt()
-            addenda().map { it.validate() }
-            acceptance().map { it.validate() }
-            decline().map { it.validate() }
             transferReturn().map { it.validate() }
-            notificationOfChange().map { it.validate() }
             type()
             validated = true
         }
@@ -272,27 +272,27 @@ private constructor(
         }
 
         return other is InboundAchTransfer &&
-            this.id == other.id &&
-            this.amount == other.amount &&
+            this.acceptance == other.acceptance &&
             this.accountId == other.accountId &&
             this.accountNumberId == other.accountNumberId &&
+            this.addenda == other.addenda &&
+            this.amount == other.amount &&
+            this.automaticallyResolvesAt == other.automaticallyResolvesAt &&
+            this.decline == other.decline &&
             this.direction == other.direction &&
-            this.status == other.status &&
-            this.originatorCompanyName == other.originatorCompanyName &&
+            this.id == other.id &&
+            this.notificationOfChange == other.notificationOfChange &&
             this.originatorCompanyDescriptiveDate == other.originatorCompanyDescriptiveDate &&
             this.originatorCompanyDiscretionaryData == other.originatorCompanyDiscretionaryData &&
             this.originatorCompanyEntryDescription == other.originatorCompanyEntryDescription &&
             this.originatorCompanyId == other.originatorCompanyId &&
+            this.originatorCompanyName == other.originatorCompanyName &&
             this.originatorRoutingNumber == other.originatorRoutingNumber &&
             this.receiverIdNumber == other.receiverIdNumber &&
             this.receiverName == other.receiverName &&
+            this.status == other.status &&
             this.traceNumber == other.traceNumber &&
-            this.automaticallyResolvesAt == other.automaticallyResolvesAt &&
-            this.addenda == other.addenda &&
-            this.acceptance == other.acceptance &&
-            this.decline == other.decline &&
             this.transferReturn == other.transferReturn &&
-            this.notificationOfChange == other.notificationOfChange &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -301,27 +301,27 @@ private constructor(
         if (hashCode == 0) {
             hashCode =
                 Objects.hash(
-                    id,
-                    amount,
+                    acceptance,
                     accountId,
                     accountNumberId,
+                    addenda,
+                    amount,
+                    automaticallyResolvesAt,
+                    decline,
                     direction,
-                    status,
-                    originatorCompanyName,
+                    id,
+                    notificationOfChange,
                     originatorCompanyDescriptiveDate,
                     originatorCompanyDiscretionaryData,
                     originatorCompanyEntryDescription,
                     originatorCompanyId,
+                    originatorCompanyName,
                     originatorRoutingNumber,
                     receiverIdNumber,
                     receiverName,
+                    status,
                     traceNumber,
-                    automaticallyResolvesAt,
-                    addenda,
-                    acceptance,
-                    decline,
                     transferReturn,
-                    notificationOfChange,
                     type,
                     additionalProperties,
                 )
@@ -330,7 +330,7 @@ private constructor(
     }
 
     override fun toString() =
-        "InboundAchTransfer{id=$id, amount=$amount, accountId=$accountId, accountNumberId=$accountNumberId, direction=$direction, status=$status, originatorCompanyName=$originatorCompanyName, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, originatorRoutingNumber=$originatorRoutingNumber, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, traceNumber=$traceNumber, automaticallyResolvesAt=$automaticallyResolvesAt, addenda=$addenda, acceptance=$acceptance, decline=$decline, transferReturn=$transferReturn, notificationOfChange=$notificationOfChange, type=$type, additionalProperties=$additionalProperties}"
+        "InboundAchTransfer{acceptance=$acceptance, accountId=$accountId, accountNumberId=$accountNumberId, addenda=$addenda, amount=$amount, automaticallyResolvesAt=$automaticallyResolvesAt, decline=$decline, direction=$direction, id=$id, notificationOfChange=$notificationOfChange, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, originatorCompanyName=$originatorCompanyName, originatorRoutingNumber=$originatorRoutingNumber, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, status=$status, traceNumber=$traceNumber, transferReturn=$transferReturn, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -339,39 +339,42 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var amount: JsonField<Long> = JsonMissing.of()
+        private var acceptance: JsonField<Acceptance> = JsonMissing.of()
         private var accountId: JsonField<String> = JsonMissing.of()
         private var accountNumberId: JsonField<String> = JsonMissing.of()
+        private var addenda: JsonField<Addenda> = JsonMissing.of()
+        private var amount: JsonField<Long> = JsonMissing.of()
+        private var automaticallyResolvesAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var decline: JsonField<Decline> = JsonMissing.of()
         private var direction: JsonField<Direction> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var originatorCompanyName: JsonField<String> = JsonMissing.of()
+        private var id: JsonField<String> = JsonMissing.of()
+        private var notificationOfChange: JsonField<NotificationOfChange> = JsonMissing.of()
         private var originatorCompanyDescriptiveDate: JsonField<String> = JsonMissing.of()
         private var originatorCompanyDiscretionaryData: JsonField<String> = JsonMissing.of()
         private var originatorCompanyEntryDescription: JsonField<String> = JsonMissing.of()
         private var originatorCompanyId: JsonField<String> = JsonMissing.of()
+        private var originatorCompanyName: JsonField<String> = JsonMissing.of()
         private var originatorRoutingNumber: JsonField<String> = JsonMissing.of()
         private var receiverIdNumber: JsonField<String> = JsonMissing.of()
         private var receiverName: JsonField<String> = JsonMissing.of()
+        private var status: JsonField<Status> = JsonMissing.of()
         private var traceNumber: JsonField<String> = JsonMissing.of()
-        private var automaticallyResolvesAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var addenda: JsonField<Addenda> = JsonMissing.of()
-        private var acceptance: JsonField<Acceptance> = JsonMissing.of()
-        private var decline: JsonField<Decline> = JsonMissing.of()
         private var transferReturn: JsonField<TransferReturn> = JsonMissing.of()
-        private var notificationOfChange: JsonField<NotificationOfChange> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(inboundAchTransfer: InboundAchTransfer) = apply {
-            this.id = inboundAchTransfer.id
-            this.amount = inboundAchTransfer.amount
+            this.acceptance = inboundAchTransfer.acceptance
             this.accountId = inboundAchTransfer.accountId
             this.accountNumberId = inboundAchTransfer.accountNumberId
+            this.addenda = inboundAchTransfer.addenda
+            this.amount = inboundAchTransfer.amount
+            this.automaticallyResolvesAt = inboundAchTransfer.automaticallyResolvesAt
+            this.decline = inboundAchTransfer.decline
             this.direction = inboundAchTransfer.direction
-            this.status = inboundAchTransfer.status
-            this.originatorCompanyName = inboundAchTransfer.originatorCompanyName
+            this.id = inboundAchTransfer.id
+            this.notificationOfChange = inboundAchTransfer.notificationOfChange
             this.originatorCompanyDescriptiveDate =
                 inboundAchTransfer.originatorCompanyDescriptiveDate
             this.originatorCompanyDiscretionaryData =
@@ -379,33 +382,24 @@ private constructor(
             this.originatorCompanyEntryDescription =
                 inboundAchTransfer.originatorCompanyEntryDescription
             this.originatorCompanyId = inboundAchTransfer.originatorCompanyId
+            this.originatorCompanyName = inboundAchTransfer.originatorCompanyName
             this.originatorRoutingNumber = inboundAchTransfer.originatorRoutingNumber
             this.receiverIdNumber = inboundAchTransfer.receiverIdNumber
             this.receiverName = inboundAchTransfer.receiverName
+            this.status = inboundAchTransfer.status
             this.traceNumber = inboundAchTransfer.traceNumber
-            this.automaticallyResolvesAt = inboundAchTransfer.automaticallyResolvesAt
-            this.addenda = inboundAchTransfer.addenda
-            this.acceptance = inboundAchTransfer.acceptance
-            this.decline = inboundAchTransfer.decline
             this.transferReturn = inboundAchTransfer.transferReturn
-            this.notificationOfChange = inboundAchTransfer.notificationOfChange
             this.type = inboundAchTransfer.type
             additionalProperties(inboundAchTransfer.additionalProperties)
         }
 
-        /** The inbound ACH transfer's identifier. */
-        fun id(id: String) = id(JsonField.of(id))
+        /** If your transfer is accepted, this will contain details of the acceptance. */
+        fun acceptance(acceptance: Acceptance) = acceptance(JsonField.of(acceptance))
 
-        /** The inbound ACH transfer's identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
-
-        /** The transfer amount in USD cents. */
-        fun amount(amount: Long) = amount(JsonField.of(amount))
-
-        /** The transfer amount in USD cents. */
-        @JsonProperty("amount")
+        /** If your transfer is accepted, this will contain details of the acceptance. */
+        @JsonProperty("acceptance")
         @ExcludeMissing
-        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+        fun acceptance(acceptance: JsonField<Acceptance>) = apply { this.acceptance = acceptance }
 
         /** The Account to which the transfer belongs. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
@@ -426,6 +420,41 @@ private constructor(
             this.accountNumberId = accountNumberId
         }
 
+        /** Additional information sent from the originator. */
+        fun addenda(addenda: Addenda) = addenda(JsonField.of(addenda))
+
+        /** Additional information sent from the originator. */
+        @JsonProperty("addenda")
+        @ExcludeMissing
+        fun addenda(addenda: JsonField<Addenda>) = apply { this.addenda = addenda }
+
+        /** The transfer amount in USD cents. */
+        fun amount(amount: Long) = amount(JsonField.of(amount))
+
+        /** The transfer amount in USD cents. */
+        @JsonProperty("amount")
+        @ExcludeMissing
+        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+        /** The time at which the transfer will be automatically resolved. */
+        fun automaticallyResolvesAt(automaticallyResolvesAt: OffsetDateTime) =
+            automaticallyResolvesAt(JsonField.of(automaticallyResolvesAt))
+
+        /** The time at which the transfer will be automatically resolved. */
+        @JsonProperty("automatically_resolves_at")
+        @ExcludeMissing
+        fun automaticallyResolvesAt(automaticallyResolvesAt: JsonField<OffsetDateTime>) = apply {
+            this.automaticallyResolvesAt = automaticallyResolvesAt
+        }
+
+        /** If your transfer is declined, this will contain details of the decline. */
+        fun decline(decline: Decline) = decline(JsonField.of(decline))
+
+        /** If your transfer is declined, this will contain details of the decline. */
+        @JsonProperty("decline")
+        @ExcludeMissing
+        fun decline(decline: JsonField<Decline>) = apply { this.decline = decline }
+
         /** The direction of the transfer. */
         fun direction(direction: Direction) = direction(JsonField.of(direction))
 
@@ -434,23 +463,27 @@ private constructor(
         @ExcludeMissing
         fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
 
-        /** The status of the transfer. */
-        fun status(status: Status) = status(JsonField.of(status))
+        /** The inbound ACH transfer's identifier. */
+        fun id(id: String) = id(JsonField.of(id))
 
-        /** The status of the transfer. */
-        @JsonProperty("status")
+        /** The inbound ACH transfer's identifier. */
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /**
+         * If you initiate a notification of change in response to the transfer, this will contain
+         * its details.
+         */
+        fun notificationOfChange(notificationOfChange: NotificationOfChange) =
+            notificationOfChange(JsonField.of(notificationOfChange))
+
+        /**
+         * If you initiate a notification of change in response to the transfer, this will contain
+         * its details.
+         */
+        @JsonProperty("notification_of_change")
         @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply { this.status = status }
-
-        /** The name of the company that initiated the transfer. */
-        fun originatorCompanyName(originatorCompanyName: String) =
-            originatorCompanyName(JsonField.of(originatorCompanyName))
-
-        /** The name of the company that initiated the transfer. */
-        @JsonProperty("originator_company_name")
-        @ExcludeMissing
-        fun originatorCompanyName(originatorCompanyName: JsonField<String>) = apply {
-            this.originatorCompanyName = originatorCompanyName
+        fun notificationOfChange(notificationOfChange: JsonField<NotificationOfChange>) = apply {
+            this.notificationOfChange = notificationOfChange
         }
 
         /** The descriptive date of the transfer. */
@@ -498,6 +531,17 @@ private constructor(
             this.originatorCompanyId = originatorCompanyId
         }
 
+        /** The name of the company that initiated the transfer. */
+        fun originatorCompanyName(originatorCompanyName: String) =
+            originatorCompanyName(JsonField.of(originatorCompanyName))
+
+        /** The name of the company that initiated the transfer. */
+        @JsonProperty("originator_company_name")
+        @ExcludeMissing
+        fun originatorCompanyName(originatorCompanyName: JsonField<String>) = apply {
+            this.originatorCompanyName = originatorCompanyName
+        }
+
         /**
          * The American Banking Association (ABA) routing number of the bank originating the
          * transfer.
@@ -536,6 +580,14 @@ private constructor(
             this.receiverName = receiverName
         }
 
+        /** The status of the transfer. */
+        fun status(status: Status) = status(JsonField.of(status))
+
+        /** The status of the transfer. */
+        @JsonProperty("status")
+        @ExcludeMissing
+        fun status(status: JsonField<Status>) = apply { this.status = status }
+
         /** The trace number of the transfer. */
         fun traceNumber(traceNumber: String) = traceNumber(JsonField.of(traceNumber))
 
@@ -543,41 +595,6 @@ private constructor(
         @JsonProperty("trace_number")
         @ExcludeMissing
         fun traceNumber(traceNumber: JsonField<String>) = apply { this.traceNumber = traceNumber }
-
-        /** The time at which the transfer will be automatically resolved. */
-        fun automaticallyResolvesAt(automaticallyResolvesAt: OffsetDateTime) =
-            automaticallyResolvesAt(JsonField.of(automaticallyResolvesAt))
-
-        /** The time at which the transfer will be automatically resolved. */
-        @JsonProperty("automatically_resolves_at")
-        @ExcludeMissing
-        fun automaticallyResolvesAt(automaticallyResolvesAt: JsonField<OffsetDateTime>) = apply {
-            this.automaticallyResolvesAt = automaticallyResolvesAt
-        }
-
-        /** Additional information sent from the originator. */
-        fun addenda(addenda: Addenda) = addenda(JsonField.of(addenda))
-
-        /** Additional information sent from the originator. */
-        @JsonProperty("addenda")
-        @ExcludeMissing
-        fun addenda(addenda: JsonField<Addenda>) = apply { this.addenda = addenda }
-
-        /** If your transfer is accepted, this will contain details of the acceptance. */
-        fun acceptance(acceptance: Acceptance) = acceptance(JsonField.of(acceptance))
-
-        /** If your transfer is accepted, this will contain details of the acceptance. */
-        @JsonProperty("acceptance")
-        @ExcludeMissing
-        fun acceptance(acceptance: JsonField<Acceptance>) = apply { this.acceptance = acceptance }
-
-        /** If your transfer is declined, this will contain details of the decline. */
-        fun decline(decline: Decline) = decline(JsonField.of(decline))
-
-        /** If your transfer is declined, this will contain details of the decline. */
-        @JsonProperty("decline")
-        @ExcludeMissing
-        fun decline(decline: JsonField<Decline>) = apply { this.decline = decline }
 
         /** If your transfer is returned, this will contain details of the return. */
         fun transferReturn(transferReturn: TransferReturn) =
@@ -588,23 +605,6 @@ private constructor(
         @ExcludeMissing
         fun transferReturn(transferReturn: JsonField<TransferReturn>) = apply {
             this.transferReturn = transferReturn
-        }
-
-        /**
-         * If you initiate a notification of change in response to the transfer, this will contain
-         * its details.
-         */
-        fun notificationOfChange(notificationOfChange: NotificationOfChange) =
-            notificationOfChange(JsonField.of(notificationOfChange))
-
-        /**
-         * If you initiate a notification of change in response to the transfer, this will contain
-         * its details.
-         */
-        @JsonProperty("notification_of_change")
-        @ExcludeMissing
-        fun notificationOfChange(notificationOfChange: JsonField<NotificationOfChange>) = apply {
-            this.notificationOfChange = notificationOfChange
         }
 
         /**
@@ -637,27 +637,27 @@ private constructor(
 
         fun build(): InboundAchTransfer =
             InboundAchTransfer(
-                id,
-                amount,
+                acceptance,
                 accountId,
                 accountNumberId,
+                addenda,
+                amount,
+                automaticallyResolvesAt,
+                decline,
                 direction,
-                status,
-                originatorCompanyName,
+                id,
+                notificationOfChange,
                 originatorCompanyDescriptiveDate,
                 originatorCompanyDiscretionaryData,
                 originatorCompanyEntryDescription,
                 originatorCompanyId,
+                originatorCompanyName,
                 originatorRoutingNumber,
                 receiverIdNumber,
                 receiverName,
+                status,
                 traceNumber,
-                automaticallyResolvesAt,
-                addenda,
-                acceptance,
-                decline,
                 transferReturn,
-                notificationOfChange,
                 type,
                 additionalProperties.toUnmodifiable(),
             )
@@ -1170,18 +1170,15 @@ private constructor(
     @NoAutoDetect
     class Decline
     private constructor(
-        private val reason: JsonField<Reason>,
         private val declinedAt: JsonField<OffsetDateTime>,
         private val declinedTransactionId: JsonField<String>,
+        private val reason: JsonField<Reason>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
-
-        /** The reason for the transfer decline. */
-        fun reason(): Reason = reason.getRequired("reason")
 
         /** The time at which the transfer was declined. */
         fun declinedAt(): OffsetDateTime = declinedAt.getRequired("declined_at")
@@ -1191,7 +1188,7 @@ private constructor(
             declinedTransactionId.getRequired("declined_transaction_id")
 
         /** The reason for the transfer decline. */
-        @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
+        fun reason(): Reason = reason.getRequired("reason")
 
         /** The time at which the transfer was declined. */
         @JsonProperty("declined_at") @ExcludeMissing fun _declinedAt() = declinedAt
@@ -1201,15 +1198,18 @@ private constructor(
         @ExcludeMissing
         fun _declinedTransactionId() = declinedTransactionId
 
+        /** The reason for the transfer decline. */
+        @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun validate(): Decline = apply {
             if (!validated) {
-                reason()
                 declinedAt()
                 declinedTransactionId()
+                reason()
                 validated = true
             }
         }
@@ -1222,9 +1222,9 @@ private constructor(
             }
 
             return other is Decline &&
-                this.reason == other.reason &&
                 this.declinedAt == other.declinedAt &&
                 this.declinedTransactionId == other.declinedTransactionId &&
+                this.reason == other.reason &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -1232,9 +1232,9 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        reason,
                         declinedAt,
                         declinedTransactionId,
+                        reason,
                         additionalProperties,
                     )
             }
@@ -1242,7 +1242,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Decline{reason=$reason, declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, additionalProperties=$additionalProperties}"
+            "Decline{declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, reason=$reason, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1251,26 +1251,18 @@ private constructor(
 
         class Builder {
 
-            private var reason: JsonField<Reason> = JsonMissing.of()
             private var declinedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var declinedTransactionId: JsonField<String> = JsonMissing.of()
+            private var reason: JsonField<Reason> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(decline: Decline) = apply {
-                this.reason = decline.reason
                 this.declinedAt = decline.declinedAt
                 this.declinedTransactionId = decline.declinedTransactionId
+                this.reason = decline.reason
                 additionalProperties(decline.additionalProperties)
             }
-
-            /** The reason for the transfer decline. */
-            fun reason(reason: Reason) = reason(JsonField.of(reason))
-
-            /** The reason for the transfer decline. */
-            @JsonProperty("reason")
-            @ExcludeMissing
-            fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
             /** The time at which the transfer was declined. */
             fun declinedAt(declinedAt: OffsetDateTime) = declinedAt(JsonField.of(declinedAt))
@@ -1293,6 +1285,14 @@ private constructor(
                 this.declinedTransactionId = declinedTransactionId
             }
 
+            /** The reason for the transfer decline. */
+            fun reason(reason: Reason) = reason(JsonField.of(reason))
+
+            /** The reason for the transfer decline. */
+            @JsonProperty("reason")
+            @ExcludeMissing
+            fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -1309,9 +1309,9 @@ private constructor(
 
             fun build(): Decline =
                 Decline(
-                    reason,
                     declinedAt,
                     declinedTransactionId,
+                    reason,
                     additionalProperties.toUnmodifiable(),
                 )
         }

@@ -23,8 +23,8 @@ import java.util.Objects
 class BalanceLookup
 private constructor(
     private val accountId: JsonField<String>,
-    private val currentBalance: JsonField<Long>,
     private val availableBalance: JsonField<Long>,
+    private val currentBalance: JsonField<Long>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -37,16 +37,16 @@ private constructor(
     fun accountId(): String = accountId.getRequired("account_id")
 
     /**
-     * The Account's current balance, representing the sum of all posted Transactions on the
-     * Account.
-     */
-    fun currentBalance(): Long = currentBalance.getRequired("current_balance")
-
-    /**
      * The Account's available balance, representing the current balance less any open Pending
      * Transactions on the Account.
      */
     fun availableBalance(): Long = availableBalance.getRequired("available_balance")
+
+    /**
+     * The Account's current balance, representing the sum of all posted Transactions on the
+     * Account.
+     */
+    fun currentBalance(): Long = currentBalance.getRequired("current_balance")
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -58,16 +58,16 @@ private constructor(
     @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
 
     /**
-     * The Account's current balance, representing the sum of all posted Transactions on the
-     * Account.
-     */
-    @JsonProperty("current_balance") @ExcludeMissing fun _currentBalance() = currentBalance
-
-    /**
      * The Account's available balance, representing the current balance less any open Pending
      * Transactions on the Account.
      */
     @JsonProperty("available_balance") @ExcludeMissing fun _availableBalance() = availableBalance
+
+    /**
+     * The Account's current balance, representing the sum of all posted Transactions on the
+     * Account.
+     */
+    @JsonProperty("current_balance") @ExcludeMissing fun _currentBalance() = currentBalance
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -82,8 +82,8 @@ private constructor(
     fun validate(): BalanceLookup = apply {
         if (!validated) {
             accountId()
-            currentBalance()
             availableBalance()
+            currentBalance()
             type()
             validated = true
         }
@@ -98,8 +98,8 @@ private constructor(
 
         return other is BalanceLookup &&
             this.accountId == other.accountId &&
-            this.currentBalance == other.currentBalance &&
             this.availableBalance == other.availableBalance &&
+            this.currentBalance == other.currentBalance &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -109,8 +109,8 @@ private constructor(
             hashCode =
                 Objects.hash(
                     accountId,
-                    currentBalance,
                     availableBalance,
+                    currentBalance,
                     type,
                     additionalProperties,
                 )
@@ -119,7 +119,7 @@ private constructor(
     }
 
     override fun toString() =
-        "BalanceLookup{accountId=$accountId, currentBalance=$currentBalance, availableBalance=$availableBalance, type=$type, additionalProperties=$additionalProperties}"
+        "BalanceLookup{accountId=$accountId, availableBalance=$availableBalance, currentBalance=$currentBalance, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -129,16 +129,16 @@ private constructor(
     class Builder {
 
         private var accountId: JsonField<String> = JsonMissing.of()
-        private var currentBalance: JsonField<Long> = JsonMissing.of()
         private var availableBalance: JsonField<Long> = JsonMissing.of()
+        private var currentBalance: JsonField<Long> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(balanceLookup: BalanceLookup) = apply {
             this.accountId = balanceLookup.accountId
-            this.currentBalance = balanceLookup.currentBalance
             this.availableBalance = balanceLookup.availableBalance
+            this.currentBalance = balanceLookup.currentBalance
             this.type = balanceLookup.type
             additionalProperties(balanceLookup.additionalProperties)
         }
@@ -150,22 +150,6 @@ private constructor(
         @JsonProperty("account_id")
         @ExcludeMissing
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
-
-        /**
-         * The Account's current balance, representing the sum of all posted Transactions on the
-         * Account.
-         */
-        fun currentBalance(currentBalance: Long) = currentBalance(JsonField.of(currentBalance))
-
-        /**
-         * The Account's current balance, representing the sum of all posted Transactions on the
-         * Account.
-         */
-        @JsonProperty("current_balance")
-        @ExcludeMissing
-        fun currentBalance(currentBalance: JsonField<Long>) = apply {
-            this.currentBalance = currentBalance
-        }
 
         /**
          * The Account's available balance, representing the current balance less any open Pending
@@ -182,6 +166,22 @@ private constructor(
         @ExcludeMissing
         fun availableBalance(availableBalance: JsonField<Long>) = apply {
             this.availableBalance = availableBalance
+        }
+
+        /**
+         * The Account's current balance, representing the sum of all posted Transactions on the
+         * Account.
+         */
+        fun currentBalance(currentBalance: Long) = currentBalance(JsonField.of(currentBalance))
+
+        /**
+         * The Account's current balance, representing the sum of all posted Transactions on the
+         * Account.
+         */
+        @JsonProperty("current_balance")
+        @ExcludeMissing
+        fun currentBalance(currentBalance: JsonField<Long>) = apply {
+            this.currentBalance = currentBalance
         }
 
         /**
@@ -215,8 +215,8 @@ private constructor(
         fun build(): BalanceLookup =
             BalanceLookup(
                 accountId,
-                currentBalance,
                 availableBalance,
+                currentBalance,
                 type,
                 additionalProperties.toUnmodifiable(),
             )

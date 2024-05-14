@@ -23,12 +23,12 @@ import java.util.Objects
 @NoAutoDetect
 class ProofOfAuthorizationRequest
 private constructor(
-    private val id: JsonField<String>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val updatedAt: JsonField<OffsetDateTime>,
-    private val dueOn: JsonField<OffsetDateTime>,
     private val achTransfers: JsonField<List<AchTransfer>>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val dueOn: JsonField<OffsetDateTime>,
+    private val id: JsonField<String>,
     private val type: JsonField<Type>,
+    private val updatedAt: JsonField<OffsetDateTime>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -36,20 +36,17 @@ private constructor(
 
     private var hashCode: Int = 0
 
-    /** The Proof of Authorization Request identifier. */
-    fun id(): String = id.getRequired("id")
+    /** The ACH Transfers associated with the request. */
+    fun achTransfers(): List<AchTransfer> = achTransfers.getRequired("ach_transfers")
 
     /** The time the Proof of Authorization Request was created. */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** The time the Proof of Authorization Request was last updated. */
-    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
-
     /** The time the Proof of Authorization Request is due. */
     fun dueOn(): OffsetDateTime = dueOn.getRequired("due_on")
 
-    /** The ACH Transfers associated with the request. */
-    fun achTransfers(): List<AchTransfer> = achTransfers.getRequired("ach_transfers")
+    /** The Proof of Authorization Request identifier. */
+    fun id(): String = id.getRequired("id")
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -57,20 +54,20 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The Proof of Authorization Request identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    /** The time the Proof of Authorization Request was last updated. */
+    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
+
+    /** The ACH Transfers associated with the request. */
+    @JsonProperty("ach_transfers") @ExcludeMissing fun _achTransfers() = achTransfers
 
     /** The time the Proof of Authorization Request was created. */
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
-    /** The time the Proof of Authorization Request was last updated. */
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
-
     /** The time the Proof of Authorization Request is due. */
     @JsonProperty("due_on") @ExcludeMissing fun _dueOn() = dueOn
 
-    /** The ACH Transfers associated with the request. */
-    @JsonProperty("ach_transfers") @ExcludeMissing fun _achTransfers() = achTransfers
+    /** The Proof of Authorization Request identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -78,18 +75,21 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type() = type
 
+    /** The time the Proof of Authorization Request was last updated. */
+    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+
     @JsonAnyGetter
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
     fun validate(): ProofOfAuthorizationRequest = apply {
         if (!validated) {
-            id()
-            createdAt()
-            updatedAt()
-            dueOn()
             achTransfers().forEach { it.validate() }
+            createdAt()
+            dueOn()
+            id()
             type()
+            updatedAt()
             validated = true
         }
     }
@@ -102,12 +102,12 @@ private constructor(
         }
 
         return other is ProofOfAuthorizationRequest &&
-            this.id == other.id &&
-            this.createdAt == other.createdAt &&
-            this.updatedAt == other.updatedAt &&
-            this.dueOn == other.dueOn &&
             this.achTransfers == other.achTransfers &&
+            this.createdAt == other.createdAt &&
+            this.dueOn == other.dueOn &&
+            this.id == other.id &&
             this.type == other.type &&
+            this.updatedAt == other.updatedAt &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -115,12 +115,12 @@ private constructor(
         if (hashCode == 0) {
             hashCode =
                 Objects.hash(
-                    id,
-                    createdAt,
-                    updatedAt,
-                    dueOn,
                     achTransfers,
+                    createdAt,
+                    dueOn,
+                    id,
                     type,
+                    updatedAt,
                     additionalProperties,
                 )
         }
@@ -128,7 +128,7 @@ private constructor(
     }
 
     override fun toString() =
-        "ProofOfAuthorizationRequest{id=$id, createdAt=$createdAt, updatedAt=$updatedAt, dueOn=$dueOn, achTransfers=$achTransfers, type=$type, additionalProperties=$additionalProperties}"
+        "ProofOfAuthorizationRequest{achTransfers=$achTransfers, createdAt=$createdAt, dueOn=$dueOn, id=$id, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -137,54 +137,24 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var dueOn: JsonField<OffsetDateTime> = JsonMissing.of()
         private var achTransfers: JsonField<List<AchTransfer>> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var dueOn: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var id: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
+        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(proofOfAuthorizationRequest: ProofOfAuthorizationRequest) = apply {
-            this.id = proofOfAuthorizationRequest.id
-            this.createdAt = proofOfAuthorizationRequest.createdAt
-            this.updatedAt = proofOfAuthorizationRequest.updatedAt
-            this.dueOn = proofOfAuthorizationRequest.dueOn
             this.achTransfers = proofOfAuthorizationRequest.achTransfers
+            this.createdAt = proofOfAuthorizationRequest.createdAt
+            this.dueOn = proofOfAuthorizationRequest.dueOn
+            this.id = proofOfAuthorizationRequest.id
             this.type = proofOfAuthorizationRequest.type
+            this.updatedAt = proofOfAuthorizationRequest.updatedAt
             additionalProperties(proofOfAuthorizationRequest.additionalProperties)
         }
-
-        /** The Proof of Authorization Request identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Proof of Authorization Request identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
-
-        /** The time the Proof of Authorization Request was created. */
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-        /** The time the Proof of Authorization Request was created. */
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
-        /** The time the Proof of Authorization Request was last updated. */
-        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
-
-        /** The time the Proof of Authorization Request was last updated. */
-        @JsonProperty("updated_at")
-        @ExcludeMissing
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
-
-        /** The time the Proof of Authorization Request is due. */
-        fun dueOn(dueOn: OffsetDateTime) = dueOn(JsonField.of(dueOn))
-
-        /** The time the Proof of Authorization Request is due. */
-        @JsonProperty("due_on")
-        @ExcludeMissing
-        fun dueOn(dueOn: JsonField<OffsetDateTime>) = apply { this.dueOn = dueOn }
 
         /** The ACH Transfers associated with the request. */
         fun achTransfers(achTransfers: List<AchTransfer>) = achTransfers(JsonField.of(achTransfers))
@@ -195,6 +165,28 @@ private constructor(
         fun achTransfers(achTransfers: JsonField<List<AchTransfer>>) = apply {
             this.achTransfers = achTransfers
         }
+
+        /** The time the Proof of Authorization Request was created. */
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        /** The time the Proof of Authorization Request was created. */
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /** The time the Proof of Authorization Request is due. */
+        fun dueOn(dueOn: OffsetDateTime) = dueOn(JsonField.of(dueOn))
+
+        /** The time the Proof of Authorization Request is due. */
+        @JsonProperty("due_on")
+        @ExcludeMissing
+        fun dueOn(dueOn: JsonField<OffsetDateTime>) = apply { this.dueOn = dueOn }
+
+        /** The Proof of Authorization Request identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Proof of Authorization Request identifier. */
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -209,6 +201,14 @@ private constructor(
         @JsonProperty("type")
         @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
+
+        /** The time the Proof of Authorization Request was last updated. */
+        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+
+        /** The time the Proof of Authorization Request was last updated. */
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -226,12 +226,12 @@ private constructor(
 
         fun build(): ProofOfAuthorizationRequest =
             ProofOfAuthorizationRequest(
-                id,
-                createdAt,
-                updatedAt,
-                dueOn,
                 achTransfers.map { it.toUnmodifiable() },
+                createdAt,
+                dueOn,
+                id,
                 type,
+                updatedAt,
                 additionalProperties.toUnmodifiable(),
             )
     }

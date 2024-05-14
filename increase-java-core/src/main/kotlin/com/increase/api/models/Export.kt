@@ -29,13 +29,13 @@ import java.util.Optional
 @NoAutoDetect
 class Export
 private constructor(
-    private val id: JsonField<String>,
-    private val createdAt: JsonField<OffsetDateTime>,
     private val category: JsonField<Category>,
-    private val status: JsonField<Status>,
-    private val fileId: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
     private val fileDownloadUrl: JsonField<String>,
+    private val fileId: JsonField<String>,
+    private val id: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
+    private val status: JsonField<Status>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -44,26 +44,14 @@ private constructor(
 
     private var hashCode: Int = 0
 
-    /** The Export identifier. */
-    fun id(): String = id.getRequired("id")
-
-    /** The time the Export was created. */
-    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
     /**
      * The category of the Export. We may add additional possible values for this enum over time;
      * your application should be able to handle that gracefully.
      */
     fun category(): Category = category.getRequired("category")
 
-    /** The status of the Export. */
-    fun status(): Status = status.getRequired("status")
-
-    /**
-     * The File containing the contents of the Export. This will be present when the Export's status
-     * transitions to `complete`.
-     */
-    fun fileId(): Optional<String> = Optional.ofNullable(fileId.getNullable("file_id"))
+    /** The time the Export was created. */
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
      * A URL at which the Export's file can be downloaded. This will be present when the Export's
@@ -73,6 +61,15 @@ private constructor(
         Optional.ofNullable(fileDownloadUrl.getNullable("file_download_url"))
 
     /**
+     * The File containing the contents of the Export. This will be present when the Export's status
+     * transitions to `complete`.
+     */
+    fun fileId(): Optional<String> = Optional.ofNullable(fileId.getNullable("file_id"))
+
+    /** The Export identifier. */
+    fun id(): String = id.getRequired("id")
+
+    /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
@@ -80,14 +77,11 @@ private constructor(
     fun idempotencyKey(): Optional<String> =
         Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
+    /** The status of the Export. */
+    fun status(): Status = status.getRequired("status")
+
     /** A constant representing the object's type. For this resource it will always be `export`. */
     fun type(): Type = type.getRequired("type")
-
-    /** The Export identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
-    /** The time the Export was created. */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
     /**
      * The category of the Export. We may add additional possible values for this enum over time;
@@ -95,14 +89,8 @@ private constructor(
      */
     @JsonProperty("category") @ExcludeMissing fun _category() = category
 
-    /** The status of the Export. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
-
-    /**
-     * The File containing the contents of the Export. This will be present when the Export's status
-     * transitions to `complete`.
-     */
-    @JsonProperty("file_id") @ExcludeMissing fun _fileId() = fileId
+    /** The time the Export was created. */
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
     /**
      * A URL at which the Export's file can be downloaded. This will be present when the Export's
@@ -111,11 +99,23 @@ private constructor(
     @JsonProperty("file_download_url") @ExcludeMissing fun _fileDownloadUrl() = fileDownloadUrl
 
     /**
+     * The File containing the contents of the Export. This will be present when the Export's status
+     * transitions to `complete`.
+     */
+    @JsonProperty("file_id") @ExcludeMissing fun _fileId() = fileId
+
+    /** The Export identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+    /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
     @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+
+    /** The status of the Export. */
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
 
     /** A constant representing the object's type. For this resource it will always be `export`. */
     @JsonProperty("type") @ExcludeMissing fun _type() = type
@@ -126,13 +126,13 @@ private constructor(
 
     fun validate(): Export = apply {
         if (!validated) {
-            id()
-            createdAt()
             category()
-            status()
-            fileId()
+            createdAt()
             fileDownloadUrl()
+            fileId()
+            id()
             idempotencyKey()
+            status()
             type()
             validated = true
         }
@@ -146,13 +146,13 @@ private constructor(
         }
 
         return other is Export &&
-            this.id == other.id &&
-            this.createdAt == other.createdAt &&
             this.category == other.category &&
-            this.status == other.status &&
-            this.fileId == other.fileId &&
+            this.createdAt == other.createdAt &&
             this.fileDownloadUrl == other.fileDownloadUrl &&
+            this.fileId == other.fileId &&
+            this.id == other.id &&
             this.idempotencyKey == other.idempotencyKey &&
+            this.status == other.status &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -161,13 +161,13 @@ private constructor(
         if (hashCode == 0) {
             hashCode =
                 Objects.hash(
-                    id,
-                    createdAt,
                     category,
-                    status,
-                    fileId,
+                    createdAt,
                     fileDownloadUrl,
+                    fileId,
+                    id,
                     idempotencyKey,
+                    status,
                     type,
                     additionalProperties,
                 )
@@ -176,7 +176,7 @@ private constructor(
     }
 
     override fun toString() =
-        "Export{id=$id, createdAt=$createdAt, category=$category, status=$status, fileId=$fileId, fileDownloadUrl=$fileDownloadUrl, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
+        "Export{category=$category, createdAt=$createdAt, fileDownloadUrl=$fileDownloadUrl, fileId=$fileId, id=$id, idempotencyKey=$idempotencyKey, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -185,42 +185,28 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var category: JsonField<Category> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var fileId: JsonField<String> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var fileDownloadUrl: JsonField<String> = JsonMissing.of()
+        private var fileId: JsonField<String> = JsonMissing.of()
+        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
+        private var status: JsonField<Status> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(export: Export) = apply {
-            this.id = export.id
-            this.createdAt = export.createdAt
             this.category = export.category
-            this.status = export.status
-            this.fileId = export.fileId
+            this.createdAt = export.createdAt
             this.fileDownloadUrl = export.fileDownloadUrl
+            this.fileId = export.fileId
+            this.id = export.id
             this.idempotencyKey = export.idempotencyKey
+            this.status = export.status
             this.type = export.type
             additionalProperties(export.additionalProperties)
         }
-
-        /** The Export identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Export identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
-
-        /** The time the Export was created. */
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-        /** The time the Export was created. */
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
          * The category of the Export. We may add additional possible values for this enum over
@@ -236,27 +222,13 @@ private constructor(
         @ExcludeMissing
         fun category(category: JsonField<Category>) = apply { this.category = category }
 
-        /** The status of the Export. */
-        fun status(status: Status) = status(JsonField.of(status))
+        /** The time the Export was created. */
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
-        /** The status of the Export. */
-        @JsonProperty("status")
+        /** The time the Export was created. */
+        @JsonProperty("created_at")
         @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply { this.status = status }
-
-        /**
-         * The File containing the contents of the Export. This will be present when the Export's
-         * status transitions to `complete`.
-         */
-        fun fileId(fileId: String) = fileId(JsonField.of(fileId))
-
-        /**
-         * The File containing the contents of the Export. This will be present when the Export's
-         * status transitions to `complete`.
-         */
-        @JsonProperty("file_id")
-        @ExcludeMissing
-        fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
          * A URL at which the Export's file can be downloaded. This will be present when the
@@ -276,6 +248,26 @@ private constructor(
         }
 
         /**
+         * The File containing the contents of the Export. This will be present when the Export's
+         * status transitions to `complete`.
+         */
+        fun fileId(fileId: String) = fileId(JsonField.of(fileId))
+
+        /**
+         * The File containing the contents of the Export. This will be present when the Export's
+         * status transitions to `complete`.
+         */
+        @JsonProperty("file_id")
+        @ExcludeMissing
+        fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
+
+        /** The Export identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Export identifier. */
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /**
          * The idempotency key you chose for this object. This value is unique across Increase and
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
@@ -292,6 +284,14 @@ private constructor(
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
         }
+
+        /** The status of the Export. */
+        fun status(status: Status) = status(JsonField.of(status))
+
+        /** The status of the Export. */
+        @JsonProperty("status")
+        @ExcludeMissing
+        fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
          * A constant representing the object's type. For this resource it will always be `export`.
@@ -321,13 +321,13 @@ private constructor(
 
         fun build(): Export =
             Export(
-                id,
-                createdAt,
                 category,
-                status,
-                fileId,
+                createdAt,
                 fileDownloadUrl,
+                fileId,
+                id,
                 idempotencyKey,
+                status,
                 type,
                 additionalProperties.toUnmodifiable(),
             )

@@ -27,17 +27,17 @@ import java.util.Optional
 @NoAutoDetect
 class ExternalAccount
 private constructor(
-    private val id: JsonField<String>,
+    private val accountHolder: JsonField<AccountHolder>,
+    private val accountNumber: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val description: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val routingNumber: JsonField<String>,
-    private val accountNumber: JsonField<String>,
     private val funding: JsonField<Funding>,
-    private val accountHolder: JsonField<AccountHolder>,
-    private val verificationStatus: JsonField<VerificationStatus>,
+    private val id: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
+    private val routingNumber: JsonField<String>,
+    private val status: JsonField<Status>,
     private val type: JsonField<Type>,
+    private val verificationStatus: JsonField<VerificationStatus>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -45,8 +45,11 @@ private constructor(
 
     private var hashCode: Int = 0
 
-    /** The External Account's identifier. */
-    fun id(): String = id.getRequired("id")
+    /** The type of entity that owns the External Account. */
+    fun accountHolder(): AccountHolder = accountHolder.getRequired("account_holder")
+
+    /** The destination account number. */
+    fun accountNumber(): String = accountNumber.getRequired("account_number")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the External
@@ -57,24 +60,11 @@ private constructor(
     /** The External Account's description for display purposes. */
     fun description(): String = description.getRequired("description")
 
-    /** The External Account's status. */
-    fun status(): Status = status.getRequired("status")
-
-    /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
-    fun routingNumber(): String = routingNumber.getRequired("routing_number")
-
-    /** The destination account number. */
-    fun accountNumber(): String = accountNumber.getRequired("account_number")
-
     /** The type of the account to which the transfer will be sent. */
     fun funding(): Funding = funding.getRequired("funding")
 
-    /** The type of entity that owns the External Account. */
-    fun accountHolder(): AccountHolder = accountHolder.getRequired("account_holder")
-
-    /** If you have verified ownership of the External Account. */
-    fun verificationStatus(): VerificationStatus =
-        verificationStatus.getRequired("verification_status")
+    /** The External Account's identifier. */
+    fun id(): String = id.getRequired("id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -84,14 +74,27 @@ private constructor(
     fun idempotencyKey(): Optional<String> =
         Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
+    /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
+    fun routingNumber(): String = routingNumber.getRequired("routing_number")
+
+    /** The External Account's status. */
+    fun status(): Status = status.getRequired("status")
+
     /**
      * A constant representing the object's type. For this resource it will always be
      * `external_account`.
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The External Account's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    /** If you have verified ownership of the External Account. */
+    fun verificationStatus(): VerificationStatus =
+        verificationStatus.getRequired("verification_status")
+
+    /** The type of entity that owns the External Account. */
+    @JsonProperty("account_holder") @ExcludeMissing fun _accountHolder() = accountHolder
+
+    /** The destination account number. */
+    @JsonProperty("account_number") @ExcludeMissing fun _accountNumber() = accountNumber
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the External
@@ -102,25 +105,11 @@ private constructor(
     /** The External Account's description for display purposes. */
     @JsonProperty("description") @ExcludeMissing fun _description() = description
 
-    /** The External Account's status. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
-
-    /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
-    @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
-
-    /** The destination account number. */
-    @JsonProperty("account_number") @ExcludeMissing fun _accountNumber() = accountNumber
-
     /** The type of the account to which the transfer will be sent. */
     @JsonProperty("funding") @ExcludeMissing fun _funding() = funding
 
-    /** The type of entity that owns the External Account. */
-    @JsonProperty("account_holder") @ExcludeMissing fun _accountHolder() = accountHolder
-
-    /** If you have verified ownership of the External Account. */
-    @JsonProperty("verification_status")
-    @ExcludeMissing
-    fun _verificationStatus() = verificationStatus
+    /** The External Account's identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -129,11 +118,22 @@ private constructor(
      */
     @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
 
+    /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
+    @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
+
+    /** The External Account's status. */
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
+
     /**
      * A constant representing the object's type. For this resource it will always be
      * `external_account`.
      */
     @JsonProperty("type") @ExcludeMissing fun _type() = type
+
+    /** If you have verified ownership of the External Account. */
+    @JsonProperty("verification_status")
+    @ExcludeMissing
+    fun _verificationStatus() = verificationStatus
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -141,17 +141,17 @@ private constructor(
 
     fun validate(): ExternalAccount = apply {
         if (!validated) {
-            id()
+            accountHolder()
+            accountNumber()
             createdAt()
             description()
-            status()
-            routingNumber()
-            accountNumber()
             funding()
-            accountHolder()
-            verificationStatus()
+            id()
             idempotencyKey()
+            routingNumber()
+            status()
             type()
+            verificationStatus()
             validated = true
         }
     }
@@ -164,17 +164,17 @@ private constructor(
         }
 
         return other is ExternalAccount &&
-            this.id == other.id &&
+            this.accountHolder == other.accountHolder &&
+            this.accountNumber == other.accountNumber &&
             this.createdAt == other.createdAt &&
             this.description == other.description &&
-            this.status == other.status &&
-            this.routingNumber == other.routingNumber &&
-            this.accountNumber == other.accountNumber &&
             this.funding == other.funding &&
-            this.accountHolder == other.accountHolder &&
-            this.verificationStatus == other.verificationStatus &&
+            this.id == other.id &&
             this.idempotencyKey == other.idempotencyKey &&
+            this.routingNumber == other.routingNumber &&
+            this.status == other.status &&
             this.type == other.type &&
+            this.verificationStatus == other.verificationStatus &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -182,17 +182,17 @@ private constructor(
         if (hashCode == 0) {
             hashCode =
                 Objects.hash(
-                    id,
+                    accountHolder,
+                    accountNumber,
                     createdAt,
                     description,
-                    status,
-                    routingNumber,
-                    accountNumber,
                     funding,
-                    accountHolder,
-                    verificationStatus,
+                    id,
                     idempotencyKey,
+                    routingNumber,
+                    status,
                     type,
+                    verificationStatus,
                     additionalProperties,
                 )
         }
@@ -200,7 +200,7 @@ private constructor(
     }
 
     override fun toString() =
-        "ExternalAccount{id=$id, createdAt=$createdAt, description=$description, status=$status, routingNumber=$routingNumber, accountNumber=$accountNumber, funding=$funding, accountHolder=$accountHolder, verificationStatus=$verificationStatus, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
+        "ExternalAccount{accountHolder=$accountHolder, accountNumber=$accountNumber, createdAt=$createdAt, description=$description, funding=$funding, id=$id, idempotencyKey=$idempotencyKey, routingNumber=$routingNumber, status=$status, type=$type, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -209,40 +209,54 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
+        private var accountHolder: JsonField<AccountHolder> = JsonMissing.of()
+        private var accountNumber: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var description: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var routingNumber: JsonField<String> = JsonMissing.of()
-        private var accountNumber: JsonField<String> = JsonMissing.of()
         private var funding: JsonField<Funding> = JsonMissing.of()
-        private var accountHolder: JsonField<AccountHolder> = JsonMissing.of()
-        private var verificationStatus: JsonField<VerificationStatus> = JsonMissing.of()
+        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
+        private var routingNumber: JsonField<String> = JsonMissing.of()
+        private var status: JsonField<Status> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
+        private var verificationStatus: JsonField<VerificationStatus> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(externalAccount: ExternalAccount) = apply {
-            this.id = externalAccount.id
+            this.accountHolder = externalAccount.accountHolder
+            this.accountNumber = externalAccount.accountNumber
             this.createdAt = externalAccount.createdAt
             this.description = externalAccount.description
-            this.status = externalAccount.status
-            this.routingNumber = externalAccount.routingNumber
-            this.accountNumber = externalAccount.accountNumber
             this.funding = externalAccount.funding
-            this.accountHolder = externalAccount.accountHolder
-            this.verificationStatus = externalAccount.verificationStatus
+            this.id = externalAccount.id
             this.idempotencyKey = externalAccount.idempotencyKey
+            this.routingNumber = externalAccount.routingNumber
+            this.status = externalAccount.status
             this.type = externalAccount.type
+            this.verificationStatus = externalAccount.verificationStatus
             additionalProperties(externalAccount.additionalProperties)
         }
 
-        /** The External Account's identifier. */
-        fun id(id: String) = id(JsonField.of(id))
+        /** The type of entity that owns the External Account. */
+        fun accountHolder(accountHolder: AccountHolder) = accountHolder(JsonField.of(accountHolder))
 
-        /** The External Account's identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        /** The type of entity that owns the External Account. */
+        @JsonProperty("account_holder")
+        @ExcludeMissing
+        fun accountHolder(accountHolder: JsonField<AccountHolder>) = apply {
+            this.accountHolder = accountHolder
+        }
+
+        /** The destination account number. */
+        fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
+
+        /** The destination account number. */
+        @JsonProperty("account_number")
+        @ExcludeMissing
+        fun accountNumber(accountNumber: JsonField<String>) = apply {
+            this.accountNumber = accountNumber
+        }
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
@@ -266,34 +280,6 @@ private constructor(
         @ExcludeMissing
         fun description(description: JsonField<String>) = apply { this.description = description }
 
-        /** The External Account's status. */
-        fun status(status: Status) = status(JsonField.of(status))
-
-        /** The External Account's status. */
-        @JsonProperty("status")
-        @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply { this.status = status }
-
-        /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
-        fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
-
-        /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
-        @JsonProperty("routing_number")
-        @ExcludeMissing
-        fun routingNumber(routingNumber: JsonField<String>) = apply {
-            this.routingNumber = routingNumber
-        }
-
-        /** The destination account number. */
-        fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
-
-        /** The destination account number. */
-        @JsonProperty("account_number")
-        @ExcludeMissing
-        fun accountNumber(accountNumber: JsonField<String>) = apply {
-            this.accountNumber = accountNumber
-        }
-
         /** The type of the account to which the transfer will be sent. */
         fun funding(funding: Funding) = funding(JsonField.of(funding))
 
@@ -302,26 +288,11 @@ private constructor(
         @ExcludeMissing
         fun funding(funding: JsonField<Funding>) = apply { this.funding = funding }
 
-        /** The type of entity that owns the External Account. */
-        fun accountHolder(accountHolder: AccountHolder) = accountHolder(JsonField.of(accountHolder))
+        /** The External Account's identifier. */
+        fun id(id: String) = id(JsonField.of(id))
 
-        /** The type of entity that owns the External Account. */
-        @JsonProperty("account_holder")
-        @ExcludeMissing
-        fun accountHolder(accountHolder: JsonField<AccountHolder>) = apply {
-            this.accountHolder = accountHolder
-        }
-
-        /** If you have verified ownership of the External Account. */
-        fun verificationStatus(verificationStatus: VerificationStatus) =
-            verificationStatus(JsonField.of(verificationStatus))
-
-        /** If you have verified ownership of the External Account. */
-        @JsonProperty("verification_status")
-        @ExcludeMissing
-        fun verificationStatus(verificationStatus: JsonField<VerificationStatus>) = apply {
-            this.verificationStatus = verificationStatus
-        }
+        /** The External Account's identifier. */
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -341,6 +312,24 @@ private constructor(
             this.idempotencyKey = idempotencyKey
         }
 
+        /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
+        fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
+
+        /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
+        @JsonProperty("routing_number")
+        @ExcludeMissing
+        fun routingNumber(routingNumber: JsonField<String>) = apply {
+            this.routingNumber = routingNumber
+        }
+
+        /** The External Account's status. */
+        fun status(status: Status) = status(JsonField.of(status))
+
+        /** The External Account's status. */
+        @JsonProperty("status")
+        @ExcludeMissing
+        fun status(status: JsonField<Status>) = apply { this.status = status }
+
         /**
          * A constant representing the object's type. For this resource it will always be
          * `external_account`.
@@ -354,6 +343,17 @@ private constructor(
         @JsonProperty("type")
         @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
+
+        /** If you have verified ownership of the External Account. */
+        fun verificationStatus(verificationStatus: VerificationStatus) =
+            verificationStatus(JsonField.of(verificationStatus))
+
+        /** If you have verified ownership of the External Account. */
+        @JsonProperty("verification_status")
+        @ExcludeMissing
+        fun verificationStatus(verificationStatus: JsonField<VerificationStatus>) = apply {
+            this.verificationStatus = verificationStatus
+        }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -371,17 +371,17 @@ private constructor(
 
         fun build(): ExternalAccount =
             ExternalAccount(
-                id,
+                accountHolder,
+                accountNumber,
                 createdAt,
                 description,
-                status,
-                routingNumber,
-                accountNumber,
                 funding,
-                accountHolder,
-                verificationStatus,
+                id,
                 idempotencyKey,
+                routingNumber,
+                status,
                 type,
+                verificationStatus,
                 additionalProperties.toUnmodifiable(),
             )
     }
