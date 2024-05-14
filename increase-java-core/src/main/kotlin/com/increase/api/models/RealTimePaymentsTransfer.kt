@@ -27,29 +27,29 @@ import java.util.Optional
 @NoAutoDetect
 class RealTimePaymentsTransfer
 private constructor(
-    private val type: JsonField<Type>,
-    private val id: JsonField<String>,
+    private val accountId: JsonField<String>,
+    private val amount: JsonField<Long>,
     private val approval: JsonField<Approval>,
     private val cancellation: JsonField<Cancellation>,
-    private val status: JsonField<Status>,
     private val createdAt: JsonField<OffsetDateTime>,
-    private val accountId: JsonField<String>,
-    private val externalAccountId: JsonField<String>,
-    private val sourceAccountNumberId: JsonField<String>,
-    private val ultimateCreditorName: JsonField<String>,
-    private val ultimateDebtorName: JsonField<String>,
-    private val debtorName: JsonField<String>,
     private val creditorName: JsonField<String>,
-    private val remittanceInformation: JsonField<String>,
-    private val amount: JsonField<Long>,
     private val currency: JsonField<Currency>,
+    private val debtorName: JsonField<String>,
     private val destinationAccountNumber: JsonField<String>,
     private val destinationRoutingNumber: JsonField<String>,
-    private val transactionId: JsonField<String>,
-    private val pendingTransactionId: JsonField<String>,
-    private val submission: JsonField<Submission>,
-    private val rejection: JsonField<Rejection>,
+    private val externalAccountId: JsonField<String>,
+    private val id: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
+    private val pendingTransactionId: JsonField<String>,
+    private val rejection: JsonField<Rejection>,
+    private val remittanceInformation: JsonField<String>,
+    private val sourceAccountNumberId: JsonField<String>,
+    private val status: JsonField<Status>,
+    private val submission: JsonField<Submission>,
+    private val transactionId: JsonField<String>,
+    private val type: JsonField<Type>,
+    private val ultimateCreditorName: JsonField<String>,
+    private val ultimateDebtorName: JsonField<String>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -57,14 +57,11 @@ private constructor(
 
     private var hashCode: Int = 0
 
-    /**
-     * A constant representing the object's type. For this resource it will always be
-     * `real_time_payments_transfer`.
-     */
-    fun type(): Type = type.getRequired("type")
+    /** The Account from which the transfer was sent. */
+    fun accountId(): String = accountId.getRequired("account_id")
 
-    /** The Real-Time Payments Transfer's identifier. */
-    fun id(): String = id.getRequired("id")
+    /** The transfer amount in USD cents. */
+    fun amount(): Long = amount.getRequired("amount")
 
     /**
      * If your account requires approvals for transfers and the transfer was approved, this will
@@ -79,54 +76,28 @@ private constructor(
     fun cancellation(): Optional<Cancellation> =
         Optional.ofNullable(cancellation.getNullable("cancellation"))
 
-    /** The lifecycle status of the transfer. */
-    fun status(): Status = status.getRequired("status")
-
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
      * was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** The Account from which the transfer was sent. */
-    fun accountId(): String = accountId.getRequired("account_id")
-
-    /** The identifier of the External Account the transfer was made to, if any. */
-    fun externalAccountId(): Optional<String> =
-        Optional.ofNullable(externalAccountId.getNullable("external_account_id"))
-
-    /** The Account Number the recipient will see as having sent the transfer. */
-    fun sourceAccountNumberId(): String =
-        sourceAccountNumberId.getRequired("source_account_number_id")
-
-    /** The name of the party on whose behalf the creditor is receiving the payment. */
-    fun ultimateCreditorName(): Optional<String> =
-        Optional.ofNullable(ultimateCreditorName.getNullable("ultimate_creditor_name"))
-
-    /** The name of the the party on whose behalf the debtor is instructing the payment. */
-    fun ultimateDebtorName(): Optional<String> =
-        Optional.ofNullable(ultimateDebtorName.getNullable("ultimate_debtor_name"))
-
     /**
-     * The name of the transfer's sender. If not provided, the account's entity name will be used.
+     * The name of the transfer's recipient. This is set by the sender when creating the transfer.
      */
-    fun debtorName(): Optional<String> = Optional.ofNullable(debtorName.getNullable("debtor_name"))
-
-    /** The name of the transfer's recipient as provided by the sender. */
     fun creditorName(): String = creditorName.getRequired("creditor_name")
-
-    /** Unstructured information that will show on the recipient's bank statement. */
-    fun remittanceInformation(): String =
-        remittanceInformation.getRequired("remittance_information")
-
-    /** The transfer amount in USD cents. */
-    fun amount(): Long = amount.getRequired("amount")
 
     /**
      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
      * real-time payments transfers this is always equal to `USD`.
      */
     fun currency(): Currency = currency.getRequired("currency")
+
+    /**
+     * The name of the transfer's sender. If not provided, defaults to the name of the account's
+     * entity.
+     */
+    fun debtorName(): Optional<String> = Optional.ofNullable(debtorName.getNullable("debtor_name"))
 
     /** The destination account number. */
     fun destinationAccountNumber(): String =
@@ -136,9 +107,20 @@ private constructor(
     fun destinationRoutingNumber(): String =
         destinationRoutingNumber.getRequired("destination_routing_number")
 
-    /** The Transaction funding the transfer once it is complete. */
-    fun transactionId(): Optional<String> =
-        Optional.ofNullable(transactionId.getNullable("transaction_id"))
+    /** The identifier of the External Account the transfer was made to, if any. */
+    fun externalAccountId(): Optional<String> =
+        Optional.ofNullable(externalAccountId.getNullable("external_account_id"))
+
+    /** The Real-Time Payments Transfer's identifier. */
+    fun id(): String = id.getRequired("id")
+
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    fun idempotencyKey(): Optional<String> =
+        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
     /**
      * The ID for the pending transaction representing the transfer. A pending transaction is
@@ -150,34 +132,58 @@ private constructor(
         Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
 
     /**
+     * If the transfer is rejected by Real-Time Payments or the destination financial institution,
+     * this will contain supplemental details.
+     */
+    fun rejection(): Optional<Rejection> = Optional.ofNullable(rejection.getNullable("rejection"))
+
+    /** Unstructured information that will show on the recipient's bank statement. */
+    fun remittanceInformation(): String =
+        remittanceInformation.getRequired("remittance_information")
+
+    /** The Account Number the recipient will see as having sent the transfer. */
+    fun sourceAccountNumberId(): String =
+        sourceAccountNumberId.getRequired("source_account_number_id")
+
+    /** The lifecycle status of the transfer. */
+    fun status(): Status = status.getRequired("status")
+
+    /**
      * After the transfer is submitted to Real-Time Payments, this will contain supplemental
      * details.
      */
     fun submission(): Optional<Submission> =
         Optional.ofNullable(submission.getNullable("submission"))
 
-    /**
-     * If the transfer is rejected by Real-Time Payments or the destination financial institution,
-     * this will contain supplemental details.
-     */
-    fun rejection(): Optional<Rejection> = Optional.ofNullable(rejection.getNullable("rejection"))
-
-    /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
-     */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    /** The Transaction funding the transfer once it is complete. */
+    fun transactionId(): Optional<String> =
+        Optional.ofNullable(transactionId.getNullable("transaction_id"))
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `real_time_payments_transfer`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    fun type(): Type = type.getRequired("type")
 
-    /** The Real-Time Payments Transfer's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    /**
+     * The name of the ultimate recipient of the transfer. Set this if the creditor is an
+     * intermediary receiving the payment for someone else.
+     */
+    fun ultimateCreditorName(): Optional<String> =
+        Optional.ofNullable(ultimateCreditorName.getNullable("ultimate_creditor_name"))
+
+    /**
+     * The name of the ultimate sender of the transfer. Set this if the funds are being sent on
+     * behalf of someone who is not the account holder at Increase.
+     */
+    fun ultimateDebtorName(): Optional<String> =
+        Optional.ofNullable(ultimateDebtorName.getNullable("ultimate_debtor_name"))
+
+    /** The Account from which the transfer was sent. */
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+
+    /** The transfer amount in USD cents. */
+    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
     /**
      * If your account requires approvals for transfers and the transfer was approved, this will
@@ -191,59 +197,28 @@ private constructor(
      */
     @JsonProperty("cancellation") @ExcludeMissing fun _cancellation() = cancellation
 
-    /** The lifecycle status of the transfer. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
-
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
      * was created.
      */
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
-    /** The Account from which the transfer was sent. */
-    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
-
-    /** The identifier of the External Account the transfer was made to, if any. */
-    @JsonProperty("external_account_id")
-    @ExcludeMissing
-    fun _externalAccountId() = externalAccountId
-
-    /** The Account Number the recipient will see as having sent the transfer. */
-    @JsonProperty("source_account_number_id")
-    @ExcludeMissing
-    fun _sourceAccountNumberId() = sourceAccountNumberId
-
-    /** The name of the party on whose behalf the creditor is receiving the payment. */
-    @JsonProperty("ultimate_creditor_name")
-    @ExcludeMissing
-    fun _ultimateCreditorName() = ultimateCreditorName
-
-    /** The name of the the party on whose behalf the debtor is instructing the payment. */
-    @JsonProperty("ultimate_debtor_name")
-    @ExcludeMissing
-    fun _ultimateDebtorName() = ultimateDebtorName
-
     /**
-     * The name of the transfer's sender. If not provided, the account's entity name will be used.
+     * The name of the transfer's recipient. This is set by the sender when creating the transfer.
      */
-    @JsonProperty("debtor_name") @ExcludeMissing fun _debtorName() = debtorName
-
-    /** The name of the transfer's recipient as provided by the sender. */
     @JsonProperty("creditor_name") @ExcludeMissing fun _creditorName() = creditorName
-
-    /** Unstructured information that will show on the recipient's bank statement. */
-    @JsonProperty("remittance_information")
-    @ExcludeMissing
-    fun _remittanceInformation() = remittanceInformation
-
-    /** The transfer amount in USD cents. */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
     /**
      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
      * real-time payments transfers this is always equal to `USD`.
      */
     @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+
+    /**
+     * The name of the transfer's sender. If not provided, defaults to the name of the account's
+     * entity.
+     */
+    @JsonProperty("debtor_name") @ExcludeMissing fun _debtorName() = debtorName
 
     /** The destination account number. */
     @JsonProperty("destination_account_number")
@@ -255,8 +230,20 @@ private constructor(
     @ExcludeMissing
     fun _destinationRoutingNumber() = destinationRoutingNumber
 
-    /** The Transaction funding the transfer once it is complete. */
-    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+    /** The identifier of the External Account the transfer was made to, if any. */
+    @JsonProperty("external_account_id")
+    @ExcludeMissing
+    fun _externalAccountId() = externalAccountId
+
+    /** The Real-Time Payments Transfer's identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
 
     /**
      * The ID for the pending transaction representing the transfer. A pending transaction is
@@ -269,23 +256,54 @@ private constructor(
     fun _pendingTransactionId() = pendingTransactionId
 
     /**
-     * After the transfer is submitted to Real-Time Payments, this will contain supplemental
-     * details.
-     */
-    @JsonProperty("submission") @ExcludeMissing fun _submission() = submission
-
-    /**
      * If the transfer is rejected by Real-Time Payments or the destination financial institution,
      * this will contain supplemental details.
      */
     @JsonProperty("rejection") @ExcludeMissing fun _rejection() = rejection
 
+    /** Unstructured information that will show on the recipient's bank statement. */
+    @JsonProperty("remittance_information")
+    @ExcludeMissing
+    fun _remittanceInformation() = remittanceInformation
+
+    /** The Account Number the recipient will see as having sent the transfer. */
+    @JsonProperty("source_account_number_id")
+    @ExcludeMissing
+    fun _sourceAccountNumberId() = sourceAccountNumberId
+
+    /** The lifecycle status of the transfer. */
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
+
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * After the transfer is submitted to Real-Time Payments, this will contain supplemental
+     * details.
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("submission") @ExcludeMissing fun _submission() = submission
+
+    /** The Transaction funding the transfer once it is complete. */
+    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `real_time_payments_transfer`.
+     */
+    @JsonProperty("type") @ExcludeMissing fun _type() = type
+
+    /**
+     * The name of the ultimate recipient of the transfer. Set this if the creditor is an
+     * intermediary receiving the payment for someone else.
+     */
+    @JsonProperty("ultimate_creditor_name")
+    @ExcludeMissing
+    fun _ultimateCreditorName() = ultimateCreditorName
+
+    /**
+     * The name of the ultimate sender of the transfer. Set this if the funds are being sent on
+     * behalf of someone who is not the account holder at Increase.
+     */
+    @JsonProperty("ultimate_debtor_name")
+    @ExcludeMissing
+    fun _ultimateDebtorName() = ultimateDebtorName
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -293,29 +311,29 @@ private constructor(
 
     fun validate(): RealTimePaymentsTransfer = apply {
         if (!validated) {
-            type()
-            id()
+            accountId()
+            amount()
             approval().map { it.validate() }
             cancellation().map { it.validate() }
-            status()
             createdAt()
-            accountId()
-            externalAccountId()
-            sourceAccountNumberId()
-            ultimateCreditorName()
-            ultimateDebtorName()
-            debtorName()
             creditorName()
-            remittanceInformation()
-            amount()
             currency()
+            debtorName()
             destinationAccountNumber()
             destinationRoutingNumber()
-            transactionId()
-            pendingTransactionId()
-            submission().map { it.validate() }
-            rejection().map { it.validate() }
+            externalAccountId()
+            id()
             idempotencyKey()
+            pendingTransactionId()
+            rejection().map { it.validate() }
+            remittanceInformation()
+            sourceAccountNumberId()
+            status()
+            submission().map { it.validate() }
+            transactionId()
+            type()
+            ultimateCreditorName()
+            ultimateDebtorName()
             validated = true
         }
     }
@@ -328,29 +346,29 @@ private constructor(
         }
 
         return other is RealTimePaymentsTransfer &&
-            this.type == other.type &&
-            this.id == other.id &&
+            this.accountId == other.accountId &&
+            this.amount == other.amount &&
             this.approval == other.approval &&
             this.cancellation == other.cancellation &&
-            this.status == other.status &&
             this.createdAt == other.createdAt &&
-            this.accountId == other.accountId &&
-            this.externalAccountId == other.externalAccountId &&
-            this.sourceAccountNumberId == other.sourceAccountNumberId &&
-            this.ultimateCreditorName == other.ultimateCreditorName &&
-            this.ultimateDebtorName == other.ultimateDebtorName &&
-            this.debtorName == other.debtorName &&
             this.creditorName == other.creditorName &&
-            this.remittanceInformation == other.remittanceInformation &&
-            this.amount == other.amount &&
             this.currency == other.currency &&
+            this.debtorName == other.debtorName &&
             this.destinationAccountNumber == other.destinationAccountNumber &&
             this.destinationRoutingNumber == other.destinationRoutingNumber &&
-            this.transactionId == other.transactionId &&
-            this.pendingTransactionId == other.pendingTransactionId &&
-            this.submission == other.submission &&
-            this.rejection == other.rejection &&
+            this.externalAccountId == other.externalAccountId &&
+            this.id == other.id &&
             this.idempotencyKey == other.idempotencyKey &&
+            this.pendingTransactionId == other.pendingTransactionId &&
+            this.rejection == other.rejection &&
+            this.remittanceInformation == other.remittanceInformation &&
+            this.sourceAccountNumberId == other.sourceAccountNumberId &&
+            this.status == other.status &&
+            this.submission == other.submission &&
+            this.transactionId == other.transactionId &&
+            this.type == other.type &&
+            this.ultimateCreditorName == other.ultimateCreditorName &&
+            this.ultimateDebtorName == other.ultimateDebtorName &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -358,29 +376,29 @@ private constructor(
         if (hashCode == 0) {
             hashCode =
                 Objects.hash(
-                    type,
-                    id,
+                    accountId,
+                    amount,
                     approval,
                     cancellation,
-                    status,
                     createdAt,
-                    accountId,
-                    externalAccountId,
-                    sourceAccountNumberId,
-                    ultimateCreditorName,
-                    ultimateDebtorName,
-                    debtorName,
                     creditorName,
-                    remittanceInformation,
-                    amount,
                     currency,
+                    debtorName,
                     destinationAccountNumber,
                     destinationRoutingNumber,
-                    transactionId,
-                    pendingTransactionId,
-                    submission,
-                    rejection,
+                    externalAccountId,
+                    id,
                     idempotencyKey,
+                    pendingTransactionId,
+                    rejection,
+                    remittanceInformation,
+                    sourceAccountNumberId,
+                    status,
+                    submission,
+                    transactionId,
+                    type,
+                    ultimateCreditorName,
+                    ultimateDebtorName,
                     additionalProperties,
                 )
         }
@@ -388,7 +406,7 @@ private constructor(
     }
 
     override fun toString() =
-        "RealTimePaymentsTransfer{type=$type, id=$id, approval=$approval, cancellation=$cancellation, status=$status, createdAt=$createdAt, accountId=$accountId, externalAccountId=$externalAccountId, sourceAccountNumberId=$sourceAccountNumberId, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, debtorName=$debtorName, creditorName=$creditorName, remittanceInformation=$remittanceInformation, amount=$amount, currency=$currency, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, transactionId=$transactionId, pendingTransactionId=$pendingTransactionId, submission=$submission, rejection=$rejection, idempotencyKey=$idempotencyKey, additionalProperties=$additionalProperties}"
+        "RealTimePaymentsTransfer{accountId=$accountId, amount=$amount, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, creditorName=$creditorName, currency=$currency, debtorName=$debtorName, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, externalAccountId=$externalAccountId, id=$id, idempotencyKey=$idempotencyKey, pendingTransactionId=$pendingTransactionId, rejection=$rejection, remittanceInformation=$remittanceInformation, sourceAccountNumberId=$sourceAccountNumberId, status=$status, submission=$submission, transactionId=$transactionId, type=$type, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -397,78 +415,74 @@ private constructor(
 
     class Builder {
 
-        private var type: JsonField<Type> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
+        private var accountId: JsonField<String> = JsonMissing.of()
+        private var amount: JsonField<Long> = JsonMissing.of()
         private var approval: JsonField<Approval> = JsonMissing.of()
         private var cancellation: JsonField<Cancellation> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var accountId: JsonField<String> = JsonMissing.of()
-        private var externalAccountId: JsonField<String> = JsonMissing.of()
-        private var sourceAccountNumberId: JsonField<String> = JsonMissing.of()
-        private var ultimateCreditorName: JsonField<String> = JsonMissing.of()
-        private var ultimateDebtorName: JsonField<String> = JsonMissing.of()
-        private var debtorName: JsonField<String> = JsonMissing.of()
         private var creditorName: JsonField<String> = JsonMissing.of()
-        private var remittanceInformation: JsonField<String> = JsonMissing.of()
-        private var amount: JsonField<Long> = JsonMissing.of()
         private var currency: JsonField<Currency> = JsonMissing.of()
+        private var debtorName: JsonField<String> = JsonMissing.of()
         private var destinationAccountNumber: JsonField<String> = JsonMissing.of()
         private var destinationRoutingNumber: JsonField<String> = JsonMissing.of()
-        private var transactionId: JsonField<String> = JsonMissing.of()
-        private var pendingTransactionId: JsonField<String> = JsonMissing.of()
-        private var submission: JsonField<Submission> = JsonMissing.of()
-        private var rejection: JsonField<Rejection> = JsonMissing.of()
+        private var externalAccountId: JsonField<String> = JsonMissing.of()
+        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
+        private var pendingTransactionId: JsonField<String> = JsonMissing.of()
+        private var rejection: JsonField<Rejection> = JsonMissing.of()
+        private var remittanceInformation: JsonField<String> = JsonMissing.of()
+        private var sourceAccountNumberId: JsonField<String> = JsonMissing.of()
+        private var status: JsonField<Status> = JsonMissing.of()
+        private var submission: JsonField<Submission> = JsonMissing.of()
+        private var transactionId: JsonField<String> = JsonMissing.of()
+        private var type: JsonField<Type> = JsonMissing.of()
+        private var ultimateCreditorName: JsonField<String> = JsonMissing.of()
+        private var ultimateDebtorName: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(realTimePaymentsTransfer: RealTimePaymentsTransfer) = apply {
-            this.type = realTimePaymentsTransfer.type
-            this.id = realTimePaymentsTransfer.id
+            this.accountId = realTimePaymentsTransfer.accountId
+            this.amount = realTimePaymentsTransfer.amount
             this.approval = realTimePaymentsTransfer.approval
             this.cancellation = realTimePaymentsTransfer.cancellation
-            this.status = realTimePaymentsTransfer.status
             this.createdAt = realTimePaymentsTransfer.createdAt
-            this.accountId = realTimePaymentsTransfer.accountId
-            this.externalAccountId = realTimePaymentsTransfer.externalAccountId
-            this.sourceAccountNumberId = realTimePaymentsTransfer.sourceAccountNumberId
-            this.ultimateCreditorName = realTimePaymentsTransfer.ultimateCreditorName
-            this.ultimateDebtorName = realTimePaymentsTransfer.ultimateDebtorName
-            this.debtorName = realTimePaymentsTransfer.debtorName
             this.creditorName = realTimePaymentsTransfer.creditorName
-            this.remittanceInformation = realTimePaymentsTransfer.remittanceInformation
-            this.amount = realTimePaymentsTransfer.amount
             this.currency = realTimePaymentsTransfer.currency
+            this.debtorName = realTimePaymentsTransfer.debtorName
             this.destinationAccountNumber = realTimePaymentsTransfer.destinationAccountNumber
             this.destinationRoutingNumber = realTimePaymentsTransfer.destinationRoutingNumber
-            this.transactionId = realTimePaymentsTransfer.transactionId
-            this.pendingTransactionId = realTimePaymentsTransfer.pendingTransactionId
-            this.submission = realTimePaymentsTransfer.submission
-            this.rejection = realTimePaymentsTransfer.rejection
+            this.externalAccountId = realTimePaymentsTransfer.externalAccountId
+            this.id = realTimePaymentsTransfer.id
             this.idempotencyKey = realTimePaymentsTransfer.idempotencyKey
+            this.pendingTransactionId = realTimePaymentsTransfer.pendingTransactionId
+            this.rejection = realTimePaymentsTransfer.rejection
+            this.remittanceInformation = realTimePaymentsTransfer.remittanceInformation
+            this.sourceAccountNumberId = realTimePaymentsTransfer.sourceAccountNumberId
+            this.status = realTimePaymentsTransfer.status
+            this.submission = realTimePaymentsTransfer.submission
+            this.transactionId = realTimePaymentsTransfer.transactionId
+            this.type = realTimePaymentsTransfer.type
+            this.ultimateCreditorName = realTimePaymentsTransfer.ultimateCreditorName
+            this.ultimateDebtorName = realTimePaymentsTransfer.ultimateDebtorName
             additionalProperties(realTimePaymentsTransfer.additionalProperties)
         }
 
-        /**
-         * A constant representing the object's type. For this resource it will always be
-         * `real_time_payments_transfer`.
-         */
-        fun type(type: Type) = type(JsonField.of(type))
+        /** The Account from which the transfer was sent. */
+        fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
-        /**
-         * A constant representing the object's type. For this resource it will always be
-         * `real_time_payments_transfer`.
-         */
-        @JsonProperty("type")
+        /** The Account from which the transfer was sent. */
+        @JsonProperty("account_id")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
-        /** The Real-Time Payments Transfer's identifier. */
-        fun id(id: String) = id(JsonField.of(id))
+        /** The transfer amount in USD cents. */
+        fun amount(amount: Long) = amount(JsonField.of(amount))
 
-        /** The Real-Time Payments Transfer's identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        /** The transfer amount in USD cents. */
+        @JsonProperty("amount")
+        @ExcludeMissing
+        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /**
          * If your account requires approvals for transfers and the transfer was approved, this will
@@ -500,14 +514,6 @@ private constructor(
             this.cancellation = cancellation
         }
 
-        /** The lifecycle status of the transfer. */
-        fun status(status: Status) = status(JsonField.of(status))
-
-        /** The lifecycle status of the transfer. */
-        @JsonProperty("status")
-        @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply { this.status = status }
-
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * transfer was created.
@@ -522,100 +528,21 @@ private constructor(
         @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        /** The Account from which the transfer was sent. */
-        fun accountId(accountId: String) = accountId(JsonField.of(accountId))
-
-        /** The Account from which the transfer was sent. */
-        @JsonProperty("account_id")
-        @ExcludeMissing
-        fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
-
-        /** The identifier of the External Account the transfer was made to, if any. */
-        fun externalAccountId(externalAccountId: String) =
-            externalAccountId(JsonField.of(externalAccountId))
-
-        /** The identifier of the External Account the transfer was made to, if any. */
-        @JsonProperty("external_account_id")
-        @ExcludeMissing
-        fun externalAccountId(externalAccountId: JsonField<String>) = apply {
-            this.externalAccountId = externalAccountId
-        }
-
-        /** The Account Number the recipient will see as having sent the transfer. */
-        fun sourceAccountNumberId(sourceAccountNumberId: String) =
-            sourceAccountNumberId(JsonField.of(sourceAccountNumberId))
-
-        /** The Account Number the recipient will see as having sent the transfer. */
-        @JsonProperty("source_account_number_id")
-        @ExcludeMissing
-        fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
-            this.sourceAccountNumberId = sourceAccountNumberId
-        }
-
-        /** The name of the party on whose behalf the creditor is receiving the payment. */
-        fun ultimateCreditorName(ultimateCreditorName: String) =
-            ultimateCreditorName(JsonField.of(ultimateCreditorName))
-
-        /** The name of the party on whose behalf the creditor is receiving the payment. */
-        @JsonProperty("ultimate_creditor_name")
-        @ExcludeMissing
-        fun ultimateCreditorName(ultimateCreditorName: JsonField<String>) = apply {
-            this.ultimateCreditorName = ultimateCreditorName
-        }
-
-        /** The name of the the party on whose behalf the debtor is instructing the payment. */
-        fun ultimateDebtorName(ultimateDebtorName: String) =
-            ultimateDebtorName(JsonField.of(ultimateDebtorName))
-
-        /** The name of the the party on whose behalf the debtor is instructing the payment. */
-        @JsonProperty("ultimate_debtor_name")
-        @ExcludeMissing
-        fun ultimateDebtorName(ultimateDebtorName: JsonField<String>) = apply {
-            this.ultimateDebtorName = ultimateDebtorName
-        }
-
         /**
-         * The name of the transfer's sender. If not provided, the account's entity name will be
-         * used.
+         * The name of the transfer's recipient. This is set by the sender when creating the
+         * transfer.
          */
-        fun debtorName(debtorName: String) = debtorName(JsonField.of(debtorName))
-
-        /**
-         * The name of the transfer's sender. If not provided, the account's entity name will be
-         * used.
-         */
-        @JsonProperty("debtor_name")
-        @ExcludeMissing
-        fun debtorName(debtorName: JsonField<String>) = apply { this.debtorName = debtorName }
-
-        /** The name of the transfer's recipient as provided by the sender. */
         fun creditorName(creditorName: String) = creditorName(JsonField.of(creditorName))
 
-        /** The name of the transfer's recipient as provided by the sender. */
+        /**
+         * The name of the transfer's recipient. This is set by the sender when creating the
+         * transfer.
+         */
         @JsonProperty("creditor_name")
         @ExcludeMissing
         fun creditorName(creditorName: JsonField<String>) = apply {
             this.creditorName = creditorName
         }
-
-        /** Unstructured information that will show on the recipient's bank statement. */
-        fun remittanceInformation(remittanceInformation: String) =
-            remittanceInformation(JsonField.of(remittanceInformation))
-
-        /** Unstructured information that will show on the recipient's bank statement. */
-        @JsonProperty("remittance_information")
-        @ExcludeMissing
-        fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
-            this.remittanceInformation = remittanceInformation
-        }
-
-        /** The transfer amount in USD cents. */
-        fun amount(amount: Long) = amount(JsonField.of(amount))
-
-        /** The transfer amount in USD cents. */
-        @JsonProperty("amount")
-        @ExcludeMissing
-        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency.
@@ -630,6 +557,20 @@ private constructor(
         @JsonProperty("currency")
         @ExcludeMissing
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+        /**
+         * The name of the transfer's sender. If not provided, defaults to the name of the account's
+         * entity.
+         */
+        fun debtorName(debtorName: String) = debtorName(JsonField.of(debtorName))
+
+        /**
+         * The name of the transfer's sender. If not provided, defaults to the name of the account's
+         * entity.
+         */
+        @JsonProperty("debtor_name")
+        @ExcludeMissing
+        fun debtorName(debtorName: JsonField<String>) = apply { this.debtorName = debtorName }
 
         /** The destination account number. */
         fun destinationAccountNumber(destinationAccountNumber: String) =
@@ -653,14 +594,39 @@ private constructor(
             this.destinationRoutingNumber = destinationRoutingNumber
         }
 
-        /** The Transaction funding the transfer once it is complete. */
-        fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
+        /** The identifier of the External Account the transfer was made to, if any. */
+        fun externalAccountId(externalAccountId: String) =
+            externalAccountId(JsonField.of(externalAccountId))
 
-        /** The Transaction funding the transfer once it is complete. */
-        @JsonProperty("transaction_id")
+        /** The identifier of the External Account the transfer was made to, if any. */
+        @JsonProperty("external_account_id")
         @ExcludeMissing
-        fun transactionId(transactionId: JsonField<String>) = apply {
-            this.transactionId = transactionId
+        fun externalAccountId(externalAccountId: JsonField<String>) = apply {
+            this.externalAccountId = externalAccountId
+        }
+
+        /** The Real-Time Payments Transfer's identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Real-Time Payments Transfer's identifier. */
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
         }
 
         /**
@@ -685,20 +651,6 @@ private constructor(
         }
 
         /**
-         * After the transfer is submitted to Real-Time Payments, this will contain supplemental
-         * details.
-         */
-        fun submission(submission: Submission) = submission(JsonField.of(submission))
-
-        /**
-         * After the transfer is submitted to Real-Time Payments, this will contain supplemental
-         * details.
-         */
-        @JsonProperty("submission")
-        @ExcludeMissing
-        fun submission(submission: JsonField<Submission>) = apply { this.submission = submission }
-
-        /**
          * If the transfer is rejected by Real-Time Payments or the destination financial
          * institution, this will contain supplemental details.
          */
@@ -712,22 +664,106 @@ private constructor(
         @ExcludeMissing
         fun rejection(rejection: JsonField<Rejection>) = apply { this.rejection = rejection }
 
-        /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
-         */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+        /** Unstructured information that will show on the recipient's bank statement. */
+        fun remittanceInformation(remittanceInformation: String) =
+            remittanceInformation(JsonField.of(remittanceInformation))
+
+        /** Unstructured information that will show on the recipient's bank statement. */
+        @JsonProperty("remittance_information")
+        @ExcludeMissing
+        fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
+            this.remittanceInformation = remittanceInformation
+        }
+
+        /** The Account Number the recipient will see as having sent the transfer. */
+        fun sourceAccountNumberId(sourceAccountNumberId: String) =
+            sourceAccountNumberId(JsonField.of(sourceAccountNumberId))
+
+        /** The Account Number the recipient will see as having sent the transfer. */
+        @JsonProperty("source_account_number_id")
+        @ExcludeMissing
+        fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
+            this.sourceAccountNumberId = sourceAccountNumberId
+        }
+
+        /** The lifecycle status of the transfer. */
+        fun status(status: Status) = status(JsonField.of(status))
+
+        /** The lifecycle status of the transfer. */
+        @JsonProperty("status")
+        @ExcludeMissing
+        fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * After the transfer is submitted to Real-Time Payments, this will contain supplemental
+         * details.
          */
-        @JsonProperty("idempotency_key")
+        fun submission(submission: Submission) = submission(JsonField.of(submission))
+
+        /**
+         * After the transfer is submitted to Real-Time Payments, this will contain supplemental
+         * details.
+         */
+        @JsonProperty("submission")
         @ExcludeMissing
-        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
-            this.idempotencyKey = idempotencyKey
+        fun submission(submission: JsonField<Submission>) = apply { this.submission = submission }
+
+        /** The Transaction funding the transfer once it is complete. */
+        fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
+
+        /** The Transaction funding the transfer once it is complete. */
+        @JsonProperty("transaction_id")
+        @ExcludeMissing
+        fun transactionId(transactionId: JsonField<String>) = apply {
+            this.transactionId = transactionId
+        }
+
+        /**
+         * A constant representing the object's type. For this resource it will always be
+         * `real_time_payments_transfer`.
+         */
+        fun type(type: Type) = type(JsonField.of(type))
+
+        /**
+         * A constant representing the object's type. For this resource it will always be
+         * `real_time_payments_transfer`.
+         */
+        @JsonProperty("type")
+        @ExcludeMissing
+        fun type(type: JsonField<Type>) = apply { this.type = type }
+
+        /**
+         * The name of the ultimate recipient of the transfer. Set this if the creditor is an
+         * intermediary receiving the payment for someone else.
+         */
+        fun ultimateCreditorName(ultimateCreditorName: String) =
+            ultimateCreditorName(JsonField.of(ultimateCreditorName))
+
+        /**
+         * The name of the ultimate recipient of the transfer. Set this if the creditor is an
+         * intermediary receiving the payment for someone else.
+         */
+        @JsonProperty("ultimate_creditor_name")
+        @ExcludeMissing
+        fun ultimateCreditorName(ultimateCreditorName: JsonField<String>) = apply {
+            this.ultimateCreditorName = ultimateCreditorName
+        }
+
+        /**
+         * The name of the ultimate sender of the transfer. Set this if the funds are being sent on
+         * behalf of someone who is not the account holder at Increase.
+         */
+        fun ultimateDebtorName(ultimateDebtorName: String) =
+            ultimateDebtorName(JsonField.of(ultimateDebtorName))
+
+        /**
+         * The name of the ultimate sender of the transfer. Set this if the funds are being sent on
+         * behalf of someone who is not the account holder at Increase.
+         */
+        @JsonProperty("ultimate_debtor_name")
+        @ExcludeMissing
+        fun ultimateDebtorName(ultimateDebtorName: JsonField<String>) = apply {
+            this.ultimateDebtorName = ultimateDebtorName
         }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -746,29 +782,29 @@ private constructor(
 
         fun build(): RealTimePaymentsTransfer =
             RealTimePaymentsTransfer(
-                type,
-                id,
+                accountId,
+                amount,
                 approval,
                 cancellation,
-                status,
                 createdAt,
-                accountId,
-                externalAccountId,
-                sourceAccountNumberId,
-                ultimateCreditorName,
-                ultimateDebtorName,
-                debtorName,
                 creditorName,
-                remittanceInformation,
-                amount,
                 currency,
+                debtorName,
                 destinationAccountNumber,
                 destinationRoutingNumber,
-                transactionId,
-                pendingTransactionId,
-                submission,
-                rejection,
+                externalAccountId,
+                id,
                 idempotencyKey,
+                pendingTransactionId,
+                rejection,
+                remittanceInformation,
+                sourceAccountNumberId,
+                status,
+                submission,
+                transactionId,
+                type,
+                ultimateCreditorName,
+                ultimateDebtorName,
                 additionalProperties.toUnmodifiable(),
             )
     }
@@ -1164,29 +1200,15 @@ private constructor(
     @NoAutoDetect
     class Rejection
     private constructor(
-        private val rejectedAt: JsonField<OffsetDateTime>,
-        private val rejectReasonCode: JsonField<RejectReasonCode>,
         private val rejectReasonAdditionalInformation: JsonField<String>,
+        private val rejectReasonCode: JsonField<RejectReasonCode>,
+        private val rejectedAt: JsonField<OffsetDateTime>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * transfer was rejected.
-         */
-        fun rejectedAt(): Optional<OffsetDateTime> =
-            Optional.ofNullable(rejectedAt.getNullable("rejected_at"))
-
-        /**
-         * The reason the transfer was rejected as provided by the recipient bank or the Real-Time
-         * Payments network.
-         */
-        fun rejectReasonCode(): RejectReasonCode =
-            rejectReasonCode.getRequired("reject_reason_code")
 
         /**
          * Additional information about the rejection provided by the recipient bank when the
@@ -1200,10 +1222,26 @@ private constructor(
             )
 
         /**
+         * The reason the transfer was rejected as provided by the recipient bank or the Real-Time
+         * Payments network.
+         */
+        fun rejectReasonCode(): RejectReasonCode =
+            rejectReasonCode.getRequired("reject_reason_code")
+
+        /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * transfer was rejected.
          */
-        @JsonProperty("rejected_at") @ExcludeMissing fun _rejectedAt() = rejectedAt
+        fun rejectedAt(): Optional<OffsetDateTime> =
+            Optional.ofNullable(rejectedAt.getNullable("rejected_at"))
+
+        /**
+         * Additional information about the rejection provided by the recipient bank when the
+         * `reject_reason_code` is `NARRATIVE`.
+         */
+        @JsonProperty("reject_reason_additional_information")
+        @ExcludeMissing
+        fun _rejectReasonAdditionalInformation() = rejectReasonAdditionalInformation
 
         /**
          * The reason the transfer was rejected as provided by the recipient bank or the Real-Time
@@ -1214,12 +1252,10 @@ private constructor(
         fun _rejectReasonCode() = rejectReasonCode
 
         /**
-         * Additional information about the rejection provided by the recipient bank when the
-         * `reject_reason_code` is `NARRATIVE`.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * transfer was rejected.
          */
-        @JsonProperty("reject_reason_additional_information")
-        @ExcludeMissing
-        fun _rejectReasonAdditionalInformation() = rejectReasonAdditionalInformation
+        @JsonProperty("rejected_at") @ExcludeMissing fun _rejectedAt() = rejectedAt
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1227,9 +1263,9 @@ private constructor(
 
         fun validate(): Rejection = apply {
             if (!validated) {
-                rejectedAt()
-                rejectReasonCode()
                 rejectReasonAdditionalInformation()
+                rejectReasonCode()
+                rejectedAt()
                 validated = true
             }
         }
@@ -1242,9 +1278,9 @@ private constructor(
             }
 
             return other is Rejection &&
-                this.rejectedAt == other.rejectedAt &&
-                this.rejectReasonCode == other.rejectReasonCode &&
                 this.rejectReasonAdditionalInformation == other.rejectReasonAdditionalInformation &&
+                this.rejectReasonCode == other.rejectReasonCode &&
+                this.rejectedAt == other.rejectedAt &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -1252,9 +1288,9 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        rejectedAt,
-                        rejectReasonCode,
                         rejectReasonAdditionalInformation,
+                        rejectReasonCode,
+                        rejectedAt,
                         additionalProperties,
                     )
             }
@@ -1262,7 +1298,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Rejection{rejectedAt=$rejectedAt, rejectReasonCode=$rejectReasonCode, rejectReasonAdditionalInformation=$rejectReasonAdditionalInformation, additionalProperties=$additionalProperties}"
+            "Rejection{rejectReasonAdditionalInformation=$rejectReasonAdditionalInformation, rejectReasonCode=$rejectReasonCode, rejectedAt=$rejectedAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1271,50 +1307,17 @@ private constructor(
 
         class Builder {
 
-            private var rejectedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var rejectReasonCode: JsonField<RejectReasonCode> = JsonMissing.of()
             private var rejectReasonAdditionalInformation: JsonField<String> = JsonMissing.of()
+            private var rejectReasonCode: JsonField<RejectReasonCode> = JsonMissing.of()
+            private var rejectedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(rejection: Rejection) = apply {
-                this.rejectedAt = rejection.rejectedAt
-                this.rejectReasonCode = rejection.rejectReasonCode
                 this.rejectReasonAdditionalInformation = rejection.rejectReasonAdditionalInformation
+                this.rejectReasonCode = rejection.rejectReasonCode
+                this.rejectedAt = rejection.rejectedAt
                 additionalProperties(rejection.additionalProperties)
-            }
-
-            /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * transfer was rejected.
-             */
-            fun rejectedAt(rejectedAt: OffsetDateTime) = rejectedAt(JsonField.of(rejectedAt))
-
-            /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * transfer was rejected.
-             */
-            @JsonProperty("rejected_at")
-            @ExcludeMissing
-            fun rejectedAt(rejectedAt: JsonField<OffsetDateTime>) = apply {
-                this.rejectedAt = rejectedAt
-            }
-
-            /**
-             * The reason the transfer was rejected as provided by the recipient bank or the
-             * Real-Time Payments network.
-             */
-            fun rejectReasonCode(rejectReasonCode: RejectReasonCode) =
-                rejectReasonCode(JsonField.of(rejectReasonCode))
-
-            /**
-             * The reason the transfer was rejected as provided by the recipient bank or the
-             * Real-Time Payments network.
-             */
-            @JsonProperty("reject_reason_code")
-            @ExcludeMissing
-            fun rejectReasonCode(rejectReasonCode: JsonField<RejectReasonCode>) = apply {
-                this.rejectReasonCode = rejectReasonCode
             }
 
             /**
@@ -1334,6 +1337,39 @@ private constructor(
                 rejectReasonAdditionalInformation: JsonField<String>
             ) = apply { this.rejectReasonAdditionalInformation = rejectReasonAdditionalInformation }
 
+            /**
+             * The reason the transfer was rejected as provided by the recipient bank or the
+             * Real-Time Payments network.
+             */
+            fun rejectReasonCode(rejectReasonCode: RejectReasonCode) =
+                rejectReasonCode(JsonField.of(rejectReasonCode))
+
+            /**
+             * The reason the transfer was rejected as provided by the recipient bank or the
+             * Real-Time Payments network.
+             */
+            @JsonProperty("reject_reason_code")
+            @ExcludeMissing
+            fun rejectReasonCode(rejectReasonCode: JsonField<RejectReasonCode>) = apply {
+                this.rejectReasonCode = rejectReasonCode
+            }
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * transfer was rejected.
+             */
+            fun rejectedAt(rejectedAt: OffsetDateTime) = rejectedAt(JsonField.of(rejectedAt))
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * transfer was rejected.
+             */
+            @JsonProperty("rejected_at")
+            @ExcludeMissing
+            fun rejectedAt(rejectedAt: JsonField<OffsetDateTime>) = apply {
+                this.rejectedAt = rejectedAt
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -1350,9 +1386,9 @@ private constructor(
 
             fun build(): Rejection =
                 Rejection(
-                    rejectedAt,
-                    rejectReasonCode,
                     rejectReasonAdditionalInformation,
+                    rejectReasonCode,
+                    rejectedAt,
                     additionalProperties.toUnmodifiable(),
                 )
         }

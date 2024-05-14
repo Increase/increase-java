@@ -26,9 +26,9 @@ import java.util.Objects
 @NoAutoDetect
 class DigitalWalletToken
 private constructor(
-    private val id: JsonField<String>,
     private val cardId: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
+    private val id: JsonField<String>,
     private val status: JsonField<Status>,
     private val tokenRequestor: JsonField<TokenRequestor>,
     private val type: JsonField<Type>,
@@ -39,9 +39,6 @@ private constructor(
 
     private var hashCode: Int = 0
 
-    /** The Digital Wallet Token identifier. */
-    fun id(): String = id.getRequired("id")
-
     /** The identifier for the Card this Digital Wallet Token belongs to. */
     fun cardId(): String = cardId.getRequired("card_id")
 
@@ -50,6 +47,9 @@ private constructor(
      * created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+    /** The Digital Wallet Token identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** This indicates if payments can be made with the Digital Wallet Token. */
     fun status(): Status = status.getRequired("status")
@@ -63,9 +63,6 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The Digital Wallet Token identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
     /** The identifier for the Card this Digital Wallet Token belongs to. */
     @JsonProperty("card_id") @ExcludeMissing fun _cardId() = cardId
 
@@ -74,6 +71,9 @@ private constructor(
      * created.
      */
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+    /** The Digital Wallet Token identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /** This indicates if payments can be made with the Digital Wallet Token. */
     @JsonProperty("status") @ExcludeMissing fun _status() = status
@@ -93,9 +93,9 @@ private constructor(
 
     fun validate(): DigitalWalletToken = apply {
         if (!validated) {
-            id()
             cardId()
             createdAt()
+            id()
             status()
             tokenRequestor()
             type()
@@ -111,9 +111,9 @@ private constructor(
         }
 
         return other is DigitalWalletToken &&
-            this.id == other.id &&
             this.cardId == other.cardId &&
             this.createdAt == other.createdAt &&
+            this.id == other.id &&
             this.status == other.status &&
             this.tokenRequestor == other.tokenRequestor &&
             this.type == other.type &&
@@ -124,9 +124,9 @@ private constructor(
         if (hashCode == 0) {
             hashCode =
                 Objects.hash(
-                    id,
                     cardId,
                     createdAt,
+                    id,
                     status,
                     tokenRequestor,
                     type,
@@ -137,7 +137,7 @@ private constructor(
     }
 
     override fun toString() =
-        "DigitalWalletToken{id=$id, cardId=$cardId, createdAt=$createdAt, status=$status, tokenRequestor=$tokenRequestor, type=$type, additionalProperties=$additionalProperties}"
+        "DigitalWalletToken{cardId=$cardId, createdAt=$createdAt, id=$id, status=$status, tokenRequestor=$tokenRequestor, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -146,9 +146,9 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
         private var cardId: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var id: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var tokenRequestor: JsonField<TokenRequestor> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
@@ -156,20 +156,14 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(digitalWalletToken: DigitalWalletToken) = apply {
-            this.id = digitalWalletToken.id
             this.cardId = digitalWalletToken.cardId
             this.createdAt = digitalWalletToken.createdAt
+            this.id = digitalWalletToken.id
             this.status = digitalWalletToken.status
             this.tokenRequestor = digitalWalletToken.tokenRequestor
             this.type = digitalWalletToken.type
             additionalProperties(digitalWalletToken.additionalProperties)
         }
-
-        /** The Digital Wallet Token identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Digital Wallet Token identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The identifier for the Card this Digital Wallet Token belongs to. */
         fun cardId(cardId: String) = cardId(JsonField.of(cardId))
@@ -192,6 +186,12 @@ private constructor(
         @JsonProperty("created_at")
         @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /** The Digital Wallet Token identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Digital Wallet Token identifier. */
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** This indicates if payments can be made with the Digital Wallet Token. */
         fun status(status: Status) = status(JsonField.of(status))
@@ -242,9 +242,9 @@ private constructor(
 
         fun build(): DigitalWalletToken =
             DigitalWalletToken(
-                id,
                 cardId,
                 createdAt,
+                id,
                 status,
                 tokenRequestor,
                 type,

@@ -267,9 +267,9 @@ constructor(
     @NoAutoDetect
     class Address
     private constructor(
+        private val city: String?,
         private val line1: String?,
         private val line2: String?,
-        private val city: String?,
         private val state: String?,
         private val zip: String?,
         private val additionalProperties: Map<String, JsonValue>,
@@ -277,14 +277,14 @@ constructor(
 
         private var hashCode: Int = 0
 
+        /** The city of the address. */
+        @JsonProperty("city") fun city(): String? = city
+
         /** The first line of the address. This is usually the street number and street. */
         @JsonProperty("line1") fun line1(): String? = line1
 
         /** The second line of the address. This might be the floor or room number. */
         @JsonProperty("line2") fun line2(): String? = line2
-
-        /** The city of the address. */
-        @JsonProperty("city") fun city(): String? = city
 
         /**
          * The two-letter United States Postal Service (USPS) abbreviation for the state of the
@@ -307,9 +307,9 @@ constructor(
             }
 
             return other is Address &&
+                this.city == other.city &&
                 this.line1 == other.line1 &&
                 this.line2 == other.line2 &&
-                this.city == other.city &&
                 this.state == other.state &&
                 this.zip == other.zip &&
                 this.additionalProperties == other.additionalProperties
@@ -319,9 +319,9 @@ constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
+                        city,
                         line1,
                         line2,
-                        city,
                         state,
                         zip,
                         additionalProperties,
@@ -331,7 +331,7 @@ constructor(
         }
 
         override fun toString() =
-            "Address{line1=$line1, line2=$line2, city=$city, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
+            "Address{city=$city, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -340,31 +340,31 @@ constructor(
 
         class Builder {
 
+            private var city: String? = null
             private var line1: String? = null
             private var line2: String? = null
-            private var city: String? = null
             private var state: String? = null
             private var zip: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(address: Address) = apply {
+                this.city = address.city
                 this.line1 = address.line1
                 this.line2 = address.line2
-                this.city = address.city
                 this.state = address.state
                 this.zip = address.zip
                 additionalProperties(address.additionalProperties)
             }
+
+            /** The city of the address. */
+            @JsonProperty("city") fun city(city: String) = apply { this.city = city }
 
             /** The first line of the address. This is usually the street number and street. */
             @JsonProperty("line1") fun line1(line1: String) = apply { this.line1 = line1 }
 
             /** The second line of the address. This might be the floor or room number. */
             @JsonProperty("line2") fun line2(line2: String) = apply { this.line2 = line2 }
-
-            /** The city of the address. */
-            @JsonProperty("city") fun city(city: String) = apply { this.city = city }
 
             /**
              * The two-letter United States Postal Service (USPS) abbreviation for the state of the
@@ -391,9 +391,9 @@ constructor(
 
             fun build(): Address =
                 Address(
+                    checkNotNull(city) { "`city` is required but was not set" },
                     checkNotNull(line1) { "`line1` is required but was not set" },
                     line2,
-                    checkNotNull(city) { "`city` is required but was not set" },
                     checkNotNull(state) { "`state` is required but was not set" },
                     checkNotNull(zip) { "`zip` is required but was not set" },
                     additionalProperties.toUnmodifiable(),

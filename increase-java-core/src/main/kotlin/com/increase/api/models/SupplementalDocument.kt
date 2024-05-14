@@ -24,8 +24,8 @@ import java.util.Optional
 @NoAutoDetect
 class SupplementalDocument
 private constructor(
-    private val fileId: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
+    private val fileId: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
@@ -35,14 +35,14 @@ private constructor(
 
     private var hashCode: Int = 0
 
-    /** The File containing the document. */
-    fun fileId(): String = fileId.getRequired("file_id")
-
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Supplemental
      * Document was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+    /** The File containing the document. */
+    fun fileId(): String = fileId.getRequired("file_id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -58,14 +58,14 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The File containing the document. */
-    @JsonProperty("file_id") @ExcludeMissing fun _fileId() = fileId
-
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Supplemental
      * Document was created.
      */
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+    /** The File containing the document. */
+    @JsonProperty("file_id") @ExcludeMissing fun _fileId() = fileId
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -86,8 +86,8 @@ private constructor(
 
     fun validate(): SupplementalDocument = apply {
         if (!validated) {
-            fileId()
             createdAt()
+            fileId()
             idempotencyKey()
             type()
             validated = true
@@ -102,8 +102,8 @@ private constructor(
         }
 
         return other is SupplementalDocument &&
-            this.fileId == other.fileId &&
             this.createdAt == other.createdAt &&
+            this.fileId == other.fileId &&
             this.idempotencyKey == other.idempotencyKey &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
@@ -113,8 +113,8 @@ private constructor(
         if (hashCode == 0) {
             hashCode =
                 Objects.hash(
-                    fileId,
                     createdAt,
+                    fileId,
                     idempotencyKey,
                     type,
                     additionalProperties,
@@ -124,7 +124,7 @@ private constructor(
     }
 
     override fun toString() =
-        "SupplementalDocument{fileId=$fileId, createdAt=$createdAt, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
+        "SupplementalDocument{createdAt=$createdAt, fileId=$fileId, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -133,28 +133,20 @@ private constructor(
 
     class Builder {
 
-        private var fileId: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var fileId: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(supplementalDocument: SupplementalDocument) = apply {
-            this.fileId = supplementalDocument.fileId
             this.createdAt = supplementalDocument.createdAt
+            this.fileId = supplementalDocument.fileId
             this.idempotencyKey = supplementalDocument.idempotencyKey
             this.type = supplementalDocument.type
             additionalProperties(supplementalDocument.additionalProperties)
         }
-
-        /** The File containing the document. */
-        fun fileId(fileId: String) = fileId(JsonField.of(fileId))
-
-        /** The File containing the document. */
-        @JsonProperty("file_id")
-        @ExcludeMissing
-        fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Supplemental
@@ -169,6 +161,14 @@ private constructor(
         @JsonProperty("created_at")
         @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /** The File containing the document. */
+        fun fileId(fileId: String) = fileId(JsonField.of(fileId))
+
+        /** The File containing the document. */
+        @JsonProperty("file_id")
+        @ExcludeMissing
+        fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -218,8 +218,8 @@ private constructor(
 
         fun build(): SupplementalDocument =
             SupplementalDocument(
-                fileId,
                 createdAt,
+                fileId,
                 idempotencyKey,
                 type,
                 additionalProperties.toUnmodifiable(),

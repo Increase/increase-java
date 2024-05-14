@@ -478,22 +478,22 @@ constructor(
     @NoAutoDetect
     class TextColor
     private constructor(
-        private val red: Long?,
-        private val green: Long?,
         private val blue: Long?,
+        private val green: Long?,
+        private val red: Long?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
 
-        /** The value of the red channel in the RGB color. */
-        @JsonProperty("red") fun red(): Long? = red
+        /** The value of the blue channel in the RGB color. */
+        @JsonProperty("blue") fun blue(): Long? = blue
 
         /** The value of the green channel in the RGB color. */
         @JsonProperty("green") fun green(): Long? = green
 
-        /** The value of the blue channel in the RGB color. */
-        @JsonProperty("blue") fun blue(): Long? = blue
+        /** The value of the red channel in the RGB color. */
+        @JsonProperty("red") fun red(): Long? = red
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -507,9 +507,9 @@ constructor(
             }
 
             return other is TextColor &&
-                this.red == other.red &&
-                this.green == other.green &&
                 this.blue == other.blue &&
+                this.green == other.green &&
+                this.red == other.red &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -517,9 +517,9 @@ constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        red,
-                        green,
                         blue,
+                        green,
+                        red,
                         additionalProperties,
                     )
             }
@@ -527,7 +527,7 @@ constructor(
         }
 
         override fun toString() =
-            "TextColor{red=$red, green=$green, blue=$blue, additionalProperties=$additionalProperties}"
+            "TextColor{blue=$blue, green=$green, red=$red, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -536,27 +536,27 @@ constructor(
 
         class Builder {
 
-            private var red: Long? = null
-            private var green: Long? = null
             private var blue: Long? = null
+            private var green: Long? = null
+            private var red: Long? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(textColor: TextColor) = apply {
-                this.red = textColor.red
-                this.green = textColor.green
                 this.blue = textColor.blue
+                this.green = textColor.green
+                this.red = textColor.red
                 additionalProperties(textColor.additionalProperties)
             }
 
-            /** The value of the red channel in the RGB color. */
-            @JsonProperty("red") fun red(red: Long) = apply { this.red = red }
+            /** The value of the blue channel in the RGB color. */
+            @JsonProperty("blue") fun blue(blue: Long) = apply { this.blue = blue }
 
             /** The value of the green channel in the RGB color. */
             @JsonProperty("green") fun green(green: Long) = apply { this.green = green }
 
-            /** The value of the blue channel in the RGB color. */
-            @JsonProperty("blue") fun blue(blue: Long) = apply { this.blue = blue }
+            /** The value of the red channel in the RGB color. */
+            @JsonProperty("red") fun red(red: Long) = apply { this.red = red }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -574,9 +574,9 @@ constructor(
 
             fun build(): TextColor =
                 TextColor(
-                    checkNotNull(red) { "`red` is required but was not set" },
-                    checkNotNull(green) { "`green` is required but was not set" },
                     checkNotNull(blue) { "`blue` is required but was not set" },
+                    checkNotNull(green) { "`green` is required but was not set" },
+                    checkNotNull(red) { "`red` is required but was not set" },
                     additionalProperties.toUnmodifiable(),
                 )
         }

@@ -28,21 +28,21 @@ import java.util.Optional
 @NoAutoDetect
 class DigitalCardProfile
 private constructor(
-    private val id: JsonField<String>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val status: JsonField<Status>,
-    private val description: JsonField<String>,
-    private val isDefault: JsonField<Boolean>,
-    private val textColor: JsonField<TextColor>,
-    private val issuerName: JsonField<String>,
+    private val appIconFileId: JsonField<String>,
+    private val backgroundImageFileId: JsonField<String>,
     private val cardDescription: JsonField<String>,
-    private val contactWebsite: JsonField<String>,
     private val contactEmail: JsonField<String>,
     private val contactPhone: JsonField<String>,
-    private val backgroundImageFileId: JsonField<String>,
-    private val appIconFileId: JsonField<String>,
-    private val type: JsonField<Type>,
+    private val contactWebsite: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val description: JsonField<String>,
+    private val id: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
+    private val isDefault: JsonField<Boolean>,
+    private val issuerName: JsonField<String>,
+    private val status: JsonField<Status>,
+    private val textColor: JsonField<TextColor>,
+    private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -50,36 +50,15 @@ private constructor(
 
     private var hashCode: Int = 0
 
-    /** The Card Profile identifier. */
-    fun id(): String = id.getRequired("id")
+    /** The identifier of the File containing the card's icon image. */
+    fun appIconFileId(): String = appIconFileId.getRequired("app_icon_file_id")
 
-    /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-     * Dispute was created.
-     */
-    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-    /** The status of the Card Profile. */
-    fun status(): Status = status.getRequired("status")
-
-    /** A description you can use to identify the Card Profile. */
-    fun description(): String = description.getRequired("description")
-
-    /** Whether this Digital Card Profile is the default for all cards in its Increase group. */
-    fun isDefault(): Boolean = isDefault.getRequired("is_default")
-
-    /** The Card's text color, specified as an RGB triple. */
-    fun textColor(): TextColor = textColor.getRequired("text_color")
-
-    /** A user-facing description for whoever is issuing the card. */
-    fun issuerName(): String = issuerName.getRequired("issuer_name")
+    /** The identifier of the File containing the card's front image. */
+    fun backgroundImageFileId(): String =
+        backgroundImageFileId.getRequired("background_image_file_id")
 
     /** A user-facing description for the card itself. */
     fun cardDescription(): String = cardDescription.getRequired("card_description")
-
-    /** A website the user can visit to view and receive support for their card. */
-    fun contactWebsite(): Optional<String> =
-        Optional.ofNullable(contactWebsite.getNullable("contact_website"))
 
     /** An email address the user can contact to receive support for their card. */
     fun contactEmail(): Optional<String> =
@@ -89,18 +68,21 @@ private constructor(
     fun contactPhone(): Optional<String> =
         Optional.ofNullable(contactPhone.getNullable("contact_phone"))
 
-    /** The identifier of the File containing the card's front image. */
-    fun backgroundImageFileId(): String =
-        backgroundImageFileId.getRequired("background_image_file_id")
-
-    /** The identifier of the File containing the card's icon image. */
-    fun appIconFileId(): String = appIconFileId.getRequired("app_icon_file_id")
+    /** A website the user can visit to view and receive support for their card. */
+    fun contactWebsite(): Optional<String> =
+        Optional.ofNullable(contactWebsite.getNullable("contact_website"))
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `digital_card_profile`.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
+     * Dispute was created.
      */
-    fun type(): Type = type.getRequired("type")
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+    /** A description you can use to identify the Card Profile. */
+    fun description(): String = description.getRequired("description")
+
+    /** The Card Profile identifier. */
+    fun id(): String = id.getRequired("id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -110,35 +92,34 @@ private constructor(
     fun idempotencyKey(): Optional<String> =
         Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
-    /** The Card Profile identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
-    /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-     * Dispute was created.
-     */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
-    /** The status of the Card Profile. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
-
-    /** A description you can use to identify the Card Profile. */
-    @JsonProperty("description") @ExcludeMissing fun _description() = description
-
     /** Whether this Digital Card Profile is the default for all cards in its Increase group. */
-    @JsonProperty("is_default") @ExcludeMissing fun _isDefault() = isDefault
-
-    /** The Card's text color, specified as an RGB triple. */
-    @JsonProperty("text_color") @ExcludeMissing fun _textColor() = textColor
+    fun isDefault(): Boolean = isDefault.getRequired("is_default")
 
     /** A user-facing description for whoever is issuing the card. */
-    @JsonProperty("issuer_name") @ExcludeMissing fun _issuerName() = issuerName
+    fun issuerName(): String = issuerName.getRequired("issuer_name")
+
+    /** The status of the Card Profile. */
+    fun status(): Status = status.getRequired("status")
+
+    /** The Card's text color, specified as an RGB triple. */
+    fun textColor(): TextColor = textColor.getRequired("text_color")
+
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `digital_card_profile`.
+     */
+    fun type(): Type = type.getRequired("type")
+
+    /** The identifier of the File containing the card's icon image. */
+    @JsonProperty("app_icon_file_id") @ExcludeMissing fun _appIconFileId() = appIconFileId
+
+    /** The identifier of the File containing the card's front image. */
+    @JsonProperty("background_image_file_id")
+    @ExcludeMissing
+    fun _backgroundImageFileId() = backgroundImageFileId
 
     /** A user-facing description for the card itself. */
     @JsonProperty("card_description") @ExcludeMissing fun _cardDescription() = cardDescription
-
-    /** A website the user can visit to view and receive support for their card. */
-    @JsonProperty("contact_website") @ExcludeMissing fun _contactWebsite() = contactWebsite
 
     /** An email address the user can contact to receive support for their card. */
     @JsonProperty("contact_email") @ExcludeMissing fun _contactEmail() = contactEmail
@@ -146,19 +127,20 @@ private constructor(
     /** A phone number the user can contact to receive support for their card. */
     @JsonProperty("contact_phone") @ExcludeMissing fun _contactPhone() = contactPhone
 
-    /** The identifier of the File containing the card's front image. */
-    @JsonProperty("background_image_file_id")
-    @ExcludeMissing
-    fun _backgroundImageFileId() = backgroundImageFileId
-
-    /** The identifier of the File containing the card's icon image. */
-    @JsonProperty("app_icon_file_id") @ExcludeMissing fun _appIconFileId() = appIconFileId
+    /** A website the user can visit to view and receive support for their card. */
+    @JsonProperty("contact_website") @ExcludeMissing fun _contactWebsite() = contactWebsite
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `digital_card_profile`.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
+     * Dispute was created.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+    /** A description you can use to identify the Card Profile. */
+    @JsonProperty("description") @ExcludeMissing fun _description() = description
+
+    /** The Card Profile identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -167,27 +149,45 @@ private constructor(
      */
     @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
 
+    /** Whether this Digital Card Profile is the default for all cards in its Increase group. */
+    @JsonProperty("is_default") @ExcludeMissing fun _isDefault() = isDefault
+
+    /** A user-facing description for whoever is issuing the card. */
+    @JsonProperty("issuer_name") @ExcludeMissing fun _issuerName() = issuerName
+
+    /** The status of the Card Profile. */
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
+
+    /** The Card's text color, specified as an RGB triple. */
+    @JsonProperty("text_color") @ExcludeMissing fun _textColor() = textColor
+
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `digital_card_profile`.
+     */
+    @JsonProperty("type") @ExcludeMissing fun _type() = type
+
     @JsonAnyGetter
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
     fun validate(): DigitalCardProfile = apply {
         if (!validated) {
-            id()
-            createdAt()
-            status()
-            description()
-            isDefault()
-            textColor().validate()
-            issuerName()
+            appIconFileId()
+            backgroundImageFileId()
             cardDescription()
-            contactWebsite()
             contactEmail()
             contactPhone()
-            backgroundImageFileId()
-            appIconFileId()
-            type()
+            contactWebsite()
+            createdAt()
+            description()
+            id()
             idempotencyKey()
+            isDefault()
+            issuerName()
+            status()
+            textColor().validate()
+            type()
             validated = true
         }
     }
@@ -200,21 +200,21 @@ private constructor(
         }
 
         return other is DigitalCardProfile &&
-            this.id == other.id &&
-            this.createdAt == other.createdAt &&
-            this.status == other.status &&
-            this.description == other.description &&
-            this.isDefault == other.isDefault &&
-            this.textColor == other.textColor &&
-            this.issuerName == other.issuerName &&
+            this.appIconFileId == other.appIconFileId &&
+            this.backgroundImageFileId == other.backgroundImageFileId &&
             this.cardDescription == other.cardDescription &&
-            this.contactWebsite == other.contactWebsite &&
             this.contactEmail == other.contactEmail &&
             this.contactPhone == other.contactPhone &&
-            this.backgroundImageFileId == other.backgroundImageFileId &&
-            this.appIconFileId == other.appIconFileId &&
-            this.type == other.type &&
+            this.contactWebsite == other.contactWebsite &&
+            this.createdAt == other.createdAt &&
+            this.description == other.description &&
+            this.id == other.id &&
             this.idempotencyKey == other.idempotencyKey &&
+            this.isDefault == other.isDefault &&
+            this.issuerName == other.issuerName &&
+            this.status == other.status &&
+            this.textColor == other.textColor &&
+            this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -222,21 +222,21 @@ private constructor(
         if (hashCode == 0) {
             hashCode =
                 Objects.hash(
-                    id,
-                    createdAt,
-                    status,
-                    description,
-                    isDefault,
-                    textColor,
-                    issuerName,
+                    appIconFileId,
+                    backgroundImageFileId,
                     cardDescription,
-                    contactWebsite,
                     contactEmail,
                     contactPhone,
-                    backgroundImageFileId,
-                    appIconFileId,
-                    type,
+                    contactWebsite,
+                    createdAt,
+                    description,
+                    id,
                     idempotencyKey,
+                    isDefault,
+                    issuerName,
+                    status,
+                    textColor,
+                    type,
                     additionalProperties,
                 )
         }
@@ -244,7 +244,7 @@ private constructor(
     }
 
     override fun toString() =
-        "DigitalCardProfile{id=$id, createdAt=$createdAt, status=$status, description=$description, isDefault=$isDefault, textColor=$textColor, issuerName=$issuerName, cardDescription=$cardDescription, contactWebsite=$contactWebsite, contactEmail=$contactEmail, contactPhone=$contactPhone, backgroundImageFileId=$backgroundImageFileId, appIconFileId=$appIconFileId, type=$type, idempotencyKey=$idempotencyKey, additionalProperties=$additionalProperties}"
+        "DigitalCardProfile{appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, contactEmail=$contactEmail, contactPhone=$contactPhone, contactWebsite=$contactWebsite, createdAt=$createdAt, description=$description, id=$id, idempotencyKey=$idempotencyKey, isDefault=$isDefault, issuerName=$issuerName, status=$status, textColor=$textColor, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -253,102 +253,63 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var description: JsonField<String> = JsonMissing.of()
-        private var isDefault: JsonField<Boolean> = JsonMissing.of()
-        private var textColor: JsonField<TextColor> = JsonMissing.of()
-        private var issuerName: JsonField<String> = JsonMissing.of()
+        private var appIconFileId: JsonField<String> = JsonMissing.of()
+        private var backgroundImageFileId: JsonField<String> = JsonMissing.of()
         private var cardDescription: JsonField<String> = JsonMissing.of()
-        private var contactWebsite: JsonField<String> = JsonMissing.of()
         private var contactEmail: JsonField<String> = JsonMissing.of()
         private var contactPhone: JsonField<String> = JsonMissing.of()
-        private var backgroundImageFileId: JsonField<String> = JsonMissing.of()
-        private var appIconFileId: JsonField<String> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var contactWebsite: JsonField<String> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var description: JsonField<String> = JsonMissing.of()
+        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
+        private var isDefault: JsonField<Boolean> = JsonMissing.of()
+        private var issuerName: JsonField<String> = JsonMissing.of()
+        private var status: JsonField<Status> = JsonMissing.of()
+        private var textColor: JsonField<TextColor> = JsonMissing.of()
+        private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(digitalCardProfile: DigitalCardProfile) = apply {
-            this.id = digitalCardProfile.id
-            this.createdAt = digitalCardProfile.createdAt
-            this.status = digitalCardProfile.status
-            this.description = digitalCardProfile.description
-            this.isDefault = digitalCardProfile.isDefault
-            this.textColor = digitalCardProfile.textColor
-            this.issuerName = digitalCardProfile.issuerName
+            this.appIconFileId = digitalCardProfile.appIconFileId
+            this.backgroundImageFileId = digitalCardProfile.backgroundImageFileId
             this.cardDescription = digitalCardProfile.cardDescription
-            this.contactWebsite = digitalCardProfile.contactWebsite
             this.contactEmail = digitalCardProfile.contactEmail
             this.contactPhone = digitalCardProfile.contactPhone
-            this.backgroundImageFileId = digitalCardProfile.backgroundImageFileId
-            this.appIconFileId = digitalCardProfile.appIconFileId
-            this.type = digitalCardProfile.type
+            this.contactWebsite = digitalCardProfile.contactWebsite
+            this.createdAt = digitalCardProfile.createdAt
+            this.description = digitalCardProfile.description
+            this.id = digitalCardProfile.id
             this.idempotencyKey = digitalCardProfile.idempotencyKey
+            this.isDefault = digitalCardProfile.isDefault
+            this.issuerName = digitalCardProfile.issuerName
+            this.status = digitalCardProfile.status
+            this.textColor = digitalCardProfile.textColor
+            this.type = digitalCardProfile.type
             additionalProperties(digitalCardProfile.additionalProperties)
         }
 
-        /** The Card Profile identifier. */
-        fun id(id: String) = id(JsonField.of(id))
+        /** The identifier of the File containing the card's icon image. */
+        fun appIconFileId(appIconFileId: String) = appIconFileId(JsonField.of(appIconFileId))
 
-        /** The Card Profile identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-         * Dispute was created.
-         */
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-         * Dispute was created.
-         */
-        @JsonProperty("created_at")
+        /** The identifier of the File containing the card's icon image. */
+        @JsonProperty("app_icon_file_id")
         @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun appIconFileId(appIconFileId: JsonField<String>) = apply {
+            this.appIconFileId = appIconFileId
+        }
 
-        /** The status of the Card Profile. */
-        fun status(status: Status) = status(JsonField.of(status))
+        /** The identifier of the File containing the card's front image. */
+        fun backgroundImageFileId(backgroundImageFileId: String) =
+            backgroundImageFileId(JsonField.of(backgroundImageFileId))
 
-        /** The status of the Card Profile. */
-        @JsonProperty("status")
+        /** The identifier of the File containing the card's front image. */
+        @JsonProperty("background_image_file_id")
         @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply { this.status = status }
-
-        /** A description you can use to identify the Card Profile. */
-        fun description(description: String) = description(JsonField.of(description))
-
-        /** A description you can use to identify the Card Profile. */
-        @JsonProperty("description")
-        @ExcludeMissing
-        fun description(description: JsonField<String>) = apply { this.description = description }
-
-        /** Whether this Digital Card Profile is the default for all cards in its Increase group. */
-        fun isDefault(isDefault: Boolean) = isDefault(JsonField.of(isDefault))
-
-        /** Whether this Digital Card Profile is the default for all cards in its Increase group. */
-        @JsonProperty("is_default")
-        @ExcludeMissing
-        fun isDefault(isDefault: JsonField<Boolean>) = apply { this.isDefault = isDefault }
-
-        /** The Card's text color, specified as an RGB triple. */
-        fun textColor(textColor: TextColor) = textColor(JsonField.of(textColor))
-
-        /** The Card's text color, specified as an RGB triple. */
-        @JsonProperty("text_color")
-        @ExcludeMissing
-        fun textColor(textColor: JsonField<TextColor>) = apply { this.textColor = textColor }
-
-        /** A user-facing description for whoever is issuing the card. */
-        fun issuerName(issuerName: String) = issuerName(JsonField.of(issuerName))
-
-        /** A user-facing description for whoever is issuing the card. */
-        @JsonProperty("issuer_name")
-        @ExcludeMissing
-        fun issuerName(issuerName: JsonField<String>) = apply { this.issuerName = issuerName }
+        fun backgroundImageFileId(backgroundImageFileId: JsonField<String>) = apply {
+            this.backgroundImageFileId = backgroundImageFileId
+        }
 
         /** A user-facing description for the card itself. */
         fun cardDescription(cardDescription: String) =
@@ -359,16 +320,6 @@ private constructor(
         @ExcludeMissing
         fun cardDescription(cardDescription: JsonField<String>) = apply {
             this.cardDescription = cardDescription
-        }
-
-        /** A website the user can visit to view and receive support for their card. */
-        fun contactWebsite(contactWebsite: String) = contactWebsite(JsonField.of(contactWebsite))
-
-        /** A website the user can visit to view and receive support for their card. */
-        @JsonProperty("contact_website")
-        @ExcludeMissing
-        fun contactWebsite(contactWebsite: JsonField<String>) = apply {
-            this.contactWebsite = contactWebsite
         }
 
         /** An email address the user can contact to receive support for their card. */
@@ -391,40 +342,43 @@ private constructor(
             this.contactPhone = contactPhone
         }
 
-        /** The identifier of the File containing the card's front image. */
-        fun backgroundImageFileId(backgroundImageFileId: String) =
-            backgroundImageFileId(JsonField.of(backgroundImageFileId))
+        /** A website the user can visit to view and receive support for their card. */
+        fun contactWebsite(contactWebsite: String) = contactWebsite(JsonField.of(contactWebsite))
 
-        /** The identifier of the File containing the card's front image. */
-        @JsonProperty("background_image_file_id")
+        /** A website the user can visit to view and receive support for their card. */
+        @JsonProperty("contact_website")
         @ExcludeMissing
-        fun backgroundImageFileId(backgroundImageFileId: JsonField<String>) = apply {
-            this.backgroundImageFileId = backgroundImageFileId
-        }
-
-        /** The identifier of the File containing the card's icon image. */
-        fun appIconFileId(appIconFileId: String) = appIconFileId(JsonField.of(appIconFileId))
-
-        /** The identifier of the File containing the card's icon image. */
-        @JsonProperty("app_icon_file_id")
-        @ExcludeMissing
-        fun appIconFileId(appIconFileId: JsonField<String>) = apply {
-            this.appIconFileId = appIconFileId
+        fun contactWebsite(contactWebsite: JsonField<String>) = apply {
+            this.contactWebsite = contactWebsite
         }
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `digital_card_profile`.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
+         * Dispute was created.
          */
-        fun type(type: Type) = type(JsonField.of(type))
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `digital_card_profile`.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
+         * Dispute was created.
          */
-        @JsonProperty("type")
+        @JsonProperty("created_at")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /** A description you can use to identify the Card Profile. */
+        fun description(description: String) = description(JsonField.of(description))
+
+        /** A description you can use to identify the Card Profile. */
+        @JsonProperty("description")
+        @ExcludeMissing
+        fun description(description: JsonField<String>) = apply { this.description = description }
+
+        /** The Card Profile identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Card Profile identifier. */
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -444,6 +398,52 @@ private constructor(
             this.idempotencyKey = idempotencyKey
         }
 
+        /** Whether this Digital Card Profile is the default for all cards in its Increase group. */
+        fun isDefault(isDefault: Boolean) = isDefault(JsonField.of(isDefault))
+
+        /** Whether this Digital Card Profile is the default for all cards in its Increase group. */
+        @JsonProperty("is_default")
+        @ExcludeMissing
+        fun isDefault(isDefault: JsonField<Boolean>) = apply { this.isDefault = isDefault }
+
+        /** A user-facing description for whoever is issuing the card. */
+        fun issuerName(issuerName: String) = issuerName(JsonField.of(issuerName))
+
+        /** A user-facing description for whoever is issuing the card. */
+        @JsonProperty("issuer_name")
+        @ExcludeMissing
+        fun issuerName(issuerName: JsonField<String>) = apply { this.issuerName = issuerName }
+
+        /** The status of the Card Profile. */
+        fun status(status: Status) = status(JsonField.of(status))
+
+        /** The status of the Card Profile. */
+        @JsonProperty("status")
+        @ExcludeMissing
+        fun status(status: JsonField<Status>) = apply { this.status = status }
+
+        /** The Card's text color, specified as an RGB triple. */
+        fun textColor(textColor: TextColor) = textColor(JsonField.of(textColor))
+
+        /** The Card's text color, specified as an RGB triple. */
+        @JsonProperty("text_color")
+        @ExcludeMissing
+        fun textColor(textColor: JsonField<TextColor>) = apply { this.textColor = textColor }
+
+        /**
+         * A constant representing the object's type. For this resource it will always be
+         * `digital_card_profile`.
+         */
+        fun type(type: Type) = type(JsonField.of(type))
+
+        /**
+         * A constant representing the object's type. For this resource it will always be
+         * `digital_card_profile`.
+         */
+        @JsonProperty("type")
+        @ExcludeMissing
+        fun type(type: JsonField<Type>) = apply { this.type = type }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             this.additionalProperties.putAll(additionalProperties)
@@ -460,21 +460,21 @@ private constructor(
 
         fun build(): DigitalCardProfile =
             DigitalCardProfile(
-                id,
-                createdAt,
-                status,
-                description,
-                isDefault,
-                textColor,
-                issuerName,
+                appIconFileId,
+                backgroundImageFileId,
                 cardDescription,
-                contactWebsite,
                 contactEmail,
                 contactPhone,
-                backgroundImageFileId,
-                appIconFileId,
-                type,
+                contactWebsite,
+                createdAt,
+                description,
+                id,
                 idempotencyKey,
+                isDefault,
+                issuerName,
+                status,
+                textColor,
+                type,
                 additionalProperties.toUnmodifiable(),
             )
     }
@@ -553,9 +553,9 @@ private constructor(
     @NoAutoDetect
     class TextColor
     private constructor(
-        private val red: JsonField<Long>,
-        private val green: JsonField<Long>,
         private val blue: JsonField<Long>,
+        private val green: JsonField<Long>,
+        private val red: JsonField<Long>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -563,23 +563,23 @@ private constructor(
 
         private var hashCode: Int = 0
 
-        /** The value of the red channel in the RGB color. */
-        fun red(): Long = red.getRequired("red")
+        /** The value of the blue channel in the RGB color. */
+        fun blue(): Long = blue.getRequired("blue")
 
         /** The value of the green channel in the RGB color. */
         fun green(): Long = green.getRequired("green")
 
-        /** The value of the blue channel in the RGB color. */
-        fun blue(): Long = blue.getRequired("blue")
-
         /** The value of the red channel in the RGB color. */
-        @JsonProperty("red") @ExcludeMissing fun _red() = red
+        fun red(): Long = red.getRequired("red")
+
+        /** The value of the blue channel in the RGB color. */
+        @JsonProperty("blue") @ExcludeMissing fun _blue() = blue
 
         /** The value of the green channel in the RGB color. */
         @JsonProperty("green") @ExcludeMissing fun _green() = green
 
-        /** The value of the blue channel in the RGB color. */
-        @JsonProperty("blue") @ExcludeMissing fun _blue() = blue
+        /** The value of the red channel in the RGB color. */
+        @JsonProperty("red") @ExcludeMissing fun _red() = red
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -587,9 +587,9 @@ private constructor(
 
         fun validate(): TextColor = apply {
             if (!validated) {
-                red()
-                green()
                 blue()
+                green()
+                red()
                 validated = true
             }
         }
@@ -602,9 +602,9 @@ private constructor(
             }
 
             return other is TextColor &&
-                this.red == other.red &&
-                this.green == other.green &&
                 this.blue == other.blue &&
+                this.green == other.green &&
+                this.red == other.red &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -612,9 +612,9 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        red,
-                        green,
                         blue,
+                        green,
+                        red,
                         additionalProperties,
                     )
             }
@@ -622,7 +622,7 @@ private constructor(
         }
 
         override fun toString() =
-            "TextColor{red=$red, green=$green, blue=$blue, additionalProperties=$additionalProperties}"
+            "TextColor{blue=$blue, green=$green, red=$red, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -631,26 +631,26 @@ private constructor(
 
         class Builder {
 
-            private var red: JsonField<Long> = JsonMissing.of()
-            private var green: JsonField<Long> = JsonMissing.of()
             private var blue: JsonField<Long> = JsonMissing.of()
+            private var green: JsonField<Long> = JsonMissing.of()
+            private var red: JsonField<Long> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(textColor: TextColor) = apply {
-                this.red = textColor.red
-                this.green = textColor.green
                 this.blue = textColor.blue
+                this.green = textColor.green
+                this.red = textColor.red
                 additionalProperties(textColor.additionalProperties)
             }
 
-            /** The value of the red channel in the RGB color. */
-            fun red(red: Long) = red(JsonField.of(red))
+            /** The value of the blue channel in the RGB color. */
+            fun blue(blue: Long) = blue(JsonField.of(blue))
 
-            /** The value of the red channel in the RGB color. */
-            @JsonProperty("red")
+            /** The value of the blue channel in the RGB color. */
+            @JsonProperty("blue")
             @ExcludeMissing
-            fun red(red: JsonField<Long>) = apply { this.red = red }
+            fun blue(blue: JsonField<Long>) = apply { this.blue = blue }
 
             /** The value of the green channel in the RGB color. */
             fun green(green: Long) = green(JsonField.of(green))
@@ -660,13 +660,13 @@ private constructor(
             @ExcludeMissing
             fun green(green: JsonField<Long>) = apply { this.green = green }
 
-            /** The value of the blue channel in the RGB color. */
-            fun blue(blue: Long) = blue(JsonField.of(blue))
+            /** The value of the red channel in the RGB color. */
+            fun red(red: Long) = red(JsonField.of(red))
 
-            /** The value of the blue channel in the RGB color. */
-            @JsonProperty("blue")
+            /** The value of the red channel in the RGB color. */
+            @JsonProperty("red")
             @ExcludeMissing
-            fun blue(blue: JsonField<Long>) = apply { this.blue = blue }
+            fun red(red: JsonField<Long>) = apply { this.red = red }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -684,9 +684,9 @@ private constructor(
 
             fun build(): TextColor =
                 TextColor(
-                    red,
-                    green,
                     blue,
+                    green,
+                    red,
                     additionalProperties.toUnmodifiable(),
                 )
         }
