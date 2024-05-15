@@ -28,6 +28,20 @@ class AccountTransferTest {
                         .build()
                 )
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .createdBy(
+                    AccountTransfer.CreatedBy.builder()
+                        .apiKey(
+                            AccountTransfer.CreatedBy.ApiKey.builder().description("string").build()
+                        )
+                        .category(AccountTransfer.CreatedBy.Category.API_KEY)
+                        .oauthApplication(
+                            AccountTransfer.CreatedBy.OAuthApplication.builder()
+                                .name("string")
+                                .build()
+                        )
+                        .user(AccountTransfer.CreatedBy.User.builder().email("string").build())
+                        .build()
+                )
                 .currency(AccountTransfer.Currency.CAD)
                 .description("string")
                 .destinationAccountId("string")
@@ -59,6 +73,19 @@ class AccountTransferTest {
             )
         assertThat(accountTransfer.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(accountTransfer.createdBy())
+            .contains(
+                AccountTransfer.CreatedBy.builder()
+                    .apiKey(
+                        AccountTransfer.CreatedBy.ApiKey.builder().description("string").build()
+                    )
+                    .category(AccountTransfer.CreatedBy.Category.API_KEY)
+                    .oauthApplication(
+                        AccountTransfer.CreatedBy.OAuthApplication.builder().name("string").build()
+                    )
+                    .user(AccountTransfer.CreatedBy.User.builder().email("string").build())
+                    .build()
+            )
         assertThat(accountTransfer.currency()).isEqualTo(AccountTransfer.Currency.CAD)
         assertThat(accountTransfer.description()).isEqualTo("string")
         assertThat(accountTransfer.destinationAccountId()).isEqualTo("string")

@@ -34,6 +34,18 @@ class WireTransferTest {
                         .build()
                 )
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .createdBy(
+                    WireTransfer.CreatedBy.builder()
+                        .apiKey(
+                            WireTransfer.CreatedBy.ApiKey.builder().description("string").build()
+                        )
+                        .category(WireTransfer.CreatedBy.Category.API_KEY)
+                        .oauthApplication(
+                            WireTransfer.CreatedBy.OAuthApplication.builder().name("string").build()
+                        )
+                        .user(WireTransfer.CreatedBy.User.builder().email("string").build())
+                        .build()
+                )
                 .currency(WireTransfer.Currency.CAD)
                 .externalAccountId("string")
                 .idempotencyKey("string")
@@ -100,6 +112,17 @@ class WireTransferTest {
             )
         assertThat(wireTransfer.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(wireTransfer.createdBy())
+            .contains(
+                WireTransfer.CreatedBy.builder()
+                    .apiKey(WireTransfer.CreatedBy.ApiKey.builder().description("string").build())
+                    .category(WireTransfer.CreatedBy.Category.API_KEY)
+                    .oauthApplication(
+                        WireTransfer.CreatedBy.OAuthApplication.builder().name("string").build()
+                    )
+                    .user(WireTransfer.CreatedBy.User.builder().email("string").build())
+                    .build()
+            )
         assertThat(wireTransfer.currency()).isEqualTo(WireTransfer.Currency.CAD)
         assertThat(wireTransfer.externalAccountId()).contains("string")
         assertThat(wireTransfer.idempotencyKey()).contains("string")

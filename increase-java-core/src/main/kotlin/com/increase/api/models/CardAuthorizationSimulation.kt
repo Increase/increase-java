@@ -756,6 +756,7 @@ private constructor(
             private val cardDecline: JsonField<CardDecline>,
             private val category: JsonField<Category>,
             private val checkDecline: JsonField<CheckDecline>,
+            private val checkDepositRejection: JsonField<CheckDepositRejection>,
             private val inboundRealTimePaymentsTransferDecline:
                 JsonField<InboundRealTimePaymentsTransferDecline>,
             private val internationalAchDecline: JsonField<InternationalAchDecline>,
@@ -793,6 +794,13 @@ private constructor(
              */
             fun checkDecline(): Optional<CheckDecline> =
                 Optional.ofNullable(checkDecline.getNullable("check_decline"))
+
+            /**
+             * A Check Deposit Rejection object. This field will be present in the JSON response if
+             * and only if `category` is equal to `check_deposit_rejection`.
+             */
+            fun checkDepositRejection(): Optional<CheckDepositRejection> =
+                Optional.ofNullable(checkDepositRejection.getNullable("check_deposit_rejection"))
 
             /**
              * An Inbound Real-Time Payments Transfer Decline object. This field will be present in
@@ -848,6 +856,14 @@ private constructor(
             @JsonProperty("check_decline") @ExcludeMissing fun _checkDecline() = checkDecline
 
             /**
+             * A Check Deposit Rejection object. This field will be present in the JSON response if
+             * and only if `category` is equal to `check_deposit_rejection`.
+             */
+            @JsonProperty("check_deposit_rejection")
+            @ExcludeMissing
+            fun _checkDepositRejection() = checkDepositRejection
+
+            /**
              * An Inbound Real-Time Payments Transfer Decline object. This field will be present in
              * the JSON response if and only if `category` is equal to
              * `inbound_real_time_payments_transfer_decline`.
@@ -880,6 +896,7 @@ private constructor(
                     cardDecline().map { it.validate() }
                     category()
                     checkDecline().map { it.validate() }
+                    checkDepositRejection().map { it.validate() }
                     inboundRealTimePaymentsTransferDecline().map { it.validate() }
                     internationalAchDecline().map { it.validate() }
                     wireDecline().map { it.validate() }
@@ -899,6 +916,7 @@ private constructor(
                     this.cardDecline == other.cardDecline &&
                     this.category == other.category &&
                     this.checkDecline == other.checkDecline &&
+                    this.checkDepositRejection == other.checkDepositRejection &&
                     this.inboundRealTimePaymentsTransferDecline ==
                         other.inboundRealTimePaymentsTransferDecline &&
                     this.internationalAchDecline == other.internationalAchDecline &&
@@ -914,6 +932,7 @@ private constructor(
                             cardDecline,
                             category,
                             checkDecline,
+                            checkDepositRejection,
                             inboundRealTimePaymentsTransferDecline,
                             internationalAchDecline,
                             wireDecline,
@@ -924,7 +943,7 @@ private constructor(
             }
 
             override fun toString() =
-                "Source{achDecline=$achDecline, cardDecline=$cardDecline, category=$category, checkDecline=$checkDecline, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, internationalAchDecline=$internationalAchDecline, wireDecline=$wireDecline, additionalProperties=$additionalProperties}"
+                "Source{achDecline=$achDecline, cardDecline=$cardDecline, category=$category, checkDecline=$checkDecline, checkDepositRejection=$checkDepositRejection, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, internationalAchDecline=$internationalAchDecline, wireDecline=$wireDecline, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -937,6 +956,8 @@ private constructor(
                 private var cardDecline: JsonField<CardDecline> = JsonMissing.of()
                 private var category: JsonField<Category> = JsonMissing.of()
                 private var checkDecline: JsonField<CheckDecline> = JsonMissing.of()
+                private var checkDepositRejection: JsonField<CheckDepositRejection> =
+                    JsonMissing.of()
                 private var inboundRealTimePaymentsTransferDecline:
                     JsonField<InboundRealTimePaymentsTransferDecline> =
                     JsonMissing.of()
@@ -951,6 +972,7 @@ private constructor(
                     this.cardDecline = source.cardDecline
                     this.category = source.category
                     this.checkDecline = source.checkDecline
+                    this.checkDepositRejection = source.checkDepositRejection
                     this.inboundRealTimePaymentsTransferDecline =
                         source.inboundRealTimePaymentsTransferDecline
                     this.internationalAchDecline = source.internationalAchDecline
@@ -1020,6 +1042,24 @@ private constructor(
                 fun checkDecline(checkDecline: JsonField<CheckDecline>) = apply {
                     this.checkDecline = checkDecline
                 }
+
+                /**
+                 * A Check Deposit Rejection object. This field will be present in the JSON response
+                 * if and only if `category` is equal to `check_deposit_rejection`.
+                 */
+                fun checkDepositRejection(checkDepositRejection: CheckDepositRejection) =
+                    checkDepositRejection(JsonField.of(checkDepositRejection))
+
+                /**
+                 * A Check Deposit Rejection object. This field will be present in the JSON response
+                 * if and only if `category` is equal to `check_deposit_rejection`.
+                 */
+                @JsonProperty("check_deposit_rejection")
+                @ExcludeMissing
+                fun checkDepositRejection(checkDepositRejection: JsonField<CheckDepositRejection>) =
+                    apply {
+                        this.checkDepositRejection = checkDepositRejection
+                    }
 
                 /**
                  * An Inbound Real-Time Payments Transfer Decline object. This field will be present
@@ -1102,6 +1142,7 @@ private constructor(
                         cardDecline,
                         category,
                         checkDecline,
+                        checkDepositRejection,
                         inboundRealTimePaymentsTransferDecline,
                         internationalAchDecline,
                         wireDecline,
@@ -4446,6 +4487,9 @@ private constructor(
 
                     @JvmField val WIRE_DECLINE = Category(JsonField.of("wire_decline"))
 
+                    @JvmField
+                    val CHECK_DEPOSIT_REJECTION = Category(JsonField.of("check_deposit_rejection"))
+
                     @JvmField val OTHER = Category(JsonField.of("other"))
 
                     @JvmStatic fun of(value: String) = Category(JsonField.of(value))
@@ -4458,6 +4502,7 @@ private constructor(
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
                     INTERNATIONAL_ACH_DECLINE,
                     WIRE_DECLINE,
+                    CHECK_DEPOSIT_REJECTION,
                     OTHER,
                 }
 
@@ -4468,6 +4513,7 @@ private constructor(
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
                     INTERNATIONAL_ACH_DECLINE,
                     WIRE_DECLINE,
+                    CHECK_DEPOSIT_REJECTION,
                     OTHER,
                     _UNKNOWN,
                 }
@@ -4481,6 +4527,7 @@ private constructor(
                             Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
                         INTERNATIONAL_ACH_DECLINE -> Value.INTERNATIONAL_ACH_DECLINE
                         WIRE_DECLINE -> Value.WIRE_DECLINE
+                        CHECK_DEPOSIT_REJECTION -> Value.CHECK_DEPOSIT_REJECTION
                         OTHER -> Value.OTHER
                         else -> Value._UNKNOWN
                     }
@@ -4494,6 +4541,7 @@ private constructor(
                             Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
                         INTERNATIONAL_ACH_DECLINE -> Known.INTERNATIONAL_ACH_DECLINE
                         WIRE_DECLINE -> Known.WIRE_DECLINE
+                        CHECK_DEPOSIT_REJECTION -> Known.CHECK_DEPOSIT_REJECTION
                         OTHER -> Known.OTHER
                         else -> throw IncreaseInvalidDataException("Unknown Category: $value")
                     }
@@ -4970,6 +5018,435 @@ private constructor(
                             REFER_TO_IMAGE -> Known.REFER_TO_IMAGE
                             UNABLE_TO_PROCESS -> Known.UNABLE_TO_PROCESS
                             USER_INITIATED -> Known.USER_INITIATED
+                            else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
+                        }
+
+                    fun asString(): String = _value().asStringOrThrow()
+                }
+            }
+
+            /**
+             * A Check Deposit Rejection object. This field will be present in the JSON response if
+             * and only if `category` is equal to `check_deposit_rejection`.
+             */
+            @JsonDeserialize(builder = CheckDepositRejection.Builder::class)
+            @NoAutoDetect
+            class CheckDepositRejection
+            private constructor(
+                private val amount: JsonField<Long>,
+                private val checkDepositId: JsonField<String>,
+                private val currency: JsonField<Currency>,
+                private val reason: JsonField<Reason>,
+                private val rejectedAt: JsonField<OffsetDateTime>,
+                private val additionalProperties: Map<String, JsonValue>,
+            ) {
+
+                private var validated: Boolean = false
+
+                private var hashCode: Int = 0
+
+                /**
+                 * The rejected amount in the minor unit of check's currency. For dollars, for
+                 * example, this is cents.
+                 */
+                fun amount(): Long = amount.getRequired("amount")
+
+                /** The identifier of the Check Deposit that was rejected. */
+                fun checkDepositId(): String = checkDepositId.getRequired("check_deposit_id")
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's
+                 * currency.
+                 */
+                fun currency(): Currency = currency.getRequired("currency")
+
+                /** Why the check deposit was rejected. */
+                fun reason(): Reason = reason.getRequired("reason")
+
+                /**
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+                 * check deposit was rejected.
+                 */
+                fun rejectedAt(): OffsetDateTime = rejectedAt.getRequired("rejected_at")
+
+                /**
+                 * The rejected amount in the minor unit of check's currency. For dollars, for
+                 * example, this is cents.
+                 */
+                @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+                /** The identifier of the Check Deposit that was rejected. */
+                @JsonProperty("check_deposit_id")
+                @ExcludeMissing
+                fun _checkDepositId() = checkDepositId
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's
+                 * currency.
+                 */
+                @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+
+                /** Why the check deposit was rejected. */
+                @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
+
+                /**
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+                 * check deposit was rejected.
+                 */
+                @JsonProperty("rejected_at") @ExcludeMissing fun _rejectedAt() = rejectedAt
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun validate(): CheckDepositRejection = apply {
+                    if (!validated) {
+                        amount()
+                        checkDepositId()
+                        currency()
+                        reason()
+                        rejectedAt()
+                        validated = true
+                    }
+                }
+
+                fun toBuilder() = Builder().from(this)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is CheckDepositRejection &&
+                        this.amount == other.amount &&
+                        this.checkDepositId == other.checkDepositId &&
+                        this.currency == other.currency &&
+                        this.reason == other.reason &&
+                        this.rejectedAt == other.rejectedAt &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode =
+                            Objects.hash(
+                                amount,
+                                checkDepositId,
+                                currency,
+                                reason,
+                                rejectedAt,
+                                additionalProperties,
+                            )
+                    }
+                    return hashCode
+                }
+
+                override fun toString() =
+                    "CheckDepositRejection{amount=$amount, checkDepositId=$checkDepositId, currency=$currency, reason=$reason, rejectedAt=$rejectedAt, additionalProperties=$additionalProperties}"
+
+                companion object {
+
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                class Builder {
+
+                    private var amount: JsonField<Long> = JsonMissing.of()
+                    private var checkDepositId: JsonField<String> = JsonMissing.of()
+                    private var currency: JsonField<Currency> = JsonMissing.of()
+                    private var reason: JsonField<Reason> = JsonMissing.of()
+                    private var rejectedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(checkDepositRejection: CheckDepositRejection) = apply {
+                        this.amount = checkDepositRejection.amount
+                        this.checkDepositId = checkDepositRejection.checkDepositId
+                        this.currency = checkDepositRejection.currency
+                        this.reason = checkDepositRejection.reason
+                        this.rejectedAt = checkDepositRejection.rejectedAt
+                        additionalProperties(checkDepositRejection.additionalProperties)
+                    }
+
+                    /**
+                     * The rejected amount in the minor unit of check's currency. For dollars, for
+                     * example, this is cents.
+                     */
+                    fun amount(amount: Long) = amount(JsonField.of(amount))
+
+                    /**
+                     * The rejected amount in the minor unit of check's currency. For dollars, for
+                     * example, this is cents.
+                     */
+                    @JsonProperty("amount")
+                    @ExcludeMissing
+                    fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+                    /** The identifier of the Check Deposit that was rejected. */
+                    fun checkDepositId(checkDepositId: String) =
+                        checkDepositId(JsonField.of(checkDepositId))
+
+                    /** The identifier of the Check Deposit that was rejected. */
+                    @JsonProperty("check_deposit_id")
+                    @ExcludeMissing
+                    fun checkDepositId(checkDepositId: JsonField<String>) = apply {
+                        this.checkDepositId = checkDepositId
+                    }
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's
+                     * currency.
+                     */
+                    fun currency(currency: Currency) = currency(JsonField.of(currency))
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's
+                     * currency.
+                     */
+                    @JsonProperty("currency")
+                    @ExcludeMissing
+                    fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+                    /** Why the check deposit was rejected. */
+                    fun reason(reason: Reason) = reason(JsonField.of(reason))
+
+                    /** Why the check deposit was rejected. */
+                    @JsonProperty("reason")
+                    @ExcludeMissing
+                    fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
+
+                    /**
+                     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+                     * the check deposit was rejected.
+                     */
+                    fun rejectedAt(rejectedAt: OffsetDateTime) =
+                        rejectedAt(JsonField.of(rejectedAt))
+
+                    /**
+                     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+                     * the check deposit was rejected.
+                     */
+                    @JsonProperty("rejected_at")
+                    @ExcludeMissing
+                    fun rejectedAt(rejectedAt: JsonField<OffsetDateTime>) = apply {
+                        this.rejectedAt = rejectedAt
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    @JsonAnySetter
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        this.additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun build(): CheckDepositRejection =
+                        CheckDepositRejection(
+                            amount,
+                            checkDepositId,
+                            currency,
+                            reason,
+                            rejectedAt,
+                            additionalProperties.toUnmodifiable(),
+                        )
+                }
+
+                class Currency
+                @JsonCreator
+                private constructor(
+                    private val value: JsonField<String>,
+                ) : Enum {
+
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Currency && this.value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+
+                    companion object {
+
+                        @JvmField val CAD = Currency(JsonField.of("CAD"))
+
+                        @JvmField val CHF = Currency(JsonField.of("CHF"))
+
+                        @JvmField val EUR = Currency(JsonField.of("EUR"))
+
+                        @JvmField val GBP = Currency(JsonField.of("GBP"))
+
+                        @JvmField val JPY = Currency(JsonField.of("JPY"))
+
+                        @JvmField val USD = Currency(JsonField.of("USD"))
+
+                        @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
+                    }
+
+                    enum class Known {
+                        CAD,
+                        CHF,
+                        EUR,
+                        GBP,
+                        JPY,
+                        USD,
+                    }
+
+                    enum class Value {
+                        CAD,
+                        CHF,
+                        EUR,
+                        GBP,
+                        JPY,
+                        USD,
+                        _UNKNOWN,
+                    }
+
+                    fun value(): Value =
+                        when (this) {
+                            CAD -> Value.CAD
+                            CHF -> Value.CHF
+                            EUR -> Value.EUR
+                            GBP -> Value.GBP
+                            JPY -> Value.JPY
+                            USD -> Value.USD
+                            else -> Value._UNKNOWN
+                        }
+
+                    fun known(): Known =
+                        when (this) {
+                            CAD -> Known.CAD
+                            CHF -> Known.CHF
+                            EUR -> Known.EUR
+                            GBP -> Known.GBP
+                            JPY -> Known.JPY
+                            USD -> Known.USD
+                            else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+                        }
+
+                    fun asString(): String = _value().asStringOrThrow()
+                }
+
+                class Reason
+                @JsonCreator
+                private constructor(
+                    private val value: JsonField<String>,
+                ) : Enum {
+
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Reason && this.value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+
+                    companion object {
+
+                        @JvmField val INCOMPLETE_IMAGE = Reason(JsonField.of("incomplete_image"))
+
+                        @JvmField val DUPLICATE = Reason(JsonField.of("duplicate"))
+
+                        @JvmField
+                        val POOR_IMAGE_QUALITY = Reason(JsonField.of("poor_image_quality"))
+
+                        @JvmField val INCORRECT_AMOUNT = Reason(JsonField.of("incorrect_amount"))
+
+                        @JvmField
+                        val INCORRECT_RECIPIENT = Reason(JsonField.of("incorrect_recipient"))
+
+                        @JvmField
+                        val NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT =
+                            Reason(JsonField.of("not_eligible_for_mobile_deposit"))
+
+                        @JvmField
+                        val MISSING_REQUIRED_DATA_ELEMENTS =
+                            Reason(JsonField.of("missing_required_data_elements"))
+
+                        @JvmField val SUSPECTED_FRAUD = Reason(JsonField.of("suspected_fraud"))
+
+                        @JvmField
+                        val DEPOSIT_WINDOW_EXPIRED = Reason(JsonField.of("deposit_window_expired"))
+
+                        @JvmField val UNKNOWN = Reason(JsonField.of("unknown"))
+
+                        @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
+                    }
+
+                    enum class Known {
+                        INCOMPLETE_IMAGE,
+                        DUPLICATE,
+                        POOR_IMAGE_QUALITY,
+                        INCORRECT_AMOUNT,
+                        INCORRECT_RECIPIENT,
+                        NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT,
+                        MISSING_REQUIRED_DATA_ELEMENTS,
+                        SUSPECTED_FRAUD,
+                        DEPOSIT_WINDOW_EXPIRED,
+                        UNKNOWN,
+                    }
+
+                    enum class Value {
+                        INCOMPLETE_IMAGE,
+                        DUPLICATE,
+                        POOR_IMAGE_QUALITY,
+                        INCORRECT_AMOUNT,
+                        INCORRECT_RECIPIENT,
+                        NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT,
+                        MISSING_REQUIRED_DATA_ELEMENTS,
+                        SUSPECTED_FRAUD,
+                        DEPOSIT_WINDOW_EXPIRED,
+                        UNKNOWN,
+                        _UNKNOWN,
+                    }
+
+                    fun value(): Value =
+                        when (this) {
+                            INCOMPLETE_IMAGE -> Value.INCOMPLETE_IMAGE
+                            DUPLICATE -> Value.DUPLICATE
+                            POOR_IMAGE_QUALITY -> Value.POOR_IMAGE_QUALITY
+                            INCORRECT_AMOUNT -> Value.INCORRECT_AMOUNT
+                            INCORRECT_RECIPIENT -> Value.INCORRECT_RECIPIENT
+                            NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT -> Value.NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT
+                            MISSING_REQUIRED_DATA_ELEMENTS -> Value.MISSING_REQUIRED_DATA_ELEMENTS
+                            SUSPECTED_FRAUD -> Value.SUSPECTED_FRAUD
+                            DEPOSIT_WINDOW_EXPIRED -> Value.DEPOSIT_WINDOW_EXPIRED
+                            UNKNOWN -> Value.UNKNOWN
+                            else -> Value._UNKNOWN
+                        }
+
+                    fun known(): Known =
+                        when (this) {
+                            INCOMPLETE_IMAGE -> Known.INCOMPLETE_IMAGE
+                            DUPLICATE -> Known.DUPLICATE
+                            POOR_IMAGE_QUALITY -> Known.POOR_IMAGE_QUALITY
+                            INCORRECT_AMOUNT -> Known.INCORRECT_AMOUNT
+                            INCORRECT_RECIPIENT -> Known.INCORRECT_RECIPIENT
+                            NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT -> Known.NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT
+                            MISSING_REQUIRED_DATA_ELEMENTS -> Known.MISSING_REQUIRED_DATA_ELEMENTS
+                            SUSPECTED_FRAUD -> Known.SUSPECTED_FRAUD
+                            DEPOSIT_WINDOW_EXPIRED -> Known.DEPOSIT_WINDOW_EXPIRED
+                            UNKNOWN -> Known.UNKNOWN
                             else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                         }
 

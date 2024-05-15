@@ -988,6 +988,7 @@ private constructor(
     class DepositRejection
     private constructor(
         private val amount: JsonField<Long>,
+        private val checkDepositId: JsonField<String>,
         private val currency: JsonField<Currency>,
         private val reason: JsonField<Reason>,
         private val rejectedAt: JsonField<OffsetDateTime>,
@@ -1003,6 +1004,9 @@ private constructor(
          * is cents.
          */
         fun amount(): Long = amount.getRequired("amount")
+
+        /** The identifier of the Check Deposit that was rejected. */
+        fun checkDepositId(): String = checkDepositId.getRequired("check_deposit_id")
 
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency. */
         fun currency(): Currency = currency.getRequired("currency")
@@ -1021,6 +1025,9 @@ private constructor(
          * is cents.
          */
         @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+        /** The identifier of the Check Deposit that was rejected. */
+        @JsonProperty("check_deposit_id") @ExcludeMissing fun _checkDepositId() = checkDepositId
 
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency. */
         @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
@@ -1041,6 +1048,7 @@ private constructor(
         fun validate(): DepositRejection = apply {
             if (!validated) {
                 amount()
+                checkDepositId()
                 currency()
                 reason()
                 rejectedAt()
@@ -1057,6 +1065,7 @@ private constructor(
 
             return other is DepositRejection &&
                 this.amount == other.amount &&
+                this.checkDepositId == other.checkDepositId &&
                 this.currency == other.currency &&
                 this.reason == other.reason &&
                 this.rejectedAt == other.rejectedAt &&
@@ -1068,6 +1077,7 @@ private constructor(
                 hashCode =
                     Objects.hash(
                         amount,
+                        checkDepositId,
                         currency,
                         reason,
                         rejectedAt,
@@ -1078,7 +1088,7 @@ private constructor(
         }
 
         override fun toString() =
-            "DepositRejection{amount=$amount, currency=$currency, reason=$reason, rejectedAt=$rejectedAt, additionalProperties=$additionalProperties}"
+            "DepositRejection{amount=$amount, checkDepositId=$checkDepositId, currency=$currency, reason=$reason, rejectedAt=$rejectedAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1088,6 +1098,7 @@ private constructor(
         class Builder {
 
             private var amount: JsonField<Long> = JsonMissing.of()
+            private var checkDepositId: JsonField<String> = JsonMissing.of()
             private var currency: JsonField<Currency> = JsonMissing.of()
             private var reason: JsonField<Reason> = JsonMissing.of()
             private var rejectedAt: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -1096,6 +1107,7 @@ private constructor(
             @JvmSynthetic
             internal fun from(depositRejection: DepositRejection) = apply {
                 this.amount = depositRejection.amount
+                this.checkDepositId = depositRejection.checkDepositId
                 this.currency = depositRejection.currency
                 this.reason = depositRejection.reason
                 this.rejectedAt = depositRejection.rejectedAt
@@ -1115,6 +1127,17 @@ private constructor(
             @JsonProperty("amount")
             @ExcludeMissing
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+            /** The identifier of the Check Deposit that was rejected. */
+            fun checkDepositId(checkDepositId: String) =
+                checkDepositId(JsonField.of(checkDepositId))
+
+            /** The identifier of the Check Deposit that was rejected. */
+            @JsonProperty("check_deposit_id")
+            @ExcludeMissing
+            fun checkDepositId(checkDepositId: JsonField<String>) = apply {
+                this.checkDepositId = checkDepositId
+            }
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency.
@@ -1169,6 +1192,7 @@ private constructor(
             fun build(): DepositRejection =
                 DepositRejection(
                     amount,
+                    checkDepositId,
                     currency,
                     reason,
                     rejectedAt,
