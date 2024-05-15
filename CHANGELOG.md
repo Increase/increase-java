@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.53.0 (2024-05-15)
+
+Full Changelog: [v0.52.0...v0.53.0](https://github.com/Increase/increase-java/compare/v0.52.0...v0.53.0)
+
+### Features
+
+* **api:** updates ([#274](https://github.com/Increase/increase-java/issues/274)) ([584c8ad](https://github.com/Increase/increase-java/commit/584c8ad295866a573826f779890719390694baeb))
+
+
+### Chores
+
+* **docs:** add SECURITY.md ([#270](https://github.com/Increase/increase-java/issues/270)) ([8e4eda7](https://github.com/Increase/increase-java/commit/8e4eda786e6c8cfe3248fcd028c045ff0344349a))
+* **internal:** add scripts-to-rule-them-all ([#273](https://github.com/Increase/increase-java/issues/273)) ([3264fb2](https://github.com/Increase/increase-java/commit/3264fb22e18b6375ef69c494c4e5dd2bc6ab096c))
+
+
+### Documentation
+
+* **api:** update examples & docstrings ([#272](https://github.com/Increase/increase-java/issues/272)) ([56326fb](https://github.com/Increase/increase-java/commit/56326fba4252dcf2824bda46971b72f53b28b2c9))
+
 ## 0.52.0 (2024-05-10)
 
 Full Changelog: [v0.51.0...v0.52.0](https://github.com/Increase/increase-java/compare/v0.51.0...v0.52.0)
