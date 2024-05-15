@@ -266,6 +266,35 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         )
                                         .build()
                                 )
+                                .checkDepositRejection(
+                                    InboundRealTimePaymentsTransferSimulationResult
+                                        .DeclinedTransaction
+                                        .Source
+                                        .CheckDepositRejection
+                                        .builder()
+                                        .amount(123L)
+                                        .checkDepositId("string")
+                                        .currency(
+                                            InboundRealTimePaymentsTransferSimulationResult
+                                                .DeclinedTransaction
+                                                .Source
+                                                .CheckDepositRejection
+                                                .Currency
+                                                .CAD
+                                        )
+                                        .reason(
+                                            InboundRealTimePaymentsTransferSimulationResult
+                                                .DeclinedTransaction
+                                                .Source
+                                                .CheckDepositRejection
+                                                .Reason
+                                                .INCOMPLETE_IMAGE
+                                        )
+                                        .rejectedAt(
+                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                        )
+                                        .build()
+                                )
                                 .inboundRealTimePaymentsTransferDecline(
                                     InboundRealTimePaymentsTransferSimulationResult
                                         .DeclinedTransaction
@@ -1834,6 +1863,32 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .Reason
                                             .ACH_ROUTE_DISABLED
                                     )
+                                    .build()
+                            )
+                            .checkDepositRejection(
+                                InboundRealTimePaymentsTransferSimulationResult.DeclinedTransaction
+                                    .Source
+                                    .CheckDepositRejection
+                                    .builder()
+                                    .amount(123L)
+                                    .checkDepositId("string")
+                                    .currency(
+                                        InboundRealTimePaymentsTransferSimulationResult
+                                            .DeclinedTransaction
+                                            .Source
+                                            .CheckDepositRejection
+                                            .Currency
+                                            .CAD
+                                    )
+                                    .reason(
+                                        InboundRealTimePaymentsTransferSimulationResult
+                                            .DeclinedTransaction
+                                            .Source
+                                            .CheckDepositRejection
+                                            .Reason
+                                            .INCOMPLETE_IMAGE
+                                    )
+                                    .rejectedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .build()
                             )
                             .inboundRealTimePaymentsTransferDecline(
