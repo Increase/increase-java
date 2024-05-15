@@ -31,6 +31,20 @@ class CheckTransferTest {
                 )
                 .checkNumber("string")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .createdBy(
+                    CheckTransfer.CreatedBy.builder()
+                        .apiKey(
+                            CheckTransfer.CreatedBy.ApiKey.builder().description("string").build()
+                        )
+                        .category(CheckTransfer.CreatedBy.Category.API_KEY)
+                        .oauthApplication(
+                            CheckTransfer.CreatedBy.OAuthApplication.builder()
+                                .name("string")
+                                .build()
+                        )
+                        .user(CheckTransfer.CreatedBy.User.builder().email("string").build())
+                        .build()
+                )
                 .currency(CheckTransfer.Currency.CAD)
                 .fulfillmentMethod(CheckTransfer.FulfillmentMethod.PHYSICAL_CHECK)
                 .idempotencyKey("string")
@@ -113,6 +127,17 @@ class CheckTransferTest {
         assertThat(checkTransfer.checkNumber()).isEqualTo("string")
         assertThat(checkTransfer.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(checkTransfer.createdBy())
+            .contains(
+                CheckTransfer.CreatedBy.builder()
+                    .apiKey(CheckTransfer.CreatedBy.ApiKey.builder().description("string").build())
+                    .category(CheckTransfer.CreatedBy.Category.API_KEY)
+                    .oauthApplication(
+                        CheckTransfer.CreatedBy.OAuthApplication.builder().name("string").build()
+                    )
+                    .user(CheckTransfer.CreatedBy.User.builder().email("string").build())
+                    .build()
+            )
         assertThat(checkTransfer.currency()).isEqualTo(CheckTransfer.Currency.CAD)
         assertThat(checkTransfer.fulfillmentMethod())
             .isEqualTo(CheckTransfer.FulfillmentMethod.PHYSICAL_CHECK)

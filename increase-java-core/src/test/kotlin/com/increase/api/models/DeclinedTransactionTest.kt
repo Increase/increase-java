@@ -154,6 +154,20 @@ class DeclinedTransactionTest {
                                 )
                                 .build()
                         )
+                        .checkDepositRejection(
+                            DeclinedTransaction.Source.CheckDepositRejection.builder()
+                                .amount(123L)
+                                .checkDepositId("string")
+                                .currency(
+                                    DeclinedTransaction.Source.CheckDepositRejection.Currency.CAD
+                                )
+                                .reason(
+                                    DeclinedTransaction.Source.CheckDepositRejection.Reason
+                                        .INCOMPLETE_IMAGE
+                                )
+                                .rejectedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .build()
+                        )
                         .inboundRealTimePaymentsTransferDecline(
                             DeclinedTransaction.Source.InboundRealTimePaymentsTransferDecline
                                 .builder()
@@ -386,6 +400,18 @@ class DeclinedTransactionTest {
                             .reason(
                                 DeclinedTransaction.Source.CheckDecline.Reason.ACH_ROUTE_DISABLED
                             )
+                            .build()
+                    )
+                    .checkDepositRejection(
+                        DeclinedTransaction.Source.CheckDepositRejection.builder()
+                            .amount(123L)
+                            .checkDepositId("string")
+                            .currency(DeclinedTransaction.Source.CheckDepositRejection.Currency.CAD)
+                            .reason(
+                                DeclinedTransaction.Source.CheckDepositRejection.Reason
+                                    .INCOMPLETE_IMAGE
+                            )
+                            .rejectedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .build()
                     )
                     .inboundRealTimePaymentsTransferDecline(

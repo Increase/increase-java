@@ -32,6 +32,7 @@ class CheckDepositTest {
                 .depositRejection(
                     CheckDeposit.DepositRejection.builder()
                         .amount(123L)
+                        .checkDepositId("string")
                         .currency(CheckDeposit.DepositRejection.Currency.CAD)
                         .reason(CheckDeposit.DepositRejection.Reason.INCOMPLETE_IMAGE)
                         .rejectedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -84,6 +85,7 @@ class CheckDepositTest {
             .contains(
                 CheckDeposit.DepositRejection.builder()
                     .amount(123L)
+                    .checkDepositId("string")
                     .currency(CheckDeposit.DepositRejection.Currency.CAD)
                     .reason(CheckDeposit.DepositRejection.Reason.INCOMPLETE_IMAGE)
                     .rejectedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
