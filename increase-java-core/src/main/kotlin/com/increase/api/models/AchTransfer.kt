@@ -40,6 +40,7 @@ private constructor(
     private val companyEntryDescription: JsonField<String>,
     private val companyName: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
+    private val createdBy: JsonField<CreatedBy>,
     private val currency: JsonField<Currency>,
     private val destinationAccountHolder: JsonField<DestinationAccountHolder>,
     private val effectiveDate: JsonField<LocalDate>,
@@ -124,6 +125,9 @@ private constructor(
      * was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+    /** What object created the transfer, either via the API or the dashboard. */
+    fun createdBy(): Optional<CreatedBy> = Optional.ofNullable(createdBy.getNullable("created_by"))
 
     /**
      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
@@ -280,6 +284,9 @@ private constructor(
      */
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
+    /** What object created the transfer, either via the API or the dashboard. */
+    @JsonProperty("created_by") @ExcludeMissing fun _createdBy() = createdBy
+
     /**
      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
      * ACH transfers this is always equal to `usd`.
@@ -396,6 +403,7 @@ private constructor(
             companyEntryDescription()
             companyName()
             createdAt()
+            createdBy().map { it.validate() }
             currency()
             destinationAccountHolder()
             effectiveDate()
@@ -440,6 +448,7 @@ private constructor(
             this.companyEntryDescription == other.companyEntryDescription &&
             this.companyName == other.companyName &&
             this.createdAt == other.createdAt &&
+            this.createdBy == other.createdBy &&
             this.currency == other.currency &&
             this.destinationAccountHolder == other.destinationAccountHolder &&
             this.effectiveDate == other.effectiveDate &&
@@ -479,6 +488,7 @@ private constructor(
                     companyEntryDescription,
                     companyName,
                     createdAt,
+                    createdBy,
                     currency,
                     destinationAccountHolder,
                     effectiveDate,
@@ -506,7 +516,7 @@ private constructor(
     }
 
     override fun toString() =
-        "AchTransfer{accountId=$accountId, accountNumber=$accountNumber, acknowledgement=$acknowledgement, addenda=$addenda, amount=$amount, approval=$approval, cancellation=$cancellation, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, createdAt=$createdAt, currency=$currency, destinationAccountHolder=$destinationAccountHolder, effectiveDate=$effectiveDate, externalAccountId=$externalAccountId, funding=$funding, id=$id, idempotencyKey=$idempotencyKey, individualId=$individualId, individualName=$individualName, network=$network, notificationsOfChange=$notificationsOfChange, pendingTransactionId=$pendingTransactionId, return_=$return_, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+        "AchTransfer{accountId=$accountId, accountNumber=$accountNumber, acknowledgement=$acknowledgement, addenda=$addenda, amount=$amount, approval=$approval, cancellation=$cancellation, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, destinationAccountHolder=$destinationAccountHolder, effectiveDate=$effectiveDate, externalAccountId=$externalAccountId, funding=$funding, id=$id, idempotencyKey=$idempotencyKey, individualId=$individualId, individualName=$individualName, network=$network, notificationsOfChange=$notificationsOfChange, pendingTransactionId=$pendingTransactionId, return_=$return_, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -527,6 +537,7 @@ private constructor(
         private var companyEntryDescription: JsonField<String> = JsonMissing.of()
         private var companyName: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var createdBy: JsonField<CreatedBy> = JsonMissing.of()
         private var currency: JsonField<Currency> = JsonMissing.of()
         private var destinationAccountHolder: JsonField<DestinationAccountHolder> = JsonMissing.of()
         private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
@@ -563,6 +574,7 @@ private constructor(
             this.companyEntryDescription = achTransfer.companyEntryDescription
             this.companyName = achTransfer.companyName
             this.createdAt = achTransfer.createdAt
+            this.createdBy = achTransfer.createdBy
             this.currency = achTransfer.currency
             this.destinationAccountHolder = achTransfer.destinationAccountHolder
             this.effectiveDate = achTransfer.effectiveDate
@@ -729,6 +741,14 @@ private constructor(
         @JsonProperty("created_at")
         @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /** What object created the transfer, either via the API or the dashboard. */
+        fun createdBy(createdBy: CreatedBy) = createdBy(JsonField.of(createdBy))
+
+        /** What object created the transfer, either via the API or the dashboard. */
+        @JsonProperty("created_by")
+        @ExcludeMissing
+        fun createdBy(createdBy: JsonField<CreatedBy>) = apply { this.createdBy = createdBy }
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency.
@@ -1004,6 +1024,7 @@ private constructor(
                 companyEntryDescription,
                 companyName,
                 createdAt,
+                createdBy,
                 currency,
                 destinationAccountHolder,
                 effectiveDate,
@@ -2131,6 +2152,529 @@ private constructor(
                     canceledBy,
                     additionalProperties.toUnmodifiable(),
                 )
+        }
+    }
+
+    /** What object created the transfer, either via the API or the dashboard. */
+    @JsonDeserialize(builder = CreatedBy.Builder::class)
+    @NoAutoDetect
+    class CreatedBy
+    private constructor(
+        private val apiKey: JsonField<ApiKey>,
+        private val category: JsonField<Category>,
+        private val oauthApplication: JsonField<OAuthApplication>,
+        private val user: JsonField<User>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        /** If present, details about the API key that created the transfer. */
+        fun apiKey(): Optional<ApiKey> = Optional.ofNullable(apiKey.getNullable("api_key"))
+
+        /** The type of object that created this transfer. */
+        fun category(): Category = category.getRequired("category")
+
+        /** If present, details about the OAuth Application that created the transfer. */
+        fun oauthApplication(): Optional<OAuthApplication> =
+            Optional.ofNullable(oauthApplication.getNullable("oauth_application"))
+
+        /** If present, details about the User that created the transfer. */
+        fun user(): Optional<User> = Optional.ofNullable(user.getNullable("user"))
+
+        /** If present, details about the API key that created the transfer. */
+        @JsonProperty("api_key") @ExcludeMissing fun _apiKey() = apiKey
+
+        /** The type of object that created this transfer. */
+        @JsonProperty("category") @ExcludeMissing fun _category() = category
+
+        /** If present, details about the OAuth Application that created the transfer. */
+        @JsonProperty("oauth_application")
+        @ExcludeMissing
+        fun _oauthApplication() = oauthApplication
+
+        /** If present, details about the User that created the transfer. */
+        @JsonProperty("user") @ExcludeMissing fun _user() = user
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): CreatedBy = apply {
+            if (!validated) {
+                apiKey().map { it.validate() }
+                category()
+                oauthApplication().map { it.validate() }
+                user().map { it.validate() }
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is CreatedBy &&
+                this.apiKey == other.apiKey &&
+                this.category == other.category &&
+                this.oauthApplication == other.oauthApplication &&
+                this.user == other.user &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        apiKey,
+                        category,
+                        oauthApplication,
+                        user,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "CreatedBy{apiKey=$apiKey, category=$category, oauthApplication=$oauthApplication, user=$user, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var apiKey: JsonField<ApiKey> = JsonMissing.of()
+            private var category: JsonField<Category> = JsonMissing.of()
+            private var oauthApplication: JsonField<OAuthApplication> = JsonMissing.of()
+            private var user: JsonField<User> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(createdBy: CreatedBy) = apply {
+                this.apiKey = createdBy.apiKey
+                this.category = createdBy.category
+                this.oauthApplication = createdBy.oauthApplication
+                this.user = createdBy.user
+                additionalProperties(createdBy.additionalProperties)
+            }
+
+            /** If present, details about the API key that created the transfer. */
+            fun apiKey(apiKey: ApiKey) = apiKey(JsonField.of(apiKey))
+
+            /** If present, details about the API key that created the transfer. */
+            @JsonProperty("api_key")
+            @ExcludeMissing
+            fun apiKey(apiKey: JsonField<ApiKey>) = apply { this.apiKey = apiKey }
+
+            /** The type of object that created this transfer. */
+            fun category(category: Category) = category(JsonField.of(category))
+
+            /** The type of object that created this transfer. */
+            @JsonProperty("category")
+            @ExcludeMissing
+            fun category(category: JsonField<Category>) = apply { this.category = category }
+
+            /** If present, details about the OAuth Application that created the transfer. */
+            fun oauthApplication(oauthApplication: OAuthApplication) =
+                oauthApplication(JsonField.of(oauthApplication))
+
+            /** If present, details about the OAuth Application that created the transfer. */
+            @JsonProperty("oauth_application")
+            @ExcludeMissing
+            fun oauthApplication(oauthApplication: JsonField<OAuthApplication>) = apply {
+                this.oauthApplication = oauthApplication
+            }
+
+            /** If present, details about the User that created the transfer. */
+            fun user(user: User) = user(JsonField.of(user))
+
+            /** If present, details about the User that created the transfer. */
+            @JsonProperty("user")
+            @ExcludeMissing
+            fun user(user: JsonField<User>) = apply { this.user = user }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): CreatedBy =
+                CreatedBy(
+                    apiKey,
+                    category,
+                    oauthApplication,
+                    user,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
+
+        /** If present, details about the API key that created the transfer. */
+        @JsonDeserialize(builder = ApiKey.Builder::class)
+        @NoAutoDetect
+        class ApiKey
+        private constructor(
+            private val description: JsonField<String>,
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
+
+            private var validated: Boolean = false
+
+            private var hashCode: Int = 0
+
+            /** The description set for the API key when it was created. */
+            fun description(): Optional<String> =
+                Optional.ofNullable(description.getNullable("description"))
+
+            /** The description set for the API key when it was created. */
+            @JsonProperty("description") @ExcludeMissing fun _description() = description
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun validate(): ApiKey = apply {
+                if (!validated) {
+                    description()
+                    validated = true
+                }
+            }
+
+            fun toBuilder() = Builder().from(this)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is ApiKey &&
+                    this.description == other.description &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode = Objects.hash(description, additionalProperties)
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "ApiKey{description=$description, additionalProperties=$additionalProperties}"
+
+            companion object {
+
+                @JvmStatic fun builder() = Builder()
+            }
+
+            class Builder {
+
+                private var description: JsonField<String> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(apiKey: ApiKey) = apply {
+                    this.description = apiKey.description
+                    additionalProperties(apiKey.additionalProperties)
+                }
+
+                /** The description set for the API key when it was created. */
+                fun description(description: String) = description(JsonField.of(description))
+
+                /** The description set for the API key when it was created. */
+                @JsonProperty("description")
+                @ExcludeMissing
+                fun description(description: JsonField<String>) = apply {
+                    this.description = description
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                @JsonAnySetter
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    this.additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun build(): ApiKey = ApiKey(description, additionalProperties.toUnmodifiable())
+            }
+        }
+
+        class Category
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Category && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                @JvmField val API_KEY = Category(JsonField.of("api_key"))
+
+                @JvmField val OAUTH_APPLICATION = Category(JsonField.of("oauth_application"))
+
+                @JvmField val USER = Category(JsonField.of("user"))
+
+                @JvmStatic fun of(value: String) = Category(JsonField.of(value))
+            }
+
+            enum class Known {
+                API_KEY,
+                OAUTH_APPLICATION,
+                USER,
+            }
+
+            enum class Value {
+                API_KEY,
+                OAUTH_APPLICATION,
+                USER,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    API_KEY -> Value.API_KEY
+                    OAUTH_APPLICATION -> Value.OAUTH_APPLICATION
+                    USER -> Value.USER
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    API_KEY -> Known.API_KEY
+                    OAUTH_APPLICATION -> Known.OAUTH_APPLICATION
+                    USER -> Known.USER
+                    else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
+
+        /** If present, details about the OAuth Application that created the transfer. */
+        @JsonDeserialize(builder = OAuthApplication.Builder::class)
+        @NoAutoDetect
+        class OAuthApplication
+        private constructor(
+            private val name: JsonField<String>,
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
+
+            private var validated: Boolean = false
+
+            private var hashCode: Int = 0
+
+            /** The name of the OAuth Application. */
+            fun name(): String = name.getRequired("name")
+
+            /** The name of the OAuth Application. */
+            @JsonProperty("name") @ExcludeMissing fun _name() = name
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun validate(): OAuthApplication = apply {
+                if (!validated) {
+                    name()
+                    validated = true
+                }
+            }
+
+            fun toBuilder() = Builder().from(this)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is OAuthApplication &&
+                    this.name == other.name &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode = Objects.hash(name, additionalProperties)
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "OAuthApplication{name=$name, additionalProperties=$additionalProperties}"
+
+            companion object {
+
+                @JvmStatic fun builder() = Builder()
+            }
+
+            class Builder {
+
+                private var name: JsonField<String> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(oauthApplication: OAuthApplication) = apply {
+                    this.name = oauthApplication.name
+                    additionalProperties(oauthApplication.additionalProperties)
+                }
+
+                /** The name of the OAuth Application. */
+                fun name(name: String) = name(JsonField.of(name))
+
+                /** The name of the OAuth Application. */
+                @JsonProperty("name")
+                @ExcludeMissing
+                fun name(name: JsonField<String>) = apply { this.name = name }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                @JsonAnySetter
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    this.additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun build(): OAuthApplication =
+                    OAuthApplication(name, additionalProperties.toUnmodifiable())
+            }
+        }
+
+        /** If present, details about the User that created the transfer. */
+        @JsonDeserialize(builder = User.Builder::class)
+        @NoAutoDetect
+        class User
+        private constructor(
+            private val email: JsonField<String>,
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
+
+            private var validated: Boolean = false
+
+            private var hashCode: Int = 0
+
+            /** The email address of the User. */
+            fun email(): String = email.getRequired("email")
+
+            /** The email address of the User. */
+            @JsonProperty("email") @ExcludeMissing fun _email() = email
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun validate(): User = apply {
+                if (!validated) {
+                    email()
+                    validated = true
+                }
+            }
+
+            fun toBuilder() = Builder().from(this)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is User &&
+                    this.email == other.email &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode = Objects.hash(email, additionalProperties)
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "User{email=$email, additionalProperties=$additionalProperties}"
+
+            companion object {
+
+                @JvmStatic fun builder() = Builder()
+            }
+
+            class Builder {
+
+                private var email: JsonField<String> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(user: User) = apply {
+                    this.email = user.email
+                    additionalProperties(user.additionalProperties)
+                }
+
+                /** The email address of the User. */
+                fun email(email: String) = email(JsonField.of(email))
+
+                /** The email address of the User. */
+                @JsonProperty("email")
+                @ExcludeMissing
+                fun email(email: JsonField<String>) = apply { this.email = email }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                @JsonAnySetter
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    this.additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun build(): User = User(email, additionalProperties.toUnmodifiable())
+            }
         }
     }
 

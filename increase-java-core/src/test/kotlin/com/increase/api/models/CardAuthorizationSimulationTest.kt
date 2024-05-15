@@ -224,6 +224,29 @@ class CardAuthorizationSimulationTest {
                                         )
                                         .build()
                                 )
+                                .checkDepositRejection(
+                                    CardAuthorizationSimulation.DeclinedTransaction.Source
+                                        .CheckDepositRejection
+                                        .builder()
+                                        .amount(123L)
+                                        .checkDepositId("string")
+                                        .currency(
+                                            CardAuthorizationSimulation.DeclinedTransaction.Source
+                                                .CheckDepositRejection
+                                                .Currency
+                                                .CAD
+                                        )
+                                        .reason(
+                                            CardAuthorizationSimulation.DeclinedTransaction.Source
+                                                .CheckDepositRejection
+                                                .Reason
+                                                .INCOMPLETE_IMAGE
+                                        )
+                                        .rejectedAt(
+                                            OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                        )
+                                        .build()
+                                )
                                 .inboundRealTimePaymentsTransferDecline(
                                     CardAuthorizationSimulation.DeclinedTransaction.Source
                                         .InboundRealTimePaymentsTransferDecline
@@ -838,6 +861,27 @@ class CardAuthorizationSimulationTest {
                                             .Reason
                                             .ACH_ROUTE_DISABLED
                                     )
+                                    .build()
+                            )
+                            .checkDepositRejection(
+                                CardAuthorizationSimulation.DeclinedTransaction.Source
+                                    .CheckDepositRejection
+                                    .builder()
+                                    .amount(123L)
+                                    .checkDepositId("string")
+                                    .currency(
+                                        CardAuthorizationSimulation.DeclinedTransaction.Source
+                                            .CheckDepositRejection
+                                            .Currency
+                                            .CAD
+                                    )
+                                    .reason(
+                                        CardAuthorizationSimulation.DeclinedTransaction.Source
+                                            .CheckDepositRejection
+                                            .Reason
+                                            .INCOMPLETE_IMAGE
+                                    )
+                                    .rejectedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .build()
                             )
                             .inboundRealTimePaymentsTransferDecline(

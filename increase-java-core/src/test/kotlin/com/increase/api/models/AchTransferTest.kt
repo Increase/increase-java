@@ -66,6 +66,18 @@ class AchTransferTest {
                 .companyEntryDescription("string")
                 .companyName("string")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .createdBy(
+                    AchTransfer.CreatedBy.builder()
+                        .apiKey(
+                            AchTransfer.CreatedBy.ApiKey.builder().description("string").build()
+                        )
+                        .category(AchTransfer.CreatedBy.Category.API_KEY)
+                        .oauthApplication(
+                            AchTransfer.CreatedBy.OAuthApplication.builder().name("string").build()
+                        )
+                        .user(AchTransfer.CreatedBy.User.builder().email("string").build())
+                        .build()
+                )
                 .currency(AchTransfer.Currency.CAD)
                 .destinationAccountHolder(AchTransfer.DestinationAccountHolder.BUSINESS)
                 .effectiveDate(LocalDate.parse("2019-12-27"))
@@ -171,6 +183,17 @@ class AchTransferTest {
         assertThat(achTransfer.companyName()).contains("string")
         assertThat(achTransfer.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(achTransfer.createdBy())
+            .contains(
+                AchTransfer.CreatedBy.builder()
+                    .apiKey(AchTransfer.CreatedBy.ApiKey.builder().description("string").build())
+                    .category(AchTransfer.CreatedBy.Category.API_KEY)
+                    .oauthApplication(
+                        AchTransfer.CreatedBy.OAuthApplication.builder().name("string").build()
+                    )
+                    .user(AchTransfer.CreatedBy.User.builder().email("string").build())
+                    .build()
+            )
         assertThat(achTransfer.currency()).isEqualTo(AchTransfer.Currency.CAD)
         assertThat(achTransfer.destinationAccountHolder())
             .isEqualTo(AchTransfer.DestinationAccountHolder.BUSINESS)
