@@ -18,7 +18,6 @@ class RealTimeDecisionTest {
                     RealTimeDecision.CardAuthorization.builder()
                         .accountId("string")
                         .cardId("string")
-                        .cardPaymentId("string")
                         .decision(RealTimeDecision.CardAuthorization.Decision.APPROVE)
                         .digitalWalletTokenId("string")
                         .merchantAcceptorId("string")
@@ -80,6 +79,7 @@ class RealTimeDecisionTest {
                         )
                         .settlementAmount(123L)
                         .settlementCurrency("string")
+                        .upcomingCardPaymentId("string")
                         .verification(
                             RealTimeDecision.CardAuthorization.Verification.builder()
                                 .cardVerificationCode(
@@ -148,7 +148,6 @@ class RealTimeDecisionTest {
                 RealTimeDecision.CardAuthorization.builder()
                     .accountId("string")
                     .cardId("string")
-                    .cardPaymentId("string")
                     .decision(RealTimeDecision.CardAuthorization.Decision.APPROVE)
                     .digitalWalletTokenId("string")
                     .merchantAcceptorId("string")
@@ -210,6 +209,7 @@ class RealTimeDecisionTest {
                     )
                     .settlementAmount(123L)
                     .settlementCurrency("string")
+                    .upcomingCardPaymentId("string")
                     .verification(
                         RealTimeDecision.CardAuthorization.Verification.builder()
                             .cardVerificationCode(
