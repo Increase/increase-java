@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.54.0 (2024-05-23)
+
+Full Changelog: [v0.53.0...v0.54.0](https://github.com/Increase/increase-java/compare/v0.53.0...v0.54.0)
+
+### Features
+
+* **api:** realtime decision updates ([#275](https://github.com/Increase/increase-java/issues/275)) ([cfc4bbb](https://github.com/Increase/increase-java/commit/cfc4bbbc0d728f08344433aca0f3bd66bc44bc8f))
+
 ## 0.53.0 (2024-05-15)
 
 Full Changelog: [v0.52.0...v0.53.0](https://github.com/Increase/increase-java/compare/v0.52.0...v0.53.0)
