@@ -55,6 +55,7 @@ class TransactionTest {
                                     Transaction.Source.AchTransferReturn.ReturnReasonCode
                                         .INSUFFICIENT_FUND
                                 )
+                                .traceNumber("string")
                                 .transactionId("string")
                                 .transferId("string")
                                 .build()
@@ -815,6 +816,7 @@ class TransactionTest {
                                 Transaction.Source.AchTransferReturn.ReturnReasonCode
                                     .INSUFFICIENT_FUND
                             )
+                            .traceNumber("string")
                             .transactionId("string")
                             .transferId("string")
                             .build()

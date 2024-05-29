@@ -505,6 +505,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .ReturnReasonCode
                                                 .INSUFFICIENT_FUND
                                         )
+                                        .traceNumber("string")
                                         .transactionId("string")
                                         .transferId("string")
                                         .build()
@@ -2092,6 +2093,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .ReturnReasonCode
                                             .INSUFFICIENT_FUND
                                     )
+                                    .traceNumber("string")
                                     .transactionId("string")
                                     .transferId("string")
                                     .build()
