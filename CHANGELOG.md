@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.55.0 (2024-06-03)
+
+Full Changelog: [v0.54.0...v0.55.0](https://github.com/Increase/increase-java/compare/v0.54.0...v0.55.0)
+
+### Features
+
+* **api:** add trace number to ach transfer returns ([#277](https://github.com/Increase/increase-java/issues/277)) ([10f6924](https://github.com/Increase/increase-java/commit/10f692483ecbbbe6827521c036774012c381a144))
+* **api:** updates ([#279](https://github.com/Increase/increase-java/issues/279)) ([b999b61](https://github.com/Increase/increase-java/commit/b999b617b8b7ba134691fefa26d6e537e5f42195))
+
 ## 0.54.0 (2024-05-23)
 
 Full Changelog: [v0.53.0...v0.54.0](https://github.com/Increase/increase-java/compare/v0.53.0...v0.54.0)
