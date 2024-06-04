@@ -22,7 +22,6 @@ class DigitalCardProfileTest {
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .description("string")
                 .idempotencyKey("string")
-                .isDefault(true)
                 .issuerName("string")
                 .status(DigitalCardProfile.Status.PENDING)
                 .textColor(
@@ -42,7 +41,6 @@ class DigitalCardProfileTest {
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(digitalCardProfile.description()).isEqualTo("string")
         assertThat(digitalCardProfile.idempotencyKey()).contains("string")
-        assertThat(digitalCardProfile.isDefault()).isEqualTo(true)
         assertThat(digitalCardProfile.issuerName()).isEqualTo("string")
         assertThat(digitalCardProfile.status()).isEqualTo(DigitalCardProfile.Status.PENDING)
         assertThat(digitalCardProfile.textColor())
