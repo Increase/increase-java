@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.56.0 (2024-06-04)
+
+Full Changelog: [v0.55.0...v0.56.0](https://github.com/Increase/increase-java/compare/v0.55.0...v0.56.0)
+
+### Features
+
+* **api:** add `default_digital_card_profile_id` property ([#280](https://github.com/Increase/increase-java/issues/280)) ([3be8bd9](https://github.com/Increase/increase-java/commit/3be8bd9ab92668d32cc277a8bfce51995aa0f3e0))
+
 ## 0.55.0 (2024-06-03)
 
 Full Changelog: [v0.54.0...v0.55.0](https://github.com/Increase/increase-java/compare/v0.54.0...v0.55.0)
