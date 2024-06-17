@@ -44,6 +44,7 @@ constructor(
                     params.getPathParam(0),
                     "complete"
                 )
+                .putAllQueryParams(clientOptions.queryParams)
                 .putAllQueryParams(params.getQueryParams())
                 .putAllHeaders(clientOptions.headers)
                 .putAllHeaders(params.getHeaders())
