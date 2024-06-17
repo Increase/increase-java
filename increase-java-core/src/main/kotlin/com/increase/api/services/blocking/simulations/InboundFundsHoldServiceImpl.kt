@@ -43,6 +43,7 @@ constructor(
                     params.getPathParam(0),
                     "release"
                 )
+                .putAllQueryParams(clientOptions.queryParams)
                 .putAllQueryParams(params.getQueryParams())
                 .putAllHeaders(clientOptions.headers)
                 .putAllHeaders(params.getHeaders())
