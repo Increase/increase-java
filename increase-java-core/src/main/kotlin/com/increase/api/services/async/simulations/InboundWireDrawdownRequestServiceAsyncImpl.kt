@@ -36,6 +36,7 @@ constructor(
             HttpRequest.builder()
                 .method(HttpMethod.POST)
                 .addPathSegments("simulations", "inbound_wire_drawdown_requests")
+                .putAllQueryParams(clientOptions.queryParams)
                 .putAllQueryParams(params.getQueryParams())
                 .putAllHeaders(clientOptions.headers)
                 .putAllHeaders(params.getHeaders())

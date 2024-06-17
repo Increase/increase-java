@@ -34,6 +34,7 @@ constructor(
             HttpRequest.builder()
                 .method(HttpMethod.POST)
                 .addPathSegments("simulations", "documents")
+                .putAllQueryParams(clientOptions.queryParams)
                 .putAllQueryParams(params.getQueryParams())
                 .putAllHeaders(clientOptions.headers)
                 .putAllHeaders(params.getHeaders())

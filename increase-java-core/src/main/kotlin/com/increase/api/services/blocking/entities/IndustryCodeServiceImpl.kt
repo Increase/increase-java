@@ -34,6 +34,7 @@ constructor(
             HttpRequest.builder()
                 .method(HttpMethod.POST)
                 .addPathSegments("entities", params.getPathParam(0), "industry_code")
+                .putAllQueryParams(clientOptions.queryParams)
                 .putAllQueryParams(params.getQueryParams())
                 .putAllHeaders(clientOptions.headers)
                 .putAllHeaders(params.getHeaders())
