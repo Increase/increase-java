@@ -33,9 +33,11 @@ private constructor(
     private val explanation: JsonField<String>,
     private val id: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
+    private val loss: JsonField<Loss>,
     private val rejection: JsonField<Rejection>,
     private val status: JsonField<Status>,
     private val type: JsonField<Type>,
+    private val win: JsonField<Win>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -74,6 +76,9 @@ private constructor(
     fun idempotencyKey(): Optional<String> =
         Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
+    /** If the Card Dispute's status is `lost`, this will contain details of the lost dispute. */
+    fun loss(): Optional<Loss> = Optional.ofNullable(loss.getNullable("loss"))
+
     /**
      * If the Card Dispute's status is `rejected`, this will contain details of the unsuccessful
      * dispute.
@@ -88,6 +93,9 @@ private constructor(
      * `card_dispute`.
      */
     fun type(): Type = type.getRequired("type")
+
+    /** If the Card Dispute's status is `won`, this will contain details of the won dispute. */
+    fun win(): Optional<Win> = Optional.ofNullable(win.getNullable("win"))
 
     /**
      * If the Card Dispute's status is `accepted`, this will contain details of the successful
@@ -119,6 +127,9 @@ private constructor(
      */
     @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
 
+    /** If the Card Dispute's status is `lost`, this will contain details of the lost dispute. */
+    @JsonProperty("loss") @ExcludeMissing fun _loss() = loss
+
     /**
      * If the Card Dispute's status is `rejected`, this will contain details of the unsuccessful
      * dispute.
@@ -134,6 +145,9 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type() = type
 
+    /** If the Card Dispute's status is `won`, this will contain details of the won dispute. */
+    @JsonProperty("win") @ExcludeMissing fun _win() = win
+
     @JsonAnyGetter
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -146,9 +160,11 @@ private constructor(
             explanation()
             id()
             idempotencyKey()
+            loss().map { it.validate() }
             rejection().map { it.validate() }
             status()
             type()
+            win().map { it.validate() }
             validated = true
         }
     }
@@ -167,9 +183,11 @@ private constructor(
             this.explanation == other.explanation &&
             this.id == other.id &&
             this.idempotencyKey == other.idempotencyKey &&
+            this.loss == other.loss &&
             this.rejection == other.rejection &&
             this.status == other.status &&
             this.type == other.type &&
+            this.win == other.win &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -183,9 +201,11 @@ private constructor(
                     explanation,
                     id,
                     idempotencyKey,
+                    loss,
                     rejection,
                     status,
                     type,
+                    win,
                     additionalProperties,
                 )
         }
@@ -193,7 +213,7 @@ private constructor(
     }
 
     override fun toString() =
-        "CardDispute{acceptance=$acceptance, createdAt=$createdAt, disputedTransactionId=$disputedTransactionId, explanation=$explanation, id=$id, idempotencyKey=$idempotencyKey, rejection=$rejection, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "CardDispute{acceptance=$acceptance, createdAt=$createdAt, disputedTransactionId=$disputedTransactionId, explanation=$explanation, id=$id, idempotencyKey=$idempotencyKey, loss=$loss, rejection=$rejection, status=$status, type=$type, win=$win, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -208,9 +228,11 @@ private constructor(
         private var explanation: JsonField<String> = JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
+        private var loss: JsonField<Loss> = JsonMissing.of()
         private var rejection: JsonField<Rejection> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
+        private var win: JsonField<Win> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -221,9 +243,11 @@ private constructor(
             this.explanation = cardDispute.explanation
             this.id = cardDispute.id
             this.idempotencyKey = cardDispute.idempotencyKey
+            this.loss = cardDispute.loss
             this.rejection = cardDispute.rejection
             this.status = cardDispute.status
             this.type = cardDispute.type
+            this.win = cardDispute.win
             additionalProperties(cardDispute.additionalProperties)
         }
 
@@ -299,6 +323,18 @@ private constructor(
         }
 
         /**
+         * If the Card Dispute's status is `lost`, this will contain details of the lost dispute.
+         */
+        fun loss(loss: Loss) = loss(JsonField.of(loss))
+
+        /**
+         * If the Card Dispute's status is `lost`, this will contain details of the lost dispute.
+         */
+        @JsonProperty("loss")
+        @ExcludeMissing
+        fun loss(loss: JsonField<Loss>) = apply { this.loss = loss }
+
+        /**
          * If the Card Dispute's status is `rejected`, this will contain details of the unsuccessful
          * dispute.
          */
@@ -334,6 +370,12 @@ private constructor(
         @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
+        /** If the Card Dispute's status is `won`, this will contain details of the won dispute. */
+        fun win(win: Win) = win(JsonField.of(win))
+
+        /** If the Card Dispute's status is `won`, this will contain details of the won dispute. */
+        @JsonProperty("win") @ExcludeMissing fun win(win: JsonField<Win>) = apply { this.win = win }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             this.additionalProperties.putAll(additionalProperties)
@@ -356,9 +398,11 @@ private constructor(
                 explanation,
                 id,
                 idempotencyKey,
+                loss,
                 rejection,
                 status,
                 type,
+                win,
                 additionalProperties.toUnmodifiable(),
             )
     }
@@ -534,6 +578,201 @@ private constructor(
                 Acceptance(
                     acceptedAt,
                     cardDisputeId,
+                    transactionId,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
+    }
+
+    /** If the Card Dispute's status is `lost`, this will contain details of the lost dispute. */
+    @JsonDeserialize(builder = Loss.Builder::class)
+    @NoAutoDetect
+    class Loss
+    private constructor(
+        private val cardDisputeId: JsonField<String>,
+        private val explanation: JsonField<String>,
+        private val lostAt: JsonField<OffsetDateTime>,
+        private val transactionId: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        /** The identifier of the Card Dispute that was lost. */
+        fun cardDisputeId(): String = cardDisputeId.getRequired("card_dispute_id")
+
+        /** Why the Card Dispute was lost. */
+        fun explanation(): String = explanation.getRequired("explanation")
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
+         * Dispute was lost.
+         */
+        fun lostAt(): OffsetDateTime = lostAt.getRequired("lost_at")
+
+        /**
+         * The identifier of the Transaction that was created to debit the disputed funds from your
+         * account.
+         */
+        fun transactionId(): String = transactionId.getRequired("transaction_id")
+
+        /** The identifier of the Card Dispute that was lost. */
+        @JsonProperty("card_dispute_id") @ExcludeMissing fun _cardDisputeId() = cardDisputeId
+
+        /** Why the Card Dispute was lost. */
+        @JsonProperty("explanation") @ExcludeMissing fun _explanation() = explanation
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
+         * Dispute was lost.
+         */
+        @JsonProperty("lost_at") @ExcludeMissing fun _lostAt() = lostAt
+
+        /**
+         * The identifier of the Transaction that was created to debit the disputed funds from your
+         * account.
+         */
+        @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): Loss = apply {
+            if (!validated) {
+                cardDisputeId()
+                explanation()
+                lostAt()
+                transactionId()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Loss &&
+                this.cardDisputeId == other.cardDisputeId &&
+                this.explanation == other.explanation &&
+                this.lostAt == other.lostAt &&
+                this.transactionId == other.transactionId &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        cardDisputeId,
+                        explanation,
+                        lostAt,
+                        transactionId,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Loss{cardDisputeId=$cardDisputeId, explanation=$explanation, lostAt=$lostAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var cardDisputeId: JsonField<String> = JsonMissing.of()
+            private var explanation: JsonField<String> = JsonMissing.of()
+            private var lostAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var transactionId: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(loss: Loss) = apply {
+                this.cardDisputeId = loss.cardDisputeId
+                this.explanation = loss.explanation
+                this.lostAt = loss.lostAt
+                this.transactionId = loss.transactionId
+                additionalProperties(loss.additionalProperties)
+            }
+
+            /** The identifier of the Card Dispute that was lost. */
+            fun cardDisputeId(cardDisputeId: String) = cardDisputeId(JsonField.of(cardDisputeId))
+
+            /** The identifier of the Card Dispute that was lost. */
+            @JsonProperty("card_dispute_id")
+            @ExcludeMissing
+            fun cardDisputeId(cardDisputeId: JsonField<String>) = apply {
+                this.cardDisputeId = cardDisputeId
+            }
+
+            /** Why the Card Dispute was lost. */
+            fun explanation(explanation: String) = explanation(JsonField.of(explanation))
+
+            /** Why the Card Dispute was lost. */
+            @JsonProperty("explanation")
+            @ExcludeMissing
+            fun explanation(explanation: JsonField<String>) = apply {
+                this.explanation = explanation
+            }
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * Card Dispute was lost.
+             */
+            fun lostAt(lostAt: OffsetDateTime) = lostAt(JsonField.of(lostAt))
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * Card Dispute was lost.
+             */
+            @JsonProperty("lost_at")
+            @ExcludeMissing
+            fun lostAt(lostAt: JsonField<OffsetDateTime>) = apply { this.lostAt = lostAt }
+
+            /**
+             * The identifier of the Transaction that was created to debit the disputed funds from
+             * your account.
+             */
+            fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
+
+            /**
+             * The identifier of the Transaction that was created to debit the disputed funds from
+             * your account.
+             */
+            @JsonProperty("transaction_id")
+            @ExcludeMissing
+            fun transactionId(transactionId: JsonField<String>) = apply {
+                this.transactionId = transactionId
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): Loss =
+                Loss(
+                    cardDisputeId,
+                    explanation,
+                    lostAt,
                     transactionId,
                     additionalProperties.toUnmodifiable(),
                 )
@@ -733,6 +972,10 @@ private constructor(
 
             @JvmField val REJECTED = Status(JsonField.of("rejected"))
 
+            @JvmField val LOST = Status(JsonField.of("lost"))
+
+            @JvmField val WON = Status(JsonField.of("won"))
+
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
 
@@ -740,12 +983,16 @@ private constructor(
             PENDING_REVIEWING,
             ACCEPTED,
             REJECTED,
+            LOST,
+            WON,
         }
 
         enum class Value {
             PENDING_REVIEWING,
             ACCEPTED,
             REJECTED,
+            LOST,
+            WON,
             _UNKNOWN,
         }
 
@@ -754,6 +1001,8 @@ private constructor(
                 PENDING_REVIEWING -> Value.PENDING_REVIEWING
                 ACCEPTED -> Value.ACCEPTED
                 REJECTED -> Value.REJECTED
+                LOST -> Value.LOST
+                WON -> Value.WON
                 else -> Value._UNKNOWN
             }
 
@@ -762,6 +1011,8 @@ private constructor(
                 PENDING_REVIEWING -> Known.PENDING_REVIEWING
                 ACCEPTED -> Known.ACCEPTED
                 REJECTED -> Known.REJECTED
+                LOST -> Known.LOST
+                WON -> Known.WON
                 else -> throw IncreaseInvalidDataException("Unknown Status: $value")
             }
 
@@ -817,5 +1068,142 @@ private constructor(
             }
 
         fun asString(): String = _value().asStringOrThrow()
+    }
+
+    /** If the Card Dispute's status is `won`, this will contain details of the won dispute. */
+    @JsonDeserialize(builder = Win.Builder::class)
+    @NoAutoDetect
+    class Win
+    private constructor(
+        private val cardDisputeId: JsonField<String>,
+        private val wonAt: JsonField<OffsetDateTime>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        /** The identifier of the Card Dispute that was won. */
+        fun cardDisputeId(): String = cardDisputeId.getRequired("card_dispute_id")
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
+         * Dispute was won.
+         */
+        fun wonAt(): OffsetDateTime = wonAt.getRequired("won_at")
+
+        /** The identifier of the Card Dispute that was won. */
+        @JsonProperty("card_dispute_id") @ExcludeMissing fun _cardDisputeId() = cardDisputeId
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
+         * Dispute was won.
+         */
+        @JsonProperty("won_at") @ExcludeMissing fun _wonAt() = wonAt
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): Win = apply {
+            if (!validated) {
+                cardDisputeId()
+                wonAt()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Win &&
+                this.cardDisputeId == other.cardDisputeId &&
+                this.wonAt == other.wonAt &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        cardDisputeId,
+                        wonAt,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Win{cardDisputeId=$cardDisputeId, wonAt=$wonAt, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var cardDisputeId: JsonField<String> = JsonMissing.of()
+            private var wonAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(win: Win) = apply {
+                this.cardDisputeId = win.cardDisputeId
+                this.wonAt = win.wonAt
+                additionalProperties(win.additionalProperties)
+            }
+
+            /** The identifier of the Card Dispute that was won. */
+            fun cardDisputeId(cardDisputeId: String) = cardDisputeId(JsonField.of(cardDisputeId))
+
+            /** The identifier of the Card Dispute that was won. */
+            @JsonProperty("card_dispute_id")
+            @ExcludeMissing
+            fun cardDisputeId(cardDisputeId: JsonField<String>) = apply {
+                this.cardDisputeId = cardDisputeId
+            }
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * Card Dispute was won.
+             */
+            fun wonAt(wonAt: OffsetDateTime) = wonAt(JsonField.of(wonAt))
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * Card Dispute was won.
+             */
+            @JsonProperty("won_at")
+            @ExcludeMissing
+            fun wonAt(wonAt: JsonField<OffsetDateTime>) = apply { this.wonAt = wonAt }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): Win =
+                Win(
+                    cardDisputeId,
+                    wonAt,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
     }
 }

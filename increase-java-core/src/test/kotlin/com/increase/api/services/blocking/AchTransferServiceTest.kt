@@ -72,6 +72,15 @@ class AchTransferServiceTest {
                     .funding(AchTransferCreateParams.Funding.CHECKING)
                     .individualId("x")
                     .individualName("x")
+                    .preferredEffectiveDate(
+                        AchTransferCreateParams.PreferredEffectiveDate.builder()
+                            .date(LocalDate.parse("2019-12-27"))
+                            .settlementSchedule(
+                                AchTransferCreateParams.PreferredEffectiveDate.SettlementSchedule
+                                    .SAME_DAY
+                            )
+                            .build()
+                    )
                     .requireApproval(true)
                     .routingNumber("xxxxxxxxx")
                     .standardEntryClassCode(

@@ -67,6 +67,14 @@ class TransactionTest {
                                 .transactionId("string")
                                 .build()
                         )
+                        .cardDisputeLoss(
+                            Transaction.Source.CardDisputeLoss.builder()
+                                .cardDisputeId("string")
+                                .explanation("string")
+                                .lostAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .transactionId("string")
+                                .build()
+                        )
                         .cardRefund(
                             Transaction.Source.CardRefund.builder()
                                 .id("string")
@@ -86,6 +94,8 @@ class TransactionTest {
                                         .transactionId("string")
                                         .build()
                                 )
+                                .presentmentAmount(123L)
+                                .presentmentCurrency("string")
                                 .purchaseDetails(
                                     Transaction.Source.CardRefund.PurchaseDetails.builder()
                                         .carRental(
@@ -828,6 +838,14 @@ class TransactionTest {
                             .transactionId("string")
                             .build()
                     )
+                    .cardDisputeLoss(
+                        Transaction.Source.CardDisputeLoss.builder()
+                            .cardDisputeId("string")
+                            .explanation("string")
+                            .lostAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .transactionId("string")
+                            .build()
+                    )
                     .cardRefund(
                         Transaction.Source.CardRefund.builder()
                             .id("string")
@@ -847,6 +865,8 @@ class TransactionTest {
                                     .transactionId("string")
                                     .build()
                             )
+                            .presentmentAmount(123L)
+                            .presentmentCurrency("string")
                             .purchaseDetails(
                                 Transaction.Source.CardRefund.PurchaseDetails.builder()
                                     .carRental(

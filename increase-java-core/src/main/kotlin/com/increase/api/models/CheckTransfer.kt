@@ -1880,6 +1880,7 @@ private constructor(
         private val note: JsonField<String>,
         private val recipientName: JsonField<String>,
         private val returnAddress: JsonField<ReturnAddress>,
+        private val signatureText: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -1903,6 +1904,13 @@ private constructor(
         fun returnAddress(): Optional<ReturnAddress> =
             Optional.ofNullable(returnAddress.getNullable("return_address"))
 
+        /**
+         * The text that will appear as the signature on the check in cursive font. If blank, the
+         * check will be printed with 'No signature required'.
+         */
+        fun signatureText(): Optional<String> =
+            Optional.ofNullable(signatureText.getNullable("signature_text"))
+
         /** Details for where Increase will mail the check. */
         @JsonProperty("mailing_address") @ExcludeMissing fun _mailingAddress() = mailingAddress
 
@@ -1918,6 +1926,12 @@ private constructor(
         /** The return address to be printed on the check. */
         @JsonProperty("return_address") @ExcludeMissing fun _returnAddress() = returnAddress
 
+        /**
+         * The text that will appear as the signature on the check in cursive font. If blank, the
+         * check will be printed with 'No signature required'.
+         */
+        @JsonProperty("signature_text") @ExcludeMissing fun _signatureText() = signatureText
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -1929,6 +1943,7 @@ private constructor(
                 note()
                 recipientName()
                 returnAddress().map { it.validate() }
+                signatureText()
                 validated = true
             }
         }
@@ -1946,6 +1961,7 @@ private constructor(
                 this.note == other.note &&
                 this.recipientName == other.recipientName &&
                 this.returnAddress == other.returnAddress &&
+                this.signatureText == other.signatureText &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -1958,6 +1974,7 @@ private constructor(
                         note,
                         recipientName,
                         returnAddress,
+                        signatureText,
                         additionalProperties,
                     )
             }
@@ -1965,7 +1982,7 @@ private constructor(
         }
 
         override fun toString() =
-            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, note=$note, recipientName=$recipientName, returnAddress=$returnAddress, additionalProperties=$additionalProperties}"
+            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, note=$note, recipientName=$recipientName, returnAddress=$returnAddress, signatureText=$signatureText, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1979,6 +1996,7 @@ private constructor(
             private var note: JsonField<String> = JsonMissing.of()
             private var recipientName: JsonField<String> = JsonMissing.of()
             private var returnAddress: JsonField<ReturnAddress> = JsonMissing.of()
+            private var signatureText: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -1988,6 +2006,7 @@ private constructor(
                 this.note = physicalCheck.note
                 this.recipientName = physicalCheck.recipientName
                 this.returnAddress = physicalCheck.returnAddress
+                this.signatureText = physicalCheck.signatureText
                 additionalProperties(physicalCheck.additionalProperties)
             }
 
@@ -2039,6 +2058,22 @@ private constructor(
                 this.returnAddress = returnAddress
             }
 
+            /**
+             * The text that will appear as the signature on the check in cursive font. If blank,
+             * the check will be printed with 'No signature required'.
+             */
+            fun signatureText(signatureText: String) = signatureText(JsonField.of(signatureText))
+
+            /**
+             * The text that will appear as the signature on the check in cursive font. If blank,
+             * the check will be printed with 'No signature required'.
+             */
+            @JsonProperty("signature_text")
+            @ExcludeMissing
+            fun signatureText(signatureText: JsonField<String>) = apply {
+                this.signatureText = signatureText
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -2060,6 +2095,7 @@ private constructor(
                     note,
                     recipientName,
                     returnAddress,
+                    signatureText,
                     additionalProperties.toUnmodifiable(),
                 )
         }

@@ -94,6 +94,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .Currency
                                                 .CAD
                                         )
+                                        .declinedTransactionId("string")
                                         .digitalWalletTokenId("string")
                                         .merchantAcceptorId("string")
                                         .merchantCategoryCode("string")
@@ -522,6 +523,17 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .transactionId("string")
                                         .build()
                                 )
+                                .cardDisputeLoss(
+                                    InboundRealTimePaymentsTransferSimulationResult.Transaction
+                                        .Source
+                                        .CardDisputeLoss
+                                        .builder()
+                                        .cardDisputeId("string")
+                                        .explanation("string")
+                                        .lostAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .transactionId("string")
+                                        .build()
+                                )
                                 .cardRefund(
                                     InboundRealTimePaymentsTransferSimulationResult.Transaction
                                         .Source
@@ -556,6 +568,8 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .transactionId("string")
                                                 .build()
                                         )
+                                        .presentmentAmount(123L)
+                                        .presentmentCurrency("string")
                                         .purchaseDetails(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .Transaction
@@ -1696,6 +1710,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .Currency
                                             .CAD
                                     )
+                                    .declinedTransactionId("string")
                                     .digitalWalletTokenId("string")
                                     .merchantAcceptorId("string")
                                     .merchantCategoryCode("string")
@@ -2107,6 +2122,16 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .transactionId("string")
                                     .build()
                             )
+                            .cardDisputeLoss(
+                                InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
+                                    .CardDisputeLoss
+                                    .builder()
+                                    .cardDisputeId("string")
+                                    .explanation("string")
+                                    .lostAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .transactionId("string")
+                                    .build()
+                            )
                             .cardRefund(
                                 InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
                                     .CardRefund
@@ -2138,6 +2163,8 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .transactionId("string")
                                             .build()
                                     )
+                                    .presentmentAmount(123L)
+                                    .presentmentCurrency("string")
                                     .purchaseDetails(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction
                                             .Source

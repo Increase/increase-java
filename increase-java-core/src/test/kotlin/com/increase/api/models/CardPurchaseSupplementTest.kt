@@ -40,6 +40,7 @@ class CardPurchaseSupplementTest {
                 .lineItems(
                     listOf(
                         CardPurchaseSupplement.LineItem.builder()
+                            .id("string")
                             .detailIndicator(CardPurchaseSupplement.LineItem.DetailIndicator.NORMAL)
                             .discountAmount(123L)
                             .discountCurrency("string")
@@ -95,6 +96,7 @@ class CardPurchaseSupplementTest {
         assertThat(cardPurchaseSupplement.lineItems().get())
             .containsExactly(
                 CardPurchaseSupplement.LineItem.builder()
+                    .id("string")
                     .detailIndicator(CardPurchaseSupplement.LineItem.DetailIndicator.NORMAL)
                     .discountAmount(123L)
                     .discountCurrency("string")

@@ -80,7 +80,6 @@ class AchTransferTest {
                 )
                 .currency(AchTransfer.Currency.CAD)
                 .destinationAccountHolder(AchTransfer.DestinationAccountHolder.BUSINESS)
-                .effectiveDate(LocalDate.parse("2019-12-27"))
                 .externalAccountId("string")
                 .funding(AchTransfer.Funding.CHECKING)
                 .idempotencyKey("string")
@@ -100,6 +99,14 @@ class AchTransferTest {
                     )
                 )
                 .pendingTransactionId("string")
+                .preferredEffectiveDate(
+                    AchTransfer.PreferredEffectiveDate.builder()
+                        .date(LocalDate.parse("2019-12-27"))
+                        .settlementSchedule(
+                            AchTransfer.PreferredEffectiveDate.SettlementSchedule.SAME_DAY
+                        )
+                        .build()
+                )
                 .return_(
                     AchTransfer.Return.builder()
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -120,6 +127,9 @@ class AchTransferTest {
                     AchTransfer.Submission.builder()
                         .effectiveDate(LocalDate.parse("2019-12-27"))
                         .expectedFundsSettlementAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .expectedSettlementSchedule(
+                            AchTransfer.Submission.ExpectedSettlementSchedule.SAME_DAY
+                        )
                         .submittedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .traceNumber("string")
                         .build()
@@ -198,7 +208,6 @@ class AchTransferTest {
         assertThat(achTransfer.currency()).isEqualTo(AchTransfer.Currency.CAD)
         assertThat(achTransfer.destinationAccountHolder())
             .isEqualTo(AchTransfer.DestinationAccountHolder.BUSINESS)
-        assertThat(achTransfer.effectiveDate()).contains(LocalDate.parse("2019-12-27"))
         assertThat(achTransfer.externalAccountId()).contains("string")
         assertThat(achTransfer.funding()).isEqualTo(AchTransfer.Funding.CHECKING)
         assertThat(achTransfer.idempotencyKey()).contains("string")
@@ -216,6 +225,15 @@ class AchTransferTest {
                     .build()
             )
         assertThat(achTransfer.pendingTransactionId()).contains("string")
+        assertThat(achTransfer.preferredEffectiveDate())
+            .isEqualTo(
+                AchTransfer.PreferredEffectiveDate.builder()
+                    .date(LocalDate.parse("2019-12-27"))
+                    .settlementSchedule(
+                        AchTransfer.PreferredEffectiveDate.SettlementSchedule.SAME_DAY
+                    )
+                    .build()
+            )
         assertThat(achTransfer.return_())
             .contains(
                 AchTransfer.Return.builder()
@@ -237,6 +255,9 @@ class AchTransferTest {
                 AchTransfer.Submission.builder()
                     .effectiveDate(LocalDate.parse("2019-12-27"))
                     .expectedFundsSettlementAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .expectedSettlementSchedule(
+                        AchTransfer.Submission.ExpectedSettlementSchedule.SAME_DAY
+                    )
                     .submittedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .traceNumber("string")
                     .build()
