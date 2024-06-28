@@ -43,7 +43,6 @@ private constructor(
     private val createdBy: JsonField<CreatedBy>,
     private val currency: JsonField<Currency>,
     private val destinationAccountHolder: JsonField<DestinationAccountHolder>,
-    private val effectiveDate: JsonField<LocalDate>,
     private val externalAccountId: JsonField<String>,
     private val funding: JsonField<Funding>,
     private val id: JsonField<String>,
@@ -53,6 +52,7 @@ private constructor(
     private val network: JsonField<Network>,
     private val notificationsOfChange: JsonField<List<NotificationsOfChange>>,
     private val pendingTransactionId: JsonField<String>,
+    private val preferredEffectiveDate: JsonField<PreferredEffectiveDate>,
     private val return_: JsonField<Return>,
     private val routingNumber: JsonField<String>,
     private val standardEntryClassCode: JsonField<StandardEntryClassCode>,
@@ -139,10 +139,6 @@ private constructor(
     fun destinationAccountHolder(): DestinationAccountHolder =
         destinationAccountHolder.getRequired("destination_account_holder")
 
-    /** The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
-    fun effectiveDate(): Optional<LocalDate> =
-        Optional.ofNullable(effectiveDate.getNullable("effective_date"))
-
     /** The identifier of the External Account the transfer was made to, if any. */
     fun externalAccountId(): Optional<String> =
         Optional.ofNullable(externalAccountId.getNullable("external_account_id"))
@@ -190,6 +186,14 @@ private constructor(
      */
     fun pendingTransactionId(): Optional<String> =
         Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
+
+    /**
+     * Configuration for how the effective date of the transfer will be set. This determines
+     * same-day vs future-dated settlement timing. If not set, defaults to a `settlement_schedule`
+     * of `same_day`. If set, exactly one of the child atributes must be set.
+     */
+    fun preferredEffectiveDate(): PreferredEffectiveDate =
+        preferredEffectiveDate.getRequired("preferred_effective_date")
 
     /** If your transfer is returned, this will contain details of the return. */
     fun return_(): Optional<Return> = Optional.ofNullable(return_.getNullable("return"))
@@ -298,9 +302,6 @@ private constructor(
     @ExcludeMissing
     fun _destinationAccountHolder() = destinationAccountHolder
 
-    /** The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
-    @JsonProperty("effective_date") @ExcludeMissing fun _effectiveDate() = effectiveDate
-
     /** The identifier of the External Account the transfer was made to, if any. */
     @JsonProperty("external_account_id")
     @ExcludeMissing
@@ -348,6 +349,15 @@ private constructor(
     @JsonProperty("pending_transaction_id")
     @ExcludeMissing
     fun _pendingTransactionId() = pendingTransactionId
+
+    /**
+     * Configuration for how the effective date of the transfer will be set. This determines
+     * same-day vs future-dated settlement timing. If not set, defaults to a `settlement_schedule`
+     * of `same_day`. If set, exactly one of the child atributes must be set.
+     */
+    @JsonProperty("preferred_effective_date")
+    @ExcludeMissing
+    fun _preferredEffectiveDate() = preferredEffectiveDate
 
     /** If your transfer is returned, this will contain details of the return. */
     @JsonProperty("return") @ExcludeMissing fun _return_() = return_
@@ -406,7 +416,6 @@ private constructor(
             createdBy().map { it.validate() }
             currency()
             destinationAccountHolder()
-            effectiveDate()
             externalAccountId()
             funding()
             id()
@@ -416,6 +425,7 @@ private constructor(
             network()
             notificationsOfChange().forEach { it.validate() }
             pendingTransactionId()
+            preferredEffectiveDate().validate()
             return_().map { it.validate() }
             routingNumber()
             standardEntryClassCode()
@@ -451,7 +461,6 @@ private constructor(
             this.createdBy == other.createdBy &&
             this.currency == other.currency &&
             this.destinationAccountHolder == other.destinationAccountHolder &&
-            this.effectiveDate == other.effectiveDate &&
             this.externalAccountId == other.externalAccountId &&
             this.funding == other.funding &&
             this.id == other.id &&
@@ -461,6 +470,7 @@ private constructor(
             this.network == other.network &&
             this.notificationsOfChange == other.notificationsOfChange &&
             this.pendingTransactionId == other.pendingTransactionId &&
+            this.preferredEffectiveDate == other.preferredEffectiveDate &&
             this.return_ == other.return_ &&
             this.routingNumber == other.routingNumber &&
             this.standardEntryClassCode == other.standardEntryClassCode &&
@@ -491,7 +501,6 @@ private constructor(
                     createdBy,
                     currency,
                     destinationAccountHolder,
-                    effectiveDate,
                     externalAccountId,
                     funding,
                     id,
@@ -501,6 +510,7 @@ private constructor(
                     network,
                     notificationsOfChange,
                     pendingTransactionId,
+                    preferredEffectiveDate,
                     return_,
                     routingNumber,
                     standardEntryClassCode,
@@ -516,7 +526,7 @@ private constructor(
     }
 
     override fun toString() =
-        "AchTransfer{accountId=$accountId, accountNumber=$accountNumber, acknowledgement=$acknowledgement, addenda=$addenda, amount=$amount, approval=$approval, cancellation=$cancellation, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, destinationAccountHolder=$destinationAccountHolder, effectiveDate=$effectiveDate, externalAccountId=$externalAccountId, funding=$funding, id=$id, idempotencyKey=$idempotencyKey, individualId=$individualId, individualName=$individualName, network=$network, notificationsOfChange=$notificationsOfChange, pendingTransactionId=$pendingTransactionId, return_=$return_, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+        "AchTransfer{accountId=$accountId, accountNumber=$accountNumber, acknowledgement=$acknowledgement, addenda=$addenda, amount=$amount, approval=$approval, cancellation=$cancellation, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, destinationAccountHolder=$destinationAccountHolder, externalAccountId=$externalAccountId, funding=$funding, id=$id, idempotencyKey=$idempotencyKey, individualId=$individualId, individualName=$individualName, network=$network, notificationsOfChange=$notificationsOfChange, pendingTransactionId=$pendingTransactionId, preferredEffectiveDate=$preferredEffectiveDate, return_=$return_, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -540,7 +550,6 @@ private constructor(
         private var createdBy: JsonField<CreatedBy> = JsonMissing.of()
         private var currency: JsonField<Currency> = JsonMissing.of()
         private var destinationAccountHolder: JsonField<DestinationAccountHolder> = JsonMissing.of()
-        private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
         private var externalAccountId: JsonField<String> = JsonMissing.of()
         private var funding: JsonField<Funding> = JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
@@ -550,6 +559,7 @@ private constructor(
         private var network: JsonField<Network> = JsonMissing.of()
         private var notificationsOfChange: JsonField<List<NotificationsOfChange>> = JsonMissing.of()
         private var pendingTransactionId: JsonField<String> = JsonMissing.of()
+        private var preferredEffectiveDate: JsonField<PreferredEffectiveDate> = JsonMissing.of()
         private var return_: JsonField<Return> = JsonMissing.of()
         private var routingNumber: JsonField<String> = JsonMissing.of()
         private var standardEntryClassCode: JsonField<StandardEntryClassCode> = JsonMissing.of()
@@ -577,7 +587,6 @@ private constructor(
             this.createdBy = achTransfer.createdBy
             this.currency = achTransfer.currency
             this.destinationAccountHolder = achTransfer.destinationAccountHolder
-            this.effectiveDate = achTransfer.effectiveDate
             this.externalAccountId = achTransfer.externalAccountId
             this.funding = achTransfer.funding
             this.id = achTransfer.id
@@ -587,6 +596,7 @@ private constructor(
             this.network = achTransfer.network
             this.notificationsOfChange = achTransfer.notificationsOfChange
             this.pendingTransactionId = achTransfer.pendingTransactionId
+            this.preferredEffectiveDate = achTransfer.preferredEffectiveDate
             this.return_ = achTransfer.return_
             this.routingNumber = achTransfer.routingNumber
             this.standardEntryClassCode = achTransfer.standardEntryClassCode
@@ -775,20 +785,6 @@ private constructor(
             destinationAccountHolder: JsonField<DestinationAccountHolder>
         ) = apply { this.destinationAccountHolder = destinationAccountHolder }
 
-        /**
-         * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-         */
-        fun effectiveDate(effectiveDate: LocalDate) = effectiveDate(JsonField.of(effectiveDate))
-
-        /**
-         * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-         */
-        @JsonProperty("effective_date")
-        @ExcludeMissing
-        fun effectiveDate(effectiveDate: JsonField<LocalDate>) = apply {
-            this.effectiveDate = effectiveDate
-        }
-
         /** The identifier of the External Account the transfer was made to, if any. */
         fun externalAccountId(externalAccountId: String) =
             externalAccountId(JsonField.of(externalAccountId))
@@ -904,6 +900,28 @@ private constructor(
         fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
             this.pendingTransactionId = pendingTransactionId
         }
+
+        /**
+         * Configuration for how the effective date of the transfer will be set. This determines
+         * same-day vs future-dated settlement timing. If not set, defaults to a
+         * `settlement_schedule` of `same_day`. If set, exactly one of the child atributes must be
+         * set.
+         */
+        fun preferredEffectiveDate(preferredEffectiveDate: PreferredEffectiveDate) =
+            preferredEffectiveDate(JsonField.of(preferredEffectiveDate))
+
+        /**
+         * Configuration for how the effective date of the transfer will be set. This determines
+         * same-day vs future-dated settlement timing. If not set, defaults to a
+         * `settlement_schedule` of `same_day`. If set, exactly one of the child atributes must be
+         * set.
+         */
+        @JsonProperty("preferred_effective_date")
+        @ExcludeMissing
+        fun preferredEffectiveDate(preferredEffectiveDate: JsonField<PreferredEffectiveDate>) =
+            apply {
+                this.preferredEffectiveDate = preferredEffectiveDate
+            }
 
         /** If your transfer is returned, this will contain details of the return. */
         fun return_(return_: Return) = return_(JsonField.of(return_))
@@ -1027,7 +1045,6 @@ private constructor(
                 createdBy,
                 currency,
                 destinationAccountHolder,
-                effectiveDate,
                 externalAccountId,
                 funding,
                 id,
@@ -1037,6 +1054,7 @@ private constructor(
                 network,
                 notificationsOfChange.map { it.toUnmodifiable() },
                 pendingTransactionId,
+                preferredEffectiveDate,
                 return_,
                 routingNumber,
                 standardEntryClassCode,
@@ -3365,6 +3383,208 @@ private constructor(
         }
     }
 
+    /**
+     * Configuration for how the effective date of the transfer will be set. This determines
+     * same-day vs future-dated settlement timing. If not set, defaults to a `settlement_schedule`
+     * of `same_day`. If set, exactly one of the child atributes must be set.
+     */
+    @JsonDeserialize(builder = PreferredEffectiveDate.Builder::class)
+    @NoAutoDetect
+    class PreferredEffectiveDate
+    private constructor(
+        private val date: JsonField<LocalDate>,
+        private val settlementSchedule: JsonField<SettlementSchedule>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        /**
+         * A specific date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format to use as
+         * the effective date when submitting this transfer.
+         */
+        fun date(): Optional<LocalDate> = Optional.ofNullable(date.getNullable("date"))
+
+        /** A schedule by which Increase whill choose an effective date for the transfer. */
+        fun settlementSchedule(): Optional<SettlementSchedule> =
+            Optional.ofNullable(settlementSchedule.getNullable("settlement_schedule"))
+
+        /**
+         * A specific date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format to use as
+         * the effective date when submitting this transfer.
+         */
+        @JsonProperty("date") @ExcludeMissing fun _date() = date
+
+        /** A schedule by which Increase whill choose an effective date for the transfer. */
+        @JsonProperty("settlement_schedule")
+        @ExcludeMissing
+        fun _settlementSchedule() = settlementSchedule
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): PreferredEffectiveDate = apply {
+            if (!validated) {
+                date()
+                settlementSchedule()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is PreferredEffectiveDate &&
+                this.date == other.date &&
+                this.settlementSchedule == other.settlementSchedule &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        date,
+                        settlementSchedule,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "PreferredEffectiveDate{date=$date, settlementSchedule=$settlementSchedule, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var date: JsonField<LocalDate> = JsonMissing.of()
+            private var settlementSchedule: JsonField<SettlementSchedule> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(preferredEffectiveDate: PreferredEffectiveDate) = apply {
+                this.date = preferredEffectiveDate.date
+                this.settlementSchedule = preferredEffectiveDate.settlementSchedule
+                additionalProperties(preferredEffectiveDate.additionalProperties)
+            }
+
+            /**
+             * A specific date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format to use
+             * as the effective date when submitting this transfer.
+             */
+            fun date(date: LocalDate) = date(JsonField.of(date))
+
+            /**
+             * A specific date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format to use
+             * as the effective date when submitting this transfer.
+             */
+            @JsonProperty("date")
+            @ExcludeMissing
+            fun date(date: JsonField<LocalDate>) = apply { this.date = date }
+
+            /** A schedule by which Increase whill choose an effective date for the transfer. */
+            fun settlementSchedule(settlementSchedule: SettlementSchedule) =
+                settlementSchedule(JsonField.of(settlementSchedule))
+
+            /** A schedule by which Increase whill choose an effective date for the transfer. */
+            @JsonProperty("settlement_schedule")
+            @ExcludeMissing
+            fun settlementSchedule(settlementSchedule: JsonField<SettlementSchedule>) = apply {
+                this.settlementSchedule = settlementSchedule
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): PreferredEffectiveDate =
+                PreferredEffectiveDate(
+                    date,
+                    settlementSchedule,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
+
+        class SettlementSchedule
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is SettlementSchedule && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                @JvmField val SAME_DAY = SettlementSchedule(JsonField.of("same_day"))
+
+                @JvmField val FUTURE_DATED = SettlementSchedule(JsonField.of("future_dated"))
+
+                @JvmStatic fun of(value: String) = SettlementSchedule(JsonField.of(value))
+            }
+
+            enum class Known {
+                SAME_DAY,
+                FUTURE_DATED,
+            }
+
+            enum class Value {
+                SAME_DAY,
+                FUTURE_DATED,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    SAME_DAY -> Value.SAME_DAY
+                    FUTURE_DATED -> Value.FUTURE_DATED
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    SAME_DAY -> Known.SAME_DAY
+                    FUTURE_DATED -> Known.FUTURE_DATED
+                    else -> throw IncreaseInvalidDataException("Unknown SettlementSchedule: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
+    }
+
     /** If your transfer is returned, this will contain details of the return. */
     @JsonDeserialize(builder = Return.Builder::class)
     @NoAutoDetect
@@ -4452,6 +4672,7 @@ private constructor(
     private constructor(
         private val effectiveDate: JsonField<LocalDate>,
         private val expectedFundsSettlementAt: JsonField<OffsetDateTime>,
+        private val expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule>,
         private val submittedAt: JsonField<OffsetDateTime>,
         private val traceNumber: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
@@ -4462,19 +4683,27 @@ private constructor(
         private var hashCode: Int = 0
 
         /**
-         * The ACH's effective date sent to the receiving bank. If `effective_date` is configured in
-         * the ACH transfer, this will match the value there. Otherwise, it will the date that the
-         * ACH transfer was processed, which is usually the current or subsequent business day.
+         * The ACH transfer's effective date as sent to the Federal Reserve. If a specific date was
+         * configured using `preferred_effective_date`, this will match that value. Otherwise, it
+         * will be the date selected (following the specified settlement schedule) at the time the
+         * transfer was submitted.
          */
         fun effectiveDate(): LocalDate = effectiveDate.getRequired("effective_date")
 
         /**
-         * When the funds transfer is expected to settle in the recipient's account. Credits may be
+         * When the transfer is expected to settle in the recipient's account. Credits may be
          * available sooner, at the receiving banks discretion. The FedACH schedule is published
          * [here](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
          */
         fun expectedFundsSettlementAt(): OffsetDateTime =
             expectedFundsSettlementAt.getRequired("expected_funds_settlement_at")
+
+        /**
+         * The settlement schedule the transfer is expected to follow. This expectation takes into
+         * account the `effective_date`, `submitted_at`, and the amount of the transfer.
+         */
+        fun expectedSettlementSchedule(): ExpectedSettlementSchedule =
+            expectedSettlementSchedule.getRequired("expected_settlement_schedule")
 
         /** When the ACH transfer was sent to FedACH. */
         fun submittedAt(): OffsetDateTime = submittedAt.getRequired("submitted_at")
@@ -4488,20 +4717,29 @@ private constructor(
         fun traceNumber(): String = traceNumber.getRequired("trace_number")
 
         /**
-         * The ACH's effective date sent to the receiving bank. If `effective_date` is configured in
-         * the ACH transfer, this will match the value there. Otherwise, it will the date that the
-         * ACH transfer was processed, which is usually the current or subsequent business day.
+         * The ACH transfer's effective date as sent to the Federal Reserve. If a specific date was
+         * configured using `preferred_effective_date`, this will match that value. Otherwise, it
+         * will be the date selected (following the specified settlement schedule) at the time the
+         * transfer was submitted.
          */
         @JsonProperty("effective_date") @ExcludeMissing fun _effectiveDate() = effectiveDate
 
         /**
-         * When the funds transfer is expected to settle in the recipient's account. Credits may be
+         * When the transfer is expected to settle in the recipient's account. Credits may be
          * available sooner, at the receiving banks discretion. The FedACH schedule is published
          * [here](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
          */
         @JsonProperty("expected_funds_settlement_at")
         @ExcludeMissing
         fun _expectedFundsSettlementAt() = expectedFundsSettlementAt
+
+        /**
+         * The settlement schedule the transfer is expected to follow. This expectation takes into
+         * account the `effective_date`, `submitted_at`, and the amount of the transfer.
+         */
+        @JsonProperty("expected_settlement_schedule")
+        @ExcludeMissing
+        fun _expectedSettlementSchedule() = expectedSettlementSchedule
 
         /** When the ACH transfer was sent to FedACH. */
         @JsonProperty("submitted_at") @ExcludeMissing fun _submittedAt() = submittedAt
@@ -4522,6 +4760,7 @@ private constructor(
             if (!validated) {
                 effectiveDate()
                 expectedFundsSettlementAt()
+                expectedSettlementSchedule()
                 submittedAt()
                 traceNumber()
                 validated = true
@@ -4538,6 +4777,7 @@ private constructor(
             return other is Submission &&
                 this.effectiveDate == other.effectiveDate &&
                 this.expectedFundsSettlementAt == other.expectedFundsSettlementAt &&
+                this.expectedSettlementSchedule == other.expectedSettlementSchedule &&
                 this.submittedAt == other.submittedAt &&
                 this.traceNumber == other.traceNumber &&
                 this.additionalProperties == other.additionalProperties
@@ -4549,6 +4789,7 @@ private constructor(
                     Objects.hash(
                         effectiveDate,
                         expectedFundsSettlementAt,
+                        expectedSettlementSchedule,
                         submittedAt,
                         traceNumber,
                         additionalProperties,
@@ -4558,7 +4799,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Submission{effectiveDate=$effectiveDate, expectedFundsSettlementAt=$expectedFundsSettlementAt, submittedAt=$submittedAt, traceNumber=$traceNumber, additionalProperties=$additionalProperties}"
+            "Submission{effectiveDate=$effectiveDate, expectedFundsSettlementAt=$expectedFundsSettlementAt, expectedSettlementSchedule=$expectedSettlementSchedule, submittedAt=$submittedAt, traceNumber=$traceNumber, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -4569,6 +4810,8 @@ private constructor(
 
             private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
             private var expectedFundsSettlementAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule> =
+                JsonMissing.of()
             private var submittedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var traceNumber: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -4577,24 +4820,25 @@ private constructor(
             internal fun from(submission: Submission) = apply {
                 this.effectiveDate = submission.effectiveDate
                 this.expectedFundsSettlementAt = submission.expectedFundsSettlementAt
+                this.expectedSettlementSchedule = submission.expectedSettlementSchedule
                 this.submittedAt = submission.submittedAt
                 this.traceNumber = submission.traceNumber
                 additionalProperties(submission.additionalProperties)
             }
 
             /**
-             * The ACH's effective date sent to the receiving bank. If `effective_date` is
-             * configured in the ACH transfer, this will match the value there. Otherwise, it will
-             * the date that the ACH transfer was processed, which is usually the current or
-             * subsequent business day.
+             * The ACH transfer's effective date as sent to the Federal Reserve. If a specific date
+             * was configured using `preferred_effective_date`, this will match that value.
+             * Otherwise, it will be the date selected (following the specified settlement schedule)
+             * at the time the transfer was submitted.
              */
             fun effectiveDate(effectiveDate: LocalDate) = effectiveDate(JsonField.of(effectiveDate))
 
             /**
-             * The ACH's effective date sent to the receiving bank. If `effective_date` is
-             * configured in the ACH transfer, this will match the value there. Otherwise, it will
-             * the date that the ACH transfer was processed, which is usually the current or
-             * subsequent business day.
+             * The ACH transfer's effective date as sent to the Federal Reserve. If a specific date
+             * was configured using `preferred_effective_date`, this will match that value.
+             * Otherwise, it will be the date selected (following the specified settlement schedule)
+             * at the time the transfer was submitted.
              */
             @JsonProperty("effective_date")
             @ExcludeMissing
@@ -4603,18 +4847,16 @@ private constructor(
             }
 
             /**
-             * When the funds transfer is expected to settle in the recipient's account. Credits may
-             * be available sooner, at the receiving banks discretion. The FedACH schedule is
-             * published
+             * When the transfer is expected to settle in the recipient's account. Credits may be
+             * available sooner, at the receiving banks discretion. The FedACH schedule is published
              * [here](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
              */
             fun expectedFundsSettlementAt(expectedFundsSettlementAt: OffsetDateTime) =
                 expectedFundsSettlementAt(JsonField.of(expectedFundsSettlementAt))
 
             /**
-             * When the funds transfer is expected to settle in the recipient's account. Credits may
-             * be available sooner, at the receiving banks discretion. The FedACH schedule is
-             * published
+             * When the transfer is expected to settle in the recipient's account. Credits may be
+             * available sooner, at the receiving banks discretion. The FedACH schedule is published
              * [here](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
              */
             @JsonProperty("expected_funds_settlement_at")
@@ -4623,6 +4865,23 @@ private constructor(
                 apply {
                     this.expectedFundsSettlementAt = expectedFundsSettlementAt
                 }
+
+            /**
+             * The settlement schedule the transfer is expected to follow. This expectation takes
+             * into account the `effective_date`, `submitted_at`, and the amount of the transfer.
+             */
+            fun expectedSettlementSchedule(expectedSettlementSchedule: ExpectedSettlementSchedule) =
+                expectedSettlementSchedule(JsonField.of(expectedSettlementSchedule))
+
+            /**
+             * The settlement schedule the transfer is expected to follow. This expectation takes
+             * into account the `effective_date`, `submitted_at`, and the amount of the transfer.
+             */
+            @JsonProperty("expected_settlement_schedule")
+            @ExcludeMissing
+            fun expectedSettlementSchedule(
+                expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule>
+            ) = apply { this.expectedSettlementSchedule = expectedSettlementSchedule }
 
             /** When the ACH transfer was sent to FedACH. */
             fun submittedAt(submittedAt: OffsetDateTime) = submittedAt(JsonField.of(submittedAt))
@@ -4674,10 +4933,72 @@ private constructor(
                 Submission(
                     effectiveDate,
                     expectedFundsSettlementAt,
+                    expectedSettlementSchedule,
                     submittedAt,
                     traceNumber,
                     additionalProperties.toUnmodifiable(),
                 )
+        }
+
+        class ExpectedSettlementSchedule
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is ExpectedSettlementSchedule && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                @JvmField val SAME_DAY = ExpectedSettlementSchedule(JsonField.of("same_day"))
+
+                @JvmField
+                val FUTURE_DATED = ExpectedSettlementSchedule(JsonField.of("future_dated"))
+
+                @JvmStatic fun of(value: String) = ExpectedSettlementSchedule(JsonField.of(value))
+            }
+
+            enum class Known {
+                SAME_DAY,
+                FUTURE_DATED,
+            }
+
+            enum class Value {
+                SAME_DAY,
+                FUTURE_DATED,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    SAME_DAY -> Value.SAME_DAY
+                    FUTURE_DATED -> Value.FUTURE_DATED
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    SAME_DAY -> Known.SAME_DAY
+                    FUTURE_DATED -> Known.FUTURE_DATED
+                    else ->
+                        throw IncreaseInvalidDataException(
+                            "Unknown ExpectedSettlementSchedule: $value"
+                        )
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
         }
     }
 

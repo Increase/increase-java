@@ -104,4 +104,8 @@ interface IncreaseClientAsync {
     fun physicalCardProfiles(): PhysicalCardProfileServiceAsync
 
     fun inboundCheckDeposits(): InboundCheckDepositServiceAsync
+
+    fun inboundMailItems(): InboundMailItemServiceAsync
+
+    fun lockboxes(): LockboxServiceAsync
 }

@@ -56,6 +56,14 @@ class AchTransferCreateParamsTest {
             .funding(AchTransferCreateParams.Funding.CHECKING)
             .individualId("x")
             .individualName("x")
+            .preferredEffectiveDate(
+                AchTransferCreateParams.PreferredEffectiveDate.builder()
+                    .date(LocalDate.parse("2019-12-27"))
+                    .settlementSchedule(
+                        AchTransferCreateParams.PreferredEffectiveDate.SettlementSchedule.SAME_DAY
+                    )
+                    .build()
+            )
             .requireApproval(true)
             .routingNumber("xxxxxxxxx")
             .standardEntryClassCode(
@@ -112,6 +120,15 @@ class AchTransferCreateParamsTest {
                 .funding(AchTransferCreateParams.Funding.CHECKING)
                 .individualId("x")
                 .individualName("x")
+                .preferredEffectiveDate(
+                    AchTransferCreateParams.PreferredEffectiveDate.builder()
+                        .date(LocalDate.parse("2019-12-27"))
+                        .settlementSchedule(
+                            AchTransferCreateParams.PreferredEffectiveDate.SettlementSchedule
+                                .SAME_DAY
+                        )
+                        .build()
+                )
                 .requireApproval(true)
                 .routingNumber("xxxxxxxxx")
                 .standardEntryClassCode(
@@ -166,6 +183,15 @@ class AchTransferCreateParamsTest {
         assertThat(body.funding()).isEqualTo(AchTransferCreateParams.Funding.CHECKING)
         assertThat(body.individualId()).isEqualTo("x")
         assertThat(body.individualName()).isEqualTo("x")
+        assertThat(body.preferredEffectiveDate())
+            .isEqualTo(
+                AchTransferCreateParams.PreferredEffectiveDate.builder()
+                    .date(LocalDate.parse("2019-12-27"))
+                    .settlementSchedule(
+                        AchTransferCreateParams.PreferredEffectiveDate.SettlementSchedule.SAME_DAY
+                    )
+                    .build()
+            )
         assertThat(body.requireApproval()).isEqualTo(true)
         assertThat(body.routingNumber()).isEqualTo("xxxxxxxxx")
         assertThat(body.standardEntryClassCode())

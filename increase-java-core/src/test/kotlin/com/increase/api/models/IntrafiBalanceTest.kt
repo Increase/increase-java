@@ -12,9 +12,11 @@ class IntrafiBalanceTest {
     fun createIntrafiBalance() {
         val intrafiBalance =
             IntrafiBalance.builder()
+                .id("string")
                 .balances(
                     listOf(
                         IntrafiBalance.Balance.builder()
+                            .id("string")
                             .balance(123L)
                             .bank("string")
                             .bankLocation(
@@ -33,9 +35,11 @@ class IntrafiBalanceTest {
                 .type(IntrafiBalance.Type.INTRAFI_BALANCE)
                 .build()
         assertThat(intrafiBalance).isNotNull
+        assertThat(intrafiBalance.id()).isEqualTo("string")
         assertThat(intrafiBalance.balances())
             .containsExactly(
                 IntrafiBalance.Balance.builder()
+                    .id("string")
                     .balance(123L)
                     .bank("string")
                     .bankLocation(

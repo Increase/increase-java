@@ -61,6 +61,9 @@ class InboundAchTransferTest {
                 .originatorRoutingNumber("string")
                 .receiverIdNumber("string")
                 .receiverName("string")
+                .standardEntryClassCode(
+                    InboundAchTransfer.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
+                )
                 .status(InboundAchTransfer.Status.PENDING)
                 .traceNumber("string")
                 .transferReturn(
@@ -127,6 +130,8 @@ class InboundAchTransferTest {
         assertThat(inboundAchTransfer.originatorRoutingNumber()).isEqualTo("string")
         assertThat(inboundAchTransfer.receiverIdNumber()).contains("string")
         assertThat(inboundAchTransfer.receiverName()).contains("string")
+        assertThat(inboundAchTransfer.standardEntryClassCode())
+            .isEqualTo(InboundAchTransfer.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT)
         assertThat(inboundAchTransfer.status()).isEqualTo(InboundAchTransfer.Status.PENDING)
         assertThat(inboundAchTransfer.traceNumber()).isEqualTo("string")
         assertThat(inboundAchTransfer.transferReturn())

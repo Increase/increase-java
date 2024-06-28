@@ -337,6 +337,8 @@ constructor(
 
                 @JvmField val ENTITY_CSV = In(JsonField.of("entity_csv"))
 
+                @JvmField val VENDOR_CSV = In(JsonField.of("vendor_csv"))
+
                 @JvmStatic fun of(value: String) = In(JsonField.of(value))
             }
 
@@ -346,6 +348,7 @@ constructor(
                 BALANCE_CSV,
                 BOOKKEEPING_ACCOUNT_BALANCE_CSV,
                 ENTITY_CSV,
+                VENDOR_CSV,
             }
 
             enum class Value {
@@ -354,6 +357,7 @@ constructor(
                 BALANCE_CSV,
                 BOOKKEEPING_ACCOUNT_BALANCE_CSV,
                 ENTITY_CSV,
+                VENDOR_CSV,
                 _UNKNOWN,
             }
 
@@ -364,6 +368,7 @@ constructor(
                     BALANCE_CSV -> Value.BALANCE_CSV
                     BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Value.BOOKKEEPING_ACCOUNT_BALANCE_CSV
                     ENTITY_CSV -> Value.ENTITY_CSV
+                    VENDOR_CSV -> Value.VENDOR_CSV
                     else -> Value._UNKNOWN
                 }
 
@@ -374,6 +379,7 @@ constructor(
                     BALANCE_CSV -> Known.BALANCE_CSV
                     BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Known.BOOKKEEPING_ACCOUNT_BALANCE_CSV
                     ENTITY_CSV -> Known.ENTITY_CSV
+                    VENDOR_CSV -> Known.VENDOR_CSV
                     else -> throw IncreaseInvalidDataException("Unknown In: $value")
                 }
 
