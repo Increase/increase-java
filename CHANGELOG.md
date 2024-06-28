@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.57.0 (2024-06-28)
+
+Full Changelog: [v0.56.0...v0.57.0](https://github.com/Increase/increase-java/compare/v0.56.0...v0.57.0)
+
+### Features
+
+* **api:** updates ([#285](https://github.com/Increase/increase-java/issues/285)) ([af99850](https://github.com/Increase/increase-java/commit/af998506f897c57c721a3ec6224f3936aae2b1b2))
+* **client:** add support for `putQueryParam` on `ClientOptions` ([#282](https://github.com/Increase/increase-java/issues/282)) ([ad4406c](https://github.com/Increase/increase-java/commit/ad4406cc3af310f2e37eb91a0ceb50d43f8e59d2))
+
+
+### Chores
+
+* gitignore test server logs ([#284](https://github.com/Increase/increase-java/issues/284)) ([c84562b](https://github.com/Increase/increase-java/commit/c84562bd03a8862136727675a00d5a10489221db))
+
 ## 0.56.0 (2024-06-04)
 
 Full Changelog: [v0.55.0...v0.56.0](https://github.com/Increase/increase-java/compare/v0.55.0...v0.56.0)
