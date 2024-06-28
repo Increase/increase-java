@@ -106,4 +106,8 @@ interface IncreaseClient {
     fun physicalCardProfiles(): PhysicalCardProfileService
 
     fun inboundCheckDeposits(): InboundCheckDepositService
+
+    fun inboundMailItems(): InboundMailItemService
+
+    fun lockboxes(): LockboxService
 }

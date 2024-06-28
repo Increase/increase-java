@@ -2,6 +2,7 @@
 
 package com.increase.api.models
 
+import com.increase.api.core.JsonValue
 import com.increase.api.models.*
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -74,6 +75,7 @@ class ExportCreateParamsTest {
                     )
                     .build()
             )
+            .vendorCsv(JsonValue.from(mapOf<String, Any>()))
             .build()
     }
 
@@ -143,6 +145,7 @@ class ExportCreateParamsTest {
                         )
                         .build()
                 )
+                .vendorCsv(JsonValue.from(mapOf<String, Any>()))
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -213,6 +216,7 @@ class ExportCreateParamsTest {
                     )
                     .build()
             )
+        assertThat(body.vendorCsv()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
     }
 
     @Test

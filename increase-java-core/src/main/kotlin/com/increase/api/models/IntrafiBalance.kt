@@ -30,6 +30,7 @@ private constructor(
     private val balances: JsonField<List<Balance>>,
     private val currency: JsonField<Currency>,
     private val effectiveDate: JsonField<LocalDate>,
+    private val id: JsonField<String>,
     private val totalBalance: JsonField<Long>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
@@ -50,6 +51,9 @@ private constructor(
 
     /** The date this balance reflects. */
     fun effectiveDate(): LocalDate = effectiveDate.getRequired("effective_date")
+
+    /** The identifier of this balance. */
+    fun id(): String = id.getRequired("id")
 
     /**
      * The total balance, in minor units of `currency`. Increase reports this balance to IntraFi
@@ -75,6 +79,9 @@ private constructor(
     /** The date this balance reflects. */
     @JsonProperty("effective_date") @ExcludeMissing fun _effectiveDate() = effectiveDate
 
+    /** The identifier of this balance. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
     /**
      * The total balance, in minor units of `currency`. Increase reports this balance to IntraFi
      * daily.
@@ -96,6 +103,7 @@ private constructor(
             balances().forEach { it.validate() }
             currency()
             effectiveDate()
+            id()
             totalBalance()
             type()
             validated = true
@@ -113,6 +121,7 @@ private constructor(
             this.balances == other.balances &&
             this.currency == other.currency &&
             this.effectiveDate == other.effectiveDate &&
+            this.id == other.id &&
             this.totalBalance == other.totalBalance &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
@@ -125,6 +134,7 @@ private constructor(
                     balances,
                     currency,
                     effectiveDate,
+                    id,
                     totalBalance,
                     type,
                     additionalProperties,
@@ -134,7 +144,7 @@ private constructor(
     }
 
     override fun toString() =
-        "IntrafiBalance{balances=$balances, currency=$currency, effectiveDate=$effectiveDate, totalBalance=$totalBalance, type=$type, additionalProperties=$additionalProperties}"
+        "IntrafiBalance{balances=$balances, currency=$currency, effectiveDate=$effectiveDate, id=$id, totalBalance=$totalBalance, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -146,6 +156,7 @@ private constructor(
         private var balances: JsonField<List<Balance>> = JsonMissing.of()
         private var currency: JsonField<Currency> = JsonMissing.of()
         private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
+        private var id: JsonField<String> = JsonMissing.of()
         private var totalBalance: JsonField<Long> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -155,6 +166,7 @@ private constructor(
             this.balances = intrafiBalance.balances
             this.currency = intrafiBalance.currency
             this.effectiveDate = intrafiBalance.effectiveDate
+            this.id = intrafiBalance.id
             this.totalBalance = intrafiBalance.totalBalance
             this.type = intrafiBalance.type
             additionalProperties(intrafiBalance.additionalProperties)
@@ -191,6 +203,12 @@ private constructor(
         fun effectiveDate(effectiveDate: JsonField<LocalDate>) = apply {
             this.effectiveDate = effectiveDate
         }
+
+        /** The identifier of this balance. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The identifier of this balance. */
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The total balance, in minor units of `currency`. Increase reports this balance to IntraFi
@@ -239,6 +257,7 @@ private constructor(
                 balances.map { it.toUnmodifiable() },
                 currency,
                 effectiveDate,
+                id,
                 totalBalance,
                 type,
                 additionalProperties.toUnmodifiable(),
@@ -253,6 +272,7 @@ private constructor(
         private val bank: JsonField<String>,
         private val bankLocation: JsonField<BankLocation>,
         private val fdicCertificateNumber: JsonField<String>,
+        private val id: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -278,6 +298,9 @@ private constructor(
         fun fdicCertificateNumber(): String =
             fdicCertificateNumber.getRequired("fdic_certificate_number")
 
+        /** The identifier of this balance. */
+        fun id(): String = id.getRequired("id")
+
         /** The balance, in minor units of `currency`, held with this bank. */
         @JsonProperty("balance") @ExcludeMissing fun _balance() = balance
 
@@ -296,6 +319,9 @@ private constructor(
         @ExcludeMissing
         fun _fdicCertificateNumber() = fdicCertificateNumber
 
+        /** The identifier of this balance. */
+        @JsonProperty("id") @ExcludeMissing fun _id() = id
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -306,6 +332,7 @@ private constructor(
                 bank()
                 bankLocation().map { it.validate() }
                 fdicCertificateNumber()
+                id()
                 validated = true
             }
         }
@@ -322,6 +349,7 @@ private constructor(
                 this.bank == other.bank &&
                 this.bankLocation == other.bankLocation &&
                 this.fdicCertificateNumber == other.fdicCertificateNumber &&
+                this.id == other.id &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -333,6 +361,7 @@ private constructor(
                         bank,
                         bankLocation,
                         fdicCertificateNumber,
+                        id,
                         additionalProperties,
                     )
             }
@@ -340,7 +369,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Balance{balance=$balance, bank=$bank, bankLocation=$bankLocation, fdicCertificateNumber=$fdicCertificateNumber, additionalProperties=$additionalProperties}"
+            "Balance{balance=$balance, bank=$bank, bankLocation=$bankLocation, fdicCertificateNumber=$fdicCertificateNumber, id=$id, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -353,6 +382,7 @@ private constructor(
             private var bank: JsonField<String> = JsonMissing.of()
             private var bankLocation: JsonField<BankLocation> = JsonMissing.of()
             private var fdicCertificateNumber: JsonField<String> = JsonMissing.of()
+            private var id: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -361,6 +391,7 @@ private constructor(
                 this.bank = balance.bank
                 this.bankLocation = balance.bankLocation
                 this.fdicCertificateNumber = balance.fdicCertificateNumber
+                this.id = balance.id
                 additionalProperties(balance.additionalProperties)
             }
 
@@ -409,6 +440,14 @@ private constructor(
                 this.fdicCertificateNumber = fdicCertificateNumber
             }
 
+            /** The identifier of this balance. */
+            fun id(id: String) = id(JsonField.of(id))
+
+            /** The identifier of this balance. */
+            @JsonProperty("id")
+            @ExcludeMissing
+            fun id(id: JsonField<String>) = apply { this.id = id }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -429,6 +468,7 @@ private constructor(
                     bank,
                     bankLocation,
                     fdicCertificateNumber,
+                    id,
                     additionalProperties.toUnmodifiable(),
                 )
         }

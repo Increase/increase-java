@@ -561,17 +561,21 @@ private constructor(
 
             @JvmField val CARD = RouteType(JsonField.of("card"))
 
+            @JvmField val LOCKBOX = RouteType(JsonField.of("lockbox"))
+
             @JvmStatic fun of(value: String) = RouteType(JsonField.of(value))
         }
 
         enum class Known {
             ACCOUNT_NUMBER,
             CARD,
+            LOCKBOX,
         }
 
         enum class Value {
             ACCOUNT_NUMBER,
             CARD,
+            LOCKBOX,
             _UNKNOWN,
         }
 
@@ -579,6 +583,7 @@ private constructor(
             when (this) {
                 ACCOUNT_NUMBER -> Value.ACCOUNT_NUMBER
                 CARD -> Value.CARD
+                LOCKBOX -> Value.LOCKBOX
                 else -> Value._UNKNOWN
             }
 
@@ -586,6 +591,7 @@ private constructor(
             when (this) {
                 ACCOUNT_NUMBER -> Known.ACCOUNT_NUMBER
                 CARD -> Known.CARD
+                LOCKBOX -> Known.LOCKBOX
                 else -> throw IncreaseInvalidDataException("Unknown RouteType: $value")
             }
 
@@ -1493,8 +1499,7 @@ private constructor(
             fun amount(): Long = amount.getRequired("amount")
 
             /** The ID of the Card Payment this transaction belongs to. */
-            fun cardPaymentId(): Optional<String> =
-                Optional.ofNullable(cardPaymentId.getNullable("card_payment_id"))
+            fun cardPaymentId(): String = cardPaymentId.getRequired("card_payment_id")
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's

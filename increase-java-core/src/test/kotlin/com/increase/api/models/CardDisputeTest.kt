@@ -24,6 +24,14 @@ class CardDisputeTest {
                 .disputedTransactionId("string")
                 .explanation("string")
                 .idempotencyKey("string")
+                .loss(
+                    CardDispute.Loss.builder()
+                        .cardDisputeId("string")
+                        .explanation("string")
+                        .lostAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .transactionId("string")
+                        .build()
+                )
                 .rejection(
                     CardDispute.Rejection.builder()
                         .cardDisputeId("string")
@@ -33,6 +41,12 @@ class CardDisputeTest {
                 )
                 .status(CardDispute.Status.PENDING_REVIEWING)
                 .type(CardDispute.Type.CARD_DISPUTE)
+                .win(
+                    CardDispute.Win.builder()
+                        .cardDisputeId("string")
+                        .wonAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .build()
+                )
                 .build()
         assertThat(cardDispute).isNotNull
         assertThat(cardDispute.id()).isEqualTo("string")
@@ -49,6 +63,15 @@ class CardDisputeTest {
         assertThat(cardDispute.disputedTransactionId()).isEqualTo("string")
         assertThat(cardDispute.explanation()).isEqualTo("string")
         assertThat(cardDispute.idempotencyKey()).contains("string")
+        assertThat(cardDispute.loss())
+            .contains(
+                CardDispute.Loss.builder()
+                    .cardDisputeId("string")
+                    .explanation("string")
+                    .lostAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .transactionId("string")
+                    .build()
+            )
         assertThat(cardDispute.rejection())
             .contains(
                 CardDispute.Rejection.builder()
@@ -59,5 +82,12 @@ class CardDisputeTest {
             )
         assertThat(cardDispute.status()).isEqualTo(CardDispute.Status.PENDING_REVIEWING)
         assertThat(cardDispute.type()).isEqualTo(CardDispute.Type.CARD_DISPUTE)
+        assertThat(cardDispute.win())
+            .contains(
+                CardDispute.Win.builder()
+                    .cardDisputeId("string")
+                    .wonAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
     }
 }

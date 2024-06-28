@@ -53,6 +53,7 @@ class CheckTransferServiceTest {
                                     .line2("x")
                                     .build()
                             )
+                            .signatureText("x")
                             .build()
                     )
                     .requireApproval(true)
