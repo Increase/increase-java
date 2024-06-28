@@ -17,6 +17,7 @@ class CardPaymentTest {
                 .accountId("string")
                 .cardId("string")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .digitalWalletTokenId("string")
                 .elements(
                     listOf(
                         CardPayment.Element.builder()
@@ -149,6 +150,7 @@ class CardPaymentTest {
                                     .amount(123L)
                                     .cardPaymentId("string")
                                     .currency(CardPayment.Element.CardDecline.Currency.CAD)
+                                    .declinedTransactionId("string")
                                     .digitalWalletTokenId("string")
                                     .merchantAcceptorId("string")
                                     .merchantCategoryCode("string")
@@ -299,6 +301,8 @@ class CardPaymentTest {
                                             .transactionId("string")
                                             .build()
                                     )
+                                    .presentmentAmount(123L)
+                                    .presentmentCurrency("string")
                                     .purchaseDetails(
                                         CardPayment.Element.CardRefund.PurchaseDetails.builder()
                                             .carRental(
@@ -813,6 +817,7 @@ class CardPaymentTest {
                             .build()
                     )
                 )
+                .physicalCardId("string")
                 .state(
                     CardPayment.State.builder()
                         .authorizedAmount(123L)
@@ -830,6 +835,7 @@ class CardPaymentTest {
         assertThat(cardPayment.cardId()).isEqualTo("string")
         assertThat(cardPayment.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(cardPayment.digitalWalletTokenId()).contains("string")
         assertThat(cardPayment.elements())
             .containsExactly(
                 CardPayment.Element.builder()
@@ -946,6 +952,7 @@ class CardPaymentTest {
                             .amount(123L)
                             .cardPaymentId("string")
                             .currency(CardPayment.Element.CardDecline.Currency.CAD)
+                            .declinedTransactionId("string")
                             .digitalWalletTokenId("string")
                             .merchantAcceptorId("string")
                             .merchantCategoryCode("string")
@@ -1087,6 +1094,8 @@ class CardPaymentTest {
                                     .transactionId("string")
                                     .build()
                             )
+                            .presentmentAmount(123L)
+                            .presentmentCurrency("string")
                             .purchaseDetails(
                                 CardPayment.Element.CardRefund.PurchaseDetails.builder()
                                     .carRental(
@@ -1561,6 +1570,7 @@ class CardPaymentTest {
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
+        assertThat(cardPayment.physicalCardId()).contains("string")
         assertThat(cardPayment.state())
             .isEqualTo(
                 CardPayment.State.builder()

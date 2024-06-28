@@ -14,8 +14,8 @@ class CheckDepositCreateParamsTest {
             .accountId("string")
             .amount(123L)
             .backImageFileId("string")
-            .currency("x")
             .frontImageFileId("string")
+            .description("x")
             .build()
     }
 
@@ -26,16 +26,16 @@ class CheckDepositCreateParamsTest {
                 .accountId("string")
                 .amount(123L)
                 .backImageFileId("string")
-                .currency("x")
                 .frontImageFileId("string")
+                .description("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("string")
         assertThat(body.amount()).isEqualTo(123L)
         assertThat(body.backImageFileId()).isEqualTo("string")
-        assertThat(body.currency()).isEqualTo("x")
         assertThat(body.frontImageFileId()).isEqualTo("string")
+        assertThat(body.description()).isEqualTo("x")
     }
 
     @Test
@@ -45,7 +45,6 @@ class CheckDepositCreateParamsTest {
                 .accountId("string")
                 .amount(123L)
                 .backImageFileId("string")
-                .currency("x")
                 .frontImageFileId("string")
                 .build()
         val body = params.getBody()
@@ -53,7 +52,6 @@ class CheckDepositCreateParamsTest {
         assertThat(body.accountId()).isEqualTo("string")
         assertThat(body.amount()).isEqualTo(123L)
         assertThat(body.backImageFileId()).isEqualTo("string")
-        assertThat(body.currency()).isEqualTo("x")
         assertThat(body.frontImageFileId()).isEqualTo("string")
     }
 }

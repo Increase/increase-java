@@ -926,6 +926,7 @@ private constructor(
         private val discountAmount: JsonField<Long>,
         private val discountCurrency: JsonField<String>,
         private val discountTreatmentCode: JsonField<DiscountTreatmentCode>,
+        private val id: JsonField<String>,
         private val itemCommodityCode: JsonField<String>,
         private val itemDescriptor: JsonField<String>,
         private val itemQuantity: JsonField<String>,
@@ -960,6 +961,9 @@ private constructor(
         /** Indicates how the merchant applied the discount for this specific line item. */
         fun discountTreatmentCode(): Optional<DiscountTreatmentCode> =
             Optional.ofNullable(discountTreatmentCode.getNullable("discount_treatment_code"))
+
+        /** The Card Purchase Supplement Line Item identifier. */
+        fun id(): String = id.getRequired("id")
 
         /** Code used to categorize the purchase item. */
         fun itemCommodityCode(): Optional<String> =
@@ -1026,6 +1030,9 @@ private constructor(
         @ExcludeMissing
         fun _discountTreatmentCode() = discountTreatmentCode
 
+        /** The Card Purchase Supplement Line Item identifier. */
+        @JsonProperty("id") @ExcludeMissing fun _id() = id
+
         /** Code used to categorize the purchase item. */
         @JsonProperty("item_commodity_code")
         @ExcludeMissing
@@ -1084,6 +1091,7 @@ private constructor(
                 discountAmount()
                 discountCurrency()
                 discountTreatmentCode()
+                id()
                 itemCommodityCode()
                 itemDescriptor()
                 itemQuantity()
@@ -1112,6 +1120,7 @@ private constructor(
                 this.discountAmount == other.discountAmount &&
                 this.discountCurrency == other.discountCurrency &&
                 this.discountTreatmentCode == other.discountTreatmentCode &&
+                this.id == other.id &&
                 this.itemCommodityCode == other.itemCommodityCode &&
                 this.itemDescriptor == other.itemDescriptor &&
                 this.itemQuantity == other.itemQuantity &&
@@ -1135,6 +1144,7 @@ private constructor(
                         discountAmount,
                         discountCurrency,
                         discountTreatmentCode,
+                        id,
                         itemCommodityCode,
                         itemDescriptor,
                         itemQuantity,
@@ -1154,7 +1164,7 @@ private constructor(
         }
 
         override fun toString() =
-            "LineItem{detailIndicator=$detailIndicator, discountAmount=$discountAmount, discountCurrency=$discountCurrency, discountTreatmentCode=$discountTreatmentCode, itemCommodityCode=$itemCommodityCode, itemDescriptor=$itemDescriptor, itemQuantity=$itemQuantity, productCode=$productCode, salesTaxAmount=$salesTaxAmount, salesTaxCurrency=$salesTaxCurrency, salesTaxRate=$salesTaxRate, totalAmount=$totalAmount, totalAmountCurrency=$totalAmountCurrency, unitCost=$unitCost, unitCostCurrency=$unitCostCurrency, unitOfMeasureCode=$unitOfMeasureCode, additionalProperties=$additionalProperties}"
+            "LineItem{detailIndicator=$detailIndicator, discountAmount=$discountAmount, discountCurrency=$discountCurrency, discountTreatmentCode=$discountTreatmentCode, id=$id, itemCommodityCode=$itemCommodityCode, itemDescriptor=$itemDescriptor, itemQuantity=$itemQuantity, productCode=$productCode, salesTaxAmount=$salesTaxAmount, salesTaxCurrency=$salesTaxCurrency, salesTaxRate=$salesTaxRate, totalAmount=$totalAmount, totalAmountCurrency=$totalAmountCurrency, unitCost=$unitCost, unitCostCurrency=$unitCostCurrency, unitOfMeasureCode=$unitOfMeasureCode, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1167,6 +1177,7 @@ private constructor(
             private var discountAmount: JsonField<Long> = JsonMissing.of()
             private var discountCurrency: JsonField<String> = JsonMissing.of()
             private var discountTreatmentCode: JsonField<DiscountTreatmentCode> = JsonMissing.of()
+            private var id: JsonField<String> = JsonMissing.of()
             private var itemCommodityCode: JsonField<String> = JsonMissing.of()
             private var itemDescriptor: JsonField<String> = JsonMissing.of()
             private var itemQuantity: JsonField<String> = JsonMissing.of()
@@ -1187,6 +1198,7 @@ private constructor(
                 this.discountAmount = lineItem.discountAmount
                 this.discountCurrency = lineItem.discountCurrency
                 this.discountTreatmentCode = lineItem.discountTreatmentCode
+                this.id = lineItem.id
                 this.itemCommodityCode = lineItem.itemCommodityCode
                 this.itemDescriptor = lineItem.itemDescriptor
                 this.itemQuantity = lineItem.itemQuantity
@@ -1245,6 +1257,14 @@ private constructor(
                 apply {
                     this.discountTreatmentCode = discountTreatmentCode
                 }
+
+            /** The Card Purchase Supplement Line Item identifier. */
+            fun id(id: String) = id(JsonField.of(id))
+
+            /** The Card Purchase Supplement Line Item identifier. */
+            @JsonProperty("id")
+            @ExcludeMissing
+            fun id(id: JsonField<String>) = apply { this.id = id }
 
             /** Code used to categorize the purchase item. */
             fun itemCommodityCode(itemCommodityCode: String) =
@@ -1394,6 +1414,7 @@ private constructor(
                     discountAmount,
                     discountCurrency,
                     discountTreatmentCode,
+                    id,
                     itemCommodityCode,
                     itemDescriptor,
                     itemQuantity,

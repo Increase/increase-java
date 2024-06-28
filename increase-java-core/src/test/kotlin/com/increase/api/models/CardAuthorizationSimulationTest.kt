@@ -73,6 +73,7 @@ class CardAuthorizationSimulationTest {
                                                 .Currency
                                                 .CAD
                                         )
+                                        .declinedTransactionId("string")
                                         .digitalWalletTokenId("string")
                                         .merchantAcceptorId("string")
                                         .merchantCategoryCode("string")
@@ -713,6 +714,7 @@ class CardAuthorizationSimulationTest {
                                             .Currency
                                             .CAD
                                     )
+                                    .declinedTransactionId("string")
                                     .digitalWalletTokenId("string")
                                     .merchantAcceptorId("string")
                                     .merchantCategoryCode("string")

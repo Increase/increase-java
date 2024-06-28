@@ -188,6 +188,12 @@ constructor(
         InboundCheckDepositServiceAsyncImpl(clientOptions)
     }
 
+    private val inboundMailItems: InboundMailItemServiceAsync by lazy {
+        InboundMailItemServiceAsyncImpl(clientOptions)
+    }
+
+    private val lockboxes: LockboxServiceAsync by lazy { LockboxServiceAsyncImpl(clientOptions) }
+
     override fun sync(): IncreaseClient = sync
 
     override fun accounts(): AccountServiceAsync = accounts
@@ -289,4 +295,8 @@ constructor(
     override fun physicalCardProfiles(): PhysicalCardProfileServiceAsync = physicalCardProfiles
 
     override fun inboundCheckDeposits(): InboundCheckDepositServiceAsync = inboundCheckDeposits
+
+    override fun inboundMailItems(): InboundMailItemServiceAsync = inboundMailItems
+
+    override fun lockboxes(): LockboxServiceAsync = lockboxes
 }

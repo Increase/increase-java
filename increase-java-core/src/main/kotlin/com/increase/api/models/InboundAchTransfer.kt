@@ -42,6 +42,7 @@ private constructor(
     private val originatorRoutingNumber: JsonField<String>,
     private val receiverIdNumber: JsonField<String>,
     private val receiverName: JsonField<String>,
+    private val standardEntryClassCode: JsonField<StandardEntryClassCode>,
     private val status: JsonField<Status>,
     private val traceNumber: JsonField<String>,
     private val transferReturn: JsonField<TransferReturn>,
@@ -125,6 +126,10 @@ private constructor(
     /** The name of the receiver of the transfer. */
     fun receiverName(): Optional<String> =
         Optional.ofNullable(receiverName.getNullable("receiver_name"))
+
+    /** The Standard Entry Class (SEC) code of the transfer. */
+    fun standardEntryClassCode(): StandardEntryClassCode =
+        standardEntryClassCode.getRequired("standard_entry_class_code")
 
     /** The status of the transfer. */
     fun status(): Status = status.getRequired("status")
@@ -217,6 +222,11 @@ private constructor(
     /** The name of the receiver of the transfer. */
     @JsonProperty("receiver_name") @ExcludeMissing fun _receiverName() = receiverName
 
+    /** The Standard Entry Class (SEC) code of the transfer. */
+    @JsonProperty("standard_entry_class_code")
+    @ExcludeMissing
+    fun _standardEntryClassCode() = standardEntryClassCode
+
     /** The status of the transfer. */
     @JsonProperty("status") @ExcludeMissing fun _status() = status
 
@@ -256,6 +266,7 @@ private constructor(
             originatorRoutingNumber()
             receiverIdNumber()
             receiverName()
+            standardEntryClassCode()
             status()
             traceNumber()
             transferReturn().map { it.validate() }
@@ -290,6 +301,7 @@ private constructor(
             this.originatorRoutingNumber == other.originatorRoutingNumber &&
             this.receiverIdNumber == other.receiverIdNumber &&
             this.receiverName == other.receiverName &&
+            this.standardEntryClassCode == other.standardEntryClassCode &&
             this.status == other.status &&
             this.traceNumber == other.traceNumber &&
             this.transferReturn == other.transferReturn &&
@@ -319,6 +331,7 @@ private constructor(
                     originatorRoutingNumber,
                     receiverIdNumber,
                     receiverName,
+                    standardEntryClassCode,
                     status,
                     traceNumber,
                     transferReturn,
@@ -330,7 +343,7 @@ private constructor(
     }
 
     override fun toString() =
-        "InboundAchTransfer{acceptance=$acceptance, accountId=$accountId, accountNumberId=$accountNumberId, addenda=$addenda, amount=$amount, automaticallyResolvesAt=$automaticallyResolvesAt, decline=$decline, direction=$direction, id=$id, notificationOfChange=$notificationOfChange, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, originatorCompanyName=$originatorCompanyName, originatorRoutingNumber=$originatorRoutingNumber, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, status=$status, traceNumber=$traceNumber, transferReturn=$transferReturn, type=$type, additionalProperties=$additionalProperties}"
+        "InboundAchTransfer{acceptance=$acceptance, accountId=$accountId, accountNumberId=$accountNumberId, addenda=$addenda, amount=$amount, automaticallyResolvesAt=$automaticallyResolvesAt, decline=$decline, direction=$direction, id=$id, notificationOfChange=$notificationOfChange, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, originatorCompanyName=$originatorCompanyName, originatorRoutingNumber=$originatorRoutingNumber, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, standardEntryClassCode=$standardEntryClassCode, status=$status, traceNumber=$traceNumber, transferReturn=$transferReturn, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -357,6 +370,7 @@ private constructor(
         private var originatorRoutingNumber: JsonField<String> = JsonMissing.of()
         private var receiverIdNumber: JsonField<String> = JsonMissing.of()
         private var receiverName: JsonField<String> = JsonMissing.of()
+        private var standardEntryClassCode: JsonField<StandardEntryClassCode> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var traceNumber: JsonField<String> = JsonMissing.of()
         private var transferReturn: JsonField<TransferReturn> = JsonMissing.of()
@@ -386,6 +400,7 @@ private constructor(
             this.originatorRoutingNumber = inboundAchTransfer.originatorRoutingNumber
             this.receiverIdNumber = inboundAchTransfer.receiverIdNumber
             this.receiverName = inboundAchTransfer.receiverName
+            this.standardEntryClassCode = inboundAchTransfer.standardEntryClassCode
             this.status = inboundAchTransfer.status
             this.traceNumber = inboundAchTransfer.traceNumber
             this.transferReturn = inboundAchTransfer.transferReturn
@@ -580,6 +595,18 @@ private constructor(
             this.receiverName = receiverName
         }
 
+        /** The Standard Entry Class (SEC) code of the transfer. */
+        fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) =
+            standardEntryClassCode(JsonField.of(standardEntryClassCode))
+
+        /** The Standard Entry Class (SEC) code of the transfer. */
+        @JsonProperty("standard_entry_class_code")
+        @ExcludeMissing
+        fun standardEntryClassCode(standardEntryClassCode: JsonField<StandardEntryClassCode>) =
+            apply {
+                this.standardEntryClassCode = standardEntryClassCode
+            }
+
         /** The status of the transfer. */
         fun status(status: Status) = status(JsonField.of(status))
 
@@ -655,6 +682,7 @@ private constructor(
                 originatorRoutingNumber,
                 receiverIdNumber,
                 receiverName,
+                standardEntryClassCode,
                 status,
                 traceNumber,
                 transferReturn,
@@ -1352,6 +1380,8 @@ private constructor(
 
                 @JvmField val ENTITY_NOT_ACTIVE = Reason(JsonField.of("entity_not_active"))
 
+                @JvmField val FIELD_ERROR = Reason(JsonField.of("field_error"))
+
                 @JvmField val GROUP_LOCKED = Reason(JsonField.of("group_locked"))
 
                 @JvmField val INSUFFICIENT_FUNDS = Reason(JsonField.of("insufficient_funds"))
@@ -1381,6 +1411,7 @@ private constructor(
                 CREDIT_ENTRY_REFUSED_BY_RECEIVER,
                 DUPLICATE_RETURN,
                 ENTITY_NOT_ACTIVE,
+                FIELD_ERROR,
                 GROUP_LOCKED,
                 INSUFFICIENT_FUNDS,
                 MISROUTED_RETURN,
@@ -1398,6 +1429,7 @@ private constructor(
                 CREDIT_ENTRY_REFUSED_BY_RECEIVER,
                 DUPLICATE_RETURN,
                 ENTITY_NOT_ACTIVE,
+                FIELD_ERROR,
                 GROUP_LOCKED,
                 INSUFFICIENT_FUNDS,
                 MISROUTED_RETURN,
@@ -1417,6 +1449,7 @@ private constructor(
                     CREDIT_ENTRY_REFUSED_BY_RECEIVER -> Value.CREDIT_ENTRY_REFUSED_BY_RECEIVER
                     DUPLICATE_RETURN -> Value.DUPLICATE_RETURN
                     ENTITY_NOT_ACTIVE -> Value.ENTITY_NOT_ACTIVE
+                    FIELD_ERROR -> Value.FIELD_ERROR
                     GROUP_LOCKED -> Value.GROUP_LOCKED
                     INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
                     MISROUTED_RETURN -> Value.MISROUTED_RETURN
@@ -1437,6 +1470,7 @@ private constructor(
                     CREDIT_ENTRY_REFUSED_BY_RECEIVER -> Known.CREDIT_ENTRY_REFUSED_BY_RECEIVER
                     DUPLICATE_RETURN -> Known.DUPLICATE_RETURN
                     ENTITY_NOT_ACTIVE -> Known.ENTITY_NOT_ACTIVE
+                    FIELD_ERROR -> Known.FIELD_ERROR
                     GROUP_LOCKED -> Known.GROUP_LOCKED
                     INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
                     MISROUTED_RETURN -> Known.MISROUTED_RETURN
@@ -1646,6 +1680,159 @@ private constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+    }
+
+    class StandardEntryClassCode
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is StandardEntryClassCode && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField
+            val CORPORATE_CREDIT_OR_DEBIT =
+                StandardEntryClassCode(JsonField.of("corporate_credit_or_debit"))
+
+            @JvmField
+            val CORPORATE_TRADE_EXCHANGE =
+                StandardEntryClassCode(JsonField.of("corporate_trade_exchange"))
+
+            @JvmField
+            val PREARRANGED_PAYMENTS_AND_DEPOSIT =
+                StandardEntryClassCode(JsonField.of("prearranged_payments_and_deposit"))
+
+            @JvmField
+            val INTERNET_INITIATED = StandardEntryClassCode(JsonField.of("internet_initiated"))
+
+            @JvmField val POINT_OF_SALE = StandardEntryClassCode(JsonField.of("point_of_sale"))
+
+            @JvmField
+            val TELEPHONE_INITIATED = StandardEntryClassCode(JsonField.of("telephone_initiated"))
+
+            @JvmField
+            val CUSTOMER_INITIATED = StandardEntryClassCode(JsonField.of("customer_initiated"))
+
+            @JvmField
+            val ACCOUNTS_RECEIVABLE = StandardEntryClassCode(JsonField.of("accounts_receivable"))
+
+            @JvmField
+            val MACHINE_TRANSFER = StandardEntryClassCode(JsonField.of("machine_transfer"))
+
+            @JvmField
+            val SHARED_NETWORK_TRANSACTION =
+                StandardEntryClassCode(JsonField.of("shared_network_transaction"))
+
+            @JvmField
+            val REPRESENTED_CHECK = StandardEntryClassCode(JsonField.of("represented_check"))
+
+            @JvmField
+            val BACK_OFFICE_CONVERSION =
+                StandardEntryClassCode(JsonField.of("back_office_conversion"))
+
+            @JvmField
+            val POINT_OF_PURCHASE = StandardEntryClassCode(JsonField.of("point_of_purchase"))
+
+            @JvmField
+            val CHECK_TRUNCATION = StandardEntryClassCode(JsonField.of("check_truncation"))
+
+            @JvmField val DESTROYED_CHECK = StandardEntryClassCode(JsonField.of("destroyed_check"))
+
+            @JvmStatic fun of(value: String) = StandardEntryClassCode(JsonField.of(value))
+        }
+
+        enum class Known {
+            CORPORATE_CREDIT_OR_DEBIT,
+            CORPORATE_TRADE_EXCHANGE,
+            PREARRANGED_PAYMENTS_AND_DEPOSIT,
+            INTERNET_INITIATED,
+            POINT_OF_SALE,
+            TELEPHONE_INITIATED,
+            CUSTOMER_INITIATED,
+            ACCOUNTS_RECEIVABLE,
+            MACHINE_TRANSFER,
+            SHARED_NETWORK_TRANSACTION,
+            REPRESENTED_CHECK,
+            BACK_OFFICE_CONVERSION,
+            POINT_OF_PURCHASE,
+            CHECK_TRUNCATION,
+            DESTROYED_CHECK,
+        }
+
+        enum class Value {
+            CORPORATE_CREDIT_OR_DEBIT,
+            CORPORATE_TRADE_EXCHANGE,
+            PREARRANGED_PAYMENTS_AND_DEPOSIT,
+            INTERNET_INITIATED,
+            POINT_OF_SALE,
+            TELEPHONE_INITIATED,
+            CUSTOMER_INITIATED,
+            ACCOUNTS_RECEIVABLE,
+            MACHINE_TRANSFER,
+            SHARED_NETWORK_TRANSACTION,
+            REPRESENTED_CHECK,
+            BACK_OFFICE_CONVERSION,
+            POINT_OF_PURCHASE,
+            CHECK_TRUNCATION,
+            DESTROYED_CHECK,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                CORPORATE_CREDIT_OR_DEBIT -> Value.CORPORATE_CREDIT_OR_DEBIT
+                CORPORATE_TRADE_EXCHANGE -> Value.CORPORATE_TRADE_EXCHANGE
+                PREARRANGED_PAYMENTS_AND_DEPOSIT -> Value.PREARRANGED_PAYMENTS_AND_DEPOSIT
+                INTERNET_INITIATED -> Value.INTERNET_INITIATED
+                POINT_OF_SALE -> Value.POINT_OF_SALE
+                TELEPHONE_INITIATED -> Value.TELEPHONE_INITIATED
+                CUSTOMER_INITIATED -> Value.CUSTOMER_INITIATED
+                ACCOUNTS_RECEIVABLE -> Value.ACCOUNTS_RECEIVABLE
+                MACHINE_TRANSFER -> Value.MACHINE_TRANSFER
+                SHARED_NETWORK_TRANSACTION -> Value.SHARED_NETWORK_TRANSACTION
+                REPRESENTED_CHECK -> Value.REPRESENTED_CHECK
+                BACK_OFFICE_CONVERSION -> Value.BACK_OFFICE_CONVERSION
+                POINT_OF_PURCHASE -> Value.POINT_OF_PURCHASE
+                CHECK_TRUNCATION -> Value.CHECK_TRUNCATION
+                DESTROYED_CHECK -> Value.DESTROYED_CHECK
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                CORPORATE_CREDIT_OR_DEBIT -> Known.CORPORATE_CREDIT_OR_DEBIT
+                CORPORATE_TRADE_EXCHANGE -> Known.CORPORATE_TRADE_EXCHANGE
+                PREARRANGED_PAYMENTS_AND_DEPOSIT -> Known.PREARRANGED_PAYMENTS_AND_DEPOSIT
+                INTERNET_INITIATED -> Known.INTERNET_INITIATED
+                POINT_OF_SALE -> Known.POINT_OF_SALE
+                TELEPHONE_INITIATED -> Known.TELEPHONE_INITIATED
+                CUSTOMER_INITIATED -> Known.CUSTOMER_INITIATED
+                ACCOUNTS_RECEIVABLE -> Known.ACCOUNTS_RECEIVABLE
+                MACHINE_TRANSFER -> Known.MACHINE_TRANSFER
+                SHARED_NETWORK_TRANSACTION -> Known.SHARED_NETWORK_TRANSACTION
+                REPRESENTED_CHECK -> Known.REPRESENTED_CHECK
+                BACK_OFFICE_CONVERSION -> Known.BACK_OFFICE_CONVERSION
+                POINT_OF_PURCHASE -> Known.POINT_OF_PURCHASE
+                CHECK_TRUNCATION -> Known.CHECK_TRUNCATION
+                DESTROYED_CHECK -> Known.DESTROYED_CHECK
+                else -> throw IncreaseInvalidDataException("Unknown StandardEntryClassCode: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 
     class Status

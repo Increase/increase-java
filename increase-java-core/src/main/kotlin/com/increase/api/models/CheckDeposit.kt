@@ -28,14 +28,16 @@ private constructor(
     private val amount: JsonField<Long>,
     private val backImageFileId: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
-    private val currency: JsonField<Currency>,
     private val depositAcceptance: JsonField<DepositAcceptance>,
     private val depositRejection: JsonField<DepositRejection>,
     private val depositReturn: JsonField<DepositReturn>,
     private val depositSubmission: JsonField<DepositSubmission>,
+    private val description: JsonField<String>,
     private val frontImageFileId: JsonField<String>,
     private val id: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
+    private val inboundMailItemId: JsonField<String>,
+    private val lockboxId: JsonField<String>,
     private val status: JsonField<Status>,
     private val transactionId: JsonField<String>,
     private val type: JsonField<Type>,
@@ -65,9 +67,6 @@ private constructor(
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the deposit. */
-    fun currency(): Currency = currency.getRequired("currency")
-
     /**
      * If your deposit is successfully parsed and accepted by Increase, this will contain details of
      * the parsed check.
@@ -92,6 +91,10 @@ private constructor(
     fun depositSubmission(): Optional<DepositSubmission> =
         Optional.ofNullable(depositSubmission.getNullable("deposit_submission"))
 
+    /** The description of the Check Deposit, for display purposes only. */
+    fun description(): Optional<String> =
+        Optional.ofNullable(description.getNullable("description"))
+
     /** The ID for the File containing the image of the front of the check. */
     fun frontImageFileId(): String = frontImageFileId.getRequired("front_image_file_id")
 
@@ -105,6 +108,19 @@ private constructor(
      */
     fun idempotencyKey(): Optional<String> =
         Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+
+    /**
+     * If the Check Deposit was the result of an Inbound Mail Item, this will contain the identifier
+     * of the Inbound Mail Item.
+     */
+    fun inboundMailItemId(): Optional<String> =
+        Optional.ofNullable(inboundMailItemId.getNullable("inbound_mail_item_id"))
+
+    /**
+     * If the Check Deposit was the result of an Inbound Mail Item, this will contain the identifier
+     * of the Lockbox that received it.
+     */
+    fun lockboxId(): Optional<String> = Optional.ofNullable(lockboxId.getNullable("lockbox_id"))
 
     /** The status of the Check Deposit. */
     fun status(): Status = status.getRequired("status")
@@ -137,9 +153,6 @@ private constructor(
      */
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
-    /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the deposit. */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
-
     /**
      * If your deposit is successfully parsed and accepted by Increase, this will contain details of
      * the parsed check.
@@ -160,6 +173,9 @@ private constructor(
      */
     @JsonProperty("deposit_submission") @ExcludeMissing fun _depositSubmission() = depositSubmission
 
+    /** The description of the Check Deposit, for display purposes only. */
+    @JsonProperty("description") @ExcludeMissing fun _description() = description
+
     /** The ID for the File containing the image of the front of the check. */
     @JsonProperty("front_image_file_id") @ExcludeMissing fun _frontImageFileId() = frontImageFileId
 
@@ -172,6 +188,20 @@ private constructor(
      * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
     @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+
+    /**
+     * If the Check Deposit was the result of an Inbound Mail Item, this will contain the identifier
+     * of the Inbound Mail Item.
+     */
+    @JsonProperty("inbound_mail_item_id")
+    @ExcludeMissing
+    fun _inboundMailItemId() = inboundMailItemId
+
+    /**
+     * If the Check Deposit was the result of an Inbound Mail Item, this will contain the identifier
+     * of the Lockbox that received it.
+     */
+    @JsonProperty("lockbox_id") @ExcludeMissing fun _lockboxId() = lockboxId
 
     /** The status of the Check Deposit. */
     @JsonProperty("status") @ExcludeMissing fun _status() = status
@@ -195,14 +225,16 @@ private constructor(
             amount()
             backImageFileId()
             createdAt()
-            currency()
             depositAcceptance().map { it.validate() }
             depositRejection().map { it.validate() }
             depositReturn().map { it.validate() }
             depositSubmission().map { it.validate() }
+            description()
             frontImageFileId()
             id()
             idempotencyKey()
+            inboundMailItemId()
+            lockboxId()
             status()
             transactionId()
             type()
@@ -222,14 +254,16 @@ private constructor(
             this.amount == other.amount &&
             this.backImageFileId == other.backImageFileId &&
             this.createdAt == other.createdAt &&
-            this.currency == other.currency &&
             this.depositAcceptance == other.depositAcceptance &&
             this.depositRejection == other.depositRejection &&
             this.depositReturn == other.depositReturn &&
             this.depositSubmission == other.depositSubmission &&
+            this.description == other.description &&
             this.frontImageFileId == other.frontImageFileId &&
             this.id == other.id &&
             this.idempotencyKey == other.idempotencyKey &&
+            this.inboundMailItemId == other.inboundMailItemId &&
+            this.lockboxId == other.lockboxId &&
             this.status == other.status &&
             this.transactionId == other.transactionId &&
             this.type == other.type &&
@@ -244,14 +278,16 @@ private constructor(
                     amount,
                     backImageFileId,
                     createdAt,
-                    currency,
                     depositAcceptance,
                     depositRejection,
                     depositReturn,
                     depositSubmission,
+                    description,
                     frontImageFileId,
                     id,
                     idempotencyKey,
+                    inboundMailItemId,
+                    lockboxId,
                     status,
                     transactionId,
                     type,
@@ -262,7 +298,7 @@ private constructor(
     }
 
     override fun toString() =
-        "CheckDeposit{accountId=$accountId, amount=$amount, backImageFileId=$backImageFileId, createdAt=$createdAt, currency=$currency, depositAcceptance=$depositAcceptance, depositRejection=$depositRejection, depositReturn=$depositReturn, depositSubmission=$depositSubmission, frontImageFileId=$frontImageFileId, id=$id, idempotencyKey=$idempotencyKey, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+        "CheckDeposit{accountId=$accountId, amount=$amount, backImageFileId=$backImageFileId, createdAt=$createdAt, depositAcceptance=$depositAcceptance, depositRejection=$depositRejection, depositReturn=$depositReturn, depositSubmission=$depositSubmission, description=$description, frontImageFileId=$frontImageFileId, id=$id, idempotencyKey=$idempotencyKey, inboundMailItemId=$inboundMailItemId, lockboxId=$lockboxId, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -275,14 +311,16 @@ private constructor(
         private var amount: JsonField<Long> = JsonMissing.of()
         private var backImageFileId: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var currency: JsonField<Currency> = JsonMissing.of()
         private var depositAcceptance: JsonField<DepositAcceptance> = JsonMissing.of()
         private var depositRejection: JsonField<DepositRejection> = JsonMissing.of()
         private var depositReturn: JsonField<DepositReturn> = JsonMissing.of()
         private var depositSubmission: JsonField<DepositSubmission> = JsonMissing.of()
+        private var description: JsonField<String> = JsonMissing.of()
         private var frontImageFileId: JsonField<String> = JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
+        private var inboundMailItemId: JsonField<String> = JsonMissing.of()
+        private var lockboxId: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var transactionId: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
@@ -294,14 +332,16 @@ private constructor(
             this.amount = checkDeposit.amount
             this.backImageFileId = checkDeposit.backImageFileId
             this.createdAt = checkDeposit.createdAt
-            this.currency = checkDeposit.currency
             this.depositAcceptance = checkDeposit.depositAcceptance
             this.depositRejection = checkDeposit.depositRejection
             this.depositReturn = checkDeposit.depositReturn
             this.depositSubmission = checkDeposit.depositSubmission
+            this.description = checkDeposit.description
             this.frontImageFileId = checkDeposit.frontImageFileId
             this.id = checkDeposit.id
             this.idempotencyKey = checkDeposit.idempotencyKey
+            this.inboundMailItemId = checkDeposit.inboundMailItemId
+            this.lockboxId = checkDeposit.lockboxId
             this.status = checkDeposit.status
             this.transactionId = checkDeposit.transactionId
             this.type = checkDeposit.type
@@ -354,14 +394,6 @@ private constructor(
         @JsonProperty("created_at")
         @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the deposit. */
-        fun currency(currency: Currency) = currency(JsonField.of(currency))
-
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the deposit. */
-        @JsonProperty("currency")
-        @ExcludeMissing
-        fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /**
          * If your deposit is successfully parsed and accepted by Increase, this will contain
@@ -424,6 +456,14 @@ private constructor(
             this.depositSubmission = depositSubmission
         }
 
+        /** The description of the Check Deposit, for display purposes only. */
+        fun description(description: String) = description(JsonField.of(description))
+
+        /** The description of the Check Deposit, for display purposes only. */
+        @JsonProperty("description")
+        @ExcludeMissing
+        fun description(description: JsonField<String>) = apply { this.description = description }
+
         /** The ID for the File containing the image of the front of the check. */
         fun frontImageFileId(frontImageFileId: String) =
             frontImageFileId(JsonField.of(frontImageFileId))
@@ -458,6 +498,37 @@ private constructor(
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
         }
+
+        /**
+         * If the Check Deposit was the result of an Inbound Mail Item, this will contain the
+         * identifier of the Inbound Mail Item.
+         */
+        fun inboundMailItemId(inboundMailItemId: String) =
+            inboundMailItemId(JsonField.of(inboundMailItemId))
+
+        /**
+         * If the Check Deposit was the result of an Inbound Mail Item, this will contain the
+         * identifier of the Inbound Mail Item.
+         */
+        @JsonProperty("inbound_mail_item_id")
+        @ExcludeMissing
+        fun inboundMailItemId(inboundMailItemId: JsonField<String>) = apply {
+            this.inboundMailItemId = inboundMailItemId
+        }
+
+        /**
+         * If the Check Deposit was the result of an Inbound Mail Item, this will contain the
+         * identifier of the Lockbox that received it.
+         */
+        fun lockboxId(lockboxId: String) = lockboxId(JsonField.of(lockboxId))
+
+        /**
+         * If the Check Deposit was the result of an Inbound Mail Item, this will contain the
+         * identifier of the Lockbox that received it.
+         */
+        @JsonProperty("lockbox_id")
+        @ExcludeMissing
+        fun lockboxId(lockboxId: JsonField<String>) = apply { this.lockboxId = lockboxId }
 
         /** The status of the Check Deposit. */
         fun status(status: Status) = status(JsonField.of(status))
@@ -511,100 +582,21 @@ private constructor(
                 amount,
                 backImageFileId,
                 createdAt,
-                currency,
                 depositAcceptance,
                 depositRejection,
                 depositReturn,
                 depositSubmission,
+                description,
                 frontImageFileId,
                 id,
                 idempotencyKey,
+                inboundMailItemId,
+                lockboxId,
                 status,
                 transactionId,
                 type,
                 additionalProperties.toUnmodifiable(),
             )
-    }
-
-    class Currency
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Currency && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            @JvmField val CAD = Currency(JsonField.of("CAD"))
-
-            @JvmField val CHF = Currency(JsonField.of("CHF"))
-
-            @JvmField val EUR = Currency(JsonField.of("EUR"))
-
-            @JvmField val GBP = Currency(JsonField.of("GBP"))
-
-            @JvmField val JPY = Currency(JsonField.of("JPY"))
-
-            @JvmField val USD = Currency(JsonField.of("USD"))
-
-            @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
-        }
-
-        enum class Known {
-            CAD,
-            CHF,
-            EUR,
-            GBP,
-            JPY,
-            USD,
-        }
-
-        enum class Value {
-            CAD,
-            CHF,
-            EUR,
-            GBP,
-            JPY,
-            USD,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                CAD -> Value.CAD
-                CHF -> Value.CHF
-                EUR -> Value.EUR
-                GBP -> Value.GBP
-                JPY -> Value.JPY
-                USD -> Value.USD
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                CAD -> Known.CAD
-                CHF -> Known.CHF
-                EUR -> Known.EUR
-                GBP -> Known.GBP
-                JPY -> Known.JPY
-                USD -> Known.USD
-                else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
     }
 
     /**
@@ -1328,6 +1320,8 @@ private constructor(
 
                 @JvmField val UNKNOWN = Reason(JsonField.of("unknown"))
 
+                @JvmField val OPERATOR = Reason(JsonField.of("operator"))
+
                 @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
             }
 
@@ -1342,6 +1336,7 @@ private constructor(
                 SUSPECTED_FRAUD,
                 DEPOSIT_WINDOW_EXPIRED,
                 UNKNOWN,
+                OPERATOR,
             }
 
             enum class Value {
@@ -1355,6 +1350,7 @@ private constructor(
                 SUSPECTED_FRAUD,
                 DEPOSIT_WINDOW_EXPIRED,
                 UNKNOWN,
+                OPERATOR,
                 _UNKNOWN,
             }
 
@@ -1370,6 +1366,7 @@ private constructor(
                     SUSPECTED_FRAUD -> Value.SUSPECTED_FRAUD
                     DEPOSIT_WINDOW_EXPIRED -> Value.DEPOSIT_WINDOW_EXPIRED
                     UNKNOWN -> Value.UNKNOWN
+                    OPERATOR -> Value.OPERATOR
                     else -> Value._UNKNOWN
                 }
 
@@ -1385,6 +1382,7 @@ private constructor(
                     SUSPECTED_FRAUD -> Known.SUSPECTED_FRAUD
                     DEPOSIT_WINDOW_EXPIRED -> Known.DEPOSIT_WINDOW_EXPIRED
                     UNKNOWN -> Known.UNKNOWN
+                    OPERATOR -> Known.OPERATOR
                     else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                 }
 
@@ -1961,6 +1959,8 @@ private constructor(
     @NoAutoDetect
     class DepositSubmission
     private constructor(
+        private val backFileId: JsonField<String>,
+        private val frontFileId: JsonField<String>,
         private val submittedAt: JsonField<OffsetDateTime>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -1970,10 +1970,34 @@ private constructor(
         private var hashCode: Int = 0
 
         /**
+         * The ID for the File containing the check back image that was submitted to the Check21
+         * network.
+         */
+        fun backFileId(): String = backFileId.getRequired("back_file_id")
+
+        /**
+         * The ID for the File containing the check front image that was submitted to the Check21
+         * network.
+         */
+        fun frontFileId(): String = frontFileId.getRequired("front_file_id")
+
+        /**
          * When the check deposit was submitted to the Check21 network for processing. During
          * business days, this happens within a few hours of the check being accepted by Increase.
          */
         fun submittedAt(): OffsetDateTime = submittedAt.getRequired("submitted_at")
+
+        /**
+         * The ID for the File containing the check back image that was submitted to the Check21
+         * network.
+         */
+        @JsonProperty("back_file_id") @ExcludeMissing fun _backFileId() = backFileId
+
+        /**
+         * The ID for the File containing the check front image that was submitted to the Check21
+         * network.
+         */
+        @JsonProperty("front_file_id") @ExcludeMissing fun _frontFileId() = frontFileId
 
         /**
          * When the check deposit was submitted to the Check21 network for processing. During
@@ -1987,6 +2011,8 @@ private constructor(
 
         fun validate(): DepositSubmission = apply {
             if (!validated) {
+                backFileId()
+                frontFileId()
                 submittedAt()
                 validated = true
             }
@@ -2000,19 +2026,27 @@ private constructor(
             }
 
             return other is DepositSubmission &&
+                this.backFileId == other.backFileId &&
+                this.frontFileId == other.frontFileId &&
                 this.submittedAt == other.submittedAt &&
                 this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(submittedAt, additionalProperties)
+                hashCode =
+                    Objects.hash(
+                        backFileId,
+                        frontFileId,
+                        submittedAt,
+                        additionalProperties,
+                    )
             }
             return hashCode
         }
 
         override fun toString() =
-            "DepositSubmission{submittedAt=$submittedAt, additionalProperties=$additionalProperties}"
+            "DepositSubmission{backFileId=$backFileId, frontFileId=$frontFileId, submittedAt=$submittedAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -2021,13 +2055,47 @@ private constructor(
 
         class Builder {
 
+            private var backFileId: JsonField<String> = JsonMissing.of()
+            private var frontFileId: JsonField<String> = JsonMissing.of()
             private var submittedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(depositSubmission: DepositSubmission) = apply {
+                this.backFileId = depositSubmission.backFileId
+                this.frontFileId = depositSubmission.frontFileId
                 this.submittedAt = depositSubmission.submittedAt
                 additionalProperties(depositSubmission.additionalProperties)
+            }
+
+            /**
+             * The ID for the File containing the check back image that was submitted to the Check21
+             * network.
+             */
+            fun backFileId(backFileId: String) = backFileId(JsonField.of(backFileId))
+
+            /**
+             * The ID for the File containing the check back image that was submitted to the Check21
+             * network.
+             */
+            @JsonProperty("back_file_id")
+            @ExcludeMissing
+            fun backFileId(backFileId: JsonField<String>) = apply { this.backFileId = backFileId }
+
+            /**
+             * The ID for the File containing the check front image that was submitted to the
+             * Check21 network.
+             */
+            fun frontFileId(frontFileId: String) = frontFileId(JsonField.of(frontFileId))
+
+            /**
+             * The ID for the File containing the check front image that was submitted to the
+             * Check21 network.
+             */
+            @JsonProperty("front_file_id")
+            @ExcludeMissing
+            fun frontFileId(frontFileId: JsonField<String>) = apply {
+                this.frontFileId = frontFileId
             }
 
             /**
@@ -2063,7 +2131,12 @@ private constructor(
             }
 
             fun build(): DepositSubmission =
-                DepositSubmission(submittedAt, additionalProperties.toUnmodifiable())
+                DepositSubmission(
+                    backFileId,
+                    frontFileId,
+                    submittedAt,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 

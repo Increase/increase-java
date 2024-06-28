@@ -470,6 +470,10 @@ constructor(
 
                 @JvmField val REJECTED = In(JsonField.of("rejected"))
 
+                @JvmField val LOST = In(JsonField.of("lost"))
+
+                @JvmField val WON = In(JsonField.of("won"))
+
                 @JvmStatic fun of(value: String) = In(JsonField.of(value))
             }
 
@@ -477,12 +481,16 @@ constructor(
                 PENDING_REVIEWING,
                 ACCEPTED,
                 REJECTED,
+                LOST,
+                WON,
             }
 
             enum class Value {
                 PENDING_REVIEWING,
                 ACCEPTED,
                 REJECTED,
+                LOST,
+                WON,
                 _UNKNOWN,
             }
 
@@ -491,6 +499,8 @@ constructor(
                     PENDING_REVIEWING -> Value.PENDING_REVIEWING
                     ACCEPTED -> Value.ACCEPTED
                     REJECTED -> Value.REJECTED
+                    LOST -> Value.LOST
+                    WON -> Value.WON
                     else -> Value._UNKNOWN
                 }
 
@@ -499,6 +509,8 @@ constructor(
                     PENDING_REVIEWING -> Known.PENDING_REVIEWING
                     ACCEPTED -> Known.ACCEPTED
                     REJECTED -> Known.REJECTED
+                    LOST -> Known.LOST
+                    WON -> Known.WON
                     else -> throw IncreaseInvalidDataException("Unknown In: $value")
                 }
 
