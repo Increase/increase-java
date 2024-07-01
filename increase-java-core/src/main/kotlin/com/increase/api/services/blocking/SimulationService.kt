@@ -22,6 +22,7 @@ import com.increase.api.services.blocking.simulations.DigitalWalletTokenRequestS
 import com.increase.api.services.blocking.simulations.DocumentService
 import com.increase.api.services.blocking.simulations.InboundCheckDepositService
 import com.increase.api.services.blocking.simulations.InboundFundsHoldService
+import com.increase.api.services.blocking.simulations.InboundInternationalAchTransferService
 import com.increase.api.services.blocking.simulations.InboundWireDrawdownRequestService
 import com.increase.api.services.blocking.simulations.InterestPaymentService
 import com.increase.api.services.blocking.simulations.PhysicalCardService
@@ -66,6 +67,8 @@ interface SimulationService {
     fun physicalCards(): PhysicalCardService
 
     fun inboundCheckDeposits(): InboundCheckDepositService
+
+    fun inboundInternationalAchTransfers(): InboundInternationalAchTransferService
 
     /** Simulates expiring a card authorization immediately. */
     @JvmOverloads
