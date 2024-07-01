@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.58.0 (2024-07-01)
+
+Full Changelog: [v0.57.0...v0.58.0](https://github.com/Increase/increase-java/compare/v0.57.0...v0.58.0)
+
+### Features
+
+* **api:** add method to simulate international ACH transfers ([#286](https://github.com/Increase/increase-java/issues/286)) ([26c83fe](https://github.com/Increase/increase-java/commit/26c83fea9c5656a18949201cd9919936759c6792))
+
 ## 0.57.0 (2024-06-28)
 
 Full Changelog: [v0.56.0...v0.57.0](https://github.com/Increase/increase-java/compare/v0.56.0...v0.57.0)
