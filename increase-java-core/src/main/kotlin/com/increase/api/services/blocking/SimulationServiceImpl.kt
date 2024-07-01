@@ -37,6 +37,8 @@ import com.increase.api.services.blocking.simulations.InboundCheckDepositService
 import com.increase.api.services.blocking.simulations.InboundCheckDepositServiceImpl
 import com.increase.api.services.blocking.simulations.InboundFundsHoldService
 import com.increase.api.services.blocking.simulations.InboundFundsHoldServiceImpl
+import com.increase.api.services.blocking.simulations.InboundInternationalAchTransferService
+import com.increase.api.services.blocking.simulations.InboundInternationalAchTransferServiceImpl
 import com.increase.api.services.blocking.simulations.InboundWireDrawdownRequestService
 import com.increase.api.services.blocking.simulations.InboundWireDrawdownRequestServiceImpl
 import com.increase.api.services.blocking.simulations.InterestPaymentService
@@ -121,6 +123,10 @@ constructor(
         InboundCheckDepositServiceImpl(clientOptions)
     }
 
+    private val inboundInternationalAchTransfers: InboundInternationalAchTransferService by lazy {
+        InboundInternationalAchTransferServiceImpl(clientOptions)
+    }
+
     override fun accountTransfers(): AccountTransferService = accountTransfers
 
     override fun accountStatements(): AccountStatementService = accountStatements
@@ -159,6 +165,9 @@ constructor(
     override fun physicalCards(): PhysicalCardService = physicalCards
 
     override fun inboundCheckDeposits(): InboundCheckDepositService = inboundCheckDeposits
+
+    override fun inboundInternationalAchTransfers(): InboundInternationalAchTransferService =
+        inboundInternationalAchTransfers
 
     private val cardAuthorizationExpirationsHandler: Handler<CardPayment> =
         jsonHandler<CardPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

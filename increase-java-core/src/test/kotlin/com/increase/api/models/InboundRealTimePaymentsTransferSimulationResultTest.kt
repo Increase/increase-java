@@ -1431,6 +1431,14 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         )
                                         .receivingDepositoryFinancialInstitutionName("string")
                                         .traceNumber("string")
+                                        .type(
+                                            InboundRealTimePaymentsTransferSimulationResult
+                                                .Transaction
+                                                .Source
+                                                .InboundInternationalAchTransfer
+                                                .Type
+                                                .INBOUND_INTERNATIONAL_ACH_TRANSFER
+                                        )
                                         .build()
                                 )
                                 .inboundRealTimePaymentsTransferConfirmation(
@@ -2970,6 +2978,13 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     )
                                     .receivingDepositoryFinancialInstitutionName("string")
                                     .traceNumber("string")
+                                    .type(
+                                        InboundRealTimePaymentsTransferSimulationResult.Transaction
+                                            .Source
+                                            .InboundInternationalAchTransfer
+                                            .Type
+                                            .INBOUND_INTERNATIONAL_ACH_TRANSFER
+                                    )
                                     .build()
                             )
                             .inboundRealTimePaymentsTransferConfirmation(

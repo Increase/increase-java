@@ -652,6 +652,10 @@ class TransactionTest {
                                 )
                                 .receivingDepositoryFinancialInstitutionName("string")
                                 .traceNumber("string")
+                                .type(
+                                    Transaction.Source.InboundInternationalAchTransfer.Type
+                                        .INBOUND_INTERNATIONAL_ACH_TRANSFER
+                                )
                                 .build()
                         )
                         .inboundRealTimePaymentsTransferConfirmation(
@@ -1405,6 +1409,10 @@ class TransactionTest {
                             )
                             .receivingDepositoryFinancialInstitutionName("string")
                             .traceNumber("string")
+                            .type(
+                                Transaction.Source.InboundInternationalAchTransfer.Type
+                                    .INBOUND_INTERNATIONAL_ACH_TRANSFER
+                            )
                             .build()
                     )
                     .inboundRealTimePaymentsTransferConfirmation(
