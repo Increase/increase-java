@@ -37,6 +37,8 @@ import com.increase.api.services.async.simulations.InboundCheckDepositServiceAsy
 import com.increase.api.services.async.simulations.InboundCheckDepositServiceAsyncImpl
 import com.increase.api.services.async.simulations.InboundFundsHoldServiceAsync
 import com.increase.api.services.async.simulations.InboundFundsHoldServiceAsyncImpl
+import com.increase.api.services.async.simulations.InboundInternationalAchTransferServiceAsync
+import com.increase.api.services.async.simulations.InboundInternationalAchTransferServiceAsyncImpl
 import com.increase.api.services.async.simulations.InboundWireDrawdownRequestServiceAsync
 import com.increase.api.services.async.simulations.InboundWireDrawdownRequestServiceAsyncImpl
 import com.increase.api.services.async.simulations.InterestPaymentServiceAsync
@@ -128,6 +130,11 @@ constructor(
         InboundCheckDepositServiceAsyncImpl(clientOptions)
     }
 
+    private val inboundInternationalAchTransfers:
+        InboundInternationalAchTransferServiceAsync by lazy {
+        InboundInternationalAchTransferServiceAsyncImpl(clientOptions)
+    }
+
     override fun accountTransfers(): AccountTransferServiceAsync = accountTransfers
 
     override fun accountStatements(): AccountStatementServiceAsync = accountStatements
@@ -166,6 +173,9 @@ constructor(
     override fun physicalCards(): PhysicalCardServiceAsync = physicalCards
 
     override fun inboundCheckDeposits(): InboundCheckDepositServiceAsync = inboundCheckDeposits
+
+    override fun inboundInternationalAchTransfers(): InboundInternationalAchTransferServiceAsync =
+        inboundInternationalAchTransfers
 
     private val cardAuthorizationExpirationsHandler: Handler<CardPayment> =
         jsonHandler<CardPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

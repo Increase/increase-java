@@ -5436,8 +5436,6 @@ private constructor(
 
                         @JvmField val UNKNOWN = Reason(JsonField.of("unknown"))
 
-                        @JvmField val OPERATOR = Reason(JsonField.of("operator"))
-
                         @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
                     }
 
@@ -5452,7 +5450,6 @@ private constructor(
                         SUSPECTED_FRAUD,
                         DEPOSIT_WINDOW_EXPIRED,
                         UNKNOWN,
-                        OPERATOR,
                     }
 
                     enum class Value {
@@ -5466,7 +5463,6 @@ private constructor(
                         SUSPECTED_FRAUD,
                         DEPOSIT_WINDOW_EXPIRED,
                         UNKNOWN,
-                        OPERATOR,
                         _UNKNOWN,
                     }
 
@@ -5482,7 +5478,6 @@ private constructor(
                             SUSPECTED_FRAUD -> Value.SUSPECTED_FRAUD
                             DEPOSIT_WINDOW_EXPIRED -> Value.DEPOSIT_WINDOW_EXPIRED
                             UNKNOWN -> Value.UNKNOWN
-                            OPERATOR -> Value.OPERATOR
                             else -> Value._UNKNOWN
                         }
 
@@ -5498,7 +5493,6 @@ private constructor(
                             SUSPECTED_FRAUD -> Known.SUSPECTED_FRAUD
                             DEPOSIT_WINDOW_EXPIRED -> Known.DEPOSIT_WINDOW_EXPIRED
                             UNKNOWN -> Known.UNKNOWN
-                            OPERATOR -> Known.OPERATOR
                             else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                         }
 
