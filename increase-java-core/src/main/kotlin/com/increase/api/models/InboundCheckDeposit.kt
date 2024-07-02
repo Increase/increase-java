@@ -39,6 +39,7 @@ private constructor(
     private val currency: JsonField<Currency>,
     private val declinedAt: JsonField<OffsetDateTime>,
     private val declinedTransactionId: JsonField<String>,
+    private val depositReturn: JsonField<DepositReturn>,
     private val frontImageFileId: JsonField<String>,
     private val id: JsonField<String>,
     private val status: JsonField<Status>,
@@ -115,6 +116,10 @@ private constructor(
      */
     fun declinedTransactionId(): Optional<String> =
         Optional.ofNullable(declinedTransactionId.getNullable("declined_transaction_id"))
+
+    /** If you requested a return of this deposit, this will contain details of the return. */
+    fun depositReturn(): Optional<DepositReturn> =
+        Optional.ofNullable(depositReturn.getNullable("deposit_return"))
 
     /** The ID for the File containing the image of the front of the check. */
     fun frontImageFileId(): Optional<String> =
@@ -198,6 +203,9 @@ private constructor(
     @ExcludeMissing
     fun _declinedTransactionId() = declinedTransactionId
 
+    /** If you requested a return of this deposit, this will contain details of the return. */
+    @JsonProperty("deposit_return") @ExcludeMissing fun _depositReturn() = depositReturn
+
     /** The ID for the File containing the image of the front of the check. */
     @JsonProperty("front_image_file_id") @ExcludeMissing fun _frontImageFileId() = frontImageFileId
 
@@ -237,6 +245,7 @@ private constructor(
             currency()
             declinedAt()
             declinedTransactionId()
+            depositReturn().map { it.validate() }
             frontImageFileId()
             id()
             status()
@@ -266,6 +275,7 @@ private constructor(
             this.currency == other.currency &&
             this.declinedAt == other.declinedAt &&
             this.declinedTransactionId == other.declinedTransactionId &&
+            this.depositReturn == other.depositReturn &&
             this.frontImageFileId == other.frontImageFileId &&
             this.id == other.id &&
             this.status == other.status &&
@@ -290,6 +300,7 @@ private constructor(
                     currency,
                     declinedAt,
                     declinedTransactionId,
+                    depositReturn,
                     frontImageFileId,
                     id,
                     status,
@@ -302,7 +313,7 @@ private constructor(
     }
 
     override fun toString() =
-        "InboundCheckDeposit{acceptedAt=$acceptedAt, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, backImageFileId=$backImageFileId, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, checkNumber=$checkNumber, checkTransferId=$checkTransferId, createdAt=$createdAt, currency=$currency, declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, frontImageFileId=$frontImageFileId, id=$id, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+        "InboundCheckDeposit{acceptedAt=$acceptedAt, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, backImageFileId=$backImageFileId, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, checkNumber=$checkNumber, checkTransferId=$checkTransferId, createdAt=$createdAt, currency=$currency, declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, depositReturn=$depositReturn, frontImageFileId=$frontImageFileId, id=$id, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -323,6 +334,7 @@ private constructor(
         private var currency: JsonField<Currency> = JsonMissing.of()
         private var declinedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var declinedTransactionId: JsonField<String> = JsonMissing.of()
+        private var depositReturn: JsonField<DepositReturn> = JsonMissing.of()
         private var frontImageFileId: JsonField<String> = JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
@@ -345,6 +357,7 @@ private constructor(
             this.currency = inboundCheckDeposit.currency
             this.declinedAt = inboundCheckDeposit.declinedAt
             this.declinedTransactionId = inboundCheckDeposit.declinedTransactionId
+            this.depositReturn = inboundCheckDeposit.depositReturn
             this.frontImageFileId = inboundCheckDeposit.frontImageFileId
             this.id = inboundCheckDeposit.id
             this.status = inboundCheckDeposit.status
@@ -515,6 +528,16 @@ private constructor(
             this.declinedTransactionId = declinedTransactionId
         }
 
+        /** If you requested a return of this deposit, this will contain details of the return. */
+        fun depositReturn(depositReturn: DepositReturn) = depositReturn(JsonField.of(depositReturn))
+
+        /** If you requested a return of this deposit, this will contain details of the return. */
+        @JsonProperty("deposit_return")
+        @ExcludeMissing
+        fun depositReturn(depositReturn: JsonField<DepositReturn>) = apply {
+            this.depositReturn = depositReturn
+        }
+
         /** The ID for the File containing the image of the front of the check. */
         fun frontImageFileId(frontImageFileId: String) =
             frontImageFileId(JsonField.of(frontImageFileId))
@@ -598,6 +621,7 @@ private constructor(
                 currency,
                 declinedAt,
                 declinedTransactionId,
+                depositReturn,
                 frontImageFileId,
                 id,
                 status,
@@ -686,6 +710,133 @@ private constructor(
             }
 
         fun asString(): String = _value().asStringOrThrow()
+    }
+
+    /** If you requested a return of this deposit, this will contain details of the return. */
+    @JsonDeserialize(builder = DepositReturn.Builder::class)
+    @NoAutoDetect
+    class DepositReturn
+    private constructor(
+        private val returnedAt: JsonField<OffsetDateTime>,
+        private val transactionId: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        /** The time at which the deposit was returned. */
+        fun returnedAt(): OffsetDateTime = returnedAt.getRequired("returned_at")
+
+        /** The id of the transaction for the returned deposit. */
+        fun transactionId(): String = transactionId.getRequired("transaction_id")
+
+        /** The time at which the deposit was returned. */
+        @JsonProperty("returned_at") @ExcludeMissing fun _returnedAt() = returnedAt
+
+        /** The id of the transaction for the returned deposit. */
+        @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): DepositReturn = apply {
+            if (!validated) {
+                returnedAt()
+                transactionId()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is DepositReturn &&
+                this.returnedAt == other.returnedAt &&
+                this.transactionId == other.transactionId &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        returnedAt,
+                        transactionId,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "DepositReturn{returnedAt=$returnedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var returnedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var transactionId: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(depositReturn: DepositReturn) = apply {
+                this.returnedAt = depositReturn.returnedAt
+                this.transactionId = depositReturn.transactionId
+                additionalProperties(depositReturn.additionalProperties)
+            }
+
+            /** The time at which the deposit was returned. */
+            fun returnedAt(returnedAt: OffsetDateTime) = returnedAt(JsonField.of(returnedAt))
+
+            /** The time at which the deposit was returned. */
+            @JsonProperty("returned_at")
+            @ExcludeMissing
+            fun returnedAt(returnedAt: JsonField<OffsetDateTime>) = apply {
+                this.returnedAt = returnedAt
+            }
+
+            /** The id of the transaction for the returned deposit. */
+            fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
+
+            /** The id of the transaction for the returned deposit. */
+            @JsonProperty("transaction_id")
+            @ExcludeMissing
+            fun transactionId(transactionId: JsonField<String>) = apply {
+                this.transactionId = transactionId
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): DepositReturn =
+                DepositReturn(
+                    returnedAt,
+                    transactionId,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
     }
 
     class Status
