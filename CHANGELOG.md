@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.60.0 (2024-07-04)
+
+Full Changelog: [v0.59.0...v0.60.0](https://github.com/Increase/increase-java/compare/v0.59.0...v0.60.0)
+
+### Features
+
+* **api:** add property 'receiver identification number' to 'originator company entry description' ([#290](https://github.com/Increase/increase-java/issues/290)) ([e7bbb3e](https://github.com/Increase/increase-java/commit/e7bbb3ea3128563d266944e3f2450c763b4f9d71))
+
 ## 0.59.0 (2024-07-02)
 
 Full Changelog: [v0.58.0...v0.59.0](https://github.com/Increase/increase-java/compare/v0.58.0...v0.59.0)
