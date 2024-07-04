@@ -22,6 +22,7 @@ constructor(
     private val originatingCurrencyCode: String,
     private val originatorCompanyEntryDescription: String?,
     private val originatorName: String?,
+    private val receiverIdentificationNumber: String?,
     private val receivingCompanyOrIndividualName: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -41,6 +42,9 @@ constructor(
 
     fun originatorName(): Optional<String> = Optional.ofNullable(originatorName)
 
+    fun receiverIdentificationNumber(): Optional<String> =
+        Optional.ofNullable(receiverIdentificationNumber)
+
     fun receivingCompanyOrIndividualName(): Optional<String> =
         Optional.ofNullable(receivingCompanyOrIndividualName)
 
@@ -53,6 +57,7 @@ constructor(
             originatingCurrencyCode,
             originatorCompanyEntryDescription,
             originatorName,
+            receiverIdentificationNumber,
             receivingCompanyOrIndividualName,
             additionalBodyProperties,
         )
@@ -72,6 +77,7 @@ constructor(
         private val originatingCurrencyCode: String?,
         private val originatorCompanyEntryDescription: String?,
         private val originatorName: String?,
+        private val receiverIdentificationNumber: String?,
         private val receivingCompanyOrIndividualName: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -109,6 +115,10 @@ constructor(
         /** Either the name of the originator or an intermediary money transmitter. */
         @JsonProperty("originator_name") fun originatorName(): String? = originatorName
 
+        /** An identification number the originator uses for the receiver. */
+        @JsonProperty("receiver_identification_number")
+        fun receiverIdentificationNumber(): String? = receiverIdentificationNumber
+
         /** The name of the receiver of the transfer. */
         @JsonProperty("receiving_company_or_individual_name")
         fun receivingCompanyOrIndividualName(): String? = receivingCompanyOrIndividualName
@@ -131,6 +141,7 @@ constructor(
                 this.originatingCurrencyCode == other.originatingCurrencyCode &&
                 this.originatorCompanyEntryDescription == other.originatorCompanyEntryDescription &&
                 this.originatorName == other.originatorName &&
+                this.receiverIdentificationNumber == other.receiverIdentificationNumber &&
                 this.receivingCompanyOrIndividualName == other.receivingCompanyOrIndividualName &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -145,6 +156,7 @@ constructor(
                         originatingCurrencyCode,
                         originatorCompanyEntryDescription,
                         originatorName,
+                        receiverIdentificationNumber,
                         receivingCompanyOrIndividualName,
                         additionalProperties,
                     )
@@ -153,7 +165,7 @@ constructor(
         }
 
         override fun toString() =
-            "SimulationInboundInternationalAchTransferCreateBody{accountNumberId=$accountNumberId, amount=$amount, foreignPaymentAmount=$foreignPaymentAmount, originatingCurrencyCode=$originatingCurrencyCode, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorName=$originatorName, receivingCompanyOrIndividualName=$receivingCompanyOrIndividualName, additionalProperties=$additionalProperties}"
+            "SimulationInboundInternationalAchTransferCreateBody{accountNumberId=$accountNumberId, amount=$amount, foreignPaymentAmount=$foreignPaymentAmount, originatingCurrencyCode=$originatingCurrencyCode, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorName=$originatorName, receiverIdentificationNumber=$receiverIdentificationNumber, receivingCompanyOrIndividualName=$receivingCompanyOrIndividualName, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -168,6 +180,7 @@ constructor(
             private var originatingCurrencyCode: String? = null
             private var originatorCompanyEntryDescription: String? = null
             private var originatorName: String? = null
+            private var receiverIdentificationNumber: String? = null
             private var receivingCompanyOrIndividualName: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -188,6 +201,8 @@ constructor(
                         .originatorCompanyEntryDescription
                 this.originatorName =
                     simulationInboundInternationalAchTransferCreateBody.originatorName
+                this.receiverIdentificationNumber =
+                    simulationInboundInternationalAchTransferCreateBody.receiverIdentificationNumber
                 this.receivingCompanyOrIndividualName =
                     simulationInboundInternationalAchTransferCreateBody
                         .receivingCompanyOrIndividualName
@@ -242,6 +257,12 @@ constructor(
                 this.originatorName = originatorName
             }
 
+            /** An identification number the originator uses for the receiver. */
+            @JsonProperty("receiver_identification_number")
+            fun receiverIdentificationNumber(receiverIdentificationNumber: String) = apply {
+                this.receiverIdentificationNumber = receiverIdentificationNumber
+            }
+
             /** The name of the receiver of the transfer. */
             @JsonProperty("receiving_company_or_individual_name")
             fun receivingCompanyOrIndividualName(receivingCompanyOrIndividualName: String) = apply {
@@ -276,6 +297,7 @@ constructor(
                     },
                     originatorCompanyEntryDescription,
                     originatorName,
+                    receiverIdentificationNumber,
                     receivingCompanyOrIndividualName,
                     additionalProperties.toUnmodifiable(),
                 )
@@ -300,6 +322,7 @@ constructor(
             this.originatingCurrencyCode == other.originatingCurrencyCode &&
             this.originatorCompanyEntryDescription == other.originatorCompanyEntryDescription &&
             this.originatorName == other.originatorName &&
+            this.receiverIdentificationNumber == other.receiverIdentificationNumber &&
             this.receivingCompanyOrIndividualName == other.receivingCompanyOrIndividualName &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
@@ -314,6 +337,7 @@ constructor(
             originatingCurrencyCode,
             originatorCompanyEntryDescription,
             originatorName,
+            receiverIdentificationNumber,
             receivingCompanyOrIndividualName,
             additionalQueryParams,
             additionalHeaders,
@@ -322,7 +346,7 @@ constructor(
     }
 
     override fun toString() =
-        "SimulationInboundInternationalAchTransferCreateParams{accountNumberId=$accountNumberId, amount=$amount, foreignPaymentAmount=$foreignPaymentAmount, originatingCurrencyCode=$originatingCurrencyCode, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorName=$originatorName, receivingCompanyOrIndividualName=$receivingCompanyOrIndividualName, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationInboundInternationalAchTransferCreateParams{accountNumberId=$accountNumberId, amount=$amount, foreignPaymentAmount=$foreignPaymentAmount, originatingCurrencyCode=$originatingCurrencyCode, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorName=$originatorName, receiverIdentificationNumber=$receiverIdentificationNumber, receivingCompanyOrIndividualName=$receivingCompanyOrIndividualName, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -340,6 +364,7 @@ constructor(
         private var originatingCurrencyCode: String? = null
         private var originatorCompanyEntryDescription: String? = null
         private var originatorName: String? = null
+        private var receiverIdentificationNumber: String? = null
         private var receivingCompanyOrIndividualName: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -362,6 +387,8 @@ constructor(
                     .originatorCompanyEntryDescription
             this.originatorName =
                 simulationInboundInternationalAchTransferCreateParams.originatorName
+            this.receiverIdentificationNumber =
+                simulationInboundInternationalAchTransferCreateParams.receiverIdentificationNumber
             this.receivingCompanyOrIndividualName =
                 simulationInboundInternationalAchTransferCreateParams
                     .receivingCompanyOrIndividualName
@@ -411,6 +438,11 @@ constructor(
 
         /** Either the name of the originator or an intermediary money transmitter. */
         fun originatorName(originatorName: String) = apply { this.originatorName = originatorName }
+
+        /** An identification number the originator uses for the receiver. */
+        fun receiverIdentificationNumber(receiverIdentificationNumber: String) = apply {
+            this.receiverIdentificationNumber = receiverIdentificationNumber
+        }
 
         /** The name of the receiver of the transfer. */
         fun receivingCompanyOrIndividualName(receivingCompanyOrIndividualName: String) = apply {
@@ -483,6 +515,7 @@ constructor(
                 },
                 originatorCompanyEntryDescription,
                 originatorName,
+                receiverIdentificationNumber,
                 receivingCompanyOrIndividualName,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),

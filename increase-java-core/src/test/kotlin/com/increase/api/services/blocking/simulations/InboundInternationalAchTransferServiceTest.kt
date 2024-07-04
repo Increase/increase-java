@@ -29,6 +29,7 @@ class InboundInternationalAchTransferServiceTest {
                     .originatingCurrencyCode("x")
                     .originatorCompanyEntryDescription("x")
                     .originatorName("x")
+                    .receiverIdentificationNumber("x")
                     .receivingCompanyOrIndividualName("x")
                     .build()
             )

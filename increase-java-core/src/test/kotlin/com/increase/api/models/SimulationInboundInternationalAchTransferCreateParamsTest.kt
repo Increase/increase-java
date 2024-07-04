@@ -17,6 +17,7 @@ class SimulationInboundInternationalAchTransferCreateParamsTest {
             .originatingCurrencyCode("x")
             .originatorCompanyEntryDescription("x")
             .originatorName("x")
+            .receiverIdentificationNumber("x")
             .receivingCompanyOrIndividualName("x")
             .build()
     }
@@ -31,6 +32,7 @@ class SimulationInboundInternationalAchTransferCreateParamsTest {
                 .originatingCurrencyCode("x")
                 .originatorCompanyEntryDescription("x")
                 .originatorName("x")
+                .receiverIdentificationNumber("x")
                 .receivingCompanyOrIndividualName("x")
                 .build()
         val body = params.getBody()
@@ -41,6 +43,7 @@ class SimulationInboundInternationalAchTransferCreateParamsTest {
         assertThat(body.originatingCurrencyCode()).isEqualTo("x")
         assertThat(body.originatorCompanyEntryDescription()).isEqualTo("x")
         assertThat(body.originatorName()).isEqualTo("x")
+        assertThat(body.receiverIdentificationNumber()).isEqualTo("x")
         assertThat(body.receivingCompanyOrIndividualName()).isEqualTo("x")
     }
 
