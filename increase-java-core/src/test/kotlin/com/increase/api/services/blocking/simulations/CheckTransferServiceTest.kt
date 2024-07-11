@@ -23,7 +23,9 @@ class CheckTransferServiceTest {
         val checkTransferService = client.simulations().checkTransfers()
         val checkTransfer =
             checkTransferService.mail(
-                SimulationCheckTransferMailParams.builder().checkTransferId("string").build()
+                SimulationCheckTransferMailParams.builder()
+                    .checkTransferId("check_transfer_id")
+                    .build()
             )
         println(checkTransfer)
         checkTransfer.validate()

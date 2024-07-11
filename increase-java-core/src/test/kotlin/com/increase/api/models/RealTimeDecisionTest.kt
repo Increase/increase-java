@@ -13,18 +13,18 @@ class RealTimeDecisionTest {
     fun createRealTimeDecision() {
         val realTimeDecision =
             RealTimeDecision.builder()
-                .id("string")
+                .id("id")
                 .cardAuthorization(
                     RealTimeDecision.CardAuthorization.builder()
-                        .accountId("string")
-                        .cardId("string")
+                        .accountId("account_id")
+                        .cardId("card_id")
                         .decision(RealTimeDecision.CardAuthorization.Decision.APPROVE)
-                        .digitalWalletTokenId("string")
-                        .merchantAcceptorId("string")
-                        .merchantCategoryCode("string")
-                        .merchantCity("string")
-                        .merchantCountry("string")
-                        .merchantDescriptor("string")
+                        .digitalWalletTokenId("digital_wallet_token_id")
+                        .merchantAcceptorId("merchant_acceptor_id")
+                        .merchantCategoryCode("merchant_category_code")
+                        .merchantCity("merchant_city")
+                        .merchantCountry("merchant_country")
+                        .merchantDescriptor("merchant_descriptor")
                         .networkDetails(
                             RealTimeDecision.CardAuthorization.NetworkDetails.builder()
                                 .category(
@@ -48,15 +48,15 @@ class RealTimeDecisionTest {
                         )
                         .networkIdentifiers(
                             RealTimeDecision.CardAuthorization.NetworkIdentifiers.builder()
-                                .retrievalReferenceNumber("string")
-                                .traceNumber("string")
-                                .transactionId("string")
+                                .retrievalReferenceNumber("retrieval_reference_number")
+                                .traceNumber("trace_number")
+                                .transactionId("transaction_id")
                                 .build()
                         )
                         .networkRiskScore(123L)
-                        .physicalCardId("string")
+                        .physicalCardId("physical_card_id")
                         .presentmentAmount(123L)
-                        .presentmentCurrency("string")
+                        .presentmentCurrency("presentment_currency")
                         .processingCategory(
                             RealTimeDecision.CardAuthorization.ProcessingCategory.ACCOUNT_FUNDING
                         )
@@ -70,16 +70,18 @@ class RealTimeDecisionTest {
                                     RealTimeDecision.CardAuthorization.RequestDetails
                                         .IncrementalAuthorization
                                         .builder()
-                                        .cardPaymentId("string")
-                                        .originalCardAuthorizationId("string")
+                                        .cardPaymentId("card_payment_id")
+                                        .originalCardAuthorizationId(
+                                            "original_card_authorization_id"
+                                        )
                                         .build()
                                 )
                                 .initialAuthorization(JsonNull.of())
                                 .build()
                         )
                         .settlementAmount(123L)
-                        .settlementCurrency("string")
-                        .upcomingCardPaymentId("string")
+                        .settlementCurrency("settlement_currency")
+                        .upcomingCardPaymentId("upcoming_card_payment_id")
                         .verification(
                             RealTimeDecision.CardAuthorization.Verification.builder()
                                 .cardVerificationCode(
@@ -98,10 +100,10 @@ class RealTimeDecisionTest {
                                     RealTimeDecision.CardAuthorization.Verification
                                         .CardholderAddress
                                         .builder()
-                                        .actualLine1("string")
-                                        .actualPostalCode("string")
-                                        .providedLine1("string")
-                                        .providedPostalCode("string")
+                                        .actualLine1("actual_line1")
+                                        .actualPostalCode("actual_postal_code")
+                                        .providedLine1("provided_line1")
+                                        .providedPostalCode("provided_postal_code")
                                         .result(
                                             RealTimeDecision.CardAuthorization.Verification
                                                 .CardholderAddress
@@ -118,21 +120,21 @@ class RealTimeDecisionTest {
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .digitalWalletAuthentication(
                     RealTimeDecision.DigitalWalletAuthentication.builder()
-                        .cardId("string")
+                        .cardId("card_id")
                         .channel(RealTimeDecision.DigitalWalletAuthentication.Channel.SMS)
                         .digitalWallet(
                             RealTimeDecision.DigitalWalletAuthentication.DigitalWallet.APPLE_PAY
                         )
-                        .email("string")
-                        .oneTimePasscode("string")
-                        .phone("string")
+                        .email("email")
+                        .oneTimePasscode("one_time_passcode")
+                        .phone("phone")
                         .result(RealTimeDecision.DigitalWalletAuthentication.Result.SUCCESS)
                         .build()
                 )
                 .digitalWalletToken(
                     RealTimeDecision.DigitalWalletToken.builder()
-                        .cardId("string")
-                        .cardProfileId("string")
+                        .cardId("card_id")
+                        .cardProfileId("card_profile_id")
                         .decision(RealTimeDecision.DigitalWalletToken.Decision.APPROVE)
                         .digitalWallet(RealTimeDecision.DigitalWalletToken.DigitalWallet.APPLE_PAY)
                         .build()
@@ -142,19 +144,19 @@ class RealTimeDecisionTest {
                 .type(RealTimeDecision.Type.REAL_TIME_DECISION)
                 .build()
         assertThat(realTimeDecision).isNotNull
-        assertThat(realTimeDecision.id()).isEqualTo("string")
+        assertThat(realTimeDecision.id()).isEqualTo("id")
         assertThat(realTimeDecision.cardAuthorization())
             .contains(
                 RealTimeDecision.CardAuthorization.builder()
-                    .accountId("string")
-                    .cardId("string")
+                    .accountId("account_id")
+                    .cardId("card_id")
                     .decision(RealTimeDecision.CardAuthorization.Decision.APPROVE)
-                    .digitalWalletTokenId("string")
-                    .merchantAcceptorId("string")
-                    .merchantCategoryCode("string")
-                    .merchantCity("string")
-                    .merchantCountry("string")
-                    .merchantDescriptor("string")
+                    .digitalWalletTokenId("digital_wallet_token_id")
+                    .merchantAcceptorId("merchant_acceptor_id")
+                    .merchantCategoryCode("merchant_category_code")
+                    .merchantCity("merchant_city")
+                    .merchantCountry("merchant_country")
+                    .merchantDescriptor("merchant_descriptor")
                     .networkDetails(
                         RealTimeDecision.CardAuthorization.NetworkDetails.builder()
                             .category(
@@ -178,15 +180,15 @@ class RealTimeDecisionTest {
                     )
                     .networkIdentifiers(
                         RealTimeDecision.CardAuthorization.NetworkIdentifiers.builder()
-                            .retrievalReferenceNumber("string")
-                            .traceNumber("string")
-                            .transactionId("string")
+                            .retrievalReferenceNumber("retrieval_reference_number")
+                            .traceNumber("trace_number")
+                            .transactionId("transaction_id")
                             .build()
                     )
                     .networkRiskScore(123L)
-                    .physicalCardId("string")
+                    .physicalCardId("physical_card_id")
                     .presentmentAmount(123L)
-                    .presentmentCurrency("string")
+                    .presentmentCurrency("presentment_currency")
                     .processingCategory(
                         RealTimeDecision.CardAuthorization.ProcessingCategory.ACCOUNT_FUNDING
                     )
@@ -200,16 +202,16 @@ class RealTimeDecisionTest {
                                 RealTimeDecision.CardAuthorization.RequestDetails
                                     .IncrementalAuthorization
                                     .builder()
-                                    .cardPaymentId("string")
-                                    .originalCardAuthorizationId("string")
+                                    .cardPaymentId("card_payment_id")
+                                    .originalCardAuthorizationId("original_card_authorization_id")
                                     .build()
                             )
                             .initialAuthorization(JsonNull.of())
                             .build()
                     )
                     .settlementAmount(123L)
-                    .settlementCurrency("string")
-                    .upcomingCardPaymentId("string")
+                    .settlementCurrency("settlement_currency")
+                    .upcomingCardPaymentId("upcoming_card_payment_id")
                     .verification(
                         RealTimeDecision.CardAuthorization.Verification.builder()
                             .cardVerificationCode(
@@ -226,10 +228,10 @@ class RealTimeDecisionTest {
                             .cardholderAddress(
                                 RealTimeDecision.CardAuthorization.Verification.CardholderAddress
                                     .builder()
-                                    .actualLine1("string")
-                                    .actualPostalCode("string")
-                                    .providedLine1("string")
-                                    .providedPostalCode("string")
+                                    .actualLine1("actual_line1")
+                                    .actualPostalCode("actual_postal_code")
+                                    .providedLine1("provided_line1")
+                                    .providedPostalCode("provided_postal_code")
                                     .result(
                                         RealTimeDecision.CardAuthorization.Verification
                                             .CardholderAddress
@@ -249,22 +251,22 @@ class RealTimeDecisionTest {
         assertThat(realTimeDecision.digitalWalletAuthentication())
             .contains(
                 RealTimeDecision.DigitalWalletAuthentication.builder()
-                    .cardId("string")
+                    .cardId("card_id")
                     .channel(RealTimeDecision.DigitalWalletAuthentication.Channel.SMS)
                     .digitalWallet(
                         RealTimeDecision.DigitalWalletAuthentication.DigitalWallet.APPLE_PAY
                     )
-                    .email("string")
-                    .oneTimePasscode("string")
-                    .phone("string")
+                    .email("email")
+                    .oneTimePasscode("one_time_passcode")
+                    .phone("phone")
                     .result(RealTimeDecision.DigitalWalletAuthentication.Result.SUCCESS)
                     .build()
             )
         assertThat(realTimeDecision.digitalWalletToken())
             .contains(
                 RealTimeDecision.DigitalWalletToken.builder()
-                    .cardId("string")
-                    .cardProfileId("string")
+                    .cardId("card_id")
+                    .cardProfileId("card_profile_id")
                     .decision(RealTimeDecision.DigitalWalletToken.Decision.APPROVE)
                     .digitalWallet(RealTimeDecision.DigitalWalletToken.DigitalWallet.APPLE_PAY)
                     .build()

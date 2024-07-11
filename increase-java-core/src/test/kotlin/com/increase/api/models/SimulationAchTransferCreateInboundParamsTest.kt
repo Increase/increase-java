@@ -12,7 +12,7 @@ class SimulationAchTransferCreateInboundParamsTest {
     @Test
     fun createSimulationAchTransferCreateInboundParams() {
         SimulationAchTransferCreateInboundParams.builder()
-            .accountNumberId("string")
+            .accountNumberId("account_number_id")
             .amount(123L)
             .companyDescriptiveDate("x")
             .companyDiscretionaryData("x")
@@ -29,7 +29,7 @@ class SimulationAchTransferCreateInboundParamsTest {
     fun getBody() {
         val params =
             SimulationAchTransferCreateInboundParams.builder()
-                .accountNumberId("string")
+                .accountNumberId("account_number_id")
                 .amount(123L)
                 .companyDescriptiveDate("x")
                 .companyDiscretionaryData("x")
@@ -42,7 +42,7 @@ class SimulationAchTransferCreateInboundParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountNumberId()).isEqualTo("string")
+        assertThat(body.accountNumberId()).isEqualTo("account_number_id")
         assertThat(body.amount()).isEqualTo(123L)
         assertThat(body.companyDescriptiveDate()).isEqualTo("x")
         assertThat(body.companyDiscretionaryData()).isEqualTo("x")
@@ -58,12 +58,12 @@ class SimulationAchTransferCreateInboundParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             SimulationAchTransferCreateInboundParams.builder()
-                .accountNumberId("string")
+                .accountNumberId("account_number_id")
                 .amount(123L)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountNumberId()).isEqualTo("string")
+        assertThat(body.accountNumberId()).isEqualTo("account_number_id")
         assertThat(body.amount()).isEqualTo(123L)
     }
 }

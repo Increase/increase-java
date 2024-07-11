@@ -24,7 +24,7 @@ class AchTransferServiceTest {
         val inboundAchTransfer =
             achTransferService.createInbound(
                 SimulationAchTransferCreateInboundParams.builder()
-                    .accountNumberId("string")
+                    .accountNumberId("account_number_id")
                     .amount(123L)
                     .companyDescriptiveDate("x")
                     .companyDiscretionaryData("x")
@@ -51,7 +51,7 @@ class AchTransferServiceTest {
         val achTransfer =
             achTransferService.notificationOfChange(
                 SimulationAchTransferNotificationOfChangeParams.builder()
-                    .achTransferId("string")
+                    .achTransferId("ach_transfer_id")
                     .changeCode(
                         SimulationAchTransferNotificationOfChangeParams.ChangeCode
                             .INCORRECT_ACCOUNT_NUMBER
@@ -75,7 +75,7 @@ class AchTransferServiceTest {
         val achTransfer =
             achTransferService.return_(
                 SimulationAchTransferReturnParams.builder()
-                    .achTransferId("string")
+                    .achTransferId("ach_transfer_id")
                     .reason(SimulationAchTransferReturnParams.Reason.INSUFFICIENT_FUND)
                     .build()
             )
@@ -94,7 +94,7 @@ class AchTransferServiceTest {
         val achTransferService = client.simulations().achTransfers()
         val achTransfer =
             achTransferService.submit(
-                SimulationAchTransferSubmitParams.builder().achTransferId("string").build()
+                SimulationAchTransferSubmitParams.builder().achTransferId("ach_transfer_id").build()
             )
         println(achTransfer)
         achTransfer.validate()

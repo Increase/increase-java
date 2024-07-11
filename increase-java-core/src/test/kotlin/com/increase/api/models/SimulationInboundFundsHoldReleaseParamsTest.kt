@@ -10,16 +10,20 @@ class SimulationInboundFundsHoldReleaseParamsTest {
 
     @Test
     fun createSimulationInboundFundsHoldReleaseParams() {
-        SimulationInboundFundsHoldReleaseParams.builder().inboundFundsHoldId("string").build()
+        SimulationInboundFundsHoldReleaseParams.builder()
+            .inboundFundsHoldId("inbound_funds_hold_id")
+            .build()
     }
 
     @Test
     fun getPathParam() {
         val params =
-            SimulationInboundFundsHoldReleaseParams.builder().inboundFundsHoldId("string").build()
+            SimulationInboundFundsHoldReleaseParams.builder()
+                .inboundFundsHoldId("inbound_funds_hold_id")
+                .build()
         assertThat(params).isNotNull
         // path param "inboundFundsHoldId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("inbound_funds_hold_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

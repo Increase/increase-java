@@ -12,24 +12,24 @@ class BookkeepingEntrySetTest {
     fun createBookkeepingEntrySet() {
         val bookkeepingEntrySet =
             BookkeepingEntrySet.builder()
-                .id("string")
+                .id("id")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .date(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .entries(
                     listOf(
                         BookkeepingEntrySet.Entry.builder()
-                            .id("string")
-                            .accountId("string")
+                            .id("id")
+                            .accountId("account_id")
                             .amount(123L)
                             .build()
                     )
                 )
-                .idempotencyKey("string")
-                .transactionId("string")
+                .idempotencyKey("idempotency_key")
+                .transactionId("transaction_id")
                 .type(BookkeepingEntrySet.Type.BOOKKEEPING_ENTRY_SET)
                 .build()
         assertThat(bookkeepingEntrySet).isNotNull
-        assertThat(bookkeepingEntrySet.id()).isEqualTo("string")
+        assertThat(bookkeepingEntrySet.id()).isEqualTo("id")
         assertThat(bookkeepingEntrySet.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(bookkeepingEntrySet.date())
@@ -37,13 +37,13 @@ class BookkeepingEntrySetTest {
         assertThat(bookkeepingEntrySet.entries())
             .containsExactly(
                 BookkeepingEntrySet.Entry.builder()
-                    .id("string")
-                    .accountId("string")
+                    .id("id")
+                    .accountId("account_id")
                     .amount(123L)
                     .build()
             )
-        assertThat(bookkeepingEntrySet.idempotencyKey()).contains("string")
-        assertThat(bookkeepingEntrySet.transactionId()).contains("string")
+        assertThat(bookkeepingEntrySet.idempotencyKey()).contains("idempotency_key")
+        assertThat(bookkeepingEntrySet.transactionId()).contains("transaction_id")
         assertThat(bookkeepingEntrySet.type())
             .isEqualTo(BookkeepingEntrySet.Type.BOOKKEEPING_ENTRY_SET)
     }

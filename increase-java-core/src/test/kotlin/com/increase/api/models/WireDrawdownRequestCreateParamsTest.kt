@@ -11,7 +11,7 @@ class WireDrawdownRequestCreateParamsTest {
     @Test
     fun createWireDrawdownRequestCreateParams() {
         WireDrawdownRequestCreateParams.builder()
-            .accountNumberId("string")
+            .accountNumberId("account_number_id")
             .amount(123L)
             .messageToRecipient("x")
             .recipientAccountNumber("x")
@@ -31,7 +31,7 @@ class WireDrawdownRequestCreateParamsTest {
     fun getBody() {
         val params =
             WireDrawdownRequestCreateParams.builder()
-                .accountNumberId("string")
+                .accountNumberId("account_number_id")
                 .amount(123L)
                 .messageToRecipient("x")
                 .recipientAccountNumber("x")
@@ -47,7 +47,7 @@ class WireDrawdownRequestCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountNumberId()).isEqualTo("string")
+        assertThat(body.accountNumberId()).isEqualTo("account_number_id")
         assertThat(body.amount()).isEqualTo(123L)
         assertThat(body.messageToRecipient()).isEqualTo("x")
         assertThat(body.recipientAccountNumber()).isEqualTo("x")
@@ -66,7 +66,7 @@ class WireDrawdownRequestCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             WireDrawdownRequestCreateParams.builder()
-                .accountNumberId("string")
+                .accountNumberId("account_number_id")
                 .amount(123L)
                 .messageToRecipient("x")
                 .recipientAccountNumber("x")
@@ -75,7 +75,7 @@ class WireDrawdownRequestCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountNumberId()).isEqualTo("string")
+        assertThat(body.accountNumberId()).isEqualTo("account_number_id")
         assertThat(body.amount()).isEqualTo(123L)
         assertThat(body.messageToRecipient()).isEqualTo("x")
         assertThat(body.recipientAccountNumber()).isEqualTo("x")

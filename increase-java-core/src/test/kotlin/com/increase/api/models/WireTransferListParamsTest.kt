@@ -12,7 +12,7 @@ class WireTransferListParamsTest {
     @Test
     fun createWireTransferListParams() {
         WireTransferListParams.builder()
-            .accountId("string")
+            .accountId("account_id")
             .createdAt(
                 WireTransferListParams.CreatedAt.builder()
                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -21,8 +21,8 @@ class WireTransferListParamsTest {
                     .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
-            .cursor("string")
-            .externalAccountId("string")
+            .cursor("cursor")
+            .externalAccountId("external_account_id")
             .idempotencyKey("x")
             .limit(123L)
             .build()
@@ -32,7 +32,7 @@ class WireTransferListParamsTest {
     fun getQueryParams() {
         val params =
             WireTransferListParams.builder()
-                .accountId("string")
+                .accountId("account_id")
                 .createdAt(
                     WireTransferListParams.CreatedAt.builder()
                         .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -41,13 +41,13 @@ class WireTransferListParamsTest {
                         .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
-                .cursor("string")
-                .externalAccountId("string")
+                .cursor("cursor")
+                .externalAccountId("external_account_id")
                 .idempotencyKey("x")
                 .limit(123L)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("account_id", listOf("string"))
+        expected.put("account_id", listOf("account_id"))
         WireTransferListParams.CreatedAt.builder()
             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -55,8 +55,8 @@ class WireTransferListParamsTest {
             .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
-        expected.put("cursor", listOf("string"))
-        expected.put("external_account_id", listOf("string"))
+        expected.put("cursor", listOf("cursor"))
+        expected.put("external_account_id", listOf("external_account_id"))
         expected.put("idempotency_key", listOf("x"))
         expected.put("limit", listOf("123"))
         assertThat(params.getQueryParams()).isEqualTo(expected)

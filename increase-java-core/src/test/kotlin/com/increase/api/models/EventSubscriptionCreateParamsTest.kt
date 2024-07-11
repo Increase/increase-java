@@ -11,8 +11,8 @@ class EventSubscriptionCreateParamsTest {
     @Test
     fun createEventSubscriptionCreateParams() {
         EventSubscriptionCreateParams.builder()
-            .url("string")
-            .oauthConnectionId("string")
+            .url("url")
+            .oauthConnectionId("oauth_connection_id")
             .selectedEventCategory(
                 EventSubscriptionCreateParams.SelectedEventCategory.ACCOUNT_CREATED
             )
@@ -24,8 +24,8 @@ class EventSubscriptionCreateParamsTest {
     fun getBody() {
         val params =
             EventSubscriptionCreateParams.builder()
-                .url("string")
-                .oauthConnectionId("string")
+                .url("url")
+                .oauthConnectionId("oauth_connection_id")
                 .selectedEventCategory(
                     EventSubscriptionCreateParams.SelectedEventCategory.ACCOUNT_CREATED
                 )
@@ -33,8 +33,8 @@ class EventSubscriptionCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.url()).isEqualTo("string")
-        assertThat(body.oauthConnectionId()).isEqualTo("string")
+        assertThat(body.url()).isEqualTo("url")
+        assertThat(body.oauthConnectionId()).isEqualTo("oauth_connection_id")
         assertThat(body.selectedEventCategory())
             .isEqualTo(EventSubscriptionCreateParams.SelectedEventCategory.ACCOUNT_CREATED)
         assertThat(body.sharedSecret()).isEqualTo("x")
@@ -42,9 +42,9 @@ class EventSubscriptionCreateParamsTest {
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = EventSubscriptionCreateParams.builder().url("string").build()
+        val params = EventSubscriptionCreateParams.builder().url("url").build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.url()).isEqualTo("string")
+        assertThat(body.url()).isEqualTo("url")
     }
 }

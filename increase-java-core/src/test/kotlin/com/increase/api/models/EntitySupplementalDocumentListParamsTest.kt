@@ -11,8 +11,8 @@ class EntitySupplementalDocumentListParamsTest {
     @Test
     fun createEntitySupplementalDocumentListParams() {
         EntitySupplementalDocumentListParams.builder()
-            .entityId("string")
-            .cursor("string")
+            .entityId("entity_id")
+            .cursor("cursor")
             .idempotencyKey("x")
             .limit(123L)
             .build()
@@ -22,14 +22,14 @@ class EntitySupplementalDocumentListParamsTest {
     fun getQueryParams() {
         val params =
             EntitySupplementalDocumentListParams.builder()
-                .entityId("string")
-                .cursor("string")
+                .entityId("entity_id")
+                .cursor("cursor")
                 .idempotencyKey("x")
                 .limit(123L)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("entity_id", listOf("string"))
-        expected.put("cursor", listOf("string"))
+        expected.put("entity_id", listOf("entity_id"))
+        expected.put("cursor", listOf("cursor"))
         expected.put("idempotency_key", listOf("x"))
         expected.put("limit", listOf("123"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
@@ -37,9 +37,9 @@ class EntitySupplementalDocumentListParamsTest {
 
     @Test
     fun getQueryParamsWithoutOptionalFields() {
-        val params = EntitySupplementalDocumentListParams.builder().entityId("string").build()
+        val params = EntitySupplementalDocumentListParams.builder().entityId("entity_id").build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("entity_id", listOf("string"))
+        expected.put("entity_id", listOf("entity_id"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 }

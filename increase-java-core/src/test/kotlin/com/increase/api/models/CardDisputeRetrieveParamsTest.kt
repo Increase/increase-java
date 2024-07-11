@@ -10,15 +10,15 @@ class CardDisputeRetrieveParamsTest {
 
     @Test
     fun createCardDisputeRetrieveParams() {
-        CardDisputeRetrieveParams.builder().cardDisputeId("string").build()
+        CardDisputeRetrieveParams.builder().cardDisputeId("card_dispute_id").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = CardDisputeRetrieveParams.builder().cardDisputeId("string").build()
+        val params = CardDisputeRetrieveParams.builder().cardDisputeId("card_dispute_id").build()
         assertThat(params).isNotNull
         // path param "cardDisputeId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("card_dispute_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

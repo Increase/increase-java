@@ -13,31 +13,31 @@ class CardPaymentTest {
     fun createCardPayment() {
         val cardPayment =
             CardPayment.builder()
-                .id("string")
-                .accountId("string")
-                .cardId("string")
+                .id("id")
+                .accountId("account_id")
+                .cardId("card_id")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .digitalWalletTokenId("string")
+                .digitalWalletTokenId("digital_wallet_token_id")
                 .elements(
                     listOf(
                         CardPayment.Element.builder()
                             .cardAuthorization(
                                 CardPayment.Element.CardAuthorization.builder()
-                                    .id("string")
+                                    .id("id")
                                     .actioner(CardPayment.Element.CardAuthorization.Actioner.USER)
                                     .amount(123L)
-                                    .cardPaymentId("string")
+                                    .cardPaymentId("card_payment_id")
                                     .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
-                                    .digitalWalletTokenId("string")
+                                    .digitalWalletTokenId("digital_wallet_token_id")
                                     .direction(
                                         CardPayment.Element.CardAuthorization.Direction.SETTLEMENT
                                     )
                                     .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .merchantAcceptorId("string")
-                                    .merchantCategoryCode("string")
-                                    .merchantCity("string")
-                                    .merchantCountry("string")
-                                    .merchantDescriptor("string")
+                                    .merchantAcceptorId("merchant_acceptor_id")
+                                    .merchantCategoryCode("merchant_category_code")
+                                    .merchantCity("merchant_city")
+                                    .merchantCountry("merchant_country")
+                                    .merchantDescriptor("merchant_descriptor")
                                     .networkDetails(
                                         CardPayment.Element.CardAuthorization.NetworkDetails
                                             .builder()
@@ -71,21 +71,21 @@ class CardPaymentTest {
                                     .networkIdentifiers(
                                         CardPayment.Element.CardAuthorization.NetworkIdentifiers
                                             .builder()
-                                            .retrievalReferenceNumber("string")
-                                            .traceNumber("string")
-                                            .transactionId("string")
+                                            .retrievalReferenceNumber("retrieval_reference_number")
+                                            .traceNumber("trace_number")
+                                            .transactionId("transaction_id")
                                             .build()
                                     )
                                     .networkRiskScore(123L)
-                                    .pendingTransactionId("string")
-                                    .physicalCardId("string")
+                                    .pendingTransactionId("pending_transaction_id")
+                                    .physicalCardId("physical_card_id")
                                     .presentmentAmount(123L)
-                                    .presentmentCurrency("string")
+                                    .presentmentCurrency("presentment_currency")
                                     .processingCategory(
                                         CardPayment.Element.CardAuthorization.ProcessingCategory
                                             .ACCOUNT_FUNDING
                                     )
-                                    .realTimeDecisionId("string")
+                                    .realTimeDecisionId("real_time_decision_id")
                                     .type(
                                         CardPayment.Element.CardAuthorization.Type
                                             .CARD_AUTHORIZATION
@@ -109,10 +109,10 @@ class CardPaymentTest {
                                                 CardPayment.Element.CardAuthorization.Verification
                                                     .CardholderAddress
                                                     .builder()
-                                                    .actualLine1("string")
-                                                    .actualPostalCode("string")
-                                                    .providedLine1("string")
-                                                    .providedPostalCode("string")
+                                                    .actualLine1("actual_line1")
+                                                    .actualPostalCode("actual_postal_code")
+                                                    .providedLine1("provided_line1")
+                                                    .providedPostalCode("provided_postal_code")
                                                     .result(
                                                         CardPayment.Element.CardAuthorization
                                                             .Verification
@@ -128,8 +128,8 @@ class CardPaymentTest {
                             )
                             .cardAuthorizationExpiration(
                                 CardPayment.Element.CardAuthorizationExpiration.builder()
-                                    .id("string")
-                                    .cardAuthorizationId("string")
+                                    .id("id")
+                                    .cardAuthorizationId("card_authorization_id")
                                     .currency(
                                         CardPayment.Element.CardAuthorizationExpiration.Currency.CAD
                                     )
@@ -145,19 +145,19 @@ class CardPaymentTest {
                             )
                             .cardDecline(
                                 CardPayment.Element.CardDecline.builder()
-                                    .id("string")
+                                    .id("id")
                                     .actioner(CardPayment.Element.CardDecline.Actioner.USER)
                                     .amount(123L)
-                                    .cardPaymentId("string")
+                                    .cardPaymentId("card_payment_id")
                                     .currency(CardPayment.Element.CardDecline.Currency.CAD)
-                                    .declinedTransactionId("string")
-                                    .digitalWalletTokenId("string")
-                                    .merchantAcceptorId("string")
-                                    .merchantCategoryCode("string")
-                                    .merchantCity("string")
-                                    .merchantCountry("string")
-                                    .merchantDescriptor("string")
-                                    .merchantState("string")
+                                    .declinedTransactionId("declined_transaction_id")
+                                    .digitalWalletTokenId("digital_wallet_token_id")
+                                    .merchantAcceptorId("merchant_acceptor_id")
+                                    .merchantCategoryCode("merchant_category_code")
+                                    .merchantCity("merchant_city")
+                                    .merchantCountry("merchant_country")
+                                    .merchantDescriptor("merchant_descriptor")
+                                    .merchantState("merchant_state")
                                     .networkDetails(
                                         CardPayment.Element.CardDecline.NetworkDetails.builder()
                                             .category(
@@ -188,20 +188,20 @@ class CardPaymentTest {
                                     )
                                     .networkIdentifiers(
                                         CardPayment.Element.CardDecline.NetworkIdentifiers.builder()
-                                            .retrievalReferenceNumber("string")
-                                            .traceNumber("string")
-                                            .transactionId("string")
+                                            .retrievalReferenceNumber("retrieval_reference_number")
+                                            .traceNumber("trace_number")
+                                            .transactionId("transaction_id")
                                             .build()
                                     )
                                     .networkRiskScore(123L)
-                                    .physicalCardId("string")
+                                    .physicalCardId("physical_card_id")
                                     .presentmentAmount(123L)
-                                    .presentmentCurrency("string")
+                                    .presentmentCurrency("presentment_currency")
                                     .processingCategory(
                                         CardPayment.Element.CardDecline.ProcessingCategory
                                             .ACCOUNT_FUNDING
                                     )
-                                    .realTimeDecisionId("string")
+                                    .realTimeDecisionId("real_time_decision_id")
                                     .reason(CardPayment.Element.CardDecline.Reason.CARD_NOT_ACTIVE)
                                     .verification(
                                         CardPayment.Element.CardDecline.Verification.builder()
@@ -221,10 +221,10 @@ class CardPaymentTest {
                                                 CardPayment.Element.CardDecline.Verification
                                                     .CardholderAddress
                                                     .builder()
-                                                    .actualLine1("string")
-                                                    .actualPostalCode("string")
-                                                    .providedLine1("string")
-                                                    .providedPostalCode("string")
+                                                    .actualLine1("actual_line1")
+                                                    .actualPostalCode("actual_postal_code")
+                                                    .providedLine1("provided_line1")
+                                                    .providedPostalCode("provided_postal_code")
                                                     .result(
                                                         CardPayment.Element.CardDecline.Verification
                                                             .CardholderAddress
@@ -239,19 +239,19 @@ class CardPaymentTest {
                             )
                             .cardFuelConfirmation(
                                 CardPayment.Element.CardFuelConfirmation.builder()
-                                    .id("string")
-                                    .cardAuthorizationId("string")
+                                    .id("id")
+                                    .cardAuthorizationId("card_authorization_id")
                                     .currency(CardPayment.Element.CardFuelConfirmation.Currency.CAD)
                                     .network(CardPayment.Element.CardFuelConfirmation.Network.VISA)
                                     .networkIdentifiers(
                                         CardPayment.Element.CardFuelConfirmation.NetworkIdentifiers
                                             .builder()
-                                            .retrievalReferenceNumber("string")
-                                            .traceNumber("string")
-                                            .transactionId("string")
+                                            .retrievalReferenceNumber("retrieval_reference_number")
+                                            .traceNumber("trace_number")
+                                            .transactionId("transaction_id")
                                             .build()
                                     )
-                                    .pendingTransactionId("string")
+                                    .pendingTransactionId("pending_transaction_id")
                                     .type(
                                         CardPayment.Element.CardFuelConfirmation.Type
                                             .CARD_FUEL_CONFIRMATION
@@ -261,58 +261,60 @@ class CardPaymentTest {
                             )
                             .cardIncrement(
                                 CardPayment.Element.CardIncrement.builder()
-                                    .id("string")
+                                    .id("id")
                                     .actioner(CardPayment.Element.CardIncrement.Actioner.USER)
                                     .amount(123L)
-                                    .cardAuthorizationId("string")
+                                    .cardAuthorizationId("card_authorization_id")
                                     .currency(CardPayment.Element.CardIncrement.Currency.CAD)
                                     .network(CardPayment.Element.CardIncrement.Network.VISA)
                                     .networkIdentifiers(
                                         CardPayment.Element.CardIncrement.NetworkIdentifiers
                                             .builder()
-                                            .retrievalReferenceNumber("string")
-                                            .traceNumber("string")
-                                            .transactionId("string")
+                                            .retrievalReferenceNumber("retrieval_reference_number")
+                                            .traceNumber("trace_number")
+                                            .transactionId("transaction_id")
                                             .build()
                                     )
                                     .networkRiskScore(123L)
-                                    .pendingTransactionId("string")
-                                    .realTimeDecisionId("string")
+                                    .pendingTransactionId("pending_transaction_id")
+                                    .realTimeDecisionId("real_time_decision_id")
                                     .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
                                     .updatedAuthorizationAmount(123L)
                                     .build()
                             )
                             .cardRefund(
                                 CardPayment.Element.CardRefund.builder()
-                                    .id("string")
+                                    .id("id")
                                     .amount(123L)
-                                    .cardPaymentId("string")
+                                    .cardPaymentId("card_payment_id")
                                     .currency(CardPayment.Element.CardRefund.Currency.CAD)
-                                    .merchantAcceptorId("string")
-                                    .merchantCategoryCode("string")
-                                    .merchantCity("string")
-                                    .merchantCountry("string")
-                                    .merchantName("string")
-                                    .merchantState("string")
+                                    .merchantAcceptorId("merchant_acceptor_id")
+                                    .merchantCategoryCode("merchant_category_code")
+                                    .merchantCity("merchant_city")
+                                    .merchantCountry("merchant_country")
+                                    .merchantName("merchant_name")
+                                    .merchantState("merchant_state")
                                     .networkIdentifiers(
                                         CardPayment.Element.CardRefund.NetworkIdentifiers.builder()
-                                            .acquirerBusinessId("string")
-                                            .acquirerReferenceNumber("string")
-                                            .transactionId("string")
+                                            .acquirerBusinessId("acquirer_business_id")
+                                            .acquirerReferenceNumber("acquirer_reference_number")
+                                            .transactionId("transaction_id")
                                             .build()
                                     )
                                     .presentmentAmount(123L)
-                                    .presentmentCurrency("string")
+                                    .presentmentCurrency("presentment_currency")
                                     .purchaseDetails(
                                         CardPayment.Element.CardRefund.PurchaseDetails.builder()
                                             .carRental(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
                                                     .CarRental
                                                     .builder()
-                                                    .carClassCode("string")
+                                                    .carClassCode("car_class_code")
                                                     .checkoutDate(LocalDate.parse("2019-12-27"))
                                                     .dailyRentalRateAmount(123L)
-                                                    .dailyRentalRateCurrency("string")
+                                                    .dailyRentalRateCurrency(
+                                                        "daily_rental_rate_currency"
+                                                    )
                                                     .daysRented(123L)
                                                     .extraCharges(
                                                         CardPayment.Element.CardRefund
@@ -322,9 +324,11 @@ class CardPaymentTest {
                                                             .NO_EXTRA_CHARGE
                                                     )
                                                     .fuelChargesAmount(123L)
-                                                    .fuelChargesCurrency("string")
+                                                    .fuelChargesCurrency("fuel_charges_currency")
                                                     .insuranceChargesAmount(123L)
-                                                    .insuranceChargesCurrency("string")
+                                                    .insuranceChargesCurrency(
+                                                        "insurance_charges_currency"
+                                                    )
                                                     .noShowIndicator(
                                                         CardPayment.Element.CardRefund
                                                             .PurchaseDetails
@@ -333,22 +337,30 @@ class CardPaymentTest {
                                                             .NOT_APPLICABLE
                                                     )
                                                     .oneWayDropOffChargesAmount(123L)
-                                                    .oneWayDropOffChargesCurrency("string")
-                                                    .renterName("string")
+                                                    .oneWayDropOffChargesCurrency(
+                                                        "one_way_drop_off_charges_currency"
+                                                    )
+                                                    .renterName("renter_name")
                                                     .weeklyRentalRateAmount(123L)
-                                                    .weeklyRentalRateCurrency("string")
+                                                    .weeklyRentalRateCurrency(
+                                                        "weekly_rental_rate_currency"
+                                                    )
                                                     .build()
                                             )
-                                            .customerReferenceIdentifier("string")
+                                            .customerReferenceIdentifier(
+                                                "customer_reference_identifier"
+                                            )
                                             .localTaxAmount(123L)
-                                            .localTaxCurrency("string")
+                                            .localTaxCurrency("local_tax_currency")
                                             .lodging(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
                                                     .Lodging
                                                     .builder()
                                                     .checkInDate(LocalDate.parse("2019-12-27"))
                                                     .dailyRoomRateAmount(123L)
-                                                    .dailyRoomRateCurrency("string")
+                                                    .dailyRoomRateCurrency(
+                                                        "daily_room_rate_currency"
+                                                    )
                                                     .extraCharges(
                                                         CardPayment.Element.CardRefund
                                                             .PurchaseDetails
@@ -357,9 +369,13 @@ class CardPaymentTest {
                                                             .NO_EXTRA_CHARGE
                                                     )
                                                     .folioCashAdvancesAmount(123L)
-                                                    .folioCashAdvancesCurrency("string")
+                                                    .folioCashAdvancesCurrency(
+                                                        "folio_cash_advances_currency"
+                                                    )
                                                     .foodBeverageChargesAmount(123L)
-                                                    .foodBeverageChargesCurrency("string")
+                                                    .foodBeverageChargesCurrency(
+                                                        "food_beverage_charges_currency"
+                                                    )
                                                     .noShowIndicator(
                                                         CardPayment.Element.CardRefund
                                                             .PurchaseDetails
@@ -368,17 +384,19 @@ class CardPaymentTest {
                                                             .NOT_APPLICABLE
                                                     )
                                                     .prepaidExpensesAmount(123L)
-                                                    .prepaidExpensesCurrency("string")
+                                                    .prepaidExpensesCurrency(
+                                                        "prepaid_expenses_currency"
+                                                    )
                                                     .roomNights(123L)
                                                     .totalRoomTaxAmount(123L)
-                                                    .totalRoomTaxCurrency("string")
+                                                    .totalRoomTaxCurrency("total_room_tax_currency")
                                                     .totalTaxAmount(123L)
-                                                    .totalTaxCurrency("string")
+                                                    .totalTaxCurrency("total_tax_currency")
                                                     .build()
                                             )
                                             .nationalTaxAmount(123L)
-                                            .nationalTaxCurrency("string")
-                                            .purchaseIdentifier("string")
+                                            .nationalTaxCurrency("national_tax_currency")
+                                            .purchaseIdentifier("purchase_identifier")
                                             .purchaseIdentifierFormat(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
                                                     .PurchaseIdentifierFormat
@@ -394,7 +412,9 @@ class CardPaymentTest {
                                                             .Travel
                                                             .Ancillary
                                                             .builder()
-                                                            .connectedTicketDocumentNumber("string")
+                                                            .connectedTicketDocumentNumber(
+                                                                "connected_ticket_document_number"
+                                                            )
                                                             .creditReasonIndicator(
                                                                 CardPayment.Element.CardRefund
                                                                     .PurchaseDetails
@@ -403,7 +423,9 @@ class CardPaymentTest {
                                                                     .CreditReasonIndicator
                                                                     .NO_CREDIT
                                                             )
-                                                            .passengerNameOrDescription("string")
+                                                            .passengerNameOrDescription(
+                                                                "passenger_name_or_description"
+                                                            )
                                                             .services(
                                                                 listOf(
                                                                     CardPayment.Element.CardRefund
@@ -422,14 +444,18 @@ class CardPaymentTest {
                                                                                 .Category
                                                                                 .NONE
                                                                         )
-                                                                        .subCategory("string")
+                                                                        .subCategory("sub_category")
                                                                         .build()
                                                                 )
                                                             )
-                                                            .ticketDocumentNumber("string")
+                                                            .ticketDocumentNumber(
+                                                                "ticket_document_number"
+                                                            )
                                                             .build()
                                                     )
-                                                    .computerizedReservationSystem("string")
+                                                    .computerizedReservationSystem(
+                                                        "computerized_reservation_system"
+                                                    )
                                                     .creditReasonIndicator(
                                                         CardPayment.Element.CardRefund
                                                             .PurchaseDetails
@@ -438,8 +464,10 @@ class CardPaymentTest {
                                                             .NO_CREDIT
                                                     )
                                                     .departureDate(LocalDate.parse("2019-12-27"))
-                                                    .originationCityAirportCode("string")
-                                                    .passengerName("string")
+                                                    .originationCityAirportCode(
+                                                        "origination_city_airport_code"
+                                                    )
+                                                    .passengerName("passenger_name")
                                                     .restrictedTicketIndicator(
                                                         CardPayment.Element.CardRefund
                                                             .PurchaseDetails
@@ -454,9 +482,9 @@ class CardPaymentTest {
                                                             .TicketChangeIndicator
                                                             .NONE
                                                     )
-                                                    .ticketNumber("string")
-                                                    .travelAgencyCode("string")
-                                                    .travelAgencyName("string")
+                                                    .ticketNumber("ticket_number")
+                                                    .travelAgencyCode("travel_agency_code")
+                                                    .travelAgencyName("travel_agency_name")
                                                     .tripLegs(
                                                         listOf(
                                                             CardPayment.Element.CardRefund
@@ -464,13 +492,13 @@ class CardPaymentTest {
                                                                 .Travel
                                                                 .TripLeg
                                                                 .builder()
-                                                                .carrierCode("string")
+                                                                .carrierCode("carrier_code")
                                                                 .destinationCityAirportCode(
-                                                                    "string"
+                                                                    "destination_city_airport_code"
                                                                 )
-                                                                .fareBasisCode("string")
-                                                                .flightNumber("string")
-                                                                .serviceClass("string")
+                                                                .fareBasisCode("fare_basis_code")
+                                                                .flightNumber("flight_number")
+                                                                .serviceClass("service_class")
                                                                 .stopOverCode(
                                                                     CardPayment.Element.CardRefund
                                                                         .PurchaseDetails
@@ -486,25 +514,25 @@ class CardPaymentTest {
                                             )
                                             .build()
                                     )
-                                    .transactionId("string")
+                                    .transactionId("transaction_id")
                                     .type(CardPayment.Element.CardRefund.Type.CARD_REFUND)
                                     .build()
                             )
                             .cardReversal(
                                 CardPayment.Element.CardReversal.builder()
-                                    .id("string")
-                                    .cardAuthorizationId("string")
+                                    .id("id")
+                                    .cardAuthorizationId("card_authorization_id")
                                     .currency(CardPayment.Element.CardReversal.Currency.CAD)
                                     .network(CardPayment.Element.CardReversal.Network.VISA)
                                     .networkIdentifiers(
                                         CardPayment.Element.CardReversal.NetworkIdentifiers
                                             .builder()
-                                            .retrievalReferenceNumber("string")
-                                            .traceNumber("string")
-                                            .transactionId("string")
+                                            .retrievalReferenceNumber("retrieval_reference_number")
+                                            .traceNumber("trace_number")
+                                            .transactionId("transaction_id")
                                             .build()
                                     )
-                                    .pendingTransactionId("string")
+                                    .pendingTransactionId("pending_transaction_id")
                                     .reversalAmount(123L)
                                     .type(CardPayment.Element.CardReversal.Type.CARD_REVERSAL)
                                     .updatedAuthorizationAmount(123L)
@@ -512,38 +540,40 @@ class CardPaymentTest {
                             )
                             .cardSettlement(
                                 CardPayment.Element.CardSettlement.builder()
-                                    .id("string")
+                                    .id("id")
                                     .amount(123L)
-                                    .cardAuthorization("string")
-                                    .cardPaymentId("string")
+                                    .cardAuthorization("card_authorization")
+                                    .cardPaymentId("card_payment_id")
                                     .currency(CardPayment.Element.CardSettlement.Currency.CAD)
-                                    .merchantAcceptorId("string")
-                                    .merchantCategoryCode("string")
-                                    .merchantCity("string")
-                                    .merchantCountry("string")
-                                    .merchantName("string")
-                                    .merchantState("string")
+                                    .merchantAcceptorId("merchant_acceptor_id")
+                                    .merchantCategoryCode("merchant_category_code")
+                                    .merchantCity("merchant_city")
+                                    .merchantCountry("merchant_country")
+                                    .merchantName("merchant_name")
+                                    .merchantState("merchant_state")
                                     .networkIdentifiers(
                                         CardPayment.Element.CardSettlement.NetworkIdentifiers
                                             .builder()
-                                            .acquirerBusinessId("string")
-                                            .acquirerReferenceNumber("string")
-                                            .transactionId("string")
+                                            .acquirerBusinessId("acquirer_business_id")
+                                            .acquirerReferenceNumber("acquirer_reference_number")
+                                            .transactionId("transaction_id")
                                             .build()
                                     )
-                                    .pendingTransactionId("string")
+                                    .pendingTransactionId("pending_transaction_id")
                                     .presentmentAmount(123L)
-                                    .presentmentCurrency("string")
+                                    .presentmentCurrency("presentment_currency")
                                     .purchaseDetails(
                                         CardPayment.Element.CardSettlement.PurchaseDetails.builder()
                                             .carRental(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
                                                     .CarRental
                                                     .builder()
-                                                    .carClassCode("string")
+                                                    .carClassCode("car_class_code")
                                                     .checkoutDate(LocalDate.parse("2019-12-27"))
                                                     .dailyRentalRateAmount(123L)
-                                                    .dailyRentalRateCurrency("string")
+                                                    .dailyRentalRateCurrency(
+                                                        "daily_rental_rate_currency"
+                                                    )
                                                     .daysRented(123L)
                                                     .extraCharges(
                                                         CardPayment.Element.CardSettlement
@@ -553,9 +583,11 @@ class CardPaymentTest {
                                                             .NO_EXTRA_CHARGE
                                                     )
                                                     .fuelChargesAmount(123L)
-                                                    .fuelChargesCurrency("string")
+                                                    .fuelChargesCurrency("fuel_charges_currency")
                                                     .insuranceChargesAmount(123L)
-                                                    .insuranceChargesCurrency("string")
+                                                    .insuranceChargesCurrency(
+                                                        "insurance_charges_currency"
+                                                    )
                                                     .noShowIndicator(
                                                         CardPayment.Element.CardSettlement
                                                             .PurchaseDetails
@@ -564,22 +596,30 @@ class CardPaymentTest {
                                                             .NOT_APPLICABLE
                                                     )
                                                     .oneWayDropOffChargesAmount(123L)
-                                                    .oneWayDropOffChargesCurrency("string")
-                                                    .renterName("string")
+                                                    .oneWayDropOffChargesCurrency(
+                                                        "one_way_drop_off_charges_currency"
+                                                    )
+                                                    .renterName("renter_name")
                                                     .weeklyRentalRateAmount(123L)
-                                                    .weeklyRentalRateCurrency("string")
+                                                    .weeklyRentalRateCurrency(
+                                                        "weekly_rental_rate_currency"
+                                                    )
                                                     .build()
                                             )
-                                            .customerReferenceIdentifier("string")
+                                            .customerReferenceIdentifier(
+                                                "customer_reference_identifier"
+                                            )
                                             .localTaxAmount(123L)
-                                            .localTaxCurrency("string")
+                                            .localTaxCurrency("local_tax_currency")
                                             .lodging(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
                                                     .Lodging
                                                     .builder()
                                                     .checkInDate(LocalDate.parse("2019-12-27"))
                                                     .dailyRoomRateAmount(123L)
-                                                    .dailyRoomRateCurrency("string")
+                                                    .dailyRoomRateCurrency(
+                                                        "daily_room_rate_currency"
+                                                    )
                                                     .extraCharges(
                                                         CardPayment.Element.CardSettlement
                                                             .PurchaseDetails
@@ -588,9 +628,13 @@ class CardPaymentTest {
                                                             .NO_EXTRA_CHARGE
                                                     )
                                                     .folioCashAdvancesAmount(123L)
-                                                    .folioCashAdvancesCurrency("string")
+                                                    .folioCashAdvancesCurrency(
+                                                        "folio_cash_advances_currency"
+                                                    )
                                                     .foodBeverageChargesAmount(123L)
-                                                    .foodBeverageChargesCurrency("string")
+                                                    .foodBeverageChargesCurrency(
+                                                        "food_beverage_charges_currency"
+                                                    )
                                                     .noShowIndicator(
                                                         CardPayment.Element.CardSettlement
                                                             .PurchaseDetails
@@ -599,17 +643,19 @@ class CardPaymentTest {
                                                             .NOT_APPLICABLE
                                                     )
                                                     .prepaidExpensesAmount(123L)
-                                                    .prepaidExpensesCurrency("string")
+                                                    .prepaidExpensesCurrency(
+                                                        "prepaid_expenses_currency"
+                                                    )
                                                     .roomNights(123L)
                                                     .totalRoomTaxAmount(123L)
-                                                    .totalRoomTaxCurrency("string")
+                                                    .totalRoomTaxCurrency("total_room_tax_currency")
                                                     .totalTaxAmount(123L)
-                                                    .totalTaxCurrency("string")
+                                                    .totalTaxCurrency("total_tax_currency")
                                                     .build()
                                             )
                                             .nationalTaxAmount(123L)
-                                            .nationalTaxCurrency("string")
-                                            .purchaseIdentifier("string")
+                                            .nationalTaxCurrency("national_tax_currency")
+                                            .purchaseIdentifier("purchase_identifier")
                                             .purchaseIdentifierFormat(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
                                                     .PurchaseIdentifierFormat
@@ -625,7 +671,9 @@ class CardPaymentTest {
                                                             .Travel
                                                             .Ancillary
                                                             .builder()
-                                                            .connectedTicketDocumentNumber("string")
+                                                            .connectedTicketDocumentNumber(
+                                                                "connected_ticket_document_number"
+                                                            )
                                                             .creditReasonIndicator(
                                                                 CardPayment.Element.CardSettlement
                                                                     .PurchaseDetails
@@ -634,7 +682,9 @@ class CardPaymentTest {
                                                                     .CreditReasonIndicator
                                                                     .NO_CREDIT
                                                             )
-                                                            .passengerNameOrDescription("string")
+                                                            .passengerNameOrDescription(
+                                                                "passenger_name_or_description"
+                                                            )
                                                             .services(
                                                                 listOf(
                                                                     CardPayment.Element
@@ -654,14 +704,18 @@ class CardPaymentTest {
                                                                                 .Category
                                                                                 .NONE
                                                                         )
-                                                                        .subCategory("string")
+                                                                        .subCategory("sub_category")
                                                                         .build()
                                                                 )
                                                             )
-                                                            .ticketDocumentNumber("string")
+                                                            .ticketDocumentNumber(
+                                                                "ticket_document_number"
+                                                            )
                                                             .build()
                                                     )
-                                                    .computerizedReservationSystem("string")
+                                                    .computerizedReservationSystem(
+                                                        "computerized_reservation_system"
+                                                    )
                                                     .creditReasonIndicator(
                                                         CardPayment.Element.CardSettlement
                                                             .PurchaseDetails
@@ -670,8 +724,10 @@ class CardPaymentTest {
                                                             .NO_CREDIT
                                                     )
                                                     .departureDate(LocalDate.parse("2019-12-27"))
-                                                    .originationCityAirportCode("string")
-                                                    .passengerName("string")
+                                                    .originationCityAirportCode(
+                                                        "origination_city_airport_code"
+                                                    )
+                                                    .passengerName("passenger_name")
                                                     .restrictedTicketIndicator(
                                                         CardPayment.Element.CardSettlement
                                                             .PurchaseDetails
@@ -686,9 +742,9 @@ class CardPaymentTest {
                                                             .TicketChangeIndicator
                                                             .NONE
                                                     )
-                                                    .ticketNumber("string")
-                                                    .travelAgencyCode("string")
-                                                    .travelAgencyName("string")
+                                                    .ticketNumber("ticket_number")
+                                                    .travelAgencyCode("travel_agency_code")
+                                                    .travelAgencyName("travel_agency_name")
                                                     .tripLegs(
                                                         listOf(
                                                             CardPayment.Element.CardSettlement
@@ -696,13 +752,13 @@ class CardPaymentTest {
                                                                 .Travel
                                                                 .TripLeg
                                                                 .builder()
-                                                                .carrierCode("string")
+                                                                .carrierCode("carrier_code")
                                                                 .destinationCityAirportCode(
-                                                                    "string"
+                                                                    "destination_city_airport_code"
                                                                 )
-                                                                .fareBasisCode("string")
-                                                                .flightNumber("string")
-                                                                .serviceClass("string")
+                                                                .fareBasisCode("fare_basis_code")
+                                                                .flightNumber("flight_number")
+                                                                .serviceClass("service_class")
                                                                 .stopOverCode(
                                                                     CardPayment.Element
                                                                         .CardSettlement
@@ -719,22 +775,22 @@ class CardPaymentTest {
                                             )
                                             .build()
                                     )
-                                    .transactionId("string")
+                                    .transactionId("transaction_id")
                                     .type(CardPayment.Element.CardSettlement.Type.CARD_SETTLEMENT)
                                     .build()
                             )
                             .cardValidation(
                                 CardPayment.Element.CardValidation.builder()
-                                    .id("string")
+                                    .id("id")
                                     .actioner(CardPayment.Element.CardValidation.Actioner.USER)
-                                    .cardPaymentId("string")
+                                    .cardPaymentId("card_payment_id")
                                     .currency(CardPayment.Element.CardValidation.Currency.CAD)
-                                    .digitalWalletTokenId("string")
-                                    .merchantAcceptorId("string")
-                                    .merchantCategoryCode("string")
-                                    .merchantCity("string")
-                                    .merchantCountry("string")
-                                    .merchantDescriptor("string")
+                                    .digitalWalletTokenId("digital_wallet_token_id")
+                                    .merchantAcceptorId("merchant_acceptor_id")
+                                    .merchantCategoryCode("merchant_category_code")
+                                    .merchantCity("merchant_city")
+                                    .merchantCountry("merchant_country")
+                                    .merchantDescriptor("merchant_descriptor")
                                     .networkDetails(
                                         CardPayment.Element.CardValidation.NetworkDetails.builder()
                                             .category(
@@ -767,14 +823,14 @@ class CardPaymentTest {
                                     .networkIdentifiers(
                                         CardPayment.Element.CardValidation.NetworkIdentifiers
                                             .builder()
-                                            .retrievalReferenceNumber("string")
-                                            .traceNumber("string")
-                                            .transactionId("string")
+                                            .retrievalReferenceNumber("retrieval_reference_number")
+                                            .traceNumber("trace_number")
+                                            .transactionId("transaction_id")
                                             .build()
                                     )
                                     .networkRiskScore(123L)
-                                    .physicalCardId("string")
-                                    .realTimeDecisionId("string")
+                                    .physicalCardId("physical_card_id")
+                                    .realTimeDecisionId("real_time_decision_id")
                                     .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)
                                     .verification(
                                         CardPayment.Element.CardValidation.Verification.builder()
@@ -795,10 +851,10 @@ class CardPaymentTest {
                                                 CardPayment.Element.CardValidation.Verification
                                                     .CardholderAddress
                                                     .builder()
-                                                    .actualLine1("string")
-                                                    .actualPostalCode("string")
-                                                    .providedLine1("string")
-                                                    .providedPostalCode("string")
+                                                    .actualLine1("actual_line1")
+                                                    .actualPostalCode("actual_postal_code")
+                                                    .providedLine1("provided_line1")
+                                                    .providedPostalCode("provided_postal_code")
                                                     .result(
                                                         CardPayment.Element.CardValidation
                                                             .Verification
@@ -817,7 +873,7 @@ class CardPaymentTest {
                             .build()
                     )
                 )
-                .physicalCardId("string")
+                .physicalCardId("physical_card_id")
                 .state(
                     CardPayment.State.builder()
                         .authorizedAmount(123L)
@@ -830,30 +886,30 @@ class CardPaymentTest {
                 .type(CardPayment.Type.CARD_PAYMENT)
                 .build()
         assertThat(cardPayment).isNotNull
-        assertThat(cardPayment.id()).isEqualTo("string")
-        assertThat(cardPayment.accountId()).isEqualTo("string")
-        assertThat(cardPayment.cardId()).isEqualTo("string")
+        assertThat(cardPayment.id()).isEqualTo("id")
+        assertThat(cardPayment.accountId()).isEqualTo("account_id")
+        assertThat(cardPayment.cardId()).isEqualTo("card_id")
         assertThat(cardPayment.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(cardPayment.digitalWalletTokenId()).contains("string")
+        assertThat(cardPayment.digitalWalletTokenId()).contains("digital_wallet_token_id")
         assertThat(cardPayment.elements())
             .containsExactly(
                 CardPayment.Element.builder()
                     .cardAuthorization(
                         CardPayment.Element.CardAuthorization.builder()
-                            .id("string")
+                            .id("id")
                             .actioner(CardPayment.Element.CardAuthorization.Actioner.USER)
                             .amount(123L)
-                            .cardPaymentId("string")
+                            .cardPaymentId("card_payment_id")
                             .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
-                            .digitalWalletTokenId("string")
+                            .digitalWalletTokenId("digital_wallet_token_id")
                             .direction(CardPayment.Element.CardAuthorization.Direction.SETTLEMENT)
                             .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .merchantAcceptorId("string")
-                            .merchantCategoryCode("string")
-                            .merchantCity("string")
-                            .merchantCountry("string")
-                            .merchantDescriptor("string")
+                            .merchantAcceptorId("merchant_acceptor_id")
+                            .merchantCategoryCode("merchant_category_code")
+                            .merchantCity("merchant_city")
+                            .merchantCountry("merchant_country")
+                            .merchantDescriptor("merchant_descriptor")
                             .networkDetails(
                                 CardPayment.Element.CardAuthorization.NetworkDetails.builder()
                                     .category(
@@ -882,21 +938,21 @@ class CardPaymentTest {
                             )
                             .networkIdentifiers(
                                 CardPayment.Element.CardAuthorization.NetworkIdentifiers.builder()
-                                    .retrievalReferenceNumber("string")
-                                    .traceNumber("string")
-                                    .transactionId("string")
+                                    .retrievalReferenceNumber("retrieval_reference_number")
+                                    .traceNumber("trace_number")
+                                    .transactionId("transaction_id")
                                     .build()
                             )
                             .networkRiskScore(123L)
-                            .pendingTransactionId("string")
-                            .physicalCardId("string")
+                            .pendingTransactionId("pending_transaction_id")
+                            .physicalCardId("physical_card_id")
                             .presentmentAmount(123L)
-                            .presentmentCurrency("string")
+                            .presentmentCurrency("presentment_currency")
                             .processingCategory(
                                 CardPayment.Element.CardAuthorization.ProcessingCategory
                                     .ACCOUNT_FUNDING
                             )
-                            .realTimeDecisionId("string")
+                            .realTimeDecisionId("real_time_decision_id")
                             .type(CardPayment.Element.CardAuthorization.Type.CARD_AUTHORIZATION)
                             .verification(
                                 CardPayment.Element.CardAuthorization.Verification.builder()
@@ -916,10 +972,10 @@ class CardPaymentTest {
                                         CardPayment.Element.CardAuthorization.Verification
                                             .CardholderAddress
                                             .builder()
-                                            .actualLine1("string")
-                                            .actualPostalCode("string")
-                                            .providedLine1("string")
-                                            .providedPostalCode("string")
+                                            .actualLine1("actual_line1")
+                                            .actualPostalCode("actual_postal_code")
+                                            .providedLine1("provided_line1")
+                                            .providedPostalCode("provided_postal_code")
                                             .result(
                                                 CardPayment.Element.CardAuthorization.Verification
                                                     .CardholderAddress
@@ -934,8 +990,8 @@ class CardPaymentTest {
                     )
                     .cardAuthorizationExpiration(
                         CardPayment.Element.CardAuthorizationExpiration.builder()
-                            .id("string")
-                            .cardAuthorizationId("string")
+                            .id("id")
+                            .cardAuthorizationId("card_authorization_id")
                             .currency(CardPayment.Element.CardAuthorizationExpiration.Currency.CAD)
                             .expiredAmount(123L)
                             .network(CardPayment.Element.CardAuthorizationExpiration.Network.VISA)
@@ -947,19 +1003,19 @@ class CardPaymentTest {
                     )
                     .cardDecline(
                         CardPayment.Element.CardDecline.builder()
-                            .id("string")
+                            .id("id")
                             .actioner(CardPayment.Element.CardDecline.Actioner.USER)
                             .amount(123L)
-                            .cardPaymentId("string")
+                            .cardPaymentId("card_payment_id")
                             .currency(CardPayment.Element.CardDecline.Currency.CAD)
-                            .declinedTransactionId("string")
-                            .digitalWalletTokenId("string")
-                            .merchantAcceptorId("string")
-                            .merchantCategoryCode("string")
-                            .merchantCity("string")
-                            .merchantCountry("string")
-                            .merchantDescriptor("string")
-                            .merchantState("string")
+                            .declinedTransactionId("declined_transaction_id")
+                            .digitalWalletTokenId("digital_wallet_token_id")
+                            .merchantAcceptorId("merchant_acceptor_id")
+                            .merchantCategoryCode("merchant_category_code")
+                            .merchantCity("merchant_city")
+                            .merchantCountry("merchant_country")
+                            .merchantDescriptor("merchant_descriptor")
+                            .merchantState("merchant_state")
                             .networkDetails(
                                 CardPayment.Element.CardDecline.NetworkDetails.builder()
                                     .category(
@@ -984,19 +1040,19 @@ class CardPaymentTest {
                             )
                             .networkIdentifiers(
                                 CardPayment.Element.CardDecline.NetworkIdentifiers.builder()
-                                    .retrievalReferenceNumber("string")
-                                    .traceNumber("string")
-                                    .transactionId("string")
+                                    .retrievalReferenceNumber("retrieval_reference_number")
+                                    .traceNumber("trace_number")
+                                    .transactionId("transaction_id")
                                     .build()
                             )
                             .networkRiskScore(123L)
-                            .physicalCardId("string")
+                            .physicalCardId("physical_card_id")
                             .presentmentAmount(123L)
-                            .presentmentCurrency("string")
+                            .presentmentCurrency("presentment_currency")
                             .processingCategory(
                                 CardPayment.Element.CardDecline.ProcessingCategory.ACCOUNT_FUNDING
                             )
-                            .realTimeDecisionId("string")
+                            .realTimeDecisionId("real_time_decision_id")
                             .reason(CardPayment.Element.CardDecline.Reason.CARD_NOT_ACTIVE)
                             .verification(
                                 CardPayment.Element.CardDecline.Verification.builder()
@@ -1016,10 +1072,10 @@ class CardPaymentTest {
                                         CardPayment.Element.CardDecline.Verification
                                             .CardholderAddress
                                             .builder()
-                                            .actualLine1("string")
-                                            .actualPostalCode("string")
-                                            .providedLine1("string")
-                                            .providedPostalCode("string")
+                                            .actualLine1("actual_line1")
+                                            .actualPostalCode("actual_postal_code")
+                                            .providedLine1("provided_line1")
+                                            .providedPostalCode("provided_postal_code")
                                             .result(
                                                 CardPayment.Element.CardDecline.Verification
                                                     .CardholderAddress
@@ -1034,19 +1090,19 @@ class CardPaymentTest {
                     )
                     .cardFuelConfirmation(
                         CardPayment.Element.CardFuelConfirmation.builder()
-                            .id("string")
-                            .cardAuthorizationId("string")
+                            .id("id")
+                            .cardAuthorizationId("card_authorization_id")
                             .currency(CardPayment.Element.CardFuelConfirmation.Currency.CAD)
                             .network(CardPayment.Element.CardFuelConfirmation.Network.VISA)
                             .networkIdentifiers(
                                 CardPayment.Element.CardFuelConfirmation.NetworkIdentifiers
                                     .builder()
-                                    .retrievalReferenceNumber("string")
-                                    .traceNumber("string")
-                                    .transactionId("string")
+                                    .retrievalReferenceNumber("retrieval_reference_number")
+                                    .traceNumber("trace_number")
+                                    .transactionId("transaction_id")
                                     .build()
                             )
-                            .pendingTransactionId("string")
+                            .pendingTransactionId("pending_transaction_id")
                             .type(
                                 CardPayment.Element.CardFuelConfirmation.Type.CARD_FUEL_CONFIRMATION
                             )
@@ -1055,56 +1111,56 @@ class CardPaymentTest {
                     )
                     .cardIncrement(
                         CardPayment.Element.CardIncrement.builder()
-                            .id("string")
+                            .id("id")
                             .actioner(CardPayment.Element.CardIncrement.Actioner.USER)
                             .amount(123L)
-                            .cardAuthorizationId("string")
+                            .cardAuthorizationId("card_authorization_id")
                             .currency(CardPayment.Element.CardIncrement.Currency.CAD)
                             .network(CardPayment.Element.CardIncrement.Network.VISA)
                             .networkIdentifiers(
                                 CardPayment.Element.CardIncrement.NetworkIdentifiers.builder()
-                                    .retrievalReferenceNumber("string")
-                                    .traceNumber("string")
-                                    .transactionId("string")
+                                    .retrievalReferenceNumber("retrieval_reference_number")
+                                    .traceNumber("trace_number")
+                                    .transactionId("transaction_id")
                                     .build()
                             )
                             .networkRiskScore(123L)
-                            .pendingTransactionId("string")
-                            .realTimeDecisionId("string")
+                            .pendingTransactionId("pending_transaction_id")
+                            .realTimeDecisionId("real_time_decision_id")
                             .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
                             .updatedAuthorizationAmount(123L)
                             .build()
                     )
                     .cardRefund(
                         CardPayment.Element.CardRefund.builder()
-                            .id("string")
+                            .id("id")
                             .amount(123L)
-                            .cardPaymentId("string")
+                            .cardPaymentId("card_payment_id")
                             .currency(CardPayment.Element.CardRefund.Currency.CAD)
-                            .merchantAcceptorId("string")
-                            .merchantCategoryCode("string")
-                            .merchantCity("string")
-                            .merchantCountry("string")
-                            .merchantName("string")
-                            .merchantState("string")
+                            .merchantAcceptorId("merchant_acceptor_id")
+                            .merchantCategoryCode("merchant_category_code")
+                            .merchantCity("merchant_city")
+                            .merchantCountry("merchant_country")
+                            .merchantName("merchant_name")
+                            .merchantState("merchant_state")
                             .networkIdentifiers(
                                 CardPayment.Element.CardRefund.NetworkIdentifiers.builder()
-                                    .acquirerBusinessId("string")
-                                    .acquirerReferenceNumber("string")
-                                    .transactionId("string")
+                                    .acquirerBusinessId("acquirer_business_id")
+                                    .acquirerReferenceNumber("acquirer_reference_number")
+                                    .transactionId("transaction_id")
                                     .build()
                             )
                             .presentmentAmount(123L)
-                            .presentmentCurrency("string")
+                            .presentmentCurrency("presentment_currency")
                             .purchaseDetails(
                                 CardPayment.Element.CardRefund.PurchaseDetails.builder()
                                     .carRental(
                                         CardPayment.Element.CardRefund.PurchaseDetails.CarRental
                                             .builder()
-                                            .carClassCode("string")
+                                            .carClassCode("car_class_code")
                                             .checkoutDate(LocalDate.parse("2019-12-27"))
                                             .dailyRentalRateAmount(123L)
-                                            .dailyRentalRateCurrency("string")
+                                            .dailyRentalRateCurrency("daily_rental_rate_currency")
                                             .daysRented(123L)
                                             .extraCharges(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
@@ -1113,9 +1169,9 @@ class CardPaymentTest {
                                                     .NO_EXTRA_CHARGE
                                             )
                                             .fuelChargesAmount(123L)
-                                            .fuelChargesCurrency("string")
+                                            .fuelChargesCurrency("fuel_charges_currency")
                                             .insuranceChargesAmount(123L)
-                                            .insuranceChargesCurrency("string")
+                                            .insuranceChargesCurrency("insurance_charges_currency")
                                             .noShowIndicator(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
                                                     .CarRental
@@ -1123,21 +1179,23 @@ class CardPaymentTest {
                                                     .NOT_APPLICABLE
                                             )
                                             .oneWayDropOffChargesAmount(123L)
-                                            .oneWayDropOffChargesCurrency("string")
-                                            .renterName("string")
+                                            .oneWayDropOffChargesCurrency(
+                                                "one_way_drop_off_charges_currency"
+                                            )
+                                            .renterName("renter_name")
                                             .weeklyRentalRateAmount(123L)
-                                            .weeklyRentalRateCurrency("string")
+                                            .weeklyRentalRateCurrency("weekly_rental_rate_currency")
                                             .build()
                                     )
-                                    .customerReferenceIdentifier("string")
+                                    .customerReferenceIdentifier("customer_reference_identifier")
                                     .localTaxAmount(123L)
-                                    .localTaxCurrency("string")
+                                    .localTaxCurrency("local_tax_currency")
                                     .lodging(
                                         CardPayment.Element.CardRefund.PurchaseDetails.Lodging
                                             .builder()
                                             .checkInDate(LocalDate.parse("2019-12-27"))
                                             .dailyRoomRateAmount(123L)
-                                            .dailyRoomRateCurrency("string")
+                                            .dailyRoomRateCurrency("daily_room_rate_currency")
                                             .extraCharges(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
                                                     .Lodging
@@ -1145,9 +1203,13 @@ class CardPaymentTest {
                                                     .NO_EXTRA_CHARGE
                                             )
                                             .folioCashAdvancesAmount(123L)
-                                            .folioCashAdvancesCurrency("string")
+                                            .folioCashAdvancesCurrency(
+                                                "folio_cash_advances_currency"
+                                            )
                                             .foodBeverageChargesAmount(123L)
-                                            .foodBeverageChargesCurrency("string")
+                                            .foodBeverageChargesCurrency(
+                                                "food_beverage_charges_currency"
+                                            )
                                             .noShowIndicator(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
                                                     .Lodging
@@ -1155,17 +1217,17 @@ class CardPaymentTest {
                                                     .NOT_APPLICABLE
                                             )
                                             .prepaidExpensesAmount(123L)
-                                            .prepaidExpensesCurrency("string")
+                                            .prepaidExpensesCurrency("prepaid_expenses_currency")
                                             .roomNights(123L)
                                             .totalRoomTaxAmount(123L)
-                                            .totalRoomTaxCurrency("string")
+                                            .totalRoomTaxCurrency("total_room_tax_currency")
                                             .totalTaxAmount(123L)
-                                            .totalTaxCurrency("string")
+                                            .totalTaxCurrency("total_tax_currency")
                                             .build()
                                     )
                                     .nationalTaxAmount(123L)
-                                    .nationalTaxCurrency("string")
-                                    .purchaseIdentifier("string")
+                                    .nationalTaxCurrency("national_tax_currency")
+                                    .purchaseIdentifier("purchase_identifier")
                                     .purchaseIdentifierFormat(
                                         CardPayment.Element.CardRefund.PurchaseDetails
                                             .PurchaseIdentifierFormat
@@ -1179,7 +1241,9 @@ class CardPaymentTest {
                                                     .Travel
                                                     .Ancillary
                                                     .builder()
-                                                    .connectedTicketDocumentNumber("string")
+                                                    .connectedTicketDocumentNumber(
+                                                        "connected_ticket_document_number"
+                                                    )
                                                     .creditReasonIndicator(
                                                         CardPayment.Element.CardRefund
                                                             .PurchaseDetails
@@ -1188,7 +1252,9 @@ class CardPaymentTest {
                                                             .CreditReasonIndicator
                                                             .NO_CREDIT
                                                     )
-                                                    .passengerNameOrDescription("string")
+                                                    .passengerNameOrDescription(
+                                                        "passenger_name_or_description"
+                                                    )
                                                     .services(
                                                         listOf(
                                                             CardPayment.Element.CardRefund
@@ -1206,14 +1272,16 @@ class CardPaymentTest {
                                                                         .Category
                                                                         .NONE
                                                                 )
-                                                                .subCategory("string")
+                                                                .subCategory("sub_category")
                                                                 .build()
                                                         )
                                                     )
-                                                    .ticketDocumentNumber("string")
+                                                    .ticketDocumentNumber("ticket_document_number")
                                                     .build()
                                             )
-                                            .computerizedReservationSystem("string")
+                                            .computerizedReservationSystem(
+                                                "computerized_reservation_system"
+                                            )
                                             .creditReasonIndicator(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
                                                     .Travel
@@ -1221,8 +1289,10 @@ class CardPaymentTest {
                                                     .NO_CREDIT
                                             )
                                             .departureDate(LocalDate.parse("2019-12-27"))
-                                            .originationCityAirportCode("string")
-                                            .passengerName("string")
+                                            .originationCityAirportCode(
+                                                "origination_city_airport_code"
+                                            )
+                                            .passengerName("passenger_name")
                                             .restrictedTicketIndicator(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
                                                     .Travel
@@ -1235,20 +1305,22 @@ class CardPaymentTest {
                                                     .TicketChangeIndicator
                                                     .NONE
                                             )
-                                            .ticketNumber("string")
-                                            .travelAgencyCode("string")
-                                            .travelAgencyName("string")
+                                            .ticketNumber("ticket_number")
+                                            .travelAgencyCode("travel_agency_code")
+                                            .travelAgencyName("travel_agency_name")
                                             .tripLegs(
                                                 listOf(
                                                     CardPayment.Element.CardRefund.PurchaseDetails
                                                         .Travel
                                                         .TripLeg
                                                         .builder()
-                                                        .carrierCode("string")
-                                                        .destinationCityAirportCode("string")
-                                                        .fareBasisCode("string")
-                                                        .flightNumber("string")
-                                                        .serviceClass("string")
+                                                        .carrierCode("carrier_code")
+                                                        .destinationCityAirportCode(
+                                                            "destination_city_airport_code"
+                                                        )
+                                                        .fareBasisCode("fare_basis_code")
+                                                        .flightNumber("flight_number")
+                                                        .serviceClass("service_class")
                                                         .stopOverCode(
                                                             CardPayment.Element.CardRefund
                                                                 .PurchaseDetails
@@ -1264,24 +1336,24 @@ class CardPaymentTest {
                                     )
                                     .build()
                             )
-                            .transactionId("string")
+                            .transactionId("transaction_id")
                             .type(CardPayment.Element.CardRefund.Type.CARD_REFUND)
                             .build()
                     )
                     .cardReversal(
                         CardPayment.Element.CardReversal.builder()
-                            .id("string")
-                            .cardAuthorizationId("string")
+                            .id("id")
+                            .cardAuthorizationId("card_authorization_id")
                             .currency(CardPayment.Element.CardReversal.Currency.CAD)
                             .network(CardPayment.Element.CardReversal.Network.VISA)
                             .networkIdentifiers(
                                 CardPayment.Element.CardReversal.NetworkIdentifiers.builder()
-                                    .retrievalReferenceNumber("string")
-                                    .traceNumber("string")
-                                    .transactionId("string")
+                                    .retrievalReferenceNumber("retrieval_reference_number")
+                                    .traceNumber("trace_number")
+                                    .transactionId("transaction_id")
                                     .build()
                             )
-                            .pendingTransactionId("string")
+                            .pendingTransactionId("pending_transaction_id")
                             .reversalAmount(123L)
                             .type(CardPayment.Element.CardReversal.Type.CARD_REVERSAL)
                             .updatedAuthorizationAmount(123L)
@@ -1289,36 +1361,36 @@ class CardPaymentTest {
                     )
                     .cardSettlement(
                         CardPayment.Element.CardSettlement.builder()
-                            .id("string")
+                            .id("id")
                             .amount(123L)
-                            .cardAuthorization("string")
-                            .cardPaymentId("string")
+                            .cardAuthorization("card_authorization")
+                            .cardPaymentId("card_payment_id")
                             .currency(CardPayment.Element.CardSettlement.Currency.CAD)
-                            .merchantAcceptorId("string")
-                            .merchantCategoryCode("string")
-                            .merchantCity("string")
-                            .merchantCountry("string")
-                            .merchantName("string")
-                            .merchantState("string")
+                            .merchantAcceptorId("merchant_acceptor_id")
+                            .merchantCategoryCode("merchant_category_code")
+                            .merchantCity("merchant_city")
+                            .merchantCountry("merchant_country")
+                            .merchantName("merchant_name")
+                            .merchantState("merchant_state")
                             .networkIdentifiers(
                                 CardPayment.Element.CardSettlement.NetworkIdentifiers.builder()
-                                    .acquirerBusinessId("string")
-                                    .acquirerReferenceNumber("string")
-                                    .transactionId("string")
+                                    .acquirerBusinessId("acquirer_business_id")
+                                    .acquirerReferenceNumber("acquirer_reference_number")
+                                    .transactionId("transaction_id")
                                     .build()
                             )
-                            .pendingTransactionId("string")
+                            .pendingTransactionId("pending_transaction_id")
                             .presentmentAmount(123L)
-                            .presentmentCurrency("string")
+                            .presentmentCurrency("presentment_currency")
                             .purchaseDetails(
                                 CardPayment.Element.CardSettlement.PurchaseDetails.builder()
                                     .carRental(
                                         CardPayment.Element.CardSettlement.PurchaseDetails.CarRental
                                             .builder()
-                                            .carClassCode("string")
+                                            .carClassCode("car_class_code")
                                             .checkoutDate(LocalDate.parse("2019-12-27"))
                                             .dailyRentalRateAmount(123L)
-                                            .dailyRentalRateCurrency("string")
+                                            .dailyRentalRateCurrency("daily_rental_rate_currency")
                                             .daysRented(123L)
                                             .extraCharges(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
@@ -1327,9 +1399,9 @@ class CardPaymentTest {
                                                     .NO_EXTRA_CHARGE
                                             )
                                             .fuelChargesAmount(123L)
-                                            .fuelChargesCurrency("string")
+                                            .fuelChargesCurrency("fuel_charges_currency")
                                             .insuranceChargesAmount(123L)
-                                            .insuranceChargesCurrency("string")
+                                            .insuranceChargesCurrency("insurance_charges_currency")
                                             .noShowIndicator(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
                                                     .CarRental
@@ -1337,21 +1409,23 @@ class CardPaymentTest {
                                                     .NOT_APPLICABLE
                                             )
                                             .oneWayDropOffChargesAmount(123L)
-                                            .oneWayDropOffChargesCurrency("string")
-                                            .renterName("string")
+                                            .oneWayDropOffChargesCurrency(
+                                                "one_way_drop_off_charges_currency"
+                                            )
+                                            .renterName("renter_name")
                                             .weeklyRentalRateAmount(123L)
-                                            .weeklyRentalRateCurrency("string")
+                                            .weeklyRentalRateCurrency("weekly_rental_rate_currency")
                                             .build()
                                     )
-                                    .customerReferenceIdentifier("string")
+                                    .customerReferenceIdentifier("customer_reference_identifier")
                                     .localTaxAmount(123L)
-                                    .localTaxCurrency("string")
+                                    .localTaxCurrency("local_tax_currency")
                                     .lodging(
                                         CardPayment.Element.CardSettlement.PurchaseDetails.Lodging
                                             .builder()
                                             .checkInDate(LocalDate.parse("2019-12-27"))
                                             .dailyRoomRateAmount(123L)
-                                            .dailyRoomRateCurrency("string")
+                                            .dailyRoomRateCurrency("daily_room_rate_currency")
                                             .extraCharges(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
                                                     .Lodging
@@ -1359,9 +1433,13 @@ class CardPaymentTest {
                                                     .NO_EXTRA_CHARGE
                                             )
                                             .folioCashAdvancesAmount(123L)
-                                            .folioCashAdvancesCurrency("string")
+                                            .folioCashAdvancesCurrency(
+                                                "folio_cash_advances_currency"
+                                            )
                                             .foodBeverageChargesAmount(123L)
-                                            .foodBeverageChargesCurrency("string")
+                                            .foodBeverageChargesCurrency(
+                                                "food_beverage_charges_currency"
+                                            )
                                             .noShowIndicator(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
                                                     .Lodging
@@ -1369,17 +1447,17 @@ class CardPaymentTest {
                                                     .NOT_APPLICABLE
                                             )
                                             .prepaidExpensesAmount(123L)
-                                            .prepaidExpensesCurrency("string")
+                                            .prepaidExpensesCurrency("prepaid_expenses_currency")
                                             .roomNights(123L)
                                             .totalRoomTaxAmount(123L)
-                                            .totalRoomTaxCurrency("string")
+                                            .totalRoomTaxCurrency("total_room_tax_currency")
                                             .totalTaxAmount(123L)
-                                            .totalTaxCurrency("string")
+                                            .totalTaxCurrency("total_tax_currency")
                                             .build()
                                     )
                                     .nationalTaxAmount(123L)
-                                    .nationalTaxCurrency("string")
-                                    .purchaseIdentifier("string")
+                                    .nationalTaxCurrency("national_tax_currency")
+                                    .purchaseIdentifier("purchase_identifier")
                                     .purchaseIdentifierFormat(
                                         CardPayment.Element.CardSettlement.PurchaseDetails
                                             .PurchaseIdentifierFormat
@@ -1393,7 +1471,9 @@ class CardPaymentTest {
                                                     .Travel
                                                     .Ancillary
                                                     .builder()
-                                                    .connectedTicketDocumentNumber("string")
+                                                    .connectedTicketDocumentNumber(
+                                                        "connected_ticket_document_number"
+                                                    )
                                                     .creditReasonIndicator(
                                                         CardPayment.Element.CardSettlement
                                                             .PurchaseDetails
@@ -1402,7 +1482,9 @@ class CardPaymentTest {
                                                             .CreditReasonIndicator
                                                             .NO_CREDIT
                                                     )
-                                                    .passengerNameOrDescription("string")
+                                                    .passengerNameOrDescription(
+                                                        "passenger_name_or_description"
+                                                    )
                                                     .services(
                                                         listOf(
                                                             CardPayment.Element.CardSettlement
@@ -1421,14 +1503,16 @@ class CardPaymentTest {
                                                                         .Category
                                                                         .NONE
                                                                 )
-                                                                .subCategory("string")
+                                                                .subCategory("sub_category")
                                                                 .build()
                                                         )
                                                     )
-                                                    .ticketDocumentNumber("string")
+                                                    .ticketDocumentNumber("ticket_document_number")
                                                     .build()
                                             )
-                                            .computerizedReservationSystem("string")
+                                            .computerizedReservationSystem(
+                                                "computerized_reservation_system"
+                                            )
                                             .creditReasonIndicator(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
                                                     .Travel
@@ -1436,8 +1520,10 @@ class CardPaymentTest {
                                                     .NO_CREDIT
                                             )
                                             .departureDate(LocalDate.parse("2019-12-27"))
-                                            .originationCityAirportCode("string")
-                                            .passengerName("string")
+                                            .originationCityAirportCode(
+                                                "origination_city_airport_code"
+                                            )
+                                            .passengerName("passenger_name")
                                             .restrictedTicketIndicator(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
                                                     .Travel
@@ -1450,9 +1536,9 @@ class CardPaymentTest {
                                                     .TicketChangeIndicator
                                                     .NONE
                                             )
-                                            .ticketNumber("string")
-                                            .travelAgencyCode("string")
-                                            .travelAgencyName("string")
+                                            .ticketNumber("ticket_number")
+                                            .travelAgencyCode("travel_agency_code")
+                                            .travelAgencyName("travel_agency_name")
                                             .tripLegs(
                                                 listOf(
                                                     CardPayment.Element.CardSettlement
@@ -1460,11 +1546,13 @@ class CardPaymentTest {
                                                         .Travel
                                                         .TripLeg
                                                         .builder()
-                                                        .carrierCode("string")
-                                                        .destinationCityAirportCode("string")
-                                                        .fareBasisCode("string")
-                                                        .flightNumber("string")
-                                                        .serviceClass("string")
+                                                        .carrierCode("carrier_code")
+                                                        .destinationCityAirportCode(
+                                                            "destination_city_airport_code"
+                                                        )
+                                                        .fareBasisCode("fare_basis_code")
+                                                        .flightNumber("flight_number")
+                                                        .serviceClass("service_class")
                                                         .stopOverCode(
                                                             CardPayment.Element.CardSettlement
                                                                 .PurchaseDetails
@@ -1480,22 +1568,22 @@ class CardPaymentTest {
                                     )
                                     .build()
                             )
-                            .transactionId("string")
+                            .transactionId("transaction_id")
                             .type(CardPayment.Element.CardSettlement.Type.CARD_SETTLEMENT)
                             .build()
                     )
                     .cardValidation(
                         CardPayment.Element.CardValidation.builder()
-                            .id("string")
+                            .id("id")
                             .actioner(CardPayment.Element.CardValidation.Actioner.USER)
-                            .cardPaymentId("string")
+                            .cardPaymentId("card_payment_id")
                             .currency(CardPayment.Element.CardValidation.Currency.CAD)
-                            .digitalWalletTokenId("string")
-                            .merchantAcceptorId("string")
-                            .merchantCategoryCode("string")
-                            .merchantCity("string")
-                            .merchantCountry("string")
-                            .merchantDescriptor("string")
+                            .digitalWalletTokenId("digital_wallet_token_id")
+                            .merchantAcceptorId("merchant_acceptor_id")
+                            .merchantCategoryCode("merchant_category_code")
+                            .merchantCity("merchant_city")
+                            .merchantCountry("merchant_country")
+                            .merchantDescriptor("merchant_descriptor")
                             .networkDetails(
                                 CardPayment.Element.CardValidation.NetworkDetails.builder()
                                     .category(
@@ -1523,14 +1611,14 @@ class CardPaymentTest {
                             )
                             .networkIdentifiers(
                                 CardPayment.Element.CardValidation.NetworkIdentifiers.builder()
-                                    .retrievalReferenceNumber("string")
-                                    .traceNumber("string")
-                                    .transactionId("string")
+                                    .retrievalReferenceNumber("retrieval_reference_number")
+                                    .traceNumber("trace_number")
+                                    .transactionId("transaction_id")
                                     .build()
                             )
                             .networkRiskScore(123L)
-                            .physicalCardId("string")
-                            .realTimeDecisionId("string")
+                            .physicalCardId("physical_card_id")
+                            .realTimeDecisionId("real_time_decision_id")
                             .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)
                             .verification(
                                 CardPayment.Element.CardValidation.Verification.builder()
@@ -1550,10 +1638,10 @@ class CardPaymentTest {
                                         CardPayment.Element.CardValidation.Verification
                                             .CardholderAddress
                                             .builder()
-                                            .actualLine1("string")
-                                            .actualPostalCode("string")
-                                            .providedLine1("string")
-                                            .providedPostalCode("string")
+                                            .actualLine1("actual_line1")
+                                            .actualPostalCode("actual_postal_code")
+                                            .providedLine1("provided_line1")
+                                            .providedPostalCode("provided_postal_code")
                                             .result(
                                                 CardPayment.Element.CardValidation.Verification
                                                     .CardholderAddress
@@ -1570,7 +1658,7 @@ class CardPaymentTest {
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
-        assertThat(cardPayment.physicalCardId()).contains("string")
+        assertThat(cardPayment.physicalCardId()).contains("physical_card_id")
         assertThat(cardPayment.state())
             .isEqualTo(
                 CardPayment.State.builder()

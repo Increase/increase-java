@@ -10,43 +10,46 @@ class EntitySupplementalDocumentCreateParamsTest {
 
     @Test
     fun createEntitySupplementalDocumentCreateParams() {
-        EntitySupplementalDocumentCreateParams.builder().entityId("string").fileId("string").build()
+        EntitySupplementalDocumentCreateParams.builder()
+            .entityId("entity_id")
+            .fileId("file_id")
+            .build()
     }
 
     @Test
     fun getBody() {
         val params =
             EntitySupplementalDocumentCreateParams.builder()
-                .entityId("string")
-                .fileId("string")
+                .entityId("entity_id")
+                .fileId("file_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.fileId()).isEqualTo("string")
+        assertThat(body.fileId()).isEqualTo("file_id")
     }
 
     @Test
     fun getBodyWithoutOptionalFields() {
         val params =
             EntitySupplementalDocumentCreateParams.builder()
-                .entityId("string")
-                .fileId("string")
+                .entityId("entity_id")
+                .fileId("file_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.fileId()).isEqualTo("string")
+        assertThat(body.fileId()).isEqualTo("file_id")
     }
 
     @Test
     fun getPathParam() {
         val params =
             EntitySupplementalDocumentCreateParams.builder()
-                .entityId("string")
-                .fileId("string")
+                .entityId("entity_id")
+                .fileId("file_id")
                 .build()
         assertThat(params).isNotNull
         // path param "entityId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("entity_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

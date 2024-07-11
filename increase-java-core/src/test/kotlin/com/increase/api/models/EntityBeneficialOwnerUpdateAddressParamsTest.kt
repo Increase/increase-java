@@ -20,8 +20,8 @@ class EntityBeneficialOwnerUpdateAddressParamsTest {
                     .line2("x")
                     .build()
             )
-            .beneficialOwnerId("string")
-            .entityId("string")
+            .beneficialOwnerId("beneficial_owner_id")
+            .entityId("entity_id")
             .build()
     }
 
@@ -38,8 +38,8 @@ class EntityBeneficialOwnerUpdateAddressParamsTest {
                         .line2("x")
                         .build()
                 )
-                .beneficialOwnerId("string")
-                .entityId("string")
+                .beneficialOwnerId("beneficial_owner_id")
+                .entityId("entity_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -53,8 +53,8 @@ class EntityBeneficialOwnerUpdateAddressParamsTest {
                     .line2("x")
                     .build()
             )
-        assertThat(body.beneficialOwnerId()).isEqualTo("string")
-        assertThat(body.entityId()).isEqualTo("string")
+        assertThat(body.beneficialOwnerId()).isEqualTo("beneficial_owner_id")
+        assertThat(body.entityId()).isEqualTo("entity_id")
     }
 
     @Test
@@ -69,8 +69,8 @@ class EntityBeneficialOwnerUpdateAddressParamsTest {
                         .zip("x")
                         .build()
                 )
-                .beneficialOwnerId("string")
-                .entityId("string")
+                .beneficialOwnerId("beneficial_owner_id")
+                .entityId("entity_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -83,7 +83,7 @@ class EntityBeneficialOwnerUpdateAddressParamsTest {
                     .zip("x")
                     .build()
             )
-        assertThat(body.beneficialOwnerId()).isEqualTo("string")
-        assertThat(body.entityId()).isEqualTo("string")
+        assertThat(body.beneficialOwnerId()).isEqualTo("beneficial_owner_id")
+        assertThat(body.entityId()).isEqualTo("entity_id")
     }
 }

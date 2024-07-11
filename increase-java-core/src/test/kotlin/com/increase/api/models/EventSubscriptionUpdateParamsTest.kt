@@ -11,7 +11,7 @@ class EventSubscriptionUpdateParamsTest {
     @Test
     fun createEventSubscriptionUpdateParams() {
         EventSubscriptionUpdateParams.builder()
-            .eventSubscriptionId("string")
+            .eventSubscriptionId("event_subscription_id")
             .status(EventSubscriptionUpdateParams.Status.ACTIVE)
             .build()
     }
@@ -20,7 +20,7 @@ class EventSubscriptionUpdateParamsTest {
     fun getBody() {
         val params =
             EventSubscriptionUpdateParams.builder()
-                .eventSubscriptionId("string")
+                .eventSubscriptionId("event_subscription_id")
                 .status(EventSubscriptionUpdateParams.Status.ACTIVE)
                 .build()
         val body = params.getBody()
@@ -30,17 +30,23 @@ class EventSubscriptionUpdateParamsTest {
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = EventSubscriptionUpdateParams.builder().eventSubscriptionId("string").build()
+        val params =
+            EventSubscriptionUpdateParams.builder()
+                .eventSubscriptionId("event_subscription_id")
+                .build()
         val body = params.getBody()
         assertThat(body).isNotNull
     }
 
     @Test
     fun getPathParam() {
-        val params = EventSubscriptionUpdateParams.builder().eventSubscriptionId("string").build()
+        val params =
+            EventSubscriptionUpdateParams.builder()
+                .eventSubscriptionId("event_subscription_id")
+                .build()
         assertThat(params).isNotNull
         // path param "eventSubscriptionId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("event_subscription_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

@@ -42,7 +42,7 @@ class FileServiceTest {
                 .apiKey("My API Key")
                 .build()
         val fileService = client.files()
-        val file = fileService.retrieve(FileRetrieveParams.builder().fileId("string").build())
+        val file = fileService.retrieve(FileRetrieveParams.builder().fileId("file_id").build())
         println(file)
         file.validate()
     }

@@ -21,7 +21,7 @@ class DigitalWalletTokenRequestServiceTest {
         val digitalWalletTokenRequestService = client.simulations().digitalWalletTokenRequests()
         val digitalWalletTokenRequestCreateResponse =
             digitalWalletTokenRequestService.create(
-                SimulationDigitalWalletTokenRequestCreateParams.builder().cardId("string").build()
+                SimulationDigitalWalletTokenRequestCreateParams.builder().cardId("card_id").build()
             )
         println(digitalWalletTokenRequestCreateResponse)
         digitalWalletTokenRequestCreateResponse.validate()

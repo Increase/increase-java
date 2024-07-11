@@ -25,11 +25,11 @@ class BookkeepingAccountServiceTest {
             bookkeepingAccountService.create(
                 BookkeepingAccountCreateParams.builder()
                     .name("x")
-                    .accountId("string")
+                    .accountId("account_id")
                     .complianceCategory(
                         BookkeepingAccountCreateParams.ComplianceCategory.COMMINGLED_CASH
                     )
-                    .entityId("string")
+                    .entityId("entity_id")
                     .build()
             )
         println(bookkeepingAccount)
@@ -47,7 +47,7 @@ class BookkeepingAccountServiceTest {
         val bookkeepingAccount =
             bookkeepingAccountService.update(
                 BookkeepingAccountUpdateParams.builder()
-                    .bookkeepingAccountId("string")
+                    .bookkeepingAccountId("bookkeeping_account_id")
                     .name("x")
                     .build()
             )
@@ -80,7 +80,7 @@ class BookkeepingAccountServiceTest {
         val bookkeepingBalanceLookup =
             bookkeepingAccountService.balance(
                 BookkeepingAccountBalanceParams.builder()
-                    .bookkeepingAccountId("string")
+                    .bookkeepingAccountId("bookkeeping_account_id")
                     .atTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )

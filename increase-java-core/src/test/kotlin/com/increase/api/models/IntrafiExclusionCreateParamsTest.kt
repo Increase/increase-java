@@ -10,24 +10,26 @@ class IntrafiExclusionCreateParamsTest {
 
     @Test
     fun createIntrafiExclusionCreateParams() {
-        IntrafiExclusionCreateParams.builder().bankName("x").entityId("string").build()
+        IntrafiExclusionCreateParams.builder().bankName("x").entityId("entity_id").build()
     }
 
     @Test
     fun getBody() {
-        val params = IntrafiExclusionCreateParams.builder().bankName("x").entityId("string").build()
+        val params =
+            IntrafiExclusionCreateParams.builder().bankName("x").entityId("entity_id").build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.bankName()).isEqualTo("x")
-        assertThat(body.entityId()).isEqualTo("string")
+        assertThat(body.entityId()).isEqualTo("entity_id")
     }
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = IntrafiExclusionCreateParams.builder().bankName("x").entityId("string").build()
+        val params =
+            IntrafiExclusionCreateParams.builder().bankName("x").entityId("entity_id").build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.bankName()).isEqualTo("x")
-        assertThat(body.entityId()).isEqualTo("string")
+        assertThat(body.entityId()).isEqualTo("entity_id")
     }
 }

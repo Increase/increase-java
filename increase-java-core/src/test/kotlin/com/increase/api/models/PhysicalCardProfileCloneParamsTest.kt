@@ -11,11 +11,11 @@ class PhysicalCardProfileCloneParamsTest {
     @Test
     fun createPhysicalCardProfileCloneParams() {
         PhysicalCardProfileCloneParams.builder()
-            .physicalCardProfileId("string")
-            .carrierImageFileId("string")
+            .physicalCardProfileId("physical_card_profile_id")
+            .carrierImageFileId("carrier_image_file_id")
             .contactPhone("x")
             .description("x")
-            .frontImageFileId("string")
+            .frontImageFileId("front_image_file_id")
             .frontText(
                 PhysicalCardProfileCloneParams.FrontText.builder().line1("x").line2("x").build()
             )
@@ -26,21 +26,21 @@ class PhysicalCardProfileCloneParamsTest {
     fun getBody() {
         val params =
             PhysicalCardProfileCloneParams.builder()
-                .physicalCardProfileId("string")
-                .carrierImageFileId("string")
+                .physicalCardProfileId("physical_card_profile_id")
+                .carrierImageFileId("carrier_image_file_id")
                 .contactPhone("x")
                 .description("x")
-                .frontImageFileId("string")
+                .frontImageFileId("front_image_file_id")
                 .frontText(
                     PhysicalCardProfileCloneParams.FrontText.builder().line1("x").line2("x").build()
                 )
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.carrierImageFileId()).isEqualTo("string")
+        assertThat(body.carrierImageFileId()).isEqualTo("carrier_image_file_id")
         assertThat(body.contactPhone()).isEqualTo("x")
         assertThat(body.description()).isEqualTo("x")
-        assertThat(body.frontImageFileId()).isEqualTo("string")
+        assertThat(body.frontImageFileId()).isEqualTo("front_image_file_id")
         assertThat(body.frontText())
             .isEqualTo(
                 PhysicalCardProfileCloneParams.FrontText.builder().line1("x").line2("x").build()
@@ -50,7 +50,9 @@ class PhysicalCardProfileCloneParamsTest {
     @Test
     fun getBodyWithoutOptionalFields() {
         val params =
-            PhysicalCardProfileCloneParams.builder().physicalCardProfileId("string").build()
+            PhysicalCardProfileCloneParams.builder()
+                .physicalCardProfileId("physical_card_profile_id")
+                .build()
         val body = params.getBody()
         assertThat(body).isNotNull
     }
@@ -58,10 +60,12 @@ class PhysicalCardProfileCloneParamsTest {
     @Test
     fun getPathParam() {
         val params =
-            PhysicalCardProfileCloneParams.builder().physicalCardProfileId("string").build()
+            PhysicalCardProfileCloneParams.builder()
+                .physicalCardProfileId("physical_card_profile_id")
+                .build()
         assertThat(params).isNotNull
         // path param "physicalCardProfileId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("physical_card_profile_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

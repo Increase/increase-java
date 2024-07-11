@@ -11,8 +11,8 @@ class IntrafiAccountEnrollmentListParamsTest {
     @Test
     fun createIntrafiAccountEnrollmentListParams() {
         IntrafiAccountEnrollmentListParams.builder()
-            .accountId("string")
-            .cursor("string")
+            .accountId("account_id")
+            .cursor("cursor")
             .idempotencyKey("x")
             .limit(123L)
             .status(
@@ -27,8 +27,8 @@ class IntrafiAccountEnrollmentListParamsTest {
     fun getQueryParams() {
         val params =
             IntrafiAccountEnrollmentListParams.builder()
-                .accountId("string")
-                .cursor("string")
+                .accountId("account_id")
+                .cursor("cursor")
                 .idempotencyKey("x")
                 .limit(123L)
                 .status(
@@ -38,8 +38,8 @@ class IntrafiAccountEnrollmentListParamsTest {
                 )
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("account_id", listOf("string"))
-        expected.put("cursor", listOf("string"))
+        expected.put("account_id", listOf("account_id"))
+        expected.put("cursor", listOf("cursor"))
         expected.put("idempotency_key", listOf("x"))
         expected.put("limit", listOf("123"))
         IntrafiAccountEnrollmentListParams.Status.builder()

@@ -11,7 +11,7 @@ class EntityUpdateAddressParamsTest {
     @Test
     fun createEntityUpdateAddressParams() {
         EntityUpdateAddressParams.builder()
-            .entityId("string")
+            .entityId("entity_id")
             .address(
                 EntityUpdateAddressParams.Address.builder()
                     .city("x")
@@ -28,7 +28,7 @@ class EntityUpdateAddressParamsTest {
     fun getBody() {
         val params =
             EntityUpdateAddressParams.builder()
-                .entityId("string")
+                .entityId("entity_id")
                 .address(
                     EntityUpdateAddressParams.Address.builder()
                         .city("x")
@@ -57,7 +57,7 @@ class EntityUpdateAddressParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             EntityUpdateAddressParams.builder()
-                .entityId("string")
+                .entityId("entity_id")
                 .address(
                     EntityUpdateAddressParams.Address.builder()
                         .city("x")
@@ -84,7 +84,7 @@ class EntityUpdateAddressParamsTest {
     fun getPathParam() {
         val params =
             EntityUpdateAddressParams.builder()
-                .entityId("string")
+                .entityId("entity_id")
                 .address(
                     EntityUpdateAddressParams.Address.builder()
                         .city("x")
@@ -96,7 +96,7 @@ class EntityUpdateAddressParamsTest {
                 .build()
         assertThat(params).isNotNull
         // path param "entityId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("entity_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

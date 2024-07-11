@@ -10,23 +10,23 @@ class LockboxCreateParamsTest {
 
     @Test
     fun createLockboxCreateParams() {
-        LockboxCreateParams.builder().accountId("string").description("x").build()
+        LockboxCreateParams.builder().accountId("account_id").description("x").build()
     }
 
     @Test
     fun getBody() {
-        val params = LockboxCreateParams.builder().accountId("string").description("x").build()
+        val params = LockboxCreateParams.builder().accountId("account_id").description("x").build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("string")
+        assertThat(body.accountId()).isEqualTo("account_id")
         assertThat(body.description()).isEqualTo("x")
     }
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = LockboxCreateParams.builder().accountId("string").build()
+        val params = LockboxCreateParams.builder().accountId("account_id").build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("string")
+        assertThat(body.accountId()).isEqualTo("account_id")
     }
 }

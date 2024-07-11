@@ -22,7 +22,9 @@ class InboundCheckDepositServiceTest {
         val inboundCheckDepositService = client.inboundCheckDeposits()
         val inboundCheckDeposit =
             inboundCheckDepositService.retrieve(
-                InboundCheckDepositRetrieveParams.builder().inboundCheckDepositId("string").build()
+                InboundCheckDepositRetrieveParams.builder()
+                    .inboundCheckDepositId("inbound_check_deposit_id")
+                    .build()
             )
         println(inboundCheckDeposit)
         inboundCheckDeposit.validate()
@@ -52,7 +54,9 @@ class InboundCheckDepositServiceTest {
         val inboundCheckDepositService = client.inboundCheckDeposits()
         val inboundCheckDeposit =
             inboundCheckDepositService.decline(
-                InboundCheckDepositDeclineParams.builder().inboundCheckDepositId("string").build()
+                InboundCheckDepositDeclineParams.builder()
+                    .inboundCheckDepositId("inbound_check_deposit_id")
+                    .build()
             )
         println(inboundCheckDeposit)
         inboundCheckDeposit.validate()

@@ -22,7 +22,9 @@ class InboundMailItemServiceTest {
         val inboundMailItemService = client.inboundMailItems()
         val inboundMailItem =
             inboundMailItemService.retrieve(
-                InboundMailItemRetrieveParams.builder().inboundMailItemId("string").build()
+                InboundMailItemRetrieveParams.builder()
+                    .inboundMailItemId("inbound_mail_item_id")
+                    .build()
             )
         println(inboundMailItem)
         inboundMailItem.validate()

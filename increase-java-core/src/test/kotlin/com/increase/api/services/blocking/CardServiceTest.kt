@@ -23,7 +23,7 @@ class CardServiceTest {
         val card =
             cardService.create(
                 CardCreateParams.builder()
-                    .accountId("string")
+                    .accountId("account_id")
                     .billingAddress(
                         CardCreateParams.BillingAddress.builder()
                             .city("x")
@@ -36,12 +36,12 @@ class CardServiceTest {
                     .description("x")
                     .digitalWallet(
                         CardCreateParams.DigitalWallet.builder()
-                            .digitalCardProfileId("string")
+                            .digitalCardProfileId("digital_card_profile_id")
                             .email("x")
                             .phone("x")
                             .build()
                     )
-                    .entityId("string")
+                    .entityId("entity_id")
                     .build()
             )
         println(card)
@@ -56,7 +56,7 @@ class CardServiceTest {
                 .apiKey("My API Key")
                 .build()
         val cardService = client.cards()
-        val card = cardService.retrieve(CardRetrieveParams.builder().cardId("string").build())
+        val card = cardService.retrieve(CardRetrieveParams.builder().cardId("card_id").build())
         println(card)
         card.validate()
     }
@@ -72,7 +72,7 @@ class CardServiceTest {
         val card =
             cardService.update(
                 CardUpdateParams.builder()
-                    .cardId("string")
+                    .cardId("card_id")
                     .billingAddress(
                         CardUpdateParams.BillingAddress.builder()
                             .city("x")
@@ -85,12 +85,12 @@ class CardServiceTest {
                     .description("x")
                     .digitalWallet(
                         CardUpdateParams.DigitalWallet.builder()
-                            .digitalCardProfileId("string")
+                            .digitalCardProfileId("digital_card_profile_id")
                             .email("x")
                             .phone("x")
                             .build()
                     )
-                    .entityId("string")
+                    .entityId("entity_id")
                     .status(CardUpdateParams.Status.ACTIVE)
                     .build()
             )
@@ -121,7 +121,7 @@ class CardServiceTest {
         val cardService = client.cards()
         val cardDetails =
             cardService.retrieveSensitiveDetails(
-                CardRetrieveSensitiveDetailsParams.builder().cardId("string").build()
+                CardRetrieveSensitiveDetailsParams.builder().cardId("card_id").build()
             )
         println(cardDetails)
         cardDetails.validate()

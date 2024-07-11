@@ -23,7 +23,7 @@ class CardDisputeServiceTest {
         val cardDispute =
             cardDisputeService.create(
                 CardDisputeCreateParams.builder()
-                    .disputedTransactionId("string")
+                    .disputedTransactionId("disputed_transaction_id")
                     .explanation("x")
                     .build()
             )
@@ -41,7 +41,7 @@ class CardDisputeServiceTest {
         val cardDisputeService = client.cardDisputes()
         val cardDispute =
             cardDisputeService.retrieve(
-                CardDisputeRetrieveParams.builder().cardDisputeId("string").build()
+                CardDisputeRetrieveParams.builder().cardDisputeId("card_dispute_id").build()
             )
         println(cardDispute)
         cardDispute.validate()

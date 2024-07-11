@@ -12,19 +12,19 @@ class DocumentTest {
     fun createDocument() {
         val document =
             Document.builder()
-                .id("string")
+                .id("id")
                 .category(Document.Category.FORM_1099_INT)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .entityId("string")
-                .fileId("string")
+                .entityId("entity_id")
+                .fileId("file_id")
                 .type(Document.Type.DOCUMENT)
                 .build()
         assertThat(document).isNotNull
-        assertThat(document.id()).isEqualTo("string")
+        assertThat(document.id()).isEqualTo("id")
         assertThat(document.category()).isEqualTo(Document.Category.FORM_1099_INT)
         assertThat(document.createdAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(document.entityId()).contains("string")
-        assertThat(document.fileId()).isEqualTo("string")
+        assertThat(document.entityId()).contains("entity_id")
+        assertThat(document.fileId()).isEqualTo("file_id")
         assertThat(document.type()).isEqualTo(Document.Type.DOCUMENT)
     }
 }

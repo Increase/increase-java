@@ -23,10 +23,10 @@ class AccountTransferServiceTest {
         val accountTransfer =
             accountTransferService.create(
                 AccountTransferCreateParams.builder()
-                    .accountId("string")
+                    .accountId("account_id")
                     .amount(123L)
                     .description("x")
-                    .destinationAccountId("string")
+                    .destinationAccountId("destination_account_id")
                     .requireApproval(true)
                     .build()
             )
@@ -44,7 +44,9 @@ class AccountTransferServiceTest {
         val accountTransferService = client.accountTransfers()
         val accountTransfer =
             accountTransferService.retrieve(
-                AccountTransferRetrieveParams.builder().accountTransferId("string").build()
+                AccountTransferRetrieveParams.builder()
+                    .accountTransferId("account_transfer_id")
+                    .build()
             )
         println(accountTransfer)
         accountTransfer.validate()
@@ -74,7 +76,9 @@ class AccountTransferServiceTest {
         val accountTransferService = client.accountTransfers()
         val accountTransfer =
             accountTransferService.approve(
-                AccountTransferApproveParams.builder().accountTransferId("string").build()
+                AccountTransferApproveParams.builder()
+                    .accountTransferId("account_transfer_id")
+                    .build()
             )
         println(accountTransfer)
         accountTransfer.validate()
@@ -90,7 +94,9 @@ class AccountTransferServiceTest {
         val accountTransferService = client.accountTransfers()
         val accountTransfer =
             accountTransferService.cancel(
-                AccountTransferCancelParams.builder().accountTransferId("string").build()
+                AccountTransferCancelParams.builder()
+                    .accountTransferId("account_transfer_id")
+                    .build()
             )
         println(accountTransfer)
         accountTransfer.validate()

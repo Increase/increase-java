@@ -30,7 +30,7 @@ class ProofOfAuthorizationRequestSubmissionServiceTest {
                     .authorizerEmail("x")
                     .authorizerName("x")
                     .customerHasBeenOffboarded(true)
-                    .proofOfAuthorizationRequestId("string")
+                    .proofOfAuthorizationRequestId("proof_of_authorization_request_id")
                     .validatedAccountOwnershipViaCredential(true)
                     .validatedAccountOwnershipWithAccountStatement(true)
                     .validatedAccountOwnershipWithMicrodeposit(true)
@@ -54,7 +54,9 @@ class ProofOfAuthorizationRequestSubmissionServiceTest {
         val proofOfAuthorizationRequestSubmission =
             proofOfAuthorizationRequestSubmissionService.retrieve(
                 ProofOfAuthorizationRequestSubmissionRetrieveParams.builder()
-                    .proofOfAuthorizationRequestSubmissionId("string")
+                    .proofOfAuthorizationRequestSubmissionId(
+                        "proof_of_authorization_request_submission_id"
+                    )
                     .build()
             )
         println(proofOfAuthorizationRequestSubmission)

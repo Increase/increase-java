@@ -11,10 +11,10 @@ class AccountTransferCreateParamsTest {
     @Test
     fun createAccountTransferCreateParams() {
         AccountTransferCreateParams.builder()
-            .accountId("string")
+            .accountId("account_id")
             .amount(123L)
             .description("x")
-            .destinationAccountId("string")
+            .destinationAccountId("destination_account_id")
             .requireApproval(true)
             .build()
     }
@@ -23,18 +23,18 @@ class AccountTransferCreateParamsTest {
     fun getBody() {
         val params =
             AccountTransferCreateParams.builder()
-                .accountId("string")
+                .accountId("account_id")
                 .amount(123L)
                 .description("x")
-                .destinationAccountId("string")
+                .destinationAccountId("destination_account_id")
                 .requireApproval(true)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("string")
+        assertThat(body.accountId()).isEqualTo("account_id")
         assertThat(body.amount()).isEqualTo(123L)
         assertThat(body.description()).isEqualTo("x")
-        assertThat(body.destinationAccountId()).isEqualTo("string")
+        assertThat(body.destinationAccountId()).isEqualTo("destination_account_id")
         assertThat(body.requireApproval()).isEqualTo(true)
     }
 
@@ -42,16 +42,16 @@ class AccountTransferCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             AccountTransferCreateParams.builder()
-                .accountId("string")
+                .accountId("account_id")
                 .amount(123L)
                 .description("x")
-                .destinationAccountId("string")
+                .destinationAccountId("destination_account_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("string")
+        assertThat(body.accountId()).isEqualTo("account_id")
         assertThat(body.amount()).isEqualTo(123L)
         assertThat(body.description()).isEqualTo("x")
-        assertThat(body.destinationAccountId()).isEqualTo("string")
+        assertThat(body.destinationAccountId()).isEqualTo("destination_account_id")
     }
 }

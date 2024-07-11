@@ -10,15 +10,15 @@ class TransactionRetrieveParamsTest {
 
     @Test
     fun createTransactionRetrieveParams() {
-        TransactionRetrieveParams.builder().transactionId("string").build()
+        TransactionRetrieveParams.builder().transactionId("transaction_id").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = TransactionRetrieveParams.builder().transactionId("string").build()
+        val params = TransactionRetrieveParams.builder().transactionId("transaction_id").build()
         assertThat(params).isNotNull
         // path param "transactionId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("transaction_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

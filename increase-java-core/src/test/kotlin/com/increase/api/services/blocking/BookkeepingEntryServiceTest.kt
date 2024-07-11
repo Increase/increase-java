@@ -22,7 +22,9 @@ class BookkeepingEntryServiceTest {
         val bookkeepingEntryService = client.bookkeepingEntries()
         val bookkeepingEntry =
             bookkeepingEntryService.retrieve(
-                BookkeepingEntryRetrieveParams.builder().bookkeepingEntryId("string").build()
+                BookkeepingEntryRetrieveParams.builder()
+                    .bookkeepingEntryId("bookkeeping_entry_id")
+                    .build()
             )
         println(bookkeepingEntry)
         bookkeepingEntry.validate()

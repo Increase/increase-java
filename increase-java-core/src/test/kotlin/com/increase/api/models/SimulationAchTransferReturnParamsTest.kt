@@ -11,7 +11,7 @@ class SimulationAchTransferReturnParamsTest {
     @Test
     fun createSimulationAchTransferReturnParams() {
         SimulationAchTransferReturnParams.builder()
-            .achTransferId("string")
+            .achTransferId("ach_transfer_id")
             .reason(SimulationAchTransferReturnParams.Reason.INSUFFICIENT_FUND)
             .build()
     }
@@ -20,7 +20,7 @@ class SimulationAchTransferReturnParamsTest {
     fun getBody() {
         val params =
             SimulationAchTransferReturnParams.builder()
-                .achTransferId("string")
+                .achTransferId("ach_transfer_id")
                 .reason(SimulationAchTransferReturnParams.Reason.INSUFFICIENT_FUND)
                 .build()
         val body = params.getBody()
@@ -31,17 +31,19 @@ class SimulationAchTransferReturnParamsTest {
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = SimulationAchTransferReturnParams.builder().achTransferId("string").build()
+        val params =
+            SimulationAchTransferReturnParams.builder().achTransferId("ach_transfer_id").build()
         val body = params.getBody()
         assertThat(body).isNotNull
     }
 
     @Test
     fun getPathParam() {
-        val params = SimulationAchTransferReturnParams.builder().achTransferId("string").build()
+        val params =
+            SimulationAchTransferReturnParams.builder().achTransferId("ach_transfer_id").build()
         assertThat(params).isNotNull
         // path param "achTransferId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("ach_transfer_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

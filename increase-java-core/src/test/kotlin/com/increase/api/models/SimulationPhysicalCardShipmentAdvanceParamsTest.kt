@@ -11,7 +11,7 @@ class SimulationPhysicalCardShipmentAdvanceParamsTest {
     @Test
     fun createSimulationPhysicalCardShipmentAdvanceParams() {
         SimulationPhysicalCardShipmentAdvanceParams.builder()
-            .physicalCardId("string")
+            .physicalCardId("physical_card_id")
             .shipmentStatus(SimulationPhysicalCardShipmentAdvanceParams.ShipmentStatus.PENDING)
             .build()
     }
@@ -20,7 +20,7 @@ class SimulationPhysicalCardShipmentAdvanceParamsTest {
     fun getBody() {
         val params =
             SimulationPhysicalCardShipmentAdvanceParams.builder()
-                .physicalCardId("string")
+                .physicalCardId("physical_card_id")
                 .shipmentStatus(SimulationPhysicalCardShipmentAdvanceParams.ShipmentStatus.PENDING)
                 .build()
         val body = params.getBody()
@@ -33,7 +33,7 @@ class SimulationPhysicalCardShipmentAdvanceParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             SimulationPhysicalCardShipmentAdvanceParams.builder()
-                .physicalCardId("string")
+                .physicalCardId("physical_card_id")
                 .shipmentStatus(SimulationPhysicalCardShipmentAdvanceParams.ShipmentStatus.PENDING)
                 .build()
         val body = params.getBody()
@@ -46,12 +46,12 @@ class SimulationPhysicalCardShipmentAdvanceParamsTest {
     fun getPathParam() {
         val params =
             SimulationPhysicalCardShipmentAdvanceParams.builder()
-                .physicalCardId("string")
+                .physicalCardId("physical_card_id")
                 .shipmentStatus(SimulationPhysicalCardShipmentAdvanceParams.ShipmentStatus.PENDING)
                 .build()
         assertThat(params).isNotNull
         // path param "physicalCardId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("physical_card_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

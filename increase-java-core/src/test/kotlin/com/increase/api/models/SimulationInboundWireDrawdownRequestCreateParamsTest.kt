@@ -18,7 +18,7 @@ class SimulationInboundWireDrawdownRequestCreateParamsTest {
             .messageToRecipient("x")
             .originatorAccountNumber("x")
             .originatorRoutingNumber("x")
-            .recipientAccountNumberId("string")
+            .recipientAccountNumberId("recipient_account_number_id")
             .beneficiaryAddressLine1("x")
             .beneficiaryAddressLine2("x")
             .beneficiaryAddressLine3("x")
@@ -45,7 +45,7 @@ class SimulationInboundWireDrawdownRequestCreateParamsTest {
                 .messageToRecipient("x")
                 .originatorAccountNumber("x")
                 .originatorRoutingNumber("x")
-                .recipientAccountNumberId("string")
+                .recipientAccountNumberId("recipient_account_number_id")
                 .beneficiaryAddressLine1("x")
                 .beneficiaryAddressLine2("x")
                 .beneficiaryAddressLine3("x")
@@ -68,7 +68,7 @@ class SimulationInboundWireDrawdownRequestCreateParamsTest {
         assertThat(body.messageToRecipient()).isEqualTo("x")
         assertThat(body.originatorAccountNumber()).isEqualTo("x")
         assertThat(body.originatorRoutingNumber()).isEqualTo("x")
-        assertThat(body.recipientAccountNumberId()).isEqualTo("string")
+        assertThat(body.recipientAccountNumberId()).isEqualTo("recipient_account_number_id")
         assertThat(body.beneficiaryAddressLine1()).isEqualTo("x")
         assertThat(body.beneficiaryAddressLine2()).isEqualTo("x")
         assertThat(body.beneficiaryAddressLine3()).isEqualTo("x")
@@ -94,7 +94,7 @@ class SimulationInboundWireDrawdownRequestCreateParamsTest {
                 .messageToRecipient("x")
                 .originatorAccountNumber("x")
                 .originatorRoutingNumber("x")
-                .recipientAccountNumberId("string")
+                .recipientAccountNumberId("recipient_account_number_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -105,6 +105,6 @@ class SimulationInboundWireDrawdownRequestCreateParamsTest {
         assertThat(body.messageToRecipient()).isEqualTo("x")
         assertThat(body.originatorAccountNumber()).isEqualTo("x")
         assertThat(body.originatorRoutingNumber()).isEqualTo("x")
-        assertThat(body.recipientAccountNumberId()).isEqualTo("string")
+        assertThat(body.recipientAccountNumberId()).isEqualTo("recipient_account_number_id")
     }
 }

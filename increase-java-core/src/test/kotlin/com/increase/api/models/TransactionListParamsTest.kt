@@ -12,7 +12,7 @@ class TransactionListParamsTest {
     @Test
     fun createTransactionListParams() {
         TransactionListParams.builder()
-            .accountId("string")
+            .accountId("account_id")
             .category(
                 TransactionListParams.Category.builder()
                     .in_(listOf(TransactionListParams.Category.In.ACCOUNT_TRANSFER_INTENTION))
@@ -26,9 +26,9 @@ class TransactionListParamsTest {
                     .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
-            .cursor("string")
+            .cursor("cursor")
             .limit(123L)
-            .routeId("string")
+            .routeId("route_id")
             .build()
     }
 
@@ -36,7 +36,7 @@ class TransactionListParamsTest {
     fun getQueryParams() {
         val params =
             TransactionListParams.builder()
-                .accountId("string")
+                .accountId("account_id")
                 .category(
                     TransactionListParams.Category.builder()
                         .in_(listOf(TransactionListParams.Category.In.ACCOUNT_TRANSFER_INTENTION))
@@ -50,12 +50,12 @@ class TransactionListParamsTest {
                         .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
-                .cursor("string")
+                .cursor("cursor")
                 .limit(123L)
-                .routeId("string")
+                .routeId("route_id")
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("account_id", listOf("string"))
+        expected.put("account_id", listOf("account_id"))
         TransactionListParams.Category.builder()
             .in_(listOf(TransactionListParams.Category.In.ACCOUNT_TRANSFER_INTENTION))
             .build()
@@ -67,9 +67,9 @@ class TransactionListParamsTest {
             .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
-        expected.put("cursor", listOf("string"))
+        expected.put("cursor", listOf("cursor"))
         expected.put("limit", listOf("123"))
-        expected.put("route_id", listOf("string"))
+        expected.put("route_id", listOf("route_id"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 

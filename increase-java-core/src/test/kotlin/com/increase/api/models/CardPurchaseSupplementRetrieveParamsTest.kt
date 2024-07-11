@@ -10,18 +10,20 @@ class CardPurchaseSupplementRetrieveParamsTest {
 
     @Test
     fun createCardPurchaseSupplementRetrieveParams() {
-        CardPurchaseSupplementRetrieveParams.builder().cardPurchaseSupplementId("string").build()
+        CardPurchaseSupplementRetrieveParams.builder()
+            .cardPurchaseSupplementId("card_purchase_supplement_id")
+            .build()
     }
 
     @Test
     fun getPathParam() {
         val params =
             CardPurchaseSupplementRetrieveParams.builder()
-                .cardPurchaseSupplementId("string")
+                .cardPurchaseSupplementId("card_purchase_supplement_id")
                 .build()
         assertThat(params).isNotNull
         // path param "cardPurchaseSupplementId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("card_purchase_supplement_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

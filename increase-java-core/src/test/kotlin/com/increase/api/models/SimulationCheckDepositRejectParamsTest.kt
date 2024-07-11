@@ -10,15 +10,16 @@ class SimulationCheckDepositRejectParamsTest {
 
     @Test
     fun createSimulationCheckDepositRejectParams() {
-        SimulationCheckDepositRejectParams.builder().checkDepositId("string").build()
+        SimulationCheckDepositRejectParams.builder().checkDepositId("check_deposit_id").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = SimulationCheckDepositRejectParams.builder().checkDepositId("string").build()
+        val params =
+            SimulationCheckDepositRejectParams.builder().checkDepositId("check_deposit_id").build()
         assertThat(params).isNotNull
         // path param "checkDepositId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("check_deposit_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

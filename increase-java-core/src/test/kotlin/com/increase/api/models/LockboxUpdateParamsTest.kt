@@ -11,7 +11,7 @@ class LockboxUpdateParamsTest {
     @Test
     fun createLockboxUpdateParams() {
         LockboxUpdateParams.builder()
-            .lockboxId("string")
+            .lockboxId("lockbox_id")
             .description("x")
             .status(LockboxUpdateParams.Status.ACTIVE)
             .build()
@@ -21,7 +21,7 @@ class LockboxUpdateParamsTest {
     fun getBody() {
         val params =
             LockboxUpdateParams.builder()
-                .lockboxId("string")
+                .lockboxId("lockbox_id")
                 .description("x")
                 .status(LockboxUpdateParams.Status.ACTIVE)
                 .build()
@@ -33,17 +33,17 @@ class LockboxUpdateParamsTest {
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = LockboxUpdateParams.builder().lockboxId("string").build()
+        val params = LockboxUpdateParams.builder().lockboxId("lockbox_id").build()
         val body = params.getBody()
         assertThat(body).isNotNull
     }
 
     @Test
     fun getPathParam() {
-        val params = LockboxUpdateParams.builder().lockboxId("string").build()
+        val params = LockboxUpdateParams.builder().lockboxId("lockbox_id").build()
         assertThat(params).isNotNull
         // path param "lockboxId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("lockbox_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

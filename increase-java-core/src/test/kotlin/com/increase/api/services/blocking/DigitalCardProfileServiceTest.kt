@@ -23,14 +23,14 @@ class DigitalCardProfileServiceTest {
         val digitalCardProfile =
             digitalCardProfileService.create(
                 DigitalCardProfileCreateParams.builder()
-                    .appIconFileId("string")
-                    .backgroundImageFileId("string")
+                    .appIconFileId("app_icon_file_id")
+                    .backgroundImageFileId("background_image_file_id")
                     .cardDescription("x")
                     .description("x")
                     .issuerName("x")
                     .contactEmail("x")
                     .contactPhone("x")
-                    .contactWebsite("string")
+                    .contactWebsite("contact_website")
                     .textColor(
                         DigitalCardProfileCreateParams.TextColor.builder()
                             .blue(123L)
@@ -54,7 +54,9 @@ class DigitalCardProfileServiceTest {
         val digitalCardProfileService = client.digitalCardProfiles()
         val digitalCardProfile =
             digitalCardProfileService.retrieve(
-                DigitalCardProfileRetrieveParams.builder().digitalCardProfileId("string").build()
+                DigitalCardProfileRetrieveParams.builder()
+                    .digitalCardProfileId("digital_card_profile_id")
+                    .build()
             )
         println(digitalCardProfile)
         digitalCardProfile.validate()
@@ -84,7 +86,9 @@ class DigitalCardProfileServiceTest {
         val digitalCardProfileService = client.digitalCardProfiles()
         val digitalCardProfile =
             digitalCardProfileService.archive(
-                DigitalCardProfileArchiveParams.builder().digitalCardProfileId("string").build()
+                DigitalCardProfileArchiveParams.builder()
+                    .digitalCardProfileId("digital_card_profile_id")
+                    .build()
             )
         println(digitalCardProfile)
         digitalCardProfile.validate()
@@ -101,13 +105,13 @@ class DigitalCardProfileServiceTest {
         val digitalCardProfile =
             digitalCardProfileService.clone(
                 DigitalCardProfileCloneParams.builder()
-                    .digitalCardProfileId("string")
-                    .appIconFileId("string")
-                    .backgroundImageFileId("string")
+                    .digitalCardProfileId("digital_card_profile_id")
+                    .appIconFileId("app_icon_file_id")
+                    .backgroundImageFileId("background_image_file_id")
                     .cardDescription("x")
                     .contactEmail("x")
                     .contactPhone("x")
-                    .contactWebsite("string")
+                    .contactWebsite("contact_website")
                     .description("x")
                     .issuerName("x")
                     .textColor(

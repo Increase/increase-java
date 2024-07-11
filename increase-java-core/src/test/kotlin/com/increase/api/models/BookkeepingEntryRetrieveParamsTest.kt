@@ -10,15 +10,18 @@ class BookkeepingEntryRetrieveParamsTest {
 
     @Test
     fun createBookkeepingEntryRetrieveParams() {
-        BookkeepingEntryRetrieveParams.builder().bookkeepingEntryId("string").build()
+        BookkeepingEntryRetrieveParams.builder().bookkeepingEntryId("bookkeeping_entry_id").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = BookkeepingEntryRetrieveParams.builder().bookkeepingEntryId("string").build()
+        val params =
+            BookkeepingEntryRetrieveParams.builder()
+                .bookkeepingEntryId("bookkeeping_entry_id")
+                .build()
         assertThat(params).isNotNull
         // path param "bookkeepingEntryId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("bookkeeping_entry_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

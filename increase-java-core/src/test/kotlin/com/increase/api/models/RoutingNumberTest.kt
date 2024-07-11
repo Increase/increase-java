@@ -12,18 +12,18 @@ class RoutingNumberTest {
         val routingNumber =
             RoutingNumber.builder()
                 .achTransfers(RoutingNumber.AchTransfers.SUPPORTED)
-                .name("string")
+                .name("name")
                 .realTimePaymentsTransfers(RoutingNumber.RealTimePaymentsTransfers.SUPPORTED)
-                .routingNumber("string")
+                .routingNumber("routing_number")
                 .type(RoutingNumber.Type.ROUTING_NUMBER)
                 .wireTransfers(RoutingNumber.WireTransfers.SUPPORTED)
                 .build()
         assertThat(routingNumber).isNotNull
         assertThat(routingNumber.achTransfers()).isEqualTo(RoutingNumber.AchTransfers.SUPPORTED)
-        assertThat(routingNumber.name()).isEqualTo("string")
+        assertThat(routingNumber.name()).isEqualTo("name")
         assertThat(routingNumber.realTimePaymentsTransfers())
             .isEqualTo(RoutingNumber.RealTimePaymentsTransfers.SUPPORTED)
-        assertThat(routingNumber.routingNumber()).isEqualTo("string")
+        assertThat(routingNumber.routingNumber()).isEqualTo("routing_number")
         assertThat(routingNumber.type()).isEqualTo(RoutingNumber.Type.ROUTING_NUMBER)
         assertThat(routingNumber.wireTransfers()).isEqualTo(RoutingNumber.WireTransfers.SUPPORTED)
     }
