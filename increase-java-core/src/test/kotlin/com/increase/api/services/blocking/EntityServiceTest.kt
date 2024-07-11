@@ -81,9 +81,9 @@ class EntityServiceTest {
                                                                 .expirationDate(
                                                                     LocalDate.parse("2019-12-27")
                                                                 )
-                                                                .fileId("string")
+                                                                .fileId("file_id")
                                                                 .state("x")
-                                                                .backFileId("string")
+                                                                .backFileId("back_file_id")
                                                                 .build()
                                                         )
                                                         .other(
@@ -95,8 +95,8 @@ class EntityServiceTest {
                                                                 .builder()
                                                                 .country("x")
                                                                 .description("x")
-                                                                .fileId("string")
-                                                                .backFileId("string")
+                                                                .fileId("file_id")
+                                                                .backFileId("back_file_id")
                                                                 .expirationDate(
                                                                     LocalDate.parse("2019-12-27")
                                                                 )
@@ -113,7 +113,7 @@ class EntityServiceTest {
                                                                 .expirationDate(
                                                                     LocalDate.parse("2019-12-27")
                                                                 )
-                                                                .fileId("string")
+                                                                .fileId("file_id")
                                                                 .build()
                                                         )
                                                         .build()
@@ -136,7 +136,7 @@ class EntityServiceTest {
                             .taxIdentifier("x")
                             .incorporationState("x")
                             .industryCode("x")
-                            .website("string")
+                            .website("website")
                             .build()
                     )
                     .description("x")
@@ -162,7 +162,7 @@ class EntityServiceTest {
                             .category(EntityCreateParams.GovernmentAuthority.Category.MUNICIPALITY)
                             .name("x")
                             .taxIdentifier("x")
-                            .website("string")
+                            .website("website")
                             .build()
                     )
                     .joint(
@@ -198,9 +198,9 @@ class EntityServiceTest {
                                                         .expirationDate(
                                                             LocalDate.parse("2019-12-27")
                                                         )
-                                                        .fileId("string")
+                                                        .fileId("file_id")
                                                         .state("x")
-                                                        .backFileId("string")
+                                                        .backFileId("back_file_id")
                                                         .build()
                                                 )
                                                 .other(
@@ -210,8 +210,8 @@ class EntityServiceTest {
                                                         .builder()
                                                         .country("x")
                                                         .description("x")
-                                                        .fileId("string")
-                                                        .backFileId("string")
+                                                        .fileId("file_id")
+                                                        .backFileId("back_file_id")
                                                         .expirationDate(
                                                             LocalDate.parse("2019-12-27")
                                                         )
@@ -226,7 +226,7 @@ class EntityServiceTest {
                                                         .expirationDate(
                                                             LocalDate.parse("2019-12-27")
                                                         )
-                                                        .fileId("string")
+                                                        .fileId("file_id")
                                                         .build()
                                                 )
                                                 .build()
@@ -263,9 +263,9 @@ class EntityServiceTest {
                                             .DriversLicense
                                             .builder()
                                             .expirationDate(LocalDate.parse("2019-12-27"))
-                                            .fileId("string")
+                                            .fileId("file_id")
                                             .state("x")
-                                            .backFileId("string")
+                                            .backFileId("back_file_id")
                                             .build()
                                     )
                                     .other(
@@ -273,8 +273,8 @@ class EntityServiceTest {
                                             .builder()
                                             .country("x")
                                             .description("x")
-                                            .fileId("string")
-                                            .backFileId("string")
+                                            .fileId("file_id")
+                                            .backFileId("back_file_id")
                                             .expirationDate(LocalDate.parse("2019-12-27"))
                                             .build()
                                     )
@@ -283,7 +283,7 @@ class EntityServiceTest {
                                             .builder()
                                             .country("x")
                                             .expirationDate(LocalDate.parse("2019-12-27"))
-                                            .fileId("string")
+                                            .fileId("file_id")
                                             .build()
                                     )
                                     .build()
@@ -295,7 +295,7 @@ class EntityServiceTest {
                     .supplementalDocuments(
                         listOf(
                             EntityCreateParams.SupplementalDocument.builder()
-                                .fileId("string")
+                                .fileId("file_id")
                                 .build()
                         )
                     )
@@ -353,9 +353,9 @@ class EntityServiceTest {
                                                                 .expirationDate(
                                                                     LocalDate.parse("2019-12-27")
                                                                 )
-                                                                .fileId("string")
+                                                                .fileId("file_id")
                                                                 .state("x")
-                                                                .backFileId("string")
+                                                                .backFileId("back_file_id")
                                                                 .build()
                                                         )
                                                         .other(
@@ -366,8 +366,8 @@ class EntityServiceTest {
                                                                 .builder()
                                                                 .country("x")
                                                                 .description("x")
-                                                                .fileId("string")
-                                                                .backFileId("string")
+                                                                .fileId("file_id")
+                                                                .backFileId("back_file_id")
                                                                 .expirationDate(
                                                                     LocalDate.parse("2019-12-27")
                                                                 )
@@ -383,7 +383,7 @@ class EntityServiceTest {
                                                                 .expirationDate(
                                                                     LocalDate.parse("2019-12-27")
                                                                 )
-                                                                .fileId("string")
+                                                                .fileId("file_id")
                                                                 .build()
                                                         )
                                                         .build()
@@ -395,7 +395,7 @@ class EntityServiceTest {
                                         .build()
                                 )
                             )
-                            .formationDocumentFileId("string")
+                            .formationDocumentFileId("formation_document_file_id")
                             .formationState("x")
                             .grantor(
                                 EntityCreateParams.Trust.Grantor.builder()
@@ -422,9 +422,9 @@ class EntityServiceTest {
                                                     .DriversLicense
                                                     .builder()
                                                     .expirationDate(LocalDate.parse("2019-12-27"))
-                                                    .fileId("string")
+                                                    .fileId("file_id")
                                                     .state("x")
-                                                    .backFileId("string")
+                                                    .backFileId("back_file_id")
                                                     .build()
                                             )
                                             .other(
@@ -433,8 +433,8 @@ class EntityServiceTest {
                                                     .builder()
                                                     .country("x")
                                                     .description("x")
-                                                    .fileId("string")
-                                                    .backFileId("string")
+                                                    .fileId("file_id")
+                                                    .backFileId("back_file_id")
                                                     .expirationDate(LocalDate.parse("2019-12-27"))
                                                     .build()
                                             )
@@ -444,7 +444,7 @@ class EntityServiceTest {
                                                     .builder()
                                                     .country("x")
                                                     .expirationDate(LocalDate.parse("2019-12-27"))
-                                                    .fileId("string")
+                                                    .fileId("file_id")
                                                     .build()
                                             )
                                             .build()
@@ -471,7 +471,7 @@ class EntityServiceTest {
                 .build()
         val entityService = client.entities()
         val entity =
-            entityService.retrieve(EntityRetrieveParams.builder().entityId("string").build())
+            entityService.retrieve(EntityRetrieveParams.builder().entityId("entity_id").build())
         println(entity)
         entity.validate()
     }
@@ -497,7 +497,8 @@ class EntityServiceTest {
                 .apiKey("My API Key")
                 .build()
         val entityService = client.entities()
-        val entity = entityService.archive(EntityArchiveParams.builder().entityId("string").build())
+        val entity =
+            entityService.archive(EntityArchiveParams.builder().entityId("entity_id").build())
         println(entity)
         entity.validate()
     }
@@ -513,7 +514,7 @@ class EntityServiceTest {
         val entity =
             entityService.confirm(
                 EntityConfirmParams.builder()
-                    .entityId("string")
+                    .entityId("entity_id")
                     .confirmedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
@@ -532,7 +533,7 @@ class EntityServiceTest {
         val entity =
             entityService.updateAddress(
                 EntityUpdateAddressParams.builder()
-                    .entityId("string")
+                    .entityId("entity_id")
                     .address(
                         EntityUpdateAddressParams.Address.builder()
                             .city("x")

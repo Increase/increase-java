@@ -39,7 +39,7 @@ class RealTimePaymentsRequestForPaymentServiceTest {
                             .name("x")
                             .build()
                     )
-                    .destinationAccountNumberId("string")
+                    .destinationAccountNumberId("destination_account_number_id")
                     .expiresAt(LocalDate.parse("2019-12-27"))
                     .remittanceInformation("x")
                     .sourceAccountNumber("x")
@@ -61,7 +61,7 @@ class RealTimePaymentsRequestForPaymentServiceTest {
         val realTimePaymentsRequestForPayment =
             realTimePaymentsRequestForPaymentService.retrieve(
                 RealTimePaymentsRequestForPaymentRetrieveParams.builder()
-                    .requestForPaymentId("string")
+                    .requestForPaymentId("request_for_payment_id")
                     .build()
             )
         println(realTimePaymentsRequestForPayment)

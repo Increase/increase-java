@@ -10,15 +10,15 @@ class ProgramRetrieveParamsTest {
 
     @Test
     fun createProgramRetrieveParams() {
-        ProgramRetrieveParams.builder().programId("string").build()
+        ProgramRetrieveParams.builder().programId("program_id").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = ProgramRetrieveParams.builder().programId("string").build()
+        val params = ProgramRetrieveParams.builder().programId("program_id").build()
         assertThat(params).isNotNull
         // path param "programId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("program_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

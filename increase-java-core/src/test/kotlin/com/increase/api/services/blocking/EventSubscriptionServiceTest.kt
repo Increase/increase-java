@@ -23,8 +23,8 @@ class EventSubscriptionServiceTest {
         val eventSubscription =
             eventSubscriptionService.create(
                 EventSubscriptionCreateParams.builder()
-                    .url("string")
-                    .oauthConnectionId("string")
+                    .url("url")
+                    .oauthConnectionId("oauth_connection_id")
                     .selectedEventCategory(
                         EventSubscriptionCreateParams.SelectedEventCategory.ACCOUNT_CREATED
                     )
@@ -45,7 +45,9 @@ class EventSubscriptionServiceTest {
         val eventSubscriptionService = client.eventSubscriptions()
         val eventSubscription =
             eventSubscriptionService.retrieve(
-                EventSubscriptionRetrieveParams.builder().eventSubscriptionId("string").build()
+                EventSubscriptionRetrieveParams.builder()
+                    .eventSubscriptionId("event_subscription_id")
+                    .build()
             )
         println(eventSubscription)
         eventSubscription.validate()
@@ -62,7 +64,7 @@ class EventSubscriptionServiceTest {
         val eventSubscription =
             eventSubscriptionService.update(
                 EventSubscriptionUpdateParams.builder()
-                    .eventSubscriptionId("string")
+                    .eventSubscriptionId("event_subscription_id")
                     .status(EventSubscriptionUpdateParams.Status.ACTIVE)
                     .build()
             )

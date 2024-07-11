@@ -11,7 +11,7 @@ class ExternalAccountUpdateParamsTest {
     @Test
     fun createExternalAccountUpdateParams() {
         ExternalAccountUpdateParams.builder()
-            .externalAccountId("string")
+            .externalAccountId("external_account_id")
             .accountHolder(ExternalAccountUpdateParams.AccountHolder.BUSINESS)
             .description("x")
             .funding(ExternalAccountUpdateParams.Funding.CHECKING)
@@ -23,7 +23,7 @@ class ExternalAccountUpdateParamsTest {
     fun getBody() {
         val params =
             ExternalAccountUpdateParams.builder()
-                .externalAccountId("string")
+                .externalAccountId("external_account_id")
                 .accountHolder(ExternalAccountUpdateParams.AccountHolder.BUSINESS)
                 .description("x")
                 .funding(ExternalAccountUpdateParams.Funding.CHECKING)
@@ -40,17 +40,19 @@ class ExternalAccountUpdateParamsTest {
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = ExternalAccountUpdateParams.builder().externalAccountId("string").build()
+        val params =
+            ExternalAccountUpdateParams.builder().externalAccountId("external_account_id").build()
         val body = params.getBody()
         assertThat(body).isNotNull
     }
 
     @Test
     fun getPathParam() {
-        val params = ExternalAccountUpdateParams.builder().externalAccountId("string").build()
+        val params =
+            ExternalAccountUpdateParams.builder().externalAccountId("external_account_id").build()
         assertThat(params).isNotNull
         // path param "externalAccountId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("external_account_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

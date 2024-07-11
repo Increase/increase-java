@@ -15,8 +15,8 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
             InboundRealTimePaymentsTransferSimulationResult.builder()
                 .declinedTransaction(
                     InboundRealTimePaymentsTransferSimulationResult.DeclinedTransaction.builder()
-                        .id("string")
-                        .accountId("string")
+                        .id("id")
+                        .accountId("account_id")
                         .amount(123L)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .currency(
@@ -24,8 +24,8 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                 .Currency
                                 .CAD
                         )
-                        .description("string")
-                        .routeId("string")
+                        .description("description")
+                        .routeId("route_id")
                         .routeType(
                             InboundRealTimePaymentsTransferSimulationResult.DeclinedTransaction
                                 .RouteType
@@ -41,13 +41,17 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .Source
                                         .AchDecline
                                         .builder()
-                                        .id("string")
+                                        .id("id")
                                         .amount(123L)
-                                        .inboundAchTransferId("string")
-                                        .originatorCompanyDescriptiveDate("string")
-                                        .originatorCompanyDiscretionaryData("string")
-                                        .originatorCompanyId("string")
-                                        .originatorCompanyName("string")
+                                        .inboundAchTransferId("inbound_ach_transfer_id")
+                                        .originatorCompanyDescriptiveDate(
+                                            "originator_company_descriptive_date"
+                                        )
+                                        .originatorCompanyDiscretionaryData(
+                                            "originator_company_discretionary_data"
+                                        )
+                                        .originatorCompanyId("originator_company_id")
+                                        .originatorCompanyName("originator_company_name")
                                         .reason(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .DeclinedTransaction
@@ -56,9 +60,9 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .Reason
                                                 .ACH_ROUTE_CANCELED
                                         )
-                                        .receiverIdNumber("string")
-                                        .receiverName("string")
-                                        .traceNumber("string")
+                                        .receiverIdNumber("receiver_id_number")
+                                        .receiverName("receiver_name")
+                                        .traceNumber("trace_number")
                                         .type(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .DeclinedTransaction
@@ -75,7 +79,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .Source
                                         .CardDecline
                                         .builder()
-                                        .id("string")
+                                        .id("id")
                                         .actioner(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .DeclinedTransaction
@@ -85,7 +89,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .USER
                                         )
                                         .amount(123L)
-                                        .cardPaymentId("string")
+                                        .cardPaymentId("card_payment_id")
                                         .currency(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .DeclinedTransaction
@@ -94,14 +98,14 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .Currency
                                                 .CAD
                                         )
-                                        .declinedTransactionId("string")
-                                        .digitalWalletTokenId("string")
-                                        .merchantAcceptorId("string")
-                                        .merchantCategoryCode("string")
-                                        .merchantCity("string")
-                                        .merchantCountry("string")
-                                        .merchantDescriptor("string")
-                                        .merchantState("string")
+                                        .declinedTransactionId("declined_transaction_id")
+                                        .digitalWalletTokenId("digital_wallet_token_id")
+                                        .merchantAcceptorId("merchant_acceptor_id")
+                                        .merchantCategoryCode("merchant_category_code")
+                                        .merchantCity("merchant_city")
+                                        .merchantCountry("merchant_country")
+                                        .merchantDescriptor("merchant_descriptor")
+                                        .merchantState("merchant_state")
                                         .networkDetails(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .DeclinedTransaction
@@ -157,15 +161,17 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .CardDecline
                                                 .NetworkIdentifiers
                                                 .builder()
-                                                .retrievalReferenceNumber("string")
-                                                .traceNumber("string")
-                                                .transactionId("string")
+                                                .retrievalReferenceNumber(
+                                                    "retrieval_reference_number"
+                                                )
+                                                .traceNumber("trace_number")
+                                                .transactionId("transaction_id")
                                                 .build()
                                         )
                                         .networkRiskScore(123L)
-                                        .physicalCardId("string")
+                                        .physicalCardId("physical_card_id")
                                         .presentmentAmount(123L)
-                                        .presentmentCurrency("string")
+                                        .presentmentCurrency("presentment_currency")
                                         .processingCategory(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .DeclinedTransaction
@@ -174,7 +180,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .ProcessingCategory
                                                 .ACCOUNT_FUNDING
                                         )
-                                        .realTimeDecisionId("string")
+                                        .realTimeDecisionId("real_time_decision_id")
                                         .reason(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .DeclinedTransaction
@@ -218,10 +224,10 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                         .Verification
                                                         .CardholderAddress
                                                         .builder()
-                                                        .actualLine1("string")
-                                                        .actualPostalCode("string")
-                                                        .providedLine1("string")
-                                                        .providedPostalCode("string")
+                                                        .actualLine1("actual_line1")
+                                                        .actualPostalCode("actual_postal_code")
+                                                        .providedLine1("provided_line1")
+                                                        .providedPostalCode("provided_postal_code")
                                                         .result(
                                                             InboundRealTimePaymentsTransferSimulationResult
                                                                 .DeclinedTransaction
@@ -252,11 +258,11 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .CheckDecline
                                         .builder()
                                         .amount(123L)
-                                        .auxiliaryOnUs("string")
-                                        .backImageFileId("string")
-                                        .checkTransferId("string")
-                                        .frontImageFileId("string")
-                                        .inboundCheckDepositId("string")
+                                        .auxiliaryOnUs("auxiliary_on_us")
+                                        .backImageFileId("back_image_file_id")
+                                        .checkTransferId("check_transfer_id")
+                                        .frontImageFileId("front_image_file_id")
+                                        .inboundCheckDepositId("inbound_check_deposit_id")
                                         .reason(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .DeclinedTransaction
@@ -274,7 +280,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .CheckDepositRejection
                                         .builder()
                                         .amount(123L)
-                                        .checkDepositId("string")
+                                        .checkDepositId("check_deposit_id")
                                         .currency(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .DeclinedTransaction
@@ -303,7 +309,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .InboundRealTimePaymentsTransferDecline
                                         .builder()
                                         .amount(123L)
-                                        .creditorName("string")
+                                        .creditorName("creditor_name")
                                         .currency(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .DeclinedTransaction
@@ -312,9 +318,9 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .Currency
                                                 .CAD
                                         )
-                                        .debtorAccountNumber("string")
-                                        .debtorName("string")
-                                        .debtorRoutingNumber("string")
+                                        .debtorAccountNumber("debtor_account_number")
+                                        .debtorName("debtor_name")
+                                        .debtorRoutingNumber("debtor_routing_number")
                                         .reason(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .DeclinedTransaction
@@ -323,8 +329,8 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .Reason
                                                 .ACCOUNT_NUMBER_CANCELED
                                         )
-                                        .remittanceInformation("string")
-                                        .transactionIdentification("string")
+                                        .remittanceInformation("remittance_information")
+                                        .transactionIdentification("transaction_identification")
                                         .build()
                                 )
                                 .internationalAchDecline(
@@ -334,8 +340,8 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .InternationalAchDecline
                                         .builder()
                                         .amount(123L)
-                                        .destinationCountryCode("string")
-                                        .destinationCurrencyCode("string")
+                                        .destinationCountryCode("destination_country_code")
+                                        .destinationCurrencyCode("destination_currency_code")
                                         .foreignExchangeIndicator(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .DeclinedTransaction
@@ -344,7 +350,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .ForeignExchangeIndicator
                                                 .FIXED_TO_VARIABLE
                                         )
-                                        .foreignExchangeReference("string")
+                                        .foreignExchangeReference("foreign_exchange_reference")
                                         .foreignExchangeReferenceIndicator(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .DeclinedTransaction
@@ -354,7 +360,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .FOREIGN_EXCHANGE_RATE
                                         )
                                         .foreignPaymentAmount(123L)
-                                        .foreignTraceNumber("string")
+                                        .foreignTraceNumber("foreign_trace_number")
                                         .internationalTransactionTypeCode(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .DeclinedTransaction
@@ -363,11 +369,13 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .InternationalTransactionTypeCode
                                                 .ANNUITY
                                         )
-                                        .originatingCurrencyCode("string")
+                                        .originatingCurrencyCode("originating_currency_code")
                                         .originatingDepositoryFinancialInstitutionBranchCountry(
-                                            "string"
+                                            "originating_depository_financial_institution_branch_country"
                                         )
-                                        .originatingDepositoryFinancialInstitutionId("string")
+                                        .originatingDepositoryFinancialInstitutionId(
+                                            "originating_depository_financial_institution_id"
+                                        )
                                         .originatingDepositoryFinancialInstitutionIdQualifier(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .DeclinedTransaction
@@ -376,26 +384,38 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .OriginatingDepositoryFinancialInstitutionIdQualifier
                                                 .NATIONAL_CLEARING_SYSTEM_NUMBER
                                         )
-                                        .originatingDepositoryFinancialInstitutionName("string")
-                                        .originatorCity("string")
-                                        .originatorCompanyEntryDescription("string")
-                                        .originatorCountry("string")
-                                        .originatorIdentification("string")
-                                        .originatorName("string")
-                                        .originatorPostalCode("string")
-                                        .originatorStateOrProvince("string")
-                                        .originatorStreetAddress("string")
-                                        .paymentRelatedInformation("string")
-                                        .paymentRelatedInformation2("string")
-                                        .receiverCity("string")
-                                        .receiverCountry("string")
-                                        .receiverIdentificationNumber("string")
-                                        .receiverPostalCode("string")
-                                        .receiverStateOrProvince("string")
-                                        .receiverStreetAddress("string")
-                                        .receivingCompanyOrIndividualName("string")
-                                        .receivingDepositoryFinancialInstitutionCountry("string")
-                                        .receivingDepositoryFinancialInstitutionId("string")
+                                        .originatingDepositoryFinancialInstitutionName(
+                                            "originating_depository_financial_institution_name"
+                                        )
+                                        .originatorCity("originator_city")
+                                        .originatorCompanyEntryDescription(
+                                            "originator_company_entry_description"
+                                        )
+                                        .originatorCountry("originator_country")
+                                        .originatorIdentification("originator_identification")
+                                        .originatorName("originator_name")
+                                        .originatorPostalCode("originator_postal_code")
+                                        .originatorStateOrProvince("originator_state_or_province")
+                                        .originatorStreetAddress("originator_street_address")
+                                        .paymentRelatedInformation("payment_related_information")
+                                        .paymentRelatedInformation2("payment_related_information2")
+                                        .receiverCity("receiver_city")
+                                        .receiverCountry("receiver_country")
+                                        .receiverIdentificationNumber(
+                                            "receiver_identification_number"
+                                        )
+                                        .receiverPostalCode("receiver_postal_code")
+                                        .receiverStateOrProvince("receiver_state_or_province")
+                                        .receiverStreetAddress("receiver_street_address")
+                                        .receivingCompanyOrIndividualName(
+                                            "receiving_company_or_individual_name"
+                                        )
+                                        .receivingDepositoryFinancialInstitutionCountry(
+                                            "receiving_depository_financial_institution_country"
+                                        )
+                                        .receivingDepositoryFinancialInstitutionId(
+                                            "receiving_depository_financial_institution_id"
+                                        )
                                         .receivingDepositoryFinancialInstitutionIdQualifier(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .DeclinedTransaction
@@ -404,8 +424,10 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .ReceivingDepositoryFinancialInstitutionIdQualifier
                                                 .NATIONAL_CLEARING_SYSTEM_NUMBER
                                         )
-                                        .receivingDepositoryFinancialInstitutionName("string")
-                                        .traceNumber("string")
+                                        .receivingDepositoryFinancialInstitutionName(
+                                            "receiving_depository_financial_institution_name"
+                                        )
+                                        .traceNumber("trace_number")
                                         .build()
                                 )
                                 .wireDecline(
@@ -414,7 +436,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .Source
                                         .WireDecline
                                         .builder()
-                                        .inboundWireTransferId("string")
+                                        .inboundWireTransferId("inbound_wire_transfer_id")
                                         .reason(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .DeclinedTransaction
@@ -435,15 +457,15 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                 )
                 .transaction(
                     InboundRealTimePaymentsTransferSimulationResult.Transaction.builder()
-                        .id("string")
-                        .accountId("string")
+                        .id("id")
+                        .accountId("account_id")
                         .amount(123L)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .currency(
                             InboundRealTimePaymentsTransferSimulationResult.Transaction.Currency.CAD
                         )
-                        .description("string")
-                        .routeId("string")
+                        .description("description")
+                        .routeId("route_id")
                         .routeType(
                             InboundRealTimePaymentsTransferSimulationResult.Transaction.RouteType
                                 .ACCOUNT_NUMBER
@@ -465,10 +487,10 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .Currency
                                                 .CAD
                                         )
-                                        .description("string")
-                                        .destinationAccountId("string")
-                                        .sourceAccountId("string")
-                                        .transferId("string")
+                                        .description("description")
+                                        .destinationAccountId("destination_account_id")
+                                        .sourceAccountId("source_account_id")
+                                        .transferId("transfer_id")
                                         .build()
                                 )
                                 .achTransferIntention(
@@ -476,11 +498,11 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .Source
                                         .AchTransferIntention
                                         .builder()
-                                        .accountNumber("string")
+                                        .accountNumber("account_number")
                                         .amount(123L)
-                                        .routingNumber("string")
-                                        .statementDescriptor("string")
-                                        .transferId("string")
+                                        .routingNumber("routing_number")
+                                        .statementDescriptor("statement_descriptor")
+                                        .transferId("transfer_id")
                                         .build()
                                 )
                                 .achTransferRejection(
@@ -488,7 +510,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .Source
                                         .AchTransferRejection
                                         .builder()
-                                        .transferId("string")
+                                        .transferId("transfer_id")
                                         .build()
                                 )
                                 .achTransferReturn(
@@ -497,7 +519,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .AchTransferReturn
                                         .builder()
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                        .rawReturnReasonCode("string")
+                                        .rawReturnReasonCode("raw_return_reason_code")
                                         .returnReasonCode(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .Transaction
@@ -506,9 +528,9 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .ReturnReasonCode
                                                 .INSUFFICIENT_FUND
                                         )
-                                        .traceNumber("string")
-                                        .transactionId("string")
-                                        .transferId("string")
+                                        .traceNumber("trace_number")
+                                        .transactionId("transaction_id")
+                                        .transferId("transfer_id")
                                         .build()
                                 )
                                 .cardDisputeAcceptance(
@@ -519,8 +541,8 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .acceptedAt(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
-                                        .cardDisputeId("string")
-                                        .transactionId("string")
+                                        .cardDisputeId("card_dispute_id")
+                                        .transactionId("transaction_id")
                                         .build()
                                 )
                                 .cardDisputeLoss(
@@ -528,10 +550,10 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .Source
                                         .CardDisputeLoss
                                         .builder()
-                                        .cardDisputeId("string")
-                                        .explanation("string")
+                                        .cardDisputeId("card_dispute_id")
+                                        .explanation("explanation")
                                         .lostAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                        .transactionId("string")
+                                        .transactionId("transaction_id")
                                         .build()
                                 )
                                 .cardRefund(
@@ -539,9 +561,9 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .Source
                                         .CardRefund
                                         .builder()
-                                        .id("string")
+                                        .id("id")
                                         .amount(123L)
-                                        .cardPaymentId("string")
+                                        .cardPaymentId("card_payment_id")
                                         .currency(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .Transaction
@@ -550,12 +572,12 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .Currency
                                                 .CAD
                                         )
-                                        .merchantAcceptorId("string")
-                                        .merchantCategoryCode("string")
-                                        .merchantCity("string")
-                                        .merchantCountry("string")
-                                        .merchantName("string")
-                                        .merchantState("string")
+                                        .merchantAcceptorId("merchant_acceptor_id")
+                                        .merchantCategoryCode("merchant_category_code")
+                                        .merchantCity("merchant_city")
+                                        .merchantCountry("merchant_country")
+                                        .merchantName("merchant_name")
+                                        .merchantState("merchant_state")
                                         .networkIdentifiers(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .Transaction
@@ -563,13 +585,15 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .CardRefund
                                                 .NetworkIdentifiers
                                                 .builder()
-                                                .acquirerBusinessId("string")
-                                                .acquirerReferenceNumber("string")
-                                                .transactionId("string")
+                                                .acquirerBusinessId("acquirer_business_id")
+                                                .acquirerReferenceNumber(
+                                                    "acquirer_reference_number"
+                                                )
+                                                .transactionId("transaction_id")
                                                 .build()
                                         )
                                         .presentmentAmount(123L)
-                                        .presentmentCurrency("string")
+                                        .presentmentCurrency("presentment_currency")
                                         .purchaseDetails(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .Transaction
@@ -585,10 +609,12 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                         .PurchaseDetails
                                                         .CarRental
                                                         .builder()
-                                                        .carClassCode("string")
+                                                        .carClassCode("car_class_code")
                                                         .checkoutDate(LocalDate.parse("2019-12-27"))
                                                         .dailyRentalRateAmount(123L)
-                                                        .dailyRentalRateCurrency("string")
+                                                        .dailyRentalRateCurrency(
+                                                            "daily_rental_rate_currency"
+                                                        )
                                                         .daysRented(123L)
                                                         .extraCharges(
                                                             InboundRealTimePaymentsTransferSimulationResult
@@ -601,9 +627,13 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                 .NO_EXTRA_CHARGE
                                                         )
                                                         .fuelChargesAmount(123L)
-                                                        .fuelChargesCurrency("string")
+                                                        .fuelChargesCurrency(
+                                                            "fuel_charges_currency"
+                                                        )
                                                         .insuranceChargesAmount(123L)
-                                                        .insuranceChargesCurrency("string")
+                                                        .insuranceChargesCurrency(
+                                                            "insurance_charges_currency"
+                                                        )
                                                         .noShowIndicator(
                                                             InboundRealTimePaymentsTransferSimulationResult
                                                                 .Transaction
@@ -615,15 +645,21 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                 .NOT_APPLICABLE
                                                         )
                                                         .oneWayDropOffChargesAmount(123L)
-                                                        .oneWayDropOffChargesCurrency("string")
-                                                        .renterName("string")
+                                                        .oneWayDropOffChargesCurrency(
+                                                            "one_way_drop_off_charges_currency"
+                                                        )
+                                                        .renterName("renter_name")
                                                         .weeklyRentalRateAmount(123L)
-                                                        .weeklyRentalRateCurrency("string")
+                                                        .weeklyRentalRateCurrency(
+                                                            "weekly_rental_rate_currency"
+                                                        )
                                                         .build()
                                                 )
-                                                .customerReferenceIdentifier("string")
+                                                .customerReferenceIdentifier(
+                                                    "customer_reference_identifier"
+                                                )
                                                 .localTaxAmount(123L)
-                                                .localTaxCurrency("string")
+                                                .localTaxCurrency("local_tax_currency")
                                                 .lodging(
                                                     InboundRealTimePaymentsTransferSimulationResult
                                                         .Transaction
@@ -634,7 +670,9 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                         .builder()
                                                         .checkInDate(LocalDate.parse("2019-12-27"))
                                                         .dailyRoomRateAmount(123L)
-                                                        .dailyRoomRateCurrency("string")
+                                                        .dailyRoomRateCurrency(
+                                                            "daily_room_rate_currency"
+                                                        )
                                                         .extraCharges(
                                                             InboundRealTimePaymentsTransferSimulationResult
                                                                 .Transaction
@@ -646,9 +684,13 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                 .NO_EXTRA_CHARGE
                                                         )
                                                         .folioCashAdvancesAmount(123L)
-                                                        .folioCashAdvancesCurrency("string")
+                                                        .folioCashAdvancesCurrency(
+                                                            "folio_cash_advances_currency"
+                                                        )
                                                         .foodBeverageChargesAmount(123L)
-                                                        .foodBeverageChargesCurrency("string")
+                                                        .foodBeverageChargesCurrency(
+                                                            "food_beverage_charges_currency"
+                                                        )
                                                         .noShowIndicator(
                                                             InboundRealTimePaymentsTransferSimulationResult
                                                                 .Transaction
@@ -660,17 +702,21 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                 .NOT_APPLICABLE
                                                         )
                                                         .prepaidExpensesAmount(123L)
-                                                        .prepaidExpensesCurrency("string")
+                                                        .prepaidExpensesCurrency(
+                                                            "prepaid_expenses_currency"
+                                                        )
                                                         .roomNights(123L)
                                                         .totalRoomTaxAmount(123L)
-                                                        .totalRoomTaxCurrency("string")
+                                                        .totalRoomTaxCurrency(
+                                                            "total_room_tax_currency"
+                                                        )
                                                         .totalTaxAmount(123L)
-                                                        .totalTaxCurrency("string")
+                                                        .totalTaxCurrency("total_tax_currency")
                                                         .build()
                                                 )
                                                 .nationalTaxAmount(123L)
-                                                .nationalTaxCurrency("string")
-                                                .purchaseIdentifier("string")
+                                                .nationalTaxCurrency("national_tax_currency")
+                                                .purchaseIdentifier("purchase_identifier")
                                                 .purchaseIdentifierFormat(
                                                     InboundRealTimePaymentsTransferSimulationResult
                                                         .Transaction
@@ -698,7 +744,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                 .Ancillary
                                                                 .builder()
                                                                 .connectedTicketDocumentNumber(
-                                                                    "string"
+                                                                    "connected_ticket_document_number"
                                                                 )
                                                                 .creditReasonIndicator(
                                                                     InboundRealTimePaymentsTransferSimulationResult
@@ -712,7 +758,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                         .NO_CREDIT
                                                                 )
                                                                 .passengerNameOrDescription(
-                                                                    "string"
+                                                                    "passenger_name_or_description"
                                                                 )
                                                                 .services(
                                                                     listOf(
@@ -737,14 +783,20 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                                     .Category
                                                                                     .NONE
                                                                             )
-                                                                            .subCategory("string")
+                                                                            .subCategory(
+                                                                                "sub_category"
+                                                                            )
                                                                             .build()
                                                                     )
                                                                 )
-                                                                .ticketDocumentNumber("string")
+                                                                .ticketDocumentNumber(
+                                                                    "ticket_document_number"
+                                                                )
                                                                 .build()
                                                         )
-                                                        .computerizedReservationSystem("string")
+                                                        .computerizedReservationSystem(
+                                                            "computerized_reservation_system"
+                                                        )
                                                         .creditReasonIndicator(
                                                             InboundRealTimePaymentsTransferSimulationResult
                                                                 .Transaction
@@ -758,8 +810,10 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                         .departureDate(
                                                             LocalDate.parse("2019-12-27")
                                                         )
-                                                        .originationCityAirportCode("string")
-                                                        .passengerName("string")
+                                                        .originationCityAirportCode(
+                                                            "origination_city_airport_code"
+                                                        )
+                                                        .passengerName("passenger_name")
                                                         .restrictedTicketIndicator(
                                                             InboundRealTimePaymentsTransferSimulationResult
                                                                 .Transaction
@@ -780,9 +834,9 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                 .TicketChangeIndicator
                                                                 .NONE
                                                         )
-                                                        .ticketNumber("string")
-                                                        .travelAgencyCode("string")
-                                                        .travelAgencyName("string")
+                                                        .ticketNumber("ticket_number")
+                                                        .travelAgencyCode("travel_agency_code")
+                                                        .travelAgencyName("travel_agency_name")
                                                         .tripLegs(
                                                             listOf(
                                                                 InboundRealTimePaymentsTransferSimulationResult
@@ -793,13 +847,15 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                     .Travel
                                                                     .TripLeg
                                                                     .builder()
-                                                                    .carrierCode("string")
+                                                                    .carrierCode("carrier_code")
                                                                     .destinationCityAirportCode(
-                                                                        "string"
+                                                                        "destination_city_airport_code"
                                                                     )
-                                                                    .fareBasisCode("string")
-                                                                    .flightNumber("string")
-                                                                    .serviceClass("string")
+                                                                    .fareBasisCode(
+                                                                        "fare_basis_code"
+                                                                    )
+                                                                    .flightNumber("flight_number")
+                                                                    .serviceClass("service_class")
                                                                     .stopOverCode(
                                                                         InboundRealTimePaymentsTransferSimulationResult
                                                                             .Transaction
@@ -818,7 +874,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 )
                                                 .build()
                                         )
-                                        .transactionId("string")
+                                        .transactionId("transaction_id")
                                         .type(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .Transaction
@@ -847,7 +903,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .periodStart(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
-                                        .transactedOnAccountId("string")
+                                        .transactedOnAccountId("transacted_on_account_id")
                                         .build()
                                 )
                                 .cardSettlement(
@@ -855,10 +911,10 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .Source
                                         .CardSettlement
                                         .builder()
-                                        .id("string")
+                                        .id("id")
                                         .amount(123L)
-                                        .cardAuthorization("string")
-                                        .cardPaymentId("string")
+                                        .cardAuthorization("card_authorization")
+                                        .cardPaymentId("card_payment_id")
                                         .currency(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .Transaction
@@ -867,12 +923,12 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .Currency
                                                 .CAD
                                         )
-                                        .merchantAcceptorId("string")
-                                        .merchantCategoryCode("string")
-                                        .merchantCity("string")
-                                        .merchantCountry("string")
-                                        .merchantName("string")
-                                        .merchantState("string")
+                                        .merchantAcceptorId("merchant_acceptor_id")
+                                        .merchantCategoryCode("merchant_category_code")
+                                        .merchantCity("merchant_city")
+                                        .merchantCountry("merchant_country")
+                                        .merchantName("merchant_name")
+                                        .merchantState("merchant_state")
                                         .networkIdentifiers(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .Transaction
@@ -880,14 +936,16 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .CardSettlement
                                                 .NetworkIdentifiers
                                                 .builder()
-                                                .acquirerBusinessId("string")
-                                                .acquirerReferenceNumber("string")
-                                                .transactionId("string")
+                                                .acquirerBusinessId("acquirer_business_id")
+                                                .acquirerReferenceNumber(
+                                                    "acquirer_reference_number"
+                                                )
+                                                .transactionId("transaction_id")
                                                 .build()
                                         )
-                                        .pendingTransactionId("string")
+                                        .pendingTransactionId("pending_transaction_id")
                                         .presentmentAmount(123L)
-                                        .presentmentCurrency("string")
+                                        .presentmentCurrency("presentment_currency")
                                         .purchaseDetails(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .Transaction
@@ -903,10 +961,12 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                         .PurchaseDetails
                                                         .CarRental
                                                         .builder()
-                                                        .carClassCode("string")
+                                                        .carClassCode("car_class_code")
                                                         .checkoutDate(LocalDate.parse("2019-12-27"))
                                                         .dailyRentalRateAmount(123L)
-                                                        .dailyRentalRateCurrency("string")
+                                                        .dailyRentalRateCurrency(
+                                                            "daily_rental_rate_currency"
+                                                        )
                                                         .daysRented(123L)
                                                         .extraCharges(
                                                             InboundRealTimePaymentsTransferSimulationResult
@@ -919,9 +979,13 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                 .NO_EXTRA_CHARGE
                                                         )
                                                         .fuelChargesAmount(123L)
-                                                        .fuelChargesCurrency("string")
+                                                        .fuelChargesCurrency(
+                                                            "fuel_charges_currency"
+                                                        )
                                                         .insuranceChargesAmount(123L)
-                                                        .insuranceChargesCurrency("string")
+                                                        .insuranceChargesCurrency(
+                                                            "insurance_charges_currency"
+                                                        )
                                                         .noShowIndicator(
                                                             InboundRealTimePaymentsTransferSimulationResult
                                                                 .Transaction
@@ -933,15 +997,21 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                 .NOT_APPLICABLE
                                                         )
                                                         .oneWayDropOffChargesAmount(123L)
-                                                        .oneWayDropOffChargesCurrency("string")
-                                                        .renterName("string")
+                                                        .oneWayDropOffChargesCurrency(
+                                                            "one_way_drop_off_charges_currency"
+                                                        )
+                                                        .renterName("renter_name")
                                                         .weeklyRentalRateAmount(123L)
-                                                        .weeklyRentalRateCurrency("string")
+                                                        .weeklyRentalRateCurrency(
+                                                            "weekly_rental_rate_currency"
+                                                        )
                                                         .build()
                                                 )
-                                                .customerReferenceIdentifier("string")
+                                                .customerReferenceIdentifier(
+                                                    "customer_reference_identifier"
+                                                )
                                                 .localTaxAmount(123L)
-                                                .localTaxCurrency("string")
+                                                .localTaxCurrency("local_tax_currency")
                                                 .lodging(
                                                     InboundRealTimePaymentsTransferSimulationResult
                                                         .Transaction
@@ -952,7 +1022,9 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                         .builder()
                                                         .checkInDate(LocalDate.parse("2019-12-27"))
                                                         .dailyRoomRateAmount(123L)
-                                                        .dailyRoomRateCurrency("string")
+                                                        .dailyRoomRateCurrency(
+                                                            "daily_room_rate_currency"
+                                                        )
                                                         .extraCharges(
                                                             InboundRealTimePaymentsTransferSimulationResult
                                                                 .Transaction
@@ -964,9 +1036,13 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                 .NO_EXTRA_CHARGE
                                                         )
                                                         .folioCashAdvancesAmount(123L)
-                                                        .folioCashAdvancesCurrency("string")
+                                                        .folioCashAdvancesCurrency(
+                                                            "folio_cash_advances_currency"
+                                                        )
                                                         .foodBeverageChargesAmount(123L)
-                                                        .foodBeverageChargesCurrency("string")
+                                                        .foodBeverageChargesCurrency(
+                                                            "food_beverage_charges_currency"
+                                                        )
                                                         .noShowIndicator(
                                                             InboundRealTimePaymentsTransferSimulationResult
                                                                 .Transaction
@@ -978,17 +1054,21 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                 .NOT_APPLICABLE
                                                         )
                                                         .prepaidExpensesAmount(123L)
-                                                        .prepaidExpensesCurrency("string")
+                                                        .prepaidExpensesCurrency(
+                                                            "prepaid_expenses_currency"
+                                                        )
                                                         .roomNights(123L)
                                                         .totalRoomTaxAmount(123L)
-                                                        .totalRoomTaxCurrency("string")
+                                                        .totalRoomTaxCurrency(
+                                                            "total_room_tax_currency"
+                                                        )
                                                         .totalTaxAmount(123L)
-                                                        .totalTaxCurrency("string")
+                                                        .totalTaxCurrency("total_tax_currency")
                                                         .build()
                                                 )
                                                 .nationalTaxAmount(123L)
-                                                .nationalTaxCurrency("string")
-                                                .purchaseIdentifier("string")
+                                                .nationalTaxCurrency("national_tax_currency")
+                                                .purchaseIdentifier("purchase_identifier")
                                                 .purchaseIdentifierFormat(
                                                     InboundRealTimePaymentsTransferSimulationResult
                                                         .Transaction
@@ -1016,7 +1096,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                 .Ancillary
                                                                 .builder()
                                                                 .connectedTicketDocumentNumber(
-                                                                    "string"
+                                                                    "connected_ticket_document_number"
                                                                 )
                                                                 .creditReasonIndicator(
                                                                     InboundRealTimePaymentsTransferSimulationResult
@@ -1030,7 +1110,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                         .NO_CREDIT
                                                                 )
                                                                 .passengerNameOrDescription(
-                                                                    "string"
+                                                                    "passenger_name_or_description"
                                                                 )
                                                                 .services(
                                                                     listOf(
@@ -1055,14 +1135,20 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                                     .Category
                                                                                     .NONE
                                                                             )
-                                                                            .subCategory("string")
+                                                                            .subCategory(
+                                                                                "sub_category"
+                                                                            )
                                                                             .build()
                                                                     )
                                                                 )
-                                                                .ticketDocumentNumber("string")
+                                                                .ticketDocumentNumber(
+                                                                    "ticket_document_number"
+                                                                )
                                                                 .build()
                                                         )
-                                                        .computerizedReservationSystem("string")
+                                                        .computerizedReservationSystem(
+                                                            "computerized_reservation_system"
+                                                        )
                                                         .creditReasonIndicator(
                                                             InboundRealTimePaymentsTransferSimulationResult
                                                                 .Transaction
@@ -1076,8 +1162,10 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                         .departureDate(
                                                             LocalDate.parse("2019-12-27")
                                                         )
-                                                        .originationCityAirportCode("string")
-                                                        .passengerName("string")
+                                                        .originationCityAirportCode(
+                                                            "origination_city_airport_code"
+                                                        )
+                                                        .passengerName("passenger_name")
                                                         .restrictedTicketIndicator(
                                                             InboundRealTimePaymentsTransferSimulationResult
                                                                 .Transaction
@@ -1098,9 +1186,9 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                 .TicketChangeIndicator
                                                                 .NONE
                                                         )
-                                                        .ticketNumber("string")
-                                                        .travelAgencyCode("string")
-                                                        .travelAgencyName("string")
+                                                        .ticketNumber("ticket_number")
+                                                        .travelAgencyCode("travel_agency_code")
+                                                        .travelAgencyName("travel_agency_name")
                                                         .tripLegs(
                                                             listOf(
                                                                 InboundRealTimePaymentsTransferSimulationResult
@@ -1111,13 +1199,15 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                     .Travel
                                                                     .TripLeg
                                                                     .builder()
-                                                                    .carrierCode("string")
+                                                                    .carrierCode("carrier_code")
                                                                     .destinationCityAirportCode(
-                                                                        "string"
+                                                                        "destination_city_airport_code"
                                                                     )
-                                                                    .fareBasisCode("string")
-                                                                    .flightNumber("string")
-                                                                    .serviceClass("string")
+                                                                    .fareBasisCode(
+                                                                        "fare_basis_code"
+                                                                    )
+                                                                    .flightNumber("flight_number")
+                                                                    .serviceClass("service_class")
                                                                     .stopOverCode(
                                                                         InboundRealTimePaymentsTransferSimulationResult
                                                                             .Transaction
@@ -1136,7 +1226,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 )
                                                 .build()
                                         )
-                                        .transactionId("string")
+                                        .transactionId("transaction_id")
                                         .type(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .Transaction
@@ -1152,7 +1242,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .Source
                                         .CashbackPayment
                                         .builder()
-                                        .accruedOnCardId("string")
+                                        .accruedOnCardId("accrued_on_card_id")
                                         .amount(123L)
                                         .currency(
                                             InboundRealTimePaymentsTransferSimulationResult
@@ -1179,10 +1269,10 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .Source
                                         .CheckDepositAcceptance
                                         .builder()
-                                        .accountNumber("string")
+                                        .accountNumber("account_number")
                                         .amount(123L)
-                                        .auxiliaryOnUs("string")
-                                        .checkDepositId("string")
+                                        .auxiliaryOnUs("auxiliary_on_us")
+                                        .checkDepositId("check_deposit_id")
                                         .currency(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .Transaction
@@ -1191,8 +1281,8 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .Currency
                                                 .CAD
                                         )
-                                        .routingNumber("string")
-                                        .serialNumber("string")
+                                        .routingNumber("routing_number")
+                                        .serialNumber("serial_number")
                                         .build()
                                 )
                                 .checkDepositReturn(
@@ -1201,7 +1291,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .CheckDepositReturn
                                         .builder()
                                         .amount(123L)
-                                        .checkDepositId("string")
+                                        .checkDepositId("check_deposit_id")
                                         .currency(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .Transaction
@@ -1221,7 +1311,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .returnedAt(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
-                                        .transactionId("string")
+                                        .transactionId("transaction_id")
                                         .build()
                                 )
                                 .checkTransferDeposit(
@@ -1229,15 +1319,17 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .Source
                                         .CheckTransferDeposit
                                         .builder()
-                                        .backImageFileId("string")
-                                        .bankOfFirstDepositRoutingNumber("string")
+                                        .backImageFileId("back_image_file_id")
+                                        .bankOfFirstDepositRoutingNumber(
+                                            "bank_of_first_deposit_routing_number"
+                                        )
                                         .depositedAt(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
-                                        .frontImageFileId("string")
-                                        .inboundCheckDepositId("string")
-                                        .transactionId("string")
-                                        .transferId("string")
+                                        .frontImageFileId("front_image_file_id")
+                                        .inboundCheckDepositId("inbound_check_deposit_id")
+                                        .transactionId("transaction_id")
+                                        .transferId("transfer_id")
                                         .type(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .Transaction
@@ -1264,7 +1356,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .requestedAt(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
-                                        .transferId("string")
+                                        .transferId("transfer_id")
                                         .type(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .Transaction
@@ -1332,7 +1424,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                     .Entry
                                                                     .builder()
                                                                     .paymentRelatedInformation(
-                                                                        "string"
+                                                                        "payment_related_information"
                                                                     )
                                                                     .build()
                                                             )
@@ -1342,15 +1434,21 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .build()
                                         )
                                         .amount(123L)
-                                        .originatorCompanyDescriptiveDate("string")
-                                        .originatorCompanyDiscretionaryData("string")
-                                        .originatorCompanyEntryDescription("string")
-                                        .originatorCompanyId("string")
-                                        .originatorCompanyName("string")
-                                        .receiverIdNumber("string")
-                                        .receiverName("string")
-                                        .traceNumber("string")
-                                        .transferId("string")
+                                        .originatorCompanyDescriptiveDate(
+                                            "originator_company_descriptive_date"
+                                        )
+                                        .originatorCompanyDiscretionaryData(
+                                            "originator_company_discretionary_data"
+                                        )
+                                        .originatorCompanyEntryDescription(
+                                            "originator_company_entry_description"
+                                        )
+                                        .originatorCompanyId("originator_company_id")
+                                        .originatorCompanyName("originator_company_name")
+                                        .receiverIdNumber("receiver_id_number")
+                                        .receiverName("receiver_name")
+                                        .traceNumber("trace_number")
+                                        .transferId("transfer_id")
                                         .build()
                                 )
                                 .inboundInternationalAchTransfer(
@@ -1359,8 +1457,8 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .InboundInternationalAchTransfer
                                         .builder()
                                         .amount(123L)
-                                        .destinationCountryCode("string")
-                                        .destinationCurrencyCode("string")
+                                        .destinationCountryCode("destination_country_code")
+                                        .destinationCurrencyCode("destination_currency_code")
                                         .foreignExchangeIndicator(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .Transaction
@@ -1369,7 +1467,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .ForeignExchangeIndicator
                                                 .FIXED_TO_VARIABLE
                                         )
-                                        .foreignExchangeReference("string")
+                                        .foreignExchangeReference("foreign_exchange_reference")
                                         .foreignExchangeReferenceIndicator(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .Transaction
@@ -1379,7 +1477,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .FOREIGN_EXCHANGE_RATE
                                         )
                                         .foreignPaymentAmount(123L)
-                                        .foreignTraceNumber("string")
+                                        .foreignTraceNumber("foreign_trace_number")
                                         .internationalTransactionTypeCode(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .Transaction
@@ -1388,11 +1486,13 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .InternationalTransactionTypeCode
                                                 .ANNUITY
                                         )
-                                        .originatingCurrencyCode("string")
+                                        .originatingCurrencyCode("originating_currency_code")
                                         .originatingDepositoryFinancialInstitutionBranchCountry(
-                                            "string"
+                                            "originating_depository_financial_institution_branch_country"
                                         )
-                                        .originatingDepositoryFinancialInstitutionId("string")
+                                        .originatingDepositoryFinancialInstitutionId(
+                                            "originating_depository_financial_institution_id"
+                                        )
                                         .originatingDepositoryFinancialInstitutionIdQualifier(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .Transaction
@@ -1401,26 +1501,38 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .OriginatingDepositoryFinancialInstitutionIdQualifier
                                                 .NATIONAL_CLEARING_SYSTEM_NUMBER
                                         )
-                                        .originatingDepositoryFinancialInstitutionName("string")
-                                        .originatorCity("string")
-                                        .originatorCompanyEntryDescription("string")
-                                        .originatorCountry("string")
-                                        .originatorIdentification("string")
-                                        .originatorName("string")
-                                        .originatorPostalCode("string")
-                                        .originatorStateOrProvince("string")
-                                        .originatorStreetAddress("string")
-                                        .paymentRelatedInformation("string")
-                                        .paymentRelatedInformation2("string")
-                                        .receiverCity("string")
-                                        .receiverCountry("string")
-                                        .receiverIdentificationNumber("string")
-                                        .receiverPostalCode("string")
-                                        .receiverStateOrProvince("string")
-                                        .receiverStreetAddress("string")
-                                        .receivingCompanyOrIndividualName("string")
-                                        .receivingDepositoryFinancialInstitutionCountry("string")
-                                        .receivingDepositoryFinancialInstitutionId("string")
+                                        .originatingDepositoryFinancialInstitutionName(
+                                            "originating_depository_financial_institution_name"
+                                        )
+                                        .originatorCity("originator_city")
+                                        .originatorCompanyEntryDescription(
+                                            "originator_company_entry_description"
+                                        )
+                                        .originatorCountry("originator_country")
+                                        .originatorIdentification("originator_identification")
+                                        .originatorName("originator_name")
+                                        .originatorPostalCode("originator_postal_code")
+                                        .originatorStateOrProvince("originator_state_or_province")
+                                        .originatorStreetAddress("originator_street_address")
+                                        .paymentRelatedInformation("payment_related_information")
+                                        .paymentRelatedInformation2("payment_related_information2")
+                                        .receiverCity("receiver_city")
+                                        .receiverCountry("receiver_country")
+                                        .receiverIdentificationNumber(
+                                            "receiver_identification_number"
+                                        )
+                                        .receiverPostalCode("receiver_postal_code")
+                                        .receiverStateOrProvince("receiver_state_or_province")
+                                        .receiverStreetAddress("receiver_street_address")
+                                        .receivingCompanyOrIndividualName(
+                                            "receiving_company_or_individual_name"
+                                        )
+                                        .receivingDepositoryFinancialInstitutionCountry(
+                                            "receiving_depository_financial_institution_country"
+                                        )
+                                        .receivingDepositoryFinancialInstitutionId(
+                                            "receiving_depository_financial_institution_id"
+                                        )
                                         .receivingDepositoryFinancialInstitutionIdQualifier(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .Transaction
@@ -1429,8 +1541,10 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .ReceivingDepositoryFinancialInstitutionIdQualifier
                                                 .NATIONAL_CLEARING_SYSTEM_NUMBER
                                         )
-                                        .receivingDepositoryFinancialInstitutionName("string")
-                                        .traceNumber("string")
+                                        .receivingDepositoryFinancialInstitutionName(
+                                            "receiving_depository_financial_institution_name"
+                                        )
+                                        .traceNumber("trace_number")
                                         .type(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .Transaction
@@ -1447,7 +1561,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .InboundRealTimePaymentsTransferConfirmation
                                         .builder()
                                         .amount(123L)
-                                        .creditorName("string")
+                                        .creditorName("creditor_name")
                                         .currency(
                                             InboundRealTimePaymentsTransferSimulationResult
                                                 .Transaction
@@ -1456,11 +1570,11 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                 .Currency
                                                 .CAD
                                         )
-                                        .debtorAccountNumber("string")
-                                        .debtorName("string")
-                                        .debtorRoutingNumber("string")
-                                        .remittanceInformation("string")
-                                        .transactionIdentification("string")
+                                        .debtorAccountNumber("debtor_account_number")
+                                        .debtorName("debtor_name")
+                                        .debtorRoutingNumber("debtor_routing_number")
+                                        .remittanceInformation("remittance_information")
+                                        .transactionIdentification("transaction_identification")
                                         .build()
                                 )
                                 .inboundWireDrawdownPayment(
@@ -1469,23 +1583,35 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .InboundWireDrawdownPayment
                                         .builder()
                                         .amount(123L)
-                                        .beneficiaryAddressLine1("string")
-                                        .beneficiaryAddressLine2("string")
-                                        .beneficiaryAddressLine3("string")
-                                        .beneficiaryName("string")
-                                        .beneficiaryReference("string")
-                                        .description("string")
-                                        .inputMessageAccountabilityData("string")
-                                        .originatorAddressLine1("string")
-                                        .originatorAddressLine2("string")
-                                        .originatorAddressLine3("string")
-                                        .originatorName("string")
-                                        .originatorRoutingNumber("string")
-                                        .originatorToBeneficiaryInformation("string")
-                                        .originatorToBeneficiaryInformationLine1("string")
-                                        .originatorToBeneficiaryInformationLine2("string")
-                                        .originatorToBeneficiaryInformationLine3("string")
-                                        .originatorToBeneficiaryInformationLine4("string")
+                                        .beneficiaryAddressLine1("beneficiary_address_line1")
+                                        .beneficiaryAddressLine2("beneficiary_address_line2")
+                                        .beneficiaryAddressLine3("beneficiary_address_line3")
+                                        .beneficiaryName("beneficiary_name")
+                                        .beneficiaryReference("beneficiary_reference")
+                                        .description("description")
+                                        .inputMessageAccountabilityData(
+                                            "input_message_accountability_data"
+                                        )
+                                        .originatorAddressLine1("originator_address_line1")
+                                        .originatorAddressLine2("originator_address_line2")
+                                        .originatorAddressLine3("originator_address_line3")
+                                        .originatorName("originator_name")
+                                        .originatorRoutingNumber("originator_routing_number")
+                                        .originatorToBeneficiaryInformation(
+                                            "originator_to_beneficiary_information"
+                                        )
+                                        .originatorToBeneficiaryInformationLine1(
+                                            "originator_to_beneficiary_information_line1"
+                                        )
+                                        .originatorToBeneficiaryInformationLine2(
+                                            "originator_to_beneficiary_information_line2"
+                                        )
+                                        .originatorToBeneficiaryInformationLine3(
+                                            "originator_to_beneficiary_information_line3"
+                                        )
+                                        .originatorToBeneficiaryInformationLine4(
+                                            "originator_to_beneficiary_information_line4"
+                                        )
                                         .build()
                                 )
                                 .inboundWireReversal(
@@ -1495,24 +1621,32 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .builder()
                                         .amount(123L)
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                        .description("string")
+                                        .description("description")
                                         .financialInstitutionToFinancialInstitutionInformation(
-                                            "string"
+                                            "financial_institution_to_financial_institution_information"
                                         )
                                         .inputCycleDate(LocalDate.parse("2019-12-27"))
-                                        .inputMessageAccountabilityData("string")
-                                        .inputSequenceNumber("string")
-                                        .inputSource("string")
-                                        .originatorRoutingNumber("string")
+                                        .inputMessageAccountabilityData(
+                                            "input_message_accountability_data"
+                                        )
+                                        .inputSequenceNumber("input_sequence_number")
+                                        .inputSource("input_source")
+                                        .originatorRoutingNumber("originator_routing_number")
                                         .previousMessageInputCycleDate(
                                             LocalDate.parse("2019-12-27")
                                         )
-                                        .previousMessageInputMessageAccountabilityData("string")
-                                        .previousMessageInputSequenceNumber("string")
-                                        .previousMessageInputSource("string")
-                                        .receiverFinancialInstitutionInformation("string")
-                                        .transactionId("string")
-                                        .wireTransferId("string")
+                                        .previousMessageInputMessageAccountabilityData(
+                                            "previous_message_input_message_accountability_data"
+                                        )
+                                        .previousMessageInputSequenceNumber(
+                                            "previous_message_input_sequence_number"
+                                        )
+                                        .previousMessageInputSource("previous_message_input_source")
+                                        .receiverFinancialInstitutionInformation(
+                                            "receiver_financial_institution_information"
+                                        )
+                                        .transactionId("transaction_id")
+                                        .wireTransferId("wire_transfer_id")
                                         .build()
                                 )
                                 .inboundWireTransfer(
@@ -1521,24 +1655,36 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .InboundWireTransfer
                                         .builder()
                                         .amount(123L)
-                                        .beneficiaryAddressLine1("string")
-                                        .beneficiaryAddressLine2("string")
-                                        .beneficiaryAddressLine3("string")
-                                        .beneficiaryName("string")
-                                        .beneficiaryReference("string")
-                                        .description("string")
-                                        .inputMessageAccountabilityData("string")
-                                        .originatorAddressLine1("string")
-                                        .originatorAddressLine2("string")
-                                        .originatorAddressLine3("string")
-                                        .originatorName("string")
-                                        .originatorRoutingNumber("string")
-                                        .originatorToBeneficiaryInformation("string")
-                                        .originatorToBeneficiaryInformationLine1("string")
-                                        .originatorToBeneficiaryInformationLine2("string")
-                                        .originatorToBeneficiaryInformationLine3("string")
-                                        .originatorToBeneficiaryInformationLine4("string")
-                                        .transferId("string")
+                                        .beneficiaryAddressLine1("beneficiary_address_line1")
+                                        .beneficiaryAddressLine2("beneficiary_address_line2")
+                                        .beneficiaryAddressLine3("beneficiary_address_line3")
+                                        .beneficiaryName("beneficiary_name")
+                                        .beneficiaryReference("beneficiary_reference")
+                                        .description("description")
+                                        .inputMessageAccountabilityData(
+                                            "input_message_accountability_data"
+                                        )
+                                        .originatorAddressLine1("originator_address_line1")
+                                        .originatorAddressLine2("originator_address_line2")
+                                        .originatorAddressLine3("originator_address_line3")
+                                        .originatorName("originator_name")
+                                        .originatorRoutingNumber("originator_routing_number")
+                                        .originatorToBeneficiaryInformation(
+                                            "originator_to_beneficiary_information"
+                                        )
+                                        .originatorToBeneficiaryInformationLine1(
+                                            "originator_to_beneficiary_information_line1"
+                                        )
+                                        .originatorToBeneficiaryInformationLine2(
+                                            "originator_to_beneficiary_information_line2"
+                                        )
+                                        .originatorToBeneficiaryInformationLine3(
+                                            "originator_to_beneficiary_information_line3"
+                                        )
+                                        .originatorToBeneficiaryInformationLine4(
+                                            "originator_to_beneficiary_information_line4"
+                                        )
+                                        .transferId("transfer_id")
                                         .build()
                                 )
                                 .interestPayment(
@@ -1546,7 +1692,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .Source
                                         .InterestPayment
                                         .builder()
-                                        .accruedOnAccountId("string")
+                                        .accruedOnAccountId("accrued_on_account_id")
                                         .amount(123L)
                                         .currency(
                                             InboundRealTimePaymentsTransferSimulationResult
@@ -1592,10 +1738,10 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .RealTimePaymentsTransferAcknowledgement
                                         .builder()
                                         .amount(123L)
-                                        .destinationAccountNumber("string")
-                                        .destinationRoutingNumber("string")
-                                        .remittanceInformation("string")
-                                        .transferId("string")
+                                        .destinationAccountNumber("destination_account_number")
+                                        .destinationRoutingNumber("destination_routing_number")
+                                        .remittanceInformation("remittance_information")
+                                        .transferId("transfer_id")
                                         .build()
                                 )
                                 .sampleFunds(
@@ -1603,7 +1749,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .Source
                                         .SampleFunds
                                         .builder()
-                                        .originator("string")
+                                        .originator("originator")
                                         .build()
                                 )
                                 .wireTransferIntention(
@@ -1611,11 +1757,11 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .Source
                                         .WireTransferIntention
                                         .builder()
-                                        .accountNumber("string")
+                                        .accountNumber("account_number")
                                         .amount(123L)
-                                        .messageToRecipient("string")
-                                        .routingNumber("string")
-                                        .transferId("string")
+                                        .messageToRecipient("message_to_recipient")
+                                        .routingNumber("routing_number")
+                                        .transferId("transfer_id")
                                         .build()
                                 )
                                 .wireTransferRejection(
@@ -1623,7 +1769,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                         .Source
                                         .WireTransferRejection
                                         .builder()
-                                        .transferId("string")
+                                        .transferId("transfer_id")
                                         .build()
                                 )
                                 .build()
@@ -1643,16 +1789,16 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
         assertThat(inboundRealTimePaymentsTransferSimulationResult.declinedTransaction())
             .contains(
                 InboundRealTimePaymentsTransferSimulationResult.DeclinedTransaction.builder()
-                    .id("string")
-                    .accountId("string")
+                    .id("id")
+                    .accountId("account_id")
                     .amount(123L)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .currency(
                         InboundRealTimePaymentsTransferSimulationResult.DeclinedTransaction.Currency
                             .CAD
                     )
-                    .description("string")
-                    .routeId("string")
+                    .description("description")
+                    .routeId("route_id")
                     .routeType(
                         InboundRealTimePaymentsTransferSimulationResult.DeclinedTransaction
                             .RouteType
@@ -1666,13 +1812,17 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .Source
                                     .AchDecline
                                     .builder()
-                                    .id("string")
+                                    .id("id")
                                     .amount(123L)
-                                    .inboundAchTransferId("string")
-                                    .originatorCompanyDescriptiveDate("string")
-                                    .originatorCompanyDiscretionaryData("string")
-                                    .originatorCompanyId("string")
-                                    .originatorCompanyName("string")
+                                    .inboundAchTransferId("inbound_ach_transfer_id")
+                                    .originatorCompanyDescriptiveDate(
+                                        "originator_company_descriptive_date"
+                                    )
+                                    .originatorCompanyDiscretionaryData(
+                                        "originator_company_discretionary_data"
+                                    )
+                                    .originatorCompanyId("originator_company_id")
+                                    .originatorCompanyName("originator_company_name")
                                     .reason(
                                         InboundRealTimePaymentsTransferSimulationResult
                                             .DeclinedTransaction
@@ -1681,9 +1831,9 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .Reason
                                             .ACH_ROUTE_CANCELED
                                     )
-                                    .receiverIdNumber("string")
-                                    .receiverName("string")
-                                    .traceNumber("string")
+                                    .receiverIdNumber("receiver_id_number")
+                                    .receiverName("receiver_name")
+                                    .traceNumber("trace_number")
                                     .type(
                                         InboundRealTimePaymentsTransferSimulationResult
                                             .DeclinedTransaction
@@ -1699,7 +1849,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .Source
                                     .CardDecline
                                     .builder()
-                                    .id("string")
+                                    .id("id")
                                     .actioner(
                                         InboundRealTimePaymentsTransferSimulationResult
                                             .DeclinedTransaction
@@ -1709,7 +1859,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .USER
                                     )
                                     .amount(123L)
-                                    .cardPaymentId("string")
+                                    .cardPaymentId("card_payment_id")
                                     .currency(
                                         InboundRealTimePaymentsTransferSimulationResult
                                             .DeclinedTransaction
@@ -1718,14 +1868,14 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .Currency
                                             .CAD
                                     )
-                                    .declinedTransactionId("string")
-                                    .digitalWalletTokenId("string")
-                                    .merchantAcceptorId("string")
-                                    .merchantCategoryCode("string")
-                                    .merchantCity("string")
-                                    .merchantCountry("string")
-                                    .merchantDescriptor("string")
-                                    .merchantState("string")
+                                    .declinedTransactionId("declined_transaction_id")
+                                    .digitalWalletTokenId("digital_wallet_token_id")
+                                    .merchantAcceptorId("merchant_acceptor_id")
+                                    .merchantCategoryCode("merchant_category_code")
+                                    .merchantCity("merchant_city")
+                                    .merchantCountry("merchant_country")
+                                    .merchantDescriptor("merchant_descriptor")
+                                    .merchantState("merchant_state")
                                     .networkDetails(
                                         InboundRealTimePaymentsTransferSimulationResult
                                             .DeclinedTransaction
@@ -1781,15 +1931,15 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .CardDecline
                                             .NetworkIdentifiers
                                             .builder()
-                                            .retrievalReferenceNumber("string")
-                                            .traceNumber("string")
-                                            .transactionId("string")
+                                            .retrievalReferenceNumber("retrieval_reference_number")
+                                            .traceNumber("trace_number")
+                                            .transactionId("transaction_id")
                                             .build()
                                     )
                                     .networkRiskScore(123L)
-                                    .physicalCardId("string")
+                                    .physicalCardId("physical_card_id")
                                     .presentmentAmount(123L)
-                                    .presentmentCurrency("string")
+                                    .presentmentCurrency("presentment_currency")
                                     .processingCategory(
                                         InboundRealTimePaymentsTransferSimulationResult
                                             .DeclinedTransaction
@@ -1798,7 +1948,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .ProcessingCategory
                                             .ACCOUNT_FUNDING
                                     )
-                                    .realTimeDecisionId("string")
+                                    .realTimeDecisionId("real_time_decision_id")
                                     .reason(
                                         InboundRealTimePaymentsTransferSimulationResult
                                             .DeclinedTransaction
@@ -1842,10 +1992,10 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                     .Verification
                                                     .CardholderAddress
                                                     .builder()
-                                                    .actualLine1("string")
-                                                    .actualPostalCode("string")
-                                                    .providedLine1("string")
-                                                    .providedPostalCode("string")
+                                                    .actualLine1("actual_line1")
+                                                    .actualPostalCode("actual_postal_code")
+                                                    .providedLine1("provided_line1")
+                                                    .providedPostalCode("provided_postal_code")
                                                     .result(
                                                         InboundRealTimePaymentsTransferSimulationResult
                                                             .DeclinedTransaction
@@ -1874,11 +2024,11 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .CheckDecline
                                     .builder()
                                     .amount(123L)
-                                    .auxiliaryOnUs("string")
-                                    .backImageFileId("string")
-                                    .checkTransferId("string")
-                                    .frontImageFileId("string")
-                                    .inboundCheckDepositId("string")
+                                    .auxiliaryOnUs("auxiliary_on_us")
+                                    .backImageFileId("back_image_file_id")
+                                    .checkTransferId("check_transfer_id")
+                                    .frontImageFileId("front_image_file_id")
+                                    .inboundCheckDepositId("inbound_check_deposit_id")
                                     .reason(
                                         InboundRealTimePaymentsTransferSimulationResult
                                             .DeclinedTransaction
@@ -1895,7 +2045,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .CheckDepositRejection
                                     .builder()
                                     .amount(123L)
-                                    .checkDepositId("string")
+                                    .checkDepositId("check_deposit_id")
                                     .currency(
                                         InboundRealTimePaymentsTransferSimulationResult
                                             .DeclinedTransaction
@@ -1921,7 +2071,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .InboundRealTimePaymentsTransferDecline
                                     .builder()
                                     .amount(123L)
-                                    .creditorName("string")
+                                    .creditorName("creditor_name")
                                     .currency(
                                         InboundRealTimePaymentsTransferSimulationResult
                                             .DeclinedTransaction
@@ -1930,9 +2080,9 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .Currency
                                             .CAD
                                     )
-                                    .debtorAccountNumber("string")
-                                    .debtorName("string")
-                                    .debtorRoutingNumber("string")
+                                    .debtorAccountNumber("debtor_account_number")
+                                    .debtorName("debtor_name")
+                                    .debtorRoutingNumber("debtor_routing_number")
                                     .reason(
                                         InboundRealTimePaymentsTransferSimulationResult
                                             .DeclinedTransaction
@@ -1941,8 +2091,8 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .Reason
                                             .ACCOUNT_NUMBER_CANCELED
                                     )
-                                    .remittanceInformation("string")
-                                    .transactionIdentification("string")
+                                    .remittanceInformation("remittance_information")
+                                    .transactionIdentification("transaction_identification")
                                     .build()
                             )
                             .internationalAchDecline(
@@ -1951,8 +2101,8 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .InternationalAchDecline
                                     .builder()
                                     .amount(123L)
-                                    .destinationCountryCode("string")
-                                    .destinationCurrencyCode("string")
+                                    .destinationCountryCode("destination_country_code")
+                                    .destinationCurrencyCode("destination_currency_code")
                                     .foreignExchangeIndicator(
                                         InboundRealTimePaymentsTransferSimulationResult
                                             .DeclinedTransaction
@@ -1961,7 +2111,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .ForeignExchangeIndicator
                                             .FIXED_TO_VARIABLE
                                     )
-                                    .foreignExchangeReference("string")
+                                    .foreignExchangeReference("foreign_exchange_reference")
                                     .foreignExchangeReferenceIndicator(
                                         InboundRealTimePaymentsTransferSimulationResult
                                             .DeclinedTransaction
@@ -1971,7 +2121,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .FOREIGN_EXCHANGE_RATE
                                     )
                                     .foreignPaymentAmount(123L)
-                                    .foreignTraceNumber("string")
+                                    .foreignTraceNumber("foreign_trace_number")
                                     .internationalTransactionTypeCode(
                                         InboundRealTimePaymentsTransferSimulationResult
                                             .DeclinedTransaction
@@ -1980,11 +2130,13 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .InternationalTransactionTypeCode
                                             .ANNUITY
                                     )
-                                    .originatingCurrencyCode("string")
+                                    .originatingCurrencyCode("originating_currency_code")
                                     .originatingDepositoryFinancialInstitutionBranchCountry(
-                                        "string"
+                                        "originating_depository_financial_institution_branch_country"
                                     )
-                                    .originatingDepositoryFinancialInstitutionId("string")
+                                    .originatingDepositoryFinancialInstitutionId(
+                                        "originating_depository_financial_institution_id"
+                                    )
                                     .originatingDepositoryFinancialInstitutionIdQualifier(
                                         InboundRealTimePaymentsTransferSimulationResult
                                             .DeclinedTransaction
@@ -1993,26 +2145,36 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .OriginatingDepositoryFinancialInstitutionIdQualifier
                                             .NATIONAL_CLEARING_SYSTEM_NUMBER
                                     )
-                                    .originatingDepositoryFinancialInstitutionName("string")
-                                    .originatorCity("string")
-                                    .originatorCompanyEntryDescription("string")
-                                    .originatorCountry("string")
-                                    .originatorIdentification("string")
-                                    .originatorName("string")
-                                    .originatorPostalCode("string")
-                                    .originatorStateOrProvince("string")
-                                    .originatorStreetAddress("string")
-                                    .paymentRelatedInformation("string")
-                                    .paymentRelatedInformation2("string")
-                                    .receiverCity("string")
-                                    .receiverCountry("string")
-                                    .receiverIdentificationNumber("string")
-                                    .receiverPostalCode("string")
-                                    .receiverStateOrProvince("string")
-                                    .receiverStreetAddress("string")
-                                    .receivingCompanyOrIndividualName("string")
-                                    .receivingDepositoryFinancialInstitutionCountry("string")
-                                    .receivingDepositoryFinancialInstitutionId("string")
+                                    .originatingDepositoryFinancialInstitutionName(
+                                        "originating_depository_financial_institution_name"
+                                    )
+                                    .originatorCity("originator_city")
+                                    .originatorCompanyEntryDescription(
+                                        "originator_company_entry_description"
+                                    )
+                                    .originatorCountry("originator_country")
+                                    .originatorIdentification("originator_identification")
+                                    .originatorName("originator_name")
+                                    .originatorPostalCode("originator_postal_code")
+                                    .originatorStateOrProvince("originator_state_or_province")
+                                    .originatorStreetAddress("originator_street_address")
+                                    .paymentRelatedInformation("payment_related_information")
+                                    .paymentRelatedInformation2("payment_related_information2")
+                                    .receiverCity("receiver_city")
+                                    .receiverCountry("receiver_country")
+                                    .receiverIdentificationNumber("receiver_identification_number")
+                                    .receiverPostalCode("receiver_postal_code")
+                                    .receiverStateOrProvince("receiver_state_or_province")
+                                    .receiverStreetAddress("receiver_street_address")
+                                    .receivingCompanyOrIndividualName(
+                                        "receiving_company_or_individual_name"
+                                    )
+                                    .receivingDepositoryFinancialInstitutionCountry(
+                                        "receiving_depository_financial_institution_country"
+                                    )
+                                    .receivingDepositoryFinancialInstitutionId(
+                                        "receiving_depository_financial_institution_id"
+                                    )
                                     .receivingDepositoryFinancialInstitutionIdQualifier(
                                         InboundRealTimePaymentsTransferSimulationResult
                                             .DeclinedTransaction
@@ -2021,8 +2183,10 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .ReceivingDepositoryFinancialInstitutionIdQualifier
                                             .NATIONAL_CLEARING_SYSTEM_NUMBER
                                     )
-                                    .receivingDepositoryFinancialInstitutionName("string")
-                                    .traceNumber("string")
+                                    .receivingDepositoryFinancialInstitutionName(
+                                        "receiving_depository_financial_institution_name"
+                                    )
+                                    .traceNumber("trace_number")
                                     .build()
                             )
                             .wireDecline(
@@ -2030,7 +2194,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .Source
                                     .WireDecline
                                     .builder()
-                                    .inboundWireTransferId("string")
+                                    .inboundWireTransferId("inbound_wire_transfer_id")
                                     .reason(
                                         InboundRealTimePaymentsTransferSimulationResult
                                             .DeclinedTransaction
@@ -2052,15 +2216,15 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
         assertThat(inboundRealTimePaymentsTransferSimulationResult.transaction())
             .contains(
                 InboundRealTimePaymentsTransferSimulationResult.Transaction.builder()
-                    .id("string")
-                    .accountId("string")
+                    .id("id")
+                    .accountId("account_id")
                     .amount(123L)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .currency(
                         InboundRealTimePaymentsTransferSimulationResult.Transaction.Currency.CAD
                     )
-                    .description("string")
-                    .routeId("string")
+                    .description("description")
+                    .routeId("route_id")
                     .routeType(
                         InboundRealTimePaymentsTransferSimulationResult.Transaction.RouteType
                             .ACCOUNT_NUMBER
@@ -2079,28 +2243,28 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .Currency
                                             .CAD
                                     )
-                                    .description("string")
-                                    .destinationAccountId("string")
-                                    .sourceAccountId("string")
-                                    .transferId("string")
+                                    .description("description")
+                                    .destinationAccountId("destination_account_id")
+                                    .sourceAccountId("source_account_id")
+                                    .transferId("transfer_id")
                                     .build()
                             )
                             .achTransferIntention(
                                 InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
                                     .AchTransferIntention
                                     .builder()
-                                    .accountNumber("string")
+                                    .accountNumber("account_number")
                                     .amount(123L)
-                                    .routingNumber("string")
-                                    .statementDescriptor("string")
-                                    .transferId("string")
+                                    .routingNumber("routing_number")
+                                    .statementDescriptor("statement_descriptor")
+                                    .transferId("transfer_id")
                                     .build()
                             )
                             .achTransferRejection(
                                 InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
                                     .AchTransferRejection
                                     .builder()
-                                    .transferId("string")
+                                    .transferId("transfer_id")
                                     .build()
                             )
                             .achTransferReturn(
@@ -2108,7 +2272,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .AchTransferReturn
                                     .builder()
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .rawReturnReasonCode("string")
+                                    .rawReturnReasonCode("raw_return_reason_code")
                                     .returnReasonCode(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction
                                             .Source
@@ -2116,9 +2280,9 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .ReturnReasonCode
                                             .INSUFFICIENT_FUND
                                     )
-                                    .traceNumber("string")
-                                    .transactionId("string")
-                                    .transferId("string")
+                                    .traceNumber("trace_number")
+                                    .transactionId("transaction_id")
+                                    .transferId("transfer_id")
                                     .build()
                             )
                             .cardDisputeAcceptance(
@@ -2126,27 +2290,27 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .CardDisputeAcceptance
                                     .builder()
                                     .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .cardDisputeId("string")
-                                    .transactionId("string")
+                                    .cardDisputeId("card_dispute_id")
+                                    .transactionId("transaction_id")
                                     .build()
                             )
                             .cardDisputeLoss(
                                 InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
                                     .CardDisputeLoss
                                     .builder()
-                                    .cardDisputeId("string")
-                                    .explanation("string")
+                                    .cardDisputeId("card_dispute_id")
+                                    .explanation("explanation")
                                     .lostAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .transactionId("string")
+                                    .transactionId("transaction_id")
                                     .build()
                             )
                             .cardRefund(
                                 InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
                                     .CardRefund
                                     .builder()
-                                    .id("string")
+                                    .id("id")
                                     .amount(123L)
-                                    .cardPaymentId("string")
+                                    .cardPaymentId("card_payment_id")
                                     .currency(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction
                                             .Source
@@ -2154,25 +2318,25 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .Currency
                                             .CAD
                                     )
-                                    .merchantAcceptorId("string")
-                                    .merchantCategoryCode("string")
-                                    .merchantCity("string")
-                                    .merchantCountry("string")
-                                    .merchantName("string")
-                                    .merchantState("string")
+                                    .merchantAcceptorId("merchant_acceptor_id")
+                                    .merchantCategoryCode("merchant_category_code")
+                                    .merchantCity("merchant_city")
+                                    .merchantCountry("merchant_country")
+                                    .merchantName("merchant_name")
+                                    .merchantState("merchant_state")
                                     .networkIdentifiers(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction
                                             .Source
                                             .CardRefund
                                             .NetworkIdentifiers
                                             .builder()
-                                            .acquirerBusinessId("string")
-                                            .acquirerReferenceNumber("string")
-                                            .transactionId("string")
+                                            .acquirerBusinessId("acquirer_business_id")
+                                            .acquirerReferenceNumber("acquirer_reference_number")
+                                            .transactionId("transaction_id")
                                             .build()
                                     )
                                     .presentmentAmount(123L)
-                                    .presentmentCurrency("string")
+                                    .presentmentCurrency("presentment_currency")
                                     .purchaseDetails(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction
                                             .Source
@@ -2187,10 +2351,12 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                     .PurchaseDetails
                                                     .CarRental
                                                     .builder()
-                                                    .carClassCode("string")
+                                                    .carClassCode("car_class_code")
                                                     .checkoutDate(LocalDate.parse("2019-12-27"))
                                                     .dailyRentalRateAmount(123L)
-                                                    .dailyRentalRateCurrency("string")
+                                                    .dailyRentalRateCurrency(
+                                                        "daily_rental_rate_currency"
+                                                    )
                                                     .daysRented(123L)
                                                     .extraCharges(
                                                         InboundRealTimePaymentsTransferSimulationResult
@@ -2203,9 +2369,11 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                             .NO_EXTRA_CHARGE
                                                     )
                                                     .fuelChargesAmount(123L)
-                                                    .fuelChargesCurrency("string")
+                                                    .fuelChargesCurrency("fuel_charges_currency")
                                                     .insuranceChargesAmount(123L)
-                                                    .insuranceChargesCurrency("string")
+                                                    .insuranceChargesCurrency(
+                                                        "insurance_charges_currency"
+                                                    )
                                                     .noShowIndicator(
                                                         InboundRealTimePaymentsTransferSimulationResult
                                                             .Transaction
@@ -2217,15 +2385,21 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                             .NOT_APPLICABLE
                                                     )
                                                     .oneWayDropOffChargesAmount(123L)
-                                                    .oneWayDropOffChargesCurrency("string")
-                                                    .renterName("string")
+                                                    .oneWayDropOffChargesCurrency(
+                                                        "one_way_drop_off_charges_currency"
+                                                    )
+                                                    .renterName("renter_name")
                                                     .weeklyRentalRateAmount(123L)
-                                                    .weeklyRentalRateCurrency("string")
+                                                    .weeklyRentalRateCurrency(
+                                                        "weekly_rental_rate_currency"
+                                                    )
                                                     .build()
                                             )
-                                            .customerReferenceIdentifier("string")
+                                            .customerReferenceIdentifier(
+                                                "customer_reference_identifier"
+                                            )
                                             .localTaxAmount(123L)
-                                            .localTaxCurrency("string")
+                                            .localTaxCurrency("local_tax_currency")
                                             .lodging(
                                                 InboundRealTimePaymentsTransferSimulationResult
                                                     .Transaction
@@ -2236,7 +2410,9 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                     .builder()
                                                     .checkInDate(LocalDate.parse("2019-12-27"))
                                                     .dailyRoomRateAmount(123L)
-                                                    .dailyRoomRateCurrency("string")
+                                                    .dailyRoomRateCurrency(
+                                                        "daily_room_rate_currency"
+                                                    )
                                                     .extraCharges(
                                                         InboundRealTimePaymentsTransferSimulationResult
                                                             .Transaction
@@ -2248,9 +2424,13 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                             .NO_EXTRA_CHARGE
                                                     )
                                                     .folioCashAdvancesAmount(123L)
-                                                    .folioCashAdvancesCurrency("string")
+                                                    .folioCashAdvancesCurrency(
+                                                        "folio_cash_advances_currency"
+                                                    )
                                                     .foodBeverageChargesAmount(123L)
-                                                    .foodBeverageChargesCurrency("string")
+                                                    .foodBeverageChargesCurrency(
+                                                        "food_beverage_charges_currency"
+                                                    )
                                                     .noShowIndicator(
                                                         InboundRealTimePaymentsTransferSimulationResult
                                                             .Transaction
@@ -2262,17 +2442,19 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                             .NOT_APPLICABLE
                                                     )
                                                     .prepaidExpensesAmount(123L)
-                                                    .prepaidExpensesCurrency("string")
+                                                    .prepaidExpensesCurrency(
+                                                        "prepaid_expenses_currency"
+                                                    )
                                                     .roomNights(123L)
                                                     .totalRoomTaxAmount(123L)
-                                                    .totalRoomTaxCurrency("string")
+                                                    .totalRoomTaxCurrency("total_room_tax_currency")
                                                     .totalTaxAmount(123L)
-                                                    .totalTaxCurrency("string")
+                                                    .totalTaxCurrency("total_tax_currency")
                                                     .build()
                                             )
                                             .nationalTaxAmount(123L)
-                                            .nationalTaxCurrency("string")
-                                            .purchaseIdentifier("string")
+                                            .nationalTaxCurrency("national_tax_currency")
+                                            .purchaseIdentifier("purchase_identifier")
                                             .purchaseIdentifierFormat(
                                                 InboundRealTimePaymentsTransferSimulationResult
                                                     .Transaction
@@ -2299,7 +2481,9 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                             .Travel
                                                             .Ancillary
                                                             .builder()
-                                                            .connectedTicketDocumentNumber("string")
+                                                            .connectedTicketDocumentNumber(
+                                                                "connected_ticket_document_number"
+                                                            )
                                                             .creditReasonIndicator(
                                                                 InboundRealTimePaymentsTransferSimulationResult
                                                                     .Transaction
@@ -2311,7 +2495,9 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                     .CreditReasonIndicator
                                                                     .NO_CREDIT
                                                             )
-                                                            .passengerNameOrDescription("string")
+                                                            .passengerNameOrDescription(
+                                                                "passenger_name_or_description"
+                                                            )
                                                             .services(
                                                                 listOf(
                                                                     InboundRealTimePaymentsTransferSimulationResult
@@ -2335,14 +2521,18 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                                 .Category
                                                                                 .NONE
                                                                         )
-                                                                        .subCategory("string")
+                                                                        .subCategory("sub_category")
                                                                         .build()
                                                                 )
                                                             )
-                                                            .ticketDocumentNumber("string")
+                                                            .ticketDocumentNumber(
+                                                                "ticket_document_number"
+                                                            )
                                                             .build()
                                                     )
-                                                    .computerizedReservationSystem("string")
+                                                    .computerizedReservationSystem(
+                                                        "computerized_reservation_system"
+                                                    )
                                                     .creditReasonIndicator(
                                                         InboundRealTimePaymentsTransferSimulationResult
                                                             .Transaction
@@ -2354,8 +2544,10 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                             .NO_CREDIT
                                                     )
                                                     .departureDate(LocalDate.parse("2019-12-27"))
-                                                    .originationCityAirportCode("string")
-                                                    .passengerName("string")
+                                                    .originationCityAirportCode(
+                                                        "origination_city_airport_code"
+                                                    )
+                                                    .passengerName("passenger_name")
                                                     .restrictedTicketIndicator(
                                                         InboundRealTimePaymentsTransferSimulationResult
                                                             .Transaction
@@ -2376,9 +2568,9 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                             .TicketChangeIndicator
                                                             .NONE
                                                     )
-                                                    .ticketNumber("string")
-                                                    .travelAgencyCode("string")
-                                                    .travelAgencyName("string")
+                                                    .ticketNumber("ticket_number")
+                                                    .travelAgencyCode("travel_agency_code")
+                                                    .travelAgencyName("travel_agency_name")
                                                     .tripLegs(
                                                         listOf(
                                                             InboundRealTimePaymentsTransferSimulationResult
@@ -2389,13 +2581,13 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                 .Travel
                                                                 .TripLeg
                                                                 .builder()
-                                                                .carrierCode("string")
+                                                                .carrierCode("carrier_code")
                                                                 .destinationCityAirportCode(
-                                                                    "string"
+                                                                    "destination_city_airport_code"
                                                                 )
-                                                                .fareBasisCode("string")
-                                                                .flightNumber("string")
-                                                                .serviceClass("string")
+                                                                .fareBasisCode("fare_basis_code")
+                                                                .flightNumber("flight_number")
+                                                                .serviceClass("service_class")
                                                                 .stopOverCode(
                                                                     InboundRealTimePaymentsTransferSimulationResult
                                                                         .Transaction
@@ -2414,7 +2606,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             )
                                             .build()
                                     )
-                                    .transactionId("string")
+                                    .transactionId("transaction_id")
                                     .type(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction
                                             .Source
@@ -2438,17 +2630,17 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     )
                                     .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .transactedOnAccountId("string")
+                                    .transactedOnAccountId("transacted_on_account_id")
                                     .build()
                             )
                             .cardSettlement(
                                 InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
                                     .CardSettlement
                                     .builder()
-                                    .id("string")
+                                    .id("id")
                                     .amount(123L)
-                                    .cardAuthorization("string")
-                                    .cardPaymentId("string")
+                                    .cardAuthorization("card_authorization")
+                                    .cardPaymentId("card_payment_id")
                                     .currency(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction
                                             .Source
@@ -2456,26 +2648,26 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .Currency
                                             .CAD
                                     )
-                                    .merchantAcceptorId("string")
-                                    .merchantCategoryCode("string")
-                                    .merchantCity("string")
-                                    .merchantCountry("string")
-                                    .merchantName("string")
-                                    .merchantState("string")
+                                    .merchantAcceptorId("merchant_acceptor_id")
+                                    .merchantCategoryCode("merchant_category_code")
+                                    .merchantCity("merchant_city")
+                                    .merchantCountry("merchant_country")
+                                    .merchantName("merchant_name")
+                                    .merchantState("merchant_state")
                                     .networkIdentifiers(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction
                                             .Source
                                             .CardSettlement
                                             .NetworkIdentifiers
                                             .builder()
-                                            .acquirerBusinessId("string")
-                                            .acquirerReferenceNumber("string")
-                                            .transactionId("string")
+                                            .acquirerBusinessId("acquirer_business_id")
+                                            .acquirerReferenceNumber("acquirer_reference_number")
+                                            .transactionId("transaction_id")
                                             .build()
                                     )
-                                    .pendingTransactionId("string")
+                                    .pendingTransactionId("pending_transaction_id")
                                     .presentmentAmount(123L)
-                                    .presentmentCurrency("string")
+                                    .presentmentCurrency("presentment_currency")
                                     .purchaseDetails(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction
                                             .Source
@@ -2490,10 +2682,12 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                     .PurchaseDetails
                                                     .CarRental
                                                     .builder()
-                                                    .carClassCode("string")
+                                                    .carClassCode("car_class_code")
                                                     .checkoutDate(LocalDate.parse("2019-12-27"))
                                                     .dailyRentalRateAmount(123L)
-                                                    .dailyRentalRateCurrency("string")
+                                                    .dailyRentalRateCurrency(
+                                                        "daily_rental_rate_currency"
+                                                    )
                                                     .daysRented(123L)
                                                     .extraCharges(
                                                         InboundRealTimePaymentsTransferSimulationResult
@@ -2506,9 +2700,11 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                             .NO_EXTRA_CHARGE
                                                     )
                                                     .fuelChargesAmount(123L)
-                                                    .fuelChargesCurrency("string")
+                                                    .fuelChargesCurrency("fuel_charges_currency")
                                                     .insuranceChargesAmount(123L)
-                                                    .insuranceChargesCurrency("string")
+                                                    .insuranceChargesCurrency(
+                                                        "insurance_charges_currency"
+                                                    )
                                                     .noShowIndicator(
                                                         InboundRealTimePaymentsTransferSimulationResult
                                                             .Transaction
@@ -2520,15 +2716,21 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                             .NOT_APPLICABLE
                                                     )
                                                     .oneWayDropOffChargesAmount(123L)
-                                                    .oneWayDropOffChargesCurrency("string")
-                                                    .renterName("string")
+                                                    .oneWayDropOffChargesCurrency(
+                                                        "one_way_drop_off_charges_currency"
+                                                    )
+                                                    .renterName("renter_name")
                                                     .weeklyRentalRateAmount(123L)
-                                                    .weeklyRentalRateCurrency("string")
+                                                    .weeklyRentalRateCurrency(
+                                                        "weekly_rental_rate_currency"
+                                                    )
                                                     .build()
                                             )
-                                            .customerReferenceIdentifier("string")
+                                            .customerReferenceIdentifier(
+                                                "customer_reference_identifier"
+                                            )
                                             .localTaxAmount(123L)
-                                            .localTaxCurrency("string")
+                                            .localTaxCurrency("local_tax_currency")
                                             .lodging(
                                                 InboundRealTimePaymentsTransferSimulationResult
                                                     .Transaction
@@ -2539,7 +2741,9 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                     .builder()
                                                     .checkInDate(LocalDate.parse("2019-12-27"))
                                                     .dailyRoomRateAmount(123L)
-                                                    .dailyRoomRateCurrency("string")
+                                                    .dailyRoomRateCurrency(
+                                                        "daily_room_rate_currency"
+                                                    )
                                                     .extraCharges(
                                                         InboundRealTimePaymentsTransferSimulationResult
                                                             .Transaction
@@ -2551,9 +2755,13 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                             .NO_EXTRA_CHARGE
                                                     )
                                                     .folioCashAdvancesAmount(123L)
-                                                    .folioCashAdvancesCurrency("string")
+                                                    .folioCashAdvancesCurrency(
+                                                        "folio_cash_advances_currency"
+                                                    )
                                                     .foodBeverageChargesAmount(123L)
-                                                    .foodBeverageChargesCurrency("string")
+                                                    .foodBeverageChargesCurrency(
+                                                        "food_beverage_charges_currency"
+                                                    )
                                                     .noShowIndicator(
                                                         InboundRealTimePaymentsTransferSimulationResult
                                                             .Transaction
@@ -2565,17 +2773,19 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                             .NOT_APPLICABLE
                                                     )
                                                     .prepaidExpensesAmount(123L)
-                                                    .prepaidExpensesCurrency("string")
+                                                    .prepaidExpensesCurrency(
+                                                        "prepaid_expenses_currency"
+                                                    )
                                                     .roomNights(123L)
                                                     .totalRoomTaxAmount(123L)
-                                                    .totalRoomTaxCurrency("string")
+                                                    .totalRoomTaxCurrency("total_room_tax_currency")
                                                     .totalTaxAmount(123L)
-                                                    .totalTaxCurrency("string")
+                                                    .totalTaxCurrency("total_tax_currency")
                                                     .build()
                                             )
                                             .nationalTaxAmount(123L)
-                                            .nationalTaxCurrency("string")
-                                            .purchaseIdentifier("string")
+                                            .nationalTaxCurrency("national_tax_currency")
+                                            .purchaseIdentifier("purchase_identifier")
                                             .purchaseIdentifierFormat(
                                                 InboundRealTimePaymentsTransferSimulationResult
                                                     .Transaction
@@ -2602,7 +2812,9 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                             .Travel
                                                             .Ancillary
                                                             .builder()
-                                                            .connectedTicketDocumentNumber("string")
+                                                            .connectedTicketDocumentNumber(
+                                                                "connected_ticket_document_number"
+                                                            )
                                                             .creditReasonIndicator(
                                                                 InboundRealTimePaymentsTransferSimulationResult
                                                                     .Transaction
@@ -2614,7 +2826,9 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                     .CreditReasonIndicator
                                                                     .NO_CREDIT
                                                             )
-                                                            .passengerNameOrDescription("string")
+                                                            .passengerNameOrDescription(
+                                                                "passenger_name_or_description"
+                                                            )
                                                             .services(
                                                                 listOf(
                                                                     InboundRealTimePaymentsTransferSimulationResult
@@ -2638,14 +2852,18 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                                 .Category
                                                                                 .NONE
                                                                         )
-                                                                        .subCategory("string")
+                                                                        .subCategory("sub_category")
                                                                         .build()
                                                                 )
                                                             )
-                                                            .ticketDocumentNumber("string")
+                                                            .ticketDocumentNumber(
+                                                                "ticket_document_number"
+                                                            )
                                                             .build()
                                                     )
-                                                    .computerizedReservationSystem("string")
+                                                    .computerizedReservationSystem(
+                                                        "computerized_reservation_system"
+                                                    )
                                                     .creditReasonIndicator(
                                                         InboundRealTimePaymentsTransferSimulationResult
                                                             .Transaction
@@ -2657,8 +2875,10 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                             .NO_CREDIT
                                                     )
                                                     .departureDate(LocalDate.parse("2019-12-27"))
-                                                    .originationCityAirportCode("string")
-                                                    .passengerName("string")
+                                                    .originationCityAirportCode(
+                                                        "origination_city_airport_code"
+                                                    )
+                                                    .passengerName("passenger_name")
                                                     .restrictedTicketIndicator(
                                                         InboundRealTimePaymentsTransferSimulationResult
                                                             .Transaction
@@ -2679,9 +2899,9 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                             .TicketChangeIndicator
                                                             .NONE
                                                     )
-                                                    .ticketNumber("string")
-                                                    .travelAgencyCode("string")
-                                                    .travelAgencyName("string")
+                                                    .ticketNumber("ticket_number")
+                                                    .travelAgencyCode("travel_agency_code")
+                                                    .travelAgencyName("travel_agency_name")
                                                     .tripLegs(
                                                         listOf(
                                                             InboundRealTimePaymentsTransferSimulationResult
@@ -2692,13 +2912,13 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                 .Travel
                                                                 .TripLeg
                                                                 .builder()
-                                                                .carrierCode("string")
+                                                                .carrierCode("carrier_code")
                                                                 .destinationCityAirportCode(
-                                                                    "string"
+                                                                    "destination_city_airport_code"
                                                                 )
-                                                                .fareBasisCode("string")
-                                                                .flightNumber("string")
-                                                                .serviceClass("string")
+                                                                .fareBasisCode("fare_basis_code")
+                                                                .flightNumber("flight_number")
+                                                                .serviceClass("service_class")
                                                                 .stopOverCode(
                                                                     InboundRealTimePaymentsTransferSimulationResult
                                                                         .Transaction
@@ -2717,7 +2937,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             )
                                             .build()
                                     )
-                                    .transactionId("string")
+                                    .transactionId("transaction_id")
                                     .type(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction
                                             .Source
@@ -2731,7 +2951,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                 InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
                                     .CashbackPayment
                                     .builder()
-                                    .accruedOnCardId("string")
+                                    .accruedOnCardId("accrued_on_card_id")
                                     .amount(123L)
                                     .currency(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction
@@ -2753,10 +2973,10 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                 InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
                                     .CheckDepositAcceptance
                                     .builder()
-                                    .accountNumber("string")
+                                    .accountNumber("account_number")
                                     .amount(123L)
-                                    .auxiliaryOnUs("string")
-                                    .checkDepositId("string")
+                                    .auxiliaryOnUs("auxiliary_on_us")
+                                    .checkDepositId("check_deposit_id")
                                     .currency(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction
                                             .Source
@@ -2764,8 +2984,8 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .Currency
                                             .CAD
                                     )
-                                    .routingNumber("string")
-                                    .serialNumber("string")
+                                    .routingNumber("routing_number")
+                                    .serialNumber("serial_number")
                                     .build()
                             )
                             .checkDepositReturn(
@@ -2773,7 +2993,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .CheckDepositReturn
                                     .builder()
                                     .amount(123L)
-                                    .checkDepositId("string")
+                                    .checkDepositId("check_deposit_id")
                                     .currency(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction
                                             .Source
@@ -2789,20 +3009,22 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .ACH_CONVERSION_NOT_SUPPORTED
                                     )
                                     .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .transactionId("string")
+                                    .transactionId("transaction_id")
                                     .build()
                             )
                             .checkTransferDeposit(
                                 InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
                                     .CheckTransferDeposit
                                     .builder()
-                                    .backImageFileId("string")
-                                    .bankOfFirstDepositRoutingNumber("string")
+                                    .backImageFileId("back_image_file_id")
+                                    .bankOfFirstDepositRoutingNumber(
+                                        "bank_of_first_deposit_routing_number"
+                                    )
                                     .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .frontImageFileId("string")
-                                    .inboundCheckDepositId("string")
-                                    .transactionId("string")
-                                    .transferId("string")
+                                    .frontImageFileId("front_image_file_id")
+                                    .inboundCheckDepositId("inbound_check_deposit_id")
+                                    .transactionId("transaction_id")
+                                    .transferId("transfer_id")
                                     .type(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction
                                             .Source
@@ -2824,7 +3046,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .MAIL_DELIVERY_FAILED
                                     )
                                     .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .transferId("string")
+                                    .transferId("transfer_id")
                                     .type(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction
                                             .Source
@@ -2886,7 +3108,9 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                                                 .Freeform
                                                                 .Entry
                                                                 .builder()
-                                                                .paymentRelatedInformation("string")
+                                                                .paymentRelatedInformation(
+                                                                    "payment_related_information"
+                                                                )
                                                                 .build()
                                                         )
                                                     )
@@ -2895,15 +3119,21 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .build()
                                     )
                                     .amount(123L)
-                                    .originatorCompanyDescriptiveDate("string")
-                                    .originatorCompanyDiscretionaryData("string")
-                                    .originatorCompanyEntryDescription("string")
-                                    .originatorCompanyId("string")
-                                    .originatorCompanyName("string")
-                                    .receiverIdNumber("string")
-                                    .receiverName("string")
-                                    .traceNumber("string")
-                                    .transferId("string")
+                                    .originatorCompanyDescriptiveDate(
+                                        "originator_company_descriptive_date"
+                                    )
+                                    .originatorCompanyDiscretionaryData(
+                                        "originator_company_discretionary_data"
+                                    )
+                                    .originatorCompanyEntryDescription(
+                                        "originator_company_entry_description"
+                                    )
+                                    .originatorCompanyId("originator_company_id")
+                                    .originatorCompanyName("originator_company_name")
+                                    .receiverIdNumber("receiver_id_number")
+                                    .receiverName("receiver_name")
+                                    .traceNumber("trace_number")
+                                    .transferId("transfer_id")
                                     .build()
                             )
                             .inboundInternationalAchTransfer(
@@ -2911,8 +3141,8 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .InboundInternationalAchTransfer
                                     .builder()
                                     .amount(123L)
-                                    .destinationCountryCode("string")
-                                    .destinationCurrencyCode("string")
+                                    .destinationCountryCode("destination_country_code")
+                                    .destinationCurrencyCode("destination_currency_code")
                                     .foreignExchangeIndicator(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction
                                             .Source
@@ -2920,7 +3150,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .ForeignExchangeIndicator
                                             .FIXED_TO_VARIABLE
                                     )
-                                    .foreignExchangeReference("string")
+                                    .foreignExchangeReference("foreign_exchange_reference")
                                     .foreignExchangeReferenceIndicator(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction
                                             .Source
@@ -2929,7 +3159,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .FOREIGN_EXCHANGE_RATE
                                     )
                                     .foreignPaymentAmount(123L)
-                                    .foreignTraceNumber("string")
+                                    .foreignTraceNumber("foreign_trace_number")
                                     .internationalTransactionTypeCode(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction
                                             .Source
@@ -2937,11 +3167,13 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .InternationalTransactionTypeCode
                                             .ANNUITY
                                     )
-                                    .originatingCurrencyCode("string")
+                                    .originatingCurrencyCode("originating_currency_code")
                                     .originatingDepositoryFinancialInstitutionBranchCountry(
-                                        "string"
+                                        "originating_depository_financial_institution_branch_country"
                                     )
-                                    .originatingDepositoryFinancialInstitutionId("string")
+                                    .originatingDepositoryFinancialInstitutionId(
+                                        "originating_depository_financial_institution_id"
+                                    )
                                     .originatingDepositoryFinancialInstitutionIdQualifier(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction
                                             .Source
@@ -2949,26 +3181,36 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .OriginatingDepositoryFinancialInstitutionIdQualifier
                                             .NATIONAL_CLEARING_SYSTEM_NUMBER
                                     )
-                                    .originatingDepositoryFinancialInstitutionName("string")
-                                    .originatorCity("string")
-                                    .originatorCompanyEntryDescription("string")
-                                    .originatorCountry("string")
-                                    .originatorIdentification("string")
-                                    .originatorName("string")
-                                    .originatorPostalCode("string")
-                                    .originatorStateOrProvince("string")
-                                    .originatorStreetAddress("string")
-                                    .paymentRelatedInformation("string")
-                                    .paymentRelatedInformation2("string")
-                                    .receiverCity("string")
-                                    .receiverCountry("string")
-                                    .receiverIdentificationNumber("string")
-                                    .receiverPostalCode("string")
-                                    .receiverStateOrProvince("string")
-                                    .receiverStreetAddress("string")
-                                    .receivingCompanyOrIndividualName("string")
-                                    .receivingDepositoryFinancialInstitutionCountry("string")
-                                    .receivingDepositoryFinancialInstitutionId("string")
+                                    .originatingDepositoryFinancialInstitutionName(
+                                        "originating_depository_financial_institution_name"
+                                    )
+                                    .originatorCity("originator_city")
+                                    .originatorCompanyEntryDescription(
+                                        "originator_company_entry_description"
+                                    )
+                                    .originatorCountry("originator_country")
+                                    .originatorIdentification("originator_identification")
+                                    .originatorName("originator_name")
+                                    .originatorPostalCode("originator_postal_code")
+                                    .originatorStateOrProvince("originator_state_or_province")
+                                    .originatorStreetAddress("originator_street_address")
+                                    .paymentRelatedInformation("payment_related_information")
+                                    .paymentRelatedInformation2("payment_related_information2")
+                                    .receiverCity("receiver_city")
+                                    .receiverCountry("receiver_country")
+                                    .receiverIdentificationNumber("receiver_identification_number")
+                                    .receiverPostalCode("receiver_postal_code")
+                                    .receiverStateOrProvince("receiver_state_or_province")
+                                    .receiverStreetAddress("receiver_street_address")
+                                    .receivingCompanyOrIndividualName(
+                                        "receiving_company_or_individual_name"
+                                    )
+                                    .receivingDepositoryFinancialInstitutionCountry(
+                                        "receiving_depository_financial_institution_country"
+                                    )
+                                    .receivingDepositoryFinancialInstitutionId(
+                                        "receiving_depository_financial_institution_id"
+                                    )
                                     .receivingDepositoryFinancialInstitutionIdQualifier(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction
                                             .Source
@@ -2976,8 +3218,10 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .ReceivingDepositoryFinancialInstitutionIdQualifier
                                             .NATIONAL_CLEARING_SYSTEM_NUMBER
                                     )
-                                    .receivingDepositoryFinancialInstitutionName("string")
-                                    .traceNumber("string")
+                                    .receivingDepositoryFinancialInstitutionName(
+                                        "receiving_depository_financial_institution_name"
+                                    )
+                                    .traceNumber("trace_number")
                                     .type(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction
                                             .Source
@@ -2992,7 +3236,7 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .InboundRealTimePaymentsTransferConfirmation
                                     .builder()
                                     .amount(123L)
-                                    .creditorName("string")
+                                    .creditorName("creditor_name")
                                     .currency(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction
                                             .Source
@@ -3000,11 +3244,11 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                             .Currency
                                             .CAD
                                     )
-                                    .debtorAccountNumber("string")
-                                    .debtorName("string")
-                                    .debtorRoutingNumber("string")
-                                    .remittanceInformation("string")
-                                    .transactionIdentification("string")
+                                    .debtorAccountNumber("debtor_account_number")
+                                    .debtorName("debtor_name")
+                                    .debtorRoutingNumber("debtor_routing_number")
+                                    .remittanceInformation("remittance_information")
+                                    .transactionIdentification("transaction_identification")
                                     .build()
                             )
                             .inboundWireDrawdownPayment(
@@ -3012,23 +3256,35 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .InboundWireDrawdownPayment
                                     .builder()
                                     .amount(123L)
-                                    .beneficiaryAddressLine1("string")
-                                    .beneficiaryAddressLine2("string")
-                                    .beneficiaryAddressLine3("string")
-                                    .beneficiaryName("string")
-                                    .beneficiaryReference("string")
-                                    .description("string")
-                                    .inputMessageAccountabilityData("string")
-                                    .originatorAddressLine1("string")
-                                    .originatorAddressLine2("string")
-                                    .originatorAddressLine3("string")
-                                    .originatorName("string")
-                                    .originatorRoutingNumber("string")
-                                    .originatorToBeneficiaryInformation("string")
-                                    .originatorToBeneficiaryInformationLine1("string")
-                                    .originatorToBeneficiaryInformationLine2("string")
-                                    .originatorToBeneficiaryInformationLine3("string")
-                                    .originatorToBeneficiaryInformationLine4("string")
+                                    .beneficiaryAddressLine1("beneficiary_address_line1")
+                                    .beneficiaryAddressLine2("beneficiary_address_line2")
+                                    .beneficiaryAddressLine3("beneficiary_address_line3")
+                                    .beneficiaryName("beneficiary_name")
+                                    .beneficiaryReference("beneficiary_reference")
+                                    .description("description")
+                                    .inputMessageAccountabilityData(
+                                        "input_message_accountability_data"
+                                    )
+                                    .originatorAddressLine1("originator_address_line1")
+                                    .originatorAddressLine2("originator_address_line2")
+                                    .originatorAddressLine3("originator_address_line3")
+                                    .originatorName("originator_name")
+                                    .originatorRoutingNumber("originator_routing_number")
+                                    .originatorToBeneficiaryInformation(
+                                        "originator_to_beneficiary_information"
+                                    )
+                                    .originatorToBeneficiaryInformationLine1(
+                                        "originator_to_beneficiary_information_line1"
+                                    )
+                                    .originatorToBeneficiaryInformationLine2(
+                                        "originator_to_beneficiary_information_line2"
+                                    )
+                                    .originatorToBeneficiaryInformationLine3(
+                                        "originator_to_beneficiary_information_line3"
+                                    )
+                                    .originatorToBeneficiaryInformationLine4(
+                                        "originator_to_beneficiary_information_line4"
+                                    )
                                     .build()
                             )
                             .inboundWireReversal(
@@ -3037,20 +3293,30 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .builder()
                                     .amount(123L)
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .description("string")
-                                    .financialInstitutionToFinancialInstitutionInformation("string")
+                                    .description("description")
+                                    .financialInstitutionToFinancialInstitutionInformation(
+                                        "financial_institution_to_financial_institution_information"
+                                    )
                                     .inputCycleDate(LocalDate.parse("2019-12-27"))
-                                    .inputMessageAccountabilityData("string")
-                                    .inputSequenceNumber("string")
-                                    .inputSource("string")
-                                    .originatorRoutingNumber("string")
+                                    .inputMessageAccountabilityData(
+                                        "input_message_accountability_data"
+                                    )
+                                    .inputSequenceNumber("input_sequence_number")
+                                    .inputSource("input_source")
+                                    .originatorRoutingNumber("originator_routing_number")
                                     .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
-                                    .previousMessageInputMessageAccountabilityData("string")
-                                    .previousMessageInputSequenceNumber("string")
-                                    .previousMessageInputSource("string")
-                                    .receiverFinancialInstitutionInformation("string")
-                                    .transactionId("string")
-                                    .wireTransferId("string")
+                                    .previousMessageInputMessageAccountabilityData(
+                                        "previous_message_input_message_accountability_data"
+                                    )
+                                    .previousMessageInputSequenceNumber(
+                                        "previous_message_input_sequence_number"
+                                    )
+                                    .previousMessageInputSource("previous_message_input_source")
+                                    .receiverFinancialInstitutionInformation(
+                                        "receiver_financial_institution_information"
+                                    )
+                                    .transactionId("transaction_id")
+                                    .wireTransferId("wire_transfer_id")
                                     .build()
                             )
                             .inboundWireTransfer(
@@ -3058,31 +3324,43 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .InboundWireTransfer
                                     .builder()
                                     .amount(123L)
-                                    .beneficiaryAddressLine1("string")
-                                    .beneficiaryAddressLine2("string")
-                                    .beneficiaryAddressLine3("string")
-                                    .beneficiaryName("string")
-                                    .beneficiaryReference("string")
-                                    .description("string")
-                                    .inputMessageAccountabilityData("string")
-                                    .originatorAddressLine1("string")
-                                    .originatorAddressLine2("string")
-                                    .originatorAddressLine3("string")
-                                    .originatorName("string")
-                                    .originatorRoutingNumber("string")
-                                    .originatorToBeneficiaryInformation("string")
-                                    .originatorToBeneficiaryInformationLine1("string")
-                                    .originatorToBeneficiaryInformationLine2("string")
-                                    .originatorToBeneficiaryInformationLine3("string")
-                                    .originatorToBeneficiaryInformationLine4("string")
-                                    .transferId("string")
+                                    .beneficiaryAddressLine1("beneficiary_address_line1")
+                                    .beneficiaryAddressLine2("beneficiary_address_line2")
+                                    .beneficiaryAddressLine3("beneficiary_address_line3")
+                                    .beneficiaryName("beneficiary_name")
+                                    .beneficiaryReference("beneficiary_reference")
+                                    .description("description")
+                                    .inputMessageAccountabilityData(
+                                        "input_message_accountability_data"
+                                    )
+                                    .originatorAddressLine1("originator_address_line1")
+                                    .originatorAddressLine2("originator_address_line2")
+                                    .originatorAddressLine3("originator_address_line3")
+                                    .originatorName("originator_name")
+                                    .originatorRoutingNumber("originator_routing_number")
+                                    .originatorToBeneficiaryInformation(
+                                        "originator_to_beneficiary_information"
+                                    )
+                                    .originatorToBeneficiaryInformationLine1(
+                                        "originator_to_beneficiary_information_line1"
+                                    )
+                                    .originatorToBeneficiaryInformationLine2(
+                                        "originator_to_beneficiary_information_line2"
+                                    )
+                                    .originatorToBeneficiaryInformationLine3(
+                                        "originator_to_beneficiary_information_line3"
+                                    )
+                                    .originatorToBeneficiaryInformationLine4(
+                                        "originator_to_beneficiary_information_line4"
+                                    )
+                                    .transferId("transfer_id")
                                     .build()
                             )
                             .interestPayment(
                                 InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
                                     .InterestPayment
                                     .builder()
-                                    .accruedOnAccountId("string")
+                                    .accruedOnAccountId("accrued_on_account_id")
                                     .amount(123L)
                                     .currency(
                                         InboundRealTimePaymentsTransferSimulationResult.Transaction
@@ -3121,35 +3399,35 @@ class InboundRealTimePaymentsTransferSimulationResultTest {
                                     .RealTimePaymentsTransferAcknowledgement
                                     .builder()
                                     .amount(123L)
-                                    .destinationAccountNumber("string")
-                                    .destinationRoutingNumber("string")
-                                    .remittanceInformation("string")
-                                    .transferId("string")
+                                    .destinationAccountNumber("destination_account_number")
+                                    .destinationRoutingNumber("destination_routing_number")
+                                    .remittanceInformation("remittance_information")
+                                    .transferId("transfer_id")
                                     .build()
                             )
                             .sampleFunds(
                                 InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
                                     .SampleFunds
                                     .builder()
-                                    .originator("string")
+                                    .originator("originator")
                                     .build()
                             )
                             .wireTransferIntention(
                                 InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
                                     .WireTransferIntention
                                     .builder()
-                                    .accountNumber("string")
+                                    .accountNumber("account_number")
                                     .amount(123L)
-                                    .messageToRecipient("string")
-                                    .routingNumber("string")
-                                    .transferId("string")
+                                    .messageToRecipient("message_to_recipient")
+                                    .routingNumber("routing_number")
+                                    .transferId("transfer_id")
                                     .build()
                             )
                             .wireTransferRejection(
                                 InboundRealTimePaymentsTransferSimulationResult.Transaction.Source
                                     .WireTransferRejection
                                     .builder()
-                                    .transferId("string")
+                                    .transferId("transfer_id")
                                     .build()
                             )
                             .build()

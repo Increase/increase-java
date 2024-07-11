@@ -16,7 +16,7 @@ class ExportCreateParamsTest {
             .category(ExportCreateParams.Category.ACCOUNT_STATEMENT_OFX)
             .accountStatementOfx(
                 ExportCreateParams.AccountStatementOfx.builder()
-                    .accountId("string")
+                    .accountId("account_id")
                     .createdAt(
                         ExportCreateParams.AccountStatementOfx.CreatedAt.builder()
                             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -29,7 +29,7 @@ class ExportCreateParamsTest {
             )
             .balanceCsv(
                 ExportCreateParams.BalanceCsv.builder()
-                    .accountId("string")
+                    .accountId("account_id")
                     .createdAt(
                         ExportCreateParams.BalanceCsv.CreatedAt.builder()
                             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -42,7 +42,7 @@ class ExportCreateParamsTest {
             )
             .bookkeepingAccountBalanceCsv(
                 ExportCreateParams.BookkeepingAccountBalanceCsv.builder()
-                    .bookkeepingAccountId("string")
+                    .bookkeepingAccountId("bookkeeping_account_id")
                     .createdAt(
                         ExportCreateParams.BookkeepingAccountBalanceCsv.CreatedAt.builder()
                             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -64,7 +64,7 @@ class ExportCreateParamsTest {
             )
             .transactionCsv(
                 ExportCreateParams.TransactionCsv.builder()
-                    .accountId("string")
+                    .accountId("account_id")
                     .createdAt(
                         ExportCreateParams.TransactionCsv.CreatedAt.builder()
                             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -86,7 +86,7 @@ class ExportCreateParamsTest {
                 .category(ExportCreateParams.Category.ACCOUNT_STATEMENT_OFX)
                 .accountStatementOfx(
                     ExportCreateParams.AccountStatementOfx.builder()
-                        .accountId("string")
+                        .accountId("account_id")
                         .createdAt(
                             ExportCreateParams.AccountStatementOfx.CreatedAt.builder()
                                 .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -99,7 +99,7 @@ class ExportCreateParamsTest {
                 )
                 .balanceCsv(
                     ExportCreateParams.BalanceCsv.builder()
-                        .accountId("string")
+                        .accountId("account_id")
                         .createdAt(
                             ExportCreateParams.BalanceCsv.CreatedAt.builder()
                                 .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -112,7 +112,7 @@ class ExportCreateParamsTest {
                 )
                 .bookkeepingAccountBalanceCsv(
                     ExportCreateParams.BookkeepingAccountBalanceCsv.builder()
-                        .bookkeepingAccountId("string")
+                        .bookkeepingAccountId("bookkeeping_account_id")
                         .createdAt(
                             ExportCreateParams.BookkeepingAccountBalanceCsv.CreatedAt.builder()
                                 .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -134,7 +134,7 @@ class ExportCreateParamsTest {
                 )
                 .transactionCsv(
                     ExportCreateParams.TransactionCsv.builder()
-                        .accountId("string")
+                        .accountId("account_id")
                         .createdAt(
                             ExportCreateParams.TransactionCsv.CreatedAt.builder()
                                 .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -153,7 +153,7 @@ class ExportCreateParamsTest {
         assertThat(body.accountStatementOfx())
             .isEqualTo(
                 ExportCreateParams.AccountStatementOfx.builder()
-                    .accountId("string")
+                    .accountId("account_id")
                     .createdAt(
                         ExportCreateParams.AccountStatementOfx.CreatedAt.builder()
                             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -167,7 +167,7 @@ class ExportCreateParamsTest {
         assertThat(body.balanceCsv())
             .isEqualTo(
                 ExportCreateParams.BalanceCsv.builder()
-                    .accountId("string")
+                    .accountId("account_id")
                     .createdAt(
                         ExportCreateParams.BalanceCsv.CreatedAt.builder()
                             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -181,7 +181,7 @@ class ExportCreateParamsTest {
         assertThat(body.bookkeepingAccountBalanceCsv())
             .isEqualTo(
                 ExportCreateParams.BookkeepingAccountBalanceCsv.builder()
-                    .bookkeepingAccountId("string")
+                    .bookkeepingAccountId("bookkeeping_account_id")
                     .createdAt(
                         ExportCreateParams.BookkeepingAccountBalanceCsv.CreatedAt.builder()
                             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -205,7 +205,7 @@ class ExportCreateParamsTest {
         assertThat(body.transactionCsv())
             .isEqualTo(
                 ExportCreateParams.TransactionCsv.builder()
-                    .accountId("string")
+                    .accountId("account_id")
                     .createdAt(
                         ExportCreateParams.TransactionCsv.CreatedAt.builder()
                             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

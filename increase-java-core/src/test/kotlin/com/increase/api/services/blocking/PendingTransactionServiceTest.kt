@@ -22,7 +22,9 @@ class PendingTransactionServiceTest {
         val pendingTransactionService = client.pendingTransactions()
         val pendingTransaction =
             pendingTransactionService.retrieve(
-                PendingTransactionRetrieveParams.builder().pendingTransactionId("string").build()
+                PendingTransactionRetrieveParams.builder()
+                    .pendingTransactionId("pending_transaction_id")
+                    .build()
             )
         println(pendingTransaction)
         pendingTransaction.validate()

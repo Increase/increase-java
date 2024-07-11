@@ -12,16 +12,16 @@ class DigitalWalletTokenTest {
     fun createDigitalWalletToken() {
         val digitalWalletToken =
             DigitalWalletToken.builder()
-                .id("string")
-                .cardId("string")
+                .id("id")
+                .cardId("card_id")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .status(DigitalWalletToken.Status.ACTIVE)
                 .tokenRequestor(DigitalWalletToken.TokenRequestor.APPLE_PAY)
                 .type(DigitalWalletToken.Type.DIGITAL_WALLET_TOKEN)
                 .build()
         assertThat(digitalWalletToken).isNotNull
-        assertThat(digitalWalletToken.id()).isEqualTo("string")
-        assertThat(digitalWalletToken.cardId()).isEqualTo("string")
+        assertThat(digitalWalletToken.id()).isEqualTo("id")
+        assertThat(digitalWalletToken.cardId()).isEqualTo("card_id")
         assertThat(digitalWalletToken.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(digitalWalletToken.status()).isEqualTo(DigitalWalletToken.Status.ACTIVE)

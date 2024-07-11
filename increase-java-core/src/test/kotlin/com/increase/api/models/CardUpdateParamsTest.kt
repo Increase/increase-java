@@ -11,7 +11,7 @@ class CardUpdateParamsTest {
     @Test
     fun createCardUpdateParams() {
         CardUpdateParams.builder()
-            .cardId("string")
+            .cardId("card_id")
             .billingAddress(
                 CardUpdateParams.BillingAddress.builder()
                     .city("x")
@@ -24,12 +24,12 @@ class CardUpdateParamsTest {
             .description("x")
             .digitalWallet(
                 CardUpdateParams.DigitalWallet.builder()
-                    .digitalCardProfileId("string")
+                    .digitalCardProfileId("digital_card_profile_id")
                     .email("x")
                     .phone("x")
                     .build()
             )
-            .entityId("string")
+            .entityId("entity_id")
             .status(CardUpdateParams.Status.ACTIVE)
             .build()
     }
@@ -38,7 +38,7 @@ class CardUpdateParamsTest {
     fun getBody() {
         val params =
             CardUpdateParams.builder()
-                .cardId("string")
+                .cardId("card_id")
                 .billingAddress(
                     CardUpdateParams.BillingAddress.builder()
                         .city("x")
@@ -51,12 +51,12 @@ class CardUpdateParamsTest {
                 .description("x")
                 .digitalWallet(
                     CardUpdateParams.DigitalWallet.builder()
-                        .digitalCardProfileId("string")
+                        .digitalCardProfileId("digital_card_profile_id")
                         .email("x")
                         .phone("x")
                         .build()
                 )
-                .entityId("string")
+                .entityId("entity_id")
                 .status(CardUpdateParams.Status.ACTIVE)
                 .build()
         val body = params.getBody()
@@ -75,28 +75,28 @@ class CardUpdateParamsTest {
         assertThat(body.digitalWallet())
             .isEqualTo(
                 CardUpdateParams.DigitalWallet.builder()
-                    .digitalCardProfileId("string")
+                    .digitalCardProfileId("digital_card_profile_id")
                     .email("x")
                     .phone("x")
                     .build()
             )
-        assertThat(body.entityId()).isEqualTo("string")
+        assertThat(body.entityId()).isEqualTo("entity_id")
         assertThat(body.status()).isEqualTo(CardUpdateParams.Status.ACTIVE)
     }
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = CardUpdateParams.builder().cardId("string").build()
+        val params = CardUpdateParams.builder().cardId("card_id").build()
         val body = params.getBody()
         assertThat(body).isNotNull
     }
 
     @Test
     fun getPathParam() {
-        val params = CardUpdateParams.builder().cardId("string").build()
+        val params = CardUpdateParams.builder().cardId("card_id").build()
         assertThat(params).isNotNull
         // path param "cardId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("card_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

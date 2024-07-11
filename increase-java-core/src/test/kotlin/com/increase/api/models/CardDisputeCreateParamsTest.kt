@@ -10,19 +10,22 @@ class CardDisputeCreateParamsTest {
 
     @Test
     fun createCardDisputeCreateParams() {
-        CardDisputeCreateParams.builder().disputedTransactionId("string").explanation("x").build()
+        CardDisputeCreateParams.builder()
+            .disputedTransactionId("disputed_transaction_id")
+            .explanation("x")
+            .build()
     }
 
     @Test
     fun getBody() {
         val params =
             CardDisputeCreateParams.builder()
-                .disputedTransactionId("string")
+                .disputedTransactionId("disputed_transaction_id")
                 .explanation("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.disputedTransactionId()).isEqualTo("string")
+        assertThat(body.disputedTransactionId()).isEqualTo("disputed_transaction_id")
         assertThat(body.explanation()).isEqualTo("x")
     }
 
@@ -30,12 +33,12 @@ class CardDisputeCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             CardDisputeCreateParams.builder()
-                .disputedTransactionId("string")
+                .disputedTransactionId("disputed_transaction_id")
                 .explanation("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.disputedTransactionId()).isEqualTo("string")
+        assertThat(body.disputedTransactionId()).isEqualTo("disputed_transaction_id")
         assertThat(body.explanation()).isEqualTo("x")
     }
 }

@@ -26,11 +26,11 @@ class RealTimePaymentsTransferServiceTest {
                     .amount(123L)
                     .creditorName("x")
                     .remittanceInformation("x")
-                    .sourceAccountNumberId("string")
+                    .sourceAccountNumberId("source_account_number_id")
                     .debtorName("x")
                     .destinationAccountNumber("x")
                     .destinationRoutingNumber("xxxxxxxxx")
-                    .externalAccountId("string")
+                    .externalAccountId("external_account_id")
                     .requireApproval(true)
                     .ultimateCreditorName("x")
                     .ultimateDebtorName("x")
@@ -51,7 +51,7 @@ class RealTimePaymentsTransferServiceTest {
         val realTimePaymentsTransfer =
             realTimePaymentsTransferService.retrieve(
                 RealTimePaymentsTransferRetrieveParams.builder()
-                    .realTimePaymentsTransferId("string")
+                    .realTimePaymentsTransferId("real_time_payments_transfer_id")
                     .build()
             )
         println(realTimePaymentsTransfer)

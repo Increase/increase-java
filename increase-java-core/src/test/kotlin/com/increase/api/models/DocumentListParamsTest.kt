@@ -25,8 +25,8 @@ class DocumentListParamsTest {
                     .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
-            .cursor("string")
-            .entityId("string")
+            .cursor("cursor")
+            .entityId("entity_id")
             .limit(123L)
             .build()
     }
@@ -48,8 +48,8 @@ class DocumentListParamsTest {
                         .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
-                .cursor("string")
-                .entityId("string")
+                .cursor("cursor")
+                .entityId("entity_id")
                 .limit(123L)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
@@ -64,8 +64,8 @@ class DocumentListParamsTest {
             .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
-        expected.put("cursor", listOf("string"))
-        expected.put("entity_id", listOf("string"))
+        expected.put("cursor", listOf("cursor"))
+        expected.put("entity_id", listOf("entity_id"))
         expected.put("limit", listOf("123"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }

@@ -10,15 +10,15 @@ class LockboxRetrieveParamsTest {
 
     @Test
     fun createLockboxRetrieveParams() {
-        LockboxRetrieveParams.builder().lockboxId("string").build()
+        LockboxRetrieveParams.builder().lockboxId("lockbox_id").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = LockboxRetrieveParams.builder().lockboxId("string").build()
+        val params = LockboxRetrieveParams.builder().lockboxId("lockbox_id").build()
         assertThat(params).isNotNull
         // path param "lockboxId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("lockbox_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

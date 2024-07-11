@@ -10,15 +10,15 @@ class EntityRetrieveParamsTest {
 
     @Test
     fun createEntityRetrieveParams() {
-        EntityRetrieveParams.builder().entityId("string").build()
+        EntityRetrieveParams.builder().entityId("entity_id").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = EntityRetrieveParams.builder().entityId("string").build()
+        val params = EntityRetrieveParams.builder().entityId("entity_id").build()
         assertThat(params).isNotNull
         // path param "entityId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("entity_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

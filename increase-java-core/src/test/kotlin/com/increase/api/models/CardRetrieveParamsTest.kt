@@ -10,15 +10,15 @@ class CardRetrieveParamsTest {
 
     @Test
     fun createCardRetrieveParams() {
-        CardRetrieveParams.builder().cardId("string").build()
+        CardRetrieveParams.builder().cardId("card_id").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = CardRetrieveParams.builder().cardId("string").build()
+        val params = CardRetrieveParams.builder().cardId("card_id").build()
         assertThat(params).isNotNull
         // path param "cardId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("card_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

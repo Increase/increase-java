@@ -11,7 +11,7 @@ class SimulationAchTransferNotificationOfChangeParamsTest {
     @Test
     fun createSimulationAchTransferNotificationOfChangeParams() {
         SimulationAchTransferNotificationOfChangeParams.builder()
-            .achTransferId("string")
+            .achTransferId("ach_transfer_id")
             .changeCode(
                 SimulationAchTransferNotificationOfChangeParams.ChangeCode.INCORRECT_ACCOUNT_NUMBER
             )
@@ -23,7 +23,7 @@ class SimulationAchTransferNotificationOfChangeParamsTest {
     fun getBody() {
         val params =
             SimulationAchTransferNotificationOfChangeParams.builder()
-                .achTransferId("string")
+                .achTransferId("ach_transfer_id")
                 .changeCode(
                     SimulationAchTransferNotificationOfChangeParams.ChangeCode
                         .INCORRECT_ACCOUNT_NUMBER
@@ -43,7 +43,7 @@ class SimulationAchTransferNotificationOfChangeParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             SimulationAchTransferNotificationOfChangeParams.builder()
-                .achTransferId("string")
+                .achTransferId("ach_transfer_id")
                 .changeCode(
                     SimulationAchTransferNotificationOfChangeParams.ChangeCode
                         .INCORRECT_ACCOUNT_NUMBER
@@ -63,7 +63,7 @@ class SimulationAchTransferNotificationOfChangeParamsTest {
     fun getPathParam() {
         val params =
             SimulationAchTransferNotificationOfChangeParams.builder()
-                .achTransferId("string")
+                .achTransferId("ach_transfer_id")
                 .changeCode(
                     SimulationAchTransferNotificationOfChangeParams.ChangeCode
                         .INCORRECT_ACCOUNT_NUMBER
@@ -72,7 +72,7 @@ class SimulationAchTransferNotificationOfChangeParamsTest {
                 .build()
         assertThat(params).isNotNull
         // path param "achTransferId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("ach_transfer_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

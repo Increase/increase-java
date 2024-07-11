@@ -13,13 +13,13 @@ class TransactionTest {
     fun createTransaction() {
         val transaction =
             Transaction.builder()
-                .id("string")
-                .accountId("string")
+                .id("id")
+                .accountId("account_id")
                 .amount(123L)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .currency(Transaction.Currency.CAD)
-                .description("string")
-                .routeId("string")
+                .description("description")
+                .routeId("route_id")
                 .routeType(Transaction.RouteType.ACCOUNT_NUMBER)
                 .source(
                     Transaction.Source.builder()
@@ -27,84 +27,86 @@ class TransactionTest {
                             Transaction.Source.AccountTransferIntention.builder()
                                 .amount(123L)
                                 .currency(Transaction.Source.AccountTransferIntention.Currency.CAD)
-                                .description("string")
-                                .destinationAccountId("string")
-                                .sourceAccountId("string")
-                                .transferId("string")
+                                .description("description")
+                                .destinationAccountId("destination_account_id")
+                                .sourceAccountId("source_account_id")
+                                .transferId("transfer_id")
                                 .build()
                         )
                         .achTransferIntention(
                             Transaction.Source.AchTransferIntention.builder()
-                                .accountNumber("string")
+                                .accountNumber("account_number")
                                 .amount(123L)
-                                .routingNumber("string")
-                                .statementDescriptor("string")
-                                .transferId("string")
+                                .routingNumber("routing_number")
+                                .statementDescriptor("statement_descriptor")
+                                .transferId("transfer_id")
                                 .build()
                         )
                         .achTransferRejection(
                             Transaction.Source.AchTransferRejection.builder()
-                                .transferId("string")
+                                .transferId("transfer_id")
                                 .build()
                         )
                         .achTransferReturn(
                             Transaction.Source.AchTransferReturn.builder()
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .rawReturnReasonCode("string")
+                                .rawReturnReasonCode("raw_return_reason_code")
                                 .returnReasonCode(
                                     Transaction.Source.AchTransferReturn.ReturnReasonCode
                                         .INSUFFICIENT_FUND
                                 )
-                                .traceNumber("string")
-                                .transactionId("string")
-                                .transferId("string")
+                                .traceNumber("trace_number")
+                                .transactionId("transaction_id")
+                                .transferId("transfer_id")
                                 .build()
                         )
                         .cardDisputeAcceptance(
                             Transaction.Source.CardDisputeAcceptance.builder()
                                 .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .cardDisputeId("string")
-                                .transactionId("string")
+                                .cardDisputeId("card_dispute_id")
+                                .transactionId("transaction_id")
                                 .build()
                         )
                         .cardDisputeLoss(
                             Transaction.Source.CardDisputeLoss.builder()
-                                .cardDisputeId("string")
-                                .explanation("string")
+                                .cardDisputeId("card_dispute_id")
+                                .explanation("explanation")
                                 .lostAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .transactionId("string")
+                                .transactionId("transaction_id")
                                 .build()
                         )
                         .cardRefund(
                             Transaction.Source.CardRefund.builder()
-                                .id("string")
+                                .id("id")
                                 .amount(123L)
-                                .cardPaymentId("string")
+                                .cardPaymentId("card_payment_id")
                                 .currency(Transaction.Source.CardRefund.Currency.CAD)
-                                .merchantAcceptorId("string")
-                                .merchantCategoryCode("string")
-                                .merchantCity("string")
-                                .merchantCountry("string")
-                                .merchantName("string")
-                                .merchantState("string")
+                                .merchantAcceptorId("merchant_acceptor_id")
+                                .merchantCategoryCode("merchant_category_code")
+                                .merchantCity("merchant_city")
+                                .merchantCountry("merchant_country")
+                                .merchantName("merchant_name")
+                                .merchantState("merchant_state")
                                 .networkIdentifiers(
                                     Transaction.Source.CardRefund.NetworkIdentifiers.builder()
-                                        .acquirerBusinessId("string")
-                                        .acquirerReferenceNumber("string")
-                                        .transactionId("string")
+                                        .acquirerBusinessId("acquirer_business_id")
+                                        .acquirerReferenceNumber("acquirer_reference_number")
+                                        .transactionId("transaction_id")
                                         .build()
                                 )
                                 .presentmentAmount(123L)
-                                .presentmentCurrency("string")
+                                .presentmentCurrency("presentment_currency")
                                 .purchaseDetails(
                                     Transaction.Source.CardRefund.PurchaseDetails.builder()
                                         .carRental(
                                             Transaction.Source.CardRefund.PurchaseDetails.CarRental
                                                 .builder()
-                                                .carClassCode("string")
+                                                .carClassCode("car_class_code")
                                                 .checkoutDate(LocalDate.parse("2019-12-27"))
                                                 .dailyRentalRateAmount(123L)
-                                                .dailyRentalRateCurrency("string")
+                                                .dailyRentalRateCurrency(
+                                                    "daily_rental_rate_currency"
+                                                )
                                                 .daysRented(123L)
                                                 .extraCharges(
                                                     Transaction.Source.CardRefund.PurchaseDetails
@@ -113,9 +115,11 @@ class TransactionTest {
                                                         .NO_EXTRA_CHARGE
                                                 )
                                                 .fuelChargesAmount(123L)
-                                                .fuelChargesCurrency("string")
+                                                .fuelChargesCurrency("fuel_charges_currency")
                                                 .insuranceChargesAmount(123L)
-                                                .insuranceChargesCurrency("string")
+                                                .insuranceChargesCurrency(
+                                                    "insurance_charges_currency"
+                                                )
                                                 .noShowIndicator(
                                                     Transaction.Source.CardRefund.PurchaseDetails
                                                         .CarRental
@@ -123,21 +127,27 @@ class TransactionTest {
                                                         .NOT_APPLICABLE
                                                 )
                                                 .oneWayDropOffChargesAmount(123L)
-                                                .oneWayDropOffChargesCurrency("string")
-                                                .renterName("string")
+                                                .oneWayDropOffChargesCurrency(
+                                                    "one_way_drop_off_charges_currency"
+                                                )
+                                                .renterName("renter_name")
                                                 .weeklyRentalRateAmount(123L)
-                                                .weeklyRentalRateCurrency("string")
+                                                .weeklyRentalRateCurrency(
+                                                    "weekly_rental_rate_currency"
+                                                )
                                                 .build()
                                         )
-                                        .customerReferenceIdentifier("string")
+                                        .customerReferenceIdentifier(
+                                            "customer_reference_identifier"
+                                        )
                                         .localTaxAmount(123L)
-                                        .localTaxCurrency("string")
+                                        .localTaxCurrency("local_tax_currency")
                                         .lodging(
                                             Transaction.Source.CardRefund.PurchaseDetails.Lodging
                                                 .builder()
                                                 .checkInDate(LocalDate.parse("2019-12-27"))
                                                 .dailyRoomRateAmount(123L)
-                                                .dailyRoomRateCurrency("string")
+                                                .dailyRoomRateCurrency("daily_room_rate_currency")
                                                 .extraCharges(
                                                     Transaction.Source.CardRefund.PurchaseDetails
                                                         .Lodging
@@ -145,9 +155,13 @@ class TransactionTest {
                                                         .NO_EXTRA_CHARGE
                                                 )
                                                 .folioCashAdvancesAmount(123L)
-                                                .folioCashAdvancesCurrency("string")
+                                                .folioCashAdvancesCurrency(
+                                                    "folio_cash_advances_currency"
+                                                )
                                                 .foodBeverageChargesAmount(123L)
-                                                .foodBeverageChargesCurrency("string")
+                                                .foodBeverageChargesCurrency(
+                                                    "food_beverage_charges_currency"
+                                                )
                                                 .noShowIndicator(
                                                     Transaction.Source.CardRefund.PurchaseDetails
                                                         .Lodging
@@ -155,17 +169,19 @@ class TransactionTest {
                                                         .NOT_APPLICABLE
                                                 )
                                                 .prepaidExpensesAmount(123L)
-                                                .prepaidExpensesCurrency("string")
+                                                .prepaidExpensesCurrency(
+                                                    "prepaid_expenses_currency"
+                                                )
                                                 .roomNights(123L)
                                                 .totalRoomTaxAmount(123L)
-                                                .totalRoomTaxCurrency("string")
+                                                .totalRoomTaxCurrency("total_room_tax_currency")
                                                 .totalTaxAmount(123L)
-                                                .totalTaxCurrency("string")
+                                                .totalTaxCurrency("total_tax_currency")
                                                 .build()
                                         )
                                         .nationalTaxAmount(123L)
-                                        .nationalTaxCurrency("string")
-                                        .purchaseIdentifier("string")
+                                        .nationalTaxCurrency("national_tax_currency")
+                                        .purchaseIdentifier("purchase_identifier")
                                         .purchaseIdentifierFormat(
                                             Transaction.Source.CardRefund.PurchaseDetails
                                                 .PurchaseIdentifierFormat
@@ -179,7 +195,9 @@ class TransactionTest {
                                                         .Travel
                                                         .Ancillary
                                                         .builder()
-                                                        .connectedTicketDocumentNumber("string")
+                                                        .connectedTicketDocumentNumber(
+                                                            "connected_ticket_document_number"
+                                                        )
                                                         .creditReasonIndicator(
                                                             Transaction.Source.CardRefund
                                                                 .PurchaseDetails
@@ -188,7 +206,9 @@ class TransactionTest {
                                                                 .CreditReasonIndicator
                                                                 .NO_CREDIT
                                                         )
-                                                        .passengerNameOrDescription("string")
+                                                        .passengerNameOrDescription(
+                                                            "passenger_name_or_description"
+                                                        )
                                                         .services(
                                                             listOf(
                                                                 Transaction.Source.CardRefund
@@ -207,14 +227,18 @@ class TransactionTest {
                                                                             .Category
                                                                             .NONE
                                                                     )
-                                                                    .subCategory("string")
+                                                                    .subCategory("sub_category")
                                                                     .build()
                                                             )
                                                         )
-                                                        .ticketDocumentNumber("string")
+                                                        .ticketDocumentNumber(
+                                                            "ticket_document_number"
+                                                        )
                                                         .build()
                                                 )
-                                                .computerizedReservationSystem("string")
+                                                .computerizedReservationSystem(
+                                                    "computerized_reservation_system"
+                                                )
                                                 .creditReasonIndicator(
                                                     Transaction.Source.CardRefund.PurchaseDetails
                                                         .Travel
@@ -222,8 +246,10 @@ class TransactionTest {
                                                         .NO_CREDIT
                                                 )
                                                 .departureDate(LocalDate.parse("2019-12-27"))
-                                                .originationCityAirportCode("string")
-                                                .passengerName("string")
+                                                .originationCityAirportCode(
+                                                    "origination_city_airport_code"
+                                                )
+                                                .passengerName("passenger_name")
                                                 .restrictedTicketIndicator(
                                                     Transaction.Source.CardRefund.PurchaseDetails
                                                         .Travel
@@ -236,9 +262,9 @@ class TransactionTest {
                                                         .TicketChangeIndicator
                                                         .NONE
                                                 )
-                                                .ticketNumber("string")
-                                                .travelAgencyCode("string")
-                                                .travelAgencyName("string")
+                                                .ticketNumber("ticket_number")
+                                                .travelAgencyCode("travel_agency_code")
+                                                .travelAgencyName("travel_agency_name")
                                                 .tripLegs(
                                                     listOf(
                                                         Transaction.Source.CardRefund
@@ -246,11 +272,13 @@ class TransactionTest {
                                                             .Travel
                                                             .TripLeg
                                                             .builder()
-                                                            .carrierCode("string")
-                                                            .destinationCityAirportCode("string")
-                                                            .fareBasisCode("string")
-                                                            .flightNumber("string")
-                                                            .serviceClass("string")
+                                                            .carrierCode("carrier_code")
+                                                            .destinationCityAirportCode(
+                                                                "destination_city_airport_code"
+                                                            )
+                                                            .fareBasisCode("fare_basis_code")
+                                                            .flightNumber("flight_number")
+                                                            .serviceClass("service_class")
                                                             .stopOverCode(
                                                                 Transaction.Source.CardRefund
                                                                     .PurchaseDetails
@@ -266,7 +294,7 @@ class TransactionTest {
                                         )
                                         .build()
                                 )
-                                .transactionId("string")
+                                .transactionId("transaction_id")
                                 .type(Transaction.Source.CardRefund.Type.CARD_REFUND)
                                 .build()
                         )
@@ -276,42 +304,44 @@ class TransactionTest {
                                 .currency(Transaction.Source.CardRevenuePayment.Currency.CAD)
                                 .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .transactedOnAccountId("string")
+                                .transactedOnAccountId("transacted_on_account_id")
                                 .build()
                         )
                         .cardSettlement(
                             Transaction.Source.CardSettlement.builder()
-                                .id("string")
+                                .id("id")
                                 .amount(123L)
-                                .cardAuthorization("string")
-                                .cardPaymentId("string")
+                                .cardAuthorization("card_authorization")
+                                .cardPaymentId("card_payment_id")
                                 .currency(Transaction.Source.CardSettlement.Currency.CAD)
-                                .merchantAcceptorId("string")
-                                .merchantCategoryCode("string")
-                                .merchantCity("string")
-                                .merchantCountry("string")
-                                .merchantName("string")
-                                .merchantState("string")
+                                .merchantAcceptorId("merchant_acceptor_id")
+                                .merchantCategoryCode("merchant_category_code")
+                                .merchantCity("merchant_city")
+                                .merchantCountry("merchant_country")
+                                .merchantName("merchant_name")
+                                .merchantState("merchant_state")
                                 .networkIdentifiers(
                                     Transaction.Source.CardSettlement.NetworkIdentifiers.builder()
-                                        .acquirerBusinessId("string")
-                                        .acquirerReferenceNumber("string")
-                                        .transactionId("string")
+                                        .acquirerBusinessId("acquirer_business_id")
+                                        .acquirerReferenceNumber("acquirer_reference_number")
+                                        .transactionId("transaction_id")
                                         .build()
                                 )
-                                .pendingTransactionId("string")
+                                .pendingTransactionId("pending_transaction_id")
                                 .presentmentAmount(123L)
-                                .presentmentCurrency("string")
+                                .presentmentCurrency("presentment_currency")
                                 .purchaseDetails(
                                     Transaction.Source.CardSettlement.PurchaseDetails.builder()
                                         .carRental(
                                             Transaction.Source.CardSettlement.PurchaseDetails
                                                 .CarRental
                                                 .builder()
-                                                .carClassCode("string")
+                                                .carClassCode("car_class_code")
                                                 .checkoutDate(LocalDate.parse("2019-12-27"))
                                                 .dailyRentalRateAmount(123L)
-                                                .dailyRentalRateCurrency("string")
+                                                .dailyRentalRateCurrency(
+                                                    "daily_rental_rate_currency"
+                                                )
                                                 .daysRented(123L)
                                                 .extraCharges(
                                                     Transaction.Source.CardSettlement
@@ -321,9 +351,11 @@ class TransactionTest {
                                                         .NO_EXTRA_CHARGE
                                                 )
                                                 .fuelChargesAmount(123L)
-                                                .fuelChargesCurrency("string")
+                                                .fuelChargesCurrency("fuel_charges_currency")
                                                 .insuranceChargesAmount(123L)
-                                                .insuranceChargesCurrency("string")
+                                                .insuranceChargesCurrency(
+                                                    "insurance_charges_currency"
+                                                )
                                                 .noShowIndicator(
                                                     Transaction.Source.CardSettlement
                                                         .PurchaseDetails
@@ -332,22 +364,28 @@ class TransactionTest {
                                                         .NOT_APPLICABLE
                                                 )
                                                 .oneWayDropOffChargesAmount(123L)
-                                                .oneWayDropOffChargesCurrency("string")
-                                                .renterName("string")
+                                                .oneWayDropOffChargesCurrency(
+                                                    "one_way_drop_off_charges_currency"
+                                                )
+                                                .renterName("renter_name")
                                                 .weeklyRentalRateAmount(123L)
-                                                .weeklyRentalRateCurrency("string")
+                                                .weeklyRentalRateCurrency(
+                                                    "weekly_rental_rate_currency"
+                                                )
                                                 .build()
                                         )
-                                        .customerReferenceIdentifier("string")
+                                        .customerReferenceIdentifier(
+                                            "customer_reference_identifier"
+                                        )
                                         .localTaxAmount(123L)
-                                        .localTaxCurrency("string")
+                                        .localTaxCurrency("local_tax_currency")
                                         .lodging(
                                             Transaction.Source.CardSettlement.PurchaseDetails
                                                 .Lodging
                                                 .builder()
                                                 .checkInDate(LocalDate.parse("2019-12-27"))
                                                 .dailyRoomRateAmount(123L)
-                                                .dailyRoomRateCurrency("string")
+                                                .dailyRoomRateCurrency("daily_room_rate_currency")
                                                 .extraCharges(
                                                     Transaction.Source.CardSettlement
                                                         .PurchaseDetails
@@ -356,9 +394,13 @@ class TransactionTest {
                                                         .NO_EXTRA_CHARGE
                                                 )
                                                 .folioCashAdvancesAmount(123L)
-                                                .folioCashAdvancesCurrency("string")
+                                                .folioCashAdvancesCurrency(
+                                                    "folio_cash_advances_currency"
+                                                )
                                                 .foodBeverageChargesAmount(123L)
-                                                .foodBeverageChargesCurrency("string")
+                                                .foodBeverageChargesCurrency(
+                                                    "food_beverage_charges_currency"
+                                                )
                                                 .noShowIndicator(
                                                     Transaction.Source.CardSettlement
                                                         .PurchaseDetails
@@ -367,17 +409,19 @@ class TransactionTest {
                                                         .NOT_APPLICABLE
                                                 )
                                                 .prepaidExpensesAmount(123L)
-                                                .prepaidExpensesCurrency("string")
+                                                .prepaidExpensesCurrency(
+                                                    "prepaid_expenses_currency"
+                                                )
                                                 .roomNights(123L)
                                                 .totalRoomTaxAmount(123L)
-                                                .totalRoomTaxCurrency("string")
+                                                .totalRoomTaxCurrency("total_room_tax_currency")
                                                 .totalTaxAmount(123L)
-                                                .totalTaxCurrency("string")
+                                                .totalTaxCurrency("total_tax_currency")
                                                 .build()
                                         )
                                         .nationalTaxAmount(123L)
-                                        .nationalTaxCurrency("string")
-                                        .purchaseIdentifier("string")
+                                        .nationalTaxCurrency("national_tax_currency")
+                                        .purchaseIdentifier("purchase_identifier")
                                         .purchaseIdentifierFormat(
                                             Transaction.Source.CardSettlement.PurchaseDetails
                                                 .PurchaseIdentifierFormat
@@ -392,7 +436,9 @@ class TransactionTest {
                                                         .Travel
                                                         .Ancillary
                                                         .builder()
-                                                        .connectedTicketDocumentNumber("string")
+                                                        .connectedTicketDocumentNumber(
+                                                            "connected_ticket_document_number"
+                                                        )
                                                         .creditReasonIndicator(
                                                             Transaction.Source.CardSettlement
                                                                 .PurchaseDetails
@@ -401,7 +447,9 @@ class TransactionTest {
                                                                 .CreditReasonIndicator
                                                                 .NO_CREDIT
                                                         )
-                                                        .passengerNameOrDescription("string")
+                                                        .passengerNameOrDescription(
+                                                            "passenger_name_or_description"
+                                                        )
                                                         .services(
                                                             listOf(
                                                                 Transaction.Source.CardSettlement
@@ -420,14 +468,18 @@ class TransactionTest {
                                                                             .Category
                                                                             .NONE
                                                                     )
-                                                                    .subCategory("string")
+                                                                    .subCategory("sub_category")
                                                                     .build()
                                                             )
                                                         )
-                                                        .ticketDocumentNumber("string")
+                                                        .ticketDocumentNumber(
+                                                            "ticket_document_number"
+                                                        )
                                                         .build()
                                                 )
-                                                .computerizedReservationSystem("string")
+                                                .computerizedReservationSystem(
+                                                    "computerized_reservation_system"
+                                                )
                                                 .creditReasonIndicator(
                                                     Transaction.Source.CardSettlement
                                                         .PurchaseDetails
@@ -436,8 +488,10 @@ class TransactionTest {
                                                         .NO_CREDIT
                                                 )
                                                 .departureDate(LocalDate.parse("2019-12-27"))
-                                                .originationCityAirportCode("string")
-                                                .passengerName("string")
+                                                .originationCityAirportCode(
+                                                    "origination_city_airport_code"
+                                                )
+                                                .passengerName("passenger_name")
                                                 .restrictedTicketIndicator(
                                                     Transaction.Source.CardSettlement
                                                         .PurchaseDetails
@@ -452,9 +506,9 @@ class TransactionTest {
                                                         .TicketChangeIndicator
                                                         .NONE
                                                 )
-                                                .ticketNumber("string")
-                                                .travelAgencyCode("string")
-                                                .travelAgencyName("string")
+                                                .ticketNumber("ticket_number")
+                                                .travelAgencyCode("travel_agency_code")
+                                                .travelAgencyName("travel_agency_name")
                                                 .tripLegs(
                                                     listOf(
                                                         Transaction.Source.CardSettlement
@@ -462,11 +516,13 @@ class TransactionTest {
                                                             .Travel
                                                             .TripLeg
                                                             .builder()
-                                                            .carrierCode("string")
-                                                            .destinationCityAirportCode("string")
-                                                            .fareBasisCode("string")
-                                                            .flightNumber("string")
-                                                            .serviceClass("string")
+                                                            .carrierCode("carrier_code")
+                                                            .destinationCityAirportCode(
+                                                                "destination_city_airport_code"
+                                                            )
+                                                            .fareBasisCode("fare_basis_code")
+                                                            .flightNumber("flight_number")
+                                                            .serviceClass("service_class")
                                                             .stopOverCode(
                                                                 Transaction.Source.CardSettlement
                                                                     .PurchaseDetails
@@ -482,13 +538,13 @@ class TransactionTest {
                                         )
                                         .build()
                                 )
-                                .transactionId("string")
+                                .transactionId("transaction_id")
                                 .type(Transaction.Source.CardSettlement.Type.CARD_SETTLEMENT)
                                 .build()
                         )
                         .cashbackPayment(
                             Transaction.Source.CashbackPayment.builder()
-                                .accruedOnCardId("string")
+                                .accruedOnCardId("accrued_on_card_id")
                                 .amount(123L)
                                 .currency(Transaction.Source.CashbackPayment.Currency.CAD)
                                 .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -498,37 +554,39 @@ class TransactionTest {
                         .category(Transaction.Source.Category.ACCOUNT_TRANSFER_INTENTION)
                         .checkDepositAcceptance(
                             Transaction.Source.CheckDepositAcceptance.builder()
-                                .accountNumber("string")
+                                .accountNumber("account_number")
                                 .amount(123L)
-                                .auxiliaryOnUs("string")
-                                .checkDepositId("string")
+                                .auxiliaryOnUs("auxiliary_on_us")
+                                .checkDepositId("check_deposit_id")
                                 .currency(Transaction.Source.CheckDepositAcceptance.Currency.CAD)
-                                .routingNumber("string")
-                                .serialNumber("string")
+                                .routingNumber("routing_number")
+                                .serialNumber("serial_number")
                                 .build()
                         )
                         .checkDepositReturn(
                             Transaction.Source.CheckDepositReturn.builder()
                                 .amount(123L)
-                                .checkDepositId("string")
+                                .checkDepositId("check_deposit_id")
                                 .currency(Transaction.Source.CheckDepositReturn.Currency.CAD)
                                 .returnReason(
                                     Transaction.Source.CheckDepositReturn.ReturnReason
                                         .ACH_CONVERSION_NOT_SUPPORTED
                                 )
                                 .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .transactionId("string")
+                                .transactionId("transaction_id")
                                 .build()
                         )
                         .checkTransferDeposit(
                             Transaction.Source.CheckTransferDeposit.builder()
-                                .backImageFileId("string")
-                                .bankOfFirstDepositRoutingNumber("string")
+                                .backImageFileId("back_image_file_id")
+                                .bankOfFirstDepositRoutingNumber(
+                                    "bank_of_first_deposit_routing_number"
+                                )
                                 .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .frontImageFileId("string")
-                                .inboundCheckDepositId("string")
-                                .transactionId("string")
-                                .transferId("string")
+                                .frontImageFileId("front_image_file_id")
+                                .inboundCheckDepositId("inbound_check_deposit_id")
+                                .transactionId("transaction_id")
+                                .transferId("transfer_id")
                                 .type(
                                     Transaction.Source.CheckTransferDeposit.Type
                                         .CHECK_TRANSFER_DEPOSIT
@@ -542,7 +600,7 @@ class TransactionTest {
                                         .MAIL_DELIVERY_FAILED
                                 )
                                 .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .transferId("string")
+                                .transferId("transfer_id")
                                 .type(
                                     Transaction.Source.CheckTransferStopPaymentRequest.Type
                                         .CHECK_TRANSFER_STOP_PAYMENT_REQUEST
@@ -574,7 +632,9 @@ class TransactionTest {
                                                             .Freeform
                                                             .Entry
                                                             .builder()
-                                                            .paymentRelatedInformation("string")
+                                                            .paymentRelatedInformation(
+                                                                "payment_related_information"
+                                                            )
                                                             .build()
                                                     )
                                                 )
@@ -583,75 +643,97 @@ class TransactionTest {
                                         .build()
                                 )
                                 .amount(123L)
-                                .originatorCompanyDescriptiveDate("string")
-                                .originatorCompanyDiscretionaryData("string")
-                                .originatorCompanyEntryDescription("string")
-                                .originatorCompanyId("string")
-                                .originatorCompanyName("string")
-                                .receiverIdNumber("string")
-                                .receiverName("string")
-                                .traceNumber("string")
-                                .transferId("string")
+                                .originatorCompanyDescriptiveDate(
+                                    "originator_company_descriptive_date"
+                                )
+                                .originatorCompanyDiscretionaryData(
+                                    "originator_company_discretionary_data"
+                                )
+                                .originatorCompanyEntryDescription(
+                                    "originator_company_entry_description"
+                                )
+                                .originatorCompanyId("originator_company_id")
+                                .originatorCompanyName("originator_company_name")
+                                .receiverIdNumber("receiver_id_number")
+                                .receiverName("receiver_name")
+                                .traceNumber("trace_number")
+                                .transferId("transfer_id")
                                 .build()
                         )
                         .inboundInternationalAchTransfer(
                             Transaction.Source.InboundInternationalAchTransfer.builder()
                                 .amount(123L)
-                                .destinationCountryCode("string")
-                                .destinationCurrencyCode("string")
+                                .destinationCountryCode("destination_country_code")
+                                .destinationCurrencyCode("destination_currency_code")
                                 .foreignExchangeIndicator(
                                     Transaction.Source.InboundInternationalAchTransfer
                                         .ForeignExchangeIndicator
                                         .FIXED_TO_VARIABLE
                                 )
-                                .foreignExchangeReference("string")
+                                .foreignExchangeReference("foreign_exchange_reference")
                                 .foreignExchangeReferenceIndicator(
                                     Transaction.Source.InboundInternationalAchTransfer
                                         .ForeignExchangeReferenceIndicator
                                         .FOREIGN_EXCHANGE_RATE
                                 )
                                 .foreignPaymentAmount(123L)
-                                .foreignTraceNumber("string")
+                                .foreignTraceNumber("foreign_trace_number")
                                 .internationalTransactionTypeCode(
                                     Transaction.Source.InboundInternationalAchTransfer
                                         .InternationalTransactionTypeCode
                                         .ANNUITY
                                 )
-                                .originatingCurrencyCode("string")
-                                .originatingDepositoryFinancialInstitutionBranchCountry("string")
-                                .originatingDepositoryFinancialInstitutionId("string")
+                                .originatingCurrencyCode("originating_currency_code")
+                                .originatingDepositoryFinancialInstitutionBranchCountry(
+                                    "originating_depository_financial_institution_branch_country"
+                                )
+                                .originatingDepositoryFinancialInstitutionId(
+                                    "originating_depository_financial_institution_id"
+                                )
                                 .originatingDepositoryFinancialInstitutionIdQualifier(
                                     Transaction.Source.InboundInternationalAchTransfer
                                         .OriginatingDepositoryFinancialInstitutionIdQualifier
                                         .NATIONAL_CLEARING_SYSTEM_NUMBER
                                 )
-                                .originatingDepositoryFinancialInstitutionName("string")
-                                .originatorCity("string")
-                                .originatorCompanyEntryDescription("string")
-                                .originatorCountry("string")
-                                .originatorIdentification("string")
-                                .originatorName("string")
-                                .originatorPostalCode("string")
-                                .originatorStateOrProvince("string")
-                                .originatorStreetAddress("string")
-                                .paymentRelatedInformation("string")
-                                .paymentRelatedInformation2("string")
-                                .receiverCity("string")
-                                .receiverCountry("string")
-                                .receiverIdentificationNumber("string")
-                                .receiverPostalCode("string")
-                                .receiverStateOrProvince("string")
-                                .receiverStreetAddress("string")
-                                .receivingCompanyOrIndividualName("string")
-                                .receivingDepositoryFinancialInstitutionCountry("string")
-                                .receivingDepositoryFinancialInstitutionId("string")
+                                .originatingDepositoryFinancialInstitutionName(
+                                    "originating_depository_financial_institution_name"
+                                )
+                                .originatorCity("originator_city")
+                                .originatorCompanyEntryDescription(
+                                    "originator_company_entry_description"
+                                )
+                                .originatorCountry("originator_country")
+                                .originatorIdentification("originator_identification")
+                                .originatorName("originator_name")
+                                .originatorPostalCode("originator_postal_code")
+                                .originatorStateOrProvince("originator_state_or_province")
+                                .originatorStreetAddress("originator_street_address")
+                                .paymentRelatedInformation("payment_related_information")
+                                .paymentRelatedInformation2("payment_related_information2")
+                                .receiverCity("receiver_city")
+                                .receiverCountry("receiver_country")
+                                .receiverIdentificationNumber("receiver_identification_number")
+                                .receiverPostalCode("receiver_postal_code")
+                                .receiverStateOrProvince("receiver_state_or_province")
+                                .receiverStreetAddress("receiver_street_address")
+                                .receivingCompanyOrIndividualName(
+                                    "receiving_company_or_individual_name"
+                                )
+                                .receivingDepositoryFinancialInstitutionCountry(
+                                    "receiving_depository_financial_institution_country"
+                                )
+                                .receivingDepositoryFinancialInstitutionId(
+                                    "receiving_depository_financial_institution_id"
+                                )
                                 .receivingDepositoryFinancialInstitutionIdQualifier(
                                     Transaction.Source.InboundInternationalAchTransfer
                                         .ReceivingDepositoryFinancialInstitutionIdQualifier
                                         .NATIONAL_CLEARING_SYSTEM_NUMBER
                                 )
-                                .receivingDepositoryFinancialInstitutionName("string")
-                                .traceNumber("string")
+                                .receivingDepositoryFinancialInstitutionName(
+                                    "receiving_depository_financial_institution_name"
+                                )
+                                .traceNumber("trace_number")
                                 .type(
                                     Transaction.Source.InboundInternationalAchTransfer.Type
                                         .INBOUND_INTERNATIONAL_ACH_TRANSFER
@@ -661,87 +743,115 @@ class TransactionTest {
                         .inboundRealTimePaymentsTransferConfirmation(
                             Transaction.Source.InboundRealTimePaymentsTransferConfirmation.builder()
                                 .amount(123L)
-                                .creditorName("string")
+                                .creditorName("creditor_name")
                                 .currency(
                                     Transaction.Source.InboundRealTimePaymentsTransferConfirmation
                                         .Currency
                                         .CAD
                                 )
-                                .debtorAccountNumber("string")
-                                .debtorName("string")
-                                .debtorRoutingNumber("string")
-                                .remittanceInformation("string")
-                                .transactionIdentification("string")
+                                .debtorAccountNumber("debtor_account_number")
+                                .debtorName("debtor_name")
+                                .debtorRoutingNumber("debtor_routing_number")
+                                .remittanceInformation("remittance_information")
+                                .transactionIdentification("transaction_identification")
                                 .build()
                         )
                         .inboundWireDrawdownPayment(
                             Transaction.Source.InboundWireDrawdownPayment.builder()
                                 .amount(123L)
-                                .beneficiaryAddressLine1("string")
-                                .beneficiaryAddressLine2("string")
-                                .beneficiaryAddressLine3("string")
-                                .beneficiaryName("string")
-                                .beneficiaryReference("string")
-                                .description("string")
-                                .inputMessageAccountabilityData("string")
-                                .originatorAddressLine1("string")
-                                .originatorAddressLine2("string")
-                                .originatorAddressLine3("string")
-                                .originatorName("string")
-                                .originatorRoutingNumber("string")
-                                .originatorToBeneficiaryInformation("string")
-                                .originatorToBeneficiaryInformationLine1("string")
-                                .originatorToBeneficiaryInformationLine2("string")
-                                .originatorToBeneficiaryInformationLine3("string")
-                                .originatorToBeneficiaryInformationLine4("string")
+                                .beneficiaryAddressLine1("beneficiary_address_line1")
+                                .beneficiaryAddressLine2("beneficiary_address_line2")
+                                .beneficiaryAddressLine3("beneficiary_address_line3")
+                                .beneficiaryName("beneficiary_name")
+                                .beneficiaryReference("beneficiary_reference")
+                                .description("description")
+                                .inputMessageAccountabilityData("input_message_accountability_data")
+                                .originatorAddressLine1("originator_address_line1")
+                                .originatorAddressLine2("originator_address_line2")
+                                .originatorAddressLine3("originator_address_line3")
+                                .originatorName("originator_name")
+                                .originatorRoutingNumber("originator_routing_number")
+                                .originatorToBeneficiaryInformation(
+                                    "originator_to_beneficiary_information"
+                                )
+                                .originatorToBeneficiaryInformationLine1(
+                                    "originator_to_beneficiary_information_line1"
+                                )
+                                .originatorToBeneficiaryInformationLine2(
+                                    "originator_to_beneficiary_information_line2"
+                                )
+                                .originatorToBeneficiaryInformationLine3(
+                                    "originator_to_beneficiary_information_line3"
+                                )
+                                .originatorToBeneficiaryInformationLine4(
+                                    "originator_to_beneficiary_information_line4"
+                                )
                                 .build()
                         )
                         .inboundWireReversal(
                             Transaction.Source.InboundWireReversal.builder()
                                 .amount(123L)
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .description("string")
-                                .financialInstitutionToFinancialInstitutionInformation("string")
+                                .description("description")
+                                .financialInstitutionToFinancialInstitutionInformation(
+                                    "financial_institution_to_financial_institution_information"
+                                )
                                 .inputCycleDate(LocalDate.parse("2019-12-27"))
-                                .inputMessageAccountabilityData("string")
-                                .inputSequenceNumber("string")
-                                .inputSource("string")
-                                .originatorRoutingNumber("string")
+                                .inputMessageAccountabilityData("input_message_accountability_data")
+                                .inputSequenceNumber("input_sequence_number")
+                                .inputSource("input_source")
+                                .originatorRoutingNumber("originator_routing_number")
                                 .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
-                                .previousMessageInputMessageAccountabilityData("string")
-                                .previousMessageInputSequenceNumber("string")
-                                .previousMessageInputSource("string")
-                                .receiverFinancialInstitutionInformation("string")
-                                .transactionId("string")
-                                .wireTransferId("string")
+                                .previousMessageInputMessageAccountabilityData(
+                                    "previous_message_input_message_accountability_data"
+                                )
+                                .previousMessageInputSequenceNumber(
+                                    "previous_message_input_sequence_number"
+                                )
+                                .previousMessageInputSource("previous_message_input_source")
+                                .receiverFinancialInstitutionInformation(
+                                    "receiver_financial_institution_information"
+                                )
+                                .transactionId("transaction_id")
+                                .wireTransferId("wire_transfer_id")
                                 .build()
                         )
                         .inboundWireTransfer(
                             Transaction.Source.InboundWireTransfer.builder()
                                 .amount(123L)
-                                .beneficiaryAddressLine1("string")
-                                .beneficiaryAddressLine2("string")
-                                .beneficiaryAddressLine3("string")
-                                .beneficiaryName("string")
-                                .beneficiaryReference("string")
-                                .description("string")
-                                .inputMessageAccountabilityData("string")
-                                .originatorAddressLine1("string")
-                                .originatorAddressLine2("string")
-                                .originatorAddressLine3("string")
-                                .originatorName("string")
-                                .originatorRoutingNumber("string")
-                                .originatorToBeneficiaryInformation("string")
-                                .originatorToBeneficiaryInformationLine1("string")
-                                .originatorToBeneficiaryInformationLine2("string")
-                                .originatorToBeneficiaryInformationLine3("string")
-                                .originatorToBeneficiaryInformationLine4("string")
-                                .transferId("string")
+                                .beneficiaryAddressLine1("beneficiary_address_line1")
+                                .beneficiaryAddressLine2("beneficiary_address_line2")
+                                .beneficiaryAddressLine3("beneficiary_address_line3")
+                                .beneficiaryName("beneficiary_name")
+                                .beneficiaryReference("beneficiary_reference")
+                                .description("description")
+                                .inputMessageAccountabilityData("input_message_accountability_data")
+                                .originatorAddressLine1("originator_address_line1")
+                                .originatorAddressLine2("originator_address_line2")
+                                .originatorAddressLine3("originator_address_line3")
+                                .originatorName("originator_name")
+                                .originatorRoutingNumber("originator_routing_number")
+                                .originatorToBeneficiaryInformation(
+                                    "originator_to_beneficiary_information"
+                                )
+                                .originatorToBeneficiaryInformationLine1(
+                                    "originator_to_beneficiary_information_line1"
+                                )
+                                .originatorToBeneficiaryInformationLine2(
+                                    "originator_to_beneficiary_information_line2"
+                                )
+                                .originatorToBeneficiaryInformationLine3(
+                                    "originator_to_beneficiary_information_line3"
+                                )
+                                .originatorToBeneficiaryInformationLine4(
+                                    "originator_to_beneficiary_information_line4"
+                                )
+                                .transferId("transfer_id")
                                 .build()
                         )
                         .interestPayment(
                             Transaction.Source.InterestPayment.builder()
-                                .accruedOnAccountId("string")
+                                .accruedOnAccountId("accrued_on_account_id")
                                 .amount(123L)
                                 .currency(Transaction.Source.InterestPayment.Currency.CAD)
                                 .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -758,27 +868,29 @@ class TransactionTest {
                         .realTimePaymentsTransferAcknowledgement(
                             Transaction.Source.RealTimePaymentsTransferAcknowledgement.builder()
                                 .amount(123L)
-                                .destinationAccountNumber("string")
-                                .destinationRoutingNumber("string")
-                                .remittanceInformation("string")
-                                .transferId("string")
+                                .destinationAccountNumber("destination_account_number")
+                                .destinationRoutingNumber("destination_routing_number")
+                                .remittanceInformation("remittance_information")
+                                .transferId("transfer_id")
                                 .build()
                         )
                         .sampleFunds(
-                            Transaction.Source.SampleFunds.builder().originator("string").build()
+                            Transaction.Source.SampleFunds.builder()
+                                .originator("originator")
+                                .build()
                         )
                         .wireTransferIntention(
                             Transaction.Source.WireTransferIntention.builder()
-                                .accountNumber("string")
+                                .accountNumber("account_number")
                                 .amount(123L)
-                                .messageToRecipient("string")
-                                .routingNumber("string")
-                                .transferId("string")
+                                .messageToRecipient("message_to_recipient")
+                                .routingNumber("routing_number")
+                                .transferId("transfer_id")
                                 .build()
                         )
                         .wireTransferRejection(
                             Transaction.Source.WireTransferRejection.builder()
-                                .transferId("string")
+                                .transferId("transfer_id")
                                 .build()
                         )
                         .build()
@@ -786,14 +898,14 @@ class TransactionTest {
                 .type(Transaction.Type.TRANSACTION)
                 .build()
         assertThat(transaction).isNotNull
-        assertThat(transaction.id()).isEqualTo("string")
-        assertThat(transaction.accountId()).isEqualTo("string")
+        assertThat(transaction.id()).isEqualTo("id")
+        assertThat(transaction.accountId()).isEqualTo("account_id")
         assertThat(transaction.amount()).isEqualTo(123L)
         assertThat(transaction.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(transaction.currency()).isEqualTo(Transaction.Currency.CAD)
-        assertThat(transaction.description()).isEqualTo("string")
-        assertThat(transaction.routeId()).contains("string")
+        assertThat(transaction.description()).isEqualTo("description")
+        assertThat(transaction.routeId()).contains("route_id")
         assertThat(transaction.routeType()).contains(Transaction.RouteType.ACCOUNT_NUMBER)
         assertThat(transaction.source())
             .isEqualTo(
@@ -802,84 +914,84 @@ class TransactionTest {
                         Transaction.Source.AccountTransferIntention.builder()
                             .amount(123L)
                             .currency(Transaction.Source.AccountTransferIntention.Currency.CAD)
-                            .description("string")
-                            .destinationAccountId("string")
-                            .sourceAccountId("string")
-                            .transferId("string")
+                            .description("description")
+                            .destinationAccountId("destination_account_id")
+                            .sourceAccountId("source_account_id")
+                            .transferId("transfer_id")
                             .build()
                     )
                     .achTransferIntention(
                         Transaction.Source.AchTransferIntention.builder()
-                            .accountNumber("string")
+                            .accountNumber("account_number")
                             .amount(123L)
-                            .routingNumber("string")
-                            .statementDescriptor("string")
-                            .transferId("string")
+                            .routingNumber("routing_number")
+                            .statementDescriptor("statement_descriptor")
+                            .transferId("transfer_id")
                             .build()
                     )
                     .achTransferRejection(
                         Transaction.Source.AchTransferRejection.builder()
-                            .transferId("string")
+                            .transferId("transfer_id")
                             .build()
                     )
                     .achTransferReturn(
                         Transaction.Source.AchTransferReturn.builder()
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .rawReturnReasonCode("string")
+                            .rawReturnReasonCode("raw_return_reason_code")
                             .returnReasonCode(
                                 Transaction.Source.AchTransferReturn.ReturnReasonCode
                                     .INSUFFICIENT_FUND
                             )
-                            .traceNumber("string")
-                            .transactionId("string")
-                            .transferId("string")
+                            .traceNumber("trace_number")
+                            .transactionId("transaction_id")
+                            .transferId("transfer_id")
                             .build()
                     )
                     .cardDisputeAcceptance(
                         Transaction.Source.CardDisputeAcceptance.builder()
                             .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .cardDisputeId("string")
-                            .transactionId("string")
+                            .cardDisputeId("card_dispute_id")
+                            .transactionId("transaction_id")
                             .build()
                     )
                     .cardDisputeLoss(
                         Transaction.Source.CardDisputeLoss.builder()
-                            .cardDisputeId("string")
-                            .explanation("string")
+                            .cardDisputeId("card_dispute_id")
+                            .explanation("explanation")
                             .lostAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .transactionId("string")
+                            .transactionId("transaction_id")
                             .build()
                     )
                     .cardRefund(
                         Transaction.Source.CardRefund.builder()
-                            .id("string")
+                            .id("id")
                             .amount(123L)
-                            .cardPaymentId("string")
+                            .cardPaymentId("card_payment_id")
                             .currency(Transaction.Source.CardRefund.Currency.CAD)
-                            .merchantAcceptorId("string")
-                            .merchantCategoryCode("string")
-                            .merchantCity("string")
-                            .merchantCountry("string")
-                            .merchantName("string")
-                            .merchantState("string")
+                            .merchantAcceptorId("merchant_acceptor_id")
+                            .merchantCategoryCode("merchant_category_code")
+                            .merchantCity("merchant_city")
+                            .merchantCountry("merchant_country")
+                            .merchantName("merchant_name")
+                            .merchantState("merchant_state")
                             .networkIdentifiers(
                                 Transaction.Source.CardRefund.NetworkIdentifiers.builder()
-                                    .acquirerBusinessId("string")
-                                    .acquirerReferenceNumber("string")
-                                    .transactionId("string")
+                                    .acquirerBusinessId("acquirer_business_id")
+                                    .acquirerReferenceNumber("acquirer_reference_number")
+                                    .transactionId("transaction_id")
                                     .build()
                             )
                             .presentmentAmount(123L)
-                            .presentmentCurrency("string")
+                            .presentmentCurrency("presentment_currency")
                             .purchaseDetails(
                                 Transaction.Source.CardRefund.PurchaseDetails.builder()
                                     .carRental(
                                         Transaction.Source.CardRefund.PurchaseDetails.CarRental
                                             .builder()
-                                            .carClassCode("string")
+                                            .carClassCode("car_class_code")
                                             .checkoutDate(LocalDate.parse("2019-12-27"))
                                             .dailyRentalRateAmount(123L)
-                                            .dailyRentalRateCurrency("string")
+                                            .dailyRentalRateCurrency("daily_rental_rate_currency")
                                             .daysRented(123L)
                                             .extraCharges(
                                                 Transaction.Source.CardRefund.PurchaseDetails
@@ -888,9 +1000,9 @@ class TransactionTest {
                                                     .NO_EXTRA_CHARGE
                                             )
                                             .fuelChargesAmount(123L)
-                                            .fuelChargesCurrency("string")
+                                            .fuelChargesCurrency("fuel_charges_currency")
                                             .insuranceChargesAmount(123L)
-                                            .insuranceChargesCurrency("string")
+                                            .insuranceChargesCurrency("insurance_charges_currency")
                                             .noShowIndicator(
                                                 Transaction.Source.CardRefund.PurchaseDetails
                                                     .CarRental
@@ -898,21 +1010,23 @@ class TransactionTest {
                                                     .NOT_APPLICABLE
                                             )
                                             .oneWayDropOffChargesAmount(123L)
-                                            .oneWayDropOffChargesCurrency("string")
-                                            .renterName("string")
+                                            .oneWayDropOffChargesCurrency(
+                                                "one_way_drop_off_charges_currency"
+                                            )
+                                            .renterName("renter_name")
                                             .weeklyRentalRateAmount(123L)
-                                            .weeklyRentalRateCurrency("string")
+                                            .weeklyRentalRateCurrency("weekly_rental_rate_currency")
                                             .build()
                                     )
-                                    .customerReferenceIdentifier("string")
+                                    .customerReferenceIdentifier("customer_reference_identifier")
                                     .localTaxAmount(123L)
-                                    .localTaxCurrency("string")
+                                    .localTaxCurrency("local_tax_currency")
                                     .lodging(
                                         Transaction.Source.CardRefund.PurchaseDetails.Lodging
                                             .builder()
                                             .checkInDate(LocalDate.parse("2019-12-27"))
                                             .dailyRoomRateAmount(123L)
-                                            .dailyRoomRateCurrency("string")
+                                            .dailyRoomRateCurrency("daily_room_rate_currency")
                                             .extraCharges(
                                                 Transaction.Source.CardRefund.PurchaseDetails
                                                     .Lodging
@@ -920,9 +1034,13 @@ class TransactionTest {
                                                     .NO_EXTRA_CHARGE
                                             )
                                             .folioCashAdvancesAmount(123L)
-                                            .folioCashAdvancesCurrency("string")
+                                            .folioCashAdvancesCurrency(
+                                                "folio_cash_advances_currency"
+                                            )
                                             .foodBeverageChargesAmount(123L)
-                                            .foodBeverageChargesCurrency("string")
+                                            .foodBeverageChargesCurrency(
+                                                "food_beverage_charges_currency"
+                                            )
                                             .noShowIndicator(
                                                 Transaction.Source.CardRefund.PurchaseDetails
                                                     .Lodging
@@ -930,17 +1048,17 @@ class TransactionTest {
                                                     .NOT_APPLICABLE
                                             )
                                             .prepaidExpensesAmount(123L)
-                                            .prepaidExpensesCurrency("string")
+                                            .prepaidExpensesCurrency("prepaid_expenses_currency")
                                             .roomNights(123L)
                                             .totalRoomTaxAmount(123L)
-                                            .totalRoomTaxCurrency("string")
+                                            .totalRoomTaxCurrency("total_room_tax_currency")
                                             .totalTaxAmount(123L)
-                                            .totalTaxCurrency("string")
+                                            .totalTaxCurrency("total_tax_currency")
                                             .build()
                                     )
                                     .nationalTaxAmount(123L)
-                                    .nationalTaxCurrency("string")
-                                    .purchaseIdentifier("string")
+                                    .nationalTaxCurrency("national_tax_currency")
+                                    .purchaseIdentifier("purchase_identifier")
                                     .purchaseIdentifierFormat(
                                         Transaction.Source.CardRefund.PurchaseDetails
                                             .PurchaseIdentifierFormat
@@ -953,7 +1071,9 @@ class TransactionTest {
                                                 Transaction.Source.CardRefund.PurchaseDetails.Travel
                                                     .Ancillary
                                                     .builder()
-                                                    .connectedTicketDocumentNumber("string")
+                                                    .connectedTicketDocumentNumber(
+                                                        "connected_ticket_document_number"
+                                                    )
                                                     .creditReasonIndicator(
                                                         Transaction.Source.CardRefund
                                                             .PurchaseDetails
@@ -962,7 +1082,9 @@ class TransactionTest {
                                                             .CreditReasonIndicator
                                                             .NO_CREDIT
                                                     )
-                                                    .passengerNameOrDescription("string")
+                                                    .passengerNameOrDescription(
+                                                        "passenger_name_or_description"
+                                                    )
                                                     .services(
                                                         listOf(
                                                             Transaction.Source.CardRefund
@@ -980,22 +1102,26 @@ class TransactionTest {
                                                                         .Category
                                                                         .NONE
                                                                 )
-                                                                .subCategory("string")
+                                                                .subCategory("sub_category")
                                                                 .build()
                                                         )
                                                     )
-                                                    .ticketDocumentNumber("string")
+                                                    .ticketDocumentNumber("ticket_document_number")
                                                     .build()
                                             )
-                                            .computerizedReservationSystem("string")
+                                            .computerizedReservationSystem(
+                                                "computerized_reservation_system"
+                                            )
                                             .creditReasonIndicator(
                                                 Transaction.Source.CardRefund.PurchaseDetails.Travel
                                                     .CreditReasonIndicator
                                                     .NO_CREDIT
                                             )
                                             .departureDate(LocalDate.parse("2019-12-27"))
-                                            .originationCityAirportCode("string")
-                                            .passengerName("string")
+                                            .originationCityAirportCode(
+                                                "origination_city_airport_code"
+                                            )
+                                            .passengerName("passenger_name")
                                             .restrictedTicketIndicator(
                                                 Transaction.Source.CardRefund.PurchaseDetails.Travel
                                                     .RestrictedTicketIndicator
@@ -1006,20 +1132,22 @@ class TransactionTest {
                                                     .TicketChangeIndicator
                                                     .NONE
                                             )
-                                            .ticketNumber("string")
-                                            .travelAgencyCode("string")
-                                            .travelAgencyName("string")
+                                            .ticketNumber("ticket_number")
+                                            .travelAgencyCode("travel_agency_code")
+                                            .travelAgencyName("travel_agency_name")
                                             .tripLegs(
                                                 listOf(
                                                     Transaction.Source.CardRefund.PurchaseDetails
                                                         .Travel
                                                         .TripLeg
                                                         .builder()
-                                                        .carrierCode("string")
-                                                        .destinationCityAirportCode("string")
-                                                        .fareBasisCode("string")
-                                                        .flightNumber("string")
-                                                        .serviceClass("string")
+                                                        .carrierCode("carrier_code")
+                                                        .destinationCityAirportCode(
+                                                            "destination_city_airport_code"
+                                                        )
+                                                        .fareBasisCode("fare_basis_code")
+                                                        .flightNumber("flight_number")
+                                                        .serviceClass("service_class")
                                                         .stopOverCode(
                                                             Transaction.Source.CardRefund
                                                                 .PurchaseDetails
@@ -1035,7 +1163,7 @@ class TransactionTest {
                                     )
                                     .build()
                             )
-                            .transactionId("string")
+                            .transactionId("transaction_id")
                             .type(Transaction.Source.CardRefund.Type.CARD_REFUND)
                             .build()
                     )
@@ -1045,41 +1173,41 @@ class TransactionTest {
                             .currency(Transaction.Source.CardRevenuePayment.Currency.CAD)
                             .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .transactedOnAccountId("string")
+                            .transactedOnAccountId("transacted_on_account_id")
                             .build()
                     )
                     .cardSettlement(
                         Transaction.Source.CardSettlement.builder()
-                            .id("string")
+                            .id("id")
                             .amount(123L)
-                            .cardAuthorization("string")
-                            .cardPaymentId("string")
+                            .cardAuthorization("card_authorization")
+                            .cardPaymentId("card_payment_id")
                             .currency(Transaction.Source.CardSettlement.Currency.CAD)
-                            .merchantAcceptorId("string")
-                            .merchantCategoryCode("string")
-                            .merchantCity("string")
-                            .merchantCountry("string")
-                            .merchantName("string")
-                            .merchantState("string")
+                            .merchantAcceptorId("merchant_acceptor_id")
+                            .merchantCategoryCode("merchant_category_code")
+                            .merchantCity("merchant_city")
+                            .merchantCountry("merchant_country")
+                            .merchantName("merchant_name")
+                            .merchantState("merchant_state")
                             .networkIdentifiers(
                                 Transaction.Source.CardSettlement.NetworkIdentifiers.builder()
-                                    .acquirerBusinessId("string")
-                                    .acquirerReferenceNumber("string")
-                                    .transactionId("string")
+                                    .acquirerBusinessId("acquirer_business_id")
+                                    .acquirerReferenceNumber("acquirer_reference_number")
+                                    .transactionId("transaction_id")
                                     .build()
                             )
-                            .pendingTransactionId("string")
+                            .pendingTransactionId("pending_transaction_id")
                             .presentmentAmount(123L)
-                            .presentmentCurrency("string")
+                            .presentmentCurrency("presentment_currency")
                             .purchaseDetails(
                                 Transaction.Source.CardSettlement.PurchaseDetails.builder()
                                     .carRental(
                                         Transaction.Source.CardSettlement.PurchaseDetails.CarRental
                                             .builder()
-                                            .carClassCode("string")
+                                            .carClassCode("car_class_code")
                                             .checkoutDate(LocalDate.parse("2019-12-27"))
                                             .dailyRentalRateAmount(123L)
-                                            .dailyRentalRateCurrency("string")
+                                            .dailyRentalRateCurrency("daily_rental_rate_currency")
                                             .daysRented(123L)
                                             .extraCharges(
                                                 Transaction.Source.CardSettlement.PurchaseDetails
@@ -1088,9 +1216,9 @@ class TransactionTest {
                                                     .NO_EXTRA_CHARGE
                                             )
                                             .fuelChargesAmount(123L)
-                                            .fuelChargesCurrency("string")
+                                            .fuelChargesCurrency("fuel_charges_currency")
                                             .insuranceChargesAmount(123L)
-                                            .insuranceChargesCurrency("string")
+                                            .insuranceChargesCurrency("insurance_charges_currency")
                                             .noShowIndicator(
                                                 Transaction.Source.CardSettlement.PurchaseDetails
                                                     .CarRental
@@ -1098,21 +1226,23 @@ class TransactionTest {
                                                     .NOT_APPLICABLE
                                             )
                                             .oneWayDropOffChargesAmount(123L)
-                                            .oneWayDropOffChargesCurrency("string")
-                                            .renterName("string")
+                                            .oneWayDropOffChargesCurrency(
+                                                "one_way_drop_off_charges_currency"
+                                            )
+                                            .renterName("renter_name")
                                             .weeklyRentalRateAmount(123L)
-                                            .weeklyRentalRateCurrency("string")
+                                            .weeklyRentalRateCurrency("weekly_rental_rate_currency")
                                             .build()
                                     )
-                                    .customerReferenceIdentifier("string")
+                                    .customerReferenceIdentifier("customer_reference_identifier")
                                     .localTaxAmount(123L)
-                                    .localTaxCurrency("string")
+                                    .localTaxCurrency("local_tax_currency")
                                     .lodging(
                                         Transaction.Source.CardSettlement.PurchaseDetails.Lodging
                                             .builder()
                                             .checkInDate(LocalDate.parse("2019-12-27"))
                                             .dailyRoomRateAmount(123L)
-                                            .dailyRoomRateCurrency("string")
+                                            .dailyRoomRateCurrency("daily_room_rate_currency")
                                             .extraCharges(
                                                 Transaction.Source.CardSettlement.PurchaseDetails
                                                     .Lodging
@@ -1120,9 +1250,13 @@ class TransactionTest {
                                                     .NO_EXTRA_CHARGE
                                             )
                                             .folioCashAdvancesAmount(123L)
-                                            .folioCashAdvancesCurrency("string")
+                                            .folioCashAdvancesCurrency(
+                                                "folio_cash_advances_currency"
+                                            )
                                             .foodBeverageChargesAmount(123L)
-                                            .foodBeverageChargesCurrency("string")
+                                            .foodBeverageChargesCurrency(
+                                                "food_beverage_charges_currency"
+                                            )
                                             .noShowIndicator(
                                                 Transaction.Source.CardSettlement.PurchaseDetails
                                                     .Lodging
@@ -1130,17 +1264,17 @@ class TransactionTest {
                                                     .NOT_APPLICABLE
                                             )
                                             .prepaidExpensesAmount(123L)
-                                            .prepaidExpensesCurrency("string")
+                                            .prepaidExpensesCurrency("prepaid_expenses_currency")
                                             .roomNights(123L)
                                             .totalRoomTaxAmount(123L)
-                                            .totalRoomTaxCurrency("string")
+                                            .totalRoomTaxCurrency("total_room_tax_currency")
                                             .totalTaxAmount(123L)
-                                            .totalTaxCurrency("string")
+                                            .totalTaxCurrency("total_tax_currency")
                                             .build()
                                     )
                                     .nationalTaxAmount(123L)
-                                    .nationalTaxCurrency("string")
-                                    .purchaseIdentifier("string")
+                                    .nationalTaxCurrency("national_tax_currency")
+                                    .purchaseIdentifier("purchase_identifier")
                                     .purchaseIdentifierFormat(
                                         Transaction.Source.CardSettlement.PurchaseDetails
                                             .PurchaseIdentifierFormat
@@ -1154,7 +1288,9 @@ class TransactionTest {
                                                     .Travel
                                                     .Ancillary
                                                     .builder()
-                                                    .connectedTicketDocumentNumber("string")
+                                                    .connectedTicketDocumentNumber(
+                                                        "connected_ticket_document_number"
+                                                    )
                                                     .creditReasonIndicator(
                                                         Transaction.Source.CardSettlement
                                                             .PurchaseDetails
@@ -1163,7 +1299,9 @@ class TransactionTest {
                                                             .CreditReasonIndicator
                                                             .NO_CREDIT
                                                     )
-                                                    .passengerNameOrDescription("string")
+                                                    .passengerNameOrDescription(
+                                                        "passenger_name_or_description"
+                                                    )
                                                     .services(
                                                         listOf(
                                                             Transaction.Source.CardSettlement
@@ -1182,14 +1320,16 @@ class TransactionTest {
                                                                         .Category
                                                                         .NONE
                                                                 )
-                                                                .subCategory("string")
+                                                                .subCategory("sub_category")
                                                                 .build()
                                                         )
                                                     )
-                                                    .ticketDocumentNumber("string")
+                                                    .ticketDocumentNumber("ticket_document_number")
                                                     .build()
                                             )
-                                            .computerizedReservationSystem("string")
+                                            .computerizedReservationSystem(
+                                                "computerized_reservation_system"
+                                            )
                                             .creditReasonIndicator(
                                                 Transaction.Source.CardSettlement.PurchaseDetails
                                                     .Travel
@@ -1197,8 +1337,10 @@ class TransactionTest {
                                                     .NO_CREDIT
                                             )
                                             .departureDate(LocalDate.parse("2019-12-27"))
-                                            .originationCityAirportCode("string")
-                                            .passengerName("string")
+                                            .originationCityAirportCode(
+                                                "origination_city_airport_code"
+                                            )
+                                            .passengerName("passenger_name")
                                             .restrictedTicketIndicator(
                                                 Transaction.Source.CardSettlement.PurchaseDetails
                                                     .Travel
@@ -1211,9 +1353,9 @@ class TransactionTest {
                                                     .TicketChangeIndicator
                                                     .NONE
                                             )
-                                            .ticketNumber("string")
-                                            .travelAgencyCode("string")
-                                            .travelAgencyName("string")
+                                            .ticketNumber("ticket_number")
+                                            .travelAgencyCode("travel_agency_code")
+                                            .travelAgencyName("travel_agency_name")
                                             .tripLegs(
                                                 listOf(
                                                     Transaction.Source.CardSettlement
@@ -1221,11 +1363,13 @@ class TransactionTest {
                                                         .Travel
                                                         .TripLeg
                                                         .builder()
-                                                        .carrierCode("string")
-                                                        .destinationCityAirportCode("string")
-                                                        .fareBasisCode("string")
-                                                        .flightNumber("string")
-                                                        .serviceClass("string")
+                                                        .carrierCode("carrier_code")
+                                                        .destinationCityAirportCode(
+                                                            "destination_city_airport_code"
+                                                        )
+                                                        .fareBasisCode("fare_basis_code")
+                                                        .flightNumber("flight_number")
+                                                        .serviceClass("service_class")
                                                         .stopOverCode(
                                                             Transaction.Source.CardSettlement
                                                                 .PurchaseDetails
@@ -1241,13 +1385,13 @@ class TransactionTest {
                                     )
                                     .build()
                             )
-                            .transactionId("string")
+                            .transactionId("transaction_id")
                             .type(Transaction.Source.CardSettlement.Type.CARD_SETTLEMENT)
                             .build()
                     )
                     .cashbackPayment(
                         Transaction.Source.CashbackPayment.builder()
-                            .accruedOnCardId("string")
+                            .accruedOnCardId("accrued_on_card_id")
                             .amount(123L)
                             .currency(Transaction.Source.CashbackPayment.Currency.CAD)
                             .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -1257,37 +1401,37 @@ class TransactionTest {
                     .category(Transaction.Source.Category.ACCOUNT_TRANSFER_INTENTION)
                     .checkDepositAcceptance(
                         Transaction.Source.CheckDepositAcceptance.builder()
-                            .accountNumber("string")
+                            .accountNumber("account_number")
                             .amount(123L)
-                            .auxiliaryOnUs("string")
-                            .checkDepositId("string")
+                            .auxiliaryOnUs("auxiliary_on_us")
+                            .checkDepositId("check_deposit_id")
                             .currency(Transaction.Source.CheckDepositAcceptance.Currency.CAD)
-                            .routingNumber("string")
-                            .serialNumber("string")
+                            .routingNumber("routing_number")
+                            .serialNumber("serial_number")
                             .build()
                     )
                     .checkDepositReturn(
                         Transaction.Source.CheckDepositReturn.builder()
                             .amount(123L)
-                            .checkDepositId("string")
+                            .checkDepositId("check_deposit_id")
                             .currency(Transaction.Source.CheckDepositReturn.Currency.CAD)
                             .returnReason(
                                 Transaction.Source.CheckDepositReturn.ReturnReason
                                     .ACH_CONVERSION_NOT_SUPPORTED
                             )
                             .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .transactionId("string")
+                            .transactionId("transaction_id")
                             .build()
                     )
                     .checkTransferDeposit(
                         Transaction.Source.CheckTransferDeposit.builder()
-                            .backImageFileId("string")
-                            .bankOfFirstDepositRoutingNumber("string")
+                            .backImageFileId("back_image_file_id")
+                            .bankOfFirstDepositRoutingNumber("bank_of_first_deposit_routing_number")
                             .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .frontImageFileId("string")
-                            .inboundCheckDepositId("string")
-                            .transactionId("string")
-                            .transferId("string")
+                            .frontImageFileId("front_image_file_id")
+                            .inboundCheckDepositId("inbound_check_deposit_id")
+                            .transactionId("transaction_id")
+                            .transferId("transfer_id")
                             .type(
                                 Transaction.Source.CheckTransferDeposit.Type.CHECK_TRANSFER_DEPOSIT
                             )
@@ -1300,7 +1444,7 @@ class TransactionTest {
                                     .MAIL_DELIVERY_FAILED
                             )
                             .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .transferId("string")
+                            .transferId("transfer_id")
                             .type(
                                 Transaction.Source.CheckTransferStopPaymentRequest.Type
                                     .CHECK_TRANSFER_STOP_PAYMENT_REQUEST
@@ -1331,7 +1475,9 @@ class TransactionTest {
                                                         .Freeform
                                                         .Entry
                                                         .builder()
-                                                        .paymentRelatedInformation("string")
+                                                        .paymentRelatedInformation(
+                                                            "payment_related_information"
+                                                        )
                                                         .build()
                                                 )
                                             )
@@ -1340,75 +1486,95 @@ class TransactionTest {
                                     .build()
                             )
                             .amount(123L)
-                            .originatorCompanyDescriptiveDate("string")
-                            .originatorCompanyDiscretionaryData("string")
-                            .originatorCompanyEntryDescription("string")
-                            .originatorCompanyId("string")
-                            .originatorCompanyName("string")
-                            .receiverIdNumber("string")
-                            .receiverName("string")
-                            .traceNumber("string")
-                            .transferId("string")
+                            .originatorCompanyDescriptiveDate("originator_company_descriptive_date")
+                            .originatorCompanyDiscretionaryData(
+                                "originator_company_discretionary_data"
+                            )
+                            .originatorCompanyEntryDescription(
+                                "originator_company_entry_description"
+                            )
+                            .originatorCompanyId("originator_company_id")
+                            .originatorCompanyName("originator_company_name")
+                            .receiverIdNumber("receiver_id_number")
+                            .receiverName("receiver_name")
+                            .traceNumber("trace_number")
+                            .transferId("transfer_id")
                             .build()
                     )
                     .inboundInternationalAchTransfer(
                         Transaction.Source.InboundInternationalAchTransfer.builder()
                             .amount(123L)
-                            .destinationCountryCode("string")
-                            .destinationCurrencyCode("string")
+                            .destinationCountryCode("destination_country_code")
+                            .destinationCurrencyCode("destination_currency_code")
                             .foreignExchangeIndicator(
                                 Transaction.Source.InboundInternationalAchTransfer
                                     .ForeignExchangeIndicator
                                     .FIXED_TO_VARIABLE
                             )
-                            .foreignExchangeReference("string")
+                            .foreignExchangeReference("foreign_exchange_reference")
                             .foreignExchangeReferenceIndicator(
                                 Transaction.Source.InboundInternationalAchTransfer
                                     .ForeignExchangeReferenceIndicator
                                     .FOREIGN_EXCHANGE_RATE
                             )
                             .foreignPaymentAmount(123L)
-                            .foreignTraceNumber("string")
+                            .foreignTraceNumber("foreign_trace_number")
                             .internationalTransactionTypeCode(
                                 Transaction.Source.InboundInternationalAchTransfer
                                     .InternationalTransactionTypeCode
                                     .ANNUITY
                             )
-                            .originatingCurrencyCode("string")
-                            .originatingDepositoryFinancialInstitutionBranchCountry("string")
-                            .originatingDepositoryFinancialInstitutionId("string")
+                            .originatingCurrencyCode("originating_currency_code")
+                            .originatingDepositoryFinancialInstitutionBranchCountry(
+                                "originating_depository_financial_institution_branch_country"
+                            )
+                            .originatingDepositoryFinancialInstitutionId(
+                                "originating_depository_financial_institution_id"
+                            )
                             .originatingDepositoryFinancialInstitutionIdQualifier(
                                 Transaction.Source.InboundInternationalAchTransfer
                                     .OriginatingDepositoryFinancialInstitutionIdQualifier
                                     .NATIONAL_CLEARING_SYSTEM_NUMBER
                             )
-                            .originatingDepositoryFinancialInstitutionName("string")
-                            .originatorCity("string")
-                            .originatorCompanyEntryDescription("string")
-                            .originatorCountry("string")
-                            .originatorIdentification("string")
-                            .originatorName("string")
-                            .originatorPostalCode("string")
-                            .originatorStateOrProvince("string")
-                            .originatorStreetAddress("string")
-                            .paymentRelatedInformation("string")
-                            .paymentRelatedInformation2("string")
-                            .receiverCity("string")
-                            .receiverCountry("string")
-                            .receiverIdentificationNumber("string")
-                            .receiverPostalCode("string")
-                            .receiverStateOrProvince("string")
-                            .receiverStreetAddress("string")
-                            .receivingCompanyOrIndividualName("string")
-                            .receivingDepositoryFinancialInstitutionCountry("string")
-                            .receivingDepositoryFinancialInstitutionId("string")
+                            .originatingDepositoryFinancialInstitutionName(
+                                "originating_depository_financial_institution_name"
+                            )
+                            .originatorCity("originator_city")
+                            .originatorCompanyEntryDescription(
+                                "originator_company_entry_description"
+                            )
+                            .originatorCountry("originator_country")
+                            .originatorIdentification("originator_identification")
+                            .originatorName("originator_name")
+                            .originatorPostalCode("originator_postal_code")
+                            .originatorStateOrProvince("originator_state_or_province")
+                            .originatorStreetAddress("originator_street_address")
+                            .paymentRelatedInformation("payment_related_information")
+                            .paymentRelatedInformation2("payment_related_information2")
+                            .receiverCity("receiver_city")
+                            .receiverCountry("receiver_country")
+                            .receiverIdentificationNumber("receiver_identification_number")
+                            .receiverPostalCode("receiver_postal_code")
+                            .receiverStateOrProvince("receiver_state_or_province")
+                            .receiverStreetAddress("receiver_street_address")
+                            .receivingCompanyOrIndividualName(
+                                "receiving_company_or_individual_name"
+                            )
+                            .receivingDepositoryFinancialInstitutionCountry(
+                                "receiving_depository_financial_institution_country"
+                            )
+                            .receivingDepositoryFinancialInstitutionId(
+                                "receiving_depository_financial_institution_id"
+                            )
                             .receivingDepositoryFinancialInstitutionIdQualifier(
                                 Transaction.Source.InboundInternationalAchTransfer
                                     .ReceivingDepositoryFinancialInstitutionIdQualifier
                                     .NATIONAL_CLEARING_SYSTEM_NUMBER
                             )
-                            .receivingDepositoryFinancialInstitutionName("string")
-                            .traceNumber("string")
+                            .receivingDepositoryFinancialInstitutionName(
+                                "receiving_depository_financial_institution_name"
+                            )
+                            .traceNumber("trace_number")
                             .type(
                                 Transaction.Source.InboundInternationalAchTransfer.Type
                                     .INBOUND_INTERNATIONAL_ACH_TRANSFER
@@ -1418,87 +1584,115 @@ class TransactionTest {
                     .inboundRealTimePaymentsTransferConfirmation(
                         Transaction.Source.InboundRealTimePaymentsTransferConfirmation.builder()
                             .amount(123L)
-                            .creditorName("string")
+                            .creditorName("creditor_name")
                             .currency(
                                 Transaction.Source.InboundRealTimePaymentsTransferConfirmation
                                     .Currency
                                     .CAD
                             )
-                            .debtorAccountNumber("string")
-                            .debtorName("string")
-                            .debtorRoutingNumber("string")
-                            .remittanceInformation("string")
-                            .transactionIdentification("string")
+                            .debtorAccountNumber("debtor_account_number")
+                            .debtorName("debtor_name")
+                            .debtorRoutingNumber("debtor_routing_number")
+                            .remittanceInformation("remittance_information")
+                            .transactionIdentification("transaction_identification")
                             .build()
                     )
                     .inboundWireDrawdownPayment(
                         Transaction.Source.InboundWireDrawdownPayment.builder()
                             .amount(123L)
-                            .beneficiaryAddressLine1("string")
-                            .beneficiaryAddressLine2("string")
-                            .beneficiaryAddressLine3("string")
-                            .beneficiaryName("string")
-                            .beneficiaryReference("string")
-                            .description("string")
-                            .inputMessageAccountabilityData("string")
-                            .originatorAddressLine1("string")
-                            .originatorAddressLine2("string")
-                            .originatorAddressLine3("string")
-                            .originatorName("string")
-                            .originatorRoutingNumber("string")
-                            .originatorToBeneficiaryInformation("string")
-                            .originatorToBeneficiaryInformationLine1("string")
-                            .originatorToBeneficiaryInformationLine2("string")
-                            .originatorToBeneficiaryInformationLine3("string")
-                            .originatorToBeneficiaryInformationLine4("string")
+                            .beneficiaryAddressLine1("beneficiary_address_line1")
+                            .beneficiaryAddressLine2("beneficiary_address_line2")
+                            .beneficiaryAddressLine3("beneficiary_address_line3")
+                            .beneficiaryName("beneficiary_name")
+                            .beneficiaryReference("beneficiary_reference")
+                            .description("description")
+                            .inputMessageAccountabilityData("input_message_accountability_data")
+                            .originatorAddressLine1("originator_address_line1")
+                            .originatorAddressLine2("originator_address_line2")
+                            .originatorAddressLine3("originator_address_line3")
+                            .originatorName("originator_name")
+                            .originatorRoutingNumber("originator_routing_number")
+                            .originatorToBeneficiaryInformation(
+                                "originator_to_beneficiary_information"
+                            )
+                            .originatorToBeneficiaryInformationLine1(
+                                "originator_to_beneficiary_information_line1"
+                            )
+                            .originatorToBeneficiaryInformationLine2(
+                                "originator_to_beneficiary_information_line2"
+                            )
+                            .originatorToBeneficiaryInformationLine3(
+                                "originator_to_beneficiary_information_line3"
+                            )
+                            .originatorToBeneficiaryInformationLine4(
+                                "originator_to_beneficiary_information_line4"
+                            )
                             .build()
                     )
                     .inboundWireReversal(
                         Transaction.Source.InboundWireReversal.builder()
                             .amount(123L)
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .description("string")
-                            .financialInstitutionToFinancialInstitutionInformation("string")
+                            .description("description")
+                            .financialInstitutionToFinancialInstitutionInformation(
+                                "financial_institution_to_financial_institution_information"
+                            )
                             .inputCycleDate(LocalDate.parse("2019-12-27"))
-                            .inputMessageAccountabilityData("string")
-                            .inputSequenceNumber("string")
-                            .inputSource("string")
-                            .originatorRoutingNumber("string")
+                            .inputMessageAccountabilityData("input_message_accountability_data")
+                            .inputSequenceNumber("input_sequence_number")
+                            .inputSource("input_source")
+                            .originatorRoutingNumber("originator_routing_number")
                             .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
-                            .previousMessageInputMessageAccountabilityData("string")
-                            .previousMessageInputSequenceNumber("string")
-                            .previousMessageInputSource("string")
-                            .receiverFinancialInstitutionInformation("string")
-                            .transactionId("string")
-                            .wireTransferId("string")
+                            .previousMessageInputMessageAccountabilityData(
+                                "previous_message_input_message_accountability_data"
+                            )
+                            .previousMessageInputSequenceNumber(
+                                "previous_message_input_sequence_number"
+                            )
+                            .previousMessageInputSource("previous_message_input_source")
+                            .receiverFinancialInstitutionInformation(
+                                "receiver_financial_institution_information"
+                            )
+                            .transactionId("transaction_id")
+                            .wireTransferId("wire_transfer_id")
                             .build()
                     )
                     .inboundWireTransfer(
                         Transaction.Source.InboundWireTransfer.builder()
                             .amount(123L)
-                            .beneficiaryAddressLine1("string")
-                            .beneficiaryAddressLine2("string")
-                            .beneficiaryAddressLine3("string")
-                            .beneficiaryName("string")
-                            .beneficiaryReference("string")
-                            .description("string")
-                            .inputMessageAccountabilityData("string")
-                            .originatorAddressLine1("string")
-                            .originatorAddressLine2("string")
-                            .originatorAddressLine3("string")
-                            .originatorName("string")
-                            .originatorRoutingNumber("string")
-                            .originatorToBeneficiaryInformation("string")
-                            .originatorToBeneficiaryInformationLine1("string")
-                            .originatorToBeneficiaryInformationLine2("string")
-                            .originatorToBeneficiaryInformationLine3("string")
-                            .originatorToBeneficiaryInformationLine4("string")
-                            .transferId("string")
+                            .beneficiaryAddressLine1("beneficiary_address_line1")
+                            .beneficiaryAddressLine2("beneficiary_address_line2")
+                            .beneficiaryAddressLine3("beneficiary_address_line3")
+                            .beneficiaryName("beneficiary_name")
+                            .beneficiaryReference("beneficiary_reference")
+                            .description("description")
+                            .inputMessageAccountabilityData("input_message_accountability_data")
+                            .originatorAddressLine1("originator_address_line1")
+                            .originatorAddressLine2("originator_address_line2")
+                            .originatorAddressLine3("originator_address_line3")
+                            .originatorName("originator_name")
+                            .originatorRoutingNumber("originator_routing_number")
+                            .originatorToBeneficiaryInformation(
+                                "originator_to_beneficiary_information"
+                            )
+                            .originatorToBeneficiaryInformationLine1(
+                                "originator_to_beneficiary_information_line1"
+                            )
+                            .originatorToBeneficiaryInformationLine2(
+                                "originator_to_beneficiary_information_line2"
+                            )
+                            .originatorToBeneficiaryInformationLine3(
+                                "originator_to_beneficiary_information_line3"
+                            )
+                            .originatorToBeneficiaryInformationLine4(
+                                "originator_to_beneficiary_information_line4"
+                            )
+                            .transferId("transfer_id")
                             .build()
                     )
                     .interestPayment(
                         Transaction.Source.InterestPayment.builder()
-                            .accruedOnAccountId("string")
+                            .accruedOnAccountId("accrued_on_account_id")
                             .amount(123L)
                             .currency(Transaction.Source.InterestPayment.Currency.CAD)
                             .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -1515,27 +1709,27 @@ class TransactionTest {
                     .realTimePaymentsTransferAcknowledgement(
                         Transaction.Source.RealTimePaymentsTransferAcknowledgement.builder()
                             .amount(123L)
-                            .destinationAccountNumber("string")
-                            .destinationRoutingNumber("string")
-                            .remittanceInformation("string")
-                            .transferId("string")
+                            .destinationAccountNumber("destination_account_number")
+                            .destinationRoutingNumber("destination_routing_number")
+                            .remittanceInformation("remittance_information")
+                            .transferId("transfer_id")
                             .build()
                     )
                     .sampleFunds(
-                        Transaction.Source.SampleFunds.builder().originator("string").build()
+                        Transaction.Source.SampleFunds.builder().originator("originator").build()
                     )
                     .wireTransferIntention(
                         Transaction.Source.WireTransferIntention.builder()
-                            .accountNumber("string")
+                            .accountNumber("account_number")
                             .amount(123L)
-                            .messageToRecipient("string")
-                            .routingNumber("string")
-                            .transferId("string")
+                            .messageToRecipient("message_to_recipient")
+                            .routingNumber("routing_number")
+                            .transferId("transfer_id")
                             .build()
                     )
                     .wireTransferRejection(
                         Transaction.Source.WireTransferRejection.builder()
-                            .transferId("string")
+                            .transferId("transfer_id")
                             .build()
                     )
                     .build()

@@ -20,7 +20,7 @@ class EventServiceTest {
                 .apiKey("My API Key")
                 .build()
         val eventService = client.events()
-        val event = eventService.retrieve(EventRetrieveParams.builder().eventId("string").build())
+        val event = eventService.retrieve(EventRetrieveParams.builder().eventId("event_id").build())
         println(event)
         event.validate()
     }

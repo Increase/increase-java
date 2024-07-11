@@ -22,7 +22,7 @@ class PhysicalCardServiceTest {
         val physicalCard =
             physicalCardService.shipmentAdvance(
                 SimulationPhysicalCardShipmentAdvanceParams.builder()
-                    .physicalCardId("string")
+                    .physicalCardId("physical_card_id")
                     .shipmentStatus(
                         SimulationPhysicalCardShipmentAdvanceParams.ShipmentStatus.PENDING
                     )

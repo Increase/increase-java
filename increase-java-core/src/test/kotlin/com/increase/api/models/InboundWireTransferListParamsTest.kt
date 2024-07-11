@@ -12,8 +12,8 @@ class InboundWireTransferListParamsTest {
     @Test
     fun createInboundWireTransferListParams() {
         InboundWireTransferListParams.builder()
-            .accountId("string")
-            .accountNumberId("string")
+            .accountId("account_id")
+            .accountNumberId("account_number_id")
             .createdAt(
                 InboundWireTransferListParams.CreatedAt.builder()
                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -22,7 +22,7 @@ class InboundWireTransferListParamsTest {
                     .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
-            .cursor("string")
+            .cursor("cursor")
             .limit(123L)
             .status(InboundWireTransferListParams.Status.PENDING)
             .build()
@@ -32,8 +32,8 @@ class InboundWireTransferListParamsTest {
     fun getQueryParams() {
         val params =
             InboundWireTransferListParams.builder()
-                .accountId("string")
-                .accountNumberId("string")
+                .accountId("account_id")
+                .accountNumberId("account_number_id")
                 .createdAt(
                     InboundWireTransferListParams.CreatedAt.builder()
                         .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -42,13 +42,13 @@ class InboundWireTransferListParamsTest {
                         .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
-                .cursor("string")
+                .cursor("cursor")
                 .limit(123L)
                 .status(InboundWireTransferListParams.Status.PENDING)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("account_id", listOf("string"))
-        expected.put("account_number_id", listOf("string"))
+        expected.put("account_id", listOf("account_id"))
+        expected.put("account_number_id", listOf("account_number_id"))
         InboundWireTransferListParams.CreatedAt.builder()
             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -56,7 +56,7 @@ class InboundWireTransferListParamsTest {
             .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
-        expected.put("cursor", listOf("string"))
+        expected.put("cursor", listOf("cursor"))
         expected.put("limit", listOf("123"))
         expected.put("status", listOf(InboundWireTransferListParams.Status.PENDING.toString()))
         assertThat(params.getQueryParams()).isEqualTo(expected)

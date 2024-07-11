@@ -14,13 +14,13 @@ class CardAuthorizationSimulationTest {
             CardAuthorizationSimulation.builder()
                 .declinedTransaction(
                     CardAuthorizationSimulation.DeclinedTransaction.builder()
-                        .id("string")
-                        .accountId("string")
+                        .id("id")
+                        .accountId("account_id")
                         .amount(123L)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .currency(CardAuthorizationSimulation.DeclinedTransaction.Currency.CAD)
-                        .description("string")
-                        .routeId("string")
+                        .description("description")
+                        .routeId("route_id")
                         .routeType(
                             CardAuthorizationSimulation.DeclinedTransaction.RouteType.ACCOUNT_NUMBER
                         )
@@ -30,22 +30,26 @@ class CardAuthorizationSimulationTest {
                                     CardAuthorizationSimulation.DeclinedTransaction.Source
                                         .AchDecline
                                         .builder()
-                                        .id("string")
+                                        .id("id")
                                         .amount(123L)
-                                        .inboundAchTransferId("string")
-                                        .originatorCompanyDescriptiveDate("string")
-                                        .originatorCompanyDiscretionaryData("string")
-                                        .originatorCompanyId("string")
-                                        .originatorCompanyName("string")
+                                        .inboundAchTransferId("inbound_ach_transfer_id")
+                                        .originatorCompanyDescriptiveDate(
+                                            "originator_company_descriptive_date"
+                                        )
+                                        .originatorCompanyDiscretionaryData(
+                                            "originator_company_discretionary_data"
+                                        )
+                                        .originatorCompanyId("originator_company_id")
+                                        .originatorCompanyName("originator_company_name")
                                         .reason(
                                             CardAuthorizationSimulation.DeclinedTransaction.Source
                                                 .AchDecline
                                                 .Reason
                                                 .ACH_ROUTE_CANCELED
                                         )
-                                        .receiverIdNumber("string")
-                                        .receiverName("string")
-                                        .traceNumber("string")
+                                        .receiverIdNumber("receiver_id_number")
+                                        .receiverName("receiver_name")
+                                        .traceNumber("trace_number")
                                         .type(
                                             CardAuthorizationSimulation.DeclinedTransaction.Source
                                                 .AchDecline
@@ -58,7 +62,7 @@ class CardAuthorizationSimulationTest {
                                     CardAuthorizationSimulation.DeclinedTransaction.Source
                                         .CardDecline
                                         .builder()
-                                        .id("string")
+                                        .id("id")
                                         .actioner(
                                             CardAuthorizationSimulation.DeclinedTransaction.Source
                                                 .CardDecline
@@ -66,21 +70,21 @@ class CardAuthorizationSimulationTest {
                                                 .USER
                                         )
                                         .amount(123L)
-                                        .cardPaymentId("string")
+                                        .cardPaymentId("card_payment_id")
                                         .currency(
                                             CardAuthorizationSimulation.DeclinedTransaction.Source
                                                 .CardDecline
                                                 .Currency
                                                 .CAD
                                         )
-                                        .declinedTransactionId("string")
-                                        .digitalWalletTokenId("string")
-                                        .merchantAcceptorId("string")
-                                        .merchantCategoryCode("string")
-                                        .merchantCity("string")
-                                        .merchantCountry("string")
-                                        .merchantDescriptor("string")
-                                        .merchantState("string")
+                                        .declinedTransactionId("declined_transaction_id")
+                                        .digitalWalletTokenId("digital_wallet_token_id")
+                                        .merchantAcceptorId("merchant_acceptor_id")
+                                        .merchantCategoryCode("merchant_category_code")
+                                        .merchantCity("merchant_city")
+                                        .merchantCountry("merchant_country")
+                                        .merchantDescriptor("merchant_descriptor")
+                                        .merchantState("merchant_state")
                                         .networkDetails(
                                             CardAuthorizationSimulation.DeclinedTransaction.Source
                                                 .CardDecline
@@ -130,22 +134,24 @@ class CardAuthorizationSimulationTest {
                                                 .CardDecline
                                                 .NetworkIdentifiers
                                                 .builder()
-                                                .retrievalReferenceNumber("string")
-                                                .traceNumber("string")
-                                                .transactionId("string")
+                                                .retrievalReferenceNumber(
+                                                    "retrieval_reference_number"
+                                                )
+                                                .traceNumber("trace_number")
+                                                .transactionId("transaction_id")
                                                 .build()
                                         )
                                         .networkRiskScore(123L)
-                                        .physicalCardId("string")
+                                        .physicalCardId("physical_card_id")
                                         .presentmentAmount(123L)
-                                        .presentmentCurrency("string")
+                                        .presentmentCurrency("presentment_currency")
                                         .processingCategory(
                                             CardAuthorizationSimulation.DeclinedTransaction.Source
                                                 .CardDecline
                                                 .ProcessingCategory
                                                 .ACCOUNT_FUNDING
                                         )
-                                        .realTimeDecisionId("string")
+                                        .realTimeDecisionId("real_time_decision_id")
                                         .reason(
                                             CardAuthorizationSimulation.DeclinedTransaction.Source
                                                 .CardDecline
@@ -183,10 +189,10 @@ class CardAuthorizationSimulationTest {
                                                         .Verification
                                                         .CardholderAddress
                                                         .builder()
-                                                        .actualLine1("string")
-                                                        .actualPostalCode("string")
-                                                        .providedLine1("string")
-                                                        .providedPostalCode("string")
+                                                        .actualLine1("actual_line1")
+                                                        .actualPostalCode("actual_postal_code")
+                                                        .providedLine1("provided_line1")
+                                                        .providedPostalCode("provided_postal_code")
                                                         .result(
                                                             CardAuthorizationSimulation
                                                                 .DeclinedTransaction
@@ -212,11 +218,11 @@ class CardAuthorizationSimulationTest {
                                         .CheckDecline
                                         .builder()
                                         .amount(123L)
-                                        .auxiliaryOnUs("string")
-                                        .backImageFileId("string")
-                                        .checkTransferId("string")
-                                        .frontImageFileId("string")
-                                        .inboundCheckDepositId("string")
+                                        .auxiliaryOnUs("auxiliary_on_us")
+                                        .backImageFileId("back_image_file_id")
+                                        .checkTransferId("check_transfer_id")
+                                        .frontImageFileId("front_image_file_id")
+                                        .inboundCheckDepositId("inbound_check_deposit_id")
                                         .reason(
                                             CardAuthorizationSimulation.DeclinedTransaction.Source
                                                 .CheckDecline
@@ -230,7 +236,7 @@ class CardAuthorizationSimulationTest {
                                         .CheckDepositRejection
                                         .builder()
                                         .amount(123L)
-                                        .checkDepositId("string")
+                                        .checkDepositId("check_deposit_id")
                                         .currency(
                                             CardAuthorizationSimulation.DeclinedTransaction.Source
                                                 .CheckDepositRejection
@@ -253,24 +259,24 @@ class CardAuthorizationSimulationTest {
                                         .InboundRealTimePaymentsTransferDecline
                                         .builder()
                                         .amount(123L)
-                                        .creditorName("string")
+                                        .creditorName("creditor_name")
                                         .currency(
                                             CardAuthorizationSimulation.DeclinedTransaction.Source
                                                 .InboundRealTimePaymentsTransferDecline
                                                 .Currency
                                                 .CAD
                                         )
-                                        .debtorAccountNumber("string")
-                                        .debtorName("string")
-                                        .debtorRoutingNumber("string")
+                                        .debtorAccountNumber("debtor_account_number")
+                                        .debtorName("debtor_name")
+                                        .debtorRoutingNumber("debtor_routing_number")
                                         .reason(
                                             CardAuthorizationSimulation.DeclinedTransaction.Source
                                                 .InboundRealTimePaymentsTransferDecline
                                                 .Reason
                                                 .ACCOUNT_NUMBER_CANCELED
                                         )
-                                        .remittanceInformation("string")
-                                        .transactionIdentification("string")
+                                        .remittanceInformation("remittance_information")
+                                        .transactionIdentification("transaction_identification")
                                         .build()
                                 )
                                 .internationalAchDecline(
@@ -278,15 +284,15 @@ class CardAuthorizationSimulationTest {
                                         .InternationalAchDecline
                                         .builder()
                                         .amount(123L)
-                                        .destinationCountryCode("string")
-                                        .destinationCurrencyCode("string")
+                                        .destinationCountryCode("destination_country_code")
+                                        .destinationCurrencyCode("destination_currency_code")
                                         .foreignExchangeIndicator(
                                             CardAuthorizationSimulation.DeclinedTransaction.Source
                                                 .InternationalAchDecline
                                                 .ForeignExchangeIndicator
                                                 .FIXED_TO_VARIABLE
                                         )
-                                        .foreignExchangeReference("string")
+                                        .foreignExchangeReference("foreign_exchange_reference")
                                         .foreignExchangeReferenceIndicator(
                                             CardAuthorizationSimulation.DeclinedTransaction.Source
                                                 .InternationalAchDecline
@@ -294,59 +300,75 @@ class CardAuthorizationSimulationTest {
                                                 .FOREIGN_EXCHANGE_RATE
                                         )
                                         .foreignPaymentAmount(123L)
-                                        .foreignTraceNumber("string")
+                                        .foreignTraceNumber("foreign_trace_number")
                                         .internationalTransactionTypeCode(
                                             CardAuthorizationSimulation.DeclinedTransaction.Source
                                                 .InternationalAchDecline
                                                 .InternationalTransactionTypeCode
                                                 .ANNUITY
                                         )
-                                        .originatingCurrencyCode("string")
+                                        .originatingCurrencyCode("originating_currency_code")
                                         .originatingDepositoryFinancialInstitutionBranchCountry(
-                                            "string"
+                                            "originating_depository_financial_institution_branch_country"
                                         )
-                                        .originatingDepositoryFinancialInstitutionId("string")
+                                        .originatingDepositoryFinancialInstitutionId(
+                                            "originating_depository_financial_institution_id"
+                                        )
                                         .originatingDepositoryFinancialInstitutionIdQualifier(
                                             CardAuthorizationSimulation.DeclinedTransaction.Source
                                                 .InternationalAchDecline
                                                 .OriginatingDepositoryFinancialInstitutionIdQualifier
                                                 .NATIONAL_CLEARING_SYSTEM_NUMBER
                                         )
-                                        .originatingDepositoryFinancialInstitutionName("string")
-                                        .originatorCity("string")
-                                        .originatorCompanyEntryDescription("string")
-                                        .originatorCountry("string")
-                                        .originatorIdentification("string")
-                                        .originatorName("string")
-                                        .originatorPostalCode("string")
-                                        .originatorStateOrProvince("string")
-                                        .originatorStreetAddress("string")
-                                        .paymentRelatedInformation("string")
-                                        .paymentRelatedInformation2("string")
-                                        .receiverCity("string")
-                                        .receiverCountry("string")
-                                        .receiverIdentificationNumber("string")
-                                        .receiverPostalCode("string")
-                                        .receiverStateOrProvince("string")
-                                        .receiverStreetAddress("string")
-                                        .receivingCompanyOrIndividualName("string")
-                                        .receivingDepositoryFinancialInstitutionCountry("string")
-                                        .receivingDepositoryFinancialInstitutionId("string")
+                                        .originatingDepositoryFinancialInstitutionName(
+                                            "originating_depository_financial_institution_name"
+                                        )
+                                        .originatorCity("originator_city")
+                                        .originatorCompanyEntryDescription(
+                                            "originator_company_entry_description"
+                                        )
+                                        .originatorCountry("originator_country")
+                                        .originatorIdentification("originator_identification")
+                                        .originatorName("originator_name")
+                                        .originatorPostalCode("originator_postal_code")
+                                        .originatorStateOrProvince("originator_state_or_province")
+                                        .originatorStreetAddress("originator_street_address")
+                                        .paymentRelatedInformation("payment_related_information")
+                                        .paymentRelatedInformation2("payment_related_information2")
+                                        .receiverCity("receiver_city")
+                                        .receiverCountry("receiver_country")
+                                        .receiverIdentificationNumber(
+                                            "receiver_identification_number"
+                                        )
+                                        .receiverPostalCode("receiver_postal_code")
+                                        .receiverStateOrProvince("receiver_state_or_province")
+                                        .receiverStreetAddress("receiver_street_address")
+                                        .receivingCompanyOrIndividualName(
+                                            "receiving_company_or_individual_name"
+                                        )
+                                        .receivingDepositoryFinancialInstitutionCountry(
+                                            "receiving_depository_financial_institution_country"
+                                        )
+                                        .receivingDepositoryFinancialInstitutionId(
+                                            "receiving_depository_financial_institution_id"
+                                        )
                                         .receivingDepositoryFinancialInstitutionIdQualifier(
                                             CardAuthorizationSimulation.DeclinedTransaction.Source
                                                 .InternationalAchDecline
                                                 .ReceivingDepositoryFinancialInstitutionIdQualifier
                                                 .NATIONAL_CLEARING_SYSTEM_NUMBER
                                         )
-                                        .receivingDepositoryFinancialInstitutionName("string")
-                                        .traceNumber("string")
+                                        .receivingDepositoryFinancialInstitutionName(
+                                            "receiving_depository_financial_institution_name"
+                                        )
+                                        .traceNumber("trace_number")
                                         .build()
                                 )
                                 .wireDecline(
                                     CardAuthorizationSimulation.DeclinedTransaction.Source
                                         .WireDecline
                                         .builder()
-                                        .inboundWireTransferId("string")
+                                        .inboundWireTransferId("inbound_wire_transfer_id")
                                         .reason(
                                             CardAuthorizationSimulation.DeclinedTransaction.Source
                                                 .WireDecline
@@ -365,14 +387,14 @@ class CardAuthorizationSimulationTest {
                 )
                 .pendingTransaction(
                     CardAuthorizationSimulation.PendingTransaction.builder()
-                        .id("string")
-                        .accountId("string")
+                        .id("id")
+                        .accountId("account_id")
                         .amount(123L)
                         .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .currency(CardAuthorizationSimulation.PendingTransaction.Currency.CAD)
-                        .description("string")
-                        .routeId("string")
+                        .description("description")
+                        .routeId("route_id")
                         .routeType(
                             CardAuthorizationSimulation.PendingTransaction.RouteType.ACCOUNT_NUMBER
                         )
@@ -389,7 +411,7 @@ class CardAuthorizationSimulationTest {
                                                 .Currency
                                                 .CAD
                                         )
-                                        .transferId("string")
+                                        .transferId("transfer_id")
                                         .build()
                                 )
                                 .achTransferInstruction(
@@ -397,14 +419,14 @@ class CardAuthorizationSimulationTest {
                                         .AchTransferInstruction
                                         .builder()
                                         .amount(123L)
-                                        .transferId("string")
+                                        .transferId("transfer_id")
                                         .build()
                                 )
                                 .cardAuthorization(
                                     CardAuthorizationSimulation.PendingTransaction.Source
                                         .CardAuthorization
                                         .builder()
-                                        .id("string")
+                                        .id("id")
                                         .actioner(
                                             CardAuthorizationSimulation.PendingTransaction.Source
                                                 .CardAuthorization
@@ -412,14 +434,14 @@ class CardAuthorizationSimulationTest {
                                                 .USER
                                         )
                                         .amount(123L)
-                                        .cardPaymentId("string")
+                                        .cardPaymentId("card_payment_id")
                                         .currency(
                                             CardAuthorizationSimulation.PendingTransaction.Source
                                                 .CardAuthorization
                                                 .Currency
                                                 .CAD
                                         )
-                                        .digitalWalletTokenId("string")
+                                        .digitalWalletTokenId("digital_wallet_token_id")
                                         .direction(
                                             CardAuthorizationSimulation.PendingTransaction.Source
                                                 .CardAuthorization
@@ -427,11 +449,11 @@ class CardAuthorizationSimulationTest {
                                                 .SETTLEMENT
                                         )
                                         .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                        .merchantAcceptorId("string")
-                                        .merchantCategoryCode("string")
-                                        .merchantCity("string")
-                                        .merchantCountry("string")
-                                        .merchantDescriptor("string")
+                                        .merchantAcceptorId("merchant_acceptor_id")
+                                        .merchantCategoryCode("merchant_category_code")
+                                        .merchantCity("merchant_city")
+                                        .merchantCountry("merchant_country")
+                                        .merchantDescriptor("merchant_descriptor")
                                         .networkDetails(
                                             CardAuthorizationSimulation.PendingTransaction.Source
                                                 .CardAuthorization
@@ -481,23 +503,25 @@ class CardAuthorizationSimulationTest {
                                                 .CardAuthorization
                                                 .NetworkIdentifiers
                                                 .builder()
-                                                .retrievalReferenceNumber("string")
-                                                .traceNumber("string")
-                                                .transactionId("string")
+                                                .retrievalReferenceNumber(
+                                                    "retrieval_reference_number"
+                                                )
+                                                .traceNumber("trace_number")
+                                                .transactionId("transaction_id")
                                                 .build()
                                         )
                                         .networkRiskScore(123L)
-                                        .pendingTransactionId("string")
-                                        .physicalCardId("string")
+                                        .pendingTransactionId("pending_transaction_id")
+                                        .physicalCardId("physical_card_id")
                                         .presentmentAmount(123L)
-                                        .presentmentCurrency("string")
+                                        .presentmentCurrency("presentment_currency")
                                         .processingCategory(
                                             CardAuthorizationSimulation.PendingTransaction.Source
                                                 .CardAuthorization
                                                 .ProcessingCategory
                                                 .ACCOUNT_FUNDING
                                         )
-                                        .realTimeDecisionId("string")
+                                        .realTimeDecisionId("real_time_decision_id")
                                         .type(
                                             CardAuthorizationSimulation.PendingTransaction.Source
                                                 .CardAuthorization
@@ -535,10 +559,10 @@ class CardAuthorizationSimulationTest {
                                                         .Verification
                                                         .CardholderAddress
                                                         .builder()
-                                                        .actualLine1("string")
-                                                        .actualPostalCode("string")
-                                                        .providedLine1("string")
-                                                        .providedPostalCode("string")
+                                                        .actualLine1("actual_line1")
+                                                        .actualPostalCode("actual_postal_code")
+                                                        .providedLine1("provided_line1")
+                                                        .providedPostalCode("provided_postal_code")
                                                         .result(
                                                             CardAuthorizationSimulation
                                                                 .PendingTransaction
@@ -564,15 +588,15 @@ class CardAuthorizationSimulationTest {
                                         .CheckDepositInstruction
                                         .builder()
                                         .amount(123L)
-                                        .backImageFileId("string")
-                                        .checkDepositId("string")
+                                        .backImageFileId("back_image_file_id")
+                                        .checkDepositId("check_deposit_id")
                                         .currency(
                                             CardAuthorizationSimulation.PendingTransaction.Source
                                                 .CheckDepositInstruction
                                                 .Currency
                                                 .CAD
                                         )
-                                        .frontImageFileId("string")
+                                        .frontImageFileId("front_image_file_id")
                                         .build()
                                 )
                                 .checkTransferInstruction(
@@ -586,14 +610,14 @@ class CardAuthorizationSimulationTest {
                                                 .Currency
                                                 .CAD
                                         )
-                                        .transferId("string")
+                                        .transferId("transfer_id")
                                         .build()
                                 )
                                 .inboundFundsHold(
                                     CardAuthorizationSimulation.PendingTransaction.Source
                                         .InboundFundsHold
                                         .builder()
-                                        .id("string")
+                                        .id("id")
                                         .amount(123L)
                                         .automaticallyReleasesAt(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
@@ -605,8 +629,8 @@ class CardAuthorizationSimulationTest {
                                                 .Currency
                                                 .CAD
                                         )
-                                        .heldTransactionId("string")
-                                        .pendingTransactionId("string")
+                                        .heldTransactionId("held_transaction_id")
+                                        .pendingTransactionId("pending_transaction_id")
                                         .releasedAt(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
@@ -629,18 +653,18 @@ class CardAuthorizationSimulationTest {
                                         .RealTimePaymentsTransferInstruction
                                         .builder()
                                         .amount(123L)
-                                        .transferId("string")
+                                        .transferId("transfer_id")
                                         .build()
                                 )
                                 .wireTransferInstruction(
                                     CardAuthorizationSimulation.PendingTransaction.Source
                                         .WireTransferInstruction
                                         .builder()
-                                        .accountNumber("string")
+                                        .accountNumber("account_number")
                                         .amount(123L)
-                                        .messageToRecipient("string")
-                                        .routingNumber("string")
-                                        .transferId("string")
+                                        .messageToRecipient("message_to_recipient")
+                                        .routingNumber("routing_number")
+                                        .transferId("transfer_id")
                                         .build()
                                 )
                                 .build()
@@ -657,13 +681,13 @@ class CardAuthorizationSimulationTest {
         assertThat(cardAuthorizationSimulation.declinedTransaction())
             .contains(
                 CardAuthorizationSimulation.DeclinedTransaction.builder()
-                    .id("string")
-                    .accountId("string")
+                    .id("id")
+                    .accountId("account_id")
                     .amount(123L)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .currency(CardAuthorizationSimulation.DeclinedTransaction.Currency.CAD)
-                    .description("string")
-                    .routeId("string")
+                    .description("description")
+                    .routeId("route_id")
                     .routeType(
                         CardAuthorizationSimulation.DeclinedTransaction.RouteType.ACCOUNT_NUMBER
                     )
@@ -672,22 +696,26 @@ class CardAuthorizationSimulationTest {
                             .achDecline(
                                 CardAuthorizationSimulation.DeclinedTransaction.Source.AchDecline
                                     .builder()
-                                    .id("string")
+                                    .id("id")
                                     .amount(123L)
-                                    .inboundAchTransferId("string")
-                                    .originatorCompanyDescriptiveDate("string")
-                                    .originatorCompanyDiscretionaryData("string")
-                                    .originatorCompanyId("string")
-                                    .originatorCompanyName("string")
+                                    .inboundAchTransferId("inbound_ach_transfer_id")
+                                    .originatorCompanyDescriptiveDate(
+                                        "originator_company_descriptive_date"
+                                    )
+                                    .originatorCompanyDiscretionaryData(
+                                        "originator_company_discretionary_data"
+                                    )
+                                    .originatorCompanyId("originator_company_id")
+                                    .originatorCompanyName("originator_company_name")
                                     .reason(
                                         CardAuthorizationSimulation.DeclinedTransaction.Source
                                             .AchDecline
                                             .Reason
                                             .ACH_ROUTE_CANCELED
                                     )
-                                    .receiverIdNumber("string")
-                                    .receiverName("string")
-                                    .traceNumber("string")
+                                    .receiverIdNumber("receiver_id_number")
+                                    .receiverName("receiver_name")
+                                    .traceNumber("trace_number")
                                     .type(
                                         CardAuthorizationSimulation.DeclinedTransaction.Source
                                             .AchDecline
@@ -699,7 +727,7 @@ class CardAuthorizationSimulationTest {
                             .cardDecline(
                                 CardAuthorizationSimulation.DeclinedTransaction.Source.CardDecline
                                     .builder()
-                                    .id("string")
+                                    .id("id")
                                     .actioner(
                                         CardAuthorizationSimulation.DeclinedTransaction.Source
                                             .CardDecline
@@ -707,21 +735,21 @@ class CardAuthorizationSimulationTest {
                                             .USER
                                     )
                                     .amount(123L)
-                                    .cardPaymentId("string")
+                                    .cardPaymentId("card_payment_id")
                                     .currency(
                                         CardAuthorizationSimulation.DeclinedTransaction.Source
                                             .CardDecline
                                             .Currency
                                             .CAD
                                     )
-                                    .declinedTransactionId("string")
-                                    .digitalWalletTokenId("string")
-                                    .merchantAcceptorId("string")
-                                    .merchantCategoryCode("string")
-                                    .merchantCity("string")
-                                    .merchantCountry("string")
-                                    .merchantDescriptor("string")
-                                    .merchantState("string")
+                                    .declinedTransactionId("declined_transaction_id")
+                                    .digitalWalletTokenId("digital_wallet_token_id")
+                                    .merchantAcceptorId("merchant_acceptor_id")
+                                    .merchantCategoryCode("merchant_category_code")
+                                    .merchantCity("merchant_city")
+                                    .merchantCountry("merchant_country")
+                                    .merchantDescriptor("merchant_descriptor")
+                                    .merchantState("merchant_state")
                                     .networkDetails(
                                         CardAuthorizationSimulation.DeclinedTransaction.Source
                                             .CardDecline
@@ -771,22 +799,22 @@ class CardAuthorizationSimulationTest {
                                             .CardDecline
                                             .NetworkIdentifiers
                                             .builder()
-                                            .retrievalReferenceNumber("string")
-                                            .traceNumber("string")
-                                            .transactionId("string")
+                                            .retrievalReferenceNumber("retrieval_reference_number")
+                                            .traceNumber("trace_number")
+                                            .transactionId("transaction_id")
                                             .build()
                                     )
                                     .networkRiskScore(123L)
-                                    .physicalCardId("string")
+                                    .physicalCardId("physical_card_id")
                                     .presentmentAmount(123L)
-                                    .presentmentCurrency("string")
+                                    .presentmentCurrency("presentment_currency")
                                     .processingCategory(
                                         CardAuthorizationSimulation.DeclinedTransaction.Source
                                             .CardDecline
                                             .ProcessingCategory
                                             .ACCOUNT_FUNDING
                                     )
-                                    .realTimeDecisionId("string")
+                                    .realTimeDecisionId("real_time_decision_id")
                                     .reason(
                                         CardAuthorizationSimulation.DeclinedTransaction.Source
                                             .CardDecline
@@ -824,10 +852,10 @@ class CardAuthorizationSimulationTest {
                                                     .Verification
                                                     .CardholderAddress
                                                     .builder()
-                                                    .actualLine1("string")
-                                                    .actualPostalCode("string")
-                                                    .providedLine1("string")
-                                                    .providedPostalCode("string")
+                                                    .actualLine1("actual_line1")
+                                                    .actualPostalCode("actual_postal_code")
+                                                    .providedLine1("provided_line1")
+                                                    .providedPostalCode("provided_postal_code")
                                                     .result(
                                                         CardAuthorizationSimulation
                                                             .DeclinedTransaction
@@ -852,11 +880,11 @@ class CardAuthorizationSimulationTest {
                                 CardAuthorizationSimulation.DeclinedTransaction.Source.CheckDecline
                                     .builder()
                                     .amount(123L)
-                                    .auxiliaryOnUs("string")
-                                    .backImageFileId("string")
-                                    .checkTransferId("string")
-                                    .frontImageFileId("string")
-                                    .inboundCheckDepositId("string")
+                                    .auxiliaryOnUs("auxiliary_on_us")
+                                    .backImageFileId("back_image_file_id")
+                                    .checkTransferId("check_transfer_id")
+                                    .frontImageFileId("front_image_file_id")
+                                    .inboundCheckDepositId("inbound_check_deposit_id")
                                     .reason(
                                         CardAuthorizationSimulation.DeclinedTransaction.Source
                                             .CheckDecline
@@ -870,7 +898,7 @@ class CardAuthorizationSimulationTest {
                                     .CheckDepositRejection
                                     .builder()
                                     .amount(123L)
-                                    .checkDepositId("string")
+                                    .checkDepositId("check_deposit_id")
                                     .currency(
                                         CardAuthorizationSimulation.DeclinedTransaction.Source
                                             .CheckDepositRejection
@@ -891,24 +919,24 @@ class CardAuthorizationSimulationTest {
                                     .InboundRealTimePaymentsTransferDecline
                                     .builder()
                                     .amount(123L)
-                                    .creditorName("string")
+                                    .creditorName("creditor_name")
                                     .currency(
                                         CardAuthorizationSimulation.DeclinedTransaction.Source
                                             .InboundRealTimePaymentsTransferDecline
                                             .Currency
                                             .CAD
                                     )
-                                    .debtorAccountNumber("string")
-                                    .debtorName("string")
-                                    .debtorRoutingNumber("string")
+                                    .debtorAccountNumber("debtor_account_number")
+                                    .debtorName("debtor_name")
+                                    .debtorRoutingNumber("debtor_routing_number")
                                     .reason(
                                         CardAuthorizationSimulation.DeclinedTransaction.Source
                                             .InboundRealTimePaymentsTransferDecline
                                             .Reason
                                             .ACCOUNT_NUMBER_CANCELED
                                     )
-                                    .remittanceInformation("string")
-                                    .transactionIdentification("string")
+                                    .remittanceInformation("remittance_information")
+                                    .transactionIdentification("transaction_identification")
                                     .build()
                             )
                             .internationalAchDecline(
@@ -916,15 +944,15 @@ class CardAuthorizationSimulationTest {
                                     .InternationalAchDecline
                                     .builder()
                                     .amount(123L)
-                                    .destinationCountryCode("string")
-                                    .destinationCurrencyCode("string")
+                                    .destinationCountryCode("destination_country_code")
+                                    .destinationCurrencyCode("destination_currency_code")
                                     .foreignExchangeIndicator(
                                         CardAuthorizationSimulation.DeclinedTransaction.Source
                                             .InternationalAchDecline
                                             .ForeignExchangeIndicator
                                             .FIXED_TO_VARIABLE
                                     )
-                                    .foreignExchangeReference("string")
+                                    .foreignExchangeReference("foreign_exchange_reference")
                                     .foreignExchangeReferenceIndicator(
                                         CardAuthorizationSimulation.DeclinedTransaction.Source
                                             .InternationalAchDecline
@@ -932,58 +960,72 @@ class CardAuthorizationSimulationTest {
                                             .FOREIGN_EXCHANGE_RATE
                                     )
                                     .foreignPaymentAmount(123L)
-                                    .foreignTraceNumber("string")
+                                    .foreignTraceNumber("foreign_trace_number")
                                     .internationalTransactionTypeCode(
                                         CardAuthorizationSimulation.DeclinedTransaction.Source
                                             .InternationalAchDecline
                                             .InternationalTransactionTypeCode
                                             .ANNUITY
                                     )
-                                    .originatingCurrencyCode("string")
+                                    .originatingCurrencyCode("originating_currency_code")
                                     .originatingDepositoryFinancialInstitutionBranchCountry(
-                                        "string"
+                                        "originating_depository_financial_institution_branch_country"
                                     )
-                                    .originatingDepositoryFinancialInstitutionId("string")
+                                    .originatingDepositoryFinancialInstitutionId(
+                                        "originating_depository_financial_institution_id"
+                                    )
                                     .originatingDepositoryFinancialInstitutionIdQualifier(
                                         CardAuthorizationSimulation.DeclinedTransaction.Source
                                             .InternationalAchDecline
                                             .OriginatingDepositoryFinancialInstitutionIdQualifier
                                             .NATIONAL_CLEARING_SYSTEM_NUMBER
                                     )
-                                    .originatingDepositoryFinancialInstitutionName("string")
-                                    .originatorCity("string")
-                                    .originatorCompanyEntryDescription("string")
-                                    .originatorCountry("string")
-                                    .originatorIdentification("string")
-                                    .originatorName("string")
-                                    .originatorPostalCode("string")
-                                    .originatorStateOrProvince("string")
-                                    .originatorStreetAddress("string")
-                                    .paymentRelatedInformation("string")
-                                    .paymentRelatedInformation2("string")
-                                    .receiverCity("string")
-                                    .receiverCountry("string")
-                                    .receiverIdentificationNumber("string")
-                                    .receiverPostalCode("string")
-                                    .receiverStateOrProvince("string")
-                                    .receiverStreetAddress("string")
-                                    .receivingCompanyOrIndividualName("string")
-                                    .receivingDepositoryFinancialInstitutionCountry("string")
-                                    .receivingDepositoryFinancialInstitutionId("string")
+                                    .originatingDepositoryFinancialInstitutionName(
+                                        "originating_depository_financial_institution_name"
+                                    )
+                                    .originatorCity("originator_city")
+                                    .originatorCompanyEntryDescription(
+                                        "originator_company_entry_description"
+                                    )
+                                    .originatorCountry("originator_country")
+                                    .originatorIdentification("originator_identification")
+                                    .originatorName("originator_name")
+                                    .originatorPostalCode("originator_postal_code")
+                                    .originatorStateOrProvince("originator_state_or_province")
+                                    .originatorStreetAddress("originator_street_address")
+                                    .paymentRelatedInformation("payment_related_information")
+                                    .paymentRelatedInformation2("payment_related_information2")
+                                    .receiverCity("receiver_city")
+                                    .receiverCountry("receiver_country")
+                                    .receiverIdentificationNumber("receiver_identification_number")
+                                    .receiverPostalCode("receiver_postal_code")
+                                    .receiverStateOrProvince("receiver_state_or_province")
+                                    .receiverStreetAddress("receiver_street_address")
+                                    .receivingCompanyOrIndividualName(
+                                        "receiving_company_or_individual_name"
+                                    )
+                                    .receivingDepositoryFinancialInstitutionCountry(
+                                        "receiving_depository_financial_institution_country"
+                                    )
+                                    .receivingDepositoryFinancialInstitutionId(
+                                        "receiving_depository_financial_institution_id"
+                                    )
                                     .receivingDepositoryFinancialInstitutionIdQualifier(
                                         CardAuthorizationSimulation.DeclinedTransaction.Source
                                             .InternationalAchDecline
                                             .ReceivingDepositoryFinancialInstitutionIdQualifier
                                             .NATIONAL_CLEARING_SYSTEM_NUMBER
                                     )
-                                    .receivingDepositoryFinancialInstitutionName("string")
-                                    .traceNumber("string")
+                                    .receivingDepositoryFinancialInstitutionName(
+                                        "receiving_depository_financial_institution_name"
+                                    )
+                                    .traceNumber("trace_number")
                                     .build()
                             )
                             .wireDecline(
                                 CardAuthorizationSimulation.DeclinedTransaction.Source.WireDecline
                                     .builder()
-                                    .inboundWireTransferId("string")
+                                    .inboundWireTransferId("inbound_wire_transfer_id")
                                     .reason(
                                         CardAuthorizationSimulation.DeclinedTransaction.Source
                                             .WireDecline
@@ -1000,14 +1042,14 @@ class CardAuthorizationSimulationTest {
         assertThat(cardAuthorizationSimulation.pendingTransaction())
             .contains(
                 CardAuthorizationSimulation.PendingTransaction.builder()
-                    .id("string")
-                    .accountId("string")
+                    .id("id")
+                    .accountId("account_id")
                     .amount(123L)
                     .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .currency(CardAuthorizationSimulation.PendingTransaction.Currency.CAD)
-                    .description("string")
-                    .routeId("string")
+                    .description("description")
+                    .routeId("route_id")
                     .routeType(
                         CardAuthorizationSimulation.PendingTransaction.RouteType.ACCOUNT_NUMBER
                     )
@@ -1024,7 +1066,7 @@ class CardAuthorizationSimulationTest {
                                             .Currency
                                             .CAD
                                     )
-                                    .transferId("string")
+                                    .transferId("transfer_id")
                                     .build()
                             )
                             .achTransferInstruction(
@@ -1032,14 +1074,14 @@ class CardAuthorizationSimulationTest {
                                     .AchTransferInstruction
                                     .builder()
                                     .amount(123L)
-                                    .transferId("string")
+                                    .transferId("transfer_id")
                                     .build()
                             )
                             .cardAuthorization(
                                 CardAuthorizationSimulation.PendingTransaction.Source
                                     .CardAuthorization
                                     .builder()
-                                    .id("string")
+                                    .id("id")
                                     .actioner(
                                         CardAuthorizationSimulation.PendingTransaction.Source
                                             .CardAuthorization
@@ -1047,14 +1089,14 @@ class CardAuthorizationSimulationTest {
                                             .USER
                                     )
                                     .amount(123L)
-                                    .cardPaymentId("string")
+                                    .cardPaymentId("card_payment_id")
                                     .currency(
                                         CardAuthorizationSimulation.PendingTransaction.Source
                                             .CardAuthorization
                                             .Currency
                                             .CAD
                                     )
-                                    .digitalWalletTokenId("string")
+                                    .digitalWalletTokenId("digital_wallet_token_id")
                                     .direction(
                                         CardAuthorizationSimulation.PendingTransaction.Source
                                             .CardAuthorization
@@ -1062,11 +1104,11 @@ class CardAuthorizationSimulationTest {
                                             .SETTLEMENT
                                     )
                                     .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .merchantAcceptorId("string")
-                                    .merchantCategoryCode("string")
-                                    .merchantCity("string")
-                                    .merchantCountry("string")
-                                    .merchantDescriptor("string")
+                                    .merchantAcceptorId("merchant_acceptor_id")
+                                    .merchantCategoryCode("merchant_category_code")
+                                    .merchantCity("merchant_city")
+                                    .merchantCountry("merchant_country")
+                                    .merchantDescriptor("merchant_descriptor")
                                     .networkDetails(
                                         CardAuthorizationSimulation.PendingTransaction.Source
                                             .CardAuthorization
@@ -1116,23 +1158,23 @@ class CardAuthorizationSimulationTest {
                                             .CardAuthorization
                                             .NetworkIdentifiers
                                             .builder()
-                                            .retrievalReferenceNumber("string")
-                                            .traceNumber("string")
-                                            .transactionId("string")
+                                            .retrievalReferenceNumber("retrieval_reference_number")
+                                            .traceNumber("trace_number")
+                                            .transactionId("transaction_id")
                                             .build()
                                     )
                                     .networkRiskScore(123L)
-                                    .pendingTransactionId("string")
-                                    .physicalCardId("string")
+                                    .pendingTransactionId("pending_transaction_id")
+                                    .physicalCardId("physical_card_id")
                                     .presentmentAmount(123L)
-                                    .presentmentCurrency("string")
+                                    .presentmentCurrency("presentment_currency")
                                     .processingCategory(
                                         CardAuthorizationSimulation.PendingTransaction.Source
                                             .CardAuthorization
                                             .ProcessingCategory
                                             .ACCOUNT_FUNDING
                                     )
-                                    .realTimeDecisionId("string")
+                                    .realTimeDecisionId("real_time_decision_id")
                                     .type(
                                         CardAuthorizationSimulation.PendingTransaction.Source
                                             .CardAuthorization
@@ -1170,10 +1212,10 @@ class CardAuthorizationSimulationTest {
                                                     .Verification
                                                     .CardholderAddress
                                                     .builder()
-                                                    .actualLine1("string")
-                                                    .actualPostalCode("string")
-                                                    .providedLine1("string")
-                                                    .providedPostalCode("string")
+                                                    .actualLine1("actual_line1")
+                                                    .actualPostalCode("actual_postal_code")
+                                                    .providedLine1("provided_line1")
+                                                    .providedPostalCode("provided_postal_code")
                                                     .result(
                                                         CardAuthorizationSimulation
                                                             .PendingTransaction
@@ -1199,15 +1241,15 @@ class CardAuthorizationSimulationTest {
                                     .CheckDepositInstruction
                                     .builder()
                                     .amount(123L)
-                                    .backImageFileId("string")
-                                    .checkDepositId("string")
+                                    .backImageFileId("back_image_file_id")
+                                    .checkDepositId("check_deposit_id")
                                     .currency(
                                         CardAuthorizationSimulation.PendingTransaction.Source
                                             .CheckDepositInstruction
                                             .Currency
                                             .CAD
                                     )
-                                    .frontImageFileId("string")
+                                    .frontImageFileId("front_image_file_id")
                                     .build()
                             )
                             .checkTransferInstruction(
@@ -1221,14 +1263,14 @@ class CardAuthorizationSimulationTest {
                                             .Currency
                                             .CAD
                                     )
-                                    .transferId("string")
+                                    .transferId("transfer_id")
                                     .build()
                             )
                             .inboundFundsHold(
                                 CardAuthorizationSimulation.PendingTransaction.Source
                                     .InboundFundsHold
                                     .builder()
-                                    .id("string")
+                                    .id("id")
                                     .amount(123L)
                                     .automaticallyReleasesAt(
                                         OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
@@ -1240,8 +1282,8 @@ class CardAuthorizationSimulationTest {
                                             .Currency
                                             .CAD
                                     )
-                                    .heldTransactionId("string")
-                                    .pendingTransactionId("string")
+                                    .heldTransactionId("held_transaction_id")
+                                    .pendingTransactionId("pending_transaction_id")
                                     .releasedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .status(
                                         CardAuthorizationSimulation.PendingTransaction.Source
@@ -1262,18 +1304,18 @@ class CardAuthorizationSimulationTest {
                                     .RealTimePaymentsTransferInstruction
                                     .builder()
                                     .amount(123L)
-                                    .transferId("string")
+                                    .transferId("transfer_id")
                                     .build()
                             )
                             .wireTransferInstruction(
                                 CardAuthorizationSimulation.PendingTransaction.Source
                                     .WireTransferInstruction
                                     .builder()
-                                    .accountNumber("string")
+                                    .accountNumber("account_number")
                                     .amount(123L)
-                                    .messageToRecipient("string")
-                                    .routingNumber("string")
-                                    .transferId("string")
+                                    .messageToRecipient("message_to_recipient")
+                                    .routingNumber("routing_number")
+                                    .transferId("transfer_id")
                                     .build()
                             )
                             .build()

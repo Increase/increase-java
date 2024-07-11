@@ -11,7 +11,7 @@ class SimulationInboundCheckDepositCreateParamsTest {
     @Test
     fun createSimulationInboundCheckDepositCreateParams() {
         SimulationInboundCheckDepositCreateParams.builder()
-            .accountNumberId("string")
+            .accountNumberId("account_number_id")
             .amount(123L)
             .checkNumber("x")
             .build()
@@ -21,13 +21,13 @@ class SimulationInboundCheckDepositCreateParamsTest {
     fun getBody() {
         val params =
             SimulationInboundCheckDepositCreateParams.builder()
-                .accountNumberId("string")
+                .accountNumberId("account_number_id")
                 .amount(123L)
                 .checkNumber("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountNumberId()).isEqualTo("string")
+        assertThat(body.accountNumberId()).isEqualTo("account_number_id")
         assertThat(body.amount()).isEqualTo(123L)
         assertThat(body.checkNumber()).isEqualTo("x")
     }
@@ -36,13 +36,13 @@ class SimulationInboundCheckDepositCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             SimulationInboundCheckDepositCreateParams.builder()
-                .accountNumberId("string")
+                .accountNumberId("account_number_id")
                 .amount(123L)
                 .checkNumber("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountNumberId()).isEqualTo("string")
+        assertThat(body.accountNumberId()).isEqualTo("account_number_id")
         assertThat(body.amount()).isEqualTo(123L)
         assertThat(body.checkNumber()).isEqualTo("x")
     }

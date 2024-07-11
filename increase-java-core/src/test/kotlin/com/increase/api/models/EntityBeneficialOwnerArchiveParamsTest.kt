@@ -11,8 +11,8 @@ class EntityBeneficialOwnerArchiveParamsTest {
     @Test
     fun createEntityBeneficialOwnerArchiveParams() {
         EntityBeneficialOwnerArchiveParams.builder()
-            .beneficialOwnerId("string")
-            .entityId("string")
+            .beneficialOwnerId("beneficial_owner_id")
+            .entityId("entity_id")
             .build()
     }
 
@@ -20,25 +20,25 @@ class EntityBeneficialOwnerArchiveParamsTest {
     fun getBody() {
         val params =
             EntityBeneficialOwnerArchiveParams.builder()
-                .beneficialOwnerId("string")
-                .entityId("string")
+                .beneficialOwnerId("beneficial_owner_id")
+                .entityId("entity_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.beneficialOwnerId()).isEqualTo("string")
-        assertThat(body.entityId()).isEqualTo("string")
+        assertThat(body.beneficialOwnerId()).isEqualTo("beneficial_owner_id")
+        assertThat(body.entityId()).isEqualTo("entity_id")
     }
 
     @Test
     fun getBodyWithoutOptionalFields() {
         val params =
             EntityBeneficialOwnerArchiveParams.builder()
-                .beneficialOwnerId("string")
-                .entityId("string")
+                .beneficialOwnerId("beneficial_owner_id")
+                .entityId("entity_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.beneficialOwnerId()).isEqualTo("string")
-        assertThat(body.entityId()).isEqualTo("string")
+        assertThat(body.beneficialOwnerId()).isEqualTo("beneficial_owner_id")
+        assertThat(body.entityId()).isEqualTo("entity_id")
     }
 }

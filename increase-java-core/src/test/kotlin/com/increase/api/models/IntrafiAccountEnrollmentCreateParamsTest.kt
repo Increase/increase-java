@@ -10,19 +10,22 @@ class IntrafiAccountEnrollmentCreateParamsTest {
 
     @Test
     fun createIntrafiAccountEnrollmentCreateParams() {
-        IntrafiAccountEnrollmentCreateParams.builder().accountId("string").emailAddress("x").build()
+        IntrafiAccountEnrollmentCreateParams.builder()
+            .accountId("account_id")
+            .emailAddress("x")
+            .build()
     }
 
     @Test
     fun getBody() {
         val params =
             IntrafiAccountEnrollmentCreateParams.builder()
-                .accountId("string")
+                .accountId("account_id")
                 .emailAddress("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("string")
+        assertThat(body.accountId()).isEqualTo("account_id")
         assertThat(body.emailAddress()).isEqualTo("x")
     }
 
@@ -30,12 +33,12 @@ class IntrafiAccountEnrollmentCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             IntrafiAccountEnrollmentCreateParams.builder()
-                .accountId("string")
+                .accountId("account_id")
                 .emailAddress("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("string")
+        assertThat(body.accountId()).isEqualTo("account_id")
         assertThat(body.emailAddress()).isEqualTo("x")
     }
 }

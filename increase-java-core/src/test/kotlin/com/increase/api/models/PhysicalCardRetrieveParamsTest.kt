@@ -10,15 +10,15 @@ class PhysicalCardRetrieveParamsTest {
 
     @Test
     fun createPhysicalCardRetrieveParams() {
-        PhysicalCardRetrieveParams.builder().physicalCardId("string").build()
+        PhysicalCardRetrieveParams.builder().physicalCardId("physical_card_id").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = PhysicalCardRetrieveParams.builder().physicalCardId("string").build()
+        val params = PhysicalCardRetrieveParams.builder().physicalCardId("physical_card_id").build()
         assertThat(params).isNotNull
         // path param "physicalCardId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("physical_card_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

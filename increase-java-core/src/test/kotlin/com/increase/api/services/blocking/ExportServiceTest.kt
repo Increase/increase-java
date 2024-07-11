@@ -28,7 +28,7 @@ class ExportServiceTest {
                     .category(ExportCreateParams.Category.ACCOUNT_STATEMENT_OFX)
                     .accountStatementOfx(
                         ExportCreateParams.AccountStatementOfx.builder()
-                            .accountId("string")
+                            .accountId("account_id")
                             .createdAt(
                                 ExportCreateParams.AccountStatementOfx.CreatedAt.builder()
                                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -41,7 +41,7 @@ class ExportServiceTest {
                     )
                     .balanceCsv(
                         ExportCreateParams.BalanceCsv.builder()
-                            .accountId("string")
+                            .accountId("account_id")
                             .createdAt(
                                 ExportCreateParams.BalanceCsv.CreatedAt.builder()
                                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -54,7 +54,7 @@ class ExportServiceTest {
                     )
                     .bookkeepingAccountBalanceCsv(
                         ExportCreateParams.BookkeepingAccountBalanceCsv.builder()
-                            .bookkeepingAccountId("string")
+                            .bookkeepingAccountId("bookkeeping_account_id")
                             .createdAt(
                                 ExportCreateParams.BookkeepingAccountBalanceCsv.CreatedAt.builder()
                                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -76,7 +76,7 @@ class ExportServiceTest {
                     )
                     .transactionCsv(
                         ExportCreateParams.TransactionCsv.builder()
-                            .accountId("string")
+                            .accountId("account_id")
                             .createdAt(
                                 ExportCreateParams.TransactionCsv.CreatedAt.builder()
                                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -103,7 +103,7 @@ class ExportServiceTest {
                 .build()
         val exportService = client.exports()
         val export =
-            exportService.retrieve(ExportRetrieveParams.builder().exportId("string").build())
+            exportService.retrieve(ExportRetrieveParams.builder().exportId("export_id").build())
         println(export)
         export.validate()
     }

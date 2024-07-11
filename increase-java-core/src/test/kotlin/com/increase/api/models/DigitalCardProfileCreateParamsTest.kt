@@ -11,14 +11,14 @@ class DigitalCardProfileCreateParamsTest {
     @Test
     fun createDigitalCardProfileCreateParams() {
         DigitalCardProfileCreateParams.builder()
-            .appIconFileId("string")
-            .backgroundImageFileId("string")
+            .appIconFileId("app_icon_file_id")
+            .backgroundImageFileId("background_image_file_id")
             .cardDescription("x")
             .description("x")
             .issuerName("x")
             .contactEmail("x")
             .contactPhone("x")
-            .contactWebsite("string")
+            .contactWebsite("contact_website")
             .textColor(
                 DigitalCardProfileCreateParams.TextColor.builder()
                     .blue(123L)
@@ -33,14 +33,14 @@ class DigitalCardProfileCreateParamsTest {
     fun getBody() {
         val params =
             DigitalCardProfileCreateParams.builder()
-                .appIconFileId("string")
-                .backgroundImageFileId("string")
+                .appIconFileId("app_icon_file_id")
+                .backgroundImageFileId("background_image_file_id")
                 .cardDescription("x")
                 .description("x")
                 .issuerName("x")
                 .contactEmail("x")
                 .contactPhone("x")
-                .contactWebsite("string")
+                .contactWebsite("contact_website")
                 .textColor(
                     DigitalCardProfileCreateParams.TextColor.builder()
                         .blue(123L)
@@ -51,14 +51,14 @@ class DigitalCardProfileCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.appIconFileId()).isEqualTo("string")
-        assertThat(body.backgroundImageFileId()).isEqualTo("string")
+        assertThat(body.appIconFileId()).isEqualTo("app_icon_file_id")
+        assertThat(body.backgroundImageFileId()).isEqualTo("background_image_file_id")
         assertThat(body.cardDescription()).isEqualTo("x")
         assertThat(body.description()).isEqualTo("x")
         assertThat(body.issuerName()).isEqualTo("x")
         assertThat(body.contactEmail()).isEqualTo("x")
         assertThat(body.contactPhone()).isEqualTo("x")
-        assertThat(body.contactWebsite()).isEqualTo("string")
+        assertThat(body.contactWebsite()).isEqualTo("contact_website")
         assertThat(body.textColor())
             .isEqualTo(
                 DigitalCardProfileCreateParams.TextColor.builder()
@@ -73,16 +73,16 @@ class DigitalCardProfileCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             DigitalCardProfileCreateParams.builder()
-                .appIconFileId("string")
-                .backgroundImageFileId("string")
+                .appIconFileId("app_icon_file_id")
+                .backgroundImageFileId("background_image_file_id")
                 .cardDescription("x")
                 .description("x")
                 .issuerName("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.appIconFileId()).isEqualTo("string")
-        assertThat(body.backgroundImageFileId()).isEqualTo("string")
+        assertThat(body.appIconFileId()).isEqualTo("app_icon_file_id")
+        assertThat(body.backgroundImageFileId()).isEqualTo("background_image_file_id")
         assertThat(body.cardDescription()).isEqualTo("x")
         assertThat(body.description()).isEqualTo("x")
         assertThat(body.issuerName()).isEqualTo("x")

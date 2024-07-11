@@ -12,7 +12,7 @@ class AccountBalanceParamsTest {
     @Test
     fun createAccountBalanceParams() {
         AccountBalanceParams.builder()
-            .accountId("string")
+            .accountId("account_id")
             .atTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
     }
@@ -21,7 +21,7 @@ class AccountBalanceParamsTest {
     fun getQueryParams() {
         val params =
             AccountBalanceParams.builder()
-                .accountId("string")
+                .accountId("account_id")
                 .atTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
         val expected = mutableMapOf<String, List<String>>()
@@ -31,17 +31,17 @@ class AccountBalanceParamsTest {
 
     @Test
     fun getQueryParamsWithoutOptionalFields() {
-        val params = AccountBalanceParams.builder().accountId("string").build()
+        val params = AccountBalanceParams.builder().accountId("account_id").build()
         val expected = mutableMapOf<String, List<String>>()
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 
     @Test
     fun getPathParam() {
-        val params = AccountBalanceParams.builder().accountId("string").build()
+        val params = AccountBalanceParams.builder().accountId("account_id").build()
         assertThat(params).isNotNull
         // path param "accountId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("account_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

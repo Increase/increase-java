@@ -12,9 +12,9 @@ class BookkeepingAccountCreateParamsTest {
     fun createBookkeepingAccountCreateParams() {
         BookkeepingAccountCreateParams.builder()
             .name("x")
-            .accountId("string")
+            .accountId("account_id")
             .complianceCategory(BookkeepingAccountCreateParams.ComplianceCategory.COMMINGLED_CASH)
-            .entityId("string")
+            .entityId("entity_id")
             .build()
     }
 
@@ -23,19 +23,19 @@ class BookkeepingAccountCreateParamsTest {
         val params =
             BookkeepingAccountCreateParams.builder()
                 .name("x")
-                .accountId("string")
+                .accountId("account_id")
                 .complianceCategory(
                     BookkeepingAccountCreateParams.ComplianceCategory.COMMINGLED_CASH
                 )
-                .entityId("string")
+                .entityId("entity_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.name()).isEqualTo("x")
-        assertThat(body.accountId()).isEqualTo("string")
+        assertThat(body.accountId()).isEqualTo("account_id")
         assertThat(body.complianceCategory())
             .isEqualTo(BookkeepingAccountCreateParams.ComplianceCategory.COMMINGLED_CASH)
-        assertThat(body.entityId()).isEqualTo("string")
+        assertThat(body.entityId()).isEqualTo("entity_id")
     }
 
     @Test

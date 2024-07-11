@@ -12,82 +12,99 @@ class InboundInternationalAchTransferTest {
         val inboundInternationalAchTransfer =
             InboundInternationalAchTransfer.builder()
                 .amount(123L)
-                .destinationCountryCode("string")
-                .destinationCurrencyCode("string")
+                .destinationCountryCode("destination_country_code")
+                .destinationCurrencyCode("destination_currency_code")
                 .foreignExchangeIndicator(
                     InboundInternationalAchTransfer.ForeignExchangeIndicator.FIXED_TO_VARIABLE
                 )
-                .foreignExchangeReference("string")
+                .foreignExchangeReference("foreign_exchange_reference")
                 .foreignExchangeReferenceIndicator(
                     InboundInternationalAchTransfer.ForeignExchangeReferenceIndicator
                         .FOREIGN_EXCHANGE_RATE
                 )
                 .foreignPaymentAmount(123L)
-                .foreignTraceNumber("string")
+                .foreignTraceNumber("foreign_trace_number")
                 .internationalTransactionTypeCode(
                     InboundInternationalAchTransfer.InternationalTransactionTypeCode.ANNUITY
                 )
-                .originatingCurrencyCode("string")
-                .originatingDepositoryFinancialInstitutionBranchCountry("string")
-                .originatingDepositoryFinancialInstitutionId("string")
+                .originatingCurrencyCode("originating_currency_code")
+                .originatingDepositoryFinancialInstitutionBranchCountry(
+                    "originating_depository_financial_institution_branch_country"
+                )
+                .originatingDepositoryFinancialInstitutionId(
+                    "originating_depository_financial_institution_id"
+                )
                 .originatingDepositoryFinancialInstitutionIdQualifier(
                     InboundInternationalAchTransfer
                         .OriginatingDepositoryFinancialInstitutionIdQualifier
                         .NATIONAL_CLEARING_SYSTEM_NUMBER
                 )
-                .originatingDepositoryFinancialInstitutionName("string")
-                .originatorCity("string")
-                .originatorCompanyEntryDescription("string")
-                .originatorCountry("string")
-                .originatorIdentification("string")
-                .originatorName("string")
-                .originatorPostalCode("string")
-                .originatorStateOrProvince("string")
-                .originatorStreetAddress("string")
-                .paymentRelatedInformation("string")
-                .paymentRelatedInformation2("string")
-                .receiverCity("string")
-                .receiverCountry("string")
-                .receiverIdentificationNumber("string")
-                .receiverPostalCode("string")
-                .receiverStateOrProvince("string")
-                .receiverStreetAddress("string")
-                .receivingCompanyOrIndividualName("string")
-                .receivingDepositoryFinancialInstitutionCountry("string")
-                .receivingDepositoryFinancialInstitutionId("string")
+                .originatingDepositoryFinancialInstitutionName(
+                    "originating_depository_financial_institution_name"
+                )
+                .originatorCity("originator_city")
+                .originatorCompanyEntryDescription("originator_company_entry_description")
+                .originatorCountry("originator_country")
+                .originatorIdentification("originator_identification")
+                .originatorName("originator_name")
+                .originatorPostalCode("originator_postal_code")
+                .originatorStateOrProvince("originator_state_or_province")
+                .originatorStreetAddress("originator_street_address")
+                .paymentRelatedInformation("payment_related_information")
+                .paymentRelatedInformation2("payment_related_information2")
+                .receiverCity("receiver_city")
+                .receiverCountry("receiver_country")
+                .receiverIdentificationNumber("receiver_identification_number")
+                .receiverPostalCode("receiver_postal_code")
+                .receiverStateOrProvince("receiver_state_or_province")
+                .receiverStreetAddress("receiver_street_address")
+                .receivingCompanyOrIndividualName("receiving_company_or_individual_name")
+                .receivingDepositoryFinancialInstitutionCountry(
+                    "receiving_depository_financial_institution_country"
+                )
+                .receivingDepositoryFinancialInstitutionId(
+                    "receiving_depository_financial_institution_id"
+                )
                 .receivingDepositoryFinancialInstitutionIdQualifier(
                     InboundInternationalAchTransfer
                         .ReceivingDepositoryFinancialInstitutionIdQualifier
                         .NATIONAL_CLEARING_SYSTEM_NUMBER
                 )
-                .receivingDepositoryFinancialInstitutionName("string")
-                .traceNumber("string")
+                .receivingDepositoryFinancialInstitutionName(
+                    "receiving_depository_financial_institution_name"
+                )
+                .traceNumber("trace_number")
                 .type(InboundInternationalAchTransfer.Type.INBOUND_INTERNATIONAL_ACH_TRANSFER)
                 .build()
         assertThat(inboundInternationalAchTransfer).isNotNull
         assertThat(inboundInternationalAchTransfer.amount()).isEqualTo(123L)
-        assertThat(inboundInternationalAchTransfer.destinationCountryCode()).isEqualTo("string")
-        assertThat(inboundInternationalAchTransfer.destinationCurrencyCode()).isEqualTo("string")
+        assertThat(inboundInternationalAchTransfer.destinationCountryCode())
+            .isEqualTo("destination_country_code")
+        assertThat(inboundInternationalAchTransfer.destinationCurrencyCode())
+            .isEqualTo("destination_currency_code")
         assertThat(inboundInternationalAchTransfer.foreignExchangeIndicator())
             .isEqualTo(InboundInternationalAchTransfer.ForeignExchangeIndicator.FIXED_TO_VARIABLE)
-        assertThat(inboundInternationalAchTransfer.foreignExchangeReference()).contains("string")
+        assertThat(inboundInternationalAchTransfer.foreignExchangeReference())
+            .contains("foreign_exchange_reference")
         assertThat(inboundInternationalAchTransfer.foreignExchangeReferenceIndicator())
             .isEqualTo(
                 InboundInternationalAchTransfer.ForeignExchangeReferenceIndicator
                     .FOREIGN_EXCHANGE_RATE
             )
         assertThat(inboundInternationalAchTransfer.foreignPaymentAmount()).isEqualTo(123L)
-        assertThat(inboundInternationalAchTransfer.foreignTraceNumber()).contains("string")
+        assertThat(inboundInternationalAchTransfer.foreignTraceNumber())
+            .contains("foreign_trace_number")
         assertThat(inboundInternationalAchTransfer.internationalTransactionTypeCode())
             .isEqualTo(InboundInternationalAchTransfer.InternationalTransactionTypeCode.ANNUITY)
-        assertThat(inboundInternationalAchTransfer.originatingCurrencyCode()).isEqualTo("string")
+        assertThat(inboundInternationalAchTransfer.originatingCurrencyCode())
+            .isEqualTo("originating_currency_code")
         assertThat(
                 inboundInternationalAchTransfer
                     .originatingDepositoryFinancialInstitutionBranchCountry()
             )
-            .isEqualTo("string")
+            .isEqualTo("originating_depository_financial_institution_branch_country")
         assertThat(inboundInternationalAchTransfer.originatingDepositoryFinancialInstitutionId())
-            .isEqualTo("string")
+            .isEqualTo("originating_depository_financial_institution_id")
         assertThat(
                 inboundInternationalAchTransfer
                     .originatingDepositoryFinancialInstitutionIdQualifier()
@@ -97,31 +114,41 @@ class InboundInternationalAchTransferTest {
                     .NATIONAL_CLEARING_SYSTEM_NUMBER
             )
         assertThat(inboundInternationalAchTransfer.originatingDepositoryFinancialInstitutionName())
-            .isEqualTo("string")
-        assertThat(inboundInternationalAchTransfer.originatorCity()).isEqualTo("string")
+            .isEqualTo("originating_depository_financial_institution_name")
+        assertThat(inboundInternationalAchTransfer.originatorCity()).isEqualTo("originator_city")
         assertThat(inboundInternationalAchTransfer.originatorCompanyEntryDescription())
-            .isEqualTo("string")
-        assertThat(inboundInternationalAchTransfer.originatorCountry()).isEqualTo("string")
-        assertThat(inboundInternationalAchTransfer.originatorIdentification()).isEqualTo("string")
-        assertThat(inboundInternationalAchTransfer.originatorName()).isEqualTo("string")
-        assertThat(inboundInternationalAchTransfer.originatorPostalCode()).contains("string")
-        assertThat(inboundInternationalAchTransfer.originatorStateOrProvince()).contains("string")
-        assertThat(inboundInternationalAchTransfer.originatorStreetAddress()).isEqualTo("string")
-        assertThat(inboundInternationalAchTransfer.paymentRelatedInformation()).contains("string")
-        assertThat(inboundInternationalAchTransfer.paymentRelatedInformation2()).contains("string")
-        assertThat(inboundInternationalAchTransfer.receiverCity()).isEqualTo("string")
-        assertThat(inboundInternationalAchTransfer.receiverCountry()).isEqualTo("string")
+            .isEqualTo("originator_company_entry_description")
+        assertThat(inboundInternationalAchTransfer.originatorCountry())
+            .isEqualTo("originator_country")
+        assertThat(inboundInternationalAchTransfer.originatorIdentification())
+            .isEqualTo("originator_identification")
+        assertThat(inboundInternationalAchTransfer.originatorName()).isEqualTo("originator_name")
+        assertThat(inboundInternationalAchTransfer.originatorPostalCode())
+            .contains("originator_postal_code")
+        assertThat(inboundInternationalAchTransfer.originatorStateOrProvince())
+            .contains("originator_state_or_province")
+        assertThat(inboundInternationalAchTransfer.originatorStreetAddress())
+            .isEqualTo("originator_street_address")
+        assertThat(inboundInternationalAchTransfer.paymentRelatedInformation())
+            .contains("payment_related_information")
+        assertThat(inboundInternationalAchTransfer.paymentRelatedInformation2())
+            .contains("payment_related_information2")
+        assertThat(inboundInternationalAchTransfer.receiverCity()).isEqualTo("receiver_city")
+        assertThat(inboundInternationalAchTransfer.receiverCountry()).isEqualTo("receiver_country")
         assertThat(inboundInternationalAchTransfer.receiverIdentificationNumber())
-            .contains("string")
-        assertThat(inboundInternationalAchTransfer.receiverPostalCode()).contains("string")
-        assertThat(inboundInternationalAchTransfer.receiverStateOrProvince()).contains("string")
-        assertThat(inboundInternationalAchTransfer.receiverStreetAddress()).isEqualTo("string")
+            .contains("receiver_identification_number")
+        assertThat(inboundInternationalAchTransfer.receiverPostalCode())
+            .contains("receiver_postal_code")
+        assertThat(inboundInternationalAchTransfer.receiverStateOrProvince())
+            .contains("receiver_state_or_province")
+        assertThat(inboundInternationalAchTransfer.receiverStreetAddress())
+            .isEqualTo("receiver_street_address")
         assertThat(inboundInternationalAchTransfer.receivingCompanyOrIndividualName())
-            .isEqualTo("string")
+            .isEqualTo("receiving_company_or_individual_name")
         assertThat(inboundInternationalAchTransfer.receivingDepositoryFinancialInstitutionCountry())
-            .isEqualTo("string")
+            .isEqualTo("receiving_depository_financial_institution_country")
         assertThat(inboundInternationalAchTransfer.receivingDepositoryFinancialInstitutionId())
-            .isEqualTo("string")
+            .isEqualTo("receiving_depository_financial_institution_id")
         assertThat(
                 inboundInternationalAchTransfer.receivingDepositoryFinancialInstitutionIdQualifier()
             )
@@ -130,8 +157,8 @@ class InboundInternationalAchTransferTest {
                     .NATIONAL_CLEARING_SYSTEM_NUMBER
             )
         assertThat(inboundInternationalAchTransfer.receivingDepositoryFinancialInstitutionName())
-            .isEqualTo("string")
-        assertThat(inboundInternationalAchTransfer.traceNumber()).isEqualTo("string")
+            .isEqualTo("receiving_depository_financial_institution_name")
+        assertThat(inboundInternationalAchTransfer.traceNumber()).isEqualTo("trace_number")
         assertThat(inboundInternationalAchTransfer.type())
             .isEqualTo(InboundInternationalAchTransfer.Type.INBOUND_INTERNATIONAL_ACH_TRANSFER)
     }

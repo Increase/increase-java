@@ -44,9 +44,9 @@ class EntityBeneficialOwnerCreateParamsTest {
                                             .DriversLicense
                                             .builder()
                                             .expirationDate(LocalDate.parse("2019-12-27"))
-                                            .fileId("string")
+                                            .fileId("file_id")
                                             .state("x")
-                                            .backFileId("string")
+                                            .backFileId("back_file_id")
                                             .build()
                                     )
                                     .other(
@@ -56,8 +56,8 @@ class EntityBeneficialOwnerCreateParamsTest {
                                             .builder()
                                             .country("x")
                                             .description("x")
-                                            .fileId("string")
-                                            .backFileId("string")
+                                            .fileId("file_id")
+                                            .backFileId("back_file_id")
                                             .expirationDate(LocalDate.parse("2019-12-27"))
                                             .build()
                                     )
@@ -68,7 +68,7 @@ class EntityBeneficialOwnerCreateParamsTest {
                                             .builder()
                                             .country("x")
                                             .expirationDate(LocalDate.parse("2019-12-27"))
-                                            .fileId("string")
+                                            .fileId("file_id")
                                             .build()
                                     )
                                     .build()
@@ -83,7 +83,7 @@ class EntityBeneficialOwnerCreateParamsTest {
                     .companyTitle("x")
                     .build()
             )
-            .entityId("string")
+            .entityId("entity_id")
             .build()
     }
 
@@ -126,9 +126,9 @@ class EntityBeneficialOwnerCreateParamsTest {
                                                 .DriversLicense
                                                 .builder()
                                                 .expirationDate(LocalDate.parse("2019-12-27"))
-                                                .fileId("string")
+                                                .fileId("file_id")
                                                 .state("x")
-                                                .backFileId("string")
+                                                .backFileId("back_file_id")
                                                 .build()
                                         )
                                         .other(
@@ -139,8 +139,8 @@ class EntityBeneficialOwnerCreateParamsTest {
                                                 .builder()
                                                 .country("x")
                                                 .description("x")
-                                                .fileId("string")
-                                                .backFileId("string")
+                                                .fileId("file_id")
+                                                .backFileId("back_file_id")
                                                 .expirationDate(LocalDate.parse("2019-12-27"))
                                                 .build()
                                         )
@@ -152,7 +152,7 @@ class EntityBeneficialOwnerCreateParamsTest {
                                                 .builder()
                                                 .country("x")
                                                 .expirationDate(LocalDate.parse("2019-12-27"))
-                                                .fileId("string")
+                                                .fileId("file_id")
                                                 .build()
                                         )
                                         .build()
@@ -169,7 +169,7 @@ class EntityBeneficialOwnerCreateParamsTest {
                         .companyTitle("x")
                         .build()
                 )
-                .entityId("string")
+                .entityId("entity_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -206,9 +206,9 @@ class EntityBeneficialOwnerCreateParamsTest {
                                             .DriversLicense
                                             .builder()
                                             .expirationDate(LocalDate.parse("2019-12-27"))
-                                            .fileId("string")
+                                            .fileId("file_id")
                                             .state("x")
-                                            .backFileId("string")
+                                            .backFileId("back_file_id")
                                             .build()
                                     )
                                     .other(
@@ -218,8 +218,8 @@ class EntityBeneficialOwnerCreateParamsTest {
                                             .builder()
                                             .country("x")
                                             .description("x")
-                                            .fileId("string")
-                                            .backFileId("string")
+                                            .fileId("file_id")
+                                            .backFileId("back_file_id")
                                             .expirationDate(LocalDate.parse("2019-12-27"))
                                             .build()
                                     )
@@ -230,7 +230,7 @@ class EntityBeneficialOwnerCreateParamsTest {
                                             .builder()
                                             .country("x")
                                             .expirationDate(LocalDate.parse("2019-12-27"))
-                                            .fileId("string")
+                                            .fileId("file_id")
                                             .build()
                                     )
                                     .build()
@@ -245,7 +245,7 @@ class EntityBeneficialOwnerCreateParamsTest {
                     .companyTitle("x")
                     .build()
             )
-        assertThat(body.entityId()).isEqualTo("string")
+        assertThat(body.entityId()).isEqualTo("entity_id")
     }
 
     @Test
@@ -291,7 +291,7 @@ class EntityBeneficialOwnerCreateParamsTest {
                         )
                         .build()
                 )
-                .entityId("string")
+                .entityId("entity_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -331,6 +331,6 @@ class EntityBeneficialOwnerCreateParamsTest {
                     )
                     .build()
             )
-        assertThat(body.entityId()).isEqualTo("string")
+        assertThat(body.entityId()).isEqualTo("entity_id")
     }
 }

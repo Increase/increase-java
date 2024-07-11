@@ -10,13 +10,13 @@ class EntityIndustryCodeCreateParamsTest {
 
     @Test
     fun createEntityIndustryCodeCreateParams() {
-        EntityIndustryCodeCreateParams.builder().entityId("string").industryCode("x").build()
+        EntityIndustryCodeCreateParams.builder().entityId("entity_id").industryCode("x").build()
     }
 
     @Test
     fun getBody() {
         val params =
-            EntityIndustryCodeCreateParams.builder().entityId("string").industryCode("x").build()
+            EntityIndustryCodeCreateParams.builder().entityId("entity_id").industryCode("x").build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.industryCode()).isEqualTo("x")
@@ -25,7 +25,7 @@ class EntityIndustryCodeCreateParamsTest {
     @Test
     fun getBodyWithoutOptionalFields() {
         val params =
-            EntityIndustryCodeCreateParams.builder().entityId("string").industryCode("x").build()
+            EntityIndustryCodeCreateParams.builder().entityId("entity_id").industryCode("x").build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.industryCode()).isEqualTo("x")
@@ -34,10 +34,10 @@ class EntityIndustryCodeCreateParamsTest {
     @Test
     fun getPathParam() {
         val params =
-            EntityIndustryCodeCreateParams.builder().entityId("string").industryCode("x").build()
+            EntityIndustryCodeCreateParams.builder().entityId("entity_id").industryCode("x").build()
         assertThat(params).isNotNull
         // path param "entityId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("entity_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

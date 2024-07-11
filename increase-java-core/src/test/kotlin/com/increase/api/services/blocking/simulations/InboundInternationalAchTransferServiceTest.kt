@@ -23,7 +23,7 @@ class InboundInternationalAchTransferServiceTest {
         val inboundInternationalAchTransfer =
             inboundInternationalAchTransferService.create(
                 SimulationInboundInternationalAchTransferCreateParams.builder()
-                    .accountNumberId("string")
+                    .accountNumberId("account_number_id")
                     .amount(123L)
                     .foreignPaymentAmount(123L)
                     .originatingCurrencyCode("x")

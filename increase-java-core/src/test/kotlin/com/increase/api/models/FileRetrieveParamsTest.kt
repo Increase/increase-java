@@ -10,15 +10,15 @@ class FileRetrieveParamsTest {
 
     @Test
     fun createFileRetrieveParams() {
-        FileRetrieveParams.builder().fileId("string").build()
+        FileRetrieveParams.builder().fileId("file_id").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = FileRetrieveParams.builder().fileId("string").build()
+        val params = FileRetrieveParams.builder().fileId("file_id").build()
         assertThat(params).isNotNull
         // path param "fileId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("file_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

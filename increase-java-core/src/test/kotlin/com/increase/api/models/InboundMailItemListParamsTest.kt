@@ -20,9 +20,9 @@ class InboundMailItemListParamsTest {
                     .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
-            .cursor("string")
+            .cursor("cursor")
             .limit(123L)
-            .lockboxId("string")
+            .lockboxId("lockbox_id")
             .build()
     }
 
@@ -38,9 +38,9 @@ class InboundMailItemListParamsTest {
                         .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
-                .cursor("string")
+                .cursor("cursor")
                 .limit(123L)
-                .lockboxId("string")
+                .lockboxId("lockbox_id")
                 .build()
         val expected = mutableMapOf<String, List<String>>()
         InboundMailItemListParams.CreatedAt.builder()
@@ -50,9 +50,9 @@ class InboundMailItemListParamsTest {
             .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
-        expected.put("cursor", listOf("string"))
+        expected.put("cursor", listOf("cursor"))
         expected.put("limit", listOf("123"))
-        expected.put("lockbox_id", listOf("string"))
+        expected.put("lockbox_id", listOf("lockbox_id"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 

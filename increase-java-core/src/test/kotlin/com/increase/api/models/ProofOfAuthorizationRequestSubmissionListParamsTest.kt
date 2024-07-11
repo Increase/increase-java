@@ -11,10 +11,10 @@ class ProofOfAuthorizationRequestSubmissionListParamsTest {
     @Test
     fun createProofOfAuthorizationRequestSubmissionListParams() {
         ProofOfAuthorizationRequestSubmissionListParams.builder()
-            .cursor("string")
+            .cursor("cursor")
             .idempotencyKey("x")
             .limit(123L)
-            .proofOfAuthorizationRequestId("string")
+            .proofOfAuthorizationRequestId("proof_of_authorization_request_id")
             .build()
     }
 
@@ -22,16 +22,19 @@ class ProofOfAuthorizationRequestSubmissionListParamsTest {
     fun getQueryParams() {
         val params =
             ProofOfAuthorizationRequestSubmissionListParams.builder()
-                .cursor("string")
+                .cursor("cursor")
                 .idempotencyKey("x")
                 .limit(123L)
-                .proofOfAuthorizationRequestId("string")
+                .proofOfAuthorizationRequestId("proof_of_authorization_request_id")
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("cursor", listOf("string"))
+        expected.put("cursor", listOf("cursor"))
         expected.put("idempotency_key", listOf("x"))
         expected.put("limit", listOf("123"))
-        expected.put("proof_of_authorization_request_id", listOf("string"))
+        expected.put(
+            "proof_of_authorization_request_id",
+            listOf("proof_of_authorization_request_id")
+        )
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 

@@ -10,24 +10,24 @@ class SimulationDigitalWalletTokenRequestCreateParamsTest {
 
     @Test
     fun createSimulationDigitalWalletTokenRequestCreateParams() {
-        SimulationDigitalWalletTokenRequestCreateParams.builder().cardId("string").build()
+        SimulationDigitalWalletTokenRequestCreateParams.builder().cardId("card_id").build()
     }
 
     @Test
     fun getBody() {
         val params =
-            SimulationDigitalWalletTokenRequestCreateParams.builder().cardId("string").build()
+            SimulationDigitalWalletTokenRequestCreateParams.builder().cardId("card_id").build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.cardId()).isEqualTo("string")
+        assertThat(body.cardId()).isEqualTo("card_id")
     }
 
     @Test
     fun getBodyWithoutOptionalFields() {
         val params =
-            SimulationDigitalWalletTokenRequestCreateParams.builder().cardId("string").build()
+            SimulationDigitalWalletTokenRequestCreateParams.builder().cardId("card_id").build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.cardId()).isEqualTo("string")
+        assertThat(body.cardId()).isEqualTo("card_id")
     }
 }

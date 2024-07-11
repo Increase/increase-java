@@ -11,7 +11,7 @@ class RealTimePaymentsTransferRetrieveParamsTest {
     @Test
     fun createRealTimePaymentsTransferRetrieveParams() {
         RealTimePaymentsTransferRetrieveParams.builder()
-            .realTimePaymentsTransferId("string")
+            .realTimePaymentsTransferId("real_time_payments_transfer_id")
             .build()
     }
 
@@ -19,11 +19,11 @@ class RealTimePaymentsTransferRetrieveParamsTest {
     fun getPathParam() {
         val params =
             RealTimePaymentsTransferRetrieveParams.builder()
-                .realTimePaymentsTransferId("string")
+                .realTimePaymentsTransferId("real_time_payments_transfer_id")
                 .build()
         assertThat(params).isNotNull
         // path param "realTimePaymentsTransferId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("real_time_payments_transfer_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

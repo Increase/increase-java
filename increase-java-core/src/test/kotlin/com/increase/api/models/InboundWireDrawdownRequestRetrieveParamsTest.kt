@@ -11,7 +11,7 @@ class InboundWireDrawdownRequestRetrieveParamsTest {
     @Test
     fun createInboundWireDrawdownRequestRetrieveParams() {
         InboundWireDrawdownRequestRetrieveParams.builder()
-            .inboundWireDrawdownRequestId("string")
+            .inboundWireDrawdownRequestId("inbound_wire_drawdown_request_id")
             .build()
     }
 
@@ -19,11 +19,11 @@ class InboundWireDrawdownRequestRetrieveParamsTest {
     fun getPathParam() {
         val params =
             InboundWireDrawdownRequestRetrieveParams.builder()
-                .inboundWireDrawdownRequestId("string")
+                .inboundWireDrawdownRequestId("inbound_wire_drawdown_request_id")
                 .build()
         assertThat(params).isNotNull
         // path param "inboundWireDrawdownRequestId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("inbound_wire_drawdown_request_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

@@ -11,7 +11,7 @@ class ProofOfAuthorizationRequestSubmissionRetrieveParamsTest {
     @Test
     fun createProofOfAuthorizationRequestSubmissionRetrieveParams() {
         ProofOfAuthorizationRequestSubmissionRetrieveParams.builder()
-            .proofOfAuthorizationRequestSubmissionId("string")
+            .proofOfAuthorizationRequestSubmissionId("proof_of_authorization_request_submission_id")
             .build()
     }
 
@@ -19,11 +19,13 @@ class ProofOfAuthorizationRequestSubmissionRetrieveParamsTest {
     fun getPathParam() {
         val params =
             ProofOfAuthorizationRequestSubmissionRetrieveParams.builder()
-                .proofOfAuthorizationRequestSubmissionId("string")
+                .proofOfAuthorizationRequestSubmissionId(
+                    "proof_of_authorization_request_submission_id"
+                )
                 .build()
         assertThat(params).isNotNull
         // path param "proofOfAuthorizationRequestSubmissionId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("proof_of_authorization_request_submission_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

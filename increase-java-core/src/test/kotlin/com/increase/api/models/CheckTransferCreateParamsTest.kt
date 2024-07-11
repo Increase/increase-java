@@ -11,9 +11,9 @@ class CheckTransferCreateParamsTest {
     @Test
     fun createCheckTransferCreateParams() {
         CheckTransferCreateParams.builder()
-            .accountId("string")
+            .accountId("account_id")
             .amount(123L)
-            .sourceAccountNumberId("string")
+            .sourceAccountNumberId("source_account_number_id")
             .fulfillmentMethod(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
             .physicalCheck(
                 CheckTransferCreateParams.PhysicalCheck.builder()
@@ -52,9 +52,9 @@ class CheckTransferCreateParamsTest {
     fun getBody() {
         val params =
             CheckTransferCreateParams.builder()
-                .accountId("string")
+                .accountId("account_id")
                 .amount(123L)
-                .sourceAccountNumberId("string")
+                .sourceAccountNumberId("source_account_number_id")
                 .fulfillmentMethod(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
                 .physicalCheck(
                     CheckTransferCreateParams.PhysicalCheck.builder()
@@ -89,9 +89,9 @@ class CheckTransferCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("string")
+        assertThat(body.accountId()).isEqualTo("account_id")
         assertThat(body.amount()).isEqualTo(123L)
-        assertThat(body.sourceAccountNumberId()).isEqualTo("string")
+        assertThat(body.sourceAccountNumberId()).isEqualTo("source_account_number_id")
         assertThat(body.fulfillmentMethod())
             .isEqualTo(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
         assertThat(body.physicalCheck())
@@ -132,14 +132,14 @@ class CheckTransferCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             CheckTransferCreateParams.builder()
-                .accountId("string")
+                .accountId("account_id")
                 .amount(123L)
-                .sourceAccountNumberId("string")
+                .sourceAccountNumberId("source_account_number_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("string")
+        assertThat(body.accountId()).isEqualTo("account_id")
         assertThat(body.amount()).isEqualTo(123L)
-        assertThat(body.sourceAccountNumberId()).isEqualTo("string")
+        assertThat(body.sourceAccountNumberId()).isEqualTo("source_account_number_id")
     }
 }
