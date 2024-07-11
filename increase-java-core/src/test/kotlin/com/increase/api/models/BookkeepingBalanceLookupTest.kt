@@ -12,12 +12,13 @@ class BookkeepingBalanceLookupTest {
         val bookkeepingBalanceLookup =
             BookkeepingBalanceLookup.builder()
                 .balance(123L)
-                .bookkeepingAccountId("string")
+                .bookkeepingAccountId("bookkeeping_account_id")
                 .type(BookkeepingBalanceLookup.Type.BOOKKEEPING_BALANCE_LOOKUP)
                 .build()
         assertThat(bookkeepingBalanceLookup).isNotNull
         assertThat(bookkeepingBalanceLookup.balance()).isEqualTo(123L)
-        assertThat(bookkeepingBalanceLookup.bookkeepingAccountId()).isEqualTo("string")
+        assertThat(bookkeepingBalanceLookup.bookkeepingAccountId())
+            .isEqualTo("bookkeeping_account_id")
         assertThat(bookkeepingBalanceLookup.type())
             .isEqualTo(BookkeepingBalanceLookup.Type.BOOKKEEPING_BALANCE_LOOKUP)
     }

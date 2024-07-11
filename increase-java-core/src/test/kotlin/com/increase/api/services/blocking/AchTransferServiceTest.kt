@@ -24,7 +24,7 @@ class AchTransferServiceTest {
         val achTransfer =
             achTransferService.create(
                 AchTransferCreateParams.builder()
-                    .accountId("string")
+                    .accountId("account_id")
                     .amount(123L)
                     .statementDescriptor("x")
                     .accountNumber("x")
@@ -68,7 +68,7 @@ class AchTransferServiceTest {
                         AchTransferCreateParams.DestinationAccountHolder.BUSINESS
                     )
                     .effectiveDate(LocalDate.parse("2019-12-27"))
-                    .externalAccountId("string")
+                    .externalAccountId("external_account_id")
                     .funding(AchTransferCreateParams.Funding.CHECKING)
                     .individualId("x")
                     .individualName("x")
@@ -102,7 +102,7 @@ class AchTransferServiceTest {
         val achTransferService = client.achTransfers()
         val achTransfer =
             achTransferService.retrieve(
-                AchTransferRetrieveParams.builder().achTransferId("string").build()
+                AchTransferRetrieveParams.builder().achTransferId("ach_transfer_id").build()
             )
         println(achTransfer)
         achTransfer.validate()
@@ -131,7 +131,7 @@ class AchTransferServiceTest {
         val achTransferService = client.achTransfers()
         val achTransfer =
             achTransferService.approve(
-                AchTransferApproveParams.builder().achTransferId("string").build()
+                AchTransferApproveParams.builder().achTransferId("ach_transfer_id").build()
             )
         println(achTransfer)
         achTransfer.validate()
@@ -147,7 +147,7 @@ class AchTransferServiceTest {
         val achTransferService = client.achTransfers()
         val achTransfer =
             achTransferService.cancel(
-                AchTransferCancelParams.builder().achTransferId("string").build()
+                AchTransferCancelParams.builder().achTransferId("ach_transfer_id").build()
             )
         println(achTransfer)
         achTransfer.validate()

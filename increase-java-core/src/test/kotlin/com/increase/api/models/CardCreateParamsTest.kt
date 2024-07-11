@@ -11,7 +11,7 @@ class CardCreateParamsTest {
     @Test
     fun createCardCreateParams() {
         CardCreateParams.builder()
-            .accountId("string")
+            .accountId("account_id")
             .billingAddress(
                 CardCreateParams.BillingAddress.builder()
                     .city("x")
@@ -24,12 +24,12 @@ class CardCreateParamsTest {
             .description("x")
             .digitalWallet(
                 CardCreateParams.DigitalWallet.builder()
-                    .digitalCardProfileId("string")
+                    .digitalCardProfileId("digital_card_profile_id")
                     .email("x")
                     .phone("x")
                     .build()
             )
-            .entityId("string")
+            .entityId("entity_id")
             .build()
     }
 
@@ -37,7 +37,7 @@ class CardCreateParamsTest {
     fun getBody() {
         val params =
             CardCreateParams.builder()
-                .accountId("string")
+                .accountId("account_id")
                 .billingAddress(
                     CardCreateParams.BillingAddress.builder()
                         .city("x")
@@ -50,16 +50,16 @@ class CardCreateParamsTest {
                 .description("x")
                 .digitalWallet(
                     CardCreateParams.DigitalWallet.builder()
-                        .digitalCardProfileId("string")
+                        .digitalCardProfileId("digital_card_profile_id")
                         .email("x")
                         .phone("x")
                         .build()
                 )
-                .entityId("string")
+                .entityId("entity_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("string")
+        assertThat(body.accountId()).isEqualTo("account_id")
         assertThat(body.billingAddress())
             .isEqualTo(
                 CardCreateParams.BillingAddress.builder()
@@ -74,19 +74,19 @@ class CardCreateParamsTest {
         assertThat(body.digitalWallet())
             .isEqualTo(
                 CardCreateParams.DigitalWallet.builder()
-                    .digitalCardProfileId("string")
+                    .digitalCardProfileId("digital_card_profile_id")
                     .email("x")
                     .phone("x")
                     .build()
             )
-        assertThat(body.entityId()).isEqualTo("string")
+        assertThat(body.entityId()).isEqualTo("entity_id")
     }
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = CardCreateParams.builder().accountId("string").build()
+        val params = CardCreateParams.builder().accountId("account_id").build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("string")
+        assertThat(body.accountId()).isEqualTo("account_id")
     }
 }

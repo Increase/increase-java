@@ -10,7 +10,10 @@ class SimulationCardFuelConfirmationsParamsTest {
 
     @Test
     fun createSimulationCardFuelConfirmationsParams() {
-        SimulationCardFuelConfirmationsParams.builder().amount(123L).cardPaymentId("string").build()
+        SimulationCardFuelConfirmationsParams.builder()
+            .amount(123L)
+            .cardPaymentId("card_payment_id")
+            .build()
     }
 
     @Test
@@ -18,12 +21,12 @@ class SimulationCardFuelConfirmationsParamsTest {
         val params =
             SimulationCardFuelConfirmationsParams.builder()
                 .amount(123L)
-                .cardPaymentId("string")
+                .cardPaymentId("card_payment_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.amount()).isEqualTo(123L)
-        assertThat(body.cardPaymentId()).isEqualTo("string")
+        assertThat(body.cardPaymentId()).isEqualTo("card_payment_id")
     }
 
     @Test
@@ -31,11 +34,11 @@ class SimulationCardFuelConfirmationsParamsTest {
         val params =
             SimulationCardFuelConfirmationsParams.builder()
                 .amount(123L)
-                .cardPaymentId("string")
+                .cardPaymentId("card_payment_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.amount()).isEqualTo(123L)
-        assertThat(body.cardPaymentId()).isEqualTo("string")
+        assertThat(body.cardPaymentId()).isEqualTo("card_payment_id")
     }
 }

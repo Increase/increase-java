@@ -11,7 +11,7 @@ class SimulationWireTransferCreateInboundParamsTest {
     @Test
     fun createSimulationWireTransferCreateInboundParams() {
         SimulationWireTransferCreateInboundParams.builder()
-            .accountNumberId("string")
+            .accountNumberId("account_number_id")
             .amount(123L)
             .beneficiaryAddressLine1("x")
             .beneficiaryAddressLine2("x")
@@ -34,7 +34,7 @@ class SimulationWireTransferCreateInboundParamsTest {
     fun getBody() {
         val params =
             SimulationWireTransferCreateInboundParams.builder()
-                .accountNumberId("string")
+                .accountNumberId("account_number_id")
                 .amount(123L)
                 .beneficiaryAddressLine1("x")
                 .beneficiaryAddressLine2("x")
@@ -53,7 +53,7 @@ class SimulationWireTransferCreateInboundParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountNumberId()).isEqualTo("string")
+        assertThat(body.accountNumberId()).isEqualTo("account_number_id")
         assertThat(body.amount()).isEqualTo(123L)
         assertThat(body.beneficiaryAddressLine1()).isEqualTo("x")
         assertThat(body.beneficiaryAddressLine2()).isEqualTo("x")
@@ -75,12 +75,12 @@ class SimulationWireTransferCreateInboundParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             SimulationWireTransferCreateInboundParams.builder()
-                .accountNumberId("string")
+                .accountNumberId("account_number_id")
                 .amount(123L)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountNumberId()).isEqualTo("string")
+        assertThat(body.accountNumberId()).isEqualTo("account_number_id")
         assertThat(body.amount()).isEqualTo(123L)
     }
 }

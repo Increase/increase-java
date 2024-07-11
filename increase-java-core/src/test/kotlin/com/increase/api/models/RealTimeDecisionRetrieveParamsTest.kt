@@ -10,15 +10,18 @@ class RealTimeDecisionRetrieveParamsTest {
 
     @Test
     fun createRealTimeDecisionRetrieveParams() {
-        RealTimeDecisionRetrieveParams.builder().realTimeDecisionId("string").build()
+        RealTimeDecisionRetrieveParams.builder().realTimeDecisionId("real_time_decision_id").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = RealTimeDecisionRetrieveParams.builder().realTimeDecisionId("string").build()
+        val params =
+            RealTimeDecisionRetrieveParams.builder()
+                .realTimeDecisionId("real_time_decision_id")
+                .build()
         assertThat(params).isNotNull
         // path param "realTimeDecisionId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("real_time_decision_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

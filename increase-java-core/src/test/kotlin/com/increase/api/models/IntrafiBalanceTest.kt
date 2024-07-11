@@ -12,20 +12,20 @@ class IntrafiBalanceTest {
     fun createIntrafiBalance() {
         val intrafiBalance =
             IntrafiBalance.builder()
-                .id("string")
+                .id("id")
                 .balances(
                     listOf(
                         IntrafiBalance.Balance.builder()
-                            .id("string")
+                            .id("id")
                             .balance(123L)
-                            .bank("string")
+                            .bank("bank")
                             .bankLocation(
                                 IntrafiBalance.Balance.BankLocation.builder()
-                                    .city("string")
-                                    .state("string")
+                                    .city("city")
+                                    .state("state")
                                     .build()
                             )
-                            .fdicCertificateNumber("string")
+                            .fdicCertificateNumber("fdic_certificate_number")
                             .build()
                     )
                 )
@@ -35,20 +35,20 @@ class IntrafiBalanceTest {
                 .type(IntrafiBalance.Type.INTRAFI_BALANCE)
                 .build()
         assertThat(intrafiBalance).isNotNull
-        assertThat(intrafiBalance.id()).isEqualTo("string")
+        assertThat(intrafiBalance.id()).isEqualTo("id")
         assertThat(intrafiBalance.balances())
             .containsExactly(
                 IntrafiBalance.Balance.builder()
-                    .id("string")
+                    .id("id")
                     .balance(123L)
-                    .bank("string")
+                    .bank("bank")
                     .bankLocation(
                         IntrafiBalance.Balance.BankLocation.builder()
-                            .city("string")
-                            .state("string")
+                            .city("city")
+                            .state("state")
                             .build()
                     )
-                    .fdicCertificateNumber("string")
+                    .fdicCertificateNumber("fdic_certificate_number")
                     .build()
             )
         assertThat(intrafiBalance.currency()).isEqualTo(IntrafiBalance.Currency.CAD)

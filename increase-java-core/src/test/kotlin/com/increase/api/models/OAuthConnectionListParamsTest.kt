@@ -11,7 +11,7 @@ class OAuthConnectionListParamsTest {
     @Test
     fun createOAuthConnectionListParams() {
         OAuthConnectionListParams.builder()
-            .cursor("string")
+            .cursor("cursor")
             .limit(123L)
             .status(
                 OAuthConnectionListParams.Status.builder()
@@ -25,7 +25,7 @@ class OAuthConnectionListParamsTest {
     fun getQueryParams() {
         val params =
             OAuthConnectionListParams.builder()
-                .cursor("string")
+                .cursor("cursor")
                 .limit(123L)
                 .status(
                     OAuthConnectionListParams.Status.builder()
@@ -34,7 +34,7 @@ class OAuthConnectionListParamsTest {
                 )
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("cursor", listOf("string"))
+        expected.put("cursor", listOf("cursor"))
         expected.put("limit", listOf("123"))
         OAuthConnectionListParams.Status.builder()
             .in_(listOf(OAuthConnectionListParams.Status.In.ACTIVE))

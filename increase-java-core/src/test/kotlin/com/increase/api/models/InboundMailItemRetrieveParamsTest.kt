@@ -10,15 +10,18 @@ class InboundMailItemRetrieveParamsTest {
 
     @Test
     fun createInboundMailItemRetrieveParams() {
-        InboundMailItemRetrieveParams.builder().inboundMailItemId("string").build()
+        InboundMailItemRetrieveParams.builder().inboundMailItemId("inbound_mail_item_id").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = InboundMailItemRetrieveParams.builder().inboundMailItemId("string").build()
+        val params =
+            InboundMailItemRetrieveParams.builder()
+                .inboundMailItemId("inbound_mail_item_id")
+                .build()
         assertThat(params).isNotNull
         // path param "inboundMailItemId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("inbound_mail_item_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

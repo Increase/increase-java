@@ -27,13 +27,13 @@ class BookkeepingEntrySetServiceTest {
                     .entries(
                         listOf(
                             BookkeepingEntrySetCreateParams.Entry.builder()
-                                .accountId("string")
+                                .accountId("account_id")
                                 .amount(123L)
                                 .build()
                         )
                     )
                     .date(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .transactionId("string")
+                    .transactionId("transaction_id")
                     .build()
             )
         println(bookkeepingEntrySet)
@@ -50,7 +50,9 @@ class BookkeepingEntrySetServiceTest {
         val bookkeepingEntrySetService = client.bookkeepingEntrySets()
         val bookkeepingEntrySet =
             bookkeepingEntrySetService.retrieve(
-                BookkeepingEntrySetRetrieveParams.builder().bookkeepingEntrySetId("string").build()
+                BookkeepingEntrySetRetrieveParams.builder()
+                    .bookkeepingEntrySetId("bookkeeping_entry_set_id")
+                    .build()
             )
         println(bookkeepingEntrySet)
         bookkeepingEntrySet.validate()

@@ -29,7 +29,7 @@ class InboundWireDrawdownRequestServiceTest {
                     .messageToRecipient("x")
                     .originatorAccountNumber("x")
                     .originatorRoutingNumber("x")
-                    .recipientAccountNumberId("string")
+                    .recipientAccountNumberId("recipient_account_number_id")
                     .beneficiaryAddressLine1("x")
                     .beneficiaryAddressLine2("x")
                     .beneficiaryAddressLine3("x")

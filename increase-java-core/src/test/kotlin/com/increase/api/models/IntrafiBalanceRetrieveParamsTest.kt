@@ -10,15 +10,15 @@ class IntrafiBalanceRetrieveParamsTest {
 
     @Test
     fun createIntrafiBalanceRetrieveParams() {
-        IntrafiBalanceRetrieveParams.builder().accountId("string").build()
+        IntrafiBalanceRetrieveParams.builder().accountId("account_id").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = IntrafiBalanceRetrieveParams.builder().accountId("string").build()
+        val params = IntrafiBalanceRetrieveParams.builder().accountId("account_id").build()
         assertThat(params).isNotNull
         // path param "accountId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("account_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

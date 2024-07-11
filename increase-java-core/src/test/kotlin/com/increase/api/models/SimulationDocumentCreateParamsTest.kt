@@ -10,22 +10,22 @@ class SimulationDocumentCreateParamsTest {
 
     @Test
     fun createSimulationDocumentCreateParams() {
-        SimulationDocumentCreateParams.builder().accountId("string").build()
+        SimulationDocumentCreateParams.builder().accountId("account_id").build()
     }
 
     @Test
     fun getBody() {
-        val params = SimulationDocumentCreateParams.builder().accountId("string").build()
+        val params = SimulationDocumentCreateParams.builder().accountId("account_id").build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("string")
+        assertThat(body.accountId()).isEqualTo("account_id")
     }
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = SimulationDocumentCreateParams.builder().accountId("string").build()
+        val params = SimulationDocumentCreateParams.builder().accountId("account_id").build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("string")
+        assertThat(body.accountId()).isEqualTo("account_id")
     }
 }

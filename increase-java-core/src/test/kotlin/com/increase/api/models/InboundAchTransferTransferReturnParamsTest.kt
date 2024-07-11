@@ -11,7 +11,7 @@ class InboundAchTransferTransferReturnParamsTest {
     @Test
     fun createInboundAchTransferTransferReturnParams() {
         InboundAchTransferTransferReturnParams.builder()
-            .inboundAchTransferId("string")
+            .inboundAchTransferId("inbound_ach_transfer_id")
             .reason(InboundAchTransferTransferReturnParams.Reason.INSUFFICIENT_FUNDS)
             .build()
     }
@@ -20,7 +20,7 @@ class InboundAchTransferTransferReturnParamsTest {
     fun getBody() {
         val params =
             InboundAchTransferTransferReturnParams.builder()
-                .inboundAchTransferId("string")
+                .inboundAchTransferId("inbound_ach_transfer_id")
                 .reason(InboundAchTransferTransferReturnParams.Reason.INSUFFICIENT_FUNDS)
                 .build()
         val body = params.getBody()
@@ -33,7 +33,7 @@ class InboundAchTransferTransferReturnParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             InboundAchTransferTransferReturnParams.builder()
-                .inboundAchTransferId("string")
+                .inboundAchTransferId("inbound_ach_transfer_id")
                 .reason(InboundAchTransferTransferReturnParams.Reason.INSUFFICIENT_FUNDS)
                 .build()
         val body = params.getBody()
@@ -46,12 +46,12 @@ class InboundAchTransferTransferReturnParamsTest {
     fun getPathParam() {
         val params =
             InboundAchTransferTransferReturnParams.builder()
-                .inboundAchTransferId("string")
+                .inboundAchTransferId("inbound_ach_transfer_id")
                 .reason(InboundAchTransferTransferReturnParams.Reason.INSUFFICIENT_FUNDS)
                 .build()
         assertThat(params).isNotNull
         // path param "inboundAchTransferId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("inbound_ach_transfer_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

@@ -10,12 +10,12 @@ class AccountUpdateParamsTest {
 
     @Test
     fun createAccountUpdateParams() {
-        AccountUpdateParams.builder().accountId("string").name("x").build()
+        AccountUpdateParams.builder().accountId("account_id").name("x").build()
     }
 
     @Test
     fun getBody() {
-        val params = AccountUpdateParams.builder().accountId("string").name("x").build()
+        val params = AccountUpdateParams.builder().accountId("account_id").name("x").build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.name()).isEqualTo("x")
@@ -23,17 +23,17 @@ class AccountUpdateParamsTest {
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = AccountUpdateParams.builder().accountId("string").build()
+        val params = AccountUpdateParams.builder().accountId("account_id").build()
         val body = params.getBody()
         assertThat(body).isNotNull
     }
 
     @Test
     fun getPathParam() {
-        val params = AccountUpdateParams.builder().accountId("string").build()
+        val params = AccountUpdateParams.builder().accountId("account_id").build()
         assertThat(params).isNotNull
         // path param "accountId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("account_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

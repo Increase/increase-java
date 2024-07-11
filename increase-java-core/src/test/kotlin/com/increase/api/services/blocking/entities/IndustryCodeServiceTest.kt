@@ -22,7 +22,7 @@ class IndustryCodeServiceTest {
         val entity =
             industryCodeService.create(
                 EntityIndustryCodeCreateParams.builder()
-                    .entityId("string")
+                    .entityId("entity_id")
                     .industryCode("x")
                     .build()
             )

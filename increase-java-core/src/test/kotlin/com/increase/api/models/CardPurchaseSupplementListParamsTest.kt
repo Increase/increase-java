@@ -12,7 +12,7 @@ class CardPurchaseSupplementListParamsTest {
     @Test
     fun createCardPurchaseSupplementListParams() {
         CardPurchaseSupplementListParams.builder()
-            .cardPaymentId("string")
+            .cardPaymentId("card_payment_id")
             .createdAt(
                 CardPurchaseSupplementListParams.CreatedAt.builder()
                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -21,7 +21,7 @@ class CardPurchaseSupplementListParamsTest {
                     .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
-            .cursor("string")
+            .cursor("cursor")
             .limit(123L)
             .build()
     }
@@ -30,7 +30,7 @@ class CardPurchaseSupplementListParamsTest {
     fun getQueryParams() {
         val params =
             CardPurchaseSupplementListParams.builder()
-                .cardPaymentId("string")
+                .cardPaymentId("card_payment_id")
                 .createdAt(
                     CardPurchaseSupplementListParams.CreatedAt.builder()
                         .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -39,11 +39,11 @@ class CardPurchaseSupplementListParamsTest {
                         .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
-                .cursor("string")
+                .cursor("cursor")
                 .limit(123L)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("card_payment_id", listOf("string"))
+        expected.put("card_payment_id", listOf("card_payment_id"))
         CardPurchaseSupplementListParams.CreatedAt.builder()
             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -51,7 +51,7 @@ class CardPurchaseSupplementListParamsTest {
             .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
-        expected.put("cursor", listOf("string"))
+        expected.put("cursor", listOf("cursor"))
         expected.put("limit", listOf("123"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }

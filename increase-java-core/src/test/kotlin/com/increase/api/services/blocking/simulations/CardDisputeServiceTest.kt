@@ -22,7 +22,7 @@ class CardDisputeServiceTest {
         val cardDispute =
             cardDisputeService.action(
                 SimulationCardDisputeActionParams.builder()
-                    .cardDisputeId("string")
+                    .cardDisputeId("card_dispute_id")
                     .status(SimulationCardDisputeActionParams.Status.ACCEPTED)
                     .explanation("x")
                     .build()

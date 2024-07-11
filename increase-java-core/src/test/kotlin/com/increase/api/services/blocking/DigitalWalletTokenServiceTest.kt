@@ -22,7 +22,9 @@ class DigitalWalletTokenServiceTest {
         val digitalWalletTokenService = client.digitalWalletTokens()
         val digitalWalletToken =
             digitalWalletTokenService.retrieve(
-                DigitalWalletTokenRetrieveParams.builder().digitalWalletTokenId("string").build()
+                DigitalWalletTokenRetrieveParams.builder()
+                    .digitalWalletTokenId("digital_wallet_token_id")
+                    .build()
             )
         println(digitalWalletToken)
         digitalWalletToken.validate()

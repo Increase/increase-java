@@ -23,7 +23,7 @@ class ProofOfAuthorizationRequestServiceTest {
         val proofOfAuthorizationRequest =
             proofOfAuthorizationRequestService.retrieve(
                 ProofOfAuthorizationRequestRetrieveParams.builder()
-                    .proofOfAuthorizationRequestId("string")
+                    .proofOfAuthorizationRequestId("proof_of_authorization_request_id")
                     .build()
             )
         println(proofOfAuthorizationRequest)

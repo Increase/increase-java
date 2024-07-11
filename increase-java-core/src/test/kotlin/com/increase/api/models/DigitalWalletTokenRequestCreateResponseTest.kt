@@ -14,7 +14,7 @@ class DigitalWalletTokenRequestCreateResponseTest {
                 .declineReason(
                     DigitalWalletTokenRequestCreateResponse.DeclineReason.CARD_NOT_ACTIVE
                 )
-                .digitalWalletTokenId("string")
+                .digitalWalletTokenId("digital_wallet_token_id")
                 .type(
                     DigitalWalletTokenRequestCreateResponse.Type
                         .INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT
@@ -24,7 +24,7 @@ class DigitalWalletTokenRequestCreateResponseTest {
         assertThat(digitalWalletTokenRequestCreateResponse.declineReason())
             .contains(DigitalWalletTokenRequestCreateResponse.DeclineReason.CARD_NOT_ACTIVE)
         assertThat(digitalWalletTokenRequestCreateResponse.digitalWalletTokenId())
-            .contains("string")
+            .contains("digital_wallet_token_id")
         assertThat(digitalWalletTokenRequestCreateResponse.type())
             .isEqualTo(
                 DigitalWalletTokenRequestCreateResponse.Type

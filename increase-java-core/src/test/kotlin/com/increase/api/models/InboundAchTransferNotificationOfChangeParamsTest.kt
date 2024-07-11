@@ -11,7 +11,7 @@ class InboundAchTransferNotificationOfChangeParamsTest {
     @Test
     fun createInboundAchTransferNotificationOfChangeParams() {
         InboundAchTransferNotificationOfChangeParams.builder()
-            .inboundAchTransferId("string")
+            .inboundAchTransferId("inbound_ach_transfer_id")
             .updatedAccountNumber("x")
             .updatedRoutingNumber("x")
             .build()
@@ -21,7 +21,7 @@ class InboundAchTransferNotificationOfChangeParamsTest {
     fun getBody() {
         val params =
             InboundAchTransferNotificationOfChangeParams.builder()
-                .inboundAchTransferId("string")
+                .inboundAchTransferId("inbound_ach_transfer_id")
                 .updatedAccountNumber("x")
                 .updatedRoutingNumber("x")
                 .build()
@@ -35,7 +35,7 @@ class InboundAchTransferNotificationOfChangeParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             InboundAchTransferNotificationOfChangeParams.builder()
-                .inboundAchTransferId("string")
+                .inboundAchTransferId("inbound_ach_transfer_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -45,11 +45,11 @@ class InboundAchTransferNotificationOfChangeParamsTest {
     fun getPathParam() {
         val params =
             InboundAchTransferNotificationOfChangeParams.builder()
-                .inboundAchTransferId("string")
+                .inboundAchTransferId("inbound_ach_transfer_id")
                 .build()
         assertThat(params).isNotNull
         // path param "inboundAchTransferId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("inbound_ach_transfer_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

@@ -12,9 +12,9 @@ class ProofOfAuthorizationRequestTest {
     fun createProofOfAuthorizationRequest() {
         val proofOfAuthorizationRequest =
             ProofOfAuthorizationRequest.builder()
-                .id("string")
+                .id("id")
                 .achTransfers(
-                    listOf(ProofOfAuthorizationRequest.AchTransfer.builder().id("string").build())
+                    listOf(ProofOfAuthorizationRequest.AchTransfer.builder().id("id").build())
                 )
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .dueOn(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -22,9 +22,9 @@ class ProofOfAuthorizationRequestTest {
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
         assertThat(proofOfAuthorizationRequest).isNotNull
-        assertThat(proofOfAuthorizationRequest.id()).isEqualTo("string")
+        assertThat(proofOfAuthorizationRequest.id()).isEqualTo("id")
         assertThat(proofOfAuthorizationRequest.achTransfers())
-            .containsExactly(ProofOfAuthorizationRequest.AchTransfer.builder().id("string").build())
+            .containsExactly(ProofOfAuthorizationRequest.AchTransfer.builder().id("id").build())
         assertThat(proofOfAuthorizationRequest.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(proofOfAuthorizationRequest.dueOn())

@@ -11,10 +11,10 @@ class BookkeepingEntrySetListParamsTest {
     @Test
     fun createBookkeepingEntrySetListParams() {
         BookkeepingEntrySetListParams.builder()
-            .cursor("string")
+            .cursor("cursor")
             .idempotencyKey("x")
             .limit(123L)
-            .transactionId("string")
+            .transactionId("transaction_id")
             .build()
     }
 
@@ -22,16 +22,16 @@ class BookkeepingEntrySetListParamsTest {
     fun getQueryParams() {
         val params =
             BookkeepingEntrySetListParams.builder()
-                .cursor("string")
+                .cursor("cursor")
                 .idempotencyKey("x")
                 .limit(123L)
-                .transactionId("string")
+                .transactionId("transaction_id")
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("cursor", listOf("string"))
+        expected.put("cursor", listOf("cursor"))
         expected.put("idempotency_key", listOf("x"))
         expected.put("limit", listOf("123"))
-        expected.put("transaction_id", listOf("string"))
+        expected.put("transaction_id", listOf("transaction_id"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
 

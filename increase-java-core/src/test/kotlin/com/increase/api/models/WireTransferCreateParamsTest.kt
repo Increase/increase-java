@@ -11,7 +11,7 @@ class WireTransferCreateParamsTest {
     @Test
     fun createWireTransferCreateParams() {
         WireTransferCreateParams.builder()
-            .accountId("string")
+            .accountId("account_id")
             .amount(123L)
             .beneficiaryName("x")
             .messageToRecipient("x")
@@ -19,7 +19,7 @@ class WireTransferCreateParamsTest {
             .beneficiaryAddressLine1("x")
             .beneficiaryAddressLine2("x")
             .beneficiaryAddressLine3("x")
-            .externalAccountId("string")
+            .externalAccountId("external_account_id")
             .originatorAddressLine1("x")
             .originatorAddressLine2("x")
             .originatorAddressLine3("x")
@@ -33,7 +33,7 @@ class WireTransferCreateParamsTest {
     fun getBody() {
         val params =
             WireTransferCreateParams.builder()
-                .accountId("string")
+                .accountId("account_id")
                 .amount(123L)
                 .beneficiaryName("x")
                 .messageToRecipient("x")
@@ -41,7 +41,7 @@ class WireTransferCreateParamsTest {
                 .beneficiaryAddressLine1("x")
                 .beneficiaryAddressLine2("x")
                 .beneficiaryAddressLine3("x")
-                .externalAccountId("string")
+                .externalAccountId("external_account_id")
                 .originatorAddressLine1("x")
                 .originatorAddressLine2("x")
                 .originatorAddressLine3("x")
@@ -51,7 +51,7 @@ class WireTransferCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("string")
+        assertThat(body.accountId()).isEqualTo("account_id")
         assertThat(body.amount()).isEqualTo(123L)
         assertThat(body.beneficiaryName()).isEqualTo("x")
         assertThat(body.messageToRecipient()).isEqualTo("x")
@@ -59,7 +59,7 @@ class WireTransferCreateParamsTest {
         assertThat(body.beneficiaryAddressLine1()).isEqualTo("x")
         assertThat(body.beneficiaryAddressLine2()).isEqualTo("x")
         assertThat(body.beneficiaryAddressLine3()).isEqualTo("x")
-        assertThat(body.externalAccountId()).isEqualTo("string")
+        assertThat(body.externalAccountId()).isEqualTo("external_account_id")
         assertThat(body.originatorAddressLine1()).isEqualTo("x")
         assertThat(body.originatorAddressLine2()).isEqualTo("x")
         assertThat(body.originatorAddressLine3()).isEqualTo("x")
@@ -72,14 +72,14 @@ class WireTransferCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             WireTransferCreateParams.builder()
-                .accountId("string")
+                .accountId("account_id")
                 .amount(123L)
                 .beneficiaryName("x")
                 .messageToRecipient("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("string")
+        assertThat(body.accountId()).isEqualTo("account_id")
         assertThat(body.amount()).isEqualTo(123L)
         assertThat(body.beneficiaryName()).isEqualTo("x")
         assertThat(body.messageToRecipient()).isEqualTo("x")

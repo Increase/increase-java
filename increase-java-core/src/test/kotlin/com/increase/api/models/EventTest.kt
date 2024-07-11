@@ -12,17 +12,17 @@ class EventTest {
     fun createEvent() {
         val event =
             Event.builder()
-                .id("string")
-                .associatedObjectId("string")
-                .associatedObjectType("string")
+                .id("id")
+                .associatedObjectId("associated_object_id")
+                .associatedObjectType("associated_object_type")
                 .category(Event.Category.ACCOUNT_CREATED)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .type(Event.Type.EVENT)
                 .build()
         assertThat(event).isNotNull
-        assertThat(event.id()).isEqualTo("string")
-        assertThat(event.associatedObjectId()).isEqualTo("string")
-        assertThat(event.associatedObjectType()).isEqualTo("string")
+        assertThat(event.id()).isEqualTo("id")
+        assertThat(event.associatedObjectId()).isEqualTo("associated_object_id")
+        assertThat(event.associatedObjectType()).isEqualTo("associated_object_type")
         assertThat(event.category()).isEqualTo(Event.Category.ACCOUNT_CREATED)
         assertThat(event.createdAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(event.type()).isEqualTo(Event.Type.EVENT)

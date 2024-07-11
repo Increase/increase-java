@@ -22,7 +22,9 @@ class InboundAchTransferServiceTest {
         val inboundAchTransferService = client.inboundAchTransfers()
         val inboundAchTransfer =
             inboundAchTransferService.retrieve(
-                InboundAchTransferRetrieveParams.builder().inboundAchTransferId("string").build()
+                InboundAchTransferRetrieveParams.builder()
+                    .inboundAchTransferId("inbound_ach_transfer_id")
+                    .build()
             )
         println(inboundAchTransfer)
         inboundAchTransfer.validate()
@@ -52,7 +54,9 @@ class InboundAchTransferServiceTest {
         val inboundAchTransferService = client.inboundAchTransfers()
         val inboundAchTransfer =
             inboundAchTransferService.decline(
-                InboundAchTransferDeclineParams.builder().inboundAchTransferId("string").build()
+                InboundAchTransferDeclineParams.builder()
+                    .inboundAchTransferId("inbound_ach_transfer_id")
+                    .build()
             )
         println(inboundAchTransfer)
         inboundAchTransfer.validate()
@@ -69,7 +73,7 @@ class InboundAchTransferServiceTest {
         val inboundAchTransfer =
             inboundAchTransferService.notificationOfChange(
                 InboundAchTransferNotificationOfChangeParams.builder()
-                    .inboundAchTransferId("string")
+                    .inboundAchTransferId("inbound_ach_transfer_id")
                     .updatedAccountNumber("x")
                     .updatedRoutingNumber("x")
                     .build()
@@ -89,7 +93,7 @@ class InboundAchTransferServiceTest {
         val inboundAchTransfer =
             inboundAchTransferService.transferReturn(
                 InboundAchTransferTransferReturnParams.builder()
-                    .inboundAchTransferId("string")
+                    .inboundAchTransferId("inbound_ach_transfer_id")
                     .reason(InboundAchTransferTransferReturnParams.Reason.INSUFFICIENT_FUNDS)
                     .build()
             )

@@ -11,7 +11,7 @@ class AccountNumberCreateParamsTest {
     @Test
     fun createAccountNumberCreateParams() {
         AccountNumberCreateParams.builder()
-            .accountId("string")
+            .accountId("account_id")
             .name("x")
             .inboundAch(
                 AccountNumberCreateParams.InboundAch.builder()
@@ -30,7 +30,7 @@ class AccountNumberCreateParamsTest {
     fun getBody() {
         val params =
             AccountNumberCreateParams.builder()
-                .accountId("string")
+                .accountId("account_id")
                 .name("x")
                 .inboundAch(
                     AccountNumberCreateParams.InboundAch.builder()
@@ -45,7 +45,7 @@ class AccountNumberCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("string")
+        assertThat(body.accountId()).isEqualTo("account_id")
         assertThat(body.name()).isEqualTo("x")
         assertThat(body.inboundAch())
             .isEqualTo(
@@ -63,10 +63,10 @@ class AccountNumberCreateParamsTest {
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = AccountNumberCreateParams.builder().accountId("string").name("x").build()
+        val params = AccountNumberCreateParams.builder().accountId("account_id").name("x").build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("string")
+        assertThat(body.accountId()).isEqualTo("account_id")
         assertThat(body.name()).isEqualTo("x")
     }
 }

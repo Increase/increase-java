@@ -10,22 +10,24 @@ class SimulationCardRefundCreateParamsTest {
 
     @Test
     fun createSimulationCardRefundCreateParams() {
-        SimulationCardRefundCreateParams.builder().transactionId("string").build()
+        SimulationCardRefundCreateParams.builder().transactionId("transaction_id").build()
     }
 
     @Test
     fun getBody() {
-        val params = SimulationCardRefundCreateParams.builder().transactionId("string").build()
+        val params =
+            SimulationCardRefundCreateParams.builder().transactionId("transaction_id").build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.transactionId()).isEqualTo("string")
+        assertThat(body.transactionId()).isEqualTo("transaction_id")
     }
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = SimulationCardRefundCreateParams.builder().transactionId("string").build()
+        val params =
+            SimulationCardRefundCreateParams.builder().transactionId("transaction_id").build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.transactionId()).isEqualTo("string")
+        assertThat(body.transactionId()).isEqualTo("transaction_id")
     }
 }

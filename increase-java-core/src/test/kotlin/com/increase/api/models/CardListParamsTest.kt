@@ -12,7 +12,7 @@ class CardListParamsTest {
     @Test
     fun createCardListParams() {
         CardListParams.builder()
-            .accountId("string")
+            .accountId("account_id")
             .createdAt(
                 CardListParams.CreatedAt.builder()
                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -21,7 +21,7 @@ class CardListParamsTest {
                     .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
-            .cursor("string")
+            .cursor("cursor")
             .idempotencyKey("x")
             .limit(123L)
             .build()
@@ -31,7 +31,7 @@ class CardListParamsTest {
     fun getQueryParams() {
         val params =
             CardListParams.builder()
-                .accountId("string")
+                .accountId("account_id")
                 .createdAt(
                     CardListParams.CreatedAt.builder()
                         .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -40,12 +40,12 @@ class CardListParamsTest {
                         .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
-                .cursor("string")
+                .cursor("cursor")
                 .idempotencyKey("x")
                 .limit(123L)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("account_id", listOf("string"))
+        expected.put("account_id", listOf("account_id"))
         CardListParams.CreatedAt.builder()
             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -53,7 +53,7 @@ class CardListParamsTest {
             .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
-        expected.put("cursor", listOf("string"))
+        expected.put("cursor", listOf("cursor"))
         expected.put("idempotency_key", listOf("x"))
         expected.put("limit", listOf("123"))
         assertThat(params.getQueryParams()).isEqualTo(expected)

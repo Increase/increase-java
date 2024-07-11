@@ -11,10 +11,10 @@ class CheckDepositCreateParamsTest {
     @Test
     fun createCheckDepositCreateParams() {
         CheckDepositCreateParams.builder()
-            .accountId("string")
+            .accountId("account_id")
             .amount(123L)
-            .backImageFileId("string")
-            .frontImageFileId("string")
+            .backImageFileId("back_image_file_id")
+            .frontImageFileId("front_image_file_id")
             .description("x")
             .build()
     }
@@ -23,18 +23,18 @@ class CheckDepositCreateParamsTest {
     fun getBody() {
         val params =
             CheckDepositCreateParams.builder()
-                .accountId("string")
+                .accountId("account_id")
                 .amount(123L)
-                .backImageFileId("string")
-                .frontImageFileId("string")
+                .backImageFileId("back_image_file_id")
+                .frontImageFileId("front_image_file_id")
                 .description("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("string")
+        assertThat(body.accountId()).isEqualTo("account_id")
         assertThat(body.amount()).isEqualTo(123L)
-        assertThat(body.backImageFileId()).isEqualTo("string")
-        assertThat(body.frontImageFileId()).isEqualTo("string")
+        assertThat(body.backImageFileId()).isEqualTo("back_image_file_id")
+        assertThat(body.frontImageFileId()).isEqualTo("front_image_file_id")
         assertThat(body.description()).isEqualTo("x")
     }
 
@@ -42,16 +42,16 @@ class CheckDepositCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             CheckDepositCreateParams.builder()
-                .accountId("string")
+                .accountId("account_id")
                 .amount(123L)
-                .backImageFileId("string")
-                .frontImageFileId("string")
+                .backImageFileId("back_image_file_id")
+                .frontImageFileId("front_image_file_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("string")
+        assertThat(body.accountId()).isEqualTo("account_id")
         assertThat(body.amount()).isEqualTo(123L)
-        assertThat(body.backImageFileId()).isEqualTo("string")
-        assertThat(body.frontImageFileId()).isEqualTo("string")
+        assertThat(body.backImageFileId()).isEqualTo("back_image_file_id")
+        assertThat(body.frontImageFileId()).isEqualTo("front_image_file_id")
     }
 }

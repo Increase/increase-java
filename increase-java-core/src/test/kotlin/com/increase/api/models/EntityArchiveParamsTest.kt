@@ -10,15 +10,15 @@ class EntityArchiveParamsTest {
 
     @Test
     fun createEntityArchiveParams() {
-        EntityArchiveParams.builder().entityId("string").build()
+        EntityArchiveParams.builder().entityId("entity_id").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = EntityArchiveParams.builder().entityId("string").build()
+        val params = EntityArchiveParams.builder().entityId("entity_id").build()
         assertThat(params).isNotNull
         // path param "entityId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("entity_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

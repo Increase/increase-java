@@ -11,7 +11,7 @@ class SimulationCardDisputeActionParamsTest {
     @Test
     fun createSimulationCardDisputeActionParams() {
         SimulationCardDisputeActionParams.builder()
-            .cardDisputeId("string")
+            .cardDisputeId("card_dispute_id")
             .status(SimulationCardDisputeActionParams.Status.ACCEPTED)
             .explanation("x")
             .build()
@@ -21,7 +21,7 @@ class SimulationCardDisputeActionParamsTest {
     fun getBody() {
         val params =
             SimulationCardDisputeActionParams.builder()
-                .cardDisputeId("string")
+                .cardDisputeId("card_dispute_id")
                 .status(SimulationCardDisputeActionParams.Status.ACCEPTED)
                 .explanation("x")
                 .build()
@@ -35,7 +35,7 @@ class SimulationCardDisputeActionParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             SimulationCardDisputeActionParams.builder()
-                .cardDisputeId("string")
+                .cardDisputeId("card_dispute_id")
                 .status(SimulationCardDisputeActionParams.Status.ACCEPTED)
                 .build()
         val body = params.getBody()
@@ -47,12 +47,12 @@ class SimulationCardDisputeActionParamsTest {
     fun getPathParam() {
         val params =
             SimulationCardDisputeActionParams.builder()
-                .cardDisputeId("string")
+                .cardDisputeId("card_dispute_id")
                 .status(SimulationCardDisputeActionParams.Status.ACCEPTED)
                 .build()
         assertThat(params).isNotNull
         // path param "cardDisputeId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("card_dispute_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }
