@@ -41,8 +41,6 @@ import com.increase.api.services.async.simulations.InboundCheckDepositServiceAsy
 import com.increase.api.services.async.simulations.InboundCheckDepositServiceAsyncImpl
 import com.increase.api.services.async.simulations.InboundFundsHoldServiceAsync
 import com.increase.api.services.async.simulations.InboundFundsHoldServiceAsyncImpl
-import com.increase.api.services.async.simulations.InboundInternationalAchTransferServiceAsync
-import com.increase.api.services.async.simulations.InboundInternationalAchTransferServiceAsyncImpl
 import com.increase.api.services.async.simulations.InboundRealTimePaymentsTransferServiceAsync
 import com.increase.api.services.async.simulations.InboundRealTimePaymentsTransferServiceAsyncImpl
 import com.increase.api.services.async.simulations.InboundWireDrawdownRequestServiceAsync
@@ -115,11 +113,6 @@ constructor(
 
     private val realTimePaymentsTransfers: RealTimePaymentsTransferServiceAsync by lazy {
         RealTimePaymentsTransferServiceAsyncImpl(clientOptions)
-    }
-
-    private val inboundInternationalAchTransfers:
-        InboundInternationalAchTransferServiceAsync by lazy {
-        InboundInternationalAchTransferServiceAsyncImpl(clientOptions)
     }
 
     private val cardAuthorizations: CardAuthorizationServiceAsync by lazy {
@@ -200,9 +193,6 @@ constructor(
 
     override fun realTimePaymentsTransfers(): RealTimePaymentsTransferServiceAsync =
         realTimePaymentsTransfers
-
-    override fun inboundInternationalAchTransfers(): InboundInternationalAchTransferServiceAsync =
-        inboundInternationalAchTransfers
 
     override fun cardAuthorizations(): CardAuthorizationServiceAsync = cardAuthorizations
 

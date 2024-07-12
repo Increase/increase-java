@@ -49,6 +49,73 @@ class InboundAchTransferTest {
                         .build()
                 )
                 .direction(InboundAchTransfer.Direction.CREDIT)
+                .internationalAddenda(
+                    InboundAchTransfer.InternationalAddenda.builder()
+                        .destinationCountryCode("destination_country_code")
+                        .destinationCurrencyCode("destination_currency_code")
+                        .foreignExchangeIndicator(
+                            InboundAchTransfer.InternationalAddenda.ForeignExchangeIndicator
+                                .FIXED_TO_VARIABLE
+                        )
+                        .foreignExchangeReference("foreign_exchange_reference")
+                        .foreignExchangeReferenceIndicator(
+                            InboundAchTransfer.InternationalAddenda
+                                .ForeignExchangeReferenceIndicator
+                                .FOREIGN_EXCHANGE_RATE
+                        )
+                        .foreignPaymentAmount(123L)
+                        .foreignTraceNumber("foreign_trace_number")
+                        .internationalTransactionTypeCode(
+                            InboundAchTransfer.InternationalAddenda.InternationalTransactionTypeCode
+                                .ANNUITY
+                        )
+                        .originatingCurrencyCode("originating_currency_code")
+                        .originatingDepositoryFinancialInstitutionBranchCountry(
+                            "originating_depository_financial_institution_branch_country"
+                        )
+                        .originatingDepositoryFinancialInstitutionId(
+                            "originating_depository_financial_institution_id"
+                        )
+                        .originatingDepositoryFinancialInstitutionIdQualifier(
+                            InboundAchTransfer.InternationalAddenda
+                                .OriginatingDepositoryFinancialInstitutionIdQualifier
+                                .NATIONAL_CLEARING_SYSTEM_NUMBER
+                        )
+                        .originatingDepositoryFinancialInstitutionName(
+                            "originating_depository_financial_institution_name"
+                        )
+                        .originatorCity("originator_city")
+                        .originatorCountry("originator_country")
+                        .originatorIdentification("originator_identification")
+                        .originatorName("originator_name")
+                        .originatorPostalCode("originator_postal_code")
+                        .originatorStateOrProvince("originator_state_or_province")
+                        .originatorStreetAddress("originator_street_address")
+                        .paymentRelatedInformation("payment_related_information")
+                        .paymentRelatedInformation2("payment_related_information2")
+                        .receiverCity("receiver_city")
+                        .receiverCountry("receiver_country")
+                        .receiverIdentificationNumber("receiver_identification_number")
+                        .receiverPostalCode("receiver_postal_code")
+                        .receiverStateOrProvince("receiver_state_or_province")
+                        .receiverStreetAddress("receiver_street_address")
+                        .receivingCompanyOrIndividualName("receiving_company_or_individual_name")
+                        .receivingDepositoryFinancialInstitutionCountry(
+                            "receiving_depository_financial_institution_country"
+                        )
+                        .receivingDepositoryFinancialInstitutionId(
+                            "receiving_depository_financial_institution_id"
+                        )
+                        .receivingDepositoryFinancialInstitutionIdQualifier(
+                            InboundAchTransfer.InternationalAddenda
+                                .ReceivingDepositoryFinancialInstitutionIdQualifier
+                                .NATIONAL_CLEARING_SYSTEM_NUMBER
+                        )
+                        .receivingDepositoryFinancialInstitutionName(
+                            "receiving_depository_financial_institution_name"
+                        )
+                        .build()
+                )
                 .notificationOfChange(
                     InboundAchTransfer.NotificationOfChange.builder()
                         .updatedAccountNumber("updated_account_number")
@@ -117,6 +184,73 @@ class InboundAchTransferTest {
                     .build()
             )
         assertThat(inboundAchTransfer.direction()).isEqualTo(InboundAchTransfer.Direction.CREDIT)
+        assertThat(inboundAchTransfer.internationalAddenda())
+            .contains(
+                InboundAchTransfer.InternationalAddenda.builder()
+                    .destinationCountryCode("destination_country_code")
+                    .destinationCurrencyCode("destination_currency_code")
+                    .foreignExchangeIndicator(
+                        InboundAchTransfer.InternationalAddenda.ForeignExchangeIndicator
+                            .FIXED_TO_VARIABLE
+                    )
+                    .foreignExchangeReference("foreign_exchange_reference")
+                    .foreignExchangeReferenceIndicator(
+                        InboundAchTransfer.InternationalAddenda.ForeignExchangeReferenceIndicator
+                            .FOREIGN_EXCHANGE_RATE
+                    )
+                    .foreignPaymentAmount(123L)
+                    .foreignTraceNumber("foreign_trace_number")
+                    .internationalTransactionTypeCode(
+                        InboundAchTransfer.InternationalAddenda.InternationalTransactionTypeCode
+                            .ANNUITY
+                    )
+                    .originatingCurrencyCode("originating_currency_code")
+                    .originatingDepositoryFinancialInstitutionBranchCountry(
+                        "originating_depository_financial_institution_branch_country"
+                    )
+                    .originatingDepositoryFinancialInstitutionId(
+                        "originating_depository_financial_institution_id"
+                    )
+                    .originatingDepositoryFinancialInstitutionIdQualifier(
+                        InboundAchTransfer.InternationalAddenda
+                            .OriginatingDepositoryFinancialInstitutionIdQualifier
+                            .NATIONAL_CLEARING_SYSTEM_NUMBER
+                    )
+                    .originatingDepositoryFinancialInstitutionName(
+                        "originating_depository_financial_institution_name"
+                    )
+                    .originatorCity("originator_city")
+                    .originatorCountry("originator_country")
+                    .originatorIdentification("originator_identification")
+                    .originatorName("originator_name")
+                    .originatorPostalCode("originator_postal_code")
+                    .originatorStateOrProvince("originator_state_or_province")
+                    .originatorStreetAddress("originator_street_address")
+                    .paymentRelatedInformation("payment_related_information")
+                    .paymentRelatedInformation2("payment_related_information2")
+                    .receiverCity("receiver_city")
+                    .receiverCountry("receiver_country")
+                    .receiverIdentificationNumber("receiver_identification_number")
+                    .receiverPostalCode("receiver_postal_code")
+                    .receiverStateOrProvince("receiver_state_or_province")
+                    .receiverStreetAddress("receiver_street_address")
+                    .receivingCompanyOrIndividualName("receiving_company_or_individual_name")
+                    .receivingDepositoryFinancialInstitutionCountry(
+                        "receiving_depository_financial_institution_country"
+                    )
+                    .receivingDepositoryFinancialInstitutionId(
+                        "receiving_depository_financial_institution_id"
+                    )
+                    .receivingDepositoryFinancialInstitutionIdQualifier(
+                        InboundAchTransfer.InternationalAddenda
+                            .ReceivingDepositoryFinancialInstitutionIdQualifier
+                            .NATIONAL_CLEARING_SYSTEM_NUMBER
+                    )
+                    .receivingDepositoryFinancialInstitutionName(
+                        "receiving_depository_financial_institution_name"
+                    )
+                    .build()
+            )
         assertThat(inboundAchTransfer.notificationOfChange())
             .contains(
                 InboundAchTransfer.NotificationOfChange.builder()
