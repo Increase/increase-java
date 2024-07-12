@@ -5,8 +5,8 @@
 package com.increase.api.services.blocking.simulations
 
 import com.increase.api.core.RequestOptions
-import com.increase.api.models.InboundInternationalAchTransfer
 import com.increase.api.models.SimulationInboundInternationalAchTransferCreateParams
+import com.increase.api.models.SimulationInboundInternationalAchTransferCreateResponse
 
 interface InboundInternationalAchTransferService {
 
@@ -20,5 +20,5 @@ interface InboundInternationalAchTransferService {
     fun create(
         params: SimulationInboundInternationalAchTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): InboundInternationalAchTransfer
+    ): SimulationInboundInternationalAchTransferCreateResponse
 }

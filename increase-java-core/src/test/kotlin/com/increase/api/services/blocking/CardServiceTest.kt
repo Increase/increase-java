@@ -112,17 +112,14 @@ class CardServiceTest {
     }
 
     @Test
-    fun callRetrieveSensitiveDetails() {
+    fun callDetails() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val cardService = client.cards()
-        val cardDetails =
-            cardService.retrieveSensitiveDetails(
-                CardRetrieveSensitiveDetailsParams.builder().cardId("card_id").build()
-            )
+        val cardDetails = cardService.details(CardDetailsParams.builder().cardId("card_id").build())
         println(cardDetails)
         cardDetails.validate()
     }

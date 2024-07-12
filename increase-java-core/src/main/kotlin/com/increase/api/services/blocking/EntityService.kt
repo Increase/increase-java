@@ -6,24 +6,19 @@ package com.increase.api.services.blocking
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.Entity
+import com.increase.api.models.EntityArchiveBeneficialOwnerParams
 import com.increase.api.models.EntityArchiveParams
 import com.increase.api.models.EntityConfirmParams
+import com.increase.api.models.EntityCreateBeneficialOwnerParams
 import com.increase.api.models.EntityCreateParams
 import com.increase.api.models.EntityListPage
 import com.increase.api.models.EntityListParams
 import com.increase.api.models.EntityRetrieveParams
 import com.increase.api.models.EntityUpdateAddressParams
-import com.increase.api.services.blocking.entities.BeneficialOwnerService
-import com.increase.api.services.blocking.entities.IndustryCodeService
-import com.increase.api.services.blocking.entities.SupplementalDocumentService
+import com.increase.api.models.EntityUpdateBeneficialOwnerAddressParams
+import com.increase.api.models.EntityUpdateIndustryCodeParams
 
 interface EntityService {
-
-    fun beneficialOwners(): BeneficialOwnerService
-
-    fun supplementalDocuments(): SupplementalDocumentService
-
-    fun industryCode(): IndustryCodeService
 
     /** Create an Entity */
     @JvmOverloads
@@ -53,6 +48,13 @@ interface EntityService {
         requestOptions: RequestOptions = RequestOptions.none()
     ): Entity
 
+    /** Archive a beneficial owner for a corporate Entity */
+    @JvmOverloads
+    fun archiveBeneficialOwner(
+        params: EntityArchiveBeneficialOwnerParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): Entity
+
     /**
      * Depending on your program, you may be required to re-confirm an Entity's details on a
      * recurring basis. After making any required updates, call this endpoint to record that your
@@ -64,10 +66,31 @@ interface EntityService {
         requestOptions: RequestOptions = RequestOptions.none()
     ): Entity
 
+    /** Create a beneficial owner for a corporate Entity */
+    @JvmOverloads
+    fun createBeneficialOwner(
+        params: EntityCreateBeneficialOwnerParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): Entity
+
     /** Update a Natural Person or Corporation's address */
     @JvmOverloads
     fun updateAddress(
         params: EntityUpdateAddressParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): Entity
+
+    /** Update the address for a beneficial owner belonging to a corporate Entity */
+    @JvmOverloads
+    fun updateBeneficialOwnerAddress(
+        params: EntityUpdateBeneficialOwnerAddressParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): Entity
+
+    /** Update the industry code for a corporate Entity */
+    @JvmOverloads
+    fun updateIndustryCode(
+        params: EntityUpdateIndustryCodeParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): Entity
 }

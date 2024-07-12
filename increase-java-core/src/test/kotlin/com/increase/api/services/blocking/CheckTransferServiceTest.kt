@@ -6,7 +6,6 @@ import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.*
 import com.increase.api.models.CheckTransferListParams
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -127,7 +126,6 @@ class CheckTransferServiceTest {
         checkTransfer.validate()
     }
 
-    @Disabled("Prism doesn't accept no request body being sent but returns 415 if it is sent")
     @Test
     fun callStopPayment() {
         val client =

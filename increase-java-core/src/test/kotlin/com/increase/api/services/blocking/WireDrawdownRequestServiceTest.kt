@@ -6,14 +6,12 @@ import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.*
 import com.increase.api.models.WireDrawdownRequestListParams
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
 class WireDrawdownRequestServiceTest {
 
-    @Disabled("Prism tests are broken")
     @Test
     fun callCreate() {
         val client =

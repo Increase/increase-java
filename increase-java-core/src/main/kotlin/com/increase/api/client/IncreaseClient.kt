@@ -15,33 +15,25 @@ interface IncreaseClient {
 
     fun accountNumbers(): AccountNumberService
 
-    fun bookkeepingAccounts(): BookkeepingAccountService
-
-    fun bookkeepingEntrySets(): BookkeepingEntrySetService
-
-    fun bookkeepingEntries(): BookkeepingEntryService
-
-    fun realTimeDecisions(): RealTimeDecisionService
-
-    fun realTimePaymentsTransfers(): RealTimePaymentsTransferService
-
     fun cards(): CardService
 
-    fun cardDisputes(): CardDisputeService
+    fun cardPayments(): CardPaymentService
 
     fun cardPurchaseSupplements(): CardPurchaseSupplementService
 
-    fun externalAccounts(): ExternalAccountService
+    fun cardDisputes(): CardDisputeService
 
-    fun exports(): ExportService
+    fun physicalCards(): PhysicalCardService
+
+    fun digitalCardProfiles(): DigitalCardProfileService
+
+    fun physicalCardProfiles(): PhysicalCardProfileService
 
     fun digitalWalletTokens(): DigitalWalletTokenService
 
     fun transactions(): TransactionService
 
     fun pendingTransactions(): PendingTransactionService
-
-    fun programs(): ProgramService
 
     fun declinedTransactions(): DeclinedTransactionService
 
@@ -51,61 +43,75 @@ interface IncreaseClient {
 
     fun achPrenotifications(): AchPrenotificationService
 
-    fun documents(): DocumentService
+    fun inboundAchTransfers(): InboundAchTransferService
 
     fun wireTransfers(): WireTransferService
 
-    fun checkTransfers(): CheckTransferService
-
-    fun entities(): EntityService
-
-    fun inboundAchTransfers(): InboundAchTransferService
-
-    fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestService
+    fun inboundWireTransfers(): InboundWireTransferService
 
     fun wireDrawdownRequests(): WireDrawdownRequestService
 
-    fun events(): EventService
+    fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestService
 
-    fun eventSubscriptions(): EventSubscriptionService
+    fun checkTransfers(): CheckTransferService
 
-    fun files(): FileService
+    fun inboundCheckDeposits(): InboundCheckDepositService
 
-    fun groups(): GroupService
-
-    fun oauthConnections(): OAuthConnectionService
+    fun realTimePaymentsTransfers(): RealTimePaymentsTransferService
 
     fun checkDeposits(): CheckDepositService
 
+    fun lockboxes(): LockboxService
+
+    fun inboundMailItems(): InboundMailItemService
+
     fun routingNumbers(): RoutingNumberService
 
-    fun accountStatements(): AccountStatementService
+    fun externalAccounts(): ExternalAccountService
 
-    fun simulations(): SimulationService
+    fun entities(): EntityService
 
-    fun physicalCards(): PhysicalCardService
+    fun supplementalDocuments(): SupplementalDocumentService
 
-    fun cardPayments(): CardPaymentService
+    fun programs(): ProgramService
 
     fun proofOfAuthorizationRequests(): ProofOfAuthorizationRequestService
 
     fun proofOfAuthorizationRequestSubmissions(): ProofOfAuthorizationRequestSubmissionService
 
-    fun intrafi(): IntrafiService
+    fun accountStatements(): AccountStatementService
 
-    fun realTimePaymentsRequestForPayments(): RealTimePaymentsRequestForPaymentService
+    fun files(): FileService
+
+    fun documents(): DocumentService
+
+    fun exports(): ExportService
+
+    fun events(): EventService
+
+    fun eventSubscriptions(): EventSubscriptionService
+
+    fun realTimeDecisions(): RealTimeDecisionService
+
+    fun bookkeepingAccounts(): BookkeepingAccountService
+
+    fun bookkeepingEntrySets(): BookkeepingEntrySetService
+
+    fun bookkeepingEntries(): BookkeepingEntryService
+
+    fun groups(): GroupService
+
+    fun oauthConnections(): OAuthConnectionService
 
     fun oauthTokens(): OAuthTokenService
 
-    fun inboundWireTransfers(): InboundWireTransferService
+    fun intrafiAccountEnrollments(): IntrafiAccountEnrollmentService
 
-    fun digitalCardProfiles(): DigitalCardProfileService
+    fun intrafiBalances(): IntrafiBalanceService
 
-    fun physicalCardProfiles(): PhysicalCardProfileService
+    fun intrafiExclusions(): IntrafiExclusionService
 
-    fun inboundCheckDeposits(): InboundCheckDepositService
+    fun realTimePaymentsRequestForPayments(): RealTimePaymentsRequestForPaymentService
 
-    fun inboundMailItems(): InboundMailItemService
-
-    fun lockboxes(): LockboxService
+    fun simulations(): SimulationService
 }

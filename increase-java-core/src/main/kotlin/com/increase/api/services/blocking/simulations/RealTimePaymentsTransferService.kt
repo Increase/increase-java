@@ -5,10 +5,8 @@
 package com.increase.api.services.blocking.simulations
 
 import com.increase.api.core.RequestOptions
-import com.increase.api.models.InboundRealTimePaymentsTransferSimulationResult
 import com.increase.api.models.RealTimePaymentsTransfer
 import com.increase.api.models.SimulationRealTimePaymentsTransferCompleteParams
-import com.increase.api.models.SimulationRealTimePaymentsTransferCreateInboundParams
 
 interface RealTimePaymentsTransferService {
 
@@ -22,14 +20,4 @@ interface RealTimePaymentsTransferService {
         params: SimulationRealTimePaymentsTransferCompleteParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): RealTimePaymentsTransfer
-
-    /**
-     * Simulates an inbound Real-Time Payments transfer to your account. Real-Time Payments are a
-     * beta feature.
-     */
-    @JvmOverloads
-    fun createInbound(
-        params: SimulationRealTimePaymentsTransferCreateInboundParams,
-        requestOptions: RequestOptions = RequestOptions.none()
-    ): InboundRealTimePaymentsTransferSimulationResult
 }

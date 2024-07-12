@@ -4,109 +4,87 @@
 
 package com.increase.api.services.async
 
-import com.increase.api.core.RequestOptions
-import com.increase.api.models.CardPayment
-import com.increase.api.models.SimulationCardAuthorizationExpirationsParams
-import com.increase.api.models.SimulationCardFuelConfirmationsParams
-import com.increase.api.models.SimulationCardIncrementsParams
-import com.increase.api.models.SimulationCardReversalsParams
 import com.increase.api.services.async.simulations.AccountStatementServiceAsync
 import com.increase.api.services.async.simulations.AccountTransferServiceAsync
 import com.increase.api.services.async.simulations.AchTransferServiceAsync
+import com.increase.api.services.async.simulations.CardAuthorizationExpirationServiceAsync
+import com.increase.api.services.async.simulations.CardAuthorizationServiceAsync
 import com.increase.api.services.async.simulations.CardDisputeServiceAsync
+import com.increase.api.services.async.simulations.CardFuelConfirmationServiceAsync
+import com.increase.api.services.async.simulations.CardIncrementServiceAsync
 import com.increase.api.services.async.simulations.CardRefundServiceAsync
-import com.increase.api.services.async.simulations.CardServiceAsync
+import com.increase.api.services.async.simulations.CardReversalServiceAsync
+import com.increase.api.services.async.simulations.CardSettlementServiceAsync
 import com.increase.api.services.async.simulations.CheckDepositServiceAsync
 import com.increase.api.services.async.simulations.CheckTransferServiceAsync
 import com.increase.api.services.async.simulations.DigitalWalletTokenRequestServiceAsync
 import com.increase.api.services.async.simulations.DocumentServiceAsync
+import com.increase.api.services.async.simulations.InboundAchTransferServiceAsync
 import com.increase.api.services.async.simulations.InboundCheckDepositServiceAsync
 import com.increase.api.services.async.simulations.InboundFundsHoldServiceAsync
 import com.increase.api.services.async.simulations.InboundInternationalAchTransferServiceAsync
+import com.increase.api.services.async.simulations.InboundRealTimePaymentsTransferServiceAsync
 import com.increase.api.services.async.simulations.InboundWireDrawdownRequestServiceAsync
+import com.increase.api.services.async.simulations.InboundWireTransferServiceAsync
 import com.increase.api.services.async.simulations.InterestPaymentServiceAsync
 import com.increase.api.services.async.simulations.PhysicalCardServiceAsync
 import com.increase.api.services.async.simulations.ProgramServiceAsync
 import com.increase.api.services.async.simulations.RealTimePaymentsTransferServiceAsync
 import com.increase.api.services.async.simulations.WireTransferServiceAsync
-import java.util.concurrent.CompletableFuture
 
 interface SimulationServiceAsync {
 
     fun accountTransfers(): AccountTransferServiceAsync
 
-    fun accountStatements(): AccountStatementServiceAsync
+    fun inboundAchTransfers(): InboundAchTransferServiceAsync
 
     fun achTransfers(): AchTransferServiceAsync
 
-    fun cardDisputes(): CardDisputeServiceAsync
-
-    fun cardRefunds(): CardRefundServiceAsync
-
     fun checkTransfers(): CheckTransferServiceAsync
-
-    fun documents(): DocumentServiceAsync
-
-    fun digitalWalletTokenRequests(): DigitalWalletTokenRequestServiceAsync
-
-    fun checkDeposits(): CheckDepositServiceAsync
-
-    fun programs(): ProgramServiceAsync
-
-    fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestServiceAsync
-
-    fun inboundFundsHolds(): InboundFundsHoldServiceAsync
-
-    fun interestPayments(): InterestPaymentServiceAsync
-
-    fun wireTransfers(): WireTransferServiceAsync
-
-    fun cards(): CardServiceAsync
-
-    fun realTimePaymentsTransfers(): RealTimePaymentsTransferServiceAsync
-
-    fun physicalCards(): PhysicalCardServiceAsync
 
     fun inboundCheckDeposits(): InboundCheckDepositServiceAsync
 
+    fun checkDeposits(): CheckDepositServiceAsync
+
+    fun inboundWireTransfers(): InboundWireTransferServiceAsync
+
+    fun wireTransfers(): WireTransferServiceAsync
+
+    fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestServiceAsync
+
+    fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferServiceAsync
+
+    fun inboundFundsHolds(): InboundFundsHoldServiceAsync
+
+    fun realTimePaymentsTransfers(): RealTimePaymentsTransferServiceAsync
+
     fun inboundInternationalAchTransfers(): InboundInternationalAchTransferServiceAsync
 
-    /** Simulates expiring a card authorization immediately. */
-    @JvmOverloads
-    fun cardAuthorizationExpirations(
-        params: SimulationCardAuthorizationExpirationsParams,
-        requestOptions: RequestOptions = RequestOptions.none()
-    ): CompletableFuture<CardPayment>
+    fun cardAuthorizations(): CardAuthorizationServiceAsync
 
-    /**
-     * Simulates the fuel confirmation of an authorization by a card acquirer. This happens
-     * asynchronously right after a fuel pump transaction is completed. A fuel confirmation can only
-     * happen once per authorization.
-     */
-    @JvmOverloads
-    fun cardFuelConfirmations(
-        params: SimulationCardFuelConfirmationsParams,
-        requestOptions: RequestOptions = RequestOptions.none()
-    ): CompletableFuture<CardPayment>
+    fun cardSettlements(): CardSettlementServiceAsync
 
-    /**
-     * Simulates the increment of an authorization by a card acquirer. An authorization can be
-     * incremented multiple times.
-     */
-    @JvmOverloads
-    fun cardIncrements(
-        params: SimulationCardIncrementsParams,
-        requestOptions: RequestOptions = RequestOptions.none()
-    ): CompletableFuture<CardPayment>
+    fun cardReversals(): CardReversalServiceAsync
 
-    /**
-     * Simulates the reversal of an authorization by a card acquirer. An authorization can be
-     * partially reversed multiple times, up until the total authorized amount. Marks the pending
-     * transaction as complete if the authorization is fully reversed.
-     */
-    @JvmOverloads
-    fun cardReversals(
-        params: SimulationCardReversalsParams,
-        requestOptions: RequestOptions = RequestOptions.none()
-    ): CompletableFuture<CardPayment>
+    fun cardIncrements(): CardIncrementServiceAsync
+
+    fun cardAuthorizationExpirations(): CardAuthorizationExpirationServiceAsync
+
+    fun cardFuelConfirmations(): CardFuelConfirmationServiceAsync
+
+    fun cardRefunds(): CardRefundServiceAsync
+
+    fun cardDisputes(): CardDisputeServiceAsync
+
+    fun digitalWalletTokenRequests(): DigitalWalletTokenRequestServiceAsync
+
+    fun physicalCards(): PhysicalCardServiceAsync
+
+    fun interestPayments(): InterestPaymentServiceAsync
+
+    fun accountStatements(): AccountStatementServiceAsync
+
+    fun documents(): DocumentServiceAsync
+
+    fun programs(): ProgramServiceAsync
 }

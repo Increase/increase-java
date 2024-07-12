@@ -7,7 +7,6 @@ import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.*
 import com.increase.api.models.AccountListParams
 import java.time.OffsetDateTime
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -97,7 +96,6 @@ class AccountServiceTest {
         balanceLookup.validate()
     }
 
-    @Disabled("Prism tests are broken")
     @Test
     fun callClose() {
         val client =

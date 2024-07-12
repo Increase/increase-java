@@ -6,7 +6,7 @@ package com.increase.api.services.blocking.simulations
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.PhysicalCard
-import com.increase.api.models.SimulationPhysicalCardShipmentAdvanceParams
+import com.increase.api.models.SimulationPhysicalCardAdvanceShipmentParams
 
 interface PhysicalCardService {
 
@@ -15,8 +15,8 @@ interface PhysicalCardService {
      * simulate e.g., that a physical card was attempted shipped but then failed delivery.
      */
     @JvmOverloads
-    fun shipmentAdvance(
-        params: SimulationPhysicalCardShipmentAdvanceParams,
+    fun advanceShipment(
+        params: SimulationPhysicalCardAdvanceShipmentParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): PhysicalCard
 }

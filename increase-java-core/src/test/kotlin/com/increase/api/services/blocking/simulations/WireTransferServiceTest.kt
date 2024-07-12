@@ -12,35 +12,38 @@ import org.junit.jupiter.api.extension.ExtendWith
 class WireTransferServiceTest {
 
     @Test
-    fun callCreateInbound() {
+    fun callReverse() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val wireTransferService = client.simulations().wireTransfers()
-        val inboundWireTransfer =
-            wireTransferService.createInbound(
-                SimulationWireTransferCreateInboundParams.builder()
-                    .accountNumberId("account_number_id")
-                    .amount(123L)
-                    .beneficiaryAddressLine1("x")
-                    .beneficiaryAddressLine2("x")
-                    .beneficiaryAddressLine3("x")
-                    .beneficiaryName("x")
-                    .beneficiaryReference("x")
-                    .originatorAddressLine1("x")
-                    .originatorAddressLine2("x")
-                    .originatorAddressLine3("x")
-                    .originatorName("x")
-                    .originatorRoutingNumber("x")
-                    .originatorToBeneficiaryInformationLine1("x")
-                    .originatorToBeneficiaryInformationLine2("x")
-                    .originatorToBeneficiaryInformationLine3("x")
-                    .originatorToBeneficiaryInformationLine4("x")
+        val wireTransfer =
+            wireTransferService.reverse(
+                SimulationWireTransferReverseParams.builder()
+                    .wireTransferId("wire_transfer_id")
                     .build()
             )
-        println(inboundWireTransfer)
-        inboundWireTransfer.validate()
+        println(wireTransfer)
+        wireTransfer.validate()
+    }
+
+    @Test
+    fun callSubmit() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val wireTransferService = client.simulations().wireTransfers()
+        val wireTransfer =
+            wireTransferService.submit(
+                SimulationWireTransferSubmitParams.builder()
+                    .wireTransferId("wire_transfer_id")
+                    .build()
+            )
+        println(wireTransfer)
+        wireTransfer.validate()
     }
 }

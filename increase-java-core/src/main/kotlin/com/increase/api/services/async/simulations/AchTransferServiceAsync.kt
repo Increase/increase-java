@@ -6,9 +6,8 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.AchTransfer
-import com.increase.api.models.InboundAchTransfer
-import com.increase.api.models.SimulationAchTransferCreateInboundParams
-import com.increase.api.models.SimulationAchTransferNotificationOfChangeParams
+import com.increase.api.models.SimulationAchTransferAcknowledgeParams
+import com.increase.api.models.SimulationAchTransferCreateNotificationOfChangeParams
 import com.increase.api.models.SimulationAchTransferReturnParams
 import com.increase.api.models.SimulationAchTransferSubmitParams
 import java.util.concurrent.CompletableFuture
@@ -16,26 +15,22 @@ import java.util.concurrent.CompletableFuture
 interface AchTransferServiceAsync {
 
     /**
-     * Simulates an inbound ACH transfer to your account. This imitates initiating a transfer to an
-     * Increase account from a different financial institution. The transfer may be either a credit
-     * or a debit depending on if the `amount` is positive or negative. The result of calling this
-     * API will contain the created transfer. You can pass a `resolve_at` parameter to allow for a
-     * window to
-     * [action on the Inbound ACH Transfer](https://increase.com/documentation/receiving-ach-transfers).
-     * Alternatively, if you don't pass the `resolve_at` parameter the result will contain either a
-     * [Transaction](#transactions) or a [Declined Transaction](#declined-transactions) depending on
-     * whether or not the transfer is allowed.
+     * Simulates the acknowledgement of an [ACH Transfer](#ach-transfers) by the Federal Reserve.
+     * This transfer must first have a `status` of `submitted` . In production, the Federal Reserve
+     * generally acknowledges submitted ACH files within 30 minutes. Since sandbox ACH Transfers are
+     * not submitted to the Federal Reserve, this endpoint allows you to skip that delay and add the
+     * acknowledgment subresource to the ACH Transfer.
      */
     @JvmOverloads
-    fun createInbound(
-        params: SimulationAchTransferCreateInboundParams,
+    fun acknowledge(
+        params: SimulationAchTransferAcknowledgeParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): CompletableFuture<InboundAchTransfer>
+    ): CompletableFuture<AchTransfer>
 
     /** Simulates receiving a Notification of Change for an [ACH Transfer](#ach-transfers). */
     @JvmOverloads
-    fun notificationOfChange(
-        params: SimulationAchTransferNotificationOfChangeParams,
+    fun createNotificationOfChange(
+        params: SimulationAchTransferCreateNotificationOfChangeParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<AchTransfer>
 

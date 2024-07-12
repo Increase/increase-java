@@ -12,7 +12,7 @@ import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
-import com.increase.api.services.blocking.intrafi.ExclusionService
+import com.increase.api.services.blocking.IntrafiExclusionService
 import java.util.Objects
 import java.util.Optional
 import java.util.stream.Stream
@@ -20,7 +20,7 @@ import java.util.stream.StreamSupport
 
 class IntrafiExclusionListPage
 private constructor(
-    private val exclusionsService: ExclusionService,
+    private val intrafiExclusionsService: IntrafiExclusionService,
     private val params: IntrafiExclusionListParams,
     private val response: Response,
 ) {
@@ -37,21 +37,21 @@ private constructor(
         }
 
         return other is IntrafiExclusionListPage &&
-            this.exclusionsService == other.exclusionsService &&
+            this.intrafiExclusionsService == other.intrafiExclusionsService &&
             this.params == other.params &&
             this.response == other.response
     }
 
     override fun hashCode(): Int {
         return Objects.hash(
-            exclusionsService,
+            intrafiExclusionsService,
             params,
             response,
         )
     }
 
     override fun toString() =
-        "IntrafiExclusionListPage{exclusionsService=$exclusionsService, params=$params, response=$response}"
+        "IntrafiExclusionListPage{intrafiExclusionsService=$intrafiExclusionsService, params=$params, response=$response}"
 
     fun hasNextPage(): Boolean {
         if (data().isEmpty()) {
@@ -75,7 +75,7 @@ private constructor(
     }
 
     fun getNextPage(): Optional<IntrafiExclusionListPage> {
-        return getNextPageParams().map { exclusionsService.list(it) }
+        return getNextPageParams().map { intrafiExclusionsService.list(it) }
     }
 
     fun autoPager(): AutoPager = AutoPager(this)
@@ -84,12 +84,12 @@ private constructor(
 
         @JvmStatic
         fun of(
-            exclusionsService: ExclusionService,
+            intrafiExclusionsService: IntrafiExclusionService,
             params: IntrafiExclusionListParams,
             response: Response
         ) =
             IntrafiExclusionListPage(
-                exclusionsService,
+                intrafiExclusionsService,
                 params,
                 response,
             )
