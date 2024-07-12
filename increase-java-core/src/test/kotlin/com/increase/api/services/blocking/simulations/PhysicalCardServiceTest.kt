@@ -12,7 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class PhysicalCardServiceTest {
 
     @Test
-    fun callShipmentAdvance() {
+    fun callAdvanceShipment() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -20,11 +20,11 @@ class PhysicalCardServiceTest {
                 .build()
         val physicalCardService = client.simulations().physicalCards()
         val physicalCard =
-            physicalCardService.shipmentAdvance(
-                SimulationPhysicalCardShipmentAdvanceParams.builder()
+            physicalCardService.advanceShipment(
+                SimulationPhysicalCardAdvanceShipmentParams.builder()
                     .physicalCardId("physical_card_id")
                     .shipmentStatus(
-                        SimulationPhysicalCardShipmentAdvanceParams.ShipmentStatus.PENDING
+                        SimulationPhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING
                     )
                     .build()
             )

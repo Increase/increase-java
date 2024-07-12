@@ -12,7 +12,7 @@ import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
-import com.increase.api.services.async.intrafi.ExclusionServiceAsync
+import com.increase.api.services.async.IntrafiExclusionServiceAsync
 import java.util.Objects
 import java.util.Optional
 import java.util.concurrent.CompletableFuture
@@ -21,7 +21,7 @@ import java.util.function.Predicate
 
 class IntrafiExclusionListPageAsync
 private constructor(
-    private val exclusionsService: ExclusionServiceAsync,
+    private val intrafiExclusionsService: IntrafiExclusionServiceAsync,
     private val params: IntrafiExclusionListParams,
     private val response: Response,
 ) {
@@ -38,21 +38,21 @@ private constructor(
         }
 
         return other is IntrafiExclusionListPageAsync &&
-            this.exclusionsService == other.exclusionsService &&
+            this.intrafiExclusionsService == other.intrafiExclusionsService &&
             this.params == other.params &&
             this.response == other.response
     }
 
     override fun hashCode(): Int {
         return Objects.hash(
-            exclusionsService,
+            intrafiExclusionsService,
             params,
             response,
         )
     }
 
     override fun toString() =
-        "IntrafiExclusionListPageAsync{exclusionsService=$exclusionsService, params=$params, response=$response}"
+        "IntrafiExclusionListPageAsync{intrafiExclusionsService=$intrafiExclusionsService, params=$params, response=$response}"
 
     fun hasNextPage(): Boolean {
         if (data().isEmpty()) {
@@ -77,7 +77,7 @@ private constructor(
 
     fun getNextPage(): CompletableFuture<Optional<IntrafiExclusionListPageAsync>> {
         return getNextPageParams()
-            .map { exclusionsService.list(it).thenApply { Optional.of(it) } }
+            .map { intrafiExclusionsService.list(it).thenApply { Optional.of(it) } }
             .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
     }
 
@@ -87,12 +87,12 @@ private constructor(
 
         @JvmStatic
         fun of(
-            exclusionsService: ExclusionServiceAsync,
+            intrafiExclusionsService: IntrafiExclusionServiceAsync,
             params: IntrafiExclusionListParams,
             response: Response
         ) =
             IntrafiExclusionListPageAsync(
-                exclusionsService,
+                intrafiExclusionsService,
                 params,
                 response,
             )

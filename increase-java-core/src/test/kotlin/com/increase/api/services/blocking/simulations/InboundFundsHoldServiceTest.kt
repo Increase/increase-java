@@ -19,13 +19,13 @@ class InboundFundsHoldServiceTest {
                 .apiKey("My API Key")
                 .build()
         val inboundFundsHoldService = client.simulations().inboundFundsHolds()
-        val inboundFundsHoldReleaseResponse =
+        val simulationInboundFundsHoldReleaseResponse =
             inboundFundsHoldService.release(
                 SimulationInboundFundsHoldReleaseParams.builder()
                     .inboundFundsHoldId("inbound_funds_hold_id")
                     .build()
             )
-        println(inboundFundsHoldReleaseResponse)
-        inboundFundsHoldReleaseResponse.validate()
+        println(simulationInboundFundsHoldReleaseResponse)
+        simulationInboundFundsHoldReleaseResponse.validate()
     }
 }

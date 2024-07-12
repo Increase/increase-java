@@ -6,7 +6,6 @@ import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.*
 import com.increase.api.models.WireTransferListParams
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -101,40 +100,6 @@ class WireTransferServiceTest {
         val wireTransfer =
             wireTransferService.cancel(
                 WireTransferCancelParams.builder().wireTransferId("wire_transfer_id").build()
-            )
-        println(wireTransfer)
-        wireTransfer.validate()
-    }
-
-    @Disabled("Prism tests are broken")
-    @Test
-    fun callReverse() {
-        val client =
-            IncreaseOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val wireTransferService = client.wireTransfers()
-        val wireTransfer =
-            wireTransferService.reverse(
-                WireTransferReverseParams.builder().wireTransferId("wire_transfer_id").build()
-            )
-        println(wireTransfer)
-        wireTransfer.validate()
-    }
-
-    @Disabled("Prism tests are broken")
-    @Test
-    fun callSubmit() {
-        val client =
-            IncreaseOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val wireTransferService = client.wireTransfers()
-        val wireTransfer =
-            wireTransferService.submit(
-                WireTransferSubmitParams.builder().wireTransferId("wire_transfer_id").build()
             )
         println(wireTransfer)
         wireTransfer.validate()

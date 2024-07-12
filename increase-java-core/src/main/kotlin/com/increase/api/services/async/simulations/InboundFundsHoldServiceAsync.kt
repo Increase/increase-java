@@ -5,8 +5,8 @@
 package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
-import com.increase.api.models.InboundFundsHoldReleaseResponse
 import com.increase.api.models.SimulationInboundFundsHoldReleaseParams
+import com.increase.api.models.SimulationInboundFundsHoldReleaseResponse
 import java.util.concurrent.CompletableFuture
 
 interface InboundFundsHoldServiceAsync {
@@ -19,5 +19,5 @@ interface InboundFundsHoldServiceAsync {
     fun release(
         params: SimulationInboundFundsHoldReleaseParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): CompletableFuture<InboundFundsHoldReleaseResponse>
+    ): CompletableFuture<SimulationInboundFundsHoldReleaseResponse>
 }

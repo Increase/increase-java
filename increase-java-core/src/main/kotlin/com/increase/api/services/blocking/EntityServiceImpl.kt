@@ -9,19 +9,17 @@ import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.Entity
+import com.increase.api.models.EntityArchiveBeneficialOwnerParams
 import com.increase.api.models.EntityArchiveParams
 import com.increase.api.models.EntityConfirmParams
+import com.increase.api.models.EntityCreateBeneficialOwnerParams
 import com.increase.api.models.EntityCreateParams
 import com.increase.api.models.EntityListPage
 import com.increase.api.models.EntityListParams
 import com.increase.api.models.EntityRetrieveParams
 import com.increase.api.models.EntityUpdateAddressParams
-import com.increase.api.services.blocking.entities.BeneficialOwnerService
-import com.increase.api.services.blocking.entities.BeneficialOwnerServiceImpl
-import com.increase.api.services.blocking.entities.IndustryCodeService
-import com.increase.api.services.blocking.entities.IndustryCodeServiceImpl
-import com.increase.api.services.blocking.entities.SupplementalDocumentService
-import com.increase.api.services.blocking.entities.SupplementalDocumentServiceImpl
+import com.increase.api.models.EntityUpdateBeneficialOwnerAddressParams
+import com.increase.api.models.EntityUpdateIndustryCodeParams
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
@@ -33,22 +31,6 @@ constructor(
 ) : EntityService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
-
-    private val beneficialOwners: BeneficialOwnerService by lazy {
-        BeneficialOwnerServiceImpl(clientOptions)
-    }
-
-    private val supplementalDocuments: SupplementalDocumentService by lazy {
-        SupplementalDocumentServiceImpl(clientOptions)
-    }
-
-    private val industryCode: IndustryCodeService by lazy { IndustryCodeServiceImpl(clientOptions) }
-
-    override fun beneficialOwners(): BeneficialOwnerService = beneficialOwners
-
-    override fun supplementalDocuments(): SupplementalDocumentService = supplementalDocuments
-
-    override fun industryCode(): IndustryCodeService = industryCode
 
     private val createHandler: Handler<Entity> =
         jsonHandler<Entity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
@@ -154,6 +136,35 @@ constructor(
         }
     }
 
+    private val archiveBeneficialOwnerHandler: Handler<Entity> =
+        jsonHandler<Entity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+    /** Archive a beneficial owner for a corporate Entity */
+    override fun archiveBeneficialOwner(
+        params: EntityArchiveBeneficialOwnerParams,
+        requestOptions: RequestOptions
+    ): Entity {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.POST)
+                .addPathSegments("entities", params.getPathParam(0), "archive_beneficial_owner")
+                .putAllQueryParams(clientOptions.queryParams)
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .body(json(clientOptions.jsonMapper, params.getBody()))
+                .build()
+        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
+            response
+                .use { archiveBeneficialOwnerHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
+        }
+    }
+
     private val confirmHandler: Handler<Entity> =
         jsonHandler<Entity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
@@ -184,6 +195,35 @@ constructor(
         }
     }
 
+    private val createBeneficialOwnerHandler: Handler<Entity> =
+        jsonHandler<Entity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+    /** Create a beneficial owner for a corporate Entity */
+    override fun createBeneficialOwner(
+        params: EntityCreateBeneficialOwnerParams,
+        requestOptions: RequestOptions
+    ): Entity {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.POST)
+                .addPathSegments("entities", params.getPathParam(0), "create_beneficial_owner")
+                .putAllQueryParams(clientOptions.queryParams)
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .body(json(clientOptions.jsonMapper, params.getBody()))
+                .build()
+        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
+            response
+                .use { createBeneficialOwnerHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
+        }
+    }
+
     private val updateAddressHandler: Handler<Entity> =
         jsonHandler<Entity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
@@ -195,7 +235,7 @@ constructor(
         val request =
             HttpRequest.builder()
                 .method(HttpMethod.POST)
-                .addPathSegments("entities", params.getPathParam(0), "address")
+                .addPathSegments("entities", params.getPathParam(0), "update_address")
                 .putAllQueryParams(clientOptions.queryParams)
                 .putAllQueryParams(params.getQueryParams())
                 .putAllHeaders(clientOptions.headers)
@@ -205,6 +245,68 @@ constructor(
         return clientOptions.httpClient.execute(request, requestOptions).let { response ->
             response
                 .use { updateAddressHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
+        }
+    }
+
+    private val updateBeneficialOwnerAddressHandler: Handler<Entity> =
+        jsonHandler<Entity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+    /** Update the address for a beneficial owner belonging to a corporate Entity */
+    override fun updateBeneficialOwnerAddress(
+        params: EntityUpdateBeneficialOwnerAddressParams,
+        requestOptions: RequestOptions
+    ): Entity {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.POST)
+                .addPathSegments(
+                    "entities",
+                    params.getPathParam(0),
+                    "update_beneficial_owner_address"
+                )
+                .putAllQueryParams(clientOptions.queryParams)
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .body(json(clientOptions.jsonMapper, params.getBody()))
+                .build()
+        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
+            response
+                .use { updateBeneficialOwnerAddressHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
+        }
+    }
+
+    private val updateIndustryCodeHandler: Handler<Entity> =
+        jsonHandler<Entity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+    /** Update the industry code for a corporate Entity */
+    override fun updateIndustryCode(
+        params: EntityUpdateIndustryCodeParams,
+        requestOptions: RequestOptions
+    ): Entity {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.POST)
+                .addPathSegments("entities", params.getPathParam(0), "update_industry_code")
+                .putAllQueryParams(clientOptions.queryParams)
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .body(json(clientOptions.jsonMapper, params.getBody()))
+                .build()
+        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
+            response
+                .use { updateIndustryCodeHandler.handle(it) }
                 .apply {
                     if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
                         validate()

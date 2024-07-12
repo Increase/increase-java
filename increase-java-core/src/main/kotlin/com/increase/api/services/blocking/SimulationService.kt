@@ -4,26 +4,28 @@
 
 package com.increase.api.services.blocking
 
-import com.increase.api.core.RequestOptions
-import com.increase.api.models.CardPayment
-import com.increase.api.models.SimulationCardAuthorizationExpirationsParams
-import com.increase.api.models.SimulationCardFuelConfirmationsParams
-import com.increase.api.models.SimulationCardIncrementsParams
-import com.increase.api.models.SimulationCardReversalsParams
 import com.increase.api.services.blocking.simulations.AccountStatementService
 import com.increase.api.services.blocking.simulations.AccountTransferService
 import com.increase.api.services.blocking.simulations.AchTransferService
+import com.increase.api.services.blocking.simulations.CardAuthorizationExpirationService
+import com.increase.api.services.blocking.simulations.CardAuthorizationService
 import com.increase.api.services.blocking.simulations.CardDisputeService
+import com.increase.api.services.blocking.simulations.CardFuelConfirmationService
+import com.increase.api.services.blocking.simulations.CardIncrementService
 import com.increase.api.services.blocking.simulations.CardRefundService
-import com.increase.api.services.blocking.simulations.CardService
+import com.increase.api.services.blocking.simulations.CardReversalService
+import com.increase.api.services.blocking.simulations.CardSettlementService
 import com.increase.api.services.blocking.simulations.CheckDepositService
 import com.increase.api.services.blocking.simulations.CheckTransferService
 import com.increase.api.services.blocking.simulations.DigitalWalletTokenRequestService
 import com.increase.api.services.blocking.simulations.DocumentService
+import com.increase.api.services.blocking.simulations.InboundAchTransferService
 import com.increase.api.services.blocking.simulations.InboundCheckDepositService
 import com.increase.api.services.blocking.simulations.InboundFundsHoldService
 import com.increase.api.services.blocking.simulations.InboundInternationalAchTransferService
+import com.increase.api.services.blocking.simulations.InboundRealTimePaymentsTransferService
 import com.increase.api.services.blocking.simulations.InboundWireDrawdownRequestService
+import com.increase.api.services.blocking.simulations.InboundWireTransferService
 import com.increase.api.services.blocking.simulations.InterestPaymentService
 import com.increase.api.services.blocking.simulations.PhysicalCardService
 import com.increase.api.services.blocking.simulations.ProgramService
@@ -34,78 +36,55 @@ interface SimulationService {
 
     fun accountTransfers(): AccountTransferService
 
-    fun accountStatements(): AccountStatementService
+    fun inboundAchTransfers(): InboundAchTransferService
 
     fun achTransfers(): AchTransferService
 
-    fun cardDisputes(): CardDisputeService
-
-    fun cardRefunds(): CardRefundService
-
     fun checkTransfers(): CheckTransferService
-
-    fun documents(): DocumentService
-
-    fun digitalWalletTokenRequests(): DigitalWalletTokenRequestService
-
-    fun checkDeposits(): CheckDepositService
-
-    fun programs(): ProgramService
-
-    fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestService
-
-    fun inboundFundsHolds(): InboundFundsHoldService
-
-    fun interestPayments(): InterestPaymentService
-
-    fun wireTransfers(): WireTransferService
-
-    fun cards(): CardService
-
-    fun realTimePaymentsTransfers(): RealTimePaymentsTransferService
-
-    fun physicalCards(): PhysicalCardService
 
     fun inboundCheckDeposits(): InboundCheckDepositService
 
+    fun checkDeposits(): CheckDepositService
+
+    fun inboundWireTransfers(): InboundWireTransferService
+
+    fun wireTransfers(): WireTransferService
+
+    fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestService
+
+    fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferService
+
+    fun inboundFundsHolds(): InboundFundsHoldService
+
+    fun realTimePaymentsTransfers(): RealTimePaymentsTransferService
+
     fun inboundInternationalAchTransfers(): InboundInternationalAchTransferService
 
-    /** Simulates expiring a card authorization immediately. */
-    @JvmOverloads
-    fun cardAuthorizationExpirations(
-        params: SimulationCardAuthorizationExpirationsParams,
-        requestOptions: RequestOptions = RequestOptions.none()
-    ): CardPayment
+    fun cardAuthorizations(): CardAuthorizationService
 
-    /**
-     * Simulates the fuel confirmation of an authorization by a card acquirer. This happens
-     * asynchronously right after a fuel pump transaction is completed. A fuel confirmation can only
-     * happen once per authorization.
-     */
-    @JvmOverloads
-    fun cardFuelConfirmations(
-        params: SimulationCardFuelConfirmationsParams,
-        requestOptions: RequestOptions = RequestOptions.none()
-    ): CardPayment
+    fun cardSettlements(): CardSettlementService
 
-    /**
-     * Simulates the increment of an authorization by a card acquirer. An authorization can be
-     * incremented multiple times.
-     */
-    @JvmOverloads
-    fun cardIncrements(
-        params: SimulationCardIncrementsParams,
-        requestOptions: RequestOptions = RequestOptions.none()
-    ): CardPayment
+    fun cardReversals(): CardReversalService
 
-    /**
-     * Simulates the reversal of an authorization by a card acquirer. An authorization can be
-     * partially reversed multiple times, up until the total authorized amount. Marks the pending
-     * transaction as complete if the authorization is fully reversed.
-     */
-    @JvmOverloads
-    fun cardReversals(
-        params: SimulationCardReversalsParams,
-        requestOptions: RequestOptions = RequestOptions.none()
-    ): CardPayment
+    fun cardIncrements(): CardIncrementService
+
+    fun cardAuthorizationExpirations(): CardAuthorizationExpirationService
+
+    fun cardFuelConfirmations(): CardFuelConfirmationService
+
+    fun cardRefunds(): CardRefundService
+
+    fun cardDisputes(): CardDisputeService
+
+    fun digitalWalletTokenRequests(): DigitalWalletTokenRequestService
+
+    fun physicalCards(): PhysicalCardService
+
+    fun interestPayments(): InterestPaymentService
+
+    fun accountStatements(): AccountStatementService
+
+    fun documents(): DocumentService
+
+    fun programs(): ProgramService
 }

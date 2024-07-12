@@ -5,8 +5,8 @@
 package com.increase.api.services.blocking.simulations
 
 import com.increase.api.core.RequestOptions
-import com.increase.api.models.InboundFundsHoldReleaseResponse
 import com.increase.api.models.SimulationInboundFundsHoldReleaseParams
+import com.increase.api.models.SimulationInboundFundsHoldReleaseResponse
 
 interface InboundFundsHoldService {
 
@@ -18,5 +18,5 @@ interface InboundFundsHoldService {
     fun release(
         params: SimulationInboundFundsHoldReleaseParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): InboundFundsHoldReleaseResponse
+    ): SimulationInboundFundsHoldReleaseResponse
 }

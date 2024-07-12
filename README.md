@@ -2,7 +2,7 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-java)](https://central.sonatype.com/artifact/com.increase.api/increase-java/0.52.0)
+[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-java)](https://central.sonatype.com/artifact/com.increase.api/increase-java/0.60.0)
 
 <!-- x-release-please-end -->
 
@@ -25,7 +25,7 @@ The REST API documentation can be found [on increase.com](https://increase.com/
 <!-- x-release-please-start-version -->
 
 ```kotlin
-implementation("com.increase.api:increase-java:0.52.0")
+implementation("com.increase.api:increase-java:0.60.0")
 ```
 
 #### Maven
@@ -34,7 +34,7 @@ implementation("com.increase.api:increase-java:0.52.0")
 <dependency>
     <groupId>com.increase.api</groupId>
     <artifactId>increase-java</artifactId>
-    <version>0.52.0</version>
+    <version>0.60.0</version>
 </dependency>
 ```
 
@@ -84,7 +84,9 @@ import com.increase.api.models.Account;
 import com.increase.api.models.AccountCreateParams;
 
 AccountCreateParams params = AccountCreateParams.builder()
-    .name("My First Increase Account")
+    .name("New Account!")
+    .programId("program_i2v2os4mwza1oetokh9i")
+    .entityId("entity_n8y8tnk2p9339ti393yi")
     .build();
 Account account = client.accounts().create(params);
 ```
