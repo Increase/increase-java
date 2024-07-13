@@ -40,6 +40,7 @@ class InboundWireTransferTest {
                 .originatorToBeneficiaryInformationLine4(
                     "originator_to_beneficiary_information_line4"
                 )
+                .senderReference("sender_reference")
                 .status(InboundWireTransfer.Status.PENDING)
                 .type(InboundWireTransfer.Type.INBOUND_WIRE_TRANSFER)
                 .build()
@@ -78,6 +79,7 @@ class InboundWireTransferTest {
             .contains("originator_to_beneficiary_information_line3")
         assertThat(inboundWireTransfer.originatorToBeneficiaryInformationLine4())
             .contains("originator_to_beneficiary_information_line4")
+        assertThat(inboundWireTransfer.senderReference()).contains("sender_reference")
         assertThat(inboundWireTransfer.status()).isEqualTo(InboundWireTransfer.Status.PENDING)
         assertThat(inboundWireTransfer.type())
             .isEqualTo(InboundWireTransfer.Type.INBOUND_WIRE_TRANSFER)
