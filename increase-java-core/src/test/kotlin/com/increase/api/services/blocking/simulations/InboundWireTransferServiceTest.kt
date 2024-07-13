@@ -38,6 +38,7 @@ class InboundWireTransferServiceTest {
                     .originatorToBeneficiaryInformationLine2("x")
                     .originatorToBeneficiaryInformationLine3("x")
                     .originatorToBeneficiaryInformationLine4("x")
+                    .senderReference("x")
                     .build()
             )
         println(inboundWireTransfer)
