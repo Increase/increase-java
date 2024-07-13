@@ -812,6 +812,7 @@ class TransactionTest {
                                 .receiverFinancialInstitutionInformation(
                                     "receiver_financial_institution_information"
                                 )
+                                .senderReference("sender_reference")
                                 .transactionId("transaction_id")
                                 .wireTransferId("wire_transfer_id")
                                 .build()
@@ -1653,6 +1654,7 @@ class TransactionTest {
                             .receiverFinancialInstitutionInformation(
                                 "receiver_financial_institution_information"
                             )
+                            .senderReference("sender_reference")
                             .transactionId("transaction_id")
                             .wireTransferId("wire_transfer_id")
                             .build()
