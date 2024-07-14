@@ -369,10 +369,6 @@ constructor(
                     In(JsonField.of("inbound_check_deposit_return_intention"))
 
                 @JvmField
-                val INBOUND_INTERNATIONAL_ACH_TRANSFER =
-                    In(JsonField.of("inbound_international_ach_transfer"))
-
-                @JvmField
                 val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION =
                     In(JsonField.of("inbound_real_time_payments_transfer_confirmation"))
 
@@ -426,7 +422,6 @@ constructor(
                 INBOUND_ACH_TRANSFER,
                 INBOUND_ACH_TRANSFER_RETURN_INTENTION,
                 INBOUND_CHECK_DEPOSIT_RETURN_INTENTION,
-                INBOUND_INTERNATIONAL_ACH_TRANSFER,
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
                 INBOUND_WIRE_DRAWDOWN_PAYMENT,
                 INBOUND_WIRE_REVERSAL,
@@ -460,7 +455,6 @@ constructor(
                 INBOUND_ACH_TRANSFER,
                 INBOUND_ACH_TRANSFER_RETURN_INTENTION,
                 INBOUND_CHECK_DEPOSIT_RETURN_INTENTION,
-                INBOUND_INTERNATIONAL_ACH_TRANSFER,
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
                 INBOUND_WIRE_DRAWDOWN_PAYMENT,
                 INBOUND_WIRE_REVERSAL,
@@ -498,7 +492,6 @@ constructor(
                         Value.INBOUND_ACH_TRANSFER_RETURN_INTENTION
                     INBOUND_CHECK_DEPOSIT_RETURN_INTENTION ->
                         Value.INBOUND_CHECK_DEPOSIT_RETURN_INTENTION
-                    INBOUND_INTERNATIONAL_ACH_TRANSFER -> Value.INBOUND_INTERNATIONAL_ACH_TRANSFER
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                         Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
                     INBOUND_WIRE_DRAWDOWN_PAYMENT -> Value.INBOUND_WIRE_DRAWDOWN_PAYMENT
@@ -538,7 +531,6 @@ constructor(
                         Known.INBOUND_ACH_TRANSFER_RETURN_INTENTION
                     INBOUND_CHECK_DEPOSIT_RETURN_INTENTION ->
                         Known.INBOUND_CHECK_DEPOSIT_RETURN_INTENTION
-                    INBOUND_INTERNATIONAL_ACH_TRANSFER -> Known.INBOUND_INTERNATIONAL_ACH_TRANSFER
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                         Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
                     INBOUND_WIRE_DRAWDOWN_PAYMENT -> Known.INBOUND_WIRE_DRAWDOWN_PAYMENT
