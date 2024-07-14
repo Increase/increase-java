@@ -593,20 +593,6 @@ class TransactionTest {
                                 )
                                 .build()
                         )
-                        .checkTransferStopPaymentRequest(
-                            Transaction.Source.CheckTransferStopPaymentRequest.builder()
-                                .reason(
-                                    Transaction.Source.CheckTransferStopPaymentRequest.Reason
-                                        .MAIL_DELIVERY_FAILED
-                                )
-                                .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .transferId("transfer_id")
-                                .type(
-                                    Transaction.Source.CheckTransferStopPaymentRequest.Type
-                                        .CHECK_TRANSFER_STOP_PAYMENT_REQUEST
-                                )
-                                .build()
-                        )
                         .feePayment(
                             Transaction.Source.FeePayment.builder()
                                 .amount(123L)
@@ -1355,20 +1341,6 @@ class TransactionTest {
                             .transferId("transfer_id")
                             .type(
                                 Transaction.Source.CheckTransferDeposit.Type.CHECK_TRANSFER_DEPOSIT
-                            )
-                            .build()
-                    )
-                    .checkTransferStopPaymentRequest(
-                        Transaction.Source.CheckTransferStopPaymentRequest.builder()
-                            .reason(
-                                Transaction.Source.CheckTransferStopPaymentRequest.Reason
-                                    .MAIL_DELIVERY_FAILED
-                            )
-                            .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .transferId("transfer_id")
-                            .type(
-                                Transaction.Source.CheckTransferStopPaymentRequest.Type
-                                    .CHECK_TRANSFER_STOP_PAYMENT_REQUEST
                             )
                             .build()
                     )

@@ -566,7 +566,6 @@ private constructor(
         private val checkDepositAcceptance: JsonField<CheckDepositAcceptance>,
         private val checkDepositReturn: JsonField<CheckDepositReturn>,
         private val checkTransferDeposit: JsonField<CheckTransferDeposit>,
-        private val checkTransferStopPaymentRequest: JsonField<CheckTransferStopPaymentRequest>,
         private val feePayment: JsonField<FeePayment>,
         private val inboundAchTransfer: JsonField<InboundAchTransfer>,
         private val inboundRealTimePaymentsTransferConfirmation:
@@ -684,15 +683,6 @@ private constructor(
          */
         fun checkTransferDeposit(): Optional<CheckTransferDeposit> =
             Optional.ofNullable(checkTransferDeposit.getNullable("check_transfer_deposit"))
-
-        /**
-         * A Check Transfer Stop Payment Request object. This field will be present in the JSON
-         * response if and only if `category` is equal to `check_transfer_stop_payment_request`.
-         */
-        fun checkTransferStopPaymentRequest(): Optional<CheckTransferStopPaymentRequest> =
-            Optional.ofNullable(
-                checkTransferStopPaymentRequest.getNullable("check_transfer_stop_payment_request")
-            )
 
         /**
          * A Fee Payment object. This field will be present in the JSON response if and only if
@@ -895,14 +885,6 @@ private constructor(
         fun _checkTransferDeposit() = checkTransferDeposit
 
         /**
-         * A Check Transfer Stop Payment Request object. This field will be present in the JSON
-         * response if and only if `category` is equal to `check_transfer_stop_payment_request`.
-         */
-        @JsonProperty("check_transfer_stop_payment_request")
-        @ExcludeMissing
-        fun _checkTransferStopPaymentRequest() = checkTransferStopPaymentRequest
-
-        /**
          * A Fee Payment object. This field will be present in the JSON response if and only if
          * `category` is equal to `fee_payment`.
          */
@@ -1013,7 +995,6 @@ private constructor(
                 checkDepositAcceptance().map { it.validate() }
                 checkDepositReturn().map { it.validate() }
                 checkTransferDeposit().map { it.validate() }
-                checkTransferStopPaymentRequest().map { it.validate() }
                 feePayment().map { it.validate() }
                 inboundAchTransfer().map { it.validate() }
                 inboundRealTimePaymentsTransferConfirmation().map { it.validate() }
@@ -1052,7 +1033,6 @@ private constructor(
                 this.checkDepositAcceptance == other.checkDepositAcceptance &&
                 this.checkDepositReturn == other.checkDepositReturn &&
                 this.checkTransferDeposit == other.checkTransferDeposit &&
-                this.checkTransferStopPaymentRequest == other.checkTransferStopPaymentRequest &&
                 this.feePayment == other.feePayment &&
                 this.inboundAchTransfer == other.inboundAchTransfer &&
                 this.inboundRealTimePaymentsTransferConfirmation ==
@@ -1088,7 +1068,6 @@ private constructor(
                         checkDepositAcceptance,
                         checkDepositReturn,
                         checkTransferDeposit,
-                        checkTransferStopPaymentRequest,
                         feePayment,
                         inboundAchTransfer,
                         inboundRealTimePaymentsTransferConfirmation,
@@ -1108,7 +1087,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Source{accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeLoss=$cardDisputeLoss, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, checkTransferStopPaymentRequest=$checkTransferStopPaymentRequest, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireDrawdownPayment=$inboundWireDrawdownPayment, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, interestPayment=$interestPayment, internalSource=$internalSource, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, wireTransferIntention=$wireTransferIntention, wireTransferRejection=$wireTransferRejection, additionalProperties=$additionalProperties}"
+            "Source{accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeLoss=$cardDisputeLoss, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireDrawdownPayment=$inboundWireDrawdownPayment, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, interestPayment=$interestPayment, internalSource=$internalSource, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, wireTransferIntention=$wireTransferIntention, wireTransferRejection=$wireTransferRejection, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1132,9 +1111,6 @@ private constructor(
             private var checkDepositAcceptance: JsonField<CheckDepositAcceptance> = JsonMissing.of()
             private var checkDepositReturn: JsonField<CheckDepositReturn> = JsonMissing.of()
             private var checkTransferDeposit: JsonField<CheckTransferDeposit> = JsonMissing.of()
-            private var checkTransferStopPaymentRequest:
-                JsonField<CheckTransferStopPaymentRequest> =
-                JsonMissing.of()
             private var feePayment: JsonField<FeePayment> = JsonMissing.of()
             private var inboundAchTransfer: JsonField<InboundAchTransfer> = JsonMissing.of()
             private var inboundRealTimePaymentsTransferConfirmation:
@@ -1170,7 +1146,6 @@ private constructor(
                 this.checkDepositAcceptance = source.checkDepositAcceptance
                 this.checkDepositReturn = source.checkDepositReturn
                 this.checkTransferDeposit = source.checkTransferDeposit
-                this.checkTransferStopPaymentRequest = source.checkTransferStopPaymentRequest
                 this.feePayment = source.feePayment
                 this.inboundAchTransfer = source.inboundAchTransfer
                 this.inboundRealTimePaymentsTransferConfirmation =
@@ -1428,24 +1403,6 @@ private constructor(
                 }
 
             /**
-             * A Check Transfer Stop Payment Request object. This field will be present in the JSON
-             * response if and only if `category` is equal to `check_transfer_stop_payment_request`.
-             */
-            fun checkTransferStopPaymentRequest(
-                checkTransferStopPaymentRequest: CheckTransferStopPaymentRequest
-            ) = checkTransferStopPaymentRequest(JsonField.of(checkTransferStopPaymentRequest))
-
-            /**
-             * A Check Transfer Stop Payment Request object. This field will be present in the JSON
-             * response if and only if `category` is equal to `check_transfer_stop_payment_request`.
-             */
-            @JsonProperty("check_transfer_stop_payment_request")
-            @ExcludeMissing
-            fun checkTransferStopPaymentRequest(
-                checkTransferStopPaymentRequest: JsonField<CheckTransferStopPaymentRequest>
-            ) = apply { this.checkTransferStopPaymentRequest = checkTransferStopPaymentRequest }
-
-            /**
              * A Fee Payment object. This field will be present in the JSON response if and only if
              * `category` is equal to `fee_payment`.
              */
@@ -1700,7 +1657,6 @@ private constructor(
                     checkDepositAcceptance,
                     checkDepositReturn,
                     checkTransferDeposit,
-                    checkTransferStopPaymentRequest,
                     feePayment,
                     inboundAchTransfer,
                     inboundRealTimePaymentsTransferConfirmation,
@@ -13641,10 +13597,6 @@ private constructor(
                 @JvmField
                 val CHECK_TRANSFER_DEPOSIT = Category(JsonField.of("check_transfer_deposit"))
 
-                @JvmField
-                val CHECK_TRANSFER_STOP_PAYMENT_REQUEST =
-                    Category(JsonField.of("check_transfer_stop_payment_request"))
-
                 @JvmField val FEE_PAYMENT = Category(JsonField.of("fee_payment"))
 
                 @JvmField val INBOUND_ACH_TRANSFER = Category(JsonField.of("inbound_ach_transfer"))
@@ -13710,7 +13662,6 @@ private constructor(
                 CHECK_DEPOSIT_ACCEPTANCE,
                 CHECK_DEPOSIT_RETURN,
                 CHECK_TRANSFER_DEPOSIT,
-                CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
                 FEE_PAYMENT,
                 INBOUND_ACH_TRANSFER,
                 INBOUND_ACH_TRANSFER_RETURN_INTENTION,
@@ -13743,7 +13694,6 @@ private constructor(
                 CHECK_DEPOSIT_ACCEPTANCE,
                 CHECK_DEPOSIT_RETURN,
                 CHECK_TRANSFER_DEPOSIT,
-                CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
                 FEE_PAYMENT,
                 INBOUND_ACH_TRANSFER,
                 INBOUND_ACH_TRANSFER_RETURN_INTENTION,
@@ -13778,7 +13728,6 @@ private constructor(
                     CHECK_DEPOSIT_ACCEPTANCE -> Value.CHECK_DEPOSIT_ACCEPTANCE
                     CHECK_DEPOSIT_RETURN -> Value.CHECK_DEPOSIT_RETURN
                     CHECK_TRANSFER_DEPOSIT -> Value.CHECK_TRANSFER_DEPOSIT
-                    CHECK_TRANSFER_STOP_PAYMENT_REQUEST -> Value.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
                     FEE_PAYMENT -> Value.FEE_PAYMENT
                     INBOUND_ACH_TRANSFER -> Value.INBOUND_ACH_TRANSFER
                     INBOUND_ACH_TRANSFER_RETURN_INTENTION ->
@@ -13817,7 +13766,6 @@ private constructor(
                     CHECK_DEPOSIT_ACCEPTANCE -> Known.CHECK_DEPOSIT_ACCEPTANCE
                     CHECK_DEPOSIT_RETURN -> Known.CHECK_DEPOSIT_RETURN
                     CHECK_TRANSFER_DEPOSIT -> Known.CHECK_TRANSFER_DEPOSIT
-                    CHECK_TRANSFER_STOP_PAYMENT_REQUEST -> Known.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
                     FEE_PAYMENT -> Known.FEE_PAYMENT
                     INBOUND_ACH_TRANSFER -> Known.INBOUND_ACH_TRANSFER
                     INBOUND_ACH_TRANSFER_RETURN_INTENTION ->
@@ -15203,320 +15151,6 @@ private constructor(
                 fun known(): Known =
                     when (this) {
                         CHECK_TRANSFER_DEPOSIT -> Known.CHECK_TRANSFER_DEPOSIT
-                        else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-                    }
-
-                fun asString(): String = _value().asStringOrThrow()
-            }
-        }
-
-        /**
-         * A Check Transfer Stop Payment Request object. This field will be present in the JSON
-         * response if and only if `category` is equal to `check_transfer_stop_payment_request`.
-         */
-        @JsonDeserialize(builder = CheckTransferStopPaymentRequest.Builder::class)
-        @NoAutoDetect
-        class CheckTransferStopPaymentRequest
-        private constructor(
-            private val reason: JsonField<Reason>,
-            private val requestedAt: JsonField<OffsetDateTime>,
-            private val transferId: JsonField<String>,
-            private val type: JsonField<Type>,
-            private val additionalProperties: Map<String, JsonValue>,
-        ) {
-
-            private var validated: Boolean = false
-
-            private var hashCode: Int = 0
-
-            /** The reason why this transfer was stopped. */
-            fun reason(): Reason = reason.getRequired("reason")
-
-            /** The time the stop-payment was requested. */
-            fun requestedAt(): OffsetDateTime = requestedAt.getRequired("requested_at")
-
-            /** The ID of the check transfer that was stopped. */
-            fun transferId(): String = transferId.getRequired("transfer_id")
-
-            /**
-             * A constant representing the object's type. For this resource it will always be
-             * `check_transfer_stop_payment_request`.
-             */
-            fun type(): Type = type.getRequired("type")
-
-            /** The reason why this transfer was stopped. */
-            @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
-
-            /** The time the stop-payment was requested. */
-            @JsonProperty("requested_at") @ExcludeMissing fun _requestedAt() = requestedAt
-
-            /** The ID of the check transfer that was stopped. */
-            @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
-
-            /**
-             * A constant representing the object's type. For this resource it will always be
-             * `check_transfer_stop_payment_request`.
-             */
-            @JsonProperty("type") @ExcludeMissing fun _type() = type
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            fun validate(): CheckTransferStopPaymentRequest = apply {
-                if (!validated) {
-                    reason()
-                    requestedAt()
-                    transferId()
-                    type()
-                    validated = true
-                }
-            }
-
-            fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is CheckTransferStopPaymentRequest &&
-                    this.reason == other.reason &&
-                    this.requestedAt == other.requestedAt &&
-                    this.transferId == other.transferId &&
-                    this.type == other.type &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            reason,
-                            requestedAt,
-                            transferId,
-                            type,
-                            additionalProperties,
-                        )
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "CheckTransferStopPaymentRequest{reason=$reason, requestedAt=$requestedAt, transferId=$transferId, type=$type, additionalProperties=$additionalProperties}"
-
-            companion object {
-
-                @JvmStatic fun builder() = Builder()
-            }
-
-            class Builder {
-
-                private var reason: JsonField<Reason> = JsonMissing.of()
-                private var requestedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-                private var transferId: JsonField<String> = JsonMissing.of()
-                private var type: JsonField<Type> = JsonMissing.of()
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(
-                    checkTransferStopPaymentRequest: CheckTransferStopPaymentRequest
-                ) = apply {
-                    this.reason = checkTransferStopPaymentRequest.reason
-                    this.requestedAt = checkTransferStopPaymentRequest.requestedAt
-                    this.transferId = checkTransferStopPaymentRequest.transferId
-                    this.type = checkTransferStopPaymentRequest.type
-                    additionalProperties(checkTransferStopPaymentRequest.additionalProperties)
-                }
-
-                /** The reason why this transfer was stopped. */
-                fun reason(reason: Reason) = reason(JsonField.of(reason))
-
-                /** The reason why this transfer was stopped. */
-                @JsonProperty("reason")
-                @ExcludeMissing
-                fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
-
-                /** The time the stop-payment was requested. */
-                fun requestedAt(requestedAt: OffsetDateTime) =
-                    requestedAt(JsonField.of(requestedAt))
-
-                /** The time the stop-payment was requested. */
-                @JsonProperty("requested_at")
-                @ExcludeMissing
-                fun requestedAt(requestedAt: JsonField<OffsetDateTime>) = apply {
-                    this.requestedAt = requestedAt
-                }
-
-                /** The ID of the check transfer that was stopped. */
-                fun transferId(transferId: String) = transferId(JsonField.of(transferId))
-
-                /** The ID of the check transfer that was stopped. */
-                @JsonProperty("transfer_id")
-                @ExcludeMissing
-                fun transferId(transferId: JsonField<String>) = apply {
-                    this.transferId = transferId
-                }
-
-                /**
-                 * A constant representing the object's type. For this resource it will always be
-                 * `check_transfer_stop_payment_request`.
-                 */
-                fun type(type: Type) = type(JsonField.of(type))
-
-                /**
-                 * A constant representing the object's type. For this resource it will always be
-                 * `check_transfer_stop_payment_request`.
-                 */
-                @JsonProperty("type")
-                @ExcludeMissing
-                fun type(type: JsonField<Type>) = apply { this.type = type }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
-                }
-
-                @JsonAnySetter
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun build(): CheckTransferStopPaymentRequest =
-                    CheckTransferStopPaymentRequest(
-                        reason,
-                        requestedAt,
-                        transferId,
-                        type,
-                        additionalProperties.toUnmodifiable(),
-                    )
-            }
-
-            class Reason
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
-
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Reason && this.value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-
-                companion object {
-
-                    @JvmField
-                    val MAIL_DELIVERY_FAILED = Reason(JsonField.of("mail_delivery_failed"))
-
-                    @JvmField
-                    val REJECTED_BY_INCREASE = Reason(JsonField.of("rejected_by_increase"))
-
-                    @JvmField val NOT_AUTHORIZED = Reason(JsonField.of("not_authorized"))
-
-                    @JvmField val UNKNOWN = Reason(JsonField.of("unknown"))
-
-                    @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
-                }
-
-                enum class Known {
-                    MAIL_DELIVERY_FAILED,
-                    REJECTED_BY_INCREASE,
-                    NOT_AUTHORIZED,
-                    UNKNOWN,
-                }
-
-                enum class Value {
-                    MAIL_DELIVERY_FAILED,
-                    REJECTED_BY_INCREASE,
-                    NOT_AUTHORIZED,
-                    UNKNOWN,
-                    _UNKNOWN,
-                }
-
-                fun value(): Value =
-                    when (this) {
-                        MAIL_DELIVERY_FAILED -> Value.MAIL_DELIVERY_FAILED
-                        REJECTED_BY_INCREASE -> Value.REJECTED_BY_INCREASE
-                        NOT_AUTHORIZED -> Value.NOT_AUTHORIZED
-                        UNKNOWN -> Value.UNKNOWN
-                        else -> Value._UNKNOWN
-                    }
-
-                fun known(): Known =
-                    when (this) {
-                        MAIL_DELIVERY_FAILED -> Known.MAIL_DELIVERY_FAILED
-                        REJECTED_BY_INCREASE -> Known.REJECTED_BY_INCREASE
-                        NOT_AUTHORIZED -> Known.NOT_AUTHORIZED
-                        UNKNOWN -> Known.UNKNOWN
-                        else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
-                    }
-
-                fun asString(): String = _value().asStringOrThrow()
-            }
-
-            class Type
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
-
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Type && this.value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-
-                companion object {
-
-                    @JvmField
-                    val CHECK_TRANSFER_STOP_PAYMENT_REQUEST =
-                        Type(JsonField.of("check_transfer_stop_payment_request"))
-
-                    @JvmStatic fun of(value: String) = Type(JsonField.of(value))
-                }
-
-                enum class Known {
-                    CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
-                }
-
-                enum class Value {
-                    CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
-                    _UNKNOWN,
-                }
-
-                fun value(): Value =
-                    when (this) {
-                        CHECK_TRANSFER_STOP_PAYMENT_REQUEST ->
-                            Value.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
-                        else -> Value._UNKNOWN
-                    }
-
-                fun known(): Known =
-                    when (this) {
-                        CHECK_TRANSFER_STOP_PAYMENT_REQUEST ->
-                            Known.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
                         else -> throw IncreaseInvalidDataException("Unknown Type: $value")
                     }
 
