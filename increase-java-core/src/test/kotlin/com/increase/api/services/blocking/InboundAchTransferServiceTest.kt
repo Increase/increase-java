@@ -45,6 +45,26 @@ class InboundAchTransferServiceTest {
     }
 
     @Test
+    fun callCreateNotificationOfChange() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val inboundAchTransferService = client.inboundAchTransfers()
+        val inboundAchTransfer =
+            inboundAchTransferService.createNotificationOfChange(
+                InboundAchTransferCreateNotificationOfChangeParams.builder()
+                    .inboundAchTransferId("inbound_ach_transfer_id")
+                    .updatedAccountNumber("x")
+                    .updatedRoutingNumber("x")
+                    .build()
+            )
+        println(inboundAchTransfer)
+        inboundAchTransfer.validate()
+    }
+
+    @Test
     fun callDecline() {
         val client =
             IncreaseOkHttpClient.builder()
@@ -56,26 +76,6 @@ class InboundAchTransferServiceTest {
             inboundAchTransferService.decline(
                 InboundAchTransferDeclineParams.builder()
                     .inboundAchTransferId("inbound_ach_transfer_id")
-                    .build()
-            )
-        println(inboundAchTransfer)
-        inboundAchTransfer.validate()
-    }
-
-    @Test
-    fun callNotificationOfChange() {
-        val client =
-            IncreaseOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val inboundAchTransferService = client.inboundAchTransfers()
-        val inboundAchTransfer =
-            inboundAchTransferService.notificationOfChange(
-                InboundAchTransferNotificationOfChangeParams.builder()
-                    .inboundAchTransferId("inbound_ach_transfer_id")
-                    .updatedAccountNumber("x")
-                    .updatedRoutingNumber("x")
                     .build()
             )
         println(inboundAchTransfer)

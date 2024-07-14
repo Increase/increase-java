@@ -20,7 +20,7 @@ class InboundInternationalAchTransferServiceTest {
                 .build()
         val inboundInternationalAchTransferService =
             client.simulations().inboundInternationalAchTransfers()
-        val inboundInternationalAchTransfer =
+        val simulationInboundInternationalAchTransferCreateResponse =
             inboundInternationalAchTransferService.create(
                 SimulationInboundInternationalAchTransferCreateParams.builder()
                     .accountNumberId("account_number_id")
@@ -33,7 +33,7 @@ class InboundInternationalAchTransferServiceTest {
                     .receivingCompanyOrIndividualName("x")
                     .build()
             )
-        println(inboundInternationalAchTransfer)
-        inboundInternationalAchTransfer.validate()
+        println(simulationInboundInternationalAchTransferCreateResponse)
+        simulationInboundInternationalAchTransferCreateResponse.validate()
     }
 }

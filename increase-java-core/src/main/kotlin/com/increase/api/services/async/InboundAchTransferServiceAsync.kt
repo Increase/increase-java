@@ -6,10 +6,10 @@ package com.increase.api.services.async
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.InboundAchTransfer
+import com.increase.api.models.InboundAchTransferCreateNotificationOfChangeParams
 import com.increase.api.models.InboundAchTransferDeclineParams
 import com.increase.api.models.InboundAchTransferListPageAsync
 import com.increase.api.models.InboundAchTransferListParams
-import com.increase.api.models.InboundAchTransferNotificationOfChangeParams
 import com.increase.api.models.InboundAchTransferRetrieveParams
 import com.increase.api.models.InboundAchTransferTransferReturnParams
 import java.util.concurrent.CompletableFuture
@@ -30,17 +30,17 @@ interface InboundAchTransferServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<InboundAchTransferListPageAsync>
 
+    /** Create a notification of change for an Inbound ACH Transfer */
+    @JvmOverloads
+    fun createNotificationOfChange(
+        params: InboundAchTransferCreateNotificationOfChangeParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): CompletableFuture<InboundAchTransfer>
+
     /** Decline an Inbound ACH Transfer */
     @JvmOverloads
     fun decline(
         params: InboundAchTransferDeclineParams,
-        requestOptions: RequestOptions = RequestOptions.none()
-    ): CompletableFuture<InboundAchTransfer>
-
-    /** Create a notification of change for an Inbound ACH Transfer */
-    @JvmOverloads
-    fun notificationOfChange(
-        params: InboundAchTransferNotificationOfChangeParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<InboundAchTransfer>
 

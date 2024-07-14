@@ -15,33 +15,25 @@ interface IncreaseClientAsync {
 
     fun accountNumbers(): AccountNumberServiceAsync
 
-    fun bookkeepingAccounts(): BookkeepingAccountServiceAsync
-
-    fun bookkeepingEntrySets(): BookkeepingEntrySetServiceAsync
-
-    fun bookkeepingEntries(): BookkeepingEntryServiceAsync
-
-    fun realTimeDecisions(): RealTimeDecisionServiceAsync
-
-    fun realTimePaymentsTransfers(): RealTimePaymentsTransferServiceAsync
-
     fun cards(): CardServiceAsync
 
-    fun cardDisputes(): CardDisputeServiceAsync
+    fun cardPayments(): CardPaymentServiceAsync
 
     fun cardPurchaseSupplements(): CardPurchaseSupplementServiceAsync
 
-    fun externalAccounts(): ExternalAccountServiceAsync
+    fun cardDisputes(): CardDisputeServiceAsync
 
-    fun exports(): ExportServiceAsync
+    fun physicalCards(): PhysicalCardServiceAsync
+
+    fun digitalCardProfiles(): DigitalCardProfileServiceAsync
+
+    fun physicalCardProfiles(): PhysicalCardProfileServiceAsync
 
     fun digitalWalletTokens(): DigitalWalletTokenServiceAsync
 
     fun transactions(): TransactionServiceAsync
 
     fun pendingTransactions(): PendingTransactionServiceAsync
-
-    fun programs(): ProgramServiceAsync
 
     fun declinedTransactions(): DeclinedTransactionServiceAsync
 
@@ -51,63 +43,77 @@ interface IncreaseClientAsync {
 
     fun achPrenotifications(): AchPrenotificationServiceAsync
 
-    fun documents(): DocumentServiceAsync
+    fun inboundAchTransfers(): InboundAchTransferServiceAsync
 
     fun wireTransfers(): WireTransferServiceAsync
 
-    fun checkTransfers(): CheckTransferServiceAsync
-
-    fun entities(): EntityServiceAsync
-
-    fun inboundAchTransfers(): InboundAchTransferServiceAsync
-
-    fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestServiceAsync
+    fun inboundWireTransfers(): InboundWireTransferServiceAsync
 
     fun wireDrawdownRequests(): WireDrawdownRequestServiceAsync
 
-    fun events(): EventServiceAsync
+    fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestServiceAsync
 
-    fun eventSubscriptions(): EventSubscriptionServiceAsync
+    fun checkTransfers(): CheckTransferServiceAsync
 
-    fun files(): FileServiceAsync
+    fun inboundCheckDeposits(): InboundCheckDepositServiceAsync
 
-    fun groups(): GroupServiceAsync
-
-    fun oauthConnections(): OAuthConnectionServiceAsync
+    fun realTimePaymentsTransfers(): RealTimePaymentsTransferServiceAsync
 
     fun checkDeposits(): CheckDepositServiceAsync
 
+    fun lockboxes(): LockboxServiceAsync
+
+    fun inboundMailItems(): InboundMailItemServiceAsync
+
     fun routingNumbers(): RoutingNumberServiceAsync
 
-    fun accountStatements(): AccountStatementServiceAsync
+    fun externalAccounts(): ExternalAccountServiceAsync
 
-    fun simulations(): SimulationServiceAsync
+    fun entities(): EntityServiceAsync
 
-    fun physicalCards(): PhysicalCardServiceAsync
+    fun supplementalDocuments(): SupplementalDocumentServiceAsync
 
-    fun cardPayments(): CardPaymentServiceAsync
+    fun programs(): ProgramServiceAsync
 
     fun proofOfAuthorizationRequests(): ProofOfAuthorizationRequestServiceAsync
 
     fun proofOfAuthorizationRequestSubmissions(): ProofOfAuthorizationRequestSubmissionServiceAsync
 
-    fun intrafi(): IntrafiServiceAsync
+    fun accountStatements(): AccountStatementServiceAsync
 
-    fun realTimePaymentsRequestForPayments(): RealTimePaymentsRequestForPaymentServiceAsync
+    fun files(): FileServiceAsync
+
+    fun documents(): DocumentServiceAsync
+
+    fun exports(): ExportServiceAsync
+
+    fun events(): EventServiceAsync
+
+    fun eventSubscriptions(): EventSubscriptionServiceAsync
+
+    fun realTimeDecisions(): RealTimeDecisionServiceAsync
+
+    fun bookkeepingAccounts(): BookkeepingAccountServiceAsync
+
+    fun bookkeepingEntrySets(): BookkeepingEntrySetServiceAsync
+
+    fun bookkeepingEntries(): BookkeepingEntryServiceAsync
+
+    fun groups(): GroupServiceAsync
+
+    fun oauthConnections(): OAuthConnectionServiceAsync
 
     fun webhooks(): WebhookServiceAsync
 
     fun oauthTokens(): OAuthTokenServiceAsync
 
-    fun inboundWireTransfers(): InboundWireTransferServiceAsync
+    fun intrafiAccountEnrollments(): IntrafiAccountEnrollmentServiceAsync
 
-    fun digitalCardProfiles(): DigitalCardProfileServiceAsync
+    fun intrafiBalances(): IntrafiBalanceServiceAsync
 
-    fun physicalCardProfiles(): PhysicalCardProfileServiceAsync
+    fun intrafiExclusions(): IntrafiExclusionServiceAsync
 
-    fun inboundCheckDeposits(): InboundCheckDepositServiceAsync
+    fun realTimePaymentsRequestForPayments(): RealTimePaymentsRequestForPaymentServiceAsync
 
-    fun inboundMailItems(): InboundMailItemServiceAsync
-
-    fun lockboxes(): LockboxServiceAsync
+    fun simulations(): SimulationServiceAsync
 }

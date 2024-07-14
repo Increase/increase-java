@@ -1198,15 +1198,18 @@ private constructor(
     @NoAutoDetect
     class Decline
     private constructor(
+        private val reason: JsonField<Reason>,
         private val declinedAt: JsonField<OffsetDateTime>,
         private val declinedTransactionId: JsonField<String>,
-        private val reason: JsonField<Reason>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
+
+        /** The reason for the transfer decline. */
+        fun reason(): Reason = reason.getRequired("reason")
 
         /** The time at which the transfer was declined. */
         fun declinedAt(): OffsetDateTime = declinedAt.getRequired("declined_at")
@@ -1216,7 +1219,7 @@ private constructor(
             declinedTransactionId.getRequired("declined_transaction_id")
 
         /** The reason for the transfer decline. */
-        fun reason(): Reason = reason.getRequired("reason")
+        @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
 
         /** The time at which the transfer was declined. */
         @JsonProperty("declined_at") @ExcludeMissing fun _declinedAt() = declinedAt
@@ -1226,18 +1229,15 @@ private constructor(
         @ExcludeMissing
         fun _declinedTransactionId() = declinedTransactionId
 
-        /** The reason for the transfer decline. */
-        @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
-
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun validate(): Decline = apply {
             if (!validated) {
+                reason()
                 declinedAt()
                 declinedTransactionId()
-                reason()
                 validated = true
             }
         }
@@ -1250,9 +1250,9 @@ private constructor(
             }
 
             return other is Decline &&
+                this.reason == other.reason &&
                 this.declinedAt == other.declinedAt &&
                 this.declinedTransactionId == other.declinedTransactionId &&
-                this.reason == other.reason &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -1260,9 +1260,9 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
+                        reason,
                         declinedAt,
                         declinedTransactionId,
-                        reason,
                         additionalProperties,
                     )
             }
@@ -1270,7 +1270,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Decline{declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, reason=$reason, additionalProperties=$additionalProperties}"
+            "Decline{reason=$reason, declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1279,18 +1279,26 @@ private constructor(
 
         class Builder {
 
+            private var reason: JsonField<Reason> = JsonMissing.of()
             private var declinedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var declinedTransactionId: JsonField<String> = JsonMissing.of()
-            private var reason: JsonField<Reason> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(decline: Decline) = apply {
+                this.reason = decline.reason
                 this.declinedAt = decline.declinedAt
                 this.declinedTransactionId = decline.declinedTransactionId
-                this.reason = decline.reason
                 additionalProperties(decline.additionalProperties)
             }
+
+            /** The reason for the transfer decline. */
+            fun reason(reason: Reason) = reason(JsonField.of(reason))
+
+            /** The reason for the transfer decline. */
+            @JsonProperty("reason")
+            @ExcludeMissing
+            fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
             /** The time at which the transfer was declined. */
             fun declinedAt(declinedAt: OffsetDateTime) = declinedAt(JsonField.of(declinedAt))
@@ -1313,14 +1321,6 @@ private constructor(
                 this.declinedTransactionId = declinedTransactionId
             }
 
-            /** The reason for the transfer decline. */
-            fun reason(reason: Reason) = reason(JsonField.of(reason))
-
-            /** The reason for the transfer decline. */
-            @JsonProperty("reason")
-            @ExcludeMissing
-            fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
-
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -1337,9 +1337,9 @@ private constructor(
 
             fun build(): Decline =
                 Decline(
+                    reason,
                     declinedAt,
                     declinedTransactionId,
-                    reason,
                     additionalProperties.toUnmodifiable(),
                 )
         }

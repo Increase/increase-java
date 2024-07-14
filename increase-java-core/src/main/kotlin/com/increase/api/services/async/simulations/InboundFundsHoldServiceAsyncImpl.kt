@@ -8,8 +8,8 @@ import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.InboundFundsHoldReleaseResponse
 import com.increase.api.models.SimulationInboundFundsHoldReleaseParams
+import com.increase.api.models.SimulationInboundFundsHoldReleaseResponse
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
@@ -23,8 +23,8 @@ constructor(
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-    private val releaseHandler: Handler<InboundFundsHoldReleaseResponse> =
-        jsonHandler<InboundFundsHoldReleaseResponse>(clientOptions.jsonMapper)
+    private val releaseHandler: Handler<SimulationInboundFundsHoldReleaseResponse> =
+        jsonHandler<SimulationInboundFundsHoldReleaseResponse>(clientOptions.jsonMapper)
             .withErrorHandler(errorHandler)
 
     /**
@@ -34,7 +34,7 @@ constructor(
     override fun release(
         params: SimulationInboundFundsHoldReleaseParams,
         requestOptions: RequestOptions
-    ): CompletableFuture<InboundFundsHoldReleaseResponse> {
+    ): CompletableFuture<SimulationInboundFundsHoldReleaseResponse> {
         val request =
             HttpRequest.builder()
                 .method(HttpMethod.POST)

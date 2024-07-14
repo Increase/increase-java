@@ -9,9 +9,8 @@ import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.AchTransfer
-import com.increase.api.models.InboundAchTransfer
-import com.increase.api.models.SimulationAchTransferCreateInboundParams
-import com.increase.api.models.SimulationAchTransferNotificationOfChangeParams
+import com.increase.api.models.SimulationAchTransferAcknowledgeParams
+import com.increase.api.models.SimulationAchTransferCreateNotificationOfChangeParams
 import com.increase.api.models.SimulationAchTransferReturnParams
 import com.increase.api.models.SimulationAchTransferSubmitParams
 import com.increase.api.services.errorHandler
@@ -26,51 +25,18 @@ constructor(
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-    private val createInboundHandler: Handler<InboundAchTransfer> =
-        jsonHandler<InboundAchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
-
-    /**
-     * Simulates an inbound ACH transfer to your account. This imitates initiating a transfer to an
-     * Increase account from a different financial institution. The transfer may be either a credit
-     * or a debit depending on if the `amount` is positive or negative. The result of calling this
-     * API will contain the created transfer. You can pass a `resolve_at` parameter to allow for a
-     * window to
-     * [action on the Inbound ACH Transfer](https://increase.com/documentation/receiving-ach-transfers).
-     * Alternatively, if you don't pass the `resolve_at` parameter the result will contain either a
-     * [Transaction](#transactions) or a [Declined Transaction](#declined-transactions) depending on
-     * whether or not the transfer is allowed.
-     */
-    override fun createInbound(
-        params: SimulationAchTransferCreateInboundParams,
-        requestOptions: RequestOptions
-    ): InboundAchTransfer {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.POST)
-                .addPathSegments("simulations", "inbound_ach_transfers")
-                .putAllQueryParams(clientOptions.queryParams)
-                .putAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers)
-                .putAllHeaders(params.getHeaders())
-                .body(json(clientOptions.jsonMapper, params.getBody()))
-                .build()
-        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
-            response
-                .use { createInboundHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
-                }
-        }
-    }
-
-    private val notificationOfChangeHandler: Handler<AchTransfer> =
+    private val acknowledgeHandler: Handler<AchTransfer> =
         jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-    /** Simulates receiving a Notification of Change for an [ACH Transfer](#ach-transfers). */
-    override fun notificationOfChange(
-        params: SimulationAchTransferNotificationOfChangeParams,
+    /**
+     * Simulates the acknowledgement of an [ACH Transfer](#ach-transfers) by the Federal Reserve.
+     * This transfer must first have a `status` of `submitted` . In production, the Federal Reserve
+     * generally acknowledges submitted ACH files within 30 minutes. Since sandbox ACH Transfers are
+     * not submitted to the Federal Reserve, this endpoint allows you to skip that delay and add the
+     * acknowledgment subresource to the ACH Transfer.
+     */
+    override fun acknowledge(
+        params: SimulationAchTransferAcknowledgeParams,
         requestOptions: RequestOptions
     ): AchTransfer {
         val request =
@@ -80,7 +46,41 @@ constructor(
                     "simulations",
                     "ach_transfers",
                     params.getPathParam(0),
-                    "notification_of_change"
+                    "acknowledge"
+                )
+                .putAllQueryParams(clientOptions.queryParams)
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .apply { params.getBody().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                .build()
+        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
+            response
+                .use { acknowledgeHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
+        }
+    }
+
+    private val createNotificationOfChangeHandler: Handler<AchTransfer> =
+        jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+    /** Simulates receiving a Notification of Change for an [ACH Transfer](#ach-transfers). */
+    override fun createNotificationOfChange(
+        params: SimulationAchTransferCreateNotificationOfChangeParams,
+        requestOptions: RequestOptions
+    ): AchTransfer {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.POST)
+                .addPathSegments(
+                    "simulations",
+                    "ach_transfers",
+                    params.getPathParam(0),
+                    "create_notification_of_change"
                 )
                 .putAllQueryParams(clientOptions.queryParams)
                 .putAllQueryParams(params.getQueryParams())
@@ -90,7 +90,7 @@ constructor(
                 .build()
         return clientOptions.httpClient.execute(request, requestOptions).let { response ->
             response
-                .use { notificationOfChangeHandler.handle(it) }
+                .use { createNotificationOfChangeHandler.handle(it) }
                 .apply {
                     if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
                         validate()

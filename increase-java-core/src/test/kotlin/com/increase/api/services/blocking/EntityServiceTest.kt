@@ -504,6 +504,25 @@ class EntityServiceTest {
     }
 
     @Test
+    fun callArchiveBeneficialOwner() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val entityService = client.entities()
+        val entity =
+            entityService.archiveBeneficialOwner(
+                EntityArchiveBeneficialOwnerParams.builder()
+                    .entityId("entity_id")
+                    .beneficialOwnerId("beneficial_owner_id")
+                    .build()
+            )
+        println(entity)
+        entity.validate()
+    }
+
+    @Test
     fun callConfirm() {
         val client =
             IncreaseOkHttpClient.builder()
@@ -516,6 +535,104 @@ class EntityServiceTest {
                 EntityConfirmParams.builder()
                     .entityId("entity_id")
                     .confirmedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
+        println(entity)
+        entity.validate()
+    }
+
+    @Test
+    fun callCreateBeneficialOwner() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val entityService = client.entities()
+        val entity =
+            entityService.createBeneficialOwner(
+                EntityCreateBeneficialOwnerParams.builder()
+                    .entityId("entity_id")
+                    .beneficialOwner(
+                        EntityCreateBeneficialOwnerParams.BeneficialOwner.builder()
+                            .individual(
+                                EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual
+                                    .builder()
+                                    .address(
+                                        EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual
+                                            .Address
+                                            .builder()
+                                            .city("x")
+                                            .line1("x")
+                                            .state("x")
+                                            .zip("x")
+                                            .line2("x")
+                                            .build()
+                                    )
+                                    .dateOfBirth(LocalDate.parse("2019-12-27"))
+                                    .identification(
+                                        EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual
+                                            .Identification
+                                            .builder()
+                                            .method(
+                                                EntityCreateBeneficialOwnerParams.BeneficialOwner
+                                                    .Individual
+                                                    .Identification
+                                                    .Method
+                                                    .SOCIAL_SECURITY_NUMBER
+                                            )
+                                            .number("xxxx")
+                                            .driversLicense(
+                                                EntityCreateBeneficialOwnerParams.BeneficialOwner
+                                                    .Individual
+                                                    .Identification
+                                                    .DriversLicense
+                                                    .builder()
+                                                    .expirationDate(LocalDate.parse("2019-12-27"))
+                                                    .fileId("file_id")
+                                                    .state("x")
+                                                    .backFileId("back_file_id")
+                                                    .build()
+                                            )
+                                            .other(
+                                                EntityCreateBeneficialOwnerParams.BeneficialOwner
+                                                    .Individual
+                                                    .Identification
+                                                    .Other
+                                                    .builder()
+                                                    .country("x")
+                                                    .description("x")
+                                                    .fileId("file_id")
+                                                    .backFileId("back_file_id")
+                                                    .expirationDate(LocalDate.parse("2019-12-27"))
+                                                    .build()
+                                            )
+                                            .passport(
+                                                EntityCreateBeneficialOwnerParams.BeneficialOwner
+                                                    .Individual
+                                                    .Identification
+                                                    .Passport
+                                                    .builder()
+                                                    .country("x")
+                                                    .expirationDate(LocalDate.parse("2019-12-27"))
+                                                    .fileId("file_id")
+                                                    .build()
+                                            )
+                                            .build()
+                                    )
+                                    .name("x")
+                                    .confirmedNoUsTaxId(true)
+                                    .build()
+                            )
+                            .prongs(
+                                listOf(
+                                    EntityCreateBeneficialOwnerParams.BeneficialOwner.Prong
+                                        .OWNERSHIP
+                                )
+                            )
+                            .companyTitle("x")
+                            .build()
+                    )
                     .build()
             )
         println(entity)
@@ -543,6 +660,53 @@ class EntityServiceTest {
                             .line2("x")
                             .build()
                     )
+                    .build()
+            )
+        println(entity)
+        entity.validate()
+    }
+
+    @Test
+    fun callUpdateBeneficialOwnerAddress() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val entityService = client.entities()
+        val entity =
+            entityService.updateBeneficialOwnerAddress(
+                EntityUpdateBeneficialOwnerAddressParams.builder()
+                    .entityId("entity_id")
+                    .address(
+                        EntityUpdateBeneficialOwnerAddressParams.Address.builder()
+                            .city("x")
+                            .line1("x")
+                            .state("x")
+                            .zip("x")
+                            .line2("x")
+                            .build()
+                    )
+                    .beneficialOwnerId("beneficial_owner_id")
+                    .build()
+            )
+        println(entity)
+        entity.validate()
+    }
+
+    @Test
+    fun callUpdateIndustryCode() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val entityService = client.entities()
+        val entity =
+            entityService.updateIndustryCode(
+                EntityUpdateIndustryCodeParams.builder()
+                    .entityId("entity_id")
+                    .industryCode("x")
                     .build()
             )
         println(entity)

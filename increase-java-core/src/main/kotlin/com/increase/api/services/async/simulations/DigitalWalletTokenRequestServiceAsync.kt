@@ -5,8 +5,8 @@
 package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
-import com.increase.api.models.DigitalWalletTokenRequestCreateResponse
 import com.increase.api.models.SimulationDigitalWalletTokenRequestCreateParams
+import com.increase.api.models.SimulationDigitalWalletTokenRequestCreateResponse
 import java.util.concurrent.CompletableFuture
 
 interface DigitalWalletTokenRequestServiceAsync {
@@ -16,5 +16,5 @@ interface DigitalWalletTokenRequestServiceAsync {
     fun create(
         params: SimulationDigitalWalletTokenRequestCreateParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): CompletableFuture<DigitalWalletTokenRequestCreateResponse>
+    ): CompletableFuture<SimulationDigitalWalletTokenRequestCreateResponse>
 }

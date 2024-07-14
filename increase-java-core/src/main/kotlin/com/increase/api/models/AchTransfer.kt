@@ -2178,8 +2178,8 @@ private constructor(
     @NoAutoDetect
     class CreatedBy
     private constructor(
-        private val apiKey: JsonField<ApiKey>,
         private val category: JsonField<Category>,
+        private val apiKey: JsonField<ApiKey>,
         private val oauthApplication: JsonField<OAuthApplication>,
         private val user: JsonField<User>,
         private val additionalProperties: Map<String, JsonValue>,
@@ -2189,11 +2189,11 @@ private constructor(
 
         private var hashCode: Int = 0
 
-        /** If present, details about the API key that created the transfer. */
-        fun apiKey(): Optional<ApiKey> = Optional.ofNullable(apiKey.getNullable("api_key"))
-
         /** The type of object that created this transfer. */
         fun category(): Category = category.getRequired("category")
+
+        /** If present, details about the API key that created the transfer. */
+        fun apiKey(): Optional<ApiKey> = Optional.ofNullable(apiKey.getNullable("api_key"))
 
         /** If present, details about the OAuth Application that created the transfer. */
         fun oauthApplication(): Optional<OAuthApplication> =
@@ -2202,11 +2202,11 @@ private constructor(
         /** If present, details about the User that created the transfer. */
         fun user(): Optional<User> = Optional.ofNullable(user.getNullable("user"))
 
-        /** If present, details about the API key that created the transfer. */
-        @JsonProperty("api_key") @ExcludeMissing fun _apiKey() = apiKey
-
         /** The type of object that created this transfer. */
         @JsonProperty("category") @ExcludeMissing fun _category() = category
+
+        /** If present, details about the API key that created the transfer. */
+        @JsonProperty("api_key") @ExcludeMissing fun _apiKey() = apiKey
 
         /** If present, details about the OAuth Application that created the transfer. */
         @JsonProperty("oauth_application")
@@ -2222,8 +2222,8 @@ private constructor(
 
         fun validate(): CreatedBy = apply {
             if (!validated) {
-                apiKey().map { it.validate() }
                 category()
+                apiKey().map { it.validate() }
                 oauthApplication().map { it.validate() }
                 user().map { it.validate() }
                 validated = true
@@ -2238,8 +2238,8 @@ private constructor(
             }
 
             return other is CreatedBy &&
-                this.apiKey == other.apiKey &&
                 this.category == other.category &&
+                this.apiKey == other.apiKey &&
                 this.oauthApplication == other.oauthApplication &&
                 this.user == other.user &&
                 this.additionalProperties == other.additionalProperties
@@ -2249,8 +2249,8 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        apiKey,
                         category,
+                        apiKey,
                         oauthApplication,
                         user,
                         additionalProperties,
@@ -2260,7 +2260,7 @@ private constructor(
         }
 
         override fun toString() =
-            "CreatedBy{apiKey=$apiKey, category=$category, oauthApplication=$oauthApplication, user=$user, additionalProperties=$additionalProperties}"
+            "CreatedBy{category=$category, apiKey=$apiKey, oauthApplication=$oauthApplication, user=$user, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -2269,28 +2269,20 @@ private constructor(
 
         class Builder {
 
-            private var apiKey: JsonField<ApiKey> = JsonMissing.of()
             private var category: JsonField<Category> = JsonMissing.of()
+            private var apiKey: JsonField<ApiKey> = JsonMissing.of()
             private var oauthApplication: JsonField<OAuthApplication> = JsonMissing.of()
             private var user: JsonField<User> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(createdBy: CreatedBy) = apply {
-                this.apiKey = createdBy.apiKey
                 this.category = createdBy.category
+                this.apiKey = createdBy.apiKey
                 this.oauthApplication = createdBy.oauthApplication
                 this.user = createdBy.user
                 additionalProperties(createdBy.additionalProperties)
             }
-
-            /** If present, details about the API key that created the transfer. */
-            fun apiKey(apiKey: ApiKey) = apiKey(JsonField.of(apiKey))
-
-            /** If present, details about the API key that created the transfer. */
-            @JsonProperty("api_key")
-            @ExcludeMissing
-            fun apiKey(apiKey: JsonField<ApiKey>) = apply { this.apiKey = apiKey }
 
             /** The type of object that created this transfer. */
             fun category(category: Category) = category(JsonField.of(category))
@@ -2299,6 +2291,14 @@ private constructor(
             @JsonProperty("category")
             @ExcludeMissing
             fun category(category: JsonField<Category>) = apply { this.category = category }
+
+            /** If present, details about the API key that created the transfer. */
+            fun apiKey(apiKey: ApiKey) = apiKey(JsonField.of(apiKey))
+
+            /** If present, details about the API key that created the transfer. */
+            @JsonProperty("api_key")
+            @ExcludeMissing
+            fun apiKey(apiKey: JsonField<ApiKey>) = apply { this.apiKey = apiKey }
 
             /** If present, details about the OAuth Application that created the transfer. */
             fun oauthApplication(oauthApplication: OAuthApplication) =
@@ -2335,8 +2335,8 @@ private constructor(
 
             fun build(): CreatedBy =
                 CreatedBy(
-                    apiKey,
                     category,
+                    apiKey,
                     oauthApplication,
                     user,
                     additionalProperties.toUnmodifiable(),
@@ -3591,11 +3591,11 @@ private constructor(
     class Return
     private constructor(
         private val createdAt: JsonField<OffsetDateTime>,
-        private val rawReturnReasonCode: JsonField<String>,
-        private val returnReasonCode: JsonField<ReturnReasonCode>,
         private val traceNumber: JsonField<String>,
-        private val transactionId: JsonField<String>,
+        private val returnReasonCode: JsonField<ReturnReasonCode>,
+        private val rawReturnReasonCode: JsonField<String>,
         private val transferId: JsonField<String>,
+        private val transactionId: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -3609,17 +3609,6 @@ private constructor(
          */
         fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-        /** The three character ACH return code, in the range R01 to R85. */
-        fun rawReturnReasonCode(): String =
-            rawReturnReasonCode.getRequired("raw_return_reason_code")
-
-        /**
-         * Why the ACH Transfer was returned. This reason code is sent by the receiving bank back to
-         * Increase.
-         */
-        fun returnReasonCode(): ReturnReasonCode =
-            returnReasonCode.getRequired("return_reason_code")
-
         /**
          * A 15 digit number that was generated by the bank that initiated the return. The trace
          * number of the return is different than that of the original transfer. ACH trace numbers
@@ -3628,30 +3617,28 @@ private constructor(
          */
         fun traceNumber(): String = traceNumber.getRequired("trace_number")
 
-        /** The identifier of the Transaction associated with this return. */
-        fun transactionId(): String = transactionId.getRequired("transaction_id")
+        /**
+         * Why the ACH Transfer was returned. This reason code is sent by the receiving bank back to
+         * Increase.
+         */
+        fun returnReasonCode(): ReturnReasonCode =
+            returnReasonCode.getRequired("return_reason_code")
+
+        /** The three character ACH return code, in the range R01 to R85. */
+        fun rawReturnReasonCode(): String =
+            rawReturnReasonCode.getRequired("raw_return_reason_code")
 
         /** The identifier of the ACH Transfer associated with this return. */
         fun transferId(): String = transferId.getRequired("transfer_id")
+
+        /** The identifier of the Transaction associated with this return. */
+        fun transactionId(): String = transactionId.getRequired("transaction_id")
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * transfer was created.
          */
         @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
-        /** The three character ACH return code, in the range R01 to R85. */
-        @JsonProperty("raw_return_reason_code")
-        @ExcludeMissing
-        fun _rawReturnReasonCode() = rawReturnReasonCode
-
-        /**
-         * Why the ACH Transfer was returned. This reason code is sent by the receiving bank back to
-         * Increase.
-         */
-        @JsonProperty("return_reason_code")
-        @ExcludeMissing
-        fun _returnReasonCode() = returnReasonCode
 
         /**
          * A 15 digit number that was generated by the bank that initiated the return. The trace
@@ -3661,11 +3648,24 @@ private constructor(
          */
         @JsonProperty("trace_number") @ExcludeMissing fun _traceNumber() = traceNumber
 
-        /** The identifier of the Transaction associated with this return. */
-        @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+        /**
+         * Why the ACH Transfer was returned. This reason code is sent by the receiving bank back to
+         * Increase.
+         */
+        @JsonProperty("return_reason_code")
+        @ExcludeMissing
+        fun _returnReasonCode() = returnReasonCode
+
+        /** The three character ACH return code, in the range R01 to R85. */
+        @JsonProperty("raw_return_reason_code")
+        @ExcludeMissing
+        fun _rawReturnReasonCode() = rawReturnReasonCode
 
         /** The identifier of the ACH Transfer associated with this return. */
         @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
+
+        /** The identifier of the Transaction associated with this return. */
+        @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -3674,11 +3674,11 @@ private constructor(
         fun validate(): Return = apply {
             if (!validated) {
                 createdAt()
-                rawReturnReasonCode()
-                returnReasonCode()
                 traceNumber()
-                transactionId()
+                returnReasonCode()
+                rawReturnReasonCode()
                 transferId()
+                transactionId()
                 validated = true
             }
         }
@@ -3692,11 +3692,11 @@ private constructor(
 
             return other is Return &&
                 this.createdAt == other.createdAt &&
-                this.rawReturnReasonCode == other.rawReturnReasonCode &&
-                this.returnReasonCode == other.returnReasonCode &&
                 this.traceNumber == other.traceNumber &&
-                this.transactionId == other.transactionId &&
+                this.returnReasonCode == other.returnReasonCode &&
+                this.rawReturnReasonCode == other.rawReturnReasonCode &&
                 this.transferId == other.transferId &&
+                this.transactionId == other.transactionId &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -3705,11 +3705,11 @@ private constructor(
                 hashCode =
                     Objects.hash(
                         createdAt,
-                        rawReturnReasonCode,
-                        returnReasonCode,
                         traceNumber,
-                        transactionId,
+                        returnReasonCode,
+                        rawReturnReasonCode,
                         transferId,
+                        transactionId,
                         additionalProperties,
                     )
             }
@@ -3717,7 +3717,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Return{createdAt=$createdAt, rawReturnReasonCode=$rawReturnReasonCode, returnReasonCode=$returnReasonCode, traceNumber=$traceNumber, transactionId=$transactionId, transferId=$transferId, additionalProperties=$additionalProperties}"
+            "Return{createdAt=$createdAt, traceNumber=$traceNumber, returnReasonCode=$returnReasonCode, rawReturnReasonCode=$rawReturnReasonCode, transferId=$transferId, transactionId=$transactionId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -3727,21 +3727,21 @@ private constructor(
         class Builder {
 
             private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var rawReturnReasonCode: JsonField<String> = JsonMissing.of()
-            private var returnReasonCode: JsonField<ReturnReasonCode> = JsonMissing.of()
             private var traceNumber: JsonField<String> = JsonMissing.of()
-            private var transactionId: JsonField<String> = JsonMissing.of()
+            private var returnReasonCode: JsonField<ReturnReasonCode> = JsonMissing.of()
+            private var rawReturnReasonCode: JsonField<String> = JsonMissing.of()
             private var transferId: JsonField<String> = JsonMissing.of()
+            private var transactionId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(return_: Return) = apply {
                 this.createdAt = return_.createdAt
-                this.rawReturnReasonCode = return_.rawReturnReasonCode
-                this.returnReasonCode = return_.returnReasonCode
                 this.traceNumber = return_.traceNumber
-                this.transactionId = return_.transactionId
+                this.returnReasonCode = return_.returnReasonCode
+                this.rawReturnReasonCode = return_.rawReturnReasonCode
                 this.transferId = return_.transferId
+                this.transactionId = return_.transactionId
                 additionalProperties(return_.additionalProperties)
             }
 
@@ -3759,34 +3759,6 @@ private constructor(
             @ExcludeMissing
             fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
                 this.createdAt = createdAt
-            }
-
-            /** The three character ACH return code, in the range R01 to R85. */
-            fun rawReturnReasonCode(rawReturnReasonCode: String) =
-                rawReturnReasonCode(JsonField.of(rawReturnReasonCode))
-
-            /** The three character ACH return code, in the range R01 to R85. */
-            @JsonProperty("raw_return_reason_code")
-            @ExcludeMissing
-            fun rawReturnReasonCode(rawReturnReasonCode: JsonField<String>) = apply {
-                this.rawReturnReasonCode = rawReturnReasonCode
-            }
-
-            /**
-             * Why the ACH Transfer was returned. This reason code is sent by the receiving bank
-             * back to Increase.
-             */
-            fun returnReasonCode(returnReasonCode: ReturnReasonCode) =
-                returnReasonCode(JsonField.of(returnReasonCode))
-
-            /**
-             * Why the ACH Transfer was returned. This reason code is sent by the receiving bank
-             * back to Increase.
-             */
-            @JsonProperty("return_reason_code")
-            @ExcludeMissing
-            fun returnReasonCode(returnReasonCode: JsonField<ReturnReasonCode>) = apply {
-                this.returnReasonCode = returnReasonCode
             }
 
             /**
@@ -3809,14 +3781,32 @@ private constructor(
                 this.traceNumber = traceNumber
             }
 
-            /** The identifier of the Transaction associated with this return. */
-            fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
+            /**
+             * Why the ACH Transfer was returned. This reason code is sent by the receiving bank
+             * back to Increase.
+             */
+            fun returnReasonCode(returnReasonCode: ReturnReasonCode) =
+                returnReasonCode(JsonField.of(returnReasonCode))
 
-            /** The identifier of the Transaction associated with this return. */
-            @JsonProperty("transaction_id")
+            /**
+             * Why the ACH Transfer was returned. This reason code is sent by the receiving bank
+             * back to Increase.
+             */
+            @JsonProperty("return_reason_code")
             @ExcludeMissing
-            fun transactionId(transactionId: JsonField<String>) = apply {
-                this.transactionId = transactionId
+            fun returnReasonCode(returnReasonCode: JsonField<ReturnReasonCode>) = apply {
+                this.returnReasonCode = returnReasonCode
+            }
+
+            /** The three character ACH return code, in the range R01 to R85. */
+            fun rawReturnReasonCode(rawReturnReasonCode: String) =
+                rawReturnReasonCode(JsonField.of(rawReturnReasonCode))
+
+            /** The three character ACH return code, in the range R01 to R85. */
+            @JsonProperty("raw_return_reason_code")
+            @ExcludeMissing
+            fun rawReturnReasonCode(rawReturnReasonCode: JsonField<String>) = apply {
+                this.rawReturnReasonCode = rawReturnReasonCode
             }
 
             /** The identifier of the ACH Transfer associated with this return. */
@@ -3826,6 +3816,16 @@ private constructor(
             @JsonProperty("transfer_id")
             @ExcludeMissing
             fun transferId(transferId: JsonField<String>) = apply { this.transferId = transferId }
+
+            /** The identifier of the Transaction associated with this return. */
+            fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
+
+            /** The identifier of the Transaction associated with this return. */
+            @JsonProperty("transaction_id")
+            @ExcludeMissing
+            fun transactionId(transactionId: JsonField<String>) = apply {
+                this.transactionId = transactionId
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -3844,11 +3844,11 @@ private constructor(
             fun build(): Return =
                 Return(
                     createdAt,
-                    rawReturnReasonCode,
-                    returnReasonCode,
                     traceNumber,
-                    transactionId,
+                    returnReasonCode,
+                    rawReturnReasonCode,
                     transferId,
+                    transactionId,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -4670,11 +4670,11 @@ private constructor(
     @NoAutoDetect
     class Submission
     private constructor(
-        private val effectiveDate: JsonField<LocalDate>,
-        private val expectedFundsSettlementAt: JsonField<OffsetDateTime>,
-        private val expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule>,
-        private val submittedAt: JsonField<OffsetDateTime>,
         private val traceNumber: JsonField<String>,
+        private val submittedAt: JsonField<OffsetDateTime>,
+        private val expectedFundsSettlementAt: JsonField<OffsetDateTime>,
+        private val effectiveDate: JsonField<LocalDate>,
+        private val expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -4683,12 +4683,15 @@ private constructor(
         private var hashCode: Int = 0
 
         /**
-         * The ACH transfer's effective date as sent to the Federal Reserve. If a specific date was
-         * configured using `preferred_effective_date`, this will match that value. Otherwise, it
-         * will be the date selected (following the specified settlement schedule) at the time the
-         * transfer was submitted.
+         * A 15 digit number recorded in the Nacha file and transmitted to the receiving bank. Along
+         * with the amount, date, and originating routing number, this can be used to identify the
+         * ACH transfer at the receiving bank. ACH trace numbers are not unique, but are
+         * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
          */
-        fun effectiveDate(): LocalDate = effectiveDate.getRequired("effective_date")
+        fun traceNumber(): String = traceNumber.getRequired("trace_number")
+
+        /** When the ACH transfer was sent to FedACH. */
+        fun submittedAt(): OffsetDateTime = submittedAt.getRequired("submitted_at")
 
         /**
          * When the transfer is expected to settle in the recipient's account. Credits may be
@@ -4699,14 +4702,19 @@ private constructor(
             expectedFundsSettlementAt.getRequired("expected_funds_settlement_at")
 
         /**
+         * The ACH transfer's effective date as sent to the Federal Reserve. If a specific date was
+         * configured using `preferred_effective_date`, this will match that value. Otherwise, it
+         * will be the date selected (following the specified settlement schedule) at the time the
+         * transfer was submitted.
+         */
+        fun effectiveDate(): LocalDate = effectiveDate.getRequired("effective_date")
+
+        /**
          * The settlement schedule the transfer is expected to follow. This expectation takes into
          * account the `effective_date`, `submitted_at`, and the amount of the transfer.
          */
         fun expectedSettlementSchedule(): ExpectedSettlementSchedule =
             expectedSettlementSchedule.getRequired("expected_settlement_schedule")
-
-        /** When the ACH transfer was sent to FedACH. */
-        fun submittedAt(): OffsetDateTime = submittedAt.getRequired("submitted_at")
 
         /**
          * A 15 digit number recorded in the Nacha file and transmitted to the receiving bank. Along
@@ -4714,15 +4722,10 @@ private constructor(
          * ACH transfer at the receiving bank. ACH trace numbers are not unique, but are
          * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
          */
-        fun traceNumber(): String = traceNumber.getRequired("trace_number")
+        @JsonProperty("trace_number") @ExcludeMissing fun _traceNumber() = traceNumber
 
-        /**
-         * The ACH transfer's effective date as sent to the Federal Reserve. If a specific date was
-         * configured using `preferred_effective_date`, this will match that value. Otherwise, it
-         * will be the date selected (following the specified settlement schedule) at the time the
-         * transfer was submitted.
-         */
-        @JsonProperty("effective_date") @ExcludeMissing fun _effectiveDate() = effectiveDate
+        /** When the ACH transfer was sent to FedACH. */
+        @JsonProperty("submitted_at") @ExcludeMissing fun _submittedAt() = submittedAt
 
         /**
          * When the transfer is expected to settle in the recipient's account. Credits may be
@@ -4734,6 +4737,14 @@ private constructor(
         fun _expectedFundsSettlementAt() = expectedFundsSettlementAt
 
         /**
+         * The ACH transfer's effective date as sent to the Federal Reserve. If a specific date was
+         * configured using `preferred_effective_date`, this will match that value. Otherwise, it
+         * will be the date selected (following the specified settlement schedule) at the time the
+         * transfer was submitted.
+         */
+        @JsonProperty("effective_date") @ExcludeMissing fun _effectiveDate() = effectiveDate
+
+        /**
          * The settlement schedule the transfer is expected to follow. This expectation takes into
          * account the `effective_date`, `submitted_at`, and the amount of the transfer.
          */
@@ -4741,28 +4752,17 @@ private constructor(
         @ExcludeMissing
         fun _expectedSettlementSchedule() = expectedSettlementSchedule
 
-        /** When the ACH transfer was sent to FedACH. */
-        @JsonProperty("submitted_at") @ExcludeMissing fun _submittedAt() = submittedAt
-
-        /**
-         * A 15 digit number recorded in the Nacha file and transmitted to the receiving bank. Along
-         * with the amount, date, and originating routing number, this can be used to identify the
-         * ACH transfer at the receiving bank. ACH trace numbers are not unique, but are
-         * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
-         */
-        @JsonProperty("trace_number") @ExcludeMissing fun _traceNumber() = traceNumber
-
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun validate(): Submission = apply {
             if (!validated) {
-                effectiveDate()
-                expectedFundsSettlementAt()
-                expectedSettlementSchedule()
-                submittedAt()
                 traceNumber()
+                submittedAt()
+                expectedFundsSettlementAt()
+                effectiveDate()
+                expectedSettlementSchedule()
                 validated = true
             }
         }
@@ -4775,11 +4775,11 @@ private constructor(
             }
 
             return other is Submission &&
-                this.effectiveDate == other.effectiveDate &&
-                this.expectedFundsSettlementAt == other.expectedFundsSettlementAt &&
-                this.expectedSettlementSchedule == other.expectedSettlementSchedule &&
-                this.submittedAt == other.submittedAt &&
                 this.traceNumber == other.traceNumber &&
+                this.submittedAt == other.submittedAt &&
+                this.expectedFundsSettlementAt == other.expectedFundsSettlementAt &&
+                this.effectiveDate == other.effectiveDate &&
+                this.expectedSettlementSchedule == other.expectedSettlementSchedule &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -4787,11 +4787,11 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        effectiveDate,
-                        expectedFundsSettlementAt,
-                        expectedSettlementSchedule,
-                        submittedAt,
                         traceNumber,
+                        submittedAt,
+                        expectedFundsSettlementAt,
+                        effectiveDate,
+                        expectedSettlementSchedule,
                         additionalProperties,
                     )
             }
@@ -4799,7 +4799,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Submission{effectiveDate=$effectiveDate, expectedFundsSettlementAt=$expectedFundsSettlementAt, expectedSettlementSchedule=$expectedSettlementSchedule, submittedAt=$submittedAt, traceNumber=$traceNumber, additionalProperties=$additionalProperties}"
+            "Submission{traceNumber=$traceNumber, submittedAt=$submittedAt, expectedFundsSettlementAt=$expectedFundsSettlementAt, effectiveDate=$effectiveDate, expectedSettlementSchedule=$expectedSettlementSchedule, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -4808,89 +4808,22 @@ private constructor(
 
         class Builder {
 
-            private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
+            private var traceNumber: JsonField<String> = JsonMissing.of()
+            private var submittedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var expectedFundsSettlementAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
             private var expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule> =
                 JsonMissing.of()
-            private var submittedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var traceNumber: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(submission: Submission) = apply {
-                this.effectiveDate = submission.effectiveDate
-                this.expectedFundsSettlementAt = submission.expectedFundsSettlementAt
-                this.expectedSettlementSchedule = submission.expectedSettlementSchedule
-                this.submittedAt = submission.submittedAt
                 this.traceNumber = submission.traceNumber
+                this.submittedAt = submission.submittedAt
+                this.expectedFundsSettlementAt = submission.expectedFundsSettlementAt
+                this.effectiveDate = submission.effectiveDate
+                this.expectedSettlementSchedule = submission.expectedSettlementSchedule
                 additionalProperties(submission.additionalProperties)
-            }
-
-            /**
-             * The ACH transfer's effective date as sent to the Federal Reserve. If a specific date
-             * was configured using `preferred_effective_date`, this will match that value.
-             * Otherwise, it will be the date selected (following the specified settlement schedule)
-             * at the time the transfer was submitted.
-             */
-            fun effectiveDate(effectiveDate: LocalDate) = effectiveDate(JsonField.of(effectiveDate))
-
-            /**
-             * The ACH transfer's effective date as sent to the Federal Reserve. If a specific date
-             * was configured using `preferred_effective_date`, this will match that value.
-             * Otherwise, it will be the date selected (following the specified settlement schedule)
-             * at the time the transfer was submitted.
-             */
-            @JsonProperty("effective_date")
-            @ExcludeMissing
-            fun effectiveDate(effectiveDate: JsonField<LocalDate>) = apply {
-                this.effectiveDate = effectiveDate
-            }
-
-            /**
-             * When the transfer is expected to settle in the recipient's account. Credits may be
-             * available sooner, at the receiving banks discretion. The FedACH schedule is published
-             * [here](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
-             */
-            fun expectedFundsSettlementAt(expectedFundsSettlementAt: OffsetDateTime) =
-                expectedFundsSettlementAt(JsonField.of(expectedFundsSettlementAt))
-
-            /**
-             * When the transfer is expected to settle in the recipient's account. Credits may be
-             * available sooner, at the receiving banks discretion. The FedACH schedule is published
-             * [here](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
-             */
-            @JsonProperty("expected_funds_settlement_at")
-            @ExcludeMissing
-            fun expectedFundsSettlementAt(expectedFundsSettlementAt: JsonField<OffsetDateTime>) =
-                apply {
-                    this.expectedFundsSettlementAt = expectedFundsSettlementAt
-                }
-
-            /**
-             * The settlement schedule the transfer is expected to follow. This expectation takes
-             * into account the `effective_date`, `submitted_at`, and the amount of the transfer.
-             */
-            fun expectedSettlementSchedule(expectedSettlementSchedule: ExpectedSettlementSchedule) =
-                expectedSettlementSchedule(JsonField.of(expectedSettlementSchedule))
-
-            /**
-             * The settlement schedule the transfer is expected to follow. This expectation takes
-             * into account the `effective_date`, `submitted_at`, and the amount of the transfer.
-             */
-            @JsonProperty("expected_settlement_schedule")
-            @ExcludeMissing
-            fun expectedSettlementSchedule(
-                expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule>
-            ) = apply { this.expectedSettlementSchedule = expectedSettlementSchedule }
-
-            /** When the ACH transfer was sent to FedACH. */
-            fun submittedAt(submittedAt: OffsetDateTime) = submittedAt(JsonField.of(submittedAt))
-
-            /** When the ACH transfer was sent to FedACH. */
-            @JsonProperty("submitted_at")
-            @ExcludeMissing
-            fun submittedAt(submittedAt: JsonField<OffsetDateTime>) = apply {
-                this.submittedAt = submittedAt
             }
 
             /**
@@ -4915,6 +4848,73 @@ private constructor(
                 this.traceNumber = traceNumber
             }
 
+            /** When the ACH transfer was sent to FedACH. */
+            fun submittedAt(submittedAt: OffsetDateTime) = submittedAt(JsonField.of(submittedAt))
+
+            /** When the ACH transfer was sent to FedACH. */
+            @JsonProperty("submitted_at")
+            @ExcludeMissing
+            fun submittedAt(submittedAt: JsonField<OffsetDateTime>) = apply {
+                this.submittedAt = submittedAt
+            }
+
+            /**
+             * When the transfer is expected to settle in the recipient's account. Credits may be
+             * available sooner, at the receiving banks discretion. The FedACH schedule is published
+             * [here](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
+             */
+            fun expectedFundsSettlementAt(expectedFundsSettlementAt: OffsetDateTime) =
+                expectedFundsSettlementAt(JsonField.of(expectedFundsSettlementAt))
+
+            /**
+             * When the transfer is expected to settle in the recipient's account. Credits may be
+             * available sooner, at the receiving banks discretion. The FedACH schedule is published
+             * [here](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
+             */
+            @JsonProperty("expected_funds_settlement_at")
+            @ExcludeMissing
+            fun expectedFundsSettlementAt(expectedFundsSettlementAt: JsonField<OffsetDateTime>) =
+                apply {
+                    this.expectedFundsSettlementAt = expectedFundsSettlementAt
+                }
+
+            /**
+             * The ACH transfer's effective date as sent to the Federal Reserve. If a specific date
+             * was configured using `preferred_effective_date`, this will match that value.
+             * Otherwise, it will be the date selected (following the specified settlement schedule)
+             * at the time the transfer was submitted.
+             */
+            fun effectiveDate(effectiveDate: LocalDate) = effectiveDate(JsonField.of(effectiveDate))
+
+            /**
+             * The ACH transfer's effective date as sent to the Federal Reserve. If a specific date
+             * was configured using `preferred_effective_date`, this will match that value.
+             * Otherwise, it will be the date selected (following the specified settlement schedule)
+             * at the time the transfer was submitted.
+             */
+            @JsonProperty("effective_date")
+            @ExcludeMissing
+            fun effectiveDate(effectiveDate: JsonField<LocalDate>) = apply {
+                this.effectiveDate = effectiveDate
+            }
+
+            /**
+             * The settlement schedule the transfer is expected to follow. This expectation takes
+             * into account the `effective_date`, `submitted_at`, and the amount of the transfer.
+             */
+            fun expectedSettlementSchedule(expectedSettlementSchedule: ExpectedSettlementSchedule) =
+                expectedSettlementSchedule(JsonField.of(expectedSettlementSchedule))
+
+            /**
+             * The settlement schedule the transfer is expected to follow. This expectation takes
+             * into account the `effective_date`, `submitted_at`, and the amount of the transfer.
+             */
+            @JsonProperty("expected_settlement_schedule")
+            @ExcludeMissing
+            fun expectedSettlementSchedule(
+                expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule>
+            ) = apply { this.expectedSettlementSchedule = expectedSettlementSchedule }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -4931,11 +4931,11 @@ private constructor(
 
             fun build(): Submission =
                 Submission(
-                    effectiveDate,
-                    expectedFundsSettlementAt,
-                    expectedSettlementSchedule,
-                    submittedAt,
                     traceNumber,
+                    submittedAt,
+                    expectedFundsSettlementAt,
+                    effectiveDate,
+                    expectedSettlementSchedule,
                     additionalProperties.toUnmodifiable(),
                 )
         }

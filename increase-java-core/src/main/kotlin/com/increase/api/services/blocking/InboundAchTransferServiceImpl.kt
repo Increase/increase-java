@@ -9,10 +9,10 @@ import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.InboundAchTransfer
+import com.increase.api.models.InboundAchTransferCreateNotificationOfChangeParams
 import com.increase.api.models.InboundAchTransferDeclineParams
 import com.increase.api.models.InboundAchTransferListPage
 import com.increase.api.models.InboundAchTransferListParams
-import com.increase.api.models.InboundAchTransferNotificationOfChangeParams
 import com.increase.api.models.InboundAchTransferRetrieveParams
 import com.increase.api.models.InboundAchTransferTransferReturnParams
 import com.increase.api.services.errorHandler
@@ -85,6 +85,39 @@ constructor(
         }
     }
 
+    private val createNotificationOfChangeHandler: Handler<InboundAchTransfer> =
+        jsonHandler<InboundAchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+    /** Create a notification of change for an Inbound ACH Transfer */
+    override fun createNotificationOfChange(
+        params: InboundAchTransferCreateNotificationOfChangeParams,
+        requestOptions: RequestOptions
+    ): InboundAchTransfer {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.POST)
+                .addPathSegments(
+                    "inbound_ach_transfers",
+                    params.getPathParam(0),
+                    "create_notification_of_change"
+                )
+                .putAllQueryParams(clientOptions.queryParams)
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .body(json(clientOptions.jsonMapper, params.getBody()))
+                .build()
+        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
+            response
+                .use { createNotificationOfChangeHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
+        }
+    }
+
     private val declineHandler: Handler<InboundAchTransfer> =
         jsonHandler<InboundAchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
@@ -106,39 +139,6 @@ constructor(
         return clientOptions.httpClient.execute(request, requestOptions).let { response ->
             response
                 .use { declineHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
-                }
-        }
-    }
-
-    private val notificationOfChangeHandler: Handler<InboundAchTransfer> =
-        jsonHandler<InboundAchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
-
-    /** Create a notification of change for an Inbound ACH Transfer */
-    override fun notificationOfChange(
-        params: InboundAchTransferNotificationOfChangeParams,
-        requestOptions: RequestOptions
-    ): InboundAchTransfer {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.POST)
-                .addPathSegments(
-                    "inbound_ach_transfers",
-                    params.getPathParam(0),
-                    "notification_of_change"
-                )
-                .putAllQueryParams(clientOptions.queryParams)
-                .putAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers)
-                .putAllHeaders(params.getHeaders())
-                .body(json(clientOptions.jsonMapper, params.getBody()))
-                .build()
-        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
-            response
-                .use { notificationOfChangeHandler.handle(it) }
                 .apply {
                     if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
                         validate()

@@ -186,7 +186,7 @@ constructor(
             additionalBodyProperties(entityUpdateAddressParams.additionalBodyProperties)
         }
 
-        /** The identifier of the Entity to archive. */
+        /** The identifier of the Entity whose address is being updated. */
         fun entityId(entityId: String) = apply { this.entityId = entityId }
 
         /**
