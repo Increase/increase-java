@@ -12,7 +12,7 @@ import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
-import com.increase.api.services.async.intrafi.AccountEnrollmentServiceAsync
+import com.increase.api.services.async.IntrafiAccountEnrollmentServiceAsync
 import java.util.Objects
 import java.util.Optional
 import java.util.concurrent.CompletableFuture
@@ -21,7 +21,7 @@ import java.util.function.Predicate
 
 class IntrafiAccountEnrollmentListPageAsync
 private constructor(
-    private val accountEnrollmentsService: AccountEnrollmentServiceAsync,
+    private val intrafiAccountEnrollmentsService: IntrafiAccountEnrollmentServiceAsync,
     private val params: IntrafiAccountEnrollmentListParams,
     private val response: Response,
 ) {
@@ -38,21 +38,21 @@ private constructor(
         }
 
         return other is IntrafiAccountEnrollmentListPageAsync &&
-            this.accountEnrollmentsService == other.accountEnrollmentsService &&
+            this.intrafiAccountEnrollmentsService == other.intrafiAccountEnrollmentsService &&
             this.params == other.params &&
             this.response == other.response
     }
 
     override fun hashCode(): Int {
         return Objects.hash(
-            accountEnrollmentsService,
+            intrafiAccountEnrollmentsService,
             params,
             response,
         )
     }
 
     override fun toString() =
-        "IntrafiAccountEnrollmentListPageAsync{accountEnrollmentsService=$accountEnrollmentsService, params=$params, response=$response}"
+        "IntrafiAccountEnrollmentListPageAsync{intrafiAccountEnrollmentsService=$intrafiAccountEnrollmentsService, params=$params, response=$response}"
 
     fun hasNextPage(): Boolean {
         if (data().isEmpty()) {
@@ -77,7 +77,7 @@ private constructor(
 
     fun getNextPage(): CompletableFuture<Optional<IntrafiAccountEnrollmentListPageAsync>> {
         return getNextPageParams()
-            .map { accountEnrollmentsService.list(it).thenApply { Optional.of(it) } }
+            .map { intrafiAccountEnrollmentsService.list(it).thenApply { Optional.of(it) } }
             .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
     }
 
@@ -87,12 +87,12 @@ private constructor(
 
         @JvmStatic
         fun of(
-            accountEnrollmentsService: AccountEnrollmentServiceAsync,
+            intrafiAccountEnrollmentsService: IntrafiAccountEnrollmentServiceAsync,
             params: IntrafiAccountEnrollmentListParams,
             response: Response
         ) =
             IntrafiAccountEnrollmentListPageAsync(
-                accountEnrollmentsService,
+                intrafiAccountEnrollmentsService,
                 params,
                 response,
             )

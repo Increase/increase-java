@@ -5,10 +5,8 @@
 package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
-import com.increase.api.models.InboundRealTimePaymentsTransferSimulationResult
 import com.increase.api.models.RealTimePaymentsTransfer
 import com.increase.api.models.SimulationRealTimePaymentsTransferCompleteParams
-import com.increase.api.models.SimulationRealTimePaymentsTransferCreateInboundParams
 import java.util.concurrent.CompletableFuture
 
 interface RealTimePaymentsTransferServiceAsync {
@@ -23,14 +21,4 @@ interface RealTimePaymentsTransferServiceAsync {
         params: SimulationRealTimePaymentsTransferCompleteParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<RealTimePaymentsTransfer>
-
-    /**
-     * Simulates an inbound Real-Time Payments transfer to your account. Real-Time Payments are a
-     * beta feature.
-     */
-    @JvmOverloads
-    fun createInbound(
-        params: SimulationRealTimePaymentsTransferCreateInboundParams,
-        requestOptions: RequestOptions = RequestOptions.none()
-    ): CompletableFuture<InboundRealTimePaymentsTransferSimulationResult>
 }

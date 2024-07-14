@@ -19,11 +19,11 @@ class DigitalWalletTokenRequestServiceTest {
                 .apiKey("My API Key")
                 .build()
         val digitalWalletTokenRequestService = client.simulations().digitalWalletTokenRequests()
-        val digitalWalletTokenRequestCreateResponse =
+        val simulationDigitalWalletTokenRequestCreateResponse =
             digitalWalletTokenRequestService.create(
                 SimulationDigitalWalletTokenRequestCreateParams.builder().cardId("card_id").build()
             )
-        println(digitalWalletTokenRequestCreateResponse)
-        digitalWalletTokenRequestCreateResponse.validate()
+        println(simulationDigitalWalletTokenRequestCreateResponse)
+        simulationDigitalWalletTokenRequestCreateResponse.validate()
     }
 }

@@ -8,8 +8,8 @@ import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.DigitalWalletTokenRequestCreateResponse
 import com.increase.api.models.SimulationDigitalWalletTokenRequestCreateParams
+import com.increase.api.models.SimulationDigitalWalletTokenRequestCreateResponse
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
@@ -22,15 +22,15 @@ constructor(
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-    private val createHandler: Handler<DigitalWalletTokenRequestCreateResponse> =
-        jsonHandler<DigitalWalletTokenRequestCreateResponse>(clientOptions.jsonMapper)
+    private val createHandler: Handler<SimulationDigitalWalletTokenRequestCreateResponse> =
+        jsonHandler<SimulationDigitalWalletTokenRequestCreateResponse>(clientOptions.jsonMapper)
             .withErrorHandler(errorHandler)
 
     /** Simulates a user attempting add a [Card](#cards) to a digital wallet such as Apple Pay. */
     override fun create(
         params: SimulationDigitalWalletTokenRequestCreateParams,
         requestOptions: RequestOptions
-    ): DigitalWalletTokenRequestCreateResponse {
+    ): SimulationDigitalWalletTokenRequestCreateResponse {
         val request =
             HttpRequest.builder()
                 .method(HttpMethod.POST)

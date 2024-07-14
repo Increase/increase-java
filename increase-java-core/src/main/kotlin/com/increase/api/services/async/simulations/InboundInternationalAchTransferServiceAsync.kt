@@ -5,8 +5,8 @@
 package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
-import com.increase.api.models.InboundInternationalAchTransfer
 import com.increase.api.models.SimulationInboundInternationalAchTransferCreateParams
+import com.increase.api.models.SimulationInboundInternationalAchTransferCreateResponse
 import java.util.concurrent.CompletableFuture
 
 interface InboundInternationalAchTransferServiceAsync {
@@ -21,5 +21,5 @@ interface InboundInternationalAchTransferServiceAsync {
     fun create(
         params: SimulationInboundInternationalAchTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): CompletableFuture<InboundInternationalAchTransfer>
+    ): CompletableFuture<SimulationInboundInternationalAchTransferCreateResponse>
 }

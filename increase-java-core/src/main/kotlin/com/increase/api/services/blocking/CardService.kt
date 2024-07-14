@@ -8,10 +8,10 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.models.Card
 import com.increase.api.models.CardCreateParams
 import com.increase.api.models.CardDetails
+import com.increase.api.models.CardDetailsParams
 import com.increase.api.models.CardListPage
 import com.increase.api.models.CardListParams
 import com.increase.api.models.CardRetrieveParams
-import com.increase.api.models.CardRetrieveSensitiveDetailsParams
 import com.increase.api.models.CardUpdateParams
 
 interface CardService {
@@ -46,8 +46,8 @@ interface CardService {
 
     /** Retrieve sensitive details for a Card */
     @JvmOverloads
-    fun retrieveSensitiveDetails(
-        params: CardRetrieveSensitiveDetailsParams,
+    fun details(
+        params: CardDetailsParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CardDetails
 }
