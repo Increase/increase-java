@@ -23,7 +23,7 @@ class InboundWireDrawdownRequestServiceTest {
         val inboundWireDrawdownRequest =
             inboundWireDrawdownRequestService.retrieve(
                 InboundWireDrawdownRequestRetrieveParams.builder()
-                    .inboundWireDrawdownRequestId("string")
+                    .inboundWireDrawdownRequestId("inbound_wire_drawdown_request_id")
                     .build()
             )
         println(inboundWireDrawdownRequest)

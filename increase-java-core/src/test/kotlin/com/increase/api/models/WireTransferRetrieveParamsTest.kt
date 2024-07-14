@@ -10,15 +10,15 @@ class WireTransferRetrieveParamsTest {
 
     @Test
     fun createWireTransferRetrieveParams() {
-        WireTransferRetrieveParams.builder().wireTransferId("string").build()
+        WireTransferRetrieveParams.builder().wireTransferId("wire_transfer_id").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = WireTransferRetrieveParams.builder().wireTransferId("string").build()
+        val params = WireTransferRetrieveParams.builder().wireTransferId("wire_transfer_id").build()
         assertThat(params).isNotNull
         // path param "wireTransferId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("wire_transfer_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

@@ -11,10 +11,10 @@ class PhysicalCardProfileCreateParamsTest {
     @Test
     fun createPhysicalCardProfileCreateParams() {
         PhysicalCardProfileCreateParams.builder()
-            .carrierImageFileId("string")
+            .carrierImageFileId("carrier_image_file_id")
             .contactPhone("x")
             .description("x")
-            .frontImageFileId("string")
+            .frontImageFileId("front_image_file_id")
             .build()
     }
 
@@ -22,33 +22,33 @@ class PhysicalCardProfileCreateParamsTest {
     fun getBody() {
         val params =
             PhysicalCardProfileCreateParams.builder()
-                .carrierImageFileId("string")
+                .carrierImageFileId("carrier_image_file_id")
                 .contactPhone("x")
                 .description("x")
-                .frontImageFileId("string")
+                .frontImageFileId("front_image_file_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.carrierImageFileId()).isEqualTo("string")
+        assertThat(body.carrierImageFileId()).isEqualTo("carrier_image_file_id")
         assertThat(body.contactPhone()).isEqualTo("x")
         assertThat(body.description()).isEqualTo("x")
-        assertThat(body.frontImageFileId()).isEqualTo("string")
+        assertThat(body.frontImageFileId()).isEqualTo("front_image_file_id")
     }
 
     @Test
     fun getBodyWithoutOptionalFields() {
         val params =
             PhysicalCardProfileCreateParams.builder()
-                .carrierImageFileId("string")
+                .carrierImageFileId("carrier_image_file_id")
                 .contactPhone("x")
                 .description("x")
-                .frontImageFileId("string")
+                .frontImageFileId("front_image_file_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.carrierImageFileId()).isEqualTo("string")
+        assertThat(body.carrierImageFileId()).isEqualTo("carrier_image_file_id")
         assertThat(body.contactPhone()).isEqualTo("x")
         assertThat(body.description()).isEqualTo("x")
-        assertThat(body.frontImageFileId()).isEqualTo("string")
+        assertThat(body.frontImageFileId()).isEqualTo("front_image_file_id")
     }
 }

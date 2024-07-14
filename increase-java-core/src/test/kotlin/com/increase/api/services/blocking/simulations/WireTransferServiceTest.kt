@@ -22,7 +22,7 @@ class WireTransferServiceTest {
         val inboundWireTransfer =
             wireTransferService.createInbound(
                 SimulationWireTransferCreateInboundParams.builder()
-                    .accountNumberId("string")
+                    .accountNumberId("account_number_id")
                     .amount(123L)
                     .beneficiaryAddressLine1("x")
                     .beneficiaryAddressLine2("x")

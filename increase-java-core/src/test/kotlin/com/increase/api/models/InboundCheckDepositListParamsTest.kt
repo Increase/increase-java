@@ -12,8 +12,8 @@ class InboundCheckDepositListParamsTest {
     @Test
     fun createInboundCheckDepositListParams() {
         InboundCheckDepositListParams.builder()
-            .accountId("string")
-            .checkTransferId("string")
+            .accountId("account_id")
+            .checkTransferId("check_transfer_id")
             .createdAt(
                 InboundCheckDepositListParams.CreatedAt.builder()
                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -22,7 +22,7 @@ class InboundCheckDepositListParamsTest {
                     .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
-            .cursor("string")
+            .cursor("cursor")
             .limit(123L)
             .build()
     }
@@ -31,8 +31,8 @@ class InboundCheckDepositListParamsTest {
     fun getQueryParams() {
         val params =
             InboundCheckDepositListParams.builder()
-                .accountId("string")
-                .checkTransferId("string")
+                .accountId("account_id")
+                .checkTransferId("check_transfer_id")
                 .createdAt(
                     InboundCheckDepositListParams.CreatedAt.builder()
                         .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -41,12 +41,12 @@ class InboundCheckDepositListParamsTest {
                         .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
-                .cursor("string")
+                .cursor("cursor")
                 .limit(123L)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("account_id", listOf("string"))
-        expected.put("check_transfer_id", listOf("string"))
+        expected.put("account_id", listOf("account_id"))
+        expected.put("check_transfer_id", listOf("check_transfer_id"))
         InboundCheckDepositListParams.CreatedAt.builder()
             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -54,7 +54,7 @@ class InboundCheckDepositListParamsTest {
             .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
-        expected.put("cursor", listOf("string"))
+        expected.put("cursor", listOf("cursor"))
         expected.put("limit", listOf("123"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }

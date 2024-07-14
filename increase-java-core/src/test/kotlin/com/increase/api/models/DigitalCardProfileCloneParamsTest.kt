@@ -11,13 +11,13 @@ class DigitalCardProfileCloneParamsTest {
     @Test
     fun createDigitalCardProfileCloneParams() {
         DigitalCardProfileCloneParams.builder()
-            .digitalCardProfileId("string")
-            .appIconFileId("string")
-            .backgroundImageFileId("string")
+            .digitalCardProfileId("digital_card_profile_id")
+            .appIconFileId("app_icon_file_id")
+            .backgroundImageFileId("background_image_file_id")
             .cardDescription("x")
             .contactEmail("x")
             .contactPhone("x")
-            .contactWebsite("string")
+            .contactWebsite("contact_website")
             .description("x")
             .issuerName("x")
             .textColor(
@@ -34,13 +34,13 @@ class DigitalCardProfileCloneParamsTest {
     fun getBody() {
         val params =
             DigitalCardProfileCloneParams.builder()
-                .digitalCardProfileId("string")
-                .appIconFileId("string")
-                .backgroundImageFileId("string")
+                .digitalCardProfileId("digital_card_profile_id")
+                .appIconFileId("app_icon_file_id")
+                .backgroundImageFileId("background_image_file_id")
                 .cardDescription("x")
                 .contactEmail("x")
                 .contactPhone("x")
-                .contactWebsite("string")
+                .contactWebsite("contact_website")
                 .description("x")
                 .issuerName("x")
                 .textColor(
@@ -53,12 +53,12 @@ class DigitalCardProfileCloneParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.appIconFileId()).isEqualTo("string")
-        assertThat(body.backgroundImageFileId()).isEqualTo("string")
+        assertThat(body.appIconFileId()).isEqualTo("app_icon_file_id")
+        assertThat(body.backgroundImageFileId()).isEqualTo("background_image_file_id")
         assertThat(body.cardDescription()).isEqualTo("x")
         assertThat(body.contactEmail()).isEqualTo("x")
         assertThat(body.contactPhone()).isEqualTo("x")
-        assertThat(body.contactWebsite()).isEqualTo("string")
+        assertThat(body.contactWebsite()).isEqualTo("contact_website")
         assertThat(body.description()).isEqualTo("x")
         assertThat(body.issuerName()).isEqualTo("x")
         assertThat(body.textColor())
@@ -73,17 +73,23 @@ class DigitalCardProfileCloneParamsTest {
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = DigitalCardProfileCloneParams.builder().digitalCardProfileId("string").build()
+        val params =
+            DigitalCardProfileCloneParams.builder()
+                .digitalCardProfileId("digital_card_profile_id")
+                .build()
         val body = params.getBody()
         assertThat(body).isNotNull
     }
 
     @Test
     fun getPathParam() {
-        val params = DigitalCardProfileCloneParams.builder().digitalCardProfileId("string").build()
+        val params =
+            DigitalCardProfileCloneParams.builder()
+                .digitalCardProfileId("digital_card_profile_id")
+                .build()
         assertThat(params).isNotNull
         // path param "digitalCardProfileId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("digital_card_profile_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

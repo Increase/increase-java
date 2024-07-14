@@ -21,7 +21,7 @@ class DocumentServiceTest {
         val documentService = client.simulations().documents()
         val document =
             documentService.create(
-                SimulationDocumentCreateParams.builder().accountId("string").build()
+                SimulationDocumentCreateParams.builder().accountId("account_id").build()
             )
         println(document)
         document.validate()

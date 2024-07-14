@@ -11,7 +11,7 @@ class AccountNumberUpdateParamsTest {
     @Test
     fun createAccountNumberUpdateParams() {
         AccountNumberUpdateParams.builder()
-            .accountNumberId("string")
+            .accountNumberId("account_number_id")
             .inboundAch(
                 AccountNumberUpdateParams.InboundAch.builder()
                     .debitStatus(AccountNumberUpdateParams.InboundAch.DebitStatus.ALLOWED)
@@ -31,7 +31,7 @@ class AccountNumberUpdateParamsTest {
     fun getBody() {
         val params =
             AccountNumberUpdateParams.builder()
-                .accountNumberId("string")
+                .accountNumberId("account_number_id")
                 .inboundAch(
                     AccountNumberUpdateParams.InboundAch.builder()
                         .debitStatus(AccountNumberUpdateParams.InboundAch.DebitStatus.ALLOWED)
@@ -65,17 +65,19 @@ class AccountNumberUpdateParamsTest {
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = AccountNumberUpdateParams.builder().accountNumberId("string").build()
+        val params =
+            AccountNumberUpdateParams.builder().accountNumberId("account_number_id").build()
         val body = params.getBody()
         assertThat(body).isNotNull
     }
 
     @Test
     fun getPathParam() {
-        val params = AccountNumberUpdateParams.builder().accountNumberId("string").build()
+        val params =
+            AccountNumberUpdateParams.builder().accountNumberId("account_number_id").build()
         assertThat(params).isNotNull
         // path param "accountNumberId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("account_number_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

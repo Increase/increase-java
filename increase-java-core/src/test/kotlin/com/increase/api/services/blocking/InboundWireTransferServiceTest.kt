@@ -22,7 +22,9 @@ class InboundWireTransferServiceTest {
         val inboundWireTransferService = client.inboundWireTransfers()
         val inboundWireTransfer =
             inboundWireTransferService.retrieve(
-                InboundWireTransferRetrieveParams.builder().inboundWireTransferId("string").build()
+                InboundWireTransferRetrieveParams.builder()
+                    .inboundWireTransferId("inbound_wire_transfer_id")
+                    .build()
             )
         println(inboundWireTransfer)
         inboundWireTransfer.validate()

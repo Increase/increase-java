@@ -22,7 +22,7 @@ class SimulationServiceTest {
         val cardPayment =
             simulationService.cardAuthorizationExpirations(
                 SimulationCardAuthorizationExpirationsParams.builder()
-                    .cardPaymentId("string")
+                    .cardPaymentId("card_payment_id")
                     .build()
             )
         println(cardPayment)
@@ -41,7 +41,7 @@ class SimulationServiceTest {
             simulationService.cardFuelConfirmations(
                 SimulationCardFuelConfirmationsParams.builder()
                     .amount(123L)
-                    .cardPaymentId("string")
+                    .cardPaymentId("card_payment_id")
                     .build()
             )
         println(cardPayment)
@@ -60,8 +60,8 @@ class SimulationServiceTest {
             simulationService.cardIncrements(
                 SimulationCardIncrementsParams.builder()
                     .amount(123L)
-                    .cardPaymentId("string")
-                    .eventSubscriptionId("string")
+                    .cardPaymentId("card_payment_id")
+                    .eventSubscriptionId("event_subscription_id")
                     .build()
             )
         println(cardPayment)
@@ -78,7 +78,10 @@ class SimulationServiceTest {
         val simulationService = client.simulations()
         val cardPayment =
             simulationService.cardReversals(
-                SimulationCardReversalsParams.builder().cardPaymentId("string").amount(123L).build()
+                SimulationCardReversalsParams.builder()
+                    .cardPaymentId("card_payment_id")
+                    .amount(123L)
+                    .build()
             )
         println(cardPayment)
         cardPayment.validate()

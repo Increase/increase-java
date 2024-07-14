@@ -22,7 +22,7 @@ class InboundFundsHoldServiceTest {
         val inboundFundsHoldReleaseResponse =
             inboundFundsHoldService.release(
                 SimulationInboundFundsHoldReleaseParams.builder()
-                    .inboundFundsHoldId("string")
+                    .inboundFundsHoldId("inbound_funds_hold_id")
                     .build()
             )
         println(inboundFundsHoldReleaseResponse)

@@ -25,7 +25,7 @@ class WireDrawdownRequestServiceTest {
         val wireDrawdownRequest =
             wireDrawdownRequestService.create(
                 WireDrawdownRequestCreateParams.builder()
-                    .accountNumberId("string")
+                    .accountNumberId("account_number_id")
                     .amount(123L)
                     .messageToRecipient("x")
                     .recipientAccountNumber("x")
@@ -54,7 +54,9 @@ class WireDrawdownRequestServiceTest {
         val wireDrawdownRequestService = client.wireDrawdownRequests()
         val wireDrawdownRequest =
             wireDrawdownRequestService.retrieve(
-                WireDrawdownRequestRetrieveParams.builder().wireDrawdownRequestId("string").build()
+                WireDrawdownRequestRetrieveParams.builder()
+                    .wireDrawdownRequestId("wire_drawdown_request_id")
+                    .build()
             )
         println(wireDrawdownRequest)
         wireDrawdownRequest.validate()

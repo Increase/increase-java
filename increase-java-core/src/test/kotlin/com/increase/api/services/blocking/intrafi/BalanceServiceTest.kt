@@ -21,7 +21,7 @@ class BalanceServiceTest {
         val balanceService = client.intrafi().balances()
         val intrafiBalance =
             balanceService.retrieve(
-                IntrafiBalanceRetrieveParams.builder().accountId("string").build()
+                IntrafiBalanceRetrieveParams.builder().accountId("account_id").build()
             )
         println(intrafiBalance)
         intrafiBalance.validate()

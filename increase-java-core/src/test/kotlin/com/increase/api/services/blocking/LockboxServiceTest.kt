@@ -22,7 +22,7 @@ class LockboxServiceTest {
         val lockboxService = client.lockboxes()
         val lockbox =
             lockboxService.create(
-                LockboxCreateParams.builder().accountId("string").description("x").build()
+                LockboxCreateParams.builder().accountId("account_id").description("x").build()
             )
         println(lockbox)
         lockbox.validate()
@@ -37,7 +37,7 @@ class LockboxServiceTest {
                 .build()
         val lockboxService = client.lockboxes()
         val lockbox =
-            lockboxService.retrieve(LockboxRetrieveParams.builder().lockboxId("string").build())
+            lockboxService.retrieve(LockboxRetrieveParams.builder().lockboxId("lockbox_id").build())
         println(lockbox)
         lockbox.validate()
     }
@@ -53,7 +53,7 @@ class LockboxServiceTest {
         val lockbox =
             lockboxService.update(
                 LockboxUpdateParams.builder()
-                    .lockboxId("string")
+                    .lockboxId("lockbox_id")
                     .description("x")
                     .status(LockboxUpdateParams.Status.ACTIVE)
                     .build()

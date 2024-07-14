@@ -23,8 +23,8 @@ class SupplementalDocumentServiceTest {
         val entity =
             supplementalDocumentService.create(
                 EntitySupplementalDocumentCreateParams.builder()
-                    .entityId("string")
-                    .fileId("string")
+                    .entityId("entity_id")
+                    .fileId("file_id")
                     .build()
             )
         println(entity)
@@ -41,7 +41,7 @@ class SupplementalDocumentServiceTest {
         val supplementalDocumentService = client.entities().supplementalDocuments()
         val supplementalDocumentList =
             supplementalDocumentService.list(
-                EntitySupplementalDocumentListParams.builder().entityId("string").build()
+                EntitySupplementalDocumentListParams.builder().entityId("entity_id").build()
             )
         println(supplementalDocumentList)
         supplementalDocumentList.data().forEach { it.validate() }

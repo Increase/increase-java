@@ -23,10 +23,10 @@ class CheckDepositServiceTest {
         val checkDeposit =
             checkDepositService.create(
                 CheckDepositCreateParams.builder()
-                    .accountId("string")
+                    .accountId("account_id")
                     .amount(123L)
-                    .backImageFileId("string")
-                    .frontImageFileId("string")
+                    .backImageFileId("back_image_file_id")
+                    .frontImageFileId("front_image_file_id")
                     .description("x")
                     .build()
             )
@@ -44,7 +44,7 @@ class CheckDepositServiceTest {
         val checkDepositService = client.checkDeposits()
         val checkDeposit =
             checkDepositService.retrieve(
-                CheckDepositRetrieveParams.builder().checkDepositId("string").build()
+                CheckDepositRetrieveParams.builder().checkDepositId("check_deposit_id").build()
             )
         println(checkDeposit)
         checkDeposit.validate()

@@ -12,7 +12,7 @@ class RoutingNumberListParamsTest {
     fun createRoutingNumberListParams() {
         RoutingNumberListParams.builder()
             .routingNumber("xxxxxxxxx")
-            .cursor("string")
+            .cursor("cursor")
             .limit(123L)
             .build()
     }
@@ -22,12 +22,12 @@ class RoutingNumberListParamsTest {
         val params =
             RoutingNumberListParams.builder()
                 .routingNumber("xxxxxxxxx")
-                .cursor("string")
+                .cursor("cursor")
                 .limit(123L)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
         expected.put("routing_number", listOf("xxxxxxxxx"))
-        expected.put("cursor", listOf("string"))
+        expected.put("cursor", listOf("cursor"))
         expected.put("limit", listOf("123"))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }

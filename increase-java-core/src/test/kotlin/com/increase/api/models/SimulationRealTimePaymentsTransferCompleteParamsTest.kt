@@ -11,7 +11,7 @@ class SimulationRealTimePaymentsTransferCompleteParamsTest {
     @Test
     fun createSimulationRealTimePaymentsTransferCompleteParams() {
         SimulationRealTimePaymentsTransferCompleteParams.builder()
-            .realTimePaymentsTransferId("string")
+            .realTimePaymentsTransferId("real_time_payments_transfer_id")
             .rejection(
                 SimulationRealTimePaymentsTransferCompleteParams.Rejection.builder()
                     .rejectReasonCode(
@@ -27,7 +27,7 @@ class SimulationRealTimePaymentsTransferCompleteParamsTest {
     fun getBody() {
         val params =
             SimulationRealTimePaymentsTransferCompleteParams.builder()
-                .realTimePaymentsTransferId("string")
+                .realTimePaymentsTransferId("real_time_payments_transfer_id")
                 .rejection(
                     SimulationRealTimePaymentsTransferCompleteParams.Rejection.builder()
                         .rejectReasonCode(
@@ -55,7 +55,7 @@ class SimulationRealTimePaymentsTransferCompleteParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             SimulationRealTimePaymentsTransferCompleteParams.builder()
-                .realTimePaymentsTransferId("string")
+                .realTimePaymentsTransferId("real_time_payments_transfer_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -65,11 +65,11 @@ class SimulationRealTimePaymentsTransferCompleteParamsTest {
     fun getPathParam() {
         val params =
             SimulationRealTimePaymentsTransferCompleteParams.builder()
-                .realTimePaymentsTransferId("string")
+                .realTimePaymentsTransferId("real_time_payments_transfer_id")
                 .build()
         assertThat(params).isNotNull
         // path param "realTimePaymentsTransferId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("real_time_payments_transfer_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

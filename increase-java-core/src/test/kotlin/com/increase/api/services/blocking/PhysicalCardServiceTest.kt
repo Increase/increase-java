@@ -23,7 +23,7 @@ class PhysicalCardServiceTest {
         val physicalCard =
             physicalCardService.create(
                 PhysicalCardCreateParams.builder()
-                    .cardId("string")
+                    .cardId("card_id")
                     .cardholder(
                         PhysicalCardCreateParams.Cardholder.builder()
                             .firstName("x")
@@ -47,7 +47,7 @@ class PhysicalCardServiceTest {
                             .method(PhysicalCardCreateParams.Shipment.Method.USPS)
                             .build()
                     )
-                    .physicalCardProfileId("string")
+                    .physicalCardProfileId("physical_card_profile_id")
                     .build()
             )
         println(physicalCard)
@@ -64,7 +64,7 @@ class PhysicalCardServiceTest {
         val physicalCardService = client.physicalCards()
         val physicalCard =
             physicalCardService.retrieve(
-                PhysicalCardRetrieveParams.builder().physicalCardId("string").build()
+                PhysicalCardRetrieveParams.builder().physicalCardId("physical_card_id").build()
             )
         println(physicalCard)
         physicalCard.validate()
@@ -81,7 +81,7 @@ class PhysicalCardServiceTest {
         val physicalCard =
             physicalCardService.update(
                 PhysicalCardUpdateParams.builder()
-                    .physicalCardId("string")
+                    .physicalCardId("physical_card_id")
                     .status(PhysicalCardUpdateParams.Status.ACTIVE)
                     .build()
             )

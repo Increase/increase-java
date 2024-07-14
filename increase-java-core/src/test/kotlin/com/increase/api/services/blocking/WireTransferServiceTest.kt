@@ -24,7 +24,7 @@ class WireTransferServiceTest {
         val wireTransfer =
             wireTransferService.create(
                 WireTransferCreateParams.builder()
-                    .accountId("string")
+                    .accountId("account_id")
                     .amount(123L)
                     .beneficiaryName("x")
                     .messageToRecipient("x")
@@ -32,7 +32,7 @@ class WireTransferServiceTest {
                     .beneficiaryAddressLine1("x")
                     .beneficiaryAddressLine2("x")
                     .beneficiaryAddressLine3("x")
-                    .externalAccountId("string")
+                    .externalAccountId("external_account_id")
                     .originatorAddressLine1("x")
                     .originatorAddressLine2("x")
                     .originatorAddressLine3("x")
@@ -55,7 +55,7 @@ class WireTransferServiceTest {
         val wireTransferService = client.wireTransfers()
         val wireTransfer =
             wireTransferService.retrieve(
-                WireTransferRetrieveParams.builder().wireTransferId("string").build()
+                WireTransferRetrieveParams.builder().wireTransferId("wire_transfer_id").build()
             )
         println(wireTransfer)
         wireTransfer.validate()
@@ -84,7 +84,7 @@ class WireTransferServiceTest {
         val wireTransferService = client.wireTransfers()
         val wireTransfer =
             wireTransferService.approve(
-                WireTransferApproveParams.builder().wireTransferId("string").build()
+                WireTransferApproveParams.builder().wireTransferId("wire_transfer_id").build()
             )
         println(wireTransfer)
         wireTransfer.validate()
@@ -100,7 +100,7 @@ class WireTransferServiceTest {
         val wireTransferService = client.wireTransfers()
         val wireTransfer =
             wireTransferService.cancel(
-                WireTransferCancelParams.builder().wireTransferId("string").build()
+                WireTransferCancelParams.builder().wireTransferId("wire_transfer_id").build()
             )
         println(wireTransfer)
         wireTransfer.validate()
@@ -117,7 +117,7 @@ class WireTransferServiceTest {
         val wireTransferService = client.wireTransfers()
         val wireTransfer =
             wireTransferService.reverse(
-                WireTransferReverseParams.builder().wireTransferId("string").build()
+                WireTransferReverseParams.builder().wireTransferId("wire_transfer_id").build()
             )
         println(wireTransfer)
         wireTransfer.validate()
@@ -134,7 +134,7 @@ class WireTransferServiceTest {
         val wireTransferService = client.wireTransfers()
         val wireTransfer =
             wireTransferService.submit(
-                WireTransferSubmitParams.builder().wireTransferId("string").build()
+                WireTransferSubmitParams.builder().wireTransferId("wire_transfer_id").build()
             )
         println(wireTransfer)
         wireTransfer.validate()

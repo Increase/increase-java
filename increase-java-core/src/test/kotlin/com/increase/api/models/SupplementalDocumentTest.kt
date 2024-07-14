@@ -13,15 +13,15 @@ class SupplementalDocumentTest {
         val supplementalDocument =
             SupplementalDocument.builder()
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .fileId("string")
-                .idempotencyKey("string")
+                .fileId("file_id")
+                .idempotencyKey("idempotency_key")
                 .type(SupplementalDocument.Type.ENTITY_SUPPLEMENTAL_DOCUMENT)
                 .build()
         assertThat(supplementalDocument).isNotNull
         assertThat(supplementalDocument.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(supplementalDocument.fileId()).isEqualTo("string")
-        assertThat(supplementalDocument.idempotencyKey()).contains("string")
+        assertThat(supplementalDocument.fileId()).isEqualTo("file_id")
+        assertThat(supplementalDocument.idempotencyKey()).contains("idempotency_key")
         assertThat(supplementalDocument.type())
             .isEqualTo(SupplementalDocument.Type.ENTITY_SUPPLEMENTAL_DOCUMENT)
     }

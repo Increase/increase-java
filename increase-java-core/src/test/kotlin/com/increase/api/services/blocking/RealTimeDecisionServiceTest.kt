@@ -21,7 +21,9 @@ class RealTimeDecisionServiceTest {
         val realTimeDecisionService = client.realTimeDecisions()
         val realTimeDecision =
             realTimeDecisionService.retrieve(
-                RealTimeDecisionRetrieveParams.builder().realTimeDecisionId("string").build()
+                RealTimeDecisionRetrieveParams.builder()
+                    .realTimeDecisionId("real_time_decision_id")
+                    .build()
             )
         println(realTimeDecision)
         realTimeDecision.validate()
@@ -38,7 +40,7 @@ class RealTimeDecisionServiceTest {
         val realTimeDecision =
             realTimeDecisionService.action(
                 RealTimeDecisionActionParams.builder()
-                    .realTimeDecisionId("string")
+                    .realTimeDecisionId("real_time_decision_id")
                     .cardAuthorization(
                         RealTimeDecisionActionParams.CardAuthorization.builder()
                             .decision(

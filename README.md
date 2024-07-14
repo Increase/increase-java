@@ -2,7 +2,7 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-java)](https://central.sonatype.com/artifact/com.increase.api/increase-java/0.60.0)
+[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-java)](https://central.sonatype.com/artifact/com.increase.api/increase-java/0.60.1)
 
 <!-- x-release-please-end -->
 
@@ -25,7 +25,7 @@ The REST API documentation can be found [on increase.com](https://increase.com/
 <!-- x-release-please-start-version -->
 
 ```kotlin
-implementation("com.increase.api:increase-java:0.60.0")
+implementation("com.increase.api:increase-java:0.60.1")
 ```
 
 #### Maven
@@ -34,7 +34,7 @@ implementation("com.increase.api:increase-java:0.60.0")
 <dependency>
     <groupId>com.increase.api</groupId>
     <artifactId>increase-java</artifactId>
-    <version>0.60.0</version>
+    <version>0.60.1</version>
 </dependency>
 ```
 
@@ -319,3 +319,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
 We are keen for your feedback; please open an [issue](https://www.github.com/increase/increase-java/issues) with questions, bugs, or suggestions.
+
+## Requirements
+
+This library requires Java 8 or later.

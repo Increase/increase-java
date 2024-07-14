@@ -15,13 +15,13 @@ class BookkeepingEntrySetCreateParamsTest {
             .entries(
                 listOf(
                     BookkeepingEntrySetCreateParams.Entry.builder()
-                        .accountId("string")
+                        .accountId("account_id")
                         .amount(123L)
                         .build()
                 )
             )
             .date(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .transactionId("string")
+            .transactionId("transaction_id")
             .build()
     }
 
@@ -32,13 +32,13 @@ class BookkeepingEntrySetCreateParamsTest {
                 .entries(
                     listOf(
                         BookkeepingEntrySetCreateParams.Entry.builder()
-                            .accountId("string")
+                            .accountId("account_id")
                             .amount(123L)
                             .build()
                     )
                 )
                 .date(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .transactionId("string")
+                .transactionId("transaction_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -46,13 +46,13 @@ class BookkeepingEntrySetCreateParamsTest {
             .isEqualTo(
                 listOf(
                     BookkeepingEntrySetCreateParams.Entry.builder()
-                        .accountId("string")
+                        .accountId("account_id")
                         .amount(123L)
                         .build()
                 )
             )
         assertThat(body.date()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(body.transactionId()).isEqualTo("string")
+        assertThat(body.transactionId()).isEqualTo("transaction_id")
     }
 
     @Test
@@ -62,7 +62,7 @@ class BookkeepingEntrySetCreateParamsTest {
                 .entries(
                     listOf(
                         BookkeepingEntrySetCreateParams.Entry.builder()
-                            .accountId("string")
+                            .accountId("account_id")
                             .amount(123L)
                             .build()
                     )
@@ -74,7 +74,7 @@ class BookkeepingEntrySetCreateParamsTest {
             .isEqualTo(
                 listOf(
                     BookkeepingEntrySetCreateParams.Entry.builder()
-                        .accountId("string")
+                        .accountId("account_id")
                         .amount(123L)
                         .build()
                 )

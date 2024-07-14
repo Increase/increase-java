@@ -22,7 +22,7 @@ class TransactionServiceTest {
         val transactionService = client.transactions()
         val transaction =
             transactionService.retrieve(
-                TransactionRetrieveParams.builder().transactionId("string").build()
+                TransactionRetrieveParams.builder().transactionId("transaction_id").build()
             )
         println(transaction)
         transaction.validate()

@@ -12,7 +12,7 @@ class PendingTransactionListParamsTest {
     @Test
     fun createPendingTransactionListParams() {
         PendingTransactionListParams.builder()
-            .accountId("string")
+            .accountId("account_id")
             .category(
                 PendingTransactionListParams.Category.builder()
                     .in_(
@@ -30,10 +30,10 @@ class PendingTransactionListParamsTest {
                     .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
-            .cursor("string")
+            .cursor("cursor")
             .limit(123L)
-            .routeId("string")
-            .sourceId("string")
+            .routeId("route_id")
+            .sourceId("source_id")
             .status(
                 PendingTransactionListParams.Status.builder()
                     .in_(listOf(PendingTransactionListParams.Status.In.PENDING))
@@ -46,7 +46,7 @@ class PendingTransactionListParamsTest {
     fun getQueryParams() {
         val params =
             PendingTransactionListParams.builder()
-                .accountId("string")
+                .accountId("account_id")
                 .category(
                     PendingTransactionListParams.Category.builder()
                         .in_(
@@ -65,10 +65,10 @@ class PendingTransactionListParamsTest {
                         .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
-                .cursor("string")
+                .cursor("cursor")
                 .limit(123L)
-                .routeId("string")
-                .sourceId("string")
+                .routeId("route_id")
+                .sourceId("source_id")
                 .status(
                     PendingTransactionListParams.Status.builder()
                         .in_(listOf(PendingTransactionListParams.Status.In.PENDING))
@@ -76,7 +76,7 @@ class PendingTransactionListParamsTest {
                 )
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("account_id", listOf("string"))
+        expected.put("account_id", listOf("account_id"))
         PendingTransactionListParams.Category.builder()
             .in_(listOf(PendingTransactionListParams.Category.In.ACCOUNT_TRANSFER_INSTRUCTION))
             .build()
@@ -88,10 +88,10 @@ class PendingTransactionListParamsTest {
             .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
-        expected.put("cursor", listOf("string"))
+        expected.put("cursor", listOf("cursor"))
         expected.put("limit", listOf("123"))
-        expected.put("route_id", listOf("string"))
-        expected.put("source_id", listOf("string"))
+        expected.put("route_id", listOf("route_id"))
+        expected.put("source_id", listOf("source_id"))
         PendingTransactionListParams.Status.builder()
             .in_(listOf(PendingTransactionListParams.Status.In.PENDING))
             .build()

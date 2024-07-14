@@ -12,7 +12,7 @@ class AchTransferCreateParamsTest {
     @Test
     fun createAchTransferCreateParams() {
         AchTransferCreateParams.builder()
-            .accountId("string")
+            .accountId("account_id")
             .amount(123L)
             .statementDescriptor("x")
             .accountNumber("x")
@@ -52,7 +52,7 @@ class AchTransferCreateParamsTest {
             .companyName("x")
             .destinationAccountHolder(AchTransferCreateParams.DestinationAccountHolder.BUSINESS)
             .effectiveDate(LocalDate.parse("2019-12-27"))
-            .externalAccountId("string")
+            .externalAccountId("external_account_id")
             .funding(AchTransferCreateParams.Funding.CHECKING)
             .individualId("x")
             .individualName("x")
@@ -76,7 +76,7 @@ class AchTransferCreateParamsTest {
     fun getBody() {
         val params =
             AchTransferCreateParams.builder()
-                .accountId("string")
+                .accountId("account_id")
                 .amount(123L)
                 .statementDescriptor("x")
                 .accountNumber("x")
@@ -116,7 +116,7 @@ class AchTransferCreateParamsTest {
                 .companyName("x")
                 .destinationAccountHolder(AchTransferCreateParams.DestinationAccountHolder.BUSINESS)
                 .effectiveDate(LocalDate.parse("2019-12-27"))
-                .externalAccountId("string")
+                .externalAccountId("external_account_id")
                 .funding(AchTransferCreateParams.Funding.CHECKING)
                 .individualId("x")
                 .individualName("x")
@@ -137,7 +137,7 @@ class AchTransferCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("string")
+        assertThat(body.accountId()).isEqualTo("account_id")
         assertThat(body.amount()).isEqualTo(123L)
         assertThat(body.statementDescriptor()).isEqualTo("x")
         assertThat(body.accountNumber()).isEqualTo("x")
@@ -179,7 +179,7 @@ class AchTransferCreateParamsTest {
         assertThat(body.destinationAccountHolder())
             .isEqualTo(AchTransferCreateParams.DestinationAccountHolder.BUSINESS)
         assertThat(body.effectiveDate()).isEqualTo(LocalDate.parse("2019-12-27"))
-        assertThat(body.externalAccountId()).isEqualTo("string")
+        assertThat(body.externalAccountId()).isEqualTo("external_account_id")
         assertThat(body.funding()).isEqualTo(AchTransferCreateParams.Funding.CHECKING)
         assertThat(body.individualId()).isEqualTo("x")
         assertThat(body.individualName()).isEqualTo("x")
@@ -202,13 +202,13 @@ class AchTransferCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             AchTransferCreateParams.builder()
-                .accountId("string")
+                .accountId("account_id")
                 .amount(123L)
                 .statementDescriptor("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("string")
+        assertThat(body.accountId()).isEqualTo("account_id")
         assertThat(body.amount()).isEqualTo(123L)
         assertThat(body.statementDescriptor()).isEqualTo("x")
     }

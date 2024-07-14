@@ -12,7 +12,7 @@ class AccountNumberListParamsTest {
     @Test
     fun createAccountNumberListParams() {
         AccountNumberListParams.builder()
-            .accountId("string")
+            .accountId("account_id")
             .achDebitStatus(AccountNumberListParams.AchDebitStatus.ALLOWED)
             .createdAt(
                 AccountNumberListParams.CreatedAt.builder()
@@ -22,7 +22,7 @@ class AccountNumberListParamsTest {
                     .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
-            .cursor("string")
+            .cursor("cursor")
             .idempotencyKey("x")
             .limit(123L)
             .status(AccountNumberListParams.Status.ACTIVE)
@@ -33,7 +33,7 @@ class AccountNumberListParamsTest {
     fun getQueryParams() {
         val params =
             AccountNumberListParams.builder()
-                .accountId("string")
+                .accountId("account_id")
                 .achDebitStatus(AccountNumberListParams.AchDebitStatus.ALLOWED)
                 .createdAt(
                     AccountNumberListParams.CreatedAt.builder()
@@ -43,13 +43,13 @@ class AccountNumberListParamsTest {
                         .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
-                .cursor("string")
+                .cursor("cursor")
                 .idempotencyKey("x")
                 .limit(123L)
                 .status(AccountNumberListParams.Status.ACTIVE)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("account_id", listOf("string"))
+        expected.put("account_id", listOf("account_id"))
         expected.put(
             "ach_debit_status",
             listOf(AccountNumberListParams.AchDebitStatus.ALLOWED.toString())
@@ -61,7 +61,7 @@ class AccountNumberListParamsTest {
             .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
-        expected.put("cursor", listOf("string"))
+        expected.put("cursor", listOf("cursor"))
         expected.put("idempotency_key", listOf("x"))
         expected.put("limit", listOf("123"))
         expected.put("status", listOf(AccountNumberListParams.Status.ACTIVE.toString()))

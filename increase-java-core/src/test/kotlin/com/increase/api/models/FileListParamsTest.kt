@@ -20,7 +20,7 @@ class FileListParamsTest {
                     .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
-            .cursor("string")
+            .cursor("cursor")
             .idempotencyKey("x")
             .limit(123L)
             .purpose(
@@ -43,7 +43,7 @@ class FileListParamsTest {
                         .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
-                .cursor("string")
+                .cursor("cursor")
                 .idempotencyKey("x")
                 .limit(123L)
                 .purpose(
@@ -60,7 +60,7 @@ class FileListParamsTest {
             .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
-        expected.put("cursor", listOf("string"))
+        expected.put("cursor", listOf("cursor"))
         expected.put("idempotency_key", listOf("x"))
         expected.put("limit", listOf("123"))
         FileListParams.Purpose.builder()

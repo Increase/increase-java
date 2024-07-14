@@ -22,7 +22,7 @@ class InboundCheckDepositServiceTest {
         val inboundCheckDeposit =
             inboundCheckDepositService.create(
                 SimulationInboundCheckDepositCreateParams.builder()
-                    .accountNumberId("string")
+                    .accountNumberId("account_number_id")
                     .amount(123L)
                     .checkNumber("x")
                     .build()

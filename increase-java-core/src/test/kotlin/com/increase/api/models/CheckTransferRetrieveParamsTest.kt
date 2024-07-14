@@ -10,15 +10,16 @@ class CheckTransferRetrieveParamsTest {
 
     @Test
     fun createCheckTransferRetrieveParams() {
-        CheckTransferRetrieveParams.builder().checkTransferId("string").build()
+        CheckTransferRetrieveParams.builder().checkTransferId("check_transfer_id").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = CheckTransferRetrieveParams.builder().checkTransferId("string").build()
+        val params =
+            CheckTransferRetrieveParams.builder().checkTransferId("check_transfer_id").build()
         assertThat(params).isNotNull
         // path param "checkTransferId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("check_transfer_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

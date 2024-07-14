@@ -12,7 +12,7 @@ class EntityConfirmParamsTest {
     @Test
     fun createEntityConfirmParams() {
         EntityConfirmParams.builder()
-            .entityId("string")
+            .entityId("entity_id")
             .confirmedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
     }
@@ -21,7 +21,7 @@ class EntityConfirmParamsTest {
     fun getBody() {
         val params =
             EntityConfirmParams.builder()
-                .entityId("string")
+                .entityId("entity_id")
                 .confirmedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
         val body = params.getBody()
@@ -31,17 +31,17 @@ class EntityConfirmParamsTest {
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = EntityConfirmParams.builder().entityId("string").build()
+        val params = EntityConfirmParams.builder().entityId("entity_id").build()
         val body = params.getBody()
         assertThat(body).isNotNull
     }
 
     @Test
     fun getPathParam() {
-        val params = EntityConfirmParams.builder().entityId("string").build()
+        val params = EntityConfirmParams.builder().entityId("entity_id").build()
         assertThat(params).isNotNull
         // path param "entityId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("entity_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

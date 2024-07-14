@@ -10,15 +10,15 @@ class CardRetrieveSensitiveDetailsParamsTest {
 
     @Test
     fun createCardRetrieveSensitiveDetailsParams() {
-        CardRetrieveSensitiveDetailsParams.builder().cardId("string").build()
+        CardRetrieveSensitiveDetailsParams.builder().cardId("card_id").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = CardRetrieveSensitiveDetailsParams.builder().cardId("string").build()
+        val params = CardRetrieveSensitiveDetailsParams.builder().cardId("card_id").build()
         assertThat(params).isNotNull
         // path param "cardId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("card_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

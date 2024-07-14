@@ -44,7 +44,9 @@ class ExternalAccountServiceTest {
         val externalAccountService = client.externalAccounts()
         val externalAccount =
             externalAccountService.retrieve(
-                ExternalAccountRetrieveParams.builder().externalAccountId("string").build()
+                ExternalAccountRetrieveParams.builder()
+                    .externalAccountId("external_account_id")
+                    .build()
             )
         println(externalAccount)
         externalAccount.validate()
@@ -61,7 +63,7 @@ class ExternalAccountServiceTest {
         val externalAccount =
             externalAccountService.update(
                 ExternalAccountUpdateParams.builder()
-                    .externalAccountId("string")
+                    .externalAccountId("external_account_id")
                     .accountHolder(ExternalAccountUpdateParams.AccountHolder.BUSINESS)
                     .description("x")
                     .funding(ExternalAccountUpdateParams.Funding.CHECKING)

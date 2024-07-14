@@ -22,7 +22,7 @@ class RealTimePaymentsTransferServiceTest {
         val realTimePaymentsTransfer =
             realTimePaymentsTransferService.complete(
                 SimulationRealTimePaymentsTransferCompleteParams.builder()
-                    .realTimePaymentsTransferId("string")
+                    .realTimePaymentsTransferId("real_time_payments_transfer_id")
                     .rejection(
                         SimulationRealTimePaymentsTransferCompleteParams.Rejection.builder()
                             .rejectReasonCode(
@@ -49,13 +49,13 @@ class RealTimePaymentsTransferServiceTest {
         val inboundRealTimePaymentsTransferSimulationResult =
             realTimePaymentsTransferService.createInbound(
                 SimulationRealTimePaymentsTransferCreateInboundParams.builder()
-                    .accountNumberId("string")
+                    .accountNumberId("account_number_id")
                     .amount(123L)
                     .debtorAccountNumber("x")
                     .debtorName("x")
                     .debtorRoutingNumber("xxxxxxxxx")
                     .remittanceInformation("x")
-                    .requestForPaymentId("string")
+                    .requestForPaymentId("request_for_payment_id")
                     .build()
             )
         println(inboundRealTimePaymentsTransferSimulationResult)

@@ -10,15 +10,16 @@ class ExternalAccountRetrieveParamsTest {
 
     @Test
     fun createExternalAccountRetrieveParams() {
-        ExternalAccountRetrieveParams.builder().externalAccountId("string").build()
+        ExternalAccountRetrieveParams.builder().externalAccountId("external_account_id").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = ExternalAccountRetrieveParams.builder().externalAccountId("string").build()
+        val params =
+            ExternalAccountRetrieveParams.builder().externalAccountId("external_account_id").build()
         assertThat(params).isNotNull
         // path param "externalAccountId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("external_account_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

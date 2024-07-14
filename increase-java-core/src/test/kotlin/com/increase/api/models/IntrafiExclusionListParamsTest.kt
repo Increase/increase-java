@@ -11,8 +11,8 @@ class IntrafiExclusionListParamsTest {
     @Test
     fun createIntrafiExclusionListParams() {
         IntrafiExclusionListParams.builder()
-            .cursor("string")
-            .entityId("string")
+            .cursor("cursor")
+            .entityId("entity_id")
             .idempotencyKey("x")
             .limit(123L)
             .build()
@@ -22,14 +22,14 @@ class IntrafiExclusionListParamsTest {
     fun getQueryParams() {
         val params =
             IntrafiExclusionListParams.builder()
-                .cursor("string")
-                .entityId("string")
+                .cursor("cursor")
+                .entityId("entity_id")
                 .idempotencyKey("x")
                 .limit(123L)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
-        expected.put("cursor", listOf("string"))
-        expected.put("entity_id", listOf("string"))
+        expected.put("cursor", listOf("cursor"))
+        expected.put("entity_id", listOf("entity_id"))
         expected.put("idempotency_key", listOf("x"))
         expected.put("limit", listOf("123"))
         assertThat(params.getQueryParams()).isEqualTo(expected)

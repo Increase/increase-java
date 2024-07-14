@@ -26,9 +26,9 @@ class AccountServiceTest {
             accountService.create(
                 AccountCreateParams.builder()
                     .name("x")
-                    .entityId("string")
-                    .informationalEntityId("string")
-                    .programId("string")
+                    .entityId("entity_id")
+                    .informationalEntityId("informational_entity_id")
+                    .programId("program_id")
                     .build()
             )
         println(account)
@@ -44,7 +44,7 @@ class AccountServiceTest {
                 .build()
         val accountService = client.accounts()
         val account =
-            accountService.retrieve(AccountRetrieveParams.builder().accountId("string").build())
+            accountService.retrieve(AccountRetrieveParams.builder().accountId("account_id").build())
         println(account)
         account.validate()
     }
@@ -59,7 +59,7 @@ class AccountServiceTest {
         val accountService = client.accounts()
         val account =
             accountService.update(
-                AccountUpdateParams.builder().accountId("string").name("x").build()
+                AccountUpdateParams.builder().accountId("account_id").name("x").build()
             )
         println(account)
         account.validate()
@@ -89,7 +89,7 @@ class AccountServiceTest {
         val balanceLookup =
             accountService.balance(
                 AccountBalanceParams.builder()
-                    .accountId("string")
+                    .accountId("account_id")
                     .atTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
@@ -106,7 +106,8 @@ class AccountServiceTest {
                 .apiKey("My API Key")
                 .build()
         val accountService = client.accounts()
-        val account = accountService.close(AccountCloseParams.builder().accountId("string").build())
+        val account =
+            accountService.close(AccountCloseParams.builder().accountId("account_id").build())
         println(account)
         account.validate()
     }

@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.60.1 (2024-07-11)
+
+Full Changelog: [v0.60.0...v0.60.1](https://github.com/Increase/increase-java/compare/v0.60.0...v0.60.1)
+
+### Chores
+
+* **ci:** also run workflows for PRs targeting `next` ([#294](https://github.com/Increase/increase-java/issues/294)) ([30b0819](https://github.com/Increase/increase-java/commit/30b0819cb53157dda98e7f21c387023b61994443))
+* **docs:** document minimum Java version (Java 8) in README ([#292](https://github.com/Increase/increase-java/issues/292)) ([8e839f0](https://github.com/Increase/increase-java/commit/8e839f0039ed834dd807c2b3676dc2dc69b4e8c2))
+
+
+### Documentation
+
+* **examples:** update example values ([#295](https://github.com/Increase/increase-java/issues/295)) ([178ed9a](https://github.com/Increase/increase-java/commit/178ed9abebdef4b8b535610f6779af3795983297))
+
 ## 0.60.0 (2024-07-04)
 
 Full Changelog: [v0.59.0...v0.60.0](https://github.com/Increase/increase-java/compare/v0.59.0...v0.60.0)

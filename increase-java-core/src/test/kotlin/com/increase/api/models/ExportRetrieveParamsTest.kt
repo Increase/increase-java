@@ -10,15 +10,15 @@ class ExportRetrieveParamsTest {
 
     @Test
     fun createExportRetrieveParams() {
-        ExportRetrieveParams.builder().exportId("string").build()
+        ExportRetrieveParams.builder().exportId("export_id").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = ExportRetrieveParams.builder().exportId("string").build()
+        val params = ExportRetrieveParams.builder().exportId("export_id").build()
         assertThat(params).isNotNull
         // path param "exportId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("export_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

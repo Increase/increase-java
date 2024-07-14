@@ -11,12 +11,12 @@ class OAuthTokenTest {
     fun createOAuthToken() {
         val oauthToken =
             OAuthToken.builder()
-                .accessToken("string")
+                .accessToken("access_token")
                 .tokenType(OAuthToken.TokenType.BEARER)
                 .type(OAuthToken.Type.OAUTH_TOKEN)
                 .build()
         assertThat(oauthToken).isNotNull
-        assertThat(oauthToken.accessToken()).isEqualTo("string")
+        assertThat(oauthToken.accessToken()).isEqualTo("access_token")
         assertThat(oauthToken.tokenType()).isEqualTo(OAuthToken.TokenType.BEARER)
         assertThat(oauthToken.type()).isEqualTo(OAuthToken.Type.OAUTH_TOKEN)
     }

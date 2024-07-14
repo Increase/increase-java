@@ -10,15 +10,20 @@ class EventSubscriptionRetrieveParamsTest {
 
     @Test
     fun createEventSubscriptionRetrieveParams() {
-        EventSubscriptionRetrieveParams.builder().eventSubscriptionId("string").build()
+        EventSubscriptionRetrieveParams.builder()
+            .eventSubscriptionId("event_subscription_id")
+            .build()
     }
 
     @Test
     fun getPathParam() {
-        val params = EventSubscriptionRetrieveParams.builder().eventSubscriptionId("string").build()
+        val params =
+            EventSubscriptionRetrieveParams.builder()
+                .eventSubscriptionId("event_subscription_id")
+                .build()
         assertThat(params).isNotNull
         // path param "eventSubscriptionId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("event_subscription_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

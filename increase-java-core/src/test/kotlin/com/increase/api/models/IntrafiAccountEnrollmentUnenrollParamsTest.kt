@@ -11,7 +11,7 @@ class IntrafiAccountEnrollmentUnenrollParamsTest {
     @Test
     fun createIntrafiAccountEnrollmentUnenrollParams() {
         IntrafiAccountEnrollmentUnenrollParams.builder()
-            .intrafiAccountEnrollmentId("string")
+            .intrafiAccountEnrollmentId("intrafi_account_enrollment_id")
             .build()
     }
 
@@ -19,11 +19,11 @@ class IntrafiAccountEnrollmentUnenrollParamsTest {
     fun getPathParam() {
         val params =
             IntrafiAccountEnrollmentUnenrollParams.builder()
-                .intrafiAccountEnrollmentId("string")
+                .intrafiAccountEnrollmentId("intrafi_account_enrollment_id")
                 .build()
         assertThat(params).isNotNull
         // path param "intrafiAccountEnrollmentId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("intrafi_account_enrollment_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

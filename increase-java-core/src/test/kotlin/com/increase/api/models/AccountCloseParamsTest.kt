@@ -10,15 +10,15 @@ class AccountCloseParamsTest {
 
     @Test
     fun createAccountCloseParams() {
-        AccountCloseParams.builder().accountId("string").build()
+        AccountCloseParams.builder().accountId("account_id").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = AccountCloseParams.builder().accountId("string").build()
+        val params = AccountCloseParams.builder().accountId("account_id").build()
         assertThat(params).isNotNull
         // path param "accountId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("account_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

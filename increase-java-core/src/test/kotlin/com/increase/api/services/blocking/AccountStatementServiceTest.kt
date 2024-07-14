@@ -22,7 +22,9 @@ class AccountStatementServiceTest {
         val accountStatementService = client.accountStatements()
         val accountStatement =
             accountStatementService.retrieve(
-                AccountStatementRetrieveParams.builder().accountStatementId("string").build()
+                AccountStatementRetrieveParams.builder()
+                    .accountStatementId("account_statement_id")
+                    .build()
             )
         println(accountStatement)
         accountStatement.validate()

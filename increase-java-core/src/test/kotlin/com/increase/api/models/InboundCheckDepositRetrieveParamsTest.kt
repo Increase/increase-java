@@ -10,16 +10,20 @@ class InboundCheckDepositRetrieveParamsTest {
 
     @Test
     fun createInboundCheckDepositRetrieveParams() {
-        InboundCheckDepositRetrieveParams.builder().inboundCheckDepositId("string").build()
+        InboundCheckDepositRetrieveParams.builder()
+            .inboundCheckDepositId("inbound_check_deposit_id")
+            .build()
     }
 
     @Test
     fun getPathParam() {
         val params =
-            InboundCheckDepositRetrieveParams.builder().inboundCheckDepositId("string").build()
+            InboundCheckDepositRetrieveParams.builder()
+                .inboundCheckDepositId("inbound_check_deposit_id")
+                .build()
         assertThat(params).isNotNull
         // path param "inboundCheckDepositId"
-        assertThat(params.getPathParam(0)).isEqualTo("string")
+        assertThat(params.getPathParam(0)).isEqualTo("inbound_check_deposit_id")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

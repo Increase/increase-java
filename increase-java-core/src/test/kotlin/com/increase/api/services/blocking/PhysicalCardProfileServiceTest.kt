@@ -23,10 +23,10 @@ class PhysicalCardProfileServiceTest {
         val physicalCardProfile =
             physicalCardProfileService.create(
                 PhysicalCardProfileCreateParams.builder()
-                    .carrierImageFileId("string")
+                    .carrierImageFileId("carrier_image_file_id")
                     .contactPhone("x")
                     .description("x")
-                    .frontImageFileId("string")
+                    .frontImageFileId("front_image_file_id")
                     .build()
             )
         println(physicalCardProfile)
@@ -43,7 +43,9 @@ class PhysicalCardProfileServiceTest {
         val physicalCardProfileService = client.physicalCardProfiles()
         val physicalCardProfile =
             physicalCardProfileService.retrieve(
-                PhysicalCardProfileRetrieveParams.builder().physicalCardProfileId("string").build()
+                PhysicalCardProfileRetrieveParams.builder()
+                    .physicalCardProfileId("physical_card_profile_id")
+                    .build()
             )
         println(physicalCardProfile)
         physicalCardProfile.validate()
@@ -73,7 +75,9 @@ class PhysicalCardProfileServiceTest {
         val physicalCardProfileService = client.physicalCardProfiles()
         val physicalCardProfile =
             physicalCardProfileService.archive(
-                PhysicalCardProfileArchiveParams.builder().physicalCardProfileId("string").build()
+                PhysicalCardProfileArchiveParams.builder()
+                    .physicalCardProfileId("physical_card_profile_id")
+                    .build()
             )
         println(physicalCardProfile)
         physicalCardProfile.validate()
@@ -90,11 +94,11 @@ class PhysicalCardProfileServiceTest {
         val physicalCardProfile =
             physicalCardProfileService.clone(
                 PhysicalCardProfileCloneParams.builder()
-                    .physicalCardProfileId("string")
-                    .carrierImageFileId("string")
+                    .physicalCardProfileId("physical_card_profile_id")
+                    .carrierImageFileId("carrier_image_file_id")
                     .contactPhone("x")
                     .description("x")
-                    .frontImageFileId("string")
+                    .frontImageFileId("front_image_file_id")
                     .frontText(
                         PhysicalCardProfileCloneParams.FrontText.builder()
                             .line1("x")

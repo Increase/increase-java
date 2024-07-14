@@ -23,7 +23,7 @@ class AccountEnrollmentServiceTest {
         val intrafiAccountEnrollment =
             accountEnrollmentService.create(
                 IntrafiAccountEnrollmentCreateParams.builder()
-                    .accountId("string")
+                    .accountId("account_id")
                     .emailAddress("x")
                     .build()
             )
@@ -42,7 +42,7 @@ class AccountEnrollmentServiceTest {
         val intrafiAccountEnrollment =
             accountEnrollmentService.retrieve(
                 IntrafiAccountEnrollmentRetrieveParams.builder()
-                    .intrafiAccountEnrollmentId("string")
+                    .intrafiAccountEnrollmentId("intrafi_account_enrollment_id")
                     .build()
             )
         println(intrafiAccountEnrollment)
@@ -74,7 +74,7 @@ class AccountEnrollmentServiceTest {
         val intrafiAccountEnrollment =
             accountEnrollmentService.unenroll(
                 IntrafiAccountEnrollmentUnenrollParams.builder()
-                    .intrafiAccountEnrollmentId("string")
+                    .intrafiAccountEnrollmentId("intrafi_account_enrollment_id")
                     .build()
             )
         println(intrafiAccountEnrollment)
