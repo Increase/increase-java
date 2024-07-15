@@ -27,7 +27,6 @@ class InboundCheckDepositTest {
                 .declinedTransactionId("declined_transaction_id")
                 .depositReturn(
                     InboundCheckDeposit.DepositReturn.builder()
-                        .reason(InboundCheckDeposit.DepositReturn.Reason.ALTERED_OR_FICTITIOUS)
                         .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .transactionId("transaction_id")
                         .build()
@@ -58,7 +57,6 @@ class InboundCheckDepositTest {
         assertThat(inboundCheckDeposit.depositReturn())
             .contains(
                 InboundCheckDeposit.DepositReturn.builder()
-                    .reason(InboundCheckDeposit.DepositReturn.Reason.ALTERED_OR_FICTITIOUS)
                     .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .transactionId("transaction_id")
                     .build()

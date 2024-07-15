@@ -352,6 +352,10 @@ constructor(
 
                 @JvmField val CHECK_TRANSFER_DEPOSIT = In(JsonField.of("check_transfer_deposit"))
 
+                @JvmField
+                val CHECK_TRANSFER_STOP_PAYMENT_REQUEST =
+                    In(JsonField.of("check_transfer_stop_payment_request"))
+
                 @JvmField val FEE_PAYMENT = In(JsonField.of("fee_payment"))
 
                 @JvmField val INBOUND_ACH_TRANSFER = In(JsonField.of("inbound_ach_transfer"))
@@ -363,6 +367,10 @@ constructor(
                 @JvmField
                 val INBOUND_CHECK_DEPOSIT_RETURN_INTENTION =
                     In(JsonField.of("inbound_check_deposit_return_intention"))
+
+                @JvmField
+                val INBOUND_INTERNATIONAL_ACH_TRANSFER =
+                    In(JsonField.of("inbound_international_ach_transfer"))
 
                 @JvmField
                 val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION =
@@ -413,10 +421,12 @@ constructor(
                 CHECK_DEPOSIT_ACCEPTANCE,
                 CHECK_DEPOSIT_RETURN,
                 CHECK_TRANSFER_DEPOSIT,
+                CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
                 FEE_PAYMENT,
                 INBOUND_ACH_TRANSFER,
                 INBOUND_ACH_TRANSFER_RETURN_INTENTION,
                 INBOUND_CHECK_DEPOSIT_RETURN_INTENTION,
+                INBOUND_INTERNATIONAL_ACH_TRANSFER,
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
                 INBOUND_WIRE_DRAWDOWN_PAYMENT,
                 INBOUND_WIRE_REVERSAL,
@@ -445,10 +455,12 @@ constructor(
                 CHECK_DEPOSIT_ACCEPTANCE,
                 CHECK_DEPOSIT_RETURN,
                 CHECK_TRANSFER_DEPOSIT,
+                CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
                 FEE_PAYMENT,
                 INBOUND_ACH_TRANSFER,
                 INBOUND_ACH_TRANSFER_RETURN_INTENTION,
                 INBOUND_CHECK_DEPOSIT_RETURN_INTENTION,
+                INBOUND_INTERNATIONAL_ACH_TRANSFER,
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
                 INBOUND_WIRE_DRAWDOWN_PAYMENT,
                 INBOUND_WIRE_REVERSAL,
@@ -479,12 +491,14 @@ constructor(
                     CHECK_DEPOSIT_ACCEPTANCE -> Value.CHECK_DEPOSIT_ACCEPTANCE
                     CHECK_DEPOSIT_RETURN -> Value.CHECK_DEPOSIT_RETURN
                     CHECK_TRANSFER_DEPOSIT -> Value.CHECK_TRANSFER_DEPOSIT
+                    CHECK_TRANSFER_STOP_PAYMENT_REQUEST -> Value.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
                     FEE_PAYMENT -> Value.FEE_PAYMENT
                     INBOUND_ACH_TRANSFER -> Value.INBOUND_ACH_TRANSFER
                     INBOUND_ACH_TRANSFER_RETURN_INTENTION ->
                         Value.INBOUND_ACH_TRANSFER_RETURN_INTENTION
                     INBOUND_CHECK_DEPOSIT_RETURN_INTENTION ->
                         Value.INBOUND_CHECK_DEPOSIT_RETURN_INTENTION
+                    INBOUND_INTERNATIONAL_ACH_TRANSFER -> Value.INBOUND_INTERNATIONAL_ACH_TRANSFER
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                         Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
                     INBOUND_WIRE_DRAWDOWN_PAYMENT -> Value.INBOUND_WIRE_DRAWDOWN_PAYMENT
@@ -517,12 +531,14 @@ constructor(
                     CHECK_DEPOSIT_ACCEPTANCE -> Known.CHECK_DEPOSIT_ACCEPTANCE
                     CHECK_DEPOSIT_RETURN -> Known.CHECK_DEPOSIT_RETURN
                     CHECK_TRANSFER_DEPOSIT -> Known.CHECK_TRANSFER_DEPOSIT
+                    CHECK_TRANSFER_STOP_PAYMENT_REQUEST -> Known.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
                     FEE_PAYMENT -> Known.FEE_PAYMENT
                     INBOUND_ACH_TRANSFER -> Known.INBOUND_ACH_TRANSFER
                     INBOUND_ACH_TRANSFER_RETURN_INTENTION ->
                         Known.INBOUND_ACH_TRANSFER_RETURN_INTENTION
                     INBOUND_CHECK_DEPOSIT_RETURN_INTENTION ->
                         Known.INBOUND_CHECK_DEPOSIT_RETURN_INTENTION
+                    INBOUND_INTERNATIONAL_ACH_TRANSFER -> Known.INBOUND_INTERNATIONAL_ACH_TRANSFER
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                         Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
                     INBOUND_WIRE_DRAWDOWN_PAYMENT -> Known.INBOUND_WIRE_DRAWDOWN_PAYMENT
