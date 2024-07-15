@@ -61,4 +61,23 @@ class InboundCheckDepositServiceTest {
         println(inboundCheckDeposit)
         inboundCheckDeposit.validate()
     }
+
+    @Test
+    fun callReturn() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val inboundCheckDepositService = client.inboundCheckDeposits()
+        val inboundCheckDeposit =
+            inboundCheckDepositService.return_(
+                InboundCheckDepositReturnParams.builder()
+                    .inboundCheckDepositId("inbound_check_deposit_id")
+                    .reason(InboundCheckDepositReturnParams.Reason.ALTERED_OR_FICTITIOUS)
+                    .build()
+            )
+        println(inboundCheckDeposit)
+        inboundCheckDeposit.validate()
+    }
 }
