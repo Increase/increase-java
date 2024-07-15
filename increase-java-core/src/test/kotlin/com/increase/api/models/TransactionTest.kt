@@ -593,6 +593,20 @@ class TransactionTest {
                                 )
                                 .build()
                         )
+                        .checkTransferStopPaymentRequest(
+                            Transaction.Source.CheckTransferStopPaymentRequest.builder()
+                                .reason(
+                                    Transaction.Source.CheckTransferStopPaymentRequest.Reason
+                                        .MAIL_DELIVERY_FAILED
+                                )
+                                .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .transferId("transfer_id")
+                                .type(
+                                    Transaction.Source.CheckTransferStopPaymentRequest.Type
+                                        .CHECK_TRANSFER_STOP_PAYMENT_REQUEST
+                                )
+                                .build()
+                        )
                         .feePayment(
                             Transaction.Source.FeePayment.builder()
                                 .amount(123L)
@@ -644,6 +658,86 @@ class TransactionTest {
                                 .receiverName("receiver_name")
                                 .traceNumber("trace_number")
                                 .transferId("transfer_id")
+                                .build()
+                        )
+                        .inboundInternationalAchTransfer(
+                            Transaction.Source.InboundInternationalAchTransfer.builder()
+                                .amount(123L)
+                                .destinationCountryCode("destination_country_code")
+                                .destinationCurrencyCode("destination_currency_code")
+                                .foreignExchangeIndicator(
+                                    Transaction.Source.InboundInternationalAchTransfer
+                                        .ForeignExchangeIndicator
+                                        .FIXED_TO_VARIABLE
+                                )
+                                .foreignExchangeReference("foreign_exchange_reference")
+                                .foreignExchangeReferenceIndicator(
+                                    Transaction.Source.InboundInternationalAchTransfer
+                                        .ForeignExchangeReferenceIndicator
+                                        .FOREIGN_EXCHANGE_RATE
+                                )
+                                .foreignPaymentAmount(123L)
+                                .foreignTraceNumber("foreign_trace_number")
+                                .internationalTransactionTypeCode(
+                                    Transaction.Source.InboundInternationalAchTransfer
+                                        .InternationalTransactionTypeCode
+                                        .ANNUITY
+                                )
+                                .originatingCurrencyCode("originating_currency_code")
+                                .originatingDepositoryFinancialInstitutionBranchCountry(
+                                    "originating_depository_financial_institution_branch_country"
+                                )
+                                .originatingDepositoryFinancialInstitutionId(
+                                    "originating_depository_financial_institution_id"
+                                )
+                                .originatingDepositoryFinancialInstitutionIdQualifier(
+                                    Transaction.Source.InboundInternationalAchTransfer
+                                        .OriginatingDepositoryFinancialInstitutionIdQualifier
+                                        .NATIONAL_CLEARING_SYSTEM_NUMBER
+                                )
+                                .originatingDepositoryFinancialInstitutionName(
+                                    "originating_depository_financial_institution_name"
+                                )
+                                .originatorCity("originator_city")
+                                .originatorCompanyEntryDescription(
+                                    "originator_company_entry_description"
+                                )
+                                .originatorCountry("originator_country")
+                                .originatorIdentification("originator_identification")
+                                .originatorName("originator_name")
+                                .originatorPostalCode("originator_postal_code")
+                                .originatorStateOrProvince("originator_state_or_province")
+                                .originatorStreetAddress("originator_street_address")
+                                .paymentRelatedInformation("payment_related_information")
+                                .paymentRelatedInformation2("payment_related_information2")
+                                .receiverCity("receiver_city")
+                                .receiverCountry("receiver_country")
+                                .receiverIdentificationNumber("receiver_identification_number")
+                                .receiverPostalCode("receiver_postal_code")
+                                .receiverStateOrProvince("receiver_state_or_province")
+                                .receiverStreetAddress("receiver_street_address")
+                                .receivingCompanyOrIndividualName(
+                                    "receiving_company_or_individual_name"
+                                )
+                                .receivingDepositoryFinancialInstitutionCountry(
+                                    "receiving_depository_financial_institution_country"
+                                )
+                                .receivingDepositoryFinancialInstitutionId(
+                                    "receiving_depository_financial_institution_id"
+                                )
+                                .receivingDepositoryFinancialInstitutionIdQualifier(
+                                    Transaction.Source.InboundInternationalAchTransfer
+                                        .ReceivingDepositoryFinancialInstitutionIdQualifier
+                                        .NATIONAL_CLEARING_SYSTEM_NUMBER
+                                )
+                                .receivingDepositoryFinancialInstitutionName(
+                                    "receiving_depository_financial_institution_name"
+                                )
+                                .traceNumber("trace_number")
+                                .type(
+                                    Transaction.Source.InboundInternationalAchTransfer.Type
+                                        .INBOUND_INTERNATIONAL_ACH_TRANSFER
+                                )
                                 .build()
                         )
                         .inboundRealTimePaymentsTransferConfirmation(
@@ -718,7 +812,6 @@ class TransactionTest {
                                 .receiverFinancialInstitutionInformation(
                                     "receiver_financial_institution_information"
                                 )
-                                .senderReference("sender_reference")
                                 .transactionId("transaction_id")
                                 .wireTransferId("wire_transfer_id")
                                 .build()
@@ -1344,6 +1437,20 @@ class TransactionTest {
                             )
                             .build()
                     )
+                    .checkTransferStopPaymentRequest(
+                        Transaction.Source.CheckTransferStopPaymentRequest.builder()
+                            .reason(
+                                Transaction.Source.CheckTransferStopPaymentRequest.Reason
+                                    .MAIL_DELIVERY_FAILED
+                            )
+                            .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .transferId("transfer_id")
+                            .type(
+                                Transaction.Source.CheckTransferStopPaymentRequest.Type
+                                    .CHECK_TRANSFER_STOP_PAYMENT_REQUEST
+                            )
+                            .build()
+                    )
                     .feePayment(
                         Transaction.Source.FeePayment.builder()
                             .amount(123L)
@@ -1392,6 +1499,86 @@ class TransactionTest {
                             .receiverName("receiver_name")
                             .traceNumber("trace_number")
                             .transferId("transfer_id")
+                            .build()
+                    )
+                    .inboundInternationalAchTransfer(
+                        Transaction.Source.InboundInternationalAchTransfer.builder()
+                            .amount(123L)
+                            .destinationCountryCode("destination_country_code")
+                            .destinationCurrencyCode("destination_currency_code")
+                            .foreignExchangeIndicator(
+                                Transaction.Source.InboundInternationalAchTransfer
+                                    .ForeignExchangeIndicator
+                                    .FIXED_TO_VARIABLE
+                            )
+                            .foreignExchangeReference("foreign_exchange_reference")
+                            .foreignExchangeReferenceIndicator(
+                                Transaction.Source.InboundInternationalAchTransfer
+                                    .ForeignExchangeReferenceIndicator
+                                    .FOREIGN_EXCHANGE_RATE
+                            )
+                            .foreignPaymentAmount(123L)
+                            .foreignTraceNumber("foreign_trace_number")
+                            .internationalTransactionTypeCode(
+                                Transaction.Source.InboundInternationalAchTransfer
+                                    .InternationalTransactionTypeCode
+                                    .ANNUITY
+                            )
+                            .originatingCurrencyCode("originating_currency_code")
+                            .originatingDepositoryFinancialInstitutionBranchCountry(
+                                "originating_depository_financial_institution_branch_country"
+                            )
+                            .originatingDepositoryFinancialInstitutionId(
+                                "originating_depository_financial_institution_id"
+                            )
+                            .originatingDepositoryFinancialInstitutionIdQualifier(
+                                Transaction.Source.InboundInternationalAchTransfer
+                                    .OriginatingDepositoryFinancialInstitutionIdQualifier
+                                    .NATIONAL_CLEARING_SYSTEM_NUMBER
+                            )
+                            .originatingDepositoryFinancialInstitutionName(
+                                "originating_depository_financial_institution_name"
+                            )
+                            .originatorCity("originator_city")
+                            .originatorCompanyEntryDescription(
+                                "originator_company_entry_description"
+                            )
+                            .originatorCountry("originator_country")
+                            .originatorIdentification("originator_identification")
+                            .originatorName("originator_name")
+                            .originatorPostalCode("originator_postal_code")
+                            .originatorStateOrProvince("originator_state_or_province")
+                            .originatorStreetAddress("originator_street_address")
+                            .paymentRelatedInformation("payment_related_information")
+                            .paymentRelatedInformation2("payment_related_information2")
+                            .receiverCity("receiver_city")
+                            .receiverCountry("receiver_country")
+                            .receiverIdentificationNumber("receiver_identification_number")
+                            .receiverPostalCode("receiver_postal_code")
+                            .receiverStateOrProvince("receiver_state_or_province")
+                            .receiverStreetAddress("receiver_street_address")
+                            .receivingCompanyOrIndividualName(
+                                "receiving_company_or_individual_name"
+                            )
+                            .receivingDepositoryFinancialInstitutionCountry(
+                                "receiving_depository_financial_institution_country"
+                            )
+                            .receivingDepositoryFinancialInstitutionId(
+                                "receiving_depository_financial_institution_id"
+                            )
+                            .receivingDepositoryFinancialInstitutionIdQualifier(
+                                Transaction.Source.InboundInternationalAchTransfer
+                                    .ReceivingDepositoryFinancialInstitutionIdQualifier
+                                    .NATIONAL_CLEARING_SYSTEM_NUMBER
+                            )
+                            .receivingDepositoryFinancialInstitutionName(
+                                "receiving_depository_financial_institution_name"
+                            )
+                            .traceNumber("trace_number")
+                            .type(
+                                Transaction.Source.InboundInternationalAchTransfer.Type
+                                    .INBOUND_INTERNATIONAL_ACH_TRANSFER
+                            )
                             .build()
                     )
                     .inboundRealTimePaymentsTransferConfirmation(
@@ -1466,7 +1653,6 @@ class TransactionTest {
                             .receiverFinancialInstitutionInformation(
                                 "receiver_financial_institution_information"
                             )
-                            .senderReference("sender_reference")
                             .transactionId("transaction_id")
                             .wireTransferId("wire_transfer_id")
                             .build()
