@@ -22,7 +22,6 @@ import com.increase.api.services.async.simulations.DocumentServiceAsync
 import com.increase.api.services.async.simulations.InboundAchTransferServiceAsync
 import com.increase.api.services.async.simulations.InboundCheckDepositServiceAsync
 import com.increase.api.services.async.simulations.InboundFundsHoldServiceAsync
-import com.increase.api.services.async.simulations.InboundInternationalAchTransferServiceAsync
 import com.increase.api.services.async.simulations.InboundRealTimePaymentsTransferServiceAsync
 import com.increase.api.services.async.simulations.InboundWireDrawdownRequestServiceAsync
 import com.increase.api.services.async.simulations.InboundWireTransferServiceAsync
@@ -57,8 +56,6 @@ interface SimulationServiceAsync {
     fun inboundFundsHolds(): InboundFundsHoldServiceAsync
 
     fun realTimePaymentsTransfers(): RealTimePaymentsTransferServiceAsync
-
-    fun inboundInternationalAchTransfers(): InboundInternationalAchTransferServiceAsync
 
     fun cardAuthorizations(): CardAuthorizationServiceAsync
 
