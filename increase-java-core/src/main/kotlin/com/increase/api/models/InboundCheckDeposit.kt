@@ -719,7 +719,6 @@ private constructor(
     private constructor(
         private val returnedAt: JsonField<OffsetDateTime>,
         private val transactionId: JsonField<String>,
-        private val reason: JsonField<Reason>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -733,17 +732,11 @@ private constructor(
         /** The id of the transaction for the returned deposit. */
         fun transactionId(): String = transactionId.getRequired("transaction_id")
 
-        /** The reason the deposit was returned. */
-        fun reason(): Reason = reason.getRequired("reason")
-
         /** The time at which the deposit was returned. */
         @JsonProperty("returned_at") @ExcludeMissing fun _returnedAt() = returnedAt
 
         /** The id of the transaction for the returned deposit. */
         @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
-
-        /** The reason the deposit was returned. */
-        @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -753,7 +746,6 @@ private constructor(
             if (!validated) {
                 returnedAt()
                 transactionId()
-                reason()
                 validated = true
             }
         }
@@ -768,7 +760,6 @@ private constructor(
             return other is DepositReturn &&
                 this.returnedAt == other.returnedAt &&
                 this.transactionId == other.transactionId &&
-                this.reason == other.reason &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -778,7 +769,6 @@ private constructor(
                     Objects.hash(
                         returnedAt,
                         transactionId,
-                        reason,
                         additionalProperties,
                     )
             }
@@ -786,7 +776,7 @@ private constructor(
         }
 
         override fun toString() =
-            "DepositReturn{returnedAt=$returnedAt, transactionId=$transactionId, reason=$reason, additionalProperties=$additionalProperties}"
+            "DepositReturn{returnedAt=$returnedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -797,14 +787,12 @@ private constructor(
 
             private var returnedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var transactionId: JsonField<String> = JsonMissing.of()
-            private var reason: JsonField<Reason> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(depositReturn: DepositReturn) = apply {
                 this.returnedAt = depositReturn.returnedAt
                 this.transactionId = depositReturn.transactionId
-                this.reason = depositReturn.reason
                 additionalProperties(depositReturn.additionalProperties)
             }
 
@@ -828,14 +816,6 @@ private constructor(
                 this.transactionId = transactionId
             }
 
-            /** The reason the deposit was returned. */
-            fun reason(reason: Reason) = reason(JsonField.of(reason))
-
-            /** The reason the deposit was returned. */
-            @JsonProperty("reason")
-            @ExcludeMissing
-            fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
-
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -854,72 +834,8 @@ private constructor(
                 DepositReturn(
                     returnedAt,
                     transactionId,
-                    reason,
                     additionalProperties.toUnmodifiable(),
                 )
-        }
-
-        class Reason
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
-
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Reason && this.value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-
-            companion object {
-
-                @JvmField val ALTERED_OR_FICTITIOUS = Reason(JsonField.of("altered_or_fictitious"))
-
-                @JvmField val NOT_AUTHORIZED = Reason(JsonField.of("not_authorized"))
-
-                @JvmField val DUPLICATE_PRESENTMENT = Reason(JsonField.of("duplicate_presentment"))
-
-                @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
-            }
-
-            enum class Known {
-                ALTERED_OR_FICTITIOUS,
-                NOT_AUTHORIZED,
-                DUPLICATE_PRESENTMENT,
-            }
-
-            enum class Value {
-                ALTERED_OR_FICTITIOUS,
-                NOT_AUTHORIZED,
-                DUPLICATE_PRESENTMENT,
-                _UNKNOWN,
-            }
-
-            fun value(): Value =
-                when (this) {
-                    ALTERED_OR_FICTITIOUS -> Value.ALTERED_OR_FICTITIOUS
-                    NOT_AUTHORIZED -> Value.NOT_AUTHORIZED
-                    DUPLICATE_PRESENTMENT -> Value.DUPLICATE_PRESENTMENT
-                    else -> Value._UNKNOWN
-                }
-
-            fun known(): Known =
-                when (this) {
-                    ALTERED_OR_FICTITIOUS -> Known.ALTERED_OR_FICTITIOUS
-                    NOT_AUTHORIZED -> Known.NOT_AUTHORIZED
-                    DUPLICATE_PRESENTMENT -> Known.DUPLICATE_PRESENTMENT
-                    else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
-                }
-
-            fun asString(): String = _value().asStringOrThrow()
         }
     }
 
@@ -951,8 +867,6 @@ private constructor(
 
             @JvmField val DECLINED = Status(JsonField.of("declined"))
 
-            @JvmField val RETURNED = Status(JsonField.of("returned"))
-
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
 
@@ -960,14 +874,12 @@ private constructor(
             PENDING,
             ACCEPTED,
             DECLINED,
-            RETURNED,
         }
 
         enum class Value {
             PENDING,
             ACCEPTED,
             DECLINED,
-            RETURNED,
             _UNKNOWN,
         }
 
@@ -976,7 +888,6 @@ private constructor(
                 PENDING -> Value.PENDING
                 ACCEPTED -> Value.ACCEPTED
                 DECLINED -> Value.DECLINED
-                RETURNED -> Value.RETURNED
                 else -> Value._UNKNOWN
             }
 
@@ -985,7 +896,6 @@ private constructor(
                 PENDING -> Known.PENDING
                 ACCEPTED -> Known.ACCEPTED
                 DECLINED -> Known.DECLINED
-                RETURNED -> Known.RETURNED
                 else -> throw IncreaseInvalidDataException("Unknown Status: $value")
             }
 

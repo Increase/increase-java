@@ -33,10 +33,6 @@ class InboundAchTransferServiceTest {
                     .receiverIdNumber("x")
                     .receiverName("x")
                     .resolveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .standardEntryClassCode(
-                        SimulationInboundAchTransferCreateParams.StandardEntryClassCode
-                            .CORPORATE_CREDIT_OR_DEBIT
-                    )
                     .build()
             )
         println(inboundAchTransfer)

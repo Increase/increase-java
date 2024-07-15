@@ -22,10 +22,6 @@ class SimulationInboundAchTransferCreateParamsTest {
             .receiverIdNumber("x")
             .receiverName("x")
             .resolveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .standardEntryClassCode(
-                SimulationInboundAchTransferCreateParams.StandardEntryClassCode
-                    .CORPORATE_CREDIT_OR_DEBIT
-            )
             .build()
     }
 
@@ -43,10 +39,6 @@ class SimulationInboundAchTransferCreateParamsTest {
                 .receiverIdNumber("x")
                 .receiverName("x")
                 .resolveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .standardEntryClassCode(
-                    SimulationInboundAchTransferCreateParams.StandardEntryClassCode
-                        .CORPORATE_CREDIT_OR_DEBIT
-                )
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -60,11 +52,6 @@ class SimulationInboundAchTransferCreateParamsTest {
         assertThat(body.receiverIdNumber()).isEqualTo("x")
         assertThat(body.receiverName()).isEqualTo("x")
         assertThat(body.resolveAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(body.standardEntryClassCode())
-            .isEqualTo(
-                SimulationInboundAchTransferCreateParams.StandardEntryClassCode
-                    .CORPORATE_CREDIT_OR_DEBIT
-            )
     }
 
     @Test

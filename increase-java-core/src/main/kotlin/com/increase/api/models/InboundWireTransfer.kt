@@ -44,7 +44,6 @@ private constructor(
     private val originatorToBeneficiaryInformationLine2: JsonField<String>,
     private val originatorToBeneficiaryInformationLine3: JsonField<String>,
     private val originatorToBeneficiaryInformationLine4: JsonField<String>,
-    private val senderReference: JsonField<String>,
     private val status: JsonField<Status>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
@@ -159,10 +158,6 @@ private constructor(
             )
         )
 
-    /** The sending bank's reference number for the wire transfer. */
-    fun senderReference(): Optional<String> =
-        Optional.ofNullable(senderReference.getNullable("sender_reference"))
-
     /** The status of the transfer. */
     fun status(): Status = status.getRequired("status")
 
@@ -269,9 +264,6 @@ private constructor(
     @ExcludeMissing
     fun _originatorToBeneficiaryInformationLine4() = originatorToBeneficiaryInformationLine4
 
-    /** The sending bank's reference number for the wire transfer. */
-    @JsonProperty("sender_reference") @ExcludeMissing fun _senderReference() = senderReference
-
     /** The status of the transfer. */
     @JsonProperty("status") @ExcludeMissing fun _status() = status
 
@@ -308,7 +300,6 @@ private constructor(
             originatorToBeneficiaryInformationLine2()
             originatorToBeneficiaryInformationLine3()
             originatorToBeneficiaryInformationLine4()
-            senderReference()
             status()
             type()
             validated = true
@@ -348,7 +339,6 @@ private constructor(
                 other.originatorToBeneficiaryInformationLine3 &&
             this.originatorToBeneficiaryInformationLine4 ==
                 other.originatorToBeneficiaryInformationLine4 &&
-            this.senderReference == other.senderReference &&
             this.status == other.status &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
@@ -379,7 +369,6 @@ private constructor(
                     originatorToBeneficiaryInformationLine2,
                     originatorToBeneficiaryInformationLine3,
                     originatorToBeneficiaryInformationLine4,
-                    senderReference,
                     status,
                     type,
                     additionalProperties,
@@ -389,7 +378,7 @@ private constructor(
     }
 
     override fun toString() =
-        "InboundWireTransfer{accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, description=$description, id=$id, inputMessageAccountabilityData=$inputMessageAccountabilityData, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformation=$originatorToBeneficiaryInformation, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, senderReference=$senderReference, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "InboundWireTransfer{accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, description=$description, id=$id, inputMessageAccountabilityData=$inputMessageAccountabilityData, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformation=$originatorToBeneficiaryInformation, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -419,7 +408,6 @@ private constructor(
         private var originatorToBeneficiaryInformationLine2: JsonField<String> = JsonMissing.of()
         private var originatorToBeneficiaryInformationLine3: JsonField<String> = JsonMissing.of()
         private var originatorToBeneficiaryInformationLine4: JsonField<String> = JsonMissing.of()
-        private var senderReference: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -452,7 +440,6 @@ private constructor(
                 inboundWireTransfer.originatorToBeneficiaryInformationLine3
             this.originatorToBeneficiaryInformationLine4 =
                 inboundWireTransfer.originatorToBeneficiaryInformationLine4
-            this.senderReference = inboundWireTransfer.senderReference
             this.status = inboundWireTransfer.status
             this.type = inboundWireTransfer.type
             additionalProperties(inboundWireTransfer.additionalProperties)
@@ -713,17 +700,6 @@ private constructor(
             this.originatorToBeneficiaryInformationLine4 = originatorToBeneficiaryInformationLine4
         }
 
-        /** The sending bank's reference number for the wire transfer. */
-        fun senderReference(senderReference: String) =
-            senderReference(JsonField.of(senderReference))
-
-        /** The sending bank's reference number for the wire transfer. */
-        @JsonProperty("sender_reference")
-        @ExcludeMissing
-        fun senderReference(senderReference: JsonField<String>) = apply {
-            this.senderReference = senderReference
-        }
-
         /** The status of the transfer. */
         fun status(status: Status) = status(JsonField.of(status))
 
@@ -783,7 +759,6 @@ private constructor(
                 originatorToBeneficiaryInformationLine2,
                 originatorToBeneficiaryInformationLine3,
                 originatorToBeneficiaryInformationLine4,
-                senderReference,
                 status,
                 type,
                 additionalProperties.toUnmodifiable(),
