@@ -10,7 +10,6 @@ import com.increase.api.models.InboundCheckDepositDeclineParams
 import com.increase.api.models.InboundCheckDepositListPageAsync
 import com.increase.api.models.InboundCheckDepositListParams
 import com.increase.api.models.InboundCheckDepositRetrieveParams
-import com.increase.api.models.InboundCheckDepositReturnParams
 import java.util.concurrent.CompletableFuture
 
 interface InboundCheckDepositServiceAsync {
@@ -33,13 +32,6 @@ interface InboundCheckDepositServiceAsync {
     @JvmOverloads
     fun decline(
         params: InboundCheckDepositDeclineParams,
-        requestOptions: RequestOptions = RequestOptions.none()
-    ): CompletableFuture<InboundCheckDeposit>
-
-    /** Return an Inbound Check Deposit */
-    @JvmOverloads
-    fun return_(
-        params: InboundCheckDepositReturnParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<InboundCheckDeposit>
 }
