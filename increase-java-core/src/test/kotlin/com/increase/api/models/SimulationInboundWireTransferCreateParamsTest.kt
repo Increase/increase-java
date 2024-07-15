@@ -27,6 +27,7 @@ class SimulationInboundWireTransferCreateParamsTest {
             .originatorToBeneficiaryInformationLine2("x")
             .originatorToBeneficiaryInformationLine3("x")
             .originatorToBeneficiaryInformationLine4("x")
+            .senderReference("x")
             .build()
     }
 
@@ -50,6 +51,7 @@ class SimulationInboundWireTransferCreateParamsTest {
                 .originatorToBeneficiaryInformationLine2("x")
                 .originatorToBeneficiaryInformationLine3("x")
                 .originatorToBeneficiaryInformationLine4("x")
+                .senderReference("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -69,6 +71,7 @@ class SimulationInboundWireTransferCreateParamsTest {
         assertThat(body.originatorToBeneficiaryInformationLine2()).isEqualTo("x")
         assertThat(body.originatorToBeneficiaryInformationLine3()).isEqualTo("x")
         assertThat(body.originatorToBeneficiaryInformationLine4()).isEqualTo("x")
+        assertThat(body.senderReference()).isEqualTo("x")
     }
 
     @Test
