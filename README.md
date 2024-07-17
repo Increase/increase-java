@@ -12,7 +12,7 @@ The Increase Java SDK is similar to the Increase Kotlin SDK but with minor diffe
 
 ## Documentation
 
-The REST API documentation can be found [on increase.com](https://increase.com/documentation).
+The REST API documentation can be found on [increase.com](https://increase.com/documentation).
 
 ---
 

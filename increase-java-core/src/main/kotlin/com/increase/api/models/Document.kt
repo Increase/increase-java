@@ -21,7 +21,7 @@ import java.util.Optional
 
 /**
  * Increase generates certain documents / forms automatically for your application; they can be
- * listed here. Currently the only supported document type is IRS Form 1099-INT.
+ * listed here.
  */
 @JsonDeserialize(builder = Document.Builder::class)
 @NoAutoDetect
