@@ -717,15 +717,18 @@ private constructor(
     @NoAutoDetect
     class DepositReturn
     private constructor(
+        private val reason: JsonField<Reason>,
         private val returnedAt: JsonField<OffsetDateTime>,
         private val transactionId: JsonField<String>,
-        private val reason: JsonField<Reason>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
+
+        /** The reason the deposit was returned. */
+        fun reason(): Reason = reason.getRequired("reason")
 
         /** The time at which the deposit was returned. */
         fun returnedAt(): OffsetDateTime = returnedAt.getRequired("returned_at")
@@ -734,7 +737,7 @@ private constructor(
         fun transactionId(): String = transactionId.getRequired("transaction_id")
 
         /** The reason the deposit was returned. */
-        fun reason(): Reason = reason.getRequired("reason")
+        @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
 
         /** The time at which the deposit was returned. */
         @JsonProperty("returned_at") @ExcludeMissing fun _returnedAt() = returnedAt
@@ -742,18 +745,15 @@ private constructor(
         /** The id of the transaction for the returned deposit. */
         @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
-        /** The reason the deposit was returned. */
-        @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
-
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun validate(): DepositReturn = apply {
             if (!validated) {
+                reason()
                 returnedAt()
                 transactionId()
-                reason()
                 validated = true
             }
         }
@@ -766,9 +766,9 @@ private constructor(
             }
 
             return other is DepositReturn &&
+                this.reason == other.reason &&
                 this.returnedAt == other.returnedAt &&
                 this.transactionId == other.transactionId &&
-                this.reason == other.reason &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -776,9 +776,9 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
+                        reason,
                         returnedAt,
                         transactionId,
-                        reason,
                         additionalProperties,
                     )
             }
@@ -786,7 +786,7 @@ private constructor(
         }
 
         override fun toString() =
-            "DepositReturn{returnedAt=$returnedAt, transactionId=$transactionId, reason=$reason, additionalProperties=$additionalProperties}"
+            "DepositReturn{reason=$reason, returnedAt=$returnedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -795,18 +795,26 @@ private constructor(
 
         class Builder {
 
+            private var reason: JsonField<Reason> = JsonMissing.of()
             private var returnedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var transactionId: JsonField<String> = JsonMissing.of()
-            private var reason: JsonField<Reason> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(depositReturn: DepositReturn) = apply {
+                this.reason = depositReturn.reason
                 this.returnedAt = depositReturn.returnedAt
                 this.transactionId = depositReturn.transactionId
-                this.reason = depositReturn.reason
                 additionalProperties(depositReturn.additionalProperties)
             }
+
+            /** The reason the deposit was returned. */
+            fun reason(reason: Reason) = reason(JsonField.of(reason))
+
+            /** The reason the deposit was returned. */
+            @JsonProperty("reason")
+            @ExcludeMissing
+            fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
             /** The time at which the deposit was returned. */
             fun returnedAt(returnedAt: OffsetDateTime) = returnedAt(JsonField.of(returnedAt))
@@ -828,14 +836,6 @@ private constructor(
                 this.transactionId = transactionId
             }
 
-            /** The reason the deposit was returned. */
-            fun reason(reason: Reason) = reason(JsonField.of(reason))
-
-            /** The reason the deposit was returned. */
-            @JsonProperty("reason")
-            @ExcludeMissing
-            fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
-
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -852,9 +852,9 @@ private constructor(
 
             fun build(): DepositReturn =
                 DepositReturn(
+                    reason,
                     returnedAt,
                     transactionId,
-                    reason,
                     additionalProperties.toUnmodifiable(),
                 )
         }

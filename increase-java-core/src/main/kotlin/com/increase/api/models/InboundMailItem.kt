@@ -400,12 +400,12 @@ private constructor(
     @NoAutoDetect
     class ReturnAddress
     private constructor(
-        private val name: JsonField<String>,
+        private val city: JsonField<String>,
         private val line1: JsonField<String>,
         private val line2: JsonField<String>,
-        private val city: JsonField<String>,
-        private val state: JsonField<String>,
+        private val name: JsonField<String>,
         private val postalCode: JsonField<String>,
+        private val state: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -413,8 +413,8 @@ private constructor(
 
         private var hashCode: Int = 0
 
-        /** The return address name. */
-        fun name(): Optional<String> = Optional.ofNullable(name.getNullable("name"))
+        /** The return address city. */
+        fun city(): Optional<String> = Optional.ofNullable(city.getNullable("city"))
 
         /** The return address line1. */
         fun line1(): Optional<String> = Optional.ofNullable(line1.getNullable("line1"))
@@ -422,18 +422,18 @@ private constructor(
         /** The return address line2. */
         fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
 
-        /** The return address city. */
-        fun city(): Optional<String> = Optional.ofNullable(city.getNullable("city"))
-
-        /** The return address state. */
-        fun state(): Optional<String> = Optional.ofNullable(state.getNullable("state"))
+        /** The return address name. */
+        fun name(): Optional<String> = Optional.ofNullable(name.getNullable("name"))
 
         /** The return address postal code. */
         fun postalCode(): Optional<String> =
             Optional.ofNullable(postalCode.getNullable("postal_code"))
 
-        /** The return address name. */
-        @JsonProperty("name") @ExcludeMissing fun _name() = name
+        /** The return address state. */
+        fun state(): Optional<String> = Optional.ofNullable(state.getNullable("state"))
+
+        /** The return address city. */
+        @JsonProperty("city") @ExcludeMissing fun _city() = city
 
         /** The return address line1. */
         @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
@@ -441,14 +441,14 @@ private constructor(
         /** The return address line2. */
         @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
 
-        /** The return address city. */
-        @JsonProperty("city") @ExcludeMissing fun _city() = city
-
-        /** The return address state. */
-        @JsonProperty("state") @ExcludeMissing fun _state() = state
+        /** The return address name. */
+        @JsonProperty("name") @ExcludeMissing fun _name() = name
 
         /** The return address postal code. */
         @JsonProperty("postal_code") @ExcludeMissing fun _postalCode() = postalCode
+
+        /** The return address state. */
+        @JsonProperty("state") @ExcludeMissing fun _state() = state
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -456,12 +456,12 @@ private constructor(
 
         fun validate(): ReturnAddress = apply {
             if (!validated) {
-                name()
+                city()
                 line1()
                 line2()
-                city()
-                state()
+                name()
                 postalCode()
+                state()
                 validated = true
             }
         }
@@ -474,12 +474,12 @@ private constructor(
             }
 
             return other is ReturnAddress &&
-                this.name == other.name &&
+                this.city == other.city &&
                 this.line1 == other.line1 &&
                 this.line2 == other.line2 &&
-                this.city == other.city &&
-                this.state == other.state &&
+                this.name == other.name &&
                 this.postalCode == other.postalCode &&
+                this.state == other.state &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -487,12 +487,12 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        name,
+                        city,
                         line1,
                         line2,
-                        city,
-                        state,
+                        name,
                         postalCode,
+                        state,
                         additionalProperties,
                     )
             }
@@ -500,7 +500,7 @@ private constructor(
         }
 
         override fun toString() =
-            "ReturnAddress{name=$name, line1=$line1, line2=$line2, city=$city, state=$state, postalCode=$postalCode, additionalProperties=$additionalProperties}"
+            "ReturnAddress{city=$city, line1=$line1, line2=$line2, name=$name, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -509,32 +509,32 @@ private constructor(
 
         class Builder {
 
-            private var name: JsonField<String> = JsonMissing.of()
+            private var city: JsonField<String> = JsonMissing.of()
             private var line1: JsonField<String> = JsonMissing.of()
             private var line2: JsonField<String> = JsonMissing.of()
-            private var city: JsonField<String> = JsonMissing.of()
-            private var state: JsonField<String> = JsonMissing.of()
+            private var name: JsonField<String> = JsonMissing.of()
             private var postalCode: JsonField<String> = JsonMissing.of()
+            private var state: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(returnAddress: ReturnAddress) = apply {
-                this.name = returnAddress.name
+                this.city = returnAddress.city
                 this.line1 = returnAddress.line1
                 this.line2 = returnAddress.line2
-                this.city = returnAddress.city
-                this.state = returnAddress.state
+                this.name = returnAddress.name
                 this.postalCode = returnAddress.postalCode
+                this.state = returnAddress.state
                 additionalProperties(returnAddress.additionalProperties)
             }
 
-            /** The return address name. */
-            fun name(name: String) = name(JsonField.of(name))
+            /** The return address city. */
+            fun city(city: String) = city(JsonField.of(city))
 
-            /** The return address name. */
-            @JsonProperty("name")
+            /** The return address city. */
+            @JsonProperty("city")
             @ExcludeMissing
-            fun name(name: JsonField<String>) = apply { this.name = name }
+            fun city(city: JsonField<String>) = apply { this.city = city }
 
             /** The return address line1. */
             fun line1(line1: String) = line1(JsonField.of(line1))
@@ -552,21 +552,13 @@ private constructor(
             @ExcludeMissing
             fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
-            /** The return address city. */
-            fun city(city: String) = city(JsonField.of(city))
+            /** The return address name. */
+            fun name(name: String) = name(JsonField.of(name))
 
-            /** The return address city. */
-            @JsonProperty("city")
+            /** The return address name. */
+            @JsonProperty("name")
             @ExcludeMissing
-            fun city(city: JsonField<String>) = apply { this.city = city }
-
-            /** The return address state. */
-            fun state(state: String) = state(JsonField.of(state))
-
-            /** The return address state. */
-            @JsonProperty("state")
-            @ExcludeMissing
-            fun state(state: JsonField<String>) = apply { this.state = state }
+            fun name(name: JsonField<String>) = apply { this.name = name }
 
             /** The return address postal code. */
             fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
@@ -575,6 +567,14 @@ private constructor(
             @JsonProperty("postal_code")
             @ExcludeMissing
             fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
+
+            /** The return address state. */
+            fun state(state: String) = state(JsonField.of(state))
+
+            /** The return address state. */
+            @JsonProperty("state")
+            @ExcludeMissing
+            fun state(state: JsonField<String>) = apply { this.state = state }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -592,12 +592,12 @@ private constructor(
 
             fun build(): ReturnAddress =
                 ReturnAddress(
-                    name,
+                    city,
                     line1,
                     line2,
-                    city,
-                    state,
+                    name,
                     postalCode,
+                    state,
                     additionalProperties.toUnmodifiable(),
                 )
         }
