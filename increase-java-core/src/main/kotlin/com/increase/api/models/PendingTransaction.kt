@@ -4210,10 +4210,10 @@ private constructor(
         class CheckDepositInstruction
         private constructor(
             private val amount: JsonField<Long>,
-            private val currency: JsonField<Currency>,
-            private val frontImageFileId: JsonField<String>,
             private val backImageFileId: JsonField<String>,
             private val checkDepositId: JsonField<String>,
+            private val currency: JsonField<Currency>,
+            private val frontImageFileId: JsonField<String>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
@@ -4228,6 +4228,17 @@ private constructor(
             fun amount(): Long = amount.getRequired("amount")
 
             /**
+             * The identifier of the File containing the image of the back of the check that was
+             * deposited.
+             */
+            fun backImageFileId(): Optional<String> =
+                Optional.ofNullable(backImageFileId.getNullable("back_image_file_id"))
+
+            /** The identifier of the Check Deposit. */
+            fun checkDepositId(): Optional<String> =
+                Optional.ofNullable(checkDepositId.getNullable("check_deposit_id"))
+
+            /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
              * currency.
              */
@@ -4240,21 +4251,21 @@ private constructor(
             fun frontImageFileId(): String = frontImageFileId.getRequired("front_image_file_id")
 
             /**
-             * The identifier of the File containing the image of the back of the check that was
-             * deposited.
-             */
-            fun backImageFileId(): Optional<String> =
-                Optional.ofNullable(backImageFileId.getNullable("back_image_file_id"))
-
-            /** The identifier of the Check Deposit. */
-            fun checkDepositId(): Optional<String> =
-                Optional.ofNullable(checkDepositId.getNullable("check_deposit_id"))
-
-            /**
              * The pending amount in the minor unit of the transaction's currency. For dollars, for
              * example, this is cents.
              */
             @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+            /**
+             * The identifier of the File containing the image of the back of the check that was
+             * deposited.
+             */
+            @JsonProperty("back_image_file_id")
+            @ExcludeMissing
+            fun _backImageFileId() = backImageFileId
+
+            /** The identifier of the Check Deposit. */
+            @JsonProperty("check_deposit_id") @ExcludeMissing fun _checkDepositId() = checkDepositId
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
@@ -4270,17 +4281,6 @@ private constructor(
             @ExcludeMissing
             fun _frontImageFileId() = frontImageFileId
 
-            /**
-             * The identifier of the File containing the image of the back of the check that was
-             * deposited.
-             */
-            @JsonProperty("back_image_file_id")
-            @ExcludeMissing
-            fun _backImageFileId() = backImageFileId
-
-            /** The identifier of the Check Deposit. */
-            @JsonProperty("check_deposit_id") @ExcludeMissing fun _checkDepositId() = checkDepositId
-
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -4288,10 +4288,10 @@ private constructor(
             fun validate(): CheckDepositInstruction = apply {
                 if (!validated) {
                     amount()
-                    currency()
-                    frontImageFileId()
                     backImageFileId()
                     checkDepositId()
+                    currency()
+                    frontImageFileId()
                     validated = true
                 }
             }
@@ -4305,10 +4305,10 @@ private constructor(
 
                 return other is CheckDepositInstruction &&
                     this.amount == other.amount &&
-                    this.currency == other.currency &&
-                    this.frontImageFileId == other.frontImageFileId &&
                     this.backImageFileId == other.backImageFileId &&
                     this.checkDepositId == other.checkDepositId &&
+                    this.currency == other.currency &&
+                    this.frontImageFileId == other.frontImageFileId &&
                     this.additionalProperties == other.additionalProperties
             }
 
@@ -4317,10 +4317,10 @@ private constructor(
                     hashCode =
                         Objects.hash(
                             amount,
-                            currency,
-                            frontImageFileId,
                             backImageFileId,
                             checkDepositId,
+                            currency,
+                            frontImageFileId,
                             additionalProperties,
                         )
                 }
@@ -4328,7 +4328,7 @@ private constructor(
             }
 
             override fun toString() =
-                "CheckDepositInstruction{amount=$amount, currency=$currency, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, checkDepositId=$checkDepositId, additionalProperties=$additionalProperties}"
+                "CheckDepositInstruction{amount=$amount, backImageFileId=$backImageFileId, checkDepositId=$checkDepositId, currency=$currency, frontImageFileId=$frontImageFileId, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -4338,19 +4338,19 @@ private constructor(
             class Builder {
 
                 private var amount: JsonField<Long> = JsonMissing.of()
-                private var currency: JsonField<Currency> = JsonMissing.of()
-                private var frontImageFileId: JsonField<String> = JsonMissing.of()
                 private var backImageFileId: JsonField<String> = JsonMissing.of()
                 private var checkDepositId: JsonField<String> = JsonMissing.of()
+                private var currency: JsonField<Currency> = JsonMissing.of()
+                private var frontImageFileId: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
                 internal fun from(checkDepositInstruction: CheckDepositInstruction) = apply {
                     this.amount = checkDepositInstruction.amount
-                    this.currency = checkDepositInstruction.currency
-                    this.frontImageFileId = checkDepositInstruction.frontImageFileId
                     this.backImageFileId = checkDepositInstruction.backImageFileId
                     this.checkDepositId = checkDepositInstruction.checkDepositId
+                    this.currency = checkDepositInstruction.currency
+                    this.frontImageFileId = checkDepositInstruction.frontImageFileId
                     additionalProperties(checkDepositInstruction.additionalProperties)
                 }
 
@@ -4367,6 +4367,34 @@ private constructor(
                 @JsonProperty("amount")
                 @ExcludeMissing
                 fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+                /**
+                 * The identifier of the File containing the image of the back of the check that was
+                 * deposited.
+                 */
+                fun backImageFileId(backImageFileId: String) =
+                    backImageFileId(JsonField.of(backImageFileId))
+
+                /**
+                 * The identifier of the File containing the image of the back of the check that was
+                 * deposited.
+                 */
+                @JsonProperty("back_image_file_id")
+                @ExcludeMissing
+                fun backImageFileId(backImageFileId: JsonField<String>) = apply {
+                    this.backImageFileId = backImageFileId
+                }
+
+                /** The identifier of the Check Deposit. */
+                fun checkDepositId(checkDepositId: String) =
+                    checkDepositId(JsonField.of(checkDepositId))
+
+                /** The identifier of the Check Deposit. */
+                @JsonProperty("check_deposit_id")
+                @ExcludeMissing
+                fun checkDepositId(checkDepositId: JsonField<String>) = apply {
+                    this.checkDepositId = checkDepositId
+                }
 
                 /**
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
@@ -4399,34 +4427,6 @@ private constructor(
                     this.frontImageFileId = frontImageFileId
                 }
 
-                /**
-                 * The identifier of the File containing the image of the back of the check that was
-                 * deposited.
-                 */
-                fun backImageFileId(backImageFileId: String) =
-                    backImageFileId(JsonField.of(backImageFileId))
-
-                /**
-                 * The identifier of the File containing the image of the back of the check that was
-                 * deposited.
-                 */
-                @JsonProperty("back_image_file_id")
-                @ExcludeMissing
-                fun backImageFileId(backImageFileId: JsonField<String>) = apply {
-                    this.backImageFileId = backImageFileId
-                }
-
-                /** The identifier of the Check Deposit. */
-                fun checkDepositId(checkDepositId: String) =
-                    checkDepositId(JsonField.of(checkDepositId))
-
-                /** The identifier of the Check Deposit. */
-                @JsonProperty("check_deposit_id")
-                @ExcludeMissing
-                fun checkDepositId(checkDepositId: JsonField<String>) = apply {
-                    this.checkDepositId = checkDepositId
-                }
-
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
                     this.additionalProperties.putAll(additionalProperties)
@@ -4445,10 +4445,10 @@ private constructor(
                 fun build(): CheckDepositInstruction =
                     CheckDepositInstruction(
                         amount,
-                        currency,
-                        frontImageFileId,
                         backImageFileId,
                         checkDepositId,
+                        currency,
+                        frontImageFileId,
                         additionalProperties.toUnmodifiable(),
                     )
             }
@@ -5517,10 +5517,10 @@ private constructor(
         @NoAutoDetect
         class WireTransferInstruction
         private constructor(
-            private val amount: JsonField<Long>,
             private val accountNumber: JsonField<String>,
-            private val routingNumber: JsonField<String>,
+            private val amount: JsonField<Long>,
             private val messageToRecipient: JsonField<String>,
+            private val routingNumber: JsonField<String>,
             private val transferId: JsonField<String>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
@@ -5529,14 +5529,18 @@ private constructor(
 
             private var hashCode: Int = 0
 
+            /** The account number for the destination account. */
+            fun accountNumber(): String = accountNumber.getRequired("account_number")
+
             /**
              * The pending amount in the minor unit of the transaction's currency. For dollars, for
              * example, this is cents.
              */
             fun amount(): Long = amount.getRequired("amount")
 
-            /** The account number for the destination account. */
-            fun accountNumber(): String = accountNumber.getRequired("account_number")
+            /** The message that will show on the recipient's bank statement. */
+            fun messageToRecipient(): String =
+                messageToRecipient.getRequired("message_to_recipient")
 
             /**
              * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
@@ -5544,12 +5548,11 @@ private constructor(
              */
             fun routingNumber(): String = routingNumber.getRequired("routing_number")
 
-            /** The message that will show on the recipient's bank statement. */
-            fun messageToRecipient(): String =
-                messageToRecipient.getRequired("message_to_recipient")
-
             /** The identifier of the Wire Transfer that led to this Pending Transaction. */
             fun transferId(): String = transferId.getRequired("transfer_id")
+
+            /** The account number for the destination account. */
+            @JsonProperty("account_number") @ExcludeMissing fun _accountNumber() = accountNumber
 
             /**
              * The pending amount in the minor unit of the transaction's currency. For dollars, for
@@ -5557,19 +5560,16 @@ private constructor(
              */
             @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
-            /** The account number for the destination account. */
-            @JsonProperty("account_number") @ExcludeMissing fun _accountNumber() = accountNumber
+            /** The message that will show on the recipient's bank statement. */
+            @JsonProperty("message_to_recipient")
+            @ExcludeMissing
+            fun _messageToRecipient() = messageToRecipient
 
             /**
              * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
              * destination account.
              */
             @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
-
-            /** The message that will show on the recipient's bank statement. */
-            @JsonProperty("message_to_recipient")
-            @ExcludeMissing
-            fun _messageToRecipient() = messageToRecipient
 
             /** The identifier of the Wire Transfer that led to this Pending Transaction. */
             @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
@@ -5580,10 +5580,10 @@ private constructor(
 
             fun validate(): WireTransferInstruction = apply {
                 if (!validated) {
-                    amount()
                     accountNumber()
-                    routingNumber()
+                    amount()
                     messageToRecipient()
+                    routingNumber()
                     transferId()
                     validated = true
                 }
@@ -5597,10 +5597,10 @@ private constructor(
                 }
 
                 return other is WireTransferInstruction &&
-                    this.amount == other.amount &&
                     this.accountNumber == other.accountNumber &&
-                    this.routingNumber == other.routingNumber &&
+                    this.amount == other.amount &&
                     this.messageToRecipient == other.messageToRecipient &&
+                    this.routingNumber == other.routingNumber &&
                     this.transferId == other.transferId &&
                     this.additionalProperties == other.additionalProperties
             }
@@ -5609,10 +5609,10 @@ private constructor(
                 if (hashCode == 0) {
                     hashCode =
                         Objects.hash(
-                            amount,
                             accountNumber,
-                            routingNumber,
+                            amount,
                             messageToRecipient,
+                            routingNumber,
                             transferId,
                             additionalProperties,
                         )
@@ -5621,7 +5621,7 @@ private constructor(
             }
 
             override fun toString() =
-                "WireTransferInstruction{amount=$amount, accountNumber=$accountNumber, routingNumber=$routingNumber, messageToRecipient=$messageToRecipient, transferId=$transferId, additionalProperties=$additionalProperties}"
+                "WireTransferInstruction{accountNumber=$accountNumber, amount=$amount, messageToRecipient=$messageToRecipient, routingNumber=$routingNumber, transferId=$transferId, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -5630,21 +5630,32 @@ private constructor(
 
             class Builder {
 
-                private var amount: JsonField<Long> = JsonMissing.of()
                 private var accountNumber: JsonField<String> = JsonMissing.of()
-                private var routingNumber: JsonField<String> = JsonMissing.of()
+                private var amount: JsonField<Long> = JsonMissing.of()
                 private var messageToRecipient: JsonField<String> = JsonMissing.of()
+                private var routingNumber: JsonField<String> = JsonMissing.of()
                 private var transferId: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
                 internal fun from(wireTransferInstruction: WireTransferInstruction) = apply {
-                    this.amount = wireTransferInstruction.amount
                     this.accountNumber = wireTransferInstruction.accountNumber
-                    this.routingNumber = wireTransferInstruction.routingNumber
+                    this.amount = wireTransferInstruction.amount
                     this.messageToRecipient = wireTransferInstruction.messageToRecipient
+                    this.routingNumber = wireTransferInstruction.routingNumber
                     this.transferId = wireTransferInstruction.transferId
                     additionalProperties(wireTransferInstruction.additionalProperties)
+                }
+
+                /** The account number for the destination account. */
+                fun accountNumber(accountNumber: String) =
+                    accountNumber(JsonField.of(accountNumber))
+
+                /** The account number for the destination account. */
+                @JsonProperty("account_number")
+                @ExcludeMissing
+                fun accountNumber(accountNumber: JsonField<String>) = apply {
+                    this.accountNumber = accountNumber
                 }
 
                 /**
@@ -5661,15 +5672,15 @@ private constructor(
                 @ExcludeMissing
                 fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
-                /** The account number for the destination account. */
-                fun accountNumber(accountNumber: String) =
-                    accountNumber(JsonField.of(accountNumber))
+                /** The message that will show on the recipient's bank statement. */
+                fun messageToRecipient(messageToRecipient: String) =
+                    messageToRecipient(JsonField.of(messageToRecipient))
 
-                /** The account number for the destination account. */
-                @JsonProperty("account_number")
+                /** The message that will show on the recipient's bank statement. */
+                @JsonProperty("message_to_recipient")
                 @ExcludeMissing
-                fun accountNumber(accountNumber: JsonField<String>) = apply {
-                    this.accountNumber = accountNumber
+                fun messageToRecipient(messageToRecipient: JsonField<String>) = apply {
+                    this.messageToRecipient = messageToRecipient
                 }
 
                 /**
@@ -5687,17 +5698,6 @@ private constructor(
                 @ExcludeMissing
                 fun routingNumber(routingNumber: JsonField<String>) = apply {
                     this.routingNumber = routingNumber
-                }
-
-                /** The message that will show on the recipient's bank statement. */
-                fun messageToRecipient(messageToRecipient: String) =
-                    messageToRecipient(JsonField.of(messageToRecipient))
-
-                /** The message that will show on the recipient's bank statement. */
-                @JsonProperty("message_to_recipient")
-                @ExcludeMissing
-                fun messageToRecipient(messageToRecipient: JsonField<String>) = apply {
-                    this.messageToRecipient = messageToRecipient
                 }
 
                 /** The identifier of the Wire Transfer that led to this Pending Transaction. */
@@ -5727,10 +5727,10 @@ private constructor(
 
                 fun build(): WireTransferInstruction =
                     WireTransferInstruction(
-                        amount,
                         accountNumber,
-                        routingNumber,
+                        amount,
                         messageToRecipient,
+                        routingNumber,
                         transferId,
                         additionalProperties.toUnmodifiable(),
                     )

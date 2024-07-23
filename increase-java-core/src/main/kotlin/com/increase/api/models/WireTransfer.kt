@@ -1167,8 +1167,8 @@ private constructor(
     @NoAutoDetect
     class CreatedBy
     private constructor(
-        private val category: JsonField<Category>,
         private val apiKey: JsonField<ApiKey>,
+        private val category: JsonField<Category>,
         private val oauthApplication: JsonField<OAuthApplication>,
         private val user: JsonField<User>,
         private val additionalProperties: Map<String, JsonValue>,
@@ -1178,11 +1178,11 @@ private constructor(
 
         private var hashCode: Int = 0
 
-        /** The type of object that created this transfer. */
-        fun category(): Category = category.getRequired("category")
-
         /** If present, details about the API key that created the transfer. */
         fun apiKey(): Optional<ApiKey> = Optional.ofNullable(apiKey.getNullable("api_key"))
+
+        /** The type of object that created this transfer. */
+        fun category(): Category = category.getRequired("category")
 
         /** If present, details about the OAuth Application that created the transfer. */
         fun oauthApplication(): Optional<OAuthApplication> =
@@ -1191,11 +1191,11 @@ private constructor(
         /** If present, details about the User that created the transfer. */
         fun user(): Optional<User> = Optional.ofNullable(user.getNullable("user"))
 
-        /** The type of object that created this transfer. */
-        @JsonProperty("category") @ExcludeMissing fun _category() = category
-
         /** If present, details about the API key that created the transfer. */
         @JsonProperty("api_key") @ExcludeMissing fun _apiKey() = apiKey
+
+        /** The type of object that created this transfer. */
+        @JsonProperty("category") @ExcludeMissing fun _category() = category
 
         /** If present, details about the OAuth Application that created the transfer. */
         @JsonProperty("oauth_application")
@@ -1211,8 +1211,8 @@ private constructor(
 
         fun validate(): CreatedBy = apply {
             if (!validated) {
-                category()
                 apiKey().map { it.validate() }
+                category()
                 oauthApplication().map { it.validate() }
                 user().map { it.validate() }
                 validated = true
@@ -1227,8 +1227,8 @@ private constructor(
             }
 
             return other is CreatedBy &&
-                this.category == other.category &&
                 this.apiKey == other.apiKey &&
+                this.category == other.category &&
                 this.oauthApplication == other.oauthApplication &&
                 this.user == other.user &&
                 this.additionalProperties == other.additionalProperties
@@ -1238,8 +1238,8 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        category,
                         apiKey,
+                        category,
                         oauthApplication,
                         user,
                         additionalProperties,
@@ -1249,7 +1249,7 @@ private constructor(
         }
 
         override fun toString() =
-            "CreatedBy{category=$category, apiKey=$apiKey, oauthApplication=$oauthApplication, user=$user, additionalProperties=$additionalProperties}"
+            "CreatedBy{apiKey=$apiKey, category=$category, oauthApplication=$oauthApplication, user=$user, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1258,28 +1258,20 @@ private constructor(
 
         class Builder {
 
-            private var category: JsonField<Category> = JsonMissing.of()
             private var apiKey: JsonField<ApiKey> = JsonMissing.of()
+            private var category: JsonField<Category> = JsonMissing.of()
             private var oauthApplication: JsonField<OAuthApplication> = JsonMissing.of()
             private var user: JsonField<User> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(createdBy: CreatedBy) = apply {
-                this.category = createdBy.category
                 this.apiKey = createdBy.apiKey
+                this.category = createdBy.category
                 this.oauthApplication = createdBy.oauthApplication
                 this.user = createdBy.user
                 additionalProperties(createdBy.additionalProperties)
             }
-
-            /** The type of object that created this transfer. */
-            fun category(category: Category) = category(JsonField.of(category))
-
-            /** The type of object that created this transfer. */
-            @JsonProperty("category")
-            @ExcludeMissing
-            fun category(category: JsonField<Category>) = apply { this.category = category }
 
             /** If present, details about the API key that created the transfer. */
             fun apiKey(apiKey: ApiKey) = apiKey(JsonField.of(apiKey))
@@ -1288,6 +1280,14 @@ private constructor(
             @JsonProperty("api_key")
             @ExcludeMissing
             fun apiKey(apiKey: JsonField<ApiKey>) = apply { this.apiKey = apiKey }
+
+            /** The type of object that created this transfer. */
+            fun category(category: Category) = category(JsonField.of(category))
+
+            /** The type of object that created this transfer. */
+            @JsonProperty("category")
+            @ExcludeMissing
+            fun category(category: JsonField<Category>) = apply { this.category = category }
 
             /** If present, details about the OAuth Application that created the transfer. */
             fun oauthApplication(oauthApplication: OAuthApplication) =
@@ -1324,8 +1324,8 @@ private constructor(
 
             fun build(): CreatedBy =
                 CreatedBy(
-                    category,
                     apiKey,
+                    category,
                     oauthApplication,
                     user,
                     additionalProperties.toUnmodifiable(),
@@ -1825,20 +1825,20 @@ private constructor(
         private val amount: JsonField<Long>,
         private val createdAt: JsonField<OffsetDateTime>,
         private val description: JsonField<String>,
+        private val financialInstitutionToFinancialInstitutionInformation: JsonField<String>,
         private val inputCycleDate: JsonField<LocalDate>,
+        private val inputMessageAccountabilityData: JsonField<String>,
         private val inputSequenceNumber: JsonField<String>,
         private val inputSource: JsonField<String>,
-        private val inputMessageAccountabilityData: JsonField<String>,
-        private val previousMessageInputMessageAccountabilityData: JsonField<String>,
+        private val originatorRoutingNumber: JsonField<String>,
         private val previousMessageInputCycleDate: JsonField<LocalDate>,
+        private val previousMessageInputMessageAccountabilityData: JsonField<String>,
         private val previousMessageInputSequenceNumber: JsonField<String>,
         private val previousMessageInputSource: JsonField<String>,
         private val receiverFinancialInstitutionInformation: JsonField<String>,
-        private val financialInstitutionToFinancialInstitutionInformation: JsonField<String>,
+        private val senderReference: JsonField<String>,
         private val transactionId: JsonField<String>,
         private val wireTransferId: JsonField<String>,
-        private val originatorRoutingNumber: JsonField<String>,
-        private val senderReference: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -1858,11 +1858,23 @@ private constructor(
         /** The description on the reversal message from Fedwire, set by the reversing bank. */
         fun description(): String = description.getRequired("description")
 
+        /** Additional financial institution information included in the wire reversal. */
+        fun financialInstitutionToFinancialInstitutionInformation(): Optional<String> =
+            Optional.ofNullable(
+                financialInstitutionToFinancialInstitutionInformation.getNullable(
+                    "financial_institution_to_financial_institution_information"
+                )
+            )
+
         /**
          * The Fedwire cycle date for the wire reversal. The "Fedwire day" begins at 9:00 PM Eastern
          * Time on the evening before the `cycle date`.
          */
         fun inputCycleDate(): LocalDate = inputCycleDate.getRequired("input_cycle_date")
+
+        /** The Fedwire transaction identifier. */
+        fun inputMessageAccountabilityData(): String =
+            inputMessageAccountabilityData.getRequired("input_message_accountability_data")
 
         /** The Fedwire sequence number. */
         fun inputSequenceNumber(): String = inputSequenceNumber.getRequired("input_sequence_number")
@@ -1870,19 +1882,22 @@ private constructor(
         /** The Fedwire input source identifier. */
         fun inputSource(): String = inputSource.getRequired("input_source")
 
-        /** The Fedwire transaction identifier. */
-        fun inputMessageAccountabilityData(): String =
-            inputMessageAccountabilityData.getRequired("input_message_accountability_data")
+        /**
+         * The American Banking Association (ABA) routing number of the bank originating the
+         * transfer.
+         */
+        fun originatorRoutingNumber(): Optional<String> =
+            Optional.ofNullable(originatorRoutingNumber.getNullable("originator_routing_number"))
+
+        /** The Fedwire cycle date for the wire transfer that is being reversed by this message. */
+        fun previousMessageInputCycleDate(): LocalDate =
+            previousMessageInputCycleDate.getRequired("previous_message_input_cycle_date")
 
         /** The Fedwire transaction identifier for the wire transfer that was reversed. */
         fun previousMessageInputMessageAccountabilityData(): String =
             previousMessageInputMessageAccountabilityData.getRequired(
                 "previous_message_input_message_accountability_data"
             )
-
-        /** The Fedwire cycle date for the wire transfer that is being reversed by this message. */
-        fun previousMessageInputCycleDate(): LocalDate =
-            previousMessageInputCycleDate.getRequired("previous_message_input_cycle_date")
 
         /** The Fedwire sequence number for the wire transfer that was reversed. */
         fun previousMessageInputSequenceNumber(): String =
@@ -1900,30 +1915,15 @@ private constructor(
                 )
             )
 
-        /** Additional financial institution information included in the wire reversal. */
-        fun financialInstitutionToFinancialInstitutionInformation(): Optional<String> =
-            Optional.ofNullable(
-                financialInstitutionToFinancialInstitutionInformation.getNullable(
-                    "financial_institution_to_financial_institution_information"
-                )
-            )
+        /** The sending bank's reference number for the wire reversal. */
+        fun senderReference(): Optional<String> =
+            Optional.ofNullable(senderReference.getNullable("sender_reference"))
 
         /** The ID for the Transaction associated with the transfer reversal. */
         fun transactionId(): String = transactionId.getRequired("transaction_id")
 
         /** The ID for the Wire Transfer that is being reversed. */
         fun wireTransferId(): String = wireTransferId.getRequired("wire_transfer_id")
-
-        /**
-         * The American Banking Association (ABA) routing number of the bank originating the
-         * transfer.
-         */
-        fun originatorRoutingNumber(): Optional<String> =
-            Optional.ofNullable(originatorRoutingNumber.getNullable("originator_routing_number"))
-
-        /** The sending bank's reference number for the wire reversal. */
-        fun senderReference(): Optional<String> =
-            Optional.ofNullable(senderReference.getNullable("sender_reference"))
 
         /** The amount that was reversed in USD cents. */
         @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
@@ -1937,11 +1937,22 @@ private constructor(
         /** The description on the reversal message from Fedwire, set by the reversing bank. */
         @JsonProperty("description") @ExcludeMissing fun _description() = description
 
+        /** Additional financial institution information included in the wire reversal. */
+        @JsonProperty("financial_institution_to_financial_institution_information")
+        @ExcludeMissing
+        fun _financialInstitutionToFinancialInstitutionInformation() =
+            financialInstitutionToFinancialInstitutionInformation
+
         /**
          * The Fedwire cycle date for the wire reversal. The "Fedwire day" begins at 9:00 PM Eastern
          * Time on the evening before the `cycle date`.
          */
         @JsonProperty("input_cycle_date") @ExcludeMissing fun _inputCycleDate() = inputCycleDate
+
+        /** The Fedwire transaction identifier. */
+        @JsonProperty("input_message_accountability_data")
+        @ExcludeMissing
+        fun _inputMessageAccountabilityData() = inputMessageAccountabilityData
 
         /** The Fedwire sequence number. */
         @JsonProperty("input_sequence_number")
@@ -1951,21 +1962,24 @@ private constructor(
         /** The Fedwire input source identifier. */
         @JsonProperty("input_source") @ExcludeMissing fun _inputSource() = inputSource
 
-        /** The Fedwire transaction identifier. */
-        @JsonProperty("input_message_accountability_data")
+        /**
+         * The American Banking Association (ABA) routing number of the bank originating the
+         * transfer.
+         */
+        @JsonProperty("originator_routing_number")
         @ExcludeMissing
-        fun _inputMessageAccountabilityData() = inputMessageAccountabilityData
+        fun _originatorRoutingNumber() = originatorRoutingNumber
+
+        /** The Fedwire cycle date for the wire transfer that is being reversed by this message. */
+        @JsonProperty("previous_message_input_cycle_date")
+        @ExcludeMissing
+        fun _previousMessageInputCycleDate() = previousMessageInputCycleDate
 
         /** The Fedwire transaction identifier for the wire transfer that was reversed. */
         @JsonProperty("previous_message_input_message_accountability_data")
         @ExcludeMissing
         fun _previousMessageInputMessageAccountabilityData() =
             previousMessageInputMessageAccountabilityData
-
-        /** The Fedwire cycle date for the wire transfer that is being reversed by this message. */
-        @JsonProperty("previous_message_input_cycle_date")
-        @ExcludeMissing
-        fun _previousMessageInputCycleDate() = previousMessageInputCycleDate
 
         /** The Fedwire sequence number for the wire transfer that was reversed. */
         @JsonProperty("previous_message_input_sequence_number")
@@ -1982,28 +1996,14 @@ private constructor(
         @ExcludeMissing
         fun _receiverFinancialInstitutionInformation() = receiverFinancialInstitutionInformation
 
-        /** Additional financial institution information included in the wire reversal. */
-        @JsonProperty("financial_institution_to_financial_institution_information")
-        @ExcludeMissing
-        fun _financialInstitutionToFinancialInstitutionInformation() =
-            financialInstitutionToFinancialInstitutionInformation
+        /** The sending bank's reference number for the wire reversal. */
+        @JsonProperty("sender_reference") @ExcludeMissing fun _senderReference() = senderReference
 
         /** The ID for the Transaction associated with the transfer reversal. */
         @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
         /** The ID for the Wire Transfer that is being reversed. */
         @JsonProperty("wire_transfer_id") @ExcludeMissing fun _wireTransferId() = wireTransferId
-
-        /**
-         * The American Banking Association (ABA) routing number of the bank originating the
-         * transfer.
-         */
-        @JsonProperty("originator_routing_number")
-        @ExcludeMissing
-        fun _originatorRoutingNumber() = originatorRoutingNumber
-
-        /** The sending bank's reference number for the wire reversal. */
-        @JsonProperty("sender_reference") @ExcludeMissing fun _senderReference() = senderReference
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -2014,20 +2014,20 @@ private constructor(
                 amount()
                 createdAt()
                 description()
+                financialInstitutionToFinancialInstitutionInformation()
                 inputCycleDate()
+                inputMessageAccountabilityData()
                 inputSequenceNumber()
                 inputSource()
-                inputMessageAccountabilityData()
-                previousMessageInputMessageAccountabilityData()
+                originatorRoutingNumber()
                 previousMessageInputCycleDate()
+                previousMessageInputMessageAccountabilityData()
                 previousMessageInputSequenceNumber()
                 previousMessageInputSource()
                 receiverFinancialInstitutionInformation()
-                financialInstitutionToFinancialInstitutionInformation()
+                senderReference()
                 transactionId()
                 wireTransferId()
-                originatorRoutingNumber()
-                senderReference()
                 validated = true
             }
         }
@@ -2043,24 +2043,24 @@ private constructor(
                 this.amount == other.amount &&
                 this.createdAt == other.createdAt &&
                 this.description == other.description &&
+                this.financialInstitutionToFinancialInstitutionInformation ==
+                    other.financialInstitutionToFinancialInstitutionInformation &&
                 this.inputCycleDate == other.inputCycleDate &&
+                this.inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
                 this.inputSequenceNumber == other.inputSequenceNumber &&
                 this.inputSource == other.inputSource &&
-                this.inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
+                this.originatorRoutingNumber == other.originatorRoutingNumber &&
+                this.previousMessageInputCycleDate == other.previousMessageInputCycleDate &&
                 this.previousMessageInputMessageAccountabilityData ==
                     other.previousMessageInputMessageAccountabilityData &&
-                this.previousMessageInputCycleDate == other.previousMessageInputCycleDate &&
                 this.previousMessageInputSequenceNumber ==
                     other.previousMessageInputSequenceNumber &&
                 this.previousMessageInputSource == other.previousMessageInputSource &&
                 this.receiverFinancialInstitutionInformation ==
                     other.receiverFinancialInstitutionInformation &&
-                this.financialInstitutionToFinancialInstitutionInformation ==
-                    other.financialInstitutionToFinancialInstitutionInformation &&
+                this.senderReference == other.senderReference &&
                 this.transactionId == other.transactionId &&
                 this.wireTransferId == other.wireTransferId &&
-                this.originatorRoutingNumber == other.originatorRoutingNumber &&
-                this.senderReference == other.senderReference &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -2071,20 +2071,20 @@ private constructor(
                         amount,
                         createdAt,
                         description,
+                        financialInstitutionToFinancialInstitutionInformation,
                         inputCycleDate,
+                        inputMessageAccountabilityData,
                         inputSequenceNumber,
                         inputSource,
-                        inputMessageAccountabilityData,
-                        previousMessageInputMessageAccountabilityData,
+                        originatorRoutingNumber,
                         previousMessageInputCycleDate,
+                        previousMessageInputMessageAccountabilityData,
                         previousMessageInputSequenceNumber,
                         previousMessageInputSource,
                         receiverFinancialInstitutionInformation,
-                        financialInstitutionToFinancialInstitutionInformation,
+                        senderReference,
                         transactionId,
                         wireTransferId,
-                        originatorRoutingNumber,
-                        senderReference,
                         additionalProperties,
                     )
             }
@@ -2092,7 +2092,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Reversal{amount=$amount, createdAt=$createdAt, description=$description, inputCycleDate=$inputCycleDate, inputSequenceNumber=$inputSequenceNumber, inputSource=$inputSource, inputMessageAccountabilityData=$inputMessageAccountabilityData, previousMessageInputMessageAccountabilityData=$previousMessageInputMessageAccountabilityData, previousMessageInputCycleDate=$previousMessageInputCycleDate, previousMessageInputSequenceNumber=$previousMessageInputSequenceNumber, previousMessageInputSource=$previousMessageInputSource, receiverFinancialInstitutionInformation=$receiverFinancialInstitutionInformation, financialInstitutionToFinancialInstitutionInformation=$financialInstitutionToFinancialInstitutionInformation, transactionId=$transactionId, wireTransferId=$wireTransferId, originatorRoutingNumber=$originatorRoutingNumber, senderReference=$senderReference, additionalProperties=$additionalProperties}"
+            "Reversal{amount=$amount, createdAt=$createdAt, description=$description, financialInstitutionToFinancialInstitutionInformation=$financialInstitutionToFinancialInstitutionInformation, inputCycleDate=$inputCycleDate, inputMessageAccountabilityData=$inputMessageAccountabilityData, inputSequenceNumber=$inputSequenceNumber, inputSource=$inputSource, originatorRoutingNumber=$originatorRoutingNumber, previousMessageInputCycleDate=$previousMessageInputCycleDate, previousMessageInputMessageAccountabilityData=$previousMessageInputMessageAccountabilityData, previousMessageInputSequenceNumber=$previousMessageInputSequenceNumber, previousMessageInputSource=$previousMessageInputSource, receiverFinancialInstitutionInformation=$receiverFinancialInstitutionInformation, senderReference=$senderReference, transactionId=$transactionId, wireTransferId=$wireTransferId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -2104,23 +2104,23 @@ private constructor(
             private var amount: JsonField<Long> = JsonMissing.of()
             private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var description: JsonField<String> = JsonMissing.of()
+            private var financialInstitutionToFinancialInstitutionInformation: JsonField<String> =
+                JsonMissing.of()
             private var inputCycleDate: JsonField<LocalDate> = JsonMissing.of()
+            private var inputMessageAccountabilityData: JsonField<String> = JsonMissing.of()
             private var inputSequenceNumber: JsonField<String> = JsonMissing.of()
             private var inputSource: JsonField<String> = JsonMissing.of()
-            private var inputMessageAccountabilityData: JsonField<String> = JsonMissing.of()
+            private var originatorRoutingNumber: JsonField<String> = JsonMissing.of()
+            private var previousMessageInputCycleDate: JsonField<LocalDate> = JsonMissing.of()
             private var previousMessageInputMessageAccountabilityData: JsonField<String> =
                 JsonMissing.of()
-            private var previousMessageInputCycleDate: JsonField<LocalDate> = JsonMissing.of()
             private var previousMessageInputSequenceNumber: JsonField<String> = JsonMissing.of()
             private var previousMessageInputSource: JsonField<String> = JsonMissing.of()
             private var receiverFinancialInstitutionInformation: JsonField<String> =
                 JsonMissing.of()
-            private var financialInstitutionToFinancialInstitutionInformation: JsonField<String> =
-                JsonMissing.of()
+            private var senderReference: JsonField<String> = JsonMissing.of()
             private var transactionId: JsonField<String> = JsonMissing.of()
             private var wireTransferId: JsonField<String> = JsonMissing.of()
-            private var originatorRoutingNumber: JsonField<String> = JsonMissing.of()
-            private var senderReference: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -2128,24 +2128,24 @@ private constructor(
                 this.amount = reversal.amount
                 this.createdAt = reversal.createdAt
                 this.description = reversal.description
+                this.financialInstitutionToFinancialInstitutionInformation =
+                    reversal.financialInstitutionToFinancialInstitutionInformation
                 this.inputCycleDate = reversal.inputCycleDate
+                this.inputMessageAccountabilityData = reversal.inputMessageAccountabilityData
                 this.inputSequenceNumber = reversal.inputSequenceNumber
                 this.inputSource = reversal.inputSource
-                this.inputMessageAccountabilityData = reversal.inputMessageAccountabilityData
+                this.originatorRoutingNumber = reversal.originatorRoutingNumber
+                this.previousMessageInputCycleDate = reversal.previousMessageInputCycleDate
                 this.previousMessageInputMessageAccountabilityData =
                     reversal.previousMessageInputMessageAccountabilityData
-                this.previousMessageInputCycleDate = reversal.previousMessageInputCycleDate
                 this.previousMessageInputSequenceNumber =
                     reversal.previousMessageInputSequenceNumber
                 this.previousMessageInputSource = reversal.previousMessageInputSource
                 this.receiverFinancialInstitutionInformation =
                     reversal.receiverFinancialInstitutionInformation
-                this.financialInstitutionToFinancialInstitutionInformation =
-                    reversal.financialInstitutionToFinancialInstitutionInformation
+                this.senderReference = reversal.senderReference
                 this.transactionId = reversal.transactionId
                 this.wireTransferId = reversal.wireTransferId
-                this.originatorRoutingNumber = reversal.originatorRoutingNumber
-                this.senderReference = reversal.senderReference
                 additionalProperties(reversal.additionalProperties)
             }
 
@@ -2183,6 +2183,24 @@ private constructor(
                 this.description = description
             }
 
+            /** Additional financial institution information included in the wire reversal. */
+            fun financialInstitutionToFinancialInstitutionInformation(
+                financialInstitutionToFinancialInstitutionInformation: String
+            ) =
+                financialInstitutionToFinancialInstitutionInformation(
+                    JsonField.of(financialInstitutionToFinancialInstitutionInformation)
+                )
+
+            /** Additional financial institution information included in the wire reversal. */
+            @JsonProperty("financial_institution_to_financial_institution_information")
+            @ExcludeMissing
+            fun financialInstitutionToFinancialInstitutionInformation(
+                financialInstitutionToFinancialInstitutionInformation: JsonField<String>
+            ) = apply {
+                this.financialInstitutionToFinancialInstitutionInformation =
+                    financialInstitutionToFinancialInstitutionInformation
+            }
+
             /**
              * The Fedwire cycle date for the wire reversal. The "Fedwire day" begins at 9:00 PM
              * Eastern Time on the evening before the `cycle date`.
@@ -2199,6 +2217,18 @@ private constructor(
             fun inputCycleDate(inputCycleDate: JsonField<LocalDate>) = apply {
                 this.inputCycleDate = inputCycleDate
             }
+
+            /** The Fedwire transaction identifier. */
+            fun inputMessageAccountabilityData(inputMessageAccountabilityData: String) =
+                inputMessageAccountabilityData(JsonField.of(inputMessageAccountabilityData))
+
+            /** The Fedwire transaction identifier. */
+            @JsonProperty("input_message_accountability_data")
+            @ExcludeMissing
+            fun inputMessageAccountabilityData(inputMessageAccountabilityData: JsonField<String>) =
+                apply {
+                    this.inputMessageAccountabilityData = inputMessageAccountabilityData
+                }
 
             /** The Fedwire sequence number. */
             fun inputSequenceNumber(inputSequenceNumber: String) =
@@ -2221,16 +2251,37 @@ private constructor(
                 this.inputSource = inputSource
             }
 
-            /** The Fedwire transaction identifier. */
-            fun inputMessageAccountabilityData(inputMessageAccountabilityData: String) =
-                inputMessageAccountabilityData(JsonField.of(inputMessageAccountabilityData))
+            /**
+             * The American Banking Association (ABA) routing number of the bank originating the
+             * transfer.
+             */
+            fun originatorRoutingNumber(originatorRoutingNumber: String) =
+                originatorRoutingNumber(JsonField.of(originatorRoutingNumber))
 
-            /** The Fedwire transaction identifier. */
-            @JsonProperty("input_message_accountability_data")
+            /**
+             * The American Banking Association (ABA) routing number of the bank originating the
+             * transfer.
+             */
+            @JsonProperty("originator_routing_number")
             @ExcludeMissing
-            fun inputMessageAccountabilityData(inputMessageAccountabilityData: JsonField<String>) =
+            fun originatorRoutingNumber(originatorRoutingNumber: JsonField<String>) = apply {
+                this.originatorRoutingNumber = originatorRoutingNumber
+            }
+
+            /**
+             * The Fedwire cycle date for the wire transfer that is being reversed by this message.
+             */
+            fun previousMessageInputCycleDate(previousMessageInputCycleDate: LocalDate) =
+                previousMessageInputCycleDate(JsonField.of(previousMessageInputCycleDate))
+
+            /**
+             * The Fedwire cycle date for the wire transfer that is being reversed by this message.
+             */
+            @JsonProperty("previous_message_input_cycle_date")
+            @ExcludeMissing
+            fun previousMessageInputCycleDate(previousMessageInputCycleDate: JsonField<LocalDate>) =
                 apply {
-                    this.inputMessageAccountabilityData = inputMessageAccountabilityData
+                    this.previousMessageInputCycleDate = previousMessageInputCycleDate
                 }
 
             /** The Fedwire transaction identifier for the wire transfer that was reversed. */
@@ -2250,22 +2301,6 @@ private constructor(
                 this.previousMessageInputMessageAccountabilityData =
                     previousMessageInputMessageAccountabilityData
             }
-
-            /**
-             * The Fedwire cycle date for the wire transfer that is being reversed by this message.
-             */
-            fun previousMessageInputCycleDate(previousMessageInputCycleDate: LocalDate) =
-                previousMessageInputCycleDate(JsonField.of(previousMessageInputCycleDate))
-
-            /**
-             * The Fedwire cycle date for the wire transfer that is being reversed by this message.
-             */
-            @JsonProperty("previous_message_input_cycle_date")
-            @ExcludeMissing
-            fun previousMessageInputCycleDate(previousMessageInputCycleDate: JsonField<LocalDate>) =
-                apply {
-                    this.previousMessageInputCycleDate = previousMessageInputCycleDate
-                }
 
             /** The Fedwire sequence number for the wire transfer that was reversed. */
             fun previousMessageInputSequenceNumber(previousMessageInputSequenceNumber: String) =
@@ -2313,22 +2348,15 @@ private constructor(
                     receiverFinancialInstitutionInformation
             }
 
-            /** Additional financial institution information included in the wire reversal. */
-            fun financialInstitutionToFinancialInstitutionInformation(
-                financialInstitutionToFinancialInstitutionInformation: String
-            ) =
-                financialInstitutionToFinancialInstitutionInformation(
-                    JsonField.of(financialInstitutionToFinancialInstitutionInformation)
-                )
+            /** The sending bank's reference number for the wire reversal. */
+            fun senderReference(senderReference: String) =
+                senderReference(JsonField.of(senderReference))
 
-            /** Additional financial institution information included in the wire reversal. */
-            @JsonProperty("financial_institution_to_financial_institution_information")
+            /** The sending bank's reference number for the wire reversal. */
+            @JsonProperty("sender_reference")
             @ExcludeMissing
-            fun financialInstitutionToFinancialInstitutionInformation(
-                financialInstitutionToFinancialInstitutionInformation: JsonField<String>
-            ) = apply {
-                this.financialInstitutionToFinancialInstitutionInformation =
-                    financialInstitutionToFinancialInstitutionInformation
+            fun senderReference(senderReference: JsonField<String>) = apply {
+                this.senderReference = senderReference
             }
 
             /** The ID for the Transaction associated with the transfer reversal. */
@@ -2352,34 +2380,6 @@ private constructor(
                 this.wireTransferId = wireTransferId
             }
 
-            /**
-             * The American Banking Association (ABA) routing number of the bank originating the
-             * transfer.
-             */
-            fun originatorRoutingNumber(originatorRoutingNumber: String) =
-                originatorRoutingNumber(JsonField.of(originatorRoutingNumber))
-
-            /**
-             * The American Banking Association (ABA) routing number of the bank originating the
-             * transfer.
-             */
-            @JsonProperty("originator_routing_number")
-            @ExcludeMissing
-            fun originatorRoutingNumber(originatorRoutingNumber: JsonField<String>) = apply {
-                this.originatorRoutingNumber = originatorRoutingNumber
-            }
-
-            /** The sending bank's reference number for the wire reversal. */
-            fun senderReference(senderReference: String) =
-                senderReference(JsonField.of(senderReference))
-
-            /** The sending bank's reference number for the wire reversal. */
-            @JsonProperty("sender_reference")
-            @ExcludeMissing
-            fun senderReference(senderReference: JsonField<String>) = apply {
-                this.senderReference = senderReference
-            }
-
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -2399,20 +2399,20 @@ private constructor(
                     amount,
                     createdAt,
                     description,
+                    financialInstitutionToFinancialInstitutionInformation,
                     inputCycleDate,
+                    inputMessageAccountabilityData,
                     inputSequenceNumber,
                     inputSource,
-                    inputMessageAccountabilityData,
-                    previousMessageInputMessageAccountabilityData,
+                    originatorRoutingNumber,
                     previousMessageInputCycleDate,
+                    previousMessageInputMessageAccountabilityData,
                     previousMessageInputSequenceNumber,
                     previousMessageInputSource,
                     receiverFinancialInstitutionInformation,
-                    financialInstitutionToFinancialInstitutionInformation,
+                    senderReference,
                     transactionId,
                     wireTransferId,
-                    originatorRoutingNumber,
-                    senderReference,
                     additionalProperties.toUnmodifiable(),
                 )
         }
