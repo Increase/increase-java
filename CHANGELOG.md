@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.66.0 (2024-07-23)
+
+Full Changelog: [v0.65.0...v0.66.0](https://github.com/Increase/increase-java/compare/v0.65.0...v0.66.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#321](https://github.com/Increase/increase-java/issues/321)) ([e00b6e0](https://github.com/Increase/increase-java/commit/e00b6e0cf5e61ef52d665c0747696297f9f9cd34))
+
+
+### Chores
+
+* **tests:** update prism version ([#319](https://github.com/Increase/increase-java/issues/319)) ([49fe0ee](https://github.com/Increase/increase-java/commit/49fe0eefbf4209e6de4f0d287b24e358c61665c3))
+
 ## 0.65.0 (2024-07-23)
 
 Full Changelog: [v0.64.0...v0.65.0](https://github.com/Increase/increase-java/compare/v0.64.0...v0.65.0)
