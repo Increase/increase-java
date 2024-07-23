@@ -32,6 +32,7 @@ private constructor(
     private val automaticallyResolvesAt: JsonField<OffsetDateTime>,
     private val decline: JsonField<Decline>,
     private val direction: JsonField<Direction>,
+    private val expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule>,
     private val id: JsonField<String>,
     private val internationalAddenda: JsonField<InternationalAddenda>,
     private val notificationOfChange: JsonField<NotificationOfChange>,
@@ -80,6 +81,10 @@ private constructor(
 
     /** The direction of the transfer. */
     fun direction(): Direction = direction.getRequired("direction")
+
+    /** The settlement schedule the transfer is expected to follow. */
+    fun expectedSettlementSchedule(): ExpectedSettlementSchedule =
+        expectedSettlementSchedule.getRequired("expected_settlement_schedule")
 
     /** The inbound ACH transfer's identifier. */
     fun id(): String = id.getRequired("id")
@@ -181,6 +186,11 @@ private constructor(
     /** The direction of the transfer. */
     @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
 
+    /** The settlement schedule the transfer is expected to follow. */
+    @JsonProperty("expected_settlement_schedule")
+    @ExcludeMissing
+    fun _expectedSettlementSchedule() = expectedSettlementSchedule
+
     /** The inbound ACH transfer's identifier. */
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
@@ -272,6 +282,7 @@ private constructor(
             automaticallyResolvesAt()
             decline().map { it.validate() }
             direction()
+            expectedSettlementSchedule()
             id()
             internationalAddenda().map { it.validate() }
             notificationOfChange().map { it.validate() }
@@ -308,6 +319,7 @@ private constructor(
             this.automaticallyResolvesAt == other.automaticallyResolvesAt &&
             this.decline == other.decline &&
             this.direction == other.direction &&
+            this.expectedSettlementSchedule == other.expectedSettlementSchedule &&
             this.id == other.id &&
             this.internationalAddenda == other.internationalAddenda &&
             this.notificationOfChange == other.notificationOfChange &&
@@ -339,6 +351,7 @@ private constructor(
                     automaticallyResolvesAt,
                     decline,
                     direction,
+                    expectedSettlementSchedule,
                     id,
                     internationalAddenda,
                     notificationOfChange,
@@ -362,7 +375,7 @@ private constructor(
     }
 
     override fun toString() =
-        "InboundAchTransfer{acceptance=$acceptance, accountId=$accountId, accountNumberId=$accountNumberId, addenda=$addenda, amount=$amount, automaticallyResolvesAt=$automaticallyResolvesAt, decline=$decline, direction=$direction, id=$id, internationalAddenda=$internationalAddenda, notificationOfChange=$notificationOfChange, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, originatorCompanyName=$originatorCompanyName, originatorRoutingNumber=$originatorRoutingNumber, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, standardEntryClassCode=$standardEntryClassCode, status=$status, traceNumber=$traceNumber, transferReturn=$transferReturn, type=$type, additionalProperties=$additionalProperties}"
+        "InboundAchTransfer{acceptance=$acceptance, accountId=$accountId, accountNumberId=$accountNumberId, addenda=$addenda, amount=$amount, automaticallyResolvesAt=$automaticallyResolvesAt, decline=$decline, direction=$direction, expectedSettlementSchedule=$expectedSettlementSchedule, id=$id, internationalAddenda=$internationalAddenda, notificationOfChange=$notificationOfChange, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, originatorCompanyName=$originatorCompanyName, originatorRoutingNumber=$originatorRoutingNumber, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, standardEntryClassCode=$standardEntryClassCode, status=$status, traceNumber=$traceNumber, transferReturn=$transferReturn, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -379,6 +392,8 @@ private constructor(
         private var automaticallyResolvesAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var decline: JsonField<Decline> = JsonMissing.of()
         private var direction: JsonField<Direction> = JsonMissing.of()
+        private var expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule> =
+            JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
         private var internationalAddenda: JsonField<InternationalAddenda> = JsonMissing.of()
         private var notificationOfChange: JsonField<NotificationOfChange> = JsonMissing.of()
@@ -407,6 +422,7 @@ private constructor(
             this.automaticallyResolvesAt = inboundAchTransfer.automaticallyResolvesAt
             this.decline = inboundAchTransfer.decline
             this.direction = inboundAchTransfer.direction
+            this.expectedSettlementSchedule = inboundAchTransfer.expectedSettlementSchedule
             this.id = inboundAchTransfer.id
             this.internationalAddenda = inboundAchTransfer.internationalAddenda
             this.notificationOfChange = inboundAchTransfer.notificationOfChange
@@ -498,6 +514,17 @@ private constructor(
         @JsonProperty("direction")
         @ExcludeMissing
         fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
+
+        /** The settlement schedule the transfer is expected to follow. */
+        fun expectedSettlementSchedule(expectedSettlementSchedule: ExpectedSettlementSchedule) =
+            expectedSettlementSchedule(JsonField.of(expectedSettlementSchedule))
+
+        /** The settlement schedule the transfer is expected to follow. */
+        @JsonProperty("expected_settlement_schedule")
+        @ExcludeMissing
+        fun expectedSettlementSchedule(
+            expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule>
+        ) = apply { this.expectedSettlementSchedule = expectedSettlementSchedule }
 
         /** The inbound ACH transfer's identifier. */
         fun id(id: String) = id(JsonField.of(id))
@@ -710,6 +737,7 @@ private constructor(
                 automaticallyResolvesAt,
                 decline,
                 direction,
+                expectedSettlementSchedule,
                 id,
                 internationalAddenda,
                 notificationOfChange,
@@ -1578,6 +1606,64 @@ private constructor(
                 CREDIT -> Known.CREDIT
                 DEBIT -> Known.DEBIT
                 else -> throw IncreaseInvalidDataException("Unknown Direction: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    class ExpectedSettlementSchedule
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ExpectedSettlementSchedule && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val SAME_DAY = ExpectedSettlementSchedule(JsonField.of("same_day"))
+
+            @JvmField val FUTURE_DATED = ExpectedSettlementSchedule(JsonField.of("future_dated"))
+
+            @JvmStatic fun of(value: String) = ExpectedSettlementSchedule(JsonField.of(value))
+        }
+
+        enum class Known {
+            SAME_DAY,
+            FUTURE_DATED,
+        }
+
+        enum class Value {
+            SAME_DAY,
+            FUTURE_DATED,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                SAME_DAY -> Value.SAME_DAY
+                FUTURE_DATED -> Value.FUTURE_DATED
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                SAME_DAY -> Known.SAME_DAY
+                FUTURE_DATED -> Known.FUTURE_DATED
+                else ->
+                    throw IncreaseInvalidDataException("Unknown ExpectedSettlementSchedule: $value")
             }
 
         fun asString(): String = _value().asStringOrThrow()
