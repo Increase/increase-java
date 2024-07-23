@@ -1066,8 +1066,8 @@ private constructor(
     @NoAutoDetect
     class CreatedBy
     private constructor(
-        private val category: JsonField<Category>,
         private val apiKey: JsonField<ApiKey>,
+        private val category: JsonField<Category>,
         private val oauthApplication: JsonField<OAuthApplication>,
         private val user: JsonField<User>,
         private val additionalProperties: Map<String, JsonValue>,
@@ -1077,11 +1077,11 @@ private constructor(
 
         private var hashCode: Int = 0
 
-        /** The type of object that created this transfer. */
-        fun category(): Category = category.getRequired("category")
-
         /** If present, details about the API key that created the transfer. */
         fun apiKey(): Optional<ApiKey> = Optional.ofNullable(apiKey.getNullable("api_key"))
+
+        /** The type of object that created this transfer. */
+        fun category(): Category = category.getRequired("category")
 
         /** If present, details about the OAuth Application that created the transfer. */
         fun oauthApplication(): Optional<OAuthApplication> =
@@ -1090,11 +1090,11 @@ private constructor(
         /** If present, details about the User that created the transfer. */
         fun user(): Optional<User> = Optional.ofNullable(user.getNullable("user"))
 
-        /** The type of object that created this transfer. */
-        @JsonProperty("category") @ExcludeMissing fun _category() = category
-
         /** If present, details about the API key that created the transfer. */
         @JsonProperty("api_key") @ExcludeMissing fun _apiKey() = apiKey
+
+        /** The type of object that created this transfer. */
+        @JsonProperty("category") @ExcludeMissing fun _category() = category
 
         /** If present, details about the OAuth Application that created the transfer. */
         @JsonProperty("oauth_application")
@@ -1110,8 +1110,8 @@ private constructor(
 
         fun validate(): CreatedBy = apply {
             if (!validated) {
-                category()
                 apiKey().map { it.validate() }
+                category()
                 oauthApplication().map { it.validate() }
                 user().map { it.validate() }
                 validated = true
@@ -1126,8 +1126,8 @@ private constructor(
             }
 
             return other is CreatedBy &&
-                this.category == other.category &&
                 this.apiKey == other.apiKey &&
+                this.category == other.category &&
                 this.oauthApplication == other.oauthApplication &&
                 this.user == other.user &&
                 this.additionalProperties == other.additionalProperties
@@ -1137,8 +1137,8 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        category,
                         apiKey,
+                        category,
                         oauthApplication,
                         user,
                         additionalProperties,
@@ -1148,7 +1148,7 @@ private constructor(
         }
 
         override fun toString() =
-            "CreatedBy{category=$category, apiKey=$apiKey, oauthApplication=$oauthApplication, user=$user, additionalProperties=$additionalProperties}"
+            "CreatedBy{apiKey=$apiKey, category=$category, oauthApplication=$oauthApplication, user=$user, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1157,28 +1157,20 @@ private constructor(
 
         class Builder {
 
-            private var category: JsonField<Category> = JsonMissing.of()
             private var apiKey: JsonField<ApiKey> = JsonMissing.of()
+            private var category: JsonField<Category> = JsonMissing.of()
             private var oauthApplication: JsonField<OAuthApplication> = JsonMissing.of()
             private var user: JsonField<User> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(createdBy: CreatedBy) = apply {
-                this.category = createdBy.category
                 this.apiKey = createdBy.apiKey
+                this.category = createdBy.category
                 this.oauthApplication = createdBy.oauthApplication
                 this.user = createdBy.user
                 additionalProperties(createdBy.additionalProperties)
             }
-
-            /** The type of object that created this transfer. */
-            fun category(category: Category) = category(JsonField.of(category))
-
-            /** The type of object that created this transfer. */
-            @JsonProperty("category")
-            @ExcludeMissing
-            fun category(category: JsonField<Category>) = apply { this.category = category }
 
             /** If present, details about the API key that created the transfer. */
             fun apiKey(apiKey: ApiKey) = apiKey(JsonField.of(apiKey))
@@ -1187,6 +1179,14 @@ private constructor(
             @JsonProperty("api_key")
             @ExcludeMissing
             fun apiKey(apiKey: JsonField<ApiKey>) = apply { this.apiKey = apiKey }
+
+            /** The type of object that created this transfer. */
+            fun category(category: Category) = category(JsonField.of(category))
+
+            /** The type of object that created this transfer. */
+            @JsonProperty("category")
+            @ExcludeMissing
+            fun category(category: JsonField<Category>) = apply { this.category = category }
 
             /** If present, details about the OAuth Application that created the transfer. */
             fun oauthApplication(oauthApplication: OAuthApplication) =
@@ -1223,8 +1223,8 @@ private constructor(
 
             fun build(): CreatedBy =
                 CreatedBy(
-                    category,
                     apiKey,
+                    category,
                     oauthApplication,
                     user,
                     additionalProperties.toUnmodifiable(),
@@ -1727,20 +1727,14 @@ private constructor(
     @NoAutoDetect
     class Mailing
     private constructor(
-        private val mailedAt: JsonField<OffsetDateTime>,
         private val imageId: JsonField<String>,
+        private val mailedAt: JsonField<OffsetDateTime>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the check
-         * was mailed.
-         */
-        fun mailedAt(): OffsetDateTime = mailedAt.getRequired("mailed_at")
 
         /**
          * The ID of the file corresponding to an image of the check that was mailed, if available.
@@ -1751,12 +1745,18 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the check
          * was mailed.
          */
-        @JsonProperty("mailed_at") @ExcludeMissing fun _mailedAt() = mailedAt
+        fun mailedAt(): OffsetDateTime = mailedAt.getRequired("mailed_at")
 
         /**
          * The ID of the file corresponding to an image of the check that was mailed, if available.
          */
         @JsonProperty("image_id") @ExcludeMissing fun _imageId() = imageId
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the check
+         * was mailed.
+         */
+        @JsonProperty("mailed_at") @ExcludeMissing fun _mailedAt() = mailedAt
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1764,8 +1764,8 @@ private constructor(
 
         fun validate(): Mailing = apply {
             if (!validated) {
-                mailedAt()
                 imageId()
+                mailedAt()
                 validated = true
             }
         }
@@ -1778,8 +1778,8 @@ private constructor(
             }
 
             return other is Mailing &&
-                this.mailedAt == other.mailedAt &&
                 this.imageId == other.imageId &&
+                this.mailedAt == other.mailedAt &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -1787,8 +1787,8 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        mailedAt,
                         imageId,
+                        mailedAt,
                         additionalProperties,
                     )
             }
@@ -1796,7 +1796,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Mailing{mailedAt=$mailedAt, imageId=$imageId, additionalProperties=$additionalProperties}"
+            "Mailing{imageId=$imageId, mailedAt=$mailedAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1805,30 +1805,16 @@ private constructor(
 
         class Builder {
 
-            private var mailedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var imageId: JsonField<String> = JsonMissing.of()
+            private var mailedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(mailing: Mailing) = apply {
-                this.mailedAt = mailing.mailedAt
                 this.imageId = mailing.imageId
+                this.mailedAt = mailing.mailedAt
                 additionalProperties(mailing.additionalProperties)
             }
-
-            /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * check was mailed.
-             */
-            fun mailedAt(mailedAt: OffsetDateTime) = mailedAt(JsonField.of(mailedAt))
-
-            /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * check was mailed.
-             */
-            @JsonProperty("mailed_at")
-            @ExcludeMissing
-            fun mailedAt(mailedAt: JsonField<OffsetDateTime>) = apply { this.mailedAt = mailedAt }
 
             /**
              * The ID of the file corresponding to an image of the check that was mailed, if
@@ -1843,6 +1829,20 @@ private constructor(
             @JsonProperty("image_id")
             @ExcludeMissing
             fun imageId(imageId: JsonField<String>) = apply { this.imageId = imageId }
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * check was mailed.
+             */
+            fun mailedAt(mailedAt: OffsetDateTime) = mailedAt(JsonField.of(mailedAt))
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * check was mailed.
+             */
+            @JsonProperty("mailed_at")
+            @ExcludeMissing
+            fun mailedAt(mailedAt: JsonField<OffsetDateTime>) = apply { this.mailedAt = mailedAt }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1860,8 +1860,8 @@ private constructor(
 
             fun build(): Mailing =
                 Mailing(
-                    mailedAt,
                     imageId,
+                    mailedAt,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -1875,18 +1875,21 @@ private constructor(
     @NoAutoDetect
     class PhysicalCheck
     private constructor(
+        private val mailingAddress: JsonField<MailingAddress>,
         private val memo: JsonField<String>,
         private val note: JsonField<String>,
         private val recipientName: JsonField<String>,
-        private val signatureText: JsonField<String>,
-        private val mailingAddress: JsonField<MailingAddress>,
         private val returnAddress: JsonField<ReturnAddress>,
+        private val signatureText: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
+
+        /** Details for where Increase will mail the check. */
+        fun mailingAddress(): MailingAddress = mailingAddress.getRequired("mailing_address")
 
         /** The descriptor that will be printed on the memo field on the check. */
         fun memo(): Optional<String> = Optional.ofNullable(memo.getNullable("memo"))
@@ -1897,6 +1900,10 @@ private constructor(
         /** The name that will be printed on the check. */
         fun recipientName(): String = recipientName.getRequired("recipient_name")
 
+        /** The return address to be printed on the check. */
+        fun returnAddress(): Optional<ReturnAddress> =
+            Optional.ofNullable(returnAddress.getNullable("return_address"))
+
         /**
          * The text that will appear as the signature on the check in cursive font. If blank, the
          * check will be printed with 'No signature required'.
@@ -1905,11 +1912,7 @@ private constructor(
             Optional.ofNullable(signatureText.getNullable("signature_text"))
 
         /** Details for where Increase will mail the check. */
-        fun mailingAddress(): MailingAddress = mailingAddress.getRequired("mailing_address")
-
-        /** The return address to be printed on the check. */
-        fun returnAddress(): Optional<ReturnAddress> =
-            Optional.ofNullable(returnAddress.getNullable("return_address"))
+        @JsonProperty("mailing_address") @ExcludeMissing fun _mailingAddress() = mailingAddress
 
         /** The descriptor that will be printed on the memo field on the check. */
         @JsonProperty("memo") @ExcludeMissing fun _memo() = memo
@@ -1920,17 +1923,14 @@ private constructor(
         /** The name that will be printed on the check. */
         @JsonProperty("recipient_name") @ExcludeMissing fun _recipientName() = recipientName
 
+        /** The return address to be printed on the check. */
+        @JsonProperty("return_address") @ExcludeMissing fun _returnAddress() = returnAddress
+
         /**
          * The text that will appear as the signature on the check in cursive font. If blank, the
          * check will be printed with 'No signature required'.
          */
         @JsonProperty("signature_text") @ExcludeMissing fun _signatureText() = signatureText
-
-        /** Details for where Increase will mail the check. */
-        @JsonProperty("mailing_address") @ExcludeMissing fun _mailingAddress() = mailingAddress
-
-        /** The return address to be printed on the check. */
-        @JsonProperty("return_address") @ExcludeMissing fun _returnAddress() = returnAddress
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1938,12 +1938,12 @@ private constructor(
 
         fun validate(): PhysicalCheck = apply {
             if (!validated) {
+                mailingAddress().validate()
                 memo()
                 note()
                 recipientName()
-                signatureText()
-                mailingAddress().validate()
                 returnAddress().map { it.validate() }
+                signatureText()
                 validated = true
             }
         }
@@ -1956,12 +1956,12 @@ private constructor(
             }
 
             return other is PhysicalCheck &&
+                this.mailingAddress == other.mailingAddress &&
                 this.memo == other.memo &&
                 this.note == other.note &&
                 this.recipientName == other.recipientName &&
-                this.signatureText == other.signatureText &&
-                this.mailingAddress == other.mailingAddress &&
                 this.returnAddress == other.returnAddress &&
+                this.signatureText == other.signatureText &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -1969,12 +1969,12 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
+                        mailingAddress,
                         memo,
                         note,
                         recipientName,
-                        signatureText,
-                        mailingAddress,
                         returnAddress,
+                        signatureText,
                         additionalProperties,
                     )
             }
@@ -1982,7 +1982,7 @@ private constructor(
         }
 
         override fun toString() =
-            "PhysicalCheck{memo=$memo, note=$note, recipientName=$recipientName, signatureText=$signatureText, mailingAddress=$mailingAddress, returnAddress=$returnAddress, additionalProperties=$additionalProperties}"
+            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, note=$note, recipientName=$recipientName, returnAddress=$returnAddress, signatureText=$signatureText, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1991,23 +1991,34 @@ private constructor(
 
         class Builder {
 
+            private var mailingAddress: JsonField<MailingAddress> = JsonMissing.of()
             private var memo: JsonField<String> = JsonMissing.of()
             private var note: JsonField<String> = JsonMissing.of()
             private var recipientName: JsonField<String> = JsonMissing.of()
-            private var signatureText: JsonField<String> = JsonMissing.of()
-            private var mailingAddress: JsonField<MailingAddress> = JsonMissing.of()
             private var returnAddress: JsonField<ReturnAddress> = JsonMissing.of()
+            private var signatureText: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(physicalCheck: PhysicalCheck) = apply {
+                this.mailingAddress = physicalCheck.mailingAddress
                 this.memo = physicalCheck.memo
                 this.note = physicalCheck.note
                 this.recipientName = physicalCheck.recipientName
-                this.signatureText = physicalCheck.signatureText
-                this.mailingAddress = physicalCheck.mailingAddress
                 this.returnAddress = physicalCheck.returnAddress
+                this.signatureText = physicalCheck.signatureText
                 additionalProperties(physicalCheck.additionalProperties)
+            }
+
+            /** Details for where Increase will mail the check. */
+            fun mailingAddress(mailingAddress: MailingAddress) =
+                mailingAddress(JsonField.of(mailingAddress))
+
+            /** Details for where Increase will mail the check. */
+            @JsonProperty("mailing_address")
+            @ExcludeMissing
+            fun mailingAddress(mailingAddress: JsonField<MailingAddress>) = apply {
+                this.mailingAddress = mailingAddress
             }
 
             /** The descriptor that will be printed on the memo field on the check. */
@@ -2036,6 +2047,17 @@ private constructor(
                 this.recipientName = recipientName
             }
 
+            /** The return address to be printed on the check. */
+            fun returnAddress(returnAddress: ReturnAddress) =
+                returnAddress(JsonField.of(returnAddress))
+
+            /** The return address to be printed on the check. */
+            @JsonProperty("return_address")
+            @ExcludeMissing
+            fun returnAddress(returnAddress: JsonField<ReturnAddress>) = apply {
+                this.returnAddress = returnAddress
+            }
+
             /**
              * The text that will appear as the signature on the check in cursive font. If blank,
              * the check will be printed with 'No signature required'.
@@ -2050,28 +2072,6 @@ private constructor(
             @ExcludeMissing
             fun signatureText(signatureText: JsonField<String>) = apply {
                 this.signatureText = signatureText
-            }
-
-            /** Details for where Increase will mail the check. */
-            fun mailingAddress(mailingAddress: MailingAddress) =
-                mailingAddress(JsonField.of(mailingAddress))
-
-            /** Details for where Increase will mail the check. */
-            @JsonProperty("mailing_address")
-            @ExcludeMissing
-            fun mailingAddress(mailingAddress: JsonField<MailingAddress>) = apply {
-                this.mailingAddress = mailingAddress
-            }
-
-            /** The return address to be printed on the check. */
-            fun returnAddress(returnAddress: ReturnAddress) =
-                returnAddress(JsonField.of(returnAddress))
-
-            /** The return address to be printed on the check. */
-            @JsonProperty("return_address")
-            @ExcludeMissing
-            fun returnAddress(returnAddress: JsonField<ReturnAddress>) = apply {
-                this.returnAddress = returnAddress
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -2090,12 +2090,12 @@ private constructor(
 
             fun build(): PhysicalCheck =
                 PhysicalCheck(
+                    mailingAddress,
                     memo,
                     note,
                     recipientName,
-                    signatureText,
-                    mailingAddress,
                     returnAddress,
+                    signatureText,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -2105,12 +2105,12 @@ private constructor(
         @NoAutoDetect
         class MailingAddress
         private constructor(
-            private val name: JsonField<String>,
+            private val city: JsonField<String>,
             private val line1: JsonField<String>,
             private val line2: JsonField<String>,
-            private val city: JsonField<String>,
-            private val state: JsonField<String>,
+            private val name: JsonField<String>,
             private val postalCode: JsonField<String>,
+            private val state: JsonField<String>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
@@ -2118,8 +2118,8 @@ private constructor(
 
             private var hashCode: Int = 0
 
-            /** The name component of the check's mailing address. */
-            fun name(): Optional<String> = Optional.ofNullable(name.getNullable("name"))
+            /** The city of the check's destination. */
+            fun city(): Optional<String> = Optional.ofNullable(city.getNullable("city"))
 
             /** The street address of the check's destination. */
             fun line1(): Optional<String> = Optional.ofNullable(line1.getNullable("line1"))
@@ -2127,18 +2127,18 @@ private constructor(
             /** The second line of the address of the check's destination. */
             fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
 
-            /** The city of the check's destination. */
-            fun city(): Optional<String> = Optional.ofNullable(city.getNullable("city"))
-
-            /** The state of the check's destination. */
-            fun state(): Optional<String> = Optional.ofNullable(state.getNullable("state"))
+            /** The name component of the check's mailing address. */
+            fun name(): Optional<String> = Optional.ofNullable(name.getNullable("name"))
 
             /** The postal code of the check's destination. */
             fun postalCode(): Optional<String> =
                 Optional.ofNullable(postalCode.getNullable("postal_code"))
 
-            /** The name component of the check's mailing address. */
-            @JsonProperty("name") @ExcludeMissing fun _name() = name
+            /** The state of the check's destination. */
+            fun state(): Optional<String> = Optional.ofNullable(state.getNullable("state"))
+
+            /** The city of the check's destination. */
+            @JsonProperty("city") @ExcludeMissing fun _city() = city
 
             /** The street address of the check's destination. */
             @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
@@ -2146,14 +2146,14 @@ private constructor(
             /** The second line of the address of the check's destination. */
             @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
 
-            /** The city of the check's destination. */
-            @JsonProperty("city") @ExcludeMissing fun _city() = city
-
-            /** The state of the check's destination. */
-            @JsonProperty("state") @ExcludeMissing fun _state() = state
+            /** The name component of the check's mailing address. */
+            @JsonProperty("name") @ExcludeMissing fun _name() = name
 
             /** The postal code of the check's destination. */
             @JsonProperty("postal_code") @ExcludeMissing fun _postalCode() = postalCode
+
+            /** The state of the check's destination. */
+            @JsonProperty("state") @ExcludeMissing fun _state() = state
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -2161,12 +2161,12 @@ private constructor(
 
             fun validate(): MailingAddress = apply {
                 if (!validated) {
-                    name()
+                    city()
                     line1()
                     line2()
-                    city()
-                    state()
+                    name()
                     postalCode()
+                    state()
                     validated = true
                 }
             }
@@ -2179,12 +2179,12 @@ private constructor(
                 }
 
                 return other is MailingAddress &&
-                    this.name == other.name &&
+                    this.city == other.city &&
                     this.line1 == other.line1 &&
                     this.line2 == other.line2 &&
-                    this.city == other.city &&
-                    this.state == other.state &&
+                    this.name == other.name &&
                     this.postalCode == other.postalCode &&
+                    this.state == other.state &&
                     this.additionalProperties == other.additionalProperties
             }
 
@@ -2192,12 +2192,12 @@ private constructor(
                 if (hashCode == 0) {
                     hashCode =
                         Objects.hash(
-                            name,
+                            city,
                             line1,
                             line2,
-                            city,
-                            state,
+                            name,
                             postalCode,
+                            state,
                             additionalProperties,
                         )
                 }
@@ -2205,7 +2205,7 @@ private constructor(
             }
 
             override fun toString() =
-                "MailingAddress{name=$name, line1=$line1, line2=$line2, city=$city, state=$state, postalCode=$postalCode, additionalProperties=$additionalProperties}"
+                "MailingAddress{city=$city, line1=$line1, line2=$line2, name=$name, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -2214,32 +2214,32 @@ private constructor(
 
             class Builder {
 
-                private var name: JsonField<String> = JsonMissing.of()
+                private var city: JsonField<String> = JsonMissing.of()
                 private var line1: JsonField<String> = JsonMissing.of()
                 private var line2: JsonField<String> = JsonMissing.of()
-                private var city: JsonField<String> = JsonMissing.of()
-                private var state: JsonField<String> = JsonMissing.of()
+                private var name: JsonField<String> = JsonMissing.of()
                 private var postalCode: JsonField<String> = JsonMissing.of()
+                private var state: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
                 internal fun from(mailingAddress: MailingAddress) = apply {
-                    this.name = mailingAddress.name
+                    this.city = mailingAddress.city
                     this.line1 = mailingAddress.line1
                     this.line2 = mailingAddress.line2
-                    this.city = mailingAddress.city
-                    this.state = mailingAddress.state
+                    this.name = mailingAddress.name
                     this.postalCode = mailingAddress.postalCode
+                    this.state = mailingAddress.state
                     additionalProperties(mailingAddress.additionalProperties)
                 }
 
-                /** The name component of the check's mailing address. */
-                fun name(name: String) = name(JsonField.of(name))
+                /** The city of the check's destination. */
+                fun city(city: String) = city(JsonField.of(city))
 
-                /** The name component of the check's mailing address. */
-                @JsonProperty("name")
+                /** The city of the check's destination. */
+                @JsonProperty("city")
                 @ExcludeMissing
-                fun name(name: JsonField<String>) = apply { this.name = name }
+                fun city(city: JsonField<String>) = apply { this.city = city }
 
                 /** The street address of the check's destination. */
                 fun line1(line1: String) = line1(JsonField.of(line1))
@@ -2257,21 +2257,13 @@ private constructor(
                 @ExcludeMissing
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
-                /** The city of the check's destination. */
-                fun city(city: String) = city(JsonField.of(city))
+                /** The name component of the check's mailing address. */
+                fun name(name: String) = name(JsonField.of(name))
 
-                /** The city of the check's destination. */
-                @JsonProperty("city")
+                /** The name component of the check's mailing address. */
+                @JsonProperty("name")
                 @ExcludeMissing
-                fun city(city: JsonField<String>) = apply { this.city = city }
-
-                /** The state of the check's destination. */
-                fun state(state: String) = state(JsonField.of(state))
-
-                /** The state of the check's destination. */
-                @JsonProperty("state")
-                @ExcludeMissing
-                fun state(state: JsonField<String>) = apply { this.state = state }
+                fun name(name: JsonField<String>) = apply { this.name = name }
 
                 /** The postal code of the check's destination. */
                 fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
@@ -2282,6 +2274,14 @@ private constructor(
                 fun postalCode(postalCode: JsonField<String>) = apply {
                     this.postalCode = postalCode
                 }
+
+                /** The state of the check's destination. */
+                fun state(state: String) = state(JsonField.of(state))
+
+                /** The state of the check's destination. */
+                @JsonProperty("state")
+                @ExcludeMissing
+                fun state(state: JsonField<String>) = apply { this.state = state }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -2300,12 +2300,12 @@ private constructor(
 
                 fun build(): MailingAddress =
                     MailingAddress(
-                        name,
+                        city,
                         line1,
                         line2,
-                        city,
-                        state,
+                        name,
                         postalCode,
+                        state,
                         additionalProperties.toUnmodifiable(),
                     )
             }
@@ -2316,12 +2316,12 @@ private constructor(
         @NoAutoDetect
         class ReturnAddress
         private constructor(
-            private val name: JsonField<String>,
+            private val city: JsonField<String>,
             private val line1: JsonField<String>,
             private val line2: JsonField<String>,
-            private val city: JsonField<String>,
-            private val state: JsonField<String>,
+            private val name: JsonField<String>,
             private val postalCode: JsonField<String>,
+            private val state: JsonField<String>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
@@ -2329,8 +2329,8 @@ private constructor(
 
             private var hashCode: Int = 0
 
-            /** The name component of the check's return address. */
-            fun name(): Optional<String> = Optional.ofNullable(name.getNullable("name"))
+            /** The city of the check's destination. */
+            fun city(): Optional<String> = Optional.ofNullable(city.getNullable("city"))
 
             /** The street address of the check's destination. */
             fun line1(): Optional<String> = Optional.ofNullable(line1.getNullable("line1"))
@@ -2338,18 +2338,18 @@ private constructor(
             /** The second line of the address of the check's destination. */
             fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
 
-            /** The city of the check's destination. */
-            fun city(): Optional<String> = Optional.ofNullable(city.getNullable("city"))
-
-            /** The state of the check's destination. */
-            fun state(): Optional<String> = Optional.ofNullable(state.getNullable("state"))
+            /** The name component of the check's return address. */
+            fun name(): Optional<String> = Optional.ofNullable(name.getNullable("name"))
 
             /** The postal code of the check's destination. */
             fun postalCode(): Optional<String> =
                 Optional.ofNullable(postalCode.getNullable("postal_code"))
 
-            /** The name component of the check's return address. */
-            @JsonProperty("name") @ExcludeMissing fun _name() = name
+            /** The state of the check's destination. */
+            fun state(): Optional<String> = Optional.ofNullable(state.getNullable("state"))
+
+            /** The city of the check's destination. */
+            @JsonProperty("city") @ExcludeMissing fun _city() = city
 
             /** The street address of the check's destination. */
             @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
@@ -2357,14 +2357,14 @@ private constructor(
             /** The second line of the address of the check's destination. */
             @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
 
-            /** The city of the check's destination. */
-            @JsonProperty("city") @ExcludeMissing fun _city() = city
-
-            /** The state of the check's destination. */
-            @JsonProperty("state") @ExcludeMissing fun _state() = state
+            /** The name component of the check's return address. */
+            @JsonProperty("name") @ExcludeMissing fun _name() = name
 
             /** The postal code of the check's destination. */
             @JsonProperty("postal_code") @ExcludeMissing fun _postalCode() = postalCode
+
+            /** The state of the check's destination. */
+            @JsonProperty("state") @ExcludeMissing fun _state() = state
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -2372,12 +2372,12 @@ private constructor(
 
             fun validate(): ReturnAddress = apply {
                 if (!validated) {
-                    name()
+                    city()
                     line1()
                     line2()
-                    city()
-                    state()
+                    name()
                     postalCode()
+                    state()
                     validated = true
                 }
             }
@@ -2390,12 +2390,12 @@ private constructor(
                 }
 
                 return other is ReturnAddress &&
-                    this.name == other.name &&
+                    this.city == other.city &&
                     this.line1 == other.line1 &&
                     this.line2 == other.line2 &&
-                    this.city == other.city &&
-                    this.state == other.state &&
+                    this.name == other.name &&
                     this.postalCode == other.postalCode &&
+                    this.state == other.state &&
                     this.additionalProperties == other.additionalProperties
             }
 
@@ -2403,12 +2403,12 @@ private constructor(
                 if (hashCode == 0) {
                     hashCode =
                         Objects.hash(
-                            name,
+                            city,
                             line1,
                             line2,
-                            city,
-                            state,
+                            name,
                             postalCode,
+                            state,
                             additionalProperties,
                         )
                 }
@@ -2416,7 +2416,7 @@ private constructor(
             }
 
             override fun toString() =
-                "ReturnAddress{name=$name, line1=$line1, line2=$line2, city=$city, state=$state, postalCode=$postalCode, additionalProperties=$additionalProperties}"
+                "ReturnAddress{city=$city, line1=$line1, line2=$line2, name=$name, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -2425,32 +2425,32 @@ private constructor(
 
             class Builder {
 
-                private var name: JsonField<String> = JsonMissing.of()
+                private var city: JsonField<String> = JsonMissing.of()
                 private var line1: JsonField<String> = JsonMissing.of()
                 private var line2: JsonField<String> = JsonMissing.of()
-                private var city: JsonField<String> = JsonMissing.of()
-                private var state: JsonField<String> = JsonMissing.of()
+                private var name: JsonField<String> = JsonMissing.of()
                 private var postalCode: JsonField<String> = JsonMissing.of()
+                private var state: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
                 internal fun from(returnAddress: ReturnAddress) = apply {
-                    this.name = returnAddress.name
+                    this.city = returnAddress.city
                     this.line1 = returnAddress.line1
                     this.line2 = returnAddress.line2
-                    this.city = returnAddress.city
-                    this.state = returnAddress.state
+                    this.name = returnAddress.name
                     this.postalCode = returnAddress.postalCode
+                    this.state = returnAddress.state
                     additionalProperties(returnAddress.additionalProperties)
                 }
 
-                /** The name component of the check's return address. */
-                fun name(name: String) = name(JsonField.of(name))
+                /** The city of the check's destination. */
+                fun city(city: String) = city(JsonField.of(city))
 
-                /** The name component of the check's return address. */
-                @JsonProperty("name")
+                /** The city of the check's destination. */
+                @JsonProperty("city")
                 @ExcludeMissing
-                fun name(name: JsonField<String>) = apply { this.name = name }
+                fun city(city: JsonField<String>) = apply { this.city = city }
 
                 /** The street address of the check's destination. */
                 fun line1(line1: String) = line1(JsonField.of(line1))
@@ -2468,21 +2468,13 @@ private constructor(
                 @ExcludeMissing
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
-                /** The city of the check's destination. */
-                fun city(city: String) = city(JsonField.of(city))
+                /** The name component of the check's return address. */
+                fun name(name: String) = name(JsonField.of(name))
 
-                /** The city of the check's destination. */
-                @JsonProperty("city")
+                /** The name component of the check's return address. */
+                @JsonProperty("name")
                 @ExcludeMissing
-                fun city(city: JsonField<String>) = apply { this.city = city }
-
-                /** The state of the check's destination. */
-                fun state(state: String) = state(JsonField.of(state))
-
-                /** The state of the check's destination. */
-                @JsonProperty("state")
-                @ExcludeMissing
-                fun state(state: JsonField<String>) = apply { this.state = state }
+                fun name(name: JsonField<String>) = apply { this.name = name }
 
                 /** The postal code of the check's destination. */
                 fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
@@ -2493,6 +2485,14 @@ private constructor(
                 fun postalCode(postalCode: JsonField<String>) = apply {
                     this.postalCode = postalCode
                 }
+
+                /** The state of the check's destination. */
+                fun state(state: String) = state(JsonField.of(state))
+
+                /** The state of the check's destination. */
+                @JsonProperty("state")
+                @ExcludeMissing
+                fun state(state: JsonField<String>) = apply { this.state = state }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -2511,12 +2511,12 @@ private constructor(
 
                 fun build(): ReturnAddress =
                     ReturnAddress(
-                        name,
+                        city,
                         line1,
                         line2,
-                        city,
-                        state,
+                        name,
                         postalCode,
+                        state,
                         additionalProperties.toUnmodifiable(),
                     )
             }
