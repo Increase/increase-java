@@ -49,6 +49,7 @@ class InboundAchTransferTest {
                         .build()
                 )
                 .direction(InboundAchTransfer.Direction.CREDIT)
+                .expectedSettlementSchedule(InboundAchTransfer.ExpectedSettlementSchedule.SAME_DAY)
                 .internationalAddenda(
                     InboundAchTransfer.InternationalAddenda.builder()
                         .destinationCountryCode("destination_country_code")
@@ -184,6 +185,8 @@ class InboundAchTransferTest {
                     .build()
             )
         assertThat(inboundAchTransfer.direction()).isEqualTo(InboundAchTransfer.Direction.CREDIT)
+        assertThat(inboundAchTransfer.expectedSettlementSchedule())
+            .isEqualTo(InboundAchTransfer.ExpectedSettlementSchedule.SAME_DAY)
         assertThat(inboundAchTransfer.internationalAddenda())
             .contains(
                 InboundAchTransfer.InternationalAddenda.builder()
