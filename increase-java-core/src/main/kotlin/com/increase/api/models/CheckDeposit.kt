@@ -607,19 +607,22 @@ private constructor(
     @NoAutoDetect
     class DepositAcceptance
     private constructor(
-        private val amount: JsonField<Long>,
-        private val currency: JsonField<Currency>,
         private val accountNumber: JsonField<String>,
-        private val routingNumber: JsonField<String>,
+        private val amount: JsonField<Long>,
         private val auxiliaryOnUs: JsonField<String>,
-        private val serialNumber: JsonField<String>,
         private val checkDepositId: JsonField<String>,
+        private val currency: JsonField<Currency>,
+        private val routingNumber: JsonField<String>,
+        private val serialNumber: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
+
+        /** The account number printed on the check. */
+        fun accountNumber(): String = accountNumber.getRequired("account_number")
 
         /**
          * The amount to be deposited in the minor unit of the transaction's currency. For dollars,
@@ -628,23 +631,23 @@ private constructor(
         fun amount(): Long = amount.getRequired("amount")
 
         /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
-         * currency.
-         */
-        fun currency(): Currency = currency.getRequired("currency")
-
-        /** The account number printed on the check. */
-        fun accountNumber(): String = accountNumber.getRequired("account_number")
-
-        /** The routing number printed on the check. */
-        fun routingNumber(): String = routingNumber.getRequired("routing_number")
-
-        /**
          * An additional line of metadata printed on the check. This typically includes the check
          * number for business checks.
          */
         fun auxiliaryOnUs(): Optional<String> =
             Optional.ofNullable(auxiliaryOnUs.getNullable("auxiliary_on_us"))
+
+        /** The ID of the Check Deposit that was accepted. */
+        fun checkDepositId(): String = checkDepositId.getRequired("check_deposit_id")
+
+        /**
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+         * currency.
+         */
+        fun currency(): Currency = currency.getRequired("currency")
+
+        /** The routing number printed on the check. */
+        fun routingNumber(): String = routingNumber.getRequired("routing_number")
 
         /**
          * The check serial number, if present, for consumer checks. For business checks, the serial
@@ -653,8 +656,8 @@ private constructor(
         fun serialNumber(): Optional<String> =
             Optional.ofNullable(serialNumber.getNullable("serial_number"))
 
-        /** The ID of the Check Deposit that was accepted. */
-        fun checkDepositId(): String = checkDepositId.getRequired("check_deposit_id")
+        /** The account number printed on the check. */
+        @JsonProperty("account_number") @ExcludeMissing fun _accountNumber() = accountNumber
 
         /**
          * The amount to be deposited in the minor unit of the transaction's currency. For dollars,
@@ -663,22 +666,22 @@ private constructor(
         @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
         /**
+         * An additional line of metadata printed on the check. This typically includes the check
+         * number for business checks.
+         */
+        @JsonProperty("auxiliary_on_us") @ExcludeMissing fun _auxiliaryOnUs() = auxiliaryOnUs
+
+        /** The ID of the Check Deposit that was accepted. */
+        @JsonProperty("check_deposit_id") @ExcludeMissing fun _checkDepositId() = checkDepositId
+
+        /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
          * currency.
          */
         @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
 
-        /** The account number printed on the check. */
-        @JsonProperty("account_number") @ExcludeMissing fun _accountNumber() = accountNumber
-
         /** The routing number printed on the check. */
         @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
-
-        /**
-         * An additional line of metadata printed on the check. This typically includes the check
-         * number for business checks.
-         */
-        @JsonProperty("auxiliary_on_us") @ExcludeMissing fun _auxiliaryOnUs() = auxiliaryOnUs
 
         /**
          * The check serial number, if present, for consumer checks. For business checks, the serial
@@ -686,22 +689,19 @@ private constructor(
          */
         @JsonProperty("serial_number") @ExcludeMissing fun _serialNumber() = serialNumber
 
-        /** The ID of the Check Deposit that was accepted. */
-        @JsonProperty("check_deposit_id") @ExcludeMissing fun _checkDepositId() = checkDepositId
-
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun validate(): DepositAcceptance = apply {
             if (!validated) {
-                amount()
-                currency()
                 accountNumber()
-                routingNumber()
+                amount()
                 auxiliaryOnUs()
-                serialNumber()
                 checkDepositId()
+                currency()
+                routingNumber()
+                serialNumber()
                 validated = true
             }
         }
@@ -714,13 +714,13 @@ private constructor(
             }
 
             return other is DepositAcceptance &&
-                this.amount == other.amount &&
-                this.currency == other.currency &&
                 this.accountNumber == other.accountNumber &&
-                this.routingNumber == other.routingNumber &&
+                this.amount == other.amount &&
                 this.auxiliaryOnUs == other.auxiliaryOnUs &&
-                this.serialNumber == other.serialNumber &&
                 this.checkDepositId == other.checkDepositId &&
+                this.currency == other.currency &&
+                this.routingNumber == other.routingNumber &&
+                this.serialNumber == other.serialNumber &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -728,13 +728,13 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        amount,
-                        currency,
                         accountNumber,
-                        routingNumber,
+                        amount,
                         auxiliaryOnUs,
-                        serialNumber,
                         checkDepositId,
+                        currency,
+                        routingNumber,
+                        serialNumber,
                         additionalProperties,
                     )
             }
@@ -742,7 +742,7 @@ private constructor(
         }
 
         override fun toString() =
-            "DepositAcceptance{amount=$amount, currency=$currency, accountNumber=$accountNumber, routingNumber=$routingNumber, auxiliaryOnUs=$auxiliaryOnUs, serialNumber=$serialNumber, checkDepositId=$checkDepositId, additionalProperties=$additionalProperties}"
+            "DepositAcceptance{accountNumber=$accountNumber, amount=$amount, auxiliaryOnUs=$auxiliaryOnUs, checkDepositId=$checkDepositId, currency=$currency, routingNumber=$routingNumber, serialNumber=$serialNumber, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -751,25 +751,35 @@ private constructor(
 
         class Builder {
 
-            private var amount: JsonField<Long> = JsonMissing.of()
-            private var currency: JsonField<Currency> = JsonMissing.of()
             private var accountNumber: JsonField<String> = JsonMissing.of()
-            private var routingNumber: JsonField<String> = JsonMissing.of()
+            private var amount: JsonField<Long> = JsonMissing.of()
             private var auxiliaryOnUs: JsonField<String> = JsonMissing.of()
-            private var serialNumber: JsonField<String> = JsonMissing.of()
             private var checkDepositId: JsonField<String> = JsonMissing.of()
+            private var currency: JsonField<Currency> = JsonMissing.of()
+            private var routingNumber: JsonField<String> = JsonMissing.of()
+            private var serialNumber: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(depositAcceptance: DepositAcceptance) = apply {
-                this.amount = depositAcceptance.amount
-                this.currency = depositAcceptance.currency
                 this.accountNumber = depositAcceptance.accountNumber
-                this.routingNumber = depositAcceptance.routingNumber
+                this.amount = depositAcceptance.amount
                 this.auxiliaryOnUs = depositAcceptance.auxiliaryOnUs
-                this.serialNumber = depositAcceptance.serialNumber
                 this.checkDepositId = depositAcceptance.checkDepositId
+                this.currency = depositAcceptance.currency
+                this.routingNumber = depositAcceptance.routingNumber
+                this.serialNumber = depositAcceptance.serialNumber
                 additionalProperties(depositAcceptance.additionalProperties)
+            }
+
+            /** The account number printed on the check. */
+            fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
+
+            /** The account number printed on the check. */
+            @JsonProperty("account_number")
+            @ExcludeMissing
+            fun accountNumber(accountNumber: JsonField<String>) = apply {
+                this.accountNumber = accountNumber
             }
 
             /**
@@ -787,40 +797,6 @@ private constructor(
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
-             * currency.
-             */
-            fun currency(currency: Currency) = currency(JsonField.of(currency))
-
-            /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
-             * currency.
-             */
-            @JsonProperty("currency")
-            @ExcludeMissing
-            fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
-
-            /** The account number printed on the check. */
-            fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
-
-            /** The account number printed on the check. */
-            @JsonProperty("account_number")
-            @ExcludeMissing
-            fun accountNumber(accountNumber: JsonField<String>) = apply {
-                this.accountNumber = accountNumber
-            }
-
-            /** The routing number printed on the check. */
-            fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
-
-            /** The routing number printed on the check. */
-            @JsonProperty("routing_number")
-            @ExcludeMissing
-            fun routingNumber(routingNumber: JsonField<String>) = apply {
-                this.routingNumber = routingNumber
-            }
-
-            /**
              * An additional line of metadata printed on the check. This typically includes the
              * check number for business checks.
              */
@@ -834,6 +810,41 @@ private constructor(
             @ExcludeMissing
             fun auxiliaryOnUs(auxiliaryOnUs: JsonField<String>) = apply {
                 this.auxiliaryOnUs = auxiliaryOnUs
+            }
+
+            /** The ID of the Check Deposit that was accepted. */
+            fun checkDepositId(checkDepositId: String) =
+                checkDepositId(JsonField.of(checkDepositId))
+
+            /** The ID of the Check Deposit that was accepted. */
+            @JsonProperty("check_deposit_id")
+            @ExcludeMissing
+            fun checkDepositId(checkDepositId: JsonField<String>) = apply {
+                this.checkDepositId = checkDepositId
+            }
+
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+             * currency.
+             */
+            fun currency(currency: Currency) = currency(JsonField.of(currency))
+
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+             * currency.
+             */
+            @JsonProperty("currency")
+            @ExcludeMissing
+            fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+            /** The routing number printed on the check. */
+            fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
+
+            /** The routing number printed on the check. */
+            @JsonProperty("routing_number")
+            @ExcludeMissing
+            fun routingNumber(routingNumber: JsonField<String>) = apply {
+                this.routingNumber = routingNumber
             }
 
             /**
@@ -852,17 +863,6 @@ private constructor(
                 this.serialNumber = serialNumber
             }
 
-            /** The ID of the Check Deposit that was accepted. */
-            fun checkDepositId(checkDepositId: String) =
-                checkDepositId(JsonField.of(checkDepositId))
-
-            /** The ID of the Check Deposit that was accepted. */
-            @JsonProperty("check_deposit_id")
-            @ExcludeMissing
-            fun checkDepositId(checkDepositId: JsonField<String>) = apply {
-                this.checkDepositId = checkDepositId
-            }
-
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -879,13 +879,13 @@ private constructor(
 
             fun build(): DepositAcceptance =
                 DepositAcceptance(
-                    amount,
-                    currency,
                     accountNumber,
-                    routingNumber,
+                    amount,
                     auxiliaryOnUs,
-                    serialNumber,
                     checkDepositId,
+                    currency,
+                    routingNumber,
+                    serialNumber,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -979,8 +979,8 @@ private constructor(
     @NoAutoDetect
     class DepositRejection
     private constructor(
-        private val checkDepositId: JsonField<String>,
         private val amount: JsonField<Long>,
+        private val checkDepositId: JsonField<String>,
         private val currency: JsonField<Currency>,
         private val reason: JsonField<Reason>,
         private val rejectedAt: JsonField<OffsetDateTime>,
@@ -991,14 +991,14 @@ private constructor(
 
         private var hashCode: Int = 0
 
-        /** The identifier of the Check Deposit that was rejected. */
-        fun checkDepositId(): String = checkDepositId.getRequired("check_deposit_id")
-
         /**
          * The rejected amount in the minor unit of check's currency. For dollars, for example, this
          * is cents.
          */
         fun amount(): Long = amount.getRequired("amount")
+
+        /** The identifier of the Check Deposit that was rejected. */
+        fun checkDepositId(): String = checkDepositId.getRequired("check_deposit_id")
 
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency. */
         fun currency(): Currency = currency.getRequired("currency")
@@ -1012,14 +1012,14 @@ private constructor(
          */
         fun rejectedAt(): OffsetDateTime = rejectedAt.getRequired("rejected_at")
 
-        /** The identifier of the Check Deposit that was rejected. */
-        @JsonProperty("check_deposit_id") @ExcludeMissing fun _checkDepositId() = checkDepositId
-
         /**
          * The rejected amount in the minor unit of check's currency. For dollars, for example, this
          * is cents.
          */
         @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+        /** The identifier of the Check Deposit that was rejected. */
+        @JsonProperty("check_deposit_id") @ExcludeMissing fun _checkDepositId() = checkDepositId
 
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency. */
         @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
@@ -1039,8 +1039,8 @@ private constructor(
 
         fun validate(): DepositRejection = apply {
             if (!validated) {
-                checkDepositId()
                 amount()
+                checkDepositId()
                 currency()
                 reason()
                 rejectedAt()
@@ -1056,8 +1056,8 @@ private constructor(
             }
 
             return other is DepositRejection &&
-                this.checkDepositId == other.checkDepositId &&
                 this.amount == other.amount &&
+                this.checkDepositId == other.checkDepositId &&
                 this.currency == other.currency &&
                 this.reason == other.reason &&
                 this.rejectedAt == other.rejectedAt &&
@@ -1068,8 +1068,8 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        checkDepositId,
                         amount,
+                        checkDepositId,
                         currency,
                         reason,
                         rejectedAt,
@@ -1080,7 +1080,7 @@ private constructor(
         }
 
         override fun toString() =
-            "DepositRejection{checkDepositId=$checkDepositId, amount=$amount, currency=$currency, reason=$reason, rejectedAt=$rejectedAt, additionalProperties=$additionalProperties}"
+            "DepositRejection{amount=$amount, checkDepositId=$checkDepositId, currency=$currency, reason=$reason, rejectedAt=$rejectedAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1089,8 +1089,8 @@ private constructor(
 
         class Builder {
 
-            private var checkDepositId: JsonField<String> = JsonMissing.of()
             private var amount: JsonField<Long> = JsonMissing.of()
+            private var checkDepositId: JsonField<String> = JsonMissing.of()
             private var currency: JsonField<Currency> = JsonMissing.of()
             private var reason: JsonField<Reason> = JsonMissing.of()
             private var rejectedAt: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -1098,23 +1098,12 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(depositRejection: DepositRejection) = apply {
-                this.checkDepositId = depositRejection.checkDepositId
                 this.amount = depositRejection.amount
+                this.checkDepositId = depositRejection.checkDepositId
                 this.currency = depositRejection.currency
                 this.reason = depositRejection.reason
                 this.rejectedAt = depositRejection.rejectedAt
                 additionalProperties(depositRejection.additionalProperties)
-            }
-
-            /** The identifier of the Check Deposit that was rejected. */
-            fun checkDepositId(checkDepositId: String) =
-                checkDepositId(JsonField.of(checkDepositId))
-
-            /** The identifier of the Check Deposit that was rejected. */
-            @JsonProperty("check_deposit_id")
-            @ExcludeMissing
-            fun checkDepositId(checkDepositId: JsonField<String>) = apply {
-                this.checkDepositId = checkDepositId
             }
 
             /**
@@ -1130,6 +1119,17 @@ private constructor(
             @JsonProperty("amount")
             @ExcludeMissing
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+            /** The identifier of the Check Deposit that was rejected. */
+            fun checkDepositId(checkDepositId: String) =
+                checkDepositId(JsonField.of(checkDepositId))
+
+            /** The identifier of the Check Deposit that was rejected. */
+            @JsonProperty("check_deposit_id")
+            @ExcludeMissing
+            fun checkDepositId(checkDepositId: JsonField<String>) = apply {
+                this.checkDepositId = checkDepositId
+            }
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency.
@@ -1183,8 +1183,8 @@ private constructor(
 
             fun build(): DepositRejection =
                 DepositRejection(
-                    checkDepositId,
                     amount,
+                    checkDepositId,
                     currency,
                     reason,
                     rejectedAt,
@@ -1390,11 +1390,11 @@ private constructor(
     class DepositReturn
     private constructor(
         private val amount: JsonField<Long>,
-        private val returnedAt: JsonField<OffsetDateTime>,
-        private val currency: JsonField<Currency>,
         private val checkDepositId: JsonField<String>,
-        private val transactionId: JsonField<String>,
+        private val currency: JsonField<Currency>,
         private val returnReason: JsonField<ReturnReason>,
+        private val returnedAt: JsonField<OffsetDateTime>,
+        private val transactionId: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -1408,11 +1408,8 @@ private constructor(
          */
         fun amount(): Long = amount.getRequired("amount")
 
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the check
-         * deposit was returned.
-         */
-        fun returnedAt(): OffsetDateTime = returnedAt.getRequired("returned_at")
+        /** The identifier of the Check Deposit that was returned. */
+        fun checkDepositId(): String = checkDepositId.getRequired("check_deposit_id")
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
@@ -1420,22 +1417,37 @@ private constructor(
          */
         fun currency(): Currency = currency.getRequired("currency")
 
-        /** The identifier of the Check Deposit that was returned. */
-        fun checkDepositId(): String = checkDepositId.getRequired("check_deposit_id")
+        /** Why this check was returned by the bank holding the account it was drawn against. */
+        fun returnReason(): ReturnReason = returnReason.getRequired("return_reason")
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the check
+         * deposit was returned.
+         */
+        fun returnedAt(): OffsetDateTime = returnedAt.getRequired("returned_at")
 
         /**
          * The identifier of the transaction that reversed the original check deposit transaction.
          */
         fun transactionId(): String = transactionId.getRequired("transaction_id")
 
-        /** Why this check was returned by the bank holding the account it was drawn against. */
-        fun returnReason(): ReturnReason = returnReason.getRequired("return_reason")
-
         /**
          * The amount in the minor unit of the transaction's currency. For dollars, for example,
          * this is cents.
          */
         @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+        /** The identifier of the Check Deposit that was returned. */
+        @JsonProperty("check_deposit_id") @ExcludeMissing fun _checkDepositId() = checkDepositId
+
+        /**
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+         * currency.
+         */
+        @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+
+        /** Why this check was returned by the bank holding the account it was drawn against. */
+        @JsonProperty("return_reason") @ExcludeMissing fun _returnReason() = returnReason
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the check
@@ -1444,21 +1456,9 @@ private constructor(
         @JsonProperty("returned_at") @ExcludeMissing fun _returnedAt() = returnedAt
 
         /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
-         * currency.
-         */
-        @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
-
-        /** The identifier of the Check Deposit that was returned. */
-        @JsonProperty("check_deposit_id") @ExcludeMissing fun _checkDepositId() = checkDepositId
-
-        /**
          * The identifier of the transaction that reversed the original check deposit transaction.
          */
         @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
-
-        /** Why this check was returned by the bank holding the account it was drawn against. */
-        @JsonProperty("return_reason") @ExcludeMissing fun _returnReason() = returnReason
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1467,11 +1467,11 @@ private constructor(
         fun validate(): DepositReturn = apply {
             if (!validated) {
                 amount()
-                returnedAt()
-                currency()
                 checkDepositId()
-                transactionId()
+                currency()
                 returnReason()
+                returnedAt()
+                transactionId()
                 validated = true
             }
         }
@@ -1485,11 +1485,11 @@ private constructor(
 
             return other is DepositReturn &&
                 this.amount == other.amount &&
-                this.returnedAt == other.returnedAt &&
-                this.currency == other.currency &&
                 this.checkDepositId == other.checkDepositId &&
-                this.transactionId == other.transactionId &&
+                this.currency == other.currency &&
                 this.returnReason == other.returnReason &&
+                this.returnedAt == other.returnedAt &&
+                this.transactionId == other.transactionId &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -1498,11 +1498,11 @@ private constructor(
                 hashCode =
                     Objects.hash(
                         amount,
-                        returnedAt,
-                        currency,
                         checkDepositId,
-                        transactionId,
+                        currency,
                         returnReason,
+                        returnedAt,
+                        transactionId,
                         additionalProperties,
                     )
             }
@@ -1510,7 +1510,7 @@ private constructor(
         }
 
         override fun toString() =
-            "DepositReturn{amount=$amount, returnedAt=$returnedAt, currency=$currency, checkDepositId=$checkDepositId, transactionId=$transactionId, returnReason=$returnReason, additionalProperties=$additionalProperties}"
+            "DepositReturn{amount=$amount, checkDepositId=$checkDepositId, currency=$currency, returnReason=$returnReason, returnedAt=$returnedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1520,21 +1520,21 @@ private constructor(
         class Builder {
 
             private var amount: JsonField<Long> = JsonMissing.of()
-            private var returnedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var currency: JsonField<Currency> = JsonMissing.of()
             private var checkDepositId: JsonField<String> = JsonMissing.of()
-            private var transactionId: JsonField<String> = JsonMissing.of()
+            private var currency: JsonField<Currency> = JsonMissing.of()
             private var returnReason: JsonField<ReturnReason> = JsonMissing.of()
+            private var returnedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var transactionId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(depositReturn: DepositReturn) = apply {
                 this.amount = depositReturn.amount
-                this.returnedAt = depositReturn.returnedAt
-                this.currency = depositReturn.currency
                 this.checkDepositId = depositReturn.checkDepositId
-                this.transactionId = depositReturn.transactionId
+                this.currency = depositReturn.currency
                 this.returnReason = depositReturn.returnReason
+                this.returnedAt = depositReturn.returnedAt
+                this.transactionId = depositReturn.transactionId
                 additionalProperties(depositReturn.additionalProperties)
             }
 
@@ -1551,6 +1551,41 @@ private constructor(
             @JsonProperty("amount")
             @ExcludeMissing
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+            /** The identifier of the Check Deposit that was returned. */
+            fun checkDepositId(checkDepositId: String) =
+                checkDepositId(JsonField.of(checkDepositId))
+
+            /** The identifier of the Check Deposit that was returned. */
+            @JsonProperty("check_deposit_id")
+            @ExcludeMissing
+            fun checkDepositId(checkDepositId: JsonField<String>) = apply {
+                this.checkDepositId = checkDepositId
+            }
+
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+             * currency.
+             */
+            fun currency(currency: Currency) = currency(JsonField.of(currency))
+
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+             * currency.
+             */
+            @JsonProperty("currency")
+            @ExcludeMissing
+            fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+            /** Why this check was returned by the bank holding the account it was drawn against. */
+            fun returnReason(returnReason: ReturnReason) = returnReason(JsonField.of(returnReason))
+
+            /** Why this check was returned by the bank holding the account it was drawn against. */
+            @JsonProperty("return_reason")
+            @ExcludeMissing
+            fun returnReason(returnReason: JsonField<ReturnReason>) = apply {
+                this.returnReason = returnReason
+            }
 
             /**
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
@@ -1569,31 +1604,6 @@ private constructor(
             }
 
             /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
-             * currency.
-             */
-            fun currency(currency: Currency) = currency(JsonField.of(currency))
-
-            /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
-             * currency.
-             */
-            @JsonProperty("currency")
-            @ExcludeMissing
-            fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
-
-            /** The identifier of the Check Deposit that was returned. */
-            fun checkDepositId(checkDepositId: String) =
-                checkDepositId(JsonField.of(checkDepositId))
-
-            /** The identifier of the Check Deposit that was returned. */
-            @JsonProperty("check_deposit_id")
-            @ExcludeMissing
-            fun checkDepositId(checkDepositId: JsonField<String>) = apply {
-                this.checkDepositId = checkDepositId
-            }
-
-            /**
              * The identifier of the transaction that reversed the original check deposit
              * transaction.
              */
@@ -1607,16 +1617,6 @@ private constructor(
             @ExcludeMissing
             fun transactionId(transactionId: JsonField<String>) = apply {
                 this.transactionId = transactionId
-            }
-
-            /** Why this check was returned by the bank holding the account it was drawn against. */
-            fun returnReason(returnReason: ReturnReason) = returnReason(JsonField.of(returnReason))
-
-            /** Why this check was returned by the bank holding the account it was drawn against. */
-            @JsonProperty("return_reason")
-            @ExcludeMissing
-            fun returnReason(returnReason: JsonField<ReturnReason>) = apply {
-                this.returnReason = returnReason
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1636,11 +1636,11 @@ private constructor(
             fun build(): DepositReturn =
                 DepositReturn(
                     amount,
-                    returnedAt,
-                    currency,
                     checkDepositId,
-                    transactionId,
+                    currency,
                     returnReason,
+                    returnedAt,
+                    transactionId,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -1953,9 +1953,9 @@ private constructor(
     @NoAutoDetect
     class DepositSubmission
     private constructor(
-        private val submittedAt: JsonField<OffsetDateTime>,
-        private val frontFileId: JsonField<String>,
         private val backFileId: JsonField<String>,
+        private val frontFileId: JsonField<String>,
+        private val submittedAt: JsonField<OffsetDateTime>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -1964,10 +1964,10 @@ private constructor(
         private var hashCode: Int = 0
 
         /**
-         * When the check deposit was submitted to the Check21 network for processing. During
-         * business days, this happens within a few hours of the check being accepted by Increase.
+         * The ID for the File containing the check back image that was submitted to the Check21
+         * network.
          */
-        fun submittedAt(): OffsetDateTime = submittedAt.getRequired("submitted_at")
+        fun backFileId(): String = backFileId.getRequired("back_file_id")
 
         /**
          * The ID for the File containing the check front image that was submitted to the Check21
@@ -1976,16 +1976,16 @@ private constructor(
         fun frontFileId(): String = frontFileId.getRequired("front_file_id")
 
         /**
-         * The ID for the File containing the check back image that was submitted to the Check21
-         * network.
-         */
-        fun backFileId(): String = backFileId.getRequired("back_file_id")
-
-        /**
          * When the check deposit was submitted to the Check21 network for processing. During
          * business days, this happens within a few hours of the check being accepted by Increase.
          */
-        @JsonProperty("submitted_at") @ExcludeMissing fun _submittedAt() = submittedAt
+        fun submittedAt(): OffsetDateTime = submittedAt.getRequired("submitted_at")
+
+        /**
+         * The ID for the File containing the check back image that was submitted to the Check21
+         * network.
+         */
+        @JsonProperty("back_file_id") @ExcludeMissing fun _backFileId() = backFileId
 
         /**
          * The ID for the File containing the check front image that was submitted to the Check21
@@ -1994,10 +1994,10 @@ private constructor(
         @JsonProperty("front_file_id") @ExcludeMissing fun _frontFileId() = frontFileId
 
         /**
-         * The ID for the File containing the check back image that was submitted to the Check21
-         * network.
+         * When the check deposit was submitted to the Check21 network for processing. During
+         * business days, this happens within a few hours of the check being accepted by Increase.
          */
-        @JsonProperty("back_file_id") @ExcludeMissing fun _backFileId() = backFileId
+        @JsonProperty("submitted_at") @ExcludeMissing fun _submittedAt() = submittedAt
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -2005,9 +2005,9 @@ private constructor(
 
         fun validate(): DepositSubmission = apply {
             if (!validated) {
-                submittedAt()
-                frontFileId()
                 backFileId()
+                frontFileId()
+                submittedAt()
                 validated = true
             }
         }
@@ -2020,9 +2020,9 @@ private constructor(
             }
 
             return other is DepositSubmission &&
-                this.submittedAt == other.submittedAt &&
-                this.frontFileId == other.frontFileId &&
                 this.backFileId == other.backFileId &&
+                this.frontFileId == other.frontFileId &&
+                this.submittedAt == other.submittedAt &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -2030,9 +2030,9 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        submittedAt,
-                        frontFileId,
                         backFileId,
+                        frontFileId,
+                        submittedAt,
                         additionalProperties,
                     )
             }
@@ -2040,7 +2040,7 @@ private constructor(
         }
 
         override fun toString() =
-            "DepositSubmission{submittedAt=$submittedAt, frontFileId=$frontFileId, backFileId=$backFileId, additionalProperties=$additionalProperties}"
+            "DepositSubmission{backFileId=$backFileId, frontFileId=$frontFileId, submittedAt=$submittedAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -2049,17 +2049,47 @@ private constructor(
 
         class Builder {
 
-            private var submittedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var frontFileId: JsonField<String> = JsonMissing.of()
             private var backFileId: JsonField<String> = JsonMissing.of()
+            private var frontFileId: JsonField<String> = JsonMissing.of()
+            private var submittedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(depositSubmission: DepositSubmission) = apply {
-                this.submittedAt = depositSubmission.submittedAt
-                this.frontFileId = depositSubmission.frontFileId
                 this.backFileId = depositSubmission.backFileId
+                this.frontFileId = depositSubmission.frontFileId
+                this.submittedAt = depositSubmission.submittedAt
                 additionalProperties(depositSubmission.additionalProperties)
+            }
+
+            /**
+             * The ID for the File containing the check back image that was submitted to the Check21
+             * network.
+             */
+            fun backFileId(backFileId: String) = backFileId(JsonField.of(backFileId))
+
+            /**
+             * The ID for the File containing the check back image that was submitted to the Check21
+             * network.
+             */
+            @JsonProperty("back_file_id")
+            @ExcludeMissing
+            fun backFileId(backFileId: JsonField<String>) = apply { this.backFileId = backFileId }
+
+            /**
+             * The ID for the File containing the check front image that was submitted to the
+             * Check21 network.
+             */
+            fun frontFileId(frontFileId: String) = frontFileId(JsonField.of(frontFileId))
+
+            /**
+             * The ID for the File containing the check front image that was submitted to the
+             * Check21 network.
+             */
+            @JsonProperty("front_file_id")
+            @ExcludeMissing
+            fun frontFileId(frontFileId: JsonField<String>) = apply {
+                this.frontFileId = frontFileId
             }
 
             /**
@@ -2080,36 +2110,6 @@ private constructor(
                 this.submittedAt = submittedAt
             }
 
-            /**
-             * The ID for the File containing the check front image that was submitted to the
-             * Check21 network.
-             */
-            fun frontFileId(frontFileId: String) = frontFileId(JsonField.of(frontFileId))
-
-            /**
-             * The ID for the File containing the check front image that was submitted to the
-             * Check21 network.
-             */
-            @JsonProperty("front_file_id")
-            @ExcludeMissing
-            fun frontFileId(frontFileId: JsonField<String>) = apply {
-                this.frontFileId = frontFileId
-            }
-
-            /**
-             * The ID for the File containing the check back image that was submitted to the Check21
-             * network.
-             */
-            fun backFileId(backFileId: String) = backFileId(JsonField.of(backFileId))
-
-            /**
-             * The ID for the File containing the check back image that was submitted to the Check21
-             * network.
-             */
-            @JsonProperty("back_file_id")
-            @ExcludeMissing
-            fun backFileId(backFileId: JsonField<String>) = apply { this.backFileId = backFileId }
-
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -2126,9 +2126,9 @@ private constructor(
 
             fun build(): DepositSubmission =
                 DepositSubmission(
-                    submittedAt,
-                    frontFileId,
                     backFileId,
+                    frontFileId,
+                    submittedAt,
                     additionalProperties.toUnmodifiable(),
                 )
         }
