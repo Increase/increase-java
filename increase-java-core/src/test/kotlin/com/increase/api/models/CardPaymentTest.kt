@@ -38,6 +38,7 @@ class CardPaymentTest {
                                     .merchantCity("merchant_city")
                                     .merchantCountry("merchant_country")
                                     .merchantDescriptor("merchant_descriptor")
+                                    .merchantState("merchant_state")
                                     .networkDetails(
                                         CardPayment.Element.CardAuthorization.NetworkDetails
                                             .builder()
@@ -791,6 +792,7 @@ class CardPaymentTest {
                                     .merchantCity("merchant_city")
                                     .merchantCountry("merchant_country")
                                     .merchantDescriptor("merchant_descriptor")
+                                    .merchantState("merchant_state")
                                     .networkDetails(
                                         CardPayment.Element.CardValidation.NetworkDetails.builder()
                                             .category(
@@ -910,6 +912,7 @@ class CardPaymentTest {
                             .merchantCity("merchant_city")
                             .merchantCountry("merchant_country")
                             .merchantDescriptor("merchant_descriptor")
+                            .merchantState("merchant_state")
                             .networkDetails(
                                 CardPayment.Element.CardAuthorization.NetworkDetails.builder()
                                     .category(
@@ -1584,6 +1587,7 @@ class CardPaymentTest {
                             .merchantCity("merchant_city")
                             .merchantCountry("merchant_country")
                             .merchantDescriptor("merchant_descriptor")
+                            .merchantState("merchant_state")
                             .networkDetails(
                                 CardPayment.Element.CardValidation.NetworkDetails.builder()
                                     .category(
