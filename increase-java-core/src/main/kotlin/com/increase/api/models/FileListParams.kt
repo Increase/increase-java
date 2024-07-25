@@ -511,6 +511,10 @@ constructor(
                 val UNUSUAL_ACTIVITY_REPORT_ATTACHMENT =
                     In(JsonField.of("unusual_activity_report_attachment"))
 
+                @JvmField
+                val DEPOSIT_ACCESS_CONTROL_AGREEMENT =
+                    In(JsonField.of("deposit_access_control_agreement"))
+
                 @JvmStatic fun of(value: String) = In(JsonField.of(value))
             }
 
@@ -536,6 +540,7 @@ constructor(
                 ENTITY_SUPPLEMENTAL_DOCUMENT,
                 EXPORT,
                 UNUSUAL_ACTIVITY_REPORT_ATTACHMENT,
+                DEPOSIT_ACCESS_CONTROL_AGREEMENT,
             }
 
             enum class Value {
@@ -560,6 +565,7 @@ constructor(
                 ENTITY_SUPPLEMENTAL_DOCUMENT,
                 EXPORT,
                 UNUSUAL_ACTIVITY_REPORT_ATTACHMENT,
+                DEPOSIT_ACCESS_CONTROL_AGREEMENT,
                 _UNKNOWN,
             }
 
@@ -586,6 +592,7 @@ constructor(
                     ENTITY_SUPPLEMENTAL_DOCUMENT -> Value.ENTITY_SUPPLEMENTAL_DOCUMENT
                     EXPORT -> Value.EXPORT
                     UNUSUAL_ACTIVITY_REPORT_ATTACHMENT -> Value.UNUSUAL_ACTIVITY_REPORT_ATTACHMENT
+                    DEPOSIT_ACCESS_CONTROL_AGREEMENT -> Value.DEPOSIT_ACCESS_CONTROL_AGREEMENT
                     else -> Value._UNKNOWN
                 }
 
@@ -612,6 +619,7 @@ constructor(
                     ENTITY_SUPPLEMENTAL_DOCUMENT -> Known.ENTITY_SUPPLEMENTAL_DOCUMENT
                     EXPORT -> Known.EXPORT
                     UNUSUAL_ACTIVITY_REPORT_ATTACHMENT -> Known.UNUSUAL_ACTIVITY_REPORT_ATTACHMENT
+                    DEPOSIT_ACCESS_CONTROL_AGREEMENT -> Known.DEPOSIT_ACCESS_CONTROL_AGREEMENT
                     else -> throw IncreaseInvalidDataException("Unknown In: $value")
                 }
 
