@@ -289,6 +289,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                         .merchantCity("merchant_city")
                                         .merchantCountry("merchant_country")
                                         .merchantDescriptor("merchant_descriptor")
+                                        .merchantState("merchant_state")
                                         .networkDetails(
                                             PendingTransaction.Source.CardAuthorization
                                                 .NetworkDetails
@@ -733,6 +734,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                     .merchantCity("merchant_city")
                                     .merchantCountry("merchant_country")
                                     .merchantDescriptor("merchant_descriptor")
+                                    .merchantState("merchant_state")
                                     .networkDetails(
                                         PendingTransaction.Source.CardAuthorization.NetworkDetails
                                             .builder()

@@ -1468,6 +1468,7 @@ private constructor(
             private val merchantCity: JsonField<String>,
             private val merchantCountry: JsonField<String>,
             private val merchantDescriptor: JsonField<String>,
+            private val merchantState: JsonField<String>,
             private val networkDetails: JsonField<NetworkDetails>,
             private val networkIdentifiers: JsonField<NetworkIdentifiers>,
             private val networkRiskScore: JsonField<Long>,
@@ -1553,6 +1554,10 @@ private constructor(
 
             /** The merchant descriptor of the merchant the card is transacting with. */
             fun merchantDescriptor(): String = merchantDescriptor.getRequired("merchant_descriptor")
+
+            /** The state the merchant resides in. */
+            fun merchantState(): Optional<String> =
+                Optional.ofNullable(merchantState.getNullable("merchant_state"))
 
             /** Fields specific to the `network`. */
             fun networkDetails(): NetworkDetails = networkDetails.getRequired("network_details")
@@ -1684,6 +1689,9 @@ private constructor(
             @ExcludeMissing
             fun _merchantDescriptor() = merchantDescriptor
 
+            /** The state the merchant resides in. */
+            @JsonProperty("merchant_state") @ExcludeMissing fun _merchantState() = merchantState
+
             /** Fields specific to the `network`. */
             @JsonProperty("network_details") @ExcludeMissing fun _networkDetails() = networkDetails
 
@@ -1767,6 +1775,7 @@ private constructor(
                     merchantCity()
                     merchantCountry()
                     merchantDescriptor()
+                    merchantState()
                     networkDetails().validate()
                     networkIdentifiers().validate()
                     networkRiskScore()
@@ -1803,6 +1812,7 @@ private constructor(
                     this.merchantCity == other.merchantCity &&
                     this.merchantCountry == other.merchantCountry &&
                     this.merchantDescriptor == other.merchantDescriptor &&
+                    this.merchantState == other.merchantState &&
                     this.networkDetails == other.networkDetails &&
                     this.networkIdentifiers == other.networkIdentifiers &&
                     this.networkRiskScore == other.networkRiskScore &&
@@ -1834,6 +1844,7 @@ private constructor(
                             merchantCity,
                             merchantCountry,
                             merchantDescriptor,
+                            merchantState,
                             networkDetails,
                             networkIdentifiers,
                             networkRiskScore,
@@ -1852,7 +1863,7 @@ private constructor(
             }
 
             override fun toString() =
-                "CardAuthorization{actioner=$actioner, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, expiresAt=$expiresAt, id=$id, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, pendingTransactionId=$pendingTransactionId, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, type=$type, verification=$verification, additionalProperties=$additionalProperties}"
+                "CardAuthorization{actioner=$actioner, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, expiresAt=$expiresAt, id=$id, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, pendingTransactionId=$pendingTransactionId, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, type=$type, verification=$verification, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1874,6 +1885,7 @@ private constructor(
                 private var merchantCity: JsonField<String> = JsonMissing.of()
                 private var merchantCountry: JsonField<String> = JsonMissing.of()
                 private var merchantDescriptor: JsonField<String> = JsonMissing.of()
+                private var merchantState: JsonField<String> = JsonMissing.of()
                 private var networkDetails: JsonField<NetworkDetails> = JsonMissing.of()
                 private var networkIdentifiers: JsonField<NetworkIdentifiers> = JsonMissing.of()
                 private var networkRiskScore: JsonField<Long> = JsonMissing.of()
@@ -1902,6 +1914,7 @@ private constructor(
                     this.merchantCity = cardAuthorization.merchantCity
                     this.merchantCountry = cardAuthorization.merchantCountry
                     this.merchantDescriptor = cardAuthorization.merchantDescriptor
+                    this.merchantState = cardAuthorization.merchantState
                     this.networkDetails = cardAuthorization.networkDetails
                     this.networkIdentifiers = cardAuthorization.networkIdentifiers
                     this.networkRiskScore = cardAuthorization.networkRiskScore
@@ -2092,6 +2105,17 @@ private constructor(
                     this.merchantDescriptor = merchantDescriptor
                 }
 
+                /** The state the merchant resides in. */
+                fun merchantState(merchantState: String) =
+                    merchantState(JsonField.of(merchantState))
+
+                /** The state the merchant resides in. */
+                @JsonProperty("merchant_state")
+                @ExcludeMissing
+                fun merchantState(merchantState: JsonField<String>) = apply {
+                    this.merchantState = merchantState
+                }
+
                 /** Fields specific to the `network`. */
                 fun networkDetails(networkDetails: NetworkDetails) =
                     networkDetails(JsonField.of(networkDetails))
@@ -2280,6 +2304,7 @@ private constructor(
                         merchantCity,
                         merchantCountry,
                         merchantDescriptor,
+                        merchantState,
                         networkDetails,
                         networkIdentifiers,
                         networkRiskScore,

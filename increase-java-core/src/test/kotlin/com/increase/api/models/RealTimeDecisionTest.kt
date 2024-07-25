@@ -25,6 +25,7 @@ class RealTimeDecisionTest {
                         .merchantCity("merchant_city")
                         .merchantCountry("merchant_country")
                         .merchantDescriptor("merchant_descriptor")
+                        .merchantState("merchant_state")
                         .networkDetails(
                             RealTimeDecision.CardAuthorization.NetworkDetails.builder()
                                 .category(
@@ -157,6 +158,7 @@ class RealTimeDecisionTest {
                     .merchantCity("merchant_city")
                     .merchantCountry("merchant_country")
                     .merchantDescriptor("merchant_descriptor")
+                    .merchantState("merchant_state")
                     .networkDetails(
                         RealTimeDecision.CardAuthorization.NetworkDetails.builder()
                             .category(
