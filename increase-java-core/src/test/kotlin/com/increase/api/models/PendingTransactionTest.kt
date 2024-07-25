@@ -56,6 +56,7 @@ class PendingTransactionTest {
                                 .merchantCity("merchant_city")
                                 .merchantCountry("merchant_country")
                                 .merchantDescriptor("merchant_descriptor")
+                                .merchantState("merchant_state")
                                 .networkDetails(
                                     PendingTransaction.Source.CardAuthorization.NetworkDetails
                                         .builder()
@@ -255,6 +256,7 @@ class PendingTransactionTest {
                             .merchantCity("merchant_city")
                             .merchantCountry("merchant_country")
                             .merchantDescriptor("merchant_descriptor")
+                            .merchantState("merchant_state")
                             .networkDetails(
                                 PendingTransaction.Source.CardAuthorization.NetworkDetails.builder()
                                     .category(
