@@ -67,6 +67,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                         .merchantCity("merchant_city")
                                         .merchantCountry("merchant_country")
                                         .merchantDescriptor("merchant_descriptor")
+                                        .merchantPostalCode("merchant_postal_code")
                                         .merchantState("merchant_state")
                                         .networkDetails(
                                             DeclinedTransaction.Source.CardDecline.NetworkDetails
@@ -289,6 +290,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                         .merchantCity("merchant_city")
                                         .merchantCountry("merchant_country")
                                         .merchantDescriptor("merchant_descriptor")
+                                        .merchantPostalCode("merchant_postal_code")
                                         .merchantState("merchant_state")
                                         .networkDetails(
                                             PendingTransaction.Source.CardAuthorization
@@ -522,6 +524,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                     .merchantCity("merchant_city")
                                     .merchantCountry("merchant_country")
                                     .merchantDescriptor("merchant_descriptor")
+                                    .merchantPostalCode("merchant_postal_code")
                                     .merchantState("merchant_state")
                                     .networkDetails(
                                         DeclinedTransaction.Source.CardDecline.NetworkDetails
@@ -734,6 +737,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                     .merchantCity("merchant_city")
                                     .merchantCountry("merchant_country")
                                     .merchantDescriptor("merchant_descriptor")
+                                    .merchantPostalCode("merchant_postal_code")
                                     .merchantState("merchant_state")
                                     .networkDetails(
                                         PendingTransaction.Source.CardAuthorization.NetworkDetails
