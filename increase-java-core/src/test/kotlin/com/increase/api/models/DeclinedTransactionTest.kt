@@ -58,6 +58,7 @@ class DeclinedTransactionTest {
                                 .merchantCity("merchant_city")
                                 .merchantCountry("merchant_country")
                                 .merchantDescriptor("merchant_descriptor")
+                                .merchantPostalCode("merchant_postal_code")
                                 .merchantState("merchant_state")
                                 .networkDetails(
                                     DeclinedTransaction.Source.CardDecline.NetworkDetails.builder()
@@ -256,6 +257,7 @@ class DeclinedTransactionTest {
                             .merchantCity("merchant_city")
                             .merchantCountry("merchant_country")
                             .merchantDescriptor("merchant_descriptor")
+                            .merchantPostalCode("merchant_postal_code")
                             .merchantState("merchant_state")
                             .networkDetails(
                                 DeclinedTransaction.Source.CardDecline.NetworkDetails.builder()
