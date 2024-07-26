@@ -1468,6 +1468,7 @@ private constructor(
             private val merchantCity: JsonField<String>,
             private val merchantCountry: JsonField<String>,
             private val merchantDescriptor: JsonField<String>,
+            private val merchantPostalCode: JsonField<String>,
             private val merchantState: JsonField<String>,
             private val networkDetails: JsonField<NetworkDetails>,
             private val networkIdentifiers: JsonField<NetworkIdentifiers>,
@@ -1554,6 +1555,13 @@ private constructor(
 
             /** The merchant descriptor of the merchant the card is transacting with. */
             fun merchantDescriptor(): String = merchantDescriptor.getRequired("merchant_descriptor")
+
+            /**
+             * The merchant's postal code. For US merchants this is either a 5-digit or 9-digit ZIP
+             * code, where the first 5 and last 4 are separated by a dash.
+             */
+            fun merchantPostalCode(): Optional<String> =
+                Optional.ofNullable(merchantPostalCode.getNullable("merchant_postal_code"))
 
             /** The state the merchant resides in. */
             fun merchantState(): Optional<String> =
@@ -1689,6 +1697,14 @@ private constructor(
             @ExcludeMissing
             fun _merchantDescriptor() = merchantDescriptor
 
+            /**
+             * The merchant's postal code. For US merchants this is either a 5-digit or 9-digit ZIP
+             * code, where the first 5 and last 4 are separated by a dash.
+             */
+            @JsonProperty("merchant_postal_code")
+            @ExcludeMissing
+            fun _merchantPostalCode() = merchantPostalCode
+
             /** The state the merchant resides in. */
             @JsonProperty("merchant_state") @ExcludeMissing fun _merchantState() = merchantState
 
@@ -1775,6 +1791,7 @@ private constructor(
                     merchantCity()
                     merchantCountry()
                     merchantDescriptor()
+                    merchantPostalCode()
                     merchantState()
                     networkDetails().validate()
                     networkIdentifiers().validate()
@@ -1812,6 +1829,7 @@ private constructor(
                     this.merchantCity == other.merchantCity &&
                     this.merchantCountry == other.merchantCountry &&
                     this.merchantDescriptor == other.merchantDescriptor &&
+                    this.merchantPostalCode == other.merchantPostalCode &&
                     this.merchantState == other.merchantState &&
                     this.networkDetails == other.networkDetails &&
                     this.networkIdentifiers == other.networkIdentifiers &&
@@ -1844,6 +1862,7 @@ private constructor(
                             merchantCity,
                             merchantCountry,
                             merchantDescriptor,
+                            merchantPostalCode,
                             merchantState,
                             networkDetails,
                             networkIdentifiers,
@@ -1863,7 +1882,7 @@ private constructor(
             }
 
             override fun toString() =
-                "CardAuthorization{actioner=$actioner, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, expiresAt=$expiresAt, id=$id, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, pendingTransactionId=$pendingTransactionId, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, type=$type, verification=$verification, additionalProperties=$additionalProperties}"
+                "CardAuthorization{actioner=$actioner, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, expiresAt=$expiresAt, id=$id, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, pendingTransactionId=$pendingTransactionId, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, type=$type, verification=$verification, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1885,6 +1904,7 @@ private constructor(
                 private var merchantCity: JsonField<String> = JsonMissing.of()
                 private var merchantCountry: JsonField<String> = JsonMissing.of()
                 private var merchantDescriptor: JsonField<String> = JsonMissing.of()
+                private var merchantPostalCode: JsonField<String> = JsonMissing.of()
                 private var merchantState: JsonField<String> = JsonMissing.of()
                 private var networkDetails: JsonField<NetworkDetails> = JsonMissing.of()
                 private var networkIdentifiers: JsonField<NetworkIdentifiers> = JsonMissing.of()
@@ -1914,6 +1934,7 @@ private constructor(
                     this.merchantCity = cardAuthorization.merchantCity
                     this.merchantCountry = cardAuthorization.merchantCountry
                     this.merchantDescriptor = cardAuthorization.merchantDescriptor
+                    this.merchantPostalCode = cardAuthorization.merchantPostalCode
                     this.merchantState = cardAuthorization.merchantState
                     this.networkDetails = cardAuthorization.networkDetails
                     this.networkIdentifiers = cardAuthorization.networkIdentifiers
@@ -2103,6 +2124,23 @@ private constructor(
                 @ExcludeMissing
                 fun merchantDescriptor(merchantDescriptor: JsonField<String>) = apply {
                     this.merchantDescriptor = merchantDescriptor
+                }
+
+                /**
+                 * The merchant's postal code. For US merchants this is either a 5-digit or 9-digit
+                 * ZIP code, where the first 5 and last 4 are separated by a dash.
+                 */
+                fun merchantPostalCode(merchantPostalCode: String) =
+                    merchantPostalCode(JsonField.of(merchantPostalCode))
+
+                /**
+                 * The merchant's postal code. For US merchants this is either a 5-digit or 9-digit
+                 * ZIP code, where the first 5 and last 4 are separated by a dash.
+                 */
+                @JsonProperty("merchant_postal_code")
+                @ExcludeMissing
+                fun merchantPostalCode(merchantPostalCode: JsonField<String>) = apply {
+                    this.merchantPostalCode = merchantPostalCode
                 }
 
                 /** The state the merchant resides in. */
@@ -2304,6 +2342,7 @@ private constructor(
                         merchantCity,
                         merchantCountry,
                         merchantDescriptor,
+                        merchantPostalCode,
                         merchantState,
                         networkDetails,
                         networkIdentifiers,

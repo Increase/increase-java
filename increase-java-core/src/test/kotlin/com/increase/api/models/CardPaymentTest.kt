@@ -38,6 +38,7 @@ class CardPaymentTest {
                                     .merchantCity("merchant_city")
                                     .merchantCountry("merchant_country")
                                     .merchantDescriptor("merchant_descriptor")
+                                    .merchantPostalCode("merchant_postal_code")
                                     .merchantState("merchant_state")
                                     .networkDetails(
                                         CardPayment.Element.CardAuthorization.NetworkDetails
@@ -158,6 +159,7 @@ class CardPaymentTest {
                                     .merchantCity("merchant_city")
                                     .merchantCountry("merchant_country")
                                     .merchantDescriptor("merchant_descriptor")
+                                    .merchantPostalCode("merchant_postal_code")
                                     .merchantState("merchant_state")
                                     .networkDetails(
                                         CardPayment.Element.CardDecline.NetworkDetails.builder()
@@ -792,6 +794,7 @@ class CardPaymentTest {
                                     .merchantCity("merchant_city")
                                     .merchantCountry("merchant_country")
                                     .merchantDescriptor("merchant_descriptor")
+                                    .merchantPostalCode("merchant_postal_code")
                                     .merchantState("merchant_state")
                                     .networkDetails(
                                         CardPayment.Element.CardValidation.NetworkDetails.builder()
@@ -912,6 +915,7 @@ class CardPaymentTest {
                             .merchantCity("merchant_city")
                             .merchantCountry("merchant_country")
                             .merchantDescriptor("merchant_descriptor")
+                            .merchantPostalCode("merchant_postal_code")
                             .merchantState("merchant_state")
                             .networkDetails(
                                 CardPayment.Element.CardAuthorization.NetworkDetails.builder()
@@ -1018,6 +1022,7 @@ class CardPaymentTest {
                             .merchantCity("merchant_city")
                             .merchantCountry("merchant_country")
                             .merchantDescriptor("merchant_descriptor")
+                            .merchantPostalCode("merchant_postal_code")
                             .merchantState("merchant_state")
                             .networkDetails(
                                 CardPayment.Element.CardDecline.NetworkDetails.builder()
@@ -1587,6 +1592,7 @@ class CardPaymentTest {
                             .merchantCity("merchant_city")
                             .merchantCountry("merchant_country")
                             .merchantDescriptor("merchant_descriptor")
+                            .merchantPostalCode("merchant_postal_code")
                             .merchantState("merchant_state")
                             .networkDetails(
                                 CardPayment.Element.CardValidation.NetworkDetails.builder()
