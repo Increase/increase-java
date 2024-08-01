@@ -18,6 +18,7 @@ class LockboxCreateParams
 constructor(
     private val accountId: String,
     private val description: String?,
+    private val recipientName: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -27,11 +28,14 @@ constructor(
 
     fun description(): Optional<String> = Optional.ofNullable(description)
 
+    fun recipientName(): Optional<String> = Optional.ofNullable(recipientName)
+
     @JvmSynthetic
     internal fun getBody(): LockboxCreateBody {
         return LockboxCreateBody(
             accountId,
             description,
+            recipientName,
             additionalBodyProperties,
         )
     }
@@ -46,6 +50,7 @@ constructor(
     internal constructor(
         private val accountId: String?,
         private val description: String?,
+        private val recipientName: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -56,6 +61,9 @@ constructor(
 
         /** The description you choose for the Lockbox, for display purposes. */
         @JsonProperty("description") fun description(): String? = description
+
+        /** The name of the recipient that will receive mail at this location. */
+        @JsonProperty("recipient_name") fun recipientName(): String? = recipientName
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -71,6 +79,7 @@ constructor(
             return other is LockboxCreateBody &&
                 this.accountId == other.accountId &&
                 this.description == other.description &&
+                this.recipientName == other.recipientName &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -80,6 +89,7 @@ constructor(
                     Objects.hash(
                         accountId,
                         description,
+                        recipientName,
                         additionalProperties,
                     )
             }
@@ -87,7 +97,7 @@ constructor(
         }
 
         override fun toString() =
-            "LockboxCreateBody{accountId=$accountId, description=$description, additionalProperties=$additionalProperties}"
+            "LockboxCreateBody{accountId=$accountId, description=$description, recipientName=$recipientName, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -98,12 +108,14 @@ constructor(
 
             private var accountId: String? = null
             private var description: String? = null
+            private var recipientName: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(lockboxCreateBody: LockboxCreateBody) = apply {
                 this.accountId = lockboxCreateBody.accountId
                 this.description = lockboxCreateBody.description
+                this.recipientName = lockboxCreateBody.recipientName
                 additionalProperties(lockboxCreateBody.additionalProperties)
             }
 
@@ -114,6 +126,10 @@ constructor(
             /** The description you choose for the Lockbox, for display purposes. */
             @JsonProperty("description")
             fun description(description: String) = apply { this.description = description }
+
+            /** The name of the recipient that will receive mail at this location. */
+            @JsonProperty("recipient_name")
+            fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -133,6 +149,7 @@ constructor(
                 LockboxCreateBody(
                     checkNotNull(accountId) { "`accountId` is required but was not set" },
                     description,
+                    recipientName,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -152,6 +169,7 @@ constructor(
         return other is LockboxCreateParams &&
             this.accountId == other.accountId &&
             this.description == other.description &&
+            this.recipientName == other.recipientName &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -161,6 +179,7 @@ constructor(
         return Objects.hash(
             accountId,
             description,
+            recipientName,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -168,7 +187,7 @@ constructor(
     }
 
     override fun toString() =
-        "LockboxCreateParams{accountId=$accountId, description=$description, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "LockboxCreateParams{accountId=$accountId, description=$description, recipientName=$recipientName, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -182,6 +201,7 @@ constructor(
 
         private var accountId: String? = null
         private var description: String? = null
+        private var recipientName: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -190,6 +210,7 @@ constructor(
         internal fun from(lockboxCreateParams: LockboxCreateParams) = apply {
             this.accountId = lockboxCreateParams.accountId
             this.description = lockboxCreateParams.description
+            this.recipientName = lockboxCreateParams.recipientName
             additionalQueryParams(lockboxCreateParams.additionalQueryParams)
             additionalHeaders(lockboxCreateParams.additionalHeaders)
             additionalBodyProperties(lockboxCreateParams.additionalBodyProperties)
@@ -200,6 +221,9 @@ constructor(
 
         /** The description you choose for the Lockbox, for display purposes. */
         fun description(description: String) = apply { this.description = description }
+
+        /** The name of the recipient that will receive mail at this location. */
+        fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -259,6 +283,7 @@ constructor(
             LockboxCreateParams(
                 checkNotNull(accountId) { "`accountId` is required but was not set" },
                 description,
+                recipientName,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

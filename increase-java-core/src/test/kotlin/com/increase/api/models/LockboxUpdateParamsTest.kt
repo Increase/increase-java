@@ -13,6 +13,7 @@ class LockboxUpdateParamsTest {
         LockboxUpdateParams.builder()
             .lockboxId("lockbox_id")
             .description("x")
+            .recipientName("x")
             .status(LockboxUpdateParams.Status.ACTIVE)
             .build()
     }
@@ -23,11 +24,13 @@ class LockboxUpdateParamsTest {
             LockboxUpdateParams.builder()
                 .lockboxId("lockbox_id")
                 .description("x")
+                .recipientName("x")
                 .status(LockboxUpdateParams.Status.ACTIVE)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.description()).isEqualTo("x")
+        assertThat(body.recipientName()).isEqualTo("x")
         assertThat(body.status()).isEqualTo(LockboxUpdateParams.Status.ACTIVE)
     }
 
