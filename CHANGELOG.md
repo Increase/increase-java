@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.73.0 (2024-08-08)
+
+Full Changelog: [v0.72.0...v0.73.0](https://github.com/Increase/increase-java/compare/v0.72.0...v0.73.0)
+
+### Features
+
+* **api:** api updates ([#345](https://github.com/Increase/increase-java/issues/345)) ([954172e](https://github.com/Increase/increase-java/commit/954172e21a577e2ffd80526339aa138f3dcc5995))
+* **api:** OpenAPI spec update via Stainless API ([#347](https://github.com/Increase/increase-java/issues/347)) ([df92656](https://github.com/Increase/increase-java/commit/df926561b04d8e4711884d7a6d073ec084d2e180))
+* **api:** OpenAPI spec update via Stainless API ([#348](https://github.com/Increase/increase-java/issues/348)) ([8554ae9](https://github.com/Increase/increase-java/commit/8554ae911c80bc846c15c3864056206fab19328c))
+* **client:** improve binary return values ([#343](https://github.com/Increase/increase-java/issues/343)) ([57ae93c](https://github.com/Increase/increase-java/commit/57ae93cf589963441ae79b650b346a4cf02d1094))
+
+
+### Chores
+
+* **ci:** run tests in CI ([#344](https://github.com/Increase/increase-java/issues/344)) ([37948d6](https://github.com/Increase/increase-java/commit/37948d62dc69dc09fccf981c07087457d1db78d4))
+* **internal:** capitalize github org name ([#346](https://github.com/Increase/increase-java/issues/346)) ([528ab40](https://github.com/Increase/increase-java/commit/528ab40068d36b9345c01831cea0581002ac490a))
+* **internal:** remove unused test file ([#341](https://github.com/Increase/increase-java/issues/341)) ([cd572b1](https://github.com/Increase/increase-java/commit/cd572b1827497082caaaee96e026e4c25eef6d23))
+
 ## 0.72.0 (2024-08-01)
 
 Full Changelog: [v0.71.0...v0.72.0](https://github.com/Increase/increase-java/compare/v0.71.0...v0.72.0)
