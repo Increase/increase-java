@@ -33,7 +33,6 @@ class PendingTransactionListParamsTest {
             .cursor("cursor")
             .limit(123L)
             .routeId("route_id")
-            .sourceId("source_id")
             .status(
                 PendingTransactionListParams.Status.builder()
                     .in_(listOf(PendingTransactionListParams.Status.In.PENDING))
@@ -68,7 +67,6 @@ class PendingTransactionListParamsTest {
                 .cursor("cursor")
                 .limit(123L)
                 .routeId("route_id")
-                .sourceId("source_id")
                 .status(
                     PendingTransactionListParams.Status.builder()
                         .in_(listOf(PendingTransactionListParams.Status.In.PENDING))
@@ -91,7 +89,6 @@ class PendingTransactionListParamsTest {
         expected.put("cursor", listOf("cursor"))
         expected.put("limit", listOf("123"))
         expected.put("route_id", listOf("route_id"))
-        expected.put("source_id", listOf("source_id"))
         PendingTransactionListParams.Status.builder()
             .in_(listOf(PendingTransactionListParams.Status.In.PENDING))
             .build()

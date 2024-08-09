@@ -23,7 +23,6 @@ constructor(
     private val cursor: String?,
     private val limit: Long?,
     private val routeId: String?,
-    private val sourceId: String?,
     private val status: Status?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -42,8 +41,6 @@ constructor(
 
     fun routeId(): Optional<String> = Optional.ofNullable(routeId)
 
-    fun sourceId(): Optional<String> = Optional.ofNullable(sourceId)
-
     fun status(): Optional<Status> = Optional.ofNullable(status)
 
     @JvmSynthetic
@@ -55,7 +52,6 @@ constructor(
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
         this.routeId?.let { params.put("route_id", listOf(it.toString())) }
-        this.sourceId?.let { params.put("source_id", listOf(it.toString())) }
         this.status?.forEachQueryParam { key, values -> params.put("status.$key", values) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
@@ -81,7 +77,6 @@ constructor(
             this.cursor == other.cursor &&
             this.limit == other.limit &&
             this.routeId == other.routeId &&
-            this.sourceId == other.sourceId &&
             this.status == other.status &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
@@ -96,7 +91,6 @@ constructor(
             cursor,
             limit,
             routeId,
-            sourceId,
             status,
             additionalQueryParams,
             additionalHeaders,
@@ -105,7 +99,7 @@ constructor(
     }
 
     override fun toString() =
-        "PendingTransactionListParams{accountId=$accountId, category=$category, createdAt=$createdAt, cursor=$cursor, limit=$limit, routeId=$routeId, sourceId=$sourceId, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "PendingTransactionListParams{accountId=$accountId, category=$category, createdAt=$createdAt, cursor=$cursor, limit=$limit, routeId=$routeId, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -123,7 +117,6 @@ constructor(
         private var cursor: String? = null
         private var limit: Long? = null
         private var routeId: String? = null
-        private var sourceId: String? = null
         private var status: Status? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -137,7 +130,6 @@ constructor(
             this.cursor = pendingTransactionListParams.cursor
             this.limit = pendingTransactionListParams.limit
             this.routeId = pendingTransactionListParams.routeId
-            this.sourceId = pendingTransactionListParams.sourceId
             this.status = pendingTransactionListParams.status
             additionalQueryParams(pendingTransactionListParams.additionalQueryParams)
             additionalHeaders(pendingTransactionListParams.additionalHeaders)
@@ -161,9 +153,6 @@ constructor(
 
         /** Filter pending transactions to those belonging to the specified Route. */
         fun routeId(routeId: String) = apply { this.routeId = routeId }
-
-        /** Filter pending transactions to those caused by the specified source. */
-        fun sourceId(sourceId: String) = apply { this.sourceId = sourceId }
 
         fun status(status: Status) = apply { this.status = status }
 
@@ -229,7 +218,6 @@ constructor(
                 cursor,
                 limit,
                 routeId,
-                sourceId,
                 status,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
