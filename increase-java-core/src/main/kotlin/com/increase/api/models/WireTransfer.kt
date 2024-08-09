@@ -2452,6 +2452,8 @@ private constructor(
 
             @JvmField val REVERSED = Status(JsonField.of("reversed"))
 
+            @JvmField val SUBMITTED = Status(JsonField.of("submitted"))
+
             @JvmField val COMPLETE = Status(JsonField.of("complete"))
 
             @JvmField val PENDING_CREATING = Status(JsonField.of("pending_creating"))
@@ -2466,6 +2468,7 @@ private constructor(
             PENDING_APPROVAL,
             REJECTED,
             REVERSED,
+            SUBMITTED,
             COMPLETE,
             PENDING_CREATING,
         }
@@ -2477,6 +2480,7 @@ private constructor(
             PENDING_APPROVAL,
             REJECTED,
             REVERSED,
+            SUBMITTED,
             COMPLETE,
             PENDING_CREATING,
             _UNKNOWN,
@@ -2490,6 +2494,7 @@ private constructor(
                 PENDING_APPROVAL -> Value.PENDING_APPROVAL
                 REJECTED -> Value.REJECTED
                 REVERSED -> Value.REVERSED
+                SUBMITTED -> Value.SUBMITTED
                 COMPLETE -> Value.COMPLETE
                 PENDING_CREATING -> Value.PENDING_CREATING
                 else -> Value._UNKNOWN
@@ -2503,6 +2508,7 @@ private constructor(
                 PENDING_APPROVAL -> Known.PENDING_APPROVAL
                 REJECTED -> Known.REJECTED
                 REVERSED -> Known.REVERSED
+                SUBMITTED -> Known.SUBMITTED
                 COMPLETE -> Known.COMPLETE
                 PENDING_CREATING -> Known.PENDING_CREATING
                 else -> throw IncreaseInvalidDataException("Unknown Status: $value")

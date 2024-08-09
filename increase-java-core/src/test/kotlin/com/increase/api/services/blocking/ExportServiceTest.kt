@@ -50,6 +50,7 @@ class ExportServiceTest {
                                     .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .build()
                             )
+                            .programId("program_id")
                             .build()
                     )
                     .bookkeepingAccountBalanceCsv(
@@ -85,6 +86,7 @@ class ExportServiceTest {
                                     .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .build()
                             )
+                            .programId("program_id")
                             .build()
                     )
                     .vendorCsv(JsonValue.from(mapOf<String, Any>()))

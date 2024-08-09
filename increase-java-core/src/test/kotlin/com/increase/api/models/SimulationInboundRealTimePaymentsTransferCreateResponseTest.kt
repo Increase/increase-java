@@ -966,40 +966,6 @@ class SimulationInboundRealTimePaymentsTransferCreateResponseTest {
                                         .transactionIdentification("transaction_identification")
                                         .build()
                                 )
-                                .inboundWireDrawdownPayment(
-                                    Transaction.Source.InboundWireDrawdownPayment.builder()
-                                        .amount(123L)
-                                        .beneficiaryAddressLine1("beneficiary_address_line1")
-                                        .beneficiaryAddressLine2("beneficiary_address_line2")
-                                        .beneficiaryAddressLine3("beneficiary_address_line3")
-                                        .beneficiaryName("beneficiary_name")
-                                        .beneficiaryReference("beneficiary_reference")
-                                        .description("description")
-                                        .inputMessageAccountabilityData(
-                                            "input_message_accountability_data"
-                                        )
-                                        .originatorAddressLine1("originator_address_line1")
-                                        .originatorAddressLine2("originator_address_line2")
-                                        .originatorAddressLine3("originator_address_line3")
-                                        .originatorName("originator_name")
-                                        .originatorRoutingNumber("originator_routing_number")
-                                        .originatorToBeneficiaryInformation(
-                                            "originator_to_beneficiary_information"
-                                        )
-                                        .originatorToBeneficiaryInformationLine1(
-                                            "originator_to_beneficiary_information_line1"
-                                        )
-                                        .originatorToBeneficiaryInformationLine2(
-                                            "originator_to_beneficiary_information_line2"
-                                        )
-                                        .originatorToBeneficiaryInformationLine3(
-                                            "originator_to_beneficiary_information_line3"
-                                        )
-                                        .originatorToBeneficiaryInformationLine4(
-                                            "originator_to_beneficiary_information_line4"
-                                        )
-                                        .build()
-                                )
                                 .inboundWireReversal(
                                     Transaction.Source.InboundWireReversal.builder()
                                         .amount(123L)
@@ -2014,40 +1980,6 @@ class SimulationInboundRealTimePaymentsTransferCreateResponseTest {
                                     .debtorRoutingNumber("debtor_routing_number")
                                     .remittanceInformation("remittance_information")
                                     .transactionIdentification("transaction_identification")
-                                    .build()
-                            )
-                            .inboundWireDrawdownPayment(
-                                Transaction.Source.InboundWireDrawdownPayment.builder()
-                                    .amount(123L)
-                                    .beneficiaryAddressLine1("beneficiary_address_line1")
-                                    .beneficiaryAddressLine2("beneficiary_address_line2")
-                                    .beneficiaryAddressLine3("beneficiary_address_line3")
-                                    .beneficiaryName("beneficiary_name")
-                                    .beneficiaryReference("beneficiary_reference")
-                                    .description("description")
-                                    .inputMessageAccountabilityData(
-                                        "input_message_accountability_data"
-                                    )
-                                    .originatorAddressLine1("originator_address_line1")
-                                    .originatorAddressLine2("originator_address_line2")
-                                    .originatorAddressLine3("originator_address_line3")
-                                    .originatorName("originator_name")
-                                    .originatorRoutingNumber("originator_routing_number")
-                                    .originatorToBeneficiaryInformation(
-                                        "originator_to_beneficiary_information"
-                                    )
-                                    .originatorToBeneficiaryInformationLine1(
-                                        "originator_to_beneficiary_information_line1"
-                                    )
-                                    .originatorToBeneficiaryInformationLine2(
-                                        "originator_to_beneficiary_information_line2"
-                                    )
-                                    .originatorToBeneficiaryInformationLine3(
-                                        "originator_to_beneficiary_information_line3"
-                                    )
-                                    .originatorToBeneficiaryInformationLine4(
-                                        "originator_to_beneficiary_information_line4"
-                                    )
                                     .build()
                             )
                             .inboundWireReversal(
