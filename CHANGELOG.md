@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.76.0 (2024-08-13)
+
+Full Changelog: [v0.75.0...v0.76.0](https://github.com/Increase/increase-java/compare/v0.75.0...v0.76.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#357](https://github.com/Increase/increase-java/issues/357)) ([6fbd0f2](https://github.com/Increase/increase-java/commit/6fbd0f264c41d19b9d1c124fb0b8c1c22056c8f1))
+
 ## 0.75.0 (2024-08-13)
 
 Full Changelog: [v0.74.0...v0.75.0](https://github.com/Increase/increase-java/compare/v0.74.0...v0.75.0)
