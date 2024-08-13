@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.75.0 (2024-08-13)
+
+Full Changelog: [v0.74.0...v0.75.0](https://github.com/Increase/increase-java/compare/v0.74.0...v0.75.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#355](https://github.com/Increase/increase-java/issues/355)) ([9e79571](https://github.com/Increase/increase-java/commit/9e795714034500d2e97b5d89d9de657e88474a57))
+
+
+### Chores
+
+* **ci:** bump prism mock server version ([#353](https://github.com/Increase/increase-java/issues/353)) ([1f3c625](https://github.com/Increase/increase-java/commit/1f3c625a35cfbfd13fa4f06a18a43cc067e2f05d))
+
 ## 0.74.0 (2024-08-09)
 
 Full Changelog: [v0.73.0...v0.74.0](https://github.com/Increase/increase-java/compare/v0.73.0...v0.74.0)
