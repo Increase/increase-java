@@ -889,6 +889,8 @@ private constructor(
 
                 @JvmField val ENDORSEMENT_MISSING = Reason(JsonField.of("endorsement_missing"))
 
+                @JvmField val ENDORSEMENT_IRREGULAR = Reason(JsonField.of("endorsement_irregular"))
+
                 @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
             }
 
@@ -897,6 +899,7 @@ private constructor(
                 NOT_AUTHORIZED,
                 DUPLICATE_PRESENTMENT,
                 ENDORSEMENT_MISSING,
+                ENDORSEMENT_IRREGULAR,
             }
 
             enum class Value {
@@ -904,6 +907,7 @@ private constructor(
                 NOT_AUTHORIZED,
                 DUPLICATE_PRESENTMENT,
                 ENDORSEMENT_MISSING,
+                ENDORSEMENT_IRREGULAR,
                 _UNKNOWN,
             }
 
@@ -913,6 +917,7 @@ private constructor(
                     NOT_AUTHORIZED -> Value.NOT_AUTHORIZED
                     DUPLICATE_PRESENTMENT -> Value.DUPLICATE_PRESENTMENT
                     ENDORSEMENT_MISSING -> Value.ENDORSEMENT_MISSING
+                    ENDORSEMENT_IRREGULAR -> Value.ENDORSEMENT_IRREGULAR
                     else -> Value._UNKNOWN
                 }
 
@@ -922,6 +927,7 @@ private constructor(
                     NOT_AUTHORIZED -> Known.NOT_AUTHORIZED
                     DUPLICATE_PRESENTMENT -> Known.DUPLICATE_PRESENTMENT
                     ENDORSEMENT_MISSING -> Known.ENDORSEMENT_MISSING
+                    ENDORSEMENT_IRREGULAR -> Known.ENDORSEMENT_IRREGULAR
                     else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                 }
 
