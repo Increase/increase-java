@@ -67,7 +67,6 @@ class AchTransferServiceTest {
                     .destinationAccountHolder(
                         AchTransferCreateParams.DestinationAccountHolder.BUSINESS
                     )
-                    .effectiveDate(LocalDate.parse("2019-12-27"))
                     .externalAccountId("external_account_id")
                     .funding(AchTransferCreateParams.Funding.CHECKING)
                     .individualId("x")
