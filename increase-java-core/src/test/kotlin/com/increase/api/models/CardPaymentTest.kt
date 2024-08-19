@@ -291,6 +291,16 @@ class CardPaymentTest {
                                     .amount(123L)
                                     .cardPaymentId("card_payment_id")
                                     .currency(CardPayment.Element.CardRefund.Currency.CAD)
+                                    .interchange(
+                                        CardPayment.Element.CardRefund.Interchange.builder()
+                                            .amount("amount")
+                                            .code("code")
+                                            .currency(
+                                                CardPayment.Element.CardRefund.Interchange.Currency
+                                                    .CAD
+                                            )
+                                            .build()
+                                    )
                                     .merchantAcceptorId("merchant_acceptor_id")
                                     .merchantCategoryCode("merchant_category_code")
                                     .merchantCity("merchant_city")
@@ -548,6 +558,17 @@ class CardPaymentTest {
                                     .cardAuthorization("card_authorization")
                                     .cardPaymentId("card_payment_id")
                                     .currency(CardPayment.Element.CardSettlement.Currency.CAD)
+                                    .interchange(
+                                        CardPayment.Element.CardSettlement.Interchange.builder()
+                                            .amount("amount")
+                                            .code("code")
+                                            .currency(
+                                                CardPayment.Element.CardSettlement.Interchange
+                                                    .Currency
+                                                    .CAD
+                                            )
+                                            .build()
+                                    )
                                     .merchantAcceptorId("merchant_acceptor_id")
                                     .merchantCategoryCode("merchant_category_code")
                                     .merchantCity("merchant_city")
@@ -1145,6 +1166,15 @@ class CardPaymentTest {
                             .amount(123L)
                             .cardPaymentId("card_payment_id")
                             .currency(CardPayment.Element.CardRefund.Currency.CAD)
+                            .interchange(
+                                CardPayment.Element.CardRefund.Interchange.builder()
+                                    .amount("amount")
+                                    .code("code")
+                                    .currency(
+                                        CardPayment.Element.CardRefund.Interchange.Currency.CAD
+                                    )
+                                    .build()
+                            )
                             .merchantAcceptorId("merchant_acceptor_id")
                             .merchantCategoryCode("merchant_category_code")
                             .merchantCity("merchant_city")
@@ -1374,6 +1404,15 @@ class CardPaymentTest {
                             .cardAuthorization("card_authorization")
                             .cardPaymentId("card_payment_id")
                             .currency(CardPayment.Element.CardSettlement.Currency.CAD)
+                            .interchange(
+                                CardPayment.Element.CardSettlement.Interchange.builder()
+                                    .amount("amount")
+                                    .code("code")
+                                    .currency(
+                                        CardPayment.Element.CardSettlement.Interchange.Currency.CAD
+                                    )
+                                    .build()
+                            )
                             .merchantAcceptorId("merchant_acceptor_id")
                             .merchantCategoryCode("merchant_category_code")
                             .merchantCity("merchant_city")
