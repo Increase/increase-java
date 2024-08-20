@@ -28,7 +28,7 @@ interface IntrafiExclusionService {
         requestOptions: RequestOptions = RequestOptions.none()
     ): IntrafiExclusion
 
-    /** List IntraFi Exclusions. */
+    /** List IntraFi Exclusions */
     @JvmOverloads
     fun list(
         params: IntrafiExclusionListParams,

@@ -88,10 +88,6 @@ constructor(
         InboundCheckDepositServiceAsyncImpl(clientOptions)
     }
 
-    private val inboundMailItems: InboundMailItemServiceAsync by lazy {
-        InboundMailItemServiceAsyncImpl(clientOptions)
-    }
-
     private val checkDeposits: CheckDepositServiceAsync by lazy {
         CheckDepositServiceAsyncImpl(clientOptions)
     }
@@ -171,6 +167,10 @@ constructor(
 
     private val documents: DocumentServiceAsync by lazy { DocumentServiceAsyncImpl(clientOptions) }
 
+    private val inboundMailItems: InboundMailItemServiceAsync by lazy {
+        InboundMailItemServiceAsyncImpl(clientOptions)
+    }
+
     private val programs: ProgramServiceAsync by lazy { ProgramServiceAsyncImpl(clientOptions) }
 
     override fun accountTransfers(): AccountTransferServiceAsync = accountTransfers
@@ -182,8 +182,6 @@ constructor(
     override fun checkTransfers(): CheckTransferServiceAsync = checkTransfers
 
     override fun inboundCheckDeposits(): InboundCheckDepositServiceAsync = inboundCheckDeposits
-
-    override fun inboundMailItems(): InboundMailItemServiceAsync = inboundMailItems
 
     override fun checkDeposits(): CheckDepositServiceAsync = checkDeposits
 
@@ -229,6 +227,8 @@ constructor(
     override fun accountStatements(): AccountStatementServiceAsync = accountStatements
 
     override fun documents(): DocumentServiceAsync = documents
+
+    override fun inboundMailItems(): InboundMailItemServiceAsync = inboundMailItems
 
     override fun programs(): ProgramServiceAsync = programs
 }
