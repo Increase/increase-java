@@ -1881,6 +1881,7 @@ private constructor(
         private val recipientName: JsonField<String>,
         private val returnAddress: JsonField<ReturnAddress>,
         private val signatureText: JsonField<String>,
+        private val trackingUpdates: JsonField<List<TrackingUpdate>>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -1911,6 +1912,10 @@ private constructor(
         fun signatureText(): Optional<String> =
             Optional.ofNullable(signatureText.getNullable("signature_text"))
 
+        /** Tracking updates relating to the physical check's delivery. */
+        fun trackingUpdates(): List<TrackingUpdate> =
+            trackingUpdates.getRequired("tracking_updates")
+
         /** Details for where Increase will mail the check. */
         @JsonProperty("mailing_address") @ExcludeMissing fun _mailingAddress() = mailingAddress
 
@@ -1932,6 +1937,9 @@ private constructor(
          */
         @JsonProperty("signature_text") @ExcludeMissing fun _signatureText() = signatureText
 
+        /** Tracking updates relating to the physical check's delivery. */
+        @JsonProperty("tracking_updates") @ExcludeMissing fun _trackingUpdates() = trackingUpdates
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -1944,6 +1952,7 @@ private constructor(
                 recipientName()
                 returnAddress().map { it.validate() }
                 signatureText()
+                trackingUpdates().forEach { it.validate() }
                 validated = true
             }
         }
@@ -1962,6 +1971,7 @@ private constructor(
                 this.recipientName == other.recipientName &&
                 this.returnAddress == other.returnAddress &&
                 this.signatureText == other.signatureText &&
+                this.trackingUpdates == other.trackingUpdates &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -1975,6 +1985,7 @@ private constructor(
                         recipientName,
                         returnAddress,
                         signatureText,
+                        trackingUpdates,
                         additionalProperties,
                     )
             }
@@ -1982,7 +1993,7 @@ private constructor(
         }
 
         override fun toString() =
-            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, note=$note, recipientName=$recipientName, returnAddress=$returnAddress, signatureText=$signatureText, additionalProperties=$additionalProperties}"
+            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, note=$note, recipientName=$recipientName, returnAddress=$returnAddress, signatureText=$signatureText, trackingUpdates=$trackingUpdates, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1997,6 +2008,7 @@ private constructor(
             private var recipientName: JsonField<String> = JsonMissing.of()
             private var returnAddress: JsonField<ReturnAddress> = JsonMissing.of()
             private var signatureText: JsonField<String> = JsonMissing.of()
+            private var trackingUpdates: JsonField<List<TrackingUpdate>> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -2007,6 +2019,7 @@ private constructor(
                 this.recipientName = physicalCheck.recipientName
                 this.returnAddress = physicalCheck.returnAddress
                 this.signatureText = physicalCheck.signatureText
+                this.trackingUpdates = physicalCheck.trackingUpdates
                 additionalProperties(physicalCheck.additionalProperties)
             }
 
@@ -2074,6 +2087,17 @@ private constructor(
                 this.signatureText = signatureText
             }
 
+            /** Tracking updates relating to the physical check's delivery. */
+            fun trackingUpdates(trackingUpdates: List<TrackingUpdate>) =
+                trackingUpdates(JsonField.of(trackingUpdates))
+
+            /** Tracking updates relating to the physical check's delivery. */
+            @JsonProperty("tracking_updates")
+            @ExcludeMissing
+            fun trackingUpdates(trackingUpdates: JsonField<List<TrackingUpdate>>) = apply {
+                this.trackingUpdates = trackingUpdates
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -2096,6 +2120,7 @@ private constructor(
                     recipientName,
                     returnAddress,
                     signatureText,
+                    trackingUpdates.map { it.toUnmodifiable() },
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -2519,6 +2544,194 @@ private constructor(
                         state,
                         additionalProperties.toUnmodifiable(),
                     )
+            }
+        }
+
+        @JsonDeserialize(builder = TrackingUpdate.Builder::class)
+        @NoAutoDetect
+        class TrackingUpdate
+        private constructor(
+            private val category: JsonField<Category>,
+            private val createdAt: JsonField<OffsetDateTime>,
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
+
+            private var validated: Boolean = false
+
+            private var hashCode: Int = 0
+
+            /** The type of tracking event. */
+            fun category(): Category = category.getRequired("category")
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * tracking event took place.
+             */
+            fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+            /** The type of tracking event. */
+            @JsonProperty("category") @ExcludeMissing fun _category() = category
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * tracking event took place.
+             */
+            @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun validate(): TrackingUpdate = apply {
+                if (!validated) {
+                    category()
+                    createdAt()
+                    validated = true
+                }
+            }
+
+            fun toBuilder() = Builder().from(this)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is TrackingUpdate &&
+                    this.category == other.category &&
+                    this.createdAt == other.createdAt &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            category,
+                            createdAt,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "TrackingUpdate{category=$category, createdAt=$createdAt, additionalProperties=$additionalProperties}"
+
+            companion object {
+
+                @JvmStatic fun builder() = Builder()
+            }
+
+            class Builder {
+
+                private var category: JsonField<Category> = JsonMissing.of()
+                private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(trackingUpdate: TrackingUpdate) = apply {
+                    this.category = trackingUpdate.category
+                    this.createdAt = trackingUpdate.createdAt
+                    additionalProperties(trackingUpdate.additionalProperties)
+                }
+
+                /** The type of tracking event. */
+                fun category(category: Category) = category(JsonField.of(category))
+
+                /** The type of tracking event. */
+                @JsonProperty("category")
+                @ExcludeMissing
+                fun category(category: JsonField<Category>) = apply { this.category = category }
+
+                /**
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+                 * tracking event took place.
+                 */
+                fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+                /**
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+                 * tracking event took place.
+                 */
+                @JsonProperty("created_at")
+                @ExcludeMissing
+                fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                    this.createdAt = createdAt
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                @JsonAnySetter
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    this.additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun build(): TrackingUpdate =
+                    TrackingUpdate(
+                        category,
+                        createdAt,
+                        additionalProperties.toUnmodifiable(),
+                    )
+            }
+
+            class Category
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) : Enum {
+
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Category && this.value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+
+                companion object {
+
+                    @JvmField val RETURNED_TO_SENDER = Category(JsonField.of("returned_to_sender"))
+
+                    @JvmStatic fun of(value: String) = Category(JsonField.of(value))
+                }
+
+                enum class Known {
+                    RETURNED_TO_SENDER,
+                }
+
+                enum class Value {
+                    RETURNED_TO_SENDER,
+                    _UNKNOWN,
+                }
+
+                fun value(): Value =
+                    when (this) {
+                        RETURNED_TO_SENDER -> Value.RETURNED_TO_SENDER
+                        else -> Value._UNKNOWN
+                    }
+
+                fun known(): Known =
+                    when (this) {
+                        RETURNED_TO_SENDER -> Known.RETURNED_TO_SENDER
+                        else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+                    }
+
+                fun asString(): String = _value().asStringOrThrow()
             }
         }
     }

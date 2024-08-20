@@ -81,6 +81,17 @@ class CheckTransferTest {
                                 .build()
                         )
                         .signatureText("signature_text")
+                        .trackingUpdates(
+                            listOf(
+                                CheckTransfer.PhysicalCheck.TrackingUpdate.builder()
+                                    .category(
+                                        CheckTransfer.PhysicalCheck.TrackingUpdate.Category
+                                            .RETURNED_TO_SENDER
+                                    )
+                                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .build()
+                            )
+                        )
                         .build()
                 )
                 .routingNumber("routing_number")
@@ -181,6 +192,17 @@ class CheckTransferTest {
                             .build()
                     )
                     .signatureText("signature_text")
+                    .trackingUpdates(
+                        listOf(
+                            CheckTransfer.PhysicalCheck.TrackingUpdate.builder()
+                                .category(
+                                    CheckTransfer.PhysicalCheck.TrackingUpdate.Category
+                                        .RETURNED_TO_SENDER
+                                )
+                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .build()
+                        )
+                    )
                     .build()
             )
         assertThat(checkTransfer.routingNumber()).isEqualTo("routing_number")
