@@ -29,7 +29,7 @@ private constructor(
     private val accountNumberId: JsonField<String>,
     private val amount: JsonField<Long>,
     private val currency: JsonField<String>,
-    private val fulfillmentTransactionId: JsonField<String>,
+    private val fulfillmentInboundWireTransferId: JsonField<String>,
     private val id: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
     private val messageToRecipient: JsonField<String>,
@@ -71,8 +71,10 @@ private constructor(
      * If the recipient fulfills the drawdown request by sending funds, then this will be the
      * identifier of the corresponding Transaction.
      */
-    fun fulfillmentTransactionId(): Optional<String> =
-        Optional.ofNullable(fulfillmentTransactionId.getNullable("fulfillment_transaction_id"))
+    fun fulfillmentInboundWireTransferId(): Optional<String> =
+        Optional.ofNullable(
+            fulfillmentInboundWireTransferId.getNullable("fulfillment_inbound_wire_transfer_id")
+        )
 
     /** The Wire drawdown request identifier. */
     fun id(): String = id.getRequired("id")
@@ -161,9 +163,9 @@ private constructor(
      * If the recipient fulfills the drawdown request by sending funds, then this will be the
      * identifier of the corresponding Transaction.
      */
-    @JsonProperty("fulfillment_transaction_id")
+    @JsonProperty("fulfillment_inbound_wire_transfer_id")
     @ExcludeMissing
-    fun _fulfillmentTransactionId() = fulfillmentTransactionId
+    fun _fulfillmentInboundWireTransferId() = fulfillmentInboundWireTransferId
 
     /** The Wire drawdown request identifier. */
     @JsonProperty("id") @ExcludeMissing fun _id() = id
@@ -249,7 +251,7 @@ private constructor(
             accountNumberId()
             amount()
             currency()
-            fulfillmentTransactionId()
+            fulfillmentInboundWireTransferId()
             id()
             idempotencyKey()
             messageToRecipient()
@@ -281,7 +283,7 @@ private constructor(
             this.accountNumberId == other.accountNumberId &&
             this.amount == other.amount &&
             this.currency == other.currency &&
-            this.fulfillmentTransactionId == other.fulfillmentTransactionId &&
+            this.fulfillmentInboundWireTransferId == other.fulfillmentInboundWireTransferId &&
             this.id == other.id &&
             this.idempotencyKey == other.idempotencyKey &&
             this.messageToRecipient == other.messageToRecipient &&
@@ -308,7 +310,7 @@ private constructor(
                     accountNumberId,
                     amount,
                     currency,
-                    fulfillmentTransactionId,
+                    fulfillmentInboundWireTransferId,
                     id,
                     idempotencyKey,
                     messageToRecipient,
@@ -332,7 +334,7 @@ private constructor(
     }
 
     override fun toString() =
-        "WireDrawdownRequest{accountNumberId=$accountNumberId, amount=$amount, currency=$currency, fulfillmentTransactionId=$fulfillmentTransactionId, id=$id, idempotencyKey=$idempotencyKey, messageToRecipient=$messageToRecipient, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, recipientAccountNumber=$recipientAccountNumber, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
+        "WireDrawdownRequest{accountNumberId=$accountNumberId, amount=$amount, currency=$currency, fulfillmentInboundWireTransferId=$fulfillmentInboundWireTransferId, id=$id, idempotencyKey=$idempotencyKey, messageToRecipient=$messageToRecipient, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, recipientAccountNumber=$recipientAccountNumber, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -344,7 +346,7 @@ private constructor(
         private var accountNumberId: JsonField<String> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
         private var currency: JsonField<String> = JsonMissing.of()
-        private var fulfillmentTransactionId: JsonField<String> = JsonMissing.of()
+        private var fulfillmentInboundWireTransferId: JsonField<String> = JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var messageToRecipient: JsonField<String> = JsonMissing.of()
@@ -368,7 +370,8 @@ private constructor(
             this.accountNumberId = wireDrawdownRequest.accountNumberId
             this.amount = wireDrawdownRequest.amount
             this.currency = wireDrawdownRequest.currency
-            this.fulfillmentTransactionId = wireDrawdownRequest.fulfillmentTransactionId
+            this.fulfillmentInboundWireTransferId =
+                wireDrawdownRequest.fulfillmentInboundWireTransferId
             this.id = wireDrawdownRequest.id
             this.idempotencyKey = wireDrawdownRequest.idempotencyKey
             this.messageToRecipient = wireDrawdownRequest.messageToRecipient
@@ -431,18 +434,19 @@ private constructor(
          * If the recipient fulfills the drawdown request by sending funds, then this will be the
          * identifier of the corresponding Transaction.
          */
-        fun fulfillmentTransactionId(fulfillmentTransactionId: String) =
-            fulfillmentTransactionId(JsonField.of(fulfillmentTransactionId))
+        fun fulfillmentInboundWireTransferId(fulfillmentInboundWireTransferId: String) =
+            fulfillmentInboundWireTransferId(JsonField.of(fulfillmentInboundWireTransferId))
 
         /**
          * If the recipient fulfills the drawdown request by sending funds, then this will be the
          * identifier of the corresponding Transaction.
          */
-        @JsonProperty("fulfillment_transaction_id")
+        @JsonProperty("fulfillment_inbound_wire_transfer_id")
         @ExcludeMissing
-        fun fulfillmentTransactionId(fulfillmentTransactionId: JsonField<String>) = apply {
-            this.fulfillmentTransactionId = fulfillmentTransactionId
-        }
+        fun fulfillmentInboundWireTransferId(fulfillmentInboundWireTransferId: JsonField<String>) =
+            apply {
+                this.fulfillmentInboundWireTransferId = fulfillmentInboundWireTransferId
+            }
 
         /** The Wire drawdown request identifier. */
         fun id(id: String) = id(JsonField.of(id))
@@ -642,7 +646,7 @@ private constructor(
                 accountNumberId,
                 amount,
                 currency,
-                fulfillmentTransactionId,
+                fulfillmentInboundWireTransferId,
                 id,
                 idempotencyKey,
                 messageToRecipient,
