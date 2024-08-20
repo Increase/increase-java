@@ -31,7 +31,7 @@ constructor(
         jsonHandler<IntrafiAccountEnrollment>(clientOptions.jsonMapper)
             .withErrorHandler(errorHandler)
 
-    /** Enroll an account in the IntraFi deposit sweep network. */
+    /** Enroll an account in the IntraFi deposit sweep network */
     override fun create(
         params: IntrafiAccountEnrollmentCreateParams,
         requestOptions: RequestOptions
@@ -123,7 +123,7 @@ constructor(
         jsonHandler<IntrafiAccountEnrollment>(clientOptions.jsonMapper)
             .withErrorHandler(errorHandler)
 
-    /** Unenroll an account from IntraFi. */
+    /** Unenroll an account from IntraFi */
     override fun unenroll(
         params: IntrafiAccountEnrollmentUnenrollParams,
         requestOptions: RequestOptions

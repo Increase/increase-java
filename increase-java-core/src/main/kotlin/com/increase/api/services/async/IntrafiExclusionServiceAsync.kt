@@ -29,7 +29,7 @@ interface IntrafiExclusionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<IntrafiExclusion>
 
-    /** List IntraFi Exclusions. */
+    /** List IntraFi Exclusions */
     @JvmOverloads
     fun list(
         params: IntrafiExclusionListParams,
