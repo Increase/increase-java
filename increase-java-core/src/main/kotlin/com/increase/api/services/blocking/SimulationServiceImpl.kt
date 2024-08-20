@@ -41,6 +41,8 @@ import com.increase.api.services.blocking.simulations.InboundCheckDepositService
 import com.increase.api.services.blocking.simulations.InboundCheckDepositServiceImpl
 import com.increase.api.services.blocking.simulations.InboundFundsHoldService
 import com.increase.api.services.blocking.simulations.InboundFundsHoldServiceImpl
+import com.increase.api.services.blocking.simulations.InboundMailItemService
+import com.increase.api.services.blocking.simulations.InboundMailItemServiceImpl
 import com.increase.api.services.blocking.simulations.InboundRealTimePaymentsTransferService
 import com.increase.api.services.blocking.simulations.InboundRealTimePaymentsTransferServiceImpl
 import com.increase.api.services.blocking.simulations.InboundWireDrawdownRequestService
@@ -82,6 +84,10 @@ constructor(
 
     private val inboundCheckDeposits: InboundCheckDepositService by lazy {
         InboundCheckDepositServiceImpl(clientOptions)
+    }
+
+    private val inboundMailItems: InboundMailItemService by lazy {
+        InboundMailItemServiceImpl(clientOptions)
     }
 
     private val checkDeposits: CheckDepositService by lazy {
@@ -169,6 +175,8 @@ constructor(
     override fun checkTransfers(): CheckTransferService = checkTransfers
 
     override fun inboundCheckDeposits(): InboundCheckDepositService = inboundCheckDeposits
+
+    override fun inboundMailItems(): InboundMailItemService = inboundMailItems
 
     override fun checkDeposits(): CheckDepositService = checkDeposits
 
