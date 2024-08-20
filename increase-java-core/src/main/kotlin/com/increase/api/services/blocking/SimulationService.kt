@@ -44,8 +44,6 @@ interface SimulationService {
 
     fun inboundCheckDeposits(): InboundCheckDepositService
 
-    fun inboundMailItems(): InboundMailItemService
-
     fun checkDeposits(): CheckDepositService
 
     fun inboundWireTransfers(): InboundWireTransferService
@@ -85,6 +83,8 @@ interface SimulationService {
     fun accountStatements(): AccountStatementService
 
     fun documents(): DocumentService
+
+    fun inboundMailItems(): InboundMailItemService
 
     fun programs(): ProgramService
 }

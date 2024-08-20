@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture
 
 interface IntrafiAccountEnrollmentServiceAsync {
 
-    /** Enroll an account in the IntraFi deposit sweep network. */
+    /** Enroll an account in the IntraFi deposit sweep network */
     @JvmOverloads
     fun create(
         params: IntrafiAccountEnrollmentCreateParams,
@@ -36,7 +36,7 @@ interface IntrafiAccountEnrollmentServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none()
     ): CompletableFuture<IntrafiAccountEnrollmentListPageAsync>
 
-    /** Unenroll an account from IntraFi. */
+    /** Unenroll an account from IntraFi */
     @JvmOverloads
     fun unenroll(
         params: IntrafiAccountEnrollmentUnenrollParams,

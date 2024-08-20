@@ -44,8 +44,6 @@ interface SimulationServiceAsync {
 
     fun inboundCheckDeposits(): InboundCheckDepositServiceAsync
 
-    fun inboundMailItems(): InboundMailItemServiceAsync
-
     fun checkDeposits(): CheckDepositServiceAsync
 
     fun inboundWireTransfers(): InboundWireTransferServiceAsync
@@ -85,6 +83,8 @@ interface SimulationServiceAsync {
     fun accountStatements(): AccountStatementServiceAsync
 
     fun documents(): DocumentServiceAsync
+
+    fun inboundMailItems(): InboundMailItemServiceAsync
 
     fun programs(): ProgramServiceAsync
 }
