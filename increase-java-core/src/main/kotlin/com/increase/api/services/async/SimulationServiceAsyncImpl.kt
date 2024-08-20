@@ -41,6 +41,8 @@ import com.increase.api.services.async.simulations.InboundCheckDepositServiceAsy
 import com.increase.api.services.async.simulations.InboundCheckDepositServiceAsyncImpl
 import com.increase.api.services.async.simulations.InboundFundsHoldServiceAsync
 import com.increase.api.services.async.simulations.InboundFundsHoldServiceAsyncImpl
+import com.increase.api.services.async.simulations.InboundMailItemServiceAsync
+import com.increase.api.services.async.simulations.InboundMailItemServiceAsyncImpl
 import com.increase.api.services.async.simulations.InboundRealTimePaymentsTransferServiceAsync
 import com.increase.api.services.async.simulations.InboundRealTimePaymentsTransferServiceAsyncImpl
 import com.increase.api.services.async.simulations.InboundWireDrawdownRequestServiceAsync
@@ -84,6 +86,10 @@ constructor(
 
     private val inboundCheckDeposits: InboundCheckDepositServiceAsync by lazy {
         InboundCheckDepositServiceAsyncImpl(clientOptions)
+    }
+
+    private val inboundMailItems: InboundMailItemServiceAsync by lazy {
+        InboundMailItemServiceAsyncImpl(clientOptions)
     }
 
     private val checkDeposits: CheckDepositServiceAsync by lazy {
@@ -176,6 +182,8 @@ constructor(
     override fun checkTransfers(): CheckTransferServiceAsync = checkTransfers
 
     override fun inboundCheckDeposits(): InboundCheckDepositServiceAsync = inboundCheckDeposits
+
+    override fun inboundMailItems(): InboundMailItemServiceAsync = inboundMailItems
 
     override fun checkDeposits(): CheckDepositServiceAsync = checkDeposits
 
