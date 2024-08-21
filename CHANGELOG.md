@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.91.1 (2024-08-21)
+
+Full Changelog: [v0.91.0...v0.91.1](https://github.com/Increase/increase-java/compare/v0.91.0...v0.91.1)
+
+### Bug Fixes
+
+* **docs:** use correct putAdditionalProperty value ([#405](https://github.com/Increase/increase-java/issues/405)) ([b3bc1a5](https://github.com/Increase/increase-java/commit/b3bc1a5b11c14c7005efba2d4b4b83445ae93369))
+
 ## 0.91.0 (2024-08-21)
 
 Full Changelog: [v0.90.0...v0.91.0](https://github.com/Increase/increase-java/compare/v0.90.0...v0.91.0)
