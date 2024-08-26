@@ -2,7 +2,6 @@
 
 package com.increase.api.models
 
-import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
 import com.increase.api.models.*
@@ -13,7 +12,6 @@ constructor(
     private val cardPaymentId: String,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun cardPaymentId(): String = cardPaymentId
@@ -33,8 +31,6 @@ constructor(
 
     fun _additionalHeaders(): Map<String, List<String>> = additionalHeaders
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -43,8 +39,7 @@ constructor(
         return other is CardPaymentRetrieveParams &&
             this.cardPaymentId == other.cardPaymentId &&
             this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+            this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
@@ -52,12 +47,11 @@ constructor(
             cardPaymentId,
             additionalQueryParams,
             additionalHeaders,
-            additionalBodyProperties,
         )
     }
 
     override fun toString() =
-        "CardPaymentRetrieveParams{cardPaymentId=$cardPaymentId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "CardPaymentRetrieveParams{cardPaymentId=$cardPaymentId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -72,14 +66,12 @@ constructor(
         private var cardPaymentId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(cardPaymentRetrieveParams: CardPaymentRetrieveParams) = apply {
             this.cardPaymentId = cardPaymentRetrieveParams.cardPaymentId
             additionalQueryParams(cardPaymentRetrieveParams.additionalQueryParams)
             additionalHeaders(cardPaymentRetrieveParams.additionalHeaders)
-            additionalBodyProperties(cardPaymentRetrieveParams.additionalBodyProperties)
         }
 
         /** The identifier of the Card Payment. */
@@ -125,26 +117,11 @@ constructor(
 
         fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            this.additionalBodyProperties.putAll(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            this.additionalBodyProperties.put(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
-            }
-
         fun build(): CardPaymentRetrieveParams =
             CardPaymentRetrieveParams(
                 checkNotNull(cardPaymentId) { "`cardPaymentId` is required but was not set" },
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
             )
     }
 }

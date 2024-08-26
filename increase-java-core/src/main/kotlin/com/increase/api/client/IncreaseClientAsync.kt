@@ -59,6 +59,8 @@ interface IncreaseClientAsync {
 
     fun realTimePaymentsTransfers(): RealTimePaymentsTransferServiceAsync
 
+    fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferServiceAsync
+
     fun checkDeposits(): CheckDepositServiceAsync
 
     fun lockboxes(): LockboxServiceAsync
