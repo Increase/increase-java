@@ -24,7 +24,6 @@ constructor(
     private val limit: Long?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun associatedObjectId(): Optional<String> = Optional.ofNullable(associatedObjectId)
@@ -55,8 +54,6 @@ constructor(
 
     fun _additionalHeaders(): Map<String, List<String>> = additionalHeaders
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -69,8 +66,7 @@ constructor(
             this.cursor == other.cursor &&
             this.limit == other.limit &&
             this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+            this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
@@ -82,12 +78,11 @@ constructor(
             limit,
             additionalQueryParams,
             additionalHeaders,
-            additionalBodyProperties,
         )
     }
 
     override fun toString() =
-        "EventListParams{associatedObjectId=$associatedObjectId, category=$category, createdAt=$createdAt, cursor=$cursor, limit=$limit, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "EventListParams{associatedObjectId=$associatedObjectId, category=$category, createdAt=$createdAt, cursor=$cursor, limit=$limit, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -106,7 +101,6 @@ constructor(
         private var limit: Long? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(eventListParams: EventListParams) = apply {
@@ -117,7 +111,6 @@ constructor(
             this.limit = eventListParams.limit
             additionalQueryParams(eventListParams.additionalQueryParams)
             additionalHeaders(eventListParams.additionalHeaders)
-            additionalBodyProperties(eventListParams.additionalBodyProperties)
         }
 
         /** Filter Events to those belonging to the object with the provided identifier. */
@@ -177,20 +170,6 @@ constructor(
 
         fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            this.additionalBodyProperties.putAll(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            this.additionalBodyProperties.put(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
-            }
-
         fun build(): EventListParams =
             EventListParams(
                 associatedObjectId,
@@ -200,7 +179,6 @@ constructor(
                 limit,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
             )
     }
 
@@ -444,6 +422,14 @@ constructor(
                 val INBOUND_MAIL_ITEM_UPDATED = In(JsonField.of("inbound_mail_item.updated"))
 
                 @JvmField
+                val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED =
+                    In(JsonField.of("inbound_real_time_payments_transfer.created"))
+
+                @JvmField
+                val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED =
+                    In(JsonField.of("inbound_real_time_payments_transfer.updated"))
+
+                @JvmField
                 val INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED =
                     In(JsonField.of("inbound_wire_drawdown_request.created"))
 
@@ -610,6 +596,8 @@ constructor(
                 INBOUND_CHECK_DEPOSIT_UPDATED,
                 INBOUND_MAIL_ITEM_CREATED,
                 INBOUND_MAIL_ITEM_UPDATED,
+                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED,
+                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED,
                 INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED,
                 INBOUND_WIRE_TRANSFER_CREATED,
                 INBOUND_WIRE_TRANSFER_UPDATED,
@@ -697,6 +685,8 @@ constructor(
                 INBOUND_CHECK_DEPOSIT_UPDATED,
                 INBOUND_MAIL_ITEM_CREATED,
                 INBOUND_MAIL_ITEM_UPDATED,
+                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED,
+                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED,
                 INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED,
                 INBOUND_WIRE_TRANSFER_CREATED,
                 INBOUND_WIRE_TRANSFER_UPDATED,
@@ -786,6 +776,10 @@ constructor(
                     INBOUND_CHECK_DEPOSIT_UPDATED -> Value.INBOUND_CHECK_DEPOSIT_UPDATED
                     INBOUND_MAIL_ITEM_CREATED -> Value.INBOUND_MAIL_ITEM_CREATED
                     INBOUND_MAIL_ITEM_UPDATED -> Value.INBOUND_MAIL_ITEM_UPDATED
+                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED ->
+                        Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED
+                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED ->
+                        Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED
                     INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED ->
                         Value.INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED
                     INBOUND_WIRE_TRANSFER_CREATED -> Value.INBOUND_WIRE_TRANSFER_CREATED
@@ -885,6 +879,10 @@ constructor(
                     INBOUND_CHECK_DEPOSIT_UPDATED -> Known.INBOUND_CHECK_DEPOSIT_UPDATED
                     INBOUND_MAIL_ITEM_CREATED -> Known.INBOUND_MAIL_ITEM_CREATED
                     INBOUND_MAIL_ITEM_UPDATED -> Known.INBOUND_MAIL_ITEM_UPDATED
+                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED ->
+                        Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED
+                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED ->
+                        Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED
                     INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED ->
                         Known.INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED
                     INBOUND_WIRE_TRANSFER_CREATED -> Known.INBOUND_WIRE_TRANSFER_CREATED

@@ -59,6 +59,8 @@ interface IncreaseClient {
 
     fun realTimePaymentsTransfers(): RealTimePaymentsTransferService
 
+    fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferService
+
     fun checkDeposits(): CheckDepositService
 
     fun lockboxes(): LockboxService
