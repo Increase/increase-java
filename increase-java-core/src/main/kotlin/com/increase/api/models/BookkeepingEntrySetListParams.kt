@@ -2,7 +2,6 @@
 
 package com.increase.api.models
 
-import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
 import com.increase.api.models.*
@@ -17,7 +16,6 @@ constructor(
     private val transactionId: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
@@ -45,8 +43,6 @@ constructor(
 
     fun _additionalHeaders(): Map<String, List<String>> = additionalHeaders
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -58,8 +54,7 @@ constructor(
             this.limit == other.limit &&
             this.transactionId == other.transactionId &&
             this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+            this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
@@ -70,12 +65,11 @@ constructor(
             transactionId,
             additionalQueryParams,
             additionalHeaders,
-            additionalBodyProperties,
         )
     }
 
     override fun toString() =
-        "BookkeepingEntrySetListParams{cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, transactionId=$transactionId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "BookkeepingEntrySetListParams{cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, transactionId=$transactionId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -93,7 +87,6 @@ constructor(
         private var transactionId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(bookkeepingEntrySetListParams: BookkeepingEntrySetListParams) = apply {
@@ -103,7 +96,6 @@ constructor(
             this.transactionId = bookkeepingEntrySetListParams.transactionId
             additionalQueryParams(bookkeepingEntrySetListParams.additionalQueryParams)
             additionalHeaders(bookkeepingEntrySetListParams.additionalHeaders)
-            additionalBodyProperties(bookkeepingEntrySetListParams.additionalBodyProperties)
         }
 
         /** Return the page of entries after this one. */
@@ -165,20 +157,6 @@ constructor(
 
         fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            this.additionalBodyProperties.putAll(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            this.additionalBodyProperties.put(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
-            }
-
         fun build(): BookkeepingEntrySetListParams =
             BookkeepingEntrySetListParams(
                 cursor,
@@ -187,7 +165,6 @@ constructor(
                 transactionId,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
             )
     }
 }

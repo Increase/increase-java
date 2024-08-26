@@ -2,7 +2,6 @@
 
 package com.increase.api.models
 
-import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
 import com.increase.api.models.*
@@ -13,7 +12,6 @@ constructor(
     private val inboundWireDrawdownRequestId: String,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun inboundWireDrawdownRequestId(): String = inboundWireDrawdownRequestId
@@ -33,8 +31,6 @@ constructor(
 
     fun _additionalHeaders(): Map<String, List<String>> = additionalHeaders
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -43,8 +39,7 @@ constructor(
         return other is InboundWireDrawdownRequestRetrieveParams &&
             this.inboundWireDrawdownRequestId == other.inboundWireDrawdownRequestId &&
             this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+            this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
@@ -52,12 +47,11 @@ constructor(
             inboundWireDrawdownRequestId,
             additionalQueryParams,
             additionalHeaders,
-            additionalBodyProperties,
         )
     }
 
     override fun toString() =
-        "InboundWireDrawdownRequestRetrieveParams{inboundWireDrawdownRequestId=$inboundWireDrawdownRequestId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "InboundWireDrawdownRequestRetrieveParams{inboundWireDrawdownRequestId=$inboundWireDrawdownRequestId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -72,7 +66,6 @@ constructor(
         private var inboundWireDrawdownRequestId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(
@@ -82,9 +75,6 @@ constructor(
                 inboundWireDrawdownRequestRetrieveParams.inboundWireDrawdownRequestId
             additionalQueryParams(inboundWireDrawdownRequestRetrieveParams.additionalQueryParams)
             additionalHeaders(inboundWireDrawdownRequestRetrieveParams.additionalHeaders)
-            additionalBodyProperties(
-                inboundWireDrawdownRequestRetrieveParams.additionalBodyProperties
-            )
         }
 
         /** The identifier of the Inbound Wire Drawdown Request to retrieve. */
@@ -132,20 +122,6 @@ constructor(
 
         fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            this.additionalBodyProperties.putAll(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            this.additionalBodyProperties.put(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
-            }
-
         fun build(): InboundWireDrawdownRequestRetrieveParams =
             InboundWireDrawdownRequestRetrieveParams(
                 checkNotNull(inboundWireDrawdownRequestId) {
@@ -153,7 +129,6 @@ constructor(
                 },
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
             )
     }
 }

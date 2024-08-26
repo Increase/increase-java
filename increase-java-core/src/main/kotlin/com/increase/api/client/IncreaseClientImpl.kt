@@ -102,6 +102,10 @@ constructor(
         RealTimePaymentsTransferServiceImpl(clientOptions)
     }
 
+    private val inboundRealTimePaymentsTransfers: InboundRealTimePaymentsTransferService by lazy {
+        InboundRealTimePaymentsTransferServiceImpl(clientOptions)
+    }
+
     private val checkDeposits: CheckDepositService by lazy {
         CheckDepositServiceImpl(clientOptions)
     }
@@ -249,6 +253,9 @@ constructor(
 
     override fun realTimePaymentsTransfers(): RealTimePaymentsTransferService =
         realTimePaymentsTransfers
+
+    override fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferService =
+        inboundRealTimePaymentsTransfers
 
     override fun checkDeposits(): CheckDepositService = checkDeposits
 

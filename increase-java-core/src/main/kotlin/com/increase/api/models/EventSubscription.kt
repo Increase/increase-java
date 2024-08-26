@@ -530,6 +530,14 @@ private constructor(
                 SelectedEventCategory(JsonField.of("inbound_mail_item.updated"))
 
             @JvmField
+            val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED =
+                SelectedEventCategory(JsonField.of("inbound_real_time_payments_transfer.created"))
+
+            @JvmField
+            val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED =
+                SelectedEventCategory(JsonField.of("inbound_real_time_payments_transfer.updated"))
+
+            @JvmField
             val INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED =
                 SelectedEventCategory(JsonField.of("inbound_wire_drawdown_request.created"))
 
@@ -721,6 +729,8 @@ private constructor(
             INBOUND_CHECK_DEPOSIT_UPDATED,
             INBOUND_MAIL_ITEM_CREATED,
             INBOUND_MAIL_ITEM_UPDATED,
+            INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED,
+            INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED,
             INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED,
             INBOUND_WIRE_TRANSFER_CREATED,
             INBOUND_WIRE_TRANSFER_UPDATED,
@@ -808,6 +818,8 @@ private constructor(
             INBOUND_CHECK_DEPOSIT_UPDATED,
             INBOUND_MAIL_ITEM_CREATED,
             INBOUND_MAIL_ITEM_UPDATED,
+            INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED,
+            INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED,
             INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED,
             INBOUND_WIRE_TRANSFER_CREATED,
             INBOUND_WIRE_TRANSFER_UPDATED,
@@ -897,6 +909,10 @@ private constructor(
                 INBOUND_CHECK_DEPOSIT_UPDATED -> Value.INBOUND_CHECK_DEPOSIT_UPDATED
                 INBOUND_MAIL_ITEM_CREATED -> Value.INBOUND_MAIL_ITEM_CREATED
                 INBOUND_MAIL_ITEM_UPDATED -> Value.INBOUND_MAIL_ITEM_UPDATED
+                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED ->
+                    Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED
+                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED ->
+                    Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED
                 INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED -> Value.INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED
                 INBOUND_WIRE_TRANSFER_CREATED -> Value.INBOUND_WIRE_TRANSFER_CREATED
                 INBOUND_WIRE_TRANSFER_UPDATED -> Value.INBOUND_WIRE_TRANSFER_UPDATED
@@ -995,6 +1011,10 @@ private constructor(
                 INBOUND_CHECK_DEPOSIT_UPDATED -> Known.INBOUND_CHECK_DEPOSIT_UPDATED
                 INBOUND_MAIL_ITEM_CREATED -> Known.INBOUND_MAIL_ITEM_CREATED
                 INBOUND_MAIL_ITEM_UPDATED -> Known.INBOUND_MAIL_ITEM_UPDATED
+                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED ->
+                    Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED
+                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED ->
+                    Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED
                 INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED -> Known.INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED
                 INBOUND_WIRE_TRANSFER_CREATED -> Known.INBOUND_WIRE_TRANSFER_CREATED
                 INBOUND_WIRE_TRANSFER_UPDATED -> Known.INBOUND_WIRE_TRANSFER_UPDATED

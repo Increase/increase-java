@@ -110,6 +110,11 @@ constructor(
         RealTimePaymentsTransferServiceAsyncImpl(clientOptions)
     }
 
+    private val inboundRealTimePaymentsTransfers:
+        InboundRealTimePaymentsTransferServiceAsync by lazy {
+        InboundRealTimePaymentsTransferServiceAsyncImpl(clientOptions)
+    }
+
     private val checkDeposits: CheckDepositServiceAsync by lazy {
         CheckDepositServiceAsyncImpl(clientOptions)
     }
@@ -262,6 +267,9 @@ constructor(
 
     override fun realTimePaymentsTransfers(): RealTimePaymentsTransferServiceAsync =
         realTimePaymentsTransfers
+
+    override fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferServiceAsync =
+        inboundRealTimePaymentsTransfers
 
     override fun checkDeposits(): CheckDepositServiceAsync = checkDeposits
 
