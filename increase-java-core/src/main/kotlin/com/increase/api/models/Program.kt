@@ -29,6 +29,7 @@ import java.util.Optional
 @NoAutoDetect
 class Program
 private constructor(
+    private val bank: JsonField<Bank>,
     private val billingAccountId: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val defaultDigitalCardProfileId: JsonField<String>,
@@ -43,6 +44,9 @@ private constructor(
     private var validated: Boolean = false
 
     private var hashCode: Int = 0
+
+    /** The Bank the Program is with. */
+    fun bank(): Bank = bank.getRequired("bank")
 
     /** The Program billing account. */
     fun billingAccountId(): Optional<String> =
@@ -79,6 +83,9 @@ private constructor(
      * updated.
      */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
+
+    /** The Bank the Program is with. */
+    @JsonProperty("bank") @ExcludeMissing fun _bank() = bank
 
     /** The Program billing account. */
     @JsonProperty("billing_account_id") @ExcludeMissing fun _billingAccountId() = billingAccountId
@@ -120,6 +127,7 @@ private constructor(
 
     fun validate(): Program = apply {
         if (!validated) {
+            bank()
             billingAccountId()
             createdAt()
             defaultDigitalCardProfileId()
@@ -140,6 +148,7 @@ private constructor(
         }
 
         return other is Program &&
+            this.bank == other.bank &&
             this.billingAccountId == other.billingAccountId &&
             this.createdAt == other.createdAt &&
             this.defaultDigitalCardProfileId == other.defaultDigitalCardProfileId &&
@@ -155,6 +164,7 @@ private constructor(
         if (hashCode == 0) {
             hashCode =
                 Objects.hash(
+                    bank,
                     billingAccountId,
                     createdAt,
                     defaultDigitalCardProfileId,
@@ -170,7 +180,7 @@ private constructor(
     }
 
     override fun toString() =
-        "Program{billingAccountId=$billingAccountId, createdAt=$createdAt, defaultDigitalCardProfileId=$defaultDigitalCardProfileId, id=$id, interestRate=$interestRate, name=$name, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "Program{bank=$bank, billingAccountId=$billingAccountId, createdAt=$createdAt, defaultDigitalCardProfileId=$defaultDigitalCardProfileId, id=$id, interestRate=$interestRate, name=$name, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -179,6 +189,7 @@ private constructor(
 
     class Builder {
 
+        private var bank: JsonField<Bank> = JsonMissing.of()
         private var billingAccountId: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var defaultDigitalCardProfileId: JsonField<String> = JsonMissing.of()
@@ -191,6 +202,7 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(program: Program) = apply {
+            this.bank = program.bank
             this.billingAccountId = program.billingAccountId
             this.createdAt = program.createdAt
             this.defaultDigitalCardProfileId = program.defaultDigitalCardProfileId
@@ -201,6 +213,14 @@ private constructor(
             this.updatedAt = program.updatedAt
             additionalProperties(program.additionalProperties)
         }
+
+        /** The Bank the Program is with. */
+        fun bank(bank: Bank) = bank(JsonField.of(bank))
+
+        /** The Bank the Program is with. */
+        @JsonProperty("bank")
+        @ExcludeMissing
+        fun bank(bank: JsonField<Bank>) = apply { this.bank = bank }
 
         /** The Program billing account. */
         fun billingAccountId(billingAccountId: String) =
@@ -312,6 +332,7 @@ private constructor(
 
         fun build(): Program =
             Program(
+                bank,
                 billingAccountId,
                 createdAt,
                 defaultDigitalCardProfileId,
@@ -322,6 +343,69 @@ private constructor(
                 updatedAt,
                 additionalProperties.toUnmodifiable(),
             )
+    }
+
+    class Bank
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Bank && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val BLUE_RIDGE_BANK = Bank(JsonField.of("blue_ridge_bank"))
+
+            @JvmField val FIRST_INTERNET_BANK = Bank(JsonField.of("first_internet_bank"))
+
+            @JvmField val GRASSHOPPER_BANK = Bank(JsonField.of("grasshopper_bank"))
+
+            @JvmStatic fun of(value: String) = Bank(JsonField.of(value))
+        }
+
+        enum class Known {
+            BLUE_RIDGE_BANK,
+            FIRST_INTERNET_BANK,
+            GRASSHOPPER_BANK,
+        }
+
+        enum class Value {
+            BLUE_RIDGE_BANK,
+            FIRST_INTERNET_BANK,
+            GRASSHOPPER_BANK,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                BLUE_RIDGE_BANK -> Value.BLUE_RIDGE_BANK
+                FIRST_INTERNET_BANK -> Value.FIRST_INTERNET_BANK
+                GRASSHOPPER_BANK -> Value.GRASSHOPPER_BANK
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                BLUE_RIDGE_BANK -> Known.BLUE_RIDGE_BANK
+                FIRST_INTERNET_BANK -> Known.FIRST_INTERNET_BANK
+                GRASSHOPPER_BANK -> Known.GRASSHOPPER_BANK
+                else -> throw IncreaseInvalidDataException("Unknown Bank: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 
     class Type
