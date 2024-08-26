@@ -10,7 +10,11 @@ class SimulationInboundMailItemCreateParamsTest {
 
     @Test
     fun createSimulationInboundMailItemCreateParams() {
-        SimulationInboundMailItemCreateParams.builder().amount(123L).lockboxId("lockbox_id").build()
+        SimulationInboundMailItemCreateParams.builder()
+            .amount(123L)
+            .lockboxId("lockbox_id")
+            .contentsFileId("contents_file_id")
+            .build()
     }
 
     @Test
@@ -19,11 +23,13 @@ class SimulationInboundMailItemCreateParamsTest {
             SimulationInboundMailItemCreateParams.builder()
                 .amount(123L)
                 .lockboxId("lockbox_id")
+                .contentsFileId("contents_file_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.amount()).isEqualTo(123L)
         assertThat(body.lockboxId()).isEqualTo("lockbox_id")
+        assertThat(body.contentsFileId()).isEqualTo("contents_file_id")
     }
 
     @Test

@@ -24,6 +24,7 @@ class InboundMailItemServiceTest {
                 SimulationInboundMailItemCreateParams.builder()
                     .amount(123L)
                     .lockboxId("lockbox_id")
+                    .contentsFileId("contents_file_id")
                     .build()
             )
         println(inboundMailItem)
