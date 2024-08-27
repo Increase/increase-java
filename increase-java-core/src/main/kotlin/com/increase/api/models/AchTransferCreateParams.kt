@@ -221,7 +221,7 @@ constructor(
         /**
          * Configuration for how the effective date of the transfer will be set. This determines
          * same-day vs future-dated settlement timing. If not set, defaults to a
-         * `settlement_schedule` of `same_day`. If set, exactly one of the child atributes must be
+         * `settlement_schedule` of `same_day`. If set, exactly one of the child attributes must be
          * set.
          */
         @JsonProperty("preferred_effective_date")
@@ -459,7 +459,7 @@ constructor(
             /**
              * Configuration for how the effective date of the transfer will be set. This determines
              * same-day vs future-dated settlement timing. If not set, defaults to a
-             * `settlement_schedule` of `same_day`. If set, exactly one of the child atributes must
+             * `settlement_schedule` of `same_day`. If set, exactly one of the child attributes must
              * be set.
              */
             @JsonProperty("preferred_effective_date")
@@ -737,7 +737,7 @@ constructor(
         /**
          * Configuration for how the effective date of the transfer will be set. This determines
          * same-day vs future-dated settlement timing. If not set, defaults to a
-         * `settlement_schedule` of `same_day`. If set, exactly one of the child atributes must be
+         * `settlement_schedule` of `same_day`. If set, exactly one of the child attributes must be
          * set.
          */
         fun preferredEffectiveDate(preferredEffectiveDate: PreferredEffectiveDate) = apply {
@@ -1530,7 +1530,7 @@ constructor(
     /**
      * Configuration for how the effective date of the transfer will be set. This determines
      * same-day vs future-dated settlement timing. If not set, defaults to a `settlement_schedule`
-     * of `same_day`. If set, exactly one of the child atributes must be set.
+     * of `same_day`. If set, exactly one of the child attributes must be set.
      */
     @JsonDeserialize(builder = PreferredEffectiveDate.Builder::class)
     @NoAutoDetect
@@ -1549,7 +1549,7 @@ constructor(
          */
         @JsonProperty("date") fun date(): LocalDate? = date
 
-        /** A schedule by which Increase whill choose an effective date for the transfer. */
+        /** A schedule by which Increase will choose an effective date for the transfer. */
         @JsonProperty("settlement_schedule")
         fun settlementSchedule(): SettlementSchedule? = settlementSchedule
 
@@ -1609,7 +1609,7 @@ constructor(
              */
             @JsonProperty("date") fun date(date: LocalDate) = apply { this.date = date }
 
-            /** A schedule by which Increase whill choose an effective date for the transfer. */
+            /** A schedule by which Increase will choose an effective date for the transfer. */
             @JsonProperty("settlement_schedule")
             fun settlementSchedule(settlementSchedule: SettlementSchedule) = apply {
                 this.settlementSchedule = settlementSchedule
