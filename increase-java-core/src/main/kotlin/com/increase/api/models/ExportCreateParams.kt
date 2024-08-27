@@ -1043,7 +1043,7 @@ constructor(
 
         private var hashCode: Int = 0
 
-        /** Filter exported Transactions to the specified BookkeepingAccount. */
+        /** Filter exported Transactions to the specified Bookkeeping Account. */
         @JsonProperty("bookkeeping_account_id")
         fun bookkeepingAccountId(): String? = bookkeepingAccountId
 
@@ -1100,7 +1100,7 @@ constructor(
                 additionalProperties(bookkeepingAccountBalanceCsv.additionalProperties)
             }
 
-            /** Filter exported Transactions to the specified BookkeepingAccount. */
+            /** Filter exported Transactions to the specified Bookkeeping Account. */
             @JsonProperty("bookkeeping_account_id")
             fun bookkeepingAccountId(bookkeepingAccountId: String) = apply {
                 this.bookkeepingAccountId = bookkeepingAccountId

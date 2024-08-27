@@ -198,7 +198,7 @@ private constructor(
     /**
      * Configuration for how the effective date of the transfer will be set. This determines
      * same-day vs future-dated settlement timing. If not set, defaults to a `settlement_schedule`
-     * of `same_day`. If set, exactly one of the child atributes must be set.
+     * of `same_day`. If set, exactly one of the child attributes must be set.
      */
     fun preferredEffectiveDate(): PreferredEffectiveDate =
         preferredEffectiveDate.getRequired("preferred_effective_date")
@@ -367,7 +367,7 @@ private constructor(
     /**
      * Configuration for how the effective date of the transfer will be set. This determines
      * same-day vs future-dated settlement timing. If not set, defaults to a `settlement_schedule`
-     * of `same_day`. If set, exactly one of the child atributes must be set.
+     * of `same_day`. If set, exactly one of the child attributes must be set.
      */
     @JsonProperty("preferred_effective_date")
     @ExcludeMissing
@@ -940,7 +940,7 @@ private constructor(
         /**
          * Configuration for how the effective date of the transfer will be set. This determines
          * same-day vs future-dated settlement timing. If not set, defaults to a
-         * `settlement_schedule` of `same_day`. If set, exactly one of the child atributes must be
+         * `settlement_schedule` of `same_day`. If set, exactly one of the child attributes must be
          * set.
          */
         fun preferredEffectiveDate(preferredEffectiveDate: PreferredEffectiveDate) =
@@ -949,7 +949,7 @@ private constructor(
         /**
          * Configuration for how the effective date of the transfer will be set. This determines
          * same-day vs future-dated settlement timing. If not set, defaults to a
-         * `settlement_schedule` of `same_day`. If set, exactly one of the child atributes must be
+         * `settlement_schedule` of `same_day`. If set, exactly one of the child attributes must be
          * set.
          */
         @JsonProperty("preferred_effective_date")
@@ -3982,7 +3982,7 @@ private constructor(
     /**
      * Configuration for how the effective date of the transfer will be set. This determines
      * same-day vs future-dated settlement timing. If not set, defaults to a `settlement_schedule`
-     * of `same_day`. If set, exactly one of the child atributes must be set.
+     * of `same_day`. If set, exactly one of the child attributes must be set.
      */
     @JsonDeserialize(builder = PreferredEffectiveDate.Builder::class)
     @NoAutoDetect
@@ -4003,7 +4003,7 @@ private constructor(
          */
         fun date(): Optional<LocalDate> = Optional.ofNullable(date.getNullable("date"))
 
-        /** A schedule by which Increase whill choose an effective date for the transfer. */
+        /** A schedule by which Increase will choose an effective date for the transfer. */
         fun settlementSchedule(): Optional<SettlementSchedule> =
             Optional.ofNullable(settlementSchedule.getNullable("settlement_schedule"))
 
@@ -4013,7 +4013,7 @@ private constructor(
          */
         @JsonProperty("date") @ExcludeMissing fun _date() = date
 
-        /** A schedule by which Increase whill choose an effective date for the transfer. */
+        /** A schedule by which Increase will choose an effective date for the transfer. */
         @JsonProperty("settlement_schedule")
         @ExcludeMissing
         fun _settlementSchedule() = settlementSchedule
@@ -4090,11 +4090,11 @@ private constructor(
             @ExcludeMissing
             fun date(date: JsonField<LocalDate>) = apply { this.date = date }
 
-            /** A schedule by which Increase whill choose an effective date for the transfer. */
+            /** A schedule by which Increase will choose an effective date for the transfer. */
             fun settlementSchedule(settlementSchedule: SettlementSchedule) =
                 settlementSchedule(JsonField.of(settlementSchedule))
 
-            /** A schedule by which Increase whill choose an effective date for the transfer. */
+            /** A schedule by which Increase will choose an effective date for the transfer. */
             @JsonProperty("settlement_schedule")
             @ExcludeMissing
             fun settlementSchedule(settlementSchedule: JsonField<SettlementSchedule>) = apply {
