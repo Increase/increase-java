@@ -4,27 +4,49 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.models.*
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import org.apache.hc.core5.http.ContentType
+import java.time.LocalDate
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.MultipartFormValue
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.Enum
+import com.increase.api.core.ContentTypes
+import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.models.*
 
-class PhysicalCardProfileCloneParams
-constructor(
-    private val physicalCardProfileId: String,
-    private val carrierImageFileId: String?,
-    private val contactPhone: String?,
-    private val description: String?,
-    private val frontImageFileId: String?,
-    private val frontText: FrontText?,
-    private val additionalQueryParams: Map<String, List<String>>,
-    private val additionalHeaders: Map<String, List<String>>,
-    private val additionalBodyProperties: Map<String, JsonValue>,
+class PhysicalCardProfileCloneParams constructor(
+  private val physicalCardProfileId: String,
+  private val carrierImageFileId: String?,
+  private val contactPhone: String?,
+  private val description: String?,
+  private val frontImageFileId: String?,
+  private val frontText: FrontText?,
+  private val additionalQueryParams: Map<String, List<String>>,
+  private val additionalHeaders: Map<String, List<String>>,
+  private val additionalBodyProperties: Map<String, JsonValue>,
+
 ) {
 
     fun physicalCardProfileId(): String = physicalCardProfileId
@@ -41,37 +63,39 @@ constructor(
 
     @JvmSynthetic
     internal fun getBody(): PhysicalCardProfileCloneBody {
-        return PhysicalCardProfileCloneBody(
-            carrierImageFileId,
-            contactPhone,
-            description,
-            frontImageFileId,
-            frontText,
-            additionalBodyProperties,
-        )
+      return PhysicalCardProfileCloneBody(
+          carrierImageFileId,
+          contactPhone,
+          description,
+          frontImageFileId,
+          frontText,
+          additionalBodyProperties,
+      )
     }
 
-    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic
+    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
-    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic
+    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     fun getPathParam(index: Int): String {
-        return when (index) {
-            0 -> physicalCardProfileId
-            else -> ""
-        }
+      return when (index) {
+          0 -> physicalCardProfileId
+          else -> ""
+      }
     }
 
     @JsonDeserialize(builder = PhysicalCardProfileCloneBody.Builder::class)
     @NoAutoDetect
-    class PhysicalCardProfileCloneBody
-    internal constructor(
-        private val carrierImageFileId: String?,
-        private val contactPhone: String?,
-        private val description: String?,
-        private val frontImageFileId: String?,
-        private val frontText: FrontText?,
-        private val additionalProperties: Map<String, JsonValue>,
+    class PhysicalCardProfileCloneBody internal constructor(
+      private val carrierImageFileId: String?,
+      private val contactPhone: String?,
+      private val description: String?,
+      private val frontImageFileId: String?,
+      private val frontText: FrontText?,
+      private val additionalProperties: Map<String, JsonValue>,
+
     ) {
 
         private var hashCode: Int = 0
@@ -81,19 +105,23 @@ constructor(
         fun carrierImageFileId(): String? = carrierImageFileId
 
         /** A phone number the user can contact to receive support for their card. */
-        @JsonProperty("contact_phone") fun contactPhone(): String? = contactPhone
+        @JsonProperty("contact_phone")
+        fun contactPhone(): String? = contactPhone
 
         /** A description you can use to identify the Card Profile. */
-        @JsonProperty("description") fun description(): String? = description
+        @JsonProperty("description")
+        fun description(): String? = description
 
         /** The identifier of the File containing the physical card's front image. */
-        @JsonProperty("front_image_file_id") fun frontImageFileId(): String? = frontImageFileId
+        @JsonProperty("front_image_file_id")
+        fun frontImageFileId(): String? = frontImageFileId
 
         /**
          * Text printed on the front of the card. Reach out to
          * [support@increase.com](mailto:support@increase.com) for more information.
          */
-        @JsonProperty("front_text") fun frontText(): FrontText? = frontText
+        @JsonProperty("front_text")
+        fun frontText(): FrontText? = frontText
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -102,40 +130,39 @@ constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is PhysicalCardProfileCloneBody &&
-                this.carrierImageFileId == other.carrierImageFileId &&
-                this.contactPhone == other.contactPhone &&
-                this.description == other.description &&
-                this.frontImageFileId == other.frontImageFileId &&
-                this.frontText == other.frontText &&
-                this.additionalProperties == other.additionalProperties
+          return other is PhysicalCardProfileCloneBody &&
+              this.carrierImageFileId == other.carrierImageFileId &&
+              this.contactPhone == other.contactPhone &&
+              this.description == other.description &&
+              this.frontImageFileId == other.frontImageFileId &&
+              this.frontText == other.frontText &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        carrierImageFileId,
-                        contactPhone,
-                        description,
-                        frontImageFileId,
-                        frontText,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(
+                carrierImageFileId,
+                contactPhone,
+                description,
+                frontImageFileId,
+                frontText,
+                additionalProperties,
+            )
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "PhysicalCardProfileCloneBody{carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, frontText=$frontText, additionalProperties=$additionalProperties}"
+        override fun toString() = "PhysicalCardProfileCloneBody{carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, frontText=$frontText, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         class Builder {
@@ -165,11 +192,15 @@ constructor(
 
             /** A phone number the user can contact to receive support for their card. */
             @JsonProperty("contact_phone")
-            fun contactPhone(contactPhone: String) = apply { this.contactPhone = contactPhone }
+            fun contactPhone(contactPhone: String) = apply {
+                this.contactPhone = contactPhone
+            }
 
             /** A description you can use to identify the Card Profile. */
             @JsonProperty("description")
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String) = apply {
+                this.description = description
+            }
 
             /** The identifier of the File containing the physical card's front image. */
             @JsonProperty("front_image_file_id")
@@ -182,7 +213,9 @@ constructor(
              * [support@increase.com](mailto:support@increase.com) for more information.
              */
             @JsonProperty("front_text")
-            fun frontText(frontText: FrontText) = apply { this.frontText = frontText }
+            fun frontText(frontText: FrontText) = apply {
+                this.frontText = frontText
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -198,15 +231,14 @@ constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): PhysicalCardProfileCloneBody =
-                PhysicalCardProfileCloneBody(
-                    carrierImageFileId,
-                    contactPhone,
-                    description,
-                    frontImageFileId,
-                    frontText,
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build(): PhysicalCardProfileCloneBody = PhysicalCardProfileCloneBody(
+                carrierImageFileId,
+                contactPhone,
+                description,
+                frontImageFileId,
+                frontText,
+                additionalProperties.toUnmodifiable(),
+            )
         }
     }
 
@@ -217,44 +249,44 @@ constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is PhysicalCardProfileCloneParams &&
-            this.physicalCardProfileId == other.physicalCardProfileId &&
-            this.carrierImageFileId == other.carrierImageFileId &&
-            this.contactPhone == other.contactPhone &&
-            this.description == other.description &&
-            this.frontImageFileId == other.frontImageFileId &&
-            this.frontText == other.frontText &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+      return other is PhysicalCardProfileCloneParams &&
+          this.physicalCardProfileId == other.physicalCardProfileId &&
+          this.carrierImageFileId == other.carrierImageFileId &&
+          this.contactPhone == other.contactPhone &&
+          this.description == other.description &&
+          this.frontImageFileId == other.frontImageFileId &&
+          this.frontText == other.frontText &&
+          this.additionalQueryParams == other.additionalQueryParams &&
+          this.additionalHeaders == other.additionalHeaders &&
+          this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            physicalCardProfileId,
-            carrierImageFileId,
-            contactPhone,
-            description,
-            frontImageFileId,
-            frontText,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+      return Objects.hash(
+          physicalCardProfileId,
+          carrierImageFileId,
+          contactPhone,
+          description,
+          frontImageFileId,
+          frontText,
+          additionalQueryParams,
+          additionalHeaders,
+          additionalBodyProperties,
+      )
     }
 
-    override fun toString() =
-        "PhysicalCardProfileCloneParams{physicalCardProfileId=$physicalCardProfileId, carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, frontText=$frontText, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() = "PhysicalCardProfileCloneParams{physicalCardProfileId=$physicalCardProfileId, carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, frontText=$frontText, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -294,10 +326,14 @@ constructor(
         }
 
         /** A phone number the user can contact to receive support for their card. */
-        fun contactPhone(contactPhone: String) = apply { this.contactPhone = contactPhone }
+        fun contactPhone(contactPhone: String) = apply {
+            this.contactPhone = contactPhone
+        }
 
         /** A description you can use to identify the Card Profile. */
-        fun description(description: String) = apply { this.description = description }
+        fun description(description: String) = apply {
+            this.description = description
+        }
 
         /** The identifier of the File containing the physical card's front image. */
         fun frontImageFileId(frontImageFileId: String) = apply {
@@ -308,7 +344,9 @@ constructor(
          * Text printed on the front of the card. Reach out to
          * [support@increase.com](mailto:support@increase.com) for more information.
          */
-        fun frontText(frontText: FrontText) = apply { this.frontText = frontText }
+        fun frontText(frontText: FrontText) = apply {
+            this.frontText = frontText
+        }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -348,7 +386,9 @@ constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
+        fun removeHeader(name: String) = apply {
+            this.additionalHeaders.put(name, mutableListOf())
+        }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -359,25 +399,23 @@ constructor(
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
-            }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            this.additionalBodyProperties.putAll(additionalBodyProperties)
+        }
 
-        fun build(): PhysicalCardProfileCloneParams =
-            PhysicalCardProfileCloneParams(
-                checkNotNull(physicalCardProfileId) {
-                    "`physicalCardProfileId` is required but was not set"
-                },
-                carrierImageFileId,
-                contactPhone,
-                description,
-                frontImageFileId,
-                frontText,
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
-            )
+        fun build(): PhysicalCardProfileCloneParams = PhysicalCardProfileCloneParams(
+            checkNotNull(physicalCardProfileId) {
+                "`physicalCardProfileId` is required but was not set"
+            },
+            carrierImageFileId,
+            contactPhone,
+            description,
+            frontImageFileId,
+            frontText,
+            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            additionalBodyProperties.toUnmodifiable(),
+        )
     }
 
     /**
@@ -386,24 +424,21 @@ constructor(
      */
     @JsonDeserialize(builder = FrontText.Builder::class)
     @NoAutoDetect
-    class FrontText
-    private constructor(
-        private val line1: String?,
-        private val line2: String?,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
+    class FrontText private constructor(private val line1: String?, private val line2: String?, private val additionalProperties: Map<String, JsonValue>, ) {
 
         private var hashCode: Int = 0
 
         /** The first line of text on the front of the card. */
-        @JsonProperty("line1") fun line1(): String? = line1
+        @JsonProperty("line1")
+        fun line1(): String? = line1
 
         /**
-         * The second line of text on the front of the card. Providing a second line moves the first
-         * line slightly higher and prints the second line in the spot where the first line would
-         * have otherwise been printed.
+         * The second line of text on the front of the card. Providing a second line moves
+         * the first line slightly higher and prints the second line in the spot where the
+         * first line would have otherwise been printed.
          */
-        @JsonProperty("line2") fun line2(): String? = line2
+        @JsonProperty("line2")
+        fun line2(): String? = line2
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -412,34 +447,33 @@ constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is FrontText &&
-                this.line1 == other.line1 &&
-                this.line2 == other.line2 &&
-                this.additionalProperties == other.additionalProperties
+          return other is FrontText &&
+              this.line1 == other.line1 &&
+              this.line2 == other.line2 &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        line1,
-                        line2,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(
+                line1,
+                line2,
+                additionalProperties,
+            )
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "FrontText{line1=$line1, line2=$line2, additionalProperties=$additionalProperties}"
+        override fun toString() = "FrontText{line1=$line1, line2=$line2, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         class Builder {
@@ -456,14 +490,20 @@ constructor(
             }
 
             /** The first line of text on the front of the card. */
-            @JsonProperty("line1") fun line1(line1: String) = apply { this.line1 = line1 }
+            @JsonProperty("line1")
+            fun line1(line1: String) = apply {
+                this.line1 = line1
+            }
 
             /**
-             * The second line of text on the front of the card. Providing a second line moves the
-             * first line slightly higher and prints the second line in the spot where the first
-             * line would have otherwise been printed.
+             * The second line of text on the front of the card. Providing a second line moves
+             * the first line slightly higher and prints the second line in the spot where the
+             * first line would have otherwise been printed.
              */
-            @JsonProperty("line2") fun line2(line2: String) = apply { this.line2 = line2 }
+            @JsonProperty("line2")
+            fun line2(line2: String) = apply {
+                this.line2 = line2
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -479,12 +519,13 @@ constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): FrontText =
-                FrontText(
-                    checkNotNull(line1) { "`line1` is required but was not set" },
-                    line2,
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build(): FrontText = FrontText(
+                checkNotNull(line1) {
+                    "`line1` is required but was not set"
+                },
+                line2,
+                additionalProperties.toUnmodifiable(),
+            )
         }
     }
 }

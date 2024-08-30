@@ -5,28 +5,46 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.Enum
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.errors.IncreaseInvalidDataException
-import com.increase.api.models.*
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import org.apache.hc.core5.http.ContentType
+import java.time.LocalDate
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.MultipartFormValue
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.Enum
+import com.increase.api.core.ContentTypes
+import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.models.*
 
-class AccountNumberCreateParams
-constructor(
-    private val accountId: String,
-    private val name: String,
-    private val inboundAch: InboundAch?,
-    private val inboundChecks: InboundChecks?,
-    private val additionalQueryParams: Map<String, List<String>>,
-    private val additionalHeaders: Map<String, List<String>>,
-    private val additionalBodyProperties: Map<String, JsonValue>,
+class AccountNumberCreateParams constructor(
+  private val accountId: String,
+  private val name: String,
+  private val inboundAch: InboundAch?,
+  private val inboundChecks: InboundChecks?,
+  private val additionalQueryParams: Map<String, List<String>>,
+  private val additionalHeaders: Map<String, List<String>>,
+  private val additionalBodyProperties: Map<String, JsonValue>,
+
 ) {
 
     fun accountId(): String = accountId
@@ -39,43 +57,52 @@ constructor(
 
     @JvmSynthetic
     internal fun getBody(): AccountNumberCreateBody {
-        return AccountNumberCreateBody(
-            accountId,
-            name,
-            inboundAch,
-            inboundChecks,
-            additionalBodyProperties,
-        )
+      return AccountNumberCreateBody(
+          accountId,
+          name,
+          inboundAch,
+          inboundChecks,
+          additionalBodyProperties,
+      )
     }
 
-    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic
+    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
-    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic
+    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     @JsonDeserialize(builder = AccountNumberCreateBody.Builder::class)
     @NoAutoDetect
-    class AccountNumberCreateBody
-    internal constructor(
-        private val accountId: String?,
-        private val name: String?,
-        private val inboundAch: InboundAch?,
-        private val inboundChecks: InboundChecks?,
-        private val additionalProperties: Map<String, JsonValue>,
+    class AccountNumberCreateBody internal constructor(
+      private val accountId: String?,
+      private val name: String?,
+      private val inboundAch: InboundAch?,
+      private val inboundChecks: InboundChecks?,
+      private val additionalProperties: Map<String, JsonValue>,
+
     ) {
 
         private var hashCode: Int = 0
 
         /** The Account the Account Number should belong to. */
-        @JsonProperty("account_id") fun accountId(): String? = accountId
+        @JsonProperty("account_id")
+        fun accountId(): String? = accountId
 
         /** The name you choose for the Account Number. */
-        @JsonProperty("name") fun name(): String? = name
+        @JsonProperty("name")
+        fun name(): String? = name
 
         /** Options related to how this Account Number should handle inbound ACH transfers. */
-        @JsonProperty("inbound_ach") fun inboundAch(): InboundAch? = inboundAch
+        @JsonProperty("inbound_ach")
+        fun inboundAch(): InboundAch? = inboundAch
 
-        /** Options related to how this Account Number should handle inbound check withdrawals. */
-        @JsonProperty("inbound_checks") fun inboundChecks(): InboundChecks? = inboundChecks
+        /**
+         * Options related to how this Account Number should handle inbound check
+         * withdrawals.
+         */
+        @JsonProperty("inbound_checks")
+        fun inboundChecks(): InboundChecks? = inboundChecks
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -84,38 +111,37 @@ constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is AccountNumberCreateBody &&
-                this.accountId == other.accountId &&
-                this.name == other.name &&
-                this.inboundAch == other.inboundAch &&
-                this.inboundChecks == other.inboundChecks &&
-                this.additionalProperties == other.additionalProperties
+          return other is AccountNumberCreateBody &&
+              this.accountId == other.accountId &&
+              this.name == other.name &&
+              this.inboundAch == other.inboundAch &&
+              this.inboundChecks == other.inboundChecks &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountId,
-                        name,
-                        inboundAch,
-                        inboundChecks,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(
+                accountId,
+                name,
+                inboundAch,
+                inboundChecks,
+                additionalProperties,
+            )
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "AccountNumberCreateBody{accountId=$accountId, name=$name, inboundAch=$inboundAch, inboundChecks=$inboundChecks, additionalProperties=$additionalProperties}"
+        override fun toString() = "AccountNumberCreateBody{accountId=$accountId, name=$name, inboundAch=$inboundAch, inboundChecks=$inboundChecks, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         class Builder {
@@ -137,17 +163,25 @@ constructor(
 
             /** The Account the Account Number should belong to. */
             @JsonProperty("account_id")
-            fun accountId(accountId: String) = apply { this.accountId = accountId }
+            fun accountId(accountId: String) = apply {
+                this.accountId = accountId
+            }
 
             /** The name you choose for the Account Number. */
-            @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+            @JsonProperty("name")
+            fun name(name: String) = apply {
+                this.name = name
+            }
 
             /** Options related to how this Account Number should handle inbound ACH transfers. */
             @JsonProperty("inbound_ach")
-            fun inboundAch(inboundAch: InboundAch) = apply { this.inboundAch = inboundAch }
+            fun inboundAch(inboundAch: InboundAch) = apply {
+                this.inboundAch = inboundAch
+            }
 
             /**
-             * Options related to how this Account Number should handle inbound check withdrawals.
+             * Options related to how this Account Number should handle inbound check
+             * withdrawals.
              */
             @JsonProperty("inbound_checks")
             fun inboundChecks(inboundChecks: InboundChecks) = apply {
@@ -168,14 +202,17 @@ constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): AccountNumberCreateBody =
-                AccountNumberCreateBody(
-                    checkNotNull(accountId) { "`accountId` is required but was not set" },
-                    checkNotNull(name) { "`name` is required but was not set" },
-                    inboundAch,
-                    inboundChecks,
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build(): AccountNumberCreateBody = AccountNumberCreateBody(
+                checkNotNull(accountId) {
+                    "`accountId` is required but was not set"
+                },
+                checkNotNull(name) {
+                    "`name` is required but was not set"
+                },
+                inboundAch,
+                inboundChecks,
+                additionalProperties.toUnmodifiable(),
+            )
         }
     }
 
@@ -186,40 +223,40 @@ constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is AccountNumberCreateParams &&
-            this.accountId == other.accountId &&
-            this.name == other.name &&
-            this.inboundAch == other.inboundAch &&
-            this.inboundChecks == other.inboundChecks &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+      return other is AccountNumberCreateParams &&
+          this.accountId == other.accountId &&
+          this.name == other.name &&
+          this.inboundAch == other.inboundAch &&
+          this.inboundChecks == other.inboundChecks &&
+          this.additionalQueryParams == other.additionalQueryParams &&
+          this.additionalHeaders == other.additionalHeaders &&
+          this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            accountId,
-            name,
-            inboundAch,
-            inboundChecks,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+      return Objects.hash(
+          accountId,
+          name,
+          inboundAch,
+          inboundChecks,
+          additionalQueryParams,
+          additionalHeaders,
+          additionalBodyProperties,
+      )
     }
 
-    override fun toString() =
-        "AccountNumberCreateParams{accountId=$accountId, name=$name, inboundAch=$inboundAch, inboundChecks=$inboundChecks, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() = "AccountNumberCreateParams{accountId=$accountId, name=$name, inboundAch=$inboundAch, inboundChecks=$inboundChecks, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -245,15 +282,24 @@ constructor(
         }
 
         /** The Account the Account Number should belong to. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
+        fun accountId(accountId: String) = apply {
+            this.accountId = accountId
+        }
 
         /** The name you choose for the Account Number. */
-        fun name(name: String) = apply { this.name = name }
+        fun name(name: String) = apply {
+            this.name = name
+        }
 
         /** Options related to how this Account Number should handle inbound ACH transfers. */
-        fun inboundAch(inboundAch: InboundAch) = apply { this.inboundAch = inboundAch }
+        fun inboundAch(inboundAch: InboundAch) = apply {
+            this.inboundAch = inboundAch
+        }
 
-        /** Options related to how this Account Number should handle inbound check withdrawals. */
+        /**
+         * Options related to how this Account Number should handle inbound check
+         * withdrawals.
+         */
         fun inboundChecks(inboundChecks: InboundChecks) = apply {
             this.inboundChecks = inboundChecks
         }
@@ -296,7 +342,9 @@ constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
+        fun removeHeader(name: String) = apply {
+            this.additionalHeaders.put(name, mutableListOf())
+        }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -307,40 +355,39 @@ constructor(
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
-            }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            this.additionalBodyProperties.putAll(additionalBodyProperties)
+        }
 
-        fun build(): AccountNumberCreateParams =
-            AccountNumberCreateParams(
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
-                checkNotNull(name) { "`name` is required but was not set" },
-                inboundAch,
-                inboundChecks,
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
-            )
+        fun build(): AccountNumberCreateParams = AccountNumberCreateParams(
+            checkNotNull(accountId) {
+                "`accountId` is required but was not set"
+            },
+            checkNotNull(name) {
+                "`name` is required but was not set"
+            },
+            inboundAch,
+            inboundChecks,
+            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            additionalBodyProperties.toUnmodifiable(),
+        )
     }
 
     /** Options related to how this Account Number should handle inbound ACH transfers. */
     @JsonDeserialize(builder = InboundAch.Builder::class)
     @NoAutoDetect
-    class InboundAch
-    private constructor(
-        private val debitStatus: DebitStatus?,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
+    class InboundAch private constructor(private val debitStatus: DebitStatus?, private val additionalProperties: Map<String, JsonValue>, ) {
 
         private var hashCode: Int = 0
 
         /**
-         * Whether ACH debits are allowed against this Account Number. Note that ACH debits will be
-         * declined if this is `allowed` but the Account Number is not active. If you do not specify
-         * this field, the default is `allowed`.
+         * Whether ACH debits are allowed against this Account Number. Note that ACH debits
+         * will be declined if this is `allowed` but the Account Number is not active. If
+         * you do not specify this field, the default is `allowed`.
          */
-        @JsonProperty("debit_status") fun debitStatus(): DebitStatus? = debitStatus
+        @JsonProperty("debit_status")
+        fun debitStatus(): DebitStatus? = debitStatus
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -349,28 +396,28 @@ constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is InboundAch &&
-                this.debitStatus == other.debitStatus &&
-                this.additionalProperties == other.additionalProperties
+          return other is InboundAch &&
+              this.debitStatus == other.debitStatus &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(debitStatus, additionalProperties)
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(debitStatus, additionalProperties)
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "InboundAch{debitStatus=$debitStatus, additionalProperties=$additionalProperties}"
+        override fun toString() = "InboundAch{debitStatus=$debitStatus, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         class Builder {
@@ -385,12 +432,14 @@ constructor(
             }
 
             /**
-             * Whether ACH debits are allowed against this Account Number. Note that ACH debits will
-             * be declined if this is `allowed` but the Account Number is not active. If you do not
-             * specify this field, the default is `allowed`.
+             * Whether ACH debits are allowed against this Account Number. Note that ACH debits
+             * will be declined if this is `allowed` but the Account Number is not active. If
+             * you do not specify this field, the default is `allowed`.
              */
             @JsonProperty("debit_status")
-            fun debitStatus(debitStatus: DebitStatus) = apply { this.debitStatus = debitStatus }
+            fun debitStatus(debitStatus: DebitStatus) = apply {
+                this.debitStatus = debitStatus
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -406,27 +455,23 @@ constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): InboundAch =
-                InboundAch(
-                    checkNotNull(debitStatus) { "`debitStatus` is required but was not set" },
-                    additionalProperties.toUnmodifiable()
-                )
+            fun build(): InboundAch = InboundAch(checkNotNull(debitStatus) {
+                "`debitStatus` is required but was not set"
+            }, additionalProperties.toUnmodifiable())
         }
 
-        class DebitStatus
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class DebitStatus @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue
+            fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is DebitStatus && this.value == other.value
+              return other is DebitStatus &&
+                  this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -453,40 +498,38 @@ constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value =
-                when (this) {
-                    ALLOWED -> Value.ALLOWED
-                    BLOCKED -> Value.BLOCKED
-                    else -> Value._UNKNOWN
-                }
+            fun value(): Value = when (this) {
+                ALLOWED -> Value.ALLOWED
+                BLOCKED -> Value.BLOCKED
+                else -> Value._UNKNOWN
+            }
 
-            fun known(): Known =
-                when (this) {
-                    ALLOWED -> Known.ALLOWED
-                    BLOCKED -> Known.BLOCKED
-                    else -> throw IncreaseInvalidDataException("Unknown DebitStatus: $value")
-                }
+            fun known(): Known = when (this) {
+                ALLOWED -> Known.ALLOWED
+                BLOCKED -> Known.BLOCKED
+                else -> throw IncreaseInvalidDataException("Unknown DebitStatus: $value")
+            }
 
             fun asString(): String = _value().asStringOrThrow()
         }
     }
 
-    /** Options related to how this Account Number should handle inbound check withdrawals. */
+    /**
+     * Options related to how this Account Number should handle inbound check
+     * withdrawals.
+     */
     @JsonDeserialize(builder = InboundChecks.Builder::class)
     @NoAutoDetect
-    class InboundChecks
-    private constructor(
-        private val status: Status?,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
+    class InboundChecks private constructor(private val status: Status?, private val additionalProperties: Map<String, JsonValue>, ) {
 
         private var hashCode: Int = 0
 
         /**
-         * How Increase should process checks with this account number printed on them. If you do
-         * not specify this field, the default is `check_transfers_only`.
+         * How Increase should process checks with this account number printed on them. If
+         * you do not specify this field, the default is `check_transfers_only`.
          */
-        @JsonProperty("status") fun status(): Status? = status
+        @JsonProperty("status")
+        fun status(): Status? = status
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -495,28 +538,28 @@ constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is InboundChecks &&
-                this.status == other.status &&
-                this.additionalProperties == other.additionalProperties
+          return other is InboundChecks &&
+              this.status == other.status &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(status, additionalProperties)
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(status, additionalProperties)
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "InboundChecks{status=$status, additionalProperties=$additionalProperties}"
+        override fun toString() = "InboundChecks{status=$status, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         class Builder {
@@ -531,10 +574,13 @@ constructor(
             }
 
             /**
-             * How Increase should process checks with this account number printed on them. If you
-             * do not specify this field, the default is `check_transfers_only`.
+             * How Increase should process checks with this account number printed on them. If
+             * you do not specify this field, the default is `check_transfers_only`.
              */
-            @JsonProperty("status") fun status(status: Status) = apply { this.status = status }
+            @JsonProperty("status")
+            fun status(status: Status) = apply {
+                this.status = status
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -550,27 +596,23 @@ constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): InboundChecks =
-                InboundChecks(
-                    checkNotNull(status) { "`status` is required but was not set" },
-                    additionalProperties.toUnmodifiable()
-                )
+            fun build(): InboundChecks = InboundChecks(checkNotNull(status) {
+                "`status` is required but was not set"
+            }, additionalProperties.toUnmodifiable())
         }
 
-        class Status
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Status @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue
+            fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is Status && this.value == other.value
+              return other is Status &&
+                  this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -597,19 +639,17 @@ constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value =
-                when (this) {
-                    ALLOWED -> Value.ALLOWED
-                    CHECK_TRANSFERS_ONLY -> Value.CHECK_TRANSFERS_ONLY
-                    else -> Value._UNKNOWN
-                }
+            fun value(): Value = when (this) {
+                ALLOWED -> Value.ALLOWED
+                CHECK_TRANSFERS_ONLY -> Value.CHECK_TRANSFERS_ONLY
+                else -> Value._UNKNOWN
+            }
 
-            fun known(): Known =
-                when (this) {
-                    ALLOWED -> Known.ALLOWED
-                    CHECK_TRANSFERS_ONLY -> Known.CHECK_TRANSFERS_ONLY
-                    else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-                }
+            fun known(): Known = when (this) {
+                ALLOWED -> Known.ALLOWED
+                CHECK_TRANSFERS_ONLY -> Known.CHECK_TRANSFERS_ONLY
+                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+            }
 
             fun asString(): String = _value().asStringOrThrow()
         }

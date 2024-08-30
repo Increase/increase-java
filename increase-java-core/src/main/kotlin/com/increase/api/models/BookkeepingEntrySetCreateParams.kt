@@ -4,25 +4,46 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.models.*
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import org.apache.hc.core5.http.ContentType
+import java.time.LocalDate
 import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.MultipartFormValue
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.Enum
+import com.increase.api.core.ContentTypes
+import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.models.*
 
-class BookkeepingEntrySetCreateParams
-constructor(
-    private val entries: List<Entry>,
-    private val date: OffsetDateTime?,
-    private val transactionId: String?,
-    private val additionalQueryParams: Map<String, List<String>>,
-    private val additionalHeaders: Map<String, List<String>>,
-    private val additionalBodyProperties: Map<String, JsonValue>,
+class BookkeepingEntrySetCreateParams constructor(
+  private val entries: List<Entry>,
+  private val date: OffsetDateTime?,
+  private val transactionId: String?,
+  private val additionalQueryParams: Map<String, List<String>>,
+  private val additionalHeaders: Map<String, List<String>>,
+  private val additionalBodyProperties: Map<String, JsonValue>,
+
 ) {
 
     fun entries(): List<Entry> = entries
@@ -33,41 +54,46 @@ constructor(
 
     @JvmSynthetic
     internal fun getBody(): BookkeepingEntrySetCreateBody {
-        return BookkeepingEntrySetCreateBody(
-            entries,
-            date,
-            transactionId,
-            additionalBodyProperties,
-        )
+      return BookkeepingEntrySetCreateBody(
+          entries,
+          date,
+          transactionId,
+          additionalBodyProperties,
+      )
     }
 
-    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic
+    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
-    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic
+    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     @JsonDeserialize(builder = BookkeepingEntrySetCreateBody.Builder::class)
     @NoAutoDetect
-    class BookkeepingEntrySetCreateBody
-    internal constructor(
-        private val entries: List<Entry>?,
-        private val date: OffsetDateTime?,
-        private val transactionId: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+    class BookkeepingEntrySetCreateBody internal constructor(
+      private val entries: List<Entry>?,
+      private val date: OffsetDateTime?,
+      private val transactionId: String?,
+      private val additionalProperties: Map<String, JsonValue>,
+
     ) {
 
         private var hashCode: Int = 0
 
         /** The bookkeeping entries. */
-        @JsonProperty("entries") fun entries(): List<Entry>? = entries
+        @JsonProperty("entries")
+        fun entries(): List<Entry>? = entries
 
         /**
-         * The date of the transaction. Optional if `transaction_id` is provided, in which case we
-         * use the `date` of that transaction. Required otherwise.
+         * The date of the transaction. Optional if `transaction_id` is provided, in which
+         * case we use the `date` of that transaction. Required otherwise.
          */
-        @JsonProperty("date") fun date(): OffsetDateTime? = date
+        @JsonProperty("date")
+        fun date(): OffsetDateTime? = date
 
         /** The identifier of the Transaction related to this entry set, if any. */
-        @JsonProperty("transaction_id") fun transactionId(): String? = transactionId
+        @JsonProperty("transaction_id")
+        fun transactionId(): String? = transactionId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -76,36 +102,35 @@ constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is BookkeepingEntrySetCreateBody &&
-                this.entries == other.entries &&
-                this.date == other.date &&
-                this.transactionId == other.transactionId &&
-                this.additionalProperties == other.additionalProperties
+          return other is BookkeepingEntrySetCreateBody &&
+              this.entries == other.entries &&
+              this.date == other.date &&
+              this.transactionId == other.transactionId &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        entries,
-                        date,
-                        transactionId,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(
+                entries,
+                date,
+                transactionId,
+                additionalProperties,
+            )
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "BookkeepingEntrySetCreateBody{entries=$entries, date=$date, transactionId=$transactionId, additionalProperties=$additionalProperties}"
+        override fun toString() = "BookkeepingEntrySetCreateBody{entries=$entries, date=$date, transactionId=$transactionId, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         class Builder {
@@ -116,27 +141,33 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(bookkeepingEntrySetCreateBody: BookkeepingEntrySetCreateBody) =
-                apply {
-                    this.entries = bookkeepingEntrySetCreateBody.entries
-                    this.date = bookkeepingEntrySetCreateBody.date
-                    this.transactionId = bookkeepingEntrySetCreateBody.transactionId
-                    additionalProperties(bookkeepingEntrySetCreateBody.additionalProperties)
-                }
+            internal fun from(bookkeepingEntrySetCreateBody: BookkeepingEntrySetCreateBody) = apply {
+                this.entries = bookkeepingEntrySetCreateBody.entries
+                this.date = bookkeepingEntrySetCreateBody.date
+                this.transactionId = bookkeepingEntrySetCreateBody.transactionId
+                additionalProperties(bookkeepingEntrySetCreateBody.additionalProperties)
+            }
 
             /** The bookkeeping entries. */
             @JsonProperty("entries")
-            fun entries(entries: List<Entry>) = apply { this.entries = entries }
+            fun entries(entries: List<Entry>) = apply {
+                this.entries = entries
+            }
 
             /**
-             * The date of the transaction. Optional if `transaction_id` is provided, in which case
-             * we use the `date` of that transaction. Required otherwise.
+             * The date of the transaction. Optional if `transaction_id` is provided, in which
+             * case we use the `date` of that transaction. Required otherwise.
              */
-            @JsonProperty("date") fun date(date: OffsetDateTime) = apply { this.date = date }
+            @JsonProperty("date")
+            fun date(date: OffsetDateTime) = apply {
+                this.date = date
+            }
 
             /** The identifier of the Transaction related to this entry set, if any. */
             @JsonProperty("transaction_id")
-            fun transactionId(transactionId: String) = apply { this.transactionId = transactionId }
+            fun transactionId(transactionId: String) = apply {
+                this.transactionId = transactionId
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -152,14 +183,14 @@ constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): BookkeepingEntrySetCreateBody =
-                BookkeepingEntrySetCreateBody(
-                    checkNotNull(entries) { "`entries` is required but was not set" }
-                        .toUnmodifiable(),
-                    date,
-                    transactionId,
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build(): BookkeepingEntrySetCreateBody = BookkeepingEntrySetCreateBody(
+                checkNotNull(entries) {
+                    "`entries` is required but was not set"
+                }.toUnmodifiable(),
+                date,
+                transactionId,
+                additionalProperties.toUnmodifiable(),
+            )
         }
     }
 
@@ -170,38 +201,38 @@ constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is BookkeepingEntrySetCreateParams &&
-            this.entries == other.entries &&
-            this.date == other.date &&
-            this.transactionId == other.transactionId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+      return other is BookkeepingEntrySetCreateParams &&
+          this.entries == other.entries &&
+          this.date == other.date &&
+          this.transactionId == other.transactionId &&
+          this.additionalQueryParams == other.additionalQueryParams &&
+          this.additionalHeaders == other.additionalHeaders &&
+          this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            entries,
-            date,
-            transactionId,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+      return Objects.hash(
+          entries,
+          date,
+          transactionId,
+          additionalQueryParams,
+          additionalHeaders,
+          additionalBodyProperties,
+      )
     }
 
-    override fun toString() =
-        "BookkeepingEntrySetCreateParams{entries=$entries, date=$date, transactionId=$transactionId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() = "BookkeepingEntrySetCreateParams{entries=$entries, date=$date, transactionId=$transactionId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -215,15 +246,14 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(bookkeepingEntrySetCreateParams: BookkeepingEntrySetCreateParams) =
-            apply {
-                this.entries(bookkeepingEntrySetCreateParams.entries)
-                this.date = bookkeepingEntrySetCreateParams.date
-                this.transactionId = bookkeepingEntrySetCreateParams.transactionId
-                additionalQueryParams(bookkeepingEntrySetCreateParams.additionalQueryParams)
-                additionalHeaders(bookkeepingEntrySetCreateParams.additionalHeaders)
-                additionalBodyProperties(bookkeepingEntrySetCreateParams.additionalBodyProperties)
-            }
+        internal fun from(bookkeepingEntrySetCreateParams: BookkeepingEntrySetCreateParams) = apply {
+            this.entries(bookkeepingEntrySetCreateParams.entries)
+            this.date = bookkeepingEntrySetCreateParams.date
+            this.transactionId = bookkeepingEntrySetCreateParams.transactionId
+            additionalQueryParams(bookkeepingEntrySetCreateParams.additionalQueryParams)
+            additionalHeaders(bookkeepingEntrySetCreateParams.additionalHeaders)
+            additionalBodyProperties(bookkeepingEntrySetCreateParams.additionalBodyProperties)
+        }
 
         /** The bookkeeping entries. */
         fun entries(entries: List<Entry>) = apply {
@@ -232,16 +262,22 @@ constructor(
         }
 
         /** The bookkeeping entries. */
-        fun addEntry(entry: Entry) = apply { this.entries.add(entry) }
+        fun addEntry(entry: Entry) = apply {
+            this.entries.add(entry)
+        }
 
         /**
-         * The date of the transaction. Optional if `transaction_id` is provided, in which case we
-         * use the `date` of that transaction. Required otherwise.
+         * The date of the transaction. Optional if `transaction_id` is provided, in which
+         * case we use the `date` of that transaction. Required otherwise.
          */
-        fun date(date: OffsetDateTime) = apply { this.date = date }
+        fun date(date: OffsetDateTime) = apply {
+            this.date = date
+        }
 
         /** The identifier of the Transaction related to this entry set, if any. */
-        fun transactionId(transactionId: String) = apply { this.transactionId = transactionId }
+        fun transactionId(transactionId: String) = apply {
+            this.transactionId = transactionId
+        }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -281,7 +317,9 @@ constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
+        fun removeHeader(name: String) = apply {
+            this.additionalHeaders.put(name, mutableListOf())
+        }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -292,41 +330,39 @@ constructor(
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
-            }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            this.additionalBodyProperties.putAll(additionalBodyProperties)
+        }
 
-        fun build(): BookkeepingEntrySetCreateParams =
-            BookkeepingEntrySetCreateParams(
-                checkNotNull(entries) { "`entries` is required but was not set" }.toUnmodifiable(),
-                date,
-                transactionId,
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
-            )
+        fun build(): BookkeepingEntrySetCreateParams = BookkeepingEntrySetCreateParams(
+            checkNotNull(entries) {
+                "`entries` is required but was not set"
+            }.toUnmodifiable(),
+            date,
+            transactionId,
+            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            additionalBodyProperties.toUnmodifiable(),
+        )
     }
 
     @JsonDeserialize(builder = Entry.Builder::class)
     @NoAutoDetect
-    class Entry
-    private constructor(
-        private val accountId: String?,
-        private val amount: Long?,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
+    class Entry private constructor(private val accountId: String?, private val amount: Long?, private val additionalProperties: Map<String, JsonValue>, ) {
 
         private var hashCode: Int = 0
 
         /** The identifier for the Bookkeeping Account impacted by this entry. */
-        @JsonProperty("account_id") fun accountId(): String? = accountId
+        @JsonProperty("account_id")
+        fun accountId(): String? = accountId
 
         /**
-         * The entry amount in the minor unit of the account currency. For dollars, for example,
-         * this is cents. Debit entries have positive amounts; credit entries have negative amounts.
+         * The entry amount in the minor unit of the account currency. For dollars, for
+         * example, this is cents. Debit entries have positive amounts; credit entries have
+         * negative amounts.
          */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount")
+        fun amount(): Long? = amount
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -335,34 +371,33 @@ constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Entry &&
-                this.accountId == other.accountId &&
-                this.amount == other.amount &&
-                this.additionalProperties == other.additionalProperties
+          return other is Entry &&
+              this.accountId == other.accountId &&
+              this.amount == other.amount &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountId,
-                        amount,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(
+                accountId,
+                amount,
+                additionalProperties,
+            )
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "Entry{accountId=$accountId, amount=$amount, additionalProperties=$additionalProperties}"
+        override fun toString() = "Entry{accountId=$accountId, amount=$amount, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         class Builder {
@@ -380,14 +415,19 @@ constructor(
 
             /** The identifier for the Bookkeeping Account impacted by this entry. */
             @JsonProperty("account_id")
-            fun accountId(accountId: String) = apply { this.accountId = accountId }
+            fun accountId(accountId: String) = apply {
+                this.accountId = accountId
+            }
 
             /**
-             * The entry amount in the minor unit of the account currency. For dollars, for example,
-             * this is cents. Debit entries have positive amounts; credit entries have negative
-             * amounts.
+             * The entry amount in the minor unit of the account currency. For dollars, for
+             * example, this is cents. Debit entries have positive amounts; credit entries have
+             * negative amounts.
              */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+            @JsonProperty("amount")
+            fun amount(amount: Long) = apply {
+                this.amount = amount
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -403,12 +443,15 @@ constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Entry =
-                Entry(
-                    checkNotNull(accountId) { "`accountId` is required but was not set" },
-                    checkNotNull(amount) { "`amount` is required but was not set" },
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build(): Entry = Entry(
+                checkNotNull(accountId) {
+                    "`accountId` is required but was not set"
+                },
+                checkNotNull(amount) {
+                    "`amount` is required but was not set"
+                },
+                additionalProperties.toUnmodifiable(),
+            )
         }
     }
 }
