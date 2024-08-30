@@ -536,6 +536,13 @@ class CardPaymentTest {
                                     .id("id")
                                     .cardAuthorizationId("card_authorization_id")
                                     .currency(CardPayment.Element.CardReversal.Currency.CAD)
+                                    .merchantAcceptorId("merchant_acceptor_id")
+                                    .merchantCategoryCode("merchant_category_code")
+                                    .merchantCity("merchant_city")
+                                    .merchantCountry("merchant_country")
+                                    .merchantDescriptor("merchant_descriptor")
+                                    .merchantPostalCode("merchant_postal_code")
+                                    .merchantState("merchant_state")
                                     .network(CardPayment.Element.CardReversal.Network.VISA)
                                     .networkIdentifiers(
                                         CardPayment.Element.CardReversal.NetworkIdentifiers
@@ -547,6 +554,10 @@ class CardPaymentTest {
                                     )
                                     .pendingTransactionId("pending_transaction_id")
                                     .reversalAmount(123L)
+                                    .reversalReason(
+                                        CardPayment.Element.CardReversal.ReversalReason
+                                            .REVERSED_BY_CUSTOMER
+                                    )
                                     .type(CardPayment.Element.CardReversal.Type.CARD_REVERSAL)
                                     .updatedAuthorizationAmount(123L)
                                     .build()
@@ -1383,6 +1394,13 @@ class CardPaymentTest {
                             .id("id")
                             .cardAuthorizationId("card_authorization_id")
                             .currency(CardPayment.Element.CardReversal.Currency.CAD)
+                            .merchantAcceptorId("merchant_acceptor_id")
+                            .merchantCategoryCode("merchant_category_code")
+                            .merchantCity("merchant_city")
+                            .merchantCountry("merchant_country")
+                            .merchantDescriptor("merchant_descriptor")
+                            .merchantPostalCode("merchant_postal_code")
+                            .merchantState("merchant_state")
                             .network(CardPayment.Element.CardReversal.Network.VISA)
                             .networkIdentifiers(
                                 CardPayment.Element.CardReversal.NetworkIdentifiers.builder()
@@ -1393,6 +1411,9 @@ class CardPaymentTest {
                             )
                             .pendingTransactionId("pending_transaction_id")
                             .reversalAmount(123L)
+                            .reversalReason(
+                                CardPayment.Element.CardReversal.ReversalReason.REVERSED_BY_CUSTOMER
+                            )
                             .type(CardPayment.Element.CardReversal.Type.CARD_REVERSAL)
                             .updatedAuthorizationAmount(123L)
                             .build()
