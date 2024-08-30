@@ -13143,10 +13143,18 @@ private constructor(
             private val cardAuthorizationId: JsonField<String>,
             private val currency: JsonField<Currency>,
             private val id: JsonField<String>,
+            private val merchantAcceptorId: JsonField<String>,
+            private val merchantCategoryCode: JsonField<String>,
+            private val merchantCity: JsonField<String>,
+            private val merchantCountry: JsonField<String>,
+            private val merchantDescriptor: JsonField<String>,
+            private val merchantPostalCode: JsonField<String>,
+            private val merchantState: JsonField<String>,
             private val network: JsonField<Network>,
             private val networkIdentifiers: JsonField<NetworkIdentifiers>,
             private val pendingTransactionId: JsonField<String>,
             private val reversalAmount: JsonField<Long>,
+            private val reversalReason: JsonField<ReversalReason>,
             private val type: JsonField<Type>,
             private val updatedAuthorizationAmount: JsonField<Long>,
             private val additionalProperties: Map<String, JsonValue>,
@@ -13169,6 +13177,41 @@ private constructor(
             /** The Card Reversal identifier. */
             fun id(): String = id.getRequired("id")
 
+            /**
+             * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+             * transacting with.
+             */
+            fun merchantAcceptorId(): String =
+                merchantAcceptorId.getRequired("merchant_acceptor_id")
+
+            /**
+             * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
+             * transacting with.
+             */
+            fun merchantCategoryCode(): Optional<String> =
+                Optional.ofNullable(merchantCategoryCode.getNullable("merchant_category_code"))
+
+            /** The city the merchant resides in. */
+            fun merchantCity(): Optional<String> =
+                Optional.ofNullable(merchantCity.getNullable("merchant_city"))
+
+            /** The country the merchant resides in. */
+            fun merchantCountry(): String = merchantCountry.getRequired("merchant_country")
+
+            /** The merchant descriptor of the merchant the card is transacting with. */
+            fun merchantDescriptor(): String = merchantDescriptor.getRequired("merchant_descriptor")
+
+            /**
+             * The merchant's postal code. For US merchants this is either a 5-digit or 9-digit ZIP
+             * code, where the first 5 and last 4 are separated by a dash.
+             */
+            fun merchantPostalCode(): Optional<String> =
+                Optional.ofNullable(merchantPostalCode.getNullable("merchant_postal_code"))
+
+            /** The state the merchant resides in. */
+            fun merchantState(): Optional<String> =
+                Optional.ofNullable(merchantState.getNullable("merchant_state"))
+
             /** The card network used to process this card authorization. */
             fun network(): Network = network.getRequired("network")
 
@@ -13185,6 +13228,10 @@ private constructor(
              * dollars, for example, this is cents.
              */
             fun reversalAmount(): Long = reversalAmount.getRequired("reversal_amount")
+
+            /** Why this reversal was initiated. */
+            fun reversalReason(): Optional<ReversalReason> =
+                Optional.ofNullable(reversalReason.getNullable("reversal_reason"))
 
             /**
              * A constant representing the object's type. For this resource it will always be
@@ -13213,6 +13260,46 @@ private constructor(
             /** The Card Reversal identifier. */
             @JsonProperty("id") @ExcludeMissing fun _id() = id
 
+            /**
+             * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+             * transacting with.
+             */
+            @JsonProperty("merchant_acceptor_id")
+            @ExcludeMissing
+            fun _merchantAcceptorId() = merchantAcceptorId
+
+            /**
+             * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
+             * transacting with.
+             */
+            @JsonProperty("merchant_category_code")
+            @ExcludeMissing
+            fun _merchantCategoryCode() = merchantCategoryCode
+
+            /** The city the merchant resides in. */
+            @JsonProperty("merchant_city") @ExcludeMissing fun _merchantCity() = merchantCity
+
+            /** The country the merchant resides in. */
+            @JsonProperty("merchant_country")
+            @ExcludeMissing
+            fun _merchantCountry() = merchantCountry
+
+            /** The merchant descriptor of the merchant the card is transacting with. */
+            @JsonProperty("merchant_descriptor")
+            @ExcludeMissing
+            fun _merchantDescriptor() = merchantDescriptor
+
+            /**
+             * The merchant's postal code. For US merchants this is either a 5-digit or 9-digit ZIP
+             * code, where the first 5 and last 4 are separated by a dash.
+             */
+            @JsonProperty("merchant_postal_code")
+            @ExcludeMissing
+            fun _merchantPostalCode() = merchantPostalCode
+
+            /** The state the merchant resides in. */
+            @JsonProperty("merchant_state") @ExcludeMissing fun _merchantState() = merchantState
+
             /** The card network used to process this card authorization. */
             @JsonProperty("network") @ExcludeMissing fun _network() = network
 
@@ -13231,6 +13318,9 @@ private constructor(
              * dollars, for example, this is cents.
              */
             @JsonProperty("reversal_amount") @ExcludeMissing fun _reversalAmount() = reversalAmount
+
+            /** Why this reversal was initiated. */
+            @JsonProperty("reversal_reason") @ExcludeMissing fun _reversalReason() = reversalReason
 
             /**
              * A constant representing the object's type. For this resource it will always be
@@ -13255,10 +13345,18 @@ private constructor(
                     cardAuthorizationId()
                     currency()
                     id()
+                    merchantAcceptorId()
+                    merchantCategoryCode()
+                    merchantCity()
+                    merchantCountry()
+                    merchantDescriptor()
+                    merchantPostalCode()
+                    merchantState()
                     network()
                     networkIdentifiers().validate()
                     pendingTransactionId()
                     reversalAmount()
+                    reversalReason()
                     type()
                     updatedAuthorizationAmount()
                     validated = true
@@ -13276,10 +13374,18 @@ private constructor(
                     this.cardAuthorizationId == other.cardAuthorizationId &&
                     this.currency == other.currency &&
                     this.id == other.id &&
+                    this.merchantAcceptorId == other.merchantAcceptorId &&
+                    this.merchantCategoryCode == other.merchantCategoryCode &&
+                    this.merchantCity == other.merchantCity &&
+                    this.merchantCountry == other.merchantCountry &&
+                    this.merchantDescriptor == other.merchantDescriptor &&
+                    this.merchantPostalCode == other.merchantPostalCode &&
+                    this.merchantState == other.merchantState &&
                     this.network == other.network &&
                     this.networkIdentifiers == other.networkIdentifiers &&
                     this.pendingTransactionId == other.pendingTransactionId &&
                     this.reversalAmount == other.reversalAmount &&
+                    this.reversalReason == other.reversalReason &&
                     this.type == other.type &&
                     this.updatedAuthorizationAmount == other.updatedAuthorizationAmount &&
                     this.additionalProperties == other.additionalProperties
@@ -13292,10 +13398,18 @@ private constructor(
                             cardAuthorizationId,
                             currency,
                             id,
+                            merchantAcceptorId,
+                            merchantCategoryCode,
+                            merchantCity,
+                            merchantCountry,
+                            merchantDescriptor,
+                            merchantPostalCode,
+                            merchantState,
                             network,
                             networkIdentifiers,
                             pendingTransactionId,
                             reversalAmount,
+                            reversalReason,
                             type,
                             updatedAuthorizationAmount,
                             additionalProperties,
@@ -13305,7 +13419,7 @@ private constructor(
             }
 
             override fun toString() =
-                "CardReversal{cardAuthorizationId=$cardAuthorizationId, currency=$currency, id=$id, network=$network, networkIdentifiers=$networkIdentifiers, pendingTransactionId=$pendingTransactionId, reversalAmount=$reversalAmount, type=$type, updatedAuthorizationAmount=$updatedAuthorizationAmount, additionalProperties=$additionalProperties}"
+                "CardReversal{cardAuthorizationId=$cardAuthorizationId, currency=$currency, id=$id, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, network=$network, networkIdentifiers=$networkIdentifiers, pendingTransactionId=$pendingTransactionId, reversalAmount=$reversalAmount, reversalReason=$reversalReason, type=$type, updatedAuthorizationAmount=$updatedAuthorizationAmount, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -13317,10 +13431,18 @@ private constructor(
                 private var cardAuthorizationId: JsonField<String> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
                 private var id: JsonField<String> = JsonMissing.of()
+                private var merchantAcceptorId: JsonField<String> = JsonMissing.of()
+                private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
+                private var merchantCity: JsonField<String> = JsonMissing.of()
+                private var merchantCountry: JsonField<String> = JsonMissing.of()
+                private var merchantDescriptor: JsonField<String> = JsonMissing.of()
+                private var merchantPostalCode: JsonField<String> = JsonMissing.of()
+                private var merchantState: JsonField<String> = JsonMissing.of()
                 private var network: JsonField<Network> = JsonMissing.of()
                 private var networkIdentifiers: JsonField<NetworkIdentifiers> = JsonMissing.of()
                 private var pendingTransactionId: JsonField<String> = JsonMissing.of()
                 private var reversalAmount: JsonField<Long> = JsonMissing.of()
+                private var reversalReason: JsonField<ReversalReason> = JsonMissing.of()
                 private var type: JsonField<Type> = JsonMissing.of()
                 private var updatedAuthorizationAmount: JsonField<Long> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -13330,10 +13452,18 @@ private constructor(
                     this.cardAuthorizationId = cardReversal.cardAuthorizationId
                     this.currency = cardReversal.currency
                     this.id = cardReversal.id
+                    this.merchantAcceptorId = cardReversal.merchantAcceptorId
+                    this.merchantCategoryCode = cardReversal.merchantCategoryCode
+                    this.merchantCity = cardReversal.merchantCity
+                    this.merchantCountry = cardReversal.merchantCountry
+                    this.merchantDescriptor = cardReversal.merchantDescriptor
+                    this.merchantPostalCode = cardReversal.merchantPostalCode
+                    this.merchantState = cardReversal.merchantState
                     this.network = cardReversal.network
                     this.networkIdentifiers = cardReversal.networkIdentifiers
                     this.pendingTransactionId = cardReversal.pendingTransactionId
                     this.reversalAmount = cardReversal.reversalAmount
+                    this.reversalReason = cardReversal.reversalReason
                     this.type = cardReversal.type
                     this.updatedAuthorizationAmount = cardReversal.updatedAuthorizationAmount
                     additionalProperties(cardReversal.additionalProperties)
@@ -13371,6 +13501,100 @@ private constructor(
                 @JsonProperty("id")
                 @ExcludeMissing
                 fun id(id: JsonField<String>) = apply { this.id = id }
+
+                /**
+                 * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+                 * transacting with.
+                 */
+                fun merchantAcceptorId(merchantAcceptorId: String) =
+                    merchantAcceptorId(JsonField.of(merchantAcceptorId))
+
+                /**
+                 * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+                 * transacting with.
+                 */
+                @JsonProperty("merchant_acceptor_id")
+                @ExcludeMissing
+                fun merchantAcceptorId(merchantAcceptorId: JsonField<String>) = apply {
+                    this.merchantAcceptorId = merchantAcceptorId
+                }
+
+                /**
+                 * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card
+                 * is transacting with.
+                 */
+                fun merchantCategoryCode(merchantCategoryCode: String) =
+                    merchantCategoryCode(JsonField.of(merchantCategoryCode))
+
+                /**
+                 * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card
+                 * is transacting with.
+                 */
+                @JsonProperty("merchant_category_code")
+                @ExcludeMissing
+                fun merchantCategoryCode(merchantCategoryCode: JsonField<String>) = apply {
+                    this.merchantCategoryCode = merchantCategoryCode
+                }
+
+                /** The city the merchant resides in. */
+                fun merchantCity(merchantCity: String) = merchantCity(JsonField.of(merchantCity))
+
+                /** The city the merchant resides in. */
+                @JsonProperty("merchant_city")
+                @ExcludeMissing
+                fun merchantCity(merchantCity: JsonField<String>) = apply {
+                    this.merchantCity = merchantCity
+                }
+
+                /** The country the merchant resides in. */
+                fun merchantCountry(merchantCountry: String) =
+                    merchantCountry(JsonField.of(merchantCountry))
+
+                /** The country the merchant resides in. */
+                @JsonProperty("merchant_country")
+                @ExcludeMissing
+                fun merchantCountry(merchantCountry: JsonField<String>) = apply {
+                    this.merchantCountry = merchantCountry
+                }
+
+                /** The merchant descriptor of the merchant the card is transacting with. */
+                fun merchantDescriptor(merchantDescriptor: String) =
+                    merchantDescriptor(JsonField.of(merchantDescriptor))
+
+                /** The merchant descriptor of the merchant the card is transacting with. */
+                @JsonProperty("merchant_descriptor")
+                @ExcludeMissing
+                fun merchantDescriptor(merchantDescriptor: JsonField<String>) = apply {
+                    this.merchantDescriptor = merchantDescriptor
+                }
+
+                /**
+                 * The merchant's postal code. For US merchants this is either a 5-digit or 9-digit
+                 * ZIP code, where the first 5 and last 4 are separated by a dash.
+                 */
+                fun merchantPostalCode(merchantPostalCode: String) =
+                    merchantPostalCode(JsonField.of(merchantPostalCode))
+
+                /**
+                 * The merchant's postal code. For US merchants this is either a 5-digit or 9-digit
+                 * ZIP code, where the first 5 and last 4 are separated by a dash.
+                 */
+                @JsonProperty("merchant_postal_code")
+                @ExcludeMissing
+                fun merchantPostalCode(merchantPostalCode: JsonField<String>) = apply {
+                    this.merchantPostalCode = merchantPostalCode
+                }
+
+                /** The state the merchant resides in. */
+                fun merchantState(merchantState: String) =
+                    merchantState(JsonField.of(merchantState))
+
+                /** The state the merchant resides in. */
+                @JsonProperty("merchant_state")
+                @ExcludeMissing
+                fun merchantState(merchantState: JsonField<String>) = apply {
+                    this.merchantState = merchantState
+                }
 
                 /** The card network used to process this card authorization. */
                 fun network(network: Network) = network(JsonField.of(network))
@@ -13417,6 +13641,17 @@ private constructor(
                 @ExcludeMissing
                 fun reversalAmount(reversalAmount: JsonField<Long>) = apply {
                     this.reversalAmount = reversalAmount
+                }
+
+                /** Why this reversal was initiated. */
+                fun reversalReason(reversalReason: ReversalReason) =
+                    reversalReason(JsonField.of(reversalReason))
+
+                /** Why this reversal was initiated. */
+                @JsonProperty("reversal_reason")
+                @ExcludeMissing
+                fun reversalReason(reversalReason: JsonField<ReversalReason>) = apply {
+                    this.reversalReason = reversalReason
                 }
 
                 /**
@@ -13471,10 +13706,18 @@ private constructor(
                         cardAuthorizationId,
                         currency,
                         id,
+                        merchantAcceptorId,
+                        merchantCategoryCode,
+                        merchantCity,
+                        merchantCountry,
+                        merchantDescriptor,
+                        merchantPostalCode,
+                        merchantState,
                         network,
                         networkIdentifiers,
                         pendingTransactionId,
                         reversalAmount,
+                        reversalReason,
                         type,
                         updatedAuthorizationAmount,
                         additionalProperties.toUnmodifiable(),
@@ -13812,6 +14055,81 @@ private constructor(
                             additionalProperties.toUnmodifiable(),
                         )
                 }
+            }
+
+            class ReversalReason
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) : Enum {
+
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is ReversalReason && this.value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+
+                companion object {
+
+                    @JvmField
+                    val REVERSED_BY_CUSTOMER = ReversalReason(JsonField.of("reversed_by_customer"))
+
+                    @JvmField
+                    val REVERSED_BY_NETWORK_OR_ACQUIRER =
+                        ReversalReason(JsonField.of("reversed_by_network_or_acquirer"))
+
+                    @JvmField
+                    val REVERSED_BY_POINT_OF_SALE =
+                        ReversalReason(JsonField.of("reversed_by_point_of_sale"))
+
+                    @JvmField
+                    val PARTIAL_REVERSAL = ReversalReason(JsonField.of("partial_reversal"))
+
+                    @JvmStatic fun of(value: String) = ReversalReason(JsonField.of(value))
+                }
+
+                enum class Known {
+                    REVERSED_BY_CUSTOMER,
+                    REVERSED_BY_NETWORK_OR_ACQUIRER,
+                    REVERSED_BY_POINT_OF_SALE,
+                    PARTIAL_REVERSAL,
+                }
+
+                enum class Value {
+                    REVERSED_BY_CUSTOMER,
+                    REVERSED_BY_NETWORK_OR_ACQUIRER,
+                    REVERSED_BY_POINT_OF_SALE,
+                    PARTIAL_REVERSAL,
+                    _UNKNOWN,
+                }
+
+                fun value(): Value =
+                    when (this) {
+                        REVERSED_BY_CUSTOMER -> Value.REVERSED_BY_CUSTOMER
+                        REVERSED_BY_NETWORK_OR_ACQUIRER -> Value.REVERSED_BY_NETWORK_OR_ACQUIRER
+                        REVERSED_BY_POINT_OF_SALE -> Value.REVERSED_BY_POINT_OF_SALE
+                        PARTIAL_REVERSAL -> Value.PARTIAL_REVERSAL
+                        else -> Value._UNKNOWN
+                    }
+
+                fun known(): Known =
+                    when (this) {
+                        REVERSED_BY_CUSTOMER -> Known.REVERSED_BY_CUSTOMER
+                        REVERSED_BY_NETWORK_OR_ACQUIRER -> Known.REVERSED_BY_NETWORK_OR_ACQUIRER
+                        REVERSED_BY_POINT_OF_SALE -> Known.REVERSED_BY_POINT_OF_SALE
+                        PARTIAL_REVERSAL -> Known.PARTIAL_REVERSAL
+                        else -> throw IncreaseInvalidDataException("Unknown ReversalReason: $value")
+                    }
+
+                fun asString(): String = _value().asStringOrThrow()
             }
 
             class Type
