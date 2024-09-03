@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.96.0 (2024-09-03)
+
+Full Changelog: [v0.95.0...v0.96.0](https://github.com/Increase/increase-java/compare/v0.95.0...v0.96.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#428](https://github.com/Increase/increase-java/issues/428)) ([f18b970](https://github.com/Increase/increase-java/commit/f18b970b014ef294a48665019bdbd1aa2b86b8e2))
+
+
+### Chores
+
+* fix repo names ([#427](https://github.com/Increase/increase-java/issues/427)) ([b064016](https://github.com/Increase/increase-java/commit/b06401630ae1456c3de54600c7cb38787803169d))
+* **internal:** codegen related update ([#423](https://github.com/Increase/increase-java/issues/423)) ([c731eeb](https://github.com/Increase/increase-java/commit/c731eeb5270e00acf490e937a247db055629e923))
+* **internal:** codegen related update ([#424](https://github.com/Increase/increase-java/issues/424)) ([a690b5e](https://github.com/Increase/increase-java/commit/a690b5ed3b6ce8bf1fd71d8c5f4e7cb6de941b78))
+
 ## 0.95.0 (2024-08-30)
 
 Full Changelog: [v0.94.0...v0.95.0](https://github.com/Increase/increase-java/compare/v0.94.0...v0.95.0)
