@@ -2,50 +2,29 @@
 
 package com.increase.api.models
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter
-import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import org.apache.hc.core5.http.ContentType
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.MultipartFormValue
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Enum
-import com.increase.api.core.ContentTypes
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonValue
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
+import java.time.OffsetDateTime
+import java.util.Objects
+import java.util.Optional
 
-class TransactionListParams constructor(
-  private val accountId: String?,
-  private val category: Category?,
-  private val createdAt: CreatedAt?,
-  private val cursor: String?,
-  private val limit: Long?,
-  private val routeId: String?,
-  private val additionalQueryParams: Map<String, List<String>>,
-  private val additionalHeaders: Map<String, List<String>>,
-
+class TransactionListParams
+constructor(
+    private val accountId: String?,
+    private val category: Category?,
+    private val createdAt: CreatedAt?,
+    private val cursor: String?,
+    private val limit: Long?,
+    private val routeId: String?,
+    private val additionalQueryParams: Map<String, List<String>>,
+    private val additionalHeaders: Map<String, List<String>>,
 ) {
 
     fun accountId(): Optional<String> = Optional.ofNullable(accountId)
@@ -62,73 +41,60 @@ class TransactionListParams constructor(
 
     @JvmSynthetic
     internal fun getQueryParams(): Map<String, List<String>> {
-      val params = mutableMapOf<String, List<String>>()
-      this.accountId?.let {
-          params.put("account_id", listOf(it.toString()))
-      }
-      this.category?.forEachQueryParam { key, values -> 
-          params.put("category.$key", values)
-      }
-      this.createdAt?.forEachQueryParam { key, values -> 
-          params.put("created_at.$key", values)
-      }
-      this.cursor?.let {
-          params.put("cursor", listOf(it.toString()))
-      }
-      this.limit?.let {
-          params.put("limit", listOf(it.toString()))
-      }
-      this.routeId?.let {
-          params.put("route_id", listOf(it.toString()))
-      }
-      params.putAll(additionalQueryParams)
-      return params.toUnmodifiable()
+        val params = mutableMapOf<String, List<String>>()
+        this.accountId?.let { params.put("account_id", listOf(it.toString())) }
+        this.category?.forEachQueryParam { key, values -> params.put("category.$key", values) }
+        this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
+        this.cursor?.let { params.put("cursor", listOf(it.toString())) }
+        this.limit?.let { params.put("limit", listOf(it.toString())) }
+        this.routeId?.let { params.put("route_id", listOf(it.toString())) }
+        params.putAll(additionalQueryParams)
+        return params.toUnmodifiable()
     }
 
-    @JvmSynthetic
-    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
 
     fun _additionalHeaders(): Map<String, List<String>> = additionalHeaders
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is TransactionListParams &&
-          this.accountId == other.accountId &&
-          this.category == other.category &&
-          this.createdAt == other.createdAt &&
-          this.cursor == other.cursor &&
-          this.limit == other.limit &&
-          this.routeId == other.routeId &&
-          this.additionalQueryParams == other.additionalQueryParams &&
-          this.additionalHeaders == other.additionalHeaders
+        return other is TransactionListParams &&
+            this.accountId == other.accountId &&
+            this.category == other.category &&
+            this.createdAt == other.createdAt &&
+            this.cursor == other.cursor &&
+            this.limit == other.limit &&
+            this.routeId == other.routeId &&
+            this.additionalQueryParams == other.additionalQueryParams &&
+            this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          accountId,
-          category,
-          createdAt,
-          cursor,
-          limit,
-          routeId,
-          additionalQueryParams,
-          additionalHeaders,
-      )
+        return Objects.hash(
+            accountId,
+            category,
+            createdAt,
+            cursor,
+            limit,
+            routeId,
+            additionalQueryParams,
+            additionalHeaders,
+        )
     }
 
-    override fun toString() = "TransactionListParams{accountId=$accountId, category=$category, createdAt=$createdAt, cursor=$cursor, limit=$limit, routeId=$routeId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+    override fun toString() =
+        "TransactionListParams{accountId=$accountId, category=$category, createdAt=$createdAt, cursor=$cursor, limit=$limit, routeId=$routeId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -156,38 +122,25 @@ class TransactionListParams constructor(
         }
 
         /** Filter Transactions for those belonging to the specified Account. */
-        fun accountId(accountId: String) = apply {
-            this.accountId = accountId
-        }
+        fun accountId(accountId: String) = apply { this.accountId = accountId }
 
-        fun category(category: Category) = apply {
-            this.category = category
-        }
+        fun category(category: Category) = apply { this.category = category }
 
-        fun createdAt(createdAt: CreatedAt) = apply {
-            this.createdAt = createdAt
-        }
+        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
         /** Return the page of entries after this one. */
-        fun cursor(cursor: String) = apply {
-            this.cursor = cursor
-        }
+        fun cursor(cursor: String) = apply { this.cursor = cursor }
 
         /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100
-         * objects.
+         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
-        fun limit(limit: Long) = apply {
-            this.limit = limit
-        }
+        fun limit(limit: Long) = apply { this.limit = limit }
 
         /**
-         * Filter Transactions for those belonging to the specified route. This could be a
-         * Card ID or an Account Number ID.
+         * Filter Transactions for those belonging to the specified route. This could be a Card ID
+         * or an Account Number ID.
          */
-        fun routeId(routeId: String) = apply {
-            this.routeId = routeId
-        }
+        fun routeId(routeId: String) = apply { this.routeId = routeId }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -227,31 +180,34 @@ class TransactionListParams constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply {
-            this.additionalHeaders.put(name, mutableListOf())
-        }
+        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
-        fun build(): TransactionListParams = TransactionListParams(
-            accountId,
-            category,
-            createdAt,
-            cursor,
-            limit,
-            routeId,
-            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-        )
+        fun build(): TransactionListParams =
+            TransactionListParams(
+                accountId,
+                category,
+                createdAt,
+                cursor,
+                limit,
+                routeId,
+                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            )
     }
 
     @JsonDeserialize(builder = Category.Builder::class)
     @NoAutoDetect
-    class Category private constructor(private val in_: List<In>?, private val additionalProperties: Map<String, List<String>>, ) {
+    class Category
+    private constructor(
+        private val in_: List<In>?,
+        private val additionalProperties: Map<String, List<String>>,
+    ) {
 
         private var hashCode: Int = 0
 
         /**
-         * Return results whose value is in the provided list. For GET requests, this
-         * should be encoded as a comma-delimited string, such as `?in=one,two,three`.
+         * Return results whose value is in the provided list. For GET requests, this should be
+         * encoded as a comma-delimited string, such as `?in=one,two,three`.
          */
         fun in_(): List<In>? = in_
 
@@ -259,39 +215,34 @@ class TransactionListParams constructor(
 
         @JvmSynthetic
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-          this.in_?.let {
-              putParam("in", listOf(it.joinToString(separator = ",")))
-          }
-          this.additionalProperties.forEach { key, values -> 
-              putParam(key, values)
-          }
+            this.in_?.let { putParam("in", listOf(it.joinToString(separator = ","))) }
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Category &&
-              this.in_ == other.in_ &&
-              this.additionalProperties == other.additionalProperties
+            return other is Category &&
+                this.in_ == other.in_ &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(in_, additionalProperties)
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode = Objects.hash(in_, additionalProperties)
+            }
+            return hashCode
         }
 
         override fun toString() = "Category{in_=$in_, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -306,12 +257,10 @@ class TransactionListParams constructor(
             }
 
             /**
-             * Return results whose value is in the provided list. For GET requests, this
-             * should be encoded as a comma-delimited string, such as `?in=one,two,three`.
+             * Return results whose value is in the provided list. For GET requests, this should be
+             * encoded as a comma-delimited string, such as `?in=one,two,three`.
              */
-            fun in_(in_: List<In>) = apply {
-                this.in_ = in_
-            }
+            fun in_(in_: List<In>) = apply { this.in_ = in_ }
 
             fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
                 this.additionalProperties.clear()
@@ -322,25 +271,29 @@ class TransactionListParams constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-            fun build(): Category = Category(in_?.toUnmodifiable(), additionalProperties.toUnmodifiable())
+            fun build(): Category =
+                Category(in_?.toUnmodifiable(), additionalProperties.toUnmodifiable())
         }
 
-        class In @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+        class In
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return other is In &&
-                  this.value == other.value
+                return other is In && this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -349,7 +302,8 @@ class TransactionListParams constructor(
 
             companion object {
 
-                @JvmField val ACCOUNT_TRANSFER_INTENTION = In(JsonField.of("account_transfer_intention"))
+                @JvmField
+                val ACCOUNT_TRANSFER_INTENTION = In(JsonField.of("account_transfer_intention"))
 
                 @JvmField val ACH_TRANSFER_INTENTION = In(JsonField.of("ach_transfer_intention"))
 
@@ -369,7 +323,8 @@ class TransactionListParams constructor(
 
                 @JvmField val CARD_REVENUE_PAYMENT = In(JsonField.of("card_revenue_payment"))
 
-                @JvmField val CHECK_DEPOSIT_ACCEPTANCE = In(JsonField.of("check_deposit_acceptance"))
+                @JvmField
+                val CHECK_DEPOSIT_ACCEPTANCE = In(JsonField.of("check_deposit_acceptance"))
 
                 @JvmField val CHECK_DEPOSIT_RETURN = In(JsonField.of("check_deposit_return"))
 
@@ -379,23 +334,33 @@ class TransactionListParams constructor(
 
                 @JvmField val INBOUND_ACH_TRANSFER = In(JsonField.of("inbound_ach_transfer"))
 
-                @JvmField val INBOUND_ACH_TRANSFER_RETURN_INTENTION = In(JsonField.of("inbound_ach_transfer_return_intention"))
+                @JvmField
+                val INBOUND_ACH_TRANSFER_RETURN_INTENTION =
+                    In(JsonField.of("inbound_ach_transfer_return_intention"))
 
-                @JvmField val INBOUND_CHECK_DEPOSIT_RETURN_INTENTION = In(JsonField.of("inbound_check_deposit_return_intention"))
+                @JvmField
+                val INBOUND_CHECK_DEPOSIT_RETURN_INTENTION =
+                    In(JsonField.of("inbound_check_deposit_return_intention"))
 
-                @JvmField val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION = In(JsonField.of("inbound_real_time_payments_transfer_confirmation"))
+                @JvmField
+                val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION =
+                    In(JsonField.of("inbound_real_time_payments_transfer_confirmation"))
 
                 @JvmField val INBOUND_WIRE_REVERSAL = In(JsonField.of("inbound_wire_reversal"))
 
                 @JvmField val INBOUND_WIRE_TRANSFER = In(JsonField.of("inbound_wire_transfer"))
 
-                @JvmField val INBOUND_WIRE_TRANSFER_REVERSAL = In(JsonField.of("inbound_wire_transfer_reversal"))
+                @JvmField
+                val INBOUND_WIRE_TRANSFER_REVERSAL =
+                    In(JsonField.of("inbound_wire_transfer_reversal"))
 
                 @JvmField val INTEREST_PAYMENT = In(JsonField.of("interest_payment"))
 
                 @JvmField val INTERNAL_SOURCE = In(JsonField.of("internal_source"))
 
-                @JvmField val REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT = In(JsonField.of("real_time_payments_transfer_acknowledgement"))
+                @JvmField
+                val REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT =
+                    In(JsonField.of("real_time_payments_transfer_acknowledgement"))
 
                 @JvmField val SAMPLE_FUNDS = In(JsonField.of("sample_funds"))
 
@@ -471,69 +436,79 @@ class TransactionListParams constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value = when (this) {
-                ACCOUNT_TRANSFER_INTENTION -> Value.ACCOUNT_TRANSFER_INTENTION
-                ACH_TRANSFER_INTENTION -> Value.ACH_TRANSFER_INTENTION
-                ACH_TRANSFER_REJECTION -> Value.ACH_TRANSFER_REJECTION
-                ACH_TRANSFER_RETURN -> Value.ACH_TRANSFER_RETURN
-                CASHBACK_PAYMENT -> Value.CASHBACK_PAYMENT
-                CARD_DISPUTE_ACCEPTANCE -> Value.CARD_DISPUTE_ACCEPTANCE
-                CARD_DISPUTE_LOSS -> Value.CARD_DISPUTE_LOSS
-                CARD_REFUND -> Value.CARD_REFUND
-                CARD_SETTLEMENT -> Value.CARD_SETTLEMENT
-                CARD_REVENUE_PAYMENT -> Value.CARD_REVENUE_PAYMENT
-                CHECK_DEPOSIT_ACCEPTANCE -> Value.CHECK_DEPOSIT_ACCEPTANCE
-                CHECK_DEPOSIT_RETURN -> Value.CHECK_DEPOSIT_RETURN
-                CHECK_TRANSFER_DEPOSIT -> Value.CHECK_TRANSFER_DEPOSIT
-                FEE_PAYMENT -> Value.FEE_PAYMENT
-                INBOUND_ACH_TRANSFER -> Value.INBOUND_ACH_TRANSFER
-                INBOUND_ACH_TRANSFER_RETURN_INTENTION -> Value.INBOUND_ACH_TRANSFER_RETURN_INTENTION
-                INBOUND_CHECK_DEPOSIT_RETURN_INTENTION -> Value.INBOUND_CHECK_DEPOSIT_RETURN_INTENTION
-                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION -> Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
-                INBOUND_WIRE_REVERSAL -> Value.INBOUND_WIRE_REVERSAL
-                INBOUND_WIRE_TRANSFER -> Value.INBOUND_WIRE_TRANSFER
-                INBOUND_WIRE_TRANSFER_REVERSAL -> Value.INBOUND_WIRE_TRANSFER_REVERSAL
-                INTEREST_PAYMENT -> Value.INTEREST_PAYMENT
-                INTERNAL_SOURCE -> Value.INTERNAL_SOURCE
-                REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT -> Value.REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT
-                SAMPLE_FUNDS -> Value.SAMPLE_FUNDS
-                WIRE_TRANSFER_INTENTION -> Value.WIRE_TRANSFER_INTENTION
-                WIRE_TRANSFER_REJECTION -> Value.WIRE_TRANSFER_REJECTION
-                OTHER -> Value.OTHER
-                else -> Value._UNKNOWN
-            }
+            fun value(): Value =
+                when (this) {
+                    ACCOUNT_TRANSFER_INTENTION -> Value.ACCOUNT_TRANSFER_INTENTION
+                    ACH_TRANSFER_INTENTION -> Value.ACH_TRANSFER_INTENTION
+                    ACH_TRANSFER_REJECTION -> Value.ACH_TRANSFER_REJECTION
+                    ACH_TRANSFER_RETURN -> Value.ACH_TRANSFER_RETURN
+                    CASHBACK_PAYMENT -> Value.CASHBACK_PAYMENT
+                    CARD_DISPUTE_ACCEPTANCE -> Value.CARD_DISPUTE_ACCEPTANCE
+                    CARD_DISPUTE_LOSS -> Value.CARD_DISPUTE_LOSS
+                    CARD_REFUND -> Value.CARD_REFUND
+                    CARD_SETTLEMENT -> Value.CARD_SETTLEMENT
+                    CARD_REVENUE_PAYMENT -> Value.CARD_REVENUE_PAYMENT
+                    CHECK_DEPOSIT_ACCEPTANCE -> Value.CHECK_DEPOSIT_ACCEPTANCE
+                    CHECK_DEPOSIT_RETURN -> Value.CHECK_DEPOSIT_RETURN
+                    CHECK_TRANSFER_DEPOSIT -> Value.CHECK_TRANSFER_DEPOSIT
+                    FEE_PAYMENT -> Value.FEE_PAYMENT
+                    INBOUND_ACH_TRANSFER -> Value.INBOUND_ACH_TRANSFER
+                    INBOUND_ACH_TRANSFER_RETURN_INTENTION ->
+                        Value.INBOUND_ACH_TRANSFER_RETURN_INTENTION
+                    INBOUND_CHECK_DEPOSIT_RETURN_INTENTION ->
+                        Value.INBOUND_CHECK_DEPOSIT_RETURN_INTENTION
+                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
+                        Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
+                    INBOUND_WIRE_REVERSAL -> Value.INBOUND_WIRE_REVERSAL
+                    INBOUND_WIRE_TRANSFER -> Value.INBOUND_WIRE_TRANSFER
+                    INBOUND_WIRE_TRANSFER_REVERSAL -> Value.INBOUND_WIRE_TRANSFER_REVERSAL
+                    INTEREST_PAYMENT -> Value.INTEREST_PAYMENT
+                    INTERNAL_SOURCE -> Value.INTERNAL_SOURCE
+                    REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT ->
+                        Value.REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT
+                    SAMPLE_FUNDS -> Value.SAMPLE_FUNDS
+                    WIRE_TRANSFER_INTENTION -> Value.WIRE_TRANSFER_INTENTION
+                    WIRE_TRANSFER_REJECTION -> Value.WIRE_TRANSFER_REJECTION
+                    OTHER -> Value.OTHER
+                    else -> Value._UNKNOWN
+                }
 
-            fun known(): Known = when (this) {
-                ACCOUNT_TRANSFER_INTENTION -> Known.ACCOUNT_TRANSFER_INTENTION
-                ACH_TRANSFER_INTENTION -> Known.ACH_TRANSFER_INTENTION
-                ACH_TRANSFER_REJECTION -> Known.ACH_TRANSFER_REJECTION
-                ACH_TRANSFER_RETURN -> Known.ACH_TRANSFER_RETURN
-                CASHBACK_PAYMENT -> Known.CASHBACK_PAYMENT
-                CARD_DISPUTE_ACCEPTANCE -> Known.CARD_DISPUTE_ACCEPTANCE
-                CARD_DISPUTE_LOSS -> Known.CARD_DISPUTE_LOSS
-                CARD_REFUND -> Known.CARD_REFUND
-                CARD_SETTLEMENT -> Known.CARD_SETTLEMENT
-                CARD_REVENUE_PAYMENT -> Known.CARD_REVENUE_PAYMENT
-                CHECK_DEPOSIT_ACCEPTANCE -> Known.CHECK_DEPOSIT_ACCEPTANCE
-                CHECK_DEPOSIT_RETURN -> Known.CHECK_DEPOSIT_RETURN
-                CHECK_TRANSFER_DEPOSIT -> Known.CHECK_TRANSFER_DEPOSIT
-                FEE_PAYMENT -> Known.FEE_PAYMENT
-                INBOUND_ACH_TRANSFER -> Known.INBOUND_ACH_TRANSFER
-                INBOUND_ACH_TRANSFER_RETURN_INTENTION -> Known.INBOUND_ACH_TRANSFER_RETURN_INTENTION
-                INBOUND_CHECK_DEPOSIT_RETURN_INTENTION -> Known.INBOUND_CHECK_DEPOSIT_RETURN_INTENTION
-                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION -> Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
-                INBOUND_WIRE_REVERSAL -> Known.INBOUND_WIRE_REVERSAL
-                INBOUND_WIRE_TRANSFER -> Known.INBOUND_WIRE_TRANSFER
-                INBOUND_WIRE_TRANSFER_REVERSAL -> Known.INBOUND_WIRE_TRANSFER_REVERSAL
-                INTEREST_PAYMENT -> Known.INTEREST_PAYMENT
-                INTERNAL_SOURCE -> Known.INTERNAL_SOURCE
-                REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT -> Known.REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT
-                SAMPLE_FUNDS -> Known.SAMPLE_FUNDS
-                WIRE_TRANSFER_INTENTION -> Known.WIRE_TRANSFER_INTENTION
-                WIRE_TRANSFER_REJECTION -> Known.WIRE_TRANSFER_REJECTION
-                OTHER -> Known.OTHER
-                else -> throw IncreaseInvalidDataException("Unknown In: $value")
-            }
+            fun known(): Known =
+                when (this) {
+                    ACCOUNT_TRANSFER_INTENTION -> Known.ACCOUNT_TRANSFER_INTENTION
+                    ACH_TRANSFER_INTENTION -> Known.ACH_TRANSFER_INTENTION
+                    ACH_TRANSFER_REJECTION -> Known.ACH_TRANSFER_REJECTION
+                    ACH_TRANSFER_RETURN -> Known.ACH_TRANSFER_RETURN
+                    CASHBACK_PAYMENT -> Known.CASHBACK_PAYMENT
+                    CARD_DISPUTE_ACCEPTANCE -> Known.CARD_DISPUTE_ACCEPTANCE
+                    CARD_DISPUTE_LOSS -> Known.CARD_DISPUTE_LOSS
+                    CARD_REFUND -> Known.CARD_REFUND
+                    CARD_SETTLEMENT -> Known.CARD_SETTLEMENT
+                    CARD_REVENUE_PAYMENT -> Known.CARD_REVENUE_PAYMENT
+                    CHECK_DEPOSIT_ACCEPTANCE -> Known.CHECK_DEPOSIT_ACCEPTANCE
+                    CHECK_DEPOSIT_RETURN -> Known.CHECK_DEPOSIT_RETURN
+                    CHECK_TRANSFER_DEPOSIT -> Known.CHECK_TRANSFER_DEPOSIT
+                    FEE_PAYMENT -> Known.FEE_PAYMENT
+                    INBOUND_ACH_TRANSFER -> Known.INBOUND_ACH_TRANSFER
+                    INBOUND_ACH_TRANSFER_RETURN_INTENTION ->
+                        Known.INBOUND_ACH_TRANSFER_RETURN_INTENTION
+                    INBOUND_CHECK_DEPOSIT_RETURN_INTENTION ->
+                        Known.INBOUND_CHECK_DEPOSIT_RETURN_INTENTION
+                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
+                        Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
+                    INBOUND_WIRE_REVERSAL -> Known.INBOUND_WIRE_REVERSAL
+                    INBOUND_WIRE_TRANSFER -> Known.INBOUND_WIRE_TRANSFER
+                    INBOUND_WIRE_TRANSFER_REVERSAL -> Known.INBOUND_WIRE_TRANSFER_REVERSAL
+                    INTEREST_PAYMENT -> Known.INTEREST_PAYMENT
+                    INTERNAL_SOURCE -> Known.INTERNAL_SOURCE
+                    REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT ->
+                        Known.REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT
+                    SAMPLE_FUNDS -> Known.SAMPLE_FUNDS
+                    WIRE_TRANSFER_INTENTION -> Known.WIRE_TRANSFER_INTENTION
+                    WIRE_TRANSFER_REJECTION -> Known.WIRE_TRANSFER_REJECTION
+                    OTHER -> Known.OTHER
+                    else -> throw IncreaseInvalidDataException("Unknown In: $value")
+                }
 
             fun asString(): String = _value().asStringOrThrow()
         }
@@ -541,38 +516,36 @@ class TransactionListParams constructor(
 
     @JsonDeserialize(builder = CreatedAt.Builder::class)
     @NoAutoDetect
-    class CreatedAt private constructor(
-      private val after: OffsetDateTime?,
-      private val before: OffsetDateTime?,
-      private val onOrAfter: OffsetDateTime?,
-      private val onOrBefore: OffsetDateTime?,
-      private val additionalProperties: Map<String, List<String>>,
-
+    class CreatedAt
+    private constructor(
+        private val after: OffsetDateTime?,
+        private val before: OffsetDateTime?,
+        private val onOrAfter: OffsetDateTime?,
+        private val onOrBefore: OffsetDateTime?,
+        private val additionalProperties: Map<String, List<String>>,
     ) {
 
         private var hashCode: Int = 0
 
         /**
-         * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-         * timestamp.
+         * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
          */
         fun after(): OffsetDateTime? = after
 
         /**
-         * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-         * timestamp.
+         * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
          */
         fun before(): OffsetDateTime? = before
 
         /**
-         * Return results on or after this
-         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+         * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+         * timestamp.
          */
         fun onOrAfter(): OffsetDateTime? = onOrAfter
 
         /**
-         * Return results on or before this
-         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+         * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+         * timestamp.
          */
         fun onOrBefore(): OffsetDateTime? = onOrBefore
 
@@ -580,57 +553,48 @@ class TransactionListParams constructor(
 
         @JvmSynthetic
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-          this.after?.let {
-              putParam("after", listOf(it.toString()))
-          }
-          this.before?.let {
-              putParam("before", listOf(it.toString()))
-          }
-          this.onOrAfter?.let {
-              putParam("on_or_after", listOf(it.toString()))
-          }
-          this.onOrBefore?.let {
-              putParam("on_or_before", listOf(it.toString()))
-          }
-          this.additionalProperties.forEach { key, values -> 
-              putParam(key, values)
-          }
+            this.after?.let { putParam("after", listOf(it.toString())) }
+            this.before?.let { putParam("before", listOf(it.toString())) }
+            this.onOrAfter?.let { putParam("on_or_after", listOf(it.toString())) }
+            this.onOrBefore?.let { putParam("on_or_before", listOf(it.toString())) }
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is CreatedAt &&
-              this.after == other.after &&
-              this.before == other.before &&
-              this.onOrAfter == other.onOrAfter &&
-              this.onOrBefore == other.onOrBefore &&
-              this.additionalProperties == other.additionalProperties
+            return other is CreatedAt &&
+                this.after == other.after &&
+                this.before == other.before &&
+                this.onOrAfter == other.onOrAfter &&
+                this.onOrBefore == other.onOrBefore &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                after,
-                before,
-                onOrAfter,
-                onOrBefore,
-                additionalProperties,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        after,
+                        before,
+                        onOrAfter,
+                        onOrBefore,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -654,33 +618,25 @@ class TransactionListParams constructor(
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun after(after: OffsetDateTime) = apply {
-                this.after = after
-            }
+            fun after(after: OffsetDateTime) = apply { this.after = after }
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun before(before: OffsetDateTime) = apply {
-                this.before = before
-            }
+            fun before(before: OffsetDateTime) = apply { this.before = before }
 
             /**
-             * Return results on or after this
-             * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+             * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
              */
-            fun onOrAfter(onOrAfter: OffsetDateTime) = apply {
-                this.onOrAfter = onOrAfter
-            }
+            fun onOrAfter(onOrAfter: OffsetDateTime) = apply { this.onOrAfter = onOrAfter }
 
             /**
-             * Return results on or before this
-             * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+             * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
              */
-            fun onOrBefore(onOrBefore: OffsetDateTime) = apply {
-                this.onOrBefore = onOrBefore
-            }
+            fun onOrBefore(onOrBefore: OffsetDateTime) = apply { this.onOrBefore = onOrBefore }
 
             fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
                 this.additionalProperties.clear()
@@ -691,17 +647,19 @@ class TransactionListParams constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-            fun build(): CreatedAt = CreatedAt(
-                after,
-                before,
-                onOrAfter,
-                onOrBefore,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build(): CreatedAt =
+                CreatedAt(
+                    after,
+                    before,
+                    onOrAfter,
+                    onOrBefore,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 }

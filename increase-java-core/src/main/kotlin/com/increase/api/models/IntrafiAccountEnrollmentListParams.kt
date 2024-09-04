@@ -2,49 +2,27 @@
 
 package com.increase.api.models
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter
-import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import org.apache.hc.core5.http.ContentType
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.MultipartFormValue
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Enum
-import com.increase.api.core.ContentTypes
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonValue
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
+import java.util.Objects
+import java.util.Optional
 
-class IntrafiAccountEnrollmentListParams constructor(
-  private val accountId: String?,
-  private val cursor: String?,
-  private val idempotencyKey: String?,
-  private val limit: Long?,
-  private val status: Status?,
-  private val additionalQueryParams: Map<String, List<String>>,
-  private val additionalHeaders: Map<String, List<String>>,
-
+class IntrafiAccountEnrollmentListParams
+constructor(
+    private val accountId: String?,
+    private val cursor: String?,
+    private val idempotencyKey: String?,
+    private val limit: Long?,
+    private val status: Status?,
+    private val additionalQueryParams: Map<String, List<String>>,
+    private val additionalHeaders: Map<String, List<String>>,
 ) {
 
     fun accountId(): Optional<String> = Optional.ofNullable(accountId)
@@ -59,68 +37,57 @@ class IntrafiAccountEnrollmentListParams constructor(
 
     @JvmSynthetic
     internal fun getQueryParams(): Map<String, List<String>> {
-      val params = mutableMapOf<String, List<String>>()
-      this.accountId?.let {
-          params.put("account_id", listOf(it.toString()))
-      }
-      this.cursor?.let {
-          params.put("cursor", listOf(it.toString()))
-      }
-      this.idempotencyKey?.let {
-          params.put("idempotency_key", listOf(it.toString()))
-      }
-      this.limit?.let {
-          params.put("limit", listOf(it.toString()))
-      }
-      this.status?.forEachQueryParam { key, values -> 
-          params.put("status.$key", values)
-      }
-      params.putAll(additionalQueryParams)
-      return params.toUnmodifiable()
+        val params = mutableMapOf<String, List<String>>()
+        this.accountId?.let { params.put("account_id", listOf(it.toString())) }
+        this.cursor?.let { params.put("cursor", listOf(it.toString())) }
+        this.idempotencyKey?.let { params.put("idempotency_key", listOf(it.toString())) }
+        this.limit?.let { params.put("limit", listOf(it.toString())) }
+        this.status?.forEachQueryParam { key, values -> params.put("status.$key", values) }
+        params.putAll(additionalQueryParams)
+        return params.toUnmodifiable()
     }
 
-    @JvmSynthetic
-    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
 
     fun _additionalHeaders(): Map<String, List<String>> = additionalHeaders
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is IntrafiAccountEnrollmentListParams &&
-          this.accountId == other.accountId &&
-          this.cursor == other.cursor &&
-          this.idempotencyKey == other.idempotencyKey &&
-          this.limit == other.limit &&
-          this.status == other.status &&
-          this.additionalQueryParams == other.additionalQueryParams &&
-          this.additionalHeaders == other.additionalHeaders
+        return other is IntrafiAccountEnrollmentListParams &&
+            this.accountId == other.accountId &&
+            this.cursor == other.cursor &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.limit == other.limit &&
+            this.status == other.status &&
+            this.additionalQueryParams == other.additionalQueryParams &&
+            this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          accountId,
-          cursor,
-          idempotencyKey,
-          limit,
-          status,
-          additionalQueryParams,
-          additionalHeaders,
-      )
+        return Objects.hash(
+            accountId,
+            cursor,
+            idempotencyKey,
+            limit,
+            status,
+            additionalQueryParams,
+            additionalHeaders,
+        )
     }
 
-    override fun toString() = "IntrafiAccountEnrollmentListParams{accountId=$accountId, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+    override fun toString() =
+        "IntrafiAccountEnrollmentListParams{accountId=$accountId, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -135,47 +102,37 @@ class IntrafiAccountEnrollmentListParams constructor(
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(intrafiAccountEnrollmentListParams: IntrafiAccountEnrollmentListParams) = apply {
-            this.accountId = intrafiAccountEnrollmentListParams.accountId
-            this.cursor = intrafiAccountEnrollmentListParams.cursor
-            this.idempotencyKey = intrafiAccountEnrollmentListParams.idempotencyKey
-            this.limit = intrafiAccountEnrollmentListParams.limit
-            this.status = intrafiAccountEnrollmentListParams.status
-            additionalQueryParams(intrafiAccountEnrollmentListParams.additionalQueryParams)
-            additionalHeaders(intrafiAccountEnrollmentListParams.additionalHeaders)
-        }
+        internal fun from(intrafiAccountEnrollmentListParams: IntrafiAccountEnrollmentListParams) =
+            apply {
+                this.accountId = intrafiAccountEnrollmentListParams.accountId
+                this.cursor = intrafiAccountEnrollmentListParams.cursor
+                this.idempotencyKey = intrafiAccountEnrollmentListParams.idempotencyKey
+                this.limit = intrafiAccountEnrollmentListParams.limit
+                this.status = intrafiAccountEnrollmentListParams.status
+                additionalQueryParams(intrafiAccountEnrollmentListParams.additionalQueryParams)
+                additionalHeaders(intrafiAccountEnrollmentListParams.additionalHeaders)
+            }
 
         /** Filter IntraFi Account Enrollments to the one belonging to an account. */
-        fun accountId(accountId: String) = apply {
-            this.accountId = accountId
-        }
+        fun accountId(accountId: String) = apply { this.accountId = accountId }
 
         /** Return the page of entries after this one. */
-        fun cursor(cursor: String) = apply {
-            this.cursor = cursor
-        }
+        fun cursor(cursor: String) = apply { this.cursor = cursor }
 
         /**
-         * Filter records to the one with the specified `idempotency_key` you chose for
-         * that object. This value is unique across Increase and is used to ensure that a
-         * request is only processed once. Learn more about
+         * Filter records to the one with the specified `idempotency_key` you chose for that object.
+         * This value is unique across Increase and is used to ensure that a request is only
+         * processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String) = apply {
-            this.idempotencyKey = idempotencyKey
-        }
+        fun idempotencyKey(idempotencyKey: String) = apply { this.idempotencyKey = idempotencyKey }
 
         /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100
-         * objects.
+         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
-        fun limit(limit: Long) = apply {
-            this.limit = limit
-        }
+        fun limit(limit: Long) = apply { this.limit = limit }
 
-        fun status(status: Status) = apply {
-            this.status = status
-        }
+        fun status(status: Status) = apply { this.status = status }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -215,31 +172,34 @@ class IntrafiAccountEnrollmentListParams constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply {
-            this.additionalHeaders.put(name, mutableListOf())
-        }
+        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
-        fun build(): IntrafiAccountEnrollmentListParams = IntrafiAccountEnrollmentListParams(
-            accountId,
-            cursor,
-            idempotencyKey,
-            limit,
-            status,
-            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-        )
+        fun build(): IntrafiAccountEnrollmentListParams =
+            IntrafiAccountEnrollmentListParams(
+                accountId,
+                cursor,
+                idempotencyKey,
+                limit,
+                status,
+                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            )
     }
 
     @JsonDeserialize(builder = Status.Builder::class)
     @NoAutoDetect
-    class Status private constructor(private val in_: List<In>?, private val additionalProperties: Map<String, List<String>>, ) {
+    class Status
+    private constructor(
+        private val in_: List<In>?,
+        private val additionalProperties: Map<String, List<String>>,
+    ) {
 
         private var hashCode: Int = 0
 
         /**
-         * Filter IntraFi Account Enrollments for those with the specified status or
-         * statuses. For GET requests, this should be encoded as a comma-delimited string,
-         * such as `?in=one,two,three`.
+         * Filter IntraFi Account Enrollments for those with the specified status or statuses. For
+         * GET requests, this should be encoded as a comma-delimited string, such as
+         * `?in=one,two,three`.
          */
         fun in_(): List<In>? = in_
 
@@ -247,39 +207,34 @@ class IntrafiAccountEnrollmentListParams constructor(
 
         @JvmSynthetic
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-          this.in_?.let {
-              putParam("in", listOf(it.joinToString(separator = ",")))
-          }
-          this.additionalProperties.forEach { key, values -> 
-              putParam(key, values)
-          }
+            this.in_?.let { putParam("in", listOf(it.joinToString(separator = ","))) }
+            this.additionalProperties.forEach { key, values -> putParam(key, values) }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Status &&
-              this.in_ == other.in_ &&
-              this.additionalProperties == other.additionalProperties
+            return other is Status &&
+                this.in_ == other.in_ &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(in_, additionalProperties)
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode = Objects.hash(in_, additionalProperties)
+            }
+            return hashCode
         }
 
         override fun toString() = "Status{in_=$in_, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -294,13 +249,11 @@ class IntrafiAccountEnrollmentListParams constructor(
             }
 
             /**
-             * Filter IntraFi Account Enrollments for those with the specified status or
-             * statuses. For GET requests, this should be encoded as a comma-delimited string,
-             * such as `?in=one,two,three`.
+             * Filter IntraFi Account Enrollments for those with the specified status or statuses.
+             * For GET requests, this should be encoded as a comma-delimited string, such as
+             * `?in=one,two,three`.
              */
-            fun in_(in_: List<In>) = apply {
-                this.in_ = in_
-            }
+            fun in_(in_: List<In>) = apply { this.in_ = in_ }
 
             fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
                 this.additionalProperties.clear()
@@ -311,25 +264,29 @@ class IntrafiAccountEnrollmentListParams constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-            fun build(): Status = Status(in_?.toUnmodifiable(), additionalProperties.toUnmodifiable())
+            fun build(): Status =
+                Status(in_?.toUnmodifiable(), additionalProperties.toUnmodifiable())
         }
 
-        class In @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+        class In
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return other is In &&
-                  this.value == other.value
+                return other is In && this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -368,23 +325,25 @@ class IntrafiAccountEnrollmentListParams constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value = when (this) {
-                PENDING_ENROLLING -> Value.PENDING_ENROLLING
-                ENROLLED -> Value.ENROLLED
-                PENDING_UNENROLLING -> Value.PENDING_UNENROLLING
-                UNENROLLED -> Value.UNENROLLED
-                REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
-                else -> Value._UNKNOWN
-            }
+            fun value(): Value =
+                when (this) {
+                    PENDING_ENROLLING -> Value.PENDING_ENROLLING
+                    ENROLLED -> Value.ENROLLED
+                    PENDING_UNENROLLING -> Value.PENDING_UNENROLLING
+                    UNENROLLED -> Value.UNENROLLED
+                    REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
+                    else -> Value._UNKNOWN
+                }
 
-            fun known(): Known = when (this) {
-                PENDING_ENROLLING -> Known.PENDING_ENROLLING
-                ENROLLED -> Known.ENROLLED
-                PENDING_UNENROLLING -> Known.PENDING_UNENROLLING
-                UNENROLLED -> Known.UNENROLLED
-                REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
-                else -> throw IncreaseInvalidDataException("Unknown In: $value")
-            }
+            fun known(): Known =
+                when (this) {
+                    PENDING_ENROLLING -> Known.PENDING_ENROLLING
+                    ENROLLED -> Known.ENROLLED
+                    PENDING_UNENROLLING -> Known.PENDING_UNENROLLING
+                    UNENROLLED -> Known.UNENROLLED
+                    REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
+                    else -> throw IncreaseInvalidDataException("Unknown In: $value")
+                }
 
             fun asString(): String = _value().asStringOrThrow()
         }

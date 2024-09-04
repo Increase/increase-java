@@ -6,31 +6,24 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.Spliterator
-import java.util.Spliterators
-import java.util.UUID
-import java.util.concurrent.CompletableFuture
-import java.util.concurrent.Executor
-import java.util.function.Predicate
-import java.util.stream.Stream
-import java.util.stream.StreamSupport
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.JsonField
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
-import com.increase.api.models.PhysicalCardProfile
 import com.increase.api.services.blocking.PhysicalCardProfileService
+import java.util.Objects
+import java.util.Optional
+import java.util.stream.Stream
+import java.util.stream.StreamSupport
 
-class PhysicalCardProfileListPage private constructor(private val physicalCardProfilesService: PhysicalCardProfileService, private val params: PhysicalCardProfileListParams, private val response: Response, ) {
+class PhysicalCardProfileListPage
+private constructor(
+    private val physicalCardProfilesService: PhysicalCardProfileService,
+    private val params: PhysicalCardProfileListParams,
+    private val response: Response,
+) {
 
     fun response(): Response = response
 
@@ -39,44 +32,50 @@ class PhysicalCardProfileListPage private constructor(private val physicalCardPr
     fun nextCursor(): Optional<String> = response().nextCursor()
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is PhysicalCardProfileListPage &&
-          this.physicalCardProfilesService == other.physicalCardProfilesService &&
-          this.params == other.params &&
-          this.response == other.response
+        return other is PhysicalCardProfileListPage &&
+            this.physicalCardProfilesService == other.physicalCardProfilesService &&
+            this.params == other.params &&
+            this.response == other.response
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          physicalCardProfilesService,
-          params,
-          response,
-      )
+        return Objects.hash(
+            physicalCardProfilesService,
+            params,
+            response,
+        )
     }
 
-    override fun toString() = "PhysicalCardProfileListPage{physicalCardProfilesService=$physicalCardProfilesService, params=$params, response=$response}"
+    override fun toString() =
+        "PhysicalCardProfileListPage{physicalCardProfilesService=$physicalCardProfilesService, params=$params, response=$response}"
 
     fun hasNextPage(): Boolean {
-      if (data().isEmpty()) {
-        return false;
-      }
+        if (data().isEmpty()) {
+            return false
+        }
 
-      return nextCursor().isPresent()
+        return nextCursor().isPresent()
     }
 
     fun getNextPageParams(): Optional<PhysicalCardProfileListParams> {
-      if (!hasNextPage()) {
-        return Optional.empty()
-      }
+        if (!hasNextPage()) {
+            return Optional.empty()
+        }
 
-      return Optional.of(PhysicalCardProfileListParams.builder().from(params).apply {nextCursor().ifPresent{ this.cursor(it) } }.build())
+        return Optional.of(
+            PhysicalCardProfileListParams.builder()
+                .from(params)
+                .apply { nextCursor().ifPresent { this.cursor(it) } }
+                .build()
+        )
     }
 
     fun getNextPage(): Optional<PhysicalCardProfileListPage> {
-      return getNextPageParams().map { physicalCardProfilesService.list(it) }
+        return getNextPageParams().map { physicalCardProfilesService.list(it) }
     }
 
     fun autoPager(): AutoPager = AutoPager(this)
@@ -84,22 +83,33 @@ class PhysicalCardProfileListPage private constructor(private val physicalCardPr
     companion object {
 
         @JvmStatic
-        fun of(physicalCardProfilesService: PhysicalCardProfileService, params: PhysicalCardProfileListParams, response: Response) = PhysicalCardProfileListPage(
-            physicalCardProfilesService,
-            params,
-            response,
-        )
+        fun of(
+            physicalCardProfilesService: PhysicalCardProfileService,
+            params: PhysicalCardProfileListParams,
+            response: Response
+        ) =
+            PhysicalCardProfileListPage(
+                physicalCardProfilesService,
+                params,
+                response,
+            )
     }
 
     @JsonDeserialize(builder = Response.Builder::class)
     @NoAutoDetect
-    class Response constructor(private val data: JsonField<List<PhysicalCardProfile>>, private val nextCursor: JsonField<String>, private val additionalProperties: Map<String, JsonValue>, ) {
+    class Response
+    constructor(
+        private val data: JsonField<List<PhysicalCardProfile>>,
+        private val nextCursor: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var validated: Boolean = false
 
         fun data(): List<PhysicalCardProfile> = data.getNullable("data") ?: listOf()
 
-        fun nextCursor(): Optional<String> = Optional.ofNullable(nextCursor.getNullable("next_cursor"))
+        fun nextCursor(): Optional<String> =
+            Optional.ofNullable(nextCursor.getNullable("next_cursor"))
 
         @JsonProperty("data")
         fun _data(): Optional<JsonField<List<PhysicalCardProfile>>> = Optional.ofNullable(data)
@@ -113,39 +123,39 @@ class PhysicalCardProfileListPage private constructor(private val physicalCardPr
 
         fun validate(): Response = apply {
             if (!validated) {
-              data().map { it.validate() }
-              nextCursor()
-              validated = true
+                data().map { it.validate() }
+                nextCursor()
+                validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Response &&
-              this.data == other.data &&
-              this.nextCursor == other.nextCursor &&
-              this.additionalProperties == other.additionalProperties
+            return other is Response &&
+                this.data == other.data &&
+                this.nextCursor == other.nextCursor &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          return Objects.hash(
-              data,
-              nextCursor,
-              additionalProperties,
-          )
+            return Objects.hash(
+                data,
+                nextCursor,
+                additionalProperties,
+            )
         }
 
-        override fun toString() = "PhysicalCardProfileListPage.Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "PhysicalCardProfileListPage.Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -176,30 +186,34 @@ class PhysicalCardProfileListPage private constructor(private val physicalCardPr
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() = Response(
-                data,
-                nextCursor,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build() =
+                Response(
+                    data,
+                    nextCursor,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
-    class AutoPager constructor(private val firstPage: PhysicalCardProfileListPage, ) : Iterable<PhysicalCardProfile> {
+    class AutoPager
+    constructor(
+        private val firstPage: PhysicalCardProfileListPage,
+    ) : Iterable<PhysicalCardProfile> {
 
         override fun iterator(): Iterator<PhysicalCardProfile> = iterator {
             var page = firstPage
             var index = 0
             while (true) {
-              while (index < page.data().size) {
-                yield(page.data()[index++])
-              }
-              page = page.getNextPage().orElse(null) ?: break
-              index = 0
+                while (index < page.data().size) {
+                    yield(page.data()[index++])
+                }
+                page = page.getNextPage().orElse(null) ?: break
+                index = 0
             }
         }
 
         fun stream(): Stream<PhysicalCardProfile> {
-          return StreamSupport.stream(spliterator(), false)
+            return StreamSupport.stream(spliterator(), false)
         }
     }
 }

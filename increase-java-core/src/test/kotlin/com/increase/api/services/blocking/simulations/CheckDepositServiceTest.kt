@@ -2,69 +2,66 @@
 
 package com.increase.api.services.blocking.simulations
 
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Base64
-import java.util.Optional
-import java.util.UUID
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.Disabled
-import org.junit.jupiter.api.extension.ExtendWith
-import org.junit.jupiter.api.BeforeEach
 import com.increase.api.TestServerExtension
-import com.increase.api.client.IncreaseClient
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.core.JsonNull
-import com.increase.api.core.JsonString
-import com.increase.api.core.JsonValue
-import com.increase.api.core.http.BinaryResponseContent
-import com.increase.api.services.blocking.simulations.CheckDepositService
 import com.increase.api.models.*
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
 class CheckDepositServiceTest {
 
     @Test
     fun callReject() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val checkDepositService = client.simulations().checkDeposits()
-      val checkDeposit = checkDepositService.reject(SimulationCheckDepositRejectParams.builder()
-          .checkDepositId("check_deposit_id")
-          .build())
-      println(checkDeposit)
-      checkDeposit.validate()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val checkDepositService = client.simulations().checkDeposits()
+        val checkDeposit =
+            checkDepositService.reject(
+                SimulationCheckDepositRejectParams.builder()
+                    .checkDepositId("check_deposit_id")
+                    .build()
+            )
+        println(checkDeposit)
+        checkDeposit.validate()
     }
 
     @Test
     fun callReturn() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val checkDepositService = client.simulations().checkDeposits()
-      val checkDeposit = checkDepositService.return_(SimulationCheckDepositReturnParams.builder()
-          .checkDepositId("check_deposit_id")
-          .build())
-      println(checkDeposit)
-      checkDeposit.validate()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val checkDepositService = client.simulations().checkDeposits()
+        val checkDeposit =
+            checkDepositService.return_(
+                SimulationCheckDepositReturnParams.builder()
+                    .checkDepositId("check_deposit_id")
+                    .build()
+            )
+        println(checkDeposit)
+        checkDeposit.validate()
     }
 
     @Test
     fun callSubmit() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val checkDepositService = client.simulations().checkDeposits()
-      val checkDeposit = checkDepositService.submit(SimulationCheckDepositSubmitParams.builder()
-          .checkDepositId("check_deposit_id")
-          .build())
-      println(checkDeposit)
-      checkDeposit.validate()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val checkDepositService = client.simulations().checkDeposits()
+        val checkDeposit =
+            checkDepositService.submit(
+                SimulationCheckDepositSubmitParams.builder()
+                    .checkDepositId("check_deposit_id")
+                    .build()
+            )
+        println(checkDeposit)
+        checkDeposit.validate()
     }
 }

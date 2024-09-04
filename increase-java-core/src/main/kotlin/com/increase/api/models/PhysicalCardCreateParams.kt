@@ -5,46 +5,28 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import org.apache.hc.core5.http.ContentType
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
+import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.MultipartFormValue
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.Enum
-import com.increase.api.core.ContentTypes
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
+import java.util.Objects
+import java.util.Optional
 
-class PhysicalCardCreateParams constructor(
-  private val cardId: String,
-  private val cardholder: Cardholder,
-  private val shipment: Shipment,
-  private val physicalCardProfileId: String?,
-  private val additionalQueryParams: Map<String, List<String>>,
-  private val additionalHeaders: Map<String, List<String>>,
-  private val additionalBodyProperties: Map<String, JsonValue>,
-
+class PhysicalCardCreateParams
+constructor(
+    private val cardId: String,
+    private val cardholder: Cardholder,
+    private val shipment: Shipment,
+    private val physicalCardProfileId: String?,
+    private val additionalQueryParams: Map<String, List<String>>,
+    private val additionalHeaders: Map<String, List<String>>,
+    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun cardId(): String = cardId
@@ -57,49 +39,44 @@ class PhysicalCardCreateParams constructor(
 
     @JvmSynthetic
     internal fun getBody(): PhysicalCardCreateBody {
-      return PhysicalCardCreateBody(
-          cardId,
-          cardholder,
-          shipment,
-          physicalCardProfileId,
-          additionalBodyProperties,
-      )
+        return PhysicalCardCreateBody(
+            cardId,
+            cardholder,
+            shipment,
+            physicalCardProfileId,
+            additionalBodyProperties,
+        )
     }
 
-    @JvmSynthetic
-    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
-    @JvmSynthetic
-    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     @JsonDeserialize(builder = PhysicalCardCreateBody.Builder::class)
     @NoAutoDetect
-    class PhysicalCardCreateBody internal constructor(
-      private val cardId: String?,
-      private val cardholder: Cardholder?,
-      private val shipment: Shipment?,
-      private val physicalCardProfileId: String?,
-      private val additionalProperties: Map<String, JsonValue>,
-
+    class PhysicalCardCreateBody
+    internal constructor(
+        private val cardId: String?,
+        private val cardholder: Cardholder?,
+        private val shipment: Shipment?,
+        private val physicalCardProfileId: String?,
+        private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
 
         /** The underlying card representing this physical card. */
-        @JsonProperty("card_id")
-        fun cardId(): String? = cardId
+        @JsonProperty("card_id") fun cardId(): String? = cardId
 
         /** Details about the cardholder, as it will appear on the physical card. */
-        @JsonProperty("cardholder")
-        fun cardholder(): Cardholder? = cardholder
+        @JsonProperty("cardholder") fun cardholder(): Cardholder? = cardholder
 
         /** The details used to ship this physical card. */
-        @JsonProperty("shipment")
-        fun shipment(): Shipment? = shipment
+        @JsonProperty("shipment") fun shipment(): Shipment? = shipment
 
         /**
-         * The physical card profile to use for this physical card. The latest default
-         * physical card profile will be used if not provided.
+         * The physical card profile to use for this physical card. The latest default physical card
+         * profile will be used if not provided.
          */
         @JsonProperty("physical_card_profile_id")
         fun physicalCardProfileId(): String? = physicalCardProfileId
@@ -111,37 +88,38 @@ class PhysicalCardCreateParams constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is PhysicalCardCreateBody &&
-              this.cardId == other.cardId &&
-              this.cardholder == other.cardholder &&
-              this.shipment == other.shipment &&
-              this.physicalCardProfileId == other.physicalCardProfileId &&
-              this.additionalProperties == other.additionalProperties
+            return other is PhysicalCardCreateBody &&
+                this.cardId == other.cardId &&
+                this.cardholder == other.cardholder &&
+                this.shipment == other.shipment &&
+                this.physicalCardProfileId == other.physicalCardProfileId &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                cardId,
-                cardholder,
-                shipment,
-                physicalCardProfileId,
-                additionalProperties,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        cardId,
+                        cardholder,
+                        shipment,
+                        physicalCardProfileId,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "PhysicalCardCreateBody{cardId=$cardId, cardholder=$cardholder, shipment=$shipment, physicalCardProfileId=$physicalCardProfileId, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "PhysicalCardCreateBody{cardId=$cardId, cardholder=$cardholder, shipment=$shipment, physicalCardProfileId=$physicalCardProfileId, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -162,26 +140,19 @@ class PhysicalCardCreateParams constructor(
             }
 
             /** The underlying card representing this physical card. */
-            @JsonProperty("card_id")
-            fun cardId(cardId: String) = apply {
-                this.cardId = cardId
-            }
+            @JsonProperty("card_id") fun cardId(cardId: String) = apply { this.cardId = cardId }
 
             /** Details about the cardholder, as it will appear on the physical card. */
             @JsonProperty("cardholder")
-            fun cardholder(cardholder: Cardholder) = apply {
-                this.cardholder = cardholder
-            }
+            fun cardholder(cardholder: Cardholder) = apply { this.cardholder = cardholder }
 
             /** The details used to ship this physical card. */
             @JsonProperty("shipment")
-            fun shipment(shipment: Shipment) = apply {
-                this.shipment = shipment
-            }
+            fun shipment(shipment: Shipment) = apply { this.shipment = shipment }
 
             /**
-             * The physical card profile to use for this physical card. The latest default
-             * physical card profile will be used if not provided.
+             * The physical card profile to use for this physical card. The latest default physical
+             * card profile will be used if not provided.
              */
             @JsonProperty("physical_card_profile_id")
             fun physicalCardProfileId(physicalCardProfileId: String) = apply {
@@ -202,19 +173,14 @@ class PhysicalCardCreateParams constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): PhysicalCardCreateBody = PhysicalCardCreateBody(
-                checkNotNull(cardId) {
-                    "`cardId` is required but was not set"
-                },
-                checkNotNull(cardholder) {
-                    "`cardholder` is required but was not set"
-                },
-                checkNotNull(shipment) {
-                    "`shipment` is required but was not set"
-                },
-                physicalCardProfileId,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build(): PhysicalCardCreateBody =
+                PhysicalCardCreateBody(
+                    checkNotNull(cardId) { "`cardId` is required but was not set" },
+                    checkNotNull(cardholder) { "`cardholder` is required but was not set" },
+                    checkNotNull(shipment) { "`shipment` is required but was not set" },
+                    physicalCardProfileId,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
@@ -225,40 +191,40 @@ class PhysicalCardCreateParams constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is PhysicalCardCreateParams &&
-          this.cardId == other.cardId &&
-          this.cardholder == other.cardholder &&
-          this.shipment == other.shipment &&
-          this.physicalCardProfileId == other.physicalCardProfileId &&
-          this.additionalQueryParams == other.additionalQueryParams &&
-          this.additionalHeaders == other.additionalHeaders &&
-          this.additionalBodyProperties == other.additionalBodyProperties
+        return other is PhysicalCardCreateParams &&
+            this.cardId == other.cardId &&
+            this.cardholder == other.cardholder &&
+            this.shipment == other.shipment &&
+            this.physicalCardProfileId == other.physicalCardProfileId &&
+            this.additionalQueryParams == other.additionalQueryParams &&
+            this.additionalHeaders == other.additionalHeaders &&
+            this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          cardId,
-          cardholder,
-          shipment,
-          physicalCardProfileId,
-          additionalQueryParams,
-          additionalHeaders,
-          additionalBodyProperties,
-      )
+        return Objects.hash(
+            cardId,
+            cardholder,
+            shipment,
+            physicalCardProfileId,
+            additionalQueryParams,
+            additionalHeaders,
+            additionalBodyProperties,
+        )
     }
 
-    override fun toString() = "PhysicalCardCreateParams{cardId=$cardId, cardholder=$cardholder, shipment=$shipment, physicalCardProfileId=$physicalCardProfileId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() =
+        "PhysicalCardCreateParams{cardId=$cardId, cardholder=$cardholder, shipment=$shipment, physicalCardProfileId=$physicalCardProfileId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -284,23 +250,17 @@ class PhysicalCardCreateParams constructor(
         }
 
         /** The underlying card representing this physical card. */
-        fun cardId(cardId: String) = apply {
-            this.cardId = cardId
-        }
+        fun cardId(cardId: String) = apply { this.cardId = cardId }
 
         /** Details about the cardholder, as it will appear on the physical card. */
-        fun cardholder(cardholder: Cardholder) = apply {
-            this.cardholder = cardholder
-        }
+        fun cardholder(cardholder: Cardholder) = apply { this.cardholder = cardholder }
 
         /** The details used to ship this physical card. */
-        fun shipment(shipment: Shipment) = apply {
-            this.shipment = shipment
-        }
+        fun shipment(shipment: Shipment) = apply { this.shipment = shipment }
 
         /**
-         * The physical card profile to use for this physical card. The latest default
-         * physical card profile will be used if not provided.
+         * The physical card profile to use for this physical card. The latest default physical card
+         * profile will be used if not provided.
          */
         fun physicalCardProfileId(physicalCardProfileId: String) = apply {
             this.physicalCardProfileId = physicalCardProfileId
@@ -344,9 +304,7 @@ class PhysicalCardCreateParams constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply {
-            this.additionalHeaders.put(name, mutableListOf())
-        }
+        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -357,41 +315,40 @@ class PhysicalCardCreateParams constructor(
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.putAll(additionalBodyProperties)
-        }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
 
-        fun build(): PhysicalCardCreateParams = PhysicalCardCreateParams(
-            checkNotNull(cardId) {
-                "`cardId` is required but was not set"
-            },
-            checkNotNull(cardholder) {
-                "`cardholder` is required but was not set"
-            },
-            checkNotNull(shipment) {
-                "`shipment` is required but was not set"
-            },
-            physicalCardProfileId,
-            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalBodyProperties.toUnmodifiable(),
-        )
+        fun build(): PhysicalCardCreateParams =
+            PhysicalCardCreateParams(
+                checkNotNull(cardId) { "`cardId` is required but was not set" },
+                checkNotNull(cardholder) { "`cardholder` is required but was not set" },
+                checkNotNull(shipment) { "`shipment` is required but was not set" },
+                physicalCardProfileId,
+                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalBodyProperties.toUnmodifiable(),
+            )
     }
 
     /** Details about the cardholder, as it will appear on the physical card. */
     @JsonDeserialize(builder = Cardholder.Builder::class)
     @NoAutoDetect
-    class Cardholder private constructor(private val firstName: String?, private val lastName: String?, private val additionalProperties: Map<String, JsonValue>, ) {
+    class Cardholder
+    private constructor(
+        private val firstName: String?,
+        private val lastName: String?,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var hashCode: Int = 0
 
         /** The cardholder's first name. */
-        @JsonProperty("first_name")
-        fun firstName(): String? = firstName
+        @JsonProperty("first_name") fun firstName(): String? = firstName
 
         /** The cardholder's last name. */
-        @JsonProperty("last_name")
-        fun lastName(): String? = lastName
+        @JsonProperty("last_name") fun lastName(): String? = lastName
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -400,33 +357,34 @@ class PhysicalCardCreateParams constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Cardholder &&
-              this.firstName == other.firstName &&
-              this.lastName == other.lastName &&
-              this.additionalProperties == other.additionalProperties
+            return other is Cardholder &&
+                this.firstName == other.firstName &&
+                this.lastName == other.lastName &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                firstName,
-                lastName,
-                additionalProperties,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        firstName,
+                        lastName,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "Cardholder{firstName=$firstName, lastName=$lastName, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "Cardholder{firstName=$firstName, lastName=$lastName, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -444,15 +402,11 @@ class PhysicalCardCreateParams constructor(
 
             /** The cardholder's first name. */
             @JsonProperty("first_name")
-            fun firstName(firstName: String) = apply {
-                this.firstName = firstName
-            }
+            fun firstName(firstName: String) = apply { this.firstName = firstName }
 
             /** The cardholder's last name. */
             @JsonProperty("last_name")
-            fun lastName(lastName: String) = apply {
-                this.lastName = lastName
-            }
+            fun lastName(lastName: String) = apply { this.lastName = lastName }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -468,32 +422,32 @@ class PhysicalCardCreateParams constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Cardholder = Cardholder(
-                checkNotNull(firstName) {
-                    "`firstName` is required but was not set"
-                },
-                checkNotNull(lastName) {
-                    "`lastName` is required but was not set"
-                },
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build(): Cardholder =
+                Cardholder(
+                    checkNotNull(firstName) { "`firstName` is required but was not set" },
+                    checkNotNull(lastName) { "`lastName` is required but was not set" },
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
     /** The details used to ship this physical card. */
     @JsonDeserialize(builder = Shipment.Builder::class)
     @NoAutoDetect
-    class Shipment private constructor(private val address: Address?, private val method: Method?, private val additionalProperties: Map<String, JsonValue>, ) {
+    class Shipment
+    private constructor(
+        private val address: Address?,
+        private val method: Method?,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var hashCode: Int = 0
 
         /** The address to where the card should be shipped. */
-        @JsonProperty("address")
-        fun address(): Address? = address
+        @JsonProperty("address") fun address(): Address? = address
 
         /** The shipping method to use. */
-        @JsonProperty("method")
-        fun method(): Method? = method
+        @JsonProperty("method") fun method(): Method? = method
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -502,33 +456,34 @@ class PhysicalCardCreateParams constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Shipment &&
-              this.address == other.address &&
-              this.method == other.method &&
-              this.additionalProperties == other.additionalProperties
+            return other is Shipment &&
+                this.address == other.address &&
+                this.method == other.method &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                address,
-                method,
-                additionalProperties,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        address,
+                        method,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "Shipment{address=$address, method=$method, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "Shipment{address=$address, method=$method, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -546,15 +501,10 @@ class PhysicalCardCreateParams constructor(
 
             /** The address to where the card should be shipped. */
             @JsonProperty("address")
-            fun address(address: Address) = apply {
-                this.address = address
-            }
+            fun address(address: Address) = apply { this.address = address }
 
             /** The shipping method to use. */
-            @JsonProperty("method")
-            fun method(method: Method) = apply {
-                this.method = method
-            }
+            @JsonProperty("method") fun method(method: Method) = apply { this.method = method }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -570,66 +520,55 @@ class PhysicalCardCreateParams constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Shipment = Shipment(
-                checkNotNull(address) {
-                    "`address` is required but was not set"
-                },
-                checkNotNull(method) {
-                    "`method` is required but was not set"
-                },
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build(): Shipment =
+                Shipment(
+                    checkNotNull(address) { "`address` is required but was not set" },
+                    checkNotNull(method) { "`method` is required but was not set" },
+                    additionalProperties.toUnmodifiable(),
+                )
         }
 
         /** The address to where the card should be shipped. */
         @JsonDeserialize(builder = Address.Builder::class)
         @NoAutoDetect
-        class Address private constructor(
-          private val city: String?,
-          private val line1: String?,
-          private val line2: String?,
-          private val line3: String?,
-          private val name: String?,
-          private val phoneNumber: String?,
-          private val postalCode: String?,
-          private val state: String?,
-          private val additionalProperties: Map<String, JsonValue>,
-
+        class Address
+        private constructor(
+            private val city: String?,
+            private val line1: String?,
+            private val line2: String?,
+            private val line3: String?,
+            private val name: String?,
+            private val phoneNumber: String?,
+            private val postalCode: String?,
+            private val state: String?,
+            private val additionalProperties: Map<String, JsonValue>,
         ) {
 
             private var hashCode: Int = 0
 
             /** The city of the shipping address. */
-            @JsonProperty("city")
-            fun city(): String? = city
+            @JsonProperty("city") fun city(): String? = city
 
             /** The first line of the shipping address. */
-            @JsonProperty("line1")
-            fun line1(): String? = line1
+            @JsonProperty("line1") fun line1(): String? = line1
 
             /** The second line of the shipping address. */
-            @JsonProperty("line2")
-            fun line2(): String? = line2
+            @JsonProperty("line2") fun line2(): String? = line2
 
             /** The third line of the shipping address. */
-            @JsonProperty("line3")
-            fun line3(): String? = line3
+            @JsonProperty("line3") fun line3(): String? = line3
 
             /** The name of the recipient. */
-            @JsonProperty("name")
-            fun name(): String? = name
+            @JsonProperty("name") fun name(): String? = name
 
             /** The phone number of the recipient. */
-            @JsonProperty("phone_number")
-            fun phoneNumber(): String? = phoneNumber
+            @JsonProperty("phone_number") fun phoneNumber(): String? = phoneNumber
 
             /** The postal code of the shipping address. */
-            @JsonProperty("postal_code")
-            fun postalCode(): String? = postalCode
+            @JsonProperty("postal_code") fun postalCode(): String? = postalCode
 
             /** The US state of the shipping address. */
-            @JsonProperty("state")
-            fun state(): String? = state
+            @JsonProperty("state") fun state(): String? = state
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -638,45 +577,46 @@ class PhysicalCardCreateParams constructor(
             fun toBuilder() = Builder().from(this)
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return other is Address &&
-                  this.city == other.city &&
-                  this.line1 == other.line1 &&
-                  this.line2 == other.line2 &&
-                  this.line3 == other.line3 &&
-                  this.name == other.name &&
-                  this.phoneNumber == other.phoneNumber &&
-                  this.postalCode == other.postalCode &&
-                  this.state == other.state &&
-                  this.additionalProperties == other.additionalProperties
+                return other is Address &&
+                    this.city == other.city &&
+                    this.line1 == other.line1 &&
+                    this.line2 == other.line2 &&
+                    this.line3 == other.line3 &&
+                    this.name == other.name &&
+                    this.phoneNumber == other.phoneNumber &&
+                    this.postalCode == other.postalCode &&
+                    this.state == other.state &&
+                    this.additionalProperties == other.additionalProperties
             }
 
             override fun hashCode(): Int {
-              if (hashCode == 0) {
-                hashCode = Objects.hash(
-                    city,
-                    line1,
-                    line2,
-                    line3,
-                    name,
-                    phoneNumber,
-                    postalCode,
-                    state,
-                    additionalProperties,
-                )
-              }
-              return hashCode
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            city,
+                            line1,
+                            line2,
+                            line3,
+                            name,
+                            phoneNumber,
+                            postalCode,
+                            state,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
             }
 
-            override fun toString() = "Address{city=$city, line1=$line1, line2=$line2, line3=$line3, name=$name, phoneNumber=$phoneNumber, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
+            override fun toString() =
+                "Address{city=$city, line1=$line1, line2=$line2, line3=$line3, name=$name, phoneNumber=$phoneNumber, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
 
             companion object {
 
-                @JvmStatic
-                fun builder() = Builder()
+                @JvmStatic fun builder() = Builder()
             }
 
             class Builder {
@@ -705,52 +645,30 @@ class PhysicalCardCreateParams constructor(
                 }
 
                 /** The city of the shipping address. */
-                @JsonProperty("city")
-                fun city(city: String) = apply {
-                    this.city = city
-                }
+                @JsonProperty("city") fun city(city: String) = apply { this.city = city }
 
                 /** The first line of the shipping address. */
-                @JsonProperty("line1")
-                fun line1(line1: String) = apply {
-                    this.line1 = line1
-                }
+                @JsonProperty("line1") fun line1(line1: String) = apply { this.line1 = line1 }
 
                 /** The second line of the shipping address. */
-                @JsonProperty("line2")
-                fun line2(line2: String) = apply {
-                    this.line2 = line2
-                }
+                @JsonProperty("line2") fun line2(line2: String) = apply { this.line2 = line2 }
 
                 /** The third line of the shipping address. */
-                @JsonProperty("line3")
-                fun line3(line3: String) = apply {
-                    this.line3 = line3
-                }
+                @JsonProperty("line3") fun line3(line3: String) = apply { this.line3 = line3 }
 
                 /** The name of the recipient. */
-                @JsonProperty("name")
-                fun name(name: String) = apply {
-                    this.name = name
-                }
+                @JsonProperty("name") fun name(name: String) = apply { this.name = name }
 
                 /** The phone number of the recipient. */
                 @JsonProperty("phone_number")
-                fun phoneNumber(phoneNumber: String) = apply {
-                    this.phoneNumber = phoneNumber
-                }
+                fun phoneNumber(phoneNumber: String) = apply { this.phoneNumber = phoneNumber }
 
                 /** The postal code of the shipping address. */
                 @JsonProperty("postal_code")
-                fun postalCode(postalCode: String) = apply {
-                    this.postalCode = postalCode
-                }
+                fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
 
                 /** The US state of the shipping address. */
-                @JsonProperty("state")
-                fun state(state: String) = apply {
-                    this.state = state
-                }
+                @JsonProperty("state") fun state(state: String) = apply { this.state = state }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -762,46 +680,40 @@ class PhysicalCardCreateParams constructor(
                     this.additionalProperties.put(key, value)
                 }
 
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
 
-                fun build(): Address = Address(
-                    checkNotNull(city) {
-                        "`city` is required but was not set"
-                    },
-                    checkNotNull(line1) {
-                        "`line1` is required but was not set"
-                    },
-                    line2,
-                    line3,
-                    checkNotNull(name) {
-                        "`name` is required but was not set"
-                    },
-                    phoneNumber,
-                    checkNotNull(postalCode) {
-                        "`postalCode` is required but was not set"
-                    },
-                    checkNotNull(state) {
-                        "`state` is required but was not set"
-                    },
-                    additionalProperties.toUnmodifiable(),
-                )
+                fun build(): Address =
+                    Address(
+                        checkNotNull(city) { "`city` is required but was not set" },
+                        checkNotNull(line1) { "`line1` is required but was not set" },
+                        line2,
+                        line3,
+                        checkNotNull(name) { "`name` is required but was not set" },
+                        phoneNumber,
+                        checkNotNull(postalCode) { "`postalCode` is required but was not set" },
+                        checkNotNull(state) { "`state` is required but was not set" },
+                        additionalProperties.toUnmodifiable(),
+                    )
             }
         }
 
-        class Method @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+        class Method
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return other is Method &&
-                  this.value == other.value
+                return other is Method && this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -812,7 +724,8 @@ class PhysicalCardCreateParams constructor(
 
                 @JvmField val USPS = Method(JsonField.of("usps"))
 
-                @JvmField val FEDEX_PRIORITY_OVERNIGHT = Method(JsonField.of("fedex_priority_overnight"))
+                @JvmField
+                val FEDEX_PRIORITY_OVERNIGHT = Method(JsonField.of("fedex_priority_overnight"))
 
                 @JvmField val FEDEX_2_DAY = Method(JsonField.of("fedex_2_day"))
 
@@ -832,19 +745,21 @@ class PhysicalCardCreateParams constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value = when (this) {
-                USPS -> Value.USPS
-                FEDEX_PRIORITY_OVERNIGHT -> Value.FEDEX_PRIORITY_OVERNIGHT
-                FEDEX_2_DAY -> Value.FEDEX_2_DAY
-                else -> Value._UNKNOWN
-            }
+            fun value(): Value =
+                when (this) {
+                    USPS -> Value.USPS
+                    FEDEX_PRIORITY_OVERNIGHT -> Value.FEDEX_PRIORITY_OVERNIGHT
+                    FEDEX_2_DAY -> Value.FEDEX_2_DAY
+                    else -> Value._UNKNOWN
+                }
 
-            fun known(): Known = when (this) {
-                USPS -> Known.USPS
-                FEDEX_PRIORITY_OVERNIGHT -> Known.FEDEX_PRIORITY_OVERNIGHT
-                FEDEX_2_DAY -> Known.FEDEX_2_DAY
-                else -> throw IncreaseInvalidDataException("Unknown Method: $value")
-            }
+            fun known(): Known =
+                when (this) {
+                    USPS -> Known.USPS
+                    FEDEX_PRIORITY_OVERNIGHT -> Known.FEDEX_PRIORITY_OVERNIGHT
+                    FEDEX_2_DAY -> Known.FEDEX_2_DAY
+                    else -> throw IncreaseInvalidDataException("Unknown Method: $value")
+                }
 
             fun asString(): String = _value().asStringOrThrow()
         }

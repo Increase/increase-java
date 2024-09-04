@@ -5,44 +5,25 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import org.apache.hc.core5.http.ContentType
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
+import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.MultipartFormValue
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.Enum
-import com.increase.api.core.ContentTypes
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
+import java.util.Objects
 
-class SimulationPhysicalCardAdvanceShipmentParams constructor(
-  private val physicalCardId: String,
-  private val shipmentStatus: ShipmentStatus,
-  private val additionalQueryParams: Map<String, List<String>>,
-  private val additionalHeaders: Map<String, List<String>>,
-  private val additionalBodyProperties: Map<String, JsonValue>,
-
+class SimulationPhysicalCardAdvanceShipmentParams
+constructor(
+    private val physicalCardId: String,
+    private val shipmentStatus: ShipmentStatus,
+    private val additionalQueryParams: Map<String, List<String>>,
+    private val additionalHeaders: Map<String, List<String>>,
+    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun physicalCardId(): String = physicalCardId
@@ -51,31 +32,32 @@ class SimulationPhysicalCardAdvanceShipmentParams constructor(
 
     @JvmSynthetic
     internal fun getBody(): SimulationPhysicalCardAdvanceShipmentBody {
-      return SimulationPhysicalCardAdvanceShipmentBody(shipmentStatus, additionalBodyProperties)
+        return SimulationPhysicalCardAdvanceShipmentBody(shipmentStatus, additionalBodyProperties)
     }
 
-    @JvmSynthetic
-    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
-    @JvmSynthetic
-    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     fun getPathParam(index: Int): String {
-      return when (index) {
-          0 -> physicalCardId
-          else -> ""
-      }
+        return when (index) {
+            0 -> physicalCardId
+            else -> ""
+        }
     }
 
     @JsonDeserialize(builder = SimulationPhysicalCardAdvanceShipmentBody.Builder::class)
     @NoAutoDetect
-    class SimulationPhysicalCardAdvanceShipmentBody internal constructor(private val shipmentStatus: ShipmentStatus?, private val additionalProperties: Map<String, JsonValue>, ) {
+    class SimulationPhysicalCardAdvanceShipmentBody
+    internal constructor(
+        private val shipmentStatus: ShipmentStatus?,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var hashCode: Int = 0
 
         /** The shipment status to move the Physical Card to. */
-        @JsonProperty("shipment_status")
-        fun shipmentStatus(): ShipmentStatus? = shipmentStatus
+        @JsonProperty("shipment_status") fun shipmentStatus(): ShipmentStatus? = shipmentStatus
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -84,28 +66,28 @@ class SimulationPhysicalCardAdvanceShipmentParams constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is SimulationPhysicalCardAdvanceShipmentBody &&
-              this.shipmentStatus == other.shipmentStatus &&
-              this.additionalProperties == other.additionalProperties
+            return other is SimulationPhysicalCardAdvanceShipmentBody &&
+                this.shipmentStatus == other.shipmentStatus &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(shipmentStatus, additionalProperties)
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode = Objects.hash(shipmentStatus, additionalProperties)
+            }
+            return hashCode
         }
 
-        override fun toString() = "SimulationPhysicalCardAdvanceShipmentBody{shipmentStatus=$shipmentStatus, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "SimulationPhysicalCardAdvanceShipmentBody{shipmentStatus=$shipmentStatus, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -114,7 +96,9 @@ class SimulationPhysicalCardAdvanceShipmentParams constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(simulationPhysicalCardAdvanceShipmentBody: SimulationPhysicalCardAdvanceShipmentBody) = apply {
+            internal fun from(
+                simulationPhysicalCardAdvanceShipmentBody: SimulationPhysicalCardAdvanceShipmentBody
+            ) = apply {
                 this.shipmentStatus = simulationPhysicalCardAdvanceShipmentBody.shipmentStatus
                 additionalProperties(simulationPhysicalCardAdvanceShipmentBody.additionalProperties)
             }
@@ -139,9 +123,11 @@ class SimulationPhysicalCardAdvanceShipmentParams constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): SimulationPhysicalCardAdvanceShipmentBody = SimulationPhysicalCardAdvanceShipmentBody(checkNotNull(shipmentStatus) {
-                "`shipmentStatus` is required but was not set"
-            }, additionalProperties.toUnmodifiable())
+            fun build(): SimulationPhysicalCardAdvanceShipmentBody =
+                SimulationPhysicalCardAdvanceShipmentBody(
+                    checkNotNull(shipmentStatus) { "`shipmentStatus` is required but was not set" },
+                    additionalProperties.toUnmodifiable()
+                )
         }
     }
 
@@ -152,36 +138,36 @@ class SimulationPhysicalCardAdvanceShipmentParams constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is SimulationPhysicalCardAdvanceShipmentParams &&
-          this.physicalCardId == other.physicalCardId &&
-          this.shipmentStatus == other.shipmentStatus &&
-          this.additionalQueryParams == other.additionalQueryParams &&
-          this.additionalHeaders == other.additionalHeaders &&
-          this.additionalBodyProperties == other.additionalBodyProperties
+        return other is SimulationPhysicalCardAdvanceShipmentParams &&
+            this.physicalCardId == other.physicalCardId &&
+            this.shipmentStatus == other.shipmentStatus &&
+            this.additionalQueryParams == other.additionalQueryParams &&
+            this.additionalHeaders == other.additionalHeaders &&
+            this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          physicalCardId,
-          shipmentStatus,
-          additionalQueryParams,
-          additionalHeaders,
-          additionalBodyProperties,
-      )
+        return Objects.hash(
+            physicalCardId,
+            shipmentStatus,
+            additionalQueryParams,
+            additionalHeaders,
+            additionalBodyProperties,
+        )
     }
 
-    override fun toString() = "SimulationPhysicalCardAdvanceShipmentParams{physicalCardId=$physicalCardId, shipmentStatus=$shipmentStatus, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() =
+        "SimulationPhysicalCardAdvanceShipmentParams{physicalCardId=$physicalCardId, shipmentStatus=$shipmentStatus, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -194,18 +180,20 @@ class SimulationPhysicalCardAdvanceShipmentParams constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(simulationPhysicalCardAdvanceShipmentParams: SimulationPhysicalCardAdvanceShipmentParams) = apply {
+        internal fun from(
+            simulationPhysicalCardAdvanceShipmentParams: SimulationPhysicalCardAdvanceShipmentParams
+        ) = apply {
             this.physicalCardId = simulationPhysicalCardAdvanceShipmentParams.physicalCardId
             this.shipmentStatus = simulationPhysicalCardAdvanceShipmentParams.shipmentStatus
             additionalQueryParams(simulationPhysicalCardAdvanceShipmentParams.additionalQueryParams)
             additionalHeaders(simulationPhysicalCardAdvanceShipmentParams.additionalHeaders)
-            additionalBodyProperties(simulationPhysicalCardAdvanceShipmentParams.additionalBodyProperties)
+            additionalBodyProperties(
+                simulationPhysicalCardAdvanceShipmentParams.additionalBodyProperties
+            )
         }
 
         /** The Physical Card you would like to action. */
-        fun physicalCardId(physicalCardId: String) = apply {
-            this.physicalCardId = physicalCardId
-        }
+        fun physicalCardId(physicalCardId: String) = apply { this.physicalCardId = physicalCardId }
 
         /** The shipment status to move the Physical Card to. */
         fun shipmentStatus(shipmentStatus: ShipmentStatus) = apply {
@@ -250,9 +238,7 @@ class SimulationPhysicalCardAdvanceShipmentParams constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply {
-            this.additionalHeaders.put(name, mutableListOf())
-        }
+        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -263,35 +249,35 @@ class SimulationPhysicalCardAdvanceShipmentParams constructor(
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.putAll(additionalBodyProperties)
-        }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
 
-        fun build(): SimulationPhysicalCardAdvanceShipmentParams = SimulationPhysicalCardAdvanceShipmentParams(
-            checkNotNull(physicalCardId) {
-                "`physicalCardId` is required but was not set"
-            },
-            checkNotNull(shipmentStatus) {
-                "`shipmentStatus` is required but was not set"
-            },
-            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalBodyProperties.toUnmodifiable(),
-        )
+        fun build(): SimulationPhysicalCardAdvanceShipmentParams =
+            SimulationPhysicalCardAdvanceShipmentParams(
+                checkNotNull(physicalCardId) { "`physicalCardId` is required but was not set" },
+                checkNotNull(shipmentStatus) { "`shipmentStatus` is required but was not set" },
+                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalBodyProperties.toUnmodifiable(),
+            )
     }
 
-    class ShipmentStatus @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+    class ShipmentStatus
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is ShipmentStatus &&
-              this.value == other.value
+            return other is ShipmentStatus && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -338,27 +324,29 @@ class SimulationPhysicalCardAdvanceShipmentParams constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            PENDING -> Value.PENDING
-            CANCELED -> Value.CANCELED
-            SUBMITTED -> Value.SUBMITTED
-            ACKNOWLEDGED -> Value.ACKNOWLEDGED
-            REJECTED -> Value.REJECTED
-            SHIPPED -> Value.SHIPPED
-            RETURNED -> Value.RETURNED
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                PENDING -> Value.PENDING
+                CANCELED -> Value.CANCELED
+                SUBMITTED -> Value.SUBMITTED
+                ACKNOWLEDGED -> Value.ACKNOWLEDGED
+                REJECTED -> Value.REJECTED
+                SHIPPED -> Value.SHIPPED
+                RETURNED -> Value.RETURNED
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            PENDING -> Known.PENDING
-            CANCELED -> Known.CANCELED
-            SUBMITTED -> Known.SUBMITTED
-            ACKNOWLEDGED -> Known.ACKNOWLEDGED
-            REJECTED -> Known.REJECTED
-            SHIPPED -> Known.SHIPPED
-            RETURNED -> Known.RETURNED
-            else -> throw IncreaseInvalidDataException("Unknown ShipmentStatus: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                PENDING -> Known.PENDING
+                CANCELED -> Known.CANCELED
+                SUBMITTED -> Known.SUBMITTED
+                ACKNOWLEDGED -> Known.ACKNOWLEDGED
+                REJECTED -> Known.REJECTED
+                SHIPPED -> Known.SHIPPED
+                RETURNED -> Known.RETURNED
+                else -> throw IncreaseInvalidDataException("Unknown ShipmentStatus: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }

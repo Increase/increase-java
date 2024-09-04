@@ -5,50 +5,35 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
+import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.JsonNull
-import com.increase.api.core.JsonField
-import com.increase.api.core.Enum
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.time.LocalDate
+import java.util.Objects
+import java.util.Optional
 
 /**
- * When using IntraFi, each account's balance over the standard FDIC insurance
- * amount are swept to various other institutions. Funds are rebalanced across
- * banks as needed once per business day.
+ * When using IntraFi, each account's balance over the standard FDIC insurance amount are swept to
+ * various other institutions. Funds are rebalanced across banks as needed once per business day.
  */
 @JsonDeserialize(builder = IntrafiBalance.Builder::class)
 @NoAutoDetect
-class IntrafiBalance private constructor(
-  private val balances: JsonField<List<Balance>>,
-  private val currency: JsonField<Currency>,
-  private val effectiveDate: JsonField<LocalDate>,
-  private val id: JsonField<String>,
-  private val totalBalance: JsonField<Long>,
-  private val type: JsonField<Type>,
-  private val additionalProperties: Map<String, JsonValue>,
-
+class IntrafiBalance
+private constructor(
+    private val balances: JsonField<List<Balance>>,
+    private val currency: JsonField<Currency>,
+    private val effectiveDate: JsonField<LocalDate>,
+    private val id: JsonField<String>,
+    private val totalBalance: JsonField<Long>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: Map<String, JsonValue>,
 ) {
 
     private var validated: Boolean = false
@@ -56,15 +41,12 @@ class IntrafiBalance private constructor(
     private var hashCode: Int = 0
 
     /**
-     * Each entry represents a balance held at a different bank. IntraFi separates the
-     * total balance across many participating banks in the network.
+     * Each entry represents a balance held at a different bank. IntraFi separates the total balance
+     * across many participating banks in the network.
      */
     fun balances(): List<Balance> = balances.getRequired("balances")
 
-    /**
-     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the account
-     * currency.
-     */
+    /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the account currency. */
     fun currency(): Currency = currency.getRequired("currency")
 
     /** The date this balance reflects. */
@@ -74,8 +56,8 @@ class IntrafiBalance private constructor(
     fun id(): String = id.getRequired("id")
 
     /**
-     * The total balance, in minor units of `currency`. Increase reports this balance
-     * to IntraFi daily.
+     * The total balance, in minor units of `currency`. Increase reports this balance to IntraFi
+     * daily.
      */
     fun totalBalance(): Long = totalBalance.getRequired("total_balance")
 
@@ -86,46 +68,31 @@ class IntrafiBalance private constructor(
     fun type(): Type = type.getRequired("type")
 
     /**
-     * Each entry represents a balance held at a different bank. IntraFi separates the
-     * total balance across many participating banks in the network.
+     * Each entry represents a balance held at a different bank. IntraFi separates the total balance
+     * across many participating banks in the network.
      */
-    @JsonProperty("balances")
-    @ExcludeMissing
-    fun _balances() = balances
+    @JsonProperty("balances") @ExcludeMissing fun _balances() = balances
 
-    /**
-     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the account
-     * currency.
-     */
-    @JsonProperty("currency")
-    @ExcludeMissing
-    fun _currency() = currency
+    /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the account currency. */
+    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
 
     /** The date this balance reflects. */
-    @JsonProperty("effective_date")
-    @ExcludeMissing
-    fun _effectiveDate() = effectiveDate
+    @JsonProperty("effective_date") @ExcludeMissing fun _effectiveDate() = effectiveDate
 
     /** The identifier of this balance. */
-    @JsonProperty("id")
-    @ExcludeMissing
-    fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
-     * The total balance, in minor units of `currency`. Increase reports this balance
-     * to IntraFi daily.
+     * The total balance, in minor units of `currency`. Increase reports this balance to IntraFi
+     * daily.
      */
-    @JsonProperty("total_balance")
-    @ExcludeMissing
-    fun _totalBalance() = totalBalance
+    @JsonProperty("total_balance") @ExcludeMissing fun _totalBalance() = totalBalance
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `intrafi_balance`.
      */
-    @JsonProperty("type")
-    @ExcludeMissing
-    fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -133,54 +100,55 @@ class IntrafiBalance private constructor(
 
     fun validate(): IntrafiBalance = apply {
         if (!validated) {
-          balances().forEach { it.validate() }
-          currency()
-          effectiveDate()
-          id()
-          totalBalance()
-          type()
-          validated = true
+            balances().forEach { it.validate() }
+            currency()
+            effectiveDate()
+            id()
+            totalBalance()
+            type()
+            validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is IntrafiBalance &&
-          this.balances == other.balances &&
-          this.currency == other.currency &&
-          this.effectiveDate == other.effectiveDate &&
-          this.id == other.id &&
-          this.totalBalance == other.totalBalance &&
-          this.type == other.type &&
-          this.additionalProperties == other.additionalProperties
+        return other is IntrafiBalance &&
+            this.balances == other.balances &&
+            this.currency == other.currency &&
+            this.effectiveDate == other.effectiveDate &&
+            this.id == other.id &&
+            this.totalBalance == other.totalBalance &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-      if (hashCode == 0) {
-        hashCode = Objects.hash(
-            balances,
-            currency,
-            effectiveDate,
-            id,
-            totalBalance,
-            type,
-            additionalProperties,
-        )
-      }
-      return hashCode
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    balances,
+                    currency,
+                    effectiveDate,
+                    id,
+                    totalBalance,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
     }
 
-    override fun toString() = "IntrafiBalance{balances=$balances, currency=$currency, effectiveDate=$effectiveDate, id=$id, totalBalance=$totalBalance, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() =
+        "IntrafiBalance{balances=$balances, currency=$currency, effectiveDate=$effectiveDate, id=$id, totalBalance=$totalBalance, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     class Builder {
@@ -205,36 +173,26 @@ class IntrafiBalance private constructor(
         }
 
         /**
-         * Each entry represents a balance held at a different bank. IntraFi separates the
-         * total balance across many participating banks in the network.
+         * Each entry represents a balance held at a different bank. IntraFi separates the total
+         * balance across many participating banks in the network.
          */
         fun balances(balances: List<Balance>) = balances(JsonField.of(balances))
 
         /**
-         * Each entry represents a balance held at a different bank. IntraFi separates the
-         * total balance across many participating banks in the network.
+         * Each entry represents a balance held at a different bank. IntraFi separates the total
+         * balance across many participating banks in the network.
          */
         @JsonProperty("balances")
         @ExcludeMissing
-        fun balances(balances: JsonField<List<Balance>>) = apply {
-            this.balances = balances
-        }
+        fun balances(balances: JsonField<List<Balance>>) = apply { this.balances = balances }
 
-        /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the account
-         * currency.
-         */
+        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the account currency. */
         fun currency(currency: Currency) = currency(JsonField.of(currency))
 
-        /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the account
-         * currency.
-         */
+        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the account currency. */
         @JsonProperty("currency")
         @ExcludeMissing
-        fun currency(currency: JsonField<Currency>) = apply {
-            this.currency = currency
-        }
+        fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /** The date this balance reflects. */
         fun effectiveDate(effectiveDate: LocalDate) = effectiveDate(JsonField.of(effectiveDate))
@@ -250,27 +208,21 @@ class IntrafiBalance private constructor(
         fun id(id: String) = id(JsonField.of(id))
 
         /** The identifier of this balance. */
-        @JsonProperty("id")
-        @ExcludeMissing
-        fun id(id: JsonField<String>) = apply {
-            this.id = id
-        }
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
-         * The total balance, in minor units of `currency`. Increase reports this balance
-         * to IntraFi daily.
+         * The total balance, in minor units of `currency`. Increase reports this balance to IntraFi
+         * daily.
          */
         fun totalBalance(totalBalance: Long) = totalBalance(JsonField.of(totalBalance))
 
         /**
-         * The total balance, in minor units of `currency`. Increase reports this balance
-         * to IntraFi daily.
+         * The total balance, in minor units of `currency`. Increase reports this balance to IntraFi
+         * daily.
          */
         @JsonProperty("total_balance")
         @ExcludeMissing
-        fun totalBalance(totalBalance: JsonField<Long>) = apply {
-            this.totalBalance = totalBalance
-        }
+        fun totalBalance(totalBalance: JsonField<Long>) = apply { this.totalBalance = totalBalance }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -284,9 +236,7 @@ class IntrafiBalance private constructor(
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply {
-            this.type = type
-        }
+        fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -302,27 +252,28 @@ class IntrafiBalance private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): IntrafiBalance = IntrafiBalance(
-            balances.map { it.toUnmodifiable() },
-            currency,
-            effectiveDate,
-            id,
-            totalBalance,
-            type,
-            additionalProperties.toUnmodifiable(),
-        )
+        fun build(): IntrafiBalance =
+            IntrafiBalance(
+                balances.map { it.toUnmodifiable() },
+                currency,
+                effectiveDate,
+                id,
+                totalBalance,
+                type,
+                additionalProperties.toUnmodifiable(),
+            )
     }
 
     @JsonDeserialize(builder = Balance.Builder::class)
     @NoAutoDetect
-    class Balance private constructor(
-      private val balance: JsonField<Long>,
-      private val bank: JsonField<String>,
-      private val bankLocation: JsonField<BankLocation>,
-      private val fdicCertificateNumber: JsonField<String>,
-      private val id: JsonField<String>,
-      private val additionalProperties: Map<String, JsonValue>,
-
+    class Balance
+    private constructor(
+        private val balance: JsonField<Long>,
+        private val bank: JsonField<String>,
+        private val bankLocation: JsonField<BankLocation>,
+        private val fdicCertificateNumber: JsonField<String>,
+        private val id: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var validated: Boolean = false
@@ -336,46 +287,40 @@ class IntrafiBalance private constructor(
         fun bank(): String = bank.getRequired("bank")
 
         /** The primary location of the bank. */
-        fun bankLocation(): Optional<BankLocation> = Optional.ofNullable(bankLocation.getNullable("bank_location"))
+        fun bankLocation(): Optional<BankLocation> =
+            Optional.ofNullable(bankLocation.getNullable("bank_location"))
 
         /**
-         * The Federal Deposit Insurance Corporation (FDIC) certificate number of the bank.
-         * Because many banks have the same or similar names, this can be used to uniquely
-         * identify the institution.
+         * The Federal Deposit Insurance Corporation (FDIC) certificate number of the bank. Because
+         * many banks have the same or similar names, this can be used to uniquely identify the
+         * institution.
          */
-        fun fdicCertificateNumber(): String = fdicCertificateNumber.getRequired("fdic_certificate_number")
+        fun fdicCertificateNumber(): String =
+            fdicCertificateNumber.getRequired("fdic_certificate_number")
 
         /** The identifier of this balance. */
         fun id(): String = id.getRequired("id")
 
         /** The balance, in minor units of `currency`, held with this bank. */
-        @JsonProperty("balance")
-        @ExcludeMissing
-        fun _balance() = balance
+        @JsonProperty("balance") @ExcludeMissing fun _balance() = balance
 
         /** The name of the bank holding these funds. */
-        @JsonProperty("bank")
-        @ExcludeMissing
-        fun _bank() = bank
+        @JsonProperty("bank") @ExcludeMissing fun _bank() = bank
 
         /** The primary location of the bank. */
-        @JsonProperty("bank_location")
-        @ExcludeMissing
-        fun _bankLocation() = bankLocation
+        @JsonProperty("bank_location") @ExcludeMissing fun _bankLocation() = bankLocation
 
         /**
-         * The Federal Deposit Insurance Corporation (FDIC) certificate number of the bank.
-         * Because many banks have the same or similar names, this can be used to uniquely
-         * identify the institution.
+         * The Federal Deposit Insurance Corporation (FDIC) certificate number of the bank. Because
+         * many banks have the same or similar names, this can be used to uniquely identify the
+         * institution.
          */
         @JsonProperty("fdic_certificate_number")
         @ExcludeMissing
         fun _fdicCertificateNumber() = fdicCertificateNumber
 
         /** The identifier of this balance. */
-        @JsonProperty("id")
-        @ExcludeMissing
-        fun _id() = id
+        @JsonProperty("id") @ExcludeMissing fun _id() = id
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -383,51 +328,52 @@ class IntrafiBalance private constructor(
 
         fun validate(): Balance = apply {
             if (!validated) {
-              balance()
-              bank()
-              bankLocation().map { it.validate() }
-              fdicCertificateNumber()
-              id()
-              validated = true
+                balance()
+                bank()
+                bankLocation().map { it.validate() }
+                fdicCertificateNumber()
+                id()
+                validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Balance &&
-              this.balance == other.balance &&
-              this.bank == other.bank &&
-              this.bankLocation == other.bankLocation &&
-              this.fdicCertificateNumber == other.fdicCertificateNumber &&
-              this.id == other.id &&
-              this.additionalProperties == other.additionalProperties
+            return other is Balance &&
+                this.balance == other.balance &&
+                this.bank == other.bank &&
+                this.bankLocation == other.bankLocation &&
+                this.fdicCertificateNumber == other.fdicCertificateNumber &&
+                this.id == other.id &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                balance,
-                bank,
-                bankLocation,
-                fdicCertificateNumber,
-                id,
-                additionalProperties,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        balance,
+                        bank,
+                        bankLocation,
+                        fdicCertificateNumber,
+                        id,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "Balance{balance=$balance, bank=$bank, bankLocation=$bankLocation, fdicCertificateNumber=$fdicCertificateNumber, id=$id, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "Balance{balance=$balance, bank=$bank, bankLocation=$bankLocation, fdicCertificateNumber=$fdicCertificateNumber, id=$id, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -455,9 +401,7 @@ class IntrafiBalance private constructor(
             /** The balance, in minor units of `currency`, held with this bank. */
             @JsonProperty("balance")
             @ExcludeMissing
-            fun balance(balance: JsonField<Long>) = apply {
-                this.balance = balance
-            }
+            fun balance(balance: JsonField<Long>) = apply { this.balance = balance }
 
             /** The name of the bank holding these funds. */
             fun bank(bank: String) = bank(JsonField.of(bank))
@@ -465,9 +409,7 @@ class IntrafiBalance private constructor(
             /** The name of the bank holding these funds. */
             @JsonProperty("bank")
             @ExcludeMissing
-            fun bank(bank: JsonField<String>) = apply {
-                this.bank = bank
-            }
+            fun bank(bank: JsonField<String>) = apply { this.bank = bank }
 
             /** The primary location of the bank. */
             fun bankLocation(bankLocation: BankLocation) = bankLocation(JsonField.of(bankLocation))
@@ -484,7 +426,8 @@ class IntrafiBalance private constructor(
              * Because many banks have the same or similar names, this can be used to uniquely
              * identify the institution.
              */
-            fun fdicCertificateNumber(fdicCertificateNumber: String) = fdicCertificateNumber(JsonField.of(fdicCertificateNumber))
+            fun fdicCertificateNumber(fdicCertificateNumber: String) =
+                fdicCertificateNumber(JsonField.of(fdicCertificateNumber))
 
             /**
              * The Federal Deposit Insurance Corporation (FDIC) certificate number of the bank.
@@ -503,9 +446,7 @@ class IntrafiBalance private constructor(
             /** The identifier of this balance. */
             @JsonProperty("id")
             @ExcludeMissing
-            fun id(id: JsonField<String>) = apply {
-                this.id = id
-            }
+            fun id(id: JsonField<String>) = apply { this.id = id }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -521,20 +462,26 @@ class IntrafiBalance private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Balance = Balance(
-                balance,
-                bank,
-                bankLocation,
-                fdicCertificateNumber,
-                id,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build(): Balance =
+                Balance(
+                    balance,
+                    bank,
+                    bankLocation,
+                    fdicCertificateNumber,
+                    id,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
 
         /** The primary location of the bank. */
         @JsonDeserialize(builder = BankLocation.Builder::class)
         @NoAutoDetect
-        class BankLocation private constructor(private val city: JsonField<String>, private val state: JsonField<String>, private val additionalProperties: Map<String, JsonValue>, ) {
+        class BankLocation
+        private constructor(
+            private val city: JsonField<String>,
+            private val state: JsonField<String>,
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
 
             private var validated: Boolean = false
 
@@ -547,14 +494,10 @@ class IntrafiBalance private constructor(
             fun state(): String = state.getRequired("state")
 
             /** The bank's city. */
-            @JsonProperty("city")
-            @ExcludeMissing
-            fun _city() = city
+            @JsonProperty("city") @ExcludeMissing fun _city() = city
 
             /** The bank's state. */
-            @JsonProperty("state")
-            @ExcludeMissing
-            fun _state() = state
+            @JsonProperty("state") @ExcludeMissing fun _state() = state
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -562,42 +505,43 @@ class IntrafiBalance private constructor(
 
             fun validate(): BankLocation = apply {
                 if (!validated) {
-                  city()
-                  state()
-                  validated = true
+                    city()
+                    state()
+                    validated = true
                 }
             }
 
             fun toBuilder() = Builder().from(this)
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return other is BankLocation &&
-                  this.city == other.city &&
-                  this.state == other.state &&
-                  this.additionalProperties == other.additionalProperties
+                return other is BankLocation &&
+                    this.city == other.city &&
+                    this.state == other.state &&
+                    this.additionalProperties == other.additionalProperties
             }
 
             override fun hashCode(): Int {
-              if (hashCode == 0) {
-                hashCode = Objects.hash(
-                    city,
-                    state,
-                    additionalProperties,
-                )
-              }
-              return hashCode
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            city,
+                            state,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
             }
 
-            override fun toString() = "BankLocation{city=$city, state=$state, additionalProperties=$additionalProperties}"
+            override fun toString() =
+                "BankLocation{city=$city, state=$state, additionalProperties=$additionalProperties}"
 
             companion object {
 
-                @JvmStatic
-                fun builder() = Builder()
+                @JvmStatic fun builder() = Builder()
             }
 
             class Builder {
@@ -619,9 +563,7 @@ class IntrafiBalance private constructor(
                 /** The bank's city. */
                 @JsonProperty("city")
                 @ExcludeMissing
-                fun city(city: JsonField<String>) = apply {
-                    this.city = city
-                }
+                fun city(city: JsonField<String>) = apply { this.city = city }
 
                 /** The bank's state. */
                 fun state(state: String) = state(JsonField.of(state))
@@ -629,9 +571,7 @@ class IntrafiBalance private constructor(
                 /** The bank's state. */
                 @JsonProperty("state")
                 @ExcludeMissing
-                fun state(state: JsonField<String>) = apply {
-                    this.state = state
-                }
+                fun state(state: JsonField<String>) = apply { this.state = state }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -643,31 +583,35 @@ class IntrafiBalance private constructor(
                     this.additionalProperties.put(key, value)
                 }
 
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
 
-                fun build(): BankLocation = BankLocation(
-                    city,
-                    state,
-                    additionalProperties.toUnmodifiable(),
-                )
+                fun build(): BankLocation =
+                    BankLocation(
+                        city,
+                        state,
+                        additionalProperties.toUnmodifiable(),
+                    )
             }
         }
     }
 
-    class Currency @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+    class Currency
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Currency &&
-              this.value == other.value
+            return other is Currency && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -710,41 +654,45 @@ class IntrafiBalance private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            CAD -> Value.CAD
-            CHF -> Value.CHF
-            EUR -> Value.EUR
-            GBP -> Value.GBP
-            JPY -> Value.JPY
-            USD -> Value.USD
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                CAD -> Value.CAD
+                CHF -> Value.CHF
+                EUR -> Value.EUR
+                GBP -> Value.GBP
+                JPY -> Value.JPY
+                USD -> Value.USD
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            CAD -> Known.CAD
-            CHF -> Known.CHF
-            EUR -> Known.EUR
-            GBP -> Known.GBP
-            JPY -> Known.JPY
-            USD -> Known.USD
-            else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                CAD -> Known.CAD
+                CHF -> Known.CHF
+                EUR -> Known.EUR
+                GBP -> Known.GBP
+                JPY -> Known.JPY
+                USD -> Known.USD
+                else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Type @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+    class Type
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Type &&
-              this.value == other.value
+            return other is Type && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -767,15 +715,17 @@ class IntrafiBalance private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            INTRAFI_BALANCE -> Value.INTRAFI_BALANCE
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                INTRAFI_BALANCE -> Value.INTRAFI_BALANCE
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            INTRAFI_BALANCE -> Known.INTRAFI_BALANCE
-            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                INTRAFI_BALANCE -> Known.INTRAFI_BALANCE
+                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }
