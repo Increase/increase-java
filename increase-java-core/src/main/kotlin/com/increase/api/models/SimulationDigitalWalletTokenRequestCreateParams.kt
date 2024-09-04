@@ -4,46 +4,68 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.models.*
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import org.apache.hc.core5.http.ContentType
+import java.time.LocalDate
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Objects
+import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.MultipartFormValue
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.Enum
+import com.increase.api.core.ContentTypes
+import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.models.*
 
-class SimulationDigitalWalletTokenRequestCreateParams
-constructor(
-    private val cardId: String,
-    private val additionalQueryParams: Map<String, List<String>>,
-    private val additionalHeaders: Map<String, List<String>>,
-    private val additionalBodyProperties: Map<String, JsonValue>,
+class SimulationDigitalWalletTokenRequestCreateParams constructor(
+  private val cardId: String,
+  private val additionalQueryParams: Map<String, List<String>>,
+  private val additionalHeaders: Map<String, List<String>>,
+  private val additionalBodyProperties: Map<String, JsonValue>,
+
 ) {
 
     fun cardId(): String = cardId
 
     @JvmSynthetic
     internal fun getBody(): SimulationDigitalWalletTokenRequestCreateBody {
-        return SimulationDigitalWalletTokenRequestCreateBody(cardId, additionalBodyProperties)
+      return SimulationDigitalWalletTokenRequestCreateBody(cardId, additionalBodyProperties)
     }
 
-    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic
+    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
-    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic
+    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     @JsonDeserialize(builder = SimulationDigitalWalletTokenRequestCreateBody.Builder::class)
     @NoAutoDetect
-    class SimulationDigitalWalletTokenRequestCreateBody
-    internal constructor(
-        private val cardId: String?,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
+    class SimulationDigitalWalletTokenRequestCreateBody internal constructor(private val cardId: String?, private val additionalProperties: Map<String, JsonValue>, ) {
 
         private var hashCode: Int = 0
 
         /** The identifier of the Card to be authorized. */
-        @JsonProperty("card_id") fun cardId(): String? = cardId
+        @JsonProperty("card_id")
+        fun cardId(): String? = cardId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -52,28 +74,28 @@ constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is SimulationDigitalWalletTokenRequestCreateBody &&
-                this.cardId == other.cardId &&
-                this.additionalProperties == other.additionalProperties
+          return other is SimulationDigitalWalletTokenRequestCreateBody &&
+              this.cardId == other.cardId &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(cardId, additionalProperties)
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(cardId, additionalProperties)
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "SimulationDigitalWalletTokenRequestCreateBody{cardId=$cardId, additionalProperties=$additionalProperties}"
+        override fun toString() = "SimulationDigitalWalletTokenRequestCreateBody{cardId=$cardId, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         class Builder {
@@ -82,18 +104,16 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(
-                simulationDigitalWalletTokenRequestCreateBody:
-                    SimulationDigitalWalletTokenRequestCreateBody
-            ) = apply {
+            internal fun from(simulationDigitalWalletTokenRequestCreateBody: SimulationDigitalWalletTokenRequestCreateBody) = apply {
                 this.cardId = simulationDigitalWalletTokenRequestCreateBody.cardId
-                additionalProperties(
-                    simulationDigitalWalletTokenRequestCreateBody.additionalProperties
-                )
+                additionalProperties(simulationDigitalWalletTokenRequestCreateBody.additionalProperties)
             }
 
             /** The identifier of the Card to be authorized. */
-            @JsonProperty("card_id") fun cardId(cardId: String) = apply { this.cardId = cardId }
+            @JsonProperty("card_id")
+            fun cardId(cardId: String) = apply {
+                this.cardId = cardId
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -109,11 +129,9 @@ constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): SimulationDigitalWalletTokenRequestCreateBody =
-                SimulationDigitalWalletTokenRequestCreateBody(
-                    checkNotNull(cardId) { "`cardId` is required but was not set" },
-                    additionalProperties.toUnmodifiable()
-                )
+            fun build(): SimulationDigitalWalletTokenRequestCreateBody = SimulationDigitalWalletTokenRequestCreateBody(checkNotNull(cardId) {
+                "`cardId` is required but was not set"
+            }, additionalProperties.toUnmodifiable())
         }
     }
 
@@ -124,34 +142,34 @@ constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is SimulationDigitalWalletTokenRequestCreateParams &&
-            this.cardId == other.cardId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+      return other is SimulationDigitalWalletTokenRequestCreateParams &&
+          this.cardId == other.cardId &&
+          this.additionalQueryParams == other.additionalQueryParams &&
+          this.additionalHeaders == other.additionalHeaders &&
+          this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            cardId,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+      return Objects.hash(
+          cardId,
+          additionalQueryParams,
+          additionalHeaders,
+          additionalBodyProperties,
+      )
     }
 
-    override fun toString() =
-        "SimulationDigitalWalletTokenRequestCreateParams{cardId=$cardId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() = "SimulationDigitalWalletTokenRequestCreateParams{cardId=$cardId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -163,22 +181,17 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(
-            simulationDigitalWalletTokenRequestCreateParams:
-                SimulationDigitalWalletTokenRequestCreateParams
-        ) = apply {
+        internal fun from(simulationDigitalWalletTokenRequestCreateParams: SimulationDigitalWalletTokenRequestCreateParams) = apply {
             this.cardId = simulationDigitalWalletTokenRequestCreateParams.cardId
-            additionalQueryParams(
-                simulationDigitalWalletTokenRequestCreateParams.additionalQueryParams
-            )
+            additionalQueryParams(simulationDigitalWalletTokenRequestCreateParams.additionalQueryParams)
             additionalHeaders(simulationDigitalWalletTokenRequestCreateParams.additionalHeaders)
-            additionalBodyProperties(
-                simulationDigitalWalletTokenRequestCreateParams.additionalBodyProperties
-            )
+            additionalBodyProperties(simulationDigitalWalletTokenRequestCreateParams.additionalBodyProperties)
         }
 
         /** The identifier of the Card to be authorized. */
-        fun cardId(cardId: String) = apply { this.cardId = cardId }
+        fun cardId(cardId: String) = apply {
+            this.cardId = cardId
+        }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -218,7 +231,9 @@ constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
+        fun removeHeader(name: String) = apply {
+            this.additionalHeaders.put(name, mutableListOf())
+        }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -229,17 +244,17 @@ constructor(
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
-            }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            this.additionalBodyProperties.putAll(additionalBodyProperties)
+        }
 
-        fun build(): SimulationDigitalWalletTokenRequestCreateParams =
-            SimulationDigitalWalletTokenRequestCreateParams(
-                checkNotNull(cardId) { "`cardId` is required but was not set" },
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
-            )
+        fun build(): SimulationDigitalWalletTokenRequestCreateParams = SimulationDigitalWalletTokenRequestCreateParams(
+            checkNotNull(cardId) {
+                "`cardId` is required but was not set"
+            },
+            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            additionalBodyProperties.toUnmodifiable(),
+        )
     }
 }

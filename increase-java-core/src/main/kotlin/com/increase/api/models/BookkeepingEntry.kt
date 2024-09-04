@@ -5,35 +5,50 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.Enum
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import java.time.LocalDate
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Objects
+import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
 import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.JsonNull
+import com.increase.api.core.JsonField
+import com.increase.api.core.Enum
 import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
 import com.increase.api.errors.IncreaseInvalidDataException
-import java.time.OffsetDateTime
-import java.util.Objects
 
 /**
- * Entries are T-account entries recording debits and credits. Your compliance setup might require
- * annotating money movements using this API. Learn more in our
+ * Entries are T-account entries recording debits and credits. Your compliance
+ * setup might require annotating money movements using this API. Learn more in our
  * [guide to Bookkeeping](https://increase.com/documentation/bookkeeping#bookkeeping).
  */
 @JsonDeserialize(builder = BookkeepingEntry.Builder::class)
 @NoAutoDetect
-class BookkeepingEntry
-private constructor(
-    private val accountId: JsonField<String>,
-    private val amount: JsonField<Long>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val entrySetId: JsonField<String>,
-    private val id: JsonField<String>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+class BookkeepingEntry private constructor(
+  private val accountId: JsonField<String>,
+  private val amount: JsonField<Long>,
+  private val createdAt: JsonField<OffsetDateTime>,
+  private val entrySetId: JsonField<String>,
+  private val id: JsonField<String>,
+  private val type: JsonField<Type>,
+  private val additionalProperties: Map<String, JsonValue>,
+
 ) {
 
     private var validated: Boolean = false
@@ -44,7 +59,8 @@ private constructor(
     fun accountId(): String = accountId.getRequired("account_id")
 
     /**
-     * The Entry amount in the minor unit of its currency. For dollars, for example, this is cents.
+     * The Entry amount in the minor unit of its currency. For dollars, for example,
+     * this is cents.
      */
     fun amount(): Long = amount.getRequired("amount")
 
@@ -64,27 +80,40 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The identifier for the Account the Entry belongs to. */
-    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+    @JsonProperty("account_id")
+    @ExcludeMissing
+    fun _accountId() = accountId
 
     /**
-     * The Entry amount in the minor unit of its currency. For dollars, for example, this is cents.
+     * The Entry amount in the minor unit of its currency. For dollars, for example,
+     * this is cents.
      */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+    @JsonProperty("amount")
+    @ExcludeMissing
+    fun _amount() = amount
 
     /** When the entry set was created. */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt() = createdAt
 
     /** The identifier for the Account the Entry belongs to. */
-    @JsonProperty("entry_set_id") @ExcludeMissing fun _entrySetId() = entrySetId
+    @JsonProperty("entry_set_id")
+    @ExcludeMissing
+    fun _entrySetId() = entrySetId
 
     /** The entry identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id")
+    @ExcludeMissing
+    fun _id() = id
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `bookkeeping_entry`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type")
+    @ExcludeMissing
+    fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -92,55 +121,54 @@ private constructor(
 
     fun validate(): BookkeepingEntry = apply {
         if (!validated) {
-            accountId()
-            amount()
-            createdAt()
-            entrySetId()
-            id()
-            type()
-            validated = true
+          accountId()
+          amount()
+          createdAt()
+          entrySetId()
+          id()
+          type()
+          validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is BookkeepingEntry &&
-            this.accountId == other.accountId &&
-            this.amount == other.amount &&
-            this.createdAt == other.createdAt &&
-            this.entrySetId == other.entrySetId &&
-            this.id == other.id &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
+      return other is BookkeepingEntry &&
+          this.accountId == other.accountId &&
+          this.amount == other.amount &&
+          this.createdAt == other.createdAt &&
+          this.entrySetId == other.entrySetId &&
+          this.id == other.id &&
+          this.type == other.type &&
+          this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    accountId,
-                    amount,
-                    createdAt,
-                    entrySetId,
-                    id,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
+      if (hashCode == 0) {
+        hashCode = Objects.hash(
+            accountId,
+            amount,
+            createdAt,
+            entrySetId,
+            id,
+            type,
+            additionalProperties,
+        )
+      }
+      return hashCode
     }
 
-    override fun toString() =
-        "BookkeepingEntry{accountId=$accountId, amount=$amount, createdAt=$createdAt, entrySetId=$entrySetId, id=$id, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() = "BookkeepingEntry{accountId=$accountId, amount=$amount, createdAt=$createdAt, entrySetId=$entrySetId, id=$id, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     class Builder {
@@ -170,21 +198,25 @@ private constructor(
         /** The identifier for the Account the Entry belongs to. */
         @JsonProperty("account_id")
         @ExcludeMissing
-        fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
+        fun accountId(accountId: JsonField<String>) = apply {
+            this.accountId = accountId
+        }
 
         /**
-         * The Entry amount in the minor unit of its currency. For dollars, for example, this is
-         * cents.
+         * The Entry amount in the minor unit of its currency. For dollars, for example,
+         * this is cents.
          */
         fun amount(amount: Long) = amount(JsonField.of(amount))
 
         /**
-         * The Entry amount in the minor unit of its currency. For dollars, for example, this is
-         * cents.
+         * The Entry amount in the minor unit of its currency. For dollars, for example,
+         * this is cents.
          */
         @JsonProperty("amount")
         @ExcludeMissing
-        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+        fun amount(amount: JsonField<Long>) = apply {
+            this.amount = amount
+        }
 
         /** When the entry set was created. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
@@ -192,7 +224,9 @@ private constructor(
         /** When the entry set was created. */
         @JsonProperty("created_at")
         @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+            this.createdAt = createdAt
+        }
 
         /** The identifier for the Account the Entry belongs to. */
         fun entrySetId(entrySetId: String) = entrySetId(JsonField.of(entrySetId))
@@ -200,13 +234,19 @@ private constructor(
         /** The identifier for the Account the Entry belongs to. */
         @JsonProperty("entry_set_id")
         @ExcludeMissing
-        fun entrySetId(entrySetId: JsonField<String>) = apply { this.entrySetId = entrySetId }
+        fun entrySetId(entrySetId: JsonField<String>) = apply {
+            this.entrySetId = entrySetId
+        }
 
         /** The entry identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The entry identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        @JsonProperty("id")
+        @ExcludeMissing
+        fun id(id: JsonField<String>) = apply {
+            this.id = id
+        }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -220,7 +260,9 @@ private constructor(
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        fun type(type: JsonField<Type>) = apply {
+            this.type = type
+        }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -236,32 +278,29 @@ private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): BookkeepingEntry =
-            BookkeepingEntry(
-                accountId,
-                amount,
-                createdAt,
-                entrySetId,
-                id,
-                type,
-                additionalProperties.toUnmodifiable(),
-            )
+        fun build(): BookkeepingEntry = BookkeepingEntry(
+            accountId,
+            amount,
+            createdAt,
+            entrySetId,
+            id,
+            type,
+            additionalProperties.toUnmodifiable(),
+        )
     }
 
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Type && this.value == other.value
+          return other is Type &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -284,17 +323,15 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                BOOKKEEPING_ENTRY -> Value.BOOKKEEPING_ENTRY
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            BOOKKEEPING_ENTRY -> Value.BOOKKEEPING_ENTRY
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                BOOKKEEPING_ENTRY -> Known.BOOKKEEPING_ENTRY
-                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-            }
+        fun known(): Known = when (this) {
+            BOOKKEEPING_ENTRY -> Known.BOOKKEEPING_ENTRY
+            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
