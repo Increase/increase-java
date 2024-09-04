@@ -5,34 +5,50 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.Enum
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import java.time.LocalDate
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Objects
+import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
 import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.JsonNull
+import com.increase.api.core.JsonField
+import com.increase.api.core.Enum
 import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
 import com.increase.api.errors.IncreaseInvalidDataException
-import java.time.OffsetDateTime
-import java.util.Objects
 
 /**
- * A Digital Wallet Token is created when a user adds a Card to their Apple Pay or Google Pay app.
- * The Digital Wallet Token can be used for purchases just like a Card.
+ * A Digital Wallet Token is created when a user adds a Card to their Apple Pay or
+ * Google Pay app. The Digital Wallet Token can be used for purchases just like a
+ * Card.
  */
 @JsonDeserialize(builder = DigitalWalletToken.Builder::class)
 @NoAutoDetect
-class DigitalWalletToken
-private constructor(
-    private val cardId: JsonField<String>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val id: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val tokenRequestor: JsonField<TokenRequestor>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+class DigitalWalletToken private constructor(
+  private val cardId: JsonField<String>,
+  private val createdAt: JsonField<OffsetDateTime>,
+  private val id: JsonField<String>,
+  private val status: JsonField<Status>,
+  private val tokenRequestor: JsonField<TokenRequestor>,
+  private val type: JsonField<Type>,
+  private val additionalProperties: Map<String, JsonValue>,
+
 ) {
 
     private var validated: Boolean = false
@@ -43,8 +59,8 @@ private constructor(
     fun cardId(): String = cardId.getRequired("card_id")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card was
-     * created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+     * the Card was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
@@ -64,28 +80,40 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The identifier for the Card this Digital Wallet Token belongs to. */
-    @JsonProperty("card_id") @ExcludeMissing fun _cardId() = cardId
+    @JsonProperty("card_id")
+    @ExcludeMissing
+    fun _cardId() = cardId
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card was
-     * created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+     * the Card was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt() = createdAt
 
     /** The Digital Wallet Token identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id")
+    @ExcludeMissing
+    fun _id() = id
 
     /** This indicates if payments can be made with the Digital Wallet Token. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status")
+    @ExcludeMissing
+    fun _status() = status
 
     /** The digital wallet app being used. */
-    @JsonProperty("token_requestor") @ExcludeMissing fun _tokenRequestor() = tokenRequestor
+    @JsonProperty("token_requestor")
+    @ExcludeMissing
+    fun _tokenRequestor() = tokenRequestor
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `digital_wallet_token`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type")
+    @ExcludeMissing
+    fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -93,55 +121,54 @@ private constructor(
 
     fun validate(): DigitalWalletToken = apply {
         if (!validated) {
-            cardId()
-            createdAt()
-            id()
-            status()
-            tokenRequestor()
-            type()
-            validated = true
+          cardId()
+          createdAt()
+          id()
+          status()
+          tokenRequestor()
+          type()
+          validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is DigitalWalletToken &&
-            this.cardId == other.cardId &&
-            this.createdAt == other.createdAt &&
-            this.id == other.id &&
-            this.status == other.status &&
-            this.tokenRequestor == other.tokenRequestor &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
+      return other is DigitalWalletToken &&
+          this.cardId == other.cardId &&
+          this.createdAt == other.createdAt &&
+          this.id == other.id &&
+          this.status == other.status &&
+          this.tokenRequestor == other.tokenRequestor &&
+          this.type == other.type &&
+          this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    cardId,
-                    createdAt,
-                    id,
-                    status,
-                    tokenRequestor,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
+      if (hashCode == 0) {
+        hashCode = Objects.hash(
+            cardId,
+            createdAt,
+            id,
+            status,
+            tokenRequestor,
+            type,
+            additionalProperties,
+        )
+      }
+      return hashCode
     }
 
-    override fun toString() =
-        "DigitalWalletToken{cardId=$cardId, createdAt=$createdAt, id=$id, status=$status, tokenRequestor=$tokenRequestor, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() = "DigitalWalletToken{cardId=$cardId, createdAt=$createdAt, id=$id, status=$status, tokenRequestor=$tokenRequestor, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     class Builder {
@@ -171,27 +198,35 @@ private constructor(
         /** The identifier for the Card this Digital Wallet Token belongs to. */
         @JsonProperty("card_id")
         @ExcludeMissing
-        fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
+        fun cardId(cardId: JsonField<String>) = apply {
+            this.cardId = cardId
+        }
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-         * was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+         * the Card was created.
          */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-         * was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+         * the Card was created.
          */
         @JsonProperty("created_at")
         @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+            this.createdAt = createdAt
+        }
 
         /** The Digital Wallet Token identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Digital Wallet Token identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        @JsonProperty("id")
+        @ExcludeMissing
+        fun id(id: JsonField<String>) = apply {
+            this.id = id
+        }
 
         /** This indicates if payments can be made with the Digital Wallet Token. */
         fun status(status: Status) = status(JsonField.of(status))
@@ -199,11 +234,12 @@ private constructor(
         /** This indicates if payments can be made with the Digital Wallet Token. */
         @JsonProperty("status")
         @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply { this.status = status }
+        fun status(status: JsonField<Status>) = apply {
+            this.status = status
+        }
 
         /** The digital wallet app being used. */
-        fun tokenRequestor(tokenRequestor: TokenRequestor) =
-            tokenRequestor(JsonField.of(tokenRequestor))
+        fun tokenRequestor(tokenRequestor: TokenRequestor) = tokenRequestor(JsonField.of(tokenRequestor))
 
         /** The digital wallet app being used. */
         @JsonProperty("token_requestor")
@@ -224,7 +260,9 @@ private constructor(
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        fun type(type: JsonField<Type>) = apply {
+            this.type = type
+        }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -240,32 +278,29 @@ private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): DigitalWalletToken =
-            DigitalWalletToken(
-                cardId,
-                createdAt,
-                id,
-                status,
-                tokenRequestor,
-                type,
-                additionalProperties.toUnmodifiable(),
-            )
+        fun build(): DigitalWalletToken = DigitalWalletToken(
+            cardId,
+            createdAt,
+            id,
+            status,
+            tokenRequestor,
+            type,
+            additionalProperties.toUnmodifiable(),
+        )
     }
 
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Status && this.value == other.value
+          return other is Status &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -300,41 +335,37 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                ACTIVE -> Value.ACTIVE
-                INACTIVE -> Value.INACTIVE
-                SUSPENDED -> Value.SUSPENDED
-                DEACTIVATED -> Value.DEACTIVATED
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            ACTIVE -> Value.ACTIVE
+            INACTIVE -> Value.INACTIVE
+            SUSPENDED -> Value.SUSPENDED
+            DEACTIVATED -> Value.DEACTIVATED
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                ACTIVE -> Known.ACTIVE
-                INACTIVE -> Known.INACTIVE
-                SUSPENDED -> Known.SUSPENDED
-                DEACTIVATED -> Known.DEACTIVATED
-                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-            }
+        fun known(): Known = when (this) {
+            ACTIVE -> Known.ACTIVE
+            INACTIVE -> Known.INACTIVE
+            SUSPENDED -> Known.SUSPENDED
+            DEACTIVATED -> Known.DEACTIVATED
+            else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class TokenRequestor
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class TokenRequestor @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is TokenRequestor && this.value == other.value
+          return other is TokenRequestor &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -369,41 +400,37 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                APPLE_PAY -> Value.APPLE_PAY
-                GOOGLE_PAY -> Value.GOOGLE_PAY
-                SAMSUNG_PAY -> Value.SAMSUNG_PAY
-                UNKNOWN -> Value.UNKNOWN
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            APPLE_PAY -> Value.APPLE_PAY
+            GOOGLE_PAY -> Value.GOOGLE_PAY
+            SAMSUNG_PAY -> Value.SAMSUNG_PAY
+            UNKNOWN -> Value.UNKNOWN
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                APPLE_PAY -> Known.APPLE_PAY
-                GOOGLE_PAY -> Known.GOOGLE_PAY
-                SAMSUNG_PAY -> Known.SAMSUNG_PAY
-                UNKNOWN -> Known.UNKNOWN
-                else -> throw IncreaseInvalidDataException("Unknown TokenRequestor: $value")
-            }
+        fun known(): Known = when (this) {
+            APPLE_PAY -> Known.APPLE_PAY
+            GOOGLE_PAY -> Known.GOOGLE_PAY
+            SAMSUNG_PAY -> Known.SAMSUNG_PAY
+            UNKNOWN -> Known.UNKNOWN
+            else -> throw IncreaseInvalidDataException("Unknown TokenRequestor: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Type && this.value == other.value
+          return other is Type &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -426,17 +453,15 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                DIGITAL_WALLET_TOKEN -> Value.DIGITAL_WALLET_TOKEN
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            DIGITAL_WALLET_TOKEN -> Value.DIGITAL_WALLET_TOKEN
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                DIGITAL_WALLET_TOKEN -> Known.DIGITAL_WALLET_TOKEN
-                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-            }
+        fun known(): Known = when (this) {
+            DIGITAL_WALLET_TOKEN -> Known.DIGITAL_WALLET_TOKEN
+            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }

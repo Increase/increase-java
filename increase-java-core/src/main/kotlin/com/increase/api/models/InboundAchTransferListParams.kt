@@ -2,29 +2,50 @@
 
 package com.increase.api.models
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter
+import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.Enum
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.errors.IncreaseInvalidDataException
-import com.increase.api.models.*
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import org.apache.hc.core5.http.ContentType
+import java.time.LocalDate
 import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.MultipartFormValue
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.Enum
+import com.increase.api.core.ContentTypes
+import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.models.*
 
-class InboundAchTransferListParams
-constructor(
-    private val accountId: String?,
-    private val accountNumberId: String?,
-    private val createdAt: CreatedAt?,
-    private val cursor: String?,
-    private val limit: Long?,
-    private val status: Status?,
-    private val additionalQueryParams: Map<String, List<String>>,
-    private val additionalHeaders: Map<String, List<String>>,
+class InboundAchTransferListParams constructor(
+  private val accountId: String?,
+  private val accountNumberId: String?,
+  private val createdAt: CreatedAt?,
+  private val cursor: String?,
+  private val limit: Long?,
+  private val status: Status?,
+  private val additionalQueryParams: Map<String, List<String>>,
+  private val additionalHeaders: Map<String, List<String>>,
+
 ) {
 
     fun accountId(): Optional<String> = Optional.ofNullable(accountId)
@@ -41,60 +62,73 @@ constructor(
 
     @JvmSynthetic
     internal fun getQueryParams(): Map<String, List<String>> {
-        val params = mutableMapOf<String, List<String>>()
-        this.accountId?.let { params.put("account_id", listOf(it.toString())) }
-        this.accountNumberId?.let { params.put("account_number_id", listOf(it.toString())) }
-        this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
-        this.cursor?.let { params.put("cursor", listOf(it.toString())) }
-        this.limit?.let { params.put("limit", listOf(it.toString())) }
-        this.status?.let { params.put("status", listOf(it.toString())) }
-        params.putAll(additionalQueryParams)
-        return params.toUnmodifiable()
+      val params = mutableMapOf<String, List<String>>()
+      this.accountId?.let {
+          params.put("account_id", listOf(it.toString()))
+      }
+      this.accountNumberId?.let {
+          params.put("account_number_id", listOf(it.toString()))
+      }
+      this.createdAt?.forEachQueryParam { key, values -> 
+          params.put("created_at.$key", values)
+      }
+      this.cursor?.let {
+          params.put("cursor", listOf(it.toString()))
+      }
+      this.limit?.let {
+          params.put("limit", listOf(it.toString()))
+      }
+      this.status?.let {
+          params.put("status", listOf(it.toString()))
+      }
+      params.putAll(additionalQueryParams)
+      return params.toUnmodifiable()
     }
 
-    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic
+    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
 
     fun _additionalHeaders(): Map<String, List<String>> = additionalHeaders
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is InboundAchTransferListParams &&
-            this.accountId == other.accountId &&
-            this.accountNumberId == other.accountNumberId &&
-            this.createdAt == other.createdAt &&
-            this.cursor == other.cursor &&
-            this.limit == other.limit &&
-            this.status == other.status &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+      return other is InboundAchTransferListParams &&
+          this.accountId == other.accountId &&
+          this.accountNumberId == other.accountNumberId &&
+          this.createdAt == other.createdAt &&
+          this.cursor == other.cursor &&
+          this.limit == other.limit &&
+          this.status == other.status &&
+          this.additionalQueryParams == other.additionalQueryParams &&
+          this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            accountId,
-            accountNumberId,
-            createdAt,
-            cursor,
-            limit,
-            status,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+      return Objects.hash(
+          accountId,
+          accountNumberId,
+          createdAt,
+          cursor,
+          limit,
+          status,
+          additionalQueryParams,
+          additionalHeaders,
+      )
     }
 
-    override fun toString() =
-        "InboundAchTransferListParams{accountId=$accountId, accountNumberId=$accountNumberId, createdAt=$createdAt, cursor=$cursor, limit=$limit, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+    override fun toString() = "InboundAchTransferListParams{accountId=$accountId, accountNumberId=$accountNumberId, createdAt=$createdAt, cursor=$cursor, limit=$limit, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -122,25 +156,36 @@ constructor(
         }
 
         /** Filter Inbound ACH Tranfers to ones belonging to the specified Account. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
+        fun accountId(accountId: String) = apply {
+            this.accountId = accountId
+        }
 
         /** Filter Inbound ACH Tranfers to ones belonging to the specified Account Number. */
         fun accountNumberId(accountNumberId: String) = apply {
             this.accountNumberId = accountNumberId
         }
 
-        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: CreatedAt) = apply {
+            this.createdAt = createdAt
+        }
 
         /** Return the page of entries after this one. */
-        fun cursor(cursor: String) = apply { this.cursor = cursor }
+        fun cursor(cursor: String) = apply {
+            this.cursor = cursor
+        }
 
         /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         * Limit the size of the list that is returned. The default (and maximum) is 100
+         * objects.
          */
-        fun limit(limit: Long) = apply { this.limit = limit }
+        fun limit(limit: Long) = apply {
+            this.limit = limit
+        }
 
         /** Filter Inbound ACH Transfers to those with the specified status. */
-        fun status(status: Status) = apply { this.status = status }
+        fun status(status: Status) = apply {
+            this.status = status
+        }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -180,53 +225,56 @@ constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
+        fun removeHeader(name: String) = apply {
+            this.additionalHeaders.put(name, mutableListOf())
+        }
 
-        fun build(): InboundAchTransferListParams =
-            InboundAchTransferListParams(
-                accountId,
-                accountNumberId,
-                createdAt,
-                cursor,
-                limit,
-                status,
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            )
+        fun build(): InboundAchTransferListParams = InboundAchTransferListParams(
+            accountId,
+            accountNumberId,
+            createdAt,
+            cursor,
+            limit,
+            status,
+            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+        )
     }
 
     @JsonDeserialize(builder = CreatedAt.Builder::class)
     @NoAutoDetect
-    class CreatedAt
-    private constructor(
-        private val after: OffsetDateTime?,
-        private val before: OffsetDateTime?,
-        private val onOrAfter: OffsetDateTime?,
-        private val onOrBefore: OffsetDateTime?,
-        private val additionalProperties: Map<String, List<String>>,
+    class CreatedAt private constructor(
+      private val after: OffsetDateTime?,
+      private val before: OffsetDateTime?,
+      private val onOrAfter: OffsetDateTime?,
+      private val onOrBefore: OffsetDateTime?,
+      private val additionalProperties: Map<String, List<String>>,
+
     ) {
 
         private var hashCode: Int = 0
 
         /**
-         * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+         * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+         * timestamp.
          */
         fun after(): OffsetDateTime? = after
 
         /**
-         * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+         * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+         * timestamp.
          */
         fun before(): OffsetDateTime? = before
 
         /**
-         * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-         * timestamp.
+         * Return results on or after this
+         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
          */
         fun onOrAfter(): OffsetDateTime? = onOrAfter
 
         /**
-         * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-         * timestamp.
+         * Return results on or before this
+         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
          */
         fun onOrBefore(): OffsetDateTime? = onOrBefore
 
@@ -234,48 +282,57 @@ constructor(
 
         @JvmSynthetic
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.after?.let { putParam("after", listOf(it.toString())) }
-            this.before?.let { putParam("before", listOf(it.toString())) }
-            this.onOrAfter?.let { putParam("on_or_after", listOf(it.toString())) }
-            this.onOrBefore?.let { putParam("on_or_before", listOf(it.toString())) }
-            this.additionalProperties.forEach { key, values -> putParam(key, values) }
+          this.after?.let {
+              putParam("after", listOf(it.toString()))
+          }
+          this.before?.let {
+              putParam("before", listOf(it.toString()))
+          }
+          this.onOrAfter?.let {
+              putParam("on_or_after", listOf(it.toString()))
+          }
+          this.onOrBefore?.let {
+              putParam("on_or_before", listOf(it.toString()))
+          }
+          this.additionalProperties.forEach { key, values -> 
+              putParam(key, values)
+          }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is CreatedAt &&
-                this.after == other.after &&
-                this.before == other.before &&
-                this.onOrAfter == other.onOrAfter &&
-                this.onOrBefore == other.onOrBefore &&
-                this.additionalProperties == other.additionalProperties
+          return other is CreatedAt &&
+              this.after == other.after &&
+              this.before == other.before &&
+              this.onOrAfter == other.onOrAfter &&
+              this.onOrBefore == other.onOrBefore &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        after,
-                        before,
-                        onOrAfter,
-                        onOrBefore,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(
+                after,
+                before,
+                onOrAfter,
+                onOrBefore,
+                additionalProperties,
+            )
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
+        override fun toString() = "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         class Builder {
@@ -299,25 +356,33 @@ constructor(
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun after(after: OffsetDateTime) = apply { this.after = after }
+            fun after(after: OffsetDateTime) = apply {
+                this.after = after
+            }
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun before(before: OffsetDateTime) = apply { this.before = before }
+            fun before(before: OffsetDateTime) = apply {
+                this.before = before
+            }
 
             /**
-             * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Return results on or after this
+             * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
              */
-            fun onOrAfter(onOrAfter: OffsetDateTime) = apply { this.onOrAfter = onOrAfter }
+            fun onOrAfter(onOrAfter: OffsetDateTime) = apply {
+                this.onOrAfter = onOrAfter
+            }
 
             /**
-             * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Return results on or before this
+             * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
              */
-            fun onOrBefore(onOrBefore: OffsetDateTime) = apply { this.onOrBefore = onOrBefore }
+            fun onOrBefore(onOrBefore: OffsetDateTime) = apply {
+                this.onOrBefore = onOrBefore
+            }
 
             fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
                 this.additionalProperties.clear()
@@ -328,36 +393,32 @@ constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-            fun build(): CreatedAt =
-                CreatedAt(
-                    after,
-                    before,
-                    onOrAfter,
-                    onOrBefore,
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build(): CreatedAt = CreatedAt(
+                after,
+                before,
+                onOrAfter,
+                onOrBefore,
+                additionalProperties.toUnmodifiable(),
+            )
         }
     }
 
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Status && this.value == other.value
+          return other is Status &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -392,23 +453,21 @@ constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                PENDING -> Value.PENDING
-                DECLINED -> Value.DECLINED
-                ACCEPTED -> Value.ACCEPTED
-                RETURNED -> Value.RETURNED
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            PENDING -> Value.PENDING
+            DECLINED -> Value.DECLINED
+            ACCEPTED -> Value.ACCEPTED
+            RETURNED -> Value.RETURNED
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                PENDING -> Known.PENDING
-                DECLINED -> Known.DECLINED
-                ACCEPTED -> Known.ACCEPTED
-                RETURNED -> Known.RETURNED
-                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-            }
+        fun known(): Known = when (this) {
+            PENDING -> Known.PENDING
+            DECLINED -> Known.DECLINED
+            ACCEPTED -> Known.ACCEPTED
+            RETURNED -> Known.RETURNED
+            else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
