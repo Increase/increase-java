@@ -5,49 +5,67 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.Enum
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.errors.IncreaseInvalidDataException
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import java.time.LocalDate
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.JsonNull
+import com.increase.api.core.JsonField
+import com.increase.api.core.Enum
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.errors.IncreaseInvalidDataException
 
-/** An Inbound Wire Transfer is a wire transfer initiated outside of Increase to your account. */
+/**
+ * An Inbound Wire Transfer is a wire transfer initiated outside of Increase to
+ * your account.
+ */
 @JsonDeserialize(builder = InboundWireTransfer.Builder::class)
 @NoAutoDetect
-class InboundWireTransfer
-private constructor(
-    private val accountId: JsonField<String>,
-    private val accountNumberId: JsonField<String>,
-    private val amount: JsonField<Long>,
-    private val beneficiaryAddressLine1: JsonField<String>,
-    private val beneficiaryAddressLine2: JsonField<String>,
-    private val beneficiaryAddressLine3: JsonField<String>,
-    private val beneficiaryName: JsonField<String>,
-    private val beneficiaryReference: JsonField<String>,
-    private val description: JsonField<String>,
-    private val id: JsonField<String>,
-    private val inputMessageAccountabilityData: JsonField<String>,
-    private val originatorAddressLine1: JsonField<String>,
-    private val originatorAddressLine2: JsonField<String>,
-    private val originatorAddressLine3: JsonField<String>,
-    private val originatorName: JsonField<String>,
-    private val originatorRoutingNumber: JsonField<String>,
-    private val originatorToBeneficiaryInformation: JsonField<String>,
-    private val originatorToBeneficiaryInformationLine1: JsonField<String>,
-    private val originatorToBeneficiaryInformationLine2: JsonField<String>,
-    private val originatorToBeneficiaryInformationLine3: JsonField<String>,
-    private val originatorToBeneficiaryInformationLine4: JsonField<String>,
-    private val senderReference: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+class InboundWireTransfer private constructor(
+  private val accountId: JsonField<String>,
+  private val accountNumberId: JsonField<String>,
+  private val amount: JsonField<Long>,
+  private val beneficiaryAddressLine1: JsonField<String>,
+  private val beneficiaryAddressLine2: JsonField<String>,
+  private val beneficiaryAddressLine3: JsonField<String>,
+  private val beneficiaryName: JsonField<String>,
+  private val beneficiaryReference: JsonField<String>,
+  private val description: JsonField<String>,
+  private val id: JsonField<String>,
+  private val inputMessageAccountabilityData: JsonField<String>,
+  private val originatorAddressLine1: JsonField<String>,
+  private val originatorAddressLine2: JsonField<String>,
+  private val originatorAddressLine3: JsonField<String>,
+  private val originatorName: JsonField<String>,
+  private val originatorRoutingNumber: JsonField<String>,
+  private val originatorToBeneficiaryInformation: JsonField<String>,
+  private val originatorToBeneficiaryInformationLine1: JsonField<String>,
+  private val originatorToBeneficiaryInformationLine2: JsonField<String>,
+  private val originatorToBeneficiaryInformationLine3: JsonField<String>,
+  private val originatorToBeneficiaryInformationLine4: JsonField<String>,
+  private val senderReference: JsonField<String>,
+  private val status: JsonField<Status>,
+  private val type: JsonField<Type>,
+  private val additionalProperties: Map<String, JsonValue>,
+
 ) {
 
     private var validated: Boolean = false
@@ -64,24 +82,19 @@ private constructor(
     fun amount(): Long = amount.getRequired("amount")
 
     /** A free-form address field set by the sender. */
-    fun beneficiaryAddressLine1(): Optional<String> =
-        Optional.ofNullable(beneficiaryAddressLine1.getNullable("beneficiary_address_line1"))
+    fun beneficiaryAddressLine1(): Optional<String> = Optional.ofNullable(beneficiaryAddressLine1.getNullable("beneficiary_address_line1"))
 
     /** A free-form address field set by the sender. */
-    fun beneficiaryAddressLine2(): Optional<String> =
-        Optional.ofNullable(beneficiaryAddressLine2.getNullable("beneficiary_address_line2"))
+    fun beneficiaryAddressLine2(): Optional<String> = Optional.ofNullable(beneficiaryAddressLine2.getNullable("beneficiary_address_line2"))
 
     /** A free-form address field set by the sender. */
-    fun beneficiaryAddressLine3(): Optional<String> =
-        Optional.ofNullable(beneficiaryAddressLine3.getNullable("beneficiary_address_line3"))
+    fun beneficiaryAddressLine3(): Optional<String> = Optional.ofNullable(beneficiaryAddressLine3.getNullable("beneficiary_address_line3"))
 
     /** A name set by the sender. */
-    fun beneficiaryName(): Optional<String> =
-        Optional.ofNullable(beneficiaryName.getNullable("beneficiary_name"))
+    fun beneficiaryName(): Optional<String> = Optional.ofNullable(beneficiaryName.getNullable("beneficiary_name"))
 
     /** A free-form reference string set by the sender, to help identify the transfer. */
-    fun beneficiaryReference(): Optional<String> =
-        Optional.ofNullable(beneficiaryReference.getNullable("beneficiary_reference"))
+    fun beneficiaryReference(): Optional<String> = Optional.ofNullable(beneficiaryReference.getNullable("beneficiary_reference"))
 
     /** An Increase-constructed description of the transfer. */
     fun description(): String = description.getRequired("description")
@@ -90,78 +103,47 @@ private constructor(
     fun id(): String = id.getRequired("id")
 
     /**
-     * A unique identifier available to the originating and receiving banks, commonly abbreviated as
-     * IMAD. It is created when the wire is submitted to the Fedwire service and is helpful when
-     * debugging wires with the originating bank.
+     * A unique identifier available to the originating and receiving banks, commonly
+     * abbreviated as IMAD. It is created when the wire is submitted to the Fedwire
+     * service and is helpful when debugging wires with the originating bank.
      */
-    fun inputMessageAccountabilityData(): Optional<String> =
-        Optional.ofNullable(
-            inputMessageAccountabilityData.getNullable("input_message_accountability_data")
-        )
+    fun inputMessageAccountabilityData(): Optional<String> = Optional.ofNullable(inputMessageAccountabilityData.getNullable("input_message_accountability_data"))
 
     /** The address of the wire originator, set by the sending bank. */
-    fun originatorAddressLine1(): Optional<String> =
-        Optional.ofNullable(originatorAddressLine1.getNullable("originator_address_line1"))
+    fun originatorAddressLine1(): Optional<String> = Optional.ofNullable(originatorAddressLine1.getNullable("originator_address_line1"))
 
     /** The address of the wire originator, set by the sending bank. */
-    fun originatorAddressLine2(): Optional<String> =
-        Optional.ofNullable(originatorAddressLine2.getNullable("originator_address_line2"))
+    fun originatorAddressLine2(): Optional<String> = Optional.ofNullable(originatorAddressLine2.getNullable("originator_address_line2"))
 
     /** The address of the wire originator, set by the sending bank. */
-    fun originatorAddressLine3(): Optional<String> =
-        Optional.ofNullable(originatorAddressLine3.getNullable("originator_address_line3"))
+    fun originatorAddressLine3(): Optional<String> = Optional.ofNullable(originatorAddressLine3.getNullable("originator_address_line3"))
 
     /** The originator of the wire, set by the sending bank. */
-    fun originatorName(): Optional<String> =
-        Optional.ofNullable(originatorName.getNullable("originator_name"))
+    fun originatorName(): Optional<String> = Optional.ofNullable(originatorName.getNullable("originator_name"))
 
     /**
-     * The American Banking Association (ABA) routing number of the bank originating the transfer.
+     * The American Banking Association (ABA) routing number of the bank originating
+     * the transfer.
      */
-    fun originatorRoutingNumber(): Optional<String> =
-        Optional.ofNullable(originatorRoutingNumber.getNullable("originator_routing_number"))
+    fun originatorRoutingNumber(): Optional<String> = Optional.ofNullable(originatorRoutingNumber.getNullable("originator_routing_number"))
 
     /** An Increase-created concatenation of the Originator-to-Beneficiary lines. */
-    fun originatorToBeneficiaryInformation(): Optional<String> =
-        Optional.ofNullable(
-            originatorToBeneficiaryInformation.getNullable("originator_to_beneficiary_information")
-        )
+    fun originatorToBeneficiaryInformation(): Optional<String> = Optional.ofNullable(originatorToBeneficiaryInformation.getNullable("originator_to_beneficiary_information"))
 
     /** A free-form message set by the wire originator. */
-    fun originatorToBeneficiaryInformationLine1(): Optional<String> =
-        Optional.ofNullable(
-            originatorToBeneficiaryInformationLine1.getNullable(
-                "originator_to_beneficiary_information_line1"
-            )
-        )
+    fun originatorToBeneficiaryInformationLine1(): Optional<String> = Optional.ofNullable(originatorToBeneficiaryInformationLine1.getNullable("originator_to_beneficiary_information_line1"))
 
     /** A free-form message set by the wire originator. */
-    fun originatorToBeneficiaryInformationLine2(): Optional<String> =
-        Optional.ofNullable(
-            originatorToBeneficiaryInformationLine2.getNullable(
-                "originator_to_beneficiary_information_line2"
-            )
-        )
+    fun originatorToBeneficiaryInformationLine2(): Optional<String> = Optional.ofNullable(originatorToBeneficiaryInformationLine2.getNullable("originator_to_beneficiary_information_line2"))
 
     /** A free-form message set by the wire originator. */
-    fun originatorToBeneficiaryInformationLine3(): Optional<String> =
-        Optional.ofNullable(
-            originatorToBeneficiaryInformationLine3.getNullable(
-                "originator_to_beneficiary_information_line3"
-            )
-        )
+    fun originatorToBeneficiaryInformationLine3(): Optional<String> = Optional.ofNullable(originatorToBeneficiaryInformationLine3.getNullable("originator_to_beneficiary_information_line3"))
 
     /** A free-form message set by the wire originator. */
-    fun originatorToBeneficiaryInformationLine4(): Optional<String> =
-        Optional.ofNullable(
-            originatorToBeneficiaryInformationLine4.getNullable(
-                "originator_to_beneficiary_information_line4"
-            )
-        )
+    fun originatorToBeneficiaryInformationLine4(): Optional<String> = Optional.ofNullable(originatorToBeneficiaryInformationLine4.getNullable("originator_to_beneficiary_information_line4"))
 
     /** The sending bank's reference number for the wire transfer. */
-    fun senderReference(): Optional<String> =
-        Optional.ofNullable(senderReference.getNullable("sender_reference"))
+    fun senderReference(): Optional<String> = Optional.ofNullable(senderReference.getNullable("sender_reference"))
 
     /** The status of the transfer. */
     fun status(): Status = status.getRequired("status")
@@ -173,13 +155,19 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The Account to which the transfer belongs. */
-    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+    @JsonProperty("account_id")
+    @ExcludeMissing
+    fun _accountId() = accountId
 
     /** The identifier of the Account Number to which this transfer was sent. */
-    @JsonProperty("account_number_id") @ExcludeMissing fun _accountNumberId() = accountNumberId
+    @JsonProperty("account_number_id")
+    @ExcludeMissing
+    fun _accountNumberId() = accountNumberId
 
     /** The amount in USD cents. */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+    @JsonProperty("amount")
+    @ExcludeMissing
+    fun _amount() = amount
 
     /** A free-form address field set by the sender. */
     @JsonProperty("beneficiary_address_line1")
@@ -197,7 +185,9 @@ private constructor(
     fun _beneficiaryAddressLine3() = beneficiaryAddressLine3
 
     /** A name set by the sender. */
-    @JsonProperty("beneficiary_name") @ExcludeMissing fun _beneficiaryName() = beneficiaryName
+    @JsonProperty("beneficiary_name")
+    @ExcludeMissing
+    fun _beneficiaryName() = beneficiaryName
 
     /** A free-form reference string set by the sender, to help identify the transfer. */
     @JsonProperty("beneficiary_reference")
@@ -205,15 +195,19 @@ private constructor(
     fun _beneficiaryReference() = beneficiaryReference
 
     /** An Increase-constructed description of the transfer. */
-    @JsonProperty("description") @ExcludeMissing fun _description() = description
+    @JsonProperty("description")
+    @ExcludeMissing
+    fun _description() = description
 
     /** The inbound wire transfer's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id")
+    @ExcludeMissing
+    fun _id() = id
 
     /**
-     * A unique identifier available to the originating and receiving banks, commonly abbreviated as
-     * IMAD. It is created when the wire is submitted to the Fedwire service and is helpful when
-     * debugging wires with the originating bank.
+     * A unique identifier available to the originating and receiving banks, commonly
+     * abbreviated as IMAD. It is created when the wire is submitted to the Fedwire
+     * service and is helpful when debugging wires with the originating bank.
      */
     @JsonProperty("input_message_accountability_data")
     @ExcludeMissing
@@ -235,10 +229,13 @@ private constructor(
     fun _originatorAddressLine3() = originatorAddressLine3
 
     /** The originator of the wire, set by the sending bank. */
-    @JsonProperty("originator_name") @ExcludeMissing fun _originatorName() = originatorName
+    @JsonProperty("originator_name")
+    @ExcludeMissing
+    fun _originatorName() = originatorName
 
     /**
-     * The American Banking Association (ABA) routing number of the bank originating the transfer.
+     * The American Banking Association (ABA) routing number of the bank originating
+     * the transfer.
      */
     @JsonProperty("originator_routing_number")
     @ExcludeMissing
@@ -270,16 +267,22 @@ private constructor(
     fun _originatorToBeneficiaryInformationLine4() = originatorToBeneficiaryInformationLine4
 
     /** The sending bank's reference number for the wire transfer. */
-    @JsonProperty("sender_reference") @ExcludeMissing fun _senderReference() = senderReference
+    @JsonProperty("sender_reference")
+    @ExcludeMissing
+    fun _senderReference() = senderReference
 
     /** The status of the transfer. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status")
+    @ExcludeMissing
+    fun _status() = status
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `inbound_wire_transfer`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type")
+    @ExcludeMissing
+    fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -287,113 +290,108 @@ private constructor(
 
     fun validate(): InboundWireTransfer = apply {
         if (!validated) {
-            accountId()
-            accountNumberId()
-            amount()
-            beneficiaryAddressLine1()
-            beneficiaryAddressLine2()
-            beneficiaryAddressLine3()
-            beneficiaryName()
-            beneficiaryReference()
-            description()
-            id()
-            inputMessageAccountabilityData()
-            originatorAddressLine1()
-            originatorAddressLine2()
-            originatorAddressLine3()
-            originatorName()
-            originatorRoutingNumber()
-            originatorToBeneficiaryInformation()
-            originatorToBeneficiaryInformationLine1()
-            originatorToBeneficiaryInformationLine2()
-            originatorToBeneficiaryInformationLine3()
-            originatorToBeneficiaryInformationLine4()
-            senderReference()
-            status()
-            type()
-            validated = true
+          accountId()
+          accountNumberId()
+          amount()
+          beneficiaryAddressLine1()
+          beneficiaryAddressLine2()
+          beneficiaryAddressLine3()
+          beneficiaryName()
+          beneficiaryReference()
+          description()
+          id()
+          inputMessageAccountabilityData()
+          originatorAddressLine1()
+          originatorAddressLine2()
+          originatorAddressLine3()
+          originatorName()
+          originatorRoutingNumber()
+          originatorToBeneficiaryInformation()
+          originatorToBeneficiaryInformationLine1()
+          originatorToBeneficiaryInformationLine2()
+          originatorToBeneficiaryInformationLine3()
+          originatorToBeneficiaryInformationLine4()
+          senderReference()
+          status()
+          type()
+          validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is InboundWireTransfer &&
-            this.accountId == other.accountId &&
-            this.accountNumberId == other.accountNumberId &&
-            this.amount == other.amount &&
-            this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
-            this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
-            this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
-            this.beneficiaryName == other.beneficiaryName &&
-            this.beneficiaryReference == other.beneficiaryReference &&
-            this.description == other.description &&
-            this.id == other.id &&
-            this.inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
-            this.originatorAddressLine1 == other.originatorAddressLine1 &&
-            this.originatorAddressLine2 == other.originatorAddressLine2 &&
-            this.originatorAddressLine3 == other.originatorAddressLine3 &&
-            this.originatorName == other.originatorName &&
-            this.originatorRoutingNumber == other.originatorRoutingNumber &&
-            this.originatorToBeneficiaryInformation == other.originatorToBeneficiaryInformation &&
-            this.originatorToBeneficiaryInformationLine1 ==
-                other.originatorToBeneficiaryInformationLine1 &&
-            this.originatorToBeneficiaryInformationLine2 ==
-                other.originatorToBeneficiaryInformationLine2 &&
-            this.originatorToBeneficiaryInformationLine3 ==
-                other.originatorToBeneficiaryInformationLine3 &&
-            this.originatorToBeneficiaryInformationLine4 ==
-                other.originatorToBeneficiaryInformationLine4 &&
-            this.senderReference == other.senderReference &&
-            this.status == other.status &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
+      return other is InboundWireTransfer &&
+          this.accountId == other.accountId &&
+          this.accountNumberId == other.accountNumberId &&
+          this.amount == other.amount &&
+          this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
+          this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
+          this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
+          this.beneficiaryName == other.beneficiaryName &&
+          this.beneficiaryReference == other.beneficiaryReference &&
+          this.description == other.description &&
+          this.id == other.id &&
+          this.inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
+          this.originatorAddressLine1 == other.originatorAddressLine1 &&
+          this.originatorAddressLine2 == other.originatorAddressLine2 &&
+          this.originatorAddressLine3 == other.originatorAddressLine3 &&
+          this.originatorName == other.originatorName &&
+          this.originatorRoutingNumber == other.originatorRoutingNumber &&
+          this.originatorToBeneficiaryInformation == other.originatorToBeneficiaryInformation &&
+          this.originatorToBeneficiaryInformationLine1 == other.originatorToBeneficiaryInformationLine1 &&
+          this.originatorToBeneficiaryInformationLine2 == other.originatorToBeneficiaryInformationLine2 &&
+          this.originatorToBeneficiaryInformationLine3 == other.originatorToBeneficiaryInformationLine3 &&
+          this.originatorToBeneficiaryInformationLine4 == other.originatorToBeneficiaryInformationLine4 &&
+          this.senderReference == other.senderReference &&
+          this.status == other.status &&
+          this.type == other.type &&
+          this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    accountId,
-                    accountNumberId,
-                    amount,
-                    beneficiaryAddressLine1,
-                    beneficiaryAddressLine2,
-                    beneficiaryAddressLine3,
-                    beneficiaryName,
-                    beneficiaryReference,
-                    description,
-                    id,
-                    inputMessageAccountabilityData,
-                    originatorAddressLine1,
-                    originatorAddressLine2,
-                    originatorAddressLine3,
-                    originatorName,
-                    originatorRoutingNumber,
-                    originatorToBeneficiaryInformation,
-                    originatorToBeneficiaryInformationLine1,
-                    originatorToBeneficiaryInformationLine2,
-                    originatorToBeneficiaryInformationLine3,
-                    originatorToBeneficiaryInformationLine4,
-                    senderReference,
-                    status,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
+      if (hashCode == 0) {
+        hashCode = Objects.hash(
+            accountId,
+            accountNumberId,
+            amount,
+            beneficiaryAddressLine1,
+            beneficiaryAddressLine2,
+            beneficiaryAddressLine3,
+            beneficiaryName,
+            beneficiaryReference,
+            description,
+            id,
+            inputMessageAccountabilityData,
+            originatorAddressLine1,
+            originatorAddressLine2,
+            originatorAddressLine3,
+            originatorName,
+            originatorRoutingNumber,
+            originatorToBeneficiaryInformation,
+            originatorToBeneficiaryInformationLine1,
+            originatorToBeneficiaryInformationLine2,
+            originatorToBeneficiaryInformationLine3,
+            originatorToBeneficiaryInformationLine4,
+            senderReference,
+            status,
+            type,
+            additionalProperties,
+        )
+      }
+      return hashCode
     }
 
-    override fun toString() =
-        "InboundWireTransfer{accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, description=$description, id=$id, inputMessageAccountabilityData=$inputMessageAccountabilityData, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformation=$originatorToBeneficiaryInformation, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, senderReference=$senderReference, status=$status, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() = "InboundWireTransfer{accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, description=$description, id=$id, inputMessageAccountabilityData=$inputMessageAccountabilityData, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformation=$originatorToBeneficiaryInformation, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, senderReference=$senderReference, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     class Builder {
@@ -442,16 +440,11 @@ private constructor(
             this.originatorAddressLine3 = inboundWireTransfer.originatorAddressLine3
             this.originatorName = inboundWireTransfer.originatorName
             this.originatorRoutingNumber = inboundWireTransfer.originatorRoutingNumber
-            this.originatorToBeneficiaryInformation =
-                inboundWireTransfer.originatorToBeneficiaryInformation
-            this.originatorToBeneficiaryInformationLine1 =
-                inboundWireTransfer.originatorToBeneficiaryInformationLine1
-            this.originatorToBeneficiaryInformationLine2 =
-                inboundWireTransfer.originatorToBeneficiaryInformationLine2
-            this.originatorToBeneficiaryInformationLine3 =
-                inboundWireTransfer.originatorToBeneficiaryInformationLine3
-            this.originatorToBeneficiaryInformationLine4 =
-                inboundWireTransfer.originatorToBeneficiaryInformationLine4
+            this.originatorToBeneficiaryInformation = inboundWireTransfer.originatorToBeneficiaryInformation
+            this.originatorToBeneficiaryInformationLine1 = inboundWireTransfer.originatorToBeneficiaryInformationLine1
+            this.originatorToBeneficiaryInformationLine2 = inboundWireTransfer.originatorToBeneficiaryInformationLine2
+            this.originatorToBeneficiaryInformationLine3 = inboundWireTransfer.originatorToBeneficiaryInformationLine3
+            this.originatorToBeneficiaryInformationLine4 = inboundWireTransfer.originatorToBeneficiaryInformationLine4
             this.senderReference = inboundWireTransfer.senderReference
             this.status = inboundWireTransfer.status
             this.type = inboundWireTransfer.type
@@ -464,11 +457,12 @@ private constructor(
         /** The Account to which the transfer belongs. */
         @JsonProperty("account_id")
         @ExcludeMissing
-        fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
+        fun accountId(accountId: JsonField<String>) = apply {
+            this.accountId = accountId
+        }
 
         /** The identifier of the Account Number to which this transfer was sent. */
-        fun accountNumberId(accountNumberId: String) =
-            accountNumberId(JsonField.of(accountNumberId))
+        fun accountNumberId(accountNumberId: String) = accountNumberId(JsonField.of(accountNumberId))
 
         /** The identifier of the Account Number to which this transfer was sent. */
         @JsonProperty("account_number_id")
@@ -483,11 +477,12 @@ private constructor(
         /** The amount in USD cents. */
         @JsonProperty("amount")
         @ExcludeMissing
-        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+        fun amount(amount: JsonField<Long>) = apply {
+            this.amount = amount
+        }
 
         /** A free-form address field set by the sender. */
-        fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) =
-            beneficiaryAddressLine1(JsonField.of(beneficiaryAddressLine1))
+        fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) = beneficiaryAddressLine1(JsonField.of(beneficiaryAddressLine1))
 
         /** A free-form address field set by the sender. */
         @JsonProperty("beneficiary_address_line1")
@@ -497,8 +492,7 @@ private constructor(
         }
 
         /** A free-form address field set by the sender. */
-        fun beneficiaryAddressLine2(beneficiaryAddressLine2: String) =
-            beneficiaryAddressLine2(JsonField.of(beneficiaryAddressLine2))
+        fun beneficiaryAddressLine2(beneficiaryAddressLine2: String) = beneficiaryAddressLine2(JsonField.of(beneficiaryAddressLine2))
 
         /** A free-form address field set by the sender. */
         @JsonProperty("beneficiary_address_line2")
@@ -508,8 +502,7 @@ private constructor(
         }
 
         /** A free-form address field set by the sender. */
-        fun beneficiaryAddressLine3(beneficiaryAddressLine3: String) =
-            beneficiaryAddressLine3(JsonField.of(beneficiaryAddressLine3))
+        fun beneficiaryAddressLine3(beneficiaryAddressLine3: String) = beneficiaryAddressLine3(JsonField.of(beneficiaryAddressLine3))
 
         /** A free-form address field set by the sender. */
         @JsonProperty("beneficiary_address_line3")
@@ -519,8 +512,7 @@ private constructor(
         }
 
         /** A name set by the sender. */
-        fun beneficiaryName(beneficiaryName: String) =
-            beneficiaryName(JsonField.of(beneficiaryName))
+        fun beneficiaryName(beneficiaryName: String) = beneficiaryName(JsonField.of(beneficiaryName))
 
         /** A name set by the sender. */
         @JsonProperty("beneficiary_name")
@@ -530,8 +522,7 @@ private constructor(
         }
 
         /** A free-form reference string set by the sender, to help identify the transfer. */
-        fun beneficiaryReference(beneficiaryReference: String) =
-            beneficiaryReference(JsonField.of(beneficiaryReference))
+        fun beneficiaryReference(beneficiaryReference: String) = beneficiaryReference(JsonField.of(beneficiaryReference))
 
         /** A free-form reference string set by the sender, to help identify the transfer. */
         @JsonProperty("beneficiary_reference")
@@ -546,37 +537,40 @@ private constructor(
         /** An Increase-constructed description of the transfer. */
         @JsonProperty("description")
         @ExcludeMissing
-        fun description(description: JsonField<String>) = apply { this.description = description }
+        fun description(description: JsonField<String>) = apply {
+            this.description = description
+        }
 
         /** The inbound wire transfer's identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The inbound wire transfer's identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        @JsonProperty("id")
+        @ExcludeMissing
+        fun id(id: JsonField<String>) = apply {
+            this.id = id
+        }
 
         /**
          * A unique identifier available to the originating and receiving banks, commonly
-         * abbreviated as IMAD. It is created when the wire is submitted to the Fedwire service and
-         * is helpful when debugging wires with the originating bank.
+         * abbreviated as IMAD. It is created when the wire is submitted to the Fedwire
+         * service and is helpful when debugging wires with the originating bank.
          */
-        fun inputMessageAccountabilityData(inputMessageAccountabilityData: String) =
-            inputMessageAccountabilityData(JsonField.of(inputMessageAccountabilityData))
+        fun inputMessageAccountabilityData(inputMessageAccountabilityData: String) = inputMessageAccountabilityData(JsonField.of(inputMessageAccountabilityData))
 
         /**
          * A unique identifier available to the originating and receiving banks, commonly
-         * abbreviated as IMAD. It is created when the wire is submitted to the Fedwire service and
-         * is helpful when debugging wires with the originating bank.
+         * abbreviated as IMAD. It is created when the wire is submitted to the Fedwire
+         * service and is helpful when debugging wires with the originating bank.
          */
         @JsonProperty("input_message_accountability_data")
         @ExcludeMissing
-        fun inputMessageAccountabilityData(inputMessageAccountabilityData: JsonField<String>) =
-            apply {
-                this.inputMessageAccountabilityData = inputMessageAccountabilityData
-            }
+        fun inputMessageAccountabilityData(inputMessageAccountabilityData: JsonField<String>) = apply {
+            this.inputMessageAccountabilityData = inputMessageAccountabilityData
+        }
 
         /** The address of the wire originator, set by the sending bank. */
-        fun originatorAddressLine1(originatorAddressLine1: String) =
-            originatorAddressLine1(JsonField.of(originatorAddressLine1))
+        fun originatorAddressLine1(originatorAddressLine1: String) = originatorAddressLine1(JsonField.of(originatorAddressLine1))
 
         /** The address of the wire originator, set by the sending bank. */
         @JsonProperty("originator_address_line1")
@@ -586,8 +580,7 @@ private constructor(
         }
 
         /** The address of the wire originator, set by the sending bank. */
-        fun originatorAddressLine2(originatorAddressLine2: String) =
-            originatorAddressLine2(JsonField.of(originatorAddressLine2))
+        fun originatorAddressLine2(originatorAddressLine2: String) = originatorAddressLine2(JsonField.of(originatorAddressLine2))
 
         /** The address of the wire originator, set by the sending bank. */
         @JsonProperty("originator_address_line2")
@@ -597,8 +590,7 @@ private constructor(
         }
 
         /** The address of the wire originator, set by the sending bank. */
-        fun originatorAddressLine3(originatorAddressLine3: String) =
-            originatorAddressLine3(JsonField.of(originatorAddressLine3))
+        fun originatorAddressLine3(originatorAddressLine3: String) = originatorAddressLine3(JsonField.of(originatorAddressLine3))
 
         /** The address of the wire originator, set by the sending bank. */
         @JsonProperty("originator_address_line3")
@@ -618,15 +610,14 @@ private constructor(
         }
 
         /**
-         * The American Banking Association (ABA) routing number of the bank originating the
-         * transfer.
+         * The American Banking Association (ABA) routing number of the bank originating
+         * the transfer.
          */
-        fun originatorRoutingNumber(originatorRoutingNumber: String) =
-            originatorRoutingNumber(JsonField.of(originatorRoutingNumber))
+        fun originatorRoutingNumber(originatorRoutingNumber: String) = originatorRoutingNumber(JsonField.of(originatorRoutingNumber))
 
         /**
-         * The American Banking Association (ABA) routing number of the bank originating the
-         * transfer.
+         * The American Banking Association (ABA) routing number of the bank originating
+         * the transfer.
          */
         @JsonProperty("originator_routing_number")
         @ExcludeMissing
@@ -635,87 +626,57 @@ private constructor(
         }
 
         /** An Increase-created concatenation of the Originator-to-Beneficiary lines. */
-        fun originatorToBeneficiaryInformation(originatorToBeneficiaryInformation: String) =
-            originatorToBeneficiaryInformation(JsonField.of(originatorToBeneficiaryInformation))
+        fun originatorToBeneficiaryInformation(originatorToBeneficiaryInformation: String) = originatorToBeneficiaryInformation(JsonField.of(originatorToBeneficiaryInformation))
 
         /** An Increase-created concatenation of the Originator-to-Beneficiary lines. */
         @JsonProperty("originator_to_beneficiary_information")
         @ExcludeMissing
-        fun originatorToBeneficiaryInformation(
-            originatorToBeneficiaryInformation: JsonField<String>
-        ) = apply { this.originatorToBeneficiaryInformation = originatorToBeneficiaryInformation }
+        fun originatorToBeneficiaryInformation(originatorToBeneficiaryInformation: JsonField<String>) = apply {
+            this.originatorToBeneficiaryInformation = originatorToBeneficiaryInformation
+        }
 
         /** A free-form message set by the wire originator. */
-        fun originatorToBeneficiaryInformationLine1(
-            originatorToBeneficiaryInformationLine1: String
-        ) =
-            originatorToBeneficiaryInformationLine1(
-                JsonField.of(originatorToBeneficiaryInformationLine1)
-            )
+        fun originatorToBeneficiaryInformationLine1(originatorToBeneficiaryInformationLine1: String) = originatorToBeneficiaryInformationLine1(JsonField.of(originatorToBeneficiaryInformationLine1))
 
         /** A free-form message set by the wire originator. */
         @JsonProperty("originator_to_beneficiary_information_line1")
         @ExcludeMissing
-        fun originatorToBeneficiaryInformationLine1(
-            originatorToBeneficiaryInformationLine1: JsonField<String>
-        ) = apply {
+        fun originatorToBeneficiaryInformationLine1(originatorToBeneficiaryInformationLine1: JsonField<String>) = apply {
             this.originatorToBeneficiaryInformationLine1 = originatorToBeneficiaryInformationLine1
         }
 
         /** A free-form message set by the wire originator. */
-        fun originatorToBeneficiaryInformationLine2(
-            originatorToBeneficiaryInformationLine2: String
-        ) =
-            originatorToBeneficiaryInformationLine2(
-                JsonField.of(originatorToBeneficiaryInformationLine2)
-            )
+        fun originatorToBeneficiaryInformationLine2(originatorToBeneficiaryInformationLine2: String) = originatorToBeneficiaryInformationLine2(JsonField.of(originatorToBeneficiaryInformationLine2))
 
         /** A free-form message set by the wire originator. */
         @JsonProperty("originator_to_beneficiary_information_line2")
         @ExcludeMissing
-        fun originatorToBeneficiaryInformationLine2(
-            originatorToBeneficiaryInformationLine2: JsonField<String>
-        ) = apply {
+        fun originatorToBeneficiaryInformationLine2(originatorToBeneficiaryInformationLine2: JsonField<String>) = apply {
             this.originatorToBeneficiaryInformationLine2 = originatorToBeneficiaryInformationLine2
         }
 
         /** A free-form message set by the wire originator. */
-        fun originatorToBeneficiaryInformationLine3(
-            originatorToBeneficiaryInformationLine3: String
-        ) =
-            originatorToBeneficiaryInformationLine3(
-                JsonField.of(originatorToBeneficiaryInformationLine3)
-            )
+        fun originatorToBeneficiaryInformationLine3(originatorToBeneficiaryInformationLine3: String) = originatorToBeneficiaryInformationLine3(JsonField.of(originatorToBeneficiaryInformationLine3))
 
         /** A free-form message set by the wire originator. */
         @JsonProperty("originator_to_beneficiary_information_line3")
         @ExcludeMissing
-        fun originatorToBeneficiaryInformationLine3(
-            originatorToBeneficiaryInformationLine3: JsonField<String>
-        ) = apply {
+        fun originatorToBeneficiaryInformationLine3(originatorToBeneficiaryInformationLine3: JsonField<String>) = apply {
             this.originatorToBeneficiaryInformationLine3 = originatorToBeneficiaryInformationLine3
         }
 
         /** A free-form message set by the wire originator. */
-        fun originatorToBeneficiaryInformationLine4(
-            originatorToBeneficiaryInformationLine4: String
-        ) =
-            originatorToBeneficiaryInformationLine4(
-                JsonField.of(originatorToBeneficiaryInformationLine4)
-            )
+        fun originatorToBeneficiaryInformationLine4(originatorToBeneficiaryInformationLine4: String) = originatorToBeneficiaryInformationLine4(JsonField.of(originatorToBeneficiaryInformationLine4))
 
         /** A free-form message set by the wire originator. */
         @JsonProperty("originator_to_beneficiary_information_line4")
         @ExcludeMissing
-        fun originatorToBeneficiaryInformationLine4(
-            originatorToBeneficiaryInformationLine4: JsonField<String>
-        ) = apply {
+        fun originatorToBeneficiaryInformationLine4(originatorToBeneficiaryInformationLine4: JsonField<String>) = apply {
             this.originatorToBeneficiaryInformationLine4 = originatorToBeneficiaryInformationLine4
         }
 
         /** The sending bank's reference number for the wire transfer. */
-        fun senderReference(senderReference: String) =
-            senderReference(JsonField.of(senderReference))
+        fun senderReference(senderReference: String) = senderReference(JsonField.of(senderReference))
 
         /** The sending bank's reference number for the wire transfer. */
         @JsonProperty("sender_reference")
@@ -730,7 +691,9 @@ private constructor(
         /** The status of the transfer. */
         @JsonProperty("status")
         @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply { this.status = status }
+        fun status(status: JsonField<Status>) = apply {
+            this.status = status
+        }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -744,7 +707,9 @@ private constructor(
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        fun type(type: JsonField<Type>) = apply {
+            this.type = type
+        }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -760,50 +725,47 @@ private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): InboundWireTransfer =
-            InboundWireTransfer(
-                accountId,
-                accountNumberId,
-                amount,
-                beneficiaryAddressLine1,
-                beneficiaryAddressLine2,
-                beneficiaryAddressLine3,
-                beneficiaryName,
-                beneficiaryReference,
-                description,
-                id,
-                inputMessageAccountabilityData,
-                originatorAddressLine1,
-                originatorAddressLine2,
-                originatorAddressLine3,
-                originatorName,
-                originatorRoutingNumber,
-                originatorToBeneficiaryInformation,
-                originatorToBeneficiaryInformationLine1,
-                originatorToBeneficiaryInformationLine2,
-                originatorToBeneficiaryInformationLine3,
-                originatorToBeneficiaryInformationLine4,
-                senderReference,
-                status,
-                type,
-                additionalProperties.toUnmodifiable(),
-            )
+        fun build(): InboundWireTransfer = InboundWireTransfer(
+            accountId,
+            accountNumberId,
+            amount,
+            beneficiaryAddressLine1,
+            beneficiaryAddressLine2,
+            beneficiaryAddressLine3,
+            beneficiaryName,
+            beneficiaryReference,
+            description,
+            id,
+            inputMessageAccountabilityData,
+            originatorAddressLine1,
+            originatorAddressLine2,
+            originatorAddressLine3,
+            originatorName,
+            originatorRoutingNumber,
+            originatorToBeneficiaryInformation,
+            originatorToBeneficiaryInformationLine1,
+            originatorToBeneficiaryInformationLine2,
+            originatorToBeneficiaryInformationLine3,
+            originatorToBeneficiaryInformationLine4,
+            senderReference,
+            status,
+            type,
+            additionalProperties.toUnmodifiable(),
+        )
     }
 
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Status && this.value == other.value
+          return other is Status &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -838,41 +800,37 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                PENDING -> Value.PENDING
-                ACCEPTED -> Value.ACCEPTED
-                DECLINED -> Value.DECLINED
-                REVERSED -> Value.REVERSED
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            PENDING -> Value.PENDING
+            ACCEPTED -> Value.ACCEPTED
+            DECLINED -> Value.DECLINED
+            REVERSED -> Value.REVERSED
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                PENDING -> Known.PENDING
-                ACCEPTED -> Known.ACCEPTED
-                DECLINED -> Known.DECLINED
-                REVERSED -> Known.REVERSED
-                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-            }
+        fun known(): Known = when (this) {
+            PENDING -> Known.PENDING
+            ACCEPTED -> Known.ACCEPTED
+            DECLINED -> Known.DECLINED
+            REVERSED -> Known.REVERSED
+            else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Type && this.value == other.value
+          return other is Type &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -895,17 +853,15 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                INBOUND_WIRE_TRANSFER -> Value.INBOUND_WIRE_TRANSFER
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            INBOUND_WIRE_TRANSFER -> Value.INBOUND_WIRE_TRANSFER
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                INBOUND_WIRE_TRANSFER -> Known.INBOUND_WIRE_TRANSFER
-                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-            }
+        fun known(): Known = when (this) {
+            INBOUND_WIRE_TRANSFER -> Known.INBOUND_WIRE_TRANSFER
+            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }

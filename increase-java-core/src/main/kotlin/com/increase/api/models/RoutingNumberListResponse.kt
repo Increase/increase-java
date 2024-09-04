@@ -5,30 +5,46 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.Enum
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import java.time.LocalDate
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Objects
+import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
 import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.JsonNull
+import com.increase.api.core.JsonField
+import com.increase.api.core.Enum
 import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
 import com.increase.api.errors.IncreaseInvalidDataException
-import java.util.Objects
 
 /** Routing numbers are used to identify your bank in a financial transaction. */
 @JsonDeserialize(builder = RoutingNumberListResponse.Builder::class)
 @NoAutoDetect
-class RoutingNumberListResponse
-private constructor(
-    private val achTransfers: JsonField<AchTransfers>,
-    private val name: JsonField<String>,
-    private val realTimePaymentsTransfers: JsonField<RealTimePaymentsTransfers>,
-    private val routingNumber: JsonField<String>,
-    private val type: JsonField<Type>,
-    private val wireTransfers: JsonField<WireTransfers>,
-    private val additionalProperties: Map<String, JsonValue>,
+class RoutingNumberListResponse private constructor(
+  private val achTransfers: JsonField<AchTransfers>,
+  private val name: JsonField<String>,
+  private val realTimePaymentsTransfers: JsonField<RealTimePaymentsTransfers>,
+  private val routingNumber: JsonField<String>,
+  private val type: JsonField<Type>,
+  private val wireTransfers: JsonField<WireTransfers>,
+  private val additionalProperties: Map<String, JsonValue>,
+
 ) {
 
     private var validated: Boolean = false
@@ -42,8 +58,7 @@ private constructor(
     fun name(): String = name.getRequired("name")
 
     /** This routing number's support for Real-Time Payments Transfers. */
-    fun realTimePaymentsTransfers(): RealTimePaymentsTransfers =
-        realTimePaymentsTransfers.getRequired("real_time_payments_transfers")
+    fun realTimePaymentsTransfers(): RealTimePaymentsTransfers = realTimePaymentsTransfers.getRequired("real_time_payments_transfers")
 
     /** The nine digit routing number identifier. */
     fun routingNumber(): String = routingNumber.getRequired("routing_number")
@@ -58,10 +73,14 @@ private constructor(
     fun wireTransfers(): WireTransfers = wireTransfers.getRequired("wire_transfers")
 
     /** This routing number's support for ACH Transfers. */
-    @JsonProperty("ach_transfers") @ExcludeMissing fun _achTransfers() = achTransfers
+    @JsonProperty("ach_transfers")
+    @ExcludeMissing
+    fun _achTransfers() = achTransfers
 
     /** The name of the financial institution belonging to a routing number. */
-    @JsonProperty("name") @ExcludeMissing fun _name() = name
+    @JsonProperty("name")
+    @ExcludeMissing
+    fun _name() = name
 
     /** This routing number's support for Real-Time Payments Transfers. */
     @JsonProperty("real_time_payments_transfers")
@@ -69,16 +88,22 @@ private constructor(
     fun _realTimePaymentsTransfers() = realTimePaymentsTransfers
 
     /** The nine digit routing number identifier. */
-    @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
+    @JsonProperty("routing_number")
+    @ExcludeMissing
+    fun _routingNumber() = routingNumber
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `routing_number`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type")
+    @ExcludeMissing
+    fun _type() = type
 
     /** This routing number's support for Wire Transfers. */
-    @JsonProperty("wire_transfers") @ExcludeMissing fun _wireTransfers() = wireTransfers
+    @JsonProperty("wire_transfers")
+    @ExcludeMissing
+    fun _wireTransfers() = wireTransfers
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -86,63 +111,61 @@ private constructor(
 
     fun validate(): RoutingNumberListResponse = apply {
         if (!validated) {
-            achTransfers()
-            name()
-            realTimePaymentsTransfers()
-            routingNumber()
-            type()
-            wireTransfers()
-            validated = true
+          achTransfers()
+          name()
+          realTimePaymentsTransfers()
+          routingNumber()
+          type()
+          wireTransfers()
+          validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is RoutingNumberListResponse &&
-            this.achTransfers == other.achTransfers &&
-            this.name == other.name &&
-            this.realTimePaymentsTransfers == other.realTimePaymentsTransfers &&
-            this.routingNumber == other.routingNumber &&
-            this.type == other.type &&
-            this.wireTransfers == other.wireTransfers &&
-            this.additionalProperties == other.additionalProperties
+      return other is RoutingNumberListResponse &&
+          this.achTransfers == other.achTransfers &&
+          this.name == other.name &&
+          this.realTimePaymentsTransfers == other.realTimePaymentsTransfers &&
+          this.routingNumber == other.routingNumber &&
+          this.type == other.type &&
+          this.wireTransfers == other.wireTransfers &&
+          this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    achTransfers,
-                    name,
-                    realTimePaymentsTransfers,
-                    routingNumber,
-                    type,
-                    wireTransfers,
-                    additionalProperties,
-                )
-        }
-        return hashCode
+      if (hashCode == 0) {
+        hashCode = Objects.hash(
+            achTransfers,
+            name,
+            realTimePaymentsTransfers,
+            routingNumber,
+            type,
+            wireTransfers,
+            additionalProperties,
+        )
+      }
+      return hashCode
     }
 
-    override fun toString() =
-        "RoutingNumberListResponse{achTransfers=$achTransfers, name=$name, realTimePaymentsTransfers=$realTimePaymentsTransfers, routingNumber=$routingNumber, type=$type, wireTransfers=$wireTransfers, additionalProperties=$additionalProperties}"
+    override fun toString() = "RoutingNumberListResponse{achTransfers=$achTransfers, name=$name, realTimePaymentsTransfers=$realTimePaymentsTransfers, routingNumber=$routingNumber, type=$type, wireTransfers=$wireTransfers, additionalProperties=$additionalProperties}"
 
     companion object {
 
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     class Builder {
 
         private var achTransfers: JsonField<AchTransfers> = JsonMissing.of()
         private var name: JsonField<String> = JsonMissing.of()
-        private var realTimePaymentsTransfers: JsonField<RealTimePaymentsTransfers> =
-            JsonMissing.of()
+        private var realTimePaymentsTransfers: JsonField<RealTimePaymentsTransfers> = JsonMissing.of()
         private var routingNumber: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var wireTransfers: JsonField<WireTransfers> = JsonMissing.of()
@@ -175,18 +198,19 @@ private constructor(
         /** The name of the financial institution belonging to a routing number. */
         @JsonProperty("name")
         @ExcludeMissing
-        fun name(name: JsonField<String>) = apply { this.name = name }
+        fun name(name: JsonField<String>) = apply {
+            this.name = name
+        }
 
         /** This routing number's support for Real-Time Payments Transfers. */
-        fun realTimePaymentsTransfers(realTimePaymentsTransfers: RealTimePaymentsTransfers) =
-            realTimePaymentsTransfers(JsonField.of(realTimePaymentsTransfers))
+        fun realTimePaymentsTransfers(realTimePaymentsTransfers: RealTimePaymentsTransfers) = realTimePaymentsTransfers(JsonField.of(realTimePaymentsTransfers))
 
         /** This routing number's support for Real-Time Payments Transfers. */
         @JsonProperty("real_time_payments_transfers")
         @ExcludeMissing
-        fun realTimePaymentsTransfers(
-            realTimePaymentsTransfers: JsonField<RealTimePaymentsTransfers>
-        ) = apply { this.realTimePaymentsTransfers = realTimePaymentsTransfers }
+        fun realTimePaymentsTransfers(realTimePaymentsTransfers: JsonField<RealTimePaymentsTransfers>) = apply {
+            this.realTimePaymentsTransfers = realTimePaymentsTransfers
+        }
 
         /** The nine digit routing number identifier. */
         fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
@@ -210,7 +234,9 @@ private constructor(
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        fun type(type: JsonField<Type>) = apply {
+            this.type = type
+        }
 
         /** This routing number's support for Wire Transfers. */
         fun wireTransfers(wireTransfers: WireTransfers) = wireTransfers(JsonField.of(wireTransfers))
@@ -236,32 +262,29 @@ private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): RoutingNumberListResponse =
-            RoutingNumberListResponse(
-                achTransfers,
-                name,
-                realTimePaymentsTransfers,
-                routingNumber,
-                type,
-                wireTransfers,
-                additionalProperties.toUnmodifiable(),
-            )
+        fun build(): RoutingNumberListResponse = RoutingNumberListResponse(
+            achTransfers,
+            name,
+            realTimePaymentsTransfers,
+            routingNumber,
+            type,
+            wireTransfers,
+            additionalProperties.toUnmodifiable(),
+        )
     }
 
-    class AchTransfers
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class AchTransfers @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is AchTransfers && this.value == other.value
+          return other is AchTransfers &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -288,37 +311,33 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                SUPPORTED -> Value.SUPPORTED
-                NOT_SUPPORTED -> Value.NOT_SUPPORTED
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            SUPPORTED -> Value.SUPPORTED
+            NOT_SUPPORTED -> Value.NOT_SUPPORTED
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                SUPPORTED -> Known.SUPPORTED
-                NOT_SUPPORTED -> Known.NOT_SUPPORTED
-                else -> throw IncreaseInvalidDataException("Unknown AchTransfers: $value")
-            }
+        fun known(): Known = when (this) {
+            SUPPORTED -> Known.SUPPORTED
+            NOT_SUPPORTED -> Known.NOT_SUPPORTED
+            else -> throw IncreaseInvalidDataException("Unknown AchTransfers: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class RealTimePaymentsTransfers
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class RealTimePaymentsTransfers @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is RealTimePaymentsTransfers && this.value == other.value
+          return other is RealTimePaymentsTransfers &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -345,38 +364,33 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                SUPPORTED -> Value.SUPPORTED
-                NOT_SUPPORTED -> Value.NOT_SUPPORTED
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            SUPPORTED -> Value.SUPPORTED
+            NOT_SUPPORTED -> Value.NOT_SUPPORTED
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                SUPPORTED -> Known.SUPPORTED
-                NOT_SUPPORTED -> Known.NOT_SUPPORTED
-                else ->
-                    throw IncreaseInvalidDataException("Unknown RealTimePaymentsTransfers: $value")
-            }
+        fun known(): Known = when (this) {
+            SUPPORTED -> Known.SUPPORTED
+            NOT_SUPPORTED -> Known.NOT_SUPPORTED
+            else -> throw IncreaseInvalidDataException("Unknown RealTimePaymentsTransfers: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Type && this.value == other.value
+          return other is Type &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -399,35 +413,31 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                ROUTING_NUMBER -> Value.ROUTING_NUMBER
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            ROUTING_NUMBER -> Value.ROUTING_NUMBER
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                ROUTING_NUMBER -> Known.ROUTING_NUMBER
-                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-            }
+        fun known(): Known = when (this) {
+            ROUTING_NUMBER -> Known.ROUTING_NUMBER
+            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class WireTransfers
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class WireTransfers @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is WireTransfers && this.value == other.value
+          return other is WireTransfers &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -454,19 +464,17 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                SUPPORTED -> Value.SUPPORTED
-                NOT_SUPPORTED -> Value.NOT_SUPPORTED
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            SUPPORTED -> Value.SUPPORTED
+            NOT_SUPPORTED -> Value.NOT_SUPPORTED
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                SUPPORTED -> Known.SUPPORTED
-                NOT_SUPPORTED -> Known.NOT_SUPPORTED
-                else -> throw IncreaseInvalidDataException("Unknown WireTransfers: $value")
-            }
+        fun known(): Known = when (this) {
+            SUPPORTED -> Known.SUPPORTED
+            NOT_SUPPORTED -> Known.NOT_SUPPORTED
+            else -> throw IncreaseInvalidDataException("Unknown WireTransfers: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
