@@ -6,31 +6,25 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.services.async.InboundCheckDepositServiceAsync
 import java.util.Objects
 import java.util.Optional
-import java.util.Spliterator
-import java.util.Spliterators
-import java.util.UUID
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import java.util.function.Predicate
-import java.util.stream.Stream
-import java.util.stream.StreamSupport
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.JsonField
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.models.InboundCheckDeposit
-import com.increase.api.services.async.InboundCheckDepositServiceAsync
 
-class InboundCheckDepositListPageAsync private constructor(private val inboundCheckDepositsService: InboundCheckDepositServiceAsync, private val params: InboundCheckDepositListParams, private val response: Response, ) {
+class InboundCheckDepositListPageAsync
+private constructor(
+    private val inboundCheckDepositsService: InboundCheckDepositServiceAsync,
+    private val params: InboundCheckDepositListParams,
+    private val response: Response,
+) {
 
     fun response(): Response = response
 
@@ -39,48 +33,52 @@ class InboundCheckDepositListPageAsync private constructor(private val inboundCh
     fun nextCursor(): Optional<String> = response().nextCursor()
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is InboundCheckDepositListPageAsync &&
-          this.inboundCheckDepositsService == other.inboundCheckDepositsService &&
-          this.params == other.params &&
-          this.response == other.response
+        return other is InboundCheckDepositListPageAsync &&
+            this.inboundCheckDepositsService == other.inboundCheckDepositsService &&
+            this.params == other.params &&
+            this.response == other.response
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          inboundCheckDepositsService,
-          params,
-          response,
-      )
+        return Objects.hash(
+            inboundCheckDepositsService,
+            params,
+            response,
+        )
     }
 
-    override fun toString() = "InboundCheckDepositListPageAsync{inboundCheckDepositsService=$inboundCheckDepositsService, params=$params, response=$response}"
+    override fun toString() =
+        "InboundCheckDepositListPageAsync{inboundCheckDepositsService=$inboundCheckDepositsService, params=$params, response=$response}"
 
     fun hasNextPage(): Boolean {
-      if (data().isEmpty()) {
-        return false;
-      }
+        if (data().isEmpty()) {
+            return false
+        }
 
-      return nextCursor().isPresent()
+        return nextCursor().isPresent()
     }
 
     fun getNextPageParams(): Optional<InboundCheckDepositListParams> {
-      if (!hasNextPage()) {
-        return Optional.empty()
-      }
+        if (!hasNextPage()) {
+            return Optional.empty()
+        }
 
-      return Optional.of(InboundCheckDepositListParams.builder().from(params).apply {nextCursor().ifPresent{ this.cursor(it) } }.build())
+        return Optional.of(
+            InboundCheckDepositListParams.builder()
+                .from(params)
+                .apply { nextCursor().ifPresent { this.cursor(it) } }
+                .build()
+        )
     }
 
     fun getNextPage(): CompletableFuture<Optional<InboundCheckDepositListPageAsync>> {
-      return getNextPageParams().map {
-        inboundCheckDepositsService.list(it).thenApply { Optional.of(it) }
-      }.orElseGet {
-          CompletableFuture.completedFuture(Optional.empty())
-      }
+        return getNextPageParams()
+            .map { inboundCheckDepositsService.list(it).thenApply { Optional.of(it) } }
+            .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
     }
 
     fun autoPager(): AutoPager = AutoPager(this)
@@ -88,22 +86,33 @@ class InboundCheckDepositListPageAsync private constructor(private val inboundCh
     companion object {
 
         @JvmStatic
-        fun of(inboundCheckDepositsService: InboundCheckDepositServiceAsync, params: InboundCheckDepositListParams, response: Response) = InboundCheckDepositListPageAsync(
-            inboundCheckDepositsService,
-            params,
-            response,
-        )
+        fun of(
+            inboundCheckDepositsService: InboundCheckDepositServiceAsync,
+            params: InboundCheckDepositListParams,
+            response: Response
+        ) =
+            InboundCheckDepositListPageAsync(
+                inboundCheckDepositsService,
+                params,
+                response,
+            )
     }
 
     @JsonDeserialize(builder = Response.Builder::class)
     @NoAutoDetect
-    class Response constructor(private val data: JsonField<List<InboundCheckDeposit>>, private val nextCursor: JsonField<String>, private val additionalProperties: Map<String, JsonValue>, ) {
+    class Response
+    constructor(
+        private val data: JsonField<List<InboundCheckDeposit>>,
+        private val nextCursor: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var validated: Boolean = false
 
         fun data(): List<InboundCheckDeposit> = data.getNullable("data") ?: listOf()
 
-        fun nextCursor(): Optional<String> = Optional.ofNullable(nextCursor.getNullable("next_cursor"))
+        fun nextCursor(): Optional<String> =
+            Optional.ofNullable(nextCursor.getNullable("next_cursor"))
 
         @JsonProperty("data")
         fun _data(): Optional<JsonField<List<InboundCheckDeposit>>> = Optional.ofNullable(data)
@@ -117,39 +126,39 @@ class InboundCheckDepositListPageAsync private constructor(private val inboundCh
 
         fun validate(): Response = apply {
             if (!validated) {
-              data().map { it.validate() }
-              nextCursor()
-              validated = true
+                data().map { it.validate() }
+                nextCursor()
+                validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Response &&
-              this.data == other.data &&
-              this.nextCursor == other.nextCursor &&
-              this.additionalProperties == other.additionalProperties
+            return other is Response &&
+                this.data == other.data &&
+                this.nextCursor == other.nextCursor &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          return Objects.hash(
-              data,
-              nextCursor,
-              additionalProperties,
-          )
+            return Objects.hash(
+                data,
+                nextCursor,
+                additionalProperties,
+            )
         }
 
-        override fun toString() = "InboundCheckDepositListPageAsync.Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "InboundCheckDepositListPageAsync.Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -180,39 +189,44 @@ class InboundCheckDepositListPageAsync private constructor(private val inboundCh
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() = Response(
-                data,
-                nextCursor,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build() =
+                Response(
+                    data,
+                    nextCursor,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
-    class AutoPager constructor(private val firstPage: InboundCheckDepositListPageAsync, ) {
+    class AutoPager
+    constructor(
+        private val firstPage: InboundCheckDepositListPageAsync,
+    ) {
 
-        fun forEach(action: Predicate<InboundCheckDeposit>, executor: Executor): CompletableFuture<Void> {
-          fun CompletableFuture<Optional<InboundCheckDepositListPageAsync>>.forEach(action: (InboundCheckDeposit) -> Boolean, executor: Executor): CompletableFuture<Void> = thenComposeAsync({ page -> 
-              page
-              .filter {
-                  it.data().all(action)
-              }
-              .map {
-                  it.getNextPage().forEach(action, executor)
-              }
-              .orElseGet {
-                  CompletableFuture.completedFuture(null)
-              }
-          }, executor)
-          return CompletableFuture.completedFuture(Optional.of(firstPage))
-          .forEach(action::test, executor)
+        fun forEach(
+            action: Predicate<InboundCheckDeposit>,
+            executor: Executor
+        ): CompletableFuture<Void> {
+            fun CompletableFuture<Optional<InboundCheckDepositListPageAsync>>.forEach(
+                action: (InboundCheckDeposit) -> Boolean,
+                executor: Executor
+            ): CompletableFuture<Void> =
+                thenComposeAsync(
+                    { page ->
+                        page
+                            .filter { it.data().all(action) }
+                            .map { it.getNextPage().forEach(action, executor) }
+                            .orElseGet { CompletableFuture.completedFuture(null) }
+                    },
+                    executor
+                )
+            return CompletableFuture.completedFuture(Optional.of(firstPage))
+                .forEach(action::test, executor)
         }
 
         fun toList(executor: Executor): CompletableFuture<List<InboundCheckDeposit>> {
-          val values = mutableListOf<InboundCheckDeposit>()
-          return forEach(values::add, executor)
-          .thenApply {
-              values
-          }
+            val values = mutableListOf<InboundCheckDeposit>()
+            return forEach(values::add, executor).thenApply { values }
         }
     }
 }

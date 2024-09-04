@@ -4,52 +4,30 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import org.apache.hc.core5.http.ContentType
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.models.*
 import java.util.Objects
 import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.MultipartFormValue
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.Enum
-import com.increase.api.core.ContentTypes
-import com.increase.api.errors.IncreaseInvalidDataException
-import com.increase.api.models.*
 
-class DigitalCardProfileCreateParams constructor(
-  private val appIconFileId: String,
-  private val backgroundImageFileId: String,
-  private val cardDescription: String,
-  private val description: String,
-  private val issuerName: String,
-  private val contactEmail: String?,
-  private val contactPhone: String?,
-  private val contactWebsite: String?,
-  private val textColor: TextColor?,
-  private val additionalQueryParams: Map<String, List<String>>,
-  private val additionalHeaders: Map<String, List<String>>,
-  private val additionalBodyProperties: Map<String, JsonValue>,
-
+class DigitalCardProfileCreateParams
+constructor(
+    private val appIconFileId: String,
+    private val backgroundImageFileId: String,
+    private val cardDescription: String,
+    private val description: String,
+    private val issuerName: String,
+    private val contactEmail: String?,
+    private val contactPhone: String?,
+    private val contactWebsite: String?,
+    private val textColor: TextColor?,
+    private val additionalQueryParams: Map<String, List<String>>,
+    private val additionalHeaders: Map<String, List<String>>,
+    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun appIconFileId(): String = appIconFileId
@@ -72,79 +50,69 @@ class DigitalCardProfileCreateParams constructor(
 
     @JvmSynthetic
     internal fun getBody(): DigitalCardProfileCreateBody {
-      return DigitalCardProfileCreateBody(
-          appIconFileId,
-          backgroundImageFileId,
-          cardDescription,
-          description,
-          issuerName,
-          contactEmail,
-          contactPhone,
-          contactWebsite,
-          textColor,
-          additionalBodyProperties,
-      )
+        return DigitalCardProfileCreateBody(
+            appIconFileId,
+            backgroundImageFileId,
+            cardDescription,
+            description,
+            issuerName,
+            contactEmail,
+            contactPhone,
+            contactWebsite,
+            textColor,
+            additionalBodyProperties,
+        )
     }
 
-    @JvmSynthetic
-    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
-    @JvmSynthetic
-    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     @JsonDeserialize(builder = DigitalCardProfileCreateBody.Builder::class)
     @NoAutoDetect
-    class DigitalCardProfileCreateBody internal constructor(
-      private val appIconFileId: String?,
-      private val backgroundImageFileId: String?,
-      private val cardDescription: String?,
-      private val description: String?,
-      private val issuerName: String?,
-      private val contactEmail: String?,
-      private val contactPhone: String?,
-      private val contactWebsite: String?,
-      private val textColor: TextColor?,
-      private val additionalProperties: Map<String, JsonValue>,
-
+    class DigitalCardProfileCreateBody
+    internal constructor(
+        private val appIconFileId: String?,
+        private val backgroundImageFileId: String?,
+        private val cardDescription: String?,
+        private val description: String?,
+        private val issuerName: String?,
+        private val contactEmail: String?,
+        private val contactPhone: String?,
+        private val contactWebsite: String?,
+        private val textColor: TextColor?,
+        private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
 
         /** The identifier of the File containing the card's icon image. */
-        @JsonProperty("app_icon_file_id")
-        fun appIconFileId(): String? = appIconFileId
+        @JsonProperty("app_icon_file_id") fun appIconFileId(): String? = appIconFileId
 
         /** The identifier of the File containing the card's front image. */
         @JsonProperty("background_image_file_id")
         fun backgroundImageFileId(): String? = backgroundImageFileId
 
         /** A user-facing description for the card itself. */
-        @JsonProperty("card_description")
-        fun cardDescription(): String? = cardDescription
+        @JsonProperty("card_description") fun cardDescription(): String? = cardDescription
 
         /** A description you can use to identify the Card Profile. */
-        @JsonProperty("description")
-        fun description(): String? = description
+        @JsonProperty("description") fun description(): String? = description
 
         /** A user-facing description for whoever is issuing the card. */
-        @JsonProperty("issuer_name")
-        fun issuerName(): String? = issuerName
+        @JsonProperty("issuer_name") fun issuerName(): String? = issuerName
 
         /** An email address the user can contact to receive support for their card. */
-        @JsonProperty("contact_email")
-        fun contactEmail(): String? = contactEmail
+        @JsonProperty("contact_email") fun contactEmail(): String? = contactEmail
 
         /** A phone number the user can contact to receive support for their card. */
-        @JsonProperty("contact_phone")
-        fun contactPhone(): String? = contactPhone
+        @JsonProperty("contact_phone") fun contactPhone(): String? = contactPhone
 
         /** A website the user can visit to view and receive support for their card. */
-        @JsonProperty("contact_website")
-        fun contactWebsite(): String? = contactWebsite
+        @JsonProperty("contact_website") fun contactWebsite(): String? = contactWebsite
 
         /** The Card's text color, specified as an RGB triple. The default is white. */
-        @JsonProperty("text_color")
-        fun textColor(): TextColor? = textColor
+        @JsonProperty("text_color") fun textColor(): TextColor? = textColor
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -153,47 +121,48 @@ class DigitalCardProfileCreateParams constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is DigitalCardProfileCreateBody &&
-              this.appIconFileId == other.appIconFileId &&
-              this.backgroundImageFileId == other.backgroundImageFileId &&
-              this.cardDescription == other.cardDescription &&
-              this.description == other.description &&
-              this.issuerName == other.issuerName &&
-              this.contactEmail == other.contactEmail &&
-              this.contactPhone == other.contactPhone &&
-              this.contactWebsite == other.contactWebsite &&
-              this.textColor == other.textColor &&
-              this.additionalProperties == other.additionalProperties
+            return other is DigitalCardProfileCreateBody &&
+                this.appIconFileId == other.appIconFileId &&
+                this.backgroundImageFileId == other.backgroundImageFileId &&
+                this.cardDescription == other.cardDescription &&
+                this.description == other.description &&
+                this.issuerName == other.issuerName &&
+                this.contactEmail == other.contactEmail &&
+                this.contactPhone == other.contactPhone &&
+                this.contactWebsite == other.contactWebsite &&
+                this.textColor == other.textColor &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                appIconFileId,
-                backgroundImageFileId,
-                cardDescription,
-                description,
-                issuerName,
-                contactEmail,
-                contactPhone,
-                contactWebsite,
-                textColor,
-                additionalProperties,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        appIconFileId,
+                        backgroundImageFileId,
+                        cardDescription,
+                        description,
+                        issuerName,
+                        contactEmail,
+                        contactPhone,
+                        contactWebsite,
+                        textColor,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "DigitalCardProfileCreateBody{appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, description=$description, issuerName=$issuerName, contactEmail=$contactEmail, contactPhone=$contactPhone, contactWebsite=$contactWebsite, textColor=$textColor, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "DigitalCardProfileCreateBody{appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, description=$description, issuerName=$issuerName, contactEmail=$contactEmail, contactPhone=$contactPhone, contactWebsite=$contactWebsite, textColor=$textColor, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -225,9 +194,7 @@ class DigitalCardProfileCreateParams constructor(
 
             /** The identifier of the File containing the card's icon image. */
             @JsonProperty("app_icon_file_id")
-            fun appIconFileId(appIconFileId: String) = apply {
-                this.appIconFileId = appIconFileId
-            }
+            fun appIconFileId(appIconFileId: String) = apply { this.appIconFileId = appIconFileId }
 
             /** The identifier of the File containing the card's front image. */
             @JsonProperty("background_image_file_id")
@@ -243,27 +210,19 @@ class DigitalCardProfileCreateParams constructor(
 
             /** A description you can use to identify the Card Profile. */
             @JsonProperty("description")
-            fun description(description: String) = apply {
-                this.description = description
-            }
+            fun description(description: String) = apply { this.description = description }
 
             /** A user-facing description for whoever is issuing the card. */
             @JsonProperty("issuer_name")
-            fun issuerName(issuerName: String) = apply {
-                this.issuerName = issuerName
-            }
+            fun issuerName(issuerName: String) = apply { this.issuerName = issuerName }
 
             /** An email address the user can contact to receive support for their card. */
             @JsonProperty("contact_email")
-            fun contactEmail(contactEmail: String) = apply {
-                this.contactEmail = contactEmail
-            }
+            fun contactEmail(contactEmail: String) = apply { this.contactEmail = contactEmail }
 
             /** A phone number the user can contact to receive support for their card. */
             @JsonProperty("contact_phone")
-            fun contactPhone(contactPhone: String) = apply {
-                this.contactPhone = contactPhone
-            }
+            fun contactPhone(contactPhone: String) = apply { this.contactPhone = contactPhone }
 
             /** A website the user can visit to view and receive support for their card. */
             @JsonProperty("contact_website")
@@ -273,9 +232,7 @@ class DigitalCardProfileCreateParams constructor(
 
             /** The Card's text color, specified as an RGB triple. The default is white. */
             @JsonProperty("text_color")
-            fun textColor(textColor: TextColor) = apply {
-                this.textColor = textColor
-            }
+            fun textColor(textColor: TextColor) = apply { this.textColor = textColor }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -291,28 +248,23 @@ class DigitalCardProfileCreateParams constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): DigitalCardProfileCreateBody = DigitalCardProfileCreateBody(
-                checkNotNull(appIconFileId) {
-                    "`appIconFileId` is required but was not set"
-                },
-                checkNotNull(backgroundImageFileId) {
-                    "`backgroundImageFileId` is required but was not set"
-                },
-                checkNotNull(cardDescription) {
-                    "`cardDescription` is required but was not set"
-                },
-                checkNotNull(description) {
-                    "`description` is required but was not set"
-                },
-                checkNotNull(issuerName) {
-                    "`issuerName` is required but was not set"
-                },
-                contactEmail,
-                contactPhone,
-                contactWebsite,
-                textColor,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build(): DigitalCardProfileCreateBody =
+                DigitalCardProfileCreateBody(
+                    checkNotNull(appIconFileId) { "`appIconFileId` is required but was not set" },
+                    checkNotNull(backgroundImageFileId) {
+                        "`backgroundImageFileId` is required but was not set"
+                    },
+                    checkNotNull(cardDescription) {
+                        "`cardDescription` is required but was not set"
+                    },
+                    checkNotNull(description) { "`description` is required but was not set" },
+                    checkNotNull(issuerName) { "`issuerName` is required but was not set" },
+                    contactEmail,
+                    contactPhone,
+                    contactWebsite,
+                    textColor,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
@@ -323,50 +275,50 @@ class DigitalCardProfileCreateParams constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is DigitalCardProfileCreateParams &&
-          this.appIconFileId == other.appIconFileId &&
-          this.backgroundImageFileId == other.backgroundImageFileId &&
-          this.cardDescription == other.cardDescription &&
-          this.description == other.description &&
-          this.issuerName == other.issuerName &&
-          this.contactEmail == other.contactEmail &&
-          this.contactPhone == other.contactPhone &&
-          this.contactWebsite == other.contactWebsite &&
-          this.textColor == other.textColor &&
-          this.additionalQueryParams == other.additionalQueryParams &&
-          this.additionalHeaders == other.additionalHeaders &&
-          this.additionalBodyProperties == other.additionalBodyProperties
+        return other is DigitalCardProfileCreateParams &&
+            this.appIconFileId == other.appIconFileId &&
+            this.backgroundImageFileId == other.backgroundImageFileId &&
+            this.cardDescription == other.cardDescription &&
+            this.description == other.description &&
+            this.issuerName == other.issuerName &&
+            this.contactEmail == other.contactEmail &&
+            this.contactPhone == other.contactPhone &&
+            this.contactWebsite == other.contactWebsite &&
+            this.textColor == other.textColor &&
+            this.additionalQueryParams == other.additionalQueryParams &&
+            this.additionalHeaders == other.additionalHeaders &&
+            this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          appIconFileId,
-          backgroundImageFileId,
-          cardDescription,
-          description,
-          issuerName,
-          contactEmail,
-          contactPhone,
-          contactWebsite,
-          textColor,
-          additionalQueryParams,
-          additionalHeaders,
-          additionalBodyProperties,
-      )
+        return Objects.hash(
+            appIconFileId,
+            backgroundImageFileId,
+            cardDescription,
+            description,
+            issuerName,
+            contactEmail,
+            contactPhone,
+            contactWebsite,
+            textColor,
+            additionalQueryParams,
+            additionalHeaders,
+            additionalBodyProperties,
+        )
     }
 
-    override fun toString() = "DigitalCardProfileCreateParams{appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, description=$description, issuerName=$issuerName, contactEmail=$contactEmail, contactPhone=$contactPhone, contactWebsite=$contactWebsite, textColor=$textColor, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() =
+        "DigitalCardProfileCreateParams{appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, description=$description, issuerName=$issuerName, contactEmail=$contactEmail, contactPhone=$contactPhone, contactWebsite=$contactWebsite, textColor=$textColor, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -402,9 +354,7 @@ class DigitalCardProfileCreateParams constructor(
         }
 
         /** The identifier of the File containing the card's icon image. */
-        fun appIconFileId(appIconFileId: String) = apply {
-            this.appIconFileId = appIconFileId
-        }
+        fun appIconFileId(appIconFileId: String) = apply { this.appIconFileId = appIconFileId }
 
         /** The identifier of the File containing the card's front image. */
         fun backgroundImageFileId(backgroundImageFileId: String) = apply {
@@ -417,34 +367,22 @@ class DigitalCardProfileCreateParams constructor(
         }
 
         /** A description you can use to identify the Card Profile. */
-        fun description(description: String) = apply {
-            this.description = description
-        }
+        fun description(description: String) = apply { this.description = description }
 
         /** A user-facing description for whoever is issuing the card. */
-        fun issuerName(issuerName: String) = apply {
-            this.issuerName = issuerName
-        }
+        fun issuerName(issuerName: String) = apply { this.issuerName = issuerName }
 
         /** An email address the user can contact to receive support for their card. */
-        fun contactEmail(contactEmail: String) = apply {
-            this.contactEmail = contactEmail
-        }
+        fun contactEmail(contactEmail: String) = apply { this.contactEmail = contactEmail }
 
         /** A phone number the user can contact to receive support for their card. */
-        fun contactPhone(contactPhone: String) = apply {
-            this.contactPhone = contactPhone
-        }
+        fun contactPhone(contactPhone: String) = apply { this.contactPhone = contactPhone }
 
         /** A website the user can visit to view and receive support for their card. */
-        fun contactWebsite(contactWebsite: String) = apply {
-            this.contactWebsite = contactWebsite
-        }
+        fun contactWebsite(contactWebsite: String) = apply { this.contactWebsite = contactWebsite }
 
         /** The Card's text color, specified as an RGB triple. The default is white. */
-        fun textColor(textColor: TextColor) = apply {
-            this.textColor = textColor
-        }
+        fun textColor(textColor: TextColor) = apply { this.textColor = textColor }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -484,9 +422,7 @@ class DigitalCardProfileCreateParams constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply {
-            this.additionalHeaders.put(name, mutableListOf())
-        }
+        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -497,60 +433,51 @@ class DigitalCardProfileCreateParams constructor(
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.putAll(additionalBodyProperties)
-        }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
 
-        fun build(): DigitalCardProfileCreateParams = DigitalCardProfileCreateParams(
-            checkNotNull(appIconFileId) {
-                "`appIconFileId` is required but was not set"
-            },
-            checkNotNull(backgroundImageFileId) {
-                "`backgroundImageFileId` is required but was not set"
-            },
-            checkNotNull(cardDescription) {
-                "`cardDescription` is required but was not set"
-            },
-            checkNotNull(description) {
-                "`description` is required but was not set"
-            },
-            checkNotNull(issuerName) {
-                "`issuerName` is required but was not set"
-            },
-            contactEmail,
-            contactPhone,
-            contactWebsite,
-            textColor,
-            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalBodyProperties.toUnmodifiable(),
-        )
+        fun build(): DigitalCardProfileCreateParams =
+            DigitalCardProfileCreateParams(
+                checkNotNull(appIconFileId) { "`appIconFileId` is required but was not set" },
+                checkNotNull(backgroundImageFileId) {
+                    "`backgroundImageFileId` is required but was not set"
+                },
+                checkNotNull(cardDescription) { "`cardDescription` is required but was not set" },
+                checkNotNull(description) { "`description` is required but was not set" },
+                checkNotNull(issuerName) { "`issuerName` is required but was not set" },
+                contactEmail,
+                contactPhone,
+                contactWebsite,
+                textColor,
+                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalBodyProperties.toUnmodifiable(),
+            )
     }
 
     /** The Card's text color, specified as an RGB triple. The default is white. */
     @JsonDeserialize(builder = TextColor.Builder::class)
     @NoAutoDetect
-    class TextColor private constructor(
-      private val blue: Long?,
-      private val green: Long?,
-      private val red: Long?,
-      private val additionalProperties: Map<String, JsonValue>,
-
+    class TextColor
+    private constructor(
+        private val blue: Long?,
+        private val green: Long?,
+        private val red: Long?,
+        private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
 
         /** The value of the blue channel in the RGB color. */
-        @JsonProperty("blue")
-        fun blue(): Long? = blue
+        @JsonProperty("blue") fun blue(): Long? = blue
 
         /** The value of the green channel in the RGB color. */
-        @JsonProperty("green")
-        fun green(): Long? = green
+        @JsonProperty("green") fun green(): Long? = green
 
         /** The value of the red channel in the RGB color. */
-        @JsonProperty("red")
-        fun red(): Long? = red
+        @JsonProperty("red") fun red(): Long? = red
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -559,35 +486,36 @@ class DigitalCardProfileCreateParams constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is TextColor &&
-              this.blue == other.blue &&
-              this.green == other.green &&
-              this.red == other.red &&
-              this.additionalProperties == other.additionalProperties
+            return other is TextColor &&
+                this.blue == other.blue &&
+                this.green == other.green &&
+                this.red == other.red &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                blue,
-                green,
-                red,
-                additionalProperties,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        blue,
+                        green,
+                        red,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "TextColor{blue=$blue, green=$green, red=$red, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "TextColor{blue=$blue, green=$green, red=$red, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -606,22 +534,13 @@ class DigitalCardProfileCreateParams constructor(
             }
 
             /** The value of the blue channel in the RGB color. */
-            @JsonProperty("blue")
-            fun blue(blue: Long) = apply {
-                this.blue = blue
-            }
+            @JsonProperty("blue") fun blue(blue: Long) = apply { this.blue = blue }
 
             /** The value of the green channel in the RGB color. */
-            @JsonProperty("green")
-            fun green(green: Long) = apply {
-                this.green = green
-            }
+            @JsonProperty("green") fun green(green: Long) = apply { this.green = green }
 
             /** The value of the red channel in the RGB color. */
-            @JsonProperty("red")
-            fun red(red: Long) = apply {
-                this.red = red
-            }
+            @JsonProperty("red") fun red(red: Long) = apply { this.red = red }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -637,18 +556,13 @@ class DigitalCardProfileCreateParams constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): TextColor = TextColor(
-                checkNotNull(blue) {
-                    "`blue` is required but was not set"
-                },
-                checkNotNull(green) {
-                    "`green` is required but was not set"
-                },
-                checkNotNull(red) {
-                    "`red` is required but was not set"
-                },
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build(): TextColor =
+                TextColor(
+                    checkNotNull(blue) { "`blue` is required but was not set" },
+                    checkNotNull(green) { "`green` is required but was not set" },
+                    checkNotNull(red) { "`red` is required but was not set" },
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 }

@@ -5,44 +5,26 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import org.apache.hc.core5.http.ContentType
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
+import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.MultipartFormValue
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.Enum
-import com.increase.api.core.ContentTypes
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
+import java.util.Objects
+import java.util.Optional
 
-class CheckTransferStopPaymentParams constructor(
-  private val checkTransferId: String,
-  private val reason: Reason?,
-  private val additionalQueryParams: Map<String, List<String>>,
-  private val additionalHeaders: Map<String, List<String>>,
-  private val additionalBodyProperties: Map<String, JsonValue>,
-
+class CheckTransferStopPaymentParams
+constructor(
+    private val checkTransferId: String,
+    private val reason: Reason?,
+    private val additionalQueryParams: Map<String, List<String>>,
+    private val additionalHeaders: Map<String, List<String>>,
+    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun checkTransferId(): String = checkTransferId
@@ -51,31 +33,32 @@ class CheckTransferStopPaymentParams constructor(
 
     @JvmSynthetic
     internal fun getBody(): CheckTransferStopPaymentBody {
-      return CheckTransferStopPaymentBody(reason, additionalBodyProperties)
+        return CheckTransferStopPaymentBody(reason, additionalBodyProperties)
     }
 
-    @JvmSynthetic
-    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
-    @JvmSynthetic
-    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     fun getPathParam(index: Int): String {
-      return when (index) {
-          0 -> checkTransferId
-          else -> ""
-      }
+        return when (index) {
+            0 -> checkTransferId
+            else -> ""
+        }
     }
 
     @JsonDeserialize(builder = CheckTransferStopPaymentBody.Builder::class)
     @NoAutoDetect
-    class CheckTransferStopPaymentBody internal constructor(private val reason: Reason?, private val additionalProperties: Map<String, JsonValue>, ) {
+    class CheckTransferStopPaymentBody
+    internal constructor(
+        private val reason: Reason?,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var hashCode: Int = 0
 
         /** The reason why this transfer should be stopped. */
-        @JsonProperty("reason")
-        fun reason(): Reason? = reason
+        @JsonProperty("reason") fun reason(): Reason? = reason
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -84,28 +67,28 @@ class CheckTransferStopPaymentParams constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is CheckTransferStopPaymentBody &&
-              this.reason == other.reason &&
-              this.additionalProperties == other.additionalProperties
+            return other is CheckTransferStopPaymentBody &&
+                this.reason == other.reason &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(reason, additionalProperties)
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode = Objects.hash(reason, additionalProperties)
+            }
+            return hashCode
         }
 
-        override fun toString() = "CheckTransferStopPaymentBody{reason=$reason, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "CheckTransferStopPaymentBody{reason=$reason, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -120,10 +103,7 @@ class CheckTransferStopPaymentParams constructor(
             }
 
             /** The reason why this transfer should be stopped. */
-            @JsonProperty("reason")
-            fun reason(reason: Reason) = apply {
-                this.reason = reason
-            }
+            @JsonProperty("reason") fun reason(reason: Reason) = apply { this.reason = reason }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -139,7 +119,8 @@ class CheckTransferStopPaymentParams constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): CheckTransferStopPaymentBody = CheckTransferStopPaymentBody(reason, additionalProperties.toUnmodifiable())
+            fun build(): CheckTransferStopPaymentBody =
+                CheckTransferStopPaymentBody(reason, additionalProperties.toUnmodifiable())
         }
     }
 
@@ -150,36 +131,36 @@ class CheckTransferStopPaymentParams constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is CheckTransferStopPaymentParams &&
-          this.checkTransferId == other.checkTransferId &&
-          this.reason == other.reason &&
-          this.additionalQueryParams == other.additionalQueryParams &&
-          this.additionalHeaders == other.additionalHeaders &&
-          this.additionalBodyProperties == other.additionalBodyProperties
+        return other is CheckTransferStopPaymentParams &&
+            this.checkTransferId == other.checkTransferId &&
+            this.reason == other.reason &&
+            this.additionalQueryParams == other.additionalQueryParams &&
+            this.additionalHeaders == other.additionalHeaders &&
+            this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          checkTransferId,
-          reason,
-          additionalQueryParams,
-          additionalHeaders,
-          additionalBodyProperties,
-      )
+        return Objects.hash(
+            checkTransferId,
+            reason,
+            additionalQueryParams,
+            additionalHeaders,
+            additionalBodyProperties,
+        )
     }
 
-    override fun toString() = "CheckTransferStopPaymentParams{checkTransferId=$checkTransferId, reason=$reason, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() =
+        "CheckTransferStopPaymentParams{checkTransferId=$checkTransferId, reason=$reason, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -206,9 +187,7 @@ class CheckTransferStopPaymentParams constructor(
         }
 
         /** The reason why this transfer should be stopped. */
-        fun reason(reason: Reason) = apply {
-            this.reason = reason
-        }
+        fun reason(reason: Reason) = apply { this.reason = reason }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -248,9 +227,7 @@ class CheckTransferStopPaymentParams constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply {
-            this.additionalHeaders.put(name, mutableListOf())
-        }
+        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -261,33 +238,35 @@ class CheckTransferStopPaymentParams constructor(
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.putAll(additionalBodyProperties)
-        }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
 
-        fun build(): CheckTransferStopPaymentParams = CheckTransferStopPaymentParams(
-            checkNotNull(checkTransferId) {
-                "`checkTransferId` is required but was not set"
-            },
-            reason,
-            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalBodyProperties.toUnmodifiable(),
-        )
+        fun build(): CheckTransferStopPaymentParams =
+            CheckTransferStopPaymentParams(
+                checkNotNull(checkTransferId) { "`checkTransferId` is required but was not set" },
+                reason,
+                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalBodyProperties.toUnmodifiable(),
+            )
     }
 
-    class Reason @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+    class Reason
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Reason &&
-              this.value == other.value
+            return other is Reason && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -318,19 +297,21 @@ class CheckTransferStopPaymentParams constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            MAIL_DELIVERY_FAILED -> Value.MAIL_DELIVERY_FAILED
-            NOT_AUTHORIZED -> Value.NOT_AUTHORIZED
-            UNKNOWN -> Value.UNKNOWN
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                MAIL_DELIVERY_FAILED -> Value.MAIL_DELIVERY_FAILED
+                NOT_AUTHORIZED -> Value.NOT_AUTHORIZED
+                UNKNOWN -> Value.UNKNOWN
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            MAIL_DELIVERY_FAILED -> Known.MAIL_DELIVERY_FAILED
-            NOT_AUTHORIZED -> Known.NOT_AUTHORIZED
-            UNKNOWN -> Known.UNKNOWN
-            else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                MAIL_DELIVERY_FAILED -> Known.MAIL_DELIVERY_FAILED
+                NOT_AUTHORIZED -> Known.NOT_AUTHORIZED
+                UNKNOWN -> Known.UNKNOWN
+                else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }

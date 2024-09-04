@@ -5,54 +5,39 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
+import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.JsonNull
-import com.increase.api.core.JsonField
-import com.increase.api.core.Enum
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.time.OffsetDateTime
+import java.util.Objects
+import java.util.Optional
 
 /**
- * Certain institutions may be excluded per Entity when sweeping funds into the
- * IntraFi network. This is useful when an Entity already has deposits at a
- * particular bank, and does not want to sweep additional funds to it. It may take
- * 5 business days for an exclusion to be processed.
+ * Certain institutions may be excluded per Entity when sweeping funds into the IntraFi network.
+ * This is useful when an Entity already has deposits at a particular bank, and does not want to
+ * sweep additional funds to it. It may take 5 business days for an exclusion to be processed.
  */
 @JsonDeserialize(builder = IntrafiExclusion.Builder::class)
 @NoAutoDetect
-class IntrafiExclusion private constructor(
-  private val bankName: JsonField<String>,
-  private val entityId: JsonField<String>,
-  private val excludedAt: JsonField<OffsetDateTime>,
-  private val fdicCertificateNumber: JsonField<String>,
-  private val id: JsonField<String>,
-  private val idempotencyKey: JsonField<String>,
-  private val status: JsonField<Status>,
-  private val submittedAt: JsonField<OffsetDateTime>,
-  private val type: JsonField<Type>,
-  private val additionalProperties: Map<String, JsonValue>,
-
+class IntrafiExclusion
+private constructor(
+    private val bankName: JsonField<String>,
+    private val entityId: JsonField<String>,
+    private val excludedAt: JsonField<OffsetDateTime>,
+    private val fdicCertificateNumber: JsonField<String>,
+    private val id: JsonField<String>,
+    private val idempotencyKey: JsonField<String>,
+    private val status: JsonField<Status>,
+    private val submittedAt: JsonField<OffsetDateTime>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: Map<String, JsonValue>,
 ) {
 
     private var validated: Boolean = false
@@ -66,29 +51,30 @@ class IntrafiExclusion private constructor(
     fun entityId(): String = entityId.getRequired("entity_id")
 
     /** When this was exclusion was confirmed by IntraFi. */
-    fun excludedAt(): Optional<OffsetDateTime> = Optional.ofNullable(excludedAt.getNullable("excluded_at"))
+    fun excludedAt(): Optional<OffsetDateTime> =
+        Optional.ofNullable(excludedAt.getNullable("excluded_at"))
 
-    /**
-     * The Federal Deposit Insurance Corporation's certificate number for the
-     * institution.
-     */
-    fun fdicCertificateNumber(): Optional<String> = Optional.ofNullable(fdicCertificateNumber.getNullable("fdic_certificate_number"))
+    /** The Federal Deposit Insurance Corporation's certificate number for the institution. */
+    fun fdicCertificateNumber(): Optional<String> =
+        Optional.ofNullable(fdicCertificateNumber.getNullable("fdic_certificate_number"))
 
     /** The identifier of this exclusion request. */
     fun id(): String = id.getRequired("id")
 
     /**
-     * The idempotency key you chose for this object. This value is unique across
-     * Increase and is used to ensure that a request is only processed once. Learn more
-     * about [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> =
+        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
     /** The status of the exclusion request. */
     fun status(): Status = status.getRequired("status")
 
     /** When this was exclusion was submitted to IntraFi by Increase. */
-    fun submittedAt(): Optional<OffsetDateTime> = Optional.ofNullable(submittedAt.getNullable("submitted_at"))
+    fun submittedAt(): Optional<OffsetDateTime> =
+        Optional.ofNullable(submittedAt.getNullable("submitted_at"))
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -97,59 +83,40 @@ class IntrafiExclusion private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The name of the excluded institution. */
-    @JsonProperty("bank_name")
-    @ExcludeMissing
-    fun _bankName() = bankName
+    @JsonProperty("bank_name") @ExcludeMissing fun _bankName() = bankName
 
     /** The entity for which this institution is excluded. */
-    @JsonProperty("entity_id")
-    @ExcludeMissing
-    fun _entityId() = entityId
+    @JsonProperty("entity_id") @ExcludeMissing fun _entityId() = entityId
 
     /** When this was exclusion was confirmed by IntraFi. */
-    @JsonProperty("excluded_at")
-    @ExcludeMissing
-    fun _excludedAt() = excludedAt
+    @JsonProperty("excluded_at") @ExcludeMissing fun _excludedAt() = excludedAt
 
-    /**
-     * The Federal Deposit Insurance Corporation's certificate number for the
-     * institution.
-     */
+    /** The Federal Deposit Insurance Corporation's certificate number for the institution. */
     @JsonProperty("fdic_certificate_number")
     @ExcludeMissing
     fun _fdicCertificateNumber() = fdicCertificateNumber
 
     /** The identifier of this exclusion request. */
-    @JsonProperty("id")
-    @ExcludeMissing
-    fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
-     * The idempotency key you chose for this object. This value is unique across
-     * Increase and is used to ensure that a request is only processed once. Learn more
-     * about [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key")
-    @ExcludeMissing
-    fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
 
     /** The status of the exclusion request. */
-    @JsonProperty("status")
-    @ExcludeMissing
-    fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
 
     /** When this was exclusion was submitted to IntraFi by Increase. */
-    @JsonProperty("submitted_at")
-    @ExcludeMissing
-    fun _submittedAt() = submittedAt
+    @JsonProperty("submitted_at") @ExcludeMissing fun _submittedAt() = submittedAt
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `intrafi_exclusion`.
      */
-    @JsonProperty("type")
-    @ExcludeMissing
-    fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -157,63 +124,64 @@ class IntrafiExclusion private constructor(
 
     fun validate(): IntrafiExclusion = apply {
         if (!validated) {
-          bankName()
-          entityId()
-          excludedAt()
-          fdicCertificateNumber()
-          id()
-          idempotencyKey()
-          status()
-          submittedAt()
-          type()
-          validated = true
+            bankName()
+            entityId()
+            excludedAt()
+            fdicCertificateNumber()
+            id()
+            idempotencyKey()
+            status()
+            submittedAt()
+            type()
+            validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is IntrafiExclusion &&
-          this.bankName == other.bankName &&
-          this.entityId == other.entityId &&
-          this.excludedAt == other.excludedAt &&
-          this.fdicCertificateNumber == other.fdicCertificateNumber &&
-          this.id == other.id &&
-          this.idempotencyKey == other.idempotencyKey &&
-          this.status == other.status &&
-          this.submittedAt == other.submittedAt &&
-          this.type == other.type &&
-          this.additionalProperties == other.additionalProperties
+        return other is IntrafiExclusion &&
+            this.bankName == other.bankName &&
+            this.entityId == other.entityId &&
+            this.excludedAt == other.excludedAt &&
+            this.fdicCertificateNumber == other.fdicCertificateNumber &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.status == other.status &&
+            this.submittedAt == other.submittedAt &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-      if (hashCode == 0) {
-        hashCode = Objects.hash(
-            bankName,
-            entityId,
-            excludedAt,
-            fdicCertificateNumber,
-            id,
-            idempotencyKey,
-            status,
-            submittedAt,
-            type,
-            additionalProperties,
-        )
-      }
-      return hashCode
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    bankName,
+                    entityId,
+                    excludedAt,
+                    fdicCertificateNumber,
+                    id,
+                    idempotencyKey,
+                    status,
+                    submittedAt,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
     }
 
-    override fun toString() = "IntrafiExclusion{bankName=$bankName, entityId=$entityId, excludedAt=$excludedAt, fdicCertificateNumber=$fdicCertificateNumber, id=$id, idempotencyKey=$idempotencyKey, status=$status, submittedAt=$submittedAt, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() =
+        "IntrafiExclusion{bankName=$bankName, entityId=$entityId, excludedAt=$excludedAt, fdicCertificateNumber=$fdicCertificateNumber, id=$id, idempotencyKey=$idempotencyKey, status=$status, submittedAt=$submittedAt, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     class Builder {
@@ -249,9 +217,7 @@ class IntrafiExclusion private constructor(
         /** The name of the excluded institution. */
         @JsonProperty("bank_name")
         @ExcludeMissing
-        fun bankName(bankName: JsonField<String>) = apply {
-            this.bankName = bankName
-        }
+        fun bankName(bankName: JsonField<String>) = apply { this.bankName = bankName }
 
         /** The entity for which this institution is excluded. */
         fun entityId(entityId: String) = entityId(JsonField.of(entityId))
@@ -259,9 +225,7 @@ class IntrafiExclusion private constructor(
         /** The entity for which this institution is excluded. */
         @JsonProperty("entity_id")
         @ExcludeMissing
-        fun entityId(entityId: JsonField<String>) = apply {
-            this.entityId = entityId
-        }
+        fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
 
         /** When this was exclusion was confirmed by IntraFi. */
         fun excludedAt(excludedAt: OffsetDateTime) = excludedAt(JsonField.of(excludedAt))
@@ -273,16 +237,11 @@ class IntrafiExclusion private constructor(
             this.excludedAt = excludedAt
         }
 
-        /**
-         * The Federal Deposit Insurance Corporation's certificate number for the
-         * institution.
-         */
-        fun fdicCertificateNumber(fdicCertificateNumber: String) = fdicCertificateNumber(JsonField.of(fdicCertificateNumber))
+        /** The Federal Deposit Insurance Corporation's certificate number for the institution. */
+        fun fdicCertificateNumber(fdicCertificateNumber: String) =
+            fdicCertificateNumber(JsonField.of(fdicCertificateNumber))
 
-        /**
-         * The Federal Deposit Insurance Corporation's certificate number for the
-         * institution.
-         */
+        /** The Federal Deposit Insurance Corporation's certificate number for the institution. */
         @JsonProperty("fdic_certificate_number")
         @ExcludeMissing
         fun fdicCertificateNumber(fdicCertificateNumber: JsonField<String>) = apply {
@@ -293,23 +252,19 @@ class IntrafiExclusion private constructor(
         fun id(id: String) = id(JsonField.of(id))
 
         /** The identifier of this exclusion request. */
-        @JsonProperty("id")
-        @ExcludeMissing
-        fun id(id: JsonField<String>) = apply {
-            this.id = id
-        }
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
-         * The idempotency key you chose for this object. This value is unique across
-         * Increase and is used to ensure that a request is only processed once. Learn more
-         * about [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
 
         /**
-         * The idempotency key you chose for this object. This value is unique across
-         * Increase and is used to ensure that a request is only processed once. Learn more
-         * about [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         @JsonProperty("idempotency_key")
         @ExcludeMissing
@@ -323,9 +278,7 @@ class IntrafiExclusion private constructor(
         /** The status of the exclusion request. */
         @JsonProperty("status")
         @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply {
-            this.status = status
-        }
+        fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /** When this was exclusion was submitted to IntraFi by Increase. */
         fun submittedAt(submittedAt: OffsetDateTime) = submittedAt(JsonField.of(submittedAt))
@@ -349,9 +302,7 @@ class IntrafiExclusion private constructor(
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply {
-            this.type = type
-        }
+        fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -367,32 +318,35 @@ class IntrafiExclusion private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): IntrafiExclusion = IntrafiExclusion(
-            bankName,
-            entityId,
-            excludedAt,
-            fdicCertificateNumber,
-            id,
-            idempotencyKey,
-            status,
-            submittedAt,
-            type,
-            additionalProperties.toUnmodifiable(),
-        )
+        fun build(): IntrafiExclusion =
+            IntrafiExclusion(
+                bankName,
+                entityId,
+                excludedAt,
+                fdicCertificateNumber,
+                id,
+                idempotencyKey,
+                status,
+                submittedAt,
+                type,
+                additionalProperties.toUnmodifiable(),
+            )
     }
 
-    class Status @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Status &&
-              this.value == other.value
+            return other is Status && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -423,35 +377,39 @@ class IntrafiExclusion private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            PENDING -> Value.PENDING
-            COMPLETED -> Value.COMPLETED
-            ARCHIVED -> Value.ARCHIVED
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                PENDING -> Value.PENDING
+                COMPLETED -> Value.COMPLETED
+                ARCHIVED -> Value.ARCHIVED
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            PENDING -> Known.PENDING
-            COMPLETED -> Known.COMPLETED
-            ARCHIVED -> Known.ARCHIVED
-            else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                PENDING -> Known.PENDING
+                COMPLETED -> Known.COMPLETED
+                ARCHIVED -> Known.ARCHIVED
+                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Type @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+    class Type
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Type &&
-              this.value == other.value
+            return other is Type && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -474,15 +432,17 @@ class IntrafiExclusion private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            INTRAFI_EXCLUSION -> Value.INTRAFI_EXCLUSION
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                INTRAFI_EXCLUSION -> Value.INTRAFI_EXCLUSION
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            INTRAFI_EXCLUSION -> Known.INTRAFI_EXCLUSION
-            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                INTRAFI_EXCLUSION -> Known.INTRAFI_EXCLUSION
+                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }

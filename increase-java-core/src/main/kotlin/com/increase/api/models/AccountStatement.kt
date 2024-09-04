@@ -5,53 +5,37 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
+import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.JsonNull
-import com.increase.api.core.JsonField
-import com.increase.api.core.Enum
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.time.OffsetDateTime
+import java.util.Objects
 
 /**
- * Account Statements are generated monthly for every active Account. You can
- * access the statement's data via the API or retrieve a PDF with its details via
- * its associated File.
+ * Account Statements are generated monthly for every active Account. You can access the statement's
+ * data via the API or retrieve a PDF with its details via its associated File.
  */
 @JsonDeserialize(builder = AccountStatement.Builder::class)
 @NoAutoDetect
-class AccountStatement private constructor(
-  private val accountId: JsonField<String>,
-  private val createdAt: JsonField<OffsetDateTime>,
-  private val endingBalance: JsonField<Long>,
-  private val fileId: JsonField<String>,
-  private val id: JsonField<String>,
-  private val startingBalance: JsonField<Long>,
-  private val statementPeriodEnd: JsonField<OffsetDateTime>,
-  private val statementPeriodStart: JsonField<OffsetDateTime>,
-  private val type: JsonField<Type>,
-  private val additionalProperties: Map<String, JsonValue>,
-
+class AccountStatement
+private constructor(
+    private val accountId: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val endingBalance: JsonField<Long>,
+    private val fileId: JsonField<String>,
+    private val id: JsonField<String>,
+    private val startingBalance: JsonField<Long>,
+    private val statementPeriodEnd: JsonField<OffsetDateTime>,
+    private val statementPeriodStart: JsonField<OffsetDateTime>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: Map<String, JsonValue>,
 ) {
 
     private var validated: Boolean = false
@@ -62,8 +46,8 @@ class AccountStatement private constructor(
     fun accountId(): String = accountId.getRequired("account_id")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account
-     * Statement was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account Statement
+     * was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
@@ -80,16 +64,18 @@ class AccountStatement private constructor(
     fun startingBalance(): Long = startingBalance.getRequired("starting_balance")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the end
-     * of the period the Account Statement covers.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the end of the
+     * period the Account Statement covers.
      */
-    fun statementPeriodEnd(): OffsetDateTime = statementPeriodEnd.getRequired("statement_period_end")
+    fun statementPeriodEnd(): OffsetDateTime =
+        statementPeriodEnd.getRequired("statement_period_end")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the
-     * start of the period the Account Statement covers.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the start of the
+     * period the Account Statement covers.
      */
-    fun statementPeriodStart(): OffsetDateTime = statementPeriodStart.getRequired("statement_period_start")
+    fun statementPeriodStart(): OffsetDateTime =
+        statementPeriodStart.getRequired("statement_period_start")
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -98,49 +84,37 @@ class AccountStatement private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The identifier for the Account this Account Statement belongs to. */
-    @JsonProperty("account_id")
-    @ExcludeMissing
-    fun _accountId() = accountId
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account
-     * Statement was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account Statement
+     * was created.
      */
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    fun _createdAt() = createdAt
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
     /** The Account's balance at the start of its statement period. */
-    @JsonProperty("ending_balance")
-    @ExcludeMissing
-    fun _endingBalance() = endingBalance
+    @JsonProperty("ending_balance") @ExcludeMissing fun _endingBalance() = endingBalance
 
     /** The identifier of the File containing a PDF of the statement. */
-    @JsonProperty("file_id")
-    @ExcludeMissing
-    fun _fileId() = fileId
+    @JsonProperty("file_id") @ExcludeMissing fun _fileId() = fileId
 
     /** The Account Statement identifier. */
-    @JsonProperty("id")
-    @ExcludeMissing
-    fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /** The Account's balance at the start of its statement period. */
-    @JsonProperty("starting_balance")
-    @ExcludeMissing
-    fun _startingBalance() = startingBalance
+    @JsonProperty("starting_balance") @ExcludeMissing fun _startingBalance() = startingBalance
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the end
-     * of the period the Account Statement covers.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the end of the
+     * period the Account Statement covers.
      */
     @JsonProperty("statement_period_end")
     @ExcludeMissing
     fun _statementPeriodEnd() = statementPeriodEnd
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the
-     * start of the period the Account Statement covers.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the start of the
+     * period the Account Statement covers.
      */
     @JsonProperty("statement_period_start")
     @ExcludeMissing
@@ -150,9 +124,7 @@ class AccountStatement private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `account_statement`.
      */
-    @JsonProperty("type")
-    @ExcludeMissing
-    fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -160,63 +132,64 @@ class AccountStatement private constructor(
 
     fun validate(): AccountStatement = apply {
         if (!validated) {
-          accountId()
-          createdAt()
-          endingBalance()
-          fileId()
-          id()
-          startingBalance()
-          statementPeriodEnd()
-          statementPeriodStart()
-          type()
-          validated = true
+            accountId()
+            createdAt()
+            endingBalance()
+            fileId()
+            id()
+            startingBalance()
+            statementPeriodEnd()
+            statementPeriodStart()
+            type()
+            validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is AccountStatement &&
-          this.accountId == other.accountId &&
-          this.createdAt == other.createdAt &&
-          this.endingBalance == other.endingBalance &&
-          this.fileId == other.fileId &&
-          this.id == other.id &&
-          this.startingBalance == other.startingBalance &&
-          this.statementPeriodEnd == other.statementPeriodEnd &&
-          this.statementPeriodStart == other.statementPeriodStart &&
-          this.type == other.type &&
-          this.additionalProperties == other.additionalProperties
+        return other is AccountStatement &&
+            this.accountId == other.accountId &&
+            this.createdAt == other.createdAt &&
+            this.endingBalance == other.endingBalance &&
+            this.fileId == other.fileId &&
+            this.id == other.id &&
+            this.startingBalance == other.startingBalance &&
+            this.statementPeriodEnd == other.statementPeriodEnd &&
+            this.statementPeriodStart == other.statementPeriodStart &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-      if (hashCode == 0) {
-        hashCode = Objects.hash(
-            accountId,
-            createdAt,
-            endingBalance,
-            fileId,
-            id,
-            startingBalance,
-            statementPeriodEnd,
-            statementPeriodStart,
-            type,
-            additionalProperties,
-        )
-      }
-      return hashCode
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    accountId,
+                    createdAt,
+                    endingBalance,
+                    fileId,
+                    id,
+                    startingBalance,
+                    statementPeriodEnd,
+                    statementPeriodStart,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
     }
 
-    override fun toString() = "AccountStatement{accountId=$accountId, createdAt=$createdAt, endingBalance=$endingBalance, fileId=$fileId, id=$id, startingBalance=$startingBalance, statementPeriodEnd=$statementPeriodEnd, statementPeriodStart=$statementPeriodStart, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() =
+        "AccountStatement{accountId=$accountId, createdAt=$createdAt, endingBalance=$endingBalance, fileId=$fileId, id=$id, startingBalance=$startingBalance, statementPeriodEnd=$statementPeriodEnd, statementPeriodStart=$statementPeriodStart, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     class Builder {
@@ -252,9 +225,7 @@ class AccountStatement private constructor(
         /** The identifier for the Account this Account Statement belongs to. */
         @JsonProperty("account_id")
         @ExcludeMissing
-        fun accountId(accountId: JsonField<String>) = apply {
-            this.accountId = accountId
-        }
+        fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account
@@ -268,9 +239,7 @@ class AccountStatement private constructor(
          */
         @JsonProperty("created_at")
         @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
-            this.createdAt = createdAt
-        }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The Account's balance at the start of its statement period. */
         fun endingBalance(endingBalance: Long) = endingBalance(JsonField.of(endingBalance))
@@ -288,19 +257,13 @@ class AccountStatement private constructor(
         /** The identifier of the File containing a PDF of the statement. */
         @JsonProperty("file_id")
         @ExcludeMissing
-        fun fileId(fileId: JsonField<String>) = apply {
-            this.fileId = fileId
-        }
+        fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
         /** The Account Statement identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Account Statement identifier. */
-        @JsonProperty("id")
-        @ExcludeMissing
-        fun id(id: JsonField<String>) = apply {
-            this.id = id
-        }
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The Account's balance at the start of its statement period. */
         fun startingBalance(startingBalance: Long) = startingBalance(JsonField.of(startingBalance))
@@ -313,14 +276,15 @@ class AccountStatement private constructor(
         }
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the end
-         * of the period the Account Statement covers.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the end of the
+         * period the Account Statement covers.
          */
-        fun statementPeriodEnd(statementPeriodEnd: OffsetDateTime) = statementPeriodEnd(JsonField.of(statementPeriodEnd))
+        fun statementPeriodEnd(statementPeriodEnd: OffsetDateTime) =
+            statementPeriodEnd(JsonField.of(statementPeriodEnd))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the end
-         * of the period the Account Statement covers.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the end of the
+         * period the Account Statement covers.
          */
         @JsonProperty("statement_period_end")
         @ExcludeMissing
@@ -329,14 +293,15 @@ class AccountStatement private constructor(
         }
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the
-         * start of the period the Account Statement covers.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the start of the
+         * period the Account Statement covers.
          */
-        fun statementPeriodStart(statementPeriodStart: OffsetDateTime) = statementPeriodStart(JsonField.of(statementPeriodStart))
+        fun statementPeriodStart(statementPeriodStart: OffsetDateTime) =
+            statementPeriodStart(JsonField.of(statementPeriodStart))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the
-         * start of the period the Account Statement covers.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the start of the
+         * period the Account Statement covers.
          */
         @JsonProperty("statement_period_start")
         @ExcludeMissing
@@ -356,9 +321,7 @@ class AccountStatement private constructor(
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply {
-            this.type = type
-        }
+        fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -374,32 +337,35 @@ class AccountStatement private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): AccountStatement = AccountStatement(
-            accountId,
-            createdAt,
-            endingBalance,
-            fileId,
-            id,
-            startingBalance,
-            statementPeriodEnd,
-            statementPeriodStart,
-            type,
-            additionalProperties.toUnmodifiable(),
-        )
+        fun build(): AccountStatement =
+            AccountStatement(
+                accountId,
+                createdAt,
+                endingBalance,
+                fileId,
+                id,
+                startingBalance,
+                statementPeriodEnd,
+                statementPeriodStart,
+                type,
+                additionalProperties.toUnmodifiable(),
+            )
     }
 
-    class Type @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+    class Type
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Type &&
-              this.value == other.value
+            return other is Type && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -422,15 +388,17 @@ class AccountStatement private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            ACCOUNT_STATEMENT -> Value.ACCOUNT_STATEMENT
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                ACCOUNT_STATEMENT -> Value.ACCOUNT_STATEMENT
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            ACCOUNT_STATEMENT -> Known.ACCOUNT_STATEMENT
-            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                ACCOUNT_STATEMENT -> Known.ACCOUNT_STATEMENT
+                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }

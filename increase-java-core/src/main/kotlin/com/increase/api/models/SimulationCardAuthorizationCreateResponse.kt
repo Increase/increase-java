@@ -5,43 +5,28 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
+import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.JsonNull
-import com.increase.api.core.JsonField
-import com.increase.api.core.Enum
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.util.Objects
+import java.util.Optional
 
 /** The results of a Card Authorization simulation. */
 @JsonDeserialize(builder = SimulationCardAuthorizationCreateResponse.Builder::class)
 @NoAutoDetect
-class SimulationCardAuthorizationCreateResponse private constructor(
-  private val declinedTransaction: JsonField<DeclinedTransaction>,
-  private val pendingTransaction: JsonField<PendingTransaction>,
-  private val type: JsonField<Type>,
-  private val additionalProperties: Map<String, JsonValue>,
-
+class SimulationCardAuthorizationCreateResponse
+private constructor(
+    private val declinedTransaction: JsonField<DeclinedTransaction>,
+    private val pendingTransaction: JsonField<PendingTransaction>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: Map<String, JsonValue>,
 ) {
 
     private var validated: Boolean = false
@@ -50,17 +35,18 @@ class SimulationCardAuthorizationCreateResponse private constructor(
 
     /**
      * If the authorization attempt fails, this will contain the resulting
-     * [Declined Transaction](#declined-transactions) object. The Declined
-     * Transaction's `source` will be of `category: card_decline`.
+     * [Declined Transaction](#declined-transactions) object. The Declined Transaction's `source`
+     * will be of `category: card_decline`.
      */
-    fun declinedTransaction(): Optional<DeclinedTransaction> = Optional.ofNullable(declinedTransaction.getNullable("declined_transaction"))
+    fun declinedTransaction(): Optional<DeclinedTransaction> =
+        Optional.ofNullable(declinedTransaction.getNullable("declined_transaction"))
 
     /**
-     * If the authorization attempt succeeds, this will contain the resulting Pending
-     * Transaction object. The Pending Transaction's `source` will be of
-     * `category: card_authorization`.
+     * If the authorization attempt succeeds, this will contain the resulting Pending Transaction
+     * object. The Pending Transaction's `source` will be of `category: card_authorization`.
      */
-    fun pendingTransaction(): Optional<PendingTransaction> = Optional.ofNullable(pendingTransaction.getNullable("pending_transaction"))
+    fun pendingTransaction(): Optional<PendingTransaction> =
+        Optional.ofNullable(pendingTransaction.getNullable("pending_transaction"))
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -70,17 +56,16 @@ class SimulationCardAuthorizationCreateResponse private constructor(
 
     /**
      * If the authorization attempt fails, this will contain the resulting
-     * [Declined Transaction](#declined-transactions) object. The Declined
-     * Transaction's `source` will be of `category: card_decline`.
+     * [Declined Transaction](#declined-transactions) object. The Declined Transaction's `source`
+     * will be of `category: card_decline`.
      */
     @JsonProperty("declined_transaction")
     @ExcludeMissing
     fun _declinedTransaction() = declinedTransaction
 
     /**
-     * If the authorization attempt succeeds, this will contain the resulting Pending
-     * Transaction object. The Pending Transaction's `source` will be of
-     * `category: card_authorization`.
+     * If the authorization attempt succeeds, this will contain the resulting Pending Transaction
+     * object. The Pending Transaction's `source` will be of `category: card_authorization`.
      */
     @JsonProperty("pending_transaction")
     @ExcludeMissing
@@ -90,9 +75,7 @@ class SimulationCardAuthorizationCreateResponse private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `inbound_card_authorization_simulation_result`.
      */
-    @JsonProperty("type")
-    @ExcludeMissing
-    fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -100,45 +83,46 @@ class SimulationCardAuthorizationCreateResponse private constructor(
 
     fun validate(): SimulationCardAuthorizationCreateResponse = apply {
         if (!validated) {
-          declinedTransaction().map { it.validate() }
-          pendingTransaction().map { it.validate() }
-          type()
-          validated = true
+            declinedTransaction().map { it.validate() }
+            pendingTransaction().map { it.validate() }
+            type()
+            validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is SimulationCardAuthorizationCreateResponse &&
-          this.declinedTransaction == other.declinedTransaction &&
-          this.pendingTransaction == other.pendingTransaction &&
-          this.type == other.type &&
-          this.additionalProperties == other.additionalProperties
+        return other is SimulationCardAuthorizationCreateResponse &&
+            this.declinedTransaction == other.declinedTransaction &&
+            this.pendingTransaction == other.pendingTransaction &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-      if (hashCode == 0) {
-        hashCode = Objects.hash(
-            declinedTransaction,
-            pendingTransaction,
-            type,
-            additionalProperties,
-        )
-      }
-      return hashCode
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    declinedTransaction,
+                    pendingTransaction,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
     }
 
-    override fun toString() = "SimulationCardAuthorizationCreateResponse{declinedTransaction=$declinedTransaction, pendingTransaction=$pendingTransaction, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() =
+        "SimulationCardAuthorizationCreateResponse{declinedTransaction=$declinedTransaction, pendingTransaction=$pendingTransaction, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     class Builder {
@@ -149,7 +133,9 @@ class SimulationCardAuthorizationCreateResponse private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(simulationCardAuthorizationCreateResponse: SimulationCardAuthorizationCreateResponse) = apply {
+        internal fun from(
+            simulationCardAuthorizationCreateResponse: SimulationCardAuthorizationCreateResponse
+        ) = apply {
             this.declinedTransaction = simulationCardAuthorizationCreateResponse.declinedTransaction
             this.pendingTransaction = simulationCardAuthorizationCreateResponse.pendingTransaction
             this.type = simulationCardAuthorizationCreateResponse.type
@@ -158,15 +144,16 @@ class SimulationCardAuthorizationCreateResponse private constructor(
 
         /**
          * If the authorization attempt fails, this will contain the resulting
-         * [Declined Transaction](#declined-transactions) object. The Declined
-         * Transaction's `source` will be of `category: card_decline`.
+         * [Declined Transaction](#declined-transactions) object. The Declined Transaction's
+         * `source` will be of `category: card_decline`.
          */
-        fun declinedTransaction(declinedTransaction: DeclinedTransaction) = declinedTransaction(JsonField.of(declinedTransaction))
+        fun declinedTransaction(declinedTransaction: DeclinedTransaction) =
+            declinedTransaction(JsonField.of(declinedTransaction))
 
         /**
          * If the authorization attempt fails, this will contain the resulting
-         * [Declined Transaction](#declined-transactions) object. The Declined
-         * Transaction's `source` will be of `category: card_decline`.
+         * [Declined Transaction](#declined-transactions) object. The Declined Transaction's
+         * `source` will be of `category: card_decline`.
          */
         @JsonProperty("declined_transaction")
         @ExcludeMissing
@@ -176,15 +163,16 @@ class SimulationCardAuthorizationCreateResponse private constructor(
 
         /**
          * If the authorization attempt succeeds, this will contain the resulting Pending
-         * Transaction object. The Pending Transaction's `source` will be of
-         * `category: card_authorization`.
+         * Transaction object. The Pending Transaction's `source` will be of `category:
+         * card_authorization`.
          */
-        fun pendingTransaction(pendingTransaction: PendingTransaction) = pendingTransaction(JsonField.of(pendingTransaction))
+        fun pendingTransaction(pendingTransaction: PendingTransaction) =
+            pendingTransaction(JsonField.of(pendingTransaction))
 
         /**
          * If the authorization attempt succeeds, this will contain the resulting Pending
-         * Transaction object. The Pending Transaction's `source` will be of
-         * `category: card_authorization`.
+         * Transaction object. The Pending Transaction's `source` will be of `category:
+         * card_authorization`.
          */
         @JsonProperty("pending_transaction")
         @ExcludeMissing
@@ -204,9 +192,7 @@ class SimulationCardAuthorizationCreateResponse private constructor(
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply {
-            this.type = type
-        }
+        fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -222,26 +208,29 @@ class SimulationCardAuthorizationCreateResponse private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): SimulationCardAuthorizationCreateResponse = SimulationCardAuthorizationCreateResponse(
-            declinedTransaction,
-            pendingTransaction,
-            type,
-            additionalProperties.toUnmodifiable(),
-        )
+        fun build(): SimulationCardAuthorizationCreateResponse =
+            SimulationCardAuthorizationCreateResponse(
+                declinedTransaction,
+                pendingTransaction,
+                type,
+                additionalProperties.toUnmodifiable(),
+            )
     }
 
-    class Type @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+    class Type
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Type &&
-              this.value == other.value
+            return other is Type && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -250,7 +239,9 @@ class SimulationCardAuthorizationCreateResponse private constructor(
 
         companion object {
 
-            @JvmField val INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT = Type(JsonField.of("inbound_card_authorization_simulation_result"))
+            @JvmField
+            val INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT =
+                Type(JsonField.of("inbound_card_authorization_simulation_result"))
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }
@@ -264,15 +255,19 @@ class SimulationCardAuthorizationCreateResponse private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT -> Value.INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT ->
+                    Value.INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT -> Known.INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT
-            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT ->
+                    Known.INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT
+                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }

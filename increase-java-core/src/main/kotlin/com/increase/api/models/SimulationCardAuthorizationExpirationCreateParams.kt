@@ -4,68 +4,49 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import org.apache.hc.core5.http.ContentType
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
 import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.MultipartFormValue
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.Enum
-import com.increase.api.core.ContentTypes
-import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.models.*
+import java.util.Objects
 
-class SimulationCardAuthorizationExpirationCreateParams constructor(
-  private val cardPaymentId: String,
-  private val additionalQueryParams: Map<String, List<String>>,
-  private val additionalHeaders: Map<String, List<String>>,
-  private val additionalBodyProperties: Map<String, JsonValue>,
-
+class SimulationCardAuthorizationExpirationCreateParams
+constructor(
+    private val cardPaymentId: String,
+    private val additionalQueryParams: Map<String, List<String>>,
+    private val additionalHeaders: Map<String, List<String>>,
+    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun cardPaymentId(): String = cardPaymentId
 
     @JvmSynthetic
     internal fun getBody(): SimulationCardAuthorizationExpirationCreateBody {
-      return SimulationCardAuthorizationExpirationCreateBody(cardPaymentId, additionalBodyProperties)
+        return SimulationCardAuthorizationExpirationCreateBody(
+            cardPaymentId,
+            additionalBodyProperties
+        )
     }
 
-    @JvmSynthetic
-    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
-    @JvmSynthetic
-    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     @JsonDeserialize(builder = SimulationCardAuthorizationExpirationCreateBody.Builder::class)
     @NoAutoDetect
-    class SimulationCardAuthorizationExpirationCreateBody internal constructor(private val cardPaymentId: String?, private val additionalProperties: Map<String, JsonValue>, ) {
+    class SimulationCardAuthorizationExpirationCreateBody
+    internal constructor(
+        private val cardPaymentId: String?,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var hashCode: Int = 0
 
         /** The identifier of the Card Payment to expire. */
-        @JsonProperty("card_payment_id")
-        fun cardPaymentId(): String? = cardPaymentId
+        @JsonProperty("card_payment_id") fun cardPaymentId(): String? = cardPaymentId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -74,28 +55,28 @@ class SimulationCardAuthorizationExpirationCreateParams constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is SimulationCardAuthorizationExpirationCreateBody &&
-              this.cardPaymentId == other.cardPaymentId &&
-              this.additionalProperties == other.additionalProperties
+            return other is SimulationCardAuthorizationExpirationCreateBody &&
+                this.cardPaymentId == other.cardPaymentId &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(cardPaymentId, additionalProperties)
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode = Objects.hash(cardPaymentId, additionalProperties)
+            }
+            return hashCode
         }
 
-        override fun toString() = "SimulationCardAuthorizationExpirationCreateBody{cardPaymentId=$cardPaymentId, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "SimulationCardAuthorizationExpirationCreateBody{cardPaymentId=$cardPaymentId, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -104,16 +85,19 @@ class SimulationCardAuthorizationExpirationCreateParams constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(simulationCardAuthorizationExpirationCreateBody: SimulationCardAuthorizationExpirationCreateBody) = apply {
+            internal fun from(
+                simulationCardAuthorizationExpirationCreateBody:
+                    SimulationCardAuthorizationExpirationCreateBody
+            ) = apply {
                 this.cardPaymentId = simulationCardAuthorizationExpirationCreateBody.cardPaymentId
-                additionalProperties(simulationCardAuthorizationExpirationCreateBody.additionalProperties)
+                additionalProperties(
+                    simulationCardAuthorizationExpirationCreateBody.additionalProperties
+                )
             }
 
             /** The identifier of the Card Payment to expire. */
             @JsonProperty("card_payment_id")
-            fun cardPaymentId(cardPaymentId: String) = apply {
-                this.cardPaymentId = cardPaymentId
-            }
+            fun cardPaymentId(cardPaymentId: String) = apply { this.cardPaymentId = cardPaymentId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -129,9 +113,11 @@ class SimulationCardAuthorizationExpirationCreateParams constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): SimulationCardAuthorizationExpirationCreateBody = SimulationCardAuthorizationExpirationCreateBody(checkNotNull(cardPaymentId) {
-                "`cardPaymentId` is required but was not set"
-            }, additionalProperties.toUnmodifiable())
+            fun build(): SimulationCardAuthorizationExpirationCreateBody =
+                SimulationCardAuthorizationExpirationCreateBody(
+                    checkNotNull(cardPaymentId) { "`cardPaymentId` is required but was not set" },
+                    additionalProperties.toUnmodifiable()
+                )
         }
     }
 
@@ -142,34 +128,34 @@ class SimulationCardAuthorizationExpirationCreateParams constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is SimulationCardAuthorizationExpirationCreateParams &&
-          this.cardPaymentId == other.cardPaymentId &&
-          this.additionalQueryParams == other.additionalQueryParams &&
-          this.additionalHeaders == other.additionalHeaders &&
-          this.additionalBodyProperties == other.additionalBodyProperties
+        return other is SimulationCardAuthorizationExpirationCreateParams &&
+            this.cardPaymentId == other.cardPaymentId &&
+            this.additionalQueryParams == other.additionalQueryParams &&
+            this.additionalHeaders == other.additionalHeaders &&
+            this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          cardPaymentId,
-          additionalQueryParams,
-          additionalHeaders,
-          additionalBodyProperties,
-      )
+        return Objects.hash(
+            cardPaymentId,
+            additionalQueryParams,
+            additionalHeaders,
+            additionalBodyProperties,
+        )
     }
 
-    override fun toString() = "SimulationCardAuthorizationExpirationCreateParams{cardPaymentId=$cardPaymentId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() =
+        "SimulationCardAuthorizationExpirationCreateParams{cardPaymentId=$cardPaymentId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -181,17 +167,22 @@ class SimulationCardAuthorizationExpirationCreateParams constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(simulationCardAuthorizationExpirationCreateParams: SimulationCardAuthorizationExpirationCreateParams) = apply {
+        internal fun from(
+            simulationCardAuthorizationExpirationCreateParams:
+                SimulationCardAuthorizationExpirationCreateParams
+        ) = apply {
             this.cardPaymentId = simulationCardAuthorizationExpirationCreateParams.cardPaymentId
-            additionalQueryParams(simulationCardAuthorizationExpirationCreateParams.additionalQueryParams)
+            additionalQueryParams(
+                simulationCardAuthorizationExpirationCreateParams.additionalQueryParams
+            )
             additionalHeaders(simulationCardAuthorizationExpirationCreateParams.additionalHeaders)
-            additionalBodyProperties(simulationCardAuthorizationExpirationCreateParams.additionalBodyProperties)
+            additionalBodyProperties(
+                simulationCardAuthorizationExpirationCreateParams.additionalBodyProperties
+            )
         }
 
         /** The identifier of the Card Payment to expire. */
-        fun cardPaymentId(cardPaymentId: String) = apply {
-            this.cardPaymentId = cardPaymentId
-        }
+        fun cardPaymentId(cardPaymentId: String) = apply { this.cardPaymentId = cardPaymentId }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -231,9 +222,7 @@ class SimulationCardAuthorizationExpirationCreateParams constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply {
-            this.additionalHeaders.put(name, mutableListOf())
-        }
+        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -244,17 +233,17 @@ class SimulationCardAuthorizationExpirationCreateParams constructor(
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.putAll(additionalBodyProperties)
-        }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
 
-        fun build(): SimulationCardAuthorizationExpirationCreateParams = SimulationCardAuthorizationExpirationCreateParams(
-            checkNotNull(cardPaymentId) {
-                "`cardPaymentId` is required but was not set"
-            },
-            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalBodyProperties.toUnmodifiable(),
-        )
+        fun build(): SimulationCardAuthorizationExpirationCreateParams =
+            SimulationCardAuthorizationExpirationCreateParams(
+                checkNotNull(cardPaymentId) { "`cardPaymentId` is required but was not set" },
+                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalBodyProperties.toUnmodifiable(),
+            )
     }
 }
