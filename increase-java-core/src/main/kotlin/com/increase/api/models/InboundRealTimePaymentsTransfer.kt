@@ -568,6 +568,8 @@ private constructor(
 
             @JvmField val CONFIRMED = Status(JsonField.of("confirmed"))
 
+            @JvmField val DECLINED = Status(JsonField.of("declined"))
+
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
 
@@ -575,12 +577,14 @@ private constructor(
             PENDING_CONFIRMATION,
             TIMED_OUT,
             CONFIRMED,
+            DECLINED,
         }
 
         enum class Value {
             PENDING_CONFIRMATION,
             TIMED_OUT,
             CONFIRMED,
+            DECLINED,
             _UNKNOWN,
         }
 
@@ -589,6 +593,7 @@ private constructor(
                 PENDING_CONFIRMATION -> Value.PENDING_CONFIRMATION
                 TIMED_OUT -> Value.TIMED_OUT
                 CONFIRMED -> Value.CONFIRMED
+                DECLINED -> Value.DECLINED
                 else -> Value._UNKNOWN
             }
 
@@ -597,6 +602,7 @@ private constructor(
                 PENDING_CONFIRMATION -> Known.PENDING_CONFIRMATION
                 TIMED_OUT -> Known.TIMED_OUT
                 CONFIRMED -> Known.CONFIRMED
+                DECLINED -> Known.DECLINED
                 else -> throw IncreaseInvalidDataException("Unknown Status: $value")
             }
 
