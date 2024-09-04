@@ -5,54 +5,39 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
+import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.JsonNull
-import com.increase.api.core.JsonField
-import com.increase.api.core.Enum
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.time.OffsetDateTime
+import java.util.Objects
+import java.util.Optional
 
 /**
- * Real Time Decisions are created when your application needs to take action in
- * real-time to some event such as a card authorization. For more information, see
- * our
+ * Real Time Decisions are created when your application needs to take action in real-time to some
+ * event such as a card authorization. For more information, see our
  * [Real-Time Decisions guide](https://increase.com/documentation/real-time-decisions).
  */
 @JsonDeserialize(builder = RealTimeDecision.Builder::class)
 @NoAutoDetect
-class RealTimeDecision private constructor(
-  private val cardAuthorization: JsonField<CardAuthorization>,
-  private val category: JsonField<Category>,
-  private val createdAt: JsonField<OffsetDateTime>,
-  private val digitalWalletAuthentication: JsonField<DigitalWalletAuthentication>,
-  private val digitalWalletToken: JsonField<DigitalWalletToken>,
-  private val id: JsonField<String>,
-  private val status: JsonField<Status>,
-  private val timeoutAt: JsonField<OffsetDateTime>,
-  private val type: JsonField<Type>,
-  private val additionalProperties: Map<String, JsonValue>,
-
+class RealTimeDecision
+private constructor(
+    private val cardAuthorization: JsonField<CardAuthorization>,
+    private val category: JsonField<Category>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val digitalWalletAuthentication: JsonField<DigitalWalletAuthentication>,
+    private val digitalWalletToken: JsonField<DigitalWalletToken>,
+    private val id: JsonField<String>,
+    private val status: JsonField<Status>,
+    private val timeoutAt: JsonField<OffsetDateTime>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: Map<String, JsonValue>,
 ) {
 
     private var validated: Boolean = false
@@ -60,22 +45,27 @@ class RealTimeDecision private constructor(
     private var hashCode: Int = 0
 
     /** Fields related to a card authorization. */
-    fun cardAuthorization(): Optional<CardAuthorization> = Optional.ofNullable(cardAuthorization.getNullable("card_authorization"))
+    fun cardAuthorization(): Optional<CardAuthorization> =
+        Optional.ofNullable(cardAuthorization.getNullable("card_authorization"))
 
     /** The category of the Real-Time Decision. */
     fun category(): Category = category.getRequired("category")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-     * the Real-Time Decision was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Real-Time
+     * Decision was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /** Fields related to a digital wallet authentication attempt. */
-    fun digitalWalletAuthentication(): Optional<DigitalWalletAuthentication> = Optional.ofNullable(digitalWalletAuthentication.getNullable("digital_wallet_authentication"))
+    fun digitalWalletAuthentication(): Optional<DigitalWalletAuthentication> =
+        Optional.ofNullable(
+            digitalWalletAuthentication.getNullable("digital_wallet_authentication")
+        )
 
     /** Fields related to a digital wallet token provisioning attempt. */
-    fun digitalWalletToken(): Optional<DigitalWalletToken> = Optional.ofNullable(digitalWalletToken.getNullable("digital_wallet_token"))
+    fun digitalWalletToken(): Optional<DigitalWalletToken> =
+        Optional.ofNullable(digitalWalletToken.getNullable("digital_wallet_token"))
 
     /** The Real-Time Decision identifier. */
     fun id(): String = id.getRequired("id")
@@ -84,8 +74,8 @@ class RealTimeDecision private constructor(
     fun status(): Status = status.getRequired("status")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-     * your application can no longer respond to the Real-Time Decision.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which your
+     * application can no longer respond to the Real-Time Decision.
      */
     fun timeoutAt(): OffsetDateTime = timeoutAt.getRequired("timeout_at")
 
@@ -96,22 +86,16 @@ class RealTimeDecision private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** Fields related to a card authorization. */
-    @JsonProperty("card_authorization")
-    @ExcludeMissing
-    fun _cardAuthorization() = cardAuthorization
+    @JsonProperty("card_authorization") @ExcludeMissing fun _cardAuthorization() = cardAuthorization
 
     /** The category of the Real-Time Decision. */
-    @JsonProperty("category")
-    @ExcludeMissing
-    fun _category() = category
+    @JsonProperty("category") @ExcludeMissing fun _category() = category
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-     * the Real-Time Decision was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Real-Time
+     * Decision was created.
      */
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    fun _createdAt() = createdAt
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
     /** Fields related to a digital wallet authentication attempt. */
     @JsonProperty("digital_wallet_authentication")
@@ -124,30 +108,22 @@ class RealTimeDecision private constructor(
     fun _digitalWalletToken() = digitalWalletToken
 
     /** The Real-Time Decision identifier. */
-    @JsonProperty("id")
-    @ExcludeMissing
-    fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /** The status of the Real-Time Decision. */
-    @JsonProperty("status")
-    @ExcludeMissing
-    fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-     * your application can no longer respond to the Real-Time Decision.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which your
+     * application can no longer respond to the Real-Time Decision.
      */
-    @JsonProperty("timeout_at")
-    @ExcludeMissing
-    fun _timeoutAt() = timeoutAt
+    @JsonProperty("timeout_at") @ExcludeMissing fun _timeoutAt() = timeoutAt
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `real_time_decision`.
      */
-    @JsonProperty("type")
-    @ExcludeMissing
-    fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -155,63 +131,64 @@ class RealTimeDecision private constructor(
 
     fun validate(): RealTimeDecision = apply {
         if (!validated) {
-          cardAuthorization().map { it.validate() }
-          category()
-          createdAt()
-          digitalWalletAuthentication().map { it.validate() }
-          digitalWalletToken().map { it.validate() }
-          id()
-          status()
-          timeoutAt()
-          type()
-          validated = true
+            cardAuthorization().map { it.validate() }
+            category()
+            createdAt()
+            digitalWalletAuthentication().map { it.validate() }
+            digitalWalletToken().map { it.validate() }
+            id()
+            status()
+            timeoutAt()
+            type()
+            validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is RealTimeDecision &&
-          this.cardAuthorization == other.cardAuthorization &&
-          this.category == other.category &&
-          this.createdAt == other.createdAt &&
-          this.digitalWalletAuthentication == other.digitalWalletAuthentication &&
-          this.digitalWalletToken == other.digitalWalletToken &&
-          this.id == other.id &&
-          this.status == other.status &&
-          this.timeoutAt == other.timeoutAt &&
-          this.type == other.type &&
-          this.additionalProperties == other.additionalProperties
+        return other is RealTimeDecision &&
+            this.cardAuthorization == other.cardAuthorization &&
+            this.category == other.category &&
+            this.createdAt == other.createdAt &&
+            this.digitalWalletAuthentication == other.digitalWalletAuthentication &&
+            this.digitalWalletToken == other.digitalWalletToken &&
+            this.id == other.id &&
+            this.status == other.status &&
+            this.timeoutAt == other.timeoutAt &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-      if (hashCode == 0) {
-        hashCode = Objects.hash(
-            cardAuthorization,
-            category,
-            createdAt,
-            digitalWalletAuthentication,
-            digitalWalletToken,
-            id,
-            status,
-            timeoutAt,
-            type,
-            additionalProperties,
-        )
-      }
-      return hashCode
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    cardAuthorization,
+                    category,
+                    createdAt,
+                    digitalWalletAuthentication,
+                    digitalWalletToken,
+                    id,
+                    status,
+                    timeoutAt,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
     }
 
-    override fun toString() = "RealTimeDecision{cardAuthorization=$cardAuthorization, category=$category, createdAt=$createdAt, digitalWalletAuthentication=$digitalWalletAuthentication, digitalWalletToken=$digitalWalletToken, id=$id, status=$status, timeoutAt=$timeoutAt, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() =
+        "RealTimeDecision{cardAuthorization=$cardAuthorization, category=$category, createdAt=$createdAt, digitalWalletAuthentication=$digitalWalletAuthentication, digitalWalletToken=$digitalWalletToken, id=$id, status=$status, timeoutAt=$timeoutAt, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     class Builder {
@@ -219,7 +196,8 @@ class RealTimeDecision private constructor(
         private var cardAuthorization: JsonField<CardAuthorization> = JsonMissing.of()
         private var category: JsonField<Category> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var digitalWalletAuthentication: JsonField<DigitalWalletAuthentication> = JsonMissing.of()
+        private var digitalWalletAuthentication: JsonField<DigitalWalletAuthentication> =
+            JsonMissing.of()
         private var digitalWalletToken: JsonField<DigitalWalletToken> = JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
@@ -242,7 +220,8 @@ class RealTimeDecision private constructor(
         }
 
         /** Fields related to a card authorization. */
-        fun cardAuthorization(cardAuthorization: CardAuthorization) = cardAuthorization(JsonField.of(cardAuthorization))
+        fun cardAuthorization(cardAuthorization: CardAuthorization) =
+            cardAuthorization(JsonField.of(cardAuthorization))
 
         /** Fields related to a card authorization. */
         @JsonProperty("card_authorization")
@@ -257,38 +236,36 @@ class RealTimeDecision private constructor(
         /** The category of the Real-Time Decision. */
         @JsonProperty("category")
         @ExcludeMissing
-        fun category(category: JsonField<Category>) = apply {
-            this.category = category
-        }
+        fun category(category: JsonField<Category>) = apply { this.category = category }
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * the Real-Time Decision was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * Real-Time Decision was created.
          */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * the Real-Time Decision was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * Real-Time Decision was created.
          */
         @JsonProperty("created_at")
         @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
-            this.createdAt = createdAt
-        }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** Fields related to a digital wallet authentication attempt. */
-        fun digitalWalletAuthentication(digitalWalletAuthentication: DigitalWalletAuthentication) = digitalWalletAuthentication(JsonField.of(digitalWalletAuthentication))
+        fun digitalWalletAuthentication(digitalWalletAuthentication: DigitalWalletAuthentication) =
+            digitalWalletAuthentication(JsonField.of(digitalWalletAuthentication))
 
         /** Fields related to a digital wallet authentication attempt. */
         @JsonProperty("digital_wallet_authentication")
         @ExcludeMissing
-        fun digitalWalletAuthentication(digitalWalletAuthentication: JsonField<DigitalWalletAuthentication>) = apply {
-            this.digitalWalletAuthentication = digitalWalletAuthentication
-        }
+        fun digitalWalletAuthentication(
+            digitalWalletAuthentication: JsonField<DigitalWalletAuthentication>
+        ) = apply { this.digitalWalletAuthentication = digitalWalletAuthentication }
 
         /** Fields related to a digital wallet token provisioning attempt. */
-        fun digitalWalletToken(digitalWalletToken: DigitalWalletToken) = digitalWalletToken(JsonField.of(digitalWalletToken))
+        fun digitalWalletToken(digitalWalletToken: DigitalWalletToken) =
+            digitalWalletToken(JsonField.of(digitalWalletToken))
 
         /** Fields related to a digital wallet token provisioning attempt. */
         @JsonProperty("digital_wallet_token")
@@ -301,11 +278,7 @@ class RealTimeDecision private constructor(
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Real-Time Decision identifier. */
-        @JsonProperty("id")
-        @ExcludeMissing
-        fun id(id: JsonField<String>) = apply {
-            this.id = id
-        }
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The status of the Real-Time Decision. */
         fun status(status: Status) = status(JsonField.of(status))
@@ -313,25 +286,21 @@ class RealTimeDecision private constructor(
         /** The status of the Real-Time Decision. */
         @JsonProperty("status")
         @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply {
-            this.status = status
-        }
+        fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * your application can no longer respond to the Real-Time Decision.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which your
+         * application can no longer respond to the Real-Time Decision.
          */
         fun timeoutAt(timeoutAt: OffsetDateTime) = timeoutAt(JsonField.of(timeoutAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * your application can no longer respond to the Real-Time Decision.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which your
+         * application can no longer respond to the Real-Time Decision.
          */
         @JsonProperty("timeout_at")
         @ExcludeMissing
-        fun timeoutAt(timeoutAt: JsonField<OffsetDateTime>) = apply {
-            this.timeoutAt = timeoutAt
-        }
+        fun timeoutAt(timeoutAt: JsonField<OffsetDateTime>) = apply { this.timeoutAt = timeoutAt }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -345,9 +314,7 @@ class RealTimeDecision private constructor(
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply {
-            this.type = type
-        }
+        fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -363,49 +330,50 @@ class RealTimeDecision private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): RealTimeDecision = RealTimeDecision(
-            cardAuthorization,
-            category,
-            createdAt,
-            digitalWalletAuthentication,
-            digitalWalletToken,
-            id,
-            status,
-            timeoutAt,
-            type,
-            additionalProperties.toUnmodifiable(),
-        )
+        fun build(): RealTimeDecision =
+            RealTimeDecision(
+                cardAuthorization,
+                category,
+                createdAt,
+                digitalWalletAuthentication,
+                digitalWalletToken,
+                id,
+                status,
+                timeoutAt,
+                type,
+                additionalProperties.toUnmodifiable(),
+            )
     }
 
     /** Fields related to a card authorization. */
     @JsonDeserialize(builder = CardAuthorization.Builder::class)
     @NoAutoDetect
-    class CardAuthorization private constructor(
-      private val accountId: JsonField<String>,
-      private val cardId: JsonField<String>,
-      private val decision: JsonField<Decision>,
-      private val digitalWalletTokenId: JsonField<String>,
-      private val merchantAcceptorId: JsonField<String>,
-      private val merchantCategoryCode: JsonField<String>,
-      private val merchantCity: JsonField<String>,
-      private val merchantCountry: JsonField<String>,
-      private val merchantDescriptor: JsonField<String>,
-      private val merchantPostalCode: JsonField<String>,
-      private val merchantState: JsonField<String>,
-      private val networkDetails: JsonField<NetworkDetails>,
-      private val networkIdentifiers: JsonField<NetworkIdentifiers>,
-      private val networkRiskScore: JsonField<Long>,
-      private val physicalCardId: JsonField<String>,
-      private val presentmentAmount: JsonField<Long>,
-      private val presentmentCurrency: JsonField<String>,
-      private val processingCategory: JsonField<ProcessingCategory>,
-      private val requestDetails: JsonField<RequestDetails>,
-      private val settlementAmount: JsonField<Long>,
-      private val settlementCurrency: JsonField<String>,
-      private val upcomingCardPaymentId: JsonField<String>,
-      private val verification: JsonField<Verification>,
-      private val additionalProperties: Map<String, JsonValue>,
-
+    class CardAuthorization
+    private constructor(
+        private val accountId: JsonField<String>,
+        private val cardId: JsonField<String>,
+        private val decision: JsonField<Decision>,
+        private val digitalWalletTokenId: JsonField<String>,
+        private val merchantAcceptorId: JsonField<String>,
+        private val merchantCategoryCode: JsonField<String>,
+        private val merchantCity: JsonField<String>,
+        private val merchantCountry: JsonField<String>,
+        private val merchantDescriptor: JsonField<String>,
+        private val merchantPostalCode: JsonField<String>,
+        private val merchantState: JsonField<String>,
+        private val networkDetails: JsonField<NetworkDetails>,
+        private val networkIdentifiers: JsonField<NetworkIdentifiers>,
+        private val networkRiskScore: JsonField<Long>,
+        private val physicalCardId: JsonField<String>,
+        private val presentmentAmount: JsonField<Long>,
+        private val presentmentCurrency: JsonField<String>,
+        private val processingCategory: JsonField<ProcessingCategory>,
+        private val requestDetails: JsonField<RequestDetails>,
+        private val settlementAmount: JsonField<Long>,
+        private val settlementCurrency: JsonField<String>,
+        private val upcomingCardPaymentId: JsonField<String>,
+        private val verification: JsonField<Verification>,
+        private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var validated: Boolean = false
@@ -422,84 +390,93 @@ class RealTimeDecision private constructor(
         fun decision(): Optional<Decision> = Optional.ofNullable(decision.getNullable("decision"))
 
         /**
-         * If the authorization was made via a Digital Wallet Token (such as an Apple Pay
-         * purchase), the identifier of the token that was used.
+         * If the authorization was made via a Digital Wallet Token (such as an Apple Pay purchase),
+         * the identifier of the token that was used.
          */
-        fun digitalWalletTokenId(): Optional<String> = Optional.ofNullable(digitalWalletTokenId.getNullable("digital_wallet_token_id"))
+        fun digitalWalletTokenId(): Optional<String> =
+            Optional.ofNullable(digitalWalletTokenId.getNullable("digital_wallet_token_id"))
 
         /**
-         * The merchant identifier (commonly abbreviated as MID) of the merchant the card
-         * is transacting with.
+         * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+         * transacting with.
          */
         fun merchantAcceptorId(): String = merchantAcceptorId.getRequired("merchant_acceptor_id")
 
         /**
-         * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the
-         * card is transacting with.
+         * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
+         * transacting with.
          */
-        fun merchantCategoryCode(): Optional<String> = Optional.ofNullable(merchantCategoryCode.getNullable("merchant_category_code"))
+        fun merchantCategoryCode(): Optional<String> =
+            Optional.ofNullable(merchantCategoryCode.getNullable("merchant_category_code"))
 
         /** The city the merchant resides in. */
-        fun merchantCity(): Optional<String> = Optional.ofNullable(merchantCity.getNullable("merchant_city"))
+        fun merchantCity(): Optional<String> =
+            Optional.ofNullable(merchantCity.getNullable("merchant_city"))
 
         /** The country the merchant resides in. */
-        fun merchantCountry(): Optional<String> = Optional.ofNullable(merchantCountry.getNullable("merchant_country"))
+        fun merchantCountry(): Optional<String> =
+            Optional.ofNullable(merchantCountry.getNullable("merchant_country"))
 
         /** The merchant descriptor of the merchant the card is transacting with. */
         fun merchantDescriptor(): String = merchantDescriptor.getRequired("merchant_descriptor")
 
         /**
-         * The merchant's postal code. For US merchants this is either a 5-digit or 9-digit
-         * ZIP code, where the first 5 and last 4 are separated by a dash.
+         * The merchant's postal code. For US merchants this is either a 5-digit or 9-digit ZIP
+         * code, where the first 5 and last 4 are separated by a dash.
          */
-        fun merchantPostalCode(): Optional<String> = Optional.ofNullable(merchantPostalCode.getNullable("merchant_postal_code"))
+        fun merchantPostalCode(): Optional<String> =
+            Optional.ofNullable(merchantPostalCode.getNullable("merchant_postal_code"))
 
         /** The state the merchant resides in. */
-        fun merchantState(): Optional<String> = Optional.ofNullable(merchantState.getNullable("merchant_state"))
+        fun merchantState(): Optional<String> =
+            Optional.ofNullable(merchantState.getNullable("merchant_state"))
 
         /** Fields specific to the `network`. */
         fun networkDetails(): NetworkDetails = networkDetails.getRequired("network_details")
 
         /** Network-specific identifiers for a specific request or transaction. */
-        fun networkIdentifiers(): NetworkIdentifiers = networkIdentifiers.getRequired("network_identifiers")
+        fun networkIdentifiers(): NetworkIdentifiers =
+            networkIdentifiers.getRequired("network_identifiers")
 
         /**
          * The risk score generated by the card network. For Visa this is the Visa Advanced
          * Authorization risk score, from 0 to 99, where 99 is the riskiest.
          */
-        fun networkRiskScore(): Optional<Long> = Optional.ofNullable(networkRiskScore.getNullable("network_risk_score"))
+        fun networkRiskScore(): Optional<Long> =
+            Optional.ofNullable(networkRiskScore.getNullable("network_risk_score"))
 
         /**
-         * If the authorization was made in-person with a physical card, the Physical Card
-         * that was used.
+         * If the authorization was made in-person with a physical card, the Physical Card that was
+         * used.
          */
-        fun physicalCardId(): Optional<String> = Optional.ofNullable(physicalCardId.getNullable("physical_card_id"))
+        fun physicalCardId(): Optional<String> =
+            Optional.ofNullable(physicalCardId.getNullable("physical_card_id"))
 
         /**
-         * The amount of the attempted authorization in the currency the card user sees at
-         * the time of purchase, in the minor unit of that currency. For dollars, for
-         * example, this is cents.
+         * The amount of the attempted authorization in the currency the card user sees at the time
+         * of purchase, in the minor unit of that currency. For dollars, for example, this is cents.
          */
         fun presentmentAmount(): Long = presentmentAmount.getRequired("presentment_amount")
 
         /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the currency the
-         * user sees at the time of purchase.
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the currency the user
+         * sees at the time of purchase.
          */
         fun presentmentCurrency(): String = presentmentCurrency.getRequired("presentment_currency")
 
         /**
-         * The processing category describes the intent behind the authorization, such as
-         * whether it was used for bill payments or an automatic fuel dispenser.
+         * The processing category describes the intent behind the authorization, such as whether it
+         * was used for bill payments or an automatic fuel dispenser.
          */
-        fun processingCategory(): ProcessingCategory = processingCategory.getRequired("processing_category")
+        fun processingCategory(): ProcessingCategory =
+            processingCategory.getRequired("processing_category")
 
         /** Fields specific to the type of request, such as an incremental authorization. */
         fun requestDetails(): RequestDetails = requestDetails.getRequired("request_details")
 
         /**
-         * The amount of the attempted authorization in the currency it will be settled in.
-         * This currency is the same as that of the Account the card belongs to.
+         * The amount of the attempted authorization in the currency it will be settled in. This
+         * currency is the same as that of the Account the card belongs to.
          */
         fun settlementAmount(): Long = settlementAmount.getRequired("settlement_amount")
 
@@ -510,62 +487,53 @@ class RealTimeDecision private constructor(
         fun settlementCurrency(): String = settlementCurrency.getRequired("settlement_currency")
 
         /**
-         * The identifier of the Card Payment this authorization will belong to. Available
-         * in the API once the card authorization has completed.
+         * The identifier of the Card Payment this authorization will belong to. Available in the
+         * API once the card authorization has completed.
          */
-        fun upcomingCardPaymentId(): String = upcomingCardPaymentId.getRequired("upcoming_card_payment_id")
+        fun upcomingCardPaymentId(): String =
+            upcomingCardPaymentId.getRequired("upcoming_card_payment_id")
 
         /** Fields related to verification of cardholder-provided values. */
         fun verification(): Verification = verification.getRequired("verification")
 
         /** The identifier of the Account the authorization will debit. */
-        @JsonProperty("account_id")
-        @ExcludeMissing
-        fun _accountId() = accountId
+        @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
 
         /** The identifier of the Card that is being authorized. */
-        @JsonProperty("card_id")
-        @ExcludeMissing
-        fun _cardId() = cardId
+        @JsonProperty("card_id") @ExcludeMissing fun _cardId() = cardId
 
         /** Whether or not the authorization was approved. */
-        @JsonProperty("decision")
-        @ExcludeMissing
-        fun _decision() = decision
+        @JsonProperty("decision") @ExcludeMissing fun _decision() = decision
 
         /**
-         * If the authorization was made via a Digital Wallet Token (such as an Apple Pay
-         * purchase), the identifier of the token that was used.
+         * If the authorization was made via a Digital Wallet Token (such as an Apple Pay purchase),
+         * the identifier of the token that was used.
          */
         @JsonProperty("digital_wallet_token_id")
         @ExcludeMissing
         fun _digitalWalletTokenId() = digitalWalletTokenId
 
         /**
-         * The merchant identifier (commonly abbreviated as MID) of the merchant the card
-         * is transacting with.
+         * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+         * transacting with.
          */
         @JsonProperty("merchant_acceptor_id")
         @ExcludeMissing
         fun _merchantAcceptorId() = merchantAcceptorId
 
         /**
-         * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the
-         * card is transacting with.
+         * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
+         * transacting with.
          */
         @JsonProperty("merchant_category_code")
         @ExcludeMissing
         fun _merchantCategoryCode() = merchantCategoryCode
 
         /** The city the merchant resides in. */
-        @JsonProperty("merchant_city")
-        @ExcludeMissing
-        fun _merchantCity() = merchantCity
+        @JsonProperty("merchant_city") @ExcludeMissing fun _merchantCity() = merchantCity
 
         /** The country the merchant resides in. */
-        @JsonProperty("merchant_country")
-        @ExcludeMissing
-        fun _merchantCountry() = merchantCountry
+        @JsonProperty("merchant_country") @ExcludeMissing fun _merchantCountry() = merchantCountry
 
         /** The merchant descriptor of the merchant the card is transacting with. */
         @JsonProperty("merchant_descriptor")
@@ -573,22 +541,18 @@ class RealTimeDecision private constructor(
         fun _merchantDescriptor() = merchantDescriptor
 
         /**
-         * The merchant's postal code. For US merchants this is either a 5-digit or 9-digit
-         * ZIP code, where the first 5 and last 4 are separated by a dash.
+         * The merchant's postal code. For US merchants this is either a 5-digit or 9-digit ZIP
+         * code, where the first 5 and last 4 are separated by a dash.
          */
         @JsonProperty("merchant_postal_code")
         @ExcludeMissing
         fun _merchantPostalCode() = merchantPostalCode
 
         /** The state the merchant resides in. */
-        @JsonProperty("merchant_state")
-        @ExcludeMissing
-        fun _merchantState() = merchantState
+        @JsonProperty("merchant_state") @ExcludeMissing fun _merchantState() = merchantState
 
         /** Fields specific to the `network`. */
-        @JsonProperty("network_details")
-        @ExcludeMissing
-        fun _networkDetails() = networkDetails
+        @JsonProperty("network_details") @ExcludeMissing fun _networkDetails() = networkDetails
 
         /** Network-specific identifiers for a specific request or transaction. */
         @JsonProperty("network_identifiers")
@@ -604,46 +568,41 @@ class RealTimeDecision private constructor(
         fun _networkRiskScore() = networkRiskScore
 
         /**
-         * If the authorization was made in-person with a physical card, the Physical Card
-         * that was used.
+         * If the authorization was made in-person with a physical card, the Physical Card that was
+         * used.
          */
-        @JsonProperty("physical_card_id")
-        @ExcludeMissing
-        fun _physicalCardId() = physicalCardId
+        @JsonProperty("physical_card_id") @ExcludeMissing fun _physicalCardId() = physicalCardId
 
         /**
-         * The amount of the attempted authorization in the currency the card user sees at
-         * the time of purchase, in the minor unit of that currency. For dollars, for
-         * example, this is cents.
+         * The amount of the attempted authorization in the currency the card user sees at the time
+         * of purchase, in the minor unit of that currency. For dollars, for example, this is cents.
          */
         @JsonProperty("presentment_amount")
         @ExcludeMissing
         fun _presentmentAmount() = presentmentAmount
 
         /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the currency the
-         * user sees at the time of purchase.
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the currency the user
+         * sees at the time of purchase.
          */
         @JsonProperty("presentment_currency")
         @ExcludeMissing
         fun _presentmentCurrency() = presentmentCurrency
 
         /**
-         * The processing category describes the intent behind the authorization, such as
-         * whether it was used for bill payments or an automatic fuel dispenser.
+         * The processing category describes the intent behind the authorization, such as whether it
+         * was used for bill payments or an automatic fuel dispenser.
          */
         @JsonProperty("processing_category")
         @ExcludeMissing
         fun _processingCategory() = processingCategory
 
         /** Fields specific to the type of request, such as an incremental authorization. */
-        @JsonProperty("request_details")
-        @ExcludeMissing
-        fun _requestDetails() = requestDetails
+        @JsonProperty("request_details") @ExcludeMissing fun _requestDetails() = requestDetails
 
         /**
-         * The amount of the attempted authorization in the currency it will be settled in.
-         * This currency is the same as that of the Account the card belongs to.
+         * The amount of the attempted authorization in the currency it will be settled in. This
+         * currency is the same as that of the Account the card belongs to.
          */
         @JsonProperty("settlement_amount")
         @ExcludeMissing
@@ -658,17 +617,15 @@ class RealTimeDecision private constructor(
         fun _settlementCurrency() = settlementCurrency
 
         /**
-         * The identifier of the Card Payment this authorization will belong to. Available
-         * in the API once the card authorization has completed.
+         * The identifier of the Card Payment this authorization will belong to. Available in the
+         * API once the card authorization has completed.
          */
         @JsonProperty("upcoming_card_payment_id")
         @ExcludeMissing
         fun _upcomingCardPaymentId() = upcomingCardPaymentId
 
         /** Fields related to verification of cardholder-provided values. */
-        @JsonProperty("verification")
-        @ExcludeMissing
-        fun _verification() = verification
+        @JsonProperty("verification") @ExcludeMissing fun _verification() = verification
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -676,105 +633,106 @@ class RealTimeDecision private constructor(
 
         fun validate(): CardAuthorization = apply {
             if (!validated) {
-              accountId()
-              cardId()
-              decision()
-              digitalWalletTokenId()
-              merchantAcceptorId()
-              merchantCategoryCode()
-              merchantCity()
-              merchantCountry()
-              merchantDescriptor()
-              merchantPostalCode()
-              merchantState()
-              networkDetails().validate()
-              networkIdentifiers().validate()
-              networkRiskScore()
-              physicalCardId()
-              presentmentAmount()
-              presentmentCurrency()
-              processingCategory()
-              requestDetails().validate()
-              settlementAmount()
-              settlementCurrency()
-              upcomingCardPaymentId()
-              verification().validate()
-              validated = true
+                accountId()
+                cardId()
+                decision()
+                digitalWalletTokenId()
+                merchantAcceptorId()
+                merchantCategoryCode()
+                merchantCity()
+                merchantCountry()
+                merchantDescriptor()
+                merchantPostalCode()
+                merchantState()
+                networkDetails().validate()
+                networkIdentifiers().validate()
+                networkRiskScore()
+                physicalCardId()
+                presentmentAmount()
+                presentmentCurrency()
+                processingCategory()
+                requestDetails().validate()
+                settlementAmount()
+                settlementCurrency()
+                upcomingCardPaymentId()
+                verification().validate()
+                validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is CardAuthorization &&
-              this.accountId == other.accountId &&
-              this.cardId == other.cardId &&
-              this.decision == other.decision &&
-              this.digitalWalletTokenId == other.digitalWalletTokenId &&
-              this.merchantAcceptorId == other.merchantAcceptorId &&
-              this.merchantCategoryCode == other.merchantCategoryCode &&
-              this.merchantCity == other.merchantCity &&
-              this.merchantCountry == other.merchantCountry &&
-              this.merchantDescriptor == other.merchantDescriptor &&
-              this.merchantPostalCode == other.merchantPostalCode &&
-              this.merchantState == other.merchantState &&
-              this.networkDetails == other.networkDetails &&
-              this.networkIdentifiers == other.networkIdentifiers &&
-              this.networkRiskScore == other.networkRiskScore &&
-              this.physicalCardId == other.physicalCardId &&
-              this.presentmentAmount == other.presentmentAmount &&
-              this.presentmentCurrency == other.presentmentCurrency &&
-              this.processingCategory == other.processingCategory &&
-              this.requestDetails == other.requestDetails &&
-              this.settlementAmount == other.settlementAmount &&
-              this.settlementCurrency == other.settlementCurrency &&
-              this.upcomingCardPaymentId == other.upcomingCardPaymentId &&
-              this.verification == other.verification &&
-              this.additionalProperties == other.additionalProperties
+            return other is CardAuthorization &&
+                this.accountId == other.accountId &&
+                this.cardId == other.cardId &&
+                this.decision == other.decision &&
+                this.digitalWalletTokenId == other.digitalWalletTokenId &&
+                this.merchantAcceptorId == other.merchantAcceptorId &&
+                this.merchantCategoryCode == other.merchantCategoryCode &&
+                this.merchantCity == other.merchantCity &&
+                this.merchantCountry == other.merchantCountry &&
+                this.merchantDescriptor == other.merchantDescriptor &&
+                this.merchantPostalCode == other.merchantPostalCode &&
+                this.merchantState == other.merchantState &&
+                this.networkDetails == other.networkDetails &&
+                this.networkIdentifiers == other.networkIdentifiers &&
+                this.networkRiskScore == other.networkRiskScore &&
+                this.physicalCardId == other.physicalCardId &&
+                this.presentmentAmount == other.presentmentAmount &&
+                this.presentmentCurrency == other.presentmentCurrency &&
+                this.processingCategory == other.processingCategory &&
+                this.requestDetails == other.requestDetails &&
+                this.settlementAmount == other.settlementAmount &&
+                this.settlementCurrency == other.settlementCurrency &&
+                this.upcomingCardPaymentId == other.upcomingCardPaymentId &&
+                this.verification == other.verification &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                accountId,
-                cardId,
-                decision,
-                digitalWalletTokenId,
-                merchantAcceptorId,
-                merchantCategoryCode,
-                merchantCity,
-                merchantCountry,
-                merchantDescriptor,
-                merchantPostalCode,
-                merchantState,
-                networkDetails,
-                networkIdentifiers,
-                networkRiskScore,
-                physicalCardId,
-                presentmentAmount,
-                presentmentCurrency,
-                processingCategory,
-                requestDetails,
-                settlementAmount,
-                settlementCurrency,
-                upcomingCardPaymentId,
-                verification,
-                additionalProperties,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        accountId,
+                        cardId,
+                        decision,
+                        digitalWalletTokenId,
+                        merchantAcceptorId,
+                        merchantCategoryCode,
+                        merchantCity,
+                        merchantCountry,
+                        merchantDescriptor,
+                        merchantPostalCode,
+                        merchantState,
+                        networkDetails,
+                        networkIdentifiers,
+                        networkRiskScore,
+                        physicalCardId,
+                        presentmentAmount,
+                        presentmentCurrency,
+                        processingCategory,
+                        requestDetails,
+                        settlementAmount,
+                        settlementCurrency,
+                        upcomingCardPaymentId,
+                        verification,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "CardAuthorization{accountId=$accountId, cardId=$cardId, decision=$decision, digitalWalletTokenId=$digitalWalletTokenId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, requestDetails=$requestDetails, settlementAmount=$settlementAmount, settlementCurrency=$settlementCurrency, upcomingCardPaymentId=$upcomingCardPaymentId, verification=$verification, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "CardAuthorization{accountId=$accountId, cardId=$cardId, decision=$decision, digitalWalletTokenId=$digitalWalletTokenId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, requestDetails=$requestDetails, settlementAmount=$settlementAmount, settlementCurrency=$settlementCurrency, upcomingCardPaymentId=$upcomingCardPaymentId, verification=$verification, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -838,9 +796,7 @@ class RealTimeDecision private constructor(
             /** The identifier of the Account the authorization will debit. */
             @JsonProperty("account_id")
             @ExcludeMissing
-            fun accountId(accountId: JsonField<String>) = apply {
-                this.accountId = accountId
-            }
+            fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /** The identifier of the Card that is being authorized. */
             fun cardId(cardId: String) = cardId(JsonField.of(cardId))
@@ -848,9 +804,7 @@ class RealTimeDecision private constructor(
             /** The identifier of the Card that is being authorized. */
             @JsonProperty("card_id")
             @ExcludeMissing
-            fun cardId(cardId: JsonField<String>) = apply {
-                this.cardId = cardId
-            }
+            fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
 
             /** Whether or not the authorization was approved. */
             fun decision(decision: Decision) = decision(JsonField.of(decision))
@@ -858,15 +812,14 @@ class RealTimeDecision private constructor(
             /** Whether or not the authorization was approved. */
             @JsonProperty("decision")
             @ExcludeMissing
-            fun decision(decision: JsonField<Decision>) = apply {
-                this.decision = decision
-            }
+            fun decision(decision: JsonField<Decision>) = apply { this.decision = decision }
 
             /**
              * If the authorization was made via a Digital Wallet Token (such as an Apple Pay
              * purchase), the identifier of the token that was used.
              */
-            fun digitalWalletTokenId(digitalWalletTokenId: String) = digitalWalletTokenId(JsonField.of(digitalWalletTokenId))
+            fun digitalWalletTokenId(digitalWalletTokenId: String) =
+                digitalWalletTokenId(JsonField.of(digitalWalletTokenId))
 
             /**
              * If the authorization was made via a Digital Wallet Token (such as an Apple Pay
@@ -879,14 +832,15 @@ class RealTimeDecision private constructor(
             }
 
             /**
-             * The merchant identifier (commonly abbreviated as MID) of the merchant the card
-             * is transacting with.
+             * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+             * transacting with.
              */
-            fun merchantAcceptorId(merchantAcceptorId: String) = merchantAcceptorId(JsonField.of(merchantAcceptorId))
+            fun merchantAcceptorId(merchantAcceptorId: String) =
+                merchantAcceptorId(JsonField.of(merchantAcceptorId))
 
             /**
-             * The merchant identifier (commonly abbreviated as MID) of the merchant the card
-             * is transacting with.
+             * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+             * transacting with.
              */
             @JsonProperty("merchant_acceptor_id")
             @ExcludeMissing
@@ -895,14 +849,15 @@ class RealTimeDecision private constructor(
             }
 
             /**
-             * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the
-             * card is transacting with.
+             * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
+             * transacting with.
              */
-            fun merchantCategoryCode(merchantCategoryCode: String) = merchantCategoryCode(JsonField.of(merchantCategoryCode))
+            fun merchantCategoryCode(merchantCategoryCode: String) =
+                merchantCategoryCode(JsonField.of(merchantCategoryCode))
 
             /**
-             * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the
-             * card is transacting with.
+             * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
+             * transacting with.
              */
             @JsonProperty("merchant_category_code")
             @ExcludeMissing
@@ -921,7 +876,8 @@ class RealTimeDecision private constructor(
             }
 
             /** The country the merchant resides in. */
-            fun merchantCountry(merchantCountry: String) = merchantCountry(JsonField.of(merchantCountry))
+            fun merchantCountry(merchantCountry: String) =
+                merchantCountry(JsonField.of(merchantCountry))
 
             /** The country the merchant resides in. */
             @JsonProperty("merchant_country")
@@ -931,7 +887,8 @@ class RealTimeDecision private constructor(
             }
 
             /** The merchant descriptor of the merchant the card is transacting with. */
-            fun merchantDescriptor(merchantDescriptor: String) = merchantDescriptor(JsonField.of(merchantDescriptor))
+            fun merchantDescriptor(merchantDescriptor: String) =
+                merchantDescriptor(JsonField.of(merchantDescriptor))
 
             /** The merchant descriptor of the merchant the card is transacting with. */
             @JsonProperty("merchant_descriptor")
@@ -941,14 +898,15 @@ class RealTimeDecision private constructor(
             }
 
             /**
-             * The merchant's postal code. For US merchants this is either a 5-digit or 9-digit
-             * ZIP code, where the first 5 and last 4 are separated by a dash.
+             * The merchant's postal code. For US merchants this is either a 5-digit or 9-digit ZIP
+             * code, where the first 5 and last 4 are separated by a dash.
              */
-            fun merchantPostalCode(merchantPostalCode: String) = merchantPostalCode(JsonField.of(merchantPostalCode))
+            fun merchantPostalCode(merchantPostalCode: String) =
+                merchantPostalCode(JsonField.of(merchantPostalCode))
 
             /**
-             * The merchant's postal code. For US merchants this is either a 5-digit or 9-digit
-             * ZIP code, where the first 5 and last 4 are separated by a dash.
+             * The merchant's postal code. For US merchants this is either a 5-digit or 9-digit ZIP
+             * code, where the first 5 and last 4 are separated by a dash.
              */
             @JsonProperty("merchant_postal_code")
             @ExcludeMissing
@@ -967,7 +925,8 @@ class RealTimeDecision private constructor(
             }
 
             /** Fields specific to the `network`. */
-            fun networkDetails(networkDetails: NetworkDetails) = networkDetails(JsonField.of(networkDetails))
+            fun networkDetails(networkDetails: NetworkDetails) =
+                networkDetails(JsonField.of(networkDetails))
 
             /** Fields specific to the `network`. */
             @JsonProperty("network_details")
@@ -977,7 +936,8 @@ class RealTimeDecision private constructor(
             }
 
             /** Network-specific identifiers for a specific request or transaction. */
-            fun networkIdentifiers(networkIdentifiers: NetworkIdentifiers) = networkIdentifiers(JsonField.of(networkIdentifiers))
+            fun networkIdentifiers(networkIdentifiers: NetworkIdentifiers) =
+                networkIdentifiers(JsonField.of(networkIdentifiers))
 
             /** Network-specific identifiers for a specific request or transaction. */
             @JsonProperty("network_identifiers")
@@ -990,7 +950,8 @@ class RealTimeDecision private constructor(
              * The risk score generated by the card network. For Visa this is the Visa Advanced
              * Authorization risk score, from 0 to 99, where 99 is the riskiest.
              */
-            fun networkRiskScore(networkRiskScore: Long) = networkRiskScore(JsonField.of(networkRiskScore))
+            fun networkRiskScore(networkRiskScore: Long) =
+                networkRiskScore(JsonField.of(networkRiskScore))
 
             /**
              * The risk score generated by the card network. For Visa this is the Visa Advanced
@@ -1003,14 +964,15 @@ class RealTimeDecision private constructor(
             }
 
             /**
-             * If the authorization was made in-person with a physical card, the Physical Card
-             * that was used.
+             * If the authorization was made in-person with a physical card, the Physical Card that
+             * was used.
              */
-            fun physicalCardId(physicalCardId: String) = physicalCardId(JsonField.of(physicalCardId))
+            fun physicalCardId(physicalCardId: String) =
+                physicalCardId(JsonField.of(physicalCardId))
 
             /**
-             * If the authorization was made in-person with a physical card, the Physical Card
-             * that was used.
+             * If the authorization was made in-person with a physical card, the Physical Card that
+             * was used.
              */
             @JsonProperty("physical_card_id")
             @ExcludeMissing
@@ -1019,16 +981,17 @@ class RealTimeDecision private constructor(
             }
 
             /**
-             * The amount of the attempted authorization in the currency the card user sees at
-             * the time of purchase, in the minor unit of that currency. For dollars, for
-             * example, this is cents.
+             * The amount of the attempted authorization in the currency the card user sees at the
+             * time of purchase, in the minor unit of that currency. For dollars, for example, this
+             * is cents.
              */
-            fun presentmentAmount(presentmentAmount: Long) = presentmentAmount(JsonField.of(presentmentAmount))
+            fun presentmentAmount(presentmentAmount: Long) =
+                presentmentAmount(JsonField.of(presentmentAmount))
 
             /**
-             * The amount of the attempted authorization in the currency the card user sees at
-             * the time of purchase, in the minor unit of that currency. For dollars, for
-             * example, this is cents.
+             * The amount of the attempted authorization in the currency the card user sees at the
+             * time of purchase, in the minor unit of that currency. For dollars, for example, this
+             * is cents.
              */
             @JsonProperty("presentment_amount")
             @ExcludeMissing
@@ -1037,14 +1000,15 @@ class RealTimeDecision private constructor(
             }
 
             /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the currency the
-             * user sees at the time of purchase.
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the currency the user
+             * sees at the time of purchase.
              */
-            fun presentmentCurrency(presentmentCurrency: String) = presentmentCurrency(JsonField.of(presentmentCurrency))
+            fun presentmentCurrency(presentmentCurrency: String) =
+                presentmentCurrency(JsonField.of(presentmentCurrency))
 
             /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the currency the
-             * user sees at the time of purchase.
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the currency the user
+             * sees at the time of purchase.
              */
             @JsonProperty("presentment_currency")
             @ExcludeMissing
@@ -1056,7 +1020,8 @@ class RealTimeDecision private constructor(
              * The processing category describes the intent behind the authorization, such as
              * whether it was used for bill payments or an automatic fuel dispenser.
              */
-            fun processingCategory(processingCategory: ProcessingCategory) = processingCategory(JsonField.of(processingCategory))
+            fun processingCategory(processingCategory: ProcessingCategory) =
+                processingCategory(JsonField.of(processingCategory))
 
             /**
              * The processing category describes the intent behind the authorization, such as
@@ -1069,7 +1034,8 @@ class RealTimeDecision private constructor(
             }
 
             /** Fields specific to the type of request, such as an incremental authorization. */
-            fun requestDetails(requestDetails: RequestDetails) = requestDetails(JsonField.of(requestDetails))
+            fun requestDetails(requestDetails: RequestDetails) =
+                requestDetails(JsonField.of(requestDetails))
 
             /** Fields specific to the type of request, such as an incremental authorization. */
             @JsonProperty("request_details")
@@ -1079,14 +1045,15 @@ class RealTimeDecision private constructor(
             }
 
             /**
-             * The amount of the attempted authorization in the currency it will be settled in.
-             * This currency is the same as that of the Account the card belongs to.
+             * The amount of the attempted authorization in the currency it will be settled in. This
+             * currency is the same as that of the Account the card belongs to.
              */
-            fun settlementAmount(settlementAmount: Long) = settlementAmount(JsonField.of(settlementAmount))
+            fun settlementAmount(settlementAmount: Long) =
+                settlementAmount(JsonField.of(settlementAmount))
 
             /**
-             * The amount of the attempted authorization in the currency it will be settled in.
-             * This currency is the same as that of the Account the card belongs to.
+             * The amount of the attempted authorization in the currency it will be settled in. This
+             * currency is the same as that of the Account the card belongs to.
              */
             @JsonProperty("settlement_amount")
             @ExcludeMissing
@@ -1098,7 +1065,8 @@ class RealTimeDecision private constructor(
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the currency the
              * transaction will be settled in.
              */
-            fun settlementCurrency(settlementCurrency: String) = settlementCurrency(JsonField.of(settlementCurrency))
+            fun settlementCurrency(settlementCurrency: String) =
+                settlementCurrency(JsonField.of(settlementCurrency))
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the currency the
@@ -1111,14 +1079,15 @@ class RealTimeDecision private constructor(
             }
 
             /**
-             * The identifier of the Card Payment this authorization will belong to. Available
-             * in the API once the card authorization has completed.
+             * The identifier of the Card Payment this authorization will belong to. Available in
+             * the API once the card authorization has completed.
              */
-            fun upcomingCardPaymentId(upcomingCardPaymentId: String) = upcomingCardPaymentId(JsonField.of(upcomingCardPaymentId))
+            fun upcomingCardPaymentId(upcomingCardPaymentId: String) =
+                upcomingCardPaymentId(JsonField.of(upcomingCardPaymentId))
 
             /**
-             * The identifier of the Card Payment this authorization will belong to. Available
-             * in the API once the card authorization has completed.
+             * The identifier of the Card Payment this authorization will belong to. Available in
+             * the API once the card authorization has completed.
              */
             @JsonProperty("upcoming_card_payment_id")
             @ExcludeMissing
@@ -1150,46 +1119,49 @@ class RealTimeDecision private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): CardAuthorization = CardAuthorization(
-                accountId,
-                cardId,
-                decision,
-                digitalWalletTokenId,
-                merchantAcceptorId,
-                merchantCategoryCode,
-                merchantCity,
-                merchantCountry,
-                merchantDescriptor,
-                merchantPostalCode,
-                merchantState,
-                networkDetails,
-                networkIdentifiers,
-                networkRiskScore,
-                physicalCardId,
-                presentmentAmount,
-                presentmentCurrency,
-                processingCategory,
-                requestDetails,
-                settlementAmount,
-                settlementCurrency,
-                upcomingCardPaymentId,
-                verification,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build(): CardAuthorization =
+                CardAuthorization(
+                    accountId,
+                    cardId,
+                    decision,
+                    digitalWalletTokenId,
+                    merchantAcceptorId,
+                    merchantCategoryCode,
+                    merchantCity,
+                    merchantCountry,
+                    merchantDescriptor,
+                    merchantPostalCode,
+                    merchantState,
+                    networkDetails,
+                    networkIdentifiers,
+                    networkRiskScore,
+                    physicalCardId,
+                    presentmentAmount,
+                    presentmentCurrency,
+                    processingCategory,
+                    requestDetails,
+                    settlementAmount,
+                    settlementCurrency,
+                    upcomingCardPaymentId,
+                    verification,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
 
-        class Decision @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+        class Decision
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return other is Decision &&
-                  this.value == other.value
+                return other is Decision && this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1216,17 +1188,19 @@ class RealTimeDecision private constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value = when (this) {
-                APPROVE -> Value.APPROVE
-                DECLINE -> Value.DECLINE
-                else -> Value._UNKNOWN
-            }
+            fun value(): Value =
+                when (this) {
+                    APPROVE -> Value.APPROVE
+                    DECLINE -> Value.DECLINE
+                    else -> Value._UNKNOWN
+                }
 
-            fun known(): Known = when (this) {
-                APPROVE -> Known.APPROVE
-                DECLINE -> Known.DECLINE
-                else -> throw IncreaseInvalidDataException("Unknown Decision: $value")
-            }
+            fun known(): Known =
+                when (this) {
+                    APPROVE -> Known.APPROVE
+                    DECLINE -> Known.DECLINE
+                    else -> throw IncreaseInvalidDataException("Unknown Decision: $value")
+                }
 
             fun asString(): String = _value().asStringOrThrow()
         }
@@ -1234,7 +1208,12 @@ class RealTimeDecision private constructor(
         /** Fields specific to the `network`. */
         @JsonDeserialize(builder = NetworkDetails.Builder::class)
         @NoAutoDetect
-        class NetworkDetails private constructor(private val category: JsonField<Category>, private val visa: JsonField<Visa>, private val additionalProperties: Map<String, JsonValue>, ) {
+        class NetworkDetails
+        private constructor(
+            private val category: JsonField<Category>,
+            private val visa: JsonField<Visa>,
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
 
             private var validated: Boolean = false
 
@@ -1247,14 +1226,10 @@ class RealTimeDecision private constructor(
             fun visa(): Optional<Visa> = Optional.ofNullable(visa.getNullable("visa"))
 
             /** The payment network used to process this card authorization. */
-            @JsonProperty("category")
-            @ExcludeMissing
-            fun _category() = category
+            @JsonProperty("category") @ExcludeMissing fun _category() = category
 
             /** Fields specific to the `visa` network. */
-            @JsonProperty("visa")
-            @ExcludeMissing
-            fun _visa() = visa
+            @JsonProperty("visa") @ExcludeMissing fun _visa() = visa
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1262,42 +1237,43 @@ class RealTimeDecision private constructor(
 
             fun validate(): NetworkDetails = apply {
                 if (!validated) {
-                  category()
-                  visa().map { it.validate() }
-                  validated = true
+                    category()
+                    visa().map { it.validate() }
+                    validated = true
                 }
             }
 
             fun toBuilder() = Builder().from(this)
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return other is NetworkDetails &&
-                  this.category == other.category &&
-                  this.visa == other.visa &&
-                  this.additionalProperties == other.additionalProperties
+                return other is NetworkDetails &&
+                    this.category == other.category &&
+                    this.visa == other.visa &&
+                    this.additionalProperties == other.additionalProperties
             }
 
             override fun hashCode(): Int {
-              if (hashCode == 0) {
-                hashCode = Objects.hash(
-                    category,
-                    visa,
-                    additionalProperties,
-                )
-              }
-              return hashCode
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            category,
+                            visa,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
             }
 
-            override fun toString() = "NetworkDetails{category=$category, visa=$visa, additionalProperties=$additionalProperties}"
+            override fun toString() =
+                "NetworkDetails{category=$category, visa=$visa, additionalProperties=$additionalProperties}"
 
             companion object {
 
-                @JvmStatic
-                fun builder() = Builder()
+                @JvmStatic fun builder() = Builder()
             }
 
             class Builder {
@@ -1319,9 +1295,7 @@ class RealTimeDecision private constructor(
                 /** The payment network used to process this card authorization. */
                 @JsonProperty("category")
                 @ExcludeMissing
-                fun category(category: JsonField<Category>) = apply {
-                    this.category = category
-                }
+                fun category(category: JsonField<Category>) = apply { this.category = category }
 
                 /** Fields specific to the `visa` network. */
                 fun visa(visa: Visa) = visa(JsonField.of(visa))
@@ -1329,9 +1303,7 @@ class RealTimeDecision private constructor(
                 /** Fields specific to the `visa` network. */
                 @JsonProperty("visa")
                 @ExcludeMissing
-                fun visa(visa: JsonField<Visa>) = apply {
-                    this.visa = visa
-                }
+                fun visa(visa: JsonField<Visa>) = apply { this.visa = visa }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1343,29 +1315,33 @@ class RealTimeDecision private constructor(
                     this.additionalProperties.put(key, value)
                 }
 
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
 
-                fun build(): NetworkDetails = NetworkDetails(
-                    category,
-                    visa,
-                    additionalProperties.toUnmodifiable(),
-                )
+                fun build(): NetworkDetails =
+                    NetworkDetails(
+                        category,
+                        visa,
+                        additionalProperties.toUnmodifiable(),
+                    )
             }
 
-            class Category @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+            class Category
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) : Enum {
 
-                @com.fasterxml.jackson.annotation.JsonValue
-                fun _value(): JsonField<String> = value
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
                 override fun equals(other: Any?): Boolean {
-                  if (this === other) {
-                      return true
-                  }
+                    if (this === other) {
+                        return true
+                    }
 
-                  return other is Category &&
-                      this.value == other.value
+                    return other is Category && this.value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -1388,15 +1364,17 @@ class RealTimeDecision private constructor(
                     _UNKNOWN,
                 }
 
-                fun value(): Value = when (this) {
-                    VISA -> Value.VISA
-                    else -> Value._UNKNOWN
-                }
+                fun value(): Value =
+                    when (this) {
+                        VISA -> Value.VISA
+                        else -> Value._UNKNOWN
+                    }
 
-                fun known(): Known = when (this) {
-                    VISA -> Known.VISA
-                    else -> throw IncreaseInvalidDataException("Unknown Category: $value")
-                }
+                fun known(): Known =
+                    when (this) {
+                        VISA -> Known.VISA
+                        else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+                    }
 
                 fun asString(): String = _value().asStringOrThrow()
             }
@@ -1404,7 +1382,12 @@ class RealTimeDecision private constructor(
             /** Fields specific to the `visa` network. */
             @JsonDeserialize(builder = Visa.Builder::class)
             @NoAutoDetect
-            class Visa private constructor(private val electronicCommerceIndicator: JsonField<ElectronicCommerceIndicator>, private val pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode>, private val additionalProperties: Map<String, JsonValue>, ) {
+            class Visa
+            private constructor(
+                private val electronicCommerceIndicator: JsonField<ElectronicCommerceIndicator>,
+                private val pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode>,
+                private val additionalProperties: Map<String, JsonValue>,
+            ) {
 
                 private var validated: Boolean = false
 
@@ -1415,13 +1398,19 @@ class RealTimeDecision private constructor(
                  * in obtaining the customer's payment credential. For mail or telephone order
                  * transactions, identifies the type of mail or telephone order.
                  */
-                fun electronicCommerceIndicator(): Optional<ElectronicCommerceIndicator> = Optional.ofNullable(electronicCommerceIndicator.getNullable("electronic_commerce_indicator"))
+                fun electronicCommerceIndicator(): Optional<ElectronicCommerceIndicator> =
+                    Optional.ofNullable(
+                        electronicCommerceIndicator.getNullable("electronic_commerce_indicator")
+                    )
 
                 /**
                  * The method used to enter the cardholder's primary account number and card
                  * expiration date.
                  */
-                fun pointOfServiceEntryMode(): Optional<PointOfServiceEntryMode> = Optional.ofNullable(pointOfServiceEntryMode.getNullable("point_of_service_entry_mode"))
+                fun pointOfServiceEntryMode(): Optional<PointOfServiceEntryMode> =
+                    Optional.ofNullable(
+                        pointOfServiceEntryMode.getNullable("point_of_service_entry_mode")
+                    )
 
                 /**
                  * For electronic commerce transactions, this identifies the level of security used
@@ -1446,48 +1435,52 @@ class RealTimeDecision private constructor(
 
                 fun validate(): Visa = apply {
                     if (!validated) {
-                      electronicCommerceIndicator()
-                      pointOfServiceEntryMode()
-                      validated = true
+                        electronicCommerceIndicator()
+                        pointOfServiceEntryMode()
+                        validated = true
                     }
                 }
 
                 fun toBuilder() = Builder().from(this)
 
                 override fun equals(other: Any?): Boolean {
-                  if (this === other) {
-                      return true
-                  }
+                    if (this === other) {
+                        return true
+                    }
 
-                  return other is Visa &&
-                      this.electronicCommerceIndicator == other.electronicCommerceIndicator &&
-                      this.pointOfServiceEntryMode == other.pointOfServiceEntryMode &&
-                      this.additionalProperties == other.additionalProperties
+                    return other is Visa &&
+                        this.electronicCommerceIndicator == other.electronicCommerceIndicator &&
+                        this.pointOfServiceEntryMode == other.pointOfServiceEntryMode &&
+                        this.additionalProperties == other.additionalProperties
                 }
 
                 override fun hashCode(): Int {
-                  if (hashCode == 0) {
-                    hashCode = Objects.hash(
-                        electronicCommerceIndicator,
-                        pointOfServiceEntryMode,
-                        additionalProperties,
-                    )
-                  }
-                  return hashCode
+                    if (hashCode == 0) {
+                        hashCode =
+                            Objects.hash(
+                                electronicCommerceIndicator,
+                                pointOfServiceEntryMode,
+                                additionalProperties,
+                            )
+                    }
+                    return hashCode
                 }
 
-                override fun toString() = "Visa{electronicCommerceIndicator=$electronicCommerceIndicator, pointOfServiceEntryMode=$pointOfServiceEntryMode, additionalProperties=$additionalProperties}"
+                override fun toString() =
+                    "Visa{electronicCommerceIndicator=$electronicCommerceIndicator, pointOfServiceEntryMode=$pointOfServiceEntryMode, additionalProperties=$additionalProperties}"
 
                 companion object {
 
-                    @JvmStatic
-                    fun builder() = Builder()
+                    @JvmStatic fun builder() = Builder()
                 }
 
                 class Builder {
 
-                    private var electronicCommerceIndicator: JsonField<ElectronicCommerceIndicator> = JsonMissing.of()
-                    private var pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode> = JsonMissing.of()
+                    private var electronicCommerceIndicator:
+                        JsonField<ElectronicCommerceIndicator> =
+                        JsonMissing.of()
+                    private var pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode> =
+                        JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
@@ -1498,28 +1491,31 @@ class RealTimeDecision private constructor(
                     }
 
                     /**
-                     * For electronic commerce transactions, this identifies the level of security used
-                     * in obtaining the customer's payment credential. For mail or telephone order
-                     * transactions, identifies the type of mail or telephone order.
+                     * For electronic commerce transactions, this identifies the level of security
+                     * used in obtaining the customer's payment credential. For mail or telephone
+                     * order transactions, identifies the type of mail or telephone order.
                      */
-                    fun electronicCommerceIndicator(electronicCommerceIndicator: ElectronicCommerceIndicator) = electronicCommerceIndicator(JsonField.of(electronicCommerceIndicator))
+                    fun electronicCommerceIndicator(
+                        electronicCommerceIndicator: ElectronicCommerceIndicator
+                    ) = electronicCommerceIndicator(JsonField.of(electronicCommerceIndicator))
 
                     /**
-                     * For electronic commerce transactions, this identifies the level of security used
-                     * in obtaining the customer's payment credential. For mail or telephone order
-                     * transactions, identifies the type of mail or telephone order.
+                     * For electronic commerce transactions, this identifies the level of security
+                     * used in obtaining the customer's payment credential. For mail or telephone
+                     * order transactions, identifies the type of mail or telephone order.
                      */
                     @JsonProperty("electronic_commerce_indicator")
                     @ExcludeMissing
-                    fun electronicCommerceIndicator(electronicCommerceIndicator: JsonField<ElectronicCommerceIndicator>) = apply {
-                        this.electronicCommerceIndicator = electronicCommerceIndicator
-                    }
+                    fun electronicCommerceIndicator(
+                        electronicCommerceIndicator: JsonField<ElectronicCommerceIndicator>
+                    ) = apply { this.electronicCommerceIndicator = electronicCommerceIndicator }
 
                     /**
                      * The method used to enter the cardholder's primary account number and card
                      * expiration date.
                      */
-                    fun pointOfServiceEntryMode(pointOfServiceEntryMode: PointOfServiceEntryMode) = pointOfServiceEntryMode(JsonField.of(pointOfServiceEntryMode))
+                    fun pointOfServiceEntryMode(pointOfServiceEntryMode: PointOfServiceEntryMode) =
+                        pointOfServiceEntryMode(JsonField.of(pointOfServiceEntryMode))
 
                     /**
                      * The method used to enter the cardholder's primary account number and card
@@ -1527,9 +1523,9 @@ class RealTimeDecision private constructor(
                      */
                     @JsonProperty("point_of_service_entry_mode")
                     @ExcludeMissing
-                    fun pointOfServiceEntryMode(pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode>) = apply {
-                        this.pointOfServiceEntryMode = pointOfServiceEntryMode
-                    }
+                    fun pointOfServiceEntryMode(
+                        pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode>
+                    ) = apply { this.pointOfServiceEntryMode = pointOfServiceEntryMode }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -1541,29 +1537,34 @@ class RealTimeDecision private constructor(
                         this.additionalProperties.put(key, value)
                     }
 
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
 
-                    fun build(): Visa = Visa(
-                        electronicCommerceIndicator,
-                        pointOfServiceEntryMode,
-                        additionalProperties.toUnmodifiable(),
-                    )
+                    fun build(): Visa =
+                        Visa(
+                            electronicCommerceIndicator,
+                            pointOfServiceEntryMode,
+                            additionalProperties.toUnmodifiable(),
+                        )
                 }
 
-                class ElectronicCommerceIndicator @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+                class ElectronicCommerceIndicator
+                @JsonCreator
+                private constructor(
+                    private val value: JsonField<String>,
+                ) : Enum {
 
                     @com.fasterxml.jackson.annotation.JsonValue
                     fun _value(): JsonField<String> = value
 
                     override fun equals(other: Any?): Boolean {
-                      if (this === other) {
-                          return true
-                      }
+                        if (this === other) {
+                            return true
+                        }
 
-                      return other is ElectronicCommerceIndicator &&
-                          this.value == other.value
+                        return other is ElectronicCommerceIndicator && this.value == other.value
                     }
 
                     override fun hashCode() = value.hashCode()
@@ -1572,23 +1573,44 @@ class RealTimeDecision private constructor(
 
                     companion object {
 
-                        @JvmField val MAIL_PHONE_ORDER = ElectronicCommerceIndicator(JsonField.of("mail_phone_order"))
+                        @JvmField
+                        val MAIL_PHONE_ORDER =
+                            ElectronicCommerceIndicator(JsonField.of("mail_phone_order"))
 
-                        @JvmField val RECURRING = ElectronicCommerceIndicator(JsonField.of("recurring"))
+                        @JvmField
+                        val RECURRING = ElectronicCommerceIndicator(JsonField.of("recurring"))
 
-                        @JvmField val INSTALLMENT = ElectronicCommerceIndicator(JsonField.of("installment"))
+                        @JvmField
+                        val INSTALLMENT = ElectronicCommerceIndicator(JsonField.of("installment"))
 
-                        @JvmField val UNKNOWN_MAIL_PHONE_ORDER = ElectronicCommerceIndicator(JsonField.of("unknown_mail_phone_order"))
+                        @JvmField
+                        val UNKNOWN_MAIL_PHONE_ORDER =
+                            ElectronicCommerceIndicator(JsonField.of("unknown_mail_phone_order"))
 
-                        @JvmField val SECURE_ELECTRONIC_COMMERCE = ElectronicCommerceIndicator(JsonField.of("secure_electronic_commerce"))
+                        @JvmField
+                        val SECURE_ELECTRONIC_COMMERCE =
+                            ElectronicCommerceIndicator(JsonField.of("secure_electronic_commerce"))
 
-                        @JvmField val NON_AUTHENTICATED_SECURITY_TRANSACTION_AT_3DS_CAPABLE_MERCHANT = ElectronicCommerceIndicator(JsonField.of("non_authenticated_security_transaction_at_3ds_capable_merchant"))
+                        @JvmField
+                        val NON_AUTHENTICATED_SECURITY_TRANSACTION_AT_3DS_CAPABLE_MERCHANT =
+                            ElectronicCommerceIndicator(
+                                JsonField.of(
+                                    "non_authenticated_security_transaction_at_3ds_capable_merchant"
+                                )
+                            )
 
-                        @JvmField val NON_AUTHENTICATED_SECURITY_TRANSACTION = ElectronicCommerceIndicator(JsonField.of("non_authenticated_security_transaction"))
+                        @JvmField
+                        val NON_AUTHENTICATED_SECURITY_TRANSACTION =
+                            ElectronicCommerceIndicator(
+                                JsonField.of("non_authenticated_security_transaction")
+                            )
 
-                        @JvmField val NON_SECURE_TRANSACTION = ElectronicCommerceIndicator(JsonField.of("non_secure_transaction"))
+                        @JvmField
+                        val NON_SECURE_TRANSACTION =
+                            ElectronicCommerceIndicator(JsonField.of("non_secure_transaction"))
 
-                        @JvmStatic fun of(value: String) = ElectronicCommerceIndicator(JsonField.of(value))
+                        @JvmStatic
+                        fun of(value: String) = ElectronicCommerceIndicator(JsonField.of(value))
                     }
 
                     enum class Known {
@@ -1614,45 +1636,57 @@ class RealTimeDecision private constructor(
                         _UNKNOWN,
                     }
 
-                    fun value(): Value = when (this) {
-                        MAIL_PHONE_ORDER -> Value.MAIL_PHONE_ORDER
-                        RECURRING -> Value.RECURRING
-                        INSTALLMENT -> Value.INSTALLMENT
-                        UNKNOWN_MAIL_PHONE_ORDER -> Value.UNKNOWN_MAIL_PHONE_ORDER
-                        SECURE_ELECTRONIC_COMMERCE -> Value.SECURE_ELECTRONIC_COMMERCE
-                        NON_AUTHENTICATED_SECURITY_TRANSACTION_AT_3DS_CAPABLE_MERCHANT -> Value.NON_AUTHENTICATED_SECURITY_TRANSACTION_AT_3DS_CAPABLE_MERCHANT
-                        NON_AUTHENTICATED_SECURITY_TRANSACTION -> Value.NON_AUTHENTICATED_SECURITY_TRANSACTION
-                        NON_SECURE_TRANSACTION -> Value.NON_SECURE_TRANSACTION
-                        else -> Value._UNKNOWN
-                    }
+                    fun value(): Value =
+                        when (this) {
+                            MAIL_PHONE_ORDER -> Value.MAIL_PHONE_ORDER
+                            RECURRING -> Value.RECURRING
+                            INSTALLMENT -> Value.INSTALLMENT
+                            UNKNOWN_MAIL_PHONE_ORDER -> Value.UNKNOWN_MAIL_PHONE_ORDER
+                            SECURE_ELECTRONIC_COMMERCE -> Value.SECURE_ELECTRONIC_COMMERCE
+                            NON_AUTHENTICATED_SECURITY_TRANSACTION_AT_3DS_CAPABLE_MERCHANT ->
+                                Value.NON_AUTHENTICATED_SECURITY_TRANSACTION_AT_3DS_CAPABLE_MERCHANT
+                            NON_AUTHENTICATED_SECURITY_TRANSACTION ->
+                                Value.NON_AUTHENTICATED_SECURITY_TRANSACTION
+                            NON_SECURE_TRANSACTION -> Value.NON_SECURE_TRANSACTION
+                            else -> Value._UNKNOWN
+                        }
 
-                    fun known(): Known = when (this) {
-                        MAIL_PHONE_ORDER -> Known.MAIL_PHONE_ORDER
-                        RECURRING -> Known.RECURRING
-                        INSTALLMENT -> Known.INSTALLMENT
-                        UNKNOWN_MAIL_PHONE_ORDER -> Known.UNKNOWN_MAIL_PHONE_ORDER
-                        SECURE_ELECTRONIC_COMMERCE -> Known.SECURE_ELECTRONIC_COMMERCE
-                        NON_AUTHENTICATED_SECURITY_TRANSACTION_AT_3DS_CAPABLE_MERCHANT -> Known.NON_AUTHENTICATED_SECURITY_TRANSACTION_AT_3DS_CAPABLE_MERCHANT
-                        NON_AUTHENTICATED_SECURITY_TRANSACTION -> Known.NON_AUTHENTICATED_SECURITY_TRANSACTION
-                        NON_SECURE_TRANSACTION -> Known.NON_SECURE_TRANSACTION
-                        else -> throw IncreaseInvalidDataException("Unknown ElectronicCommerceIndicator: $value")
-                    }
+                    fun known(): Known =
+                        when (this) {
+                            MAIL_PHONE_ORDER -> Known.MAIL_PHONE_ORDER
+                            RECURRING -> Known.RECURRING
+                            INSTALLMENT -> Known.INSTALLMENT
+                            UNKNOWN_MAIL_PHONE_ORDER -> Known.UNKNOWN_MAIL_PHONE_ORDER
+                            SECURE_ELECTRONIC_COMMERCE -> Known.SECURE_ELECTRONIC_COMMERCE
+                            NON_AUTHENTICATED_SECURITY_TRANSACTION_AT_3DS_CAPABLE_MERCHANT ->
+                                Known.NON_AUTHENTICATED_SECURITY_TRANSACTION_AT_3DS_CAPABLE_MERCHANT
+                            NON_AUTHENTICATED_SECURITY_TRANSACTION ->
+                                Known.NON_AUTHENTICATED_SECURITY_TRANSACTION
+                            NON_SECURE_TRANSACTION -> Known.NON_SECURE_TRANSACTION
+                            else ->
+                                throw IncreaseInvalidDataException(
+                                    "Unknown ElectronicCommerceIndicator: $value"
+                                )
+                        }
 
                     fun asString(): String = _value().asStringOrThrow()
                 }
 
-                class PointOfServiceEntryMode @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+                class PointOfServiceEntryMode
+                @JsonCreator
+                private constructor(
+                    private val value: JsonField<String>,
+                ) : Enum {
 
                     @com.fasterxml.jackson.annotation.JsonValue
                     fun _value(): JsonField<String> = value
 
                     override fun equals(other: Any?): Boolean {
-                      if (this === other) {
-                          return true
-                      }
+                        if (this === other) {
+                            return true
+                        }
 
-                      return other is PointOfServiceEntryMode &&
-                          this.value == other.value
+                        return other is PointOfServiceEntryMode && this.value == other.value
                     }
 
                     override fun hashCode() = value.hashCode()
@@ -1665,23 +1699,38 @@ class RealTimeDecision private constructor(
 
                         @JvmField val MANUAL = PointOfServiceEntryMode(JsonField.of("manual"))
 
-                        @JvmField val MAGNETIC_STRIPE_NO_CVV = PointOfServiceEntryMode(JsonField.of("magnetic_stripe_no_cvv"))
+                        @JvmField
+                        val MAGNETIC_STRIPE_NO_CVV =
+                            PointOfServiceEntryMode(JsonField.of("magnetic_stripe_no_cvv"))
 
-                        @JvmField val OPTICAL_CODE = PointOfServiceEntryMode(JsonField.of("optical_code"))
+                        @JvmField
+                        val OPTICAL_CODE = PointOfServiceEntryMode(JsonField.of("optical_code"))
 
-                        @JvmField val INTEGRATED_CIRCUIT_CARD = PointOfServiceEntryMode(JsonField.of("integrated_circuit_card"))
+                        @JvmField
+                        val INTEGRATED_CIRCUIT_CARD =
+                            PointOfServiceEntryMode(JsonField.of("integrated_circuit_card"))
 
-                        @JvmField val CONTACTLESS = PointOfServiceEntryMode(JsonField.of("contactless"))
+                        @JvmField
+                        val CONTACTLESS = PointOfServiceEntryMode(JsonField.of("contactless"))
 
-                        @JvmField val CREDENTIAL_ON_FILE = PointOfServiceEntryMode(JsonField.of("credential_on_file"))
+                        @JvmField
+                        val CREDENTIAL_ON_FILE =
+                            PointOfServiceEntryMode(JsonField.of("credential_on_file"))
 
-                        @JvmField val MAGNETIC_STRIPE = PointOfServiceEntryMode(JsonField.of("magnetic_stripe"))
+                        @JvmField
+                        val MAGNETIC_STRIPE =
+                            PointOfServiceEntryMode(JsonField.of("magnetic_stripe"))
 
-                        @JvmField val CONTACTLESS_MAGNETIC_STRIPE = PointOfServiceEntryMode(JsonField.of("contactless_magnetic_stripe"))
+                        @JvmField
+                        val CONTACTLESS_MAGNETIC_STRIPE =
+                            PointOfServiceEntryMode(JsonField.of("contactless_magnetic_stripe"))
 
-                        @JvmField val INTEGRATED_CIRCUIT_CARD_NO_CVV = PointOfServiceEntryMode(JsonField.of("integrated_circuit_card_no_cvv"))
+                        @JvmField
+                        val INTEGRATED_CIRCUIT_CARD_NO_CVV =
+                            PointOfServiceEntryMode(JsonField.of("integrated_circuit_card_no_cvv"))
 
-                        @JvmStatic fun of(value: String) = PointOfServiceEntryMode(JsonField.of(value))
+                        @JvmStatic
+                        fun of(value: String) = PointOfServiceEntryMode(JsonField.of(value))
                     }
 
                     enum class Known {
@@ -1711,33 +1760,38 @@ class RealTimeDecision private constructor(
                         _UNKNOWN,
                     }
 
-                    fun value(): Value = when (this) {
-                        UNKNOWN -> Value.UNKNOWN
-                        MANUAL -> Value.MANUAL
-                        MAGNETIC_STRIPE_NO_CVV -> Value.MAGNETIC_STRIPE_NO_CVV
-                        OPTICAL_CODE -> Value.OPTICAL_CODE
-                        INTEGRATED_CIRCUIT_CARD -> Value.INTEGRATED_CIRCUIT_CARD
-                        CONTACTLESS -> Value.CONTACTLESS
-                        CREDENTIAL_ON_FILE -> Value.CREDENTIAL_ON_FILE
-                        MAGNETIC_STRIPE -> Value.MAGNETIC_STRIPE
-                        CONTACTLESS_MAGNETIC_STRIPE -> Value.CONTACTLESS_MAGNETIC_STRIPE
-                        INTEGRATED_CIRCUIT_CARD_NO_CVV -> Value.INTEGRATED_CIRCUIT_CARD_NO_CVV
-                        else -> Value._UNKNOWN
-                    }
+                    fun value(): Value =
+                        when (this) {
+                            UNKNOWN -> Value.UNKNOWN
+                            MANUAL -> Value.MANUAL
+                            MAGNETIC_STRIPE_NO_CVV -> Value.MAGNETIC_STRIPE_NO_CVV
+                            OPTICAL_CODE -> Value.OPTICAL_CODE
+                            INTEGRATED_CIRCUIT_CARD -> Value.INTEGRATED_CIRCUIT_CARD
+                            CONTACTLESS -> Value.CONTACTLESS
+                            CREDENTIAL_ON_FILE -> Value.CREDENTIAL_ON_FILE
+                            MAGNETIC_STRIPE -> Value.MAGNETIC_STRIPE
+                            CONTACTLESS_MAGNETIC_STRIPE -> Value.CONTACTLESS_MAGNETIC_STRIPE
+                            INTEGRATED_CIRCUIT_CARD_NO_CVV -> Value.INTEGRATED_CIRCUIT_CARD_NO_CVV
+                            else -> Value._UNKNOWN
+                        }
 
-                    fun known(): Known = when (this) {
-                        UNKNOWN -> Known.UNKNOWN
-                        MANUAL -> Known.MANUAL
-                        MAGNETIC_STRIPE_NO_CVV -> Known.MAGNETIC_STRIPE_NO_CVV
-                        OPTICAL_CODE -> Known.OPTICAL_CODE
-                        INTEGRATED_CIRCUIT_CARD -> Known.INTEGRATED_CIRCUIT_CARD
-                        CONTACTLESS -> Known.CONTACTLESS
-                        CREDENTIAL_ON_FILE -> Known.CREDENTIAL_ON_FILE
-                        MAGNETIC_STRIPE -> Known.MAGNETIC_STRIPE
-                        CONTACTLESS_MAGNETIC_STRIPE -> Known.CONTACTLESS_MAGNETIC_STRIPE
-                        INTEGRATED_CIRCUIT_CARD_NO_CVV -> Known.INTEGRATED_CIRCUIT_CARD_NO_CVV
-                        else -> throw IncreaseInvalidDataException("Unknown PointOfServiceEntryMode: $value")
-                    }
+                    fun known(): Known =
+                        when (this) {
+                            UNKNOWN -> Known.UNKNOWN
+                            MANUAL -> Known.MANUAL
+                            MAGNETIC_STRIPE_NO_CVV -> Known.MAGNETIC_STRIPE_NO_CVV
+                            OPTICAL_CODE -> Known.OPTICAL_CODE
+                            INTEGRATED_CIRCUIT_CARD -> Known.INTEGRATED_CIRCUIT_CARD
+                            CONTACTLESS -> Known.CONTACTLESS
+                            CREDENTIAL_ON_FILE -> Known.CREDENTIAL_ON_FILE
+                            MAGNETIC_STRIPE -> Known.MAGNETIC_STRIPE
+                            CONTACTLESS_MAGNETIC_STRIPE -> Known.CONTACTLESS_MAGNETIC_STRIPE
+                            INTEGRATED_CIRCUIT_CARD_NO_CVV -> Known.INTEGRATED_CIRCUIT_CARD_NO_CVV
+                            else ->
+                                throw IncreaseInvalidDataException(
+                                    "Unknown PointOfServiceEntryMode: $value"
+                                )
+                        }
 
                     fun asString(): String = _value().asStringOrThrow()
                 }
@@ -1747,12 +1801,12 @@ class RealTimeDecision private constructor(
         /** Network-specific identifiers for a specific request or transaction. */
         @JsonDeserialize(builder = NetworkIdentifiers.Builder::class)
         @NoAutoDetect
-        class NetworkIdentifiers private constructor(
-          private val retrievalReferenceNumber: JsonField<String>,
-          private val traceNumber: JsonField<String>,
-          private val transactionId: JsonField<String>,
-          private val additionalProperties: Map<String, JsonValue>,
-
+        class NetworkIdentifiers
+        private constructor(
+            private val retrievalReferenceNumber: JsonField<String>,
+            private val traceNumber: JsonField<String>,
+            private val transactionId: JsonField<String>,
+            private val additionalProperties: Map<String, JsonValue>,
         ) {
 
             private var validated: Boolean = false
@@ -1760,28 +1814,33 @@ class RealTimeDecision private constructor(
             private var hashCode: Int = 0
 
             /**
-             * A life-cycle identifier used across e.g., an authorization and a reversal.
-             * Expected to be unique per acquirer within a window of time. For some card
-             * networks the retrieval reference number includes the trace counter.
+             * A life-cycle identifier used across e.g., an authorization and a reversal. Expected
+             * to be unique per acquirer within a window of time. For some card networks the
+             * retrieval reference number includes the trace counter.
              */
-            fun retrievalReferenceNumber(): Optional<String> = Optional.ofNullable(retrievalReferenceNumber.getNullable("retrieval_reference_number"))
+            fun retrievalReferenceNumber(): Optional<String> =
+                Optional.ofNullable(
+                    retrievalReferenceNumber.getNullable("retrieval_reference_number")
+                )
 
             /**
              * A counter used to verify an individual authorization. Expected to be unique per
              * acquirer within a window of time.
              */
-            fun traceNumber(): Optional<String> = Optional.ofNullable(traceNumber.getNullable("trace_number"))
+            fun traceNumber(): Optional<String> =
+                Optional.ofNullable(traceNumber.getNullable("trace_number"))
 
             /**
-             * A globally unique transaction identifier provided by the card network, used
-             * across multiple life-cycle requests.
+             * A globally unique transaction identifier provided by the card network, used across
+             * multiple life-cycle requests.
              */
-            fun transactionId(): Optional<String> = Optional.ofNullable(transactionId.getNullable("transaction_id"))
+            fun transactionId(): Optional<String> =
+                Optional.ofNullable(transactionId.getNullable("transaction_id"))
 
             /**
-             * A life-cycle identifier used across e.g., an authorization and a reversal.
-             * Expected to be unique per acquirer within a window of time. For some card
-             * networks the retrieval reference number includes the trace counter.
+             * A life-cycle identifier used across e.g., an authorization and a reversal. Expected
+             * to be unique per acquirer within a window of time. For some card networks the
+             * retrieval reference number includes the trace counter.
              */
             @JsonProperty("retrieval_reference_number")
             @ExcludeMissing
@@ -1791,17 +1850,13 @@ class RealTimeDecision private constructor(
              * A counter used to verify an individual authorization. Expected to be unique per
              * acquirer within a window of time.
              */
-            @JsonProperty("trace_number")
-            @ExcludeMissing
-            fun _traceNumber() = traceNumber
+            @JsonProperty("trace_number") @ExcludeMissing fun _traceNumber() = traceNumber
 
             /**
-             * A globally unique transaction identifier provided by the card network, used
-             * across multiple life-cycle requests.
+             * A globally unique transaction identifier provided by the card network, used across
+             * multiple life-cycle requests.
              */
-            @JsonProperty("transaction_id")
-            @ExcludeMissing
-            fun _transactionId() = transactionId
+            @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1809,45 +1864,46 @@ class RealTimeDecision private constructor(
 
             fun validate(): NetworkIdentifiers = apply {
                 if (!validated) {
-                  retrievalReferenceNumber()
-                  traceNumber()
-                  transactionId()
-                  validated = true
+                    retrievalReferenceNumber()
+                    traceNumber()
+                    transactionId()
+                    validated = true
                 }
             }
 
             fun toBuilder() = Builder().from(this)
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return other is NetworkIdentifiers &&
-                  this.retrievalReferenceNumber == other.retrievalReferenceNumber &&
-                  this.traceNumber == other.traceNumber &&
-                  this.transactionId == other.transactionId &&
-                  this.additionalProperties == other.additionalProperties
+                return other is NetworkIdentifiers &&
+                    this.retrievalReferenceNumber == other.retrievalReferenceNumber &&
+                    this.traceNumber == other.traceNumber &&
+                    this.transactionId == other.transactionId &&
+                    this.additionalProperties == other.additionalProperties
             }
 
             override fun hashCode(): Int {
-              if (hashCode == 0) {
-                hashCode = Objects.hash(
-                    retrievalReferenceNumber,
-                    traceNumber,
-                    transactionId,
-                    additionalProperties,
-                )
-              }
-              return hashCode
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            retrievalReferenceNumber,
+                            traceNumber,
+                            transactionId,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
             }
 
-            override fun toString() = "NetworkIdentifiers{retrievalReferenceNumber=$retrievalReferenceNumber, traceNumber=$traceNumber, transactionId=$transactionId, additionalProperties=$additionalProperties}"
+            override fun toString() =
+                "NetworkIdentifiers{retrievalReferenceNumber=$retrievalReferenceNumber, traceNumber=$traceNumber, transactionId=$transactionId, additionalProperties=$additionalProperties}"
 
             companion object {
 
-                @JvmStatic
-                fun builder() = Builder()
+                @JvmStatic fun builder() = Builder()
             }
 
             class Builder {
@@ -1870,7 +1926,8 @@ class RealTimeDecision private constructor(
                  * Expected to be unique per acquirer within a window of time. For some card
                  * networks the retrieval reference number includes the trace counter.
                  */
-                fun retrievalReferenceNumber(retrievalReferenceNumber: String) = retrievalReferenceNumber(JsonField.of(retrievalReferenceNumber))
+                fun retrievalReferenceNumber(retrievalReferenceNumber: String) =
+                    retrievalReferenceNumber(JsonField.of(retrievalReferenceNumber))
 
                 /**
                  * A life-cycle identifier used across e.g., an authorization and a reversal.
@@ -1903,7 +1960,8 @@ class RealTimeDecision private constructor(
                  * A globally unique transaction identifier provided by the card network, used
                  * across multiple life-cycle requests.
                  */
-                fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
+                fun transactionId(transactionId: String) =
+                    transactionId(JsonField.of(transactionId))
 
                 /**
                  * A globally unique transaction identifier provided by the card network, used
@@ -1925,31 +1983,35 @@ class RealTimeDecision private constructor(
                     this.additionalProperties.put(key, value)
                 }
 
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
 
-                fun build(): NetworkIdentifiers = NetworkIdentifiers(
-                    retrievalReferenceNumber,
-                    traceNumber,
-                    transactionId,
-                    additionalProperties.toUnmodifiable(),
-                )
+                fun build(): NetworkIdentifiers =
+                    NetworkIdentifiers(
+                        retrievalReferenceNumber,
+                        traceNumber,
+                        transactionId,
+                        additionalProperties.toUnmodifiable(),
+                    )
             }
         }
 
-        class ProcessingCategory @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+        class ProcessingCategory
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return other is ProcessingCategory &&
-                  this.value == other.value
+                return other is ProcessingCategory && this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1960,7 +2022,9 @@ class RealTimeDecision private constructor(
 
                 @JvmField val ACCOUNT_FUNDING = ProcessingCategory(JsonField.of("account_funding"))
 
-                @JvmField val AUTOMATIC_FUEL_DISPENSER = ProcessingCategory(JsonField.of("automatic_fuel_dispenser"))
+                @JvmField
+                val AUTOMATIC_FUEL_DISPENSER =
+                    ProcessingCategory(JsonField.of("automatic_fuel_dispenser"))
 
                 @JvmField val BILL_PAYMENT = ProcessingCategory(JsonField.of("bill_payment"))
 
@@ -1992,25 +2056,27 @@ class RealTimeDecision private constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value = when (this) {
-                ACCOUNT_FUNDING -> Value.ACCOUNT_FUNDING
-                AUTOMATIC_FUEL_DISPENSER -> Value.AUTOMATIC_FUEL_DISPENSER
-                BILL_PAYMENT -> Value.BILL_PAYMENT
-                PURCHASE -> Value.PURCHASE
-                QUASI_CASH -> Value.QUASI_CASH
-                REFUND -> Value.REFUND
-                else -> Value._UNKNOWN
-            }
+            fun value(): Value =
+                when (this) {
+                    ACCOUNT_FUNDING -> Value.ACCOUNT_FUNDING
+                    AUTOMATIC_FUEL_DISPENSER -> Value.AUTOMATIC_FUEL_DISPENSER
+                    BILL_PAYMENT -> Value.BILL_PAYMENT
+                    PURCHASE -> Value.PURCHASE
+                    QUASI_CASH -> Value.QUASI_CASH
+                    REFUND -> Value.REFUND
+                    else -> Value._UNKNOWN
+                }
 
-            fun known(): Known = when (this) {
-                ACCOUNT_FUNDING -> Known.ACCOUNT_FUNDING
-                AUTOMATIC_FUEL_DISPENSER -> Known.AUTOMATIC_FUEL_DISPENSER
-                BILL_PAYMENT -> Known.BILL_PAYMENT
-                PURCHASE -> Known.PURCHASE
-                QUASI_CASH -> Known.QUASI_CASH
-                REFUND -> Known.REFUND
-                else -> throw IncreaseInvalidDataException("Unknown ProcessingCategory: $value")
-            }
+            fun known(): Known =
+                when (this) {
+                    ACCOUNT_FUNDING -> Known.ACCOUNT_FUNDING
+                    AUTOMATIC_FUEL_DISPENSER -> Known.AUTOMATIC_FUEL_DISPENSER
+                    BILL_PAYMENT -> Known.BILL_PAYMENT
+                    PURCHASE -> Known.PURCHASE
+                    QUASI_CASH -> Known.QUASI_CASH
+                    REFUND -> Known.REFUND
+                    else -> throw IncreaseInvalidDataException("Unknown ProcessingCategory: $value")
+                }
 
             fun asString(): String = _value().asStringOrThrow()
         }
@@ -2018,12 +2084,12 @@ class RealTimeDecision private constructor(
         /** Fields specific to the type of request, such as an incremental authorization. */
         @JsonDeserialize(builder = RequestDetails.Builder::class)
         @NoAutoDetect
-        class RequestDetails private constructor(
-          private val category: JsonField<Category>,
-          private val incrementalAuthorization: JsonField<IncrementalAuthorization>,
-          private val initialAuthorization: JsonValue,
-          private val additionalProperties: Map<String, JsonValue>,
-
+        class RequestDetails
+        private constructor(
+            private val category: JsonField<Category>,
+            private val incrementalAuthorization: JsonField<IncrementalAuthorization>,
+            private val initialAuthorization: JsonValue,
+            private val additionalProperties: Map<String, JsonValue>,
         ) {
 
             private var validated: Boolean = false
@@ -2037,15 +2103,16 @@ class RealTimeDecision private constructor(
             fun category(): Category = category.getRequired("category")
 
             /** Fields specific to the category `incremental_authorization`. */
-            fun incrementalAuthorization(): Optional<IncrementalAuthorization> = Optional.ofNullable(incrementalAuthorization.getNullable("incremental_authorization"))
+            fun incrementalAuthorization(): Optional<IncrementalAuthorization> =
+                Optional.ofNullable(
+                    incrementalAuthorization.getNullable("incremental_authorization")
+                )
 
             /**
              * The type of this request (e.g., an initial authorization or an incremental
              * authorization).
              */
-            @JsonProperty("category")
-            @ExcludeMissing
-            fun _category() = category
+            @JsonProperty("category") @ExcludeMissing fun _category() = category
 
             /** Fields specific to the category `incremental_authorization`. */
             @JsonProperty("incremental_authorization")
@@ -2063,50 +2130,52 @@ class RealTimeDecision private constructor(
 
             fun validate(): RequestDetails = apply {
                 if (!validated) {
-                  category()
-                  incrementalAuthorization().map { it.validate() }
-                  validated = true
+                    category()
+                    incrementalAuthorization().map { it.validate() }
+                    validated = true
                 }
             }
 
             fun toBuilder() = Builder().from(this)
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return other is RequestDetails &&
-                  this.category == other.category &&
-                  this.incrementalAuthorization == other.incrementalAuthorization &&
-                  this.initialAuthorization == other.initialAuthorization &&
-                  this.additionalProperties == other.additionalProperties
+                return other is RequestDetails &&
+                    this.category == other.category &&
+                    this.incrementalAuthorization == other.incrementalAuthorization &&
+                    this.initialAuthorization == other.initialAuthorization &&
+                    this.additionalProperties == other.additionalProperties
             }
 
             override fun hashCode(): Int {
-              if (hashCode == 0) {
-                hashCode = Objects.hash(
-                    category,
-                    incrementalAuthorization,
-                    initialAuthorization,
-                    additionalProperties,
-                )
-              }
-              return hashCode
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            category,
+                            incrementalAuthorization,
+                            initialAuthorization,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
             }
 
-            override fun toString() = "RequestDetails{category=$category, incrementalAuthorization=$incrementalAuthorization, initialAuthorization=$initialAuthorization, additionalProperties=$additionalProperties}"
+            override fun toString() =
+                "RequestDetails{category=$category, incrementalAuthorization=$incrementalAuthorization, initialAuthorization=$initialAuthorization, additionalProperties=$additionalProperties}"
 
             companion object {
 
-                @JvmStatic
-                fun builder() = Builder()
+                @JvmStatic fun builder() = Builder()
             }
 
             class Builder {
 
                 private var category: JsonField<Category> = JsonMissing.of()
-                private var incrementalAuthorization: JsonField<IncrementalAuthorization> = JsonMissing.of()
+                private var incrementalAuthorization: JsonField<IncrementalAuthorization> =
+                    JsonMissing.of()
                 private var initialAuthorization: JsonValue = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -2130,19 +2199,18 @@ class RealTimeDecision private constructor(
                  */
                 @JsonProperty("category")
                 @ExcludeMissing
-                fun category(category: JsonField<Category>) = apply {
-                    this.category = category
-                }
+                fun category(category: JsonField<Category>) = apply { this.category = category }
 
                 /** Fields specific to the category `incremental_authorization`. */
-                fun incrementalAuthorization(incrementalAuthorization: IncrementalAuthorization) = incrementalAuthorization(JsonField.of(incrementalAuthorization))
+                fun incrementalAuthorization(incrementalAuthorization: IncrementalAuthorization) =
+                    incrementalAuthorization(JsonField.of(incrementalAuthorization))
 
                 /** Fields specific to the category `incremental_authorization`. */
                 @JsonProperty("incremental_authorization")
                 @ExcludeMissing
-                fun incrementalAuthorization(incrementalAuthorization: JsonField<IncrementalAuthorization>) = apply {
-                    this.incrementalAuthorization = incrementalAuthorization
-                }
+                fun incrementalAuthorization(
+                    incrementalAuthorization: JsonField<IncrementalAuthorization>
+                ) = apply { this.incrementalAuthorization = incrementalAuthorization }
 
                 /** Fields specific to the category `initial_authorization`. */
                 @JsonProperty("initial_authorization")
@@ -2161,30 +2229,34 @@ class RealTimeDecision private constructor(
                     this.additionalProperties.put(key, value)
                 }
 
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
 
-                fun build(): RequestDetails = RequestDetails(
-                    category,
-                    incrementalAuthorization,
-                    initialAuthorization,
-                    additionalProperties.toUnmodifiable(),
-                )
+                fun build(): RequestDetails =
+                    RequestDetails(
+                        category,
+                        incrementalAuthorization,
+                        initialAuthorization,
+                        additionalProperties.toUnmodifiable(),
+                    )
             }
 
-            class Category @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+            class Category
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) : Enum {
 
-                @com.fasterxml.jackson.annotation.JsonValue
-                fun _value(): JsonField<String> = value
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
                 override fun equals(other: Any?): Boolean {
-                  if (this === other) {
-                      return true
-                  }
+                    if (this === other) {
+                        return true
+                    }
 
-                  return other is Category &&
-                      this.value == other.value
+                    return other is Category && this.value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -2193,9 +2265,12 @@ class RealTimeDecision private constructor(
 
                 companion object {
 
-                    @JvmField val INITIAL_AUTHORIZATION = Category(JsonField.of("initial_authorization"))
+                    @JvmField
+                    val INITIAL_AUTHORIZATION = Category(JsonField.of("initial_authorization"))
 
-                    @JvmField val INCREMENTAL_AUTHORIZATION = Category(JsonField.of("incremental_authorization"))
+                    @JvmField
+                    val INCREMENTAL_AUTHORIZATION =
+                        Category(JsonField.of("incremental_authorization"))
 
                     @JvmStatic fun of(value: String) = Category(JsonField.of(value))
                 }
@@ -2211,17 +2286,19 @@ class RealTimeDecision private constructor(
                     _UNKNOWN,
                 }
 
-                fun value(): Value = when (this) {
-                    INITIAL_AUTHORIZATION -> Value.INITIAL_AUTHORIZATION
-                    INCREMENTAL_AUTHORIZATION -> Value.INCREMENTAL_AUTHORIZATION
-                    else -> Value._UNKNOWN
-                }
+                fun value(): Value =
+                    when (this) {
+                        INITIAL_AUTHORIZATION -> Value.INITIAL_AUTHORIZATION
+                        INCREMENTAL_AUTHORIZATION -> Value.INCREMENTAL_AUTHORIZATION
+                        else -> Value._UNKNOWN
+                    }
 
-                fun known(): Known = when (this) {
-                    INITIAL_AUTHORIZATION -> Known.INITIAL_AUTHORIZATION
-                    INCREMENTAL_AUTHORIZATION -> Known.INCREMENTAL_AUTHORIZATION
-                    else -> throw IncreaseInvalidDataException("Unknown Category: $value")
-                }
+                fun known(): Known =
+                    when (this) {
+                        INITIAL_AUTHORIZATION -> Known.INITIAL_AUTHORIZATION
+                        INCREMENTAL_AUTHORIZATION -> Known.INCREMENTAL_AUTHORIZATION
+                        else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+                    }
 
                 fun asString(): String = _value().asStringOrThrow()
             }
@@ -2229,7 +2306,12 @@ class RealTimeDecision private constructor(
             /** Fields specific to the category `incremental_authorization`. */
             @JsonDeserialize(builder = IncrementalAuthorization.Builder::class)
             @NoAutoDetect
-            class IncrementalAuthorization private constructor(private val cardPaymentId: JsonField<String>, private val originalCardAuthorizationId: JsonField<String>, private val additionalProperties: Map<String, JsonValue>, ) {
+            class IncrementalAuthorization
+            private constructor(
+                private val cardPaymentId: JsonField<String>,
+                private val originalCardAuthorizationId: JsonField<String>,
+                private val additionalProperties: Map<String, JsonValue>,
+            ) {
 
                 private var validated: Boolean = false
 
@@ -2239,10 +2321,10 @@ class RealTimeDecision private constructor(
                 fun cardPaymentId(): String = cardPaymentId.getRequired("card_payment_id")
 
                 /**
-                 * The identifier of the card authorization this request is attempting to
-                 * increment.
+                 * The identifier of the card authorization this request is attempting to increment.
                  */
-                fun originalCardAuthorizationId(): String = originalCardAuthorizationId.getRequired("original_card_authorization_id")
+                fun originalCardAuthorizationId(): String =
+                    originalCardAuthorizationId.getRequired("original_card_authorization_id")
 
                 /** The card payment for this authorization and increment. */
                 @JsonProperty("card_payment_id")
@@ -2250,8 +2332,7 @@ class RealTimeDecision private constructor(
                 fun _cardPaymentId() = cardPaymentId
 
                 /**
-                 * The identifier of the card authorization this request is attempting to
-                 * increment.
+                 * The identifier of the card authorization this request is attempting to increment.
                  */
                 @JsonProperty("original_card_authorization_id")
                 @ExcludeMissing
@@ -2263,42 +2344,43 @@ class RealTimeDecision private constructor(
 
                 fun validate(): IncrementalAuthorization = apply {
                     if (!validated) {
-                      cardPaymentId()
-                      originalCardAuthorizationId()
-                      validated = true
+                        cardPaymentId()
+                        originalCardAuthorizationId()
+                        validated = true
                     }
                 }
 
                 fun toBuilder() = Builder().from(this)
 
                 override fun equals(other: Any?): Boolean {
-                  if (this === other) {
-                      return true
-                  }
+                    if (this === other) {
+                        return true
+                    }
 
-                  return other is IncrementalAuthorization &&
-                      this.cardPaymentId == other.cardPaymentId &&
-                      this.originalCardAuthorizationId == other.originalCardAuthorizationId &&
-                      this.additionalProperties == other.additionalProperties
+                    return other is IncrementalAuthorization &&
+                        this.cardPaymentId == other.cardPaymentId &&
+                        this.originalCardAuthorizationId == other.originalCardAuthorizationId &&
+                        this.additionalProperties == other.additionalProperties
                 }
 
                 override fun hashCode(): Int {
-                  if (hashCode == 0) {
-                    hashCode = Objects.hash(
-                        cardPaymentId,
-                        originalCardAuthorizationId,
-                        additionalProperties,
-                    )
-                  }
-                  return hashCode
+                    if (hashCode == 0) {
+                        hashCode =
+                            Objects.hash(
+                                cardPaymentId,
+                                originalCardAuthorizationId,
+                                additionalProperties,
+                            )
+                    }
+                    return hashCode
                 }
 
-                override fun toString() = "IncrementalAuthorization{cardPaymentId=$cardPaymentId, originalCardAuthorizationId=$originalCardAuthorizationId, additionalProperties=$additionalProperties}"
+                override fun toString() =
+                    "IncrementalAuthorization{cardPaymentId=$cardPaymentId, originalCardAuthorizationId=$originalCardAuthorizationId, additionalProperties=$additionalProperties}"
 
                 companion object {
 
-                    @JvmStatic
-                    fun builder() = Builder()
+                    @JvmStatic fun builder() = Builder()
                 }
 
                 class Builder {
@@ -2310,12 +2392,14 @@ class RealTimeDecision private constructor(
                     @JvmSynthetic
                     internal fun from(incrementalAuthorization: IncrementalAuthorization) = apply {
                         this.cardPaymentId = incrementalAuthorization.cardPaymentId
-                        this.originalCardAuthorizationId = incrementalAuthorization.originalCardAuthorizationId
+                        this.originalCardAuthorizationId =
+                            incrementalAuthorization.originalCardAuthorizationId
                         additionalProperties(incrementalAuthorization.additionalProperties)
                     }
 
                     /** The card payment for this authorization and increment. */
-                    fun cardPaymentId(cardPaymentId: String) = cardPaymentId(JsonField.of(cardPaymentId))
+                    fun cardPaymentId(cardPaymentId: String) =
+                        cardPaymentId(JsonField.of(cardPaymentId))
 
                     /** The card payment for this authorization and increment. */
                     @JsonProperty("card_payment_id")
@@ -2328,7 +2412,8 @@ class RealTimeDecision private constructor(
                      * The identifier of the card authorization this request is attempting to
                      * increment.
                      */
-                    fun originalCardAuthorizationId(originalCardAuthorizationId: String) = originalCardAuthorizationId(JsonField.of(originalCardAuthorizationId))
+                    fun originalCardAuthorizationId(originalCardAuthorizationId: String) =
+                        originalCardAuthorizationId(JsonField.of(originalCardAuthorizationId))
 
                     /**
                      * The identifier of the card authorization this request is attempting to
@@ -2336,9 +2421,9 @@ class RealTimeDecision private constructor(
                      */
                     @JsonProperty("original_card_authorization_id")
                     @ExcludeMissing
-                    fun originalCardAuthorizationId(originalCardAuthorizationId: JsonField<String>) = apply {
-                        this.originalCardAuthorizationId = originalCardAuthorizationId
-                    }
+                    fun originalCardAuthorizationId(
+                        originalCardAuthorizationId: JsonField<String>
+                    ) = apply { this.originalCardAuthorizationId = originalCardAuthorizationId }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -2350,15 +2435,17 @@ class RealTimeDecision private constructor(
                         this.additionalProperties.put(key, value)
                     }
 
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
 
-                    fun build(): IncrementalAuthorization = IncrementalAuthorization(
-                        cardPaymentId,
-                        originalCardAuthorizationId,
-                        additionalProperties.toUnmodifiable(),
-                    )
+                    fun build(): IncrementalAuthorization =
+                        IncrementalAuthorization(
+                            cardPaymentId,
+                            originalCardAuthorizationId,
+                            additionalProperties.toUnmodifiable(),
+                        )
                 }
             }
         }
@@ -2366,35 +2453,42 @@ class RealTimeDecision private constructor(
         /** Fields related to verification of cardholder-provided values. */
         @JsonDeserialize(builder = Verification.Builder::class)
         @NoAutoDetect
-        class Verification private constructor(private val cardVerificationCode: JsonField<CardVerificationCode>, private val cardholderAddress: JsonField<CardholderAddress>, private val additionalProperties: Map<String, JsonValue>, ) {
+        class Verification
+        private constructor(
+            private val cardVerificationCode: JsonField<CardVerificationCode>,
+            private val cardholderAddress: JsonField<CardholderAddress>,
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
 
             private var validated: Boolean = false
 
             private var hashCode: Int = 0
 
             /**
-             * Fields related to verification of the Card Verification Code, a 3-digit code on
-             * the back of the card.
+             * Fields related to verification of the Card Verification Code, a 3-digit code on the
+             * back of the card.
              */
-            fun cardVerificationCode(): CardVerificationCode = cardVerificationCode.getRequired("card_verification_code")
+            fun cardVerificationCode(): CardVerificationCode =
+                cardVerificationCode.getRequired("card_verification_code")
 
             /**
-             * Cardholder address provided in the authorization request and the address on file
-             * we verified it against.
+             * Cardholder address provided in the authorization request and the address on file we
+             * verified it against.
              */
-            fun cardholderAddress(): CardholderAddress = cardholderAddress.getRequired("cardholder_address")
+            fun cardholderAddress(): CardholderAddress =
+                cardholderAddress.getRequired("cardholder_address")
 
             /**
-             * Fields related to verification of the Card Verification Code, a 3-digit code on
-             * the back of the card.
+             * Fields related to verification of the Card Verification Code, a 3-digit code on the
+             * back of the card.
              */
             @JsonProperty("card_verification_code")
             @ExcludeMissing
             fun _cardVerificationCode() = cardVerificationCode
 
             /**
-             * Cardholder address provided in the authorization request and the address on file
-             * we verified it against.
+             * Cardholder address provided in the authorization request and the address on file we
+             * verified it against.
              */
             @JsonProperty("cardholder_address")
             @ExcludeMissing
@@ -2406,42 +2500,43 @@ class RealTimeDecision private constructor(
 
             fun validate(): Verification = apply {
                 if (!validated) {
-                  cardVerificationCode().validate()
-                  cardholderAddress().validate()
-                  validated = true
+                    cardVerificationCode().validate()
+                    cardholderAddress().validate()
+                    validated = true
                 }
             }
 
             fun toBuilder() = Builder().from(this)
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return other is Verification &&
-                  this.cardVerificationCode == other.cardVerificationCode &&
-                  this.cardholderAddress == other.cardholderAddress &&
-                  this.additionalProperties == other.additionalProperties
+                return other is Verification &&
+                    this.cardVerificationCode == other.cardVerificationCode &&
+                    this.cardholderAddress == other.cardholderAddress &&
+                    this.additionalProperties == other.additionalProperties
             }
 
             override fun hashCode(): Int {
-              if (hashCode == 0) {
-                hashCode = Objects.hash(
-                    cardVerificationCode,
-                    cardholderAddress,
-                    additionalProperties,
-                )
-              }
-              return hashCode
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            cardVerificationCode,
+                            cardholderAddress,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
             }
 
-            override fun toString() = "Verification{cardVerificationCode=$cardVerificationCode, cardholderAddress=$cardholderAddress, additionalProperties=$additionalProperties}"
+            override fun toString() =
+                "Verification{cardVerificationCode=$cardVerificationCode, cardholderAddress=$cardholderAddress, additionalProperties=$additionalProperties}"
 
             companion object {
 
-                @JvmStatic
-                fun builder() = Builder()
+                @JvmStatic fun builder() = Builder()
             }
 
             class Builder {
@@ -2461,7 +2556,8 @@ class RealTimeDecision private constructor(
                  * Fields related to verification of the Card Verification Code, a 3-digit code on
                  * the back of the card.
                  */
-                fun cardVerificationCode(cardVerificationCode: CardVerificationCode) = cardVerificationCode(JsonField.of(cardVerificationCode))
+                fun cardVerificationCode(cardVerificationCode: CardVerificationCode) =
+                    cardVerificationCode(JsonField.of(cardVerificationCode))
 
                 /**
                  * Fields related to verification of the Card Verification Code, a 3-digit code on
@@ -2469,15 +2565,17 @@ class RealTimeDecision private constructor(
                  */
                 @JsonProperty("card_verification_code")
                 @ExcludeMissing
-                fun cardVerificationCode(cardVerificationCode: JsonField<CardVerificationCode>) = apply {
-                    this.cardVerificationCode = cardVerificationCode
-                }
+                fun cardVerificationCode(cardVerificationCode: JsonField<CardVerificationCode>) =
+                    apply {
+                        this.cardVerificationCode = cardVerificationCode
+                    }
 
                 /**
                  * Cardholder address provided in the authorization request and the address on file
                  * we verified it against.
                  */
-                fun cardholderAddress(cardholderAddress: CardholderAddress) = cardholderAddress(JsonField.of(cardholderAddress))
+                fun cardholderAddress(cardholderAddress: CardholderAddress) =
+                    cardholderAddress(JsonField.of(cardholderAddress))
 
                 /**
                  * Cardholder address provided in the authorization request and the address on file
@@ -2499,24 +2597,30 @@ class RealTimeDecision private constructor(
                     this.additionalProperties.put(key, value)
                 }
 
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
 
-                fun build(): Verification = Verification(
-                    cardVerificationCode,
-                    cardholderAddress,
-                    additionalProperties.toUnmodifiable(),
-                )
+                fun build(): Verification =
+                    Verification(
+                        cardVerificationCode,
+                        cardholderAddress,
+                        additionalProperties.toUnmodifiable(),
+                    )
             }
 
             /**
-             * Fields related to verification of the Card Verification Code, a 3-digit code on
-             * the back of the card.
+             * Fields related to verification of the Card Verification Code, a 3-digit code on the
+             * back of the card.
              */
             @JsonDeserialize(builder = CardVerificationCode.Builder::class)
             @NoAutoDetect
-            class CardVerificationCode private constructor(private val result: JsonField<Result>, private val additionalProperties: Map<String, JsonValue>, ) {
+            class CardVerificationCode
+            private constructor(
+                private val result: JsonField<Result>,
+                private val additionalProperties: Map<String, JsonValue>,
+            ) {
 
                 private var validated: Boolean = false
 
@@ -2526,9 +2630,7 @@ class RealTimeDecision private constructor(
                 fun result(): Result = result.getRequired("result")
 
                 /** The result of verifying the Card Verification Code. */
-                @JsonProperty("result")
-                @ExcludeMissing
-                fun _result() = result
+                @JsonProperty("result") @ExcludeMissing fun _result() = result
 
                 @JsonAnyGetter
                 @ExcludeMissing
@@ -2536,36 +2638,36 @@ class RealTimeDecision private constructor(
 
                 fun validate(): CardVerificationCode = apply {
                     if (!validated) {
-                      result()
-                      validated = true
+                        result()
+                        validated = true
                     }
                 }
 
                 fun toBuilder() = Builder().from(this)
 
                 override fun equals(other: Any?): Boolean {
-                  if (this === other) {
-                      return true
-                  }
+                    if (this === other) {
+                        return true
+                    }
 
-                  return other is CardVerificationCode &&
-                      this.result == other.result &&
-                      this.additionalProperties == other.additionalProperties
+                    return other is CardVerificationCode &&
+                        this.result == other.result &&
+                        this.additionalProperties == other.additionalProperties
                 }
 
                 override fun hashCode(): Int {
-                  if (hashCode == 0) {
-                    hashCode = Objects.hash(result, additionalProperties)
-                  }
-                  return hashCode
+                    if (hashCode == 0) {
+                        hashCode = Objects.hash(result, additionalProperties)
+                    }
+                    return hashCode
                 }
 
-                override fun toString() = "CardVerificationCode{result=$result, additionalProperties=$additionalProperties}"
+                override fun toString() =
+                    "CardVerificationCode{result=$result, additionalProperties=$additionalProperties}"
 
                 companion object {
 
-                    @JvmStatic
-                    fun builder() = Builder()
+                    @JvmStatic fun builder() = Builder()
                 }
 
                 class Builder {
@@ -2585,9 +2687,7 @@ class RealTimeDecision private constructor(
                     /** The result of verifying the Card Verification Code. */
                     @JsonProperty("result")
                     @ExcludeMissing
-                    fun result(result: JsonField<Result>) = apply {
-                        this.result = result
-                    }
+                    fun result(result: JsonField<Result>) = apply { this.result = result }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -2599,25 +2699,30 @@ class RealTimeDecision private constructor(
                         this.additionalProperties.put(key, value)
                     }
 
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
 
-                    fun build(): CardVerificationCode = CardVerificationCode(result, additionalProperties.toUnmodifiable())
+                    fun build(): CardVerificationCode =
+                        CardVerificationCode(result, additionalProperties.toUnmodifiable())
                 }
 
-                class Result @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+                class Result
+                @JsonCreator
+                private constructor(
+                    private val value: JsonField<String>,
+                ) : Enum {
 
                     @com.fasterxml.jackson.annotation.JsonValue
                     fun _value(): JsonField<String> = value
 
                     override fun equals(other: Any?): Boolean {
-                      if (this === other) {
-                          return true
-                      }
+                        if (this === other) {
+                            return true
+                        }
 
-                      return other is Result &&
-                          this.value == other.value
+                        return other is Result && this.value == other.value
                     }
 
                     override fun hashCode() = value.hashCode()
@@ -2648,38 +2753,40 @@ class RealTimeDecision private constructor(
                         _UNKNOWN,
                     }
 
-                    fun value(): Value = when (this) {
-                        NOT_CHECKED -> Value.NOT_CHECKED
-                        MATCH -> Value.MATCH
-                        NO_MATCH -> Value.NO_MATCH
-                        else -> Value._UNKNOWN
-                    }
+                    fun value(): Value =
+                        when (this) {
+                            NOT_CHECKED -> Value.NOT_CHECKED
+                            MATCH -> Value.MATCH
+                            NO_MATCH -> Value.NO_MATCH
+                            else -> Value._UNKNOWN
+                        }
 
-                    fun known(): Known = when (this) {
-                        NOT_CHECKED -> Known.NOT_CHECKED
-                        MATCH -> Known.MATCH
-                        NO_MATCH -> Known.NO_MATCH
-                        else -> throw IncreaseInvalidDataException("Unknown Result: $value")
-                    }
+                    fun known(): Known =
+                        when (this) {
+                            NOT_CHECKED -> Known.NOT_CHECKED
+                            MATCH -> Known.MATCH
+                            NO_MATCH -> Known.NO_MATCH
+                            else -> throw IncreaseInvalidDataException("Unknown Result: $value")
+                        }
 
                     fun asString(): String = _value().asStringOrThrow()
                 }
             }
 
             /**
-             * Cardholder address provided in the authorization request and the address on file
-             * we verified it against.
+             * Cardholder address provided in the authorization request and the address on file we
+             * verified it against.
              */
             @JsonDeserialize(builder = CardholderAddress.Builder::class)
             @NoAutoDetect
-            class CardholderAddress private constructor(
-              private val actualLine1: JsonField<String>,
-              private val actualPostalCode: JsonField<String>,
-              private val providedLine1: JsonField<String>,
-              private val providedPostalCode: JsonField<String>,
-              private val result: JsonField<Result>,
-              private val additionalProperties: Map<String, JsonValue>,
-
+            class CardholderAddress
+            private constructor(
+                private val actualLine1: JsonField<String>,
+                private val actualPostalCode: JsonField<String>,
+                private val providedLine1: JsonField<String>,
+                private val providedPostalCode: JsonField<String>,
+                private val result: JsonField<Result>,
+                private val additionalProperties: Map<String, JsonValue>,
             ) {
 
                 private var validated: Boolean = false
@@ -2687,27 +2794,29 @@ class RealTimeDecision private constructor(
                 private var hashCode: Int = 0
 
                 /** Line 1 of the address on file for the cardholder. */
-                fun actualLine1(): Optional<String> = Optional.ofNullable(actualLine1.getNullable("actual_line1"))
+                fun actualLine1(): Optional<String> =
+                    Optional.ofNullable(actualLine1.getNullable("actual_line1"))
 
                 /** The postal code of the address on file for the cardholder. */
-                fun actualPostalCode(): Optional<String> = Optional.ofNullable(actualPostalCode.getNullable("actual_postal_code"))
+                fun actualPostalCode(): Optional<String> =
+                    Optional.ofNullable(actualPostalCode.getNullable("actual_postal_code"))
 
                 /**
                  * The cardholder address line 1 provided for verification in the authorization
                  * request.
                  */
-                fun providedLine1(): Optional<String> = Optional.ofNullable(providedLine1.getNullable("provided_line1"))
+                fun providedLine1(): Optional<String> =
+                    Optional.ofNullable(providedLine1.getNullable("provided_line1"))
 
                 /** The postal code provided for verification in the authorization request. */
-                fun providedPostalCode(): Optional<String> = Optional.ofNullable(providedPostalCode.getNullable("provided_postal_code"))
+                fun providedPostalCode(): Optional<String> =
+                    Optional.ofNullable(providedPostalCode.getNullable("provided_postal_code"))
 
                 /** The address verification result returned to the card network. */
                 fun result(): Result = result.getRequired("result")
 
                 /** Line 1 of the address on file for the cardholder. */
-                @JsonProperty("actual_line1")
-                @ExcludeMissing
-                fun _actualLine1() = actualLine1
+                @JsonProperty("actual_line1") @ExcludeMissing fun _actualLine1() = actualLine1
 
                 /** The postal code of the address on file for the cardholder. */
                 @JsonProperty("actual_postal_code")
@@ -2718,9 +2827,7 @@ class RealTimeDecision private constructor(
                  * The cardholder address line 1 provided for verification in the authorization
                  * request.
                  */
-                @JsonProperty("provided_line1")
-                @ExcludeMissing
-                fun _providedLine1() = providedLine1
+                @JsonProperty("provided_line1") @ExcludeMissing fun _providedLine1() = providedLine1
 
                 /** The postal code provided for verification in the authorization request. */
                 @JsonProperty("provided_postal_code")
@@ -2728,9 +2835,7 @@ class RealTimeDecision private constructor(
                 fun _providedPostalCode() = providedPostalCode
 
                 /** The address verification result returned to the card network. */
-                @JsonProperty("result")
-                @ExcludeMissing
-                fun _result() = result
+                @JsonProperty("result") @ExcludeMissing fun _result() = result
 
                 @JsonAnyGetter
                 @ExcludeMissing
@@ -2738,51 +2843,52 @@ class RealTimeDecision private constructor(
 
                 fun validate(): CardholderAddress = apply {
                     if (!validated) {
-                      actualLine1()
-                      actualPostalCode()
-                      providedLine1()
-                      providedPostalCode()
-                      result()
-                      validated = true
+                        actualLine1()
+                        actualPostalCode()
+                        providedLine1()
+                        providedPostalCode()
+                        result()
+                        validated = true
                     }
                 }
 
                 fun toBuilder() = Builder().from(this)
 
                 override fun equals(other: Any?): Boolean {
-                  if (this === other) {
-                      return true
-                  }
+                    if (this === other) {
+                        return true
+                    }
 
-                  return other is CardholderAddress &&
-                      this.actualLine1 == other.actualLine1 &&
-                      this.actualPostalCode == other.actualPostalCode &&
-                      this.providedLine1 == other.providedLine1 &&
-                      this.providedPostalCode == other.providedPostalCode &&
-                      this.result == other.result &&
-                      this.additionalProperties == other.additionalProperties
+                    return other is CardholderAddress &&
+                        this.actualLine1 == other.actualLine1 &&
+                        this.actualPostalCode == other.actualPostalCode &&
+                        this.providedLine1 == other.providedLine1 &&
+                        this.providedPostalCode == other.providedPostalCode &&
+                        this.result == other.result &&
+                        this.additionalProperties == other.additionalProperties
                 }
 
                 override fun hashCode(): Int {
-                  if (hashCode == 0) {
-                    hashCode = Objects.hash(
-                        actualLine1,
-                        actualPostalCode,
-                        providedLine1,
-                        providedPostalCode,
-                        result,
-                        additionalProperties,
-                    )
-                  }
-                  return hashCode
+                    if (hashCode == 0) {
+                        hashCode =
+                            Objects.hash(
+                                actualLine1,
+                                actualPostalCode,
+                                providedLine1,
+                                providedPostalCode,
+                                result,
+                                additionalProperties,
+                            )
+                    }
+                    return hashCode
                 }
 
-                override fun toString() = "CardholderAddress{actualLine1=$actualLine1, actualPostalCode=$actualPostalCode, providedLine1=$providedLine1, providedPostalCode=$providedPostalCode, result=$result, additionalProperties=$additionalProperties}"
+                override fun toString() =
+                    "CardholderAddress{actualLine1=$actualLine1, actualPostalCode=$actualPostalCode, providedLine1=$providedLine1, providedPostalCode=$providedPostalCode, result=$result, additionalProperties=$additionalProperties}"
 
                 companion object {
 
-                    @JvmStatic
-                    fun builder() = Builder()
+                    @JvmStatic fun builder() = Builder()
                 }
 
                 class Builder {
@@ -2815,7 +2921,8 @@ class RealTimeDecision private constructor(
                     }
 
                     /** The postal code of the address on file for the cardholder. */
-                    fun actualPostalCode(actualPostalCode: String) = actualPostalCode(JsonField.of(actualPostalCode))
+                    fun actualPostalCode(actualPostalCode: String) =
+                        actualPostalCode(JsonField.of(actualPostalCode))
 
                     /** The postal code of the address on file for the cardholder. */
                     @JsonProperty("actual_postal_code")
@@ -2828,7 +2935,8 @@ class RealTimeDecision private constructor(
                      * The cardholder address line 1 provided for verification in the authorization
                      * request.
                      */
-                    fun providedLine1(providedLine1: String) = providedLine1(JsonField.of(providedLine1))
+                    fun providedLine1(providedLine1: String) =
+                        providedLine1(JsonField.of(providedLine1))
 
                     /**
                      * The cardholder address line 1 provided for verification in the authorization
@@ -2841,7 +2949,8 @@ class RealTimeDecision private constructor(
                     }
 
                     /** The postal code provided for verification in the authorization request. */
-                    fun providedPostalCode(providedPostalCode: String) = providedPostalCode(JsonField.of(providedPostalCode))
+                    fun providedPostalCode(providedPostalCode: String) =
+                        providedPostalCode(JsonField.of(providedPostalCode))
 
                     /** The postal code provided for verification in the authorization request. */
                     @JsonProperty("provided_postal_code")
@@ -2856,9 +2965,7 @@ class RealTimeDecision private constructor(
                     /** The address verification result returned to the card network. */
                     @JsonProperty("result")
                     @ExcludeMissing
-                    fun result(result: JsonField<Result>) = apply {
-                        this.result = result
-                    }
+                    fun result(result: JsonField<Result>) = apply { this.result = result }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -2870,32 +2977,37 @@ class RealTimeDecision private constructor(
                         this.additionalProperties.put(key, value)
                     }
 
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
 
-                    fun build(): CardholderAddress = CardholderAddress(
-                        actualLine1,
-                        actualPostalCode,
-                        providedLine1,
-                        providedPostalCode,
-                        result,
-                        additionalProperties.toUnmodifiable(),
-                    )
+                    fun build(): CardholderAddress =
+                        CardholderAddress(
+                            actualLine1,
+                            actualPostalCode,
+                            providedLine1,
+                            providedPostalCode,
+                            result,
+                            additionalProperties.toUnmodifiable(),
+                        )
                 }
 
-                class Result @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+                class Result
+                @JsonCreator
+                private constructor(
+                    private val value: JsonField<String>,
+                ) : Enum {
 
                     @com.fasterxml.jackson.annotation.JsonValue
                     fun _value(): JsonField<String> = value
 
                     override fun equals(other: Any?): Boolean {
-                      if (this === other) {
-                          return true
-                      }
+                        if (this === other) {
+                            return true
+                        }
 
-                      return other is Result &&
-                          this.value == other.value
+                        return other is Result && this.value == other.value
                     }
 
                     override fun hashCode() = value.hashCode()
@@ -2906,11 +3018,17 @@ class RealTimeDecision private constructor(
 
                         @JvmField val NOT_CHECKED = Result(JsonField.of("not_checked"))
 
-                        @JvmField val POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED = Result(JsonField.of("postal_code_match_address_not_checked"))
+                        @JvmField
+                        val POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED =
+                            Result(JsonField.of("postal_code_match_address_not_checked"))
 
-                        @JvmField val POSTAL_CODE_MATCH_ADDRESS_NO_MATCH = Result(JsonField.of("postal_code_match_address_no_match"))
+                        @JvmField
+                        val POSTAL_CODE_MATCH_ADDRESS_NO_MATCH =
+                            Result(JsonField.of("postal_code_match_address_no_match"))
 
-                        @JvmField val POSTAL_CODE_NO_MATCH_ADDRESS_MATCH = Result(JsonField.of("postal_code_no_match_address_match"))
+                        @JvmField
+                        val POSTAL_CODE_NO_MATCH_ADDRESS_MATCH =
+                            Result(JsonField.of("postal_code_no_match_address_match"))
 
                         @JvmField val MATCH = Result(JsonField.of("match"))
 
@@ -2938,25 +3056,33 @@ class RealTimeDecision private constructor(
                         _UNKNOWN,
                     }
 
-                    fun value(): Value = when (this) {
-                        NOT_CHECKED -> Value.NOT_CHECKED
-                        POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED -> Value.POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED
-                        POSTAL_CODE_MATCH_ADDRESS_NO_MATCH -> Value.POSTAL_CODE_MATCH_ADDRESS_NO_MATCH
-                        POSTAL_CODE_NO_MATCH_ADDRESS_MATCH -> Value.POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
-                        MATCH -> Value.MATCH
-                        NO_MATCH -> Value.NO_MATCH
-                        else -> Value._UNKNOWN
-                    }
+                    fun value(): Value =
+                        when (this) {
+                            NOT_CHECKED -> Value.NOT_CHECKED
+                            POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED ->
+                                Value.POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED
+                            POSTAL_CODE_MATCH_ADDRESS_NO_MATCH ->
+                                Value.POSTAL_CODE_MATCH_ADDRESS_NO_MATCH
+                            POSTAL_CODE_NO_MATCH_ADDRESS_MATCH ->
+                                Value.POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
+                            MATCH -> Value.MATCH
+                            NO_MATCH -> Value.NO_MATCH
+                            else -> Value._UNKNOWN
+                        }
 
-                    fun known(): Known = when (this) {
-                        NOT_CHECKED -> Known.NOT_CHECKED
-                        POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED -> Known.POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED
-                        POSTAL_CODE_MATCH_ADDRESS_NO_MATCH -> Known.POSTAL_CODE_MATCH_ADDRESS_NO_MATCH
-                        POSTAL_CODE_NO_MATCH_ADDRESS_MATCH -> Known.POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
-                        MATCH -> Known.MATCH
-                        NO_MATCH -> Known.NO_MATCH
-                        else -> throw IncreaseInvalidDataException("Unknown Result: $value")
-                    }
+                    fun known(): Known =
+                        when (this) {
+                            NOT_CHECKED -> Known.NOT_CHECKED
+                            POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED ->
+                                Known.POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED
+                            POSTAL_CODE_MATCH_ADDRESS_NO_MATCH ->
+                                Known.POSTAL_CODE_MATCH_ADDRESS_NO_MATCH
+                            POSTAL_CODE_NO_MATCH_ADDRESS_MATCH ->
+                                Known.POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
+                            MATCH -> Known.MATCH
+                            NO_MATCH -> Known.NO_MATCH
+                            else -> throw IncreaseInvalidDataException("Unknown Result: $value")
+                        }
 
                     fun asString(): String = _value().asStringOrThrow()
                 }
@@ -2964,18 +3090,20 @@ class RealTimeDecision private constructor(
         }
     }
 
-    class Category @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+    class Category
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Category &&
-              this.value == other.value
+            return other is Category && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -2984,11 +3112,17 @@ class RealTimeDecision private constructor(
 
         companion object {
 
-            @JvmField val CARD_AUTHORIZATION_REQUESTED = Category(JsonField.of("card_authorization_requested"))
+            @JvmField
+            val CARD_AUTHORIZATION_REQUESTED =
+                Category(JsonField.of("card_authorization_requested"))
 
-            @JvmField val DIGITAL_WALLET_TOKEN_REQUESTED = Category(JsonField.of("digital_wallet_token_requested"))
+            @JvmField
+            val DIGITAL_WALLET_TOKEN_REQUESTED =
+                Category(JsonField.of("digital_wallet_token_requested"))
 
-            @JvmField val DIGITAL_WALLET_AUTHENTICATION_REQUESTED = Category(JsonField.of("digital_wallet_authentication_requested"))
+            @JvmField
+            val DIGITAL_WALLET_AUTHENTICATION_REQUESTED =
+                Category(JsonField.of("digital_wallet_authentication_requested"))
 
             @JvmStatic fun of(value: String) = Category(JsonField.of(value))
         }
@@ -3006,19 +3140,23 @@ class RealTimeDecision private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            CARD_AUTHORIZATION_REQUESTED -> Value.CARD_AUTHORIZATION_REQUESTED
-            DIGITAL_WALLET_TOKEN_REQUESTED -> Value.DIGITAL_WALLET_TOKEN_REQUESTED
-            DIGITAL_WALLET_AUTHENTICATION_REQUESTED -> Value.DIGITAL_WALLET_AUTHENTICATION_REQUESTED
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                CARD_AUTHORIZATION_REQUESTED -> Value.CARD_AUTHORIZATION_REQUESTED
+                DIGITAL_WALLET_TOKEN_REQUESTED -> Value.DIGITAL_WALLET_TOKEN_REQUESTED
+                DIGITAL_WALLET_AUTHENTICATION_REQUESTED ->
+                    Value.DIGITAL_WALLET_AUTHENTICATION_REQUESTED
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            CARD_AUTHORIZATION_REQUESTED -> Known.CARD_AUTHORIZATION_REQUESTED
-            DIGITAL_WALLET_TOKEN_REQUESTED -> Known.DIGITAL_WALLET_TOKEN_REQUESTED
-            DIGITAL_WALLET_AUTHENTICATION_REQUESTED -> Known.DIGITAL_WALLET_AUTHENTICATION_REQUESTED
-            else -> throw IncreaseInvalidDataException("Unknown Category: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                CARD_AUTHORIZATION_REQUESTED -> Known.CARD_AUTHORIZATION_REQUESTED
+                DIGITAL_WALLET_TOKEN_REQUESTED -> Known.DIGITAL_WALLET_TOKEN_REQUESTED
+                DIGITAL_WALLET_AUTHENTICATION_REQUESTED ->
+                    Known.DIGITAL_WALLET_AUTHENTICATION_REQUESTED
+                else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }
@@ -3026,16 +3164,16 @@ class RealTimeDecision private constructor(
     /** Fields related to a digital wallet authentication attempt. */
     @JsonDeserialize(builder = DigitalWalletAuthentication.Builder::class)
     @NoAutoDetect
-    class DigitalWalletAuthentication private constructor(
-      private val cardId: JsonField<String>,
-      private val channel: JsonField<Channel>,
-      private val digitalWallet: JsonField<DigitalWallet>,
-      private val email: JsonField<String>,
-      private val oneTimePasscode: JsonField<String>,
-      private val phone: JsonField<String>,
-      private val result: JsonField<Result>,
-      private val additionalProperties: Map<String, JsonValue>,
-
+    class DigitalWalletAuthentication
+    private constructor(
+        private val cardId: JsonField<String>,
+        private val channel: JsonField<Channel>,
+        private val digitalWallet: JsonField<DigitalWallet>,
+        private val email: JsonField<String>,
+        private val oneTimePasscode: JsonField<String>,
+        private val phone: JsonField<String>,
+        private val result: JsonField<Result>,
+        private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var validated: Boolean = false
@@ -3057,52 +3195,32 @@ class RealTimeDecision private constructor(
         /** The one-time passcode to send the card user. */
         fun oneTimePasscode(): String = oneTimePasscode.getRequired("one_time_passcode")
 
-        /**
-         * The phone number to send the one-time passcode to if `channel` is equal to
-         * `sms`.
-         */
+        /** The phone number to send the one-time passcode to if `channel` is equal to `sms`. */
         fun phone(): Optional<String> = Optional.ofNullable(phone.getNullable("phone"))
 
         /** Whether your application successfully delivered the one-time passcode. */
         fun result(): Optional<Result> = Optional.ofNullable(result.getNullable("result"))
 
         /** The identifier of the Card that is being tokenized. */
-        @JsonProperty("card_id")
-        @ExcludeMissing
-        fun _cardId() = cardId
+        @JsonProperty("card_id") @ExcludeMissing fun _cardId() = cardId
 
         /** The channel to send the card user their one-time passcode. */
-        @JsonProperty("channel")
-        @ExcludeMissing
-        fun _channel() = channel
+        @JsonProperty("channel") @ExcludeMissing fun _channel() = channel
 
         /** The digital wallet app being used. */
-        @JsonProperty("digital_wallet")
-        @ExcludeMissing
-        fun _digitalWallet() = digitalWallet
+        @JsonProperty("digital_wallet") @ExcludeMissing fun _digitalWallet() = digitalWallet
 
         /** The email to send the one-time passcode to if `channel` is equal to `email`. */
-        @JsonProperty("email")
-        @ExcludeMissing
-        fun _email() = email
+        @JsonProperty("email") @ExcludeMissing fun _email() = email
 
         /** The one-time passcode to send the card user. */
-        @JsonProperty("one_time_passcode")
-        @ExcludeMissing
-        fun _oneTimePasscode() = oneTimePasscode
+        @JsonProperty("one_time_passcode") @ExcludeMissing fun _oneTimePasscode() = oneTimePasscode
 
-        /**
-         * The phone number to send the one-time passcode to if `channel` is equal to
-         * `sms`.
-         */
-        @JsonProperty("phone")
-        @ExcludeMissing
-        fun _phone() = phone
+        /** The phone number to send the one-time passcode to if `channel` is equal to `sms`. */
+        @JsonProperty("phone") @ExcludeMissing fun _phone() = phone
 
         /** Whether your application successfully delivered the one-time passcode. */
-        @JsonProperty("result")
-        @ExcludeMissing
-        fun _result() = result
+        @JsonProperty("result") @ExcludeMissing fun _result() = result
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -3110,57 +3228,58 @@ class RealTimeDecision private constructor(
 
         fun validate(): DigitalWalletAuthentication = apply {
             if (!validated) {
-              cardId()
-              channel()
-              digitalWallet()
-              email()
-              oneTimePasscode()
-              phone()
-              result()
-              validated = true
+                cardId()
+                channel()
+                digitalWallet()
+                email()
+                oneTimePasscode()
+                phone()
+                result()
+                validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is DigitalWalletAuthentication &&
-              this.cardId == other.cardId &&
-              this.channel == other.channel &&
-              this.digitalWallet == other.digitalWallet &&
-              this.email == other.email &&
-              this.oneTimePasscode == other.oneTimePasscode &&
-              this.phone == other.phone &&
-              this.result == other.result &&
-              this.additionalProperties == other.additionalProperties
+            return other is DigitalWalletAuthentication &&
+                this.cardId == other.cardId &&
+                this.channel == other.channel &&
+                this.digitalWallet == other.digitalWallet &&
+                this.email == other.email &&
+                this.oneTimePasscode == other.oneTimePasscode &&
+                this.phone == other.phone &&
+                this.result == other.result &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                cardId,
-                channel,
-                digitalWallet,
-                email,
-                oneTimePasscode,
-                phone,
-                result,
-                additionalProperties,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        cardId,
+                        channel,
+                        digitalWallet,
+                        email,
+                        oneTimePasscode,
+                        phone,
+                        result,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "DigitalWalletAuthentication{cardId=$cardId, channel=$channel, digitalWallet=$digitalWallet, email=$email, oneTimePasscode=$oneTimePasscode, phone=$phone, result=$result, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "DigitalWalletAuthentication{cardId=$cardId, channel=$channel, digitalWallet=$digitalWallet, email=$email, oneTimePasscode=$oneTimePasscode, phone=$phone, result=$result, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -3192,9 +3311,7 @@ class RealTimeDecision private constructor(
             /** The identifier of the Card that is being tokenized. */
             @JsonProperty("card_id")
             @ExcludeMissing
-            fun cardId(cardId: JsonField<String>) = apply {
-                this.cardId = cardId
-            }
+            fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
 
             /** The channel to send the card user their one-time passcode. */
             fun channel(channel: Channel) = channel(JsonField.of(channel))
@@ -3202,12 +3319,11 @@ class RealTimeDecision private constructor(
             /** The channel to send the card user their one-time passcode. */
             @JsonProperty("channel")
             @ExcludeMissing
-            fun channel(channel: JsonField<Channel>) = apply {
-                this.channel = channel
-            }
+            fun channel(channel: JsonField<Channel>) = apply { this.channel = channel }
 
             /** The digital wallet app being used. */
-            fun digitalWallet(digitalWallet: DigitalWallet) = digitalWallet(JsonField.of(digitalWallet))
+            fun digitalWallet(digitalWallet: DigitalWallet) =
+                digitalWallet(JsonField.of(digitalWallet))
 
             /** The digital wallet app being used. */
             @JsonProperty("digital_wallet")
@@ -3222,12 +3338,11 @@ class RealTimeDecision private constructor(
             /** The email to send the one-time passcode to if `channel` is equal to `email`. */
             @JsonProperty("email")
             @ExcludeMissing
-            fun email(email: JsonField<String>) = apply {
-                this.email = email
-            }
+            fun email(email: JsonField<String>) = apply { this.email = email }
 
             /** The one-time passcode to send the card user. */
-            fun oneTimePasscode(oneTimePasscode: String) = oneTimePasscode(JsonField.of(oneTimePasscode))
+            fun oneTimePasscode(oneTimePasscode: String) =
+                oneTimePasscode(JsonField.of(oneTimePasscode))
 
             /** The one-time passcode to send the card user. */
             @JsonProperty("one_time_passcode")
@@ -3236,21 +3351,13 @@ class RealTimeDecision private constructor(
                 this.oneTimePasscode = oneTimePasscode
             }
 
-            /**
-             * The phone number to send the one-time passcode to if `channel` is equal to
-             * `sms`.
-             */
+            /** The phone number to send the one-time passcode to if `channel` is equal to `sms`. */
             fun phone(phone: String) = phone(JsonField.of(phone))
 
-            /**
-             * The phone number to send the one-time passcode to if `channel` is equal to
-             * `sms`.
-             */
+            /** The phone number to send the one-time passcode to if `channel` is equal to `sms`. */
             @JsonProperty("phone")
             @ExcludeMissing
-            fun phone(phone: JsonField<String>) = apply {
-                this.phone = phone
-            }
+            fun phone(phone: JsonField<String>) = apply { this.phone = phone }
 
             /** Whether your application successfully delivered the one-time passcode. */
             fun result(result: Result) = result(JsonField.of(result))
@@ -3258,9 +3365,7 @@ class RealTimeDecision private constructor(
             /** Whether your application successfully delivered the one-time passcode. */
             @JsonProperty("result")
             @ExcludeMissing
-            fun result(result: JsonField<Result>) = apply {
-                this.result = result
-            }
+            fun result(result: JsonField<Result>) = apply { this.result = result }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -3276,30 +3381,33 @@ class RealTimeDecision private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): DigitalWalletAuthentication = DigitalWalletAuthentication(
-                cardId,
-                channel,
-                digitalWallet,
-                email,
-                oneTimePasscode,
-                phone,
-                result,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build(): DigitalWalletAuthentication =
+                DigitalWalletAuthentication(
+                    cardId,
+                    channel,
+                    digitalWallet,
+                    email,
+                    oneTimePasscode,
+                    phone,
+                    result,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
 
-        class Channel @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+        class Channel
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return other is Channel &&
-                  this.value == other.value
+                return other is Channel && this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -3326,33 +3434,37 @@ class RealTimeDecision private constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value = when (this) {
-                SMS -> Value.SMS
-                EMAIL -> Value.EMAIL
-                else -> Value._UNKNOWN
-            }
+            fun value(): Value =
+                when (this) {
+                    SMS -> Value.SMS
+                    EMAIL -> Value.EMAIL
+                    else -> Value._UNKNOWN
+                }
 
-            fun known(): Known = when (this) {
-                SMS -> Known.SMS
-                EMAIL -> Known.EMAIL
-                else -> throw IncreaseInvalidDataException("Unknown Channel: $value")
-            }
+            fun known(): Known =
+                when (this) {
+                    SMS -> Known.SMS
+                    EMAIL -> Known.EMAIL
+                    else -> throw IncreaseInvalidDataException("Unknown Channel: $value")
+                }
 
             fun asString(): String = _value().asStringOrThrow()
         }
 
-        class DigitalWallet @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+        class DigitalWallet
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return other is DigitalWallet &&
-                  this.value == other.value
+                return other is DigitalWallet && this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -3387,37 +3499,41 @@ class RealTimeDecision private constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value = when (this) {
-                APPLE_PAY -> Value.APPLE_PAY
-                GOOGLE_PAY -> Value.GOOGLE_PAY
-                SAMSUNG_PAY -> Value.SAMSUNG_PAY
-                UNKNOWN -> Value.UNKNOWN
-                else -> Value._UNKNOWN
-            }
+            fun value(): Value =
+                when (this) {
+                    APPLE_PAY -> Value.APPLE_PAY
+                    GOOGLE_PAY -> Value.GOOGLE_PAY
+                    SAMSUNG_PAY -> Value.SAMSUNG_PAY
+                    UNKNOWN -> Value.UNKNOWN
+                    else -> Value._UNKNOWN
+                }
 
-            fun known(): Known = when (this) {
-                APPLE_PAY -> Known.APPLE_PAY
-                GOOGLE_PAY -> Known.GOOGLE_PAY
-                SAMSUNG_PAY -> Known.SAMSUNG_PAY
-                UNKNOWN -> Known.UNKNOWN
-                else -> throw IncreaseInvalidDataException("Unknown DigitalWallet: $value")
-            }
+            fun known(): Known =
+                when (this) {
+                    APPLE_PAY -> Known.APPLE_PAY
+                    GOOGLE_PAY -> Known.GOOGLE_PAY
+                    SAMSUNG_PAY -> Known.SAMSUNG_PAY
+                    UNKNOWN -> Known.UNKNOWN
+                    else -> throw IncreaseInvalidDataException("Unknown DigitalWallet: $value")
+                }
 
             fun asString(): String = _value().asStringOrThrow()
         }
 
-        class Result @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+        class Result
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return other is Result &&
-                  this.value == other.value
+                return other is Result && this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -3444,17 +3560,19 @@ class RealTimeDecision private constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value = when (this) {
-                SUCCESS -> Value.SUCCESS
-                FAILURE -> Value.FAILURE
-                else -> Value._UNKNOWN
-            }
+            fun value(): Value =
+                when (this) {
+                    SUCCESS -> Value.SUCCESS
+                    FAILURE -> Value.FAILURE
+                    else -> Value._UNKNOWN
+                }
 
-            fun known(): Known = when (this) {
-                SUCCESS -> Known.SUCCESS
-                FAILURE -> Known.FAILURE
-                else -> throw IncreaseInvalidDataException("Unknown Result: $value")
-            }
+            fun known(): Known =
+                when (this) {
+                    SUCCESS -> Known.SUCCESS
+                    FAILURE -> Known.FAILURE
+                    else -> throw IncreaseInvalidDataException("Unknown Result: $value")
+                }
 
             fun asString(): String = _value().asStringOrThrow()
         }
@@ -3463,13 +3581,13 @@ class RealTimeDecision private constructor(
     /** Fields related to a digital wallet token provisioning attempt. */
     @JsonDeserialize(builder = DigitalWalletToken.Builder::class)
     @NoAutoDetect
-    class DigitalWalletToken private constructor(
-      private val cardId: JsonField<String>,
-      private val cardProfileId: JsonField<String>,
-      private val decision: JsonField<Decision>,
-      private val digitalWallet: JsonField<DigitalWallet>,
-      private val additionalProperties: Map<String, JsonValue>,
-
+    class DigitalWalletToken
+    private constructor(
+        private val cardId: JsonField<String>,
+        private val cardProfileId: JsonField<String>,
+        private val decision: JsonField<Decision>,
+        private val digitalWallet: JsonField<DigitalWallet>,
+        private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var validated: Boolean = false
@@ -3480,15 +3598,16 @@ class RealTimeDecision private constructor(
         fun cardId(): String = cardId.getRequired("card_id")
 
         /**
-         * The identifier of the Card Profile that was set via the real time decision. This
-         * will be null until the real time decision is responded to or if the real time
-         * decision did not set a card profile.
+         * The identifier of the Card Profile that was set via the real time decision. This will be
+         * null until the real time decision is responded to or if the real time decision did not
+         * set a card profile.
          */
-        fun cardProfileId(): Optional<String> = Optional.ofNullable(cardProfileId.getNullable("card_profile_id"))
+        fun cardProfileId(): Optional<String> =
+            Optional.ofNullable(cardProfileId.getNullable("card_profile_id"))
 
         /**
-         * Whether or not the provisioning request was approved. This will be null until
-         * the real time decision is responded to.
+         * Whether or not the provisioning request was approved. This will be null until the real
+         * time decision is responded to.
          */
         fun decision(): Optional<Decision> = Optional.ofNullable(decision.getNullable("decision"))
 
@@ -3496,31 +3615,23 @@ class RealTimeDecision private constructor(
         fun digitalWallet(): DigitalWallet = digitalWallet.getRequired("digital_wallet")
 
         /** The identifier of the Card that is being tokenized. */
-        @JsonProperty("card_id")
-        @ExcludeMissing
-        fun _cardId() = cardId
+        @JsonProperty("card_id") @ExcludeMissing fun _cardId() = cardId
 
         /**
-         * The identifier of the Card Profile that was set via the real time decision. This
-         * will be null until the real time decision is responded to or if the real time
-         * decision did not set a card profile.
+         * The identifier of the Card Profile that was set via the real time decision. This will be
+         * null until the real time decision is responded to or if the real time decision did not
+         * set a card profile.
          */
-        @JsonProperty("card_profile_id")
-        @ExcludeMissing
-        fun _cardProfileId() = cardProfileId
+        @JsonProperty("card_profile_id") @ExcludeMissing fun _cardProfileId() = cardProfileId
 
         /**
-         * Whether or not the provisioning request was approved. This will be null until
-         * the real time decision is responded to.
+         * Whether or not the provisioning request was approved. This will be null until the real
+         * time decision is responded to.
          */
-        @JsonProperty("decision")
-        @ExcludeMissing
-        fun _decision() = decision
+        @JsonProperty("decision") @ExcludeMissing fun _decision() = decision
 
         /** The digital wallet app being used. */
-        @JsonProperty("digital_wallet")
-        @ExcludeMissing
-        fun _digitalWallet() = digitalWallet
+        @JsonProperty("digital_wallet") @ExcludeMissing fun _digitalWallet() = digitalWallet
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -3528,48 +3639,49 @@ class RealTimeDecision private constructor(
 
         fun validate(): DigitalWalletToken = apply {
             if (!validated) {
-              cardId()
-              cardProfileId()
-              decision()
-              digitalWallet()
-              validated = true
+                cardId()
+                cardProfileId()
+                decision()
+                digitalWallet()
+                validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is DigitalWalletToken &&
-              this.cardId == other.cardId &&
-              this.cardProfileId == other.cardProfileId &&
-              this.decision == other.decision &&
-              this.digitalWallet == other.digitalWallet &&
-              this.additionalProperties == other.additionalProperties
+            return other is DigitalWalletToken &&
+                this.cardId == other.cardId &&
+                this.cardProfileId == other.cardProfileId &&
+                this.decision == other.decision &&
+                this.digitalWallet == other.digitalWallet &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                cardId,
-                cardProfileId,
-                decision,
-                digitalWallet,
-                additionalProperties,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        cardId,
+                        cardProfileId,
+                        decision,
+                        digitalWallet,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "DigitalWalletToken{cardId=$cardId, cardProfileId=$cardProfileId, decision=$decision, digitalWallet=$digitalWallet, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "DigitalWalletToken{cardId=$cardId, cardProfileId=$cardProfileId, decision=$decision, digitalWallet=$digitalWallet, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -3595,21 +3707,19 @@ class RealTimeDecision private constructor(
             /** The identifier of the Card that is being tokenized. */
             @JsonProperty("card_id")
             @ExcludeMissing
-            fun cardId(cardId: JsonField<String>) = apply {
-                this.cardId = cardId
-            }
+            fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
 
             /**
-             * The identifier of the Card Profile that was set via the real time decision. This
-             * will be null until the real time decision is responded to or if the real time
-             * decision did not set a card profile.
+             * The identifier of the Card Profile that was set via the real time decision. This will
+             * be null until the real time decision is responded to or if the real time decision did
+             * not set a card profile.
              */
             fun cardProfileId(cardProfileId: String) = cardProfileId(JsonField.of(cardProfileId))
 
             /**
-             * The identifier of the Card Profile that was set via the real time decision. This
-             * will be null until the real time decision is responded to or if the real time
-             * decision did not set a card profile.
+             * The identifier of the Card Profile that was set via the real time decision. This will
+             * be null until the real time decision is responded to or if the real time decision did
+             * not set a card profile.
              */
             @JsonProperty("card_profile_id")
             @ExcludeMissing
@@ -3618,23 +3728,22 @@ class RealTimeDecision private constructor(
             }
 
             /**
-             * Whether or not the provisioning request was approved. This will be null until
-             * the real time decision is responded to.
+             * Whether or not the provisioning request was approved. This will be null until the
+             * real time decision is responded to.
              */
             fun decision(decision: Decision) = decision(JsonField.of(decision))
 
             /**
-             * Whether or not the provisioning request was approved. This will be null until
-             * the real time decision is responded to.
+             * Whether or not the provisioning request was approved. This will be null until the
+             * real time decision is responded to.
              */
             @JsonProperty("decision")
             @ExcludeMissing
-            fun decision(decision: JsonField<Decision>) = apply {
-                this.decision = decision
-            }
+            fun decision(decision: JsonField<Decision>) = apply { this.decision = decision }
 
             /** The digital wallet app being used. */
-            fun digitalWallet(digitalWallet: DigitalWallet) = digitalWallet(JsonField.of(digitalWallet))
+            fun digitalWallet(digitalWallet: DigitalWallet) =
+                digitalWallet(JsonField.of(digitalWallet))
 
             /** The digital wallet app being used. */
             @JsonProperty("digital_wallet")
@@ -3657,27 +3766,30 @@ class RealTimeDecision private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): DigitalWalletToken = DigitalWalletToken(
-                cardId,
-                cardProfileId,
-                decision,
-                digitalWallet,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build(): DigitalWalletToken =
+                DigitalWalletToken(
+                    cardId,
+                    cardProfileId,
+                    decision,
+                    digitalWallet,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
 
-        class Decision @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+        class Decision
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return other is Decision &&
-                  this.value == other.value
+                return other is Decision && this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -3704,33 +3816,37 @@ class RealTimeDecision private constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value = when (this) {
-                APPROVE -> Value.APPROVE
-                DECLINE -> Value.DECLINE
-                else -> Value._UNKNOWN
-            }
+            fun value(): Value =
+                when (this) {
+                    APPROVE -> Value.APPROVE
+                    DECLINE -> Value.DECLINE
+                    else -> Value._UNKNOWN
+                }
 
-            fun known(): Known = when (this) {
-                APPROVE -> Known.APPROVE
-                DECLINE -> Known.DECLINE
-                else -> throw IncreaseInvalidDataException("Unknown Decision: $value")
-            }
+            fun known(): Known =
+                when (this) {
+                    APPROVE -> Known.APPROVE
+                    DECLINE -> Known.DECLINE
+                    else -> throw IncreaseInvalidDataException("Unknown Decision: $value")
+                }
 
             fun asString(): String = _value().asStringOrThrow()
         }
 
-        class DigitalWallet @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+        class DigitalWallet
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return other is DigitalWallet &&
-                  this.value == other.value
+                return other is DigitalWallet && this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -3765,38 +3881,42 @@ class RealTimeDecision private constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value = when (this) {
-                APPLE_PAY -> Value.APPLE_PAY
-                GOOGLE_PAY -> Value.GOOGLE_PAY
-                SAMSUNG_PAY -> Value.SAMSUNG_PAY
-                UNKNOWN -> Value.UNKNOWN
-                else -> Value._UNKNOWN
-            }
+            fun value(): Value =
+                when (this) {
+                    APPLE_PAY -> Value.APPLE_PAY
+                    GOOGLE_PAY -> Value.GOOGLE_PAY
+                    SAMSUNG_PAY -> Value.SAMSUNG_PAY
+                    UNKNOWN -> Value.UNKNOWN
+                    else -> Value._UNKNOWN
+                }
 
-            fun known(): Known = when (this) {
-                APPLE_PAY -> Known.APPLE_PAY
-                GOOGLE_PAY -> Known.GOOGLE_PAY
-                SAMSUNG_PAY -> Known.SAMSUNG_PAY
-                UNKNOWN -> Known.UNKNOWN
-                else -> throw IncreaseInvalidDataException("Unknown DigitalWallet: $value")
-            }
+            fun known(): Known =
+                when (this) {
+                    APPLE_PAY -> Known.APPLE_PAY
+                    GOOGLE_PAY -> Known.GOOGLE_PAY
+                    SAMSUNG_PAY -> Known.SAMSUNG_PAY
+                    UNKNOWN -> Known.UNKNOWN
+                    else -> throw IncreaseInvalidDataException("Unknown DigitalWallet: $value")
+                }
 
             fun asString(): String = _value().asStringOrThrow()
         }
     }
 
-    class Status @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Status &&
-              this.value == other.value
+            return other is Status && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -3827,35 +3947,39 @@ class RealTimeDecision private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            PENDING -> Value.PENDING
-            RESPONDED -> Value.RESPONDED
-            TIMED_OUT -> Value.TIMED_OUT
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                PENDING -> Value.PENDING
+                RESPONDED -> Value.RESPONDED
+                TIMED_OUT -> Value.TIMED_OUT
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            PENDING -> Known.PENDING
-            RESPONDED -> Known.RESPONDED
-            TIMED_OUT -> Known.TIMED_OUT
-            else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                PENDING -> Known.PENDING
+                RESPONDED -> Known.RESPONDED
+                TIMED_OUT -> Known.TIMED_OUT
+                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Type @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+    class Type
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Type &&
-              this.value == other.value
+            return other is Type && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -3878,15 +4002,17 @@ class RealTimeDecision private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            REAL_TIME_DECISION -> Value.REAL_TIME_DECISION
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                REAL_TIME_DECISION -> Value.REAL_TIME_DECISION
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            REAL_TIME_DECISION -> Known.REAL_TIME_DECISION
-            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                REAL_TIME_DECISION -> Known.REAL_TIME_DECISION
+                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }

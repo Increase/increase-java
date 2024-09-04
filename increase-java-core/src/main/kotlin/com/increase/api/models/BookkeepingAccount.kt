@@ -5,51 +5,36 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
+import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.JsonNull
-import com.increase.api.core.JsonField
-import com.increase.api.core.Enum
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.util.Objects
+import java.util.Optional
 
 /**
- * Accounts are T-accounts. They can store accounting entries. Your compliance
- * setup might require annotating money movements using this API. Learn more in our
+ * Accounts are T-accounts. They can store accounting entries. Your compliance setup might require
+ * annotating money movements using this API. Learn more in our
  * [guide to Bookkeeping](https://increase.com/documentation/bookkeeping#bookkeeping).
  */
 @JsonDeserialize(builder = BookkeepingAccount.Builder::class)
 @NoAutoDetect
-class BookkeepingAccount private constructor(
-  private val accountId: JsonField<String>,
-  private val complianceCategory: JsonField<ComplianceCategory>,
-  private val entityId: JsonField<String>,
-  private val id: JsonField<String>,
-  private val idempotencyKey: JsonField<String>,
-  private val name: JsonField<String>,
-  private val type: JsonField<Type>,
-  private val additionalProperties: Map<String, JsonValue>,
-
+class BookkeepingAccount
+private constructor(
+    private val accountId: JsonField<String>,
+    private val complianceCategory: JsonField<ComplianceCategory>,
+    private val entityId: JsonField<String>,
+    private val id: JsonField<String>,
+    private val idempotencyKey: JsonField<String>,
+    private val name: JsonField<String>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: Map<String, JsonValue>,
 ) {
 
     private var validated: Boolean = false
@@ -60,7 +45,8 @@ class BookkeepingAccount private constructor(
     fun accountId(): Optional<String> = Optional.ofNullable(accountId.getNullable("account_id"))
 
     /** The compliance category of the account. */
-    fun complianceCategory(): Optional<ComplianceCategory> = Optional.ofNullable(complianceCategory.getNullable("compliance_category"))
+    fun complianceCategory(): Optional<ComplianceCategory> =
+        Optional.ofNullable(complianceCategory.getNullable("compliance_category"))
 
     /** The Entity associated with this bookkeeping account. */
     fun entityId(): Optional<String> = Optional.ofNullable(entityId.getNullable("entity_id"))
@@ -69,11 +55,12 @@ class BookkeepingAccount private constructor(
     fun id(): String = id.getRequired("id")
 
     /**
-     * The idempotency key you chose for this object. This value is unique across
-     * Increase and is used to ensure that a request is only processed once. Learn more
-     * about [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> =
+        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
     /** The name you choose for the account. */
     fun name(): String = name.getRequired("name")
@@ -85,9 +72,7 @@ class BookkeepingAccount private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The API Account associated with this bookkeeping account. */
-    @JsonProperty("account_id")
-    @ExcludeMissing
-    fun _accountId() = accountId
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
 
     /** The compliance category of the account. */
     @JsonProperty("compliance_category")
@@ -95,36 +80,26 @@ class BookkeepingAccount private constructor(
     fun _complianceCategory() = complianceCategory
 
     /** The Entity associated with this bookkeeping account. */
-    @JsonProperty("entity_id")
-    @ExcludeMissing
-    fun _entityId() = entityId
+    @JsonProperty("entity_id") @ExcludeMissing fun _entityId() = entityId
 
     /** The account identifier. */
-    @JsonProperty("id")
-    @ExcludeMissing
-    fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
-     * The idempotency key you chose for this object. This value is unique across
-     * Increase and is used to ensure that a request is only processed once. Learn more
-     * about [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key")
-    @ExcludeMissing
-    fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
 
     /** The name you choose for the account. */
-    @JsonProperty("name")
-    @ExcludeMissing
-    fun _name() = name
+    @JsonProperty("name") @ExcludeMissing fun _name() = name
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `bookkeeping_account`.
      */
-    @JsonProperty("type")
-    @ExcludeMissing
-    fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -132,57 +107,58 @@ class BookkeepingAccount private constructor(
 
     fun validate(): BookkeepingAccount = apply {
         if (!validated) {
-          accountId()
-          complianceCategory()
-          entityId()
-          id()
-          idempotencyKey()
-          name()
-          type()
-          validated = true
+            accountId()
+            complianceCategory()
+            entityId()
+            id()
+            idempotencyKey()
+            name()
+            type()
+            validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is BookkeepingAccount &&
-          this.accountId == other.accountId &&
-          this.complianceCategory == other.complianceCategory &&
-          this.entityId == other.entityId &&
-          this.id == other.id &&
-          this.idempotencyKey == other.idempotencyKey &&
-          this.name == other.name &&
-          this.type == other.type &&
-          this.additionalProperties == other.additionalProperties
+        return other is BookkeepingAccount &&
+            this.accountId == other.accountId &&
+            this.complianceCategory == other.complianceCategory &&
+            this.entityId == other.entityId &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.name == other.name &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-      if (hashCode == 0) {
-        hashCode = Objects.hash(
-            accountId,
-            complianceCategory,
-            entityId,
-            id,
-            idempotencyKey,
-            name,
-            type,
-            additionalProperties,
-        )
-      }
-      return hashCode
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    accountId,
+                    complianceCategory,
+                    entityId,
+                    id,
+                    idempotencyKey,
+                    name,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
     }
 
-    override fun toString() = "BookkeepingAccount{accountId=$accountId, complianceCategory=$complianceCategory, entityId=$entityId, id=$id, idempotencyKey=$idempotencyKey, name=$name, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() =
+        "BookkeepingAccount{accountId=$accountId, complianceCategory=$complianceCategory, entityId=$entityId, id=$id, idempotencyKey=$idempotencyKey, name=$name, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     class Builder {
@@ -214,12 +190,11 @@ class BookkeepingAccount private constructor(
         /** The API Account associated with this bookkeeping account. */
         @JsonProperty("account_id")
         @ExcludeMissing
-        fun accountId(accountId: JsonField<String>) = apply {
-            this.accountId = accountId
-        }
+        fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /** The compliance category of the account. */
-        fun complianceCategory(complianceCategory: ComplianceCategory) = complianceCategory(JsonField.of(complianceCategory))
+        fun complianceCategory(complianceCategory: ComplianceCategory) =
+            complianceCategory(JsonField.of(complianceCategory))
 
         /** The compliance category of the account. */
         @JsonProperty("compliance_category")
@@ -234,31 +209,25 @@ class BookkeepingAccount private constructor(
         /** The Entity associated with this bookkeeping account. */
         @JsonProperty("entity_id")
         @ExcludeMissing
-        fun entityId(entityId: JsonField<String>) = apply {
-            this.entityId = entityId
-        }
+        fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
 
         /** The account identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The account identifier. */
-        @JsonProperty("id")
-        @ExcludeMissing
-        fun id(id: JsonField<String>) = apply {
-            this.id = id
-        }
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
-         * The idempotency key you chose for this object. This value is unique across
-         * Increase and is used to ensure that a request is only processed once. Learn more
-         * about [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
 
         /**
-         * The idempotency key you chose for this object. This value is unique across
-         * Increase and is used to ensure that a request is only processed once. Learn more
-         * about [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         @JsonProperty("idempotency_key")
         @ExcludeMissing
@@ -272,9 +241,7 @@ class BookkeepingAccount private constructor(
         /** The name you choose for the account. */
         @JsonProperty("name")
         @ExcludeMissing
-        fun name(name: JsonField<String>) = apply {
-            this.name = name
-        }
+        fun name(name: JsonField<String>) = apply { this.name = name }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -288,9 +255,7 @@ class BookkeepingAccount private constructor(
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply {
-            this.type = type
-        }
+        fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -306,30 +271,33 @@ class BookkeepingAccount private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): BookkeepingAccount = BookkeepingAccount(
-            accountId,
-            complianceCategory,
-            entityId,
-            id,
-            idempotencyKey,
-            name,
-            type,
-            additionalProperties.toUnmodifiable(),
-        )
+        fun build(): BookkeepingAccount =
+            BookkeepingAccount(
+                accountId,
+                complianceCategory,
+                entityId,
+                id,
+                idempotencyKey,
+                name,
+                type,
+                additionalProperties.toUnmodifiable(),
+            )
     }
 
-    class ComplianceCategory @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+    class ComplianceCategory
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is ComplianceCategory &&
-              this.value == other.value
+            return other is ComplianceCategory && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -356,33 +324,37 @@ class BookkeepingAccount private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            COMMINGLED_CASH -> Value.COMMINGLED_CASH
-            CUSTOMER_BALANCE -> Value.CUSTOMER_BALANCE
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                COMMINGLED_CASH -> Value.COMMINGLED_CASH
+                CUSTOMER_BALANCE -> Value.CUSTOMER_BALANCE
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            COMMINGLED_CASH -> Known.COMMINGLED_CASH
-            CUSTOMER_BALANCE -> Known.CUSTOMER_BALANCE
-            else -> throw IncreaseInvalidDataException("Unknown ComplianceCategory: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                COMMINGLED_CASH -> Known.COMMINGLED_CASH
+                CUSTOMER_BALANCE -> Known.CUSTOMER_BALANCE
+                else -> throw IncreaseInvalidDataException("Unknown ComplianceCategory: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Type @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+    class Type
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Type &&
-              this.value == other.value
+            return other is Type && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -405,15 +377,17 @@ class BookkeepingAccount private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            BOOKKEEPING_ACCOUNT -> Value.BOOKKEEPING_ACCOUNT
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                BOOKKEEPING_ACCOUNT -> Value.BOOKKEEPING_ACCOUNT
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            BOOKKEEPING_ACCOUNT -> Known.BOOKKEEPING_ACCOUNT
-            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                BOOKKEEPING_ACCOUNT -> Known.BOOKKEEPING_ACCOUNT
+                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }

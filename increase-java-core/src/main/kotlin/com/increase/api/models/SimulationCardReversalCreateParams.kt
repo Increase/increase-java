@@ -4,45 +4,23 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import org.apache.hc.core5.http.ContentType
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.models.*
 import java.util.Objects
 import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.MultipartFormValue
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.Enum
-import com.increase.api.core.ContentTypes
-import com.increase.api.errors.IncreaseInvalidDataException
-import com.increase.api.models.*
 
-class SimulationCardReversalCreateParams constructor(
-  private val cardPaymentId: String,
-  private val amount: Long?,
-  private val additionalQueryParams: Map<String, List<String>>,
-  private val additionalHeaders: Map<String, List<String>>,
-  private val additionalBodyProperties: Map<String, JsonValue>,
-
+class SimulationCardReversalCreateParams
+constructor(
+    private val cardPaymentId: String,
+    private val amount: Long?,
+    private val additionalQueryParams: Map<String, List<String>>,
+    private val additionalHeaders: Map<String, List<String>>,
+    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun cardPaymentId(): String = cardPaymentId
@@ -51,35 +29,36 @@ class SimulationCardReversalCreateParams constructor(
 
     @JvmSynthetic
     internal fun getBody(): SimulationCardReversalCreateBody {
-      return SimulationCardReversalCreateBody(
-          cardPaymentId,
-          amount,
-          additionalBodyProperties,
-      )
+        return SimulationCardReversalCreateBody(
+            cardPaymentId,
+            amount,
+            additionalBodyProperties,
+        )
     }
 
-    @JvmSynthetic
-    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
-    @JvmSynthetic
-    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     @JsonDeserialize(builder = SimulationCardReversalCreateBody.Builder::class)
     @NoAutoDetect
-    class SimulationCardReversalCreateBody internal constructor(private val cardPaymentId: String?, private val amount: Long?, private val additionalProperties: Map<String, JsonValue>, ) {
+    class SimulationCardReversalCreateBody
+    internal constructor(
+        private val cardPaymentId: String?,
+        private val amount: Long?,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var hashCode: Int = 0
 
         /** The identifier of the Card Payment to create a reversal on. */
-        @JsonProperty("card_payment_id")
-        fun cardPaymentId(): String? = cardPaymentId
+        @JsonProperty("card_payment_id") fun cardPaymentId(): String? = cardPaymentId
 
         /**
-         * The amount of the reversal in minor units in the card authorization's currency.
-         * This defaults to the authorization amount.
+         * The amount of the reversal in minor units in the card authorization's currency. This
+         * defaults to the authorization amount.
          */
-        @JsonProperty("amount")
-        fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Long? = amount
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -88,33 +67,34 @@ class SimulationCardReversalCreateParams constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is SimulationCardReversalCreateBody &&
-              this.cardPaymentId == other.cardPaymentId &&
-              this.amount == other.amount &&
-              this.additionalProperties == other.additionalProperties
+            return other is SimulationCardReversalCreateBody &&
+                this.cardPaymentId == other.cardPaymentId &&
+                this.amount == other.amount &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                cardPaymentId,
-                amount,
-                additionalProperties,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        cardPaymentId,
+                        amount,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "SimulationCardReversalCreateBody{cardPaymentId=$cardPaymentId, amount=$amount, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "SimulationCardReversalCreateBody{cardPaymentId=$cardPaymentId, amount=$amount, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -124,26 +104,22 @@ class SimulationCardReversalCreateParams constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(simulationCardReversalCreateBody: SimulationCardReversalCreateBody) = apply {
-                this.cardPaymentId = simulationCardReversalCreateBody.cardPaymentId
-                this.amount = simulationCardReversalCreateBody.amount
-                additionalProperties(simulationCardReversalCreateBody.additionalProperties)
-            }
+            internal fun from(simulationCardReversalCreateBody: SimulationCardReversalCreateBody) =
+                apply {
+                    this.cardPaymentId = simulationCardReversalCreateBody.cardPaymentId
+                    this.amount = simulationCardReversalCreateBody.amount
+                    additionalProperties(simulationCardReversalCreateBody.additionalProperties)
+                }
 
             /** The identifier of the Card Payment to create a reversal on. */
             @JsonProperty("card_payment_id")
-            fun cardPaymentId(cardPaymentId: String) = apply {
-                this.cardPaymentId = cardPaymentId
-            }
+            fun cardPaymentId(cardPaymentId: String) = apply { this.cardPaymentId = cardPaymentId }
 
             /**
-             * The amount of the reversal in minor units in the card authorization's currency.
-             * This defaults to the authorization amount.
+             * The amount of the reversal in minor units in the card authorization's currency. This
+             * defaults to the authorization amount.
              */
-            @JsonProperty("amount")
-            fun amount(amount: Long) = apply {
-                this.amount = amount
-            }
+            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -159,13 +135,12 @@ class SimulationCardReversalCreateParams constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): SimulationCardReversalCreateBody = SimulationCardReversalCreateBody(
-                checkNotNull(cardPaymentId) {
-                    "`cardPaymentId` is required but was not set"
-                },
-                amount,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build(): SimulationCardReversalCreateBody =
+                SimulationCardReversalCreateBody(
+                    checkNotNull(cardPaymentId) { "`cardPaymentId` is required but was not set" },
+                    amount,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
@@ -176,36 +151,36 @@ class SimulationCardReversalCreateParams constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is SimulationCardReversalCreateParams &&
-          this.cardPaymentId == other.cardPaymentId &&
-          this.amount == other.amount &&
-          this.additionalQueryParams == other.additionalQueryParams &&
-          this.additionalHeaders == other.additionalHeaders &&
-          this.additionalBodyProperties == other.additionalBodyProperties
+        return other is SimulationCardReversalCreateParams &&
+            this.cardPaymentId == other.cardPaymentId &&
+            this.amount == other.amount &&
+            this.additionalQueryParams == other.additionalQueryParams &&
+            this.additionalHeaders == other.additionalHeaders &&
+            this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          cardPaymentId,
-          amount,
-          additionalQueryParams,
-          additionalHeaders,
-          additionalBodyProperties,
-      )
+        return Objects.hash(
+            cardPaymentId,
+            amount,
+            additionalQueryParams,
+            additionalHeaders,
+            additionalBodyProperties,
+        )
     }
 
-    override fun toString() = "SimulationCardReversalCreateParams{cardPaymentId=$cardPaymentId, amount=$amount, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() =
+        "SimulationCardReversalCreateParams{cardPaymentId=$cardPaymentId, amount=$amount, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -218,26 +193,25 @@ class SimulationCardReversalCreateParams constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(simulationCardReversalCreateParams: SimulationCardReversalCreateParams) = apply {
-            this.cardPaymentId = simulationCardReversalCreateParams.cardPaymentId
-            this.amount = simulationCardReversalCreateParams.amount
-            additionalQueryParams(simulationCardReversalCreateParams.additionalQueryParams)
-            additionalHeaders(simulationCardReversalCreateParams.additionalHeaders)
-            additionalBodyProperties(simulationCardReversalCreateParams.additionalBodyProperties)
-        }
+        internal fun from(simulationCardReversalCreateParams: SimulationCardReversalCreateParams) =
+            apply {
+                this.cardPaymentId = simulationCardReversalCreateParams.cardPaymentId
+                this.amount = simulationCardReversalCreateParams.amount
+                additionalQueryParams(simulationCardReversalCreateParams.additionalQueryParams)
+                additionalHeaders(simulationCardReversalCreateParams.additionalHeaders)
+                additionalBodyProperties(
+                    simulationCardReversalCreateParams.additionalBodyProperties
+                )
+            }
 
         /** The identifier of the Card Payment to create a reversal on. */
-        fun cardPaymentId(cardPaymentId: String) = apply {
-            this.cardPaymentId = cardPaymentId
-        }
+        fun cardPaymentId(cardPaymentId: String) = apply { this.cardPaymentId = cardPaymentId }
 
         /**
-         * The amount of the reversal in minor units in the card authorization's currency.
-         * This defaults to the authorization amount.
+         * The amount of the reversal in minor units in the card authorization's currency. This
+         * defaults to the authorization amount.
          */
-        fun amount(amount: Long) = apply {
-            this.amount = amount
-        }
+        fun amount(amount: Long) = apply { this.amount = amount }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -277,9 +251,7 @@ class SimulationCardReversalCreateParams constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply {
-            this.additionalHeaders.put(name, mutableListOf())
-        }
+        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -290,18 +262,18 @@ class SimulationCardReversalCreateParams constructor(
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.putAll(additionalBodyProperties)
-        }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
 
-        fun build(): SimulationCardReversalCreateParams = SimulationCardReversalCreateParams(
-            checkNotNull(cardPaymentId) {
-                "`cardPaymentId` is required but was not set"
-            },
-            amount,
-            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalBodyProperties.toUnmodifiable(),
-        )
+        fun build(): SimulationCardReversalCreateParams =
+            SimulationCardReversalCreateParams(
+                checkNotNull(cardPaymentId) { "`cardPaymentId` is required but was not set" },
+                amount,
+                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalBodyProperties.toUnmodifiable(),
+            )
     }
 }

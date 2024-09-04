@@ -5,47 +5,29 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import org.apache.hc.core5.http.ContentType
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
+import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.MultipartFormValue
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.Enum
-import com.increase.api.core.ContentTypes
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
+import java.util.Objects
+import java.util.Optional
 
-class OAuthTokenCreateParams constructor(
-  private val grantType: GrantType,
-  private val clientId: String?,
-  private val clientSecret: String?,
-  private val code: String?,
-  private val productionToken: String?,
-  private val additionalQueryParams: Map<String, List<String>>,
-  private val additionalHeaders: Map<String, List<String>>,
-  private val additionalBodyProperties: Map<String, JsonValue>,
-
+class OAuthTokenCreateParams
+constructor(
+    private val grantType: GrantType,
+    private val clientId: String?,
+    private val clientSecret: String?,
+    private val code: String?,
+    private val productionToken: String?,
+    private val additionalQueryParams: Map<String, List<String>>,
+    private val additionalHeaders: Map<String, List<String>>,
+    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun grantType(): GrantType = grantType
@@ -60,69 +42,57 @@ class OAuthTokenCreateParams constructor(
 
     @JvmSynthetic
     internal fun getBody(): OAuthTokenCreateBody {
-      return OAuthTokenCreateBody(
-          grantType,
-          clientId,
-          clientSecret,
-          code,
-          productionToken,
-          additionalBodyProperties,
-      )
+        return OAuthTokenCreateBody(
+            grantType,
+            clientId,
+            clientSecret,
+            code,
+            productionToken,
+            additionalBodyProperties,
+        )
     }
 
-    @JvmSynthetic
-    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
-    @JvmSynthetic
-    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     @JsonDeserialize(builder = OAuthTokenCreateBody.Builder::class)
     @NoAutoDetect
-    class OAuthTokenCreateBody internal constructor(
-      private val grantType: GrantType?,
-      private val clientId: String?,
-      private val clientSecret: String?,
-      private val code: String?,
-      private val productionToken: String?,
-      private val additionalProperties: Map<String, JsonValue>,
-
+    class OAuthTokenCreateBody
+    internal constructor(
+        private val grantType: GrantType?,
+        private val clientId: String?,
+        private val clientSecret: String?,
+        private val code: String?,
+        private val productionToken: String?,
+        private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
 
         /**
-         * The credential you request in exchange for the code. In Production, this is
-         * always `authorization_code`. In Sandbox, you can pass either enum value.
+         * The credential you request in exchange for the code. In Production, this is always
+         * `authorization_code`. In Sandbox, you can pass either enum value.
          */
-        @JsonProperty("grant_type")
-        fun grantType(): GrantType? = grantType
+        @JsonProperty("grant_type") fun grantType(): GrantType? = grantType
 
         /** The public identifier for your application. */
-        @JsonProperty("client_id")
-        fun clientId(): String? = clientId
+        @JsonProperty("client_id") fun clientId(): String? = clientId
 
         /**
-         * The secret that confirms you own the application. This is redundent given that
-         * the request is made with your API key but it's a required component of OAuth
-         * 2.0.
+         * The secret that confirms you own the application. This is redundent given that the
+         * request is made with your API key but it's a required component of OAuth 2.0.
          */
-        @JsonProperty("client_secret")
-        fun clientSecret(): String? = clientSecret
+        @JsonProperty("client_secret") fun clientSecret(): String? = clientSecret
+
+        /** The authorization code generated by the user and given to you as a query parameter. */
+        @JsonProperty("code") fun code(): String? = code
 
         /**
-         * The authorization code generated by the user and given to you as a query
-         * parameter.
+         * The production token you want to exchange for a sandbox token. This is only available in
+         * Sandbox. Set `grant_type` to `production_token` to use this parameter.
          */
-        @JsonProperty("code")
-        fun code(): String? = code
-
-        /**
-         * The production token you want to exchange for a sandbox token. This is only
-         * available in Sandbox. Set `grant_type` to `production_token` to use this
-         * parameter.
-         */
-        @JsonProperty("production_token")
-        fun productionToken(): String? = productionToken
+        @JsonProperty("production_token") fun productionToken(): String? = productionToken
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -131,39 +101,40 @@ class OAuthTokenCreateParams constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is OAuthTokenCreateBody &&
-              this.grantType == other.grantType &&
-              this.clientId == other.clientId &&
-              this.clientSecret == other.clientSecret &&
-              this.code == other.code &&
-              this.productionToken == other.productionToken &&
-              this.additionalProperties == other.additionalProperties
+            return other is OAuthTokenCreateBody &&
+                this.grantType == other.grantType &&
+                this.clientId == other.clientId &&
+                this.clientSecret == other.clientSecret &&
+                this.code == other.code &&
+                this.productionToken == other.productionToken &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                grantType,
-                clientId,
-                clientSecret,
-                code,
-                productionToken,
-                additionalProperties,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        grantType,
+                        clientId,
+                        clientSecret,
+                        code,
+                        productionToken,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "OAuthTokenCreateBody{grantType=$grantType, clientId=$clientId, clientSecret=$clientSecret, code=$code, productionToken=$productionToken, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "OAuthTokenCreateBody{grantType=$grantType, clientId=$clientId, clientSecret=$clientSecret, code=$code, productionToken=$productionToken, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -186,43 +157,31 @@ class OAuthTokenCreateParams constructor(
             }
 
             /**
-             * The credential you request in exchange for the code. In Production, this is
-             * always `authorization_code`. In Sandbox, you can pass either enum value.
+             * The credential you request in exchange for the code. In Production, this is always
+             * `authorization_code`. In Sandbox, you can pass either enum value.
              */
             @JsonProperty("grant_type")
-            fun grantType(grantType: GrantType) = apply {
-                this.grantType = grantType
-            }
+            fun grantType(grantType: GrantType) = apply { this.grantType = grantType }
 
             /** The public identifier for your application. */
             @JsonProperty("client_id")
-            fun clientId(clientId: String) = apply {
-                this.clientId = clientId
-            }
+            fun clientId(clientId: String) = apply { this.clientId = clientId }
 
             /**
-             * The secret that confirms you own the application. This is redundent given that
-             * the request is made with your API key but it's a required component of OAuth
-             * 2.0.
+             * The secret that confirms you own the application. This is redundent given that the
+             * request is made with your API key but it's a required component of OAuth 2.0.
              */
             @JsonProperty("client_secret")
-            fun clientSecret(clientSecret: String) = apply {
-                this.clientSecret = clientSecret
-            }
+            fun clientSecret(clientSecret: String) = apply { this.clientSecret = clientSecret }
 
             /**
-             * The authorization code generated by the user and given to you as a query
-             * parameter.
+             * The authorization code generated by the user and given to you as a query parameter.
              */
-            @JsonProperty("code")
-            fun code(code: String) = apply {
-                this.code = code
-            }
+            @JsonProperty("code") fun code(code: String) = apply { this.code = code }
 
             /**
-             * The production token you want to exchange for a sandbox token. This is only
-             * available in Sandbox. Set `grant_type` to `production_token` to use this
-             * parameter.
+             * The production token you want to exchange for a sandbox token. This is only available
+             * in Sandbox. Set `grant_type` to `production_token` to use this parameter.
              */
             @JsonProperty("production_token")
             fun productionToken(productionToken: String) = apply {
@@ -243,16 +202,15 @@ class OAuthTokenCreateParams constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): OAuthTokenCreateBody = OAuthTokenCreateBody(
-                checkNotNull(grantType) {
-                    "`grantType` is required but was not set"
-                },
-                clientId,
-                clientSecret,
-                code,
-                productionToken,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build(): OAuthTokenCreateBody =
+                OAuthTokenCreateBody(
+                    checkNotNull(grantType) { "`grantType` is required but was not set" },
+                    clientId,
+                    clientSecret,
+                    code,
+                    productionToken,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
@@ -263,42 +221,42 @@ class OAuthTokenCreateParams constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is OAuthTokenCreateParams &&
-          this.grantType == other.grantType &&
-          this.clientId == other.clientId &&
-          this.clientSecret == other.clientSecret &&
-          this.code == other.code &&
-          this.productionToken == other.productionToken &&
-          this.additionalQueryParams == other.additionalQueryParams &&
-          this.additionalHeaders == other.additionalHeaders &&
-          this.additionalBodyProperties == other.additionalBodyProperties
+        return other is OAuthTokenCreateParams &&
+            this.grantType == other.grantType &&
+            this.clientId == other.clientId &&
+            this.clientSecret == other.clientSecret &&
+            this.code == other.code &&
+            this.productionToken == other.productionToken &&
+            this.additionalQueryParams == other.additionalQueryParams &&
+            this.additionalHeaders == other.additionalHeaders &&
+            this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          grantType,
-          clientId,
-          clientSecret,
-          code,
-          productionToken,
-          additionalQueryParams,
-          additionalHeaders,
-          additionalBodyProperties,
-      )
+        return Objects.hash(
+            grantType,
+            clientId,
+            clientSecret,
+            code,
+            productionToken,
+            additionalQueryParams,
+            additionalHeaders,
+            additionalBodyProperties,
+        )
     }
 
-    override fun toString() = "OAuthTokenCreateParams{grantType=$grantType, clientId=$clientId, clientSecret=$clientSecret, code=$code, productionToken=$productionToken, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() =
+        "OAuthTokenCreateParams{grantType=$grantType, clientId=$clientId, clientSecret=$clientSecret, code=$code, productionToken=$productionToken, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -326,39 +284,26 @@ class OAuthTokenCreateParams constructor(
         }
 
         /**
-         * The credential you request in exchange for the code. In Production, this is
-         * always `authorization_code`. In Sandbox, you can pass either enum value.
+         * The credential you request in exchange for the code. In Production, this is always
+         * `authorization_code`. In Sandbox, you can pass either enum value.
          */
-        fun grantType(grantType: GrantType) = apply {
-            this.grantType = grantType
-        }
+        fun grantType(grantType: GrantType) = apply { this.grantType = grantType }
 
         /** The public identifier for your application. */
-        fun clientId(clientId: String) = apply {
-            this.clientId = clientId
-        }
+        fun clientId(clientId: String) = apply { this.clientId = clientId }
 
         /**
-         * The secret that confirms you own the application. This is redundent given that
-         * the request is made with your API key but it's a required component of OAuth
-         * 2.0.
+         * The secret that confirms you own the application. This is redundent given that the
+         * request is made with your API key but it's a required component of OAuth 2.0.
          */
-        fun clientSecret(clientSecret: String) = apply {
-            this.clientSecret = clientSecret
-        }
+        fun clientSecret(clientSecret: String) = apply { this.clientSecret = clientSecret }
+
+        /** The authorization code generated by the user and given to you as a query parameter. */
+        fun code(code: String) = apply { this.code = code }
 
         /**
-         * The authorization code generated by the user and given to you as a query
-         * parameter.
-         */
-        fun code(code: String) = apply {
-            this.code = code
-        }
-
-        /**
-         * The production token you want to exchange for a sandbox token. This is only
-         * available in Sandbox. Set `grant_type` to `production_token` to use this
-         * parameter.
+         * The production token you want to exchange for a sandbox token. This is only available in
+         * Sandbox. Set `grant_type` to `production_token` to use this parameter.
          */
         fun productionToken(productionToken: String) = apply {
             this.productionToken = productionToken
@@ -402,9 +347,7 @@ class OAuthTokenCreateParams constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply {
-            this.additionalHeaders.put(name, mutableListOf())
-        }
+        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -415,36 +358,38 @@ class OAuthTokenCreateParams constructor(
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.putAll(additionalBodyProperties)
-        }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
 
-        fun build(): OAuthTokenCreateParams = OAuthTokenCreateParams(
-            checkNotNull(grantType) {
-                "`grantType` is required but was not set"
-            },
-            clientId,
-            clientSecret,
-            code,
-            productionToken,
-            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalBodyProperties.toUnmodifiable(),
-        )
+        fun build(): OAuthTokenCreateParams =
+            OAuthTokenCreateParams(
+                checkNotNull(grantType) { "`grantType` is required but was not set" },
+                clientId,
+                clientSecret,
+                code,
+                productionToken,
+                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalBodyProperties.toUnmodifiable(),
+            )
     }
 
-    class GrantType @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+    class GrantType
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is GrantType &&
-              this.value == other.value
+            return other is GrantType && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -471,17 +416,19 @@ class OAuthTokenCreateParams constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            AUTHORIZATION_CODE -> Value.AUTHORIZATION_CODE
-            PRODUCTION_TOKEN -> Value.PRODUCTION_TOKEN
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                AUTHORIZATION_CODE -> Value.AUTHORIZATION_CODE
+                PRODUCTION_TOKEN -> Value.PRODUCTION_TOKEN
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            AUTHORIZATION_CODE -> Known.AUTHORIZATION_CODE
-            PRODUCTION_TOKEN -> Known.PRODUCTION_TOKEN
-            else -> throw IncreaseInvalidDataException("Unknown GrantType: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                AUTHORIZATION_CODE -> Known.AUTHORIZATION_CODE
+                PRODUCTION_TOKEN -> Known.PRODUCTION_TOKEN
+                else -> throw IncreaseInvalidDataException("Unknown GrantType: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }

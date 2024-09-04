@@ -4,60 +4,38 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import org.apache.hc.core5.http.ContentType
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.models.*
 import java.util.Objects
 import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.MultipartFormValue
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.Enum
-import com.increase.api.core.ContentTypes
-import com.increase.api.errors.IncreaseInvalidDataException
-import com.increase.api.models.*
 
-class SimulationInboundWireTransferCreateParams constructor(
-  private val accountNumberId: String,
-  private val amount: Long,
-  private val beneficiaryAddressLine1: String?,
-  private val beneficiaryAddressLine2: String?,
-  private val beneficiaryAddressLine3: String?,
-  private val beneficiaryName: String?,
-  private val beneficiaryReference: String?,
-  private val originatorAddressLine1: String?,
-  private val originatorAddressLine2: String?,
-  private val originatorAddressLine3: String?,
-  private val originatorName: String?,
-  private val originatorRoutingNumber: String?,
-  private val originatorToBeneficiaryInformationLine1: String?,
-  private val originatorToBeneficiaryInformationLine2: String?,
-  private val originatorToBeneficiaryInformationLine3: String?,
-  private val originatorToBeneficiaryInformationLine4: String?,
-  private val senderReference: String?,
-  private val additionalQueryParams: Map<String, List<String>>,
-  private val additionalHeaders: Map<String, List<String>>,
-  private val additionalBodyProperties: Map<String, JsonValue>,
-
+class SimulationInboundWireTransferCreateParams
+constructor(
+    private val accountNumberId: String,
+    private val amount: Long,
+    private val beneficiaryAddressLine1: String?,
+    private val beneficiaryAddressLine2: String?,
+    private val beneficiaryAddressLine3: String?,
+    private val beneficiaryName: String?,
+    private val beneficiaryReference: String?,
+    private val originatorAddressLine1: String?,
+    private val originatorAddressLine2: String?,
+    private val originatorAddressLine3: String?,
+    private val originatorName: String?,
+    private val originatorRoutingNumber: String?,
+    private val originatorToBeneficiaryInformationLine1: String?,
+    private val originatorToBeneficiaryInformationLine2: String?,
+    private val originatorToBeneficiaryInformationLine3: String?,
+    private val originatorToBeneficiaryInformationLine4: String?,
+    private val senderReference: String?,
+    private val additionalQueryParams: Map<String, List<String>>,
+    private val additionalHeaders: Map<String, List<String>>,
+    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun accountNumberId(): String = accountNumberId
@@ -84,184 +62,184 @@ class SimulationInboundWireTransferCreateParams constructor(
 
     fun originatorRoutingNumber(): Optional<String> = Optional.ofNullable(originatorRoutingNumber)
 
-    fun originatorToBeneficiaryInformationLine1(): Optional<String> = Optional.ofNullable(originatorToBeneficiaryInformationLine1)
+    fun originatorToBeneficiaryInformationLine1(): Optional<String> =
+        Optional.ofNullable(originatorToBeneficiaryInformationLine1)
 
-    fun originatorToBeneficiaryInformationLine2(): Optional<String> = Optional.ofNullable(originatorToBeneficiaryInformationLine2)
+    fun originatorToBeneficiaryInformationLine2(): Optional<String> =
+        Optional.ofNullable(originatorToBeneficiaryInformationLine2)
 
-    fun originatorToBeneficiaryInformationLine3(): Optional<String> = Optional.ofNullable(originatorToBeneficiaryInformationLine3)
+    fun originatorToBeneficiaryInformationLine3(): Optional<String> =
+        Optional.ofNullable(originatorToBeneficiaryInformationLine3)
 
-    fun originatorToBeneficiaryInformationLine4(): Optional<String> = Optional.ofNullable(originatorToBeneficiaryInformationLine4)
+    fun originatorToBeneficiaryInformationLine4(): Optional<String> =
+        Optional.ofNullable(originatorToBeneficiaryInformationLine4)
 
     fun senderReference(): Optional<String> = Optional.ofNullable(senderReference)
 
     @JvmSynthetic
     internal fun getBody(): SimulationInboundWireTransferCreateBody {
-      return SimulationInboundWireTransferCreateBody(
-          accountNumberId,
-          amount,
-          beneficiaryAddressLine1,
-          beneficiaryAddressLine2,
-          beneficiaryAddressLine3,
-          beneficiaryName,
-          beneficiaryReference,
-          originatorAddressLine1,
-          originatorAddressLine2,
-          originatorAddressLine3,
-          originatorName,
-          originatorRoutingNumber,
-          originatorToBeneficiaryInformationLine1,
-          originatorToBeneficiaryInformationLine2,
-          originatorToBeneficiaryInformationLine3,
-          originatorToBeneficiaryInformationLine4,
-          senderReference,
-          additionalBodyProperties,
-      )
+        return SimulationInboundWireTransferCreateBody(
+            accountNumberId,
+            amount,
+            beneficiaryAddressLine1,
+            beneficiaryAddressLine2,
+            beneficiaryAddressLine3,
+            beneficiaryName,
+            beneficiaryReference,
+            originatorAddressLine1,
+            originatorAddressLine2,
+            originatorAddressLine3,
+            originatorName,
+            originatorRoutingNumber,
+            originatorToBeneficiaryInformationLine1,
+            originatorToBeneficiaryInformationLine2,
+            originatorToBeneficiaryInformationLine3,
+            originatorToBeneficiaryInformationLine4,
+            senderReference,
+            additionalBodyProperties,
+        )
     }
 
-    @JvmSynthetic
-    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
-    @JvmSynthetic
-    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     @JsonDeserialize(builder = SimulationInboundWireTransferCreateBody.Builder::class)
     @NoAutoDetect
-    class SimulationInboundWireTransferCreateBody internal constructor(
-      private val accountNumberId: String?,
-      private val amount: Long?,
-      private val beneficiaryAddressLine1: String?,
-      private val beneficiaryAddressLine2: String?,
-      private val beneficiaryAddressLine3: String?,
-      private val beneficiaryName: String?,
-      private val beneficiaryReference: String?,
-      private val originatorAddressLine1: String?,
-      private val originatorAddressLine2: String?,
-      private val originatorAddressLine3: String?,
-      private val originatorName: String?,
-      private val originatorRoutingNumber: String?,
-      private val originatorToBeneficiaryInformationLine1: String?,
-      private val originatorToBeneficiaryInformationLine2: String?,
-      private val originatorToBeneficiaryInformationLine3: String?,
-      private val originatorToBeneficiaryInformationLine4: String?,
-      private val senderReference: String?,
-      private val additionalProperties: Map<String, JsonValue>,
-
+    class SimulationInboundWireTransferCreateBody
+    internal constructor(
+        private val accountNumberId: String?,
+        private val amount: Long?,
+        private val beneficiaryAddressLine1: String?,
+        private val beneficiaryAddressLine2: String?,
+        private val beneficiaryAddressLine3: String?,
+        private val beneficiaryName: String?,
+        private val beneficiaryReference: String?,
+        private val originatorAddressLine1: String?,
+        private val originatorAddressLine2: String?,
+        private val originatorAddressLine3: String?,
+        private val originatorName: String?,
+        private val originatorRoutingNumber: String?,
+        private val originatorToBeneficiaryInformationLine1: String?,
+        private val originatorToBeneficiaryInformationLine2: String?,
+        private val originatorToBeneficiaryInformationLine3: String?,
+        private val originatorToBeneficiaryInformationLine4: String?,
+        private val senderReference: String?,
+        private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
 
         /** The identifier of the Account Number the inbound Wire Transfer is for. */
-        @JsonProperty("account_number_id")
-        fun accountNumberId(): String? = accountNumberId
+        @JsonProperty("account_number_id") fun accountNumberId(): String? = accountNumberId
 
         /** The transfer amount in cents. Must be positive. */
-        @JsonProperty("amount")
-        fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Long? = amount
 
         /**
-         * The sending bank will set beneficiary_address_line1 in production. You can
-         * simulate any value here.
+         * The sending bank will set beneficiary_address_line1 in production. You can simulate any
+         * value here.
          */
         @JsonProperty("beneficiary_address_line1")
         fun beneficiaryAddressLine1(): String? = beneficiaryAddressLine1
 
         /**
-         * The sending bank will set beneficiary_address_line2 in production. You can
-         * simulate any value here.
+         * The sending bank will set beneficiary_address_line2 in production. You can simulate any
+         * value here.
          */
         @JsonProperty("beneficiary_address_line2")
         fun beneficiaryAddressLine2(): String? = beneficiaryAddressLine2
 
         /**
-         * The sending bank will set beneficiary_address_line3 in production. You can
-         * simulate any value here.
+         * The sending bank will set beneficiary_address_line3 in production. You can simulate any
+         * value here.
          */
         @JsonProperty("beneficiary_address_line3")
         fun beneficiaryAddressLine3(): String? = beneficiaryAddressLine3
 
         /**
-         * The sending bank will set beneficiary_name in production. You can simulate any
-         * value here.
+         * The sending bank will set beneficiary_name in production. You can simulate any value
+         * here.
          */
-        @JsonProperty("beneficiary_name")
-        fun beneficiaryName(): String? = beneficiaryName
+        @JsonProperty("beneficiary_name") fun beneficiaryName(): String? = beneficiaryName
 
         /**
-         * The sending bank will set beneficiary_reference in production. You can simulate
-         * any value here.
+         * The sending bank will set beneficiary_reference in production. You can simulate any value
+         * here.
          */
         @JsonProperty("beneficiary_reference")
         fun beneficiaryReference(): String? = beneficiaryReference
 
         /**
-         * The sending bank will set originator_address_line1 in production. You can
-         * simulate any value here.
+         * The sending bank will set originator_address_line1 in production. You can simulate any
+         * value here.
          */
         @JsonProperty("originator_address_line1")
         fun originatorAddressLine1(): String? = originatorAddressLine1
 
         /**
-         * The sending bank will set originator_address_line2 in production. You can
-         * simulate any value here.
+         * The sending bank will set originator_address_line2 in production. You can simulate any
+         * value here.
          */
         @JsonProperty("originator_address_line2")
         fun originatorAddressLine2(): String? = originatorAddressLine2
 
         /**
-         * The sending bank will set originator_address_line3 in production. You can
-         * simulate any value here.
+         * The sending bank will set originator_address_line3 in production. You can simulate any
+         * value here.
          */
         @JsonProperty("originator_address_line3")
         fun originatorAddressLine3(): String? = originatorAddressLine3
 
         /**
-         * The sending bank will set originator_name in production. You can simulate any
-         * value here.
+         * The sending bank will set originator_name in production. You can simulate any value here.
          */
-        @JsonProperty("originator_name")
-        fun originatorName(): String? = originatorName
+        @JsonProperty("originator_name") fun originatorName(): String? = originatorName
 
         /**
-         * The sending bank will set originator_routing_number in production. You can
-         * simulate any value here.
+         * The sending bank will set originator_routing_number in production. You can simulate any
+         * value here.
          */
         @JsonProperty("originator_routing_number")
         fun originatorRoutingNumber(): String? = originatorRoutingNumber
 
         /**
-         * The sending bank will set originator_to_beneficiary_information_line1 in
-         * production. You can simulate any value here.
+         * The sending bank will set originator_to_beneficiary_information_line1 in production. You
+         * can simulate any value here.
          */
         @JsonProperty("originator_to_beneficiary_information_line1")
-        fun originatorToBeneficiaryInformationLine1(): String? = originatorToBeneficiaryInformationLine1
+        fun originatorToBeneficiaryInformationLine1(): String? =
+            originatorToBeneficiaryInformationLine1
 
         /**
-         * The sending bank will set originator_to_beneficiary_information_line2 in
-         * production. You can simulate any value here.
+         * The sending bank will set originator_to_beneficiary_information_line2 in production. You
+         * can simulate any value here.
          */
         @JsonProperty("originator_to_beneficiary_information_line2")
-        fun originatorToBeneficiaryInformationLine2(): String? = originatorToBeneficiaryInformationLine2
+        fun originatorToBeneficiaryInformationLine2(): String? =
+            originatorToBeneficiaryInformationLine2
 
         /**
-         * The sending bank will set originator_to_beneficiary_information_line3 in
-         * production. You can simulate any value here.
+         * The sending bank will set originator_to_beneficiary_information_line3 in production. You
+         * can simulate any value here.
          */
         @JsonProperty("originator_to_beneficiary_information_line3")
-        fun originatorToBeneficiaryInformationLine3(): String? = originatorToBeneficiaryInformationLine3
+        fun originatorToBeneficiaryInformationLine3(): String? =
+            originatorToBeneficiaryInformationLine3
 
         /**
-         * The sending bank will set originator_to_beneficiary_information_line4 in
-         * production. You can simulate any value here.
+         * The sending bank will set originator_to_beneficiary_information_line4 in production. You
+         * can simulate any value here.
          */
         @JsonProperty("originator_to_beneficiary_information_line4")
-        fun originatorToBeneficiaryInformationLine4(): String? = originatorToBeneficiaryInformationLine4
+        fun originatorToBeneficiaryInformationLine4(): String? =
+            originatorToBeneficiaryInformationLine4
 
         /**
-         * The sending bank will set sender_reference in production. You can simulate any
-         * value here.
+         * The sending bank will set sender_reference in production. You can simulate any value
+         * here.
          */
-        @JsonProperty("sender_reference")
-        fun senderReference(): String? = senderReference
+        @JsonProperty("sender_reference") fun senderReference(): String? = senderReference
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -270,63 +248,68 @@ class SimulationInboundWireTransferCreateParams constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is SimulationInboundWireTransferCreateBody &&
-              this.accountNumberId == other.accountNumberId &&
-              this.amount == other.amount &&
-              this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
-              this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
-              this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
-              this.beneficiaryName == other.beneficiaryName &&
-              this.beneficiaryReference == other.beneficiaryReference &&
-              this.originatorAddressLine1 == other.originatorAddressLine1 &&
-              this.originatorAddressLine2 == other.originatorAddressLine2 &&
-              this.originatorAddressLine3 == other.originatorAddressLine3 &&
-              this.originatorName == other.originatorName &&
-              this.originatorRoutingNumber == other.originatorRoutingNumber &&
-              this.originatorToBeneficiaryInformationLine1 == other.originatorToBeneficiaryInformationLine1 &&
-              this.originatorToBeneficiaryInformationLine2 == other.originatorToBeneficiaryInformationLine2 &&
-              this.originatorToBeneficiaryInformationLine3 == other.originatorToBeneficiaryInformationLine3 &&
-              this.originatorToBeneficiaryInformationLine4 == other.originatorToBeneficiaryInformationLine4 &&
-              this.senderReference == other.senderReference &&
-              this.additionalProperties == other.additionalProperties
+            return other is SimulationInboundWireTransferCreateBody &&
+                this.accountNumberId == other.accountNumberId &&
+                this.amount == other.amount &&
+                this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
+                this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
+                this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
+                this.beneficiaryName == other.beneficiaryName &&
+                this.beneficiaryReference == other.beneficiaryReference &&
+                this.originatorAddressLine1 == other.originatorAddressLine1 &&
+                this.originatorAddressLine2 == other.originatorAddressLine2 &&
+                this.originatorAddressLine3 == other.originatorAddressLine3 &&
+                this.originatorName == other.originatorName &&
+                this.originatorRoutingNumber == other.originatorRoutingNumber &&
+                this.originatorToBeneficiaryInformationLine1 ==
+                    other.originatorToBeneficiaryInformationLine1 &&
+                this.originatorToBeneficiaryInformationLine2 ==
+                    other.originatorToBeneficiaryInformationLine2 &&
+                this.originatorToBeneficiaryInformationLine3 ==
+                    other.originatorToBeneficiaryInformationLine3 &&
+                this.originatorToBeneficiaryInformationLine4 ==
+                    other.originatorToBeneficiaryInformationLine4 &&
+                this.senderReference == other.senderReference &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                accountNumberId,
-                amount,
-                beneficiaryAddressLine1,
-                beneficiaryAddressLine2,
-                beneficiaryAddressLine3,
-                beneficiaryName,
-                beneficiaryReference,
-                originatorAddressLine1,
-                originatorAddressLine2,
-                originatorAddressLine3,
-                originatorName,
-                originatorRoutingNumber,
-                originatorToBeneficiaryInformationLine1,
-                originatorToBeneficiaryInformationLine2,
-                originatorToBeneficiaryInformationLine3,
-                originatorToBeneficiaryInformationLine4,
-                senderReference,
-                additionalProperties,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        accountNumberId,
+                        amount,
+                        beneficiaryAddressLine1,
+                        beneficiaryAddressLine2,
+                        beneficiaryAddressLine3,
+                        beneficiaryName,
+                        beneficiaryReference,
+                        originatorAddressLine1,
+                        originatorAddressLine2,
+                        originatorAddressLine3,
+                        originatorName,
+                        originatorRoutingNumber,
+                        originatorToBeneficiaryInformationLine1,
+                        originatorToBeneficiaryInformationLine2,
+                        originatorToBeneficiaryInformationLine3,
+                        originatorToBeneficiaryInformationLine4,
+                        senderReference,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "SimulationInboundWireTransferCreateBody{accountNumberId=$accountNumberId, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, senderReference=$senderReference, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "SimulationInboundWireTransferCreateBody{accountNumberId=$accountNumberId, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, senderReference=$senderReference, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -351,23 +334,37 @@ class SimulationInboundWireTransferCreateParams constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(simulationInboundWireTransferCreateBody: SimulationInboundWireTransferCreateBody) = apply {
+            internal fun from(
+                simulationInboundWireTransferCreateBody: SimulationInboundWireTransferCreateBody
+            ) = apply {
                 this.accountNumberId = simulationInboundWireTransferCreateBody.accountNumberId
                 this.amount = simulationInboundWireTransferCreateBody.amount
-                this.beneficiaryAddressLine1 = simulationInboundWireTransferCreateBody.beneficiaryAddressLine1
-                this.beneficiaryAddressLine2 = simulationInboundWireTransferCreateBody.beneficiaryAddressLine2
-                this.beneficiaryAddressLine3 = simulationInboundWireTransferCreateBody.beneficiaryAddressLine3
+                this.beneficiaryAddressLine1 =
+                    simulationInboundWireTransferCreateBody.beneficiaryAddressLine1
+                this.beneficiaryAddressLine2 =
+                    simulationInboundWireTransferCreateBody.beneficiaryAddressLine2
+                this.beneficiaryAddressLine3 =
+                    simulationInboundWireTransferCreateBody.beneficiaryAddressLine3
                 this.beneficiaryName = simulationInboundWireTransferCreateBody.beneficiaryName
-                this.beneficiaryReference = simulationInboundWireTransferCreateBody.beneficiaryReference
-                this.originatorAddressLine1 = simulationInboundWireTransferCreateBody.originatorAddressLine1
-                this.originatorAddressLine2 = simulationInboundWireTransferCreateBody.originatorAddressLine2
-                this.originatorAddressLine3 = simulationInboundWireTransferCreateBody.originatorAddressLine3
+                this.beneficiaryReference =
+                    simulationInboundWireTransferCreateBody.beneficiaryReference
+                this.originatorAddressLine1 =
+                    simulationInboundWireTransferCreateBody.originatorAddressLine1
+                this.originatorAddressLine2 =
+                    simulationInboundWireTransferCreateBody.originatorAddressLine2
+                this.originatorAddressLine3 =
+                    simulationInboundWireTransferCreateBody.originatorAddressLine3
                 this.originatorName = simulationInboundWireTransferCreateBody.originatorName
-                this.originatorRoutingNumber = simulationInboundWireTransferCreateBody.originatorRoutingNumber
-                this.originatorToBeneficiaryInformationLine1 = simulationInboundWireTransferCreateBody.originatorToBeneficiaryInformationLine1
-                this.originatorToBeneficiaryInformationLine2 = simulationInboundWireTransferCreateBody.originatorToBeneficiaryInformationLine2
-                this.originatorToBeneficiaryInformationLine3 = simulationInboundWireTransferCreateBody.originatorToBeneficiaryInformationLine3
-                this.originatorToBeneficiaryInformationLine4 = simulationInboundWireTransferCreateBody.originatorToBeneficiaryInformationLine4
+                this.originatorRoutingNumber =
+                    simulationInboundWireTransferCreateBody.originatorRoutingNumber
+                this.originatorToBeneficiaryInformationLine1 =
+                    simulationInboundWireTransferCreateBody.originatorToBeneficiaryInformationLine1
+                this.originatorToBeneficiaryInformationLine2 =
+                    simulationInboundWireTransferCreateBody.originatorToBeneficiaryInformationLine2
+                this.originatorToBeneficiaryInformationLine3 =
+                    simulationInboundWireTransferCreateBody.originatorToBeneficiaryInformationLine3
+                this.originatorToBeneficiaryInformationLine4 =
+                    simulationInboundWireTransferCreateBody.originatorToBeneficiaryInformationLine4
                 this.senderReference = simulationInboundWireTransferCreateBody.senderReference
                 additionalProperties(simulationInboundWireTransferCreateBody.additionalProperties)
             }
@@ -379,14 +376,11 @@ class SimulationInboundWireTransferCreateParams constructor(
             }
 
             /** The transfer amount in cents. Must be positive. */
-            @JsonProperty("amount")
-            fun amount(amount: Long) = apply {
-                this.amount = amount
-            }
+            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
 
             /**
-             * The sending bank will set beneficiary_address_line1 in production. You can
-             * simulate any value here.
+             * The sending bank will set beneficiary_address_line1 in production. You can simulate
+             * any value here.
              */
             @JsonProperty("beneficiary_address_line1")
             fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) = apply {
@@ -394,8 +388,8 @@ class SimulationInboundWireTransferCreateParams constructor(
             }
 
             /**
-             * The sending bank will set beneficiary_address_line2 in production. You can
-             * simulate any value here.
+             * The sending bank will set beneficiary_address_line2 in production. You can simulate
+             * any value here.
              */
             @JsonProperty("beneficiary_address_line2")
             fun beneficiaryAddressLine2(beneficiaryAddressLine2: String) = apply {
@@ -403,8 +397,8 @@ class SimulationInboundWireTransferCreateParams constructor(
             }
 
             /**
-             * The sending bank will set beneficiary_address_line3 in production. You can
-             * simulate any value here.
+             * The sending bank will set beneficiary_address_line3 in production. You can simulate
+             * any value here.
              */
             @JsonProperty("beneficiary_address_line3")
             fun beneficiaryAddressLine3(beneficiaryAddressLine3: String) = apply {
@@ -412,8 +406,8 @@ class SimulationInboundWireTransferCreateParams constructor(
             }
 
             /**
-             * The sending bank will set beneficiary_name in production. You can simulate any
-             * value here.
+             * The sending bank will set beneficiary_name in production. You can simulate any value
+             * here.
              */
             @JsonProperty("beneficiary_name")
             fun beneficiaryName(beneficiaryName: String) = apply {
@@ -421,8 +415,8 @@ class SimulationInboundWireTransferCreateParams constructor(
             }
 
             /**
-             * The sending bank will set beneficiary_reference in production. You can simulate
-             * any value here.
+             * The sending bank will set beneficiary_reference in production. You can simulate any
+             * value here.
              */
             @JsonProperty("beneficiary_reference")
             fun beneficiaryReference(beneficiaryReference: String) = apply {
@@ -430,8 +424,8 @@ class SimulationInboundWireTransferCreateParams constructor(
             }
 
             /**
-             * The sending bank will set originator_address_line1 in production. You can
-             * simulate any value here.
+             * The sending bank will set originator_address_line1 in production. You can simulate
+             * any value here.
              */
             @JsonProperty("originator_address_line1")
             fun originatorAddressLine1(originatorAddressLine1: String) = apply {
@@ -439,8 +433,8 @@ class SimulationInboundWireTransferCreateParams constructor(
             }
 
             /**
-             * The sending bank will set originator_address_line2 in production. You can
-             * simulate any value here.
+             * The sending bank will set originator_address_line2 in production. You can simulate
+             * any value here.
              */
             @JsonProperty("originator_address_line2")
             fun originatorAddressLine2(originatorAddressLine2: String) = apply {
@@ -448,8 +442,8 @@ class SimulationInboundWireTransferCreateParams constructor(
             }
 
             /**
-             * The sending bank will set originator_address_line3 in production. You can
-             * simulate any value here.
+             * The sending bank will set originator_address_line3 in production. You can simulate
+             * any value here.
              */
             @JsonProperty("originator_address_line3")
             fun originatorAddressLine3(originatorAddressLine3: String) = apply {
@@ -457,8 +451,8 @@ class SimulationInboundWireTransferCreateParams constructor(
             }
 
             /**
-             * The sending bank will set originator_name in production. You can simulate any
-             * value here.
+             * The sending bank will set originator_name in production. You can simulate any value
+             * here.
              */
             @JsonProperty("originator_name")
             fun originatorName(originatorName: String) = apply {
@@ -466,8 +460,8 @@ class SimulationInboundWireTransferCreateParams constructor(
             }
 
             /**
-             * The sending bank will set originator_routing_number in production. You can
-             * simulate any value here.
+             * The sending bank will set originator_routing_number in production. You can simulate
+             * any value here.
              */
             @JsonProperty("originator_routing_number")
             fun originatorRoutingNumber(originatorRoutingNumber: String) = apply {
@@ -475,44 +469,56 @@ class SimulationInboundWireTransferCreateParams constructor(
             }
 
             /**
-             * The sending bank will set originator_to_beneficiary_information_line1 in
-             * production. You can simulate any value here.
+             * The sending bank will set originator_to_beneficiary_information_line1 in production.
+             * You can simulate any value here.
              */
             @JsonProperty("originator_to_beneficiary_information_line1")
-            fun originatorToBeneficiaryInformationLine1(originatorToBeneficiaryInformationLine1: String) = apply {
-                this.originatorToBeneficiaryInformationLine1 = originatorToBeneficiaryInformationLine1
+            fun originatorToBeneficiaryInformationLine1(
+                originatorToBeneficiaryInformationLine1: String
+            ) = apply {
+                this.originatorToBeneficiaryInformationLine1 =
+                    originatorToBeneficiaryInformationLine1
             }
 
             /**
-             * The sending bank will set originator_to_beneficiary_information_line2 in
-             * production. You can simulate any value here.
+             * The sending bank will set originator_to_beneficiary_information_line2 in production.
+             * You can simulate any value here.
              */
             @JsonProperty("originator_to_beneficiary_information_line2")
-            fun originatorToBeneficiaryInformationLine2(originatorToBeneficiaryInformationLine2: String) = apply {
-                this.originatorToBeneficiaryInformationLine2 = originatorToBeneficiaryInformationLine2
+            fun originatorToBeneficiaryInformationLine2(
+                originatorToBeneficiaryInformationLine2: String
+            ) = apply {
+                this.originatorToBeneficiaryInformationLine2 =
+                    originatorToBeneficiaryInformationLine2
             }
 
             /**
-             * The sending bank will set originator_to_beneficiary_information_line3 in
-             * production. You can simulate any value here.
+             * The sending bank will set originator_to_beneficiary_information_line3 in production.
+             * You can simulate any value here.
              */
             @JsonProperty("originator_to_beneficiary_information_line3")
-            fun originatorToBeneficiaryInformationLine3(originatorToBeneficiaryInformationLine3: String) = apply {
-                this.originatorToBeneficiaryInformationLine3 = originatorToBeneficiaryInformationLine3
+            fun originatorToBeneficiaryInformationLine3(
+                originatorToBeneficiaryInformationLine3: String
+            ) = apply {
+                this.originatorToBeneficiaryInformationLine3 =
+                    originatorToBeneficiaryInformationLine3
             }
 
             /**
-             * The sending bank will set originator_to_beneficiary_information_line4 in
-             * production. You can simulate any value here.
+             * The sending bank will set originator_to_beneficiary_information_line4 in production.
+             * You can simulate any value here.
              */
             @JsonProperty("originator_to_beneficiary_information_line4")
-            fun originatorToBeneficiaryInformationLine4(originatorToBeneficiaryInformationLine4: String) = apply {
-                this.originatorToBeneficiaryInformationLine4 = originatorToBeneficiaryInformationLine4
+            fun originatorToBeneficiaryInformationLine4(
+                originatorToBeneficiaryInformationLine4: String
+            ) = apply {
+                this.originatorToBeneficiaryInformationLine4 =
+                    originatorToBeneficiaryInformationLine4
             }
 
             /**
-             * The sending bank will set sender_reference in production. You can simulate any
-             * value here.
+             * The sending bank will set sender_reference in production. You can simulate any value
+             * here.
              */
             @JsonProperty("sender_reference")
             fun senderReference(senderReference: String) = apply {
@@ -533,30 +539,29 @@ class SimulationInboundWireTransferCreateParams constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): SimulationInboundWireTransferCreateBody = SimulationInboundWireTransferCreateBody(
-                checkNotNull(accountNumberId) {
-                    "`accountNumberId` is required but was not set"
-                },
-                checkNotNull(amount) {
-                    "`amount` is required but was not set"
-                },
-                beneficiaryAddressLine1,
-                beneficiaryAddressLine2,
-                beneficiaryAddressLine3,
-                beneficiaryName,
-                beneficiaryReference,
-                originatorAddressLine1,
-                originatorAddressLine2,
-                originatorAddressLine3,
-                originatorName,
-                originatorRoutingNumber,
-                originatorToBeneficiaryInformationLine1,
-                originatorToBeneficiaryInformationLine2,
-                originatorToBeneficiaryInformationLine3,
-                originatorToBeneficiaryInformationLine4,
-                senderReference,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build(): SimulationInboundWireTransferCreateBody =
+                SimulationInboundWireTransferCreateBody(
+                    checkNotNull(accountNumberId) {
+                        "`accountNumberId` is required but was not set"
+                    },
+                    checkNotNull(amount) { "`amount` is required but was not set" },
+                    beneficiaryAddressLine1,
+                    beneficiaryAddressLine2,
+                    beneficiaryAddressLine3,
+                    beneficiaryName,
+                    beneficiaryReference,
+                    originatorAddressLine1,
+                    originatorAddressLine2,
+                    originatorAddressLine3,
+                    originatorName,
+                    originatorRoutingNumber,
+                    originatorToBeneficiaryInformationLine1,
+                    originatorToBeneficiaryInformationLine2,
+                    originatorToBeneficiaryInformationLine3,
+                    originatorToBeneficiaryInformationLine4,
+                    senderReference,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
@@ -567,66 +572,70 @@ class SimulationInboundWireTransferCreateParams constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is SimulationInboundWireTransferCreateParams &&
-          this.accountNumberId == other.accountNumberId &&
-          this.amount == other.amount &&
-          this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
-          this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
-          this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
-          this.beneficiaryName == other.beneficiaryName &&
-          this.beneficiaryReference == other.beneficiaryReference &&
-          this.originatorAddressLine1 == other.originatorAddressLine1 &&
-          this.originatorAddressLine2 == other.originatorAddressLine2 &&
-          this.originatorAddressLine3 == other.originatorAddressLine3 &&
-          this.originatorName == other.originatorName &&
-          this.originatorRoutingNumber == other.originatorRoutingNumber &&
-          this.originatorToBeneficiaryInformationLine1 == other.originatorToBeneficiaryInformationLine1 &&
-          this.originatorToBeneficiaryInformationLine2 == other.originatorToBeneficiaryInformationLine2 &&
-          this.originatorToBeneficiaryInformationLine3 == other.originatorToBeneficiaryInformationLine3 &&
-          this.originatorToBeneficiaryInformationLine4 == other.originatorToBeneficiaryInformationLine4 &&
-          this.senderReference == other.senderReference &&
-          this.additionalQueryParams == other.additionalQueryParams &&
-          this.additionalHeaders == other.additionalHeaders &&
-          this.additionalBodyProperties == other.additionalBodyProperties
+        return other is SimulationInboundWireTransferCreateParams &&
+            this.accountNumberId == other.accountNumberId &&
+            this.amount == other.amount &&
+            this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
+            this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
+            this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
+            this.beneficiaryName == other.beneficiaryName &&
+            this.beneficiaryReference == other.beneficiaryReference &&
+            this.originatorAddressLine1 == other.originatorAddressLine1 &&
+            this.originatorAddressLine2 == other.originatorAddressLine2 &&
+            this.originatorAddressLine3 == other.originatorAddressLine3 &&
+            this.originatorName == other.originatorName &&
+            this.originatorRoutingNumber == other.originatorRoutingNumber &&
+            this.originatorToBeneficiaryInformationLine1 ==
+                other.originatorToBeneficiaryInformationLine1 &&
+            this.originatorToBeneficiaryInformationLine2 ==
+                other.originatorToBeneficiaryInformationLine2 &&
+            this.originatorToBeneficiaryInformationLine3 ==
+                other.originatorToBeneficiaryInformationLine3 &&
+            this.originatorToBeneficiaryInformationLine4 ==
+                other.originatorToBeneficiaryInformationLine4 &&
+            this.senderReference == other.senderReference &&
+            this.additionalQueryParams == other.additionalQueryParams &&
+            this.additionalHeaders == other.additionalHeaders &&
+            this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          accountNumberId,
-          amount,
-          beneficiaryAddressLine1,
-          beneficiaryAddressLine2,
-          beneficiaryAddressLine3,
-          beneficiaryName,
-          beneficiaryReference,
-          originatorAddressLine1,
-          originatorAddressLine2,
-          originatorAddressLine3,
-          originatorName,
-          originatorRoutingNumber,
-          originatorToBeneficiaryInformationLine1,
-          originatorToBeneficiaryInformationLine2,
-          originatorToBeneficiaryInformationLine3,
-          originatorToBeneficiaryInformationLine4,
-          senderReference,
-          additionalQueryParams,
-          additionalHeaders,
-          additionalBodyProperties,
-      )
+        return Objects.hash(
+            accountNumberId,
+            amount,
+            beneficiaryAddressLine1,
+            beneficiaryAddressLine2,
+            beneficiaryAddressLine3,
+            beneficiaryName,
+            beneficiaryReference,
+            originatorAddressLine1,
+            originatorAddressLine2,
+            originatorAddressLine3,
+            originatorName,
+            originatorRoutingNumber,
+            originatorToBeneficiaryInformationLine1,
+            originatorToBeneficiaryInformationLine2,
+            originatorToBeneficiaryInformationLine3,
+            originatorToBeneficiaryInformationLine4,
+            senderReference,
+            additionalQueryParams,
+            additionalHeaders,
+            additionalBodyProperties,
+        )
     }
 
-    override fun toString() = "SimulationInboundWireTransferCreateParams{accountNumberId=$accountNumberId, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, senderReference=$senderReference, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() =
+        "SimulationInboundWireTransferCreateParams{accountNumberId=$accountNumberId, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, senderReference=$senderReference, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -654,27 +663,43 @@ class SimulationInboundWireTransferCreateParams constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(simulationInboundWireTransferCreateParams: SimulationInboundWireTransferCreateParams) = apply {
+        internal fun from(
+            simulationInboundWireTransferCreateParams: SimulationInboundWireTransferCreateParams
+        ) = apply {
             this.accountNumberId = simulationInboundWireTransferCreateParams.accountNumberId
             this.amount = simulationInboundWireTransferCreateParams.amount
-            this.beneficiaryAddressLine1 = simulationInboundWireTransferCreateParams.beneficiaryAddressLine1
-            this.beneficiaryAddressLine2 = simulationInboundWireTransferCreateParams.beneficiaryAddressLine2
-            this.beneficiaryAddressLine3 = simulationInboundWireTransferCreateParams.beneficiaryAddressLine3
+            this.beneficiaryAddressLine1 =
+                simulationInboundWireTransferCreateParams.beneficiaryAddressLine1
+            this.beneficiaryAddressLine2 =
+                simulationInboundWireTransferCreateParams.beneficiaryAddressLine2
+            this.beneficiaryAddressLine3 =
+                simulationInboundWireTransferCreateParams.beneficiaryAddressLine3
             this.beneficiaryName = simulationInboundWireTransferCreateParams.beneficiaryName
-            this.beneficiaryReference = simulationInboundWireTransferCreateParams.beneficiaryReference
-            this.originatorAddressLine1 = simulationInboundWireTransferCreateParams.originatorAddressLine1
-            this.originatorAddressLine2 = simulationInboundWireTransferCreateParams.originatorAddressLine2
-            this.originatorAddressLine3 = simulationInboundWireTransferCreateParams.originatorAddressLine3
+            this.beneficiaryReference =
+                simulationInboundWireTransferCreateParams.beneficiaryReference
+            this.originatorAddressLine1 =
+                simulationInboundWireTransferCreateParams.originatorAddressLine1
+            this.originatorAddressLine2 =
+                simulationInboundWireTransferCreateParams.originatorAddressLine2
+            this.originatorAddressLine3 =
+                simulationInboundWireTransferCreateParams.originatorAddressLine3
             this.originatorName = simulationInboundWireTransferCreateParams.originatorName
-            this.originatorRoutingNumber = simulationInboundWireTransferCreateParams.originatorRoutingNumber
-            this.originatorToBeneficiaryInformationLine1 = simulationInboundWireTransferCreateParams.originatorToBeneficiaryInformationLine1
-            this.originatorToBeneficiaryInformationLine2 = simulationInboundWireTransferCreateParams.originatorToBeneficiaryInformationLine2
-            this.originatorToBeneficiaryInformationLine3 = simulationInboundWireTransferCreateParams.originatorToBeneficiaryInformationLine3
-            this.originatorToBeneficiaryInformationLine4 = simulationInboundWireTransferCreateParams.originatorToBeneficiaryInformationLine4
+            this.originatorRoutingNumber =
+                simulationInboundWireTransferCreateParams.originatorRoutingNumber
+            this.originatorToBeneficiaryInformationLine1 =
+                simulationInboundWireTransferCreateParams.originatorToBeneficiaryInformationLine1
+            this.originatorToBeneficiaryInformationLine2 =
+                simulationInboundWireTransferCreateParams.originatorToBeneficiaryInformationLine2
+            this.originatorToBeneficiaryInformationLine3 =
+                simulationInboundWireTransferCreateParams.originatorToBeneficiaryInformationLine3
+            this.originatorToBeneficiaryInformationLine4 =
+                simulationInboundWireTransferCreateParams.originatorToBeneficiaryInformationLine4
             this.senderReference = simulationInboundWireTransferCreateParams.senderReference
             additionalQueryParams(simulationInboundWireTransferCreateParams.additionalQueryParams)
             additionalHeaders(simulationInboundWireTransferCreateParams.additionalHeaders)
-            additionalBodyProperties(simulationInboundWireTransferCreateParams.additionalBodyProperties)
+            additionalBodyProperties(
+                simulationInboundWireTransferCreateParams.additionalBodyProperties
+            )
         }
 
         /** The identifier of the Account Number the inbound Wire Transfer is for. */
@@ -683,125 +708,128 @@ class SimulationInboundWireTransferCreateParams constructor(
         }
 
         /** The transfer amount in cents. Must be positive. */
-        fun amount(amount: Long) = apply {
-            this.amount = amount
-        }
+        fun amount(amount: Long) = apply { this.amount = amount }
 
         /**
-         * The sending bank will set beneficiary_address_line1 in production. You can
-         * simulate any value here.
+         * The sending bank will set beneficiary_address_line1 in production. You can simulate any
+         * value here.
          */
         fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) = apply {
             this.beneficiaryAddressLine1 = beneficiaryAddressLine1
         }
 
         /**
-         * The sending bank will set beneficiary_address_line2 in production. You can
-         * simulate any value here.
+         * The sending bank will set beneficiary_address_line2 in production. You can simulate any
+         * value here.
          */
         fun beneficiaryAddressLine2(beneficiaryAddressLine2: String) = apply {
             this.beneficiaryAddressLine2 = beneficiaryAddressLine2
         }
 
         /**
-         * The sending bank will set beneficiary_address_line3 in production. You can
-         * simulate any value here.
+         * The sending bank will set beneficiary_address_line3 in production. You can simulate any
+         * value here.
          */
         fun beneficiaryAddressLine3(beneficiaryAddressLine3: String) = apply {
             this.beneficiaryAddressLine3 = beneficiaryAddressLine3
         }
 
         /**
-         * The sending bank will set beneficiary_name in production. You can simulate any
-         * value here.
+         * The sending bank will set beneficiary_name in production. You can simulate any value
+         * here.
          */
         fun beneficiaryName(beneficiaryName: String) = apply {
             this.beneficiaryName = beneficiaryName
         }
 
         /**
-         * The sending bank will set beneficiary_reference in production. You can simulate
-         * any value here.
+         * The sending bank will set beneficiary_reference in production. You can simulate any value
+         * here.
          */
         fun beneficiaryReference(beneficiaryReference: String) = apply {
             this.beneficiaryReference = beneficiaryReference
         }
 
         /**
-         * The sending bank will set originator_address_line1 in production. You can
-         * simulate any value here.
+         * The sending bank will set originator_address_line1 in production. You can simulate any
+         * value here.
          */
         fun originatorAddressLine1(originatorAddressLine1: String) = apply {
             this.originatorAddressLine1 = originatorAddressLine1
         }
 
         /**
-         * The sending bank will set originator_address_line2 in production. You can
-         * simulate any value here.
+         * The sending bank will set originator_address_line2 in production. You can simulate any
+         * value here.
          */
         fun originatorAddressLine2(originatorAddressLine2: String) = apply {
             this.originatorAddressLine2 = originatorAddressLine2
         }
 
         /**
-         * The sending bank will set originator_address_line3 in production. You can
-         * simulate any value here.
+         * The sending bank will set originator_address_line3 in production. You can simulate any
+         * value here.
          */
         fun originatorAddressLine3(originatorAddressLine3: String) = apply {
             this.originatorAddressLine3 = originatorAddressLine3
         }
 
         /**
-         * The sending bank will set originator_name in production. You can simulate any
-         * value here.
+         * The sending bank will set originator_name in production. You can simulate any value here.
          */
-        fun originatorName(originatorName: String) = apply {
-            this.originatorName = originatorName
-        }
+        fun originatorName(originatorName: String) = apply { this.originatorName = originatorName }
 
         /**
-         * The sending bank will set originator_routing_number in production. You can
-         * simulate any value here.
+         * The sending bank will set originator_routing_number in production. You can simulate any
+         * value here.
          */
         fun originatorRoutingNumber(originatorRoutingNumber: String) = apply {
             this.originatorRoutingNumber = originatorRoutingNumber
         }
 
         /**
-         * The sending bank will set originator_to_beneficiary_information_line1 in
-         * production. You can simulate any value here.
+         * The sending bank will set originator_to_beneficiary_information_line1 in production. You
+         * can simulate any value here.
          */
-        fun originatorToBeneficiaryInformationLine1(originatorToBeneficiaryInformationLine1: String) = apply {
+        fun originatorToBeneficiaryInformationLine1(
+            originatorToBeneficiaryInformationLine1: String
+        ) = apply {
             this.originatorToBeneficiaryInformationLine1 = originatorToBeneficiaryInformationLine1
         }
 
         /**
-         * The sending bank will set originator_to_beneficiary_information_line2 in
-         * production. You can simulate any value here.
+         * The sending bank will set originator_to_beneficiary_information_line2 in production. You
+         * can simulate any value here.
          */
-        fun originatorToBeneficiaryInformationLine2(originatorToBeneficiaryInformationLine2: String) = apply {
+        fun originatorToBeneficiaryInformationLine2(
+            originatorToBeneficiaryInformationLine2: String
+        ) = apply {
             this.originatorToBeneficiaryInformationLine2 = originatorToBeneficiaryInformationLine2
         }
 
         /**
-         * The sending bank will set originator_to_beneficiary_information_line3 in
-         * production. You can simulate any value here.
+         * The sending bank will set originator_to_beneficiary_information_line3 in production. You
+         * can simulate any value here.
          */
-        fun originatorToBeneficiaryInformationLine3(originatorToBeneficiaryInformationLine3: String) = apply {
+        fun originatorToBeneficiaryInformationLine3(
+            originatorToBeneficiaryInformationLine3: String
+        ) = apply {
             this.originatorToBeneficiaryInformationLine3 = originatorToBeneficiaryInformationLine3
         }
 
         /**
-         * The sending bank will set originator_to_beneficiary_information_line4 in
-         * production. You can simulate any value here.
+         * The sending bank will set originator_to_beneficiary_information_line4 in production. You
+         * can simulate any value here.
          */
-        fun originatorToBeneficiaryInformationLine4(originatorToBeneficiaryInformationLine4: String) = apply {
+        fun originatorToBeneficiaryInformationLine4(
+            originatorToBeneficiaryInformationLine4: String
+        ) = apply {
             this.originatorToBeneficiaryInformationLine4 = originatorToBeneficiaryInformationLine4
         }
 
         /**
-         * The sending bank will set sender_reference in production. You can simulate any
-         * value here.
+         * The sending bank will set sender_reference in production. You can simulate any value
+         * here.
          */
         fun senderReference(senderReference: String) = apply {
             this.senderReference = senderReference
@@ -845,9 +873,7 @@ class SimulationInboundWireTransferCreateParams constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply {
-            this.additionalHeaders.put(name, mutableListOf())
-        }
+        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -858,35 +884,33 @@ class SimulationInboundWireTransferCreateParams constructor(
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.putAll(additionalBodyProperties)
-        }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
 
-        fun build(): SimulationInboundWireTransferCreateParams = SimulationInboundWireTransferCreateParams(
-            checkNotNull(accountNumberId) {
-                "`accountNumberId` is required but was not set"
-            },
-            checkNotNull(amount) {
-                "`amount` is required but was not set"
-            },
-            beneficiaryAddressLine1,
-            beneficiaryAddressLine2,
-            beneficiaryAddressLine3,
-            beneficiaryName,
-            beneficiaryReference,
-            originatorAddressLine1,
-            originatorAddressLine2,
-            originatorAddressLine3,
-            originatorName,
-            originatorRoutingNumber,
-            originatorToBeneficiaryInformationLine1,
-            originatorToBeneficiaryInformationLine2,
-            originatorToBeneficiaryInformationLine3,
-            originatorToBeneficiaryInformationLine4,
-            senderReference,
-            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalBodyProperties.toUnmodifiable(),
-        )
+        fun build(): SimulationInboundWireTransferCreateParams =
+            SimulationInboundWireTransferCreateParams(
+                checkNotNull(accountNumberId) { "`accountNumberId` is required but was not set" },
+                checkNotNull(amount) { "`amount` is required but was not set" },
+                beneficiaryAddressLine1,
+                beneficiaryAddressLine2,
+                beneficiaryAddressLine3,
+                beneficiaryName,
+                beneficiaryReference,
+                originatorAddressLine1,
+                originatorAddressLine2,
+                originatorAddressLine3,
+                originatorName,
+                originatorRoutingNumber,
+                originatorToBeneficiaryInformationLine1,
+                originatorToBeneficiaryInformationLine2,
+                originatorToBeneficiaryInformationLine3,
+                originatorToBeneficiaryInformationLine4,
+                senderReference,
+                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalBodyProperties.toUnmodifiable(),
+            )
     }
 }
