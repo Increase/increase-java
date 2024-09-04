@@ -2,55 +2,29 @@
 
 package com.increase.api.models
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter
-import com.fasterxml.jackson.annotation.JsonAnySetter
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import org.apache.hc.core5.http.ContentType
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.MultipartFormValue
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.Enum
-import com.increase.api.core.ContentTypes
-import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.models.*
+import java.util.Objects
 
-class InboundAchTransferRetrieveParams constructor(private val inboundAchTransferId: String, private val additionalQueryParams: Map<String, List<String>>, private val additionalHeaders: Map<String, List<String>>, ) {
+class InboundAchTransferRetrieveParams
+constructor(
+    private val inboundAchTransferId: String,
+    private val additionalQueryParams: Map<String, List<String>>,
+    private val additionalHeaders: Map<String, List<String>>,
+) {
 
     fun inboundAchTransferId(): String = inboundAchTransferId
 
-    @JvmSynthetic
-    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
-    @JvmSynthetic
-    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     fun getPathParam(index: Int): String {
-      return when (index) {
-          0 -> inboundAchTransferId
-          else -> ""
-      }
+        return when (index) {
+            0 -> inboundAchTransferId
+            else -> ""
+        }
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
@@ -58,32 +32,32 @@ class InboundAchTransferRetrieveParams constructor(private val inboundAchTransfe
     fun _additionalHeaders(): Map<String, List<String>> = additionalHeaders
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is InboundAchTransferRetrieveParams &&
-          this.inboundAchTransferId == other.inboundAchTransferId &&
-          this.additionalQueryParams == other.additionalQueryParams &&
-          this.additionalHeaders == other.additionalHeaders
+        return other is InboundAchTransferRetrieveParams &&
+            this.inboundAchTransferId == other.inboundAchTransferId &&
+            this.additionalQueryParams == other.additionalQueryParams &&
+            this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          inboundAchTransferId,
-          additionalQueryParams,
-          additionalHeaders,
-      )
+        return Objects.hash(
+            inboundAchTransferId,
+            additionalQueryParams,
+            additionalHeaders,
+        )
     }
 
-    override fun toString() = "InboundAchTransferRetrieveParams{inboundAchTransferId=$inboundAchTransferId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+    override fun toString() =
+        "InboundAchTransferRetrieveParams{inboundAchTransferId=$inboundAchTransferId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -94,11 +68,12 @@ class InboundAchTransferRetrieveParams constructor(private val inboundAchTransfe
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(inboundAchTransferRetrieveParams: InboundAchTransferRetrieveParams) = apply {
-            this.inboundAchTransferId = inboundAchTransferRetrieveParams.inboundAchTransferId
-            additionalQueryParams(inboundAchTransferRetrieveParams.additionalQueryParams)
-            additionalHeaders(inboundAchTransferRetrieveParams.additionalHeaders)
-        }
+        internal fun from(inboundAchTransferRetrieveParams: InboundAchTransferRetrieveParams) =
+            apply {
+                this.inboundAchTransferId = inboundAchTransferRetrieveParams.inboundAchTransferId
+                additionalQueryParams(inboundAchTransferRetrieveParams.additionalQueryParams)
+                additionalHeaders(inboundAchTransferRetrieveParams.additionalHeaders)
+            }
 
         /** The identifier of the Inbound ACH Transfer to get details for. */
         fun inboundAchTransferId(inboundAchTransferId: String) = apply {
@@ -143,16 +118,15 @@ class InboundAchTransferRetrieveParams constructor(private val inboundAchTransfe
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply {
-            this.additionalHeaders.put(name, mutableListOf())
-        }
+        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
-        fun build(): InboundAchTransferRetrieveParams = InboundAchTransferRetrieveParams(
-            checkNotNull(inboundAchTransferId) {
-                "`inboundAchTransferId` is required but was not set"
-            },
-            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-        )
+        fun build(): InboundAchTransferRetrieveParams =
+            InboundAchTransferRetrieveParams(
+                checkNotNull(inboundAchTransferId) {
+                    "`inboundAchTransferId` is required but was not set"
+                },
+                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            )
     }
 }

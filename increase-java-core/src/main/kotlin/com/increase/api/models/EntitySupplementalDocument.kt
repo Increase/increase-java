@@ -5,48 +5,31 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
+import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.JsonNull
-import com.increase.api.core.JsonField
-import com.increase.api.core.Enum
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.time.OffsetDateTime
+import java.util.Objects
+import java.util.Optional
 
-/**
- * Supplemental Documents are uploaded files connected to an Entity during
- * onboarding.
- */
+/** Supplemental Documents are uploaded files connected to an Entity during onboarding. */
 @JsonDeserialize(builder = EntitySupplementalDocument.Builder::class)
 @NoAutoDetect
-class EntitySupplementalDocument private constructor(
-  private val createdAt: JsonField<OffsetDateTime>,
-  private val entityId: JsonField<String>,
-  private val fileId: JsonField<String>,
-  private val idempotencyKey: JsonField<String>,
-  private val type: JsonField<Type>,
-  private val additionalProperties: Map<String, JsonValue>,
-
+class EntitySupplementalDocument
+private constructor(
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val entityId: JsonField<String>,
+    private val fileId: JsonField<String>,
+    private val idempotencyKey: JsonField<String>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: Map<String, JsonValue>,
 ) {
 
     private var validated: Boolean = false
@@ -54,8 +37,8 @@ class EntitySupplementalDocument private constructor(
     private var hashCode: Int = 0
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the
-     * Supplemental Document was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Supplemental
+     * Document was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
@@ -66,11 +49,12 @@ class EntitySupplementalDocument private constructor(
     fun fileId(): String = fileId.getRequired("file_id")
 
     /**
-     * The idempotency key you chose for this object. This value is unique across
-     * Increase and is used to ensure that a request is only processed once. Learn more
-     * about [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> =
+        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -79,39 +63,29 @@ class EntitySupplementalDocument private constructor(
     fun type(): Type = type.getRequired("type")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the
-     * Supplemental Document was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Supplemental
+     * Document was created.
      */
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    fun _createdAt() = createdAt
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
     /** The Entity the supplemental document is attached to. */
-    @JsonProperty("entity_id")
-    @ExcludeMissing
-    fun _entityId() = entityId
+    @JsonProperty("entity_id") @ExcludeMissing fun _entityId() = entityId
 
     /** The File containing the document. */
-    @JsonProperty("file_id")
-    @ExcludeMissing
-    fun _fileId() = fileId
+    @JsonProperty("file_id") @ExcludeMissing fun _fileId() = fileId
 
     /**
-     * The idempotency key you chose for this object. This value is unique across
-     * Increase and is used to ensure that a request is only processed once. Learn more
-     * about [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key")
-    @ExcludeMissing
-    fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `entity_supplemental_document`.
      */
-    @JsonProperty("type")
-    @ExcludeMissing
-    fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -119,51 +93,52 @@ class EntitySupplementalDocument private constructor(
 
     fun validate(): EntitySupplementalDocument = apply {
         if (!validated) {
-          createdAt()
-          entityId()
-          fileId()
-          idempotencyKey()
-          type()
-          validated = true
+            createdAt()
+            entityId()
+            fileId()
+            idempotencyKey()
+            type()
+            validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is EntitySupplementalDocument &&
-          this.createdAt == other.createdAt &&
-          this.entityId == other.entityId &&
-          this.fileId == other.fileId &&
-          this.idempotencyKey == other.idempotencyKey &&
-          this.type == other.type &&
-          this.additionalProperties == other.additionalProperties
+        return other is EntitySupplementalDocument &&
+            this.createdAt == other.createdAt &&
+            this.entityId == other.entityId &&
+            this.fileId == other.fileId &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-      if (hashCode == 0) {
-        hashCode = Objects.hash(
-            createdAt,
-            entityId,
-            fileId,
-            idempotencyKey,
-            type,
-            additionalProperties,
-        )
-      }
-      return hashCode
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    createdAt,
+                    entityId,
+                    fileId,
+                    idempotencyKey,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
     }
 
-    override fun toString() = "EntitySupplementalDocument{createdAt=$createdAt, entityId=$entityId, fileId=$fileId, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() =
+        "EntitySupplementalDocument{createdAt=$createdAt, entityId=$entityId, fileId=$fileId, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     class Builder {
@@ -186,20 +161,18 @@ class EntitySupplementalDocument private constructor(
         }
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the
-         * Supplemental Document was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Supplemental
+         * Document was created.
          */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the
-         * Supplemental Document was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Supplemental
+         * Document was created.
          */
         @JsonProperty("created_at")
         @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
-            this.createdAt = createdAt
-        }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The Entity the supplemental document is attached to. */
         fun entityId(entityId: String) = entityId(JsonField.of(entityId))
@@ -207,9 +180,7 @@ class EntitySupplementalDocument private constructor(
         /** The Entity the supplemental document is attached to. */
         @JsonProperty("entity_id")
         @ExcludeMissing
-        fun entityId(entityId: JsonField<String>) = apply {
-            this.entityId = entityId
-        }
+        fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
 
         /** The File containing the document. */
         fun fileId(fileId: String) = fileId(JsonField.of(fileId))
@@ -217,21 +188,19 @@ class EntitySupplementalDocument private constructor(
         /** The File containing the document. */
         @JsonProperty("file_id")
         @ExcludeMissing
-        fun fileId(fileId: JsonField<String>) = apply {
-            this.fileId = fileId
-        }
+        fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
         /**
-         * The idempotency key you chose for this object. This value is unique across
-         * Increase and is used to ensure that a request is only processed once. Learn more
-         * about [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
 
         /**
-         * The idempotency key you chose for this object. This value is unique across
-         * Increase and is used to ensure that a request is only processed once. Learn more
-         * about [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         @JsonProperty("idempotency_key")
         @ExcludeMissing
@@ -251,9 +220,7 @@ class EntitySupplementalDocument private constructor(
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply {
-            this.type = type
-        }
+        fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -269,28 +236,31 @@ class EntitySupplementalDocument private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): EntitySupplementalDocument = EntitySupplementalDocument(
-            createdAt,
-            entityId,
-            fileId,
-            idempotencyKey,
-            type,
-            additionalProperties.toUnmodifiable(),
-        )
+        fun build(): EntitySupplementalDocument =
+            EntitySupplementalDocument(
+                createdAt,
+                entityId,
+                fileId,
+                idempotencyKey,
+                type,
+                additionalProperties.toUnmodifiable(),
+            )
     }
 
-    class Type @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+    class Type
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Type &&
-              this.value == other.value
+            return other is Type && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -299,7 +269,8 @@ class EntitySupplementalDocument private constructor(
 
         companion object {
 
-            @JvmField val ENTITY_SUPPLEMENTAL_DOCUMENT = Type(JsonField.of("entity_supplemental_document"))
+            @JvmField
+            val ENTITY_SUPPLEMENTAL_DOCUMENT = Type(JsonField.of("entity_supplemental_document"))
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }
@@ -313,15 +284,17 @@ class EntitySupplementalDocument private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            ENTITY_SUPPLEMENTAL_DOCUMENT -> Value.ENTITY_SUPPLEMENTAL_DOCUMENT
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                ENTITY_SUPPLEMENTAL_DOCUMENT -> Value.ENTITY_SUPPLEMENTAL_DOCUMENT
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            ENTITY_SUPPLEMENTAL_DOCUMENT -> Known.ENTITY_SUPPLEMENTAL_DOCUMENT
-            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                ENTITY_SUPPLEMENTAL_DOCUMENT -> Known.ENTITY_SUPPLEMENTAL_DOCUMENT
+                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }

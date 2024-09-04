@@ -5,45 +5,26 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import org.apache.hc.core5.http.ContentType
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
+import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.MultipartFormValue
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.Enum
-import com.increase.api.core.ContentTypes
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
+import java.util.Objects
 
-class SimulationAchTransferCreateNotificationOfChangeParams constructor(
-  private val achTransferId: String,
-  private val changeCode: ChangeCode,
-  private val correctedData: String,
-  private val additionalQueryParams: Map<String, List<String>>,
-  private val additionalHeaders: Map<String, List<String>>,
-  private val additionalBodyProperties: Map<String, JsonValue>,
-
+class SimulationAchTransferCreateNotificationOfChangeParams
+constructor(
+    private val achTransferId: String,
+    private val changeCode: ChangeCode,
+    private val correctedData: String,
+    private val additionalQueryParams: Map<String, List<String>>,
+    private val additionalHeaders: Map<String, List<String>>,
+    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun achTransferId(): String = achTransferId
@@ -54,39 +35,40 @@ class SimulationAchTransferCreateNotificationOfChangeParams constructor(
 
     @JvmSynthetic
     internal fun getBody(): SimulationAchTransferCreateNotificationOfChangeBody {
-      return SimulationAchTransferCreateNotificationOfChangeBody(
-          changeCode,
-          correctedData,
-          additionalBodyProperties,
-      )
+        return SimulationAchTransferCreateNotificationOfChangeBody(
+            changeCode,
+            correctedData,
+            additionalBodyProperties,
+        )
     }
 
-    @JvmSynthetic
-    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
-    @JvmSynthetic
-    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     fun getPathParam(index: Int): String {
-      return when (index) {
-          0 -> achTransferId
-          else -> ""
-      }
+        return when (index) {
+            0 -> achTransferId
+            else -> ""
+        }
     }
 
     @JsonDeserialize(builder = SimulationAchTransferCreateNotificationOfChangeBody.Builder::class)
     @NoAutoDetect
-    class SimulationAchTransferCreateNotificationOfChangeBody internal constructor(private val changeCode: ChangeCode?, private val correctedData: String?, private val additionalProperties: Map<String, JsonValue>, ) {
+    class SimulationAchTransferCreateNotificationOfChangeBody
+    internal constructor(
+        private val changeCode: ChangeCode?,
+        private val correctedData: String?,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var hashCode: Int = 0
 
         /** The reason for the notification of change. */
-        @JsonProperty("change_code")
-        fun changeCode(): ChangeCode? = changeCode
+        @JsonProperty("change_code") fun changeCode(): ChangeCode? = changeCode
 
         /** The corrected data for the notification of change (e.g., a new routing number). */
-        @JsonProperty("corrected_data")
-        fun correctedData(): String? = correctedData
+        @JsonProperty("corrected_data") fun correctedData(): String? = correctedData
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -95,33 +77,34 @@ class SimulationAchTransferCreateNotificationOfChangeParams constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is SimulationAchTransferCreateNotificationOfChangeBody &&
-              this.changeCode == other.changeCode &&
-              this.correctedData == other.correctedData &&
-              this.additionalProperties == other.additionalProperties
+            return other is SimulationAchTransferCreateNotificationOfChangeBody &&
+                this.changeCode == other.changeCode &&
+                this.correctedData == other.correctedData &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                changeCode,
-                correctedData,
-                additionalProperties,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        changeCode,
+                        correctedData,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "SimulationAchTransferCreateNotificationOfChangeBody{changeCode=$changeCode, correctedData=$correctedData, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "SimulationAchTransferCreateNotificationOfChangeBody{changeCode=$changeCode, correctedData=$correctedData, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -131,23 +114,25 @@ class SimulationAchTransferCreateNotificationOfChangeParams constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(simulationAchTransferCreateNotificationOfChangeBody: SimulationAchTransferCreateNotificationOfChangeBody) = apply {
+            internal fun from(
+                simulationAchTransferCreateNotificationOfChangeBody:
+                    SimulationAchTransferCreateNotificationOfChangeBody
+            ) = apply {
                 this.changeCode = simulationAchTransferCreateNotificationOfChangeBody.changeCode
-                this.correctedData = simulationAchTransferCreateNotificationOfChangeBody.correctedData
-                additionalProperties(simulationAchTransferCreateNotificationOfChangeBody.additionalProperties)
+                this.correctedData =
+                    simulationAchTransferCreateNotificationOfChangeBody.correctedData
+                additionalProperties(
+                    simulationAchTransferCreateNotificationOfChangeBody.additionalProperties
+                )
             }
 
             /** The reason for the notification of change. */
             @JsonProperty("change_code")
-            fun changeCode(changeCode: ChangeCode) = apply {
-                this.changeCode = changeCode
-            }
+            fun changeCode(changeCode: ChangeCode) = apply { this.changeCode = changeCode }
 
             /** The corrected data for the notification of change (e.g., a new routing number). */
             @JsonProperty("corrected_data")
-            fun correctedData(correctedData: String) = apply {
-                this.correctedData = correctedData
-            }
+            fun correctedData(correctedData: String) = apply { this.correctedData = correctedData }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -163,15 +148,12 @@ class SimulationAchTransferCreateNotificationOfChangeParams constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): SimulationAchTransferCreateNotificationOfChangeBody = SimulationAchTransferCreateNotificationOfChangeBody(
-                checkNotNull(changeCode) {
-                    "`changeCode` is required but was not set"
-                },
-                checkNotNull(correctedData) {
-                    "`correctedData` is required but was not set"
-                },
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build(): SimulationAchTransferCreateNotificationOfChangeBody =
+                SimulationAchTransferCreateNotificationOfChangeBody(
+                    checkNotNull(changeCode) { "`changeCode` is required but was not set" },
+                    checkNotNull(correctedData) { "`correctedData` is required but was not set" },
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
@@ -182,38 +164,38 @@ class SimulationAchTransferCreateNotificationOfChangeParams constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is SimulationAchTransferCreateNotificationOfChangeParams &&
-          this.achTransferId == other.achTransferId &&
-          this.changeCode == other.changeCode &&
-          this.correctedData == other.correctedData &&
-          this.additionalQueryParams == other.additionalQueryParams &&
-          this.additionalHeaders == other.additionalHeaders &&
-          this.additionalBodyProperties == other.additionalBodyProperties
+        return other is SimulationAchTransferCreateNotificationOfChangeParams &&
+            this.achTransferId == other.achTransferId &&
+            this.changeCode == other.changeCode &&
+            this.correctedData == other.correctedData &&
+            this.additionalQueryParams == other.additionalQueryParams &&
+            this.additionalHeaders == other.additionalHeaders &&
+            this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          achTransferId,
-          changeCode,
-          correctedData,
-          additionalQueryParams,
-          additionalHeaders,
-          additionalBodyProperties,
-      )
+        return Objects.hash(
+            achTransferId,
+            changeCode,
+            correctedData,
+            additionalQueryParams,
+            additionalHeaders,
+            additionalBodyProperties,
+        )
     }
 
-    override fun toString() = "SimulationAchTransferCreateNotificationOfChangeParams{achTransferId=$achTransferId, changeCode=$changeCode, correctedData=$correctedData, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() =
+        "SimulationAchTransferCreateNotificationOfChangeParams{achTransferId=$achTransferId, changeCode=$changeCode, correctedData=$correctedData, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -227,32 +209,32 @@ class SimulationAchTransferCreateNotificationOfChangeParams constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(simulationAchTransferCreateNotificationOfChangeParams: SimulationAchTransferCreateNotificationOfChangeParams) = apply {
+        internal fun from(
+            simulationAchTransferCreateNotificationOfChangeParams:
+                SimulationAchTransferCreateNotificationOfChangeParams
+        ) = apply {
             this.achTransferId = simulationAchTransferCreateNotificationOfChangeParams.achTransferId
             this.changeCode = simulationAchTransferCreateNotificationOfChangeParams.changeCode
             this.correctedData = simulationAchTransferCreateNotificationOfChangeParams.correctedData
-            additionalQueryParams(simulationAchTransferCreateNotificationOfChangeParams.additionalQueryParams)
-            additionalHeaders(simulationAchTransferCreateNotificationOfChangeParams.additionalHeaders)
-            additionalBodyProperties(simulationAchTransferCreateNotificationOfChangeParams.additionalBodyProperties)
+            additionalQueryParams(
+                simulationAchTransferCreateNotificationOfChangeParams.additionalQueryParams
+            )
+            additionalHeaders(
+                simulationAchTransferCreateNotificationOfChangeParams.additionalHeaders
+            )
+            additionalBodyProperties(
+                simulationAchTransferCreateNotificationOfChangeParams.additionalBodyProperties
+            )
         }
 
-        /**
-         * The identifier of the ACH Transfer you wish to create a notification of change
-         * for.
-         */
-        fun achTransferId(achTransferId: String) = apply {
-            this.achTransferId = achTransferId
-        }
+        /** The identifier of the ACH Transfer you wish to create a notification of change for. */
+        fun achTransferId(achTransferId: String) = apply { this.achTransferId = achTransferId }
 
         /** The reason for the notification of change. */
-        fun changeCode(changeCode: ChangeCode) = apply {
-            this.changeCode = changeCode
-        }
+        fun changeCode(changeCode: ChangeCode) = apply { this.changeCode = changeCode }
 
         /** The corrected data for the notification of change (e.g., a new routing number). */
-        fun correctedData(correctedData: String) = apply {
-            this.correctedData = correctedData
-        }
+        fun correctedData(correctedData: String) = apply { this.correctedData = correctedData }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -292,9 +274,7 @@ class SimulationAchTransferCreateNotificationOfChangeParams constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply {
-            this.additionalHeaders.put(name, mutableListOf())
-        }
+        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -305,38 +285,36 @@ class SimulationAchTransferCreateNotificationOfChangeParams constructor(
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.putAll(additionalBodyProperties)
-        }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
 
-        fun build(): SimulationAchTransferCreateNotificationOfChangeParams = SimulationAchTransferCreateNotificationOfChangeParams(
-            checkNotNull(achTransferId) {
-                "`achTransferId` is required but was not set"
-            },
-            checkNotNull(changeCode) {
-                "`changeCode` is required but was not set"
-            },
-            checkNotNull(correctedData) {
-                "`correctedData` is required but was not set"
-            },
-            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalBodyProperties.toUnmodifiable(),
-        )
+        fun build(): SimulationAchTransferCreateNotificationOfChangeParams =
+            SimulationAchTransferCreateNotificationOfChangeParams(
+                checkNotNull(achTransferId) { "`achTransferId` is required but was not set" },
+                checkNotNull(changeCode) { "`changeCode` is required but was not set" },
+                checkNotNull(correctedData) { "`correctedData` is required but was not set" },
+                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalBodyProperties.toUnmodifiable(),
+            )
     }
 
-    class ChangeCode @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+    class ChangeCode
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is ChangeCode &&
-              this.value == other.value
+            return other is ChangeCode && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -345,43 +323,93 @@ class SimulationAchTransferCreateNotificationOfChangeParams constructor(
 
         companion object {
 
-            @JvmField val INCORRECT_ACCOUNT_NUMBER = ChangeCode(JsonField.of("incorrect_account_number"))
+            @JvmField
+            val INCORRECT_ACCOUNT_NUMBER = ChangeCode(JsonField.of("incorrect_account_number"))
 
-            @JvmField val INCORRECT_ROUTING_NUMBER = ChangeCode(JsonField.of("incorrect_routing_number"))
+            @JvmField
+            val INCORRECT_ROUTING_NUMBER = ChangeCode(JsonField.of("incorrect_routing_number"))
 
-            @JvmField val INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER = ChangeCode(JsonField.of("incorrect_routing_number_and_account_number"))
+            @JvmField
+            val INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER =
+                ChangeCode(JsonField.of("incorrect_routing_number_and_account_number"))
 
-            @JvmField val INCORRECT_TRANSACTION_CODE = ChangeCode(JsonField.of("incorrect_transaction_code"))
+            @JvmField
+            val INCORRECT_TRANSACTION_CODE = ChangeCode(JsonField.of("incorrect_transaction_code"))
 
-            @JvmField val INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE = ChangeCode(JsonField.of("incorrect_account_number_and_transaction_code"))
+            @JvmField
+            val INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE =
+                ChangeCode(JsonField.of("incorrect_account_number_and_transaction_code"))
 
-            @JvmField val INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE = ChangeCode(JsonField.of("incorrect_routing_number_account_number_and_transaction_code"))
+            @JvmField
+            val INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE =
+                ChangeCode(
+                    JsonField.of("incorrect_routing_number_account_number_and_transaction_code")
+                )
 
-            @JvmField val INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION = ChangeCode(JsonField.of("incorrect_receiving_depository_financial_institution_identification"))
+            @JvmField
+            val INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION =
+                ChangeCode(
+                    JsonField.of(
+                        "incorrect_receiving_depository_financial_institution_identification"
+                    )
+                )
 
-            @JvmField val INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER = ChangeCode(JsonField.of("incorrect_individual_identification_number"))
+            @JvmField
+            val INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER =
+                ChangeCode(JsonField.of("incorrect_individual_identification_number"))
 
             @JvmField val ADDENDA_FORMAT_ERROR = ChangeCode(JsonField.of("addenda_format_error"))
 
-            @JvmField val INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT = ChangeCode(JsonField.of("incorrect_standard_entry_class_code_for_outbound_international_payment"))
+            @JvmField
+            val INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT =
+                ChangeCode(
+                    JsonField.of(
+                        "incorrect_standard_entry_class_code_for_outbound_international_payment"
+                    )
+                )
 
-            @JvmField val MISROUTED_NOTIFICATION_OF_CHANGE = ChangeCode(JsonField.of("misrouted_notification_of_change"))
+            @JvmField
+            val MISROUTED_NOTIFICATION_OF_CHANGE =
+                ChangeCode(JsonField.of("misrouted_notification_of_change"))
 
-            @JvmField val INCORRECT_TRACE_NUMBER = ChangeCode(JsonField.of("incorrect_trace_number"))
+            @JvmField
+            val INCORRECT_TRACE_NUMBER = ChangeCode(JsonField.of("incorrect_trace_number"))
 
-            @JvmField val INCORRECT_COMPANY_IDENTIFICATION_NUMBER = ChangeCode(JsonField.of("incorrect_company_identification_number"))
+            @JvmField
+            val INCORRECT_COMPANY_IDENTIFICATION_NUMBER =
+                ChangeCode(JsonField.of("incorrect_company_identification_number"))
 
-            @JvmField val INCORRECT_IDENTIFICATION_NUMBER = ChangeCode(JsonField.of("incorrect_identification_number"))
+            @JvmField
+            val INCORRECT_IDENTIFICATION_NUMBER =
+                ChangeCode(JsonField.of("incorrect_identification_number"))
 
-            @JvmField val INCORRECTLY_FORMATTED_CORRECTED_DATA = ChangeCode(JsonField.of("incorrectly_formatted_corrected_data"))
+            @JvmField
+            val INCORRECTLY_FORMATTED_CORRECTED_DATA =
+                ChangeCode(JsonField.of("incorrectly_formatted_corrected_data"))
 
-            @JvmField val INCORRECT_DISCRETIONARY_DATA = ChangeCode(JsonField.of("incorrect_discretionary_data"))
+            @JvmField
+            val INCORRECT_DISCRETIONARY_DATA =
+                ChangeCode(JsonField.of("incorrect_discretionary_data"))
 
-            @JvmField val ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD = ChangeCode(JsonField.of("routing_number_not_from_original_entry_detail_record"))
+            @JvmField
+            val ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD =
+                ChangeCode(JsonField.of("routing_number_not_from_original_entry_detail_record"))
 
-            @JvmField val DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD = ChangeCode(JsonField.of("depository_financial_institution_account_number_not_from_original_entry_detail_record"))
+            @JvmField
+            val DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD =
+                ChangeCode(
+                    JsonField.of(
+                        "depository_financial_institution_account_number_not_from_original_entry_detail_record"
+                    )
+                )
 
-            @JvmField val INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION = ChangeCode(JsonField.of("incorrect_transaction_code_by_originating_depository_financial_institution"))
+            @JvmField
+            val INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION =
+                ChangeCode(
+                    JsonField.of(
+                        "incorrect_transaction_code_by_originating_depository_financial_institution"
+                    )
+                )
 
             @JvmStatic fun of(value: String) = ChangeCode(JsonField.of(value))
         }
@@ -431,51 +459,75 @@ class SimulationAchTransferCreateNotificationOfChangeParams constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            INCORRECT_ACCOUNT_NUMBER -> Value.INCORRECT_ACCOUNT_NUMBER
-            INCORRECT_ROUTING_NUMBER -> Value.INCORRECT_ROUTING_NUMBER
-            INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER -> Value.INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER
-            INCORRECT_TRANSACTION_CODE -> Value.INCORRECT_TRANSACTION_CODE
-            INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE -> Value.INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
-            INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE -> Value.INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
-            INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION -> Value.INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION
-            INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER -> Value.INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER
-            ADDENDA_FORMAT_ERROR -> Value.ADDENDA_FORMAT_ERROR
-            INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT -> Value.INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT
-            MISROUTED_NOTIFICATION_OF_CHANGE -> Value.MISROUTED_NOTIFICATION_OF_CHANGE
-            INCORRECT_TRACE_NUMBER -> Value.INCORRECT_TRACE_NUMBER
-            INCORRECT_COMPANY_IDENTIFICATION_NUMBER -> Value.INCORRECT_COMPANY_IDENTIFICATION_NUMBER
-            INCORRECT_IDENTIFICATION_NUMBER -> Value.INCORRECT_IDENTIFICATION_NUMBER
-            INCORRECTLY_FORMATTED_CORRECTED_DATA -> Value.INCORRECTLY_FORMATTED_CORRECTED_DATA
-            INCORRECT_DISCRETIONARY_DATA -> Value.INCORRECT_DISCRETIONARY_DATA
-            ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD -> Value.ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD
-            DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD -> Value.DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD
-            INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION -> Value.INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                INCORRECT_ACCOUNT_NUMBER -> Value.INCORRECT_ACCOUNT_NUMBER
+                INCORRECT_ROUTING_NUMBER -> Value.INCORRECT_ROUTING_NUMBER
+                INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER ->
+                    Value.INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER
+                INCORRECT_TRANSACTION_CODE -> Value.INCORRECT_TRANSACTION_CODE
+                INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE ->
+                    Value.INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
+                INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE ->
+                    Value.INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
+                INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION ->
+                    Value.INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION
+                INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER ->
+                    Value.INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER
+                ADDENDA_FORMAT_ERROR -> Value.ADDENDA_FORMAT_ERROR
+                INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT ->
+                    Value.INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT
+                MISROUTED_NOTIFICATION_OF_CHANGE -> Value.MISROUTED_NOTIFICATION_OF_CHANGE
+                INCORRECT_TRACE_NUMBER -> Value.INCORRECT_TRACE_NUMBER
+                INCORRECT_COMPANY_IDENTIFICATION_NUMBER ->
+                    Value.INCORRECT_COMPANY_IDENTIFICATION_NUMBER
+                INCORRECT_IDENTIFICATION_NUMBER -> Value.INCORRECT_IDENTIFICATION_NUMBER
+                INCORRECTLY_FORMATTED_CORRECTED_DATA -> Value.INCORRECTLY_FORMATTED_CORRECTED_DATA
+                INCORRECT_DISCRETIONARY_DATA -> Value.INCORRECT_DISCRETIONARY_DATA
+                ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD ->
+                    Value.ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD
+                DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD ->
+                    Value
+                        .DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD
+                INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION ->
+                    Value.INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            INCORRECT_ACCOUNT_NUMBER -> Known.INCORRECT_ACCOUNT_NUMBER
-            INCORRECT_ROUTING_NUMBER -> Known.INCORRECT_ROUTING_NUMBER
-            INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER -> Known.INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER
-            INCORRECT_TRANSACTION_CODE -> Known.INCORRECT_TRANSACTION_CODE
-            INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE -> Known.INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
-            INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE -> Known.INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
-            INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION -> Known.INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION
-            INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER -> Known.INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER
-            ADDENDA_FORMAT_ERROR -> Known.ADDENDA_FORMAT_ERROR
-            INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT -> Known.INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT
-            MISROUTED_NOTIFICATION_OF_CHANGE -> Known.MISROUTED_NOTIFICATION_OF_CHANGE
-            INCORRECT_TRACE_NUMBER -> Known.INCORRECT_TRACE_NUMBER
-            INCORRECT_COMPANY_IDENTIFICATION_NUMBER -> Known.INCORRECT_COMPANY_IDENTIFICATION_NUMBER
-            INCORRECT_IDENTIFICATION_NUMBER -> Known.INCORRECT_IDENTIFICATION_NUMBER
-            INCORRECTLY_FORMATTED_CORRECTED_DATA -> Known.INCORRECTLY_FORMATTED_CORRECTED_DATA
-            INCORRECT_DISCRETIONARY_DATA -> Known.INCORRECT_DISCRETIONARY_DATA
-            ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD -> Known.ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD
-            DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD -> Known.DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD
-            INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION -> Known.INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION
-            else -> throw IncreaseInvalidDataException("Unknown ChangeCode: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                INCORRECT_ACCOUNT_NUMBER -> Known.INCORRECT_ACCOUNT_NUMBER
+                INCORRECT_ROUTING_NUMBER -> Known.INCORRECT_ROUTING_NUMBER
+                INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER ->
+                    Known.INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER
+                INCORRECT_TRANSACTION_CODE -> Known.INCORRECT_TRANSACTION_CODE
+                INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE ->
+                    Known.INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
+                INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE ->
+                    Known.INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
+                INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION ->
+                    Known.INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION
+                INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER ->
+                    Known.INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER
+                ADDENDA_FORMAT_ERROR -> Known.ADDENDA_FORMAT_ERROR
+                INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT ->
+                    Known.INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT
+                MISROUTED_NOTIFICATION_OF_CHANGE -> Known.MISROUTED_NOTIFICATION_OF_CHANGE
+                INCORRECT_TRACE_NUMBER -> Known.INCORRECT_TRACE_NUMBER
+                INCORRECT_COMPANY_IDENTIFICATION_NUMBER ->
+                    Known.INCORRECT_COMPANY_IDENTIFICATION_NUMBER
+                INCORRECT_IDENTIFICATION_NUMBER -> Known.INCORRECT_IDENTIFICATION_NUMBER
+                INCORRECTLY_FORMATTED_CORRECTED_DATA -> Known.INCORRECTLY_FORMATTED_CORRECTED_DATA
+                INCORRECT_DISCRETIONARY_DATA -> Known.INCORRECT_DISCRETIONARY_DATA
+                ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD ->
+                    Known.ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD
+                DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD ->
+                    Known
+                        .DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD
+                INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION ->
+                    Known.INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION
+                else -> throw IncreaseInvalidDataException("Unknown ChangeCode: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }

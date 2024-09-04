@@ -6,31 +6,26 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.services.async.RealTimePaymentsRequestForPaymentServiceAsync
 import java.util.Objects
 import java.util.Optional
-import java.util.Spliterator
-import java.util.Spliterators
-import java.util.UUID
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import java.util.function.Predicate
-import java.util.stream.Stream
-import java.util.stream.StreamSupport
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.JsonField
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.models.RealTimePaymentsRequestForPayment
-import com.increase.api.services.async.RealTimePaymentsRequestForPaymentServiceAsync
 
-class RealTimePaymentsRequestForPaymentListPageAsync private constructor(private val realTimePaymentsRequestForPaymentsService: RealTimePaymentsRequestForPaymentServiceAsync, private val params: RealTimePaymentsRequestForPaymentListParams, private val response: Response, ) {
+class RealTimePaymentsRequestForPaymentListPageAsync
+private constructor(
+    private val realTimePaymentsRequestForPaymentsService:
+        RealTimePaymentsRequestForPaymentServiceAsync,
+    private val params: RealTimePaymentsRequestForPaymentListParams,
+    private val response: Response,
+) {
 
     fun response(): Response = response
 
@@ -39,48 +34,55 @@ class RealTimePaymentsRequestForPaymentListPageAsync private constructor(private
     fun nextCursor(): Optional<String> = response().nextCursor()
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is RealTimePaymentsRequestForPaymentListPageAsync &&
-          this.realTimePaymentsRequestForPaymentsService == other.realTimePaymentsRequestForPaymentsService &&
-          this.params == other.params &&
-          this.response == other.response
+        return other is RealTimePaymentsRequestForPaymentListPageAsync &&
+            this.realTimePaymentsRequestForPaymentsService ==
+                other.realTimePaymentsRequestForPaymentsService &&
+            this.params == other.params &&
+            this.response == other.response
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          realTimePaymentsRequestForPaymentsService,
-          params,
-          response,
-      )
+        return Objects.hash(
+            realTimePaymentsRequestForPaymentsService,
+            params,
+            response,
+        )
     }
 
-    override fun toString() = "RealTimePaymentsRequestForPaymentListPageAsync{realTimePaymentsRequestForPaymentsService=$realTimePaymentsRequestForPaymentsService, params=$params, response=$response}"
+    override fun toString() =
+        "RealTimePaymentsRequestForPaymentListPageAsync{realTimePaymentsRequestForPaymentsService=$realTimePaymentsRequestForPaymentsService, params=$params, response=$response}"
 
     fun hasNextPage(): Boolean {
-      if (data().isEmpty()) {
-        return false;
-      }
+        if (data().isEmpty()) {
+            return false
+        }
 
-      return nextCursor().isPresent()
+        return nextCursor().isPresent()
     }
 
     fun getNextPageParams(): Optional<RealTimePaymentsRequestForPaymentListParams> {
-      if (!hasNextPage()) {
-        return Optional.empty()
-      }
+        if (!hasNextPage()) {
+            return Optional.empty()
+        }
 
-      return Optional.of(RealTimePaymentsRequestForPaymentListParams.builder().from(params).apply {nextCursor().ifPresent{ this.cursor(it) } }.build())
+        return Optional.of(
+            RealTimePaymentsRequestForPaymentListParams.builder()
+                .from(params)
+                .apply { nextCursor().ifPresent { this.cursor(it) } }
+                .build()
+        )
     }
 
     fun getNextPage(): CompletableFuture<Optional<RealTimePaymentsRequestForPaymentListPageAsync>> {
-      return getNextPageParams().map {
-        realTimePaymentsRequestForPaymentsService.list(it).thenApply { Optional.of(it) }
-      }.orElseGet {
-          CompletableFuture.completedFuture(Optional.empty())
-      }
+        return getNextPageParams()
+            .map {
+                realTimePaymentsRequestForPaymentsService.list(it).thenApply { Optional.of(it) }
+            }
+            .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
     }
 
     fun autoPager(): AutoPager = AutoPager(this)
@@ -88,25 +90,38 @@ class RealTimePaymentsRequestForPaymentListPageAsync private constructor(private
     companion object {
 
         @JvmStatic
-        fun of(realTimePaymentsRequestForPaymentsService: RealTimePaymentsRequestForPaymentServiceAsync, params: RealTimePaymentsRequestForPaymentListParams, response: Response) = RealTimePaymentsRequestForPaymentListPageAsync(
-            realTimePaymentsRequestForPaymentsService,
-            params,
-            response,
-        )
+        fun of(
+            realTimePaymentsRequestForPaymentsService:
+                RealTimePaymentsRequestForPaymentServiceAsync,
+            params: RealTimePaymentsRequestForPaymentListParams,
+            response: Response
+        ) =
+            RealTimePaymentsRequestForPaymentListPageAsync(
+                realTimePaymentsRequestForPaymentsService,
+                params,
+                response,
+            )
     }
 
     @JsonDeserialize(builder = Response.Builder::class)
     @NoAutoDetect
-    class Response constructor(private val data: JsonField<List<RealTimePaymentsRequestForPayment>>, private val nextCursor: JsonField<String>, private val additionalProperties: Map<String, JsonValue>, ) {
+    class Response
+    constructor(
+        private val data: JsonField<List<RealTimePaymentsRequestForPayment>>,
+        private val nextCursor: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var validated: Boolean = false
 
         fun data(): List<RealTimePaymentsRequestForPayment> = data.getNullable("data") ?: listOf()
 
-        fun nextCursor(): Optional<String> = Optional.ofNullable(nextCursor.getNullable("next_cursor"))
+        fun nextCursor(): Optional<String> =
+            Optional.ofNullable(nextCursor.getNullable("next_cursor"))
 
         @JsonProperty("data")
-        fun _data(): Optional<JsonField<List<RealTimePaymentsRequestForPayment>>> = Optional.ofNullable(data)
+        fun _data(): Optional<JsonField<List<RealTimePaymentsRequestForPayment>>> =
+            Optional.ofNullable(data)
 
         @JsonProperty("next_cursor")
         fun _nextCursor(): Optional<JsonField<String>> = Optional.ofNullable(nextCursor)
@@ -117,39 +132,39 @@ class RealTimePaymentsRequestForPaymentListPageAsync private constructor(private
 
         fun validate(): Response = apply {
             if (!validated) {
-              data().map { it.validate() }
-              nextCursor()
-              validated = true
+                data().map { it.validate() }
+                nextCursor()
+                validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Response &&
-              this.data == other.data &&
-              this.nextCursor == other.nextCursor &&
-              this.additionalProperties == other.additionalProperties
+            return other is Response &&
+                this.data == other.data &&
+                this.nextCursor == other.nextCursor &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          return Objects.hash(
-              data,
-              nextCursor,
-              additionalProperties,
-          )
+            return Objects.hash(
+                data,
+                nextCursor,
+                additionalProperties,
+            )
         }
 
-        override fun toString() = "RealTimePaymentsRequestForPaymentListPageAsync.Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "RealTimePaymentsRequestForPaymentListPageAsync.Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -168,7 +183,9 @@ class RealTimePaymentsRequestForPaymentListPageAsync private constructor(private
             fun data(data: List<RealTimePaymentsRequestForPayment>) = data(JsonField.of(data))
 
             @JsonProperty("data")
-            fun data(data: JsonField<List<RealTimePaymentsRequestForPayment>>) = apply { this.data = data }
+            fun data(data: JsonField<List<RealTimePaymentsRequestForPayment>>) = apply {
+                this.data = data
+            }
 
             fun nextCursor(nextCursor: String) = nextCursor(JsonField.of(nextCursor))
 
@@ -180,39 +197,44 @@ class RealTimePaymentsRequestForPaymentListPageAsync private constructor(private
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() = Response(
-                data,
-                nextCursor,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build() =
+                Response(
+                    data,
+                    nextCursor,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
-    class AutoPager constructor(private val firstPage: RealTimePaymentsRequestForPaymentListPageAsync, ) {
+    class AutoPager
+    constructor(
+        private val firstPage: RealTimePaymentsRequestForPaymentListPageAsync,
+    ) {
 
-        fun forEach(action: Predicate<RealTimePaymentsRequestForPayment>, executor: Executor): CompletableFuture<Void> {
-          fun CompletableFuture<Optional<RealTimePaymentsRequestForPaymentListPageAsync>>.forEach(action: (RealTimePaymentsRequestForPayment) -> Boolean, executor: Executor): CompletableFuture<Void> = thenComposeAsync({ page -> 
-              page
-              .filter {
-                  it.data().all(action)
-              }
-              .map {
-                  it.getNextPage().forEach(action, executor)
-              }
-              .orElseGet {
-                  CompletableFuture.completedFuture(null)
-              }
-          }, executor)
-          return CompletableFuture.completedFuture(Optional.of(firstPage))
-          .forEach(action::test, executor)
+        fun forEach(
+            action: Predicate<RealTimePaymentsRequestForPayment>,
+            executor: Executor
+        ): CompletableFuture<Void> {
+            fun CompletableFuture<Optional<RealTimePaymentsRequestForPaymentListPageAsync>>.forEach(
+                action: (RealTimePaymentsRequestForPayment) -> Boolean,
+                executor: Executor
+            ): CompletableFuture<Void> =
+                thenComposeAsync(
+                    { page ->
+                        page
+                            .filter { it.data().all(action) }
+                            .map { it.getNextPage().forEach(action, executor) }
+                            .orElseGet { CompletableFuture.completedFuture(null) }
+                    },
+                    executor
+                )
+            return CompletableFuture.completedFuture(Optional.of(firstPage))
+                .forEach(action::test, executor)
         }
 
         fun toList(executor: Executor): CompletableFuture<List<RealTimePaymentsRequestForPayment>> {
-          val values = mutableListOf<RealTimePaymentsRequestForPayment>()
-          return forEach(values::add, executor)
-          .thenApply {
-              values
-          }
+            val values = mutableListOf<RealTimePaymentsRequestForPayment>()
+            return forEach(values::add, executor).thenApply { values }
         }
     }
 }
