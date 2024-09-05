@@ -5,8 +5,8 @@
 package com.increase.api.services.blocking.simulations
 
 import com.increase.api.core.RequestOptions
+import com.increase.api.models.InboundRealTimePaymentsTransfer
 import com.increase.api.models.SimulationInboundRealTimePaymentsTransferCreateParams
-import com.increase.api.models.SimulationInboundRealTimePaymentsTransferCreateResponse
 
 interface InboundRealTimePaymentsTransferService {
 
@@ -18,5 +18,5 @@ interface InboundRealTimePaymentsTransferService {
     fun create(
         params: SimulationInboundRealTimePaymentsTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): SimulationInboundRealTimePaymentsTransferCreateResponse
+    ): InboundRealTimePaymentsTransfer
 }
