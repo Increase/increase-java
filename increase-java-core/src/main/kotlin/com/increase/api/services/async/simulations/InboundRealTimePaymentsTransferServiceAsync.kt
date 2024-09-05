@@ -5,8 +5,8 @@
 package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
+import com.increase.api.models.InboundRealTimePaymentsTransfer
 import com.increase.api.models.SimulationInboundRealTimePaymentsTransferCreateParams
-import com.increase.api.models.SimulationInboundRealTimePaymentsTransferCreateResponse
 import java.util.concurrent.CompletableFuture
 
 interface InboundRealTimePaymentsTransferServiceAsync {
@@ -19,5 +19,5 @@ interface InboundRealTimePaymentsTransferServiceAsync {
     fun create(
         params: SimulationInboundRealTimePaymentsTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): CompletableFuture<SimulationInboundRealTimePaymentsTransferCreateResponse>
+    ): CompletableFuture<InboundRealTimePaymentsTransfer>
 }
