@@ -8,8 +8,8 @@ import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
+import com.increase.api.models.InboundRealTimePaymentsTransfer
 import com.increase.api.models.SimulationInboundRealTimePaymentsTransferCreateParams
-import com.increase.api.models.SimulationInboundRealTimePaymentsTransferCreateResponse
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
 import com.increase.api.services.jsonHandler
@@ -23,10 +23,8 @@ constructor(
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-    private val createHandler: Handler<SimulationInboundRealTimePaymentsTransferCreateResponse> =
-        jsonHandler<SimulationInboundRealTimePaymentsTransferCreateResponse>(
-                clientOptions.jsonMapper
-            )
+    private val createHandler: Handler<InboundRealTimePaymentsTransfer> =
+        jsonHandler<InboundRealTimePaymentsTransfer>(clientOptions.jsonMapper)
             .withErrorHandler(errorHandler)
 
     /**
@@ -36,7 +34,7 @@ constructor(
     override fun create(
         params: SimulationInboundRealTimePaymentsTransferCreateParams,
         requestOptions: RequestOptions
-    ): CompletableFuture<SimulationInboundRealTimePaymentsTransferCreateResponse> {
+    ): CompletableFuture<InboundRealTimePaymentsTransfer> {
         val request =
             HttpRequest.builder()
                 .method(HttpMethod.POST)

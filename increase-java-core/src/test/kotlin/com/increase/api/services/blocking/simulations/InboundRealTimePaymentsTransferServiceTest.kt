@@ -20,7 +20,7 @@ class InboundRealTimePaymentsTransferServiceTest {
                 .build()
         val inboundRealTimePaymentsTransferService =
             client.simulations().inboundRealTimePaymentsTransfers()
-        val simulationInboundRealTimePaymentsTransferCreateResponse =
+        val inboundRealTimePaymentsTransfer =
             inboundRealTimePaymentsTransferService.create(
                 SimulationInboundRealTimePaymentsTransferCreateParams.builder()
                     .accountNumberId("account_number_id")
@@ -32,7 +32,7 @@ class InboundRealTimePaymentsTransferServiceTest {
                     .requestForPaymentId("request_for_payment_id")
                     .build()
             )
-        println(simulationInboundRealTimePaymentsTransferCreateResponse)
-        simulationInboundRealTimePaymentsTransferCreateResponse.validate()
+        println(inboundRealTimePaymentsTransfer)
+        inboundRealTimePaymentsTransfer.validate()
     }
 }
