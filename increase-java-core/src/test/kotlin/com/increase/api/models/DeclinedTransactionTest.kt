@@ -197,6 +197,7 @@ class DeclinedTransactionTest {
                                 )
                                 .remittanceInformation("remittance_information")
                                 .transactionIdentification("transaction_identification")
+                                .transferId("transfer_id")
                                 .build()
                         )
                         .wireDecline(
@@ -385,6 +386,7 @@ class DeclinedTransactionTest {
                             )
                             .remittanceInformation("remittance_information")
                             .transactionIdentification("transaction_identification")
+                            .transferId("transfer_id")
                             .build()
                     )
                     .wireDecline(
