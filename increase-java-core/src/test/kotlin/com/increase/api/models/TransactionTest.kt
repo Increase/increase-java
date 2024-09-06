@@ -679,6 +679,28 @@ class TransactionTest {
                                 .debtorRoutingNumber("debtor_routing_number")
                                 .remittanceInformation("remittance_information")
                                 .transactionIdentification("transaction_identification")
+                                .transferId("transfer_id")
+                                .build()
+                        )
+                        .inboundRealTimePaymentsTransferDecline(
+                            Transaction.Source.InboundRealTimePaymentsTransferDecline.builder()
+                                .amount(123L)
+                                .creditorName("creditor_name")
+                                .currency(
+                                    Transaction.Source.InboundRealTimePaymentsTransferDecline
+                                        .Currency
+                                        .CAD
+                                )
+                                .debtorAccountNumber("debtor_account_number")
+                                .debtorName("debtor_name")
+                                .debtorRoutingNumber("debtor_routing_number")
+                                .reason(
+                                    Transaction.Source.InboundRealTimePaymentsTransferDecline.Reason
+                                        .ACCOUNT_NUMBER_CANCELED
+                                )
+                                .remittanceInformation("remittance_information")
+                                .transactionIdentification("transaction_identification")
+                                .transferId("transfer_id")
                                 .build()
                         )
                         .inboundWireReversal(
@@ -1413,6 +1435,27 @@ class TransactionTest {
                             .debtorRoutingNumber("debtor_routing_number")
                             .remittanceInformation("remittance_information")
                             .transactionIdentification("transaction_identification")
+                            .transferId("transfer_id")
+                            .build()
+                    )
+                    .inboundRealTimePaymentsTransferDecline(
+                        Transaction.Source.InboundRealTimePaymentsTransferDecline.builder()
+                            .amount(123L)
+                            .creditorName("creditor_name")
+                            .currency(
+                                Transaction.Source.InboundRealTimePaymentsTransferDecline.Currency
+                                    .CAD
+                            )
+                            .debtorAccountNumber("debtor_account_number")
+                            .debtorName("debtor_name")
+                            .debtorRoutingNumber("debtor_routing_number")
+                            .reason(
+                                Transaction.Source.InboundRealTimePaymentsTransferDecline.Reason
+                                    .ACCOUNT_NUMBER_CANCELED
+                            )
+                            .remittanceInformation("remittance_information")
+                            .transactionIdentification("transaction_identification")
+                            .transferId("transfer_id")
                             .build()
                     )
                     .inboundWireReversal(
