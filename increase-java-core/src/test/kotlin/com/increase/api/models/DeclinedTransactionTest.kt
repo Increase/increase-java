@@ -167,6 +167,7 @@ class DeclinedTransactionTest {
                                 .currency(
                                     DeclinedTransaction.Source.CheckDepositRejection.Currency.CAD
                                 )
+                                .declinedTransactionId("declined_transaction_id")
                                 .reason(
                                     DeclinedTransaction.Source.CheckDepositRejection.Reason
                                         .INCOMPLETE_IMAGE
@@ -357,6 +358,7 @@ class DeclinedTransactionTest {
                             .amount(123L)
                             .checkDepositId("check_deposit_id")
                             .currency(DeclinedTransaction.Source.CheckDepositRejection.Currency.CAD)
+                            .declinedTransactionId("declined_transaction_id")
                             .reason(
                                 DeclinedTransaction.Source.CheckDepositRejection.Reason
                                     .INCOMPLETE_IMAGE
