@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.97.0 (2024-09-06)
+
+Full Changelog: [v0.96.0...v0.97.0](https://github.com/Increase/increase-java/compare/v0.96.0...v0.97.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#430](https://github.com/Increase/increase-java/issues/430)) ([d49afc8](https://github.com/Increase/increase-java/commit/d49afc84c61490f7e6933ee3eb48e366adab4c2b))
+* **api:** OpenAPI spec update via Stainless API ([#432](https://github.com/Increase/increase-java/issues/432)) ([bb8d0ca](https://github.com/Increase/increase-java/commit/bb8d0ca8d69879777a0877219d38d6f59dcee568))
+* **api:** OpenAPI spec update via Stainless API ([#434](https://github.com/Increase/increase-java/issues/434)) ([6f5d441](https://github.com/Increase/increase-java/commit/6f5d4416270e89030cfe23e210a91fe4d220cd47))
+* **api:** OpenAPI spec update via Stainless API ([#435](https://github.com/Increase/increase-java/issues/435)) ([7b87093](https://github.com/Increase/increase-java/commit/7b87093f331ffc6d643db14fba0fcd057e93794c))
+* **api:** OpenAPI spec update via Stainless API ([#436](https://github.com/Increase/increase-java/issues/436)) ([5c80a1b](https://github.com/Increase/increase-java/commit/5c80a1b4dfcd3d092701fb3faa28ce2adeffcccf))
+* **api:** OpenAPI spec update via Stainless API ([#437](https://github.com/Increase/increase-java/issues/437)) ([4a64923](https://github.com/Increase/increase-java/commit/4a6492389b4e32c4aa026639d7f048b3dfa0eb46))
+
+
+### Chores
+
+* **internal:** codegen related update ([#433](https://github.com/Increase/increase-java/issues/433)) ([aebf985](https://github.com/Increase/increase-java/commit/aebf985595d1d86073127e4a2b36f2c90a39fd5e))
+
 ## 0.96.0 (2024-09-03)
 
 Full Changelog: [v0.95.0...v0.96.0](https://github.com/Increase/increase-java/compare/v0.95.0...v0.96.0)
