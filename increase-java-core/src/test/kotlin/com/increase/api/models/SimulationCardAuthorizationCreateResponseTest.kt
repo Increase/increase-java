@@ -222,6 +222,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                         )
                                         .remittanceInformation("remittance_information")
                                         .transactionIdentification("transaction_identification")
+                                        .transferId("transfer_id")
                                         .build()
                                 )
                                 .wireDecline(
@@ -670,6 +671,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                     )
                                     .remittanceInformation("remittance_information")
                                     .transactionIdentification("transaction_identification")
+                                    .transferId("transfer_id")
                                     .build()
                             )
                             .wireDecline(
