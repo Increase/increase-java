@@ -189,6 +189,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                                 .Currency
                                                 .CAD
                                         )
+                                        .declinedTransactionId("declined_transaction_id")
                                         .reason(
                                             DeclinedTransaction.Source.CheckDepositRejection.Reason
                                                 .INCOMPLETE_IMAGE
@@ -639,6 +640,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                         DeclinedTransaction.Source.CheckDepositRejection.Currency
                                             .CAD
                                     )
+                                    .declinedTransactionId("declined_transaction_id")
                                     .reason(
                                         DeclinedTransaction.Source.CheckDepositRejection.Reason
                                             .INCOMPLETE_IMAGE
