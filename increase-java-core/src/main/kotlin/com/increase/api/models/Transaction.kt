@@ -581,7 +581,6 @@ private constructor(
             JsonField<RealTimePaymentsTransferAcknowledgement>,
         private val sampleFunds: JsonField<SampleFunds>,
         private val wireTransferIntention: JsonField<WireTransferIntention>,
-        private val wireTransferRejection: JsonField<WireTransferRejection>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -782,13 +781,6 @@ private constructor(
             Optional.ofNullable(wireTransferIntention.getNullable("wire_transfer_intention"))
 
         /**
-         * A Wire Transfer Rejection object. This field will be present in the JSON response if and
-         * only if `category` is equal to `wire_transfer_rejection`.
-         */
-        fun wireTransferRejection(): Optional<WireTransferRejection> =
-            Optional.ofNullable(wireTransferRejection.getNullable("wire_transfer_rejection"))
-
-        /**
          * An Account Transfer Intention object. This field will be present in the JSON response if
          * and only if `category` is equal to `account_transfer_intention`.
          */
@@ -980,14 +972,6 @@ private constructor(
         @ExcludeMissing
         fun _wireTransferIntention() = wireTransferIntention
 
-        /**
-         * A Wire Transfer Rejection object. This field will be present in the JSON response if and
-         * only if `category` is equal to `wire_transfer_rejection`.
-         */
-        @JsonProperty("wire_transfer_rejection")
-        @ExcludeMissing
-        fun _wireTransferRejection() = wireTransferRejection
-
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -1019,7 +1003,6 @@ private constructor(
                 realTimePaymentsTransferAcknowledgement().map { it.validate() }
                 sampleFunds().map { it.validate() }
                 wireTransferIntention().map { it.validate() }
-                wireTransferRejection().map { it.validate() }
                 validated = true
             }
         }
@@ -1061,7 +1044,6 @@ private constructor(
                     other.realTimePaymentsTransferAcknowledgement &&
                 this.sampleFunds == other.sampleFunds &&
                 this.wireTransferIntention == other.wireTransferIntention &&
-                this.wireTransferRejection == other.wireTransferRejection &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -1095,7 +1077,6 @@ private constructor(
                         realTimePaymentsTransferAcknowledgement,
                         sampleFunds,
                         wireTransferIntention,
-                        wireTransferRejection,
                         additionalProperties,
                     )
             }
@@ -1103,7 +1084,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Source{accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeLoss=$cardDisputeLoss, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, wireTransferIntention=$wireTransferIntention, wireTransferRejection=$wireTransferRejection, additionalProperties=$additionalProperties}"
+            "Source{accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeLoss=$cardDisputeLoss, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1145,7 +1126,6 @@ private constructor(
                 JsonMissing.of()
             private var sampleFunds: JsonField<SampleFunds> = JsonMissing.of()
             private var wireTransferIntention: JsonField<WireTransferIntention> = JsonMissing.of()
-            private var wireTransferRejection: JsonField<WireTransferRejection> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -1179,7 +1159,6 @@ private constructor(
                     source.realTimePaymentsTransferAcknowledgement
                 this.sampleFunds = source.sampleFunds
                 this.wireTransferIntention = source.wireTransferIntention
-                this.wireTransferRejection = source.wireTransferRejection
                 additionalProperties(source.additionalProperties)
             }
 
@@ -1646,24 +1625,6 @@ private constructor(
                     this.wireTransferIntention = wireTransferIntention
                 }
 
-            /**
-             * A Wire Transfer Rejection object. This field will be present in the JSON response if
-             * and only if `category` is equal to `wire_transfer_rejection`.
-             */
-            fun wireTransferRejection(wireTransferRejection: WireTransferRejection) =
-                wireTransferRejection(JsonField.of(wireTransferRejection))
-
-            /**
-             * A Wire Transfer Rejection object. This field will be present in the JSON response if
-             * and only if `category` is equal to `wire_transfer_rejection`.
-             */
-            @JsonProperty("wire_transfer_rejection")
-            @ExcludeMissing
-            fun wireTransferRejection(wireTransferRejection: JsonField<WireTransferRejection>) =
-                apply {
-                    this.wireTransferRejection = wireTransferRejection
-                }
-
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -1706,7 +1667,6 @@ private constructor(
                     realTimePaymentsTransferAcknowledgement,
                     sampleFunds,
                     wireTransferIntention,
-                    wireTransferRejection,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -14236,9 +14196,6 @@ private constructor(
                 @JvmField
                 val WIRE_TRANSFER_INTENTION = Category(JsonField.of("wire_transfer_intention"))
 
-                @JvmField
-                val WIRE_TRANSFER_REJECTION = Category(JsonField.of("wire_transfer_rejection"))
-
                 @JvmField val OTHER = Category(JsonField.of("other"))
 
                 @JvmStatic fun of(value: String) = Category(JsonField.of(value))
@@ -14272,7 +14229,6 @@ private constructor(
                 REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT,
                 SAMPLE_FUNDS,
                 WIRE_TRANSFER_INTENTION,
-                WIRE_TRANSFER_REJECTION,
                 OTHER,
             }
 
@@ -14304,7 +14260,6 @@ private constructor(
                 REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT,
                 SAMPLE_FUNDS,
                 WIRE_TRANSFER_INTENTION,
-                WIRE_TRANSFER_REJECTION,
                 OTHER,
                 _UNKNOWN,
             }
@@ -14343,7 +14298,6 @@ private constructor(
                         Value.REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT
                     SAMPLE_FUNDS -> Value.SAMPLE_FUNDS
                     WIRE_TRANSFER_INTENTION -> Value.WIRE_TRANSFER_INTENTION
-                    WIRE_TRANSFER_REJECTION -> Value.WIRE_TRANSFER_REJECTION
                     OTHER -> Value.OTHER
                     else -> Value._UNKNOWN
                 }
@@ -14382,7 +14336,6 @@ private constructor(
                         Known.REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT
                     SAMPLE_FUNDS -> Known.SAMPLE_FUNDS
                     WIRE_TRANSFER_INTENTION -> Known.WIRE_TRANSFER_INTENTION
-                    WIRE_TRANSFER_REJECTION -> Known.WIRE_TRANSFER_REJECTION
                     OTHER -> Known.OTHER
                     else -> throw IncreaseInvalidDataException("Unknown Category: $value")
                 }
@@ -20366,107 +20319,6 @@ private constructor(
                         transferId,
                         additionalProperties.toUnmodifiable(),
                     )
-            }
-        }
-
-        /**
-         * A Wire Transfer Rejection object. This field will be present in the JSON response if and
-         * only if `category` is equal to `wire_transfer_rejection`.
-         */
-        @JsonDeserialize(builder = WireTransferRejection.Builder::class)
-        @NoAutoDetect
-        class WireTransferRejection
-        private constructor(
-            private val transferId: JsonField<String>,
-            private val additionalProperties: Map<String, JsonValue>,
-        ) {
-
-            private var validated: Boolean = false
-
-            private var hashCode: Int = 0
-
-            /** The identifier of the Wire Transfer that led to this Transaction. */
-            fun transferId(): String = transferId.getRequired("transfer_id")
-
-            /** The identifier of the Wire Transfer that led to this Transaction. */
-            @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            fun validate(): WireTransferRejection = apply {
-                if (!validated) {
-                    transferId()
-                    validated = true
-                }
-            }
-
-            fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is WireTransferRejection &&
-                    this.transferId == other.transferId &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = Objects.hash(transferId, additionalProperties)
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "WireTransferRejection{transferId=$transferId, additionalProperties=$additionalProperties}"
-
-            companion object {
-
-                @JvmStatic fun builder() = Builder()
-            }
-
-            class Builder {
-
-                private var transferId: JsonField<String> = JsonMissing.of()
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(wireTransferRejection: WireTransferRejection) = apply {
-                    this.transferId = wireTransferRejection.transferId
-                    additionalProperties(wireTransferRejection.additionalProperties)
-                }
-
-                /** The identifier of the Wire Transfer that led to this Transaction. */
-                fun transferId(transferId: String) = transferId(JsonField.of(transferId))
-
-                /** The identifier of the Wire Transfer that led to this Transaction. */
-                @JsonProperty("transfer_id")
-                @ExcludeMissing
-                fun transferId(transferId: JsonField<String>) = apply {
-                    this.transferId = transferId
-                }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
-                }
-
-                @JsonAnySetter
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun build(): WireTransferRejection =
-                    WireTransferRejection(transferId, additionalProperties.toUnmodifiable())
             }
         }
     }
