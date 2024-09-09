@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.103.0 (2024-09-09)
+
+Full Changelog: [v0.102.0...v0.103.0](https://github.com/Increase/increase-java/compare/v0.102.0...v0.103.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#454](https://github.com/Increase/increase-java/issues/454)) ([88cd83d](https://github.com/Increase/increase-java/commit/88cd83dcd77702f8532ff615aa81787a48a6039c))
+
 ## 0.102.0 (2024-09-09)
 
 Full Changelog: [v0.101.0...v0.102.0](https://github.com/Increase/increase-java/compare/v0.101.0...v0.102.0)
