@@ -1439,29 +1439,11 @@ private constructor(
 
                 @JvmField val BREACHES_LIMIT = Reason(JsonField.of("breaches_limit"))
 
-                @JvmField
-                val CREDIT_ENTRY_REFUSED_BY_RECEIVER =
-                    Reason(JsonField.of("credit_entry_refused_by_receiver"))
-
-                @JvmField val DUPLICATE_RETURN = Reason(JsonField.of("duplicate_return"))
-
                 @JvmField val ENTITY_NOT_ACTIVE = Reason(JsonField.of("entity_not_active"))
-
-                @JvmField val FIELD_ERROR = Reason(JsonField.of("field_error"))
 
                 @JvmField val GROUP_LOCKED = Reason(JsonField.of("group_locked"))
 
                 @JvmField val INSUFFICIENT_FUNDS = Reason(JsonField.of("insufficient_funds"))
-
-                @JvmField val MISROUTED_RETURN = Reason(JsonField.of("misrouted_return"))
-
-                @JvmField
-                val RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT =
-                    Reason(JsonField.of("return_of_erroneous_or_reversing_debit"))
-
-                @JvmField val NO_ACH_ROUTE = Reason(JsonField.of("no_ach_route"))
-
-                @JvmField val ORIGINATOR_REQUEST = Reason(JsonField.of("originator_request"))
 
                 @JvmField
                 val TRANSACTION_NOT_ALLOWED = Reason(JsonField.of("transaction_not_allowed"))
@@ -1475,16 +1457,9 @@ private constructor(
                 ACH_ROUTE_CANCELED,
                 ACH_ROUTE_DISABLED,
                 BREACHES_LIMIT,
-                CREDIT_ENTRY_REFUSED_BY_RECEIVER,
-                DUPLICATE_RETURN,
                 ENTITY_NOT_ACTIVE,
-                FIELD_ERROR,
                 GROUP_LOCKED,
                 INSUFFICIENT_FUNDS,
-                MISROUTED_RETURN,
-                RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT,
-                NO_ACH_ROUTE,
-                ORIGINATOR_REQUEST,
                 TRANSACTION_NOT_ALLOWED,
                 USER_INITIATED,
             }
@@ -1493,16 +1468,9 @@ private constructor(
                 ACH_ROUTE_CANCELED,
                 ACH_ROUTE_DISABLED,
                 BREACHES_LIMIT,
-                CREDIT_ENTRY_REFUSED_BY_RECEIVER,
-                DUPLICATE_RETURN,
                 ENTITY_NOT_ACTIVE,
-                FIELD_ERROR,
                 GROUP_LOCKED,
                 INSUFFICIENT_FUNDS,
-                MISROUTED_RETURN,
-                RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT,
-                NO_ACH_ROUTE,
-                ORIGINATOR_REQUEST,
                 TRANSACTION_NOT_ALLOWED,
                 USER_INITIATED,
                 _UNKNOWN,
@@ -1513,17 +1481,9 @@ private constructor(
                     ACH_ROUTE_CANCELED -> Value.ACH_ROUTE_CANCELED
                     ACH_ROUTE_DISABLED -> Value.ACH_ROUTE_DISABLED
                     BREACHES_LIMIT -> Value.BREACHES_LIMIT
-                    CREDIT_ENTRY_REFUSED_BY_RECEIVER -> Value.CREDIT_ENTRY_REFUSED_BY_RECEIVER
-                    DUPLICATE_RETURN -> Value.DUPLICATE_RETURN
                     ENTITY_NOT_ACTIVE -> Value.ENTITY_NOT_ACTIVE
-                    FIELD_ERROR -> Value.FIELD_ERROR
                     GROUP_LOCKED -> Value.GROUP_LOCKED
                     INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
-                    MISROUTED_RETURN -> Value.MISROUTED_RETURN
-                    RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT ->
-                        Value.RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT
-                    NO_ACH_ROUTE -> Value.NO_ACH_ROUTE
-                    ORIGINATOR_REQUEST -> Value.ORIGINATOR_REQUEST
                     TRANSACTION_NOT_ALLOWED -> Value.TRANSACTION_NOT_ALLOWED
                     USER_INITIATED -> Value.USER_INITIATED
                     else -> Value._UNKNOWN
@@ -1534,17 +1494,9 @@ private constructor(
                     ACH_ROUTE_CANCELED -> Known.ACH_ROUTE_CANCELED
                     ACH_ROUTE_DISABLED -> Known.ACH_ROUTE_DISABLED
                     BREACHES_LIMIT -> Known.BREACHES_LIMIT
-                    CREDIT_ENTRY_REFUSED_BY_RECEIVER -> Known.CREDIT_ENTRY_REFUSED_BY_RECEIVER
-                    DUPLICATE_RETURN -> Known.DUPLICATE_RETURN
                     ENTITY_NOT_ACTIVE -> Known.ENTITY_NOT_ACTIVE
-                    FIELD_ERROR -> Known.FIELD_ERROR
                     GROUP_LOCKED -> Known.GROUP_LOCKED
                     INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
-                    MISROUTED_RETURN -> Known.MISROUTED_RETURN
-                    RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT ->
-                        Known.RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT
-                    NO_ACH_ROUTE -> Known.NO_ACH_ROUTE
-                    ORIGINATOR_REQUEST -> Known.ORIGINATOR_REQUEST
                     TRANSACTION_NOT_ALLOWED -> Known.TRANSACTION_NOT_ALLOWED
                     USER_INITIATED -> Known.USER_INITIATED
                     else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
