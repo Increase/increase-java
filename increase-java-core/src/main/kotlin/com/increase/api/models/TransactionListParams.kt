@@ -370,8 +370,6 @@ constructor(
 
                 @JvmField val WIRE_TRANSFER_INTENTION = In(JsonField.of("wire_transfer_intention"))
 
-                @JvmField val WIRE_TRANSFER_REJECTION = In(JsonField.of("wire_transfer_rejection"))
-
                 @JvmField val OTHER = In(JsonField.of("other"))
 
                 @JvmStatic fun of(value: String) = In(JsonField.of(value))
@@ -405,7 +403,6 @@ constructor(
                 REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT,
                 SAMPLE_FUNDS,
                 WIRE_TRANSFER_INTENTION,
-                WIRE_TRANSFER_REJECTION,
                 OTHER,
             }
 
@@ -437,7 +434,6 @@ constructor(
                 REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT,
                 SAMPLE_FUNDS,
                 WIRE_TRANSFER_INTENTION,
-                WIRE_TRANSFER_REJECTION,
                 OTHER,
                 _UNKNOWN,
             }
@@ -476,7 +472,6 @@ constructor(
                         Value.REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT
                     SAMPLE_FUNDS -> Value.SAMPLE_FUNDS
                     WIRE_TRANSFER_INTENTION -> Value.WIRE_TRANSFER_INTENTION
-                    WIRE_TRANSFER_REJECTION -> Value.WIRE_TRANSFER_REJECTION
                     OTHER -> Value.OTHER
                     else -> Value._UNKNOWN
                 }
@@ -515,7 +510,6 @@ constructor(
                         Known.REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT
                     SAMPLE_FUNDS -> Known.SAMPLE_FUNDS
                     WIRE_TRANSFER_INTENTION -> Known.WIRE_TRANSFER_INTENTION
-                    WIRE_TRANSFER_REJECTION -> Known.WIRE_TRANSFER_REJECTION
                     OTHER -> Known.OTHER
                     else -> throw IncreaseInvalidDataException("Unknown In: $value")
                 }
