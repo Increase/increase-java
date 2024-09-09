@@ -2,6 +2,7 @@
 
 package com.increase.api.models
 
+import com.increase.api.core.JsonNull
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -225,6 +226,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                         .transferId("transfer_id")
                                         .build()
                                 )
+                                .other(JsonNull.of())
                                 .wireDecline(
                                     DeclinedTransaction.Source.WireDecline.builder()
                                         .inboundWireTransferId("inbound_wire_transfer_id")
@@ -448,6 +450,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                         )
                                         .build()
                                 )
+                                .other(JsonNull.of())
                                 .realTimePaymentsTransferInstruction(
                                     PendingTransaction.Source.RealTimePaymentsTransferInstruction
                                         .builder()
@@ -674,6 +677,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                     .transferId("transfer_id")
                                     .build()
                             )
+                            .other(JsonNull.of())
                             .wireDecline(
                                 DeclinedTransaction.Source.WireDecline.builder()
                                     .inboundWireTransferId("inbound_wire_transfer_id")
@@ -884,6 +888,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                     )
                                     .build()
                             )
+                            .other(JsonNull.of())
                             .realTimePaymentsTransferInstruction(
                                 PendingTransaction.Source.RealTimePaymentsTransferInstruction
                                     .builder()

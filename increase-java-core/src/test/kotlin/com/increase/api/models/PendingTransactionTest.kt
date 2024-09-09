@@ -2,6 +2,7 @@
 
 package com.increase.api.models
 
+import com.increase.api.core.JsonNull
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -189,6 +190,7 @@ class PendingTransactionTest {
                                 )
                                 .build()
                         )
+                        .other(JsonNull.of())
                         .realTimePaymentsTransferInstruction(
                             PendingTransaction.Source.RealTimePaymentsTransferInstruction.builder()
                                 .amount(123L)
@@ -384,6 +386,7 @@ class PendingTransactionTest {
                             )
                             .build()
                     )
+                    .other(JsonNull.of())
                     .realTimePaymentsTransferInstruction(
                         PendingTransaction.Source.RealTimePaymentsTransferInstruction.builder()
                             .amount(123L)
