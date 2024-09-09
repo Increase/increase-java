@@ -973,6 +973,8 @@ private constructor(
 
             @JvmField val PENDING_CONFIRMATION = Status(JsonField.of("pending_confirmation"))
 
+            @JvmField val PENDING_CONFIRMING = Status(JsonField.of("pending_confirming"))
+
             @JvmField val TIMED_OUT = Status(JsonField.of("timed_out"))
 
             @JvmField val CONFIRMED = Status(JsonField.of("confirmed"))
@@ -984,6 +986,7 @@ private constructor(
 
         enum class Known {
             PENDING_CONFIRMATION,
+            PENDING_CONFIRMING,
             TIMED_OUT,
             CONFIRMED,
             DECLINED,
@@ -991,6 +994,7 @@ private constructor(
 
         enum class Value {
             PENDING_CONFIRMATION,
+            PENDING_CONFIRMING,
             TIMED_OUT,
             CONFIRMED,
             DECLINED,
@@ -1000,6 +1004,7 @@ private constructor(
         fun value(): Value =
             when (this) {
                 PENDING_CONFIRMATION -> Value.PENDING_CONFIRMATION
+                PENDING_CONFIRMING -> Value.PENDING_CONFIRMING
                 TIMED_OUT -> Value.TIMED_OUT
                 CONFIRMED -> Value.CONFIRMED
                 DECLINED -> Value.DECLINED
@@ -1009,6 +1014,7 @@ private constructor(
         fun known(): Known =
             when (this) {
                 PENDING_CONFIRMATION -> Known.PENDING_CONFIRMATION
+                PENDING_CONFIRMING -> Known.PENDING_CONFIRMING
                 TIMED_OUT -> Known.TIMED_OUT
                 CONFIRMED -> Known.CONFIRMED
                 DECLINED -> Known.DECLINED
