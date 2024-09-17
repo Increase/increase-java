@@ -12,9 +12,9 @@ import java.util.concurrent.CompletableFuture
 interface CheckTransferServiceAsync {
 
     /**
-     * Simulates the mailing of a [Check Transfer](#check-transfers), which happens once per weekday
-     * in production but can be sped up in sandbox. This transfer must first have a `status` of
-     * `pending_approval` or `pending_submission`.
+     * Simulates the mailing of a [Check Transfer](#check-transfers), which happens periodically
+     * throughout the day in production but can be sped up in sandbox. This transfer must first have
+     * a `status` of `pending_approval` or `pending_submission`.
      */
     @JvmOverloads
     fun mail(
