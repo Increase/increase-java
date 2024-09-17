@@ -2,13 +2,9 @@ package com.increase.api.errors
 
 import com.google.common.collect.ListMultimap
 
-class UnexpectedStatusCodeException
-constructor(
-    private val statusCode: Int,
+class UnexpectedStatusCodeException(
+    statusCode: Int,
     headers: ListMultimap<String, String>,
-    private val body: String
-) : IncreaseServiceException(headers, "Unexpected status code: ${statusCode}") {
-    override fun statusCode(): Int = statusCode
-
-    fun body() = body
-}
+    body: String,
+    error: IncreaseError,
+) : IncreaseServiceException(statusCode, headers, body, error)
