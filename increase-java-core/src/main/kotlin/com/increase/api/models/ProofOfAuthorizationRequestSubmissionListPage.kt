@@ -60,7 +60,7 @@ private constructor(
             return false
         }
 
-        return nextCursor().isPresent()
+        return nextCursor().isPresent
     }
 
     fun getNextPageParams(): Optional<ProofOfAuthorizationRequestSubmissionListParams> {
