@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.105.0 (2024-09-18)
+
+Full Changelog: [v0.104.0...v0.105.0](https://github.com/Increase/increase-java/compare/v0.104.0...v0.105.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#464](https://github.com/Increase/increase-java/issues/464)) ([1a86952](https://github.com/Increase/increase-java/commit/1a86952e35ee0681c5ada7f4084e1b2f8455e014))
+* **client:** added structured fields to errors ([#461](https://github.com/Increase/increase-java/issues/461)) ([c61f6af](https://github.com/Increase/increase-java/commit/c61f6afc7203abec98b4e8ed637a2dfe094a5b3c))
+
+
+### Chores
+
+* **internal:** fix lint warning for isPresent ([#463](https://github.com/Increase/increase-java/issues/463)) ([717501b](https://github.com/Increase/increase-java/commit/717501bd3982fe3a209451cc0c2b6e8575cd4448))
+
 ## 0.104.0 (2024-09-17)
 
 Full Changelog: [v0.103.0...v0.104.0](https://github.com/Increase/increase-java/compare/v0.103.0...v0.104.0)
