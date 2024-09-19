@@ -9,12 +9,12 @@ import com.increase.api.core.http.BinaryResponseContent
 import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.BadRequestException
-import com.increase.api.errors.IncreaseError
-import com.increase.api.errors.IncreaseException
 import com.increase.api.errors.InternalServerException
 import com.increase.api.errors.NotFoundException
 import com.increase.api.errors.PermissionDeniedException
 import com.increase.api.errors.RateLimitException
+import com.increase.api.errors.IncreaseError
+import com.increase.api.errors.IncreaseException
 import com.increase.api.errors.UnauthorizedException
 import com.increase.api.errors.UnexpectedStatusCodeException
 import com.increase.api.errors.UnprocessableEntityException
@@ -23,15 +23,18 @@ import java.io.InputStream
 import java.io.OutputStream
 import java.util.Optional
 
-@JvmSynthetic internal fun emptyHandler(): Handler<Void?> = EmptyHandler
+@JvmSynthetic
+internal fun emptyHandler(): Handler<Void?> = EmptyHandler
 
 private object EmptyHandler : Handler<Void?> {
     override fun handle(response: HttpResponse): Void? = null
 }
 
-@JvmSynthetic internal fun stringHandler(): Handler<String> = StringHandler
+@JvmSynthetic
+internal fun stringHandler(): Handler<String> = StringHandler
 
-@JvmSynthetic internal fun binaryHandler(): Handler<BinaryResponseContent> = BinaryHandler
+@JvmSynthetic
+internal fun binaryHandler(): Handler<BinaryResponseContent> = BinaryHandler
 
 private object StringHandler : Handler<String> {
     override fun handle(response: HttpResponse): String {
@@ -42,8 +45,7 @@ private object StringHandler : Handler<String> {
 private object BinaryHandler : Handler<BinaryResponseContent> {
     override fun handle(response: HttpResponse): BinaryResponseContent {
         return object : BinaryResponseContent {
-            override fun contentType(): Optional<String> =
-                Optional.ofNullable(response.headers().get("Content-Type").firstOrNull())
+            override fun contentType(): Optional<String> = Optional.ofNullable(response.headers().get("Content-Type").firstOrNull())
 
             override fun body(): InputStream = response.body()
 

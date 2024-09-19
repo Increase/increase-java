@@ -5,29 +5,47 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.Enum
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.errors.IncreaseInvalidDataException
-import com.increase.api.models.*
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import org.apache.hc.core5.http.ContentType
+import java.time.LocalDate
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.MultipartFormValue
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.Enum
+import com.increase.api.core.ContentTypes
+import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.models.*
 
-class ExternalAccountCreateParams
-constructor(
-    private val accountNumber: String,
-    private val description: String,
-    private val routingNumber: String,
-    private val accountHolder: AccountHolder?,
-    private val funding: Funding?,
-    private val additionalQueryParams: Map<String, List<String>>,
-    private val additionalHeaders: Map<String, List<String>>,
-    private val additionalBodyProperties: Map<String, JsonValue>,
+class ExternalAccountCreateParams constructor(
+  private val accountNumber: String,
+  private val description: String,
+  private val routingNumber: String,
+  private val accountHolder: AccountHolder?,
+  private val funding: Funding?,
+  private val additionalQueryParams: Map<String, List<String>>,
+  private val additionalHeaders: Map<String, List<String>>,
+  private val additionalBodyProperties: Map<String, JsonValue>,
+
 ) {
 
     fun accountNumber(): String = accountNumber
@@ -42,51 +60,58 @@ constructor(
 
     @JvmSynthetic
     internal fun getBody(): ExternalAccountCreateBody {
-        return ExternalAccountCreateBody(
-            accountNumber,
-            description,
-            routingNumber,
-            accountHolder,
-            funding,
-            additionalBodyProperties,
-        )
+      return ExternalAccountCreateBody(
+          accountNumber,
+          description,
+          routingNumber,
+          accountHolder,
+          funding,
+          additionalBodyProperties,
+      )
     }
 
-    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic
+    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
-    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic
+    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     @JsonDeserialize(builder = ExternalAccountCreateBody.Builder::class)
     @NoAutoDetect
-    class ExternalAccountCreateBody
-    internal constructor(
-        private val accountNumber: String?,
-        private val description: String?,
-        private val routingNumber: String?,
-        private val accountHolder: AccountHolder?,
-        private val funding: Funding?,
-        private val additionalProperties: Map<String, JsonValue>,
+    class ExternalAccountCreateBody internal constructor(
+      private val accountNumber: String?,
+      private val description: String?,
+      private val routingNumber: String?,
+      private val accountHolder: AccountHolder?,
+      private val funding: Funding?,
+      private val additionalProperties: Map<String, JsonValue>,
+
     ) {
 
         private var hashCode: Int = 0
 
         /** The account number for the destination account. */
-        @JsonProperty("account_number") fun accountNumber(): String? = accountNumber
+        @JsonProperty("account_number")
+        fun accountNumber(): String? = accountNumber
 
         /** The name you choose for the Account. */
-        @JsonProperty("description") fun description(): String? = description
+        @JsonProperty("description")
+        fun description(): String? = description
 
         /**
-         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
-         * account.
+         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
+         * destination account.
          */
-        @JsonProperty("routing_number") fun routingNumber(): String? = routingNumber
+        @JsonProperty("routing_number")
+        fun routingNumber(): String? = routingNumber
 
         /** The type of entity that owns the External Account. */
-        @JsonProperty("account_holder") fun accountHolder(): AccountHolder? = accountHolder
+        @JsonProperty("account_holder")
+        fun accountHolder(): AccountHolder? = accountHolder
 
         /** The type of the destination account. Defaults to `checking`. */
-        @JsonProperty("funding") fun funding(): Funding? = funding
+        @JsonProperty("funding")
+        fun funding(): Funding? = funding
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -95,40 +120,39 @@ constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is ExternalAccountCreateBody &&
-                this.accountNumber == other.accountNumber &&
-                this.description == other.description &&
-                this.routingNumber == other.routingNumber &&
-                this.accountHolder == other.accountHolder &&
-                this.funding == other.funding &&
-                this.additionalProperties == other.additionalProperties
+          return other is ExternalAccountCreateBody &&
+              this.accountNumber == other.accountNumber &&
+              this.description == other.description &&
+              this.routingNumber == other.routingNumber &&
+              this.accountHolder == other.accountHolder &&
+              this.funding == other.funding &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountNumber,
-                        description,
-                        routingNumber,
-                        accountHolder,
-                        funding,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(
+                accountNumber,
+                description,
+                routingNumber,
+                accountHolder,
+                funding,
+                additionalProperties,
+            )
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "ExternalAccountCreateBody{accountNumber=$accountNumber, description=$description, routingNumber=$routingNumber, accountHolder=$accountHolder, funding=$funding, additionalProperties=$additionalProperties}"
+        override fun toString() = "ExternalAccountCreateBody{accountNumber=$accountNumber, description=$description, routingNumber=$routingNumber, accountHolder=$accountHolder, funding=$funding, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         class Builder {
@@ -152,18 +176,24 @@ constructor(
 
             /** The account number for the destination account. */
             @JsonProperty("account_number")
-            fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
+            fun accountNumber(accountNumber: String) = apply {
+                this.accountNumber = accountNumber
+            }
 
             /** The name you choose for the Account. */
             @JsonProperty("description")
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String) = apply {
+                this.description = description
+            }
 
             /**
              * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
              * destination account.
              */
             @JsonProperty("routing_number")
-            fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
+            fun routingNumber(routingNumber: String) = apply {
+                this.routingNumber = routingNumber
+            }
 
             /** The type of entity that owns the External Account. */
             @JsonProperty("account_holder")
@@ -173,7 +203,9 @@ constructor(
 
             /** The type of the destination account. Defaults to `checking`. */
             @JsonProperty("funding")
-            fun funding(funding: Funding) = apply { this.funding = funding }
+            fun funding(funding: Funding) = apply {
+                this.funding = funding
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -189,15 +221,20 @@ constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): ExternalAccountCreateBody =
-                ExternalAccountCreateBody(
-                    checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
-                    checkNotNull(description) { "`description` is required but was not set" },
-                    checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
-                    accountHolder,
-                    funding,
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build(): ExternalAccountCreateBody = ExternalAccountCreateBody(
+                checkNotNull(accountNumber) {
+                    "`accountNumber` is required but was not set"
+                },
+                checkNotNull(description) {
+                    "`description` is required but was not set"
+                },
+                checkNotNull(routingNumber) {
+                    "`routingNumber` is required but was not set"
+                },
+                accountHolder,
+                funding,
+                additionalProperties.toUnmodifiable(),
+            )
         }
     }
 
@@ -208,42 +245,42 @@ constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is ExternalAccountCreateParams &&
-            this.accountNumber == other.accountNumber &&
-            this.description == other.description &&
-            this.routingNumber == other.routingNumber &&
-            this.accountHolder == other.accountHolder &&
-            this.funding == other.funding &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+      return other is ExternalAccountCreateParams &&
+          this.accountNumber == other.accountNumber &&
+          this.description == other.description &&
+          this.routingNumber == other.routingNumber &&
+          this.accountHolder == other.accountHolder &&
+          this.funding == other.funding &&
+          this.additionalQueryParams == other.additionalQueryParams &&
+          this.additionalHeaders == other.additionalHeaders &&
+          this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            accountNumber,
-            description,
-            routingNumber,
-            accountHolder,
-            funding,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+      return Objects.hash(
+          accountNumber,
+          description,
+          routingNumber,
+          accountHolder,
+          funding,
+          additionalQueryParams,
+          additionalHeaders,
+          additionalBodyProperties,
+      )
     }
 
-    override fun toString() =
-        "ExternalAccountCreateParams{accountNumber=$accountNumber, description=$description, routingNumber=$routingNumber, accountHolder=$accountHolder, funding=$funding, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() = "ExternalAccountCreateParams{accountNumber=$accountNumber, description=$description, routingNumber=$routingNumber, accountHolder=$accountHolder, funding=$funding, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -271,16 +308,22 @@ constructor(
         }
 
         /** The account number for the destination account. */
-        fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
+        fun accountNumber(accountNumber: String) = apply {
+            this.accountNumber = accountNumber
+        }
 
         /** The name you choose for the Account. */
-        fun description(description: String) = apply { this.description = description }
+        fun description(description: String) = apply {
+            this.description = description
+        }
 
         /**
-         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
-         * account.
+         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
+         * destination account.
          */
-        fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
+        fun routingNumber(routingNumber: String) = apply {
+            this.routingNumber = routingNumber
+        }
 
         /** The type of entity that owns the External Account. */
         fun accountHolder(accountHolder: AccountHolder) = apply {
@@ -288,7 +331,9 @@ constructor(
         }
 
         /** The type of the destination account. Defaults to `checking`. */
-        fun funding(funding: Funding) = apply { this.funding = funding }
+        fun funding(funding: Funding) = apply {
+            this.funding = funding
+        }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -328,7 +373,9 @@ constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
+        fun removeHeader(name: String) = apply {
+            this.additionalHeaders.put(name, mutableListOf())
+        }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -339,38 +386,40 @@ constructor(
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
-            }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            this.additionalBodyProperties.putAll(additionalBodyProperties)
+        }
 
-        fun build(): ExternalAccountCreateParams =
-            ExternalAccountCreateParams(
-                checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
-                checkNotNull(description) { "`description` is required but was not set" },
-                checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
-                accountHolder,
-                funding,
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
-            )
+        fun build(): ExternalAccountCreateParams = ExternalAccountCreateParams(
+            checkNotNull(accountNumber) {
+                "`accountNumber` is required but was not set"
+            },
+            checkNotNull(description) {
+                "`description` is required but was not set"
+            },
+            checkNotNull(routingNumber) {
+                "`routingNumber` is required but was not set"
+            },
+            accountHolder,
+            funding,
+            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            additionalBodyProperties.toUnmodifiable(),
+        )
     }
 
-    class AccountHolder
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class AccountHolder @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is AccountHolder && this.value == other.value
+          return other is AccountHolder &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -401,39 +450,35 @@ constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                BUSINESS -> Value.BUSINESS
-                INDIVIDUAL -> Value.INDIVIDUAL
-                UNKNOWN -> Value.UNKNOWN
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            BUSINESS -> Value.BUSINESS
+            INDIVIDUAL -> Value.INDIVIDUAL
+            UNKNOWN -> Value.UNKNOWN
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                BUSINESS -> Known.BUSINESS
-                INDIVIDUAL -> Known.INDIVIDUAL
-                UNKNOWN -> Known.UNKNOWN
-                else -> throw IncreaseInvalidDataException("Unknown AccountHolder: $value")
-            }
+        fun known(): Known = when (this) {
+            BUSINESS -> Known.BUSINESS
+            INDIVIDUAL -> Known.INDIVIDUAL
+            UNKNOWN -> Known.UNKNOWN
+            else -> throw IncreaseInvalidDataException("Unknown AccountHolder: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Funding
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Funding @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Funding && this.value == other.value
+          return other is Funding &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -464,21 +509,19 @@ constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                CHECKING -> Value.CHECKING
-                SAVINGS -> Value.SAVINGS
-                OTHER -> Value.OTHER
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            CHECKING -> Value.CHECKING
+            SAVINGS -> Value.SAVINGS
+            OTHER -> Value.OTHER
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                CHECKING -> Known.CHECKING
-                SAVINGS -> Known.SAVINGS
-                OTHER -> Known.OTHER
-                else -> throw IncreaseInvalidDataException("Unknown Funding: $value")
-            }
+        fun known(): Known = when (this) {
+            CHECKING -> Known.CHECKING
+            SAVINGS -> Known.SAVINGS
+            OTHER -> Known.OTHER
+            else -> throw IncreaseInvalidDataException("Unknown Funding: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }

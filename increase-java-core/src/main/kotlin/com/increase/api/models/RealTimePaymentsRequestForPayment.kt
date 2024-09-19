@@ -5,51 +5,66 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.Enum
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.errors.IncreaseInvalidDataException
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import java.time.LocalDate
 import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.JsonNull
+import com.increase.api.core.JsonField
+import com.increase.api.core.Enum
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.errors.IncreaseInvalidDataException
 
 /**
- * Real-Time Payments transfers move funds, within seconds, between your Increase account and any
- * other account on the Real-Time Payments network. A request for payment is a request to the
- * receiver to send funds to your account. The permitted uses of Requests For Payment are limited by
- * the Real-Time Payments network to business-to-business payments and transfers between two
- * accounts at different banks owned by the same individual. Please contact
- * [support@increase.com](mailto:support@increase.com) to enable this API for your team.
+ * Real-Time Payments transfers move funds, within seconds, between your Increase
+ * account and any other account on the Real-Time Payments network. A request for
+ * payment is a request to the receiver to send funds to your account. The
+ * permitted uses of Requests For Payment are limited by the Real-Time Payments
+ * network to business-to-business payments and transfers between two accounts at
+ * different banks owned by the same individual. Please contact
+ * [support@increase.com](mailto:support@increase.com) to enable this API for your
+ * team.
  */
 @JsonDeserialize(builder = RealTimePaymentsRequestForPayment.Builder::class)
 @NoAutoDetect
-class RealTimePaymentsRequestForPayment
-private constructor(
-    private val amount: JsonField<Long>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val currency: JsonField<Currency>,
-    private val debtorName: JsonField<String>,
-    private val destinationAccountNumberId: JsonField<String>,
-    private val expiresAt: JsonField<LocalDate>,
-    private val fulfillmentTransactionId: JsonField<String>,
-    private val id: JsonField<String>,
-    private val idempotencyKey: JsonField<String>,
-    private val refusal: JsonField<Refusal>,
-    private val rejection: JsonField<Rejection>,
-    private val remittanceInformation: JsonField<String>,
-    private val sourceAccountNumber: JsonField<String>,
-    private val sourceRoutingNumber: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val submission: JsonField<Submission>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+class RealTimePaymentsRequestForPayment private constructor(
+  private val amount: JsonField<Long>,
+  private val createdAt: JsonField<OffsetDateTime>,
+  private val currency: JsonField<Currency>,
+  private val debtorName: JsonField<String>,
+  private val destinationAccountNumberId: JsonField<String>,
+  private val expiresAt: JsonField<LocalDate>,
+  private val fulfillmentTransactionId: JsonField<String>,
+  private val id: JsonField<String>,
+  private val idempotencyKey: JsonField<String>,
+  private val refusal: JsonField<Refusal>,
+  private val rejection: JsonField<Rejection>,
+  private val remittanceInformation: JsonField<String>,
+  private val sourceAccountNumber: JsonField<String>,
+  private val sourceRoutingNumber: JsonField<String>,
+  private val status: JsonField<Status>,
+  private val submission: JsonField<Submission>,
+  private val type: JsonField<Type>,
+  private val additionalProperties: Map<String, JsonValue>,
+
 ) {
 
     private var validated: Boolean = false
@@ -60,14 +75,14 @@ private constructor(
     fun amount(): Long = amount.getRequired("amount")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the request for
-     * payment was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+     * the request for payment was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
-     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
-     * real-time payments transfers this is always equal to `USD`.
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's
+     * currency. For real-time payments transfers this is always equal to `USD`.
      */
     fun currency(): Currency = currency.getRequired("currency")
 
@@ -75,45 +90,41 @@ private constructor(
     fun debtorName(): String = debtorName.getRequired("debtor_name")
 
     /** The Account Number in which a successful transfer will arrive. */
-    fun destinationAccountNumberId(): String =
-        destinationAccountNumberId.getRequired("destination_account_number_id")
+    fun destinationAccountNumberId(): String = destinationAccountNumberId.getRequired("destination_account_number_id")
 
     /**
-     * The expiration time for this request, in UTC. The requestee will not be able to pay after
-     * this date.
+     * The expiration time for this request, in UTC. The requestee will not be able to
+     * pay after this date.
      */
     fun expiresAt(): LocalDate = expiresAt.getRequired("expires_at")
 
     /** The transaction that fulfilled this request. */
-    fun fulfillmentTransactionId(): Optional<String> =
-        Optional.ofNullable(fulfillmentTransactionId.getNullable("fulfillment_transaction_id"))
+    fun fulfillmentTransactionId(): Optional<String> = Optional.ofNullable(fulfillmentTransactionId.getNullable("fulfillment_transaction_id"))
 
     /** The Real-Time Payments Request for Payment's identifier. */
     fun id(): String = id.getRequired("id")
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across
+     * Increase and is used to ensure that a request is only processed once. Learn more
+     * about [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
     /**
-     * If the request for payment is refused by the destination financial institution or the
-     * receiving customer, this will contain supplemental details.
+     * If the request for payment is refused by the destination financial institution
+     * or the receiving customer, this will contain supplemental details.
      */
     fun refusal(): Optional<Refusal> = Optional.ofNullable(refusal.getNullable("refusal"))
 
     /**
-     * If the request for payment is rejected by Real-Time Payments or the destination financial
-     * institution, this will contain supplemental details.
+     * If the request for payment is rejected by Real-Time Payments or the destination
+     * financial institution, this will contain supplemental details.
      */
     fun rejection(): Optional<Rejection> = Optional.ofNullable(rejection.getNullable("rejection"))
 
     /** Unstructured information that will show on the recipient's bank statement. */
-    fun remittanceInformation(): String =
-        remittanceInformation.getRequired("remittance_information")
+    fun remittanceInformation(): String = remittanceInformation.getRequired("remittance_information")
 
     /** The account number the request is sent to. */
     fun sourceAccountNumber(): String = sourceAccountNumber.getRequired("source_account_number")
@@ -125,11 +136,10 @@ private constructor(
     fun status(): Status = status.getRequired("status")
 
     /**
-     * After the request for payment is submitted to Real-Time Payments, this will contain
-     * supplemental details.
+     * After the request for payment is submitted to Real-Time Payments, this will
+     * contain supplemental details.
      */
-    fun submission(): Optional<Submission> =
-        Optional.ofNullable(submission.getNullable("submission"))
+    fun submission(): Optional<Submission> = Optional.ofNullable(submission.getNullable("submission"))
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -138,22 +148,30 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The transfer amount in USD cents. */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+    @JsonProperty("amount")
+    @ExcludeMissing
+    fun _amount() = amount
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the request for
-     * payment was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+     * the request for payment was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt() = createdAt
 
     /**
-     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
-     * real-time payments transfers this is always equal to `USD`.
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's
+     * currency. For real-time payments transfers this is always equal to `USD`.
      */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+    @JsonProperty("currency")
+    @ExcludeMissing
+    fun _currency() = currency
 
     /** The name of the recipient the sender is requesting a transfer from. */
-    @JsonProperty("debtor_name") @ExcludeMissing fun _debtorName() = debtorName
+    @JsonProperty("debtor_name")
+    @ExcludeMissing
+    fun _debtorName() = debtorName
 
     /** The Account Number in which a successful transfer will arrive. */
     @JsonProperty("destination_account_number_id")
@@ -161,10 +179,12 @@ private constructor(
     fun _destinationAccountNumberId() = destinationAccountNumberId
 
     /**
-     * The expiration time for this request, in UTC. The requestee will not be able to pay after
-     * this date.
+     * The expiration time for this request, in UTC. The requestee will not be able to
+     * pay after this date.
      */
-    @JsonProperty("expires_at") @ExcludeMissing fun _expiresAt() = expiresAt
+    @JsonProperty("expires_at")
+    @ExcludeMissing
+    fun _expiresAt() = expiresAt
 
     /** The transaction that fulfilled this request. */
     @JsonProperty("fulfillment_transaction_id")
@@ -172,26 +192,34 @@ private constructor(
     fun _fulfillmentTransactionId() = fulfillmentTransactionId
 
     /** The Real-Time Payments Request for Payment's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id")
+    @ExcludeMissing
+    fun _id() = id
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across
+     * Increase and is used to ensure that a request is only processed once. Learn more
+     * about [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    fun _idempotencyKey() = idempotencyKey
 
     /**
-     * If the request for payment is refused by the destination financial institution or the
-     * receiving customer, this will contain supplemental details.
+     * If the request for payment is refused by the destination financial institution
+     * or the receiving customer, this will contain supplemental details.
      */
-    @JsonProperty("refusal") @ExcludeMissing fun _refusal() = refusal
+    @JsonProperty("refusal")
+    @ExcludeMissing
+    fun _refusal() = refusal
 
     /**
-     * If the request for payment is rejected by Real-Time Payments or the destination financial
-     * institution, this will contain supplemental details.
+     * If the request for payment is rejected by Real-Time Payments or the destination
+     * financial institution, this will contain supplemental details.
      */
-    @JsonProperty("rejection") @ExcludeMissing fun _rejection() = rejection
+    @JsonProperty("rejection")
+    @ExcludeMissing
+    fun _rejection() = rejection
 
     /** Unstructured information that will show on the recipient's bank statement. */
     @JsonProperty("remittance_information")
@@ -209,19 +237,25 @@ private constructor(
     fun _sourceRoutingNumber() = sourceRoutingNumber
 
     /** The lifecycle status of the request for payment. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status")
+    @ExcludeMissing
+    fun _status() = status
 
     /**
-     * After the request for payment is submitted to Real-Time Payments, this will contain
-     * supplemental details.
+     * After the request for payment is submitted to Real-Time Payments, this will
+     * contain supplemental details.
      */
-    @JsonProperty("submission") @ExcludeMissing fun _submission() = submission
+    @JsonProperty("submission")
+    @ExcludeMissing
+    fun _submission() = submission
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `real_time_payments_request_for_payment`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type")
+    @ExcludeMissing
+    fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -229,88 +263,87 @@ private constructor(
 
     fun validate(): RealTimePaymentsRequestForPayment = apply {
         if (!validated) {
-            amount()
-            createdAt()
-            currency()
-            debtorName()
-            destinationAccountNumberId()
-            expiresAt()
-            fulfillmentTransactionId()
-            id()
-            idempotencyKey()
-            refusal().map { it.validate() }
-            rejection().map { it.validate() }
-            remittanceInformation()
-            sourceAccountNumber()
-            sourceRoutingNumber()
-            status()
-            submission().map { it.validate() }
-            type()
-            validated = true
+          amount()
+          createdAt()
+          currency()
+          debtorName()
+          destinationAccountNumberId()
+          expiresAt()
+          fulfillmentTransactionId()
+          id()
+          idempotencyKey()
+          refusal().map { it.validate() }
+          rejection().map { it.validate() }
+          remittanceInformation()
+          sourceAccountNumber()
+          sourceRoutingNumber()
+          status()
+          submission().map { it.validate() }
+          type()
+          validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is RealTimePaymentsRequestForPayment &&
-            this.amount == other.amount &&
-            this.createdAt == other.createdAt &&
-            this.currency == other.currency &&
-            this.debtorName == other.debtorName &&
-            this.destinationAccountNumberId == other.destinationAccountNumberId &&
-            this.expiresAt == other.expiresAt &&
-            this.fulfillmentTransactionId == other.fulfillmentTransactionId &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.refusal == other.refusal &&
-            this.rejection == other.rejection &&
-            this.remittanceInformation == other.remittanceInformation &&
-            this.sourceAccountNumber == other.sourceAccountNumber &&
-            this.sourceRoutingNumber == other.sourceRoutingNumber &&
-            this.status == other.status &&
-            this.submission == other.submission &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
+      return other is RealTimePaymentsRequestForPayment &&
+          this.amount == other.amount &&
+          this.createdAt == other.createdAt &&
+          this.currency == other.currency &&
+          this.debtorName == other.debtorName &&
+          this.destinationAccountNumberId == other.destinationAccountNumberId &&
+          this.expiresAt == other.expiresAt &&
+          this.fulfillmentTransactionId == other.fulfillmentTransactionId &&
+          this.id == other.id &&
+          this.idempotencyKey == other.idempotencyKey &&
+          this.refusal == other.refusal &&
+          this.rejection == other.rejection &&
+          this.remittanceInformation == other.remittanceInformation &&
+          this.sourceAccountNumber == other.sourceAccountNumber &&
+          this.sourceRoutingNumber == other.sourceRoutingNumber &&
+          this.status == other.status &&
+          this.submission == other.submission &&
+          this.type == other.type &&
+          this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    amount,
-                    createdAt,
-                    currency,
-                    debtorName,
-                    destinationAccountNumberId,
-                    expiresAt,
-                    fulfillmentTransactionId,
-                    id,
-                    idempotencyKey,
-                    refusal,
-                    rejection,
-                    remittanceInformation,
-                    sourceAccountNumber,
-                    sourceRoutingNumber,
-                    status,
-                    submission,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
+      if (hashCode == 0) {
+        hashCode = Objects.hash(
+            amount,
+            createdAt,
+            currency,
+            debtorName,
+            destinationAccountNumberId,
+            expiresAt,
+            fulfillmentTransactionId,
+            id,
+            idempotencyKey,
+            refusal,
+            rejection,
+            remittanceInformation,
+            sourceAccountNumber,
+            sourceRoutingNumber,
+            status,
+            submission,
+            type,
+            additionalProperties,
+        )
+      }
+      return hashCode
     }
 
-    override fun toString() =
-        "RealTimePaymentsRequestForPayment{amount=$amount, createdAt=$createdAt, currency=$currency, debtorName=$debtorName, destinationAccountNumberId=$destinationAccountNumberId, expiresAt=$expiresAt, fulfillmentTransactionId=$fulfillmentTransactionId, id=$id, idempotencyKey=$idempotencyKey, refusal=$refusal, rejection=$rejection, remittanceInformation=$remittanceInformation, sourceAccountNumber=$sourceAccountNumber, sourceRoutingNumber=$sourceRoutingNumber, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() = "RealTimePaymentsRequestForPayment{amount=$amount, createdAt=$createdAt, currency=$currency, debtorName=$debtorName, destinationAccountNumberId=$destinationAccountNumberId, expiresAt=$expiresAt, fulfillmentTransactionId=$fulfillmentTransactionId, id=$id, idempotencyKey=$idempotencyKey, refusal=$refusal, rejection=$rejection, remittanceInformation=$remittanceInformation, sourceAccountNumber=$sourceAccountNumber, sourceRoutingNumber=$sourceRoutingNumber, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     class Builder {
@@ -335,29 +368,26 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(realTimePaymentsRequestForPayment: RealTimePaymentsRequestForPayment) =
-            apply {
-                this.amount = realTimePaymentsRequestForPayment.amount
-                this.createdAt = realTimePaymentsRequestForPayment.createdAt
-                this.currency = realTimePaymentsRequestForPayment.currency
-                this.debtorName = realTimePaymentsRequestForPayment.debtorName
-                this.destinationAccountNumberId =
-                    realTimePaymentsRequestForPayment.destinationAccountNumberId
-                this.expiresAt = realTimePaymentsRequestForPayment.expiresAt
-                this.fulfillmentTransactionId =
-                    realTimePaymentsRequestForPayment.fulfillmentTransactionId
-                this.id = realTimePaymentsRequestForPayment.id
-                this.idempotencyKey = realTimePaymentsRequestForPayment.idempotencyKey
-                this.refusal = realTimePaymentsRequestForPayment.refusal
-                this.rejection = realTimePaymentsRequestForPayment.rejection
-                this.remittanceInformation = realTimePaymentsRequestForPayment.remittanceInformation
-                this.sourceAccountNumber = realTimePaymentsRequestForPayment.sourceAccountNumber
-                this.sourceRoutingNumber = realTimePaymentsRequestForPayment.sourceRoutingNumber
-                this.status = realTimePaymentsRequestForPayment.status
-                this.submission = realTimePaymentsRequestForPayment.submission
-                this.type = realTimePaymentsRequestForPayment.type
-                additionalProperties(realTimePaymentsRequestForPayment.additionalProperties)
-            }
+        internal fun from(realTimePaymentsRequestForPayment: RealTimePaymentsRequestForPayment) = apply {
+            this.amount = realTimePaymentsRequestForPayment.amount
+            this.createdAt = realTimePaymentsRequestForPayment.createdAt
+            this.currency = realTimePaymentsRequestForPayment.currency
+            this.debtorName = realTimePaymentsRequestForPayment.debtorName
+            this.destinationAccountNumberId = realTimePaymentsRequestForPayment.destinationAccountNumberId
+            this.expiresAt = realTimePaymentsRequestForPayment.expiresAt
+            this.fulfillmentTransactionId = realTimePaymentsRequestForPayment.fulfillmentTransactionId
+            this.id = realTimePaymentsRequestForPayment.id
+            this.idempotencyKey = realTimePaymentsRequestForPayment.idempotencyKey
+            this.refusal = realTimePaymentsRequestForPayment.refusal
+            this.rejection = realTimePaymentsRequestForPayment.rejection
+            this.remittanceInformation = realTimePaymentsRequestForPayment.remittanceInformation
+            this.sourceAccountNumber = realTimePaymentsRequestForPayment.sourceAccountNumber
+            this.sourceRoutingNumber = realTimePaymentsRequestForPayment.sourceRoutingNumber
+            this.status = realTimePaymentsRequestForPayment.status
+            this.submission = realTimePaymentsRequestForPayment.submission
+            this.type = realTimePaymentsRequestForPayment.type
+            additionalProperties(realTimePaymentsRequestForPayment.additionalProperties)
+        }
 
         /** The transfer amount in USD cents. */
         fun amount(amount: Long) = amount(JsonField.of(amount))
@@ -365,35 +395,41 @@ private constructor(
         /** The transfer amount in USD cents. */
         @JsonProperty("amount")
         @ExcludeMissing
-        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+        fun amount(amount: JsonField<Long>) = apply {
+            this.amount = amount
+        }
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the request
-         * for payment was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+         * the request for payment was created.
          */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the request
-         * for payment was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+         * the request for payment was created.
          */
         @JsonProperty("created_at")
         @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+            this.createdAt = createdAt
+        }
 
         /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency.
-         * For real-time payments transfers this is always equal to `USD`.
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's
+         * currency. For real-time payments transfers this is always equal to `USD`.
          */
         fun currency(currency: Currency) = currency(JsonField.of(currency))
 
         /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency.
-         * For real-time payments transfers this is always equal to `USD`.
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's
+         * currency. For real-time payments transfers this is always equal to `USD`.
          */
         @JsonProperty("currency")
         @ExcludeMissing
-        fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+        fun currency(currency: JsonField<Currency>) = apply {
+            this.currency = currency
+        }
 
         /** The name of the recipient the sender is requesting a transfer from. */
         fun debtorName(debtorName: String) = debtorName(JsonField.of(debtorName))
@@ -401,11 +437,12 @@ private constructor(
         /** The name of the recipient the sender is requesting a transfer from. */
         @JsonProperty("debtor_name")
         @ExcludeMissing
-        fun debtorName(debtorName: JsonField<String>) = apply { this.debtorName = debtorName }
+        fun debtorName(debtorName: JsonField<String>) = apply {
+            this.debtorName = debtorName
+        }
 
         /** The Account Number in which a successful transfer will arrive. */
-        fun destinationAccountNumberId(destinationAccountNumberId: String) =
-            destinationAccountNumberId(JsonField.of(destinationAccountNumberId))
+        fun destinationAccountNumberId(destinationAccountNumberId: String) = destinationAccountNumberId(JsonField.of(destinationAccountNumberId))
 
         /** The Account Number in which a successful transfer will arrive. */
         @JsonProperty("destination_account_number_id")
@@ -415,22 +452,23 @@ private constructor(
         }
 
         /**
-         * The expiration time for this request, in UTC. The requestee will not be able to pay after
-         * this date.
+         * The expiration time for this request, in UTC. The requestee will not be able to
+         * pay after this date.
          */
         fun expiresAt(expiresAt: LocalDate) = expiresAt(JsonField.of(expiresAt))
 
         /**
-         * The expiration time for this request, in UTC. The requestee will not be able to pay after
-         * this date.
+         * The expiration time for this request, in UTC. The requestee will not be able to
+         * pay after this date.
          */
         @JsonProperty("expires_at")
         @ExcludeMissing
-        fun expiresAt(expiresAt: JsonField<LocalDate>) = apply { this.expiresAt = expiresAt }
+        fun expiresAt(expiresAt: JsonField<LocalDate>) = apply {
+            this.expiresAt = expiresAt
+        }
 
         /** The transaction that fulfilled this request. */
-        fun fulfillmentTransactionId(fulfillmentTransactionId: String) =
-            fulfillmentTransactionId(JsonField.of(fulfillmentTransactionId))
+        fun fulfillmentTransactionId(fulfillmentTransactionId: String) = fulfillmentTransactionId(JsonField.of(fulfillmentTransactionId))
 
         /** The transaction that fulfilled this request. */
         @JsonProperty("fulfillment_transaction_id")
@@ -443,19 +481,23 @@ private constructor(
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Real-Time Payments Request for Payment's identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        @JsonProperty("id")
+        @ExcludeMissing
+        fun id(id: JsonField<String>) = apply {
+            this.id = id
+        }
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across
+         * Increase and is used to ensure that a request is only processed once. Learn more
+         * about [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across
+         * Increase and is used to ensure that a request is only processed once. Learn more
+         * about [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         @JsonProperty("idempotency_key")
         @ExcludeMissing
@@ -464,36 +506,39 @@ private constructor(
         }
 
         /**
-         * If the request for payment is refused by the destination financial institution or the
-         * receiving customer, this will contain supplemental details.
+         * If the request for payment is refused by the destination financial institution
+         * or the receiving customer, this will contain supplemental details.
          */
         fun refusal(refusal: Refusal) = refusal(JsonField.of(refusal))
 
         /**
-         * If the request for payment is refused by the destination financial institution or the
-         * receiving customer, this will contain supplemental details.
+         * If the request for payment is refused by the destination financial institution
+         * or the receiving customer, this will contain supplemental details.
          */
         @JsonProperty("refusal")
         @ExcludeMissing
-        fun refusal(refusal: JsonField<Refusal>) = apply { this.refusal = refusal }
+        fun refusal(refusal: JsonField<Refusal>) = apply {
+            this.refusal = refusal
+        }
 
         /**
-         * If the request for payment is rejected by Real-Time Payments or the destination financial
-         * institution, this will contain supplemental details.
+         * If the request for payment is rejected by Real-Time Payments or the destination
+         * financial institution, this will contain supplemental details.
          */
         fun rejection(rejection: Rejection) = rejection(JsonField.of(rejection))
 
         /**
-         * If the request for payment is rejected by Real-Time Payments or the destination financial
-         * institution, this will contain supplemental details.
+         * If the request for payment is rejected by Real-Time Payments or the destination
+         * financial institution, this will contain supplemental details.
          */
         @JsonProperty("rejection")
         @ExcludeMissing
-        fun rejection(rejection: JsonField<Rejection>) = apply { this.rejection = rejection }
+        fun rejection(rejection: JsonField<Rejection>) = apply {
+            this.rejection = rejection
+        }
 
         /** Unstructured information that will show on the recipient's bank statement. */
-        fun remittanceInformation(remittanceInformation: String) =
-            remittanceInformation(JsonField.of(remittanceInformation))
+        fun remittanceInformation(remittanceInformation: String) = remittanceInformation(JsonField.of(remittanceInformation))
 
         /** Unstructured information that will show on the recipient's bank statement. */
         @JsonProperty("remittance_information")
@@ -503,8 +548,7 @@ private constructor(
         }
 
         /** The account number the request is sent to. */
-        fun sourceAccountNumber(sourceAccountNumber: String) =
-            sourceAccountNumber(JsonField.of(sourceAccountNumber))
+        fun sourceAccountNumber(sourceAccountNumber: String) = sourceAccountNumber(JsonField.of(sourceAccountNumber))
 
         /** The account number the request is sent to. */
         @JsonProperty("source_account_number")
@@ -514,8 +558,7 @@ private constructor(
         }
 
         /** The receiver's American Bankers' Association (ABA) Routing Transit Number (RTN). */
-        fun sourceRoutingNumber(sourceRoutingNumber: String) =
-            sourceRoutingNumber(JsonField.of(sourceRoutingNumber))
+        fun sourceRoutingNumber(sourceRoutingNumber: String) = sourceRoutingNumber(JsonField.of(sourceRoutingNumber))
 
         /** The receiver's American Bankers' Association (ABA) Routing Transit Number (RTN). */
         @JsonProperty("source_routing_number")
@@ -530,21 +573,25 @@ private constructor(
         /** The lifecycle status of the request for payment. */
         @JsonProperty("status")
         @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply { this.status = status }
+        fun status(status: JsonField<Status>) = apply {
+            this.status = status
+        }
 
         /**
-         * After the request for payment is submitted to Real-Time Payments, this will contain
-         * supplemental details.
+         * After the request for payment is submitted to Real-Time Payments, this will
+         * contain supplemental details.
          */
         fun submission(submission: Submission) = submission(JsonField.of(submission))
 
         /**
-         * After the request for payment is submitted to Real-Time Payments, this will contain
-         * supplemental details.
+         * After the request for payment is submitted to Real-Time Payments, this will
+         * contain supplemental details.
          */
         @JsonProperty("submission")
         @ExcludeMissing
-        fun submission(submission: JsonField<Submission>) = apply { this.submission = submission }
+        fun submission(submission: JsonField<Submission>) = apply {
+            this.submission = submission
+        }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -558,7 +605,9 @@ private constructor(
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        fun type(type: JsonField<Type>) = apply {
+            this.type = type
+        }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -574,43 +623,40 @@ private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): RealTimePaymentsRequestForPayment =
-            RealTimePaymentsRequestForPayment(
-                amount,
-                createdAt,
-                currency,
-                debtorName,
-                destinationAccountNumberId,
-                expiresAt,
-                fulfillmentTransactionId,
-                id,
-                idempotencyKey,
-                refusal,
-                rejection,
-                remittanceInformation,
-                sourceAccountNumber,
-                sourceRoutingNumber,
-                status,
-                submission,
-                type,
-                additionalProperties.toUnmodifiable(),
-            )
+        fun build(): RealTimePaymentsRequestForPayment = RealTimePaymentsRequestForPayment(
+            amount,
+            createdAt,
+            currency,
+            debtorName,
+            destinationAccountNumberId,
+            expiresAt,
+            fulfillmentTransactionId,
+            id,
+            idempotencyKey,
+            refusal,
+            rejection,
+            remittanceInformation,
+            sourceAccountNumber,
+            sourceRoutingNumber,
+            status,
+            submission,
+            type,
+            additionalProperties.toUnmodifiable(),
+        )
     }
 
-    class Currency
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Currency @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Currency && this.value == other.value
+          return other is Currency &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -653,57 +699,50 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                CAD -> Value.CAD
-                CHF -> Value.CHF
-                EUR -> Value.EUR
-                GBP -> Value.GBP
-                JPY -> Value.JPY
-                USD -> Value.USD
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            CAD -> Value.CAD
+            CHF -> Value.CHF
+            EUR -> Value.EUR
+            GBP -> Value.GBP
+            JPY -> Value.JPY
+            USD -> Value.USD
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                CAD -> Known.CAD
-                CHF -> Known.CHF
-                EUR -> Known.EUR
-                GBP -> Known.GBP
-                JPY -> Known.JPY
-                USD -> Known.USD
-                else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
-            }
+        fun known(): Known = when (this) {
+            CAD -> Known.CAD
+            CHF -> Known.CHF
+            EUR -> Known.EUR
+            GBP -> Known.GBP
+            JPY -> Known.JPY
+            USD -> Known.USD
+            else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
     /**
-     * If the request for payment is refused by the destination financial institution or the
-     * receiving customer, this will contain supplemental details.
+     * If the request for payment is refused by the destination financial institution
+     * or the receiving customer, this will contain supplemental details.
      */
     @JsonDeserialize(builder = Refusal.Builder::class)
     @NoAutoDetect
-    class Refusal
-    private constructor(
-        private val refusalReasonCode: JsonField<RefusalReasonCode>,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
+    class Refusal private constructor(private val refusalReasonCode: JsonField<RefusalReasonCode>, private val additionalProperties: Map<String, JsonValue>, ) {
 
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
 
         /**
-         * The reason the request for payment was refused as provided by the recipient bank or the
-         * customer.
+         * The reason the request for payment was refused as provided by the recipient bank
+         * or the customer.
          */
-        fun refusalReasonCode(): RefusalReasonCode =
-            refusalReasonCode.getRequired("refusal_reason_code")
+        fun refusalReasonCode(): RefusalReasonCode = refusalReasonCode.getRequired("refusal_reason_code")
 
         /**
-         * The reason the request for payment was refused as provided by the recipient bank or the
-         * customer.
+         * The reason the request for payment was refused as provided by the recipient bank
+         * or the customer.
          */
         @JsonProperty("refusal_reason_code")
         @ExcludeMissing
@@ -715,36 +754,36 @@ private constructor(
 
         fun validate(): Refusal = apply {
             if (!validated) {
-                refusalReasonCode()
-                validated = true
+              refusalReasonCode()
+              validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Refusal &&
-                this.refusalReasonCode == other.refusalReasonCode &&
-                this.additionalProperties == other.additionalProperties
+          return other is Refusal &&
+              this.refusalReasonCode == other.refusalReasonCode &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(refusalReasonCode, additionalProperties)
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(refusalReasonCode, additionalProperties)
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "Refusal{refusalReasonCode=$refusalReasonCode, additionalProperties=$additionalProperties}"
+        override fun toString() = "Refusal{refusalReasonCode=$refusalReasonCode, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         class Builder {
@@ -759,15 +798,14 @@ private constructor(
             }
 
             /**
-             * The reason the request for payment was refused as provided by the recipient bank or
-             * the customer.
+             * The reason the request for payment was refused as provided by the recipient bank
+             * or the customer.
              */
-            fun refusalReasonCode(refusalReasonCode: RefusalReasonCode) =
-                refusalReasonCode(JsonField.of(refusalReasonCode))
+            fun refusalReasonCode(refusalReasonCode: RefusalReasonCode) = refusalReasonCode(JsonField.of(refusalReasonCode))
 
             /**
-             * The reason the request for payment was refused as provided by the recipient bank or
-             * the customer.
+             * The reason the request for payment was refused as provided by the recipient bank
+             * or the customer.
              */
             @JsonProperty("refusal_reason_code")
             @ExcludeMissing
@@ -792,20 +830,18 @@ private constructor(
             fun build(): Refusal = Refusal(refusalReasonCode, additionalProperties.toUnmodifiable())
         }
 
-        class RefusalReasonCode
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class RefusalReasonCode @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue
+            fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is RefusalReasonCode && this.value == other.value
+              return other is RefusalReasonCode &&
+                  this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -816,43 +852,27 @@ private constructor(
 
                 @JvmField val ACCOUNT_BLOCKED = RefusalReasonCode(JsonField.of("account_blocked"))
 
-                @JvmField
-                val TRANSACTION_FORBIDDEN = RefusalReasonCode(JsonField.of("transaction_forbidden"))
+                @JvmField val TRANSACTION_FORBIDDEN = RefusalReasonCode(JsonField.of("transaction_forbidden"))
 
-                @JvmField
-                val TRANSACTION_TYPE_NOT_SUPPORTED =
-                    RefusalReasonCode(JsonField.of("transaction_type_not_supported"))
+                @JvmField val TRANSACTION_TYPE_NOT_SUPPORTED = RefusalReasonCode(JsonField.of("transaction_type_not_supported"))
 
-                @JvmField
-                val UNEXPECTED_AMOUNT = RefusalReasonCode(JsonField.of("unexpected_amount"))
+                @JvmField val UNEXPECTED_AMOUNT = RefusalReasonCode(JsonField.of("unexpected_amount"))
 
-                @JvmField
-                val AMOUNT_EXCEEDS_BANK_LIMITS =
-                    RefusalReasonCode(JsonField.of("amount_exceeds_bank_limits"))
+                @JvmField val AMOUNT_EXCEEDS_BANK_LIMITS = RefusalReasonCode(JsonField.of("amount_exceeds_bank_limits"))
 
-                @JvmField
-                val INVALID_DEBTOR_ADDRESS =
-                    RefusalReasonCode(JsonField.of("invalid_debtor_address"))
+                @JvmField val INVALID_DEBTOR_ADDRESS = RefusalReasonCode(JsonField.of("invalid_debtor_address"))
 
-                @JvmField
-                val INVALID_CREDITOR_ADDRESS =
-                    RefusalReasonCode(JsonField.of("invalid_creditor_address"))
+                @JvmField val INVALID_CREDITOR_ADDRESS = RefusalReasonCode(JsonField.of("invalid_creditor_address"))
 
-                @JvmField
-                val CREDITOR_IDENTIFIER_INCORRECT =
-                    RefusalReasonCode(JsonField.of("creditor_identifier_incorrect"))
+                @JvmField val CREDITOR_IDENTIFIER_INCORRECT = RefusalReasonCode(JsonField.of("creditor_identifier_incorrect"))
 
-                @JvmField
-                val REQUESTED_BY_CUSTOMER = RefusalReasonCode(JsonField.of("requested_by_customer"))
+                @JvmField val REQUESTED_BY_CUSTOMER = RefusalReasonCode(JsonField.of("requested_by_customer"))
 
                 @JvmField val ORDER_REJECTED = RefusalReasonCode(JsonField.of("order_rejected"))
 
-                @JvmField
-                val END_CUSTOMER_DECEASED = RefusalReasonCode(JsonField.of("end_customer_deceased"))
+                @JvmField val END_CUSTOMER_DECEASED = RefusalReasonCode(JsonField.of("end_customer_deceased"))
 
-                @JvmField
-                val CUSTOMER_HAS_OPTED_OUT =
-                    RefusalReasonCode(JsonField.of("customer_has_opted_out"))
+                @JvmField val CUSTOMER_HAS_OPTED_OUT = RefusalReasonCode(JsonField.of("customer_has_opted_out"))
 
                 @JvmField val OTHER = RefusalReasonCode(JsonField.of("other"))
 
@@ -892,72 +912,65 @@ private constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value =
-                when (this) {
-                    ACCOUNT_BLOCKED -> Value.ACCOUNT_BLOCKED
-                    TRANSACTION_FORBIDDEN -> Value.TRANSACTION_FORBIDDEN
-                    TRANSACTION_TYPE_NOT_SUPPORTED -> Value.TRANSACTION_TYPE_NOT_SUPPORTED
-                    UNEXPECTED_AMOUNT -> Value.UNEXPECTED_AMOUNT
-                    AMOUNT_EXCEEDS_BANK_LIMITS -> Value.AMOUNT_EXCEEDS_BANK_LIMITS
-                    INVALID_DEBTOR_ADDRESS -> Value.INVALID_DEBTOR_ADDRESS
-                    INVALID_CREDITOR_ADDRESS -> Value.INVALID_CREDITOR_ADDRESS
-                    CREDITOR_IDENTIFIER_INCORRECT -> Value.CREDITOR_IDENTIFIER_INCORRECT
-                    REQUESTED_BY_CUSTOMER -> Value.REQUESTED_BY_CUSTOMER
-                    ORDER_REJECTED -> Value.ORDER_REJECTED
-                    END_CUSTOMER_DECEASED -> Value.END_CUSTOMER_DECEASED
-                    CUSTOMER_HAS_OPTED_OUT -> Value.CUSTOMER_HAS_OPTED_OUT
-                    OTHER -> Value.OTHER
-                    else -> Value._UNKNOWN
-                }
+            fun value(): Value = when (this) {
+                ACCOUNT_BLOCKED -> Value.ACCOUNT_BLOCKED
+                TRANSACTION_FORBIDDEN -> Value.TRANSACTION_FORBIDDEN
+                TRANSACTION_TYPE_NOT_SUPPORTED -> Value.TRANSACTION_TYPE_NOT_SUPPORTED
+                UNEXPECTED_AMOUNT -> Value.UNEXPECTED_AMOUNT
+                AMOUNT_EXCEEDS_BANK_LIMITS -> Value.AMOUNT_EXCEEDS_BANK_LIMITS
+                INVALID_DEBTOR_ADDRESS -> Value.INVALID_DEBTOR_ADDRESS
+                INVALID_CREDITOR_ADDRESS -> Value.INVALID_CREDITOR_ADDRESS
+                CREDITOR_IDENTIFIER_INCORRECT -> Value.CREDITOR_IDENTIFIER_INCORRECT
+                REQUESTED_BY_CUSTOMER -> Value.REQUESTED_BY_CUSTOMER
+                ORDER_REJECTED -> Value.ORDER_REJECTED
+                END_CUSTOMER_DECEASED -> Value.END_CUSTOMER_DECEASED
+                CUSTOMER_HAS_OPTED_OUT -> Value.CUSTOMER_HAS_OPTED_OUT
+                OTHER -> Value.OTHER
+                else -> Value._UNKNOWN
+            }
 
-            fun known(): Known =
-                when (this) {
-                    ACCOUNT_BLOCKED -> Known.ACCOUNT_BLOCKED
-                    TRANSACTION_FORBIDDEN -> Known.TRANSACTION_FORBIDDEN
-                    TRANSACTION_TYPE_NOT_SUPPORTED -> Known.TRANSACTION_TYPE_NOT_SUPPORTED
-                    UNEXPECTED_AMOUNT -> Known.UNEXPECTED_AMOUNT
-                    AMOUNT_EXCEEDS_BANK_LIMITS -> Known.AMOUNT_EXCEEDS_BANK_LIMITS
-                    INVALID_DEBTOR_ADDRESS -> Known.INVALID_DEBTOR_ADDRESS
-                    INVALID_CREDITOR_ADDRESS -> Known.INVALID_CREDITOR_ADDRESS
-                    CREDITOR_IDENTIFIER_INCORRECT -> Known.CREDITOR_IDENTIFIER_INCORRECT
-                    REQUESTED_BY_CUSTOMER -> Known.REQUESTED_BY_CUSTOMER
-                    ORDER_REJECTED -> Known.ORDER_REJECTED
-                    END_CUSTOMER_DECEASED -> Known.END_CUSTOMER_DECEASED
-                    CUSTOMER_HAS_OPTED_OUT -> Known.CUSTOMER_HAS_OPTED_OUT
-                    OTHER -> Known.OTHER
-                    else -> throw IncreaseInvalidDataException("Unknown RefusalReasonCode: $value")
-                }
+            fun known(): Known = when (this) {
+                ACCOUNT_BLOCKED -> Known.ACCOUNT_BLOCKED
+                TRANSACTION_FORBIDDEN -> Known.TRANSACTION_FORBIDDEN
+                TRANSACTION_TYPE_NOT_SUPPORTED -> Known.TRANSACTION_TYPE_NOT_SUPPORTED
+                UNEXPECTED_AMOUNT -> Known.UNEXPECTED_AMOUNT
+                AMOUNT_EXCEEDS_BANK_LIMITS -> Known.AMOUNT_EXCEEDS_BANK_LIMITS
+                INVALID_DEBTOR_ADDRESS -> Known.INVALID_DEBTOR_ADDRESS
+                INVALID_CREDITOR_ADDRESS -> Known.INVALID_CREDITOR_ADDRESS
+                CREDITOR_IDENTIFIER_INCORRECT -> Known.CREDITOR_IDENTIFIER_INCORRECT
+                REQUESTED_BY_CUSTOMER -> Known.REQUESTED_BY_CUSTOMER
+                ORDER_REJECTED -> Known.ORDER_REJECTED
+                END_CUSTOMER_DECEASED -> Known.END_CUSTOMER_DECEASED
+                CUSTOMER_HAS_OPTED_OUT -> Known.CUSTOMER_HAS_OPTED_OUT
+                OTHER -> Known.OTHER
+                else -> throw IncreaseInvalidDataException("Unknown RefusalReasonCode: $value")
+            }
 
             fun asString(): String = _value().asStringOrThrow()
         }
     }
 
     /**
-     * If the request for payment is rejected by Real-Time Payments or the destination financial
-     * institution, this will contain supplemental details.
+     * If the request for payment is rejected by Real-Time Payments or the destination
+     * financial institution, this will contain supplemental details.
      */
     @JsonDeserialize(builder = Rejection.Builder::class)
     @NoAutoDetect
-    class Rejection
-    private constructor(
-        private val rejectReasonCode: JsonField<RejectReasonCode>,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
+    class Rejection private constructor(private val rejectReasonCode: JsonField<RejectReasonCode>, private val additionalProperties: Map<String, JsonValue>, ) {
 
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
 
         /**
-         * The reason the request for payment was rejected as provided by the recipient bank or the
-         * Real-Time Payments network.
+         * The reason the request for payment was rejected as provided by the recipient
+         * bank or the Real-Time Payments network.
          */
-        fun rejectReasonCode(): RejectReasonCode =
-            rejectReasonCode.getRequired("reject_reason_code")
+        fun rejectReasonCode(): RejectReasonCode = rejectReasonCode.getRequired("reject_reason_code")
 
         /**
-         * The reason the request for payment was rejected as provided by the recipient bank or the
-         * Real-Time Payments network.
+         * The reason the request for payment was rejected as provided by the recipient
+         * bank or the Real-Time Payments network.
          */
         @JsonProperty("reject_reason_code")
         @ExcludeMissing
@@ -969,36 +982,36 @@ private constructor(
 
         fun validate(): Rejection = apply {
             if (!validated) {
-                rejectReasonCode()
-                validated = true
+              rejectReasonCode()
+              validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Rejection &&
-                this.rejectReasonCode == other.rejectReasonCode &&
-                this.additionalProperties == other.additionalProperties
+          return other is Rejection &&
+              this.rejectReasonCode == other.rejectReasonCode &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(rejectReasonCode, additionalProperties)
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(rejectReasonCode, additionalProperties)
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "Rejection{rejectReasonCode=$rejectReasonCode, additionalProperties=$additionalProperties}"
+        override fun toString() = "Rejection{rejectReasonCode=$rejectReasonCode, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         class Builder {
@@ -1013,15 +1026,14 @@ private constructor(
             }
 
             /**
-             * The reason the request for payment was rejected as provided by the recipient bank or
-             * the Real-Time Payments network.
+             * The reason the request for payment was rejected as provided by the recipient
+             * bank or the Real-Time Payments network.
              */
-            fun rejectReasonCode(rejectReasonCode: RejectReasonCode) =
-                rejectReasonCode(JsonField.of(rejectReasonCode))
+            fun rejectReasonCode(rejectReasonCode: RejectReasonCode) = rejectReasonCode(JsonField.of(rejectReasonCode))
 
             /**
-             * The reason the request for payment was rejected as provided by the recipient bank or
-             * the Real-Time Payments network.
+             * The reason the request for payment was rejected as provided by the recipient
+             * bank or the Real-Time Payments network.
              */
             @JsonProperty("reject_reason_code")
             @ExcludeMissing
@@ -1043,24 +1055,21 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Rejection =
-                Rejection(rejectReasonCode, additionalProperties.toUnmodifiable())
+            fun build(): Rejection = Rejection(rejectReasonCode, additionalProperties.toUnmodifiable())
         }
 
-        class RejectReasonCode
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class RejectReasonCode @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue
+            fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is RejectReasonCode && this.value == other.value
+              return other is RejectReasonCode &&
+                  this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1073,67 +1082,39 @@ private constructor(
 
                 @JvmField val ACCOUNT_BLOCKED = RejectReasonCode(JsonField.of("account_blocked"))
 
-                @JvmField
-                val INVALID_CREDITOR_ACCOUNT_TYPE =
-                    RejectReasonCode(JsonField.of("invalid_creditor_account_type"))
+                @JvmField val INVALID_CREDITOR_ACCOUNT_TYPE = RejectReasonCode(JsonField.of("invalid_creditor_account_type"))
 
-                @JvmField
-                val INVALID_CREDITOR_ACCOUNT_NUMBER =
-                    RejectReasonCode(JsonField.of("invalid_creditor_account_number"))
+                @JvmField val INVALID_CREDITOR_ACCOUNT_NUMBER = RejectReasonCode(JsonField.of("invalid_creditor_account_number"))
 
-                @JvmField
-                val INVALID_CREDITOR_FINANCIAL_INSTITUTION_IDENTIFIER =
-                    RejectReasonCode(
-                        JsonField.of("invalid_creditor_financial_institution_identifier")
-                    )
+                @JvmField val INVALID_CREDITOR_FINANCIAL_INSTITUTION_IDENTIFIER = RejectReasonCode(JsonField.of("invalid_creditor_financial_institution_identifier"))
 
-                @JvmField
-                val END_CUSTOMER_DECEASED = RejectReasonCode(JsonField.of("end_customer_deceased"))
+                @JvmField val END_CUSTOMER_DECEASED = RejectReasonCode(JsonField.of("end_customer_deceased"))
 
                 @JvmField val NARRATIVE = RejectReasonCode(JsonField.of("narrative"))
 
-                @JvmField
-                val TRANSACTION_FORBIDDEN = RejectReasonCode(JsonField.of("transaction_forbidden"))
+                @JvmField val TRANSACTION_FORBIDDEN = RejectReasonCode(JsonField.of("transaction_forbidden"))
 
-                @JvmField
-                val TRANSACTION_TYPE_NOT_SUPPORTED =
-                    RejectReasonCode(JsonField.of("transaction_type_not_supported"))
+                @JvmField val TRANSACTION_TYPE_NOT_SUPPORTED = RejectReasonCode(JsonField.of("transaction_type_not_supported"))
 
-                @JvmField
-                val UNEXPECTED_AMOUNT = RejectReasonCode(JsonField.of("unexpected_amount"))
+                @JvmField val UNEXPECTED_AMOUNT = RejectReasonCode(JsonField.of("unexpected_amount"))
 
-                @JvmField
-                val AMOUNT_EXCEEDS_BANK_LIMITS =
-                    RejectReasonCode(JsonField.of("amount_exceeds_bank_limits"))
+                @JvmField val AMOUNT_EXCEEDS_BANK_LIMITS = RejectReasonCode(JsonField.of("amount_exceeds_bank_limits"))
 
-                @JvmField
-                val INVALID_CREDITOR_ADDRESS =
-                    RejectReasonCode(JsonField.of("invalid_creditor_address"))
+                @JvmField val INVALID_CREDITOR_ADDRESS = RejectReasonCode(JsonField.of("invalid_creditor_address"))
 
-                @JvmField
-                val UNKNOWN_END_CUSTOMER = RejectReasonCode(JsonField.of("unknown_end_customer"))
+                @JvmField val UNKNOWN_END_CUSTOMER = RejectReasonCode(JsonField.of("unknown_end_customer"))
 
-                @JvmField
-                val INVALID_DEBTOR_ADDRESS =
-                    RejectReasonCode(JsonField.of("invalid_debtor_address"))
+                @JvmField val INVALID_DEBTOR_ADDRESS = RejectReasonCode(JsonField.of("invalid_debtor_address"))
 
                 @JvmField val TIMEOUT = RejectReasonCode(JsonField.of("timeout"))
 
-                @JvmField
-                val UNSUPPORTED_MESSAGE_FOR_RECIPIENT =
-                    RejectReasonCode(JsonField.of("unsupported_message_for_recipient"))
+                @JvmField val UNSUPPORTED_MESSAGE_FOR_RECIPIENT = RejectReasonCode(JsonField.of("unsupported_message_for_recipient"))
 
-                @JvmField
-                val RECIPIENT_CONNECTION_NOT_AVAILABLE =
-                    RejectReasonCode(JsonField.of("recipient_connection_not_available"))
+                @JvmField val RECIPIENT_CONNECTION_NOT_AVAILABLE = RejectReasonCode(JsonField.of("recipient_connection_not_available"))
 
-                @JvmField
-                val REAL_TIME_PAYMENTS_SUSPENDED =
-                    RejectReasonCode(JsonField.of("real_time_payments_suspended"))
+                @JvmField val REAL_TIME_PAYMENTS_SUSPENDED = RejectReasonCode(JsonField.of("real_time_payments_suspended"))
 
-                @JvmField
-                val INSTRUCTED_AGENT_SIGNED_OFF =
-                    RejectReasonCode(JsonField.of("instructed_agent_signed_off"))
+                @JvmField val INSTRUCTED_AGENT_SIGNED_OFF = RejectReasonCode(JsonField.of("instructed_agent_signed_off"))
 
                 @JvmField val PROCESSING_ERROR = RejectReasonCode(JsonField.of("processing_error"))
 
@@ -1191,78 +1172,72 @@ private constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value =
-                when (this) {
-                    ACCOUNT_CLOSED -> Value.ACCOUNT_CLOSED
-                    ACCOUNT_BLOCKED -> Value.ACCOUNT_BLOCKED
-                    INVALID_CREDITOR_ACCOUNT_TYPE -> Value.INVALID_CREDITOR_ACCOUNT_TYPE
-                    INVALID_CREDITOR_ACCOUNT_NUMBER -> Value.INVALID_CREDITOR_ACCOUNT_NUMBER
-                    INVALID_CREDITOR_FINANCIAL_INSTITUTION_IDENTIFIER ->
-                        Value.INVALID_CREDITOR_FINANCIAL_INSTITUTION_IDENTIFIER
-                    END_CUSTOMER_DECEASED -> Value.END_CUSTOMER_DECEASED
-                    NARRATIVE -> Value.NARRATIVE
-                    TRANSACTION_FORBIDDEN -> Value.TRANSACTION_FORBIDDEN
-                    TRANSACTION_TYPE_NOT_SUPPORTED -> Value.TRANSACTION_TYPE_NOT_SUPPORTED
-                    UNEXPECTED_AMOUNT -> Value.UNEXPECTED_AMOUNT
-                    AMOUNT_EXCEEDS_BANK_LIMITS -> Value.AMOUNT_EXCEEDS_BANK_LIMITS
-                    INVALID_CREDITOR_ADDRESS -> Value.INVALID_CREDITOR_ADDRESS
-                    UNKNOWN_END_CUSTOMER -> Value.UNKNOWN_END_CUSTOMER
-                    INVALID_DEBTOR_ADDRESS -> Value.INVALID_DEBTOR_ADDRESS
-                    TIMEOUT -> Value.TIMEOUT
-                    UNSUPPORTED_MESSAGE_FOR_RECIPIENT -> Value.UNSUPPORTED_MESSAGE_FOR_RECIPIENT
-                    RECIPIENT_CONNECTION_NOT_AVAILABLE -> Value.RECIPIENT_CONNECTION_NOT_AVAILABLE
-                    REAL_TIME_PAYMENTS_SUSPENDED -> Value.REAL_TIME_PAYMENTS_SUSPENDED
-                    INSTRUCTED_AGENT_SIGNED_OFF -> Value.INSTRUCTED_AGENT_SIGNED_OFF
-                    PROCESSING_ERROR -> Value.PROCESSING_ERROR
-                    OTHER -> Value.OTHER
-                    else -> Value._UNKNOWN
-                }
+            fun value(): Value = when (this) {
+                ACCOUNT_CLOSED -> Value.ACCOUNT_CLOSED
+                ACCOUNT_BLOCKED -> Value.ACCOUNT_BLOCKED
+                INVALID_CREDITOR_ACCOUNT_TYPE -> Value.INVALID_CREDITOR_ACCOUNT_TYPE
+                INVALID_CREDITOR_ACCOUNT_NUMBER -> Value.INVALID_CREDITOR_ACCOUNT_NUMBER
+                INVALID_CREDITOR_FINANCIAL_INSTITUTION_IDENTIFIER -> Value.INVALID_CREDITOR_FINANCIAL_INSTITUTION_IDENTIFIER
+                END_CUSTOMER_DECEASED -> Value.END_CUSTOMER_DECEASED
+                NARRATIVE -> Value.NARRATIVE
+                TRANSACTION_FORBIDDEN -> Value.TRANSACTION_FORBIDDEN
+                TRANSACTION_TYPE_NOT_SUPPORTED -> Value.TRANSACTION_TYPE_NOT_SUPPORTED
+                UNEXPECTED_AMOUNT -> Value.UNEXPECTED_AMOUNT
+                AMOUNT_EXCEEDS_BANK_LIMITS -> Value.AMOUNT_EXCEEDS_BANK_LIMITS
+                INVALID_CREDITOR_ADDRESS -> Value.INVALID_CREDITOR_ADDRESS
+                UNKNOWN_END_CUSTOMER -> Value.UNKNOWN_END_CUSTOMER
+                INVALID_DEBTOR_ADDRESS -> Value.INVALID_DEBTOR_ADDRESS
+                TIMEOUT -> Value.TIMEOUT
+                UNSUPPORTED_MESSAGE_FOR_RECIPIENT -> Value.UNSUPPORTED_MESSAGE_FOR_RECIPIENT
+                RECIPIENT_CONNECTION_NOT_AVAILABLE -> Value.RECIPIENT_CONNECTION_NOT_AVAILABLE
+                REAL_TIME_PAYMENTS_SUSPENDED -> Value.REAL_TIME_PAYMENTS_SUSPENDED
+                INSTRUCTED_AGENT_SIGNED_OFF -> Value.INSTRUCTED_AGENT_SIGNED_OFF
+                PROCESSING_ERROR -> Value.PROCESSING_ERROR
+                OTHER -> Value.OTHER
+                else -> Value._UNKNOWN
+            }
 
-            fun known(): Known =
-                when (this) {
-                    ACCOUNT_CLOSED -> Known.ACCOUNT_CLOSED
-                    ACCOUNT_BLOCKED -> Known.ACCOUNT_BLOCKED
-                    INVALID_CREDITOR_ACCOUNT_TYPE -> Known.INVALID_CREDITOR_ACCOUNT_TYPE
-                    INVALID_CREDITOR_ACCOUNT_NUMBER -> Known.INVALID_CREDITOR_ACCOUNT_NUMBER
-                    INVALID_CREDITOR_FINANCIAL_INSTITUTION_IDENTIFIER ->
-                        Known.INVALID_CREDITOR_FINANCIAL_INSTITUTION_IDENTIFIER
-                    END_CUSTOMER_DECEASED -> Known.END_CUSTOMER_DECEASED
-                    NARRATIVE -> Known.NARRATIVE
-                    TRANSACTION_FORBIDDEN -> Known.TRANSACTION_FORBIDDEN
-                    TRANSACTION_TYPE_NOT_SUPPORTED -> Known.TRANSACTION_TYPE_NOT_SUPPORTED
-                    UNEXPECTED_AMOUNT -> Known.UNEXPECTED_AMOUNT
-                    AMOUNT_EXCEEDS_BANK_LIMITS -> Known.AMOUNT_EXCEEDS_BANK_LIMITS
-                    INVALID_CREDITOR_ADDRESS -> Known.INVALID_CREDITOR_ADDRESS
-                    UNKNOWN_END_CUSTOMER -> Known.UNKNOWN_END_CUSTOMER
-                    INVALID_DEBTOR_ADDRESS -> Known.INVALID_DEBTOR_ADDRESS
-                    TIMEOUT -> Known.TIMEOUT
-                    UNSUPPORTED_MESSAGE_FOR_RECIPIENT -> Known.UNSUPPORTED_MESSAGE_FOR_RECIPIENT
-                    RECIPIENT_CONNECTION_NOT_AVAILABLE -> Known.RECIPIENT_CONNECTION_NOT_AVAILABLE
-                    REAL_TIME_PAYMENTS_SUSPENDED -> Known.REAL_TIME_PAYMENTS_SUSPENDED
-                    INSTRUCTED_AGENT_SIGNED_OFF -> Known.INSTRUCTED_AGENT_SIGNED_OFF
-                    PROCESSING_ERROR -> Known.PROCESSING_ERROR
-                    OTHER -> Known.OTHER
-                    else -> throw IncreaseInvalidDataException("Unknown RejectReasonCode: $value")
-                }
+            fun known(): Known = when (this) {
+                ACCOUNT_CLOSED -> Known.ACCOUNT_CLOSED
+                ACCOUNT_BLOCKED -> Known.ACCOUNT_BLOCKED
+                INVALID_CREDITOR_ACCOUNT_TYPE -> Known.INVALID_CREDITOR_ACCOUNT_TYPE
+                INVALID_CREDITOR_ACCOUNT_NUMBER -> Known.INVALID_CREDITOR_ACCOUNT_NUMBER
+                INVALID_CREDITOR_FINANCIAL_INSTITUTION_IDENTIFIER -> Known.INVALID_CREDITOR_FINANCIAL_INSTITUTION_IDENTIFIER
+                END_CUSTOMER_DECEASED -> Known.END_CUSTOMER_DECEASED
+                NARRATIVE -> Known.NARRATIVE
+                TRANSACTION_FORBIDDEN -> Known.TRANSACTION_FORBIDDEN
+                TRANSACTION_TYPE_NOT_SUPPORTED -> Known.TRANSACTION_TYPE_NOT_SUPPORTED
+                UNEXPECTED_AMOUNT -> Known.UNEXPECTED_AMOUNT
+                AMOUNT_EXCEEDS_BANK_LIMITS -> Known.AMOUNT_EXCEEDS_BANK_LIMITS
+                INVALID_CREDITOR_ADDRESS -> Known.INVALID_CREDITOR_ADDRESS
+                UNKNOWN_END_CUSTOMER -> Known.UNKNOWN_END_CUSTOMER
+                INVALID_DEBTOR_ADDRESS -> Known.INVALID_DEBTOR_ADDRESS
+                TIMEOUT -> Known.TIMEOUT
+                UNSUPPORTED_MESSAGE_FOR_RECIPIENT -> Known.UNSUPPORTED_MESSAGE_FOR_RECIPIENT
+                RECIPIENT_CONNECTION_NOT_AVAILABLE -> Known.RECIPIENT_CONNECTION_NOT_AVAILABLE
+                REAL_TIME_PAYMENTS_SUSPENDED -> Known.REAL_TIME_PAYMENTS_SUSPENDED
+                INSTRUCTED_AGENT_SIGNED_OFF -> Known.INSTRUCTED_AGENT_SIGNED_OFF
+                PROCESSING_ERROR -> Known.PROCESSING_ERROR
+                OTHER -> Known.OTHER
+                else -> throw IncreaseInvalidDataException("Unknown RejectReasonCode: $value")
+            }
 
             fun asString(): String = _value().asStringOrThrow()
         }
     }
 
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Status && this.value == other.value
+          return other is Status &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1305,50 +1280,43 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
-                PENDING_RESPONSE -> Value.PENDING_RESPONSE
-                REJECTED -> Value.REJECTED
-                ACCEPTED -> Value.ACCEPTED
-                REFUSED -> Value.REFUSED
-                FULFILLED -> Value.FULFILLED
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
+            PENDING_RESPONSE -> Value.PENDING_RESPONSE
+            REJECTED -> Value.REJECTED
+            ACCEPTED -> Value.ACCEPTED
+            REFUSED -> Value.REFUSED
+            FULFILLED -> Value.FULFILLED
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
-                PENDING_RESPONSE -> Known.PENDING_RESPONSE
-                REJECTED -> Known.REJECTED
-                ACCEPTED -> Known.ACCEPTED
-                REFUSED -> Known.REFUSED
-                FULFILLED -> Known.FULFILLED
-                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-            }
+        fun known(): Known = when (this) {
+            PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
+            PENDING_RESPONSE -> Known.PENDING_RESPONSE
+            REJECTED -> Known.REJECTED
+            ACCEPTED -> Known.ACCEPTED
+            REFUSED -> Known.REFUSED
+            FULFILLED -> Known.FULFILLED
+            else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
     /**
-     * After the request for payment is submitted to Real-Time Payments, this will contain
-     * supplemental details.
+     * After the request for payment is submitted to Real-Time Payments, this will
+     * contain supplemental details.
      */
     @JsonDeserialize(builder = Submission.Builder::class)
     @NoAutoDetect
-    class Submission
-    private constructor(
-        private val paymentInformationIdentification: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
+    class Submission private constructor(private val paymentInformationIdentification: JsonField<String>, private val additionalProperties: Map<String, JsonValue>, ) {
 
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
 
         /** The Real-Time Payments payment information identification of the request. */
-        fun paymentInformationIdentification(): String =
-            paymentInformationIdentification.getRequired("payment_information_identification")
+        fun paymentInformationIdentification(): String = paymentInformationIdentification.getRequired("payment_information_identification")
 
         /** The Real-Time Payments payment information identification of the request. */
         @JsonProperty("payment_information_identification")
@@ -1361,36 +1329,36 @@ private constructor(
 
         fun validate(): Submission = apply {
             if (!validated) {
-                paymentInformationIdentification()
-                validated = true
+              paymentInformationIdentification()
+              validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Submission &&
-                this.paymentInformationIdentification == other.paymentInformationIdentification &&
-                this.additionalProperties == other.additionalProperties
+          return other is Submission &&
+              this.paymentInformationIdentification == other.paymentInformationIdentification &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(paymentInformationIdentification, additionalProperties)
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(paymentInformationIdentification, additionalProperties)
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "Submission{paymentInformationIdentification=$paymentInformationIdentification, additionalProperties=$additionalProperties}"
+        override fun toString() = "Submission{paymentInformationIdentification=$paymentInformationIdentification, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         class Builder {
@@ -1405,15 +1373,14 @@ private constructor(
             }
 
             /** The Real-Time Payments payment information identification of the request. */
-            fun paymentInformationIdentification(paymentInformationIdentification: String) =
-                paymentInformationIdentification(JsonField.of(paymentInformationIdentification))
+            fun paymentInformationIdentification(paymentInformationIdentification: String) = paymentInformationIdentification(JsonField.of(paymentInformationIdentification))
 
             /** The Real-Time Payments payment information identification of the request. */
             @JsonProperty("payment_information_identification")
             @ExcludeMissing
-            fun paymentInformationIdentification(
-                paymentInformationIdentification: JsonField<String>
-            ) = apply { this.paymentInformationIdentification = paymentInformationIdentification }
+            fun paymentInformationIdentification(paymentInformationIdentification: JsonField<String>) = apply {
+                this.paymentInformationIdentification = paymentInformationIdentification
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1429,25 +1396,22 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Submission =
-                Submission(paymentInformationIdentification, additionalProperties.toUnmodifiable())
+            fun build(): Submission = Submission(paymentInformationIdentification, additionalProperties.toUnmodifiable())
         }
     }
 
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Type && this.value == other.value
+          return other is Type &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1456,9 +1420,7 @@ private constructor(
 
         companion object {
 
-            @JvmField
-            val REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT =
-                Type(JsonField.of("real_time_payments_request_for_payment"))
+            @JvmField val REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT = Type(JsonField.of("real_time_payments_request_for_payment"))
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }
@@ -1472,19 +1434,15 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT ->
-                    Value.REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT -> Value.REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT ->
-                    Known.REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT
-                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-            }
+        fun known(): Known = when (this) {
+            REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT -> Known.REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT
+            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }

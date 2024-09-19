@@ -2,29 +2,55 @@
 
 package com.increase.api.models
 
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.models.*
+import com.fasterxml.jackson.annotation.JsonAnyGetter
+import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import org.apache.hc.core5.http.ContentType
+import java.time.LocalDate
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Objects
+import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.MultipartFormValue
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.Enum
+import com.increase.api.core.ContentTypes
+import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.models.*
 
-class CardPurchaseSupplementRetrieveParams
-constructor(
-    private val cardPurchaseSupplementId: String,
-    private val additionalQueryParams: Map<String, List<String>>,
-    private val additionalHeaders: Map<String, List<String>>,
-) {
+class CardPurchaseSupplementRetrieveParams constructor(private val cardPurchaseSupplementId: String, private val additionalQueryParams: Map<String, List<String>>, private val additionalHeaders: Map<String, List<String>>, ) {
 
     fun cardPurchaseSupplementId(): String = cardPurchaseSupplementId
 
-    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic
+    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
-    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic
+    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     fun getPathParam(index: Int): String {
-        return when (index) {
-            0 -> cardPurchaseSupplementId
-            else -> ""
-        }
+      return when (index) {
+          0 -> cardPurchaseSupplementId
+          else -> ""
+      }
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
@@ -32,32 +58,32 @@ constructor(
     fun _additionalHeaders(): Map<String, List<String>> = additionalHeaders
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is CardPurchaseSupplementRetrieveParams &&
-            this.cardPurchaseSupplementId == other.cardPurchaseSupplementId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+      return other is CardPurchaseSupplementRetrieveParams &&
+          this.cardPurchaseSupplementId == other.cardPurchaseSupplementId &&
+          this.additionalQueryParams == other.additionalQueryParams &&
+          this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            cardPurchaseSupplementId,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+      return Objects.hash(
+          cardPurchaseSupplementId,
+          additionalQueryParams,
+          additionalHeaders,
+      )
     }
 
-    override fun toString() =
-        "CardPurchaseSupplementRetrieveParams{cardPurchaseSupplementId=$cardPurchaseSupplementId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+    override fun toString() = "CardPurchaseSupplementRetrieveParams{cardPurchaseSupplementId=$cardPurchaseSupplementId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -68,11 +94,8 @@ constructor(
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(
-            cardPurchaseSupplementRetrieveParams: CardPurchaseSupplementRetrieveParams
-        ) = apply {
-            this.cardPurchaseSupplementId =
-                cardPurchaseSupplementRetrieveParams.cardPurchaseSupplementId
+        internal fun from(cardPurchaseSupplementRetrieveParams: CardPurchaseSupplementRetrieveParams) = apply {
+            this.cardPurchaseSupplementId = cardPurchaseSupplementRetrieveParams.cardPurchaseSupplementId
             additionalQueryParams(cardPurchaseSupplementRetrieveParams.additionalQueryParams)
             additionalHeaders(cardPurchaseSupplementRetrieveParams.additionalHeaders)
         }
@@ -120,15 +143,16 @@ constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
+        fun removeHeader(name: String) = apply {
+            this.additionalHeaders.put(name, mutableListOf())
+        }
 
-        fun build(): CardPurchaseSupplementRetrieveParams =
-            CardPurchaseSupplementRetrieveParams(
-                checkNotNull(cardPurchaseSupplementId) {
-                    "`cardPurchaseSupplementId` is required but was not set"
-                },
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            )
+        fun build(): CardPurchaseSupplementRetrieveParams = CardPurchaseSupplementRetrieveParams(
+            checkNotNull(cardPurchaseSupplementId) {
+                "`cardPurchaseSupplementId` is required but was not set"
+            },
+            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+        )
     }
 }

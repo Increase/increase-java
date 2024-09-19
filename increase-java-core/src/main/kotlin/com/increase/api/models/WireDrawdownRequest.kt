@@ -5,48 +5,64 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.Enum
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.errors.IncreaseInvalidDataException
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import java.time.LocalDate
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.JsonNull
+import com.increase.api.core.JsonField
+import com.increase.api.core.Enum
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.errors.IncreaseInvalidDataException
 
 /**
- * Wire drawdown requests enable you to request that someone else send you a wire. This feature is
- * in beta; reach out to [support@increase.com](mailto:support@increase.com) to learn more.
+ * Wire drawdown requests enable you to request that someone else send you a wire.
+ * This feature is in beta; reach out to
+ * [support@increase.com](mailto:support@increase.com) to learn more.
  */
 @JsonDeserialize(builder = WireDrawdownRequest.Builder::class)
 @NoAutoDetect
-class WireDrawdownRequest
-private constructor(
-    private val accountNumberId: JsonField<String>,
-    private val amount: JsonField<Long>,
-    private val currency: JsonField<String>,
-    private val fulfillmentInboundWireTransferId: JsonField<String>,
-    private val id: JsonField<String>,
-    private val idempotencyKey: JsonField<String>,
-    private val messageToRecipient: JsonField<String>,
-    private val originatorAddressLine1: JsonField<String>,
-    private val originatorAddressLine2: JsonField<String>,
-    private val originatorAddressLine3: JsonField<String>,
-    private val originatorName: JsonField<String>,
-    private val recipientAccountNumber: JsonField<String>,
-    private val recipientAddressLine1: JsonField<String>,
-    private val recipientAddressLine2: JsonField<String>,
-    private val recipientAddressLine3: JsonField<String>,
-    private val recipientName: JsonField<String>,
-    private val recipientRoutingNumber: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val submission: JsonField<Submission>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+class WireDrawdownRequest private constructor(
+  private val accountNumberId: JsonField<String>,
+  private val amount: JsonField<Long>,
+  private val currency: JsonField<String>,
+  private val fulfillmentInboundWireTransferId: JsonField<String>,
+  private val id: JsonField<String>,
+  private val idempotencyKey: JsonField<String>,
+  private val messageToRecipient: JsonField<String>,
+  private val originatorAddressLine1: JsonField<String>,
+  private val originatorAddressLine2: JsonField<String>,
+  private val originatorAddressLine3: JsonField<String>,
+  private val originatorName: JsonField<String>,
+  private val recipientAccountNumber: JsonField<String>,
+  private val recipientAddressLine1: JsonField<String>,
+  private val recipientAddressLine2: JsonField<String>,
+  private val recipientAddressLine3: JsonField<String>,
+  private val recipientName: JsonField<String>,
+  private val recipientRoutingNumber: JsonField<String>,
+  private val status: JsonField<Status>,
+  private val submission: JsonField<Submission>,
+  private val type: JsonField<Type>,
+  private val additionalProperties: Map<String, JsonValue>,
+
 ) {
 
     private var validated: Boolean = false
@@ -54,7 +70,8 @@ private constructor(
     private var hashCode: Int = 0
 
     /**
-     * The Account Number to which the recipient of this request is being requested to send funds.
+     * The Account Number to which the recipient of this request is being requested to
+     * send funds.
      */
     fun accountNumberId(): String = accountNumberId.getRequired("account_number_id")
 
@@ -62,82 +79,68 @@ private constructor(
     fun amount(): Long = amount.getRequired("amount")
 
     /**
-     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the amount being requested.
-     * Will always be "USD".
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the amount being
+     * requested. Will always be "USD".
      */
     fun currency(): String = currency.getRequired("currency")
 
     /**
-     * If the recipient fulfills the drawdown request by sending funds, then this will be the
-     * identifier of the corresponding Transaction.
+     * If the recipient fulfills the drawdown request by sending funds, then this will
+     * be the identifier of the corresponding Transaction.
      */
-    fun fulfillmentInboundWireTransferId(): Optional<String> =
-        Optional.ofNullable(
-            fulfillmentInboundWireTransferId.getNullable("fulfillment_inbound_wire_transfer_id")
-        )
+    fun fulfillmentInboundWireTransferId(): Optional<String> = Optional.ofNullable(fulfillmentInboundWireTransferId.getNullable("fulfillment_inbound_wire_transfer_id"))
 
     /** The Wire drawdown request identifier. */
     fun id(): String = id.getRequired("id")
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across
+     * Increase and is used to ensure that a request is only processed once. Learn more
+     * about [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
     /** The message the recipient will see as part of the drawdown request. */
     fun messageToRecipient(): String = messageToRecipient.getRequired("message_to_recipient")
 
     /** The originator's address line 1. */
-    fun originatorAddressLine1(): Optional<String> =
-        Optional.ofNullable(originatorAddressLine1.getNullable("originator_address_line1"))
+    fun originatorAddressLine1(): Optional<String> = Optional.ofNullable(originatorAddressLine1.getNullable("originator_address_line1"))
 
     /** The originator's address line 2. */
-    fun originatorAddressLine2(): Optional<String> =
-        Optional.ofNullable(originatorAddressLine2.getNullable("originator_address_line2"))
+    fun originatorAddressLine2(): Optional<String> = Optional.ofNullable(originatorAddressLine2.getNullable("originator_address_line2"))
 
     /** The originator's address line 3. */
-    fun originatorAddressLine3(): Optional<String> =
-        Optional.ofNullable(originatorAddressLine3.getNullable("originator_address_line3"))
+    fun originatorAddressLine3(): Optional<String> = Optional.ofNullable(originatorAddressLine3.getNullable("originator_address_line3"))
 
     /** The originator's name. */
-    fun originatorName(): Optional<String> =
-        Optional.ofNullable(originatorName.getNullable("originator_name"))
+    fun originatorName(): Optional<String> = Optional.ofNullable(originatorName.getNullable("originator_name"))
 
     /** The drawdown request's recipient's account number. */
-    fun recipientAccountNumber(): String =
-        recipientAccountNumber.getRequired("recipient_account_number")
+    fun recipientAccountNumber(): String = recipientAccountNumber.getRequired("recipient_account_number")
 
     /** Line 1 of the drawdown request's recipient's address. */
-    fun recipientAddressLine1(): Optional<String> =
-        Optional.ofNullable(recipientAddressLine1.getNullable("recipient_address_line1"))
+    fun recipientAddressLine1(): Optional<String> = Optional.ofNullable(recipientAddressLine1.getNullable("recipient_address_line1"))
 
     /** Line 2 of the drawdown request's recipient's address. */
-    fun recipientAddressLine2(): Optional<String> =
-        Optional.ofNullable(recipientAddressLine2.getNullable("recipient_address_line2"))
+    fun recipientAddressLine2(): Optional<String> = Optional.ofNullable(recipientAddressLine2.getNullable("recipient_address_line2"))
 
     /** Line 3 of the drawdown request's recipient's address. */
-    fun recipientAddressLine3(): Optional<String> =
-        Optional.ofNullable(recipientAddressLine3.getNullable("recipient_address_line3"))
+    fun recipientAddressLine3(): Optional<String> = Optional.ofNullable(recipientAddressLine3.getNullable("recipient_address_line3"))
 
     /** The drawdown request's recipient's name. */
-    fun recipientName(): Optional<String> =
-        Optional.ofNullable(recipientName.getNullable("recipient_name"))
+    fun recipientName(): Optional<String> = Optional.ofNullable(recipientName.getNullable("recipient_name"))
 
     /** The drawdown request's recipient's routing number. */
-    fun recipientRoutingNumber(): String =
-        recipientRoutingNumber.getRequired("recipient_routing_number")
+    fun recipientRoutingNumber(): String = recipientRoutingNumber.getRequired("recipient_routing_number")
 
     /** The lifecycle status of the drawdown request. */
     fun status(): Status = status.getRequired("status")
 
     /**
-     * After the drawdown request is submitted to Fedwire, this will contain supplemental details.
+     * After the drawdown request is submitted to Fedwire, this will contain
+     * supplemental details.
      */
-    fun submission(): Optional<Submission> =
-        Optional.ofNullable(submission.getNullable("submission"))
+    fun submission(): Optional<Submission> = Optional.ofNullable(submission.getNullable("submission"))
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -146,36 +149,47 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /**
-     * The Account Number to which the recipient of this request is being requested to send funds.
+     * The Account Number to which the recipient of this request is being requested to
+     * send funds.
      */
-    @JsonProperty("account_number_id") @ExcludeMissing fun _accountNumberId() = accountNumberId
+    @JsonProperty("account_number_id")
+    @ExcludeMissing
+    fun _accountNumberId() = accountNumberId
 
     /** The amount being requested in cents. */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+    @JsonProperty("amount")
+    @ExcludeMissing
+    fun _amount() = amount
 
     /**
-     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the amount being requested.
-     * Will always be "USD".
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the amount being
+     * requested. Will always be "USD".
      */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+    @JsonProperty("currency")
+    @ExcludeMissing
+    fun _currency() = currency
 
     /**
-     * If the recipient fulfills the drawdown request by sending funds, then this will be the
-     * identifier of the corresponding Transaction.
+     * If the recipient fulfills the drawdown request by sending funds, then this will
+     * be the identifier of the corresponding Transaction.
      */
     @JsonProperty("fulfillment_inbound_wire_transfer_id")
     @ExcludeMissing
     fun _fulfillmentInboundWireTransferId() = fulfillmentInboundWireTransferId
 
     /** The Wire drawdown request identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id")
+    @ExcludeMissing
+    fun _id() = id
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across
+     * Increase and is used to ensure that a request is only processed once. Learn more
+     * about [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    fun _idempotencyKey() = idempotencyKey
 
     /** The message the recipient will see as part of the drawdown request. */
     @JsonProperty("message_to_recipient")
@@ -198,7 +212,9 @@ private constructor(
     fun _originatorAddressLine3() = originatorAddressLine3
 
     /** The originator's name. */
-    @JsonProperty("originator_name") @ExcludeMissing fun _originatorName() = originatorName
+    @JsonProperty("originator_name")
+    @ExcludeMissing
+    fun _originatorName() = originatorName
 
     /** The drawdown request's recipient's account number. */
     @JsonProperty("recipient_account_number")
@@ -221,7 +237,9 @@ private constructor(
     fun _recipientAddressLine3() = recipientAddressLine3
 
     /** The drawdown request's recipient's name. */
-    @JsonProperty("recipient_name") @ExcludeMissing fun _recipientName() = recipientName
+    @JsonProperty("recipient_name")
+    @ExcludeMissing
+    fun _recipientName() = recipientName
 
     /** The drawdown request's recipient's routing number. */
     @JsonProperty("recipient_routing_number")
@@ -229,18 +247,25 @@ private constructor(
     fun _recipientRoutingNumber() = recipientRoutingNumber
 
     /** The lifecycle status of the drawdown request. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status")
+    @ExcludeMissing
+    fun _status() = status
 
     /**
-     * After the drawdown request is submitted to Fedwire, this will contain supplemental details.
+     * After the drawdown request is submitted to Fedwire, this will contain
+     * supplemental details.
      */
-    @JsonProperty("submission") @ExcludeMissing fun _submission() = submission
+    @JsonProperty("submission")
+    @ExcludeMissing
+    fun _submission() = submission
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `wire_drawdown_request`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type")
+    @ExcludeMissing
+    fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -248,97 +273,96 @@ private constructor(
 
     fun validate(): WireDrawdownRequest = apply {
         if (!validated) {
-            accountNumberId()
-            amount()
-            currency()
-            fulfillmentInboundWireTransferId()
-            id()
-            idempotencyKey()
-            messageToRecipient()
-            originatorAddressLine1()
-            originatorAddressLine2()
-            originatorAddressLine3()
-            originatorName()
-            recipientAccountNumber()
-            recipientAddressLine1()
-            recipientAddressLine2()
-            recipientAddressLine3()
-            recipientName()
-            recipientRoutingNumber()
-            status()
-            submission().map { it.validate() }
-            type()
-            validated = true
+          accountNumberId()
+          amount()
+          currency()
+          fulfillmentInboundWireTransferId()
+          id()
+          idempotencyKey()
+          messageToRecipient()
+          originatorAddressLine1()
+          originatorAddressLine2()
+          originatorAddressLine3()
+          originatorName()
+          recipientAccountNumber()
+          recipientAddressLine1()
+          recipientAddressLine2()
+          recipientAddressLine3()
+          recipientName()
+          recipientRoutingNumber()
+          status()
+          submission().map { it.validate() }
+          type()
+          validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is WireDrawdownRequest &&
-            this.accountNumberId == other.accountNumberId &&
-            this.amount == other.amount &&
-            this.currency == other.currency &&
-            this.fulfillmentInboundWireTransferId == other.fulfillmentInboundWireTransferId &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.messageToRecipient == other.messageToRecipient &&
-            this.originatorAddressLine1 == other.originatorAddressLine1 &&
-            this.originatorAddressLine2 == other.originatorAddressLine2 &&
-            this.originatorAddressLine3 == other.originatorAddressLine3 &&
-            this.originatorName == other.originatorName &&
-            this.recipientAccountNumber == other.recipientAccountNumber &&
-            this.recipientAddressLine1 == other.recipientAddressLine1 &&
-            this.recipientAddressLine2 == other.recipientAddressLine2 &&
-            this.recipientAddressLine3 == other.recipientAddressLine3 &&
-            this.recipientName == other.recipientName &&
-            this.recipientRoutingNumber == other.recipientRoutingNumber &&
-            this.status == other.status &&
-            this.submission == other.submission &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
+      return other is WireDrawdownRequest &&
+          this.accountNumberId == other.accountNumberId &&
+          this.amount == other.amount &&
+          this.currency == other.currency &&
+          this.fulfillmentInboundWireTransferId == other.fulfillmentInboundWireTransferId &&
+          this.id == other.id &&
+          this.idempotencyKey == other.idempotencyKey &&
+          this.messageToRecipient == other.messageToRecipient &&
+          this.originatorAddressLine1 == other.originatorAddressLine1 &&
+          this.originatorAddressLine2 == other.originatorAddressLine2 &&
+          this.originatorAddressLine3 == other.originatorAddressLine3 &&
+          this.originatorName == other.originatorName &&
+          this.recipientAccountNumber == other.recipientAccountNumber &&
+          this.recipientAddressLine1 == other.recipientAddressLine1 &&
+          this.recipientAddressLine2 == other.recipientAddressLine2 &&
+          this.recipientAddressLine3 == other.recipientAddressLine3 &&
+          this.recipientName == other.recipientName &&
+          this.recipientRoutingNumber == other.recipientRoutingNumber &&
+          this.status == other.status &&
+          this.submission == other.submission &&
+          this.type == other.type &&
+          this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    accountNumberId,
-                    amount,
-                    currency,
-                    fulfillmentInboundWireTransferId,
-                    id,
-                    idempotencyKey,
-                    messageToRecipient,
-                    originatorAddressLine1,
-                    originatorAddressLine2,
-                    originatorAddressLine3,
-                    originatorName,
-                    recipientAccountNumber,
-                    recipientAddressLine1,
-                    recipientAddressLine2,
-                    recipientAddressLine3,
-                    recipientName,
-                    recipientRoutingNumber,
-                    status,
-                    submission,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
+      if (hashCode == 0) {
+        hashCode = Objects.hash(
+            accountNumberId,
+            amount,
+            currency,
+            fulfillmentInboundWireTransferId,
+            id,
+            idempotencyKey,
+            messageToRecipient,
+            originatorAddressLine1,
+            originatorAddressLine2,
+            originatorAddressLine3,
+            originatorName,
+            recipientAccountNumber,
+            recipientAddressLine1,
+            recipientAddressLine2,
+            recipientAddressLine3,
+            recipientName,
+            recipientRoutingNumber,
+            status,
+            submission,
+            type,
+            additionalProperties,
+        )
+      }
+      return hashCode
     }
 
-    override fun toString() =
-        "WireDrawdownRequest{accountNumberId=$accountNumberId, amount=$amount, currency=$currency, fulfillmentInboundWireTransferId=$fulfillmentInboundWireTransferId, id=$id, idempotencyKey=$idempotencyKey, messageToRecipient=$messageToRecipient, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, recipientAccountNumber=$recipientAccountNumber, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() = "WireDrawdownRequest{accountNumberId=$accountNumberId, amount=$amount, currency=$currency, fulfillmentInboundWireTransferId=$fulfillmentInboundWireTransferId, id=$id, idempotencyKey=$idempotencyKey, messageToRecipient=$messageToRecipient, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, recipientAccountNumber=$recipientAccountNumber, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     class Builder {
@@ -370,8 +394,7 @@ private constructor(
             this.accountNumberId = wireDrawdownRequest.accountNumberId
             this.amount = wireDrawdownRequest.amount
             this.currency = wireDrawdownRequest.currency
-            this.fulfillmentInboundWireTransferId =
-                wireDrawdownRequest.fulfillmentInboundWireTransferId
+            this.fulfillmentInboundWireTransferId = wireDrawdownRequest.fulfillmentInboundWireTransferId
             this.id = wireDrawdownRequest.id
             this.idempotencyKey = wireDrawdownRequest.idempotencyKey
             this.messageToRecipient = wireDrawdownRequest.messageToRecipient
@@ -392,15 +415,14 @@ private constructor(
         }
 
         /**
-         * The Account Number to which the recipient of this request is being requested to send
-         * funds.
+         * The Account Number to which the recipient of this request is being requested to
+         * send funds.
          */
-        fun accountNumberId(accountNumberId: String) =
-            accountNumberId(JsonField.of(accountNumberId))
+        fun accountNumberId(accountNumberId: String) = accountNumberId(JsonField.of(accountNumberId))
 
         /**
-         * The Account Number to which the recipient of this request is being requested to send
-         * funds.
+         * The Account Number to which the recipient of this request is being requested to
+         * send funds.
          */
         @JsonProperty("account_number_id")
         @ExcludeMissing
@@ -414,7 +436,9 @@ private constructor(
         /** The amount being requested in cents. */
         @JsonProperty("amount")
         @ExcludeMissing
-        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+        fun amount(amount: JsonField<Long>) = apply {
+            this.amount = amount
+        }
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the amount being
@@ -428,43 +452,47 @@ private constructor(
          */
         @JsonProperty("currency")
         @ExcludeMissing
-        fun currency(currency: JsonField<String>) = apply { this.currency = currency }
+        fun currency(currency: JsonField<String>) = apply {
+            this.currency = currency
+        }
 
         /**
-         * If the recipient fulfills the drawdown request by sending funds, then this will be the
-         * identifier of the corresponding Transaction.
+         * If the recipient fulfills the drawdown request by sending funds, then this will
+         * be the identifier of the corresponding Transaction.
          */
-        fun fulfillmentInboundWireTransferId(fulfillmentInboundWireTransferId: String) =
-            fulfillmentInboundWireTransferId(JsonField.of(fulfillmentInboundWireTransferId))
+        fun fulfillmentInboundWireTransferId(fulfillmentInboundWireTransferId: String) = fulfillmentInboundWireTransferId(JsonField.of(fulfillmentInboundWireTransferId))
 
         /**
-         * If the recipient fulfills the drawdown request by sending funds, then this will be the
-         * identifier of the corresponding Transaction.
+         * If the recipient fulfills the drawdown request by sending funds, then this will
+         * be the identifier of the corresponding Transaction.
          */
         @JsonProperty("fulfillment_inbound_wire_transfer_id")
         @ExcludeMissing
-        fun fulfillmentInboundWireTransferId(fulfillmentInboundWireTransferId: JsonField<String>) =
-            apply {
-                this.fulfillmentInboundWireTransferId = fulfillmentInboundWireTransferId
-            }
+        fun fulfillmentInboundWireTransferId(fulfillmentInboundWireTransferId: JsonField<String>) = apply {
+            this.fulfillmentInboundWireTransferId = fulfillmentInboundWireTransferId
+        }
 
         /** The Wire drawdown request identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Wire drawdown request identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        @JsonProperty("id")
+        @ExcludeMissing
+        fun id(id: JsonField<String>) = apply {
+            this.id = id
+        }
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across
+         * Increase and is used to ensure that a request is only processed once. Learn more
+         * about [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across
+         * Increase and is used to ensure that a request is only processed once. Learn more
+         * about [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         @JsonProperty("idempotency_key")
         @ExcludeMissing
@@ -473,8 +501,7 @@ private constructor(
         }
 
         /** The message the recipient will see as part of the drawdown request. */
-        fun messageToRecipient(messageToRecipient: String) =
-            messageToRecipient(JsonField.of(messageToRecipient))
+        fun messageToRecipient(messageToRecipient: String) = messageToRecipient(JsonField.of(messageToRecipient))
 
         /** The message the recipient will see as part of the drawdown request. */
         @JsonProperty("message_to_recipient")
@@ -484,8 +511,7 @@ private constructor(
         }
 
         /** The originator's address line 1. */
-        fun originatorAddressLine1(originatorAddressLine1: String) =
-            originatorAddressLine1(JsonField.of(originatorAddressLine1))
+        fun originatorAddressLine1(originatorAddressLine1: String) = originatorAddressLine1(JsonField.of(originatorAddressLine1))
 
         /** The originator's address line 1. */
         @JsonProperty("originator_address_line1")
@@ -495,8 +521,7 @@ private constructor(
         }
 
         /** The originator's address line 2. */
-        fun originatorAddressLine2(originatorAddressLine2: String) =
-            originatorAddressLine2(JsonField.of(originatorAddressLine2))
+        fun originatorAddressLine2(originatorAddressLine2: String) = originatorAddressLine2(JsonField.of(originatorAddressLine2))
 
         /** The originator's address line 2. */
         @JsonProperty("originator_address_line2")
@@ -506,8 +531,7 @@ private constructor(
         }
 
         /** The originator's address line 3. */
-        fun originatorAddressLine3(originatorAddressLine3: String) =
-            originatorAddressLine3(JsonField.of(originatorAddressLine3))
+        fun originatorAddressLine3(originatorAddressLine3: String) = originatorAddressLine3(JsonField.of(originatorAddressLine3))
 
         /** The originator's address line 3. */
         @JsonProperty("originator_address_line3")
@@ -527,8 +551,7 @@ private constructor(
         }
 
         /** The drawdown request's recipient's account number. */
-        fun recipientAccountNumber(recipientAccountNumber: String) =
-            recipientAccountNumber(JsonField.of(recipientAccountNumber))
+        fun recipientAccountNumber(recipientAccountNumber: String) = recipientAccountNumber(JsonField.of(recipientAccountNumber))
 
         /** The drawdown request's recipient's account number. */
         @JsonProperty("recipient_account_number")
@@ -538,8 +561,7 @@ private constructor(
         }
 
         /** Line 1 of the drawdown request's recipient's address. */
-        fun recipientAddressLine1(recipientAddressLine1: String) =
-            recipientAddressLine1(JsonField.of(recipientAddressLine1))
+        fun recipientAddressLine1(recipientAddressLine1: String) = recipientAddressLine1(JsonField.of(recipientAddressLine1))
 
         /** Line 1 of the drawdown request's recipient's address. */
         @JsonProperty("recipient_address_line1")
@@ -549,8 +571,7 @@ private constructor(
         }
 
         /** Line 2 of the drawdown request's recipient's address. */
-        fun recipientAddressLine2(recipientAddressLine2: String) =
-            recipientAddressLine2(JsonField.of(recipientAddressLine2))
+        fun recipientAddressLine2(recipientAddressLine2: String) = recipientAddressLine2(JsonField.of(recipientAddressLine2))
 
         /** Line 2 of the drawdown request's recipient's address. */
         @JsonProperty("recipient_address_line2")
@@ -560,8 +581,7 @@ private constructor(
         }
 
         /** Line 3 of the drawdown request's recipient's address. */
-        fun recipientAddressLine3(recipientAddressLine3: String) =
-            recipientAddressLine3(JsonField.of(recipientAddressLine3))
+        fun recipientAddressLine3(recipientAddressLine3: String) = recipientAddressLine3(JsonField.of(recipientAddressLine3))
 
         /** Line 3 of the drawdown request's recipient's address. */
         @JsonProperty("recipient_address_line3")
@@ -581,8 +601,7 @@ private constructor(
         }
 
         /** The drawdown request's recipient's routing number. */
-        fun recipientRoutingNumber(recipientRoutingNumber: String) =
-            recipientRoutingNumber(JsonField.of(recipientRoutingNumber))
+        fun recipientRoutingNumber(recipientRoutingNumber: String) = recipientRoutingNumber(JsonField.of(recipientRoutingNumber))
 
         /** The drawdown request's recipient's routing number. */
         @JsonProperty("recipient_routing_number")
@@ -597,21 +616,25 @@ private constructor(
         /** The lifecycle status of the drawdown request. */
         @JsonProperty("status")
         @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply { this.status = status }
+        fun status(status: JsonField<Status>) = apply {
+            this.status = status
+        }
 
         /**
-         * After the drawdown request is submitted to Fedwire, this will contain supplemental
-         * details.
+         * After the drawdown request is submitted to Fedwire, this will contain
+         * supplemental details.
          */
         fun submission(submission: Submission) = submission(JsonField.of(submission))
 
         /**
-         * After the drawdown request is submitted to Fedwire, this will contain supplemental
-         * details.
+         * After the drawdown request is submitted to Fedwire, this will contain
+         * supplemental details.
          */
         @JsonProperty("submission")
         @ExcludeMissing
-        fun submission(submission: JsonField<Submission>) = apply { this.submission = submission }
+        fun submission(submission: JsonField<Submission>) = apply {
+            this.submission = submission
+        }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -625,7 +648,9 @@ private constructor(
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        fun type(type: JsonField<Type>) = apply {
+            this.type = type
+        }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -641,46 +666,43 @@ private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): WireDrawdownRequest =
-            WireDrawdownRequest(
-                accountNumberId,
-                amount,
-                currency,
-                fulfillmentInboundWireTransferId,
-                id,
-                idempotencyKey,
-                messageToRecipient,
-                originatorAddressLine1,
-                originatorAddressLine2,
-                originatorAddressLine3,
-                originatorName,
-                recipientAccountNumber,
-                recipientAddressLine1,
-                recipientAddressLine2,
-                recipientAddressLine3,
-                recipientName,
-                recipientRoutingNumber,
-                status,
-                submission,
-                type,
-                additionalProperties.toUnmodifiable(),
-            )
+        fun build(): WireDrawdownRequest = WireDrawdownRequest(
+            accountNumberId,
+            amount,
+            currency,
+            fulfillmentInboundWireTransferId,
+            id,
+            idempotencyKey,
+            messageToRecipient,
+            originatorAddressLine1,
+            originatorAddressLine2,
+            originatorAddressLine3,
+            originatorName,
+            recipientAccountNumber,
+            recipientAddressLine1,
+            recipientAddressLine2,
+            recipientAddressLine3,
+            recipientName,
+            recipientRoutingNumber,
+            status,
+            submission,
+            type,
+            additionalProperties.toUnmodifiable(),
+        )
     }
 
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Status && this.value == other.value
+          return other is Status &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -715,52 +737,46 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
-                PENDING_RESPONSE -> Value.PENDING_RESPONSE
-                FULFILLED -> Value.FULFILLED
-                REFUSED -> Value.REFUSED
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
+            PENDING_RESPONSE -> Value.PENDING_RESPONSE
+            FULFILLED -> Value.FULFILLED
+            REFUSED -> Value.REFUSED
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
-                PENDING_RESPONSE -> Known.PENDING_RESPONSE
-                FULFILLED -> Known.FULFILLED
-                REFUSED -> Known.REFUSED
-                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-            }
+        fun known(): Known = when (this) {
+            PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
+            PENDING_RESPONSE -> Known.PENDING_RESPONSE
+            FULFILLED -> Known.FULFILLED
+            REFUSED -> Known.REFUSED
+            else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
     /**
-     * After the drawdown request is submitted to Fedwire, this will contain supplemental details.
+     * After the drawdown request is submitted to Fedwire, this will contain
+     * supplemental details.
      */
     @JsonDeserialize(builder = Submission.Builder::class)
     @NoAutoDetect
-    class Submission
-    private constructor(
-        private val inputMessageAccountabilityData: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
+    class Submission private constructor(private val inputMessageAccountabilityData: JsonField<String>, private val additionalProperties: Map<String, JsonValue>, ) {
 
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
 
         /**
-         * The input message accountability data (IMAD) uniquely identifying the submission with
-         * Fedwire.
+         * The input message accountability data (IMAD) uniquely identifying the submission
+         * with Fedwire.
          */
-        fun inputMessageAccountabilityData(): String =
-            inputMessageAccountabilityData.getRequired("input_message_accountability_data")
+        fun inputMessageAccountabilityData(): String = inputMessageAccountabilityData.getRequired("input_message_accountability_data")
 
         /**
-         * The input message accountability data (IMAD) uniquely identifying the submission with
-         * Fedwire.
+         * The input message accountability data (IMAD) uniquely identifying the submission
+         * with Fedwire.
          */
         @JsonProperty("input_message_accountability_data")
         @ExcludeMissing
@@ -772,36 +788,36 @@ private constructor(
 
         fun validate(): Submission = apply {
             if (!validated) {
-                inputMessageAccountabilityData()
-                validated = true
+              inputMessageAccountabilityData()
+              validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Submission &&
-                this.inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
-                this.additionalProperties == other.additionalProperties
+          return other is Submission &&
+              this.inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(inputMessageAccountabilityData, additionalProperties)
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(inputMessageAccountabilityData, additionalProperties)
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "Submission{inputMessageAccountabilityData=$inputMessageAccountabilityData, additionalProperties=$additionalProperties}"
+        override fun toString() = "Submission{inputMessageAccountabilityData=$inputMessageAccountabilityData, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         class Builder {
@@ -816,22 +832,20 @@ private constructor(
             }
 
             /**
-             * The input message accountability data (IMAD) uniquely identifying the submission with
-             * Fedwire.
+             * The input message accountability data (IMAD) uniquely identifying the submission
+             * with Fedwire.
              */
-            fun inputMessageAccountabilityData(inputMessageAccountabilityData: String) =
-                inputMessageAccountabilityData(JsonField.of(inputMessageAccountabilityData))
+            fun inputMessageAccountabilityData(inputMessageAccountabilityData: String) = inputMessageAccountabilityData(JsonField.of(inputMessageAccountabilityData))
 
             /**
-             * The input message accountability data (IMAD) uniquely identifying the submission with
-             * Fedwire.
+             * The input message accountability data (IMAD) uniquely identifying the submission
+             * with Fedwire.
              */
             @JsonProperty("input_message_accountability_data")
             @ExcludeMissing
-            fun inputMessageAccountabilityData(inputMessageAccountabilityData: JsonField<String>) =
-                apply {
-                    this.inputMessageAccountabilityData = inputMessageAccountabilityData
-                }
+            fun inputMessageAccountabilityData(inputMessageAccountabilityData: JsonField<String>) = apply {
+                this.inputMessageAccountabilityData = inputMessageAccountabilityData
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -847,25 +861,22 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Submission =
-                Submission(inputMessageAccountabilityData, additionalProperties.toUnmodifiable())
+            fun build(): Submission = Submission(inputMessageAccountabilityData, additionalProperties.toUnmodifiable())
         }
     }
 
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Type && this.value == other.value
+          return other is Type &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -888,17 +899,15 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                WIRE_DRAWDOWN_REQUEST -> Value.WIRE_DRAWDOWN_REQUEST
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            WIRE_DRAWDOWN_REQUEST -> Value.WIRE_DRAWDOWN_REQUEST
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                WIRE_DRAWDOWN_REQUEST -> Known.WIRE_DRAWDOWN_REQUEST
-                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-            }
+        fun known(): Known = when (this) {
+            WIRE_DRAWDOWN_REQUEST -> Known.WIRE_DRAWDOWN_REQUEST
+            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
