@@ -5,58 +5,71 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.Enum
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.errors.IncreaseInvalidDataException
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import java.time.LocalDate
 import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.JsonNull
+import com.increase.api.core.JsonField
+import com.increase.api.core.Enum
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.errors.IncreaseInvalidDataException
 
 /**
- * Wire transfers move funds between your Increase account and any other account accessible by
- * Fedwire.
+ * Wire transfers move funds between your Increase account and any other account
+ * accessible by Fedwire.
  */
 @JsonDeserialize(builder = WireTransfer.Builder::class)
 @NoAutoDetect
-class WireTransfer
-private constructor(
-    private val accountId: JsonField<String>,
-    private val accountNumber: JsonField<String>,
-    private val amount: JsonField<Long>,
-    private val approval: JsonField<Approval>,
-    private val beneficiaryAddressLine1: JsonField<String>,
-    private val beneficiaryAddressLine2: JsonField<String>,
-    private val beneficiaryAddressLine3: JsonField<String>,
-    private val beneficiaryName: JsonField<String>,
-    private val cancellation: JsonField<Cancellation>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val createdBy: JsonField<CreatedBy>,
-    private val currency: JsonField<Currency>,
-    private val externalAccountId: JsonField<String>,
-    private val id: JsonField<String>,
-    private val idempotencyKey: JsonField<String>,
-    private val messageToRecipient: JsonField<String>,
-    private val network: JsonField<Network>,
-    private val originatorAddressLine1: JsonField<String>,
-    private val originatorAddressLine2: JsonField<String>,
-    private val originatorAddressLine3: JsonField<String>,
-    private val originatorName: JsonField<String>,
-    private val pendingTransactionId: JsonField<String>,
-    private val reversal: JsonField<Reversal>,
-    private val routingNumber: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val submission: JsonField<Submission>,
-    private val transactionId: JsonField<String>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+class WireTransfer private constructor(
+  private val accountId: JsonField<String>,
+  private val accountNumber: JsonField<String>,
+  private val amount: JsonField<Long>,
+  private val approval: JsonField<Approval>,
+  private val beneficiaryAddressLine1: JsonField<String>,
+  private val beneficiaryAddressLine2: JsonField<String>,
+  private val beneficiaryAddressLine3: JsonField<String>,
+  private val beneficiaryName: JsonField<String>,
+  private val cancellation: JsonField<Cancellation>,
+  private val createdAt: JsonField<OffsetDateTime>,
+  private val createdBy: JsonField<CreatedBy>,
+  private val currency: JsonField<Currency>,
+  private val externalAccountId: JsonField<String>,
+  private val id: JsonField<String>,
+  private val idempotencyKey: JsonField<String>,
+  private val messageToRecipient: JsonField<String>,
+  private val network: JsonField<Network>,
+  private val originatorAddressLine1: JsonField<String>,
+  private val originatorAddressLine2: JsonField<String>,
+  private val originatorAddressLine3: JsonField<String>,
+  private val originatorName: JsonField<String>,
+  private val pendingTransactionId: JsonField<String>,
+  private val reversal: JsonField<Reversal>,
+  private val routingNumber: JsonField<String>,
+  private val status: JsonField<Status>,
+  private val submission: JsonField<Submission>,
+  private val transactionId: JsonField<String>,
+  private val type: JsonField<Type>,
+  private val additionalProperties: Map<String, JsonValue>,
+
 ) {
 
     private var validated: Boolean = false
@@ -73,37 +86,32 @@ private constructor(
     fun amount(): Long = amount.getRequired("amount")
 
     /**
-     * If your account requires approvals for transfers and the transfer was approved, this will
-     * contain details of the approval.
+     * If your account requires approvals for transfers and the transfer was approved,
+     * this will contain details of the approval.
      */
     fun approval(): Optional<Approval> = Optional.ofNullable(approval.getNullable("approval"))
 
     /** The beneficiary's address line 1. */
-    fun beneficiaryAddressLine1(): Optional<String> =
-        Optional.ofNullable(beneficiaryAddressLine1.getNullable("beneficiary_address_line1"))
+    fun beneficiaryAddressLine1(): Optional<String> = Optional.ofNullable(beneficiaryAddressLine1.getNullable("beneficiary_address_line1"))
 
     /** The beneficiary's address line 2. */
-    fun beneficiaryAddressLine2(): Optional<String> =
-        Optional.ofNullable(beneficiaryAddressLine2.getNullable("beneficiary_address_line2"))
+    fun beneficiaryAddressLine2(): Optional<String> = Optional.ofNullable(beneficiaryAddressLine2.getNullable("beneficiary_address_line2"))
 
     /** The beneficiary's address line 3. */
-    fun beneficiaryAddressLine3(): Optional<String> =
-        Optional.ofNullable(beneficiaryAddressLine3.getNullable("beneficiary_address_line3"))
+    fun beneficiaryAddressLine3(): Optional<String> = Optional.ofNullable(beneficiaryAddressLine3.getNullable("beneficiary_address_line3"))
 
     /** The beneficiary's name. */
-    fun beneficiaryName(): Optional<String> =
-        Optional.ofNullable(beneficiaryName.getNullable("beneficiary_name"))
+    fun beneficiaryName(): Optional<String> = Optional.ofNullable(beneficiaryName.getNullable("beneficiary_name"))
 
     /**
-     * If your account requires approvals for transfers and the transfer was not approved, this will
-     * contain details of the cancellation.
+     * If your account requires approvals for transfers and the transfer was not
+     * approved, this will contain details of the cancellation.
      */
-    fun cancellation(): Optional<Cancellation> =
-        Optional.ofNullable(cancellation.getNullable("cancellation"))
+    fun cancellation(): Optional<Cancellation> = Optional.ofNullable(cancellation.getNullable("cancellation"))
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
-     * was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+     * the transfer was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
@@ -111,57 +119,49 @@ private constructor(
     fun createdBy(): Optional<CreatedBy> = Optional.ofNullable(createdBy.getNullable("created_by"))
 
     /**
-     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
-     * wire transfers this is always equal to `usd`.
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's
+     * currency. For wire transfers this is always equal to `usd`.
      */
     fun currency(): Currency = currency.getRequired("currency")
 
     /** The identifier of the External Account the transfer was made to, if any. */
-    fun externalAccountId(): Optional<String> =
-        Optional.ofNullable(externalAccountId.getNullable("external_account_id"))
+    fun externalAccountId(): Optional<String> = Optional.ofNullable(externalAccountId.getNullable("external_account_id"))
 
     /** The wire transfer's identifier. */
     fun id(): String = id.getRequired("id")
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across
+     * Increase and is used to ensure that a request is only processed once. Learn more
+     * about [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
     /** The message that will show on the recipient's bank statement. */
-    fun messageToRecipient(): Optional<String> =
-        Optional.ofNullable(messageToRecipient.getNullable("message_to_recipient"))
+    fun messageToRecipient(): Optional<String> = Optional.ofNullable(messageToRecipient.getNullable("message_to_recipient"))
 
     /** The transfer's network. */
     fun network(): Network = network.getRequired("network")
 
     /** The originator's address line 1. */
-    fun originatorAddressLine1(): Optional<String> =
-        Optional.ofNullable(originatorAddressLine1.getNullable("originator_address_line1"))
+    fun originatorAddressLine1(): Optional<String> = Optional.ofNullable(originatorAddressLine1.getNullable("originator_address_line1"))
 
     /** The originator's address line 2. */
-    fun originatorAddressLine2(): Optional<String> =
-        Optional.ofNullable(originatorAddressLine2.getNullable("originator_address_line2"))
+    fun originatorAddressLine2(): Optional<String> = Optional.ofNullable(originatorAddressLine2.getNullable("originator_address_line2"))
 
     /** The originator's address line 3. */
-    fun originatorAddressLine3(): Optional<String> =
-        Optional.ofNullable(originatorAddressLine3.getNullable("originator_address_line3"))
+    fun originatorAddressLine3(): Optional<String> = Optional.ofNullable(originatorAddressLine3.getNullable("originator_address_line3"))
 
     /** The originator's name. */
-    fun originatorName(): Optional<String> =
-        Optional.ofNullable(originatorName.getNullable("originator_name"))
+    fun originatorName(): Optional<String> = Optional.ofNullable(originatorName.getNullable("originator_name"))
 
     /**
-     * The ID for the pending transaction representing the transfer. A pending transaction is
-     * created when the transfer
+     * The ID for the pending transaction representing the transfer. A pending
+     * transaction is created when the transfer
      * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
      * by someone else in your organization.
      */
-    fun pendingTransactionId(): Optional<String> =
-        Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
+    fun pendingTransactionId(): Optional<String> = Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
 
     /** If your transfer is reversed, this will contain details of the reversal. */
     fun reversal(): Optional<Reversal> = Optional.ofNullable(reversal.getNullable("reversal"))
@@ -172,13 +172,14 @@ private constructor(
     /** The lifecycle status of the transfer. */
     fun status(): Status = status.getRequired("status")
 
-    /** After the transfer is submitted to Fedwire, this will contain supplemental details. */
-    fun submission(): Optional<Submission> =
-        Optional.ofNullable(submission.getNullable("submission"))
+    /**
+     * After the transfer is submitted to Fedwire, this will contain supplemental
+     * details.
+     */
+    fun submission(): Optional<Submission> = Optional.ofNullable(submission.getNullable("submission"))
 
     /** The ID for the transaction funding the transfer. */
-    fun transactionId(): Optional<String> =
-        Optional.ofNullable(transactionId.getNullable("transaction_id"))
+    fun transactionId(): Optional<String> = Optional.ofNullable(transactionId.getNullable("transaction_id"))
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -187,19 +188,27 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The Account to which the transfer belongs. */
-    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+    @JsonProperty("account_id")
+    @ExcludeMissing
+    fun _accountId() = accountId
 
     /** The destination account number. */
-    @JsonProperty("account_number") @ExcludeMissing fun _accountNumber() = accountNumber
+    @JsonProperty("account_number")
+    @ExcludeMissing
+    fun _accountNumber() = accountNumber
 
     /** The transfer amount in USD cents. */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+    @JsonProperty("amount")
+    @ExcludeMissing
+    fun _amount() = amount
 
     /**
-     * If your account requires approvals for transfers and the transfer was approved, this will
-     * contain details of the approval.
+     * If your account requires approvals for transfers and the transfer was approved,
+     * this will contain details of the approval.
      */
-    @JsonProperty("approval") @ExcludeMissing fun _approval() = approval
+    @JsonProperty("approval")
+    @ExcludeMissing
+    fun _approval() = approval
 
     /** The beneficiary's address line 1. */
     @JsonProperty("beneficiary_address_line1")
@@ -217,28 +226,38 @@ private constructor(
     fun _beneficiaryAddressLine3() = beneficiaryAddressLine3
 
     /** The beneficiary's name. */
-    @JsonProperty("beneficiary_name") @ExcludeMissing fun _beneficiaryName() = beneficiaryName
+    @JsonProperty("beneficiary_name")
+    @ExcludeMissing
+    fun _beneficiaryName() = beneficiaryName
 
     /**
-     * If your account requires approvals for transfers and the transfer was not approved, this will
-     * contain details of the cancellation.
+     * If your account requires approvals for transfers and the transfer was not
+     * approved, this will contain details of the cancellation.
      */
-    @JsonProperty("cancellation") @ExcludeMissing fun _cancellation() = cancellation
+    @JsonProperty("cancellation")
+    @ExcludeMissing
+    fun _cancellation() = cancellation
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
-     * was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+     * the transfer was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt() = createdAt
 
     /** What object created the transfer, either via the API or the dashboard. */
-    @JsonProperty("created_by") @ExcludeMissing fun _createdBy() = createdBy
+    @JsonProperty("created_by")
+    @ExcludeMissing
+    fun _createdBy() = createdBy
 
     /**
-     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
-     * wire transfers this is always equal to `usd`.
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's
+     * currency. For wire transfers this is always equal to `usd`.
      */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+    @JsonProperty("currency")
+    @ExcludeMissing
+    fun _currency() = currency
 
     /** The identifier of the External Account the transfer was made to, if any. */
     @JsonProperty("external_account_id")
@@ -246,14 +265,18 @@ private constructor(
     fun _externalAccountId() = externalAccountId
 
     /** The wire transfer's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id")
+    @ExcludeMissing
+    fun _id() = id
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across
+     * Increase and is used to ensure that a request is only processed once. Learn more
+     * about [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    fun _idempotencyKey() = idempotencyKey
 
     /** The message that will show on the recipient's bank statement. */
     @JsonProperty("message_to_recipient")
@@ -261,7 +284,9 @@ private constructor(
     fun _messageToRecipient() = messageToRecipient
 
     /** The transfer's network. */
-    @JsonProperty("network") @ExcludeMissing fun _network() = network
+    @JsonProperty("network")
+    @ExcludeMissing
+    fun _network() = network
 
     /** The originator's address line 1. */
     @JsonProperty("originator_address_line1")
@@ -279,11 +304,13 @@ private constructor(
     fun _originatorAddressLine3() = originatorAddressLine3
 
     /** The originator's name. */
-    @JsonProperty("originator_name") @ExcludeMissing fun _originatorName() = originatorName
+    @JsonProperty("originator_name")
+    @ExcludeMissing
+    fun _originatorName() = originatorName
 
     /**
-     * The ID for the pending transaction representing the transfer. A pending transaction is
-     * created when the transfer
+     * The ID for the pending transaction representing the transfer. A pending
+     * transaction is created when the transfer
      * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
      * by someone else in your organization.
      */
@@ -292,25 +319,40 @@ private constructor(
     fun _pendingTransactionId() = pendingTransactionId
 
     /** If your transfer is reversed, this will contain details of the reversal. */
-    @JsonProperty("reversal") @ExcludeMissing fun _reversal() = reversal
+    @JsonProperty("reversal")
+    @ExcludeMissing
+    fun _reversal() = reversal
 
     /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
-    @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
+    @JsonProperty("routing_number")
+    @ExcludeMissing
+    fun _routingNumber() = routingNumber
 
     /** The lifecycle status of the transfer. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status")
+    @ExcludeMissing
+    fun _status() = status
 
-    /** After the transfer is submitted to Fedwire, this will contain supplemental details. */
-    @JsonProperty("submission") @ExcludeMissing fun _submission() = submission
+    /**
+     * After the transfer is submitted to Fedwire, this will contain supplemental
+     * details.
+     */
+    @JsonProperty("submission")
+    @ExcludeMissing
+    fun _submission() = submission
 
     /** The ID for the transaction funding the transfer. */
-    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+    @JsonProperty("transaction_id")
+    @ExcludeMissing
+    fun _transactionId() = transactionId
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `wire_transfer`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type")
+    @ExcludeMissing
+    fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -318,121 +360,120 @@ private constructor(
 
     fun validate(): WireTransfer = apply {
         if (!validated) {
-            accountId()
-            accountNumber()
-            amount()
-            approval().map { it.validate() }
-            beneficiaryAddressLine1()
-            beneficiaryAddressLine2()
-            beneficiaryAddressLine3()
-            beneficiaryName()
-            cancellation().map { it.validate() }
-            createdAt()
-            createdBy().map { it.validate() }
-            currency()
-            externalAccountId()
-            id()
-            idempotencyKey()
-            messageToRecipient()
-            network()
-            originatorAddressLine1()
-            originatorAddressLine2()
-            originatorAddressLine3()
-            originatorName()
-            pendingTransactionId()
-            reversal().map { it.validate() }
-            routingNumber()
-            status()
-            submission().map { it.validate() }
-            transactionId()
-            type()
-            validated = true
+          accountId()
+          accountNumber()
+          amount()
+          approval().map { it.validate() }
+          beneficiaryAddressLine1()
+          beneficiaryAddressLine2()
+          beneficiaryAddressLine3()
+          beneficiaryName()
+          cancellation().map { it.validate() }
+          createdAt()
+          createdBy().map { it.validate() }
+          currency()
+          externalAccountId()
+          id()
+          idempotencyKey()
+          messageToRecipient()
+          network()
+          originatorAddressLine1()
+          originatorAddressLine2()
+          originatorAddressLine3()
+          originatorName()
+          pendingTransactionId()
+          reversal().map { it.validate() }
+          routingNumber()
+          status()
+          submission().map { it.validate() }
+          transactionId()
+          type()
+          validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is WireTransfer &&
-            this.accountId == other.accountId &&
-            this.accountNumber == other.accountNumber &&
-            this.amount == other.amount &&
-            this.approval == other.approval &&
-            this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
-            this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
-            this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
-            this.beneficiaryName == other.beneficiaryName &&
-            this.cancellation == other.cancellation &&
-            this.createdAt == other.createdAt &&
-            this.createdBy == other.createdBy &&
-            this.currency == other.currency &&
-            this.externalAccountId == other.externalAccountId &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.messageToRecipient == other.messageToRecipient &&
-            this.network == other.network &&
-            this.originatorAddressLine1 == other.originatorAddressLine1 &&
-            this.originatorAddressLine2 == other.originatorAddressLine2 &&
-            this.originatorAddressLine3 == other.originatorAddressLine3 &&
-            this.originatorName == other.originatorName &&
-            this.pendingTransactionId == other.pendingTransactionId &&
-            this.reversal == other.reversal &&
-            this.routingNumber == other.routingNumber &&
-            this.status == other.status &&
-            this.submission == other.submission &&
-            this.transactionId == other.transactionId &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
+      return other is WireTransfer &&
+          this.accountId == other.accountId &&
+          this.accountNumber == other.accountNumber &&
+          this.amount == other.amount &&
+          this.approval == other.approval &&
+          this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
+          this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
+          this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
+          this.beneficiaryName == other.beneficiaryName &&
+          this.cancellation == other.cancellation &&
+          this.createdAt == other.createdAt &&
+          this.createdBy == other.createdBy &&
+          this.currency == other.currency &&
+          this.externalAccountId == other.externalAccountId &&
+          this.id == other.id &&
+          this.idempotencyKey == other.idempotencyKey &&
+          this.messageToRecipient == other.messageToRecipient &&
+          this.network == other.network &&
+          this.originatorAddressLine1 == other.originatorAddressLine1 &&
+          this.originatorAddressLine2 == other.originatorAddressLine2 &&
+          this.originatorAddressLine3 == other.originatorAddressLine3 &&
+          this.originatorName == other.originatorName &&
+          this.pendingTransactionId == other.pendingTransactionId &&
+          this.reversal == other.reversal &&
+          this.routingNumber == other.routingNumber &&
+          this.status == other.status &&
+          this.submission == other.submission &&
+          this.transactionId == other.transactionId &&
+          this.type == other.type &&
+          this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    accountId,
-                    accountNumber,
-                    amount,
-                    approval,
-                    beneficiaryAddressLine1,
-                    beneficiaryAddressLine2,
-                    beneficiaryAddressLine3,
-                    beneficiaryName,
-                    cancellation,
-                    createdAt,
-                    createdBy,
-                    currency,
-                    externalAccountId,
-                    id,
-                    idempotencyKey,
-                    messageToRecipient,
-                    network,
-                    originatorAddressLine1,
-                    originatorAddressLine2,
-                    originatorAddressLine3,
-                    originatorName,
-                    pendingTransactionId,
-                    reversal,
-                    routingNumber,
-                    status,
-                    submission,
-                    transactionId,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
+      if (hashCode == 0) {
+        hashCode = Objects.hash(
+            accountId,
+            accountNumber,
+            amount,
+            approval,
+            beneficiaryAddressLine1,
+            beneficiaryAddressLine2,
+            beneficiaryAddressLine3,
+            beneficiaryName,
+            cancellation,
+            createdAt,
+            createdBy,
+            currency,
+            externalAccountId,
+            id,
+            idempotencyKey,
+            messageToRecipient,
+            network,
+            originatorAddressLine1,
+            originatorAddressLine2,
+            originatorAddressLine3,
+            originatorName,
+            pendingTransactionId,
+            reversal,
+            routingNumber,
+            status,
+            submission,
+            transactionId,
+            type,
+            additionalProperties,
+        )
+      }
+      return hashCode
     }
 
-    override fun toString() =
-        "WireTransfer{accountId=$accountId, accountNumber=$accountNumber, amount=$amount, approval=$approval, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, cancellation=$cancellation, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, externalAccountId=$externalAccountId, id=$id, idempotencyKey=$idempotencyKey, messageToRecipient=$messageToRecipient, network=$network, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, pendingTransactionId=$pendingTransactionId, reversal=$reversal, routingNumber=$routingNumber, status=$status, submission=$submission, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() = "WireTransfer{accountId=$accountId, accountNumber=$accountNumber, amount=$amount, approval=$approval, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, cancellation=$cancellation, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, externalAccountId=$externalAccountId, id=$id, idempotencyKey=$idempotencyKey, messageToRecipient=$messageToRecipient, network=$network, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, pendingTransactionId=$pendingTransactionId, reversal=$reversal, routingNumber=$routingNumber, status=$status, submission=$submission, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     class Builder {
@@ -506,7 +547,9 @@ private constructor(
         /** The Account to which the transfer belongs. */
         @JsonProperty("account_id")
         @ExcludeMissing
-        fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
+        fun accountId(accountId: JsonField<String>) = apply {
+            this.accountId = accountId
+        }
 
         /** The destination account number. */
         fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
@@ -524,25 +567,28 @@ private constructor(
         /** The transfer amount in USD cents. */
         @JsonProperty("amount")
         @ExcludeMissing
-        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+        fun amount(amount: JsonField<Long>) = apply {
+            this.amount = amount
+        }
 
         /**
-         * If your account requires approvals for transfers and the transfer was approved, this will
-         * contain details of the approval.
+         * If your account requires approvals for transfers and the transfer was approved,
+         * this will contain details of the approval.
          */
         fun approval(approval: Approval) = approval(JsonField.of(approval))
 
         /**
-         * If your account requires approvals for transfers and the transfer was approved, this will
-         * contain details of the approval.
+         * If your account requires approvals for transfers and the transfer was approved,
+         * this will contain details of the approval.
          */
         @JsonProperty("approval")
         @ExcludeMissing
-        fun approval(approval: JsonField<Approval>) = apply { this.approval = approval }
+        fun approval(approval: JsonField<Approval>) = apply {
+            this.approval = approval
+        }
 
         /** The beneficiary's address line 1. */
-        fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) =
-            beneficiaryAddressLine1(JsonField.of(beneficiaryAddressLine1))
+        fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) = beneficiaryAddressLine1(JsonField.of(beneficiaryAddressLine1))
 
         /** The beneficiary's address line 1. */
         @JsonProperty("beneficiary_address_line1")
@@ -552,8 +598,7 @@ private constructor(
         }
 
         /** The beneficiary's address line 2. */
-        fun beneficiaryAddressLine2(beneficiaryAddressLine2: String) =
-            beneficiaryAddressLine2(JsonField.of(beneficiaryAddressLine2))
+        fun beneficiaryAddressLine2(beneficiaryAddressLine2: String) = beneficiaryAddressLine2(JsonField.of(beneficiaryAddressLine2))
 
         /** The beneficiary's address line 2. */
         @JsonProperty("beneficiary_address_line2")
@@ -563,8 +608,7 @@ private constructor(
         }
 
         /** The beneficiary's address line 3. */
-        fun beneficiaryAddressLine3(beneficiaryAddressLine3: String) =
-            beneficiaryAddressLine3(JsonField.of(beneficiaryAddressLine3))
+        fun beneficiaryAddressLine3(beneficiaryAddressLine3: String) = beneficiaryAddressLine3(JsonField.of(beneficiaryAddressLine3))
 
         /** The beneficiary's address line 3. */
         @JsonProperty("beneficiary_address_line3")
@@ -574,8 +618,7 @@ private constructor(
         }
 
         /** The beneficiary's name. */
-        fun beneficiaryName(beneficiaryName: String) =
-            beneficiaryName(JsonField.of(beneficiaryName))
+        fun beneficiaryName(beneficiaryName: String) = beneficiaryName(JsonField.of(beneficiaryName))
 
         /** The beneficiary's name. */
         @JsonProperty("beneficiary_name")
@@ -585,14 +628,14 @@ private constructor(
         }
 
         /**
-         * If your account requires approvals for transfers and the transfer was not approved, this
-         * will contain details of the cancellation.
+         * If your account requires approvals for transfers and the transfer was not
+         * approved, this will contain details of the cancellation.
          */
         fun cancellation(cancellation: Cancellation) = cancellation(JsonField.of(cancellation))
 
         /**
-         * If your account requires approvals for transfers and the transfer was not approved, this
-         * will contain details of the cancellation.
+         * If your account requires approvals for transfers and the transfer was not
+         * approved, this will contain details of the cancellation.
          */
         @JsonProperty("cancellation")
         @ExcludeMissing
@@ -601,18 +644,20 @@ private constructor(
         }
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * transfer was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+         * the transfer was created.
          */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * transfer was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+         * the transfer was created.
          */
         @JsonProperty("created_at")
         @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+            this.createdAt = createdAt
+        }
 
         /** What object created the transfer, either via the API or the dashboard. */
         fun createdBy(createdBy: CreatedBy) = createdBy(JsonField.of(createdBy))
@@ -620,25 +665,28 @@ private constructor(
         /** What object created the transfer, either via the API or the dashboard. */
         @JsonProperty("created_by")
         @ExcludeMissing
-        fun createdBy(createdBy: JsonField<CreatedBy>) = apply { this.createdBy = createdBy }
+        fun createdBy(createdBy: JsonField<CreatedBy>) = apply {
+            this.createdBy = createdBy
+        }
 
         /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency.
-         * For wire transfers this is always equal to `usd`.
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's
+         * currency. For wire transfers this is always equal to `usd`.
          */
         fun currency(currency: Currency) = currency(JsonField.of(currency))
 
         /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency.
-         * For wire transfers this is always equal to `usd`.
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's
+         * currency. For wire transfers this is always equal to `usd`.
          */
         @JsonProperty("currency")
         @ExcludeMissing
-        fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+        fun currency(currency: JsonField<Currency>) = apply {
+            this.currency = currency
+        }
 
         /** The identifier of the External Account the transfer was made to, if any. */
-        fun externalAccountId(externalAccountId: String) =
-            externalAccountId(JsonField.of(externalAccountId))
+        fun externalAccountId(externalAccountId: String) = externalAccountId(JsonField.of(externalAccountId))
 
         /** The identifier of the External Account the transfer was made to, if any. */
         @JsonProperty("external_account_id")
@@ -651,19 +699,23 @@ private constructor(
         fun id(id: String) = id(JsonField.of(id))
 
         /** The wire transfer's identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        @JsonProperty("id")
+        @ExcludeMissing
+        fun id(id: JsonField<String>) = apply {
+            this.id = id
+        }
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across
+         * Increase and is used to ensure that a request is only processed once. Learn more
+         * about [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across
+         * Increase and is used to ensure that a request is only processed once. Learn more
+         * about [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         @JsonProperty("idempotency_key")
         @ExcludeMissing
@@ -672,8 +724,7 @@ private constructor(
         }
 
         /** The message that will show on the recipient's bank statement. */
-        fun messageToRecipient(messageToRecipient: String) =
-            messageToRecipient(JsonField.of(messageToRecipient))
+        fun messageToRecipient(messageToRecipient: String) = messageToRecipient(JsonField.of(messageToRecipient))
 
         /** The message that will show on the recipient's bank statement. */
         @JsonProperty("message_to_recipient")
@@ -688,11 +739,12 @@ private constructor(
         /** The transfer's network. */
         @JsonProperty("network")
         @ExcludeMissing
-        fun network(network: JsonField<Network>) = apply { this.network = network }
+        fun network(network: JsonField<Network>) = apply {
+            this.network = network
+        }
 
         /** The originator's address line 1. */
-        fun originatorAddressLine1(originatorAddressLine1: String) =
-            originatorAddressLine1(JsonField.of(originatorAddressLine1))
+        fun originatorAddressLine1(originatorAddressLine1: String) = originatorAddressLine1(JsonField.of(originatorAddressLine1))
 
         /** The originator's address line 1. */
         @JsonProperty("originator_address_line1")
@@ -702,8 +754,7 @@ private constructor(
         }
 
         /** The originator's address line 2. */
-        fun originatorAddressLine2(originatorAddressLine2: String) =
-            originatorAddressLine2(JsonField.of(originatorAddressLine2))
+        fun originatorAddressLine2(originatorAddressLine2: String) = originatorAddressLine2(JsonField.of(originatorAddressLine2))
 
         /** The originator's address line 2. */
         @JsonProperty("originator_address_line2")
@@ -713,8 +764,7 @@ private constructor(
         }
 
         /** The originator's address line 3. */
-        fun originatorAddressLine3(originatorAddressLine3: String) =
-            originatorAddressLine3(JsonField.of(originatorAddressLine3))
+        fun originatorAddressLine3(originatorAddressLine3: String) = originatorAddressLine3(JsonField.of(originatorAddressLine3))
 
         /** The originator's address line 3. */
         @JsonProperty("originator_address_line3")
@@ -734,17 +784,16 @@ private constructor(
         }
 
         /**
-         * The ID for the pending transaction representing the transfer. A pending transaction is
-         * created when the transfer
+         * The ID for the pending transaction representing the transfer. A pending
+         * transaction is created when the transfer
          * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
          * by someone else in your organization.
          */
-        fun pendingTransactionId(pendingTransactionId: String) =
-            pendingTransactionId(JsonField.of(pendingTransactionId))
+        fun pendingTransactionId(pendingTransactionId: String) = pendingTransactionId(JsonField.of(pendingTransactionId))
 
         /**
-         * The ID for the pending transaction representing the transfer. A pending transaction is
-         * created when the transfer
+         * The ID for the pending transaction representing the transfer. A pending
+         * transaction is created when the transfer
          * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
          * by someone else in your organization.
          */
@@ -760,7 +809,9 @@ private constructor(
         /** If your transfer is reversed, this will contain details of the reversal. */
         @JsonProperty("reversal")
         @ExcludeMissing
-        fun reversal(reversal: JsonField<Reversal>) = apply { this.reversal = reversal }
+        fun reversal(reversal: JsonField<Reversal>) = apply {
+            this.reversal = reversal
+        }
 
         /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
         fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
@@ -778,15 +829,25 @@ private constructor(
         /** The lifecycle status of the transfer. */
         @JsonProperty("status")
         @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply { this.status = status }
+        fun status(status: JsonField<Status>) = apply {
+            this.status = status
+        }
 
-        /** After the transfer is submitted to Fedwire, this will contain supplemental details. */
+        /**
+         * After the transfer is submitted to Fedwire, this will contain supplemental
+         * details.
+         */
         fun submission(submission: Submission) = submission(JsonField.of(submission))
 
-        /** After the transfer is submitted to Fedwire, this will contain supplemental details. */
+        /**
+         * After the transfer is submitted to Fedwire, this will contain supplemental
+         * details.
+         */
         @JsonProperty("submission")
         @ExcludeMissing
-        fun submission(submission: JsonField<Submission>) = apply { this.submission = submission }
+        fun submission(submission: JsonField<Submission>) = apply {
+            this.submission = submission
+        }
 
         /** The ID for the transaction funding the transfer. */
         fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
@@ -810,7 +871,9 @@ private constructor(
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        fun type(type: JsonField<Type>) = apply {
+            this.type = type
+        }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -826,79 +889,78 @@ private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): WireTransfer =
-            WireTransfer(
-                accountId,
-                accountNumber,
-                amount,
-                approval,
-                beneficiaryAddressLine1,
-                beneficiaryAddressLine2,
-                beneficiaryAddressLine3,
-                beneficiaryName,
-                cancellation,
-                createdAt,
-                createdBy,
-                currency,
-                externalAccountId,
-                id,
-                idempotencyKey,
-                messageToRecipient,
-                network,
-                originatorAddressLine1,
-                originatorAddressLine2,
-                originatorAddressLine3,
-                originatorName,
-                pendingTransactionId,
-                reversal,
-                routingNumber,
-                status,
-                submission,
-                transactionId,
-                type,
-                additionalProperties.toUnmodifiable(),
-            )
+        fun build(): WireTransfer = WireTransfer(
+            accountId,
+            accountNumber,
+            amount,
+            approval,
+            beneficiaryAddressLine1,
+            beneficiaryAddressLine2,
+            beneficiaryAddressLine3,
+            beneficiaryName,
+            cancellation,
+            createdAt,
+            createdBy,
+            currency,
+            externalAccountId,
+            id,
+            idempotencyKey,
+            messageToRecipient,
+            network,
+            originatorAddressLine1,
+            originatorAddressLine2,
+            originatorAddressLine3,
+            originatorName,
+            pendingTransactionId,
+            reversal,
+            routingNumber,
+            status,
+            submission,
+            transactionId,
+            type,
+            additionalProperties.toUnmodifiable(),
+        )
     }
 
     /**
-     * If your account requires approvals for transfers and the transfer was approved, this will
-     * contain details of the approval.
+     * If your account requires approvals for transfers and the transfer was approved,
+     * this will contain details of the approval.
      */
     @JsonDeserialize(builder = Approval.Builder::class)
     @NoAutoDetect
-    class Approval
-    private constructor(
-        private val approvedAt: JsonField<OffsetDateTime>,
-        private val approvedBy: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
+    class Approval private constructor(private val approvedAt: JsonField<OffsetDateTime>, private val approvedBy: JsonField<String>, private val additionalProperties: Map<String, JsonValue>, ) {
 
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * transfer was approved.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+         * the transfer was approved.
          */
         fun approvedAt(): OffsetDateTime = approvedAt.getRequired("approved_at")
 
         /**
-         * If the Transfer was approved by a user in the dashboard, the email address of that user.
+         * If the Transfer was approved by a user in the dashboard, the email address of
+         * that user.
          */
-        fun approvedBy(): Optional<String> =
-            Optional.ofNullable(approvedBy.getNullable("approved_by"))
+        fun approvedBy(): Optional<String> = Optional.ofNullable(approvedBy.getNullable("approved_by"))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * transfer was approved.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+         * the transfer was approved.
          */
-        @JsonProperty("approved_at") @ExcludeMissing fun _approvedAt() = approvedAt
+        @JsonProperty("approved_at")
+        @ExcludeMissing
+        fun _approvedAt() = approvedAt
 
         /**
-         * If the Transfer was approved by a user in the dashboard, the email address of that user.
+         * If the Transfer was approved by a user in the dashboard, the email address of
+         * that user.
          */
-        @JsonProperty("approved_by") @ExcludeMissing fun _approvedBy() = approvedBy
+        @JsonProperty("approved_by")
+        @ExcludeMissing
+        fun _approvedBy() = approvedBy
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -906,43 +968,42 @@ private constructor(
 
         fun validate(): Approval = apply {
             if (!validated) {
-                approvedAt()
-                approvedBy()
-                validated = true
+              approvedAt()
+              approvedBy()
+              validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Approval &&
-                this.approvedAt == other.approvedAt &&
-                this.approvedBy == other.approvedBy &&
-                this.additionalProperties == other.additionalProperties
+          return other is Approval &&
+              this.approvedAt == other.approvedAt &&
+              this.approvedBy == other.approvedBy &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        approvedAt,
-                        approvedBy,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(
+                approvedAt,
+                approvedBy,
+                additionalProperties,
+            )
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "Approval{approvedAt=$approvedAt, approvedBy=$approvedBy, additionalProperties=$additionalProperties}"
+        override fun toString() = "Approval{approvedAt=$approvedAt, approvedBy=$approvedBy, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         class Builder {
@@ -959,14 +1020,14 @@ private constructor(
             }
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * transfer was approved.
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+             * the transfer was approved.
              */
             fun approvedAt(approvedAt: OffsetDateTime) = approvedAt(JsonField.of(approvedAt))
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * transfer was approved.
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+             * the transfer was approved.
              */
             @JsonProperty("approved_at")
             @ExcludeMissing
@@ -975,18 +1036,20 @@ private constructor(
             }
 
             /**
-             * If the Transfer was approved by a user in the dashboard, the email address of that
-             * user.
+             * If the Transfer was approved by a user in the dashboard, the email address of
+             * that user.
              */
             fun approvedBy(approvedBy: String) = approvedBy(JsonField.of(approvedBy))
 
             /**
-             * If the Transfer was approved by a user in the dashboard, the email address of that
-             * user.
+             * If the Transfer was approved by a user in the dashboard, the email address of
+             * that user.
              */
             @JsonProperty("approved_by")
             @ExcludeMissing
-            fun approvedBy(approvedBy: JsonField<String>) = apply { this.approvedBy = approvedBy }
+            fun approvedBy(approvedBy: JsonField<String>) = apply {
+                this.approvedBy = approvedBy
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1002,54 +1065,53 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Approval =
-                Approval(
-                    approvedAt,
-                    approvedBy,
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build(): Approval = Approval(
+                approvedAt,
+                approvedBy,
+                additionalProperties.toUnmodifiable(),
+            )
         }
     }
 
     /**
-     * If your account requires approvals for transfers and the transfer was not approved, this will
-     * contain details of the cancellation.
+     * If your account requires approvals for transfers and the transfer was not
+     * approved, this will contain details of the cancellation.
      */
     @JsonDeserialize(builder = Cancellation.Builder::class)
     @NoAutoDetect
-    class Cancellation
-    private constructor(
-        private val canceledAt: JsonField<OffsetDateTime>,
-        private val canceledBy: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
+    class Cancellation private constructor(private val canceledAt: JsonField<OffsetDateTime>, private val canceledBy: JsonField<String>, private val additionalProperties: Map<String, JsonValue>, ) {
 
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * Transfer was canceled.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+         * the Transfer was canceled.
          */
         fun canceledAt(): OffsetDateTime = canceledAt.getRequired("canceled_at")
 
         /**
-         * If the Transfer was canceled by a user in the dashboard, the email address of that user.
+         * If the Transfer was canceled by a user in the dashboard, the email address of
+         * that user.
          */
-        fun canceledBy(): Optional<String> =
-            Optional.ofNullable(canceledBy.getNullable("canceled_by"))
+        fun canceledBy(): Optional<String> = Optional.ofNullable(canceledBy.getNullable("canceled_by"))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * Transfer was canceled.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+         * the Transfer was canceled.
          */
-        @JsonProperty("canceled_at") @ExcludeMissing fun _canceledAt() = canceledAt
+        @JsonProperty("canceled_at")
+        @ExcludeMissing
+        fun _canceledAt() = canceledAt
 
         /**
-         * If the Transfer was canceled by a user in the dashboard, the email address of that user.
+         * If the Transfer was canceled by a user in the dashboard, the email address of
+         * that user.
          */
-        @JsonProperty("canceled_by") @ExcludeMissing fun _canceledBy() = canceledBy
+        @JsonProperty("canceled_by")
+        @ExcludeMissing
+        fun _canceledBy() = canceledBy
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1057,43 +1119,42 @@ private constructor(
 
         fun validate(): Cancellation = apply {
             if (!validated) {
-                canceledAt()
-                canceledBy()
-                validated = true
+              canceledAt()
+              canceledBy()
+              validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Cancellation &&
-                this.canceledAt == other.canceledAt &&
-                this.canceledBy == other.canceledBy &&
-                this.additionalProperties == other.additionalProperties
+          return other is Cancellation &&
+              this.canceledAt == other.canceledAt &&
+              this.canceledBy == other.canceledBy &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        canceledAt,
-                        canceledBy,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(
+                canceledAt,
+                canceledBy,
+                additionalProperties,
+            )
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "Cancellation{canceledAt=$canceledAt, canceledBy=$canceledBy, additionalProperties=$additionalProperties}"
+        override fun toString() = "Cancellation{canceledAt=$canceledAt, canceledBy=$canceledBy, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         class Builder {
@@ -1110,14 +1171,14 @@ private constructor(
             }
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * Transfer was canceled.
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+             * the Transfer was canceled.
              */
             fun canceledAt(canceledAt: OffsetDateTime) = canceledAt(JsonField.of(canceledAt))
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * Transfer was canceled.
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+             * the Transfer was canceled.
              */
             @JsonProperty("canceled_at")
             @ExcludeMissing
@@ -1126,18 +1187,20 @@ private constructor(
             }
 
             /**
-             * If the Transfer was canceled by a user in the dashboard, the email address of that
-             * user.
+             * If the Transfer was canceled by a user in the dashboard, the email address of
+             * that user.
              */
             fun canceledBy(canceledBy: String) = canceledBy(JsonField.of(canceledBy))
 
             /**
-             * If the Transfer was canceled by a user in the dashboard, the email address of that
-             * user.
+             * If the Transfer was canceled by a user in the dashboard, the email address of
+             * that user.
              */
             @JsonProperty("canceled_by")
             @ExcludeMissing
-            fun canceledBy(canceledBy: JsonField<String>) = apply { this.canceledBy = canceledBy }
+            fun canceledBy(canceledBy: JsonField<String>) = apply {
+                this.canceledBy = canceledBy
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1153,25 +1216,24 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Cancellation =
-                Cancellation(
-                    canceledAt,
-                    canceledBy,
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build(): Cancellation = Cancellation(
+                canceledAt,
+                canceledBy,
+                additionalProperties.toUnmodifiable(),
+            )
         }
     }
 
     /** What object created the transfer, either via the API or the dashboard. */
     @JsonDeserialize(builder = CreatedBy.Builder::class)
     @NoAutoDetect
-    class CreatedBy
-    private constructor(
-        private val apiKey: JsonField<ApiKey>,
-        private val category: JsonField<Category>,
-        private val oauthApplication: JsonField<OAuthApplication>,
-        private val user: JsonField<User>,
-        private val additionalProperties: Map<String, JsonValue>,
+    class CreatedBy private constructor(
+      private val apiKey: JsonField<ApiKey>,
+      private val category: JsonField<Category>,
+      private val oauthApplication: JsonField<OAuthApplication>,
+      private val user: JsonField<User>,
+      private val additionalProperties: Map<String, JsonValue>,
+
     ) {
 
         private var validated: Boolean = false
@@ -1185,17 +1247,20 @@ private constructor(
         fun category(): Category = category.getRequired("category")
 
         /** If present, details about the OAuth Application that created the transfer. */
-        fun oauthApplication(): Optional<OAuthApplication> =
-            Optional.ofNullable(oauthApplication.getNullable("oauth_application"))
+        fun oauthApplication(): Optional<OAuthApplication> = Optional.ofNullable(oauthApplication.getNullable("oauth_application"))
 
         /** If present, details about the User that created the transfer. */
         fun user(): Optional<User> = Optional.ofNullable(user.getNullable("user"))
 
         /** If present, details about the API key that created the transfer. */
-        @JsonProperty("api_key") @ExcludeMissing fun _apiKey() = apiKey
+        @JsonProperty("api_key")
+        @ExcludeMissing
+        fun _apiKey() = apiKey
 
         /** The type of object that created this transfer. */
-        @JsonProperty("category") @ExcludeMissing fun _category() = category
+        @JsonProperty("category")
+        @ExcludeMissing
+        fun _category() = category
 
         /** If present, details about the OAuth Application that created the transfer. */
         @JsonProperty("oauth_application")
@@ -1203,7 +1268,9 @@ private constructor(
         fun _oauthApplication() = oauthApplication
 
         /** If present, details about the User that created the transfer. */
-        @JsonProperty("user") @ExcludeMissing fun _user() = user
+        @JsonProperty("user")
+        @ExcludeMissing
+        fun _user() = user
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1211,49 +1278,48 @@ private constructor(
 
         fun validate(): CreatedBy = apply {
             if (!validated) {
-                apiKey().map { it.validate() }
-                category()
-                oauthApplication().map { it.validate() }
-                user().map { it.validate() }
-                validated = true
+              apiKey().map { it.validate() }
+              category()
+              oauthApplication().map { it.validate() }
+              user().map { it.validate() }
+              validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is CreatedBy &&
-                this.apiKey == other.apiKey &&
-                this.category == other.category &&
-                this.oauthApplication == other.oauthApplication &&
-                this.user == other.user &&
-                this.additionalProperties == other.additionalProperties
+          return other is CreatedBy &&
+              this.apiKey == other.apiKey &&
+              this.category == other.category &&
+              this.oauthApplication == other.oauthApplication &&
+              this.user == other.user &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        apiKey,
-                        category,
-                        oauthApplication,
-                        user,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(
+                apiKey,
+                category,
+                oauthApplication,
+                user,
+                additionalProperties,
+            )
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "CreatedBy{apiKey=$apiKey, category=$category, oauthApplication=$oauthApplication, user=$user, additionalProperties=$additionalProperties}"
+        override fun toString() = "CreatedBy{apiKey=$apiKey, category=$category, oauthApplication=$oauthApplication, user=$user, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         class Builder {
@@ -1279,7 +1345,9 @@ private constructor(
             /** If present, details about the API key that created the transfer. */
             @JsonProperty("api_key")
             @ExcludeMissing
-            fun apiKey(apiKey: JsonField<ApiKey>) = apply { this.apiKey = apiKey }
+            fun apiKey(apiKey: JsonField<ApiKey>) = apply {
+                this.apiKey = apiKey
+            }
 
             /** The type of object that created this transfer. */
             fun category(category: Category) = category(JsonField.of(category))
@@ -1287,11 +1355,12 @@ private constructor(
             /** The type of object that created this transfer. */
             @JsonProperty("category")
             @ExcludeMissing
-            fun category(category: JsonField<Category>) = apply { this.category = category }
+            fun category(category: JsonField<Category>) = apply {
+                this.category = category
+            }
 
             /** If present, details about the OAuth Application that created the transfer. */
-            fun oauthApplication(oauthApplication: OAuthApplication) =
-                oauthApplication(JsonField.of(oauthApplication))
+            fun oauthApplication(oauthApplication: OAuthApplication) = oauthApplication(JsonField.of(oauthApplication))
 
             /** If present, details about the OAuth Application that created the transfer. */
             @JsonProperty("oauth_application")
@@ -1306,7 +1375,9 @@ private constructor(
             /** If present, details about the User that created the transfer. */
             @JsonProperty("user")
             @ExcludeMissing
-            fun user(user: JsonField<User>) = apply { this.user = user }
+            fun user(user: JsonField<User>) = apply {
+                this.user = user
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1322,35 +1393,31 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): CreatedBy =
-                CreatedBy(
-                    apiKey,
-                    category,
-                    oauthApplication,
-                    user,
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build(): CreatedBy = CreatedBy(
+                apiKey,
+                category,
+                oauthApplication,
+                user,
+                additionalProperties.toUnmodifiable(),
+            )
         }
 
         /** If present, details about the API key that created the transfer. */
         @JsonDeserialize(builder = ApiKey.Builder::class)
         @NoAutoDetect
-        class ApiKey
-        private constructor(
-            private val description: JsonField<String>,
-            private val additionalProperties: Map<String, JsonValue>,
-        ) {
+        class ApiKey private constructor(private val description: JsonField<String>, private val additionalProperties: Map<String, JsonValue>, ) {
 
             private var validated: Boolean = false
 
             private var hashCode: Int = 0
 
             /** The description set for the API key when it was created. */
-            fun description(): Optional<String> =
-                Optional.ofNullable(description.getNullable("description"))
+            fun description(): Optional<String> = Optional.ofNullable(description.getNullable("description"))
 
             /** The description set for the API key when it was created. */
-            @JsonProperty("description") @ExcludeMissing fun _description() = description
+            @JsonProperty("description")
+            @ExcludeMissing
+            fun _description() = description
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1358,36 +1425,36 @@ private constructor(
 
             fun validate(): ApiKey = apply {
                 if (!validated) {
-                    description()
-                    validated = true
+                  description()
+                  validated = true
                 }
             }
 
             fun toBuilder() = Builder().from(this)
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is ApiKey &&
-                    this.description == other.description &&
-                    this.additionalProperties == other.additionalProperties
+              return other is ApiKey &&
+                  this.description == other.description &&
+                  this.additionalProperties == other.additionalProperties
             }
 
             override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = Objects.hash(description, additionalProperties)
-                }
-                return hashCode
+              if (hashCode == 0) {
+                hashCode = Objects.hash(description, additionalProperties)
+              }
+              return hashCode
             }
 
-            override fun toString() =
-                "ApiKey{description=$description, additionalProperties=$additionalProperties}"
+            override fun toString() = "ApiKey{description=$description, additionalProperties=$additionalProperties}"
 
             companion object {
 
-                @JvmStatic fun builder() = Builder()
+                @JvmStatic
+                fun builder() = Builder()
             }
 
             class Builder {
@@ -1421,29 +1488,26 @@ private constructor(
                     this.additionalProperties.put(key, value)
                 }
 
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
                 fun build(): ApiKey = ApiKey(description, additionalProperties.toUnmodifiable())
             }
         }
 
-        class Category
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Category @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue
+            fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is Category && this.value == other.value
+              return other is Category &&
+                  this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1474,21 +1538,19 @@ private constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value =
-                when (this) {
-                    API_KEY -> Value.API_KEY
-                    OAUTH_APPLICATION -> Value.OAUTH_APPLICATION
-                    USER -> Value.USER
-                    else -> Value._UNKNOWN
-                }
+            fun value(): Value = when (this) {
+                API_KEY -> Value.API_KEY
+                OAUTH_APPLICATION -> Value.OAUTH_APPLICATION
+                USER -> Value.USER
+                else -> Value._UNKNOWN
+            }
 
-            fun known(): Known =
-                when (this) {
-                    API_KEY -> Known.API_KEY
-                    OAUTH_APPLICATION -> Known.OAUTH_APPLICATION
-                    USER -> Known.USER
-                    else -> throw IncreaseInvalidDataException("Unknown Category: $value")
-                }
+            fun known(): Known = when (this) {
+                API_KEY -> Known.API_KEY
+                OAUTH_APPLICATION -> Known.OAUTH_APPLICATION
+                USER -> Known.USER
+                else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+            }
 
             fun asString(): String = _value().asStringOrThrow()
         }
@@ -1496,11 +1558,7 @@ private constructor(
         /** If present, details about the OAuth Application that created the transfer. */
         @JsonDeserialize(builder = OAuthApplication.Builder::class)
         @NoAutoDetect
-        class OAuthApplication
-        private constructor(
-            private val name: JsonField<String>,
-            private val additionalProperties: Map<String, JsonValue>,
-        ) {
+        class OAuthApplication private constructor(private val name: JsonField<String>, private val additionalProperties: Map<String, JsonValue>, ) {
 
             private var validated: Boolean = false
 
@@ -1510,7 +1568,9 @@ private constructor(
             fun name(): String = name.getRequired("name")
 
             /** The name of the OAuth Application. */
-            @JsonProperty("name") @ExcludeMissing fun _name() = name
+            @JsonProperty("name")
+            @ExcludeMissing
+            fun _name() = name
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1518,36 +1578,36 @@ private constructor(
 
             fun validate(): OAuthApplication = apply {
                 if (!validated) {
-                    name()
-                    validated = true
+                  name()
+                  validated = true
                 }
             }
 
             fun toBuilder() = Builder().from(this)
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is OAuthApplication &&
-                    this.name == other.name &&
-                    this.additionalProperties == other.additionalProperties
+              return other is OAuthApplication &&
+                  this.name == other.name &&
+                  this.additionalProperties == other.additionalProperties
             }
 
             override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = Objects.hash(name, additionalProperties)
-                }
-                return hashCode
+              if (hashCode == 0) {
+                hashCode = Objects.hash(name, additionalProperties)
+              }
+              return hashCode
             }
 
-            override fun toString() =
-                "OAuthApplication{name=$name, additionalProperties=$additionalProperties}"
+            override fun toString() = "OAuthApplication{name=$name, additionalProperties=$additionalProperties}"
 
             companion object {
 
-                @JvmStatic fun builder() = Builder()
+                @JvmStatic
+                fun builder() = Builder()
             }
 
             class Builder {
@@ -1567,7 +1627,9 @@ private constructor(
                 /** The name of the OAuth Application. */
                 @JsonProperty("name")
                 @ExcludeMissing
-                fun name(name: JsonField<String>) = apply { this.name = name }
+                fun name(name: JsonField<String>) = apply {
+                    this.name = name
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1579,24 +1641,18 @@ private constructor(
                     this.additionalProperties.put(key, value)
                 }
 
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-                fun build(): OAuthApplication =
-                    OAuthApplication(name, additionalProperties.toUnmodifiable())
+                fun build(): OAuthApplication = OAuthApplication(name, additionalProperties.toUnmodifiable())
             }
         }
 
         /** If present, details about the User that created the transfer. */
         @JsonDeserialize(builder = User.Builder::class)
         @NoAutoDetect
-        class User
-        private constructor(
-            private val email: JsonField<String>,
-            private val additionalProperties: Map<String, JsonValue>,
-        ) {
+        class User private constructor(private val email: JsonField<String>, private val additionalProperties: Map<String, JsonValue>, ) {
 
             private var validated: Boolean = false
 
@@ -1606,7 +1662,9 @@ private constructor(
             fun email(): String = email.getRequired("email")
 
             /** The email address of the User. */
-            @JsonProperty("email") @ExcludeMissing fun _email() = email
+            @JsonProperty("email")
+            @ExcludeMissing
+            fun _email() = email
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1614,36 +1672,36 @@ private constructor(
 
             fun validate(): User = apply {
                 if (!validated) {
-                    email()
-                    validated = true
+                  email()
+                  validated = true
                 }
             }
 
             fun toBuilder() = Builder().from(this)
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is User &&
-                    this.email == other.email &&
-                    this.additionalProperties == other.additionalProperties
+              return other is User &&
+                  this.email == other.email &&
+                  this.additionalProperties == other.additionalProperties
             }
 
             override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = Objects.hash(email, additionalProperties)
-                }
-                return hashCode
+              if (hashCode == 0) {
+                hashCode = Objects.hash(email, additionalProperties)
+              }
+              return hashCode
             }
 
-            override fun toString() =
-                "User{email=$email, additionalProperties=$additionalProperties}"
+            override fun toString() = "User{email=$email, additionalProperties=$additionalProperties}"
 
             companion object {
 
-                @JvmStatic fun builder() = Builder()
+                @JvmStatic
+                fun builder() = Builder()
             }
 
             class Builder {
@@ -1663,7 +1721,9 @@ private constructor(
                 /** The email address of the User. */
                 @JsonProperty("email")
                 @ExcludeMissing
-                fun email(email: JsonField<String>) = apply { this.email = email }
+                fun email(email: JsonField<String>) = apply {
+                    this.email = email
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1675,30 +1735,27 @@ private constructor(
                     this.additionalProperties.put(key, value)
                 }
 
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
                 fun build(): User = User(email, additionalProperties.toUnmodifiable())
             }
         }
     }
 
-    class Currency
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Currency @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Currency && this.value == other.value
+          return other is Currency &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1741,45 +1798,41 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                CAD -> Value.CAD
-                CHF -> Value.CHF
-                EUR -> Value.EUR
-                GBP -> Value.GBP
-                JPY -> Value.JPY
-                USD -> Value.USD
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            CAD -> Value.CAD
+            CHF -> Value.CHF
+            EUR -> Value.EUR
+            GBP -> Value.GBP
+            JPY -> Value.JPY
+            USD -> Value.USD
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                CAD -> Known.CAD
-                CHF -> Known.CHF
-                EUR -> Known.EUR
-                GBP -> Known.GBP
-                JPY -> Known.JPY
-                USD -> Known.USD
-                else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
-            }
+        fun known(): Known = when (this) {
+            CAD -> Known.CAD
+            CHF -> Known.CHF
+            EUR -> Known.EUR
+            GBP -> Known.GBP
+            JPY -> Known.JPY
+            USD -> Known.USD
+            else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Network
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Network @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Network && this.value == other.value
+          return other is Network &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1802,17 +1855,15 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                WIRE -> Value.WIRE
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            WIRE -> Value.WIRE
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                WIRE -> Known.WIRE
-                else -> throw IncreaseInvalidDataException("Unknown Network: $value")
-            }
+        fun known(): Known = when (this) {
+            WIRE -> Known.WIRE
+            else -> throw IncreaseInvalidDataException("Unknown Network: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
@@ -1820,26 +1871,26 @@ private constructor(
     /** If your transfer is reversed, this will contain details of the reversal. */
     @JsonDeserialize(builder = Reversal.Builder::class)
     @NoAutoDetect
-    class Reversal
-    private constructor(
-        private val amount: JsonField<Long>,
-        private val createdAt: JsonField<OffsetDateTime>,
-        private val description: JsonField<String>,
-        private val financialInstitutionToFinancialInstitutionInformation: JsonField<String>,
-        private val inputCycleDate: JsonField<LocalDate>,
-        private val inputMessageAccountabilityData: JsonField<String>,
-        private val inputSequenceNumber: JsonField<String>,
-        private val inputSource: JsonField<String>,
-        private val originatorRoutingNumber: JsonField<String>,
-        private val previousMessageInputCycleDate: JsonField<LocalDate>,
-        private val previousMessageInputMessageAccountabilityData: JsonField<String>,
-        private val previousMessageInputSequenceNumber: JsonField<String>,
-        private val previousMessageInputSource: JsonField<String>,
-        private val receiverFinancialInstitutionInformation: JsonField<String>,
-        private val senderReference: JsonField<String>,
-        private val transactionId: JsonField<String>,
-        private val wireTransferId: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+    class Reversal private constructor(
+      private val amount: JsonField<Long>,
+      private val createdAt: JsonField<OffsetDateTime>,
+      private val description: JsonField<String>,
+      private val financialInstitutionToFinancialInstitutionInformation: JsonField<String>,
+      private val inputCycleDate: JsonField<LocalDate>,
+      private val inputMessageAccountabilityData: JsonField<String>,
+      private val inputSequenceNumber: JsonField<String>,
+      private val inputSource: JsonField<String>,
+      private val originatorRoutingNumber: JsonField<String>,
+      private val previousMessageInputCycleDate: JsonField<LocalDate>,
+      private val previousMessageInputMessageAccountabilityData: JsonField<String>,
+      private val previousMessageInputSequenceNumber: JsonField<String>,
+      private val previousMessageInputSource: JsonField<String>,
+      private val receiverFinancialInstitutionInformation: JsonField<String>,
+      private val senderReference: JsonField<String>,
+      private val transactionId: JsonField<String>,
+      private val wireTransferId: JsonField<String>,
+      private val additionalProperties: Map<String, JsonValue>,
+
     ) {
 
         private var validated: Boolean = false
@@ -1850,8 +1901,8 @@ private constructor(
         fun amount(): Long = amount.getRequired("amount")
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * reversal was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+         * the reversal was created.
          */
         fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
@@ -1859,22 +1910,16 @@ private constructor(
         fun description(): String = description.getRequired("description")
 
         /** Additional financial institution information included in the wire reversal. */
-        fun financialInstitutionToFinancialInstitutionInformation(): Optional<String> =
-            Optional.ofNullable(
-                financialInstitutionToFinancialInstitutionInformation.getNullable(
-                    "financial_institution_to_financial_institution_information"
-                )
-            )
+        fun financialInstitutionToFinancialInstitutionInformation(): Optional<String> = Optional.ofNullable(financialInstitutionToFinancialInstitutionInformation.getNullable("financial_institution_to_financial_institution_information"))
 
         /**
-         * The Fedwire cycle date for the wire reversal. The "Fedwire day" begins at 9:00 PM Eastern
-         * Time on the evening before the `cycle date`.
+         * The Fedwire cycle date for the wire reversal. The "Fedwire day" begins at 9:00
+         * PM Eastern Time on the evening before the `cycle date`.
          */
         fun inputCycleDate(): LocalDate = inputCycleDate.getRequired("input_cycle_date")
 
         /** The Fedwire transaction identifier. */
-        fun inputMessageAccountabilityData(): String =
-            inputMessageAccountabilityData.getRequired("input_message_accountability_data")
+        fun inputMessageAccountabilityData(): String = inputMessageAccountabilityData.getRequired("input_message_accountability_data")
 
         /** The Fedwire sequence number. */
         fun inputSequenceNumber(): String = inputSequenceNumber.getRequired("input_sequence_number")
@@ -1883,41 +1928,34 @@ private constructor(
         fun inputSource(): String = inputSource.getRequired("input_source")
 
         /**
-         * The American Banking Association (ABA) routing number of the bank originating the
-         * transfer.
+         * The American Banking Association (ABA) routing number of the bank originating
+         * the transfer.
          */
-        fun originatorRoutingNumber(): Optional<String> =
-            Optional.ofNullable(originatorRoutingNumber.getNullable("originator_routing_number"))
+        fun originatorRoutingNumber(): Optional<String> = Optional.ofNullable(originatorRoutingNumber.getNullable("originator_routing_number"))
 
-        /** The Fedwire cycle date for the wire transfer that is being reversed by this message. */
-        fun previousMessageInputCycleDate(): LocalDate =
-            previousMessageInputCycleDate.getRequired("previous_message_input_cycle_date")
+        /**
+         * The Fedwire cycle date for the wire transfer that is being reversed by this
+         * message.
+         */
+        fun previousMessageInputCycleDate(): LocalDate = previousMessageInputCycleDate.getRequired("previous_message_input_cycle_date")
 
         /** The Fedwire transaction identifier for the wire transfer that was reversed. */
-        fun previousMessageInputMessageAccountabilityData(): String =
-            previousMessageInputMessageAccountabilityData.getRequired(
-                "previous_message_input_message_accountability_data"
-            )
+        fun previousMessageInputMessageAccountabilityData(): String = previousMessageInputMessageAccountabilityData.getRequired("previous_message_input_message_accountability_data")
 
         /** The Fedwire sequence number for the wire transfer that was reversed. */
-        fun previousMessageInputSequenceNumber(): String =
-            previousMessageInputSequenceNumber.getRequired("previous_message_input_sequence_number")
+        fun previousMessageInputSequenceNumber(): String = previousMessageInputSequenceNumber.getRequired("previous_message_input_sequence_number")
 
         /** The Fedwire input source identifier for the wire transfer that was reversed. */
-        fun previousMessageInputSource(): String =
-            previousMessageInputSource.getRequired("previous_message_input_source")
+        fun previousMessageInputSource(): String = previousMessageInputSource.getRequired("previous_message_input_source")
 
-        /** Information included in the wire reversal for the receiving financial institution. */
-        fun receiverFinancialInstitutionInformation(): Optional<String> =
-            Optional.ofNullable(
-                receiverFinancialInstitutionInformation.getNullable(
-                    "receiver_financial_institution_information"
-                )
-            )
+        /**
+         * Information included in the wire reversal for the receiving financial
+         * institution.
+         */
+        fun receiverFinancialInstitutionInformation(): Optional<String> = Optional.ofNullable(receiverFinancialInstitutionInformation.getNullable("receiver_financial_institution_information"))
 
         /** The sending bank's reference number for the wire reversal. */
-        fun senderReference(): Optional<String> =
-            Optional.ofNullable(senderReference.getNullable("sender_reference"))
+        fun senderReference(): Optional<String> = Optional.ofNullable(senderReference.getNullable("sender_reference"))
 
         /** The ID for the Transaction associated with the transfer reversal. */
         fun transactionId(): String = transactionId.getRequired("transaction_id")
@@ -1926,28 +1964,35 @@ private constructor(
         fun wireTransferId(): String = wireTransferId.getRequired("wire_transfer_id")
 
         /** The amount that was reversed in USD cents. */
-        @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+        @JsonProperty("amount")
+        @ExcludeMissing
+        fun _amount() = amount
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * reversal was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+         * the reversal was created.
          */
-        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun _createdAt() = createdAt
 
         /** The description on the reversal message from Fedwire, set by the reversing bank. */
-        @JsonProperty("description") @ExcludeMissing fun _description() = description
+        @JsonProperty("description")
+        @ExcludeMissing
+        fun _description() = description
 
         /** Additional financial institution information included in the wire reversal. */
         @JsonProperty("financial_institution_to_financial_institution_information")
         @ExcludeMissing
-        fun _financialInstitutionToFinancialInstitutionInformation() =
-            financialInstitutionToFinancialInstitutionInformation
+        fun _financialInstitutionToFinancialInstitutionInformation() = financialInstitutionToFinancialInstitutionInformation
 
         /**
-         * The Fedwire cycle date for the wire reversal. The "Fedwire day" begins at 9:00 PM Eastern
-         * Time on the evening before the `cycle date`.
+         * The Fedwire cycle date for the wire reversal. The "Fedwire day" begins at 9:00
+         * PM Eastern Time on the evening before the `cycle date`.
          */
-        @JsonProperty("input_cycle_date") @ExcludeMissing fun _inputCycleDate() = inputCycleDate
+        @JsonProperty("input_cycle_date")
+        @ExcludeMissing
+        fun _inputCycleDate() = inputCycleDate
 
         /** The Fedwire transaction identifier. */
         @JsonProperty("input_message_accountability_data")
@@ -1960,17 +2005,22 @@ private constructor(
         fun _inputSequenceNumber() = inputSequenceNumber
 
         /** The Fedwire input source identifier. */
-        @JsonProperty("input_source") @ExcludeMissing fun _inputSource() = inputSource
+        @JsonProperty("input_source")
+        @ExcludeMissing
+        fun _inputSource() = inputSource
 
         /**
-         * The American Banking Association (ABA) routing number of the bank originating the
-         * transfer.
+         * The American Banking Association (ABA) routing number of the bank originating
+         * the transfer.
          */
         @JsonProperty("originator_routing_number")
         @ExcludeMissing
         fun _originatorRoutingNumber() = originatorRoutingNumber
 
-        /** The Fedwire cycle date for the wire transfer that is being reversed by this message. */
+        /**
+         * The Fedwire cycle date for the wire transfer that is being reversed by this
+         * message.
+         */
         @JsonProperty("previous_message_input_cycle_date")
         @ExcludeMissing
         fun _previousMessageInputCycleDate() = previousMessageInputCycleDate
@@ -1978,8 +2028,7 @@ private constructor(
         /** The Fedwire transaction identifier for the wire transfer that was reversed. */
         @JsonProperty("previous_message_input_message_accountability_data")
         @ExcludeMissing
-        fun _previousMessageInputMessageAccountabilityData() =
-            previousMessageInputMessageAccountabilityData
+        fun _previousMessageInputMessageAccountabilityData() = previousMessageInputMessageAccountabilityData
 
         /** The Fedwire sequence number for the wire transfer that was reversed. */
         @JsonProperty("previous_message_input_sequence_number")
@@ -1991,19 +2040,28 @@ private constructor(
         @ExcludeMissing
         fun _previousMessageInputSource() = previousMessageInputSource
 
-        /** Information included in the wire reversal for the receiving financial institution. */
+        /**
+         * Information included in the wire reversal for the receiving financial
+         * institution.
+         */
         @JsonProperty("receiver_financial_institution_information")
         @ExcludeMissing
         fun _receiverFinancialInstitutionInformation() = receiverFinancialInstitutionInformation
 
         /** The sending bank's reference number for the wire reversal. */
-        @JsonProperty("sender_reference") @ExcludeMissing fun _senderReference() = senderReference
+        @JsonProperty("sender_reference")
+        @ExcludeMissing
+        fun _senderReference() = senderReference
 
         /** The ID for the Transaction associated with the transfer reversal. */
-        @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+        @JsonProperty("transaction_id")
+        @ExcludeMissing
+        fun _transactionId() = transactionId
 
         /** The ID for the Wire Transfer that is being reversed. */
-        @JsonProperty("wire_transfer_id") @ExcludeMissing fun _wireTransferId() = wireTransferId
+        @JsonProperty("wire_transfer_id")
+        @ExcludeMissing
+        fun _wireTransferId() = wireTransferId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -2011,92 +2069,87 @@ private constructor(
 
         fun validate(): Reversal = apply {
             if (!validated) {
-                amount()
-                createdAt()
-                description()
-                financialInstitutionToFinancialInstitutionInformation()
-                inputCycleDate()
-                inputMessageAccountabilityData()
-                inputSequenceNumber()
-                inputSource()
-                originatorRoutingNumber()
-                previousMessageInputCycleDate()
-                previousMessageInputMessageAccountabilityData()
-                previousMessageInputSequenceNumber()
-                previousMessageInputSource()
-                receiverFinancialInstitutionInformation()
-                senderReference()
-                transactionId()
-                wireTransferId()
-                validated = true
+              amount()
+              createdAt()
+              description()
+              financialInstitutionToFinancialInstitutionInformation()
+              inputCycleDate()
+              inputMessageAccountabilityData()
+              inputSequenceNumber()
+              inputSource()
+              originatorRoutingNumber()
+              previousMessageInputCycleDate()
+              previousMessageInputMessageAccountabilityData()
+              previousMessageInputSequenceNumber()
+              previousMessageInputSource()
+              receiverFinancialInstitutionInformation()
+              senderReference()
+              transactionId()
+              wireTransferId()
+              validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Reversal &&
-                this.amount == other.amount &&
-                this.createdAt == other.createdAt &&
-                this.description == other.description &&
-                this.financialInstitutionToFinancialInstitutionInformation ==
-                    other.financialInstitutionToFinancialInstitutionInformation &&
-                this.inputCycleDate == other.inputCycleDate &&
-                this.inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
-                this.inputSequenceNumber == other.inputSequenceNumber &&
-                this.inputSource == other.inputSource &&
-                this.originatorRoutingNumber == other.originatorRoutingNumber &&
-                this.previousMessageInputCycleDate == other.previousMessageInputCycleDate &&
-                this.previousMessageInputMessageAccountabilityData ==
-                    other.previousMessageInputMessageAccountabilityData &&
-                this.previousMessageInputSequenceNumber ==
-                    other.previousMessageInputSequenceNumber &&
-                this.previousMessageInputSource == other.previousMessageInputSource &&
-                this.receiverFinancialInstitutionInformation ==
-                    other.receiverFinancialInstitutionInformation &&
-                this.senderReference == other.senderReference &&
-                this.transactionId == other.transactionId &&
-                this.wireTransferId == other.wireTransferId &&
-                this.additionalProperties == other.additionalProperties
+          return other is Reversal &&
+              this.amount == other.amount &&
+              this.createdAt == other.createdAt &&
+              this.description == other.description &&
+              this.financialInstitutionToFinancialInstitutionInformation == other.financialInstitutionToFinancialInstitutionInformation &&
+              this.inputCycleDate == other.inputCycleDate &&
+              this.inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
+              this.inputSequenceNumber == other.inputSequenceNumber &&
+              this.inputSource == other.inputSource &&
+              this.originatorRoutingNumber == other.originatorRoutingNumber &&
+              this.previousMessageInputCycleDate == other.previousMessageInputCycleDate &&
+              this.previousMessageInputMessageAccountabilityData == other.previousMessageInputMessageAccountabilityData &&
+              this.previousMessageInputSequenceNumber == other.previousMessageInputSequenceNumber &&
+              this.previousMessageInputSource == other.previousMessageInputSource &&
+              this.receiverFinancialInstitutionInformation == other.receiverFinancialInstitutionInformation &&
+              this.senderReference == other.senderReference &&
+              this.transactionId == other.transactionId &&
+              this.wireTransferId == other.wireTransferId &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        amount,
-                        createdAt,
-                        description,
-                        financialInstitutionToFinancialInstitutionInformation,
-                        inputCycleDate,
-                        inputMessageAccountabilityData,
-                        inputSequenceNumber,
-                        inputSource,
-                        originatorRoutingNumber,
-                        previousMessageInputCycleDate,
-                        previousMessageInputMessageAccountabilityData,
-                        previousMessageInputSequenceNumber,
-                        previousMessageInputSource,
-                        receiverFinancialInstitutionInformation,
-                        senderReference,
-                        transactionId,
-                        wireTransferId,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(
+                amount,
+                createdAt,
+                description,
+                financialInstitutionToFinancialInstitutionInformation,
+                inputCycleDate,
+                inputMessageAccountabilityData,
+                inputSequenceNumber,
+                inputSource,
+                originatorRoutingNumber,
+                previousMessageInputCycleDate,
+                previousMessageInputMessageAccountabilityData,
+                previousMessageInputSequenceNumber,
+                previousMessageInputSource,
+                receiverFinancialInstitutionInformation,
+                senderReference,
+                transactionId,
+                wireTransferId,
+                additionalProperties,
+            )
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "Reversal{amount=$amount, createdAt=$createdAt, description=$description, financialInstitutionToFinancialInstitutionInformation=$financialInstitutionToFinancialInstitutionInformation, inputCycleDate=$inputCycleDate, inputMessageAccountabilityData=$inputMessageAccountabilityData, inputSequenceNumber=$inputSequenceNumber, inputSource=$inputSource, originatorRoutingNumber=$originatorRoutingNumber, previousMessageInputCycleDate=$previousMessageInputCycleDate, previousMessageInputMessageAccountabilityData=$previousMessageInputMessageAccountabilityData, previousMessageInputSequenceNumber=$previousMessageInputSequenceNumber, previousMessageInputSource=$previousMessageInputSource, receiverFinancialInstitutionInformation=$receiverFinancialInstitutionInformation, senderReference=$senderReference, transactionId=$transactionId, wireTransferId=$wireTransferId, additionalProperties=$additionalProperties}"
+        override fun toString() = "Reversal{amount=$amount, createdAt=$createdAt, description=$description, financialInstitutionToFinancialInstitutionInformation=$financialInstitutionToFinancialInstitutionInformation, inputCycleDate=$inputCycleDate, inputMessageAccountabilityData=$inputMessageAccountabilityData, inputSequenceNumber=$inputSequenceNumber, inputSource=$inputSource, originatorRoutingNumber=$originatorRoutingNumber, previousMessageInputCycleDate=$previousMessageInputCycleDate, previousMessageInputMessageAccountabilityData=$previousMessageInputMessageAccountabilityData, previousMessageInputSequenceNumber=$previousMessageInputSequenceNumber, previousMessageInputSource=$previousMessageInputSource, receiverFinancialInstitutionInformation=$receiverFinancialInstitutionInformation, senderReference=$senderReference, transactionId=$transactionId, wireTransferId=$wireTransferId, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         class Builder {
@@ -2104,20 +2157,17 @@ private constructor(
             private var amount: JsonField<Long> = JsonMissing.of()
             private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var description: JsonField<String> = JsonMissing.of()
-            private var financialInstitutionToFinancialInstitutionInformation: JsonField<String> =
-                JsonMissing.of()
+            private var financialInstitutionToFinancialInstitutionInformation: JsonField<String> = JsonMissing.of()
             private var inputCycleDate: JsonField<LocalDate> = JsonMissing.of()
             private var inputMessageAccountabilityData: JsonField<String> = JsonMissing.of()
             private var inputSequenceNumber: JsonField<String> = JsonMissing.of()
             private var inputSource: JsonField<String> = JsonMissing.of()
             private var originatorRoutingNumber: JsonField<String> = JsonMissing.of()
             private var previousMessageInputCycleDate: JsonField<LocalDate> = JsonMissing.of()
-            private var previousMessageInputMessageAccountabilityData: JsonField<String> =
-                JsonMissing.of()
+            private var previousMessageInputMessageAccountabilityData: JsonField<String> = JsonMissing.of()
             private var previousMessageInputSequenceNumber: JsonField<String> = JsonMissing.of()
             private var previousMessageInputSource: JsonField<String> = JsonMissing.of()
-            private var receiverFinancialInstitutionInformation: JsonField<String> =
-                JsonMissing.of()
+            private var receiverFinancialInstitutionInformation: JsonField<String> = JsonMissing.of()
             private var senderReference: JsonField<String> = JsonMissing.of()
             private var transactionId: JsonField<String> = JsonMissing.of()
             private var wireTransferId: JsonField<String> = JsonMissing.of()
@@ -2128,21 +2178,17 @@ private constructor(
                 this.amount = reversal.amount
                 this.createdAt = reversal.createdAt
                 this.description = reversal.description
-                this.financialInstitutionToFinancialInstitutionInformation =
-                    reversal.financialInstitutionToFinancialInstitutionInformation
+                this.financialInstitutionToFinancialInstitutionInformation = reversal.financialInstitutionToFinancialInstitutionInformation
                 this.inputCycleDate = reversal.inputCycleDate
                 this.inputMessageAccountabilityData = reversal.inputMessageAccountabilityData
                 this.inputSequenceNumber = reversal.inputSequenceNumber
                 this.inputSource = reversal.inputSource
                 this.originatorRoutingNumber = reversal.originatorRoutingNumber
                 this.previousMessageInputCycleDate = reversal.previousMessageInputCycleDate
-                this.previousMessageInputMessageAccountabilityData =
-                    reversal.previousMessageInputMessageAccountabilityData
-                this.previousMessageInputSequenceNumber =
-                    reversal.previousMessageInputSequenceNumber
+                this.previousMessageInputMessageAccountabilityData = reversal.previousMessageInputMessageAccountabilityData
+                this.previousMessageInputSequenceNumber = reversal.previousMessageInputSequenceNumber
                 this.previousMessageInputSource = reversal.previousMessageInputSource
-                this.receiverFinancialInstitutionInformation =
-                    reversal.receiverFinancialInstitutionInformation
+                this.receiverFinancialInstitutionInformation = reversal.receiverFinancialInstitutionInformation
                 this.senderReference = reversal.senderReference
                 this.transactionId = reversal.transactionId
                 this.wireTransferId = reversal.wireTransferId
@@ -2155,17 +2201,19 @@ private constructor(
             /** The amount that was reversed in USD cents. */
             @JsonProperty("amount")
             @ExcludeMissing
-            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+            fun amount(amount: JsonField<Long>) = apply {
+                this.amount = amount
+            }
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * reversal was created.
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+             * the reversal was created.
              */
             fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * reversal was created.
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+             * the reversal was created.
              */
             @JsonProperty("created_at")
             @ExcludeMissing
@@ -2184,33 +2232,24 @@ private constructor(
             }
 
             /** Additional financial institution information included in the wire reversal. */
-            fun financialInstitutionToFinancialInstitutionInformation(
-                financialInstitutionToFinancialInstitutionInformation: String
-            ) =
-                financialInstitutionToFinancialInstitutionInformation(
-                    JsonField.of(financialInstitutionToFinancialInstitutionInformation)
-                )
+            fun financialInstitutionToFinancialInstitutionInformation(financialInstitutionToFinancialInstitutionInformation: String) = financialInstitutionToFinancialInstitutionInformation(JsonField.of(financialInstitutionToFinancialInstitutionInformation))
 
             /** Additional financial institution information included in the wire reversal. */
             @JsonProperty("financial_institution_to_financial_institution_information")
             @ExcludeMissing
-            fun financialInstitutionToFinancialInstitutionInformation(
-                financialInstitutionToFinancialInstitutionInformation: JsonField<String>
-            ) = apply {
-                this.financialInstitutionToFinancialInstitutionInformation =
-                    financialInstitutionToFinancialInstitutionInformation
+            fun financialInstitutionToFinancialInstitutionInformation(financialInstitutionToFinancialInstitutionInformation: JsonField<String>) = apply {
+                this.financialInstitutionToFinancialInstitutionInformation = financialInstitutionToFinancialInstitutionInformation
             }
 
             /**
-             * The Fedwire cycle date for the wire reversal. The "Fedwire day" begins at 9:00 PM
-             * Eastern Time on the evening before the `cycle date`.
+             * The Fedwire cycle date for the wire reversal. The "Fedwire day" begins at 9:00
+             * PM Eastern Time on the evening before the `cycle date`.
              */
-            fun inputCycleDate(inputCycleDate: LocalDate) =
-                inputCycleDate(JsonField.of(inputCycleDate))
+            fun inputCycleDate(inputCycleDate: LocalDate) = inputCycleDate(JsonField.of(inputCycleDate))
 
             /**
-             * The Fedwire cycle date for the wire reversal. The "Fedwire day" begins at 9:00 PM
-             * Eastern Time on the evening before the `cycle date`.
+             * The Fedwire cycle date for the wire reversal. The "Fedwire day" begins at 9:00
+             * PM Eastern Time on the evening before the `cycle date`.
              */
             @JsonProperty("input_cycle_date")
             @ExcludeMissing
@@ -2219,20 +2258,17 @@ private constructor(
             }
 
             /** The Fedwire transaction identifier. */
-            fun inputMessageAccountabilityData(inputMessageAccountabilityData: String) =
-                inputMessageAccountabilityData(JsonField.of(inputMessageAccountabilityData))
+            fun inputMessageAccountabilityData(inputMessageAccountabilityData: String) = inputMessageAccountabilityData(JsonField.of(inputMessageAccountabilityData))
 
             /** The Fedwire transaction identifier. */
             @JsonProperty("input_message_accountability_data")
             @ExcludeMissing
-            fun inputMessageAccountabilityData(inputMessageAccountabilityData: JsonField<String>) =
-                apply {
-                    this.inputMessageAccountabilityData = inputMessageAccountabilityData
-                }
+            fun inputMessageAccountabilityData(inputMessageAccountabilityData: JsonField<String>) = apply {
+                this.inputMessageAccountabilityData = inputMessageAccountabilityData
+            }
 
             /** The Fedwire sequence number. */
-            fun inputSequenceNumber(inputSequenceNumber: String) =
-                inputSequenceNumber(JsonField.of(inputSequenceNumber))
+            fun inputSequenceNumber(inputSequenceNumber: String) = inputSequenceNumber(JsonField.of(inputSequenceNumber))
 
             /** The Fedwire sequence number. */
             @JsonProperty("input_sequence_number")
@@ -2252,15 +2288,14 @@ private constructor(
             }
 
             /**
-             * The American Banking Association (ABA) routing number of the bank originating the
-             * transfer.
+             * The American Banking Association (ABA) routing number of the bank originating
+             * the transfer.
              */
-            fun originatorRoutingNumber(originatorRoutingNumber: String) =
-                originatorRoutingNumber(JsonField.of(originatorRoutingNumber))
+            fun originatorRoutingNumber(originatorRoutingNumber: String) = originatorRoutingNumber(JsonField.of(originatorRoutingNumber))
 
             /**
-             * The American Banking Association (ABA) routing number of the bank originating the
-             * transfer.
+             * The American Banking Association (ABA) routing number of the bank originating
+             * the transfer.
              */
             @JsonProperty("originator_routing_number")
             @ExcludeMissing
@@ -2269,55 +2304,43 @@ private constructor(
             }
 
             /**
-             * The Fedwire cycle date for the wire transfer that is being reversed by this message.
+             * The Fedwire cycle date for the wire transfer that is being reversed by this
+             * message.
              */
-            fun previousMessageInputCycleDate(previousMessageInputCycleDate: LocalDate) =
-                previousMessageInputCycleDate(JsonField.of(previousMessageInputCycleDate))
+            fun previousMessageInputCycleDate(previousMessageInputCycleDate: LocalDate) = previousMessageInputCycleDate(JsonField.of(previousMessageInputCycleDate))
 
             /**
-             * The Fedwire cycle date for the wire transfer that is being reversed by this message.
+             * The Fedwire cycle date for the wire transfer that is being reversed by this
+             * message.
              */
             @JsonProperty("previous_message_input_cycle_date")
             @ExcludeMissing
-            fun previousMessageInputCycleDate(previousMessageInputCycleDate: JsonField<LocalDate>) =
-                apply {
-                    this.previousMessageInputCycleDate = previousMessageInputCycleDate
-                }
+            fun previousMessageInputCycleDate(previousMessageInputCycleDate: JsonField<LocalDate>) = apply {
+                this.previousMessageInputCycleDate = previousMessageInputCycleDate
+            }
 
             /** The Fedwire transaction identifier for the wire transfer that was reversed. */
-            fun previousMessageInputMessageAccountabilityData(
-                previousMessageInputMessageAccountabilityData: String
-            ) =
-                previousMessageInputMessageAccountabilityData(
-                    JsonField.of(previousMessageInputMessageAccountabilityData)
-                )
+            fun previousMessageInputMessageAccountabilityData(previousMessageInputMessageAccountabilityData: String) = previousMessageInputMessageAccountabilityData(JsonField.of(previousMessageInputMessageAccountabilityData))
 
             /** The Fedwire transaction identifier for the wire transfer that was reversed. */
             @JsonProperty("previous_message_input_message_accountability_data")
             @ExcludeMissing
-            fun previousMessageInputMessageAccountabilityData(
-                previousMessageInputMessageAccountabilityData: JsonField<String>
-            ) = apply {
-                this.previousMessageInputMessageAccountabilityData =
-                    previousMessageInputMessageAccountabilityData
+            fun previousMessageInputMessageAccountabilityData(previousMessageInputMessageAccountabilityData: JsonField<String>) = apply {
+                this.previousMessageInputMessageAccountabilityData = previousMessageInputMessageAccountabilityData
             }
 
             /** The Fedwire sequence number for the wire transfer that was reversed. */
-            fun previousMessageInputSequenceNumber(previousMessageInputSequenceNumber: String) =
-                previousMessageInputSequenceNumber(JsonField.of(previousMessageInputSequenceNumber))
+            fun previousMessageInputSequenceNumber(previousMessageInputSequenceNumber: String) = previousMessageInputSequenceNumber(JsonField.of(previousMessageInputSequenceNumber))
 
             /** The Fedwire sequence number for the wire transfer that was reversed. */
             @JsonProperty("previous_message_input_sequence_number")
             @ExcludeMissing
-            fun previousMessageInputSequenceNumber(
-                previousMessageInputSequenceNumber: JsonField<String>
-            ) = apply {
+            fun previousMessageInputSequenceNumber(previousMessageInputSequenceNumber: JsonField<String>) = apply {
                 this.previousMessageInputSequenceNumber = previousMessageInputSequenceNumber
             }
 
             /** The Fedwire input source identifier for the wire transfer that was reversed. */
-            fun previousMessageInputSource(previousMessageInputSource: String) =
-                previousMessageInputSource(JsonField.of(previousMessageInputSource))
+            fun previousMessageInputSource(previousMessageInputSource: String) = previousMessageInputSource(JsonField.of(previousMessageInputSource))
 
             /** The Fedwire input source identifier for the wire transfer that was reversed. */
             @JsonProperty("previous_message_input_source")
@@ -2327,30 +2350,23 @@ private constructor(
             }
 
             /**
-             * Information included in the wire reversal for the receiving financial institution.
+             * Information included in the wire reversal for the receiving financial
+             * institution.
              */
-            fun receiverFinancialInstitutionInformation(
-                receiverFinancialInstitutionInformation: String
-            ) =
-                receiverFinancialInstitutionInformation(
-                    JsonField.of(receiverFinancialInstitutionInformation)
-                )
+            fun receiverFinancialInstitutionInformation(receiverFinancialInstitutionInformation: String) = receiverFinancialInstitutionInformation(JsonField.of(receiverFinancialInstitutionInformation))
 
             /**
-             * Information included in the wire reversal for the receiving financial institution.
+             * Information included in the wire reversal for the receiving financial
+             * institution.
              */
             @JsonProperty("receiver_financial_institution_information")
             @ExcludeMissing
-            fun receiverFinancialInstitutionInformation(
-                receiverFinancialInstitutionInformation: JsonField<String>
-            ) = apply {
-                this.receiverFinancialInstitutionInformation =
-                    receiverFinancialInstitutionInformation
+            fun receiverFinancialInstitutionInformation(receiverFinancialInstitutionInformation: JsonField<String>) = apply {
+                this.receiverFinancialInstitutionInformation = receiverFinancialInstitutionInformation
             }
 
             /** The sending bank's reference number for the wire reversal. */
-            fun senderReference(senderReference: String) =
-                senderReference(JsonField.of(senderReference))
+            fun senderReference(senderReference: String) = senderReference(JsonField.of(senderReference))
 
             /** The sending bank's reference number for the wire reversal. */
             @JsonProperty("sender_reference")
@@ -2370,8 +2386,7 @@ private constructor(
             }
 
             /** The ID for the Wire Transfer that is being reversed. */
-            fun wireTransferId(wireTransferId: String) =
-                wireTransferId(JsonField.of(wireTransferId))
+            fun wireTransferId(wireTransferId: String) = wireTransferId(JsonField.of(wireTransferId))
 
             /** The ID for the Wire Transfer that is being reversed. */
             @JsonProperty("wire_transfer_id")
@@ -2394,44 +2409,41 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Reversal =
-                Reversal(
-                    amount,
-                    createdAt,
-                    description,
-                    financialInstitutionToFinancialInstitutionInformation,
-                    inputCycleDate,
-                    inputMessageAccountabilityData,
-                    inputSequenceNumber,
-                    inputSource,
-                    originatorRoutingNumber,
-                    previousMessageInputCycleDate,
-                    previousMessageInputMessageAccountabilityData,
-                    previousMessageInputSequenceNumber,
-                    previousMessageInputSource,
-                    receiverFinancialInstitutionInformation,
-                    senderReference,
-                    transactionId,
-                    wireTransferId,
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build(): Reversal = Reversal(
+                amount,
+                createdAt,
+                description,
+                financialInstitutionToFinancialInstitutionInformation,
+                inputCycleDate,
+                inputMessageAccountabilityData,
+                inputSequenceNumber,
+                inputSource,
+                originatorRoutingNumber,
+                previousMessageInputCycleDate,
+                previousMessageInputMessageAccountabilityData,
+                previousMessageInputSequenceNumber,
+                previousMessageInputSource,
+                receiverFinancialInstitutionInformation,
+                senderReference,
+                transactionId,
+                wireTransferId,
+                additionalProperties.toUnmodifiable(),
+            )
         }
     }
 
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Status && this.value == other.value
+          return other is Status &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -2486,54 +2498,49 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                CANCELED -> Value.CANCELED
-                REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
-                PENDING_REVIEWING -> Value.PENDING_REVIEWING
-                PENDING_APPROVAL -> Value.PENDING_APPROVAL
-                REJECTED -> Value.REJECTED
-                REVERSED -> Value.REVERSED
-                SUBMITTED -> Value.SUBMITTED
-                COMPLETE -> Value.COMPLETE
-                PENDING_CREATING -> Value.PENDING_CREATING
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            CANCELED -> Value.CANCELED
+            REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
+            PENDING_REVIEWING -> Value.PENDING_REVIEWING
+            PENDING_APPROVAL -> Value.PENDING_APPROVAL
+            REJECTED -> Value.REJECTED
+            REVERSED -> Value.REVERSED
+            SUBMITTED -> Value.SUBMITTED
+            COMPLETE -> Value.COMPLETE
+            PENDING_CREATING -> Value.PENDING_CREATING
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                CANCELED -> Known.CANCELED
-                REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
-                PENDING_REVIEWING -> Known.PENDING_REVIEWING
-                PENDING_APPROVAL -> Known.PENDING_APPROVAL
-                REJECTED -> Known.REJECTED
-                REVERSED -> Known.REVERSED
-                SUBMITTED -> Known.SUBMITTED
-                COMPLETE -> Known.COMPLETE
-                PENDING_CREATING -> Known.PENDING_CREATING
-                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-            }
+        fun known(): Known = when (this) {
+            CANCELED -> Known.CANCELED
+            REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
+            PENDING_REVIEWING -> Known.PENDING_REVIEWING
+            PENDING_APPROVAL -> Known.PENDING_APPROVAL
+            REJECTED -> Known.REJECTED
+            REVERSED -> Known.REVERSED
+            SUBMITTED -> Known.SUBMITTED
+            COMPLETE -> Known.COMPLETE
+            PENDING_CREATING -> Known.PENDING_CREATING
+            else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    /** After the transfer is submitted to Fedwire, this will contain supplemental details. */
+    /**
+     * After the transfer is submitted to Fedwire, this will contain supplemental
+     * details.
+     */
     @JsonDeserialize(builder = Submission.Builder::class)
     @NoAutoDetect
-    class Submission
-    private constructor(
-        private val inputMessageAccountabilityData: JsonField<String>,
-        private val submittedAt: JsonField<OffsetDateTime>,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
+    class Submission private constructor(private val inputMessageAccountabilityData: JsonField<String>, private val submittedAt: JsonField<OffsetDateTime>, private val additionalProperties: Map<String, JsonValue>, ) {
 
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
 
         /** The accountability data for the submission. */
-        fun inputMessageAccountabilityData(): String =
-            inputMessageAccountabilityData.getRequired("input_message_accountability_data")
+        fun inputMessageAccountabilityData(): String = inputMessageAccountabilityData.getRequired("input_message_accountability_data")
 
         /** When this wire transfer was submitted to Fedwire. */
         fun submittedAt(): OffsetDateTime = submittedAt.getRequired("submitted_at")
@@ -2544,7 +2551,9 @@ private constructor(
         fun _inputMessageAccountabilityData() = inputMessageAccountabilityData
 
         /** When this wire transfer was submitted to Fedwire. */
-        @JsonProperty("submitted_at") @ExcludeMissing fun _submittedAt() = submittedAt
+        @JsonProperty("submitted_at")
+        @ExcludeMissing
+        fun _submittedAt() = submittedAt
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -2552,43 +2561,42 @@ private constructor(
 
         fun validate(): Submission = apply {
             if (!validated) {
-                inputMessageAccountabilityData()
-                submittedAt()
-                validated = true
+              inputMessageAccountabilityData()
+              submittedAt()
+              validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Submission &&
-                this.inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
-                this.submittedAt == other.submittedAt &&
-                this.additionalProperties == other.additionalProperties
+          return other is Submission &&
+              this.inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
+              this.submittedAt == other.submittedAt &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        inputMessageAccountabilityData,
-                        submittedAt,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(
+                inputMessageAccountabilityData,
+                submittedAt,
+                additionalProperties,
+            )
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "Submission{inputMessageAccountabilityData=$inputMessageAccountabilityData, submittedAt=$submittedAt, additionalProperties=$additionalProperties}"
+        override fun toString() = "Submission{inputMessageAccountabilityData=$inputMessageAccountabilityData, submittedAt=$submittedAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         class Builder {
@@ -2605,16 +2613,14 @@ private constructor(
             }
 
             /** The accountability data for the submission. */
-            fun inputMessageAccountabilityData(inputMessageAccountabilityData: String) =
-                inputMessageAccountabilityData(JsonField.of(inputMessageAccountabilityData))
+            fun inputMessageAccountabilityData(inputMessageAccountabilityData: String) = inputMessageAccountabilityData(JsonField.of(inputMessageAccountabilityData))
 
             /** The accountability data for the submission. */
             @JsonProperty("input_message_accountability_data")
             @ExcludeMissing
-            fun inputMessageAccountabilityData(inputMessageAccountabilityData: JsonField<String>) =
-                apply {
-                    this.inputMessageAccountabilityData = inputMessageAccountabilityData
-                }
+            fun inputMessageAccountabilityData(inputMessageAccountabilityData: JsonField<String>) = apply {
+                this.inputMessageAccountabilityData = inputMessageAccountabilityData
+            }
 
             /** When this wire transfer was submitted to Fedwire. */
             fun submittedAt(submittedAt: OffsetDateTime) = submittedAt(JsonField.of(submittedAt))
@@ -2640,29 +2646,26 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Submission =
-                Submission(
-                    inputMessageAccountabilityData,
-                    submittedAt,
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build(): Submission = Submission(
+                inputMessageAccountabilityData,
+                submittedAt,
+                additionalProperties.toUnmodifiable(),
+            )
         }
     }
 
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Type && this.value == other.value
+          return other is Type &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -2685,17 +2688,15 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                WIRE_TRANSFER -> Value.WIRE_TRANSFER
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            WIRE_TRANSFER -> Value.WIRE_TRANSFER
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                WIRE_TRANSFER -> Known.WIRE_TRANSFER
-                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-            }
+        fun known(): Known = when (this) {
+            WIRE_TRANSFER -> Known.WIRE_TRANSFER
+            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }

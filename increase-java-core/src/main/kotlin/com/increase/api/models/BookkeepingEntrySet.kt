@@ -5,37 +5,52 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.Enum
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.errors.IncreaseInvalidDataException
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import java.time.LocalDate
 import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.JsonNull
+import com.increase.api.core.JsonField
+import com.increase.api.core.Enum
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.errors.IncreaseInvalidDataException
 
 /**
- * Entry Sets are accounting entries that are transactionally applied. Your compliance setup might
- * require annotating money movements using this API. Learn more in our
+ * Entry Sets are accounting entries that are transactionally applied. Your
+ * compliance setup might require annotating money movements using this API. Learn
+ * more in our
  * [guide to Bookkeeping](https://increase.com/documentation/bookkeeping#bookkeeping).
  */
 @JsonDeserialize(builder = BookkeepingEntrySet.Builder::class)
 @NoAutoDetect
-class BookkeepingEntrySet
-private constructor(
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val date: JsonField<OffsetDateTime>,
-    private val entries: JsonField<List<Entry>>,
-    private val id: JsonField<String>,
-    private val idempotencyKey: JsonField<String>,
-    private val transactionId: JsonField<String>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+class BookkeepingEntrySet private constructor(
+  private val createdAt: JsonField<OffsetDateTime>,
+  private val date: JsonField<OffsetDateTime>,
+  private val entries: JsonField<List<Entry>>,
+  private val id: JsonField<String>,
+  private val idempotencyKey: JsonField<String>,
+  private val transactionId: JsonField<String>,
+  private val type: JsonField<Type>,
+  private val additionalProperties: Map<String, JsonValue>,
+
 ) {
 
     private var validated: Boolean = false
@@ -55,16 +70,14 @@ private constructor(
     fun id(): String = id.getRequired("id")
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across
+     * Increase and is used to ensure that a request is only processed once. Learn more
+     * about [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
     /** The transaction identifier, if any. */
-    fun transactionId(): Optional<String> =
-        Optional.ofNullable(transactionId.getNullable("transaction_id"))
+    fun transactionId(): Optional<String> = Optional.ofNullable(transactionId.getNullable("transaction_id"))
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -73,32 +86,46 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** When the entry set was created. */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt() = createdAt
 
     /** The timestamp of the entry set. */
-    @JsonProperty("date") @ExcludeMissing fun _date() = date
+    @JsonProperty("date")
+    @ExcludeMissing
+    fun _date() = date
 
     /** The entries. */
-    @JsonProperty("entries") @ExcludeMissing fun _entries() = entries
+    @JsonProperty("entries")
+    @ExcludeMissing
+    fun _entries() = entries
 
     /** The entry set identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id")
+    @ExcludeMissing
+    fun _id() = id
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across
+     * Increase and is used to ensure that a request is only processed once. Learn more
+     * about [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    fun _idempotencyKey() = idempotencyKey
 
     /** The transaction identifier, if any. */
-    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+    @JsonProperty("transaction_id")
+    @ExcludeMissing
+    fun _transactionId() = transactionId
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `bookkeeping_entry_set`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type")
+    @ExcludeMissing
+    fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -106,58 +133,57 @@ private constructor(
 
     fun validate(): BookkeepingEntrySet = apply {
         if (!validated) {
-            createdAt()
-            date()
-            entries().forEach { it.validate() }
-            id()
-            idempotencyKey()
-            transactionId()
-            type()
-            validated = true
+          createdAt()
+          date()
+          entries().forEach { it.validate() }
+          id()
+          idempotencyKey()
+          transactionId()
+          type()
+          validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is BookkeepingEntrySet &&
-            this.createdAt == other.createdAt &&
-            this.date == other.date &&
-            this.entries == other.entries &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.transactionId == other.transactionId &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
+      return other is BookkeepingEntrySet &&
+          this.createdAt == other.createdAt &&
+          this.date == other.date &&
+          this.entries == other.entries &&
+          this.id == other.id &&
+          this.idempotencyKey == other.idempotencyKey &&
+          this.transactionId == other.transactionId &&
+          this.type == other.type &&
+          this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    createdAt,
-                    date,
-                    entries,
-                    id,
-                    idempotencyKey,
-                    transactionId,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
+      if (hashCode == 0) {
+        hashCode = Objects.hash(
+            createdAt,
+            date,
+            entries,
+            id,
+            idempotencyKey,
+            transactionId,
+            type,
+            additionalProperties,
+        )
+      }
+      return hashCode
     }
 
-    override fun toString() =
-        "BookkeepingEntrySet{createdAt=$createdAt, date=$date, entries=$entries, id=$id, idempotencyKey=$idempotencyKey, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() = "BookkeepingEntrySet{createdAt=$createdAt, date=$date, entries=$entries, id=$id, idempotencyKey=$idempotencyKey, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     class Builder {
@@ -189,7 +215,9 @@ private constructor(
         /** When the entry set was created. */
         @JsonProperty("created_at")
         @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+            this.createdAt = createdAt
+        }
 
         /** The timestamp of the entry set. */
         fun date(date: OffsetDateTime) = date(JsonField.of(date))
@@ -197,7 +225,9 @@ private constructor(
         /** The timestamp of the entry set. */
         @JsonProperty("date")
         @ExcludeMissing
-        fun date(date: JsonField<OffsetDateTime>) = apply { this.date = date }
+        fun date(date: JsonField<OffsetDateTime>) = apply {
+            this.date = date
+        }
 
         /** The entries. */
         fun entries(entries: List<Entry>) = entries(JsonField.of(entries))
@@ -205,25 +235,31 @@ private constructor(
         /** The entries. */
         @JsonProperty("entries")
         @ExcludeMissing
-        fun entries(entries: JsonField<List<Entry>>) = apply { this.entries = entries }
+        fun entries(entries: JsonField<List<Entry>>) = apply {
+            this.entries = entries
+        }
 
         /** The entry set identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The entry set identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        @JsonProperty("id")
+        @ExcludeMissing
+        fun id(id: JsonField<String>) = apply {
+            this.id = id
+        }
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across
+         * Increase and is used to ensure that a request is only processed once. Learn more
+         * about [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across
+         * Increase and is used to ensure that a request is only processed once. Learn more
+         * about [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         @JsonProperty("idempotency_key")
         @ExcludeMissing
@@ -253,7 +289,9 @@ private constructor(
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        fun type(type: JsonField<Type>) = apply {
+            this.type = type
+        }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -269,27 +307,26 @@ private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): BookkeepingEntrySet =
-            BookkeepingEntrySet(
-                createdAt,
-                date,
-                entries.map { it.toUnmodifiable() },
-                id,
-                idempotencyKey,
-                transactionId,
-                type,
-                additionalProperties.toUnmodifiable(),
-            )
+        fun build(): BookkeepingEntrySet = BookkeepingEntrySet(
+            createdAt,
+            date,
+            entries.map { it.toUnmodifiable() },
+            id,
+            idempotencyKey,
+            transactionId,
+            type,
+            additionalProperties.toUnmodifiable(),
+        )
     }
 
     @JsonDeserialize(builder = Entry.Builder::class)
     @NoAutoDetect
-    class Entry
-    private constructor(
-        private val accountId: JsonField<String>,
-        private val amount: JsonField<Long>,
-        private val id: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+    class Entry private constructor(
+      private val accountId: JsonField<String>,
+      private val amount: JsonField<Long>,
+      private val id: JsonField<String>,
+      private val additionalProperties: Map<String, JsonValue>,
+
     ) {
 
         private var validated: Boolean = false
@@ -306,13 +343,19 @@ private constructor(
         fun id(): String = id.getRequired("id")
 
         /** The bookkeeping account impacted by the entry. */
-        @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+        @JsonProperty("account_id")
+        @ExcludeMissing
+        fun _accountId() = accountId
 
         /** The amount of the entry in minor units. */
-        @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+        @JsonProperty("amount")
+        @ExcludeMissing
+        fun _amount() = amount
 
         /** The entry identifier. */
-        @JsonProperty("id") @ExcludeMissing fun _id() = id
+        @JsonProperty("id")
+        @ExcludeMissing
+        fun _id() = id
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -320,46 +363,45 @@ private constructor(
 
         fun validate(): Entry = apply {
             if (!validated) {
-                accountId()
-                amount()
-                id()
-                validated = true
+              accountId()
+              amount()
+              id()
+              validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Entry &&
-                this.accountId == other.accountId &&
-                this.amount == other.amount &&
-                this.id == other.id &&
-                this.additionalProperties == other.additionalProperties
+          return other is Entry &&
+              this.accountId == other.accountId &&
+              this.amount == other.amount &&
+              this.id == other.id &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountId,
-                        amount,
-                        id,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(
+                accountId,
+                amount,
+                id,
+                additionalProperties,
+            )
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "Entry{accountId=$accountId, amount=$amount, id=$id, additionalProperties=$additionalProperties}"
+        override fun toString() = "Entry{accountId=$accountId, amount=$amount, id=$id, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         class Builder {
@@ -383,7 +425,9 @@ private constructor(
             /** The bookkeeping account impacted by the entry. */
             @JsonProperty("account_id")
             @ExcludeMissing
-            fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
+            fun accountId(accountId: JsonField<String>) = apply {
+                this.accountId = accountId
+            }
 
             /** The amount of the entry in minor units. */
             fun amount(amount: Long) = amount(JsonField.of(amount))
@@ -391,7 +435,9 @@ private constructor(
             /** The amount of the entry in minor units. */
             @JsonProperty("amount")
             @ExcludeMissing
-            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+            fun amount(amount: JsonField<Long>) = apply {
+                this.amount = amount
+            }
 
             /** The entry identifier. */
             fun id(id: String) = id(JsonField.of(id))
@@ -399,7 +445,9 @@ private constructor(
             /** The entry identifier. */
             @JsonProperty("id")
             @ExcludeMissing
-            fun id(id: JsonField<String>) = apply { this.id = id }
+            fun id(id: JsonField<String>) = apply {
+                this.id = id
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -415,30 +463,27 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Entry =
-                Entry(
-                    accountId,
-                    amount,
-                    id,
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build(): Entry = Entry(
+                accountId,
+                amount,
+                id,
+                additionalProperties.toUnmodifiable(),
+            )
         }
     }
 
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Type && this.value == other.value
+          return other is Type &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -461,17 +506,15 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                BOOKKEEPING_ENTRY_SET -> Value.BOOKKEEPING_ENTRY_SET
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            BOOKKEEPING_ENTRY_SET -> Value.BOOKKEEPING_ENTRY_SET
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                BOOKKEEPING_ENTRY_SET -> Known.BOOKKEEPING_ENTRY_SET
-                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-            }
+        fun known(): Known = when (this) {
+            BOOKKEEPING_ENTRY_SET -> Known.BOOKKEEPING_ENTRY_SET
+            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }

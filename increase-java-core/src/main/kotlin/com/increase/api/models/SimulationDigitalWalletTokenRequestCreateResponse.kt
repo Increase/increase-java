@@ -5,28 +5,43 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.Enum
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.errors.IncreaseInvalidDataException
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import java.time.LocalDate
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.JsonNull
+import com.increase.api.core.JsonField
+import com.increase.api.core.Enum
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.errors.IncreaseInvalidDataException
 
 /** The results of a Digital Wallet Token simulation. */
 @JsonDeserialize(builder = SimulationDigitalWalletTokenRequestCreateResponse.Builder::class)
 @NoAutoDetect
-class SimulationDigitalWalletTokenRequestCreateResponse
-private constructor(
-    private val declineReason: JsonField<DeclineReason>,
-    private val digitalWalletTokenId: JsonField<String>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+class SimulationDigitalWalletTokenRequestCreateResponse private constructor(
+  private val declineReason: JsonField<DeclineReason>,
+  private val digitalWalletTokenId: JsonField<String>,
+  private val type: JsonField<Type>,
+  private val additionalProperties: Map<String, JsonValue>,
+
 ) {
 
     private var validated: Boolean = false
@@ -34,17 +49,16 @@ private constructor(
     private var hashCode: Int = 0
 
     /**
-     * If the simulated tokenization attempt was declined, this field contains details as to why.
+     * If the simulated tokenization attempt was declined, this field contains details
+     * as to why.
      */
-    fun declineReason(): Optional<DeclineReason> =
-        Optional.ofNullable(declineReason.getNullable("decline_reason"))
+    fun declineReason(): Optional<DeclineReason> = Optional.ofNullable(declineReason.getNullable("decline_reason"))
 
     /**
-     * If the simulated tokenization attempt was accepted, this field contains the id of the Digital
-     * Wallet Token that was created.
+     * If the simulated tokenization attempt was accepted, this field contains the id
+     * of the Digital Wallet Token that was created.
      */
-    fun digitalWalletTokenId(): Optional<String> =
-        Optional.ofNullable(digitalWalletTokenId.getNullable("digital_wallet_token_id"))
+    fun digitalWalletTokenId(): Optional<String> = Optional.ofNullable(digitalWalletTokenId.getNullable("digital_wallet_token_id"))
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -53,13 +67,16 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /**
-     * If the simulated tokenization attempt was declined, this field contains details as to why.
+     * If the simulated tokenization attempt was declined, this field contains details
+     * as to why.
      */
-    @JsonProperty("decline_reason") @ExcludeMissing fun _declineReason() = declineReason
+    @JsonProperty("decline_reason")
+    @ExcludeMissing
+    fun _declineReason() = declineReason
 
     /**
-     * If the simulated tokenization attempt was accepted, this field contains the id of the Digital
-     * Wallet Token that was created.
+     * If the simulated tokenization attempt was accepted, this field contains the id
+     * of the Digital Wallet Token that was created.
      */
     @JsonProperty("digital_wallet_token_id")
     @ExcludeMissing
@@ -69,7 +86,9 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `inbound_digital_wallet_token_request_simulation_result`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type")
+    @ExcludeMissing
+    fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -77,46 +96,45 @@ private constructor(
 
     fun validate(): SimulationDigitalWalletTokenRequestCreateResponse = apply {
         if (!validated) {
-            declineReason()
-            digitalWalletTokenId()
-            type()
-            validated = true
+          declineReason()
+          digitalWalletTokenId()
+          type()
+          validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is SimulationDigitalWalletTokenRequestCreateResponse &&
-            this.declineReason == other.declineReason &&
-            this.digitalWalletTokenId == other.digitalWalletTokenId &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
+      return other is SimulationDigitalWalletTokenRequestCreateResponse &&
+          this.declineReason == other.declineReason &&
+          this.digitalWalletTokenId == other.digitalWalletTokenId &&
+          this.type == other.type &&
+          this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    declineReason,
-                    digitalWalletTokenId,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
+      if (hashCode == 0) {
+        hashCode = Objects.hash(
+            declineReason,
+            digitalWalletTokenId,
+            type,
+            additionalProperties,
+        )
+      }
+      return hashCode
     }
 
-    override fun toString() =
-        "SimulationDigitalWalletTokenRequestCreateResponse{declineReason=$declineReason, digitalWalletTokenId=$digitalWalletTokenId, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() = "SimulationDigitalWalletTokenRequestCreateResponse{declineReason=$declineReason, digitalWalletTokenId=$digitalWalletTokenId, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     class Builder {
@@ -127,28 +145,22 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(
-            simulationDigitalWalletTokenRequestCreateResponse:
-                SimulationDigitalWalletTokenRequestCreateResponse
-        ) = apply {
+        internal fun from(simulationDigitalWalletTokenRequestCreateResponse: SimulationDigitalWalletTokenRequestCreateResponse) = apply {
             this.declineReason = simulationDigitalWalletTokenRequestCreateResponse.declineReason
-            this.digitalWalletTokenId =
-                simulationDigitalWalletTokenRequestCreateResponse.digitalWalletTokenId
+            this.digitalWalletTokenId = simulationDigitalWalletTokenRequestCreateResponse.digitalWalletTokenId
             this.type = simulationDigitalWalletTokenRequestCreateResponse.type
-            additionalProperties(
-                simulationDigitalWalletTokenRequestCreateResponse.additionalProperties
-            )
+            additionalProperties(simulationDigitalWalletTokenRequestCreateResponse.additionalProperties)
         }
 
         /**
-         * If the simulated tokenization attempt was declined, this field contains details as to
-         * why.
+         * If the simulated tokenization attempt was declined, this field contains details
+         * as to why.
          */
         fun declineReason(declineReason: DeclineReason) = declineReason(JsonField.of(declineReason))
 
         /**
-         * If the simulated tokenization attempt was declined, this field contains details as to
-         * why.
+         * If the simulated tokenization attempt was declined, this field contains details
+         * as to why.
          */
         @JsonProperty("decline_reason")
         @ExcludeMissing
@@ -157,15 +169,14 @@ private constructor(
         }
 
         /**
-         * If the simulated tokenization attempt was accepted, this field contains the id of the
-         * Digital Wallet Token that was created.
+         * If the simulated tokenization attempt was accepted, this field contains the id
+         * of the Digital Wallet Token that was created.
          */
-        fun digitalWalletTokenId(digitalWalletTokenId: String) =
-            digitalWalletTokenId(JsonField.of(digitalWalletTokenId))
+        fun digitalWalletTokenId(digitalWalletTokenId: String) = digitalWalletTokenId(JsonField.of(digitalWalletTokenId))
 
         /**
-         * If the simulated tokenization attempt was accepted, this field contains the id of the
-         * Digital Wallet Token that was created.
+         * If the simulated tokenization attempt was accepted, this field contains the id
+         * of the Digital Wallet Token that was created.
          */
         @JsonProperty("digital_wallet_token_id")
         @ExcludeMissing
@@ -185,7 +196,9 @@ private constructor(
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        fun type(type: JsonField<Type>) = apply {
+            this.type = type
+        }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -201,29 +214,26 @@ private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): SimulationDigitalWalletTokenRequestCreateResponse =
-            SimulationDigitalWalletTokenRequestCreateResponse(
-                declineReason,
-                digitalWalletTokenId,
-                type,
-                additionalProperties.toUnmodifiable(),
-            )
+        fun build(): SimulationDigitalWalletTokenRequestCreateResponse = SimulationDigitalWalletTokenRequestCreateResponse(
+            declineReason,
+            digitalWalletTokenId,
+            type,
+            additionalProperties.toUnmodifiable(),
+        )
     }
 
-    class DeclineReason
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class DeclineReason @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is DeclineReason && this.value == other.value
+          return other is DeclineReason &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -234,8 +244,7 @@ private constructor(
 
             @JvmField val CARD_NOT_ACTIVE = DeclineReason(JsonField.of("card_not_active"))
 
-            @JvmField
-            val NO_VERIFICATION_METHOD = DeclineReason(JsonField.of("no_verification_method"))
+            @JvmField val NO_VERIFICATION_METHOD = DeclineReason(JsonField.of("no_verification_method"))
 
             @JvmField val WEBHOOK_TIMED_OUT = DeclineReason(JsonField.of("webhook_timed_out"))
 
@@ -259,41 +268,37 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                CARD_NOT_ACTIVE -> Value.CARD_NOT_ACTIVE
-                NO_VERIFICATION_METHOD -> Value.NO_VERIFICATION_METHOD
-                WEBHOOK_TIMED_OUT -> Value.WEBHOOK_TIMED_OUT
-                WEBHOOK_DECLINED -> Value.WEBHOOK_DECLINED
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            CARD_NOT_ACTIVE -> Value.CARD_NOT_ACTIVE
+            NO_VERIFICATION_METHOD -> Value.NO_VERIFICATION_METHOD
+            WEBHOOK_TIMED_OUT -> Value.WEBHOOK_TIMED_OUT
+            WEBHOOK_DECLINED -> Value.WEBHOOK_DECLINED
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                CARD_NOT_ACTIVE -> Known.CARD_NOT_ACTIVE
-                NO_VERIFICATION_METHOD -> Known.NO_VERIFICATION_METHOD
-                WEBHOOK_TIMED_OUT -> Known.WEBHOOK_TIMED_OUT
-                WEBHOOK_DECLINED -> Known.WEBHOOK_DECLINED
-                else -> throw IncreaseInvalidDataException("Unknown DeclineReason: $value")
-            }
+        fun known(): Known = when (this) {
+            CARD_NOT_ACTIVE -> Known.CARD_NOT_ACTIVE
+            NO_VERIFICATION_METHOD -> Known.NO_VERIFICATION_METHOD
+            WEBHOOK_TIMED_OUT -> Known.WEBHOOK_TIMED_OUT
+            WEBHOOK_DECLINED -> Known.WEBHOOK_DECLINED
+            else -> throw IncreaseInvalidDataException("Unknown DeclineReason: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Type && this.value == other.value
+          return other is Type &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -302,9 +307,7 @@ private constructor(
 
         companion object {
 
-            @JvmField
-            val INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT =
-                Type(JsonField.of("inbound_digital_wallet_token_request_simulation_result"))
+            @JvmField val INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT = Type(JsonField.of("inbound_digital_wallet_token_request_simulation_result"))
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }
@@ -318,19 +321,15 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT ->
-                    Value.INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT -> Value.INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT ->
-                    Known.INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT
-                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-            }
+        fun known(): Known = when (this) {
+            INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT -> Known.INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT
+            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }

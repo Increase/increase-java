@@ -4,25 +4,51 @@
 
 package com.increase.api.services.blocking
 
-import com.increase.api.core.RequestOptions
+import com.fasterxml.jackson.databind.json.JsonMapper
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+import kotlin.LazyThreadSafetyMode.PUBLICATION
+import java.time.LocalDate
+import java.time.Duration
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Base64
+import java.util.Optional
+import java.util.UUID
+import java.util.concurrent.CompletableFuture
+import java.util.stream.Stream
+import com.increase.api.core.Enum
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.ProofOfAuthorizationRequest
 import com.increase.api.models.ProofOfAuthorizationRequestListPage
 import com.increase.api.models.ProofOfAuthorizationRequestListParams
 import com.increase.api.models.ProofOfAuthorizationRequestRetrieveParams
+import com.increase.api.core.ClientOptions
+import com.increase.api.core.http.HttpMethod
+import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.core.http.BinaryResponseContent
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonValue
+import com.increase.api.core.RequestOptions
+import com.increase.api.errors.IncreaseError
+import com.increase.api.services.emptyHandler
+import com.increase.api.services.errorHandler
+import com.increase.api.services.json
+import com.increase.api.services.jsonHandler
+import com.increase.api.services.multipartFormData
+import com.increase.api.services.stringHandler
+import com.increase.api.services.binaryHandler
+import com.increase.api.services.withErrorHandler
 
 interface ProofOfAuthorizationRequestService {
 
     /** Retrieve a Proof of Authorization Request */
     @JvmOverloads
-    fun retrieve(
-        params: ProofOfAuthorizationRequestRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
-    ): ProofOfAuthorizationRequest
+    fun retrieve(params: ProofOfAuthorizationRequestRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): ProofOfAuthorizationRequest
 
     /** List Proof of Authorization Requests */
     @JvmOverloads
-    fun list(
-        params: ProofOfAuthorizationRequestListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
-    ): ProofOfAuthorizationRequestListPage
+    fun list(params: ProofOfAuthorizationRequestListParams, requestOptions: RequestOptions = RequestOptions.none()): ProofOfAuthorizationRequestListPage
 }

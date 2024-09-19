@@ -4,27 +4,28 @@ import com.google.common.collect.ListMultimap
 import com.google.common.collect.MultimapBuilder
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpClient
-import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpRequestBody
 import com.increase.api.core.http.HttpResponse
+import com.increase.api.core.http.HttpMethod
 import com.increase.api.errors.IncreaseIoException
 import java.io.IOException
 import java.io.InputStream
 import java.net.Proxy
 import java.time.Duration
 import java.util.concurrent.CompletableFuture
+import java.util.concurrent.TimeUnit
 import okhttp3.Call
 import okhttp3.Callback
-import okhttp3.Headers
 import okhttp3.HttpUrl
-import okhttp3.HttpUrl.Companion.toHttpUrl
-import okhttp3.MediaType
-import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.Response
 import okhttp3.Request
 import okhttp3.RequestBody
+import okhttp3.MediaType
+import okhttp3.Headers
+import okhttp3.HttpUrl.Companion.toHttpUrl
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
-import okhttp3.Response
 import okio.BufferedSink
 
 class OkHttpClient
@@ -33,8 +34,7 @@ private constructor(private val okHttpClient: okhttp3.OkHttpClient, private val 
 
     private fun getClient(requestOptions: RequestOptions): okhttp3.OkHttpClient {
         val timeout = requestOptions.timeout ?: return okHttpClient
-        return okHttpClient
-            .newBuilder()
+        return okHttpClient.newBuilder()
             .connectTimeout(timeout)
             .readTimeout(timeout)
             .writeTimeout(timeout)
@@ -76,8 +76,7 @@ private constructor(private val okHttpClient: okhttp3.OkHttpClient, private val 
                 override fun onFailure(call: Call, e: IOException) {
                     future.completeExceptionally(IncreaseIoException("Request failed", e))
                 }
-            }
-        )
+            })
 
         return future
     }
