@@ -5,47 +5,28 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
+import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.JsonNull
-import com.increase.api.core.JsonField
-import com.increase.api.core.Enum
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.util.Objects
 
-/**
- * Represents a request to lookup the balance of an Account at a given point in
- * time.
- */
+/** Represents a request to lookup the balance of an Account at a given point in time. */
 @JsonDeserialize(builder = BalanceLookup.Builder::class)
 @NoAutoDetect
-class BalanceLookup private constructor(
-  private val accountId: JsonField<String>,
-  private val availableBalance: JsonField<Long>,
-  private val currentBalance: JsonField<Long>,
-  private val type: JsonField<Type>,
-  private val additionalProperties: Map<String, JsonValue>,
-
+class BalanceLookup
+private constructor(
+    private val accountId: JsonField<String>,
+    private val availableBalance: JsonField<Long>,
+    private val currentBalance: JsonField<Long>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: Map<String, JsonValue>,
 ) {
 
     private var validated: Boolean = false
@@ -56,14 +37,14 @@ class BalanceLookup private constructor(
     fun accountId(): String = accountId.getRequired("account_id")
 
     /**
-     * The Account's available balance, representing the current balance less any open
-     * Pending Transactions on the Account.
+     * The Account's available balance, representing the current balance less any open Pending
+     * Transactions on the Account.
      */
     fun availableBalance(): Long = availableBalance.getRequired("available_balance")
 
     /**
-     * The Account's current balance, representing the sum of all posted Transactions
-     * on the Account.
+     * The Account's current balance, representing the sum of all posted Transactions on the
+     * Account.
      */
     fun currentBalance(): Long = currentBalance.getRequired("current_balance")
 
@@ -74,33 +55,25 @@ class BalanceLookup private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The identifier for the account for which the balance was queried. */
-    @JsonProperty("account_id")
-    @ExcludeMissing
-    fun _accountId() = accountId
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
 
     /**
-     * The Account's available balance, representing the current balance less any open
-     * Pending Transactions on the Account.
+     * The Account's available balance, representing the current balance less any open Pending
+     * Transactions on the Account.
      */
-    @JsonProperty("available_balance")
-    @ExcludeMissing
-    fun _availableBalance() = availableBalance
+    @JsonProperty("available_balance") @ExcludeMissing fun _availableBalance() = availableBalance
 
     /**
-     * The Account's current balance, representing the sum of all posted Transactions
-     * on the Account.
+     * The Account's current balance, representing the sum of all posted Transactions on the
+     * Account.
      */
-    @JsonProperty("current_balance")
-    @ExcludeMissing
-    fun _currentBalance() = currentBalance
+    @JsonProperty("current_balance") @ExcludeMissing fun _currentBalance() = currentBalance
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `balance_lookup`.
      */
-    @JsonProperty("type")
-    @ExcludeMissing
-    fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -108,48 +81,49 @@ class BalanceLookup private constructor(
 
     fun validate(): BalanceLookup = apply {
         if (!validated) {
-          accountId()
-          availableBalance()
-          currentBalance()
-          type()
-          validated = true
+            accountId()
+            availableBalance()
+            currentBalance()
+            type()
+            validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is BalanceLookup &&
-          this.accountId == other.accountId &&
-          this.availableBalance == other.availableBalance &&
-          this.currentBalance == other.currentBalance &&
-          this.type == other.type &&
-          this.additionalProperties == other.additionalProperties
+        return other is BalanceLookup &&
+            this.accountId == other.accountId &&
+            this.availableBalance == other.availableBalance &&
+            this.currentBalance == other.currentBalance &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-      if (hashCode == 0) {
-        hashCode = Objects.hash(
-            accountId,
-            availableBalance,
-            currentBalance,
-            type,
-            additionalProperties,
-        )
-      }
-      return hashCode
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    accountId,
+                    availableBalance,
+                    currentBalance,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
     }
 
-    override fun toString() = "BalanceLookup{accountId=$accountId, availableBalance=$availableBalance, currentBalance=$currentBalance, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() =
+        "BalanceLookup{accountId=$accountId, availableBalance=$availableBalance, currentBalance=$currentBalance, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     class Builder {
@@ -175,19 +149,18 @@ class BalanceLookup private constructor(
         /** The identifier for the account for which the balance was queried. */
         @JsonProperty("account_id")
         @ExcludeMissing
-        fun accountId(accountId: JsonField<String>) = apply {
-            this.accountId = accountId
-        }
+        fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /**
-         * The Account's available balance, representing the current balance less any open
-         * Pending Transactions on the Account.
+         * The Account's available balance, representing the current balance less any open Pending
+         * Transactions on the Account.
          */
-        fun availableBalance(availableBalance: Long) = availableBalance(JsonField.of(availableBalance))
+        fun availableBalance(availableBalance: Long) =
+            availableBalance(JsonField.of(availableBalance))
 
         /**
-         * The Account's available balance, representing the current balance less any open
-         * Pending Transactions on the Account.
+         * The Account's available balance, representing the current balance less any open Pending
+         * Transactions on the Account.
          */
         @JsonProperty("available_balance")
         @ExcludeMissing
@@ -196,14 +169,14 @@ class BalanceLookup private constructor(
         }
 
         /**
-         * The Account's current balance, representing the sum of all posted Transactions
-         * on the Account.
+         * The Account's current balance, representing the sum of all posted Transactions on the
+         * Account.
          */
         fun currentBalance(currentBalance: Long) = currentBalance(JsonField.of(currentBalance))
 
         /**
-         * The Account's current balance, representing the sum of all posted Transactions
-         * on the Account.
+         * The Account's current balance, representing the sum of all posted Transactions on the
+         * Account.
          */
         @JsonProperty("current_balance")
         @ExcludeMissing
@@ -223,9 +196,7 @@ class BalanceLookup private constructor(
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply {
-            this.type = type
-        }
+        fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -241,27 +212,30 @@ class BalanceLookup private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): BalanceLookup = BalanceLookup(
-            accountId,
-            availableBalance,
-            currentBalance,
-            type,
-            additionalProperties.toUnmodifiable(),
-        )
+        fun build(): BalanceLookup =
+            BalanceLookup(
+                accountId,
+                availableBalance,
+                currentBalance,
+                type,
+                additionalProperties.toUnmodifiable(),
+            )
     }
 
-    class Type @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+    class Type
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Type &&
-              this.value == other.value
+            return other is Type && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -284,15 +258,17 @@ class BalanceLookup private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            BALANCE_LOOKUP -> Value.BALANCE_LOOKUP
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                BALANCE_LOOKUP -> Value.BALANCE_LOOKUP
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            BALANCE_LOOKUP -> Known.BALANCE_LOOKUP
-            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                BALANCE_LOOKUP -> Known.BALANCE_LOOKUP
+                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }

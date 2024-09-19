@@ -5,54 +5,39 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
+import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.JsonNull
-import com.increase.api.core.JsonField
-import com.increase.api.core.Enum
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.time.OffsetDateTime
+import java.util.Objects
+import java.util.Optional
 
 /**
- * Exports are batch summaries of your Increase data. You can make them from the
- * API or dashboard. Since they can take a while, they are generated
- * asynchronously. We send a webhook when they are ready. For more information,
- * please read our
+ * Exports are batch summaries of your Increase data. You can make them from the API or dashboard.
+ * Since they can take a while, they are generated asynchronously. We send a webhook when they are
+ * ready. For more information, please read our
  * [Exports documentation](https://increase.com/documentation/exports).
  */
 @JsonDeserialize(builder = Export.Builder::class)
 @NoAutoDetect
-class Export private constructor(
-  private val category: JsonField<Category>,
-  private val createdAt: JsonField<OffsetDateTime>,
-  private val fileDownloadUrl: JsonField<String>,
-  private val fileId: JsonField<String>,
-  private val id: JsonField<String>,
-  private val idempotencyKey: JsonField<String>,
-  private val status: JsonField<Status>,
-  private val type: JsonField<Type>,
-  private val additionalProperties: Map<String, JsonValue>,
-
+class Export
+private constructor(
+    private val category: JsonField<Category>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val fileDownloadUrl: JsonField<String>,
+    private val fileId: JsonField<String>,
+    private val id: JsonField<String>,
+    private val idempotencyKey: JsonField<String>,
+    private val status: JsonField<Status>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: Map<String, JsonValue>,
 ) {
 
     private var validated: Boolean = false
@@ -60,8 +45,8 @@ class Export private constructor(
     private var hashCode: Int = 0
 
     /**
-     * The category of the Export. We may add additional possible values for this enum
-     * over time; your application should be able to handle that gracefully.
+     * The category of the Export. We may add additional possible values for this enum over time;
+     * your application should be able to handle that gracefully.
      */
     fun category(): Category = category.getRequired("category")
 
@@ -69,14 +54,15 @@ class Export private constructor(
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
-     * A URL at which the Export's file can be downloaded. This will be present when
-     * the Export's status transitions to `complete`.
+     * A URL at which the Export's file can be downloaded. This will be present when the Export's
+     * status transitions to `complete`.
      */
-    fun fileDownloadUrl(): Optional<String> = Optional.ofNullable(fileDownloadUrl.getNullable("file_download_url"))
+    fun fileDownloadUrl(): Optional<String> =
+        Optional.ofNullable(fileDownloadUrl.getNullable("file_download_url"))
 
     /**
-     * The File containing the contents of the Export. This will be present when the
-     * Export's status transitions to `complete`.
+     * The File containing the contents of the Export. This will be present when the Export's status
+     * transitions to `complete`.
      */
     fun fileId(): Optional<String> = Optional.ofNullable(fileId.getNullable("file_id"))
 
@@ -84,76 +70,55 @@ class Export private constructor(
     fun id(): String = id.getRequired("id")
 
     /**
-     * The idempotency key you chose for this object. This value is unique across
-     * Increase and is used to ensure that a request is only processed once. Learn more
-     * about [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> =
+        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
     /** The status of the Export. */
     fun status(): Status = status.getRequired("status")
 
-    /**
-     * A constant representing the object's type. For this resource it will always be
-     * `export`.
-     */
+    /** A constant representing the object's type. For this resource it will always be `export`. */
     fun type(): Type = type.getRequired("type")
 
     /**
-     * The category of the Export. We may add additional possible values for this enum
-     * over time; your application should be able to handle that gracefully.
+     * The category of the Export. We may add additional possible values for this enum over time;
+     * your application should be able to handle that gracefully.
      */
-    @JsonProperty("category")
-    @ExcludeMissing
-    fun _category() = category
+    @JsonProperty("category") @ExcludeMissing fun _category() = category
 
     /** The time the Export was created. */
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    fun _createdAt() = createdAt
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
     /**
-     * A URL at which the Export's file can be downloaded. This will be present when
-     * the Export's status transitions to `complete`.
+     * A URL at which the Export's file can be downloaded. This will be present when the Export's
+     * status transitions to `complete`.
      */
-    @JsonProperty("file_download_url")
-    @ExcludeMissing
-    fun _fileDownloadUrl() = fileDownloadUrl
+    @JsonProperty("file_download_url") @ExcludeMissing fun _fileDownloadUrl() = fileDownloadUrl
 
     /**
-     * The File containing the contents of the Export. This will be present when the
-     * Export's status transitions to `complete`.
+     * The File containing the contents of the Export. This will be present when the Export's status
+     * transitions to `complete`.
      */
-    @JsonProperty("file_id")
-    @ExcludeMissing
-    fun _fileId() = fileId
+    @JsonProperty("file_id") @ExcludeMissing fun _fileId() = fileId
 
     /** The Export identifier. */
-    @JsonProperty("id")
-    @ExcludeMissing
-    fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
-     * The idempotency key you chose for this object. This value is unique across
-     * Increase and is used to ensure that a request is only processed once. Learn more
-     * about [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key")
-    @ExcludeMissing
-    fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
 
     /** The status of the Export. */
-    @JsonProperty("status")
-    @ExcludeMissing
-    fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
 
-    /**
-     * A constant representing the object's type. For this resource it will always be
-     * `export`.
-     */
-    @JsonProperty("type")
-    @ExcludeMissing
-    fun _type() = type
+    /** A constant representing the object's type. For this resource it will always be `export`. */
+    @JsonProperty("type") @ExcludeMissing fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -161,60 +126,61 @@ class Export private constructor(
 
     fun validate(): Export = apply {
         if (!validated) {
-          category()
-          createdAt()
-          fileDownloadUrl()
-          fileId()
-          id()
-          idempotencyKey()
-          status()
-          type()
-          validated = true
+            category()
+            createdAt()
+            fileDownloadUrl()
+            fileId()
+            id()
+            idempotencyKey()
+            status()
+            type()
+            validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is Export &&
-          this.category == other.category &&
-          this.createdAt == other.createdAt &&
-          this.fileDownloadUrl == other.fileDownloadUrl &&
-          this.fileId == other.fileId &&
-          this.id == other.id &&
-          this.idempotencyKey == other.idempotencyKey &&
-          this.status == other.status &&
-          this.type == other.type &&
-          this.additionalProperties == other.additionalProperties
+        return other is Export &&
+            this.category == other.category &&
+            this.createdAt == other.createdAt &&
+            this.fileDownloadUrl == other.fileDownloadUrl &&
+            this.fileId == other.fileId &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.status == other.status &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-      if (hashCode == 0) {
-        hashCode = Objects.hash(
-            category,
-            createdAt,
-            fileDownloadUrl,
-            fileId,
-            id,
-            idempotencyKey,
-            status,
-            type,
-            additionalProperties,
-        )
-      }
-      return hashCode
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    category,
+                    createdAt,
+                    fileDownloadUrl,
+                    fileId,
+                    id,
+                    idempotencyKey,
+                    status,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
     }
 
-    override fun toString() = "Export{category=$category, createdAt=$createdAt, fileDownloadUrl=$fileDownloadUrl, fileId=$fileId, id=$id, idempotencyKey=$idempotencyKey, status=$status, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() =
+        "Export{category=$category, createdAt=$createdAt, fileDownloadUrl=$fileDownloadUrl, fileId=$fileId, id=$id, idempotencyKey=$idempotencyKey, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     class Builder {
@@ -243,20 +209,18 @@ class Export private constructor(
         }
 
         /**
-         * The category of the Export. We may add additional possible values for this enum
-         * over time; your application should be able to handle that gracefully.
+         * The category of the Export. We may add additional possible values for this enum over
+         * time; your application should be able to handle that gracefully.
          */
         fun category(category: Category) = category(JsonField.of(category))
 
         /**
-         * The category of the Export. We may add additional possible values for this enum
-         * over time; your application should be able to handle that gracefully.
+         * The category of the Export. We may add additional possible values for this enum over
+         * time; your application should be able to handle that gracefully.
          */
         @JsonProperty("category")
         @ExcludeMissing
-        fun category(category: JsonField<Category>) = apply {
-            this.category = category
-        }
+        fun category(category: JsonField<Category>) = apply { this.category = category }
 
         /** The time the Export was created. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
@@ -264,19 +228,18 @@ class Export private constructor(
         /** The time the Export was created. */
         @JsonProperty("created_at")
         @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
-            this.createdAt = createdAt
-        }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
-         * A URL at which the Export's file can be downloaded. This will be present when
-         * the Export's status transitions to `complete`.
+         * A URL at which the Export's file can be downloaded. This will be present when the
+         * Export's status transitions to `complete`.
          */
-        fun fileDownloadUrl(fileDownloadUrl: String) = fileDownloadUrl(JsonField.of(fileDownloadUrl))
+        fun fileDownloadUrl(fileDownloadUrl: String) =
+            fileDownloadUrl(JsonField.of(fileDownloadUrl))
 
         /**
-         * A URL at which the Export's file can be downloaded. This will be present when
-         * the Export's status transitions to `complete`.
+         * A URL at which the Export's file can be downloaded. This will be present when the
+         * Export's status transitions to `complete`.
          */
         @JsonProperty("file_download_url")
         @ExcludeMissing
@@ -285,42 +248,36 @@ class Export private constructor(
         }
 
         /**
-         * The File containing the contents of the Export. This will be present when the
-         * Export's status transitions to `complete`.
+         * The File containing the contents of the Export. This will be present when the Export's
+         * status transitions to `complete`.
          */
         fun fileId(fileId: String) = fileId(JsonField.of(fileId))
 
         /**
-         * The File containing the contents of the Export. This will be present when the
-         * Export's status transitions to `complete`.
+         * The File containing the contents of the Export. This will be present when the Export's
+         * status transitions to `complete`.
          */
         @JsonProperty("file_id")
         @ExcludeMissing
-        fun fileId(fileId: JsonField<String>) = apply {
-            this.fileId = fileId
-        }
+        fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
         /** The Export identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Export identifier. */
-        @JsonProperty("id")
-        @ExcludeMissing
-        fun id(id: JsonField<String>) = apply {
-            this.id = id
-        }
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
-         * The idempotency key you chose for this object. This value is unique across
-         * Increase and is used to ensure that a request is only processed once. Learn more
-         * about [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
 
         /**
-         * The idempotency key you chose for this object. This value is unique across
-         * Increase and is used to ensure that a request is only processed once. Learn more
-         * about [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         @JsonProperty("idempotency_key")
         @ExcludeMissing
@@ -334,25 +291,19 @@ class Export private constructor(
         /** The status of the Export. */
         @JsonProperty("status")
         @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply {
-            this.status = status
-        }
+        fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `export`.
+         * A constant representing the object's type. For this resource it will always be `export`.
          */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `export`.
+         * A constant representing the object's type. For this resource it will always be `export`.
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply {
-            this.type = type
-        }
+        fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -368,31 +319,34 @@ class Export private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): Export = Export(
-            category,
-            createdAt,
-            fileDownloadUrl,
-            fileId,
-            id,
-            idempotencyKey,
-            status,
-            type,
-            additionalProperties.toUnmodifiable(),
-        )
+        fun build(): Export =
+            Export(
+                category,
+                createdAt,
+                fileDownloadUrl,
+                fileId,
+                id,
+                idempotencyKey,
+                status,
+                type,
+                additionalProperties.toUnmodifiable(),
+            )
     }
 
-    class Category @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+    class Category
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Category &&
-              this.value == other.value
+            return other is Category && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -407,7 +361,9 @@ class Export private constructor(
 
             @JvmField val BALANCE_CSV = Category(JsonField.of("balance_csv"))
 
-            @JvmField val BOOKKEEPING_ACCOUNT_BALANCE_CSV = Category(JsonField.of("bookkeeping_account_balance_csv"))
+            @JvmField
+            val BOOKKEEPING_ACCOUNT_BALANCE_CSV =
+                Category(JsonField.of("bookkeeping_account_balance_csv"))
 
             @JvmField val ENTITY_CSV = Category(JsonField.of("entity_csv"))
 
@@ -435,41 +391,45 @@ class Export private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            ACCOUNT_STATEMENT_OFX -> Value.ACCOUNT_STATEMENT_OFX
-            TRANSACTION_CSV -> Value.TRANSACTION_CSV
-            BALANCE_CSV -> Value.BALANCE_CSV
-            BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Value.BOOKKEEPING_ACCOUNT_BALANCE_CSV
-            ENTITY_CSV -> Value.ENTITY_CSV
-            VENDOR_CSV -> Value.VENDOR_CSV
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                ACCOUNT_STATEMENT_OFX -> Value.ACCOUNT_STATEMENT_OFX
+                TRANSACTION_CSV -> Value.TRANSACTION_CSV
+                BALANCE_CSV -> Value.BALANCE_CSV
+                BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Value.BOOKKEEPING_ACCOUNT_BALANCE_CSV
+                ENTITY_CSV -> Value.ENTITY_CSV
+                VENDOR_CSV -> Value.VENDOR_CSV
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            ACCOUNT_STATEMENT_OFX -> Known.ACCOUNT_STATEMENT_OFX
-            TRANSACTION_CSV -> Known.TRANSACTION_CSV
-            BALANCE_CSV -> Known.BALANCE_CSV
-            BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Known.BOOKKEEPING_ACCOUNT_BALANCE_CSV
-            ENTITY_CSV -> Known.ENTITY_CSV
-            VENDOR_CSV -> Known.VENDOR_CSV
-            else -> throw IncreaseInvalidDataException("Unknown Category: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                ACCOUNT_STATEMENT_OFX -> Known.ACCOUNT_STATEMENT_OFX
+                TRANSACTION_CSV -> Known.TRANSACTION_CSV
+                BALANCE_CSV -> Known.BALANCE_CSV
+                BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Known.BOOKKEEPING_ACCOUNT_BALANCE_CSV
+                ENTITY_CSV -> Known.ENTITY_CSV
+                VENDOR_CSV -> Known.VENDOR_CSV
+                else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Status @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Status &&
-              this.value == other.value
+            return other is Status && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -500,35 +460,39 @@ class Export private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            PENDING -> Value.PENDING
-            COMPLETE -> Value.COMPLETE
-            FAILED -> Value.FAILED
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                PENDING -> Value.PENDING
+                COMPLETE -> Value.COMPLETE
+                FAILED -> Value.FAILED
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            PENDING -> Known.PENDING
-            COMPLETE -> Known.COMPLETE
-            FAILED -> Known.FAILED
-            else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                PENDING -> Known.PENDING
+                COMPLETE -> Known.COMPLETE
+                FAILED -> Known.FAILED
+                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Type @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+    class Type
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Type &&
-              this.value == other.value
+            return other is Type && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -551,15 +515,17 @@ class Export private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            EXPORT -> Value.EXPORT
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                EXPORT -> Value.EXPORT
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            EXPORT -> Known.EXPORT
-            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                EXPORT -> Known.EXPORT
+                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }

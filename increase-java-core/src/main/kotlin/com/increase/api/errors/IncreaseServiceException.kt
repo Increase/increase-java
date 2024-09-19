@@ -5,12 +5,12 @@ import com.google.common.collect.ListMultimap
 abstract class IncreaseServiceException
 @JvmOverloads
 constructor(
-        private val statusCode: Int,
-        private val headers: ListMultimap<String, String>,
-        private val body: String,
-        private val error: IncreaseError,
-        message: String = "$statusCode: $error",
-        cause: Throwable? = null
+    private val statusCode: Int,
+    private val headers: ListMultimap<String, String>,
+    private val body: String,
+    private val error: IncreaseError,
+    message: String = "$statusCode: $error",
+    cause: Throwable? = null
 ) : IncreaseException(message, cause) {
 
     fun statusCode(): Int = statusCode
