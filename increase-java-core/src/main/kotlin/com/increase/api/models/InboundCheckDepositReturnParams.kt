@@ -5,44 +5,25 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import org.apache.hc.core5.http.ContentType
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
+import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.MultipartFormValue
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.Enum
-import com.increase.api.core.ContentTypes
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
+import java.util.Objects
 
-class InboundCheckDepositReturnParams constructor(
-  private val inboundCheckDepositId: String,
-  private val reason: Reason,
-  private val additionalQueryParams: Map<String, List<String>>,
-  private val additionalHeaders: Map<String, List<String>>,
-  private val additionalBodyProperties: Map<String, JsonValue>,
-
+class InboundCheckDepositReturnParams
+constructor(
+    private val inboundCheckDepositId: String,
+    private val reason: Reason,
+    private val additionalQueryParams: Map<String, List<String>>,
+    private val additionalHeaders: Map<String, List<String>>,
+    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun inboundCheckDepositId(): String = inboundCheckDepositId
@@ -51,31 +32,32 @@ class InboundCheckDepositReturnParams constructor(
 
     @JvmSynthetic
     internal fun getBody(): InboundCheckDepositReturnBody {
-      return InboundCheckDepositReturnBody(reason, additionalBodyProperties)
+        return InboundCheckDepositReturnBody(reason, additionalBodyProperties)
     }
 
-    @JvmSynthetic
-    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
-    @JvmSynthetic
-    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     fun getPathParam(index: Int): String {
-      return when (index) {
-          0 -> inboundCheckDepositId
-          else -> ""
-      }
+        return when (index) {
+            0 -> inboundCheckDepositId
+            else -> ""
+        }
     }
 
     @JsonDeserialize(builder = InboundCheckDepositReturnBody.Builder::class)
     @NoAutoDetect
-    class InboundCheckDepositReturnBody internal constructor(private val reason: Reason?, private val additionalProperties: Map<String, JsonValue>, ) {
+    class InboundCheckDepositReturnBody
+    internal constructor(
+        private val reason: Reason?,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var hashCode: Int = 0
 
         /** The reason to return the Inbound Check Deposit. */
-        @JsonProperty("reason")
-        fun reason(): Reason? = reason
+        @JsonProperty("reason") fun reason(): Reason? = reason
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -84,28 +66,28 @@ class InboundCheckDepositReturnParams constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is InboundCheckDepositReturnBody &&
-              this.reason == other.reason &&
-              this.additionalProperties == other.additionalProperties
+            return other is InboundCheckDepositReturnBody &&
+                this.reason == other.reason &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(reason, additionalProperties)
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode = Objects.hash(reason, additionalProperties)
+            }
+            return hashCode
         }
 
-        override fun toString() = "InboundCheckDepositReturnBody{reason=$reason, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "InboundCheckDepositReturnBody{reason=$reason, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -114,16 +96,14 @@ class InboundCheckDepositReturnParams constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(inboundCheckDepositReturnBody: InboundCheckDepositReturnBody) = apply {
-                this.reason = inboundCheckDepositReturnBody.reason
-                additionalProperties(inboundCheckDepositReturnBody.additionalProperties)
-            }
+            internal fun from(inboundCheckDepositReturnBody: InboundCheckDepositReturnBody) =
+                apply {
+                    this.reason = inboundCheckDepositReturnBody.reason
+                    additionalProperties(inboundCheckDepositReturnBody.additionalProperties)
+                }
 
             /** The reason to return the Inbound Check Deposit. */
-            @JsonProperty("reason")
-            fun reason(reason: Reason) = apply {
-                this.reason = reason
-            }
+            @JsonProperty("reason") fun reason(reason: Reason) = apply { this.reason = reason }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -139,9 +119,11 @@ class InboundCheckDepositReturnParams constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): InboundCheckDepositReturnBody = InboundCheckDepositReturnBody(checkNotNull(reason) {
-                "`reason` is required but was not set"
-            }, additionalProperties.toUnmodifiable())
+            fun build(): InboundCheckDepositReturnBody =
+                InboundCheckDepositReturnBody(
+                    checkNotNull(reason) { "`reason` is required but was not set" },
+                    additionalProperties.toUnmodifiable()
+                )
         }
     }
 
@@ -152,36 +134,36 @@ class InboundCheckDepositReturnParams constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is InboundCheckDepositReturnParams &&
-          this.inboundCheckDepositId == other.inboundCheckDepositId &&
-          this.reason == other.reason &&
-          this.additionalQueryParams == other.additionalQueryParams &&
-          this.additionalHeaders == other.additionalHeaders &&
-          this.additionalBodyProperties == other.additionalBodyProperties
+        return other is InboundCheckDepositReturnParams &&
+            this.inboundCheckDepositId == other.inboundCheckDepositId &&
+            this.reason == other.reason &&
+            this.additionalQueryParams == other.additionalQueryParams &&
+            this.additionalHeaders == other.additionalHeaders &&
+            this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          inboundCheckDepositId,
-          reason,
-          additionalQueryParams,
-          additionalHeaders,
-          additionalBodyProperties,
-      )
+        return Objects.hash(
+            inboundCheckDepositId,
+            reason,
+            additionalQueryParams,
+            additionalHeaders,
+            additionalBodyProperties,
+        )
     }
 
-    override fun toString() = "InboundCheckDepositReturnParams{inboundCheckDepositId=$inboundCheckDepositId, reason=$reason, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() =
+        "InboundCheckDepositReturnParams{inboundCheckDepositId=$inboundCheckDepositId, reason=$reason, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     @NoAutoDetect
@@ -194,13 +176,14 @@ class InboundCheckDepositReturnParams constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(inboundCheckDepositReturnParams: InboundCheckDepositReturnParams) = apply {
-            this.inboundCheckDepositId = inboundCheckDepositReturnParams.inboundCheckDepositId
-            this.reason = inboundCheckDepositReturnParams.reason
-            additionalQueryParams(inboundCheckDepositReturnParams.additionalQueryParams)
-            additionalHeaders(inboundCheckDepositReturnParams.additionalHeaders)
-            additionalBodyProperties(inboundCheckDepositReturnParams.additionalBodyProperties)
-        }
+        internal fun from(inboundCheckDepositReturnParams: InboundCheckDepositReturnParams) =
+            apply {
+                this.inboundCheckDepositId = inboundCheckDepositReturnParams.inboundCheckDepositId
+                this.reason = inboundCheckDepositReturnParams.reason
+                additionalQueryParams(inboundCheckDepositReturnParams.additionalQueryParams)
+                additionalHeaders(inboundCheckDepositReturnParams.additionalHeaders)
+                additionalBodyProperties(inboundCheckDepositReturnParams.additionalBodyProperties)
+            }
 
         /** The identifier of the Inbound Check Deposit to return. */
         fun inboundCheckDepositId(inboundCheckDepositId: String) = apply {
@@ -208,9 +191,7 @@ class InboundCheckDepositReturnParams constructor(
         }
 
         /** The reason to return the Inbound Check Deposit. */
-        fun reason(reason: Reason) = apply {
-            this.reason = reason
-        }
+        fun reason(reason: Reason) = apply { this.reason = reason }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -250,9 +231,7 @@ class InboundCheckDepositReturnParams constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply {
-            this.additionalHeaders.put(name, mutableListOf())
-        }
+        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -263,35 +242,37 @@ class InboundCheckDepositReturnParams constructor(
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.putAll(additionalBodyProperties)
-        }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
 
-        fun build(): InboundCheckDepositReturnParams = InboundCheckDepositReturnParams(
-            checkNotNull(inboundCheckDepositId) {
-                "`inboundCheckDepositId` is required but was not set"
-            },
-            checkNotNull(reason) {
-                "`reason` is required but was not set"
-            },
-            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalBodyProperties.toUnmodifiable(),
-        )
+        fun build(): InboundCheckDepositReturnParams =
+            InboundCheckDepositReturnParams(
+                checkNotNull(inboundCheckDepositId) {
+                    "`inboundCheckDepositId` is required but was not set"
+                },
+                checkNotNull(reason) { "`reason` is required but was not set" },
+                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalBodyProperties.toUnmodifiable(),
+            )
     }
 
-    class Reason @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+    class Reason
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Reason &&
-              this.value == other.value
+            return other is Reason && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -330,23 +311,25 @@ class InboundCheckDepositReturnParams constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            ALTERED_OR_FICTITIOUS -> Value.ALTERED_OR_FICTITIOUS
-            NOT_AUTHORIZED -> Value.NOT_AUTHORIZED
-            DUPLICATE_PRESENTMENT -> Value.DUPLICATE_PRESENTMENT
-            ENDORSEMENT_MISSING -> Value.ENDORSEMENT_MISSING
-            ENDORSEMENT_IRREGULAR -> Value.ENDORSEMENT_IRREGULAR
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                ALTERED_OR_FICTITIOUS -> Value.ALTERED_OR_FICTITIOUS
+                NOT_AUTHORIZED -> Value.NOT_AUTHORIZED
+                DUPLICATE_PRESENTMENT -> Value.DUPLICATE_PRESENTMENT
+                ENDORSEMENT_MISSING -> Value.ENDORSEMENT_MISSING
+                ENDORSEMENT_IRREGULAR -> Value.ENDORSEMENT_IRREGULAR
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            ALTERED_OR_FICTITIOUS -> Known.ALTERED_OR_FICTITIOUS
-            NOT_AUTHORIZED -> Known.NOT_AUTHORIZED
-            DUPLICATE_PRESENTMENT -> Known.DUPLICATE_PRESENTMENT
-            ENDORSEMENT_MISSING -> Known.ENDORSEMENT_MISSING
-            ENDORSEMENT_IRREGULAR -> Known.ENDORSEMENT_IRREGULAR
-            else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                ALTERED_OR_FICTITIOUS -> Known.ALTERED_OR_FICTITIOUS
+                NOT_AUTHORIZED -> Known.NOT_AUTHORIZED
+                DUPLICATE_PRESENTMENT -> Known.DUPLICATE_PRESENTMENT
+                ENDORSEMENT_MISSING -> Known.ENDORSEMENT_MISSING
+                ENDORSEMENT_IRREGULAR -> Known.ENDORSEMENT_IRREGULAR
+                else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }

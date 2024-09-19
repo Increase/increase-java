@@ -5,68 +5,51 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
+import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.JsonNull
-import com.increase.api.core.JsonField
-import com.increase.api.core.Enum
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.time.OffsetDateTime
+import java.util.Objects
+import java.util.Optional
 
-/**
- * An Inbound ACH Transfer is an ACH transfer initiated outside of Increase to your
- * account.
- */
+/** An Inbound ACH Transfer is an ACH transfer initiated outside of Increase to your account. */
 @JsonDeserialize(builder = InboundAchTransfer.Builder::class)
 @NoAutoDetect
-class InboundAchTransfer private constructor(
-  private val acceptance: JsonField<Acceptance>,
-  private val accountId: JsonField<String>,
-  private val accountNumberId: JsonField<String>,
-  private val addenda: JsonField<Addenda>,
-  private val amount: JsonField<Long>,
-  private val automaticallyResolvesAt: JsonField<OffsetDateTime>,
-  private val decline: JsonField<Decline>,
-  private val direction: JsonField<Direction>,
-  private val expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule>,
-  private val id: JsonField<String>,
-  private val internationalAddenda: JsonField<InternationalAddenda>,
-  private val notificationOfChange: JsonField<NotificationOfChange>,
-  private val originatorCompanyDescriptiveDate: JsonField<String>,
-  private val originatorCompanyDiscretionaryData: JsonField<String>,
-  private val originatorCompanyEntryDescription: JsonField<String>,
-  private val originatorCompanyId: JsonField<String>,
-  private val originatorCompanyName: JsonField<String>,
-  private val originatorRoutingNumber: JsonField<String>,
-  private val receiverIdNumber: JsonField<String>,
-  private val receiverName: JsonField<String>,
-  private val standardEntryClassCode: JsonField<StandardEntryClassCode>,
-  private val status: JsonField<Status>,
-  private val traceNumber: JsonField<String>,
-  private val transferReturn: JsonField<TransferReturn>,
-  private val type: JsonField<Type>,
-  private val additionalProperties: Map<String, JsonValue>,
-
+class InboundAchTransfer
+private constructor(
+    private val acceptance: JsonField<Acceptance>,
+    private val accountId: JsonField<String>,
+    private val accountNumberId: JsonField<String>,
+    private val addenda: JsonField<Addenda>,
+    private val amount: JsonField<Long>,
+    private val automaticallyResolvesAt: JsonField<OffsetDateTime>,
+    private val decline: JsonField<Decline>,
+    private val direction: JsonField<Direction>,
+    private val expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule>,
+    private val id: JsonField<String>,
+    private val internationalAddenda: JsonField<InternationalAddenda>,
+    private val notificationOfChange: JsonField<NotificationOfChange>,
+    private val originatorCompanyDescriptiveDate: JsonField<String>,
+    private val originatorCompanyDiscretionaryData: JsonField<String>,
+    private val originatorCompanyEntryDescription: JsonField<String>,
+    private val originatorCompanyId: JsonField<String>,
+    private val originatorCompanyName: JsonField<String>,
+    private val originatorRoutingNumber: JsonField<String>,
+    private val receiverIdNumber: JsonField<String>,
+    private val receiverName: JsonField<String>,
+    private val standardEntryClassCode: JsonField<StandardEntryClassCode>,
+    private val status: JsonField<Status>,
+    private val traceNumber: JsonField<String>,
+    private val transferReturn: JsonField<TransferReturn>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: Map<String, JsonValue>,
 ) {
 
     private var validated: Boolean = false
@@ -74,7 +57,8 @@ class InboundAchTransfer private constructor(
     private var hashCode: Int = 0
 
     /** If your transfer is accepted, this will contain details of the acceptance. */
-    fun acceptance(): Optional<Acceptance> = Optional.ofNullable(acceptance.getNullable("acceptance"))
+    fun acceptance(): Optional<Acceptance> =
+        Optional.ofNullable(acceptance.getNullable("acceptance"))
 
     /** The Account to which the transfer belongs. */
     fun accountId(): String = accountId.getRequired("account_id")
@@ -89,7 +73,8 @@ class InboundAchTransfer private constructor(
     fun amount(): Long = amount.getRequired("amount")
 
     /** The time at which the transfer will be automatically resolved. */
-    fun automaticallyResolvesAt(): OffsetDateTime = automaticallyResolvesAt.getRequired("automatically_resolves_at")
+    fun automaticallyResolvesAt(): OffsetDateTime =
+        automaticallyResolvesAt.getRequired("automatically_resolves_at")
 
     /** If your transfer is declined, this will contain details of the decline. */
     fun decline(): Optional<Decline> = Optional.ofNullable(decline.getNullable("decline"))
@@ -98,52 +83,66 @@ class InboundAchTransfer private constructor(
     fun direction(): Direction = direction.getRequired("direction")
 
     /** The settlement schedule the transfer is expected to follow. */
-    fun expectedSettlementSchedule(): ExpectedSettlementSchedule = expectedSettlementSchedule.getRequired("expected_settlement_schedule")
+    fun expectedSettlementSchedule(): ExpectedSettlementSchedule =
+        expectedSettlementSchedule.getRequired("expected_settlement_schedule")
 
     /** The inbound ACH transfer's identifier. */
     fun id(): String = id.getRequired("id")
 
     /**
-     * If the Inbound ACH Transfer has a Standard Entry Class Code of IAT, this will
-     * contain fields pertaining to the International ACH Transaction.
+     * If the Inbound ACH Transfer has a Standard Entry Class Code of IAT, this will contain fields
+     * pertaining to the International ACH Transaction.
      */
-    fun internationalAddenda(): Optional<InternationalAddenda> = Optional.ofNullable(internationalAddenda.getNullable("international_addenda"))
+    fun internationalAddenda(): Optional<InternationalAddenda> =
+        Optional.ofNullable(internationalAddenda.getNullable("international_addenda"))
 
     /**
-     * If you initiate a notification of change in response to the transfer, this will
-     * contain its details.
+     * If you initiate a notification of change in response to the transfer, this will contain its
+     * details.
      */
-    fun notificationOfChange(): Optional<NotificationOfChange> = Optional.ofNullable(notificationOfChange.getNullable("notification_of_change"))
+    fun notificationOfChange(): Optional<NotificationOfChange> =
+        Optional.ofNullable(notificationOfChange.getNullable("notification_of_change"))
 
     /** The descriptive date of the transfer. */
-    fun originatorCompanyDescriptiveDate(): Optional<String> = Optional.ofNullable(originatorCompanyDescriptiveDate.getNullable("originator_company_descriptive_date"))
+    fun originatorCompanyDescriptiveDate(): Optional<String> =
+        Optional.ofNullable(
+            originatorCompanyDescriptiveDate.getNullable("originator_company_descriptive_date")
+        )
 
     /** The additional information included with the transfer. */
-    fun originatorCompanyDiscretionaryData(): Optional<String> = Optional.ofNullable(originatorCompanyDiscretionaryData.getNullable("originator_company_discretionary_data"))
+    fun originatorCompanyDiscretionaryData(): Optional<String> =
+        Optional.ofNullable(
+            originatorCompanyDiscretionaryData.getNullable("originator_company_discretionary_data")
+        )
 
     /** The description of the transfer. */
-    fun originatorCompanyEntryDescription(): String = originatorCompanyEntryDescription.getRequired("originator_company_entry_description")
+    fun originatorCompanyEntryDescription(): String =
+        originatorCompanyEntryDescription.getRequired("originator_company_entry_description")
 
     /** The id of the company that initiated the transfer. */
     fun originatorCompanyId(): String = originatorCompanyId.getRequired("originator_company_id")
 
     /** The name of the company that initiated the transfer. */
-    fun originatorCompanyName(): String = originatorCompanyName.getRequired("originator_company_name")
+    fun originatorCompanyName(): String =
+        originatorCompanyName.getRequired("originator_company_name")
 
     /**
-     * The American Banking Association (ABA) routing number of the bank originating
-     * the transfer.
+     * The American Banking Association (ABA) routing number of the bank originating the transfer.
      */
-    fun originatorRoutingNumber(): String = originatorRoutingNumber.getRequired("originator_routing_number")
+    fun originatorRoutingNumber(): String =
+        originatorRoutingNumber.getRequired("originator_routing_number")
 
     /** The id of the receiver of the transfer. */
-    fun receiverIdNumber(): Optional<String> = Optional.ofNullable(receiverIdNumber.getNullable("receiver_id_number"))
+    fun receiverIdNumber(): Optional<String> =
+        Optional.ofNullable(receiverIdNumber.getNullable("receiver_id_number"))
 
     /** The name of the receiver of the transfer. */
-    fun receiverName(): Optional<String> = Optional.ofNullable(receiverName.getNullable("receiver_name"))
+    fun receiverName(): Optional<String> =
+        Optional.ofNullable(receiverName.getNullable("receiver_name"))
 
     /** The Standard Entry Class (SEC) code of the transfer. */
-    fun standardEntryClassCode(): StandardEntryClassCode = standardEntryClassCode.getRequired("standard_entry_class_code")
+    fun standardEntryClassCode(): StandardEntryClassCode =
+        standardEntryClassCode.getRequired("standard_entry_class_code")
 
     /** The status of the transfer. */
     fun status(): Status = status.getRequired("status")
@@ -152,7 +151,8 @@ class InboundAchTransfer private constructor(
     fun traceNumber(): String = traceNumber.getRequired("trace_number")
 
     /** If your transfer is returned, this will contain details of the return. */
-    fun transferReturn(): Optional<TransferReturn> = Optional.ofNullable(transferReturn.getNullable("transfer_return"))
+    fun transferReturn(): Optional<TransferReturn> =
+        Optional.ofNullable(transferReturn.getNullable("transfer_return"))
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -161,29 +161,19 @@ class InboundAchTransfer private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** If your transfer is accepted, this will contain details of the acceptance. */
-    @JsonProperty("acceptance")
-    @ExcludeMissing
-    fun _acceptance() = acceptance
+    @JsonProperty("acceptance") @ExcludeMissing fun _acceptance() = acceptance
 
     /** The Account to which the transfer belongs. */
-    @JsonProperty("account_id")
-    @ExcludeMissing
-    fun _accountId() = accountId
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
 
     /** The identifier of the Account Number to which this transfer was sent. */
-    @JsonProperty("account_number_id")
-    @ExcludeMissing
-    fun _accountNumberId() = accountNumberId
+    @JsonProperty("account_number_id") @ExcludeMissing fun _accountNumberId() = accountNumberId
 
     /** Additional information sent from the originator. */
-    @JsonProperty("addenda")
-    @ExcludeMissing
-    fun _addenda() = addenda
+    @JsonProperty("addenda") @ExcludeMissing fun _addenda() = addenda
 
     /** The transfer amount in USD cents. */
-    @JsonProperty("amount")
-    @ExcludeMissing
-    fun _amount() = amount
+    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
     /** The time at which the transfer will be automatically resolved. */
     @JsonProperty("automatically_resolves_at")
@@ -191,14 +181,10 @@ class InboundAchTransfer private constructor(
     fun _automaticallyResolvesAt() = automaticallyResolvesAt
 
     /** If your transfer is declined, this will contain details of the decline. */
-    @JsonProperty("decline")
-    @ExcludeMissing
-    fun _decline() = decline
+    @JsonProperty("decline") @ExcludeMissing fun _decline() = decline
 
     /** The direction of the transfer. */
-    @JsonProperty("direction")
-    @ExcludeMissing
-    fun _direction() = direction
+    @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
 
     /** The settlement schedule the transfer is expected to follow. */
     @JsonProperty("expected_settlement_schedule")
@@ -206,21 +192,19 @@ class InboundAchTransfer private constructor(
     fun _expectedSettlementSchedule() = expectedSettlementSchedule
 
     /** The inbound ACH transfer's identifier. */
-    @JsonProperty("id")
-    @ExcludeMissing
-    fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
-     * If the Inbound ACH Transfer has a Standard Entry Class Code of IAT, this will
-     * contain fields pertaining to the International ACH Transaction.
+     * If the Inbound ACH Transfer has a Standard Entry Class Code of IAT, this will contain fields
+     * pertaining to the International ACH Transaction.
      */
     @JsonProperty("international_addenda")
     @ExcludeMissing
     fun _internationalAddenda() = internationalAddenda
 
     /**
-     * If you initiate a notification of change in response to the transfer, this will
-     * contain its details.
+     * If you initiate a notification of change in response to the transfer, this will contain its
+     * details.
      */
     @JsonProperty("notification_of_change")
     @ExcludeMissing
@@ -252,22 +236,17 @@ class InboundAchTransfer private constructor(
     fun _originatorCompanyName() = originatorCompanyName
 
     /**
-     * The American Banking Association (ABA) routing number of the bank originating
-     * the transfer.
+     * The American Banking Association (ABA) routing number of the bank originating the transfer.
      */
     @JsonProperty("originator_routing_number")
     @ExcludeMissing
     fun _originatorRoutingNumber() = originatorRoutingNumber
 
     /** The id of the receiver of the transfer. */
-    @JsonProperty("receiver_id_number")
-    @ExcludeMissing
-    fun _receiverIdNumber() = receiverIdNumber
+    @JsonProperty("receiver_id_number") @ExcludeMissing fun _receiverIdNumber() = receiverIdNumber
 
     /** The name of the receiver of the transfer. */
-    @JsonProperty("receiver_name")
-    @ExcludeMissing
-    fun _receiverName() = receiverName
+    @JsonProperty("receiver_name") @ExcludeMissing fun _receiverName() = receiverName
 
     /** The Standard Entry Class (SEC) code of the transfer. */
     @JsonProperty("standard_entry_class_code")
@@ -275,27 +254,19 @@ class InboundAchTransfer private constructor(
     fun _standardEntryClassCode() = standardEntryClassCode
 
     /** The status of the transfer. */
-    @JsonProperty("status")
-    @ExcludeMissing
-    fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
 
     /** The trace number of the transfer. */
-    @JsonProperty("trace_number")
-    @ExcludeMissing
-    fun _traceNumber() = traceNumber
+    @JsonProperty("trace_number") @ExcludeMissing fun _traceNumber() = traceNumber
 
     /** If your transfer is returned, this will contain details of the return. */
-    @JsonProperty("transfer_return")
-    @ExcludeMissing
-    fun _transferReturn() = transferReturn
+    @JsonProperty("transfer_return") @ExcludeMissing fun _transferReturn() = transferReturn
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `inbound_ach_transfer`.
      */
-    @JsonProperty("type")
-    @ExcludeMissing
-    fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -303,111 +274,112 @@ class InboundAchTransfer private constructor(
 
     fun validate(): InboundAchTransfer = apply {
         if (!validated) {
-          acceptance().map { it.validate() }
-          accountId()
-          accountNumberId()
-          addenda().map { it.validate() }
-          amount()
-          automaticallyResolvesAt()
-          decline().map { it.validate() }
-          direction()
-          expectedSettlementSchedule()
-          id()
-          internationalAddenda().map { it.validate() }
-          notificationOfChange().map { it.validate() }
-          originatorCompanyDescriptiveDate()
-          originatorCompanyDiscretionaryData()
-          originatorCompanyEntryDescription()
-          originatorCompanyId()
-          originatorCompanyName()
-          originatorRoutingNumber()
-          receiverIdNumber()
-          receiverName()
-          standardEntryClassCode()
-          status()
-          traceNumber()
-          transferReturn().map { it.validate() }
-          type()
-          validated = true
+            acceptance().map { it.validate() }
+            accountId()
+            accountNumberId()
+            addenda().map { it.validate() }
+            amount()
+            automaticallyResolvesAt()
+            decline().map { it.validate() }
+            direction()
+            expectedSettlementSchedule()
+            id()
+            internationalAddenda().map { it.validate() }
+            notificationOfChange().map { it.validate() }
+            originatorCompanyDescriptiveDate()
+            originatorCompanyDiscretionaryData()
+            originatorCompanyEntryDescription()
+            originatorCompanyId()
+            originatorCompanyName()
+            originatorRoutingNumber()
+            receiverIdNumber()
+            receiverName()
+            standardEntryClassCode()
+            status()
+            traceNumber()
+            transferReturn().map { it.validate() }
+            type()
+            validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is InboundAchTransfer &&
-          this.acceptance == other.acceptance &&
-          this.accountId == other.accountId &&
-          this.accountNumberId == other.accountNumberId &&
-          this.addenda == other.addenda &&
-          this.amount == other.amount &&
-          this.automaticallyResolvesAt == other.automaticallyResolvesAt &&
-          this.decline == other.decline &&
-          this.direction == other.direction &&
-          this.expectedSettlementSchedule == other.expectedSettlementSchedule &&
-          this.id == other.id &&
-          this.internationalAddenda == other.internationalAddenda &&
-          this.notificationOfChange == other.notificationOfChange &&
-          this.originatorCompanyDescriptiveDate == other.originatorCompanyDescriptiveDate &&
-          this.originatorCompanyDiscretionaryData == other.originatorCompanyDiscretionaryData &&
-          this.originatorCompanyEntryDescription == other.originatorCompanyEntryDescription &&
-          this.originatorCompanyId == other.originatorCompanyId &&
-          this.originatorCompanyName == other.originatorCompanyName &&
-          this.originatorRoutingNumber == other.originatorRoutingNumber &&
-          this.receiverIdNumber == other.receiverIdNumber &&
-          this.receiverName == other.receiverName &&
-          this.standardEntryClassCode == other.standardEntryClassCode &&
-          this.status == other.status &&
-          this.traceNumber == other.traceNumber &&
-          this.transferReturn == other.transferReturn &&
-          this.type == other.type &&
-          this.additionalProperties == other.additionalProperties
+        return other is InboundAchTransfer &&
+            this.acceptance == other.acceptance &&
+            this.accountId == other.accountId &&
+            this.accountNumberId == other.accountNumberId &&
+            this.addenda == other.addenda &&
+            this.amount == other.amount &&
+            this.automaticallyResolvesAt == other.automaticallyResolvesAt &&
+            this.decline == other.decline &&
+            this.direction == other.direction &&
+            this.expectedSettlementSchedule == other.expectedSettlementSchedule &&
+            this.id == other.id &&
+            this.internationalAddenda == other.internationalAddenda &&
+            this.notificationOfChange == other.notificationOfChange &&
+            this.originatorCompanyDescriptiveDate == other.originatorCompanyDescriptiveDate &&
+            this.originatorCompanyDiscretionaryData == other.originatorCompanyDiscretionaryData &&
+            this.originatorCompanyEntryDescription == other.originatorCompanyEntryDescription &&
+            this.originatorCompanyId == other.originatorCompanyId &&
+            this.originatorCompanyName == other.originatorCompanyName &&
+            this.originatorRoutingNumber == other.originatorRoutingNumber &&
+            this.receiverIdNumber == other.receiverIdNumber &&
+            this.receiverName == other.receiverName &&
+            this.standardEntryClassCode == other.standardEntryClassCode &&
+            this.status == other.status &&
+            this.traceNumber == other.traceNumber &&
+            this.transferReturn == other.transferReturn &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-      if (hashCode == 0) {
-        hashCode = Objects.hash(
-            acceptance,
-            accountId,
-            accountNumberId,
-            addenda,
-            amount,
-            automaticallyResolvesAt,
-            decline,
-            direction,
-            expectedSettlementSchedule,
-            id,
-            internationalAddenda,
-            notificationOfChange,
-            originatorCompanyDescriptiveDate,
-            originatorCompanyDiscretionaryData,
-            originatorCompanyEntryDescription,
-            originatorCompanyId,
-            originatorCompanyName,
-            originatorRoutingNumber,
-            receiverIdNumber,
-            receiverName,
-            standardEntryClassCode,
-            status,
-            traceNumber,
-            transferReturn,
-            type,
-            additionalProperties,
-        )
-      }
-      return hashCode
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    acceptance,
+                    accountId,
+                    accountNumberId,
+                    addenda,
+                    amount,
+                    automaticallyResolvesAt,
+                    decline,
+                    direction,
+                    expectedSettlementSchedule,
+                    id,
+                    internationalAddenda,
+                    notificationOfChange,
+                    originatorCompanyDescriptiveDate,
+                    originatorCompanyDiscretionaryData,
+                    originatorCompanyEntryDescription,
+                    originatorCompanyId,
+                    originatorCompanyName,
+                    originatorRoutingNumber,
+                    receiverIdNumber,
+                    receiverName,
+                    standardEntryClassCode,
+                    status,
+                    traceNumber,
+                    transferReturn,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
     }
 
-    override fun toString() = "InboundAchTransfer{acceptance=$acceptance, accountId=$accountId, accountNumberId=$accountNumberId, addenda=$addenda, amount=$amount, automaticallyResolvesAt=$automaticallyResolvesAt, decline=$decline, direction=$direction, expectedSettlementSchedule=$expectedSettlementSchedule, id=$id, internationalAddenda=$internationalAddenda, notificationOfChange=$notificationOfChange, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, originatorCompanyName=$originatorCompanyName, originatorRoutingNumber=$originatorRoutingNumber, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, standardEntryClassCode=$standardEntryClassCode, status=$status, traceNumber=$traceNumber, transferReturn=$transferReturn, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() =
+        "InboundAchTransfer{acceptance=$acceptance, accountId=$accountId, accountNumberId=$accountNumberId, addenda=$addenda, amount=$amount, automaticallyResolvesAt=$automaticallyResolvesAt, decline=$decline, direction=$direction, expectedSettlementSchedule=$expectedSettlementSchedule, id=$id, internationalAddenda=$internationalAddenda, notificationOfChange=$notificationOfChange, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, originatorCompanyName=$originatorCompanyName, originatorRoutingNumber=$originatorRoutingNumber, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, standardEntryClassCode=$standardEntryClassCode, status=$status, traceNumber=$traceNumber, transferReturn=$transferReturn, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     class Builder {
@@ -420,7 +392,8 @@ class InboundAchTransfer private constructor(
         private var automaticallyResolvesAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var decline: JsonField<Decline> = JsonMissing.of()
         private var direction: JsonField<Direction> = JsonMissing.of()
-        private var expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule> = JsonMissing.of()
+        private var expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule> =
+            JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
         private var internationalAddenda: JsonField<InternationalAddenda> = JsonMissing.of()
         private var notificationOfChange: JsonField<NotificationOfChange> = JsonMissing.of()
@@ -453,9 +426,12 @@ class InboundAchTransfer private constructor(
             this.id = inboundAchTransfer.id
             this.internationalAddenda = inboundAchTransfer.internationalAddenda
             this.notificationOfChange = inboundAchTransfer.notificationOfChange
-            this.originatorCompanyDescriptiveDate = inboundAchTransfer.originatorCompanyDescriptiveDate
-            this.originatorCompanyDiscretionaryData = inboundAchTransfer.originatorCompanyDiscretionaryData
-            this.originatorCompanyEntryDescription = inboundAchTransfer.originatorCompanyEntryDescription
+            this.originatorCompanyDescriptiveDate =
+                inboundAchTransfer.originatorCompanyDescriptiveDate
+            this.originatorCompanyDiscretionaryData =
+                inboundAchTransfer.originatorCompanyDiscretionaryData
+            this.originatorCompanyEntryDescription =
+                inboundAchTransfer.originatorCompanyEntryDescription
             this.originatorCompanyId = inboundAchTransfer.originatorCompanyId
             this.originatorCompanyName = inboundAchTransfer.originatorCompanyName
             this.originatorRoutingNumber = inboundAchTransfer.originatorRoutingNumber
@@ -475,9 +451,7 @@ class InboundAchTransfer private constructor(
         /** If your transfer is accepted, this will contain details of the acceptance. */
         @JsonProperty("acceptance")
         @ExcludeMissing
-        fun acceptance(acceptance: JsonField<Acceptance>) = apply {
-            this.acceptance = acceptance
-        }
+        fun acceptance(acceptance: JsonField<Acceptance>) = apply { this.acceptance = acceptance }
 
         /** The Account to which the transfer belongs. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
@@ -485,12 +459,11 @@ class InboundAchTransfer private constructor(
         /** The Account to which the transfer belongs. */
         @JsonProperty("account_id")
         @ExcludeMissing
-        fun accountId(accountId: JsonField<String>) = apply {
-            this.accountId = accountId
-        }
+        fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /** The identifier of the Account Number to which this transfer was sent. */
-        fun accountNumberId(accountNumberId: String) = accountNumberId(JsonField.of(accountNumberId))
+        fun accountNumberId(accountNumberId: String) =
+            accountNumberId(JsonField.of(accountNumberId))
 
         /** The identifier of the Account Number to which this transfer was sent. */
         @JsonProperty("account_number_id")
@@ -505,9 +478,7 @@ class InboundAchTransfer private constructor(
         /** Additional information sent from the originator. */
         @JsonProperty("addenda")
         @ExcludeMissing
-        fun addenda(addenda: JsonField<Addenda>) = apply {
-            this.addenda = addenda
-        }
+        fun addenda(addenda: JsonField<Addenda>) = apply { this.addenda = addenda }
 
         /** The transfer amount in USD cents. */
         fun amount(amount: Long) = amount(JsonField.of(amount))
@@ -515,12 +486,11 @@ class InboundAchTransfer private constructor(
         /** The transfer amount in USD cents. */
         @JsonProperty("amount")
         @ExcludeMissing
-        fun amount(amount: JsonField<Long>) = apply {
-            this.amount = amount
-        }
+        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /** The time at which the transfer will be automatically resolved. */
-        fun automaticallyResolvesAt(automaticallyResolvesAt: OffsetDateTime) = automaticallyResolvesAt(JsonField.of(automaticallyResolvesAt))
+        fun automaticallyResolvesAt(automaticallyResolvesAt: OffsetDateTime) =
+            automaticallyResolvesAt(JsonField.of(automaticallyResolvesAt))
 
         /** The time at which the transfer will be automatically resolved. */
         @JsonProperty("automatically_resolves_at")
@@ -535,9 +505,7 @@ class InboundAchTransfer private constructor(
         /** If your transfer is declined, this will contain details of the decline. */
         @JsonProperty("decline")
         @ExcludeMissing
-        fun decline(decline: JsonField<Decline>) = apply {
-            this.decline = decline
-        }
+        fun decline(decline: JsonField<Decline>) = apply { this.decline = decline }
 
         /** The direction of the transfer. */
         fun direction(direction: Direction) = direction(JsonField.of(direction))
@@ -545,39 +513,35 @@ class InboundAchTransfer private constructor(
         /** The direction of the transfer. */
         @JsonProperty("direction")
         @ExcludeMissing
-        fun direction(direction: JsonField<Direction>) = apply {
-            this.direction = direction
-        }
+        fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
 
         /** The settlement schedule the transfer is expected to follow. */
-        fun expectedSettlementSchedule(expectedSettlementSchedule: ExpectedSettlementSchedule) = expectedSettlementSchedule(JsonField.of(expectedSettlementSchedule))
+        fun expectedSettlementSchedule(expectedSettlementSchedule: ExpectedSettlementSchedule) =
+            expectedSettlementSchedule(JsonField.of(expectedSettlementSchedule))
 
         /** The settlement schedule the transfer is expected to follow. */
         @JsonProperty("expected_settlement_schedule")
         @ExcludeMissing
-        fun expectedSettlementSchedule(expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule>) = apply {
-            this.expectedSettlementSchedule = expectedSettlementSchedule
-        }
+        fun expectedSettlementSchedule(
+            expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule>
+        ) = apply { this.expectedSettlementSchedule = expectedSettlementSchedule }
 
         /** The inbound ACH transfer's identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The inbound ACH transfer's identifier. */
-        @JsonProperty("id")
-        @ExcludeMissing
-        fun id(id: JsonField<String>) = apply {
-            this.id = id
-        }
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
-         * If the Inbound ACH Transfer has a Standard Entry Class Code of IAT, this will
-         * contain fields pertaining to the International ACH Transaction.
+         * If the Inbound ACH Transfer has a Standard Entry Class Code of IAT, this will contain
+         * fields pertaining to the International ACH Transaction.
          */
-        fun internationalAddenda(internationalAddenda: InternationalAddenda) = internationalAddenda(JsonField.of(internationalAddenda))
+        fun internationalAddenda(internationalAddenda: InternationalAddenda) =
+            internationalAddenda(JsonField.of(internationalAddenda))
 
         /**
-         * If the Inbound ACH Transfer has a Standard Entry Class Code of IAT, this will
-         * contain fields pertaining to the International ACH Transaction.
+         * If the Inbound ACH Transfer has a Standard Entry Class Code of IAT, this will contain
+         * fields pertaining to the International ACH Transaction.
          */
         @JsonProperty("international_addenda")
         @ExcludeMissing
@@ -586,14 +550,15 @@ class InboundAchTransfer private constructor(
         }
 
         /**
-         * If you initiate a notification of change in response to the transfer, this will
-         * contain its details.
+         * If you initiate a notification of change in response to the transfer, this will contain
+         * its details.
          */
-        fun notificationOfChange(notificationOfChange: NotificationOfChange) = notificationOfChange(JsonField.of(notificationOfChange))
+        fun notificationOfChange(notificationOfChange: NotificationOfChange) =
+            notificationOfChange(JsonField.of(notificationOfChange))
 
         /**
-         * If you initiate a notification of change in response to the transfer, this will
-         * contain its details.
+         * If you initiate a notification of change in response to the transfer, this will contain
+         * its details.
          */
         @JsonProperty("notification_of_change")
         @ExcludeMissing
@@ -602,37 +567,42 @@ class InboundAchTransfer private constructor(
         }
 
         /** The descriptive date of the transfer. */
-        fun originatorCompanyDescriptiveDate(originatorCompanyDescriptiveDate: String) = originatorCompanyDescriptiveDate(JsonField.of(originatorCompanyDescriptiveDate))
+        fun originatorCompanyDescriptiveDate(originatorCompanyDescriptiveDate: String) =
+            originatorCompanyDescriptiveDate(JsonField.of(originatorCompanyDescriptiveDate))
 
         /** The descriptive date of the transfer. */
         @JsonProperty("originator_company_descriptive_date")
         @ExcludeMissing
-        fun originatorCompanyDescriptiveDate(originatorCompanyDescriptiveDate: JsonField<String>) = apply {
-            this.originatorCompanyDescriptiveDate = originatorCompanyDescriptiveDate
-        }
+        fun originatorCompanyDescriptiveDate(originatorCompanyDescriptiveDate: JsonField<String>) =
+            apply {
+                this.originatorCompanyDescriptiveDate = originatorCompanyDescriptiveDate
+            }
 
         /** The additional information included with the transfer. */
-        fun originatorCompanyDiscretionaryData(originatorCompanyDiscretionaryData: String) = originatorCompanyDiscretionaryData(JsonField.of(originatorCompanyDiscretionaryData))
+        fun originatorCompanyDiscretionaryData(originatorCompanyDiscretionaryData: String) =
+            originatorCompanyDiscretionaryData(JsonField.of(originatorCompanyDiscretionaryData))
 
         /** The additional information included with the transfer. */
         @JsonProperty("originator_company_discretionary_data")
         @ExcludeMissing
-        fun originatorCompanyDiscretionaryData(originatorCompanyDiscretionaryData: JsonField<String>) = apply {
-            this.originatorCompanyDiscretionaryData = originatorCompanyDiscretionaryData
-        }
+        fun originatorCompanyDiscretionaryData(
+            originatorCompanyDiscretionaryData: JsonField<String>
+        ) = apply { this.originatorCompanyDiscretionaryData = originatorCompanyDiscretionaryData }
 
         /** The description of the transfer. */
-        fun originatorCompanyEntryDescription(originatorCompanyEntryDescription: String) = originatorCompanyEntryDescription(JsonField.of(originatorCompanyEntryDescription))
+        fun originatorCompanyEntryDescription(originatorCompanyEntryDescription: String) =
+            originatorCompanyEntryDescription(JsonField.of(originatorCompanyEntryDescription))
 
         /** The description of the transfer. */
         @JsonProperty("originator_company_entry_description")
         @ExcludeMissing
-        fun originatorCompanyEntryDescription(originatorCompanyEntryDescription: JsonField<String>) = apply {
-            this.originatorCompanyEntryDescription = originatorCompanyEntryDescription
-        }
+        fun originatorCompanyEntryDescription(
+            originatorCompanyEntryDescription: JsonField<String>
+        ) = apply { this.originatorCompanyEntryDescription = originatorCompanyEntryDescription }
 
         /** The id of the company that initiated the transfer. */
-        fun originatorCompanyId(originatorCompanyId: String) = originatorCompanyId(JsonField.of(originatorCompanyId))
+        fun originatorCompanyId(originatorCompanyId: String) =
+            originatorCompanyId(JsonField.of(originatorCompanyId))
 
         /** The id of the company that initiated the transfer. */
         @JsonProperty("originator_company_id")
@@ -642,7 +612,8 @@ class InboundAchTransfer private constructor(
         }
 
         /** The name of the company that initiated the transfer. */
-        fun originatorCompanyName(originatorCompanyName: String) = originatorCompanyName(JsonField.of(originatorCompanyName))
+        fun originatorCompanyName(originatorCompanyName: String) =
+            originatorCompanyName(JsonField.of(originatorCompanyName))
 
         /** The name of the company that initiated the transfer. */
         @JsonProperty("originator_company_name")
@@ -652,14 +623,15 @@ class InboundAchTransfer private constructor(
         }
 
         /**
-         * The American Banking Association (ABA) routing number of the bank originating
-         * the transfer.
+         * The American Banking Association (ABA) routing number of the bank originating the
+         * transfer.
          */
-        fun originatorRoutingNumber(originatorRoutingNumber: String) = originatorRoutingNumber(JsonField.of(originatorRoutingNumber))
+        fun originatorRoutingNumber(originatorRoutingNumber: String) =
+            originatorRoutingNumber(JsonField.of(originatorRoutingNumber))
 
         /**
-         * The American Banking Association (ABA) routing number of the bank originating
-         * the transfer.
+         * The American Banking Association (ABA) routing number of the bank originating the
+         * transfer.
          */
         @JsonProperty("originator_routing_number")
         @ExcludeMissing
@@ -668,7 +640,8 @@ class InboundAchTransfer private constructor(
         }
 
         /** The id of the receiver of the transfer. */
-        fun receiverIdNumber(receiverIdNumber: String) = receiverIdNumber(JsonField.of(receiverIdNumber))
+        fun receiverIdNumber(receiverIdNumber: String) =
+            receiverIdNumber(JsonField.of(receiverIdNumber))
 
         /** The id of the receiver of the transfer. */
         @JsonProperty("receiver_id_number")
@@ -688,14 +661,16 @@ class InboundAchTransfer private constructor(
         }
 
         /** The Standard Entry Class (SEC) code of the transfer. */
-        fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) = standardEntryClassCode(JsonField.of(standardEntryClassCode))
+        fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) =
+            standardEntryClassCode(JsonField.of(standardEntryClassCode))
 
         /** The Standard Entry Class (SEC) code of the transfer. */
         @JsonProperty("standard_entry_class_code")
         @ExcludeMissing
-        fun standardEntryClassCode(standardEntryClassCode: JsonField<StandardEntryClassCode>) = apply {
-            this.standardEntryClassCode = standardEntryClassCode
-        }
+        fun standardEntryClassCode(standardEntryClassCode: JsonField<StandardEntryClassCode>) =
+            apply {
+                this.standardEntryClassCode = standardEntryClassCode
+            }
 
         /** The status of the transfer. */
         fun status(status: Status) = status(JsonField.of(status))
@@ -703,9 +678,7 @@ class InboundAchTransfer private constructor(
         /** The status of the transfer. */
         @JsonProperty("status")
         @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply {
-            this.status = status
-        }
+        fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /** The trace number of the transfer. */
         fun traceNumber(traceNumber: String) = traceNumber(JsonField.of(traceNumber))
@@ -713,12 +686,11 @@ class InboundAchTransfer private constructor(
         /** The trace number of the transfer. */
         @JsonProperty("trace_number")
         @ExcludeMissing
-        fun traceNumber(traceNumber: JsonField<String>) = apply {
-            this.traceNumber = traceNumber
-        }
+        fun traceNumber(traceNumber: JsonField<String>) = apply { this.traceNumber = traceNumber }
 
         /** If your transfer is returned, this will contain details of the return. */
-        fun transferReturn(transferReturn: TransferReturn) = transferReturn(JsonField.of(transferReturn))
+        fun transferReturn(transferReturn: TransferReturn) =
+            transferReturn(JsonField.of(transferReturn))
 
         /** If your transfer is returned, this will contain details of the return. */
         @JsonProperty("transfer_return")
@@ -739,9 +711,7 @@ class InboundAchTransfer private constructor(
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply {
-            this.type = type
-        }
+        fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -757,40 +727,46 @@ class InboundAchTransfer private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): InboundAchTransfer = InboundAchTransfer(
-            acceptance,
-            accountId,
-            accountNumberId,
-            addenda,
-            amount,
-            automaticallyResolvesAt,
-            decline,
-            direction,
-            expectedSettlementSchedule,
-            id,
-            internationalAddenda,
-            notificationOfChange,
-            originatorCompanyDescriptiveDate,
-            originatorCompanyDiscretionaryData,
-            originatorCompanyEntryDescription,
-            originatorCompanyId,
-            originatorCompanyName,
-            originatorRoutingNumber,
-            receiverIdNumber,
-            receiverName,
-            standardEntryClassCode,
-            status,
-            traceNumber,
-            transferReturn,
-            type,
-            additionalProperties.toUnmodifiable(),
-        )
+        fun build(): InboundAchTransfer =
+            InboundAchTransfer(
+                acceptance,
+                accountId,
+                accountNumberId,
+                addenda,
+                amount,
+                automaticallyResolvesAt,
+                decline,
+                direction,
+                expectedSettlementSchedule,
+                id,
+                internationalAddenda,
+                notificationOfChange,
+                originatorCompanyDescriptiveDate,
+                originatorCompanyDiscretionaryData,
+                originatorCompanyEntryDescription,
+                originatorCompanyId,
+                originatorCompanyName,
+                originatorRoutingNumber,
+                receiverIdNumber,
+                receiverName,
+                standardEntryClassCode,
+                status,
+                traceNumber,
+                transferReturn,
+                type,
+                additionalProperties.toUnmodifiable(),
+            )
     }
 
     /** If your transfer is accepted, this will contain details of the acceptance. */
     @JsonDeserialize(builder = Acceptance.Builder::class)
     @NoAutoDetect
-    class Acceptance private constructor(private val acceptedAt: JsonField<OffsetDateTime>, private val transactionId: JsonField<String>, private val additionalProperties: Map<String, JsonValue>, ) {
+    class Acceptance
+    private constructor(
+        private val acceptedAt: JsonField<OffsetDateTime>,
+        private val transactionId: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var validated: Boolean = false
 
@@ -803,14 +779,10 @@ class InboundAchTransfer private constructor(
         fun transactionId(): String = transactionId.getRequired("transaction_id")
 
         /** The time at which the transfer was accepted. */
-        @JsonProperty("accepted_at")
-        @ExcludeMissing
-        fun _acceptedAt() = acceptedAt
+        @JsonProperty("accepted_at") @ExcludeMissing fun _acceptedAt() = acceptedAt
 
         /** The id of the transaction for the accepted transfer. */
-        @JsonProperty("transaction_id")
-        @ExcludeMissing
-        fun _transactionId() = transactionId
+        @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -818,42 +790,43 @@ class InboundAchTransfer private constructor(
 
         fun validate(): Acceptance = apply {
             if (!validated) {
-              acceptedAt()
-              transactionId()
-              validated = true
+                acceptedAt()
+                transactionId()
+                validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Acceptance &&
-              this.acceptedAt == other.acceptedAt &&
-              this.transactionId == other.transactionId &&
-              this.additionalProperties == other.additionalProperties
+            return other is Acceptance &&
+                this.acceptedAt == other.acceptedAt &&
+                this.transactionId == other.transactionId &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                acceptedAt,
-                transactionId,
-                additionalProperties,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        acceptedAt,
+                        transactionId,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "Acceptance{acceptedAt=$acceptedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "Acceptance{acceptedAt=$acceptedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -903,18 +876,24 @@ class InboundAchTransfer private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Acceptance = Acceptance(
-                acceptedAt,
-                transactionId,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build(): Acceptance =
+                Acceptance(
+                    acceptedAt,
+                    transactionId,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
     /** Additional information sent from the originator. */
     @JsonDeserialize(builder = Addenda.Builder::class)
     @NoAutoDetect
-    class Addenda private constructor(private val category: JsonField<Category>, private val freeform: JsonField<Freeform>, private val additionalProperties: Map<String, JsonValue>, ) {
+    class Addenda
+    private constructor(
+        private val category: JsonField<Category>,
+        private val freeform: JsonField<Freeform>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var validated: Boolean = false
 
@@ -927,14 +906,10 @@ class InboundAchTransfer private constructor(
         fun freeform(): Optional<Freeform> = Optional.ofNullable(freeform.getNullable("freeform"))
 
         /** The type of addendum. */
-        @JsonProperty("category")
-        @ExcludeMissing
-        fun _category() = category
+        @JsonProperty("category") @ExcludeMissing fun _category() = category
 
         /** Unstructured `payment_related_information` passed through by the originator. */
-        @JsonProperty("freeform")
-        @ExcludeMissing
-        fun _freeform() = freeform
+        @JsonProperty("freeform") @ExcludeMissing fun _freeform() = freeform
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -942,42 +917,43 @@ class InboundAchTransfer private constructor(
 
         fun validate(): Addenda = apply {
             if (!validated) {
-              category()
-              freeform().map { it.validate() }
-              validated = true
+                category()
+                freeform().map { it.validate() }
+                validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Addenda &&
-              this.category == other.category &&
-              this.freeform == other.freeform &&
-              this.additionalProperties == other.additionalProperties
+            return other is Addenda &&
+                this.category == other.category &&
+                this.freeform == other.freeform &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                category,
-                freeform,
-                additionalProperties,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        category,
+                        freeform,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "Addenda{category=$category, freeform=$freeform, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "Addenda{category=$category, freeform=$freeform, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -999,9 +975,7 @@ class InboundAchTransfer private constructor(
             /** The type of addendum. */
             @JsonProperty("category")
             @ExcludeMissing
-            fun category(category: JsonField<Category>) = apply {
-                this.category = category
-            }
+            fun category(category: JsonField<Category>) = apply { this.category = category }
 
             /** Unstructured `payment_related_information` passed through by the originator. */
             fun freeform(freeform: Freeform) = freeform(JsonField.of(freeform))
@@ -1009,9 +983,7 @@ class InboundAchTransfer private constructor(
             /** Unstructured `payment_related_information` passed through by the originator. */
             @JsonProperty("freeform")
             @ExcludeMissing
-            fun freeform(freeform: JsonField<Freeform>) = apply {
-                this.freeform = freeform
-            }
+            fun freeform(freeform: JsonField<Freeform>) = apply { this.freeform = freeform }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1027,25 +999,28 @@ class InboundAchTransfer private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Addenda = Addenda(
-                category,
-                freeform,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build(): Addenda =
+                Addenda(
+                    category,
+                    freeform,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
 
-        class Category @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+        class Category
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return other is Category &&
-                  this.value == other.value
+                return other is Category && this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1068,15 +1043,17 @@ class InboundAchTransfer private constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value = when (this) {
-                FREEFORM -> Value.FREEFORM
-                else -> Value._UNKNOWN
-            }
+            fun value(): Value =
+                when (this) {
+                    FREEFORM -> Value.FREEFORM
+                    else -> Value._UNKNOWN
+                }
 
-            fun known(): Known = when (this) {
-                FREEFORM -> Known.FREEFORM
-                else -> throw IncreaseInvalidDataException("Unknown Category: $value")
-            }
+            fun known(): Known =
+                when (this) {
+                    FREEFORM -> Known.FREEFORM
+                    else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+                }
 
             fun asString(): String = _value().asStringOrThrow()
         }
@@ -1084,7 +1061,11 @@ class InboundAchTransfer private constructor(
         /** Unstructured `payment_related_information` passed through by the originator. */
         @JsonDeserialize(builder = Freeform.Builder::class)
         @NoAutoDetect
-        class Freeform private constructor(private val entries: JsonField<List<Entry>>, private val additionalProperties: Map<String, JsonValue>, ) {
+        class Freeform
+        private constructor(
+            private val entries: JsonField<List<Entry>>,
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
 
             private var validated: Boolean = false
 
@@ -1094,9 +1075,7 @@ class InboundAchTransfer private constructor(
             fun entries(): List<Entry> = entries.getRequired("entries")
 
             /** Each entry represents an addendum received from the originator. */
-            @JsonProperty("entries")
-            @ExcludeMissing
-            fun _entries() = entries
+            @JsonProperty("entries") @ExcludeMissing fun _entries() = entries
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1104,36 +1083,36 @@ class InboundAchTransfer private constructor(
 
             fun validate(): Freeform = apply {
                 if (!validated) {
-                  entries().forEach { it.validate() }
-                  validated = true
+                    entries().forEach { it.validate() }
+                    validated = true
                 }
             }
 
             fun toBuilder() = Builder().from(this)
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return other is Freeform &&
-                  this.entries == other.entries &&
-                  this.additionalProperties == other.additionalProperties
+                return other is Freeform &&
+                    this.entries == other.entries &&
+                    this.additionalProperties == other.additionalProperties
             }
 
             override fun hashCode(): Int {
-              if (hashCode == 0) {
-                hashCode = Objects.hash(entries, additionalProperties)
-              }
-              return hashCode
+                if (hashCode == 0) {
+                    hashCode = Objects.hash(entries, additionalProperties)
+                }
+                return hashCode
             }
 
-            override fun toString() = "Freeform{entries=$entries, additionalProperties=$additionalProperties}"
+            override fun toString() =
+                "Freeform{entries=$entries, additionalProperties=$additionalProperties}"
 
             companion object {
 
-                @JvmStatic
-                fun builder() = Builder()
+                @JvmStatic fun builder() = Builder()
             }
 
             class Builder {
@@ -1153,9 +1132,7 @@ class InboundAchTransfer private constructor(
                 /** Each entry represents an addendum received from the originator. */
                 @JsonProperty("entries")
                 @ExcludeMissing
-                fun entries(entries: JsonField<List<Entry>>) = apply {
-                    this.entries = entries
-                }
+                fun entries(entries: JsonField<List<Entry>>) = apply { this.entries = entries }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1167,23 +1144,33 @@ class InboundAchTransfer private constructor(
                     this.additionalProperties.put(key, value)
                 }
 
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
 
-                fun build(): Freeform = Freeform(entries.map { it.toUnmodifiable() }, additionalProperties.toUnmodifiable())
+                fun build(): Freeform =
+                    Freeform(
+                        entries.map { it.toUnmodifiable() },
+                        additionalProperties.toUnmodifiable()
+                    )
             }
 
             @JsonDeserialize(builder = Entry.Builder::class)
             @NoAutoDetect
-            class Entry private constructor(private val paymentRelatedInformation: JsonField<String>, private val additionalProperties: Map<String, JsonValue>, ) {
+            class Entry
+            private constructor(
+                private val paymentRelatedInformation: JsonField<String>,
+                private val additionalProperties: Map<String, JsonValue>,
+            ) {
 
                 private var validated: Boolean = false
 
                 private var hashCode: Int = 0
 
                 /** The payment related information passed in the addendum. */
-                fun paymentRelatedInformation(): String = paymentRelatedInformation.getRequired("payment_related_information")
+                fun paymentRelatedInformation(): String =
+                    paymentRelatedInformation.getRequired("payment_related_information")
 
                 /** The payment related information passed in the addendum. */
                 @JsonProperty("payment_related_information")
@@ -1196,36 +1183,36 @@ class InboundAchTransfer private constructor(
 
                 fun validate(): Entry = apply {
                     if (!validated) {
-                      paymentRelatedInformation()
-                      validated = true
+                        paymentRelatedInformation()
+                        validated = true
                     }
                 }
 
                 fun toBuilder() = Builder().from(this)
 
                 override fun equals(other: Any?): Boolean {
-                  if (this === other) {
-                      return true
-                  }
+                    if (this === other) {
+                        return true
+                    }
 
-                  return other is Entry &&
-                      this.paymentRelatedInformation == other.paymentRelatedInformation &&
-                      this.additionalProperties == other.additionalProperties
+                    return other is Entry &&
+                        this.paymentRelatedInformation == other.paymentRelatedInformation &&
+                        this.additionalProperties == other.additionalProperties
                 }
 
                 override fun hashCode(): Int {
-                  if (hashCode == 0) {
-                    hashCode = Objects.hash(paymentRelatedInformation, additionalProperties)
-                  }
-                  return hashCode
+                    if (hashCode == 0) {
+                        hashCode = Objects.hash(paymentRelatedInformation, additionalProperties)
+                    }
+                    return hashCode
                 }
 
-                override fun toString() = "Entry{paymentRelatedInformation=$paymentRelatedInformation, additionalProperties=$additionalProperties}"
+                override fun toString() =
+                    "Entry{paymentRelatedInformation=$paymentRelatedInformation, additionalProperties=$additionalProperties}"
 
                 companion object {
 
-                    @JvmStatic
-                    fun builder() = Builder()
+                    @JvmStatic fun builder() = Builder()
                 }
 
                 class Builder {
@@ -1240,14 +1227,16 @@ class InboundAchTransfer private constructor(
                     }
 
                     /** The payment related information passed in the addendum. */
-                    fun paymentRelatedInformation(paymentRelatedInformation: String) = paymentRelatedInformation(JsonField.of(paymentRelatedInformation))
+                    fun paymentRelatedInformation(paymentRelatedInformation: String) =
+                        paymentRelatedInformation(JsonField.of(paymentRelatedInformation))
 
                     /** The payment related information passed in the addendum. */
                     @JsonProperty("payment_related_information")
                     @ExcludeMissing
-                    fun paymentRelatedInformation(paymentRelatedInformation: JsonField<String>) = apply {
-                        this.paymentRelatedInformation = paymentRelatedInformation
-                    }
+                    fun paymentRelatedInformation(paymentRelatedInformation: JsonField<String>) =
+                        apply {
+                            this.paymentRelatedInformation = paymentRelatedInformation
+                        }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -1259,11 +1248,13 @@ class InboundAchTransfer private constructor(
                         this.additionalProperties.put(key, value)
                     }
 
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
 
-                    fun build(): Entry = Entry(paymentRelatedInformation, additionalProperties.toUnmodifiable())
+                    fun build(): Entry =
+                        Entry(paymentRelatedInformation, additionalProperties.toUnmodifiable())
                 }
             }
         }
@@ -1272,12 +1263,12 @@ class InboundAchTransfer private constructor(
     /** If your transfer is declined, this will contain details of the decline. */
     @JsonDeserialize(builder = Decline.Builder::class)
     @NoAutoDetect
-    class Decline private constructor(
-      private val declinedAt: JsonField<OffsetDateTime>,
-      private val declinedTransactionId: JsonField<String>,
-      private val reason: JsonField<Reason>,
-      private val additionalProperties: Map<String, JsonValue>,
-
+    class Decline
+    private constructor(
+        private val declinedAt: JsonField<OffsetDateTime>,
+        private val declinedTransactionId: JsonField<String>,
+        private val reason: JsonField<Reason>,
+        private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var validated: Boolean = false
@@ -1288,15 +1279,14 @@ class InboundAchTransfer private constructor(
         fun declinedAt(): OffsetDateTime = declinedAt.getRequired("declined_at")
 
         /** The id of the transaction for the declined transfer. */
-        fun declinedTransactionId(): String = declinedTransactionId.getRequired("declined_transaction_id")
+        fun declinedTransactionId(): String =
+            declinedTransactionId.getRequired("declined_transaction_id")
 
         /** The reason for the transfer decline. */
         fun reason(): Reason = reason.getRequired("reason")
 
         /** The time at which the transfer was declined. */
-        @JsonProperty("declined_at")
-        @ExcludeMissing
-        fun _declinedAt() = declinedAt
+        @JsonProperty("declined_at") @ExcludeMissing fun _declinedAt() = declinedAt
 
         /** The id of the transaction for the declined transfer. */
         @JsonProperty("declined_transaction_id")
@@ -1304,9 +1294,7 @@ class InboundAchTransfer private constructor(
         fun _declinedTransactionId() = declinedTransactionId
 
         /** The reason for the transfer decline. */
-        @JsonProperty("reason")
-        @ExcludeMissing
-        fun _reason() = reason
+        @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1314,45 +1302,46 @@ class InboundAchTransfer private constructor(
 
         fun validate(): Decline = apply {
             if (!validated) {
-              declinedAt()
-              declinedTransactionId()
-              reason()
-              validated = true
+                declinedAt()
+                declinedTransactionId()
+                reason()
+                validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Decline &&
-              this.declinedAt == other.declinedAt &&
-              this.declinedTransactionId == other.declinedTransactionId &&
-              this.reason == other.reason &&
-              this.additionalProperties == other.additionalProperties
+            return other is Decline &&
+                this.declinedAt == other.declinedAt &&
+                this.declinedTransactionId == other.declinedTransactionId &&
+                this.reason == other.reason &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                declinedAt,
-                declinedTransactionId,
-                reason,
-                additionalProperties,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        declinedAt,
+                        declinedTransactionId,
+                        reason,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "Decline{declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, reason=$reason, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "Decline{declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, reason=$reason, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -1381,7 +1370,8 @@ class InboundAchTransfer private constructor(
             }
 
             /** The id of the transaction for the declined transfer. */
-            fun declinedTransactionId(declinedTransactionId: String) = declinedTransactionId(JsonField.of(declinedTransactionId))
+            fun declinedTransactionId(declinedTransactionId: String) =
+                declinedTransactionId(JsonField.of(declinedTransactionId))
 
             /** The id of the transaction for the declined transfer. */
             @JsonProperty("declined_transaction_id")
@@ -1396,9 +1386,7 @@ class InboundAchTransfer private constructor(
             /** The reason for the transfer decline. */
             @JsonProperty("reason")
             @ExcludeMissing
-            fun reason(reason: JsonField<Reason>) = apply {
-                this.reason = reason
-            }
+            fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1414,26 +1402,29 @@ class InboundAchTransfer private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Decline = Decline(
-                declinedAt,
-                declinedTransactionId,
-                reason,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build(): Decline =
+                Decline(
+                    declinedAt,
+                    declinedTransactionId,
+                    reason,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
 
-        class Reason @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+        class Reason
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return other is Reason &&
-                  this.value == other.value
+                return other is Reason && this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1454,7 +1445,8 @@ class InboundAchTransfer private constructor(
 
                 @JvmField val INSUFFICIENT_FUNDS = Reason(JsonField.of("insufficient_funds"))
 
-                @JvmField val TRANSACTION_NOT_ALLOWED = Reason(JsonField.of("transaction_not_allowed"))
+                @JvmField
+                val TRANSACTION_NOT_ALLOWED = Reason(JsonField.of("transaction_not_allowed"))
 
                 @JvmField val USER_INITIATED = Reason(JsonField.of("user_initiated"))
 
@@ -1484,46 +1476,50 @@ class InboundAchTransfer private constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value = when (this) {
-                ACH_ROUTE_CANCELED -> Value.ACH_ROUTE_CANCELED
-                ACH_ROUTE_DISABLED -> Value.ACH_ROUTE_DISABLED
-                BREACHES_LIMIT -> Value.BREACHES_LIMIT
-                ENTITY_NOT_ACTIVE -> Value.ENTITY_NOT_ACTIVE
-                GROUP_LOCKED -> Value.GROUP_LOCKED
-                INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
-                TRANSACTION_NOT_ALLOWED -> Value.TRANSACTION_NOT_ALLOWED
-                USER_INITIATED -> Value.USER_INITIATED
-                else -> Value._UNKNOWN
-            }
+            fun value(): Value =
+                when (this) {
+                    ACH_ROUTE_CANCELED -> Value.ACH_ROUTE_CANCELED
+                    ACH_ROUTE_DISABLED -> Value.ACH_ROUTE_DISABLED
+                    BREACHES_LIMIT -> Value.BREACHES_LIMIT
+                    ENTITY_NOT_ACTIVE -> Value.ENTITY_NOT_ACTIVE
+                    GROUP_LOCKED -> Value.GROUP_LOCKED
+                    INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
+                    TRANSACTION_NOT_ALLOWED -> Value.TRANSACTION_NOT_ALLOWED
+                    USER_INITIATED -> Value.USER_INITIATED
+                    else -> Value._UNKNOWN
+                }
 
-            fun known(): Known = when (this) {
-                ACH_ROUTE_CANCELED -> Known.ACH_ROUTE_CANCELED
-                ACH_ROUTE_DISABLED -> Known.ACH_ROUTE_DISABLED
-                BREACHES_LIMIT -> Known.BREACHES_LIMIT
-                ENTITY_NOT_ACTIVE -> Known.ENTITY_NOT_ACTIVE
-                GROUP_LOCKED -> Known.GROUP_LOCKED
-                INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
-                TRANSACTION_NOT_ALLOWED -> Known.TRANSACTION_NOT_ALLOWED
-                USER_INITIATED -> Known.USER_INITIATED
-                else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
-            }
+            fun known(): Known =
+                when (this) {
+                    ACH_ROUTE_CANCELED -> Known.ACH_ROUTE_CANCELED
+                    ACH_ROUTE_DISABLED -> Known.ACH_ROUTE_DISABLED
+                    BREACHES_LIMIT -> Known.BREACHES_LIMIT
+                    ENTITY_NOT_ACTIVE -> Known.ENTITY_NOT_ACTIVE
+                    GROUP_LOCKED -> Known.GROUP_LOCKED
+                    INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
+                    TRANSACTION_NOT_ALLOWED -> Known.TRANSACTION_NOT_ALLOWED
+                    USER_INITIATED -> Known.USER_INITIATED
+                    else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
+                }
 
             fun asString(): String = _value().asStringOrThrow()
         }
     }
 
-    class Direction @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+    class Direction
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Direction &&
-              this.value == other.value
+            return other is Direction && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1550,33 +1546,37 @@ class InboundAchTransfer private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            CREDIT -> Value.CREDIT
-            DEBIT -> Value.DEBIT
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                CREDIT -> Value.CREDIT
+                DEBIT -> Value.DEBIT
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            CREDIT -> Known.CREDIT
-            DEBIT -> Known.DEBIT
-            else -> throw IncreaseInvalidDataException("Unknown Direction: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                CREDIT -> Known.CREDIT
+                DEBIT -> Known.DEBIT
+                else -> throw IncreaseInvalidDataException("Unknown Direction: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class ExpectedSettlementSchedule @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+    class ExpectedSettlementSchedule
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is ExpectedSettlementSchedule &&
-              this.value == other.value
+            return other is ExpectedSettlementSchedule && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1603,63 +1603,68 @@ class InboundAchTransfer private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            SAME_DAY -> Value.SAME_DAY
-            FUTURE_DATED -> Value.FUTURE_DATED
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                SAME_DAY -> Value.SAME_DAY
+                FUTURE_DATED -> Value.FUTURE_DATED
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            SAME_DAY -> Known.SAME_DAY
-            FUTURE_DATED -> Known.FUTURE_DATED
-            else -> throw IncreaseInvalidDataException("Unknown ExpectedSettlementSchedule: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                SAME_DAY -> Known.SAME_DAY
+                FUTURE_DATED -> Known.FUTURE_DATED
+                else ->
+                    throw IncreaseInvalidDataException("Unknown ExpectedSettlementSchedule: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
     /**
-     * If the Inbound ACH Transfer has a Standard Entry Class Code of IAT, this will
-     * contain fields pertaining to the International ACH Transaction.
+     * If the Inbound ACH Transfer has a Standard Entry Class Code of IAT, this will contain fields
+     * pertaining to the International ACH Transaction.
      */
     @JsonDeserialize(builder = InternationalAddenda.Builder::class)
     @NoAutoDetect
-    class InternationalAddenda private constructor(
-      private val destinationCountryCode: JsonField<String>,
-      private val destinationCurrencyCode: JsonField<String>,
-      private val foreignExchangeIndicator: JsonField<ForeignExchangeIndicator>,
-      private val foreignExchangeReference: JsonField<String>,
-      private val foreignExchangeReferenceIndicator: JsonField<ForeignExchangeReferenceIndicator>,
-      private val foreignPaymentAmount: JsonField<Long>,
-      private val foreignTraceNumber: JsonField<String>,
-      private val internationalTransactionTypeCode: JsonField<InternationalTransactionTypeCode>,
-      private val originatingCurrencyCode: JsonField<String>,
-      private val originatingDepositoryFinancialInstitutionBranchCountry: JsonField<String>,
-      private val originatingDepositoryFinancialInstitutionId: JsonField<String>,
-      private val originatingDepositoryFinancialInstitutionIdQualifier: JsonField<OriginatingDepositoryFinancialInstitutionIdQualifier>,
-      private val originatingDepositoryFinancialInstitutionName: JsonField<String>,
-      private val originatorCity: JsonField<String>,
-      private val originatorCountry: JsonField<String>,
-      private val originatorIdentification: JsonField<String>,
-      private val originatorName: JsonField<String>,
-      private val originatorPostalCode: JsonField<String>,
-      private val originatorStateOrProvince: JsonField<String>,
-      private val originatorStreetAddress: JsonField<String>,
-      private val paymentRelatedInformation: JsonField<String>,
-      private val paymentRelatedInformation2: JsonField<String>,
-      private val receiverCity: JsonField<String>,
-      private val receiverCountry: JsonField<String>,
-      private val receiverIdentificationNumber: JsonField<String>,
-      private val receiverPostalCode: JsonField<String>,
-      private val receiverStateOrProvince: JsonField<String>,
-      private val receiverStreetAddress: JsonField<String>,
-      private val receivingCompanyOrIndividualName: JsonField<String>,
-      private val receivingDepositoryFinancialInstitutionCountry: JsonField<String>,
-      private val receivingDepositoryFinancialInstitutionId: JsonField<String>,
-      private val receivingDepositoryFinancialInstitutionIdQualifier: JsonField<ReceivingDepositoryFinancialInstitutionIdQualifier>,
-      private val receivingDepositoryFinancialInstitutionName: JsonField<String>,
-      private val additionalProperties: Map<String, JsonValue>,
-
+    class InternationalAddenda
+    private constructor(
+        private val destinationCountryCode: JsonField<String>,
+        private val destinationCurrencyCode: JsonField<String>,
+        private val foreignExchangeIndicator: JsonField<ForeignExchangeIndicator>,
+        private val foreignExchangeReference: JsonField<String>,
+        private val foreignExchangeReferenceIndicator: JsonField<ForeignExchangeReferenceIndicator>,
+        private val foreignPaymentAmount: JsonField<Long>,
+        private val foreignTraceNumber: JsonField<String>,
+        private val internationalTransactionTypeCode: JsonField<InternationalTransactionTypeCode>,
+        private val originatingCurrencyCode: JsonField<String>,
+        private val originatingDepositoryFinancialInstitutionBranchCountry: JsonField<String>,
+        private val originatingDepositoryFinancialInstitutionId: JsonField<String>,
+        private val originatingDepositoryFinancialInstitutionIdQualifier:
+            JsonField<OriginatingDepositoryFinancialInstitutionIdQualifier>,
+        private val originatingDepositoryFinancialInstitutionName: JsonField<String>,
+        private val originatorCity: JsonField<String>,
+        private val originatorCountry: JsonField<String>,
+        private val originatorIdentification: JsonField<String>,
+        private val originatorName: JsonField<String>,
+        private val originatorPostalCode: JsonField<String>,
+        private val originatorStateOrProvince: JsonField<String>,
+        private val originatorStreetAddress: JsonField<String>,
+        private val paymentRelatedInformation: JsonField<String>,
+        private val paymentRelatedInformation2: JsonField<String>,
+        private val receiverCity: JsonField<String>,
+        private val receiverCountry: JsonField<String>,
+        private val receiverIdentificationNumber: JsonField<String>,
+        private val receiverPostalCode: JsonField<String>,
+        private val receiverStateOrProvince: JsonField<String>,
+        private val receiverStreetAddress: JsonField<String>,
+        private val receivingCompanyOrIndividualName: JsonField<String>,
+        private val receivingDepositoryFinancialInstitutionCountry: JsonField<String>,
+        private val receivingDepositoryFinancialInstitutionId: JsonField<String>,
+        private val receivingDepositoryFinancialInstitutionIdQualifier:
+            JsonField<ReceivingDepositoryFinancialInstitutionIdQualifier>,
+        private val receivingDepositoryFinancialInstitutionName: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var validated: Boolean = false
@@ -1667,167 +1672,221 @@ class InboundAchTransfer private constructor(
         private var hashCode: Int = 0
 
         /**
-         * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2
-         * country code of the destination country.
+         * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country code of
+         * the destination country.
          */
-        fun destinationCountryCode(): String = destinationCountryCode.getRequired("destination_country_code")
+        fun destinationCountryCode(): String =
+            destinationCountryCode.getRequired("destination_country_code")
 
         /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code for the
-         * destination bank account.
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code for the destination
+         * bank account.
          */
-        fun destinationCurrencyCode(): String = destinationCurrencyCode.getRequired("destination_currency_code")
+        fun destinationCurrencyCode(): String =
+            destinationCurrencyCode.getRequired("destination_currency_code")
 
         /** A description of how the foreign exchange rate was calculated. */
-        fun foreignExchangeIndicator(): ForeignExchangeIndicator = foreignExchangeIndicator.getRequired("foreign_exchange_indicator")
+        fun foreignExchangeIndicator(): ForeignExchangeIndicator =
+            foreignExchangeIndicator.getRequired("foreign_exchange_indicator")
 
         /**
-         * Depending on the `foreign_exchange_reference_indicator`, an exchange rate or a
-         * reference to a well-known rate.
+         * Depending on the `foreign_exchange_reference_indicator`, an exchange rate or a reference
+         * to a well-known rate.
          */
-        fun foreignExchangeReference(): Optional<String> = Optional.ofNullable(foreignExchangeReference.getNullable("foreign_exchange_reference"))
+        fun foreignExchangeReference(): Optional<String> =
+            Optional.ofNullable(foreignExchangeReference.getNullable("foreign_exchange_reference"))
 
         /**
-         * An instruction of how to interpret the `foreign_exchange_reference` field for
-         * this Transaction.
+         * An instruction of how to interpret the `foreign_exchange_reference` field for this
+         * Transaction.
          */
-        fun foreignExchangeReferenceIndicator(): ForeignExchangeReferenceIndicator = foreignExchangeReferenceIndicator.getRequired("foreign_exchange_reference_indicator")
+        fun foreignExchangeReferenceIndicator(): ForeignExchangeReferenceIndicator =
+            foreignExchangeReferenceIndicator.getRequired("foreign_exchange_reference_indicator")
 
         /**
-         * The amount in the minor unit of the foreign payment currency. For dollars, for
-         * example, this is cents.
+         * The amount in the minor unit of the foreign payment currency. For dollars, for example,
+         * this is cents.
          */
-        fun foreignPaymentAmount(): Long = foreignPaymentAmount.getRequired("foreign_payment_amount")
+        fun foreignPaymentAmount(): Long =
+            foreignPaymentAmount.getRequired("foreign_payment_amount")
 
         /** A reference number in the foreign banking infrastructure. */
-        fun foreignTraceNumber(): Optional<String> = Optional.ofNullable(foreignTraceNumber.getNullable("foreign_trace_number"))
+        fun foreignTraceNumber(): Optional<String> =
+            Optional.ofNullable(foreignTraceNumber.getNullable("foreign_trace_number"))
 
         /** The type of transfer. Set by the originator. */
-        fun internationalTransactionTypeCode(): InternationalTransactionTypeCode = internationalTransactionTypeCode.getRequired("international_transaction_type_code")
+        fun internationalTransactionTypeCode(): InternationalTransactionTypeCode =
+            internationalTransactionTypeCode.getRequired("international_transaction_type_code")
 
         /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code for the
-         * originating bank account.
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code for the originating
+         * bank account.
          */
-        fun originatingCurrencyCode(): String = originatingCurrencyCode.getRequired("originating_currency_code")
+        fun originatingCurrencyCode(): String =
+            originatingCurrencyCode.getRequired("originating_currency_code")
 
         /**
-         * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2
-         * country code of the originating branch country.
+         * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country code of
+         * the originating branch country.
          */
-        fun originatingDepositoryFinancialInstitutionBranchCountry(): String = originatingDepositoryFinancialInstitutionBranchCountry.getRequired("originating_depository_financial_institution_branch_country")
+        fun originatingDepositoryFinancialInstitutionBranchCountry(): String =
+            originatingDepositoryFinancialInstitutionBranchCountry.getRequired(
+                "originating_depository_financial_institution_branch_country"
+            )
 
         /**
-         * An identifier for the originating bank. One of an International Bank Account
-         * Number (IBAN) bank identifier, SWIFT Bank Identification Code (BIC), or a
-         * domestic identifier like a US Routing Number.
+         * An identifier for the originating bank. One of an International Bank Account Number
+         * (IBAN) bank identifier, SWIFT Bank Identification Code (BIC), or a domestic identifier
+         * like a US Routing Number.
          */
-        fun originatingDepositoryFinancialInstitutionId(): String = originatingDepositoryFinancialInstitutionId.getRequired("originating_depository_financial_institution_id")
+        fun originatingDepositoryFinancialInstitutionId(): String =
+            originatingDepositoryFinancialInstitutionId.getRequired(
+                "originating_depository_financial_institution_id"
+            )
 
         /**
-         * An instruction of how to interpret the
-         * `originating_depository_financial_institution_id` field for this Transaction.
+         * An instruction of how to interpret the `originating_depository_financial_institution_id`
+         * field for this Transaction.
          */
-        fun originatingDepositoryFinancialInstitutionIdQualifier(): OriginatingDepositoryFinancialInstitutionIdQualifier = originatingDepositoryFinancialInstitutionIdQualifier.getRequired("originating_depository_financial_institution_id_qualifier")
+        fun originatingDepositoryFinancialInstitutionIdQualifier():
+            OriginatingDepositoryFinancialInstitutionIdQualifier =
+            originatingDepositoryFinancialInstitutionIdQualifier.getRequired(
+                "originating_depository_financial_institution_id_qualifier"
+            )
 
         /**
-         * The name of the originating bank. Sometimes this will refer to an American bank
-         * and obscure the correspondent foreign bank.
+         * The name of the originating bank. Sometimes this will refer to an American bank and
+         * obscure the correspondent foreign bank.
          */
-        fun originatingDepositoryFinancialInstitutionName(): String = originatingDepositoryFinancialInstitutionName.getRequired("originating_depository_financial_institution_name")
+        fun originatingDepositoryFinancialInstitutionName(): String =
+            originatingDepositoryFinancialInstitutionName.getRequired(
+                "originating_depository_financial_institution_name"
+            )
 
         /** A portion of the originator address. This may be incomplete. */
         fun originatorCity(): String = originatorCity.getRequired("originator_city")
 
         /**
          * A portion of the originator address. The
-         * [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country
-         * code of the originator country.
+         * [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country code of the
+         * originator country.
          */
         fun originatorCountry(): String = originatorCountry.getRequired("originator_country")
 
         /**
-         * An identifier for the originating company. This is generally stable across
-         * multiple ACH transfers.
+         * An identifier for the originating company. This is generally stable across multiple ACH
+         * transfers.
          */
-        fun originatorIdentification(): String = originatorIdentification.getRequired("originator_identification")
+        fun originatorIdentification(): String =
+            originatorIdentification.getRequired("originator_identification")
 
         /** Either the name of the originator or an intermediary money transmitter. */
         fun originatorName(): String = originatorName.getRequired("originator_name")
 
         /** A portion of the originator address. This may be incomplete. */
-        fun originatorPostalCode(): Optional<String> = Optional.ofNullable(originatorPostalCode.getNullable("originator_postal_code"))
+        fun originatorPostalCode(): Optional<String> =
+            Optional.ofNullable(originatorPostalCode.getNullable("originator_postal_code"))
 
         /** A portion of the originator address. This may be incomplete. */
-        fun originatorStateOrProvince(): Optional<String> = Optional.ofNullable(originatorStateOrProvince.getNullable("originator_state_or_province"))
+        fun originatorStateOrProvince(): Optional<String> =
+            Optional.ofNullable(
+                originatorStateOrProvince.getNullable("originator_state_or_province")
+            )
 
         /** A portion of the originator address. This may be incomplete. */
-        fun originatorStreetAddress(): String = originatorStreetAddress.getRequired("originator_street_address")
+        fun originatorStreetAddress(): String =
+            originatorStreetAddress.getRequired("originator_street_address")
 
         /** A description field set by the originator. */
-        fun paymentRelatedInformation(): Optional<String> = Optional.ofNullable(paymentRelatedInformation.getNullable("payment_related_information"))
+        fun paymentRelatedInformation(): Optional<String> =
+            Optional.ofNullable(
+                paymentRelatedInformation.getNullable("payment_related_information")
+            )
 
         /** A description field set by the originator. */
-        fun paymentRelatedInformation2(): Optional<String> = Optional.ofNullable(paymentRelatedInformation2.getNullable("payment_related_information2"))
+        fun paymentRelatedInformation2(): Optional<String> =
+            Optional.ofNullable(
+                paymentRelatedInformation2.getNullable("payment_related_information2")
+            )
 
         /** A portion of the receiver address. This may be incomplete. */
         fun receiverCity(): String = receiverCity.getRequired("receiver_city")
 
         /**
          * A portion of the receiver address. The
-         * [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country
-         * code of the receiver country.
+         * [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country code of the
+         * receiver country.
          */
         fun receiverCountry(): String = receiverCountry.getRequired("receiver_country")
 
         /** An identification number the originator uses for the receiver. */
-        fun receiverIdentificationNumber(): Optional<String> = Optional.ofNullable(receiverIdentificationNumber.getNullable("receiver_identification_number"))
+        fun receiverIdentificationNumber(): Optional<String> =
+            Optional.ofNullable(
+                receiverIdentificationNumber.getNullable("receiver_identification_number")
+            )
 
         /** A portion of the receiver address. This may be incomplete. */
-        fun receiverPostalCode(): Optional<String> = Optional.ofNullable(receiverPostalCode.getNullable("receiver_postal_code"))
+        fun receiverPostalCode(): Optional<String> =
+            Optional.ofNullable(receiverPostalCode.getNullable("receiver_postal_code"))
 
         /** A portion of the receiver address. This may be incomplete. */
-        fun receiverStateOrProvince(): Optional<String> = Optional.ofNullable(receiverStateOrProvince.getNullable("receiver_state_or_province"))
+        fun receiverStateOrProvince(): Optional<String> =
+            Optional.ofNullable(receiverStateOrProvince.getNullable("receiver_state_or_province"))
 
         /** A portion of the receiver address. This may be incomplete. */
-        fun receiverStreetAddress(): String = receiverStreetAddress.getRequired("receiver_street_address")
+        fun receiverStreetAddress(): String =
+            receiverStreetAddress.getRequired("receiver_street_address")
 
         /** The name of the receiver of the transfer. This is not verified by Increase. */
-        fun receivingCompanyOrIndividualName(): String = receivingCompanyOrIndividualName.getRequired("receiving_company_or_individual_name")
+        fun receivingCompanyOrIndividualName(): String =
+            receivingCompanyOrIndividualName.getRequired("receiving_company_or_individual_name")
 
         /**
-         * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2
-         * country code of the receiving bank country.
+         * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country code of
+         * the receiving bank country.
          */
-        fun receivingDepositoryFinancialInstitutionCountry(): String = receivingDepositoryFinancialInstitutionCountry.getRequired("receiving_depository_financial_institution_country")
+        fun receivingDepositoryFinancialInstitutionCountry(): String =
+            receivingDepositoryFinancialInstitutionCountry.getRequired(
+                "receiving_depository_financial_institution_country"
+            )
 
         /**
-         * An identifier for the receiving bank. One of an International Bank Account
-         * Number (IBAN) bank identifier, SWIFT Bank Identification Code (BIC), or a
-         * domestic identifier like a US Routing Number.
+         * An identifier for the receiving bank. One of an International Bank Account Number (IBAN)
+         * bank identifier, SWIFT Bank Identification Code (BIC), or a domestic identifier like a US
+         * Routing Number.
          */
-        fun receivingDepositoryFinancialInstitutionId(): String = receivingDepositoryFinancialInstitutionId.getRequired("receiving_depository_financial_institution_id")
+        fun receivingDepositoryFinancialInstitutionId(): String =
+            receivingDepositoryFinancialInstitutionId.getRequired(
+                "receiving_depository_financial_institution_id"
+            )
 
         /**
-         * An instruction of how to interpret the
-         * `receiving_depository_financial_institution_id` field for this Transaction.
+         * An instruction of how to interpret the `receiving_depository_financial_institution_id`
+         * field for this Transaction.
          */
-        fun receivingDepositoryFinancialInstitutionIdQualifier(): ReceivingDepositoryFinancialInstitutionIdQualifier = receivingDepositoryFinancialInstitutionIdQualifier.getRequired("receiving_depository_financial_institution_id_qualifier")
+        fun receivingDepositoryFinancialInstitutionIdQualifier():
+            ReceivingDepositoryFinancialInstitutionIdQualifier =
+            receivingDepositoryFinancialInstitutionIdQualifier.getRequired(
+                "receiving_depository_financial_institution_id_qualifier"
+            )
 
         /** The name of the receiving bank, as set by the sending financial institution. */
-        fun receivingDepositoryFinancialInstitutionName(): String = receivingDepositoryFinancialInstitutionName.getRequired("receiving_depository_financial_institution_name")
+        fun receivingDepositoryFinancialInstitutionName(): String =
+            receivingDepositoryFinancialInstitutionName.getRequired(
+                "receiving_depository_financial_institution_name"
+            )
 
         /**
-         * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2
-         * country code of the destination country.
+         * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country code of
+         * the destination country.
          */
         @JsonProperty("destination_country_code")
         @ExcludeMissing
         fun _destinationCountryCode() = destinationCountryCode
 
         /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code for the
-         * destination bank account.
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code for the destination
+         * bank account.
          */
         @JsonProperty("destination_currency_code")
         @ExcludeMissing
@@ -1839,24 +1898,24 @@ class InboundAchTransfer private constructor(
         fun _foreignExchangeIndicator() = foreignExchangeIndicator
 
         /**
-         * Depending on the `foreign_exchange_reference_indicator`, an exchange rate or a
-         * reference to a well-known rate.
+         * Depending on the `foreign_exchange_reference_indicator`, an exchange rate or a reference
+         * to a well-known rate.
          */
         @JsonProperty("foreign_exchange_reference")
         @ExcludeMissing
         fun _foreignExchangeReference() = foreignExchangeReference
 
         /**
-         * An instruction of how to interpret the `foreign_exchange_reference` field for
-         * this Transaction.
+         * An instruction of how to interpret the `foreign_exchange_reference` field for this
+         * Transaction.
          */
         @JsonProperty("foreign_exchange_reference_indicator")
         @ExcludeMissing
         fun _foreignExchangeReferenceIndicator() = foreignExchangeReferenceIndicator
 
         /**
-         * The amount in the minor unit of the foreign payment currency. For dollars, for
-         * example, this is cents.
+         * The amount in the minor unit of the foreign payment currency. For dollars, for example,
+         * this is cents.
          */
         @JsonProperty("foreign_payment_amount")
         @ExcludeMissing
@@ -1873,72 +1932,72 @@ class InboundAchTransfer private constructor(
         fun _internationalTransactionTypeCode() = internationalTransactionTypeCode
 
         /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code for the
-         * originating bank account.
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code for the originating
+         * bank account.
          */
         @JsonProperty("originating_currency_code")
         @ExcludeMissing
         fun _originatingCurrencyCode() = originatingCurrencyCode
 
         /**
-         * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2
-         * country code of the originating branch country.
+         * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country code of
+         * the originating branch country.
          */
         @JsonProperty("originating_depository_financial_institution_branch_country")
         @ExcludeMissing
-        fun _originatingDepositoryFinancialInstitutionBranchCountry() = originatingDepositoryFinancialInstitutionBranchCountry
+        fun _originatingDepositoryFinancialInstitutionBranchCountry() =
+            originatingDepositoryFinancialInstitutionBranchCountry
 
         /**
-         * An identifier for the originating bank. One of an International Bank Account
-         * Number (IBAN) bank identifier, SWIFT Bank Identification Code (BIC), or a
-         * domestic identifier like a US Routing Number.
+         * An identifier for the originating bank. One of an International Bank Account Number
+         * (IBAN) bank identifier, SWIFT Bank Identification Code (BIC), or a domestic identifier
+         * like a US Routing Number.
          */
         @JsonProperty("originating_depository_financial_institution_id")
         @ExcludeMissing
-        fun _originatingDepositoryFinancialInstitutionId() = originatingDepositoryFinancialInstitutionId
+        fun _originatingDepositoryFinancialInstitutionId() =
+            originatingDepositoryFinancialInstitutionId
 
         /**
-         * An instruction of how to interpret the
-         * `originating_depository_financial_institution_id` field for this Transaction.
+         * An instruction of how to interpret the `originating_depository_financial_institution_id`
+         * field for this Transaction.
          */
         @JsonProperty("originating_depository_financial_institution_id_qualifier")
         @ExcludeMissing
-        fun _originatingDepositoryFinancialInstitutionIdQualifier() = originatingDepositoryFinancialInstitutionIdQualifier
+        fun _originatingDepositoryFinancialInstitutionIdQualifier() =
+            originatingDepositoryFinancialInstitutionIdQualifier
 
         /**
-         * The name of the originating bank. Sometimes this will refer to an American bank
-         * and obscure the correspondent foreign bank.
+         * The name of the originating bank. Sometimes this will refer to an American bank and
+         * obscure the correspondent foreign bank.
          */
         @JsonProperty("originating_depository_financial_institution_name")
         @ExcludeMissing
-        fun _originatingDepositoryFinancialInstitutionName() = originatingDepositoryFinancialInstitutionName
+        fun _originatingDepositoryFinancialInstitutionName() =
+            originatingDepositoryFinancialInstitutionName
 
         /** A portion of the originator address. This may be incomplete. */
-        @JsonProperty("originator_city")
-        @ExcludeMissing
-        fun _originatorCity() = originatorCity
+        @JsonProperty("originator_city") @ExcludeMissing fun _originatorCity() = originatorCity
 
         /**
          * A portion of the originator address. The
-         * [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country
-         * code of the originator country.
+         * [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country code of the
+         * originator country.
          */
         @JsonProperty("originator_country")
         @ExcludeMissing
         fun _originatorCountry() = originatorCountry
 
         /**
-         * An identifier for the originating company. This is generally stable across
-         * multiple ACH transfers.
+         * An identifier for the originating company. This is generally stable across multiple ACH
+         * transfers.
          */
         @JsonProperty("originator_identification")
         @ExcludeMissing
         fun _originatorIdentification() = originatorIdentification
 
         /** Either the name of the originator or an intermediary money transmitter. */
-        @JsonProperty("originator_name")
-        @ExcludeMissing
-        fun _originatorName() = originatorName
+        @JsonProperty("originator_name") @ExcludeMissing fun _originatorName() = originatorName
 
         /** A portion of the originator address. This may be incomplete. */
         @JsonProperty("originator_postal_code")
@@ -1966,18 +2025,14 @@ class InboundAchTransfer private constructor(
         fun _paymentRelatedInformation2() = paymentRelatedInformation2
 
         /** A portion of the receiver address. This may be incomplete. */
-        @JsonProperty("receiver_city")
-        @ExcludeMissing
-        fun _receiverCity() = receiverCity
+        @JsonProperty("receiver_city") @ExcludeMissing fun _receiverCity() = receiverCity
 
         /**
          * A portion of the receiver address. The
-         * [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country
-         * code of the receiver country.
+         * [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country code of the
+         * receiver country.
          */
-        @JsonProperty("receiver_country")
-        @ExcludeMissing
-        fun _receiverCountry() = receiverCountry
+        @JsonProperty("receiver_country") @ExcludeMissing fun _receiverCountry() = receiverCountry
 
         /** An identification number the originator uses for the receiver. */
         @JsonProperty("receiver_identification_number")
@@ -2005,34 +2060,37 @@ class InboundAchTransfer private constructor(
         fun _receivingCompanyOrIndividualName() = receivingCompanyOrIndividualName
 
         /**
-         * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2
-         * country code of the receiving bank country.
+         * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country code of
+         * the receiving bank country.
          */
         @JsonProperty("receiving_depository_financial_institution_country")
         @ExcludeMissing
-        fun _receivingDepositoryFinancialInstitutionCountry() = receivingDepositoryFinancialInstitutionCountry
+        fun _receivingDepositoryFinancialInstitutionCountry() =
+            receivingDepositoryFinancialInstitutionCountry
 
         /**
-         * An identifier for the receiving bank. One of an International Bank Account
-         * Number (IBAN) bank identifier, SWIFT Bank Identification Code (BIC), or a
-         * domestic identifier like a US Routing Number.
+         * An identifier for the receiving bank. One of an International Bank Account Number (IBAN)
+         * bank identifier, SWIFT Bank Identification Code (BIC), or a domestic identifier like a US
+         * Routing Number.
          */
         @JsonProperty("receiving_depository_financial_institution_id")
         @ExcludeMissing
         fun _receivingDepositoryFinancialInstitutionId() = receivingDepositoryFinancialInstitutionId
 
         /**
-         * An instruction of how to interpret the
-         * `receiving_depository_financial_institution_id` field for this Transaction.
+         * An instruction of how to interpret the `receiving_depository_financial_institution_id`
+         * field for this Transaction.
          */
         @JsonProperty("receiving_depository_financial_institution_id_qualifier")
         @ExcludeMissing
-        fun _receivingDepositoryFinancialInstitutionIdQualifier() = receivingDepositoryFinancialInstitutionIdQualifier
+        fun _receivingDepositoryFinancialInstitutionIdQualifier() =
+            receivingDepositoryFinancialInstitutionIdQualifier
 
         /** The name of the receiving bank, as set by the sending financial institution. */
         @JsonProperty("receiving_depository_financial_institution_name")
         @ExcludeMissing
-        fun _receivingDepositoryFinancialInstitutionName() = receivingDepositoryFinancialInstitutionName
+        fun _receivingDepositoryFinancialInstitutionName() =
+            receivingDepositoryFinancialInstitutionName
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -2040,152 +2098,171 @@ class InboundAchTransfer private constructor(
 
         fun validate(): InternationalAddenda = apply {
             if (!validated) {
-              destinationCountryCode()
-              destinationCurrencyCode()
-              foreignExchangeIndicator()
-              foreignExchangeReference()
-              foreignExchangeReferenceIndicator()
-              foreignPaymentAmount()
-              foreignTraceNumber()
-              internationalTransactionTypeCode()
-              originatingCurrencyCode()
-              originatingDepositoryFinancialInstitutionBranchCountry()
-              originatingDepositoryFinancialInstitutionId()
-              originatingDepositoryFinancialInstitutionIdQualifier()
-              originatingDepositoryFinancialInstitutionName()
-              originatorCity()
-              originatorCountry()
-              originatorIdentification()
-              originatorName()
-              originatorPostalCode()
-              originatorStateOrProvince()
-              originatorStreetAddress()
-              paymentRelatedInformation()
-              paymentRelatedInformation2()
-              receiverCity()
-              receiverCountry()
-              receiverIdentificationNumber()
-              receiverPostalCode()
-              receiverStateOrProvince()
-              receiverStreetAddress()
-              receivingCompanyOrIndividualName()
-              receivingDepositoryFinancialInstitutionCountry()
-              receivingDepositoryFinancialInstitutionId()
-              receivingDepositoryFinancialInstitutionIdQualifier()
-              receivingDepositoryFinancialInstitutionName()
-              validated = true
+                destinationCountryCode()
+                destinationCurrencyCode()
+                foreignExchangeIndicator()
+                foreignExchangeReference()
+                foreignExchangeReferenceIndicator()
+                foreignPaymentAmount()
+                foreignTraceNumber()
+                internationalTransactionTypeCode()
+                originatingCurrencyCode()
+                originatingDepositoryFinancialInstitutionBranchCountry()
+                originatingDepositoryFinancialInstitutionId()
+                originatingDepositoryFinancialInstitutionIdQualifier()
+                originatingDepositoryFinancialInstitutionName()
+                originatorCity()
+                originatorCountry()
+                originatorIdentification()
+                originatorName()
+                originatorPostalCode()
+                originatorStateOrProvince()
+                originatorStreetAddress()
+                paymentRelatedInformation()
+                paymentRelatedInformation2()
+                receiverCity()
+                receiverCountry()
+                receiverIdentificationNumber()
+                receiverPostalCode()
+                receiverStateOrProvince()
+                receiverStreetAddress()
+                receivingCompanyOrIndividualName()
+                receivingDepositoryFinancialInstitutionCountry()
+                receivingDepositoryFinancialInstitutionId()
+                receivingDepositoryFinancialInstitutionIdQualifier()
+                receivingDepositoryFinancialInstitutionName()
+                validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is InternationalAddenda &&
-              this.destinationCountryCode == other.destinationCountryCode &&
-              this.destinationCurrencyCode == other.destinationCurrencyCode &&
-              this.foreignExchangeIndicator == other.foreignExchangeIndicator &&
-              this.foreignExchangeReference == other.foreignExchangeReference &&
-              this.foreignExchangeReferenceIndicator == other.foreignExchangeReferenceIndicator &&
-              this.foreignPaymentAmount == other.foreignPaymentAmount &&
-              this.foreignTraceNumber == other.foreignTraceNumber &&
-              this.internationalTransactionTypeCode == other.internationalTransactionTypeCode &&
-              this.originatingCurrencyCode == other.originatingCurrencyCode &&
-              this.originatingDepositoryFinancialInstitutionBranchCountry == other.originatingDepositoryFinancialInstitutionBranchCountry &&
-              this.originatingDepositoryFinancialInstitutionId == other.originatingDepositoryFinancialInstitutionId &&
-              this.originatingDepositoryFinancialInstitutionIdQualifier == other.originatingDepositoryFinancialInstitutionIdQualifier &&
-              this.originatingDepositoryFinancialInstitutionName == other.originatingDepositoryFinancialInstitutionName &&
-              this.originatorCity == other.originatorCity &&
-              this.originatorCountry == other.originatorCountry &&
-              this.originatorIdentification == other.originatorIdentification &&
-              this.originatorName == other.originatorName &&
-              this.originatorPostalCode == other.originatorPostalCode &&
-              this.originatorStateOrProvince == other.originatorStateOrProvince &&
-              this.originatorStreetAddress == other.originatorStreetAddress &&
-              this.paymentRelatedInformation == other.paymentRelatedInformation &&
-              this.paymentRelatedInformation2 == other.paymentRelatedInformation2 &&
-              this.receiverCity == other.receiverCity &&
-              this.receiverCountry == other.receiverCountry &&
-              this.receiverIdentificationNumber == other.receiverIdentificationNumber &&
-              this.receiverPostalCode == other.receiverPostalCode &&
-              this.receiverStateOrProvince == other.receiverStateOrProvince &&
-              this.receiverStreetAddress == other.receiverStreetAddress &&
-              this.receivingCompanyOrIndividualName == other.receivingCompanyOrIndividualName &&
-              this.receivingDepositoryFinancialInstitutionCountry == other.receivingDepositoryFinancialInstitutionCountry &&
-              this.receivingDepositoryFinancialInstitutionId == other.receivingDepositoryFinancialInstitutionId &&
-              this.receivingDepositoryFinancialInstitutionIdQualifier == other.receivingDepositoryFinancialInstitutionIdQualifier &&
-              this.receivingDepositoryFinancialInstitutionName == other.receivingDepositoryFinancialInstitutionName &&
-              this.additionalProperties == other.additionalProperties
+            return other is InternationalAddenda &&
+                this.destinationCountryCode == other.destinationCountryCode &&
+                this.destinationCurrencyCode == other.destinationCurrencyCode &&
+                this.foreignExchangeIndicator == other.foreignExchangeIndicator &&
+                this.foreignExchangeReference == other.foreignExchangeReference &&
+                this.foreignExchangeReferenceIndicator == other.foreignExchangeReferenceIndicator &&
+                this.foreignPaymentAmount == other.foreignPaymentAmount &&
+                this.foreignTraceNumber == other.foreignTraceNumber &&
+                this.internationalTransactionTypeCode == other.internationalTransactionTypeCode &&
+                this.originatingCurrencyCode == other.originatingCurrencyCode &&
+                this.originatingDepositoryFinancialInstitutionBranchCountry ==
+                    other.originatingDepositoryFinancialInstitutionBranchCountry &&
+                this.originatingDepositoryFinancialInstitutionId ==
+                    other.originatingDepositoryFinancialInstitutionId &&
+                this.originatingDepositoryFinancialInstitutionIdQualifier ==
+                    other.originatingDepositoryFinancialInstitutionIdQualifier &&
+                this.originatingDepositoryFinancialInstitutionName ==
+                    other.originatingDepositoryFinancialInstitutionName &&
+                this.originatorCity == other.originatorCity &&
+                this.originatorCountry == other.originatorCountry &&
+                this.originatorIdentification == other.originatorIdentification &&
+                this.originatorName == other.originatorName &&
+                this.originatorPostalCode == other.originatorPostalCode &&
+                this.originatorStateOrProvince == other.originatorStateOrProvince &&
+                this.originatorStreetAddress == other.originatorStreetAddress &&
+                this.paymentRelatedInformation == other.paymentRelatedInformation &&
+                this.paymentRelatedInformation2 == other.paymentRelatedInformation2 &&
+                this.receiverCity == other.receiverCity &&
+                this.receiverCountry == other.receiverCountry &&
+                this.receiverIdentificationNumber == other.receiverIdentificationNumber &&
+                this.receiverPostalCode == other.receiverPostalCode &&
+                this.receiverStateOrProvince == other.receiverStateOrProvince &&
+                this.receiverStreetAddress == other.receiverStreetAddress &&
+                this.receivingCompanyOrIndividualName == other.receivingCompanyOrIndividualName &&
+                this.receivingDepositoryFinancialInstitutionCountry ==
+                    other.receivingDepositoryFinancialInstitutionCountry &&
+                this.receivingDepositoryFinancialInstitutionId ==
+                    other.receivingDepositoryFinancialInstitutionId &&
+                this.receivingDepositoryFinancialInstitutionIdQualifier ==
+                    other.receivingDepositoryFinancialInstitutionIdQualifier &&
+                this.receivingDepositoryFinancialInstitutionName ==
+                    other.receivingDepositoryFinancialInstitutionName &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                destinationCountryCode,
-                destinationCurrencyCode,
-                foreignExchangeIndicator,
-                foreignExchangeReference,
-                foreignExchangeReferenceIndicator,
-                foreignPaymentAmount,
-                foreignTraceNumber,
-                internationalTransactionTypeCode,
-                originatingCurrencyCode,
-                originatingDepositoryFinancialInstitutionBranchCountry,
-                originatingDepositoryFinancialInstitutionId,
-                originatingDepositoryFinancialInstitutionIdQualifier,
-                originatingDepositoryFinancialInstitutionName,
-                originatorCity,
-                originatorCountry,
-                originatorIdentification,
-                originatorName,
-                originatorPostalCode,
-                originatorStateOrProvince,
-                originatorStreetAddress,
-                paymentRelatedInformation,
-                paymentRelatedInformation2,
-                receiverCity,
-                receiverCountry,
-                receiverIdentificationNumber,
-                receiverPostalCode,
-                receiverStateOrProvince,
-                receiverStreetAddress,
-                receivingCompanyOrIndividualName,
-                receivingDepositoryFinancialInstitutionCountry,
-                receivingDepositoryFinancialInstitutionId,
-                receivingDepositoryFinancialInstitutionIdQualifier,
-                receivingDepositoryFinancialInstitutionName,
-                additionalProperties,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        destinationCountryCode,
+                        destinationCurrencyCode,
+                        foreignExchangeIndicator,
+                        foreignExchangeReference,
+                        foreignExchangeReferenceIndicator,
+                        foreignPaymentAmount,
+                        foreignTraceNumber,
+                        internationalTransactionTypeCode,
+                        originatingCurrencyCode,
+                        originatingDepositoryFinancialInstitutionBranchCountry,
+                        originatingDepositoryFinancialInstitutionId,
+                        originatingDepositoryFinancialInstitutionIdQualifier,
+                        originatingDepositoryFinancialInstitutionName,
+                        originatorCity,
+                        originatorCountry,
+                        originatorIdentification,
+                        originatorName,
+                        originatorPostalCode,
+                        originatorStateOrProvince,
+                        originatorStreetAddress,
+                        paymentRelatedInformation,
+                        paymentRelatedInformation2,
+                        receiverCity,
+                        receiverCountry,
+                        receiverIdentificationNumber,
+                        receiverPostalCode,
+                        receiverStateOrProvince,
+                        receiverStreetAddress,
+                        receivingCompanyOrIndividualName,
+                        receivingDepositoryFinancialInstitutionCountry,
+                        receivingDepositoryFinancialInstitutionId,
+                        receivingDepositoryFinancialInstitutionIdQualifier,
+                        receivingDepositoryFinancialInstitutionName,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "InternationalAddenda{destinationCountryCode=$destinationCountryCode, destinationCurrencyCode=$destinationCurrencyCode, foreignExchangeIndicator=$foreignExchangeIndicator, foreignExchangeReference=$foreignExchangeReference, foreignExchangeReferenceIndicator=$foreignExchangeReferenceIndicator, foreignPaymentAmount=$foreignPaymentAmount, foreignTraceNumber=$foreignTraceNumber, internationalTransactionTypeCode=$internationalTransactionTypeCode, originatingCurrencyCode=$originatingCurrencyCode, originatingDepositoryFinancialInstitutionBranchCountry=$originatingDepositoryFinancialInstitutionBranchCountry, originatingDepositoryFinancialInstitutionId=$originatingDepositoryFinancialInstitutionId, originatingDepositoryFinancialInstitutionIdQualifier=$originatingDepositoryFinancialInstitutionIdQualifier, originatingDepositoryFinancialInstitutionName=$originatingDepositoryFinancialInstitutionName, originatorCity=$originatorCity, originatorCountry=$originatorCountry, originatorIdentification=$originatorIdentification, originatorName=$originatorName, originatorPostalCode=$originatorPostalCode, originatorStateOrProvince=$originatorStateOrProvince, originatorStreetAddress=$originatorStreetAddress, paymentRelatedInformation=$paymentRelatedInformation, paymentRelatedInformation2=$paymentRelatedInformation2, receiverCity=$receiverCity, receiverCountry=$receiverCountry, receiverIdentificationNumber=$receiverIdentificationNumber, receiverPostalCode=$receiverPostalCode, receiverStateOrProvince=$receiverStateOrProvince, receiverStreetAddress=$receiverStreetAddress, receivingCompanyOrIndividualName=$receivingCompanyOrIndividualName, receivingDepositoryFinancialInstitutionCountry=$receivingDepositoryFinancialInstitutionCountry, receivingDepositoryFinancialInstitutionId=$receivingDepositoryFinancialInstitutionId, receivingDepositoryFinancialInstitutionIdQualifier=$receivingDepositoryFinancialInstitutionIdQualifier, receivingDepositoryFinancialInstitutionName=$receivingDepositoryFinancialInstitutionName, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "InternationalAddenda{destinationCountryCode=$destinationCountryCode, destinationCurrencyCode=$destinationCurrencyCode, foreignExchangeIndicator=$foreignExchangeIndicator, foreignExchangeReference=$foreignExchangeReference, foreignExchangeReferenceIndicator=$foreignExchangeReferenceIndicator, foreignPaymentAmount=$foreignPaymentAmount, foreignTraceNumber=$foreignTraceNumber, internationalTransactionTypeCode=$internationalTransactionTypeCode, originatingCurrencyCode=$originatingCurrencyCode, originatingDepositoryFinancialInstitutionBranchCountry=$originatingDepositoryFinancialInstitutionBranchCountry, originatingDepositoryFinancialInstitutionId=$originatingDepositoryFinancialInstitutionId, originatingDepositoryFinancialInstitutionIdQualifier=$originatingDepositoryFinancialInstitutionIdQualifier, originatingDepositoryFinancialInstitutionName=$originatingDepositoryFinancialInstitutionName, originatorCity=$originatorCity, originatorCountry=$originatorCountry, originatorIdentification=$originatorIdentification, originatorName=$originatorName, originatorPostalCode=$originatorPostalCode, originatorStateOrProvince=$originatorStateOrProvince, originatorStreetAddress=$originatorStreetAddress, paymentRelatedInformation=$paymentRelatedInformation, paymentRelatedInformation2=$paymentRelatedInformation2, receiverCity=$receiverCity, receiverCountry=$receiverCountry, receiverIdentificationNumber=$receiverIdentificationNumber, receiverPostalCode=$receiverPostalCode, receiverStateOrProvince=$receiverStateOrProvince, receiverStreetAddress=$receiverStreetAddress, receivingCompanyOrIndividualName=$receivingCompanyOrIndividualName, receivingDepositoryFinancialInstitutionCountry=$receivingDepositoryFinancialInstitutionCountry, receivingDepositoryFinancialInstitutionId=$receivingDepositoryFinancialInstitutionId, receivingDepositoryFinancialInstitutionIdQualifier=$receivingDepositoryFinancialInstitutionIdQualifier, receivingDepositoryFinancialInstitutionName=$receivingDepositoryFinancialInstitutionName, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
 
             private var destinationCountryCode: JsonField<String> = JsonMissing.of()
             private var destinationCurrencyCode: JsonField<String> = JsonMissing.of()
-            private var foreignExchangeIndicator: JsonField<ForeignExchangeIndicator> = JsonMissing.of()
+            private var foreignExchangeIndicator: JsonField<ForeignExchangeIndicator> =
+                JsonMissing.of()
             private var foreignExchangeReference: JsonField<String> = JsonMissing.of()
-            private var foreignExchangeReferenceIndicator: JsonField<ForeignExchangeReferenceIndicator> = JsonMissing.of()
+            private var foreignExchangeReferenceIndicator:
+                JsonField<ForeignExchangeReferenceIndicator> =
+                JsonMissing.of()
             private var foreignPaymentAmount: JsonField<Long> = JsonMissing.of()
             private var foreignTraceNumber: JsonField<String> = JsonMissing.of()
-            private var internationalTransactionTypeCode: JsonField<InternationalTransactionTypeCode> = JsonMissing.of()
+            private var internationalTransactionTypeCode:
+                JsonField<InternationalTransactionTypeCode> =
+                JsonMissing.of()
             private var originatingCurrencyCode: JsonField<String> = JsonMissing.of()
-            private var originatingDepositoryFinancialInstitutionBranchCountry: JsonField<String> = JsonMissing.of()
-            private var originatingDepositoryFinancialInstitutionId: JsonField<String> = JsonMissing.of()
-            private var originatingDepositoryFinancialInstitutionIdQualifier: JsonField<OriginatingDepositoryFinancialInstitutionIdQualifier> = JsonMissing.of()
-            private var originatingDepositoryFinancialInstitutionName: JsonField<String> = JsonMissing.of()
+            private var originatingDepositoryFinancialInstitutionBranchCountry: JsonField<String> =
+                JsonMissing.of()
+            private var originatingDepositoryFinancialInstitutionId: JsonField<String> =
+                JsonMissing.of()
+            private var originatingDepositoryFinancialInstitutionIdQualifier:
+                JsonField<OriginatingDepositoryFinancialInstitutionIdQualifier> =
+                JsonMissing.of()
+            private var originatingDepositoryFinancialInstitutionName: JsonField<String> =
+                JsonMissing.of()
             private var originatorCity: JsonField<String> = JsonMissing.of()
             private var originatorCountry: JsonField<String> = JsonMissing.of()
             private var originatorIdentification: JsonField<String> = JsonMissing.of()
@@ -2202,10 +2279,15 @@ class InboundAchTransfer private constructor(
             private var receiverStateOrProvince: JsonField<String> = JsonMissing.of()
             private var receiverStreetAddress: JsonField<String> = JsonMissing.of()
             private var receivingCompanyOrIndividualName: JsonField<String> = JsonMissing.of()
-            private var receivingDepositoryFinancialInstitutionCountry: JsonField<String> = JsonMissing.of()
-            private var receivingDepositoryFinancialInstitutionId: JsonField<String> = JsonMissing.of()
-            private var receivingDepositoryFinancialInstitutionIdQualifier: JsonField<ReceivingDepositoryFinancialInstitutionIdQualifier> = JsonMissing.of()
-            private var receivingDepositoryFinancialInstitutionName: JsonField<String> = JsonMissing.of()
+            private var receivingDepositoryFinancialInstitutionCountry: JsonField<String> =
+                JsonMissing.of()
+            private var receivingDepositoryFinancialInstitutionId: JsonField<String> =
+                JsonMissing.of()
+            private var receivingDepositoryFinancialInstitutionIdQualifier:
+                JsonField<ReceivingDepositoryFinancialInstitutionIdQualifier> =
+                JsonMissing.of()
+            private var receivingDepositoryFinancialInstitutionName: JsonField<String> =
+                JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -2214,15 +2296,21 @@ class InboundAchTransfer private constructor(
                 this.destinationCurrencyCode = internationalAddenda.destinationCurrencyCode
                 this.foreignExchangeIndicator = internationalAddenda.foreignExchangeIndicator
                 this.foreignExchangeReference = internationalAddenda.foreignExchangeReference
-                this.foreignExchangeReferenceIndicator = internationalAddenda.foreignExchangeReferenceIndicator
+                this.foreignExchangeReferenceIndicator =
+                    internationalAddenda.foreignExchangeReferenceIndicator
                 this.foreignPaymentAmount = internationalAddenda.foreignPaymentAmount
                 this.foreignTraceNumber = internationalAddenda.foreignTraceNumber
-                this.internationalTransactionTypeCode = internationalAddenda.internationalTransactionTypeCode
+                this.internationalTransactionTypeCode =
+                    internationalAddenda.internationalTransactionTypeCode
                 this.originatingCurrencyCode = internationalAddenda.originatingCurrencyCode
-                this.originatingDepositoryFinancialInstitutionBranchCountry = internationalAddenda.originatingDepositoryFinancialInstitutionBranchCountry
-                this.originatingDepositoryFinancialInstitutionId = internationalAddenda.originatingDepositoryFinancialInstitutionId
-                this.originatingDepositoryFinancialInstitutionIdQualifier = internationalAddenda.originatingDepositoryFinancialInstitutionIdQualifier
-                this.originatingDepositoryFinancialInstitutionName = internationalAddenda.originatingDepositoryFinancialInstitutionName
+                this.originatingDepositoryFinancialInstitutionBranchCountry =
+                    internationalAddenda.originatingDepositoryFinancialInstitutionBranchCountry
+                this.originatingDepositoryFinancialInstitutionId =
+                    internationalAddenda.originatingDepositoryFinancialInstitutionId
+                this.originatingDepositoryFinancialInstitutionIdQualifier =
+                    internationalAddenda.originatingDepositoryFinancialInstitutionIdQualifier
+                this.originatingDepositoryFinancialInstitutionName =
+                    internationalAddenda.originatingDepositoryFinancialInstitutionName
                 this.originatorCity = internationalAddenda.originatorCity
                 this.originatorCountry = internationalAddenda.originatorCountry
                 this.originatorIdentification = internationalAddenda.originatorIdentification
@@ -2234,27 +2322,34 @@ class InboundAchTransfer private constructor(
                 this.paymentRelatedInformation2 = internationalAddenda.paymentRelatedInformation2
                 this.receiverCity = internationalAddenda.receiverCity
                 this.receiverCountry = internationalAddenda.receiverCountry
-                this.receiverIdentificationNumber = internationalAddenda.receiverIdentificationNumber
+                this.receiverIdentificationNumber =
+                    internationalAddenda.receiverIdentificationNumber
                 this.receiverPostalCode = internationalAddenda.receiverPostalCode
                 this.receiverStateOrProvince = internationalAddenda.receiverStateOrProvince
                 this.receiverStreetAddress = internationalAddenda.receiverStreetAddress
-                this.receivingCompanyOrIndividualName = internationalAddenda.receivingCompanyOrIndividualName
-                this.receivingDepositoryFinancialInstitutionCountry = internationalAddenda.receivingDepositoryFinancialInstitutionCountry
-                this.receivingDepositoryFinancialInstitutionId = internationalAddenda.receivingDepositoryFinancialInstitutionId
-                this.receivingDepositoryFinancialInstitutionIdQualifier = internationalAddenda.receivingDepositoryFinancialInstitutionIdQualifier
-                this.receivingDepositoryFinancialInstitutionName = internationalAddenda.receivingDepositoryFinancialInstitutionName
+                this.receivingCompanyOrIndividualName =
+                    internationalAddenda.receivingCompanyOrIndividualName
+                this.receivingDepositoryFinancialInstitutionCountry =
+                    internationalAddenda.receivingDepositoryFinancialInstitutionCountry
+                this.receivingDepositoryFinancialInstitutionId =
+                    internationalAddenda.receivingDepositoryFinancialInstitutionId
+                this.receivingDepositoryFinancialInstitutionIdQualifier =
+                    internationalAddenda.receivingDepositoryFinancialInstitutionIdQualifier
+                this.receivingDepositoryFinancialInstitutionName =
+                    internationalAddenda.receivingDepositoryFinancialInstitutionName
                 additionalProperties(internationalAddenda.additionalProperties)
             }
 
             /**
-             * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2
-             * country code of the destination country.
+             * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country
+             * code of the destination country.
              */
-            fun destinationCountryCode(destinationCountryCode: String) = destinationCountryCode(JsonField.of(destinationCountryCode))
+            fun destinationCountryCode(destinationCountryCode: String) =
+                destinationCountryCode(JsonField.of(destinationCountryCode))
 
             /**
-             * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2
-             * country code of the destination country.
+             * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country
+             * code of the destination country.
              */
             @JsonProperty("destination_country_code")
             @ExcludeMissing
@@ -2266,7 +2361,8 @@ class InboundAchTransfer private constructor(
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code for the
              * destination bank account.
              */
-            fun destinationCurrencyCode(destinationCurrencyCode: String) = destinationCurrencyCode(JsonField.of(destinationCurrencyCode))
+            fun destinationCurrencyCode(destinationCurrencyCode: String) =
+                destinationCurrencyCode(JsonField.of(destinationCurrencyCode))
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code for the
@@ -2279,20 +2375,22 @@ class InboundAchTransfer private constructor(
             }
 
             /** A description of how the foreign exchange rate was calculated. */
-            fun foreignExchangeIndicator(foreignExchangeIndicator: ForeignExchangeIndicator) = foreignExchangeIndicator(JsonField.of(foreignExchangeIndicator))
+            fun foreignExchangeIndicator(foreignExchangeIndicator: ForeignExchangeIndicator) =
+                foreignExchangeIndicator(JsonField.of(foreignExchangeIndicator))
 
             /** A description of how the foreign exchange rate was calculated. */
             @JsonProperty("foreign_exchange_indicator")
             @ExcludeMissing
-            fun foreignExchangeIndicator(foreignExchangeIndicator: JsonField<ForeignExchangeIndicator>) = apply {
-                this.foreignExchangeIndicator = foreignExchangeIndicator
-            }
+            fun foreignExchangeIndicator(
+                foreignExchangeIndicator: JsonField<ForeignExchangeIndicator>
+            ) = apply { this.foreignExchangeIndicator = foreignExchangeIndicator }
 
             /**
              * Depending on the `foreign_exchange_reference_indicator`, an exchange rate or a
              * reference to a well-known rate.
              */
-            fun foreignExchangeReference(foreignExchangeReference: String) = foreignExchangeReference(JsonField.of(foreignExchangeReference))
+            fun foreignExchangeReference(foreignExchangeReference: String) =
+                foreignExchangeReference(JsonField.of(foreignExchangeReference))
 
             /**
              * Depending on the `foreign_exchange_reference_indicator`, an exchange rate or a
@@ -2305,26 +2403,29 @@ class InboundAchTransfer private constructor(
             }
 
             /**
-             * An instruction of how to interpret the `foreign_exchange_reference` field for
-             * this Transaction.
+             * An instruction of how to interpret the `foreign_exchange_reference` field for this
+             * Transaction.
              */
-            fun foreignExchangeReferenceIndicator(foreignExchangeReferenceIndicator: ForeignExchangeReferenceIndicator) = foreignExchangeReferenceIndicator(JsonField.of(foreignExchangeReferenceIndicator))
+            fun foreignExchangeReferenceIndicator(
+                foreignExchangeReferenceIndicator: ForeignExchangeReferenceIndicator
+            ) = foreignExchangeReferenceIndicator(JsonField.of(foreignExchangeReferenceIndicator))
 
             /**
-             * An instruction of how to interpret the `foreign_exchange_reference` field for
-             * this Transaction.
+             * An instruction of how to interpret the `foreign_exchange_reference` field for this
+             * Transaction.
              */
             @JsonProperty("foreign_exchange_reference_indicator")
             @ExcludeMissing
-            fun foreignExchangeReferenceIndicator(foreignExchangeReferenceIndicator: JsonField<ForeignExchangeReferenceIndicator>) = apply {
-                this.foreignExchangeReferenceIndicator = foreignExchangeReferenceIndicator
-            }
+            fun foreignExchangeReferenceIndicator(
+                foreignExchangeReferenceIndicator: JsonField<ForeignExchangeReferenceIndicator>
+            ) = apply { this.foreignExchangeReferenceIndicator = foreignExchangeReferenceIndicator }
 
             /**
              * The amount in the minor unit of the foreign payment currency. For dollars, for
              * example, this is cents.
              */
-            fun foreignPaymentAmount(foreignPaymentAmount: Long) = foreignPaymentAmount(JsonField.of(foreignPaymentAmount))
+            fun foreignPaymentAmount(foreignPaymentAmount: Long) =
+                foreignPaymentAmount(JsonField.of(foreignPaymentAmount))
 
             /**
              * The amount in the minor unit of the foreign payment currency. For dollars, for
@@ -2337,7 +2438,8 @@ class InboundAchTransfer private constructor(
             }
 
             /** A reference number in the foreign banking infrastructure. */
-            fun foreignTraceNumber(foreignTraceNumber: String) = foreignTraceNumber(JsonField.of(foreignTraceNumber))
+            fun foreignTraceNumber(foreignTraceNumber: String) =
+                foreignTraceNumber(JsonField.of(foreignTraceNumber))
 
             /** A reference number in the foreign banking infrastructure. */
             @JsonProperty("foreign_trace_number")
@@ -2347,20 +2449,23 @@ class InboundAchTransfer private constructor(
             }
 
             /** The type of transfer. Set by the originator. */
-            fun internationalTransactionTypeCode(internationalTransactionTypeCode: InternationalTransactionTypeCode) = internationalTransactionTypeCode(JsonField.of(internationalTransactionTypeCode))
+            fun internationalTransactionTypeCode(
+                internationalTransactionTypeCode: InternationalTransactionTypeCode
+            ) = internationalTransactionTypeCode(JsonField.of(internationalTransactionTypeCode))
 
             /** The type of transfer. Set by the originator. */
             @JsonProperty("international_transaction_type_code")
             @ExcludeMissing
-            fun internationalTransactionTypeCode(internationalTransactionTypeCode: JsonField<InternationalTransactionTypeCode>) = apply {
-                this.internationalTransactionTypeCode = internationalTransactionTypeCode
-            }
+            fun internationalTransactionTypeCode(
+                internationalTransactionTypeCode: JsonField<InternationalTransactionTypeCode>
+            ) = apply { this.internationalTransactionTypeCode = internationalTransactionTypeCode }
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code for the
              * originating bank account.
              */
-            fun originatingCurrencyCode(originatingCurrencyCode: String) = originatingCurrencyCode(JsonField.of(originatingCurrencyCode))
+            fun originatingCurrencyCode(originatingCurrencyCode: String) =
+                originatingCurrencyCode(JsonField.of(originatingCurrencyCode))
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code for the
@@ -2373,44 +2478,66 @@ class InboundAchTransfer private constructor(
             }
 
             /**
-             * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2
-             * country code of the originating branch country.
+             * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country
+             * code of the originating branch country.
              */
-            fun originatingDepositoryFinancialInstitutionBranchCountry(originatingDepositoryFinancialInstitutionBranchCountry: String) = originatingDepositoryFinancialInstitutionBranchCountry(JsonField.of(originatingDepositoryFinancialInstitutionBranchCountry))
+            fun originatingDepositoryFinancialInstitutionBranchCountry(
+                originatingDepositoryFinancialInstitutionBranchCountry: String
+            ) =
+                originatingDepositoryFinancialInstitutionBranchCountry(
+                    JsonField.of(originatingDepositoryFinancialInstitutionBranchCountry)
+                )
 
             /**
-             * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2
-             * country code of the originating branch country.
+             * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country
+             * code of the originating branch country.
              */
             @JsonProperty("originating_depository_financial_institution_branch_country")
             @ExcludeMissing
-            fun originatingDepositoryFinancialInstitutionBranchCountry(originatingDepositoryFinancialInstitutionBranchCountry: JsonField<String>) = apply {
-                this.originatingDepositoryFinancialInstitutionBranchCountry = originatingDepositoryFinancialInstitutionBranchCountry
+            fun originatingDepositoryFinancialInstitutionBranchCountry(
+                originatingDepositoryFinancialInstitutionBranchCountry: JsonField<String>
+            ) = apply {
+                this.originatingDepositoryFinancialInstitutionBranchCountry =
+                    originatingDepositoryFinancialInstitutionBranchCountry
             }
 
             /**
-             * An identifier for the originating bank. One of an International Bank Account
-             * Number (IBAN) bank identifier, SWIFT Bank Identification Code (BIC), or a
-             * domestic identifier like a US Routing Number.
+             * An identifier for the originating bank. One of an International Bank Account Number
+             * (IBAN) bank identifier, SWIFT Bank Identification Code (BIC), or a domestic
+             * identifier like a US Routing Number.
              */
-            fun originatingDepositoryFinancialInstitutionId(originatingDepositoryFinancialInstitutionId: String) = originatingDepositoryFinancialInstitutionId(JsonField.of(originatingDepositoryFinancialInstitutionId))
+            fun originatingDepositoryFinancialInstitutionId(
+                originatingDepositoryFinancialInstitutionId: String
+            ) =
+                originatingDepositoryFinancialInstitutionId(
+                    JsonField.of(originatingDepositoryFinancialInstitutionId)
+                )
 
             /**
-             * An identifier for the originating bank. One of an International Bank Account
-             * Number (IBAN) bank identifier, SWIFT Bank Identification Code (BIC), or a
-             * domestic identifier like a US Routing Number.
+             * An identifier for the originating bank. One of an International Bank Account Number
+             * (IBAN) bank identifier, SWIFT Bank Identification Code (BIC), or a domestic
+             * identifier like a US Routing Number.
              */
             @JsonProperty("originating_depository_financial_institution_id")
             @ExcludeMissing
-            fun originatingDepositoryFinancialInstitutionId(originatingDepositoryFinancialInstitutionId: JsonField<String>) = apply {
-                this.originatingDepositoryFinancialInstitutionId = originatingDepositoryFinancialInstitutionId
+            fun originatingDepositoryFinancialInstitutionId(
+                originatingDepositoryFinancialInstitutionId: JsonField<String>
+            ) = apply {
+                this.originatingDepositoryFinancialInstitutionId =
+                    originatingDepositoryFinancialInstitutionId
             }
 
             /**
              * An instruction of how to interpret the
              * `originating_depository_financial_institution_id` field for this Transaction.
              */
-            fun originatingDepositoryFinancialInstitutionIdQualifier(originatingDepositoryFinancialInstitutionIdQualifier: OriginatingDepositoryFinancialInstitutionIdQualifier) = originatingDepositoryFinancialInstitutionIdQualifier(JsonField.of(originatingDepositoryFinancialInstitutionIdQualifier))
+            fun originatingDepositoryFinancialInstitutionIdQualifier(
+                originatingDepositoryFinancialInstitutionIdQualifier:
+                    OriginatingDepositoryFinancialInstitutionIdQualifier
+            ) =
+                originatingDepositoryFinancialInstitutionIdQualifier(
+                    JsonField.of(originatingDepositoryFinancialInstitutionIdQualifier)
+                )
 
             /**
              * An instruction of how to interpret the
@@ -2418,28 +2545,41 @@ class InboundAchTransfer private constructor(
              */
             @JsonProperty("originating_depository_financial_institution_id_qualifier")
             @ExcludeMissing
-            fun originatingDepositoryFinancialInstitutionIdQualifier(originatingDepositoryFinancialInstitutionIdQualifier: JsonField<OriginatingDepositoryFinancialInstitutionIdQualifier>) = apply {
-                this.originatingDepositoryFinancialInstitutionIdQualifier = originatingDepositoryFinancialInstitutionIdQualifier
+            fun originatingDepositoryFinancialInstitutionIdQualifier(
+                originatingDepositoryFinancialInstitutionIdQualifier:
+                    JsonField<OriginatingDepositoryFinancialInstitutionIdQualifier>
+            ) = apply {
+                this.originatingDepositoryFinancialInstitutionIdQualifier =
+                    originatingDepositoryFinancialInstitutionIdQualifier
             }
 
             /**
-             * The name of the originating bank. Sometimes this will refer to an American bank
-             * and obscure the correspondent foreign bank.
+             * The name of the originating bank. Sometimes this will refer to an American bank and
+             * obscure the correspondent foreign bank.
              */
-            fun originatingDepositoryFinancialInstitutionName(originatingDepositoryFinancialInstitutionName: String) = originatingDepositoryFinancialInstitutionName(JsonField.of(originatingDepositoryFinancialInstitutionName))
+            fun originatingDepositoryFinancialInstitutionName(
+                originatingDepositoryFinancialInstitutionName: String
+            ) =
+                originatingDepositoryFinancialInstitutionName(
+                    JsonField.of(originatingDepositoryFinancialInstitutionName)
+                )
 
             /**
-             * The name of the originating bank. Sometimes this will refer to an American bank
-             * and obscure the correspondent foreign bank.
+             * The name of the originating bank. Sometimes this will refer to an American bank and
+             * obscure the correspondent foreign bank.
              */
             @JsonProperty("originating_depository_financial_institution_name")
             @ExcludeMissing
-            fun originatingDepositoryFinancialInstitutionName(originatingDepositoryFinancialInstitutionName: JsonField<String>) = apply {
-                this.originatingDepositoryFinancialInstitutionName = originatingDepositoryFinancialInstitutionName
+            fun originatingDepositoryFinancialInstitutionName(
+                originatingDepositoryFinancialInstitutionName: JsonField<String>
+            ) = apply {
+                this.originatingDepositoryFinancialInstitutionName =
+                    originatingDepositoryFinancialInstitutionName
             }
 
             /** A portion of the originator address. This may be incomplete. */
-            fun originatorCity(originatorCity: String) = originatorCity(JsonField.of(originatorCity))
+            fun originatorCity(originatorCity: String) =
+                originatorCity(JsonField.of(originatorCity))
 
             /** A portion of the originator address. This may be incomplete. */
             @JsonProperty("originator_city")
@@ -2450,15 +2590,16 @@ class InboundAchTransfer private constructor(
 
             /**
              * A portion of the originator address. The
-             * [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country
-             * code of the originator country.
+             * [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country code of
+             * the originator country.
              */
-            fun originatorCountry(originatorCountry: String) = originatorCountry(JsonField.of(originatorCountry))
+            fun originatorCountry(originatorCountry: String) =
+                originatorCountry(JsonField.of(originatorCountry))
 
             /**
              * A portion of the originator address. The
-             * [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country
-             * code of the originator country.
+             * [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country code of
+             * the originator country.
              */
             @JsonProperty("originator_country")
             @ExcludeMissing
@@ -2467,14 +2608,15 @@ class InboundAchTransfer private constructor(
             }
 
             /**
-             * An identifier for the originating company. This is generally stable across
-             * multiple ACH transfers.
+             * An identifier for the originating company. This is generally stable across multiple
+             * ACH transfers.
              */
-            fun originatorIdentification(originatorIdentification: String) = originatorIdentification(JsonField.of(originatorIdentification))
+            fun originatorIdentification(originatorIdentification: String) =
+                originatorIdentification(JsonField.of(originatorIdentification))
 
             /**
-             * An identifier for the originating company. This is generally stable across
-             * multiple ACH transfers.
+             * An identifier for the originating company. This is generally stable across multiple
+             * ACH transfers.
              */
             @JsonProperty("originator_identification")
             @ExcludeMissing
@@ -2483,7 +2625,8 @@ class InboundAchTransfer private constructor(
             }
 
             /** Either the name of the originator or an intermediary money transmitter. */
-            fun originatorName(originatorName: String) = originatorName(JsonField.of(originatorName))
+            fun originatorName(originatorName: String) =
+                originatorName(JsonField.of(originatorName))
 
             /** Either the name of the originator or an intermediary money transmitter. */
             @JsonProperty("originator_name")
@@ -2493,7 +2636,8 @@ class InboundAchTransfer private constructor(
             }
 
             /** A portion of the originator address. This may be incomplete. */
-            fun originatorPostalCode(originatorPostalCode: String) = originatorPostalCode(JsonField.of(originatorPostalCode))
+            fun originatorPostalCode(originatorPostalCode: String) =
+                originatorPostalCode(JsonField.of(originatorPostalCode))
 
             /** A portion of the originator address. This may be incomplete. */
             @JsonProperty("originator_postal_code")
@@ -2503,7 +2647,8 @@ class InboundAchTransfer private constructor(
             }
 
             /** A portion of the originator address. This may be incomplete. */
-            fun originatorStateOrProvince(originatorStateOrProvince: String) = originatorStateOrProvince(JsonField.of(originatorStateOrProvince))
+            fun originatorStateOrProvince(originatorStateOrProvince: String) =
+                originatorStateOrProvince(JsonField.of(originatorStateOrProvince))
 
             /** A portion of the originator address. This may be incomplete. */
             @JsonProperty("originator_state_or_province")
@@ -2513,7 +2658,8 @@ class InboundAchTransfer private constructor(
             }
 
             /** A portion of the originator address. This may be incomplete. */
-            fun originatorStreetAddress(originatorStreetAddress: String) = originatorStreetAddress(JsonField.of(originatorStreetAddress))
+            fun originatorStreetAddress(originatorStreetAddress: String) =
+                originatorStreetAddress(JsonField.of(originatorStreetAddress))
 
             /** A portion of the originator address. This may be incomplete. */
             @JsonProperty("originator_street_address")
@@ -2523,7 +2669,8 @@ class InboundAchTransfer private constructor(
             }
 
             /** A description field set by the originator. */
-            fun paymentRelatedInformation(paymentRelatedInformation: String) = paymentRelatedInformation(JsonField.of(paymentRelatedInformation))
+            fun paymentRelatedInformation(paymentRelatedInformation: String) =
+                paymentRelatedInformation(JsonField.of(paymentRelatedInformation))
 
             /** A description field set by the originator. */
             @JsonProperty("payment_related_information")
@@ -2533,7 +2680,8 @@ class InboundAchTransfer private constructor(
             }
 
             /** A description field set by the originator. */
-            fun paymentRelatedInformation2(paymentRelatedInformation2: String) = paymentRelatedInformation2(JsonField.of(paymentRelatedInformation2))
+            fun paymentRelatedInformation2(paymentRelatedInformation2: String) =
+                paymentRelatedInformation2(JsonField.of(paymentRelatedInformation2))
 
             /** A description field set by the originator. */
             @JsonProperty("payment_related_information2")
@@ -2554,15 +2702,16 @@ class InboundAchTransfer private constructor(
 
             /**
              * A portion of the receiver address. The
-             * [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country
-             * code of the receiver country.
+             * [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country code of
+             * the receiver country.
              */
-            fun receiverCountry(receiverCountry: String) = receiverCountry(JsonField.of(receiverCountry))
+            fun receiverCountry(receiverCountry: String) =
+                receiverCountry(JsonField.of(receiverCountry))
 
             /**
              * A portion of the receiver address. The
-             * [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country
-             * code of the receiver country.
+             * [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country code of
+             * the receiver country.
              */
             @JsonProperty("receiver_country")
             @ExcludeMissing
@@ -2571,17 +2720,20 @@ class InboundAchTransfer private constructor(
             }
 
             /** An identification number the originator uses for the receiver. */
-            fun receiverIdentificationNumber(receiverIdentificationNumber: String) = receiverIdentificationNumber(JsonField.of(receiverIdentificationNumber))
+            fun receiverIdentificationNumber(receiverIdentificationNumber: String) =
+                receiverIdentificationNumber(JsonField.of(receiverIdentificationNumber))
 
             /** An identification number the originator uses for the receiver. */
             @JsonProperty("receiver_identification_number")
             @ExcludeMissing
-            fun receiverIdentificationNumber(receiverIdentificationNumber: JsonField<String>) = apply {
-                this.receiverIdentificationNumber = receiverIdentificationNumber
-            }
+            fun receiverIdentificationNumber(receiverIdentificationNumber: JsonField<String>) =
+                apply {
+                    this.receiverIdentificationNumber = receiverIdentificationNumber
+                }
 
             /** A portion of the receiver address. This may be incomplete. */
-            fun receiverPostalCode(receiverPostalCode: String) = receiverPostalCode(JsonField.of(receiverPostalCode))
+            fun receiverPostalCode(receiverPostalCode: String) =
+                receiverPostalCode(JsonField.of(receiverPostalCode))
 
             /** A portion of the receiver address. This may be incomplete. */
             @JsonProperty("receiver_postal_code")
@@ -2591,7 +2743,8 @@ class InboundAchTransfer private constructor(
             }
 
             /** A portion of the receiver address. This may be incomplete. */
-            fun receiverStateOrProvince(receiverStateOrProvince: String) = receiverStateOrProvince(JsonField.of(receiverStateOrProvince))
+            fun receiverStateOrProvince(receiverStateOrProvince: String) =
+                receiverStateOrProvince(JsonField.of(receiverStateOrProvince))
 
             /** A portion of the receiver address. This may be incomplete. */
             @JsonProperty("receiver_state_or_province")
@@ -2601,7 +2754,8 @@ class InboundAchTransfer private constructor(
             }
 
             /** A portion of the receiver address. This may be incomplete. */
-            fun receiverStreetAddress(receiverStreetAddress: String) = receiverStreetAddress(JsonField.of(receiverStreetAddress))
+            fun receiverStreetAddress(receiverStreetAddress: String) =
+                receiverStreetAddress(JsonField.of(receiverStreetAddress))
 
             /** A portion of the receiver address. This may be incomplete. */
             @JsonProperty("receiver_street_address")
@@ -2611,54 +2765,77 @@ class InboundAchTransfer private constructor(
             }
 
             /** The name of the receiver of the transfer. This is not verified by Increase. */
-            fun receivingCompanyOrIndividualName(receivingCompanyOrIndividualName: String) = receivingCompanyOrIndividualName(JsonField.of(receivingCompanyOrIndividualName))
+            fun receivingCompanyOrIndividualName(receivingCompanyOrIndividualName: String) =
+                receivingCompanyOrIndividualName(JsonField.of(receivingCompanyOrIndividualName))
 
             /** The name of the receiver of the transfer. This is not verified by Increase. */
             @JsonProperty("receiving_company_or_individual_name")
             @ExcludeMissing
-            fun receivingCompanyOrIndividualName(receivingCompanyOrIndividualName: JsonField<String>) = apply {
-                this.receivingCompanyOrIndividualName = receivingCompanyOrIndividualName
-            }
+            fun receivingCompanyOrIndividualName(
+                receivingCompanyOrIndividualName: JsonField<String>
+            ) = apply { this.receivingCompanyOrIndividualName = receivingCompanyOrIndividualName }
 
             /**
-             * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2
-             * country code of the receiving bank country.
+             * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country
+             * code of the receiving bank country.
              */
-            fun receivingDepositoryFinancialInstitutionCountry(receivingDepositoryFinancialInstitutionCountry: String) = receivingDepositoryFinancialInstitutionCountry(JsonField.of(receivingDepositoryFinancialInstitutionCountry))
+            fun receivingDepositoryFinancialInstitutionCountry(
+                receivingDepositoryFinancialInstitutionCountry: String
+            ) =
+                receivingDepositoryFinancialInstitutionCountry(
+                    JsonField.of(receivingDepositoryFinancialInstitutionCountry)
+                )
 
             /**
-             * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2
-             * country code of the receiving bank country.
+             * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country
+             * code of the receiving bank country.
              */
             @JsonProperty("receiving_depository_financial_institution_country")
             @ExcludeMissing
-            fun receivingDepositoryFinancialInstitutionCountry(receivingDepositoryFinancialInstitutionCountry: JsonField<String>) = apply {
-                this.receivingDepositoryFinancialInstitutionCountry = receivingDepositoryFinancialInstitutionCountry
+            fun receivingDepositoryFinancialInstitutionCountry(
+                receivingDepositoryFinancialInstitutionCountry: JsonField<String>
+            ) = apply {
+                this.receivingDepositoryFinancialInstitutionCountry =
+                    receivingDepositoryFinancialInstitutionCountry
             }
 
             /**
-             * An identifier for the receiving bank. One of an International Bank Account
-             * Number (IBAN) bank identifier, SWIFT Bank Identification Code (BIC), or a
-             * domestic identifier like a US Routing Number.
+             * An identifier for the receiving bank. One of an International Bank Account Number
+             * (IBAN) bank identifier, SWIFT Bank Identification Code (BIC), or a domestic
+             * identifier like a US Routing Number.
              */
-            fun receivingDepositoryFinancialInstitutionId(receivingDepositoryFinancialInstitutionId: String) = receivingDepositoryFinancialInstitutionId(JsonField.of(receivingDepositoryFinancialInstitutionId))
+            fun receivingDepositoryFinancialInstitutionId(
+                receivingDepositoryFinancialInstitutionId: String
+            ) =
+                receivingDepositoryFinancialInstitutionId(
+                    JsonField.of(receivingDepositoryFinancialInstitutionId)
+                )
 
             /**
-             * An identifier for the receiving bank. One of an International Bank Account
-             * Number (IBAN) bank identifier, SWIFT Bank Identification Code (BIC), or a
-             * domestic identifier like a US Routing Number.
+             * An identifier for the receiving bank. One of an International Bank Account Number
+             * (IBAN) bank identifier, SWIFT Bank Identification Code (BIC), or a domestic
+             * identifier like a US Routing Number.
              */
             @JsonProperty("receiving_depository_financial_institution_id")
             @ExcludeMissing
-            fun receivingDepositoryFinancialInstitutionId(receivingDepositoryFinancialInstitutionId: JsonField<String>) = apply {
-                this.receivingDepositoryFinancialInstitutionId = receivingDepositoryFinancialInstitutionId
+            fun receivingDepositoryFinancialInstitutionId(
+                receivingDepositoryFinancialInstitutionId: JsonField<String>
+            ) = apply {
+                this.receivingDepositoryFinancialInstitutionId =
+                    receivingDepositoryFinancialInstitutionId
             }
 
             /**
              * An instruction of how to interpret the
              * `receiving_depository_financial_institution_id` field for this Transaction.
              */
-            fun receivingDepositoryFinancialInstitutionIdQualifier(receivingDepositoryFinancialInstitutionIdQualifier: ReceivingDepositoryFinancialInstitutionIdQualifier) = receivingDepositoryFinancialInstitutionIdQualifier(JsonField.of(receivingDepositoryFinancialInstitutionIdQualifier))
+            fun receivingDepositoryFinancialInstitutionIdQualifier(
+                receivingDepositoryFinancialInstitutionIdQualifier:
+                    ReceivingDepositoryFinancialInstitutionIdQualifier
+            ) =
+                receivingDepositoryFinancialInstitutionIdQualifier(
+                    JsonField.of(receivingDepositoryFinancialInstitutionIdQualifier)
+                )
 
             /**
              * An instruction of how to interpret the
@@ -2666,18 +2843,30 @@ class InboundAchTransfer private constructor(
              */
             @JsonProperty("receiving_depository_financial_institution_id_qualifier")
             @ExcludeMissing
-            fun receivingDepositoryFinancialInstitutionIdQualifier(receivingDepositoryFinancialInstitutionIdQualifier: JsonField<ReceivingDepositoryFinancialInstitutionIdQualifier>) = apply {
-                this.receivingDepositoryFinancialInstitutionIdQualifier = receivingDepositoryFinancialInstitutionIdQualifier
+            fun receivingDepositoryFinancialInstitutionIdQualifier(
+                receivingDepositoryFinancialInstitutionIdQualifier:
+                    JsonField<ReceivingDepositoryFinancialInstitutionIdQualifier>
+            ) = apply {
+                this.receivingDepositoryFinancialInstitutionIdQualifier =
+                    receivingDepositoryFinancialInstitutionIdQualifier
             }
 
             /** The name of the receiving bank, as set by the sending financial institution. */
-            fun receivingDepositoryFinancialInstitutionName(receivingDepositoryFinancialInstitutionName: String) = receivingDepositoryFinancialInstitutionName(JsonField.of(receivingDepositoryFinancialInstitutionName))
+            fun receivingDepositoryFinancialInstitutionName(
+                receivingDepositoryFinancialInstitutionName: String
+            ) =
+                receivingDepositoryFinancialInstitutionName(
+                    JsonField.of(receivingDepositoryFinancialInstitutionName)
+                )
 
             /** The name of the receiving bank, as set by the sending financial institution. */
             @JsonProperty("receiving_depository_financial_institution_name")
             @ExcludeMissing
-            fun receivingDepositoryFinancialInstitutionName(receivingDepositoryFinancialInstitutionName: JsonField<String>) = apply {
-                this.receivingDepositoryFinancialInstitutionName = receivingDepositoryFinancialInstitutionName
+            fun receivingDepositoryFinancialInstitutionName(
+                receivingDepositoryFinancialInstitutionName: JsonField<String>
+            ) = apply {
+                this.receivingDepositoryFinancialInstitutionName =
+                    receivingDepositoryFinancialInstitutionName
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -2694,56 +2883,59 @@ class InboundAchTransfer private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): InternationalAddenda = InternationalAddenda(
-                destinationCountryCode,
-                destinationCurrencyCode,
-                foreignExchangeIndicator,
-                foreignExchangeReference,
-                foreignExchangeReferenceIndicator,
-                foreignPaymentAmount,
-                foreignTraceNumber,
-                internationalTransactionTypeCode,
-                originatingCurrencyCode,
-                originatingDepositoryFinancialInstitutionBranchCountry,
-                originatingDepositoryFinancialInstitutionId,
-                originatingDepositoryFinancialInstitutionIdQualifier,
-                originatingDepositoryFinancialInstitutionName,
-                originatorCity,
-                originatorCountry,
-                originatorIdentification,
-                originatorName,
-                originatorPostalCode,
-                originatorStateOrProvince,
-                originatorStreetAddress,
-                paymentRelatedInformation,
-                paymentRelatedInformation2,
-                receiverCity,
-                receiverCountry,
-                receiverIdentificationNumber,
-                receiverPostalCode,
-                receiverStateOrProvince,
-                receiverStreetAddress,
-                receivingCompanyOrIndividualName,
-                receivingDepositoryFinancialInstitutionCountry,
-                receivingDepositoryFinancialInstitutionId,
-                receivingDepositoryFinancialInstitutionIdQualifier,
-                receivingDepositoryFinancialInstitutionName,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build(): InternationalAddenda =
+                InternationalAddenda(
+                    destinationCountryCode,
+                    destinationCurrencyCode,
+                    foreignExchangeIndicator,
+                    foreignExchangeReference,
+                    foreignExchangeReferenceIndicator,
+                    foreignPaymentAmount,
+                    foreignTraceNumber,
+                    internationalTransactionTypeCode,
+                    originatingCurrencyCode,
+                    originatingDepositoryFinancialInstitutionBranchCountry,
+                    originatingDepositoryFinancialInstitutionId,
+                    originatingDepositoryFinancialInstitutionIdQualifier,
+                    originatingDepositoryFinancialInstitutionName,
+                    originatorCity,
+                    originatorCountry,
+                    originatorIdentification,
+                    originatorName,
+                    originatorPostalCode,
+                    originatorStateOrProvince,
+                    originatorStreetAddress,
+                    paymentRelatedInformation,
+                    paymentRelatedInformation2,
+                    receiverCity,
+                    receiverCountry,
+                    receiverIdentificationNumber,
+                    receiverPostalCode,
+                    receiverStateOrProvince,
+                    receiverStreetAddress,
+                    receivingCompanyOrIndividualName,
+                    receivingDepositoryFinancialInstitutionCountry,
+                    receivingDepositoryFinancialInstitutionId,
+                    receivingDepositoryFinancialInstitutionIdQualifier,
+                    receivingDepositoryFinancialInstitutionName,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
 
-        class ForeignExchangeIndicator @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+        class ForeignExchangeIndicator
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return other is ForeignExchangeIndicator &&
-                  this.value == other.value
+                return other is ForeignExchangeIndicator && this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -2752,11 +2944,14 @@ class InboundAchTransfer private constructor(
 
             companion object {
 
-                @JvmField val FIXED_TO_VARIABLE = ForeignExchangeIndicator(JsonField.of("fixed_to_variable"))
+                @JvmField
+                val FIXED_TO_VARIABLE = ForeignExchangeIndicator(JsonField.of("fixed_to_variable"))
 
-                @JvmField val VARIABLE_TO_FIXED = ForeignExchangeIndicator(JsonField.of("variable_to_fixed"))
+                @JvmField
+                val VARIABLE_TO_FIXED = ForeignExchangeIndicator(JsonField.of("variable_to_fixed"))
 
-                @JvmField val FIXED_TO_FIXED = ForeignExchangeIndicator(JsonField.of("fixed_to_fixed"))
+                @JvmField
+                val FIXED_TO_FIXED = ForeignExchangeIndicator(JsonField.of("fixed_to_fixed"))
 
                 @JvmStatic fun of(value: String) = ForeignExchangeIndicator(JsonField.of(value))
             }
@@ -2774,35 +2969,42 @@ class InboundAchTransfer private constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value = when (this) {
-                FIXED_TO_VARIABLE -> Value.FIXED_TO_VARIABLE
-                VARIABLE_TO_FIXED -> Value.VARIABLE_TO_FIXED
-                FIXED_TO_FIXED -> Value.FIXED_TO_FIXED
-                else -> Value._UNKNOWN
-            }
+            fun value(): Value =
+                when (this) {
+                    FIXED_TO_VARIABLE -> Value.FIXED_TO_VARIABLE
+                    VARIABLE_TO_FIXED -> Value.VARIABLE_TO_FIXED
+                    FIXED_TO_FIXED -> Value.FIXED_TO_FIXED
+                    else -> Value._UNKNOWN
+                }
 
-            fun known(): Known = when (this) {
-                FIXED_TO_VARIABLE -> Known.FIXED_TO_VARIABLE
-                VARIABLE_TO_FIXED -> Known.VARIABLE_TO_FIXED
-                FIXED_TO_FIXED -> Known.FIXED_TO_FIXED
-                else -> throw IncreaseInvalidDataException("Unknown ForeignExchangeIndicator: $value")
-            }
+            fun known(): Known =
+                when (this) {
+                    FIXED_TO_VARIABLE -> Known.FIXED_TO_VARIABLE
+                    VARIABLE_TO_FIXED -> Known.VARIABLE_TO_FIXED
+                    FIXED_TO_FIXED -> Known.FIXED_TO_FIXED
+                    else ->
+                        throw IncreaseInvalidDataException(
+                            "Unknown ForeignExchangeIndicator: $value"
+                        )
+                }
 
             fun asString(): String = _value().asStringOrThrow()
         }
 
-        class ForeignExchangeReferenceIndicator @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+        class ForeignExchangeReferenceIndicator
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return other is ForeignExchangeReferenceIndicator &&
-                  this.value == other.value
+                return other is ForeignExchangeReferenceIndicator && this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -2811,13 +3013,20 @@ class InboundAchTransfer private constructor(
 
             companion object {
 
-                @JvmField val FOREIGN_EXCHANGE_RATE = ForeignExchangeReferenceIndicator(JsonField.of("foreign_exchange_rate"))
+                @JvmField
+                val FOREIGN_EXCHANGE_RATE =
+                    ForeignExchangeReferenceIndicator(JsonField.of("foreign_exchange_rate"))
 
-                @JvmField val FOREIGN_EXCHANGE_REFERENCE_NUMBER = ForeignExchangeReferenceIndicator(JsonField.of("foreign_exchange_reference_number"))
+                @JvmField
+                val FOREIGN_EXCHANGE_REFERENCE_NUMBER =
+                    ForeignExchangeReferenceIndicator(
+                        JsonField.of("foreign_exchange_reference_number")
+                    )
 
                 @JvmField val BLANK = ForeignExchangeReferenceIndicator(JsonField.of("blank"))
 
-                @JvmStatic fun of(value: String) = ForeignExchangeReferenceIndicator(JsonField.of(value))
+                @JvmStatic
+                fun of(value: String) = ForeignExchangeReferenceIndicator(JsonField.of(value))
             }
 
             enum class Known {
@@ -2833,35 +3042,42 @@ class InboundAchTransfer private constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value = when (this) {
-                FOREIGN_EXCHANGE_RATE -> Value.FOREIGN_EXCHANGE_RATE
-                FOREIGN_EXCHANGE_REFERENCE_NUMBER -> Value.FOREIGN_EXCHANGE_REFERENCE_NUMBER
-                BLANK -> Value.BLANK
-                else -> Value._UNKNOWN
-            }
+            fun value(): Value =
+                when (this) {
+                    FOREIGN_EXCHANGE_RATE -> Value.FOREIGN_EXCHANGE_RATE
+                    FOREIGN_EXCHANGE_REFERENCE_NUMBER -> Value.FOREIGN_EXCHANGE_REFERENCE_NUMBER
+                    BLANK -> Value.BLANK
+                    else -> Value._UNKNOWN
+                }
 
-            fun known(): Known = when (this) {
-                FOREIGN_EXCHANGE_RATE -> Known.FOREIGN_EXCHANGE_RATE
-                FOREIGN_EXCHANGE_REFERENCE_NUMBER -> Known.FOREIGN_EXCHANGE_REFERENCE_NUMBER
-                BLANK -> Known.BLANK
-                else -> throw IncreaseInvalidDataException("Unknown ForeignExchangeReferenceIndicator: $value")
-            }
+            fun known(): Known =
+                when (this) {
+                    FOREIGN_EXCHANGE_RATE -> Known.FOREIGN_EXCHANGE_RATE
+                    FOREIGN_EXCHANGE_REFERENCE_NUMBER -> Known.FOREIGN_EXCHANGE_REFERENCE_NUMBER
+                    BLANK -> Known.BLANK
+                    else ->
+                        throw IncreaseInvalidDataException(
+                            "Unknown ForeignExchangeReferenceIndicator: $value"
+                        )
+                }
 
             fun asString(): String = _value().asStringOrThrow()
         }
 
-        class InternationalTransactionTypeCode @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+        class InternationalTransactionTypeCode
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return other is InternationalTransactionTypeCode &&
-                  this.value == other.value
+                return other is InternationalTransactionTypeCode && this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -2872,45 +3088,70 @@ class InboundAchTransfer private constructor(
 
                 @JvmField val ANNUITY = InternationalTransactionTypeCode(JsonField.of("annuity"))
 
-                @JvmField val BUSINESS_OR_COMMERCIAL = InternationalTransactionTypeCode(JsonField.of("business_or_commercial"))
+                @JvmField
+                val BUSINESS_OR_COMMERCIAL =
+                    InternationalTransactionTypeCode(JsonField.of("business_or_commercial"))
 
                 @JvmField val DEPOSIT = InternationalTransactionTypeCode(JsonField.of("deposit"))
 
                 @JvmField val LOAN = InternationalTransactionTypeCode(JsonField.of("loan"))
 
-                @JvmField val MISCELLANEOUS = InternationalTransactionTypeCode(JsonField.of("miscellaneous"))
+                @JvmField
+                val MISCELLANEOUS = InternationalTransactionTypeCode(JsonField.of("miscellaneous"))
 
                 @JvmField val MORTGAGE = InternationalTransactionTypeCode(JsonField.of("mortgage"))
 
                 @JvmField val PENSION = InternationalTransactionTypeCode(JsonField.of("pension"))
 
-                @JvmField val REMITTANCE = InternationalTransactionTypeCode(JsonField.of("remittance"))
+                @JvmField
+                val REMITTANCE = InternationalTransactionTypeCode(JsonField.of("remittance"))
 
-                @JvmField val RENT_OR_LEASE = InternationalTransactionTypeCode(JsonField.of("rent_or_lease"))
+                @JvmField
+                val RENT_OR_LEASE = InternationalTransactionTypeCode(JsonField.of("rent_or_lease"))
 
-                @JvmField val SALARY_OR_PAYROLL = InternationalTransactionTypeCode(JsonField.of("salary_or_payroll"))
+                @JvmField
+                val SALARY_OR_PAYROLL =
+                    InternationalTransactionTypeCode(JsonField.of("salary_or_payroll"))
 
                 @JvmField val TAX = InternationalTransactionTypeCode(JsonField.of("tax"))
 
-                @JvmField val ACCOUNTS_RECEIVABLE = InternationalTransactionTypeCode(JsonField.of("accounts_receivable"))
+                @JvmField
+                val ACCOUNTS_RECEIVABLE =
+                    InternationalTransactionTypeCode(JsonField.of("accounts_receivable"))
 
-                @JvmField val BACK_OFFICE_CONVERSION = InternationalTransactionTypeCode(JsonField.of("back_office_conversion"))
+                @JvmField
+                val BACK_OFFICE_CONVERSION =
+                    InternationalTransactionTypeCode(JsonField.of("back_office_conversion"))
 
-                @JvmField val MACHINE_TRANSFER = InternationalTransactionTypeCode(JsonField.of("machine_transfer"))
+                @JvmField
+                val MACHINE_TRANSFER =
+                    InternationalTransactionTypeCode(JsonField.of("machine_transfer"))
 
-                @JvmField val POINT_OF_PURCHASE = InternationalTransactionTypeCode(JsonField.of("point_of_purchase"))
+                @JvmField
+                val POINT_OF_PURCHASE =
+                    InternationalTransactionTypeCode(JsonField.of("point_of_purchase"))
 
-                @JvmField val POINT_OF_SALE = InternationalTransactionTypeCode(JsonField.of("point_of_sale"))
+                @JvmField
+                val POINT_OF_SALE = InternationalTransactionTypeCode(JsonField.of("point_of_sale"))
 
-                @JvmField val REPRESENTED_CHECK = InternationalTransactionTypeCode(JsonField.of("represented_check"))
+                @JvmField
+                val REPRESENTED_CHECK =
+                    InternationalTransactionTypeCode(JsonField.of("represented_check"))
 
-                @JvmField val SHARED_NETWORK_TRANSACTION = InternationalTransactionTypeCode(JsonField.of("shared_network_transaction"))
+                @JvmField
+                val SHARED_NETWORK_TRANSACTION =
+                    InternationalTransactionTypeCode(JsonField.of("shared_network_transaction"))
 
-                @JvmField val TELPHONE_INITIATED = InternationalTransactionTypeCode(JsonField.of("telphone_initiated"))
+                @JvmField
+                val TELPHONE_INITIATED =
+                    InternationalTransactionTypeCode(JsonField.of("telphone_initiated"))
 
-                @JvmField val INTERNET_INITIATED = InternationalTransactionTypeCode(JsonField.of("internet_initiated"))
+                @JvmField
+                val INTERNET_INITIATED =
+                    InternationalTransactionTypeCode(JsonField.of("internet_initiated"))
 
-                @JvmStatic fun of(value: String) = InternationalTransactionTypeCode(JsonField.of(value))
+                @JvmStatic
+                fun of(value: String) = InternationalTransactionTypeCode(JsonField.of(value))
             }
 
             enum class Known {
@@ -2960,69 +3201,77 @@ class InboundAchTransfer private constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value = when (this) {
-                ANNUITY -> Value.ANNUITY
-                BUSINESS_OR_COMMERCIAL -> Value.BUSINESS_OR_COMMERCIAL
-                DEPOSIT -> Value.DEPOSIT
-                LOAN -> Value.LOAN
-                MISCELLANEOUS -> Value.MISCELLANEOUS
-                MORTGAGE -> Value.MORTGAGE
-                PENSION -> Value.PENSION
-                REMITTANCE -> Value.REMITTANCE
-                RENT_OR_LEASE -> Value.RENT_OR_LEASE
-                SALARY_OR_PAYROLL -> Value.SALARY_OR_PAYROLL
-                TAX -> Value.TAX
-                ACCOUNTS_RECEIVABLE -> Value.ACCOUNTS_RECEIVABLE
-                BACK_OFFICE_CONVERSION -> Value.BACK_OFFICE_CONVERSION
-                MACHINE_TRANSFER -> Value.MACHINE_TRANSFER
-                POINT_OF_PURCHASE -> Value.POINT_OF_PURCHASE
-                POINT_OF_SALE -> Value.POINT_OF_SALE
-                REPRESENTED_CHECK -> Value.REPRESENTED_CHECK
-                SHARED_NETWORK_TRANSACTION -> Value.SHARED_NETWORK_TRANSACTION
-                TELPHONE_INITIATED -> Value.TELPHONE_INITIATED
-                INTERNET_INITIATED -> Value.INTERNET_INITIATED
-                else -> Value._UNKNOWN
-            }
+            fun value(): Value =
+                when (this) {
+                    ANNUITY -> Value.ANNUITY
+                    BUSINESS_OR_COMMERCIAL -> Value.BUSINESS_OR_COMMERCIAL
+                    DEPOSIT -> Value.DEPOSIT
+                    LOAN -> Value.LOAN
+                    MISCELLANEOUS -> Value.MISCELLANEOUS
+                    MORTGAGE -> Value.MORTGAGE
+                    PENSION -> Value.PENSION
+                    REMITTANCE -> Value.REMITTANCE
+                    RENT_OR_LEASE -> Value.RENT_OR_LEASE
+                    SALARY_OR_PAYROLL -> Value.SALARY_OR_PAYROLL
+                    TAX -> Value.TAX
+                    ACCOUNTS_RECEIVABLE -> Value.ACCOUNTS_RECEIVABLE
+                    BACK_OFFICE_CONVERSION -> Value.BACK_OFFICE_CONVERSION
+                    MACHINE_TRANSFER -> Value.MACHINE_TRANSFER
+                    POINT_OF_PURCHASE -> Value.POINT_OF_PURCHASE
+                    POINT_OF_SALE -> Value.POINT_OF_SALE
+                    REPRESENTED_CHECK -> Value.REPRESENTED_CHECK
+                    SHARED_NETWORK_TRANSACTION -> Value.SHARED_NETWORK_TRANSACTION
+                    TELPHONE_INITIATED -> Value.TELPHONE_INITIATED
+                    INTERNET_INITIATED -> Value.INTERNET_INITIATED
+                    else -> Value._UNKNOWN
+                }
 
-            fun known(): Known = when (this) {
-                ANNUITY -> Known.ANNUITY
-                BUSINESS_OR_COMMERCIAL -> Known.BUSINESS_OR_COMMERCIAL
-                DEPOSIT -> Known.DEPOSIT
-                LOAN -> Known.LOAN
-                MISCELLANEOUS -> Known.MISCELLANEOUS
-                MORTGAGE -> Known.MORTGAGE
-                PENSION -> Known.PENSION
-                REMITTANCE -> Known.REMITTANCE
-                RENT_OR_LEASE -> Known.RENT_OR_LEASE
-                SALARY_OR_PAYROLL -> Known.SALARY_OR_PAYROLL
-                TAX -> Known.TAX
-                ACCOUNTS_RECEIVABLE -> Known.ACCOUNTS_RECEIVABLE
-                BACK_OFFICE_CONVERSION -> Known.BACK_OFFICE_CONVERSION
-                MACHINE_TRANSFER -> Known.MACHINE_TRANSFER
-                POINT_OF_PURCHASE -> Known.POINT_OF_PURCHASE
-                POINT_OF_SALE -> Known.POINT_OF_SALE
-                REPRESENTED_CHECK -> Known.REPRESENTED_CHECK
-                SHARED_NETWORK_TRANSACTION -> Known.SHARED_NETWORK_TRANSACTION
-                TELPHONE_INITIATED -> Known.TELPHONE_INITIATED
-                INTERNET_INITIATED -> Known.INTERNET_INITIATED
-                else -> throw IncreaseInvalidDataException("Unknown InternationalTransactionTypeCode: $value")
-            }
+            fun known(): Known =
+                when (this) {
+                    ANNUITY -> Known.ANNUITY
+                    BUSINESS_OR_COMMERCIAL -> Known.BUSINESS_OR_COMMERCIAL
+                    DEPOSIT -> Known.DEPOSIT
+                    LOAN -> Known.LOAN
+                    MISCELLANEOUS -> Known.MISCELLANEOUS
+                    MORTGAGE -> Known.MORTGAGE
+                    PENSION -> Known.PENSION
+                    REMITTANCE -> Known.REMITTANCE
+                    RENT_OR_LEASE -> Known.RENT_OR_LEASE
+                    SALARY_OR_PAYROLL -> Known.SALARY_OR_PAYROLL
+                    TAX -> Known.TAX
+                    ACCOUNTS_RECEIVABLE -> Known.ACCOUNTS_RECEIVABLE
+                    BACK_OFFICE_CONVERSION -> Known.BACK_OFFICE_CONVERSION
+                    MACHINE_TRANSFER -> Known.MACHINE_TRANSFER
+                    POINT_OF_PURCHASE -> Known.POINT_OF_PURCHASE
+                    POINT_OF_SALE -> Known.POINT_OF_SALE
+                    REPRESENTED_CHECK -> Known.REPRESENTED_CHECK
+                    SHARED_NETWORK_TRANSACTION -> Known.SHARED_NETWORK_TRANSACTION
+                    TELPHONE_INITIATED -> Known.TELPHONE_INITIATED
+                    INTERNET_INITIATED -> Known.INTERNET_INITIATED
+                    else ->
+                        throw IncreaseInvalidDataException(
+                            "Unknown InternationalTransactionTypeCode: $value"
+                        )
+                }
 
             fun asString(): String = _value().asStringOrThrow()
         }
 
-        class OriginatingDepositoryFinancialInstitutionIdQualifier @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+        class OriginatingDepositoryFinancialInstitutionIdQualifier
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return other is OriginatingDepositoryFinancialInstitutionIdQualifier &&
-                  this.value == other.value
+                return other is OriginatingDepositoryFinancialInstitutionIdQualifier &&
+                    this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -3031,13 +3280,23 @@ class InboundAchTransfer private constructor(
 
             companion object {
 
-                @JvmField val NATIONAL_CLEARING_SYSTEM_NUMBER = OriginatingDepositoryFinancialInstitutionIdQualifier(JsonField.of("national_clearing_system_number"))
+                @JvmField
+                val NATIONAL_CLEARING_SYSTEM_NUMBER =
+                    OriginatingDepositoryFinancialInstitutionIdQualifier(
+                        JsonField.of("national_clearing_system_number")
+                    )
 
-                @JvmField val BIC_CODE = OriginatingDepositoryFinancialInstitutionIdQualifier(JsonField.of("bic_code"))
+                @JvmField
+                val BIC_CODE =
+                    OriginatingDepositoryFinancialInstitutionIdQualifier(JsonField.of("bic_code"))
 
-                @JvmField val IBAN = OriginatingDepositoryFinancialInstitutionIdQualifier(JsonField.of("iban"))
+                @JvmField
+                val IBAN =
+                    OriginatingDepositoryFinancialInstitutionIdQualifier(JsonField.of("iban"))
 
-                @JvmStatic fun of(value: String) = OriginatingDepositoryFinancialInstitutionIdQualifier(JsonField.of(value))
+                @JvmStatic
+                fun of(value: String) =
+                    OriginatingDepositoryFinancialInstitutionIdQualifier(JsonField.of(value))
             }
 
             enum class Known {
@@ -3053,35 +3312,43 @@ class InboundAchTransfer private constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value = when (this) {
-                NATIONAL_CLEARING_SYSTEM_NUMBER -> Value.NATIONAL_CLEARING_SYSTEM_NUMBER
-                BIC_CODE -> Value.BIC_CODE
-                IBAN -> Value.IBAN
-                else -> Value._UNKNOWN
-            }
+            fun value(): Value =
+                when (this) {
+                    NATIONAL_CLEARING_SYSTEM_NUMBER -> Value.NATIONAL_CLEARING_SYSTEM_NUMBER
+                    BIC_CODE -> Value.BIC_CODE
+                    IBAN -> Value.IBAN
+                    else -> Value._UNKNOWN
+                }
 
-            fun known(): Known = when (this) {
-                NATIONAL_CLEARING_SYSTEM_NUMBER -> Known.NATIONAL_CLEARING_SYSTEM_NUMBER
-                BIC_CODE -> Known.BIC_CODE
-                IBAN -> Known.IBAN
-                else -> throw IncreaseInvalidDataException("Unknown OriginatingDepositoryFinancialInstitutionIdQualifier: $value")
-            }
+            fun known(): Known =
+                when (this) {
+                    NATIONAL_CLEARING_SYSTEM_NUMBER -> Known.NATIONAL_CLEARING_SYSTEM_NUMBER
+                    BIC_CODE -> Known.BIC_CODE
+                    IBAN -> Known.IBAN
+                    else ->
+                        throw IncreaseInvalidDataException(
+                            "Unknown OriginatingDepositoryFinancialInstitutionIdQualifier: $value"
+                        )
+                }
 
             fun asString(): String = _value().asStringOrThrow()
         }
 
-        class ReceivingDepositoryFinancialInstitutionIdQualifier @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+        class ReceivingDepositoryFinancialInstitutionIdQualifier
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return other is ReceivingDepositoryFinancialInstitutionIdQualifier &&
-                  this.value == other.value
+                return other is ReceivingDepositoryFinancialInstitutionIdQualifier &&
+                    this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -3090,13 +3357,22 @@ class InboundAchTransfer private constructor(
 
             companion object {
 
-                @JvmField val NATIONAL_CLEARING_SYSTEM_NUMBER = ReceivingDepositoryFinancialInstitutionIdQualifier(JsonField.of("national_clearing_system_number"))
+                @JvmField
+                val NATIONAL_CLEARING_SYSTEM_NUMBER =
+                    ReceivingDepositoryFinancialInstitutionIdQualifier(
+                        JsonField.of("national_clearing_system_number")
+                    )
 
-                @JvmField val BIC_CODE = ReceivingDepositoryFinancialInstitutionIdQualifier(JsonField.of("bic_code"))
+                @JvmField
+                val BIC_CODE =
+                    ReceivingDepositoryFinancialInstitutionIdQualifier(JsonField.of("bic_code"))
 
-                @JvmField val IBAN = ReceivingDepositoryFinancialInstitutionIdQualifier(JsonField.of("iban"))
+                @JvmField
+                val IBAN = ReceivingDepositoryFinancialInstitutionIdQualifier(JsonField.of("iban"))
 
-                @JvmStatic fun of(value: String) = ReceivingDepositoryFinancialInstitutionIdQualifier(JsonField.of(value))
+                @JvmStatic
+                fun of(value: String) =
+                    ReceivingDepositoryFinancialInstitutionIdQualifier(JsonField.of(value))
             }
 
             enum class Known {
@@ -3112,41 +3388,53 @@ class InboundAchTransfer private constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value = when (this) {
-                NATIONAL_CLEARING_SYSTEM_NUMBER -> Value.NATIONAL_CLEARING_SYSTEM_NUMBER
-                BIC_CODE -> Value.BIC_CODE
-                IBAN -> Value.IBAN
-                else -> Value._UNKNOWN
-            }
+            fun value(): Value =
+                when (this) {
+                    NATIONAL_CLEARING_SYSTEM_NUMBER -> Value.NATIONAL_CLEARING_SYSTEM_NUMBER
+                    BIC_CODE -> Value.BIC_CODE
+                    IBAN -> Value.IBAN
+                    else -> Value._UNKNOWN
+                }
 
-            fun known(): Known = when (this) {
-                NATIONAL_CLEARING_SYSTEM_NUMBER -> Known.NATIONAL_CLEARING_SYSTEM_NUMBER
-                BIC_CODE -> Known.BIC_CODE
-                IBAN -> Known.IBAN
-                else -> throw IncreaseInvalidDataException("Unknown ReceivingDepositoryFinancialInstitutionIdQualifier: $value")
-            }
+            fun known(): Known =
+                when (this) {
+                    NATIONAL_CLEARING_SYSTEM_NUMBER -> Known.NATIONAL_CLEARING_SYSTEM_NUMBER
+                    BIC_CODE -> Known.BIC_CODE
+                    IBAN -> Known.IBAN
+                    else ->
+                        throw IncreaseInvalidDataException(
+                            "Unknown ReceivingDepositoryFinancialInstitutionIdQualifier: $value"
+                        )
+                }
 
             fun asString(): String = _value().asStringOrThrow()
         }
     }
 
     /**
-     * If you initiate a notification of change in response to the transfer, this will
-     * contain its details.
+     * If you initiate a notification of change in response to the transfer, this will contain its
+     * details.
      */
     @JsonDeserialize(builder = NotificationOfChange.Builder::class)
     @NoAutoDetect
-    class NotificationOfChange private constructor(private val updatedAccountNumber: JsonField<String>, private val updatedRoutingNumber: JsonField<String>, private val additionalProperties: Map<String, JsonValue>, ) {
+    class NotificationOfChange
+    private constructor(
+        private val updatedAccountNumber: JsonField<String>,
+        private val updatedRoutingNumber: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
 
         /** The new account number provided in the notification of change. */
-        fun updatedAccountNumber(): Optional<String> = Optional.ofNullable(updatedAccountNumber.getNullable("updated_account_number"))
+        fun updatedAccountNumber(): Optional<String> =
+            Optional.ofNullable(updatedAccountNumber.getNullable("updated_account_number"))
 
         /** The new account number provided in the notification of change. */
-        fun updatedRoutingNumber(): Optional<String> = Optional.ofNullable(updatedRoutingNumber.getNullable("updated_routing_number"))
+        fun updatedRoutingNumber(): Optional<String> =
+            Optional.ofNullable(updatedRoutingNumber.getNullable("updated_routing_number"))
 
         /** The new account number provided in the notification of change. */
         @JsonProperty("updated_account_number")
@@ -3164,42 +3452,43 @@ class InboundAchTransfer private constructor(
 
         fun validate(): NotificationOfChange = apply {
             if (!validated) {
-              updatedAccountNumber()
-              updatedRoutingNumber()
-              validated = true
+                updatedAccountNumber()
+                updatedRoutingNumber()
+                validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is NotificationOfChange &&
-              this.updatedAccountNumber == other.updatedAccountNumber &&
-              this.updatedRoutingNumber == other.updatedRoutingNumber &&
-              this.additionalProperties == other.additionalProperties
+            return other is NotificationOfChange &&
+                this.updatedAccountNumber == other.updatedAccountNumber &&
+                this.updatedRoutingNumber == other.updatedRoutingNumber &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                updatedAccountNumber,
-                updatedRoutingNumber,
-                additionalProperties,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        updatedAccountNumber,
+                        updatedRoutingNumber,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "NotificationOfChange{updatedAccountNumber=$updatedAccountNumber, updatedRoutingNumber=$updatedRoutingNumber, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "NotificationOfChange{updatedAccountNumber=$updatedAccountNumber, updatedRoutingNumber=$updatedRoutingNumber, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -3216,7 +3505,8 @@ class InboundAchTransfer private constructor(
             }
 
             /** The new account number provided in the notification of change. */
-            fun updatedAccountNumber(updatedAccountNumber: String) = updatedAccountNumber(JsonField.of(updatedAccountNumber))
+            fun updatedAccountNumber(updatedAccountNumber: String) =
+                updatedAccountNumber(JsonField.of(updatedAccountNumber))
 
             /** The new account number provided in the notification of change. */
             @JsonProperty("updated_account_number")
@@ -3226,7 +3516,8 @@ class InboundAchTransfer private constructor(
             }
 
             /** The new account number provided in the notification of change. */
-            fun updatedRoutingNumber(updatedRoutingNumber: String) = updatedRoutingNumber(JsonField.of(updatedRoutingNumber))
+            fun updatedRoutingNumber(updatedRoutingNumber: String) =
+                updatedRoutingNumber(JsonField.of(updatedRoutingNumber))
 
             /** The new account number provided in the notification of change. */
             @JsonProperty("updated_routing_number")
@@ -3249,26 +3540,29 @@ class InboundAchTransfer private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): NotificationOfChange = NotificationOfChange(
-                updatedAccountNumber,
-                updatedRoutingNumber,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build(): NotificationOfChange =
+                NotificationOfChange(
+                    updatedAccountNumber,
+                    updatedRoutingNumber,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
-    class StandardEntryClassCode @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+    class StandardEntryClassCode
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is StandardEntryClassCode &&
-              this.value == other.value
+            return other is StandardEntryClassCode && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -3277,37 +3571,57 @@ class InboundAchTransfer private constructor(
 
         companion object {
 
-            @JvmField val CORPORATE_CREDIT_OR_DEBIT = StandardEntryClassCode(JsonField.of("corporate_credit_or_debit"))
+            @JvmField
+            val CORPORATE_CREDIT_OR_DEBIT =
+                StandardEntryClassCode(JsonField.of("corporate_credit_or_debit"))
 
-            @JvmField val CORPORATE_TRADE_EXCHANGE = StandardEntryClassCode(JsonField.of("corporate_trade_exchange"))
+            @JvmField
+            val CORPORATE_TRADE_EXCHANGE =
+                StandardEntryClassCode(JsonField.of("corporate_trade_exchange"))
 
-            @JvmField val PREARRANGED_PAYMENTS_AND_DEPOSIT = StandardEntryClassCode(JsonField.of("prearranged_payments_and_deposit"))
+            @JvmField
+            val PREARRANGED_PAYMENTS_AND_DEPOSIT =
+                StandardEntryClassCode(JsonField.of("prearranged_payments_and_deposit"))
 
-            @JvmField val INTERNET_INITIATED = StandardEntryClassCode(JsonField.of("internet_initiated"))
+            @JvmField
+            val INTERNET_INITIATED = StandardEntryClassCode(JsonField.of("internet_initiated"))
 
             @JvmField val POINT_OF_SALE = StandardEntryClassCode(JsonField.of("point_of_sale"))
 
-            @JvmField val TELEPHONE_INITIATED = StandardEntryClassCode(JsonField.of("telephone_initiated"))
+            @JvmField
+            val TELEPHONE_INITIATED = StandardEntryClassCode(JsonField.of("telephone_initiated"))
 
-            @JvmField val CUSTOMER_INITIATED = StandardEntryClassCode(JsonField.of("customer_initiated"))
+            @JvmField
+            val CUSTOMER_INITIATED = StandardEntryClassCode(JsonField.of("customer_initiated"))
 
-            @JvmField val ACCOUNTS_RECEIVABLE = StandardEntryClassCode(JsonField.of("accounts_receivable"))
+            @JvmField
+            val ACCOUNTS_RECEIVABLE = StandardEntryClassCode(JsonField.of("accounts_receivable"))
 
-            @JvmField val MACHINE_TRANSFER = StandardEntryClassCode(JsonField.of("machine_transfer"))
+            @JvmField
+            val MACHINE_TRANSFER = StandardEntryClassCode(JsonField.of("machine_transfer"))
 
-            @JvmField val SHARED_NETWORK_TRANSACTION = StandardEntryClassCode(JsonField.of("shared_network_transaction"))
+            @JvmField
+            val SHARED_NETWORK_TRANSACTION =
+                StandardEntryClassCode(JsonField.of("shared_network_transaction"))
 
-            @JvmField val REPRESENTED_CHECK = StandardEntryClassCode(JsonField.of("represented_check"))
+            @JvmField
+            val REPRESENTED_CHECK = StandardEntryClassCode(JsonField.of("represented_check"))
 
-            @JvmField val BACK_OFFICE_CONVERSION = StandardEntryClassCode(JsonField.of("back_office_conversion"))
+            @JvmField
+            val BACK_OFFICE_CONVERSION =
+                StandardEntryClassCode(JsonField.of("back_office_conversion"))
 
-            @JvmField val POINT_OF_PURCHASE = StandardEntryClassCode(JsonField.of("point_of_purchase"))
+            @JvmField
+            val POINT_OF_PURCHASE = StandardEntryClassCode(JsonField.of("point_of_purchase"))
 
-            @JvmField val CHECK_TRUNCATION = StandardEntryClassCode(JsonField.of("check_truncation"))
+            @JvmField
+            val CHECK_TRUNCATION = StandardEntryClassCode(JsonField.of("check_truncation"))
 
             @JvmField val DESTROYED_CHECK = StandardEntryClassCode(JsonField.of("destroyed_check"))
 
-            @JvmField val INTERNATIONAL_ACH_TRANSACTION = StandardEntryClassCode(JsonField.of("international_ach_transaction"))
+            @JvmField
+            val INTERNATIONAL_ACH_TRANSACTION =
+                StandardEntryClassCode(JsonField.of("international_ach_transaction"))
 
             @JvmStatic fun of(value: String) = StandardEntryClassCode(JsonField.of(value))
         }
@@ -3351,61 +3665,65 @@ class InboundAchTransfer private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            CORPORATE_CREDIT_OR_DEBIT -> Value.CORPORATE_CREDIT_OR_DEBIT
-            CORPORATE_TRADE_EXCHANGE -> Value.CORPORATE_TRADE_EXCHANGE
-            PREARRANGED_PAYMENTS_AND_DEPOSIT -> Value.PREARRANGED_PAYMENTS_AND_DEPOSIT
-            INTERNET_INITIATED -> Value.INTERNET_INITIATED
-            POINT_OF_SALE -> Value.POINT_OF_SALE
-            TELEPHONE_INITIATED -> Value.TELEPHONE_INITIATED
-            CUSTOMER_INITIATED -> Value.CUSTOMER_INITIATED
-            ACCOUNTS_RECEIVABLE -> Value.ACCOUNTS_RECEIVABLE
-            MACHINE_TRANSFER -> Value.MACHINE_TRANSFER
-            SHARED_NETWORK_TRANSACTION -> Value.SHARED_NETWORK_TRANSACTION
-            REPRESENTED_CHECK -> Value.REPRESENTED_CHECK
-            BACK_OFFICE_CONVERSION -> Value.BACK_OFFICE_CONVERSION
-            POINT_OF_PURCHASE -> Value.POINT_OF_PURCHASE
-            CHECK_TRUNCATION -> Value.CHECK_TRUNCATION
-            DESTROYED_CHECK -> Value.DESTROYED_CHECK
-            INTERNATIONAL_ACH_TRANSACTION -> Value.INTERNATIONAL_ACH_TRANSACTION
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                CORPORATE_CREDIT_OR_DEBIT -> Value.CORPORATE_CREDIT_OR_DEBIT
+                CORPORATE_TRADE_EXCHANGE -> Value.CORPORATE_TRADE_EXCHANGE
+                PREARRANGED_PAYMENTS_AND_DEPOSIT -> Value.PREARRANGED_PAYMENTS_AND_DEPOSIT
+                INTERNET_INITIATED -> Value.INTERNET_INITIATED
+                POINT_OF_SALE -> Value.POINT_OF_SALE
+                TELEPHONE_INITIATED -> Value.TELEPHONE_INITIATED
+                CUSTOMER_INITIATED -> Value.CUSTOMER_INITIATED
+                ACCOUNTS_RECEIVABLE -> Value.ACCOUNTS_RECEIVABLE
+                MACHINE_TRANSFER -> Value.MACHINE_TRANSFER
+                SHARED_NETWORK_TRANSACTION -> Value.SHARED_NETWORK_TRANSACTION
+                REPRESENTED_CHECK -> Value.REPRESENTED_CHECK
+                BACK_OFFICE_CONVERSION -> Value.BACK_OFFICE_CONVERSION
+                POINT_OF_PURCHASE -> Value.POINT_OF_PURCHASE
+                CHECK_TRUNCATION -> Value.CHECK_TRUNCATION
+                DESTROYED_CHECK -> Value.DESTROYED_CHECK
+                INTERNATIONAL_ACH_TRANSACTION -> Value.INTERNATIONAL_ACH_TRANSACTION
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            CORPORATE_CREDIT_OR_DEBIT -> Known.CORPORATE_CREDIT_OR_DEBIT
-            CORPORATE_TRADE_EXCHANGE -> Known.CORPORATE_TRADE_EXCHANGE
-            PREARRANGED_PAYMENTS_AND_DEPOSIT -> Known.PREARRANGED_PAYMENTS_AND_DEPOSIT
-            INTERNET_INITIATED -> Known.INTERNET_INITIATED
-            POINT_OF_SALE -> Known.POINT_OF_SALE
-            TELEPHONE_INITIATED -> Known.TELEPHONE_INITIATED
-            CUSTOMER_INITIATED -> Known.CUSTOMER_INITIATED
-            ACCOUNTS_RECEIVABLE -> Known.ACCOUNTS_RECEIVABLE
-            MACHINE_TRANSFER -> Known.MACHINE_TRANSFER
-            SHARED_NETWORK_TRANSACTION -> Known.SHARED_NETWORK_TRANSACTION
-            REPRESENTED_CHECK -> Known.REPRESENTED_CHECK
-            BACK_OFFICE_CONVERSION -> Known.BACK_OFFICE_CONVERSION
-            POINT_OF_PURCHASE -> Known.POINT_OF_PURCHASE
-            CHECK_TRUNCATION -> Known.CHECK_TRUNCATION
-            DESTROYED_CHECK -> Known.DESTROYED_CHECK
-            INTERNATIONAL_ACH_TRANSACTION -> Known.INTERNATIONAL_ACH_TRANSACTION
-            else -> throw IncreaseInvalidDataException("Unknown StandardEntryClassCode: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                CORPORATE_CREDIT_OR_DEBIT -> Known.CORPORATE_CREDIT_OR_DEBIT
+                CORPORATE_TRADE_EXCHANGE -> Known.CORPORATE_TRADE_EXCHANGE
+                PREARRANGED_PAYMENTS_AND_DEPOSIT -> Known.PREARRANGED_PAYMENTS_AND_DEPOSIT
+                INTERNET_INITIATED -> Known.INTERNET_INITIATED
+                POINT_OF_SALE -> Known.POINT_OF_SALE
+                TELEPHONE_INITIATED -> Known.TELEPHONE_INITIATED
+                CUSTOMER_INITIATED -> Known.CUSTOMER_INITIATED
+                ACCOUNTS_RECEIVABLE -> Known.ACCOUNTS_RECEIVABLE
+                MACHINE_TRANSFER -> Known.MACHINE_TRANSFER
+                SHARED_NETWORK_TRANSACTION -> Known.SHARED_NETWORK_TRANSACTION
+                REPRESENTED_CHECK -> Known.REPRESENTED_CHECK
+                BACK_OFFICE_CONVERSION -> Known.BACK_OFFICE_CONVERSION
+                POINT_OF_PURCHASE -> Known.POINT_OF_PURCHASE
+                CHECK_TRUNCATION -> Known.CHECK_TRUNCATION
+                DESTROYED_CHECK -> Known.DESTROYED_CHECK
+                INTERNATIONAL_ACH_TRANSACTION -> Known.INTERNATIONAL_ACH_TRANSACTION
+                else -> throw IncreaseInvalidDataException("Unknown StandardEntryClassCode: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Status @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Status &&
-              this.value == other.value
+            return other is Status && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -3440,21 +3758,23 @@ class InboundAchTransfer private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            PENDING -> Value.PENDING
-            DECLINED -> Value.DECLINED
-            ACCEPTED -> Value.ACCEPTED
-            RETURNED -> Value.RETURNED
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                PENDING -> Value.PENDING
+                DECLINED -> Value.DECLINED
+                ACCEPTED -> Value.ACCEPTED
+                RETURNED -> Value.RETURNED
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            PENDING -> Known.PENDING
-            DECLINED -> Known.DECLINED
-            ACCEPTED -> Known.ACCEPTED
-            RETURNED -> Known.RETURNED
-            else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                PENDING -> Known.PENDING
+                DECLINED -> Known.DECLINED
+                ACCEPTED -> Known.ACCEPTED
+                RETURNED -> Known.RETURNED
+                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }
@@ -3462,12 +3782,12 @@ class InboundAchTransfer private constructor(
     /** If your transfer is returned, this will contain details of the return. */
     @JsonDeserialize(builder = TransferReturn.Builder::class)
     @NoAutoDetect
-    class TransferReturn private constructor(
-      private val reason: JsonField<Reason>,
-      private val returnedAt: JsonField<OffsetDateTime>,
-      private val transactionId: JsonField<String>,
-      private val additionalProperties: Map<String, JsonValue>,
-
+    class TransferReturn
+    private constructor(
+        private val reason: JsonField<Reason>,
+        private val returnedAt: JsonField<OffsetDateTime>,
+        private val transactionId: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var validated: Boolean = false
@@ -3484,19 +3804,13 @@ class InboundAchTransfer private constructor(
         fun transactionId(): String = transactionId.getRequired("transaction_id")
 
         /** The reason for the transfer return. */
-        @JsonProperty("reason")
-        @ExcludeMissing
-        fun _reason() = reason
+        @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
 
         /** The time at which the transfer was returned. */
-        @JsonProperty("returned_at")
-        @ExcludeMissing
-        fun _returnedAt() = returnedAt
+        @JsonProperty("returned_at") @ExcludeMissing fun _returnedAt() = returnedAt
 
         /** The id of the transaction for the returned transfer. */
-        @JsonProperty("transaction_id")
-        @ExcludeMissing
-        fun _transactionId() = transactionId
+        @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -3504,45 +3818,46 @@ class InboundAchTransfer private constructor(
 
         fun validate(): TransferReturn = apply {
             if (!validated) {
-              reason()
-              returnedAt()
-              transactionId()
-              validated = true
+                reason()
+                returnedAt()
+                transactionId()
+                validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is TransferReturn &&
-              this.reason == other.reason &&
-              this.returnedAt == other.returnedAt &&
-              this.transactionId == other.transactionId &&
-              this.additionalProperties == other.additionalProperties
+            return other is TransferReturn &&
+                this.reason == other.reason &&
+                this.returnedAt == other.returnedAt &&
+                this.transactionId == other.transactionId &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                reason,
-                returnedAt,
-                transactionId,
-                additionalProperties,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        reason,
+                        returnedAt,
+                        transactionId,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "TransferReturn{reason=$reason, returnedAt=$returnedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "TransferReturn{reason=$reason, returnedAt=$returnedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
 
         companion object {
 
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -3566,9 +3881,7 @@ class InboundAchTransfer private constructor(
             /** The reason for the transfer return. */
             @JsonProperty("reason")
             @ExcludeMissing
-            fun reason(reason: JsonField<Reason>) = apply {
-                this.reason = reason
-            }
+            fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
             /** The time at which the transfer was returned. */
             fun returnedAt(returnedAt: OffsetDateTime) = returnedAt(JsonField.of(returnedAt))
@@ -3604,26 +3917,29 @@ class InboundAchTransfer private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): TransferReturn = TransferReturn(
-                reason,
-                returnedAt,
-                transactionId,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build(): TransferReturn =
+                TransferReturn(
+                    reason,
+                    returnedAt,
+                    transactionId,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
 
-        class Reason @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+        class Reason
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return other is Reason &&
-                  this.value == other.value
+                return other is Reason && this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -3634,23 +3950,44 @@ class InboundAchTransfer private constructor(
 
                 @JvmField val INSUFFICIENT_FUNDS = Reason(JsonField.of("insufficient_funds"))
 
-                @JvmField val RETURNED_PER_ODFI_REQUEST = Reason(JsonField.of("returned_per_odfi_request"))
+                @JvmField
+                val RETURNED_PER_ODFI_REQUEST = Reason(JsonField.of("returned_per_odfi_request"))
 
-                @JvmField val AUTHORIZATION_REVOKED_BY_CUSTOMER = Reason(JsonField.of("authorization_revoked_by_customer"))
+                @JvmField
+                val AUTHORIZATION_REVOKED_BY_CUSTOMER =
+                    Reason(JsonField.of("authorization_revoked_by_customer"))
 
                 @JvmField val PAYMENT_STOPPED = Reason(JsonField.of("payment_stopped"))
 
-                @JvmField val CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE = Reason(JsonField.of("customer_advised_unauthorized_improper_ineligible_or_incomplete"))
+                @JvmField
+                val CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE =
+                    Reason(
+                        JsonField.of(
+                            "customer_advised_unauthorized_improper_ineligible_or_incomplete"
+                        )
+                    )
 
-                @JvmField val REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY = Reason(JsonField.of("representative_payee_deceased_or_unable_to_continue_in_that_capacity"))
+                @JvmField
+                val REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY =
+                    Reason(
+                        JsonField.of(
+                            "representative_payee_deceased_or_unable_to_continue_in_that_capacity"
+                        )
+                    )
 
-                @JvmField val BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED = Reason(JsonField.of("beneficiary_or_account_holder_deceased"))
+                @JvmField
+                val BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED =
+                    Reason(JsonField.of("beneficiary_or_account_holder_deceased"))
 
-                @JvmField val CREDIT_ENTRY_REFUSED_BY_RECEIVER = Reason(JsonField.of("credit_entry_refused_by_receiver"))
+                @JvmField
+                val CREDIT_ENTRY_REFUSED_BY_RECEIVER =
+                    Reason(JsonField.of("credit_entry_refused_by_receiver"))
 
                 @JvmField val DUPLICATE_ENTRY = Reason(JsonField.of("duplicate_entry"))
 
-                @JvmField val CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED = Reason(JsonField.of("corporate_customer_advised_not_authorized"))
+                @JvmField
+                val CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED =
+                    Reason(JsonField.of("corporate_customer_advised_not_authorized"))
 
                 @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
             }
@@ -3682,50 +4019,62 @@ class InboundAchTransfer private constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value = when (this) {
-                INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
-                RETURNED_PER_ODFI_REQUEST -> Value.RETURNED_PER_ODFI_REQUEST
-                AUTHORIZATION_REVOKED_BY_CUSTOMER -> Value.AUTHORIZATION_REVOKED_BY_CUSTOMER
-                PAYMENT_STOPPED -> Value.PAYMENT_STOPPED
-                CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE -> Value.CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE
-                REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY -> Value.REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY
-                BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED -> Value.BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED
-                CREDIT_ENTRY_REFUSED_BY_RECEIVER -> Value.CREDIT_ENTRY_REFUSED_BY_RECEIVER
-                DUPLICATE_ENTRY -> Value.DUPLICATE_ENTRY
-                CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED -> Value.CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED
-                else -> Value._UNKNOWN
-            }
+            fun value(): Value =
+                when (this) {
+                    INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
+                    RETURNED_PER_ODFI_REQUEST -> Value.RETURNED_PER_ODFI_REQUEST
+                    AUTHORIZATION_REVOKED_BY_CUSTOMER -> Value.AUTHORIZATION_REVOKED_BY_CUSTOMER
+                    PAYMENT_STOPPED -> Value.PAYMENT_STOPPED
+                    CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE ->
+                        Value.CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE
+                    REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY ->
+                        Value.REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY
+                    BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED ->
+                        Value.BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED
+                    CREDIT_ENTRY_REFUSED_BY_RECEIVER -> Value.CREDIT_ENTRY_REFUSED_BY_RECEIVER
+                    DUPLICATE_ENTRY -> Value.DUPLICATE_ENTRY
+                    CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED ->
+                        Value.CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED
+                    else -> Value._UNKNOWN
+                }
 
-            fun known(): Known = when (this) {
-                INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
-                RETURNED_PER_ODFI_REQUEST -> Known.RETURNED_PER_ODFI_REQUEST
-                AUTHORIZATION_REVOKED_BY_CUSTOMER -> Known.AUTHORIZATION_REVOKED_BY_CUSTOMER
-                PAYMENT_STOPPED -> Known.PAYMENT_STOPPED
-                CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE -> Known.CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE
-                REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY -> Known.REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY
-                BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED -> Known.BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED
-                CREDIT_ENTRY_REFUSED_BY_RECEIVER -> Known.CREDIT_ENTRY_REFUSED_BY_RECEIVER
-                DUPLICATE_ENTRY -> Known.DUPLICATE_ENTRY
-                CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED -> Known.CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED
-                else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
-            }
+            fun known(): Known =
+                when (this) {
+                    INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
+                    RETURNED_PER_ODFI_REQUEST -> Known.RETURNED_PER_ODFI_REQUEST
+                    AUTHORIZATION_REVOKED_BY_CUSTOMER -> Known.AUTHORIZATION_REVOKED_BY_CUSTOMER
+                    PAYMENT_STOPPED -> Known.PAYMENT_STOPPED
+                    CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE ->
+                        Known.CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE
+                    REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY ->
+                        Known.REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY
+                    BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED ->
+                        Known.BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED
+                    CREDIT_ENTRY_REFUSED_BY_RECEIVER -> Known.CREDIT_ENTRY_REFUSED_BY_RECEIVER
+                    DUPLICATE_ENTRY -> Known.DUPLICATE_ENTRY
+                    CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED ->
+                        Known.CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED
+                    else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
+                }
 
             fun asString(): String = _value().asStringOrThrow()
         }
     }
 
-    class Type @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+    class Type
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Type &&
-              this.value == other.value
+            return other is Type && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -3748,15 +4097,17 @@ class InboundAchTransfer private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            INBOUND_ACH_TRANSFER -> Value.INBOUND_ACH_TRANSFER
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                INBOUND_ACH_TRANSFER -> Value.INBOUND_ACH_TRANSFER
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            INBOUND_ACH_TRANSFER -> Known.INBOUND_ACH_TRANSFER
-            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                INBOUND_ACH_TRANSFER -> Known.INBOUND_ACH_TRANSFER
+                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }
