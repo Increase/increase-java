@@ -76,6 +76,7 @@ class InboundAchTransferServiceTest {
             inboundAchTransferService.decline(
                 InboundAchTransferDeclineParams.builder()
                     .inboundAchTransferId("inbound_ach_transfer_id")
+                    .reason(InboundAchTransferDeclineParams.Reason.INSUFFICIENT_FUNDS)
                     .build()
             )
         println(inboundAchTransfer)

@@ -1443,12 +1443,51 @@ private constructor(
 
                 @JvmField val GROUP_LOCKED = Reason(JsonField.of("group_locked"))
 
-                @JvmField val INSUFFICIENT_FUNDS = Reason(JsonField.of("insufficient_funds"))
-
                 @JvmField
                 val TRANSACTION_NOT_ALLOWED = Reason(JsonField.of("transaction_not_allowed"))
 
                 @JvmField val USER_INITIATED = Reason(JsonField.of("user_initiated"))
+
+                @JvmField val INSUFFICIENT_FUNDS = Reason(JsonField.of("insufficient_funds"))
+
+                @JvmField
+                val RETURNED_PER_ODFI_REQUEST = Reason(JsonField.of("returned_per_odfi_request"))
+
+                @JvmField
+                val AUTHORIZATION_REVOKED_BY_CUSTOMER =
+                    Reason(JsonField.of("authorization_revoked_by_customer"))
+
+                @JvmField val PAYMENT_STOPPED = Reason(JsonField.of("payment_stopped"))
+
+                @JvmField
+                val CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE =
+                    Reason(
+                        JsonField.of(
+                            "customer_advised_unauthorized_improper_ineligible_or_incomplete"
+                        )
+                    )
+
+                @JvmField
+                val REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY =
+                    Reason(
+                        JsonField.of(
+                            "representative_payee_deceased_or_unable_to_continue_in_that_capacity"
+                        )
+                    )
+
+                @JvmField
+                val BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED =
+                    Reason(JsonField.of("beneficiary_or_account_holder_deceased"))
+
+                @JvmField
+                val CREDIT_ENTRY_REFUSED_BY_RECEIVER =
+                    Reason(JsonField.of("credit_entry_refused_by_receiver"))
+
+                @JvmField val DUPLICATE_ENTRY = Reason(JsonField.of("duplicate_entry"))
+
+                @JvmField
+                val CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED =
+                    Reason(JsonField.of("corporate_customer_advised_not_authorized"))
 
                 @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
             }
@@ -1459,9 +1498,18 @@ private constructor(
                 BREACHES_LIMIT,
                 ENTITY_NOT_ACTIVE,
                 GROUP_LOCKED,
-                INSUFFICIENT_FUNDS,
                 TRANSACTION_NOT_ALLOWED,
                 USER_INITIATED,
+                INSUFFICIENT_FUNDS,
+                RETURNED_PER_ODFI_REQUEST,
+                AUTHORIZATION_REVOKED_BY_CUSTOMER,
+                PAYMENT_STOPPED,
+                CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE,
+                REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY,
+                BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED,
+                CREDIT_ENTRY_REFUSED_BY_RECEIVER,
+                DUPLICATE_ENTRY,
+                CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED,
             }
 
             enum class Value {
@@ -1470,9 +1518,18 @@ private constructor(
                 BREACHES_LIMIT,
                 ENTITY_NOT_ACTIVE,
                 GROUP_LOCKED,
-                INSUFFICIENT_FUNDS,
                 TRANSACTION_NOT_ALLOWED,
                 USER_INITIATED,
+                INSUFFICIENT_FUNDS,
+                RETURNED_PER_ODFI_REQUEST,
+                AUTHORIZATION_REVOKED_BY_CUSTOMER,
+                PAYMENT_STOPPED,
+                CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE,
+                REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY,
+                BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED,
+                CREDIT_ENTRY_REFUSED_BY_RECEIVER,
+                DUPLICATE_ENTRY,
+                CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED,
                 _UNKNOWN,
             }
 
@@ -1483,9 +1540,22 @@ private constructor(
                     BREACHES_LIMIT -> Value.BREACHES_LIMIT
                     ENTITY_NOT_ACTIVE -> Value.ENTITY_NOT_ACTIVE
                     GROUP_LOCKED -> Value.GROUP_LOCKED
-                    INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
                     TRANSACTION_NOT_ALLOWED -> Value.TRANSACTION_NOT_ALLOWED
                     USER_INITIATED -> Value.USER_INITIATED
+                    INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
+                    RETURNED_PER_ODFI_REQUEST -> Value.RETURNED_PER_ODFI_REQUEST
+                    AUTHORIZATION_REVOKED_BY_CUSTOMER -> Value.AUTHORIZATION_REVOKED_BY_CUSTOMER
+                    PAYMENT_STOPPED -> Value.PAYMENT_STOPPED
+                    CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE ->
+                        Value.CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE
+                    REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY ->
+                        Value.REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY
+                    BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED ->
+                        Value.BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED
+                    CREDIT_ENTRY_REFUSED_BY_RECEIVER -> Value.CREDIT_ENTRY_REFUSED_BY_RECEIVER
+                    DUPLICATE_ENTRY -> Value.DUPLICATE_ENTRY
+                    CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED ->
+                        Value.CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED
                     else -> Value._UNKNOWN
                 }
 
@@ -1496,9 +1566,22 @@ private constructor(
                     BREACHES_LIMIT -> Known.BREACHES_LIMIT
                     ENTITY_NOT_ACTIVE -> Known.ENTITY_NOT_ACTIVE
                     GROUP_LOCKED -> Known.GROUP_LOCKED
-                    INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
                     TRANSACTION_NOT_ALLOWED -> Known.TRANSACTION_NOT_ALLOWED
                     USER_INITIATED -> Known.USER_INITIATED
+                    INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
+                    RETURNED_PER_ODFI_REQUEST -> Known.RETURNED_PER_ODFI_REQUEST
+                    AUTHORIZATION_REVOKED_BY_CUSTOMER -> Known.AUTHORIZATION_REVOKED_BY_CUSTOMER
+                    PAYMENT_STOPPED -> Known.PAYMENT_STOPPED
+                    CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE ->
+                        Known.CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE
+                    REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY ->
+                        Known.REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY
+                    BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED ->
+                        Known.BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED
+                    CREDIT_ENTRY_REFUSED_BY_RECEIVER -> Known.CREDIT_ENTRY_REFUSED_BY_RECEIVER
+                    DUPLICATE_ENTRY -> Known.DUPLICATE_ENTRY
+                    CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED ->
+                        Known.CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED
                     else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                 }
 
