@@ -12,7 +12,31 @@ class InboundAchTransferDeclineParamsTest {
     fun createInboundAchTransferDeclineParams() {
         InboundAchTransferDeclineParams.builder()
             .inboundAchTransferId("inbound_ach_transfer_id")
+            .reason(InboundAchTransferDeclineParams.Reason.INSUFFICIENT_FUNDS)
             .build()
+    }
+
+    @Test
+    fun getBody() {
+        val params =
+            InboundAchTransferDeclineParams.builder()
+                .inboundAchTransferId("inbound_ach_transfer_id")
+                .reason(InboundAchTransferDeclineParams.Reason.INSUFFICIENT_FUNDS)
+                .build()
+        val body = params.getBody()
+        assertThat(body).isNotNull
+        assertThat(body.reason())
+            .isEqualTo(InboundAchTransferDeclineParams.Reason.INSUFFICIENT_FUNDS)
+    }
+
+    @Test
+    fun getBodyWithoutOptionalFields() {
+        val params =
+            InboundAchTransferDeclineParams.builder()
+                .inboundAchTransferId("inbound_ach_transfer_id")
+                .build()
+        val body = params.getBody()
+        assertThat(body).isNotNull
     }
 
     @Test
