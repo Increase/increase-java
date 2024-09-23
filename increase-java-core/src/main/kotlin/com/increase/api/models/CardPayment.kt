@@ -13216,7 +13216,8 @@ private constructor(
                 Optional.ofNullable(merchantCity.getNullable("merchant_city"))
 
             /** The country the merchant resides in. */
-            fun merchantCountry(): String = merchantCountry.getRequired("merchant_country")
+            fun merchantCountry(): Optional<String> =
+                Optional.ofNullable(merchantCountry.getNullable("merchant_country"))
 
             /** The merchant descriptor of the merchant the card is transacting with. */
             fun merchantDescriptor(): String = merchantDescriptor.getRequired("merchant_descriptor")
