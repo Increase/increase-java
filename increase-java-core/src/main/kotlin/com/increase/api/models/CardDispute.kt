@@ -28,6 +28,7 @@ import java.util.Optional
 class CardDispute
 private constructor(
     private val acceptance: JsonField<Acceptance>,
+    private val amount: JsonField<Long>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val disputedTransactionId: JsonField<String>,
     private val explanation: JsonField<String>,
@@ -51,6 +52,9 @@ private constructor(
      */
     fun acceptance(): Optional<Acceptance> =
         Optional.ofNullable(acceptance.getNullable("acceptance"))
+
+    /** The amount of the dispute, if provided, or the transaction amount otherwise. */
+    fun amount(): Optional<Long> = Optional.ofNullable(amount.getNullable("amount"))
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
@@ -102,6 +106,9 @@ private constructor(
      * dispute.
      */
     @JsonProperty("acceptance") @ExcludeMissing fun _acceptance() = acceptance
+
+    /** The amount of the dispute, if provided, or the transaction amount otherwise. */
+    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
@@ -155,6 +162,7 @@ private constructor(
     fun validate(): CardDispute = apply {
         if (!validated) {
             acceptance().map { it.validate() }
+            amount()
             createdAt()
             disputedTransactionId()
             explanation()
@@ -178,6 +186,7 @@ private constructor(
 
         return other is CardDispute &&
             this.acceptance == other.acceptance &&
+            this.amount == other.amount &&
             this.createdAt == other.createdAt &&
             this.disputedTransactionId == other.disputedTransactionId &&
             this.explanation == other.explanation &&
@@ -196,6 +205,7 @@ private constructor(
             hashCode =
                 Objects.hash(
                     acceptance,
+                    amount,
                     createdAt,
                     disputedTransactionId,
                     explanation,
@@ -213,7 +223,7 @@ private constructor(
     }
 
     override fun toString() =
-        "CardDispute{acceptance=$acceptance, createdAt=$createdAt, disputedTransactionId=$disputedTransactionId, explanation=$explanation, id=$id, idempotencyKey=$idempotencyKey, loss=$loss, rejection=$rejection, status=$status, type=$type, win=$win, additionalProperties=$additionalProperties}"
+        "CardDispute{acceptance=$acceptance, amount=$amount, createdAt=$createdAt, disputedTransactionId=$disputedTransactionId, explanation=$explanation, id=$id, idempotencyKey=$idempotencyKey, loss=$loss, rejection=$rejection, status=$status, type=$type, win=$win, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -223,6 +233,7 @@ private constructor(
     class Builder {
 
         private var acceptance: JsonField<Acceptance> = JsonMissing.of()
+        private var amount: JsonField<Long> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var disputedTransactionId: JsonField<String> = JsonMissing.of()
         private var explanation: JsonField<String> = JsonMissing.of()
@@ -238,6 +249,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(cardDispute: CardDispute) = apply {
             this.acceptance = cardDispute.acceptance
+            this.amount = cardDispute.amount
             this.createdAt = cardDispute.createdAt
             this.disputedTransactionId = cardDispute.disputedTransactionId
             this.explanation = cardDispute.explanation
@@ -264,6 +276,14 @@ private constructor(
         @JsonProperty("acceptance")
         @ExcludeMissing
         fun acceptance(acceptance: JsonField<Acceptance>) = apply { this.acceptance = acceptance }
+
+        /** The amount of the dispute, if provided, or the transaction amount otherwise. */
+        fun amount(amount: Long) = amount(JsonField.of(amount))
+
+        /** The amount of the dispute, if provided, or the transaction amount otherwise. */
+        @JsonProperty("amount")
+        @ExcludeMissing
+        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
@@ -393,6 +413,7 @@ private constructor(
         fun build(): CardDispute =
             CardDispute(
                 acceptance,
+                amount,
                 createdAt,
                 disputedTransactionId,
                 explanation,
