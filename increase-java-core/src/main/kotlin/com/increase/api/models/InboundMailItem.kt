@@ -30,7 +30,6 @@ private constructor(
     private val lockboxId: JsonField<String>,
     private val recipientName: JsonField<String>,
     private val rejectionReason: JsonField<RejectionReason>,
-    private val returnAddress: JsonField<ReturnAddress>,
     private val status: JsonField<Status>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
@@ -66,10 +65,6 @@ private constructor(
     fun rejectionReason(): Optional<RejectionReason> =
         Optional.ofNullable(rejectionReason.getNullable("rejection_reason"))
 
-    /** The return address as written on the mail item. */
-    fun returnAddress(): Optional<ReturnAddress> =
-        Optional.ofNullable(returnAddress.getNullable("return_address"))
-
     /** If the mail item has been processed. */
     fun status(): Status = status.getRequired("status")
 
@@ -103,9 +98,6 @@ private constructor(
     /** If the mail item has been rejected, why it was rejected. */
     @JsonProperty("rejection_reason") @ExcludeMissing fun _rejectionReason() = rejectionReason
 
-    /** The return address as written on the mail item. */
-    @JsonProperty("return_address") @ExcludeMissing fun _returnAddress() = returnAddress
-
     /** If the mail item has been processed. */
     @JsonProperty("status") @ExcludeMissing fun _status() = status
 
@@ -127,7 +119,6 @@ private constructor(
             lockboxId()
             recipientName()
             rejectionReason()
-            returnAddress().map { it.validate() }
             status()
             type()
             validated = true
@@ -148,7 +139,6 @@ private constructor(
             this.lockboxId == other.lockboxId &&
             this.recipientName == other.recipientName &&
             this.rejectionReason == other.rejectionReason &&
-            this.returnAddress == other.returnAddress &&
             this.status == other.status &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
@@ -164,7 +154,6 @@ private constructor(
                     lockboxId,
                     recipientName,
                     rejectionReason,
-                    returnAddress,
                     status,
                     type,
                     additionalProperties,
@@ -174,7 +163,7 @@ private constructor(
     }
 
     override fun toString() =
-        "InboundMailItem{createdAt=$createdAt, fileId=$fileId, id=$id, lockboxId=$lockboxId, recipientName=$recipientName, rejectionReason=$rejectionReason, returnAddress=$returnAddress, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "InboundMailItem{createdAt=$createdAt, fileId=$fileId, id=$id, lockboxId=$lockboxId, recipientName=$recipientName, rejectionReason=$rejectionReason, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -189,7 +178,6 @@ private constructor(
         private var lockboxId: JsonField<String> = JsonMissing.of()
         private var recipientName: JsonField<String> = JsonMissing.of()
         private var rejectionReason: JsonField<RejectionReason> = JsonMissing.of()
-        private var returnAddress: JsonField<ReturnAddress> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -202,7 +190,6 @@ private constructor(
             this.lockboxId = inboundMailItem.lockboxId
             this.recipientName = inboundMailItem.recipientName
             this.rejectionReason = inboundMailItem.rejectionReason
-            this.returnAddress = inboundMailItem.returnAddress
             this.status = inboundMailItem.status
             this.type = inboundMailItem.type
             additionalProperties(inboundMailItem.additionalProperties)
@@ -271,16 +258,6 @@ private constructor(
             this.rejectionReason = rejectionReason
         }
 
-        /** The return address as written on the mail item. */
-        fun returnAddress(returnAddress: ReturnAddress) = returnAddress(JsonField.of(returnAddress))
-
-        /** The return address as written on the mail item. */
-        @JsonProperty("return_address")
-        @ExcludeMissing
-        fun returnAddress(returnAddress: JsonField<ReturnAddress>) = apply {
-            this.returnAddress = returnAddress
-        }
-
         /** If the mail item has been processed. */
         fun status(status: Status) = status(JsonField.of(status))
 
@@ -325,7 +302,6 @@ private constructor(
                 lockboxId,
                 recipientName,
                 rejectionReason,
-                returnAddress,
                 status,
                 type,
                 additionalProperties.toUnmodifiable(),
@@ -393,214 +369,6 @@ private constructor(
             }
 
         fun asString(): String = _value().asStringOrThrow()
-    }
-
-    /** The return address as written on the mail item. */
-    @JsonDeserialize(builder = ReturnAddress.Builder::class)
-    @NoAutoDetect
-    class ReturnAddress
-    private constructor(
-        private val city: JsonField<String>,
-        private val line1: JsonField<String>,
-        private val line2: JsonField<String>,
-        private val name: JsonField<String>,
-        private val postalCode: JsonField<String>,
-        private val state: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
-
-        private var validated: Boolean = false
-
-        private var hashCode: Int = 0
-
-        /** The return address city. */
-        fun city(): Optional<String> = Optional.ofNullable(city.getNullable("city"))
-
-        /** The return address line1. */
-        fun line1(): Optional<String> = Optional.ofNullable(line1.getNullable("line1"))
-
-        /** The return address line2. */
-        fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
-
-        /** The return address name. */
-        fun name(): Optional<String> = Optional.ofNullable(name.getNullable("name"))
-
-        /** The return address postal code. */
-        fun postalCode(): Optional<String> =
-            Optional.ofNullable(postalCode.getNullable("postal_code"))
-
-        /** The return address state. */
-        fun state(): Optional<String> = Optional.ofNullable(state.getNullable("state"))
-
-        /** The return address city. */
-        @JsonProperty("city") @ExcludeMissing fun _city() = city
-
-        /** The return address line1. */
-        @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
-
-        /** The return address line2. */
-        @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
-
-        /** The return address name. */
-        @JsonProperty("name") @ExcludeMissing fun _name() = name
-
-        /** The return address postal code. */
-        @JsonProperty("postal_code") @ExcludeMissing fun _postalCode() = postalCode
-
-        /** The return address state. */
-        @JsonProperty("state") @ExcludeMissing fun _state() = state
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun validate(): ReturnAddress = apply {
-            if (!validated) {
-                city()
-                line1()
-                line2()
-                name()
-                postalCode()
-                state()
-                validated = true
-            }
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is ReturnAddress &&
-                this.city == other.city &&
-                this.line1 == other.line1 &&
-                this.line2 == other.line2 &&
-                this.name == other.name &&
-                this.postalCode == other.postalCode &&
-                this.state == other.state &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        city,
-                        line1,
-                        line2,
-                        name,
-                        postalCode,
-                        state,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "ReturnAddress{city=$city, line1=$line1, line2=$line2, name=$name, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
-
-        companion object {
-
-            @JvmStatic fun builder() = Builder()
-        }
-
-        class Builder {
-
-            private var city: JsonField<String> = JsonMissing.of()
-            private var line1: JsonField<String> = JsonMissing.of()
-            private var line2: JsonField<String> = JsonMissing.of()
-            private var name: JsonField<String> = JsonMissing.of()
-            private var postalCode: JsonField<String> = JsonMissing.of()
-            private var state: JsonField<String> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(returnAddress: ReturnAddress) = apply {
-                this.city = returnAddress.city
-                this.line1 = returnAddress.line1
-                this.line2 = returnAddress.line2
-                this.name = returnAddress.name
-                this.postalCode = returnAddress.postalCode
-                this.state = returnAddress.state
-                additionalProperties(returnAddress.additionalProperties)
-            }
-
-            /** The return address city. */
-            fun city(city: String) = city(JsonField.of(city))
-
-            /** The return address city. */
-            @JsonProperty("city")
-            @ExcludeMissing
-            fun city(city: JsonField<String>) = apply { this.city = city }
-
-            /** The return address line1. */
-            fun line1(line1: String) = line1(JsonField.of(line1))
-
-            /** The return address line1. */
-            @JsonProperty("line1")
-            @ExcludeMissing
-            fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
-
-            /** The return address line2. */
-            fun line2(line2: String) = line2(JsonField.of(line2))
-
-            /** The return address line2. */
-            @JsonProperty("line2")
-            @ExcludeMissing
-            fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
-
-            /** The return address name. */
-            fun name(name: String) = name(JsonField.of(name))
-
-            /** The return address name. */
-            @JsonProperty("name")
-            @ExcludeMissing
-            fun name(name: JsonField<String>) = apply { this.name = name }
-
-            /** The return address postal code. */
-            fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
-
-            /** The return address postal code. */
-            @JsonProperty("postal_code")
-            @ExcludeMissing
-            fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
-
-            /** The return address state. */
-            fun state(state: String) = state(JsonField.of(state))
-
-            /** The return address state. */
-            @JsonProperty("state")
-            @ExcludeMissing
-            fun state(state: JsonField<String>) = apply { this.state = state }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            @JsonAnySetter
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun build(): ReturnAddress =
-                ReturnAddress(
-                    city,
-                    line1,
-                    line2,
-                    name,
-                    postalCode,
-                    state,
-                    additionalProperties.toUnmodifiable(),
-                )
-        }
     }
 
     class Status
