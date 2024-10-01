@@ -85,8 +85,8 @@ import com.increase.api.models.AccountCreateParams;
 
 AccountCreateParams params = AccountCreateParams.builder()
     .name("New Account!")
-    .programId("program_i2v2os4mwza1oetokh9i")
     .entityId("entity_n8y8tnk2p9339ti393yi")
+    .programId("program_i2v2os4mwza1oetokh9i")
     .build();
 Account account = client.accounts().create(params);
 ```
