@@ -30,6 +30,7 @@ private constructor(
     private val acceptedAt: JsonField<OffsetDateTime>,
     private val accountId: JsonField<String>,
     private val accountNumberId: JsonField<String>,
+    private val adjustments: JsonField<List<Adjustment>>,
     private val amount: JsonField<Long>,
     private val backImageFileId: JsonField<String>,
     private val bankOfFirstDepositRoutingNumber: JsonField<String>,
@@ -65,6 +66,12 @@ private constructor(
     /** The Account Number the check is being deposited against. */
     fun accountNumberId(): Optional<String> =
         Optional.ofNullable(accountNumberId.getNullable("account_number_id"))
+
+    /**
+     * If the deposit or the return was adjusted by the sending institution, this will contain
+     * details of the adjustments.
+     */
+    fun adjustments(): List<Adjustment> = adjustments.getRequired("adjustments")
 
     /**
      * The deposited amount in the minor unit of the destination account currency. For dollars, for
@@ -157,6 +164,12 @@ private constructor(
     @JsonProperty("account_number_id") @ExcludeMissing fun _accountNumberId() = accountNumberId
 
     /**
+     * If the deposit or the return was adjusted by the sending institution, this will contain
+     * details of the adjustments.
+     */
+    @JsonProperty("adjustments") @ExcludeMissing fun _adjustments() = adjustments
+
+    /**
      * The deposited amount in the minor unit of the destination account currency. For dollars, for
      * example, this is cents.
      */
@@ -236,6 +249,7 @@ private constructor(
             acceptedAt()
             accountId()
             accountNumberId()
+            adjustments().forEach { it.validate() }
             amount()
             backImageFileId()
             bankOfFirstDepositRoutingNumber()
@@ -266,6 +280,7 @@ private constructor(
             this.acceptedAt == other.acceptedAt &&
             this.accountId == other.accountId &&
             this.accountNumberId == other.accountNumberId &&
+            this.adjustments == other.adjustments &&
             this.amount == other.amount &&
             this.backImageFileId == other.backImageFileId &&
             this.bankOfFirstDepositRoutingNumber == other.bankOfFirstDepositRoutingNumber &&
@@ -291,6 +306,7 @@ private constructor(
                     acceptedAt,
                     accountId,
                     accountNumberId,
+                    adjustments,
                     amount,
                     backImageFileId,
                     bankOfFirstDepositRoutingNumber,
@@ -313,7 +329,7 @@ private constructor(
     }
 
     override fun toString() =
-        "InboundCheckDeposit{acceptedAt=$acceptedAt, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, backImageFileId=$backImageFileId, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, checkNumber=$checkNumber, checkTransferId=$checkTransferId, createdAt=$createdAt, currency=$currency, declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, depositReturn=$depositReturn, frontImageFileId=$frontImageFileId, id=$id, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+        "InboundCheckDeposit{acceptedAt=$acceptedAt, accountId=$accountId, accountNumberId=$accountNumberId, adjustments=$adjustments, amount=$amount, backImageFileId=$backImageFileId, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, checkNumber=$checkNumber, checkTransferId=$checkTransferId, createdAt=$createdAt, currency=$currency, declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, depositReturn=$depositReturn, frontImageFileId=$frontImageFileId, id=$id, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -325,6 +341,7 @@ private constructor(
         private var acceptedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var accountId: JsonField<String> = JsonMissing.of()
         private var accountNumberId: JsonField<String> = JsonMissing.of()
+        private var adjustments: JsonField<List<Adjustment>> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
         private var backImageFileId: JsonField<String> = JsonMissing.of()
         private var bankOfFirstDepositRoutingNumber: JsonField<String> = JsonMissing.of()
@@ -347,6 +364,7 @@ private constructor(
             this.acceptedAt = inboundCheckDeposit.acceptedAt
             this.accountId = inboundCheckDeposit.accountId
             this.accountNumberId = inboundCheckDeposit.accountNumberId
+            this.adjustments = inboundCheckDeposit.adjustments
             this.amount = inboundCheckDeposit.amount
             this.backImageFileId = inboundCheckDeposit.backImageFileId
             this.bankOfFirstDepositRoutingNumber =
@@ -401,6 +419,22 @@ private constructor(
         @ExcludeMissing
         fun accountNumberId(accountNumberId: JsonField<String>) = apply {
             this.accountNumberId = accountNumberId
+        }
+
+        /**
+         * If the deposit or the return was adjusted by the sending institution, this will contain
+         * details of the adjustments.
+         */
+        fun adjustments(adjustments: List<Adjustment>) = adjustments(JsonField.of(adjustments))
+
+        /**
+         * If the deposit or the return was adjusted by the sending institution, this will contain
+         * details of the adjustments.
+         */
+        @JsonProperty("adjustments")
+        @ExcludeMissing
+        fun adjustments(adjustments: JsonField<List<Adjustment>>) = apply {
+            this.adjustments = adjustments
         }
 
         /**
@@ -612,6 +646,7 @@ private constructor(
                 acceptedAt,
                 accountId,
                 accountNumberId,
+                adjustments.map { it.toUnmodifiable() },
                 amount,
                 backImageFileId,
                 bankOfFirstDepositRoutingNumber,
@@ -629,6 +664,225 @@ private constructor(
                 type,
                 additionalProperties.toUnmodifiable(),
             )
+    }
+
+    @JsonDeserialize(builder = Adjustment.Builder::class)
+    @NoAutoDetect
+    class Adjustment
+    private constructor(
+        private val adjustedAt: JsonField<OffsetDateTime>,
+        private val amount: JsonField<Long>,
+        private val reason: JsonField<Reason>,
+        private val transactionId: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        /** The time at which the return adjustment was received. */
+        fun adjustedAt(): OffsetDateTime = adjustedAt.getRequired("adjusted_at")
+
+        /** The amount of the adjustment. */
+        fun amount(): Long = amount.getRequired("amount")
+
+        /** The reason for the adjustment. */
+        fun reason(): Reason = reason.getRequired("reason")
+
+        /** The id of the transaction for the adjustment. */
+        fun transactionId(): String = transactionId.getRequired("transaction_id")
+
+        /** The time at which the return adjustment was received. */
+        @JsonProperty("adjusted_at") @ExcludeMissing fun _adjustedAt() = adjustedAt
+
+        /** The amount of the adjustment. */
+        @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+        /** The reason for the adjustment. */
+        @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
+
+        /** The id of the transaction for the adjustment. */
+        @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): Adjustment = apply {
+            if (!validated) {
+                adjustedAt()
+                amount()
+                reason()
+                transactionId()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Adjustment &&
+                this.adjustedAt == other.adjustedAt &&
+                this.amount == other.amount &&
+                this.reason == other.reason &&
+                this.transactionId == other.transactionId &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        adjustedAt,
+                        amount,
+                        reason,
+                        transactionId,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Adjustment{adjustedAt=$adjustedAt, amount=$amount, reason=$reason, transactionId=$transactionId, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var adjustedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var amount: JsonField<Long> = JsonMissing.of()
+            private var reason: JsonField<Reason> = JsonMissing.of()
+            private var transactionId: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(adjustment: Adjustment) = apply {
+                this.adjustedAt = adjustment.adjustedAt
+                this.amount = adjustment.amount
+                this.reason = adjustment.reason
+                this.transactionId = adjustment.transactionId
+                additionalProperties(adjustment.additionalProperties)
+            }
+
+            /** The time at which the return adjustment was received. */
+            fun adjustedAt(adjustedAt: OffsetDateTime) = adjustedAt(JsonField.of(adjustedAt))
+
+            /** The time at which the return adjustment was received. */
+            @JsonProperty("adjusted_at")
+            @ExcludeMissing
+            fun adjustedAt(adjustedAt: JsonField<OffsetDateTime>) = apply {
+                this.adjustedAt = adjustedAt
+            }
+
+            /** The amount of the adjustment. */
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /** The amount of the adjustment. */
+            @JsonProperty("amount")
+            @ExcludeMissing
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+            /** The reason for the adjustment. */
+            fun reason(reason: Reason) = reason(JsonField.of(reason))
+
+            /** The reason for the adjustment. */
+            @JsonProperty("reason")
+            @ExcludeMissing
+            fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
+
+            /** The id of the transaction for the adjustment. */
+            fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
+
+            /** The id of the transaction for the adjustment. */
+            @JsonProperty("transaction_id")
+            @ExcludeMissing
+            fun transactionId(transactionId: JsonField<String>) = apply {
+                this.transactionId = transactionId
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): Adjustment =
+                Adjustment(
+                    adjustedAt,
+                    amount,
+                    reason,
+                    transactionId,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
+
+        class Reason
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Reason && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                @JvmField val LATE_RETURN = Reason(JsonField.of("late_return"))
+
+                @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
+            }
+
+            enum class Known {
+                LATE_RETURN,
+            }
+
+            enum class Value {
+                LATE_RETURN,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    LATE_RETURN -> Value.LATE_RETURN
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    LATE_RETURN -> Known.LATE_RETURN
+                    else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
     }
 
     class Currency
