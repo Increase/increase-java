@@ -48,8 +48,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** The bank the Account is with. */
     fun bank(): Bank = bank.getRequired("bank")
 
@@ -220,58 +218,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is Account &&
-            this.bank == other.bank &&
-            this.closedAt == other.closedAt &&
-            this.createdAt == other.createdAt &&
-            this.currency == other.currency &&
-            this.entityId == other.entityId &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.informationalEntityId == other.informationalEntityId &&
-            this.interestAccrued == other.interestAccrued &&
-            this.interestAccruedAt == other.interestAccruedAt &&
-            this.interestRate == other.interestRate &&
-            this.name == other.name &&
-            this.programId == other.programId &&
-            this.status == other.status &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    bank,
-                    closedAt,
-                    createdAt,
-                    currency,
-                    entityId,
-                    id,
-                    idempotencyKey,
-                    informationalEntityId,
-                    interestAccrued,
-                    interestAccruedAt,
-                    interestRate,
-                    name,
-                    programId,
-                    status,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "Account{bank=$bank, closedAt=$closedAt, createdAt=$createdAt, currency=$currency, entityId=$entityId, id=$id, idempotencyKey=$idempotencyKey, informationalEntityId=$informationalEntityId, interestAccrued=$interestAccrued, interestAccruedAt=$interestAccruedAt, interestRate=$interestRate, name=$name, programId=$programId, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -788,4 +734,58 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is Account &&
+            this.bank == other.bank &&
+            this.closedAt == other.closedAt &&
+            this.createdAt == other.createdAt &&
+            this.currency == other.currency &&
+            this.entityId == other.entityId &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.informationalEntityId == other.informationalEntityId &&
+            this.interestAccrued == other.interestAccrued &&
+            this.interestAccruedAt == other.interestAccruedAt &&
+            this.interestRate == other.interestRate &&
+            this.name == other.name &&
+            this.programId == other.programId &&
+            this.status == other.status &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    bank,
+                    closedAt,
+                    createdAt,
+                    currency,
+                    entityId,
+                    id,
+                    idempotencyKey,
+                    informationalEntityId,
+                    interestAccrued,
+                    interestAccruedAt,
+                    interestRate,
+                    name,
+                    programId,
+                    status,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "Account{bank=$bank, closedAt=$closedAt, createdAt=$createdAt, currency=$currency, entityId=$entityId, id=$id, idempotencyKey=$idempotencyKey, informationalEntityId=$informationalEntityId, interestAccrued=$interestAccrued, interestAccruedAt=$interestAccruedAt, interestRate=$interestRate, name=$name, programId=$programId, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

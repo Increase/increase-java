@@ -38,8 +38,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** The ID of the Card Payment this transaction belongs to. */
     fun cardPaymentId(): Optional<String> =
         Optional.ofNullable(cardPaymentId.getNullable("card_payment_id"))
@@ -101,40 +99,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is CardPurchaseSupplement &&
-            this.cardPaymentId == other.cardPaymentId &&
-            this.id == other.id &&
-            this.invoice == other.invoice &&
-            this.lineItems == other.lineItems &&
-            this.transactionId == other.transactionId &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    cardPaymentId,
-                    id,
-                    invoice,
-                    lineItems,
-                    transactionId,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "CardPurchaseSupplement{cardPaymentId=$cardPaymentId, id=$id, invoice=$invoice, lineItems=$lineItems, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -269,8 +233,6 @@ private constructor(
     ) {
 
         private var validated: Boolean = false
-
-        private var hashCode: Int = 0
 
         /** Discount given to cardholder. */
         fun discountAmount(): Optional<Long> =
@@ -437,61 +399,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Invoice &&
-                this.discountAmount == other.discountAmount &&
-                this.discountCurrency == other.discountCurrency &&
-                this.discountTreatmentCode == other.discountTreatmentCode &&
-                this.dutyTaxAmount == other.dutyTaxAmount &&
-                this.dutyTaxCurrency == other.dutyTaxCurrency &&
-                this.orderDate == other.orderDate &&
-                this.shippingAmount == other.shippingAmount &&
-                this.shippingCurrency == other.shippingCurrency &&
-                this.shippingDestinationCountryCode == other.shippingDestinationCountryCode &&
-                this.shippingDestinationPostalCode == other.shippingDestinationPostalCode &&
-                this.shippingSourcePostalCode == other.shippingSourcePostalCode &&
-                this.shippingTaxAmount == other.shippingTaxAmount &&
-                this.shippingTaxCurrency == other.shippingTaxCurrency &&
-                this.shippingTaxRate == other.shippingTaxRate &&
-                this.taxTreatments == other.taxTreatments &&
-                this.uniqueValueAddedTaxInvoiceReference ==
-                    other.uniqueValueAddedTaxInvoiceReference &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        discountAmount,
-                        discountCurrency,
-                        discountTreatmentCode,
-                        dutyTaxAmount,
-                        dutyTaxCurrency,
-                        orderDate,
-                        shippingAmount,
-                        shippingCurrency,
-                        shippingDestinationCountryCode,
-                        shippingDestinationPostalCode,
-                        shippingSourcePostalCode,
-                        shippingTaxAmount,
-                        shippingTaxCurrency,
-                        shippingTaxRate,
-                        taxTreatments,
-                        uniqueValueAddedTaxInvoiceReference,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Invoice{discountAmount=$discountAmount, discountCurrency=$discountCurrency, discountTreatmentCode=$discountTreatmentCode, dutyTaxAmount=$dutyTaxAmount, dutyTaxCurrency=$dutyTaxCurrency, orderDate=$orderDate, shippingAmount=$shippingAmount, shippingCurrency=$shippingCurrency, shippingDestinationCountryCode=$shippingDestinationCountryCode, shippingDestinationPostalCode=$shippingDestinationPostalCode, shippingSourcePostalCode=$shippingSourcePostalCode, shippingTaxAmount=$shippingTaxAmount, shippingTaxCurrency=$shippingTaxCurrency, shippingTaxRate=$shippingTaxRate, taxTreatments=$taxTreatments, uniqueValueAddedTaxInvoiceReference=$uniqueValueAddedTaxInvoiceReference, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -916,6 +823,63 @@ private constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Invoice &&
+                this.discountAmount == other.discountAmount &&
+                this.discountCurrency == other.discountCurrency &&
+                this.discountTreatmentCode == other.discountTreatmentCode &&
+                this.dutyTaxAmount == other.dutyTaxAmount &&
+                this.dutyTaxCurrency == other.dutyTaxCurrency &&
+                this.orderDate == other.orderDate &&
+                this.shippingAmount == other.shippingAmount &&
+                this.shippingCurrency == other.shippingCurrency &&
+                this.shippingDestinationCountryCode == other.shippingDestinationCountryCode &&
+                this.shippingDestinationPostalCode == other.shippingDestinationPostalCode &&
+                this.shippingSourcePostalCode == other.shippingSourcePostalCode &&
+                this.shippingTaxAmount == other.shippingTaxAmount &&
+                this.shippingTaxCurrency == other.shippingTaxCurrency &&
+                this.shippingTaxRate == other.shippingTaxRate &&
+                this.taxTreatments == other.taxTreatments &&
+                this.uniqueValueAddedTaxInvoiceReference ==
+                    other.uniqueValueAddedTaxInvoiceReference &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        discountAmount,
+                        discountCurrency,
+                        discountTreatmentCode,
+                        dutyTaxAmount,
+                        dutyTaxCurrency,
+                        orderDate,
+                        shippingAmount,
+                        shippingCurrency,
+                        shippingDestinationCountryCode,
+                        shippingDestinationPostalCode,
+                        shippingSourcePostalCode,
+                        shippingTaxAmount,
+                        shippingTaxCurrency,
+                        shippingTaxRate,
+                        taxTreatments,
+                        uniqueValueAddedTaxInvoiceReference,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Invoice{discountAmount=$discountAmount, discountCurrency=$discountCurrency, discountTreatmentCode=$discountTreatmentCode, dutyTaxAmount=$dutyTaxAmount, dutyTaxCurrency=$dutyTaxCurrency, orderDate=$orderDate, shippingAmount=$shippingAmount, shippingCurrency=$shippingCurrency, shippingDestinationCountryCode=$shippingDestinationCountryCode, shippingDestinationPostalCode=$shippingDestinationPostalCode, shippingSourcePostalCode=$shippingSourcePostalCode, shippingTaxAmount=$shippingTaxAmount, shippingTaxCurrency=$shippingTaxCurrency, shippingTaxRate=$shippingTaxRate, taxTreatments=$taxTreatments, uniqueValueAddedTaxInvoiceReference=$uniqueValueAddedTaxInvoiceReference, additionalProperties=$additionalProperties}"
     }
 
     @JsonDeserialize(builder = LineItem.Builder::class)
@@ -943,8 +907,6 @@ private constructor(
     ) {
 
         private var validated: Boolean = false
-
-        private var hashCode: Int = 0
 
         /** Indicates the type of line item. */
         fun detailIndicator(): Optional<DetailIndicator> =
@@ -1109,62 +1071,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is LineItem &&
-                this.detailIndicator == other.detailIndicator &&
-                this.discountAmount == other.discountAmount &&
-                this.discountCurrency == other.discountCurrency &&
-                this.discountTreatmentCode == other.discountTreatmentCode &&
-                this.id == other.id &&
-                this.itemCommodityCode == other.itemCommodityCode &&
-                this.itemDescriptor == other.itemDescriptor &&
-                this.itemQuantity == other.itemQuantity &&
-                this.productCode == other.productCode &&
-                this.salesTaxAmount == other.salesTaxAmount &&
-                this.salesTaxCurrency == other.salesTaxCurrency &&
-                this.salesTaxRate == other.salesTaxRate &&
-                this.totalAmount == other.totalAmount &&
-                this.totalAmountCurrency == other.totalAmountCurrency &&
-                this.unitCost == other.unitCost &&
-                this.unitCostCurrency == other.unitCostCurrency &&
-                this.unitOfMeasureCode == other.unitOfMeasureCode &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        detailIndicator,
-                        discountAmount,
-                        discountCurrency,
-                        discountTreatmentCode,
-                        id,
-                        itemCommodityCode,
-                        itemDescriptor,
-                        itemQuantity,
-                        productCode,
-                        salesTaxAmount,
-                        salesTaxCurrency,
-                        salesTaxRate,
-                        totalAmount,
-                        totalAmountCurrency,
-                        unitCost,
-                        unitCostCurrency,
-                        unitOfMeasureCode,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "LineItem{detailIndicator=$detailIndicator, discountAmount=$discountAmount, discountCurrency=$discountCurrency, discountTreatmentCode=$discountTreatmentCode, id=$id, itemCommodityCode=$itemCommodityCode, itemDescriptor=$itemDescriptor, itemQuantity=$itemQuantity, productCode=$productCode, salesTaxAmount=$salesTaxAmount, salesTaxCurrency=$salesTaxCurrency, salesTaxRate=$salesTaxRate, totalAmount=$totalAmount, totalAmountCurrency=$totalAmountCurrency, unitCost=$unitCost, unitCostCurrency=$unitCostCurrency, unitOfMeasureCode=$unitOfMeasureCode, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1573,6 +1479,64 @@ private constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is LineItem &&
+                this.detailIndicator == other.detailIndicator &&
+                this.discountAmount == other.discountAmount &&
+                this.discountCurrency == other.discountCurrency &&
+                this.discountTreatmentCode == other.discountTreatmentCode &&
+                this.id == other.id &&
+                this.itemCommodityCode == other.itemCommodityCode &&
+                this.itemDescriptor == other.itemDescriptor &&
+                this.itemQuantity == other.itemQuantity &&
+                this.productCode == other.productCode &&
+                this.salesTaxAmount == other.salesTaxAmount &&
+                this.salesTaxCurrency == other.salesTaxCurrency &&
+                this.salesTaxRate == other.salesTaxRate &&
+                this.totalAmount == other.totalAmount &&
+                this.totalAmountCurrency == other.totalAmountCurrency &&
+                this.unitCost == other.unitCost &&
+                this.unitCostCurrency == other.unitCostCurrency &&
+                this.unitOfMeasureCode == other.unitOfMeasureCode &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        detailIndicator,
+                        discountAmount,
+                        discountCurrency,
+                        discountTreatmentCode,
+                        id,
+                        itemCommodityCode,
+                        itemDescriptor,
+                        itemQuantity,
+                        productCode,
+                        salesTaxAmount,
+                        salesTaxCurrency,
+                        salesTaxRate,
+                        totalAmount,
+                        totalAmountCurrency,
+                        unitCost,
+                        unitCostCurrency,
+                        unitOfMeasureCode,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "LineItem{detailIndicator=$detailIndicator, discountAmount=$discountAmount, discountCurrency=$discountCurrency, discountTreatmentCode=$discountTreatmentCode, id=$id, itemCommodityCode=$itemCommodityCode, itemDescriptor=$itemDescriptor, itemQuantity=$itemQuantity, productCode=$productCode, salesTaxAmount=$salesTaxAmount, salesTaxCurrency=$salesTaxCurrency, salesTaxRate=$salesTaxRate, totalAmount=$totalAmount, totalAmountCurrency=$totalAmountCurrency, unitCost=$unitCost, unitCostCurrency=$unitCostCurrency, unitOfMeasureCode=$unitOfMeasureCode, additionalProperties=$additionalProperties}"
     }
 
     class Type
@@ -1625,4 +1589,40 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is CardPurchaseSupplement &&
+            this.cardPaymentId == other.cardPaymentId &&
+            this.id == other.id &&
+            this.invoice == other.invoice &&
+            this.lineItems == other.lineItems &&
+            this.transactionId == other.transactionId &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    cardPaymentId,
+                    id,
+                    invoice,
+                    lineItems,
+                    transactionId,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "CardPurchaseSupplement{cardPaymentId=$cardPaymentId, id=$id, invoice=$invoice, lineItems=$lineItems, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 }

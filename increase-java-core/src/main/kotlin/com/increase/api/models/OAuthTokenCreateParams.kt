@@ -68,8 +68,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /**
          * The credential you request in exchange for the code. In Production, this is always
          * `authorization_code`. In Sandbox, you can pass either enum value.
@@ -99,38 +97,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is OAuthTokenCreateBody &&
-                this.grantType == other.grantType &&
-                this.clientId == other.clientId &&
-                this.clientSecret == other.clientSecret &&
-                this.code == other.code &&
-                this.productionToken == other.productionToken &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        grantType,
-                        clientId,
-                        clientSecret,
-                        code,
-                        productionToken,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "OAuthTokenCreateBody{grantType=$grantType, clientId=$clientId, clientSecret=$clientSecret, code=$code, productionToken=$productionToken, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -212,6 +178,40 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is OAuthTokenCreateBody &&
+                this.grantType == other.grantType &&
+                this.clientId == other.clientId &&
+                this.clientSecret == other.clientSecret &&
+                this.code == other.code &&
+                this.productionToken == other.productionToken &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        grantType,
+                        clientId,
+                        clientSecret,
+                        code,
+                        productionToken,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "OAuthTokenCreateBody{grantType=$grantType, clientId=$clientId, clientSecret=$clientSecret, code=$code, productionToken=$productionToken, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams

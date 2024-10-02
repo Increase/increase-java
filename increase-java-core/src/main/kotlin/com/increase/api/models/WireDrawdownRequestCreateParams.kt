@@ -104,8 +104,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /** The Account Number to which the recipient should send funds. */
         @JsonProperty("account_number_id") fun accountNumberId(): String? = accountNumberId
 
@@ -173,54 +171,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is WireDrawdownRequestCreateBody &&
-                this.accountNumberId == other.accountNumberId &&
-                this.amount == other.amount &&
-                this.messageToRecipient == other.messageToRecipient &&
-                this.recipientAccountNumber == other.recipientAccountNumber &&
-                this.recipientName == other.recipientName &&
-                this.recipientRoutingNumber == other.recipientRoutingNumber &&
-                this.originatorAddressLine1 == other.originatorAddressLine1 &&
-                this.originatorAddressLine2 == other.originatorAddressLine2 &&
-                this.originatorAddressLine3 == other.originatorAddressLine3 &&
-                this.originatorName == other.originatorName &&
-                this.recipientAddressLine1 == other.recipientAddressLine1 &&
-                this.recipientAddressLine2 == other.recipientAddressLine2 &&
-                this.recipientAddressLine3 == other.recipientAddressLine3 &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountNumberId,
-                        amount,
-                        messageToRecipient,
-                        recipientAccountNumber,
-                        recipientName,
-                        recipientRoutingNumber,
-                        originatorAddressLine1,
-                        originatorAddressLine2,
-                        originatorAddressLine3,
-                        originatorName,
-                        recipientAddressLine1,
-                        recipientAddressLine2,
-                        recipientAddressLine3,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "WireDrawdownRequestCreateBody{accountNumberId=$accountNumberId, amount=$amount, messageToRecipient=$messageToRecipient, recipientAccountNumber=$recipientAccountNumber, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -397,6 +347,56 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is WireDrawdownRequestCreateBody &&
+                this.accountNumberId == other.accountNumberId &&
+                this.amount == other.amount &&
+                this.messageToRecipient == other.messageToRecipient &&
+                this.recipientAccountNumber == other.recipientAccountNumber &&
+                this.recipientName == other.recipientName &&
+                this.recipientRoutingNumber == other.recipientRoutingNumber &&
+                this.originatorAddressLine1 == other.originatorAddressLine1 &&
+                this.originatorAddressLine2 == other.originatorAddressLine2 &&
+                this.originatorAddressLine3 == other.originatorAddressLine3 &&
+                this.originatorName == other.originatorName &&
+                this.recipientAddressLine1 == other.recipientAddressLine1 &&
+                this.recipientAddressLine2 == other.recipientAddressLine2 &&
+                this.recipientAddressLine3 == other.recipientAddressLine3 &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        accountNumberId,
+                        amount,
+                        messageToRecipient,
+                        recipientAccountNumber,
+                        recipientName,
+                        recipientRoutingNumber,
+                        originatorAddressLine1,
+                        originatorAddressLine2,
+                        originatorAddressLine3,
+                        originatorName,
+                        recipientAddressLine1,
+                        recipientAddressLine2,
+                        recipientAddressLine3,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "WireDrawdownRequestCreateBody{accountNumberId=$accountNumberId, amount=$amount, messageToRecipient=$messageToRecipient, recipientAccountNumber=$recipientAccountNumber, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams

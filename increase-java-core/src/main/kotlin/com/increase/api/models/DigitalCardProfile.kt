@@ -47,8 +47,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** The identifier of the File containing the card's icon image. */
     fun appIconFileId(): String = appIconFileId.getRequired("app_icon_file_id")
 
@@ -185,56 +183,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is DigitalCardProfile &&
-            this.appIconFileId == other.appIconFileId &&
-            this.backgroundImageFileId == other.backgroundImageFileId &&
-            this.cardDescription == other.cardDescription &&
-            this.contactEmail == other.contactEmail &&
-            this.contactPhone == other.contactPhone &&
-            this.contactWebsite == other.contactWebsite &&
-            this.createdAt == other.createdAt &&
-            this.description == other.description &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.issuerName == other.issuerName &&
-            this.status == other.status &&
-            this.textColor == other.textColor &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    appIconFileId,
-                    backgroundImageFileId,
-                    cardDescription,
-                    contactEmail,
-                    contactPhone,
-                    contactWebsite,
-                    createdAt,
-                    description,
-                    id,
-                    idempotencyKey,
-                    issuerName,
-                    status,
-                    textColor,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "DigitalCardProfile{appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, contactEmail=$contactEmail, contactPhone=$contactPhone, contactWebsite=$contactWebsite, createdAt=$createdAt, description=$description, id=$id, idempotencyKey=$idempotencyKey, issuerName=$issuerName, status=$status, textColor=$textColor, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -540,8 +488,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         /** The value of the blue channel in the RGB color. */
         fun blue(): Long = blue.getRequired("blue")
 
@@ -574,34 +520,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is TextColor &&
-                this.blue == other.blue &&
-                this.green == other.green &&
-                this.red == other.red &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        blue,
-                        green,
-                        red,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "TextColor{blue=$blue, green=$green, red=$red, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -669,6 +587,36 @@ private constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is TextColor &&
+                this.blue == other.blue &&
+                this.green == other.green &&
+                this.red == other.red &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        blue,
+                        green,
+                        red,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "TextColor{blue=$blue, green=$green, red=$red, additionalProperties=$additionalProperties}"
     }
 
     class Type
@@ -721,4 +669,56 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is DigitalCardProfile &&
+            this.appIconFileId == other.appIconFileId &&
+            this.backgroundImageFileId == other.backgroundImageFileId &&
+            this.cardDescription == other.cardDescription &&
+            this.contactEmail == other.contactEmail &&
+            this.contactPhone == other.contactPhone &&
+            this.contactWebsite == other.contactWebsite &&
+            this.createdAt == other.createdAt &&
+            this.description == other.description &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.issuerName == other.issuerName &&
+            this.status == other.status &&
+            this.textColor == other.textColor &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    appIconFileId,
+                    backgroundImageFileId,
+                    cardDescription,
+                    contactEmail,
+                    contactPhone,
+                    contactWebsite,
+                    createdAt,
+                    description,
+                    id,
+                    idempotencyKey,
+                    issuerName,
+                    status,
+                    textColor,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "DigitalCardProfile{appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, contactEmail=$contactEmail, contactPhone=$contactPhone, contactWebsite=$contactWebsite, createdAt=$createdAt, description=$description, id=$id, idempotencyKey=$idempotencyKey, issuerName=$issuerName, status=$status, textColor=$textColor, type=$type, additionalProperties=$additionalProperties}"
 }

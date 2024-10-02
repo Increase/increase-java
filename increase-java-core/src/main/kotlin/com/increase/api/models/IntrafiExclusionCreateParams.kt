@@ -48,8 +48,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /** The name of the financial institution to be excluded. */
         @JsonProperty("bank_name") fun bankName(): String? = bankName
 
@@ -61,32 +59,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is IntrafiExclusionCreateBody &&
-                this.bankName == other.bankName &&
-                this.entityId == other.entityId &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        bankName,
-                        entityId,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "IntrafiExclusionCreateBody{bankName=$bankName, entityId=$entityId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -135,6 +107,34 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is IntrafiExclusionCreateBody &&
+                this.bankName == other.bankName &&
+                this.entityId == other.entityId &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        bankName,
+                        entityId,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "IntrafiExclusionCreateBody{bankName=$bankName, entityId=$entityId, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams

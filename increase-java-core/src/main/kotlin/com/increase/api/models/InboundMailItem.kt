@@ -37,8 +37,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Inbound Mail Item
      * was created.
@@ -126,44 +124,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is InboundMailItem &&
-            this.createdAt == other.createdAt &&
-            this.fileId == other.fileId &&
-            this.id == other.id &&
-            this.lockboxId == other.lockboxId &&
-            this.recipientName == other.recipientName &&
-            this.rejectionReason == other.rejectionReason &&
-            this.status == other.status &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    createdAt,
-                    fileId,
-                    id,
-                    lockboxId,
-                    recipientName,
-                    rejectionReason,
-                    status,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "InboundMailItem{createdAt=$createdAt, fileId=$fileId, id=$id, lockboxId=$lockboxId, recipientName=$recipientName, rejectionReason=$rejectionReason, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -484,4 +444,44 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is InboundMailItem &&
+            this.createdAt == other.createdAt &&
+            this.fileId == other.fileId &&
+            this.id == other.id &&
+            this.lockboxId == other.lockboxId &&
+            this.recipientName == other.recipientName &&
+            this.rejectionReason == other.rejectionReason &&
+            this.status == other.status &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    createdAt,
+                    fileId,
+                    id,
+                    lockboxId,
+                    recipientName,
+                    rejectionReason,
+                    status,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "InboundMailItem{createdAt=$createdAt, fileId=$fileId, id=$id, lockboxId=$lockboxId, recipientName=$recipientName, rejectionReason=$rejectionReason, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

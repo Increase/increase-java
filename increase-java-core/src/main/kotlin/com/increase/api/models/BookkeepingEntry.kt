@@ -38,8 +38,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** The identifier for the Account the Entry belongs to. */
     fun accountId(): String = accountId.getRequired("account_id")
 
@@ -103,40 +101,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is BookkeepingEntry &&
-            this.accountId == other.accountId &&
-            this.amount == other.amount &&
-            this.createdAt == other.createdAt &&
-            this.entrySetId == other.entrySetId &&
-            this.id == other.id &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    accountId,
-                    amount,
-                    createdAt,
-                    entrySetId,
-                    id,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "BookkeepingEntry{accountId=$accountId, amount=$amount, createdAt=$createdAt, entrySetId=$entrySetId, id=$id, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -298,4 +262,40 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is BookkeepingEntry &&
+            this.accountId == other.accountId &&
+            this.amount == other.amount &&
+            this.createdAt == other.createdAt &&
+            this.entrySetId == other.entrySetId &&
+            this.id == other.id &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    accountId,
+                    amount,
+                    createdAt,
+                    entrySetId,
+                    id,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "BookkeepingEntry{accountId=$accountId, amount=$amount, createdAt=$createdAt, entrySetId=$entrySetId, id=$id, type=$type, additionalProperties=$additionalProperties}"
 }

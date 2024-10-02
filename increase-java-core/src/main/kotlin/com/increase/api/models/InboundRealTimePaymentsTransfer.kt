@@ -48,8 +48,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** The Account to which the transfer was sent. */
     fun accountId(): String = accountId.getRequired("account_id")
 
@@ -202,60 +200,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is InboundRealTimePaymentsTransfer &&
-            this.accountId == other.accountId &&
-            this.accountNumberId == other.accountNumberId &&
-            this.amount == other.amount &&
-            this.confirmation == other.confirmation &&
-            this.createdAt == other.createdAt &&
-            this.creditorName == other.creditorName &&
-            this.currency == other.currency &&
-            this.debtorAccountNumber == other.debtorAccountNumber &&
-            this.debtorName == other.debtorName &&
-            this.debtorRoutingNumber == other.debtorRoutingNumber &&
-            this.decline == other.decline &&
-            this.id == other.id &&
-            this.remittanceInformation == other.remittanceInformation &&
-            this.status == other.status &&
-            this.transactionIdentification == other.transactionIdentification &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    accountId,
-                    accountNumberId,
-                    amount,
-                    confirmation,
-                    createdAt,
-                    creditorName,
-                    currency,
-                    debtorAccountNumber,
-                    debtorName,
-                    debtorRoutingNumber,
-                    decline,
-                    id,
-                    remittanceInformation,
-                    status,
-                    transactionIdentification,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "InboundRealTimePaymentsTransfer{accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, confirmation=$confirmation, createdAt=$createdAt, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, decline=$decline, id=$id, remittanceInformation=$remittanceInformation, status=$status, transactionIdentification=$transactionIdentification, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -516,8 +460,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         /** The time at which the transfer was confirmed. */
         fun confirmedAt(): OffsetDateTime = confirmedAt.getRequired("confirmed_at")
 
@@ -543,32 +485,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Confirmation &&
-                this.confirmedAt == other.confirmedAt &&
-                this.transactionId == other.transactionId &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        confirmedAt,
-                        transactionId,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Confirmation{confirmedAt=$confirmedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -629,6 +545,34 @@ private constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Confirmation &&
+                this.confirmedAt == other.confirmedAt &&
+                this.transactionId == other.transactionId &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        confirmedAt,
+                        transactionId,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Confirmation{confirmedAt=$confirmedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
     }
 
     class Currency
@@ -725,8 +669,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         /** The time at which the transfer was declined. */
         fun declinedAt(): OffsetDateTime = declinedAt.getRequired("declined_at")
 
@@ -762,34 +704,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Decline &&
-                this.declinedAt == other.declinedAt &&
-                this.declinedTransactionId == other.declinedTransactionId &&
-                this.reason == other.reason &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        declinedAt,
-                        declinedTransactionId,
-                        reason,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Decline{declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, reason=$reason, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -947,6 +861,36 @@ private constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Decline &&
+                this.declinedAt == other.declinedAt &&
+                this.declinedTransactionId == other.declinedTransactionId &&
+                this.reason == other.reason &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        declinedAt,
+                        declinedTransactionId,
+                        reason,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Decline{declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, reason=$reason, additionalProperties=$additionalProperties}"
     }
 
     class Status
@@ -1070,4 +1014,60 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is InboundRealTimePaymentsTransfer &&
+            this.accountId == other.accountId &&
+            this.accountNumberId == other.accountNumberId &&
+            this.amount == other.amount &&
+            this.confirmation == other.confirmation &&
+            this.createdAt == other.createdAt &&
+            this.creditorName == other.creditorName &&
+            this.currency == other.currency &&
+            this.debtorAccountNumber == other.debtorAccountNumber &&
+            this.debtorName == other.debtorName &&
+            this.debtorRoutingNumber == other.debtorRoutingNumber &&
+            this.decline == other.decline &&
+            this.id == other.id &&
+            this.remittanceInformation == other.remittanceInformation &&
+            this.status == other.status &&
+            this.transactionIdentification == other.transactionIdentification &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    accountId,
+                    accountNumberId,
+                    amount,
+                    confirmation,
+                    createdAt,
+                    creditorName,
+                    currency,
+                    debtorAccountNumber,
+                    debtorName,
+                    debtorRoutingNumber,
+                    decline,
+                    id,
+                    remittanceInformation,
+                    status,
+                    transactionIdentification,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "InboundRealTimePaymentsTransfer{accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, confirmation=$confirmation, createdAt=$createdAt, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, decline=$decline, id=$id, remittanceInformation=$remittanceInformation, status=$status, transactionIdentification=$transactionIdentification, type=$type, additionalProperties=$additionalProperties}"
 }

@@ -48,8 +48,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /** The identifier of the Entity to associate with the supplemental document. */
         @JsonProperty("entity_id") fun entityId(): String? = entityId
 
@@ -61,32 +59,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is SupplementalDocumentCreateBody &&
-                this.entityId == other.entityId &&
-                this.fileId == other.fileId &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        entityId,
-                        fileId,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "SupplementalDocumentCreateBody{entityId=$entityId, fileId=$fileId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -135,6 +107,34 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is SupplementalDocumentCreateBody &&
+                this.entityId == other.entityId &&
+                this.fileId == other.fileId &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        entityId,
+                        fileId,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "SupplementalDocumentCreateBody{entityId=$entityId, fileId=$fileId, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams

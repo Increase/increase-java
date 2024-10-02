@@ -50,8 +50,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /**
          * The North American Industry Classification System (NAICS) code for the corporation's
          * primary line of business. This is a number, like `5132` for `Software Publishers`. A full
@@ -65,26 +63,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is EntityUpdateIndustryCodeBody &&
-                this.industryCode == other.industryCode &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(industryCode, additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "EntityUpdateIndustryCodeBody{industryCode=$industryCode, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -131,6 +109,28 @@ constructor(
                     additionalProperties.toUnmodifiable()
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is EntityUpdateIndustryCodeBody &&
+                this.industryCode == other.industryCode &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(industryCode, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "EntityUpdateIndustryCodeBody{industryCode=$industryCode, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
