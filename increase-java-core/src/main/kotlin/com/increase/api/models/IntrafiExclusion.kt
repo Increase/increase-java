@@ -42,8 +42,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** The name of the excluded institution. */
     fun bankName(): String = bankName.getRequired("bank_name")
 
@@ -138,46 +136,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is IntrafiExclusion &&
-            this.bankName == other.bankName &&
-            this.entityId == other.entityId &&
-            this.excludedAt == other.excludedAt &&
-            this.fdicCertificateNumber == other.fdicCertificateNumber &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.status == other.status &&
-            this.submittedAt == other.submittedAt &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    bankName,
-                    entityId,
-                    excludedAt,
-                    fdicCertificateNumber,
-                    id,
-                    idempotencyKey,
-                    status,
-                    submittedAt,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "IntrafiExclusion{bankName=$bankName, entityId=$entityId, excludedAt=$excludedAt, fdicCertificateNumber=$fdicCertificateNumber, id=$id, idempotencyKey=$idempotencyKey, status=$status, submittedAt=$submittedAt, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -446,4 +404,46 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is IntrafiExclusion &&
+            this.bankName == other.bankName &&
+            this.entityId == other.entityId &&
+            this.excludedAt == other.excludedAt &&
+            this.fdicCertificateNumber == other.fdicCertificateNumber &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.status == other.status &&
+            this.submittedAt == other.submittedAt &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    bankName,
+                    entityId,
+                    excludedAt,
+                    fdicCertificateNumber,
+                    id,
+                    idempotencyKey,
+                    status,
+                    submittedAt,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "IntrafiExclusion{bankName=$bankName, entityId=$entityId, excludedAt=$excludedAt, fdicCertificateNumber=$fdicCertificateNumber, id=$id, idempotencyKey=$idempotencyKey, status=$status, submittedAt=$submittedAt, type=$type, additionalProperties=$additionalProperties}"
 }

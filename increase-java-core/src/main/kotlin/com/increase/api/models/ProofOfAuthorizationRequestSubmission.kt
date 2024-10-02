@@ -51,8 +51,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** Terms of authorization. */
     fun authorizationTerms(): String = authorizationTerms.getRequired("authorization_terms")
 
@@ -234,65 +232,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is ProofOfAuthorizationRequestSubmission &&
-            this.authorizationTerms == other.authorizationTerms &&
-            this.authorizedAt == other.authorizedAt &&
-            this.authorizerCompany == other.authorizerCompany &&
-            this.authorizerEmail == other.authorizerEmail &&
-            this.authorizerIpAddress == other.authorizerIpAddress &&
-            this.authorizerName == other.authorizerName &&
-            this.createdAt == other.createdAt &&
-            this.customerHasBeenOffboarded == other.customerHasBeenOffboarded &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId &&
-            this.status == other.status &&
-            this.type == other.type &&
-            this.updatedAt == other.updatedAt &&
-            this.validatedAccountOwnershipViaCredential ==
-                other.validatedAccountOwnershipViaCredential &&
-            this.validatedAccountOwnershipWithAccountStatement ==
-                other.validatedAccountOwnershipWithAccountStatement &&
-            this.validatedAccountOwnershipWithMicrodeposit ==
-                other.validatedAccountOwnershipWithMicrodeposit &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    authorizationTerms,
-                    authorizedAt,
-                    authorizerCompany,
-                    authorizerEmail,
-                    authorizerIpAddress,
-                    authorizerName,
-                    createdAt,
-                    customerHasBeenOffboarded,
-                    id,
-                    idempotencyKey,
-                    proofOfAuthorizationRequestId,
-                    status,
-                    type,
-                    updatedAt,
-                    validatedAccountOwnershipViaCredential,
-                    validatedAccountOwnershipWithAccountStatement,
-                    validatedAccountOwnershipWithMicrodeposit,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "ProofOfAuthorizationRequestSubmission{authorizationTerms=$authorizationTerms, authorizedAt=$authorizedAt, authorizerCompany=$authorizerCompany, authorizerEmail=$authorizerEmail, authorizerIpAddress=$authorizerIpAddress, authorizerName=$authorizerName, createdAt=$createdAt, customerHasBeenOffboarded=$customerHasBeenOffboarded, id=$id, idempotencyKey=$idempotencyKey, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, status=$status, type=$type, updatedAt=$updatedAt, validatedAccountOwnershipViaCredential=$validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement=$validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit=$validatedAccountOwnershipWithMicrodeposit, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -712,4 +651,65 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is ProofOfAuthorizationRequestSubmission &&
+            this.authorizationTerms == other.authorizationTerms &&
+            this.authorizedAt == other.authorizedAt &&
+            this.authorizerCompany == other.authorizerCompany &&
+            this.authorizerEmail == other.authorizerEmail &&
+            this.authorizerIpAddress == other.authorizerIpAddress &&
+            this.authorizerName == other.authorizerName &&
+            this.createdAt == other.createdAt &&
+            this.customerHasBeenOffboarded == other.customerHasBeenOffboarded &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId &&
+            this.status == other.status &&
+            this.type == other.type &&
+            this.updatedAt == other.updatedAt &&
+            this.validatedAccountOwnershipViaCredential ==
+                other.validatedAccountOwnershipViaCredential &&
+            this.validatedAccountOwnershipWithAccountStatement ==
+                other.validatedAccountOwnershipWithAccountStatement &&
+            this.validatedAccountOwnershipWithMicrodeposit ==
+                other.validatedAccountOwnershipWithMicrodeposit &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    authorizationTerms,
+                    authorizedAt,
+                    authorizerCompany,
+                    authorizerEmail,
+                    authorizerIpAddress,
+                    authorizerName,
+                    createdAt,
+                    customerHasBeenOffboarded,
+                    id,
+                    idempotencyKey,
+                    proofOfAuthorizationRequestId,
+                    status,
+                    type,
+                    updatedAt,
+                    validatedAccountOwnershipViaCredential,
+                    validatedAccountOwnershipWithAccountStatement,
+                    validatedAccountOwnershipWithMicrodeposit,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "ProofOfAuthorizationRequestSubmission{authorizationTerms=$authorizationTerms, authorizedAt=$authorizedAt, authorizerCompany=$authorizerCompany, authorizerEmail=$authorizerEmail, authorizerIpAddress=$authorizerIpAddress, authorizerName=$authorizerName, createdAt=$createdAt, customerHasBeenOffboarded=$customerHasBeenOffboarded, id=$id, idempotencyKey=$idempotencyKey, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, status=$status, type=$type, updatedAt=$updatedAt, validatedAccountOwnershipViaCredential=$validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement=$validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit=$validatedAccountOwnershipWithMicrodeposit, additionalProperties=$additionalProperties}"
 }

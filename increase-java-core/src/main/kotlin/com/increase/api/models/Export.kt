@@ -42,8 +42,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /**
      * The category of the Export. We may add additional possible values for this enum over time;
      * your application should be able to handle that gracefully.
@@ -139,44 +137,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is Export &&
-            this.category == other.category &&
-            this.createdAt == other.createdAt &&
-            this.fileDownloadUrl == other.fileDownloadUrl &&
-            this.fileId == other.fileId &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.status == other.status &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    category,
-                    createdAt,
-                    fileDownloadUrl,
-                    fileId,
-                    id,
-                    idempotencyKey,
-                    status,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "Export{category=$category, createdAt=$createdAt, fileDownloadUrl=$fileDownloadUrl, fileId=$fileId, id=$id, idempotencyKey=$idempotencyKey, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -529,4 +489,44 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is Export &&
+            this.category == other.category &&
+            this.createdAt == other.createdAt &&
+            this.fileDownloadUrl == other.fileDownloadUrl &&
+            this.fileId == other.fileId &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.status == other.status &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    category,
+                    createdAt,
+                    fileDownloadUrl,
+                    fileId,
+                    id,
+                    idempotencyKey,
+                    status,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "Export{category=$category, createdAt=$createdAt, fileDownloadUrl=$fileDownloadUrl, fileId=$fileId, id=$id, idempotencyKey=$idempotencyKey, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

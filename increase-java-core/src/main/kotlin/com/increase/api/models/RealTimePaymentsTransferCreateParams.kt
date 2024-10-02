@@ -94,8 +94,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /** The transfer amount in USD cents. For Real-Time Payments transfers, must be positive. */
         @JsonProperty("amount") fun amount(): Long? = amount
 
@@ -151,50 +149,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is RealTimePaymentsTransferCreateBody &&
-                this.amount == other.amount &&
-                this.creditorName == other.creditorName &&
-                this.remittanceInformation == other.remittanceInformation &&
-                this.sourceAccountNumberId == other.sourceAccountNumberId &&
-                this.debtorName == other.debtorName &&
-                this.destinationAccountNumber == other.destinationAccountNumber &&
-                this.destinationRoutingNumber == other.destinationRoutingNumber &&
-                this.externalAccountId == other.externalAccountId &&
-                this.requireApproval == other.requireApproval &&
-                this.ultimateCreditorName == other.ultimateCreditorName &&
-                this.ultimateDebtorName == other.ultimateDebtorName &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        amount,
-                        creditorName,
-                        remittanceInformation,
-                        sourceAccountNumberId,
-                        debtorName,
-                        destinationAccountNumber,
-                        destinationRoutingNumber,
-                        externalAccountId,
-                        requireApproval,
-                        ultimateCreditorName,
-                        ultimateDebtorName,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "RealTimePaymentsTransferCreateBody{amount=$amount, creditorName=$creditorName, remittanceInformation=$remittanceInformation, sourceAccountNumberId=$sourceAccountNumberId, debtorName=$debtorName, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, externalAccountId=$externalAccountId, requireApproval=$requireApproval, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -346,6 +300,52 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is RealTimePaymentsTransferCreateBody &&
+                this.amount == other.amount &&
+                this.creditorName == other.creditorName &&
+                this.remittanceInformation == other.remittanceInformation &&
+                this.sourceAccountNumberId == other.sourceAccountNumberId &&
+                this.debtorName == other.debtorName &&
+                this.destinationAccountNumber == other.destinationAccountNumber &&
+                this.destinationRoutingNumber == other.destinationRoutingNumber &&
+                this.externalAccountId == other.externalAccountId &&
+                this.requireApproval == other.requireApproval &&
+                this.ultimateCreditorName == other.ultimateCreditorName &&
+                this.ultimateDebtorName == other.ultimateDebtorName &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        amount,
+                        creditorName,
+                        remittanceInformation,
+                        sourceAccountNumberId,
+                        debtorName,
+                        destinationAccountNumber,
+                        destinationRoutingNumber,
+                        externalAccountId,
+                        requireApproval,
+                        ultimateCreditorName,
+                        ultimateDebtorName,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "RealTimePaymentsTransferCreateBody{amount=$amount, creditorName=$creditorName, remittanceInformation=$remittanceInformation, sourceAccountNumberId=$sourceAccountNumberId, debtorName=$debtorName, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, externalAccountId=$externalAccountId, requireApproval=$requireApproval, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams

@@ -98,8 +98,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /** The authorization amount in cents. */
         @JsonProperty("amount") fun amount(): Long? = amount
 
@@ -155,50 +153,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is SimulationCardAuthorizationCreateBody &&
-                this.amount == other.amount &&
-                this.cardId == other.cardId &&
-                this.digitalWalletTokenId == other.digitalWalletTokenId &&
-                this.direction == other.direction &&
-                this.eventSubscriptionId == other.eventSubscriptionId &&
-                this.merchantAcceptorId == other.merchantAcceptorId &&
-                this.merchantCategoryCode == other.merchantCategoryCode &&
-                this.merchantCity == other.merchantCity &&
-                this.merchantCountry == other.merchantCountry &&
-                this.merchantDescriptor == other.merchantDescriptor &&
-                this.physicalCardId == other.physicalCardId &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        amount,
-                        cardId,
-                        digitalWalletTokenId,
-                        direction,
-                        eventSubscriptionId,
-                        merchantAcceptorId,
-                        merchantCategoryCode,
-                        merchantCity,
-                        merchantCountry,
-                        merchantDescriptor,
-                        physicalCardId,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "SimulationCardAuthorizationCreateBody{amount=$amount, cardId=$cardId, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, physicalCardId=$physicalCardId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -340,6 +294,52 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is SimulationCardAuthorizationCreateBody &&
+                this.amount == other.amount &&
+                this.cardId == other.cardId &&
+                this.digitalWalletTokenId == other.digitalWalletTokenId &&
+                this.direction == other.direction &&
+                this.eventSubscriptionId == other.eventSubscriptionId &&
+                this.merchantAcceptorId == other.merchantAcceptorId &&
+                this.merchantCategoryCode == other.merchantCategoryCode &&
+                this.merchantCity == other.merchantCity &&
+                this.merchantCountry == other.merchantCountry &&
+                this.merchantDescriptor == other.merchantDescriptor &&
+                this.physicalCardId == other.physicalCardId &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        amount,
+                        cardId,
+                        digitalWalletTokenId,
+                        direction,
+                        eventSubscriptionId,
+                        merchantAcceptorId,
+                        merchantCategoryCode,
+                        merchantCity,
+                        merchantCountry,
+                        merchantDescriptor,
+                        physicalCardId,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "SimulationCardAuthorizationCreateBody{amount=$amount, cardId=$cardId, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, physicalCardId=$physicalCardId, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams

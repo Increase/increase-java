@@ -37,8 +37,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** If the Group is allowed to create ACH debits. */
     fun achDebitStatus(): AchDebitStatus = achDebitStatus.getRequired("ach_debit_status")
 
@@ -89,38 +87,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is Group &&
-            this.achDebitStatus == other.achDebitStatus &&
-            this.activationStatus == other.activationStatus &&
-            this.createdAt == other.createdAt &&
-            this.id == other.id &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    achDebitStatus,
-                    activationStatus,
-                    createdAt,
-                    id,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "Group{achDebitStatus=$achDebitStatus, activationStatus=$activationStatus, createdAt=$createdAt, id=$id, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -389,4 +355,38 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is Group &&
+            this.achDebitStatus == other.achDebitStatus &&
+            this.activationStatus == other.activationStatus &&
+            this.createdAt == other.createdAt &&
+            this.id == other.id &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    achDebitStatus,
+                    activationStatus,
+                    createdAt,
+                    id,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "Group{achDebitStatus=$achDebitStatus, activationStatus=$activationStatus, createdAt=$createdAt, id=$id, type=$type, additionalProperties=$additionalProperties}"
 }

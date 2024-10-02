@@ -61,8 +61,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** The Account to which the transfer belongs. */
     fun accountId(): String = accountId.getRequired("account_id")
 
@@ -351,84 +349,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is WireTransfer &&
-            this.accountId == other.accountId &&
-            this.accountNumber == other.accountNumber &&
-            this.amount == other.amount &&
-            this.approval == other.approval &&
-            this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
-            this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
-            this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
-            this.beneficiaryName == other.beneficiaryName &&
-            this.cancellation == other.cancellation &&
-            this.createdAt == other.createdAt &&
-            this.createdBy == other.createdBy &&
-            this.currency == other.currency &&
-            this.externalAccountId == other.externalAccountId &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.messageToRecipient == other.messageToRecipient &&
-            this.network == other.network &&
-            this.originatorAddressLine1 == other.originatorAddressLine1 &&
-            this.originatorAddressLine2 == other.originatorAddressLine2 &&
-            this.originatorAddressLine3 == other.originatorAddressLine3 &&
-            this.originatorName == other.originatorName &&
-            this.pendingTransactionId == other.pendingTransactionId &&
-            this.reversal == other.reversal &&
-            this.routingNumber == other.routingNumber &&
-            this.status == other.status &&
-            this.submission == other.submission &&
-            this.transactionId == other.transactionId &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    accountId,
-                    accountNumber,
-                    amount,
-                    approval,
-                    beneficiaryAddressLine1,
-                    beneficiaryAddressLine2,
-                    beneficiaryAddressLine3,
-                    beneficiaryName,
-                    cancellation,
-                    createdAt,
-                    createdBy,
-                    currency,
-                    externalAccountId,
-                    id,
-                    idempotencyKey,
-                    messageToRecipient,
-                    network,
-                    originatorAddressLine1,
-                    originatorAddressLine2,
-                    originatorAddressLine3,
-                    originatorName,
-                    pendingTransactionId,
-                    reversal,
-                    routingNumber,
-                    status,
-                    submission,
-                    transactionId,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "WireTransfer{accountId=$accountId, accountNumber=$accountNumber, amount=$amount, approval=$approval, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, cancellation=$cancellation, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, externalAccountId=$externalAccountId, id=$id, idempotencyKey=$idempotencyKey, messageToRecipient=$messageToRecipient, network=$network, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, pendingTransactionId=$pendingTransactionId, reversal=$reversal, routingNumber=$routingNumber, status=$status, submission=$submission, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -875,8 +795,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * transfer was approved.
@@ -913,32 +831,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Approval &&
-                this.approvedAt == other.approvedAt &&
-                this.approvedBy == other.approvedBy &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        approvedAt,
-                        approvedBy,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Approval{approvedAt=$approvedAt, approvedBy=$approvedBy, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1009,6 +901,34 @@ private constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Approval &&
+                this.approvedAt == other.approvedAt &&
+                this.approvedBy == other.approvedBy &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        approvedAt,
+                        approvedBy,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Approval{approvedAt=$approvedAt, approvedBy=$approvedBy, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -1025,8 +945,6 @@ private constructor(
     ) {
 
         private var validated: Boolean = false
-
-        private var hashCode: Int = 0
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
@@ -1064,32 +982,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Cancellation &&
-                this.canceledAt == other.canceledAt &&
-                this.canceledBy == other.canceledBy &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        canceledAt,
-                        canceledBy,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Cancellation{canceledAt=$canceledAt, canceledBy=$canceledBy, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1160,6 +1052,34 @@ private constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Cancellation &&
+                this.canceledAt == other.canceledAt &&
+                this.canceledBy == other.canceledBy &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        canceledAt,
+                        canceledBy,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Cancellation{canceledAt=$canceledAt, canceledBy=$canceledBy, additionalProperties=$additionalProperties}"
     }
 
     /** What object created the transfer, either via the API or the dashboard. */
@@ -1175,8 +1095,6 @@ private constructor(
     ) {
 
         private var validated: Boolean = false
-
-        private var hashCode: Int = 0
 
         /** If present, details about the API key that created the transfer. */
         fun apiKey(): Optional<ApiKey> = Optional.ofNullable(apiKey.getNullable("api_key"))
@@ -1220,36 +1138,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is CreatedBy &&
-                this.apiKey == other.apiKey &&
-                this.category == other.category &&
-                this.oauthApplication == other.oauthApplication &&
-                this.user == other.user &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        apiKey,
-                        category,
-                        oauthApplication,
-                        user,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "CreatedBy{apiKey=$apiKey, category=$category, oauthApplication=$oauthApplication, user=$user, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1343,8 +1231,6 @@ private constructor(
 
             private var validated: Boolean = false
 
-            private var hashCode: Int = 0
-
             /** The description set for the API key when it was created. */
             fun description(): Optional<String> =
                 Optional.ofNullable(description.getNullable("description"))
@@ -1364,26 +1250,6 @@ private constructor(
             }
 
             fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is ApiKey &&
-                    this.description == other.description &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = Objects.hash(description, additionalProperties)
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "ApiKey{description=$description, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1428,6 +1294,28 @@ private constructor(
 
                 fun build(): ApiKey = ApiKey(description, additionalProperties.toUnmodifiable())
             }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is ApiKey &&
+                    this.description == other.description &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            private var hashCode: Int = 0
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode = Objects.hash(description, additionalProperties)
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "ApiKey{description=$description, additionalProperties=$additionalProperties}"
         }
 
         class Category
@@ -1504,8 +1392,6 @@ private constructor(
 
             private var validated: Boolean = false
 
-            private var hashCode: Int = 0
-
             /** The name of the OAuth Application. */
             fun name(): String = name.getRequired("name")
 
@@ -1524,26 +1410,6 @@ private constructor(
             }
 
             fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is OAuthApplication &&
-                    this.name == other.name &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = Objects.hash(name, additionalProperties)
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "OAuthApplication{name=$name, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1587,6 +1453,28 @@ private constructor(
                 fun build(): OAuthApplication =
                     OAuthApplication(name, additionalProperties.toUnmodifiable())
             }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is OAuthApplication &&
+                    this.name == other.name &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            private var hashCode: Int = 0
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode = Objects.hash(name, additionalProperties)
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "OAuthApplication{name=$name, additionalProperties=$additionalProperties}"
         }
 
         /** If present, details about the User that created the transfer. */
@@ -1599,8 +1487,6 @@ private constructor(
         ) {
 
             private var validated: Boolean = false
-
-            private var hashCode: Int = 0
 
             /** The email address of the User. */
             fun email(): String = email.getRequired("email")
@@ -1620,26 +1506,6 @@ private constructor(
             }
 
             fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is User &&
-                    this.email == other.email &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = Objects.hash(email, additionalProperties)
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "User{email=$email, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1682,7 +1548,61 @@ private constructor(
 
                 fun build(): User = User(email, additionalProperties.toUnmodifiable())
             }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is User &&
+                    this.email == other.email &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            private var hashCode: Int = 0
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode = Objects.hash(email, additionalProperties)
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "User{email=$email, additionalProperties=$additionalProperties}"
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is CreatedBy &&
+                this.apiKey == other.apiKey &&
+                this.category == other.category &&
+                this.oauthApplication == other.oauthApplication &&
+                this.user == other.user &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        apiKey,
+                        category,
+                        oauthApplication,
+                        user,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "CreatedBy{apiKey=$apiKey, category=$category, oauthApplication=$oauthApplication, user=$user, additionalProperties=$additionalProperties}"
     }
 
     class Currency
@@ -1843,8 +1763,6 @@ private constructor(
     ) {
 
         private var validated: Boolean = false
-
-        private var hashCode: Int = 0
 
         /** The amount that was reversed in USD cents. */
         fun amount(): Long = amount.getRequired("amount")
@@ -2033,66 +1951,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Reversal &&
-                this.amount == other.amount &&
-                this.createdAt == other.createdAt &&
-                this.description == other.description &&
-                this.financialInstitutionToFinancialInstitutionInformation ==
-                    other.financialInstitutionToFinancialInstitutionInformation &&
-                this.inputCycleDate == other.inputCycleDate &&
-                this.inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
-                this.inputSequenceNumber == other.inputSequenceNumber &&
-                this.inputSource == other.inputSource &&
-                this.originatorRoutingNumber == other.originatorRoutingNumber &&
-                this.previousMessageInputCycleDate == other.previousMessageInputCycleDate &&
-                this.previousMessageInputMessageAccountabilityData ==
-                    other.previousMessageInputMessageAccountabilityData &&
-                this.previousMessageInputSequenceNumber ==
-                    other.previousMessageInputSequenceNumber &&
-                this.previousMessageInputSource == other.previousMessageInputSource &&
-                this.receiverFinancialInstitutionInformation ==
-                    other.receiverFinancialInstitutionInformation &&
-                this.senderReference == other.senderReference &&
-                this.transactionId == other.transactionId &&
-                this.wireTransferId == other.wireTransferId &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        amount,
-                        createdAt,
-                        description,
-                        financialInstitutionToFinancialInstitutionInformation,
-                        inputCycleDate,
-                        inputMessageAccountabilityData,
-                        inputSequenceNumber,
-                        inputSource,
-                        originatorRoutingNumber,
-                        previousMessageInputCycleDate,
-                        previousMessageInputMessageAccountabilityData,
-                        previousMessageInputSequenceNumber,
-                        previousMessageInputSource,
-                        receiverFinancialInstitutionInformation,
-                        senderReference,
-                        transactionId,
-                        wireTransferId,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Reversal{amount=$amount, createdAt=$createdAt, description=$description, financialInstitutionToFinancialInstitutionInformation=$financialInstitutionToFinancialInstitutionInformation, inputCycleDate=$inputCycleDate, inputMessageAccountabilityData=$inputMessageAccountabilityData, inputSequenceNumber=$inputSequenceNumber, inputSource=$inputSource, originatorRoutingNumber=$originatorRoutingNumber, previousMessageInputCycleDate=$previousMessageInputCycleDate, previousMessageInputMessageAccountabilityData=$previousMessageInputMessageAccountabilityData, previousMessageInputSequenceNumber=$previousMessageInputSequenceNumber, previousMessageInputSource=$previousMessageInputSource, receiverFinancialInstitutionInformation=$receiverFinancialInstitutionInformation, senderReference=$senderReference, transactionId=$transactionId, wireTransferId=$wireTransferId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -2416,6 +2274,68 @@ private constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Reversal &&
+                this.amount == other.amount &&
+                this.createdAt == other.createdAt &&
+                this.description == other.description &&
+                this.financialInstitutionToFinancialInstitutionInformation ==
+                    other.financialInstitutionToFinancialInstitutionInformation &&
+                this.inputCycleDate == other.inputCycleDate &&
+                this.inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
+                this.inputSequenceNumber == other.inputSequenceNumber &&
+                this.inputSource == other.inputSource &&
+                this.originatorRoutingNumber == other.originatorRoutingNumber &&
+                this.previousMessageInputCycleDate == other.previousMessageInputCycleDate &&
+                this.previousMessageInputMessageAccountabilityData ==
+                    other.previousMessageInputMessageAccountabilityData &&
+                this.previousMessageInputSequenceNumber ==
+                    other.previousMessageInputSequenceNumber &&
+                this.previousMessageInputSource == other.previousMessageInputSource &&
+                this.receiverFinancialInstitutionInformation ==
+                    other.receiverFinancialInstitutionInformation &&
+                this.senderReference == other.senderReference &&
+                this.transactionId == other.transactionId &&
+                this.wireTransferId == other.wireTransferId &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        amount,
+                        createdAt,
+                        description,
+                        financialInstitutionToFinancialInstitutionInformation,
+                        inputCycleDate,
+                        inputMessageAccountabilityData,
+                        inputSequenceNumber,
+                        inputSource,
+                        originatorRoutingNumber,
+                        previousMessageInputCycleDate,
+                        previousMessageInputMessageAccountabilityData,
+                        previousMessageInputSequenceNumber,
+                        previousMessageInputSource,
+                        receiverFinancialInstitutionInformation,
+                        senderReference,
+                        transactionId,
+                        wireTransferId,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Reversal{amount=$amount, createdAt=$createdAt, description=$description, financialInstitutionToFinancialInstitutionInformation=$financialInstitutionToFinancialInstitutionInformation, inputCycleDate=$inputCycleDate, inputMessageAccountabilityData=$inputMessageAccountabilityData, inputSequenceNumber=$inputSequenceNumber, inputSource=$inputSource, originatorRoutingNumber=$originatorRoutingNumber, previousMessageInputCycleDate=$previousMessageInputCycleDate, previousMessageInputMessageAccountabilityData=$previousMessageInputMessageAccountabilityData, previousMessageInputSequenceNumber=$previousMessageInputSequenceNumber, previousMessageInputSource=$previousMessageInputSource, receiverFinancialInstitutionInformation=$receiverFinancialInstitutionInformation, senderReference=$senderReference, transactionId=$transactionId, wireTransferId=$wireTransferId, additionalProperties=$additionalProperties}"
     }
 
     class Status
@@ -2529,8 +2449,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         /** The accountability data for the submission. */
         fun inputMessageAccountabilityData(): String =
             inputMessageAccountabilityData.getRequired("input_message_accountability_data")
@@ -2559,32 +2477,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Submission &&
-                this.inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
-                this.submittedAt == other.submittedAt &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        inputMessageAccountabilityData,
-                        submittedAt,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Submission{inputMessageAccountabilityData=$inputMessageAccountabilityData, submittedAt=$submittedAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -2647,6 +2539,34 @@ private constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Submission &&
+                this.inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
+                this.submittedAt == other.submittedAt &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        inputMessageAccountabilityData,
+                        submittedAt,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Submission{inputMessageAccountabilityData=$inputMessageAccountabilityData, submittedAt=$submittedAt, additionalProperties=$additionalProperties}"
     }
 
     class Type
@@ -2699,4 +2619,84 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is WireTransfer &&
+            this.accountId == other.accountId &&
+            this.accountNumber == other.accountNumber &&
+            this.amount == other.amount &&
+            this.approval == other.approval &&
+            this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
+            this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
+            this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
+            this.beneficiaryName == other.beneficiaryName &&
+            this.cancellation == other.cancellation &&
+            this.createdAt == other.createdAt &&
+            this.createdBy == other.createdBy &&
+            this.currency == other.currency &&
+            this.externalAccountId == other.externalAccountId &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.messageToRecipient == other.messageToRecipient &&
+            this.network == other.network &&
+            this.originatorAddressLine1 == other.originatorAddressLine1 &&
+            this.originatorAddressLine2 == other.originatorAddressLine2 &&
+            this.originatorAddressLine3 == other.originatorAddressLine3 &&
+            this.originatorName == other.originatorName &&
+            this.pendingTransactionId == other.pendingTransactionId &&
+            this.reversal == other.reversal &&
+            this.routingNumber == other.routingNumber &&
+            this.status == other.status &&
+            this.submission == other.submission &&
+            this.transactionId == other.transactionId &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    accountId,
+                    accountNumber,
+                    amount,
+                    approval,
+                    beneficiaryAddressLine1,
+                    beneficiaryAddressLine2,
+                    beneficiaryAddressLine3,
+                    beneficiaryName,
+                    cancellation,
+                    createdAt,
+                    createdBy,
+                    currency,
+                    externalAccountId,
+                    id,
+                    idempotencyKey,
+                    messageToRecipient,
+                    network,
+                    originatorAddressLine1,
+                    originatorAddressLine2,
+                    originatorAddressLine3,
+                    originatorName,
+                    pendingTransactionId,
+                    reversal,
+                    routingNumber,
+                    status,
+                    submission,
+                    transactionId,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "WireTransfer{accountId=$accountId, accountNumber=$accountNumber, amount=$amount, approval=$approval, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, cancellation=$cancellation, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, externalAccountId=$externalAccountId, id=$id, idempotencyKey=$idempotencyKey, messageToRecipient=$messageToRecipient, network=$network, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, pendingTransactionId=$pendingTransactionId, reversal=$reversal, routingNumber=$routingNumber, status=$status, submission=$submission, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 }

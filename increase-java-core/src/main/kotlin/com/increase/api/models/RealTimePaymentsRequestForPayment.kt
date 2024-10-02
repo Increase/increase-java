@@ -54,8 +54,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** The transfer amount in USD cents. */
     fun amount(): Long = amount.getRequired("amount")
 
@@ -251,62 +249,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is RealTimePaymentsRequestForPayment &&
-            this.amount == other.amount &&
-            this.createdAt == other.createdAt &&
-            this.currency == other.currency &&
-            this.debtorName == other.debtorName &&
-            this.destinationAccountNumberId == other.destinationAccountNumberId &&
-            this.expiresAt == other.expiresAt &&
-            this.fulfillmentTransactionId == other.fulfillmentTransactionId &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.refusal == other.refusal &&
-            this.rejection == other.rejection &&
-            this.remittanceInformation == other.remittanceInformation &&
-            this.sourceAccountNumber == other.sourceAccountNumber &&
-            this.sourceRoutingNumber == other.sourceRoutingNumber &&
-            this.status == other.status &&
-            this.submission == other.submission &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    amount,
-                    createdAt,
-                    currency,
-                    debtorName,
-                    destinationAccountNumberId,
-                    expiresAt,
-                    fulfillmentTransactionId,
-                    id,
-                    idempotencyKey,
-                    refusal,
-                    rejection,
-                    remittanceInformation,
-                    sourceAccountNumber,
-                    sourceRoutingNumber,
-                    status,
-                    submission,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "RealTimePaymentsRequestForPayment{amount=$amount, createdAt=$createdAt, currency=$currency, debtorName=$debtorName, destinationAccountNumberId=$destinationAccountNumberId, expiresAt=$expiresAt, fulfillmentTransactionId=$fulfillmentTransactionId, id=$id, idempotencyKey=$idempotencyKey, refusal=$refusal, rejection=$rejection, remittanceInformation=$remittanceInformation, sourceAccountNumber=$sourceAccountNumber, sourceRoutingNumber=$sourceRoutingNumber, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -692,8 +634,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         /**
          * The reason the request for payment was refused as provided by the recipient bank or the
          * customer.
@@ -721,26 +661,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Refusal &&
-                this.refusalReasonCode == other.refusalReasonCode &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(refusalReasonCode, additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Refusal{refusalReasonCode=$refusalReasonCode, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -930,6 +850,28 @@ private constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Refusal &&
+                this.refusalReasonCode == other.refusalReasonCode &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(refusalReasonCode, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Refusal{refusalReasonCode=$refusalReasonCode, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -945,8 +887,6 @@ private constructor(
     ) {
 
         private var validated: Boolean = false
-
-        private var hashCode: Int = 0
 
         /**
          * The reason the request for payment was rejected as provided by the recipient bank or the
@@ -975,26 +915,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Rejection &&
-                this.rejectReasonCode == other.rejectReasonCode &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(rejectReasonCode, additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Rejection{rejectReasonCode=$rejectReasonCode, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1247,6 +1167,28 @@ private constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Rejection &&
+                this.rejectReasonCode == other.rejectReasonCode &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(rejectReasonCode, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Rejection{rejectReasonCode=$rejectReasonCode, additionalProperties=$additionalProperties}"
     }
 
     class Status
@@ -1344,8 +1286,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         /** The Real-Time Payments payment information identification of the request. */
         fun paymentInformationIdentification(): String =
             paymentInformationIdentification.getRequired("payment_information_identification")
@@ -1367,26 +1307,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Submission &&
-                this.paymentInformationIdentification == other.paymentInformationIdentification &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(paymentInformationIdentification, additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Submission{paymentInformationIdentification=$paymentInformationIdentification, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1432,6 +1352,28 @@ private constructor(
             fun build(): Submission =
                 Submission(paymentInformationIdentification, additionalProperties.toUnmodifiable())
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Submission &&
+                this.paymentInformationIdentification == other.paymentInformationIdentification &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(paymentInformationIdentification, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Submission{paymentInformationIdentification=$paymentInformationIdentification, additionalProperties=$additionalProperties}"
     }
 
     class Type
@@ -1488,4 +1430,62 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is RealTimePaymentsRequestForPayment &&
+            this.amount == other.amount &&
+            this.createdAt == other.createdAt &&
+            this.currency == other.currency &&
+            this.debtorName == other.debtorName &&
+            this.destinationAccountNumberId == other.destinationAccountNumberId &&
+            this.expiresAt == other.expiresAt &&
+            this.fulfillmentTransactionId == other.fulfillmentTransactionId &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.refusal == other.refusal &&
+            this.rejection == other.rejection &&
+            this.remittanceInformation == other.remittanceInformation &&
+            this.sourceAccountNumber == other.sourceAccountNumber &&
+            this.sourceRoutingNumber == other.sourceRoutingNumber &&
+            this.status == other.status &&
+            this.submission == other.submission &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    amount,
+                    createdAt,
+                    currency,
+                    debtorName,
+                    destinationAccountNumberId,
+                    expiresAt,
+                    fulfillmentTransactionId,
+                    id,
+                    idempotencyKey,
+                    refusal,
+                    rejection,
+                    remittanceInformation,
+                    sourceAccountNumber,
+                    sourceRoutingNumber,
+                    status,
+                    submission,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "RealTimePaymentsRequestForPayment{amount=$amount, createdAt=$createdAt, currency=$currency, debtorName=$debtorName, destinationAccountNumberId=$destinationAccountNumberId, expiresAt=$expiresAt, fulfillmentTransactionId=$fulfillmentTransactionId, id=$id, idempotencyKey=$idempotencyKey, refusal=$refusal, rejection=$rejection, remittanceInformation=$remittanceInformation, sourceAccountNumber=$sourceAccountNumber, sourceRoutingNumber=$sourceRoutingNumber, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
 }

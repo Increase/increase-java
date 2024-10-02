@@ -67,8 +67,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** The Account to which the transfer belongs. */
     fun accountId(): String = accountId.getRequired("account_id")
 
@@ -454,96 +452,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is AchTransfer &&
-            this.accountId == other.accountId &&
-            this.accountNumber == other.accountNumber &&
-            this.acknowledgement == other.acknowledgement &&
-            this.addenda == other.addenda &&
-            this.amount == other.amount &&
-            this.approval == other.approval &&
-            this.cancellation == other.cancellation &&
-            this.companyDescriptiveDate == other.companyDescriptiveDate &&
-            this.companyDiscretionaryData == other.companyDiscretionaryData &&
-            this.companyEntryDescription == other.companyEntryDescription &&
-            this.companyName == other.companyName &&
-            this.createdAt == other.createdAt &&
-            this.createdBy == other.createdBy &&
-            this.currency == other.currency &&
-            this.destinationAccountHolder == other.destinationAccountHolder &&
-            this.externalAccountId == other.externalAccountId &&
-            this.funding == other.funding &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.inboundFundsHold == other.inboundFundsHold &&
-            this.individualId == other.individualId &&
-            this.individualName == other.individualName &&
-            this.network == other.network &&
-            this.notificationsOfChange == other.notificationsOfChange &&
-            this.pendingTransactionId == other.pendingTransactionId &&
-            this.preferredEffectiveDate == other.preferredEffectiveDate &&
-            this.return_ == other.return_ &&
-            this.routingNumber == other.routingNumber &&
-            this.standardEntryClassCode == other.standardEntryClassCode &&
-            this.statementDescriptor == other.statementDescriptor &&
-            this.status == other.status &&
-            this.submission == other.submission &&
-            this.transactionId == other.transactionId &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    accountId,
-                    accountNumber,
-                    acknowledgement,
-                    addenda,
-                    amount,
-                    approval,
-                    cancellation,
-                    companyDescriptiveDate,
-                    companyDiscretionaryData,
-                    companyEntryDescription,
-                    companyName,
-                    createdAt,
-                    createdBy,
-                    currency,
-                    destinationAccountHolder,
-                    externalAccountId,
-                    funding,
-                    id,
-                    idempotencyKey,
-                    inboundFundsHold,
-                    individualId,
-                    individualName,
-                    network,
-                    notificationsOfChange,
-                    pendingTransactionId,
-                    preferredEffectiveDate,
-                    return_,
-                    routingNumber,
-                    standardEntryClassCode,
-                    statementDescriptor,
-                    status,
-                    submission,
-                    transactionId,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "AchTransfer{accountId=$accountId, accountNumber=$accountNumber, acknowledgement=$acknowledgement, addenda=$addenda, amount=$amount, approval=$approval, cancellation=$cancellation, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, destinationAccountHolder=$destinationAccountHolder, externalAccountId=$externalAccountId, funding=$funding, id=$id, idempotencyKey=$idempotencyKey, inboundFundsHold=$inboundFundsHold, individualId=$individualId, individualName=$individualName, network=$network, notificationsOfChange=$notificationsOfChange, pendingTransactionId=$pendingTransactionId, preferredEffectiveDate=$preferredEffectiveDate, return_=$return_, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -1118,8 +1026,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         /** When the Federal Reserve acknowledged the submitted file containing this transfer. */
         fun acknowledgedAt(): String = acknowledgedAt.getRequired("acknowledged_at")
 
@@ -1138,26 +1044,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Acknowledgement &&
-                this.acknowledgedAt == other.acknowledgedAt &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(acknowledgedAt, additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Acknowledgement{acknowledgedAt=$acknowledgedAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1207,6 +1093,28 @@ private constructor(
             fun build(): Acknowledgement =
                 Acknowledgement(acknowledgedAt, additionalProperties.toUnmodifiable())
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Acknowledgement &&
+                this.acknowledgedAt == other.acknowledgedAt &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(acknowledgedAt, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Acknowledgement{acknowledgedAt=$acknowledgedAt, additionalProperties=$additionalProperties}"
     }
 
     /** Additional information that will be sent to the recipient. */
@@ -1221,8 +1129,6 @@ private constructor(
     ) {
 
         private var validated: Boolean = false
-
-        private var hashCode: Int = 0
 
         /**
          * The type of the resource. We may add additional possible values for this enum over time;
@@ -1273,34 +1179,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Addenda &&
-                this.category == other.category &&
-                this.freeform == other.freeform &&
-                this.paymentOrderRemittanceAdvice == other.paymentOrderRemittanceAdvice &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        category,
-                        freeform,
-                        paymentOrderRemittanceAdvice,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Addenda{category=$category, freeform=$freeform, paymentOrderRemittanceAdvice=$paymentOrderRemittanceAdvice, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1462,8 +1340,6 @@ private constructor(
 
             private var validated: Boolean = false
 
-            private var hashCode: Int = 0
-
             /** Each entry represents an addendum sent with the transfer. */
             fun entries(): List<Entry> = entries.getRequired("entries")
 
@@ -1482,26 +1358,6 @@ private constructor(
             }
 
             fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Freeform &&
-                    this.entries == other.entries &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = Objects.hash(entries, additionalProperties)
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "Freeform{entries=$entries, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1559,8 +1415,6 @@ private constructor(
 
                 private var validated: Boolean = false
 
-                private var hashCode: Int = 0
-
                 /** The payment related information passed in the addendum. */
                 fun paymentRelatedInformation(): String =
                     paymentRelatedInformation.getRequired("payment_related_information")
@@ -1582,26 +1436,6 @@ private constructor(
                 }
 
                 fun toBuilder() = Builder().from(this)
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Entry &&
-                        this.paymentRelatedInformation == other.paymentRelatedInformation &&
-                        this.additionalProperties == other.additionalProperties
-                }
-
-                override fun hashCode(): Int {
-                    if (hashCode == 0) {
-                        hashCode = Objects.hash(paymentRelatedInformation, additionalProperties)
-                    }
-                    return hashCode
-                }
-
-                override fun toString() =
-                    "Entry{paymentRelatedInformation=$paymentRelatedInformation, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -1649,7 +1483,51 @@ private constructor(
                     fun build(): Entry =
                         Entry(paymentRelatedInformation, additionalProperties.toUnmodifiable())
                 }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Entry &&
+                        this.paymentRelatedInformation == other.paymentRelatedInformation &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                private var hashCode: Int = 0
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode = Objects.hash(paymentRelatedInformation, additionalProperties)
+                    }
+                    return hashCode
+                }
+
+                override fun toString() =
+                    "Entry{paymentRelatedInformation=$paymentRelatedInformation, additionalProperties=$additionalProperties}"
             }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Freeform &&
+                    this.entries == other.entries &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            private var hashCode: Int = 0
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode = Objects.hash(entries, additionalProperties)
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "Freeform{entries=$entries, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -1665,8 +1543,6 @@ private constructor(
         ) {
 
             private var validated: Boolean = false
-
-            private var hashCode: Int = 0
 
             /** ASC X12 RMR records for this specific transfer. */
             fun invoices(): List<Invoice> = invoices.getRequired("invoices")
@@ -1686,26 +1562,6 @@ private constructor(
             }
 
             fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is PaymentOrderRemittanceAdvice &&
-                    this.invoices == other.invoices &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = Objects.hash(invoices, additionalProperties)
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "PaymentOrderRemittanceAdvice{invoices=$invoices, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1767,8 +1623,6 @@ private constructor(
 
                 private var validated: Boolean = false
 
-                private var hashCode: Int = 0
-
                 /**
                  * The invoice number for this reference, determined in advance with the receiver.
                  */
@@ -1804,32 +1658,6 @@ private constructor(
                 }
 
                 fun toBuilder() = Builder().from(this)
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Invoice &&
-                        this.invoiceNumber == other.invoiceNumber &&
-                        this.paidAmount == other.paidAmount &&
-                        this.additionalProperties == other.additionalProperties
-                }
-
-                override fun hashCode(): Int {
-                    if (hashCode == 0) {
-                        hashCode =
-                            Objects.hash(
-                                invoiceNumber,
-                                paidAmount,
-                                additionalProperties,
-                            )
-                    }
-                    return hashCode
-                }
-
-                override fun toString() =
-                    "Invoice{invoiceNumber=$invoiceNumber, paidAmount=$paidAmount, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -1904,8 +1732,88 @@ private constructor(
                             additionalProperties.toUnmodifiable(),
                         )
                 }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Invoice &&
+                        this.invoiceNumber == other.invoiceNumber &&
+                        this.paidAmount == other.paidAmount &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                private var hashCode: Int = 0
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode =
+                            Objects.hash(
+                                invoiceNumber,
+                                paidAmount,
+                                additionalProperties,
+                            )
+                    }
+                    return hashCode
+                }
+
+                override fun toString() =
+                    "Invoice{invoiceNumber=$invoiceNumber, paidAmount=$paidAmount, additionalProperties=$additionalProperties}"
             }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is PaymentOrderRemittanceAdvice &&
+                    this.invoices == other.invoices &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            private var hashCode: Int = 0
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode = Objects.hash(invoices, additionalProperties)
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "PaymentOrderRemittanceAdvice{invoices=$invoices, additionalProperties=$additionalProperties}"
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Addenda &&
+                this.category == other.category &&
+                this.freeform == other.freeform &&
+                this.paymentOrderRemittanceAdvice == other.paymentOrderRemittanceAdvice &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        category,
+                        freeform,
+                        paymentOrderRemittanceAdvice,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Addenda{category=$category, freeform=$freeform, paymentOrderRemittanceAdvice=$paymentOrderRemittanceAdvice, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -1922,8 +1830,6 @@ private constructor(
     ) {
 
         private var validated: Boolean = false
-
-        private var hashCode: Int = 0
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
@@ -1961,32 +1867,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Approval &&
-                this.approvedAt == other.approvedAt &&
-                this.approvedBy == other.approvedBy &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        approvedAt,
-                        approvedBy,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Approval{approvedAt=$approvedAt, approvedBy=$approvedBy, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -2057,6 +1937,34 @@ private constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Approval &&
+                this.approvedAt == other.approvedAt &&
+                this.approvedBy == other.approvedBy &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        approvedAt,
+                        approvedBy,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Approval{approvedAt=$approvedAt, approvedBy=$approvedBy, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -2073,8 +1981,6 @@ private constructor(
     ) {
 
         private var validated: Boolean = false
-
-        private var hashCode: Int = 0
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
@@ -2112,32 +2018,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Cancellation &&
-                this.canceledAt == other.canceledAt &&
-                this.canceledBy == other.canceledBy &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        canceledAt,
-                        canceledBy,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Cancellation{canceledAt=$canceledAt, canceledBy=$canceledBy, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -2208,6 +2088,34 @@ private constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Cancellation &&
+                this.canceledAt == other.canceledAt &&
+                this.canceledBy == other.canceledBy &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        canceledAt,
+                        canceledBy,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Cancellation{canceledAt=$canceledAt, canceledBy=$canceledBy, additionalProperties=$additionalProperties}"
     }
 
     /** What object created the transfer, either via the API or the dashboard. */
@@ -2223,8 +2131,6 @@ private constructor(
     ) {
 
         private var validated: Boolean = false
-
-        private var hashCode: Int = 0
 
         /** If present, details about the API key that created the transfer. */
         fun apiKey(): Optional<ApiKey> = Optional.ofNullable(apiKey.getNullable("api_key"))
@@ -2268,36 +2174,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is CreatedBy &&
-                this.apiKey == other.apiKey &&
-                this.category == other.category &&
-                this.oauthApplication == other.oauthApplication &&
-                this.user == other.user &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        apiKey,
-                        category,
-                        oauthApplication,
-                        user,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "CreatedBy{apiKey=$apiKey, category=$category, oauthApplication=$oauthApplication, user=$user, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -2391,8 +2267,6 @@ private constructor(
 
             private var validated: Boolean = false
 
-            private var hashCode: Int = 0
-
             /** The description set for the API key when it was created. */
             fun description(): Optional<String> =
                 Optional.ofNullable(description.getNullable("description"))
@@ -2412,26 +2286,6 @@ private constructor(
             }
 
             fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is ApiKey &&
-                    this.description == other.description &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = Objects.hash(description, additionalProperties)
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "ApiKey{description=$description, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -2476,6 +2330,28 @@ private constructor(
 
                 fun build(): ApiKey = ApiKey(description, additionalProperties.toUnmodifiable())
             }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is ApiKey &&
+                    this.description == other.description &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            private var hashCode: Int = 0
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode = Objects.hash(description, additionalProperties)
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "ApiKey{description=$description, additionalProperties=$additionalProperties}"
         }
 
         class Category
@@ -2552,8 +2428,6 @@ private constructor(
 
             private var validated: Boolean = false
 
-            private var hashCode: Int = 0
-
             /** The name of the OAuth Application. */
             fun name(): String = name.getRequired("name")
 
@@ -2572,26 +2446,6 @@ private constructor(
             }
 
             fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is OAuthApplication &&
-                    this.name == other.name &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = Objects.hash(name, additionalProperties)
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "OAuthApplication{name=$name, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -2635,6 +2489,28 @@ private constructor(
                 fun build(): OAuthApplication =
                     OAuthApplication(name, additionalProperties.toUnmodifiable())
             }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is OAuthApplication &&
+                    this.name == other.name &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            private var hashCode: Int = 0
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode = Objects.hash(name, additionalProperties)
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "OAuthApplication{name=$name, additionalProperties=$additionalProperties}"
         }
 
         /** If present, details about the User that created the transfer. */
@@ -2647,8 +2523,6 @@ private constructor(
         ) {
 
             private var validated: Boolean = false
-
-            private var hashCode: Int = 0
 
             /** The email address of the User. */
             fun email(): String = email.getRequired("email")
@@ -2668,26 +2542,6 @@ private constructor(
             }
 
             fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is User &&
-                    this.email == other.email &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = Objects.hash(email, additionalProperties)
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "User{email=$email, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -2730,7 +2584,61 @@ private constructor(
 
                 fun build(): User = User(email, additionalProperties.toUnmodifiable())
             }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is User &&
+                    this.email == other.email &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            private var hashCode: Int = 0
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode = Objects.hash(email, additionalProperties)
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "User{email=$email, additionalProperties=$additionalProperties}"
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is CreatedBy &&
+                this.apiKey == other.apiKey &&
+                this.category == other.category &&
+                this.oauthApplication == other.oauthApplication &&
+                this.user == other.user &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        apiKey,
+                        category,
+                        oauthApplication,
+                        user,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "CreatedBy{apiKey=$apiKey, category=$category, oauthApplication=$oauthApplication, user=$user, additionalProperties=$additionalProperties}"
     }
 
     class Currency
@@ -2958,8 +2866,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         /**
          * The held amount in the minor unit of the account's currency. For dollars, for example,
          * this is cents.
@@ -3075,48 +2981,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is InboundFundsHold &&
-                this.amount == other.amount &&
-                this.automaticallyReleasesAt == other.automaticallyReleasesAt &&
-                this.createdAt == other.createdAt &&
-                this.currency == other.currency &&
-                this.heldTransactionId == other.heldTransactionId &&
-                this.id == other.id &&
-                this.pendingTransactionId == other.pendingTransactionId &&
-                this.releasedAt == other.releasedAt &&
-                this.status == other.status &&
-                this.type == other.type &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        amount,
-                        automaticallyReleasesAt,
-                        createdAt,
-                        currency,
-                        heldTransactionId,
-                        id,
-                        pendingTransactionId,
-                        releasedAt,
-                        status,
-                        type,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "InboundFundsHold{amount=$amount, automaticallyReleasesAt=$automaticallyReleasesAt, createdAt=$createdAt, currency=$currency, heldTransactionId=$heldTransactionId, id=$id, pendingTransactionId=$pendingTransactionId, releasedAt=$releasedAt, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -3492,6 +3356,50 @@ private constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is InboundFundsHold &&
+                this.amount == other.amount &&
+                this.automaticallyReleasesAt == other.automaticallyReleasesAt &&
+                this.createdAt == other.createdAt &&
+                this.currency == other.currency &&
+                this.heldTransactionId == other.heldTransactionId &&
+                this.id == other.id &&
+                this.pendingTransactionId == other.pendingTransactionId &&
+                this.releasedAt == other.releasedAt &&
+                this.status == other.status &&
+                this.type == other.type &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        amount,
+                        automaticallyReleasesAt,
+                        createdAt,
+                        currency,
+                        heldTransactionId,
+                        id,
+                        pendingTransactionId,
+                        releasedAt,
+                        status,
+                        type,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "InboundFundsHold{amount=$amount, automaticallyReleasesAt=$automaticallyReleasesAt, createdAt=$createdAt, currency=$currency, heldTransactionId=$heldTransactionId, id=$id, pendingTransactionId=$pendingTransactionId, releasedAt=$releasedAt, status=$status, type=$type, additionalProperties=$additionalProperties}"
     }
 
     class Network
@@ -3557,8 +3465,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         /**
          * The required type of change that is being signaled by the receiving financial
          * institution.
@@ -3615,34 +3521,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is NotificationsOfChange &&
-                this.changeCode == other.changeCode &&
-                this.correctedData == other.correctedData &&
-                this.createdAt == other.createdAt &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        changeCode,
-                        correctedData,
-                        createdAt,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "NotificationsOfChange{changeCode=$changeCode, correctedData=$correctedData, createdAt=$createdAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -3977,6 +3855,36 @@ private constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is NotificationsOfChange &&
+                this.changeCode == other.changeCode &&
+                this.correctedData == other.correctedData &&
+                this.createdAt == other.createdAt &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        changeCode,
+                        correctedData,
+                        createdAt,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "NotificationsOfChange{changeCode=$changeCode, correctedData=$correctedData, createdAt=$createdAt, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -3994,8 +3902,6 @@ private constructor(
     ) {
 
         private var validated: Boolean = false
-
-        private var hashCode: Int = 0
 
         /**
          * A specific date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format to use as
@@ -4031,32 +3937,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is PreferredEffectiveDate &&
-                this.date == other.date &&
-                this.settlementSchedule == other.settlementSchedule &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        date,
-                        settlementSchedule,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "PreferredEffectiveDate{date=$date, settlementSchedule=$settlementSchedule, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -4179,6 +4059,34 @@ private constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is PreferredEffectiveDate &&
+                this.date == other.date &&
+                this.settlementSchedule == other.settlementSchedule &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        date,
+                        settlementSchedule,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "PreferredEffectiveDate{date=$date, settlementSchedule=$settlementSchedule, additionalProperties=$additionalProperties}"
     }
 
     /** If your transfer is returned, this will contain details of the return. */
@@ -4196,8 +4104,6 @@ private constructor(
     ) {
 
         private var validated: Boolean = false
-
-        private var hashCode: Int = 0
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
@@ -4280,40 +4186,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Return &&
-                this.createdAt == other.createdAt &&
-                this.rawReturnReasonCode == other.rawReturnReasonCode &&
-                this.returnReasonCode == other.returnReasonCode &&
-                this.traceNumber == other.traceNumber &&
-                this.transactionId == other.transactionId &&
-                this.transferId == other.transferId &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        createdAt,
-                        rawReturnReasonCode,
-                        returnReasonCode,
-                        traceNumber,
-                        transactionId,
-                        transferId,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Return{createdAt=$createdAt, rawReturnReasonCode=$rawReturnReasonCode, returnReasonCode=$returnReasonCode, traceNumber=$traceNumber, transactionId=$transactionId, transferId=$transferId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -5085,6 +4957,42 @@ private constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Return &&
+                this.createdAt == other.createdAt &&
+                this.rawReturnReasonCode == other.rawReturnReasonCode &&
+                this.returnReasonCode == other.returnReasonCode &&
+                this.traceNumber == other.traceNumber &&
+                this.transactionId == other.transactionId &&
+                this.transferId == other.transferId &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        createdAt,
+                        rawReturnReasonCode,
+                        returnReasonCode,
+                        traceNumber,
+                        transactionId,
+                        transferId,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Return{createdAt=$createdAt, rawReturnReasonCode=$rawReturnReasonCode, returnReasonCode=$returnReasonCode, traceNumber=$traceNumber, transactionId=$transactionId, transferId=$transferId, additionalProperties=$additionalProperties}"
     }
 
     class StandardEntryClassCode
@@ -5284,8 +5192,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         /**
          * The ACH transfer's effective date as sent to the Federal Reserve. If a specific date was
          * configured using `preferred_effective_date`, this will match that value. Otherwise, it
@@ -5372,38 +5278,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Submission &&
-                this.effectiveDate == other.effectiveDate &&
-                this.expectedFundsSettlementAt == other.expectedFundsSettlementAt &&
-                this.expectedSettlementSchedule == other.expectedSettlementSchedule &&
-                this.submittedAt == other.submittedAt &&
-                this.traceNumber == other.traceNumber &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        effectiveDate,
-                        expectedFundsSettlementAt,
-                        expectedSettlementSchedule,
-                        submittedAt,
-                        traceNumber,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Submission{effectiveDate=$effectiveDate, expectedFundsSettlementAt=$expectedFundsSettlementAt, expectedSettlementSchedule=$expectedSettlementSchedule, submittedAt=$submittedAt, traceNumber=$traceNumber, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -5604,6 +5478,40 @@ private constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Submission &&
+                this.effectiveDate == other.effectiveDate &&
+                this.expectedFundsSettlementAt == other.expectedFundsSettlementAt &&
+                this.expectedSettlementSchedule == other.expectedSettlementSchedule &&
+                this.submittedAt == other.submittedAt &&
+                this.traceNumber == other.traceNumber &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        effectiveDate,
+                        expectedFundsSettlementAt,
+                        expectedSettlementSchedule,
+                        submittedAt,
+                        traceNumber,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Submission{effectiveDate=$effectiveDate, expectedFundsSettlementAt=$expectedFundsSettlementAt, expectedSettlementSchedule=$expectedSettlementSchedule, submittedAt=$submittedAt, traceNumber=$traceNumber, additionalProperties=$additionalProperties}"
     }
 
     class Type
@@ -5656,4 +5564,96 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is AchTransfer &&
+            this.accountId == other.accountId &&
+            this.accountNumber == other.accountNumber &&
+            this.acknowledgement == other.acknowledgement &&
+            this.addenda == other.addenda &&
+            this.amount == other.amount &&
+            this.approval == other.approval &&
+            this.cancellation == other.cancellation &&
+            this.companyDescriptiveDate == other.companyDescriptiveDate &&
+            this.companyDiscretionaryData == other.companyDiscretionaryData &&
+            this.companyEntryDescription == other.companyEntryDescription &&
+            this.companyName == other.companyName &&
+            this.createdAt == other.createdAt &&
+            this.createdBy == other.createdBy &&
+            this.currency == other.currency &&
+            this.destinationAccountHolder == other.destinationAccountHolder &&
+            this.externalAccountId == other.externalAccountId &&
+            this.funding == other.funding &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.inboundFundsHold == other.inboundFundsHold &&
+            this.individualId == other.individualId &&
+            this.individualName == other.individualName &&
+            this.network == other.network &&
+            this.notificationsOfChange == other.notificationsOfChange &&
+            this.pendingTransactionId == other.pendingTransactionId &&
+            this.preferredEffectiveDate == other.preferredEffectiveDate &&
+            this.return_ == other.return_ &&
+            this.routingNumber == other.routingNumber &&
+            this.standardEntryClassCode == other.standardEntryClassCode &&
+            this.statementDescriptor == other.statementDescriptor &&
+            this.status == other.status &&
+            this.submission == other.submission &&
+            this.transactionId == other.transactionId &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    accountId,
+                    accountNumber,
+                    acknowledgement,
+                    addenda,
+                    amount,
+                    approval,
+                    cancellation,
+                    companyDescriptiveDate,
+                    companyDiscretionaryData,
+                    companyEntryDescription,
+                    companyName,
+                    createdAt,
+                    createdBy,
+                    currency,
+                    destinationAccountHolder,
+                    externalAccountId,
+                    funding,
+                    id,
+                    idempotencyKey,
+                    inboundFundsHold,
+                    individualId,
+                    individualName,
+                    network,
+                    notificationsOfChange,
+                    pendingTransactionId,
+                    preferredEffectiveDate,
+                    return_,
+                    routingNumber,
+                    standardEntryClassCode,
+                    statementDescriptor,
+                    status,
+                    submission,
+                    transactionId,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "AchTransfer{accountId=$accountId, accountNumber=$accountNumber, acknowledgement=$acknowledgement, addenda=$addenda, amount=$amount, approval=$approval, cancellation=$cancellation, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, destinationAccountHolder=$destinationAccountHolder, externalAccountId=$externalAccountId, funding=$funding, id=$id, idempotencyKey=$idempotencyKey, inboundFundsHold=$inboundFundsHold, individualId=$individualId, individualName=$individualName, network=$network, notificationsOfChange=$notificationsOfChange, pendingTransactionId=$pendingTransactionId, preferredEffectiveDate=$preferredEffectiveDate, return_=$return_, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 }

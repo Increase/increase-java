@@ -43,8 +43,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** The type of entity that owns the External Account. */
     fun accountHolder(): AccountHolder = accountHolder.getRequired("account_holder")
 
@@ -157,50 +155,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is ExternalAccount &&
-            this.accountHolder == other.accountHolder &&
-            this.accountNumber == other.accountNumber &&
-            this.createdAt == other.createdAt &&
-            this.description == other.description &&
-            this.funding == other.funding &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.routingNumber == other.routingNumber &&
-            this.status == other.status &&
-            this.type == other.type &&
-            this.verificationStatus == other.verificationStatus &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    accountHolder,
-                    accountNumber,
-                    createdAt,
-                    description,
-                    funding,
-                    id,
-                    idempotencyKey,
-                    routingNumber,
-                    status,
-                    type,
-                    verificationStatus,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "ExternalAccount{accountHolder=$accountHolder, accountNumber=$accountNumber, createdAt=$createdAt, description=$description, funding=$funding, id=$id, idempotencyKey=$idempotencyKey, routingNumber=$routingNumber, status=$status, type=$type, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -682,4 +636,50 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is ExternalAccount &&
+            this.accountHolder == other.accountHolder &&
+            this.accountNumber == other.accountNumber &&
+            this.createdAt == other.createdAt &&
+            this.description == other.description &&
+            this.funding == other.funding &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.routingNumber == other.routingNumber &&
+            this.status == other.status &&
+            this.type == other.type &&
+            this.verificationStatus == other.verificationStatus &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    accountHolder,
+                    accountNumber,
+                    createdAt,
+                    description,
+                    funding,
+                    id,
+                    idempotencyKey,
+                    routingNumber,
+                    status,
+                    type,
+                    verificationStatus,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "ExternalAccount{accountHolder=$accountHolder, accountNumber=$accountNumber, createdAt=$createdAt, description=$description, funding=$funding, id=$id, idempotencyKey=$idempotencyKey, routingNumber=$routingNumber, status=$status, type=$type, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
 }

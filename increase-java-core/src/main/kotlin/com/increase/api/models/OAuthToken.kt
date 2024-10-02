@@ -33,8 +33,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** You may use this token in place of an API key to make OAuth requests on a user's behalf. */
     fun accessToken(): String = accessToken.getRequired("access_token")
 
@@ -71,34 +69,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is OAuthToken &&
-            this.accessToken == other.accessToken &&
-            this.tokenType == other.tokenType &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    accessToken,
-                    tokenType,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "OAuthToken{accessToken=$accessToken, tokenType=$tokenType, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -278,4 +248,34 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is OAuthToken &&
+            this.accessToken == other.accessToken &&
+            this.tokenType == other.tokenType &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    accessToken,
+                    tokenType,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "OAuthToken{accessToken=$accessToken, tokenType=$tokenType, type=$type, additionalProperties=$additionalProperties}"
 }
