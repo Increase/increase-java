@@ -42,8 +42,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /**
      * The held amount in the minor unit of the account's currency. For dollars, for example, this
      * is cents.
@@ -157,48 +155,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is SimulationInboundFundsHoldReleaseResponse &&
-            this.amount == other.amount &&
-            this.automaticallyReleasesAt == other.automaticallyReleasesAt &&
-            this.createdAt == other.createdAt &&
-            this.currency == other.currency &&
-            this.heldTransactionId == other.heldTransactionId &&
-            this.id == other.id &&
-            this.pendingTransactionId == other.pendingTransactionId &&
-            this.releasedAt == other.releasedAt &&
-            this.status == other.status &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    amount,
-                    automaticallyReleasesAt,
-                    createdAt,
-                    currency,
-                    heldTransactionId,
-                    id,
-                    pendingTransactionId,
-                    releasedAt,
-                    status,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "SimulationInboundFundsHoldReleaseResponse{amount=$amount, automaticallyReleasesAt=$automaticallyReleasesAt, createdAt=$createdAt, currency=$currency, heldTransactionId=$heldTransactionId, id=$id, pendingTransactionId=$pendingTransactionId, releasedAt=$releasedAt, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -569,4 +525,48 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is SimulationInboundFundsHoldReleaseResponse &&
+            this.amount == other.amount &&
+            this.automaticallyReleasesAt == other.automaticallyReleasesAt &&
+            this.createdAt == other.createdAt &&
+            this.currency == other.currency &&
+            this.heldTransactionId == other.heldTransactionId &&
+            this.id == other.id &&
+            this.pendingTransactionId == other.pendingTransactionId &&
+            this.releasedAt == other.releasedAt &&
+            this.status == other.status &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    amount,
+                    automaticallyReleasesAt,
+                    createdAt,
+                    currency,
+                    heldTransactionId,
+                    id,
+                    pendingTransactionId,
+                    releasedAt,
+                    status,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "SimulationInboundFundsHoldReleaseResponse{amount=$amount, automaticallyReleasesAt=$automaticallyReleasesAt, createdAt=$createdAt, currency=$currency, heldTransactionId=$heldTransactionId, id=$id, pendingTransactionId=$pendingTransactionId, releasedAt=$releasedAt, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

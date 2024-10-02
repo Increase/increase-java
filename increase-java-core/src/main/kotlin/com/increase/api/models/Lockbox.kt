@@ -41,8 +41,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** The identifier for the Account checks sent to this lockbox will be deposited into. */
     fun accountId(): String = accountId.getRequired("account_id")
 
@@ -132,46 +130,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is Lockbox &&
-            this.accountId == other.accountId &&
-            this.address == other.address &&
-            this.createdAt == other.createdAt &&
-            this.description == other.description &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.recipientName == other.recipientName &&
-            this.status == other.status &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    accountId,
-                    address,
-                    createdAt,
-                    description,
-                    id,
-                    idempotencyKey,
-                    recipientName,
-                    status,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "Lockbox{accountId=$accountId, address=$address, createdAt=$createdAt, description=$description, id=$id, idempotencyKey=$idempotencyKey, recipientName=$recipientName, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -342,8 +300,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         /** The city of the address. */
         fun city(): String = city.getRequired("city")
 
@@ -411,40 +367,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Address &&
-                this.city == other.city &&
-                this.line1 == other.line1 &&
-                this.line2 == other.line2 &&
-                this.postalCode == other.postalCode &&
-                this.recipient == other.recipient &&
-                this.state == other.state &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        city,
-                        line1,
-                        line2,
-                        postalCode,
-                        recipient,
-                        state,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Address{city=$city, line1=$line1, line2=$line2, postalCode=$postalCode, recipient=$recipient, state=$state, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -559,6 +481,42 @@ private constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Address &&
+                this.city == other.city &&
+                this.line1 == other.line1 &&
+                this.line2 == other.line2 &&
+                this.postalCode == other.postalCode &&
+                this.recipient == other.recipient &&
+                this.state == other.state &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        city,
+                        line1,
+                        line2,
+                        postalCode,
+                        recipient,
+                        state,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Address{city=$city, line1=$line1, line2=$line2, postalCode=$postalCode, recipient=$recipient, state=$state, additionalProperties=$additionalProperties}"
     }
 
     class Status
@@ -668,4 +626,46 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is Lockbox &&
+            this.accountId == other.accountId &&
+            this.address == other.address &&
+            this.createdAt == other.createdAt &&
+            this.description == other.description &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.recipientName == other.recipientName &&
+            this.status == other.status &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    accountId,
+                    address,
+                    createdAt,
+                    description,
+                    id,
+                    idempotencyKey,
+                    recipientName,
+                    status,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "Lockbox{accountId=$accountId, address=$address, createdAt=$createdAt, description=$description, id=$id, idempotencyKey=$idempotencyKey, recipientName=$recipientName, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

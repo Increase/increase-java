@@ -68,8 +68,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /** The account number for the destination account. */
         @JsonProperty("account_number") fun accountNumber(): String? = accountNumber
 
@@ -93,38 +91,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is ExternalAccountCreateBody &&
-                this.accountNumber == other.accountNumber &&
-                this.description == other.description &&
-                this.routingNumber == other.routingNumber &&
-                this.accountHolder == other.accountHolder &&
-                this.funding == other.funding &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountNumber,
-                        description,
-                        routingNumber,
-                        accountHolder,
-                        funding,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "ExternalAccountCreateBody{accountNumber=$accountNumber, description=$description, routingNumber=$routingNumber, accountHolder=$accountHolder, funding=$funding, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -199,6 +165,40 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ExternalAccountCreateBody &&
+                this.accountNumber == other.accountNumber &&
+                this.description == other.description &&
+                this.routingNumber == other.routingNumber &&
+                this.accountHolder == other.accountHolder &&
+                this.funding == other.funding &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        accountNumber,
+                        description,
+                        routingNumber,
+                        accountHolder,
+                        funding,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "ExternalAccountCreateBody{accountNumber=$accountNumber, description=$description, routingNumber=$routingNumber, accountHolder=$accountHolder, funding=$funding, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams

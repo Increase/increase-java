@@ -33,8 +33,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** This routing number's support for ACH Transfers. */
     fun achTransfers(): AchTransfers = achTransfers.getRequired("ach_transfers")
 
@@ -97,40 +95,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is RoutingNumberListResponse &&
-            this.achTransfers == other.achTransfers &&
-            this.name == other.name &&
-            this.realTimePaymentsTransfers == other.realTimePaymentsTransfers &&
-            this.routingNumber == other.routingNumber &&
-            this.type == other.type &&
-            this.wireTransfers == other.wireTransfers &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    achTransfers,
-                    name,
-                    realTimePaymentsTransfers,
-                    routingNumber,
-                    type,
-                    wireTransfers,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "RoutingNumberListResponse{achTransfers=$achTransfers, name=$name, realTimePaymentsTransfers=$realTimePaymentsTransfers, routingNumber=$routingNumber, type=$type, wireTransfers=$wireTransfers, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -470,4 +434,40 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is RoutingNumberListResponse &&
+            this.achTransfers == other.achTransfers &&
+            this.name == other.name &&
+            this.realTimePaymentsTransfers == other.realTimePaymentsTransfers &&
+            this.routingNumber == other.routingNumber &&
+            this.type == other.type &&
+            this.wireTransfers == other.wireTransfers &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    achTransfers,
+                    name,
+                    realTimePaymentsTransfers,
+                    routingNumber,
+                    type,
+                    wireTransfers,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "RoutingNumberListResponse{achTransfers=$achTransfers, name=$name, realTimePaymentsTransfers=$realTimePaymentsTransfers, routingNumber=$routingNumber, type=$type, wireTransfers=$wireTransfers, additionalProperties=$additionalProperties}"
 }

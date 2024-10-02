@@ -69,8 +69,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /**
          * If the Real-Time Decision relates to a card authorization attempt, this object contains
          * your response to the authorization.
@@ -98,34 +96,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is RealTimeDecisionActionBody &&
-                this.cardAuthorization == other.cardAuthorization &&
-                this.digitalWalletAuthentication == other.digitalWalletAuthentication &&
-                this.digitalWalletToken == other.digitalWalletToken &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        cardAuthorization,
-                        digitalWalletAuthentication,
-                        digitalWalletToken,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "RealTimeDecisionActionBody{cardAuthorization=$cardAuthorization, digitalWalletAuthentication=$digitalWalletAuthentication, digitalWalletToken=$digitalWalletToken, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -197,6 +167,36 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is RealTimeDecisionActionBody &&
+                this.cardAuthorization == other.cardAuthorization &&
+                this.digitalWalletAuthentication == other.digitalWalletAuthentication &&
+                this.digitalWalletToken == other.digitalWalletToken &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        cardAuthorization,
+                        digitalWalletAuthentication,
+                        digitalWalletToken,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "RealTimeDecisionActionBody{cardAuthorization=$cardAuthorization, digitalWalletAuthentication=$digitalWalletAuthentication, digitalWalletToken=$digitalWalletToken, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
@@ -375,8 +375,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /** Whether the card authorization should be approved or declined. */
         @JsonProperty("decision") fun decision(): Decision? = decision
 
@@ -385,26 +383,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is CardAuthorization &&
-                this.decision == other.decision &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(decision, additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "CardAuthorization{decision=$decision, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -503,6 +481,28 @@ constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is CardAuthorization &&
+                this.decision == other.decision &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(decision, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "CardAuthorization{decision=$decision, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -517,8 +517,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /** Whether your application was able to deliver the one-time passcode. */
         @JsonProperty("result") fun result(): Result? = result
 
@@ -527,26 +525,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is DigitalWalletAuthentication &&
-                this.result == other.result &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(result, additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "DigitalWalletAuthentication{result=$result, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -644,6 +622,28 @@ constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is DigitalWalletAuthentication &&
+                this.result == other.result &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(result, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "DigitalWalletAuthentication{result=$result, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -658,8 +658,6 @@ constructor(
         private val decline: Decline?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
-
-        private var hashCode: Int = 0
 
         /**
          * If your application approves the provisioning attempt, this contains metadata about the
@@ -678,32 +676,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is DigitalWalletToken &&
-                this.approval == other.approval &&
-                this.decline == other.decline &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        approval,
-                        decline,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "DigitalWalletToken{approval=$approval, decline=$decline, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -772,8 +744,6 @@ constructor(
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
-            private var hashCode: Int = 0
-
             /** An email address that can be used to verify the cardholder via one-time passcode. */
             @JsonProperty("email") fun email(): String? = email
 
@@ -788,32 +758,6 @@ constructor(
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
             fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Approval &&
-                    this.email == other.email &&
-                    this.phone == other.phone &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            email,
-                            phone,
-                            additionalProperties,
-                        )
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "Approval{email=$email, phone=$phone, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -866,6 +810,34 @@ constructor(
                         additionalProperties.toUnmodifiable(),
                     )
             }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Approval &&
+                    this.email == other.email &&
+                    this.phone == other.phone &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            private var hashCode: Int = 0
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            email,
+                            phone,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "Approval{email=$email, phone=$phone, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -880,8 +852,6 @@ constructor(
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
-            private var hashCode: Int = 0
-
             /**
              * Why the tokenization attempt was declined. This is for logging purposes only and is
              * not displayed to the end-user.
@@ -893,26 +863,6 @@ constructor(
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
             fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Decline &&
-                    this.reason == other.reason &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = Objects.hash(reason, additionalProperties)
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "Decline{reason=$reason, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -953,6 +903,56 @@ constructor(
 
                 fun build(): Decline = Decline(reason, additionalProperties.toUnmodifiable())
             }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Decline &&
+                    this.reason == other.reason &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            private var hashCode: Int = 0
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode = Objects.hash(reason, additionalProperties)
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "Decline{reason=$reason, additionalProperties=$additionalProperties}"
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is DigitalWalletToken &&
+                this.approval == other.approval &&
+                this.decline == other.decline &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        approval,
+                        decline,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "DigitalWalletToken{approval=$approval, decline=$decline, additionalProperties=$additionalProperties}"
     }
 }

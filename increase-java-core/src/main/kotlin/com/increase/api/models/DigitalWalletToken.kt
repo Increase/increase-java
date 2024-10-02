@@ -37,8 +37,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** The identifier for the Card this Digital Wallet Token belongs to. */
     fun cardId(): String = cardId.getRequired("card_id")
 
@@ -104,40 +102,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is DigitalWalletToken &&
-            this.cardId == other.cardId &&
-            this.createdAt == other.createdAt &&
-            this.id == other.id &&
-            this.status == other.status &&
-            this.tokenRequestor == other.tokenRequestor &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    cardId,
-                    createdAt,
-                    id,
-                    status,
-                    tokenRequestor,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "DigitalWalletToken{cardId=$cardId, createdAt=$createdAt, id=$id, status=$status, tokenRequestor=$tokenRequestor, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -440,4 +404,40 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is DigitalWalletToken &&
+            this.cardId == other.cardId &&
+            this.createdAt == other.createdAt &&
+            this.id == other.id &&
+            this.status == other.status &&
+            this.tokenRequestor == other.tokenRequestor &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    cardId,
+                    createdAt,
+                    id,
+                    status,
+                    tokenRequestor,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "DigitalWalletToken{cardId=$cardId, createdAt=$createdAt, id=$id, status=$status, tokenRequestor=$tokenRequestor, type=$type, additionalProperties=$additionalProperties}"
 }

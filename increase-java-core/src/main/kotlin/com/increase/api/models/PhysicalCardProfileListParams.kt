@@ -181,8 +181,6 @@ constructor(
         private val additionalProperties: Map<String, List<String>>,
     ) {
 
-        private var hashCode: Int = 0
-
         /**
          * Filter Physical Card Profiles for those with the specified statuses. For GET requests,
          * this should be encoded as a comma-delimited string, such as `?in=one,two,three`.
@@ -198,25 +196,6 @@ constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Status &&
-                this.in_ == other.in_ &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(in_, additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() = "Status{in_=$in_, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -339,5 +318,26 @@ constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Status &&
+                this.in_ == other.in_ &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(in_, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "Status{in_=$in_, additionalProperties=$additionalProperties}"
     }
 }

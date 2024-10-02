@@ -58,8 +58,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /** The identifier of the File containing the physical card's carrier image. */
         @JsonProperty("carrier_image_file_id")
         fun carrierImageFileId(): String? = carrierImageFileId
@@ -78,36 +76,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is PhysicalCardProfileCreateBody &&
-                this.carrierImageFileId == other.carrierImageFileId &&
-                this.contactPhone == other.contactPhone &&
-                this.description == other.description &&
-                this.frontImageFileId == other.frontImageFileId &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        carrierImageFileId,
-                        contactPhone,
-                        description,
-                        frontImageFileId,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "PhysicalCardProfileCreateBody{carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -179,6 +147,38 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is PhysicalCardProfileCreateBody &&
+                this.carrierImageFileId == other.carrierImageFileId &&
+                this.contactPhone == other.contactPhone &&
+                this.description == other.description &&
+                this.frontImageFileId == other.frontImageFileId &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        carrierImageFileId,
+                        contactPhone,
+                        description,
+                        frontImageFileId,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "PhysicalCardProfileCreateBody{carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams

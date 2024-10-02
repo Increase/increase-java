@@ -45,8 +45,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** The identifier for the account this Account Number belongs to. */
     fun accountId(): String = accountId.getRequired("account_id")
 
@@ -156,50 +154,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is AccountNumber &&
-            this.accountId == other.accountId &&
-            this.accountNumber == other.accountNumber &&
-            this.createdAt == other.createdAt &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.inboundAch == other.inboundAch &&
-            this.inboundChecks == other.inboundChecks &&
-            this.name == other.name &&
-            this.routingNumber == other.routingNumber &&
-            this.status == other.status &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    accountId,
-                    accountNumber,
-                    createdAt,
-                    id,
-                    idempotencyKey,
-                    inboundAch,
-                    inboundChecks,
-                    name,
-                    routingNumber,
-                    status,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "AccountNumber{accountId=$accountId, accountNumber=$accountNumber, createdAt=$createdAt, id=$id, idempotencyKey=$idempotencyKey, inboundAch=$inboundAch, inboundChecks=$inboundChecks, name=$name, routingNumber=$routingNumber, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -397,8 +351,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         /**
          * Whether ACH debits are allowed against this Account Number. Note that they will still be
          * declined if this is `allowed` if the Account Number is not active.
@@ -423,26 +375,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is InboundAch &&
-                this.debitStatus == other.debitStatus &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(debitStatus, additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "InboundAch{debitStatus=$debitStatus, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -549,6 +481,28 @@ private constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is InboundAch &&
+                this.debitStatus == other.debitStatus &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(debitStatus, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "InboundAch{debitStatus=$debitStatus, additionalProperties=$additionalProperties}"
     }
 
     /** Properties related to how this Account Number should handle inbound check withdrawals. */
@@ -561,8 +515,6 @@ private constructor(
     ) {
 
         private var validated: Boolean = false
-
-        private var hashCode: Int = 0
 
         /** How Increase should process checks with this account number printed on them. */
         fun status(): Status = status.getRequired("status")
@@ -582,26 +534,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is InboundChecks &&
-                this.status == other.status &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(status, additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "InboundChecks{status=$status, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -701,6 +633,28 @@ private constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is InboundChecks &&
+                this.status == other.status &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(status, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "InboundChecks{status=$status, additionalProperties=$additionalProperties}"
     }
 
     class Status
@@ -816,4 +770,50 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is AccountNumber &&
+            this.accountId == other.accountId &&
+            this.accountNumber == other.accountNumber &&
+            this.createdAt == other.createdAt &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.inboundAch == other.inboundAch &&
+            this.inboundChecks == other.inboundChecks &&
+            this.name == other.name &&
+            this.routingNumber == other.routingNumber &&
+            this.status == other.status &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    accountId,
+                    accountNumber,
+                    createdAt,
+                    id,
+                    idempotencyKey,
+                    inboundAch,
+                    inboundChecks,
+                    name,
+                    routingNumber,
+                    status,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "AccountNumber{accountId=$accountId, accountNumber=$accountNumber, createdAt=$createdAt, id=$id, idempotencyKey=$idempotencyKey, inboundAch=$inboundAch, inboundChecks=$inboundChecks, name=$name, routingNumber=$routingNumber, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

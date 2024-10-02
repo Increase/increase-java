@@ -114,8 +114,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /** The identifier for the account that will send the transfer. */
         @JsonProperty("account_id") fun accountId(): String? = accountId
 
@@ -190,58 +188,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is WireTransferCreateBody &&
-                this.accountId == other.accountId &&
-                this.amount == other.amount &&
-                this.beneficiaryName == other.beneficiaryName &&
-                this.messageToRecipient == other.messageToRecipient &&
-                this.accountNumber == other.accountNumber &&
-                this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
-                this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
-                this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
-                this.externalAccountId == other.externalAccountId &&
-                this.originatorAddressLine1 == other.originatorAddressLine1 &&
-                this.originatorAddressLine2 == other.originatorAddressLine2 &&
-                this.originatorAddressLine3 == other.originatorAddressLine3 &&
-                this.originatorName == other.originatorName &&
-                this.requireApproval == other.requireApproval &&
-                this.routingNumber == other.routingNumber &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountId,
-                        amount,
-                        beneficiaryName,
-                        messageToRecipient,
-                        accountNumber,
-                        beneficiaryAddressLine1,
-                        beneficiaryAddressLine2,
-                        beneficiaryAddressLine3,
-                        externalAccountId,
-                        originatorAddressLine1,
-                        originatorAddressLine2,
-                        originatorAddressLine3,
-                        originatorName,
-                        requireApproval,
-                        routingNumber,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "WireTransferCreateBody{accountId=$accountId, amount=$amount, beneficiaryName=$beneficiaryName, messageToRecipient=$messageToRecipient, accountNumber=$accountNumber, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, externalAccountId=$externalAccountId, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, requireApproval=$requireApproval, routingNumber=$routingNumber, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -424,6 +370,60 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is WireTransferCreateBody &&
+                this.accountId == other.accountId &&
+                this.amount == other.amount &&
+                this.beneficiaryName == other.beneficiaryName &&
+                this.messageToRecipient == other.messageToRecipient &&
+                this.accountNumber == other.accountNumber &&
+                this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
+                this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
+                this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
+                this.externalAccountId == other.externalAccountId &&
+                this.originatorAddressLine1 == other.originatorAddressLine1 &&
+                this.originatorAddressLine2 == other.originatorAddressLine2 &&
+                this.originatorAddressLine3 == other.originatorAddressLine3 &&
+                this.originatorName == other.originatorName &&
+                this.requireApproval == other.requireApproval &&
+                this.routingNumber == other.routingNumber &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        accountId,
+                        amount,
+                        beneficiaryName,
+                        messageToRecipient,
+                        accountNumber,
+                        beneficiaryAddressLine1,
+                        beneficiaryAddressLine2,
+                        beneficiaryAddressLine3,
+                        externalAccountId,
+                        originatorAddressLine1,
+                        originatorAddressLine2,
+                        originatorAddressLine3,
+                        originatorName,
+                        requireApproval,
+                        routingNumber,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "WireTransferCreateBody{accountId=$accountId, amount=$amount, beneficiaryName=$beneficiaryName, messageToRecipient=$messageToRecipient, accountNumber=$accountNumber, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, externalAccountId=$externalAccountId, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, requireApproval=$requireApproval, routingNumber=$routingNumber, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams

@@ -143,8 +143,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /** The amount being requested in cents. */
         @JsonProperty("amount") fun amount(): Long? = amount
 
@@ -243,72 +241,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is SimulationInboundWireDrawdownRequestCreateBody &&
-                this.amount == other.amount &&
-                this.beneficiaryAccountNumber == other.beneficiaryAccountNumber &&
-                this.beneficiaryRoutingNumber == other.beneficiaryRoutingNumber &&
-                this.currency == other.currency &&
-                this.messageToRecipient == other.messageToRecipient &&
-                this.originatorAccountNumber == other.originatorAccountNumber &&
-                this.originatorRoutingNumber == other.originatorRoutingNumber &&
-                this.recipientAccountNumberId == other.recipientAccountNumberId &&
-                this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
-                this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
-                this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
-                this.beneficiaryName == other.beneficiaryName &&
-                this.originatorAddressLine1 == other.originatorAddressLine1 &&
-                this.originatorAddressLine2 == other.originatorAddressLine2 &&
-                this.originatorAddressLine3 == other.originatorAddressLine3 &&
-                this.originatorName == other.originatorName &&
-                this.originatorToBeneficiaryInformationLine1 ==
-                    other.originatorToBeneficiaryInformationLine1 &&
-                this.originatorToBeneficiaryInformationLine2 ==
-                    other.originatorToBeneficiaryInformationLine2 &&
-                this.originatorToBeneficiaryInformationLine3 ==
-                    other.originatorToBeneficiaryInformationLine3 &&
-                this.originatorToBeneficiaryInformationLine4 ==
-                    other.originatorToBeneficiaryInformationLine4 &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        amount,
-                        beneficiaryAccountNumber,
-                        beneficiaryRoutingNumber,
-                        currency,
-                        messageToRecipient,
-                        originatorAccountNumber,
-                        originatorRoutingNumber,
-                        recipientAccountNumberId,
-                        beneficiaryAddressLine1,
-                        beneficiaryAddressLine2,
-                        beneficiaryAddressLine3,
-                        beneficiaryName,
-                        originatorAddressLine1,
-                        originatorAddressLine2,
-                        originatorAddressLine3,
-                        originatorName,
-                        originatorToBeneficiaryInformationLine1,
-                        originatorToBeneficiaryInformationLine2,
-                        originatorToBeneficiaryInformationLine3,
-                        originatorToBeneficiaryInformationLine4,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "SimulationInboundWireDrawdownRequestCreateBody{amount=$amount, beneficiaryAccountNumber=$beneficiaryAccountNumber, beneficiaryRoutingNumber=$beneficiaryRoutingNumber, currency=$currency, messageToRecipient=$messageToRecipient, originatorAccountNumber=$originatorAccountNumber, originatorRoutingNumber=$originatorRoutingNumber, recipientAccountNumberId=$recipientAccountNumberId, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -586,6 +518,74 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is SimulationInboundWireDrawdownRequestCreateBody &&
+                this.amount == other.amount &&
+                this.beneficiaryAccountNumber == other.beneficiaryAccountNumber &&
+                this.beneficiaryRoutingNumber == other.beneficiaryRoutingNumber &&
+                this.currency == other.currency &&
+                this.messageToRecipient == other.messageToRecipient &&
+                this.originatorAccountNumber == other.originatorAccountNumber &&
+                this.originatorRoutingNumber == other.originatorRoutingNumber &&
+                this.recipientAccountNumberId == other.recipientAccountNumberId &&
+                this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
+                this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
+                this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
+                this.beneficiaryName == other.beneficiaryName &&
+                this.originatorAddressLine1 == other.originatorAddressLine1 &&
+                this.originatorAddressLine2 == other.originatorAddressLine2 &&
+                this.originatorAddressLine3 == other.originatorAddressLine3 &&
+                this.originatorName == other.originatorName &&
+                this.originatorToBeneficiaryInformationLine1 ==
+                    other.originatorToBeneficiaryInformationLine1 &&
+                this.originatorToBeneficiaryInformationLine2 ==
+                    other.originatorToBeneficiaryInformationLine2 &&
+                this.originatorToBeneficiaryInformationLine3 ==
+                    other.originatorToBeneficiaryInformationLine3 &&
+                this.originatorToBeneficiaryInformationLine4 ==
+                    other.originatorToBeneficiaryInformationLine4 &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        amount,
+                        beneficiaryAccountNumber,
+                        beneficiaryRoutingNumber,
+                        currency,
+                        messageToRecipient,
+                        originatorAccountNumber,
+                        originatorRoutingNumber,
+                        recipientAccountNumberId,
+                        beneficiaryAddressLine1,
+                        beneficiaryAddressLine2,
+                        beneficiaryAddressLine3,
+                        beneficiaryName,
+                        originatorAddressLine1,
+                        originatorAddressLine2,
+                        originatorAddressLine3,
+                        originatorName,
+                        originatorToBeneficiaryInformationLine1,
+                        originatorToBeneficiaryInformationLine2,
+                        originatorToBeneficiaryInformationLine3,
+                        originatorToBeneficiaryInformationLine4,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "SimulationInboundWireDrawdownRequestCreateBody{amount=$amount, beneficiaryAccountNumber=$beneficiaryAccountNumber, beneficiaryRoutingNumber=$beneficiaryRoutingNumber, currency=$currency, messageToRecipient=$messageToRecipient, originatorAccountNumber=$originatorAccountNumber, originatorRoutingNumber=$originatorRoutingNumber, recipientAccountNumberId=$recipientAccountNumberId, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams

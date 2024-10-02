@@ -55,8 +55,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** The amount being requested in cents. */
     fun amount(): Long = amount.getRequired("amount")
 
@@ -317,78 +315,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is InboundWireDrawdownRequest &&
-            this.amount == other.amount &&
-            this.beneficiaryAccountNumber == other.beneficiaryAccountNumber &&
-            this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
-            this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
-            this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
-            this.beneficiaryName == other.beneficiaryName &&
-            this.beneficiaryRoutingNumber == other.beneficiaryRoutingNumber &&
-            this.createdAt == other.createdAt &&
-            this.currency == other.currency &&
-            this.id == other.id &&
-            this.messageToRecipient == other.messageToRecipient &&
-            this.originatorAccountNumber == other.originatorAccountNumber &&
-            this.originatorAddressLine1 == other.originatorAddressLine1 &&
-            this.originatorAddressLine2 == other.originatorAddressLine2 &&
-            this.originatorAddressLine3 == other.originatorAddressLine3 &&
-            this.originatorName == other.originatorName &&
-            this.originatorRoutingNumber == other.originatorRoutingNumber &&
-            this.originatorToBeneficiaryInformationLine1 ==
-                other.originatorToBeneficiaryInformationLine1 &&
-            this.originatorToBeneficiaryInformationLine2 ==
-                other.originatorToBeneficiaryInformationLine2 &&
-            this.originatorToBeneficiaryInformationLine3 ==
-                other.originatorToBeneficiaryInformationLine3 &&
-            this.originatorToBeneficiaryInformationLine4 ==
-                other.originatorToBeneficiaryInformationLine4 &&
-            this.recipientAccountNumberId == other.recipientAccountNumberId &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    amount,
-                    beneficiaryAccountNumber,
-                    beneficiaryAddressLine1,
-                    beneficiaryAddressLine2,
-                    beneficiaryAddressLine3,
-                    beneficiaryName,
-                    beneficiaryRoutingNumber,
-                    createdAt,
-                    currency,
-                    id,
-                    messageToRecipient,
-                    originatorAccountNumber,
-                    originatorAddressLine1,
-                    originatorAddressLine2,
-                    originatorAddressLine3,
-                    originatorName,
-                    originatorRoutingNumber,
-                    originatorToBeneficiaryInformationLine1,
-                    originatorToBeneficiaryInformationLine2,
-                    originatorToBeneficiaryInformationLine3,
-                    originatorToBeneficiaryInformationLine4,
-                    recipientAccountNumberId,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "InboundWireDrawdownRequest{amount=$amount, beneficiaryAccountNumber=$beneficiaryAccountNumber, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryRoutingNumber=$beneficiaryRoutingNumber, createdAt=$createdAt, currency=$currency, id=$id, messageToRecipient=$messageToRecipient, originatorAccountNumber=$originatorAccountNumber, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, recipientAccountNumberId=$recipientAccountNumberId, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -847,4 +773,78 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is InboundWireDrawdownRequest &&
+            this.amount == other.amount &&
+            this.beneficiaryAccountNumber == other.beneficiaryAccountNumber &&
+            this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
+            this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
+            this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
+            this.beneficiaryName == other.beneficiaryName &&
+            this.beneficiaryRoutingNumber == other.beneficiaryRoutingNumber &&
+            this.createdAt == other.createdAt &&
+            this.currency == other.currency &&
+            this.id == other.id &&
+            this.messageToRecipient == other.messageToRecipient &&
+            this.originatorAccountNumber == other.originatorAccountNumber &&
+            this.originatorAddressLine1 == other.originatorAddressLine1 &&
+            this.originatorAddressLine2 == other.originatorAddressLine2 &&
+            this.originatorAddressLine3 == other.originatorAddressLine3 &&
+            this.originatorName == other.originatorName &&
+            this.originatorRoutingNumber == other.originatorRoutingNumber &&
+            this.originatorToBeneficiaryInformationLine1 ==
+                other.originatorToBeneficiaryInformationLine1 &&
+            this.originatorToBeneficiaryInformationLine2 ==
+                other.originatorToBeneficiaryInformationLine2 &&
+            this.originatorToBeneficiaryInformationLine3 ==
+                other.originatorToBeneficiaryInformationLine3 &&
+            this.originatorToBeneficiaryInformationLine4 ==
+                other.originatorToBeneficiaryInformationLine4 &&
+            this.recipientAccountNumberId == other.recipientAccountNumberId &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    amount,
+                    beneficiaryAccountNumber,
+                    beneficiaryAddressLine1,
+                    beneficiaryAddressLine2,
+                    beneficiaryAddressLine3,
+                    beneficiaryName,
+                    beneficiaryRoutingNumber,
+                    createdAt,
+                    currency,
+                    id,
+                    messageToRecipient,
+                    originatorAccountNumber,
+                    originatorAddressLine1,
+                    originatorAddressLine2,
+                    originatorAddressLine3,
+                    originatorName,
+                    originatorRoutingNumber,
+                    originatorToBeneficiaryInformationLine1,
+                    originatorToBeneficiaryInformationLine2,
+                    originatorToBeneficiaryInformationLine3,
+                    originatorToBeneficiaryInformationLine4,
+                    recipientAccountNumberId,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "InboundWireDrawdownRequest{amount=$amount, beneficiaryAccountNumber=$beneficiaryAccountNumber, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryRoutingNumber=$beneficiaryRoutingNumber, createdAt=$createdAt, currency=$currency, id=$id, messageToRecipient=$messageToRecipient, originatorAccountNumber=$originatorAccountNumber, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, recipientAccountNumberId=$recipientAccountNumberId, type=$type, additionalProperties=$additionalProperties}"
 }

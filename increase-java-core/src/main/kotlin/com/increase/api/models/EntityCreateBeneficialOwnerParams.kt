@@ -55,8 +55,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /**
          * The identifying details of anyone controlling or owning 25% or more of the corporation.
          */
@@ -67,26 +65,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is EntityCreateBeneficialOwnerBody &&
-                this.beneficialOwner == other.beneficialOwner &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(beneficialOwner, additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "EntityCreateBeneficialOwnerBody{beneficialOwner=$beneficialOwner, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -136,6 +114,28 @@ constructor(
                     additionalProperties.toUnmodifiable()
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is EntityCreateBeneficialOwnerBody &&
+                this.beneficialOwner == other.beneficialOwner &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(beneficialOwner, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "EntityCreateBeneficialOwnerBody{beneficialOwner=$beneficialOwner, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
@@ -281,8 +281,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /** This person's role or title within the entity. */
         @JsonProperty("company_title") fun companyTitle(): String? = companyTitle
 
@@ -301,34 +299,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is BeneficialOwner &&
-                this.companyTitle == other.companyTitle &&
-                this.individual == other.individual &&
-                this.prongs == other.prongs &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        companyTitle,
-                        individual,
-                        prongs,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "BeneficialOwner{companyTitle=$companyTitle, individual=$individual, prongs=$prongs, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -402,8 +372,6 @@ constructor(
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
-            private var hashCode: Int = 0
-
             /**
              * The individual's physical address. Mail receiving locations like PO Boxes and PMB's
              * are disallowed.
@@ -432,38 +400,6 @@ constructor(
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
             fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Individual &&
-                    this.address == other.address &&
-                    this.confirmedNoUsTaxId == other.confirmedNoUsTaxId &&
-                    this.dateOfBirth == other.dateOfBirth &&
-                    this.identification == other.identification &&
-                    this.name == other.name &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            address,
-                            confirmedNoUsTaxId,
-                            dateOfBirth,
-                            identification,
-                            name,
-                            additionalProperties,
-                        )
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "Individual{address=$address, confirmedNoUsTaxId=$confirmedNoUsTaxId, dateOfBirth=$dateOfBirth, identification=$identification, name=$name, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -564,8 +500,6 @@ constructor(
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
 
-                private var hashCode: Int = 0
-
                 /** The city of the address. */
                 @JsonProperty("city") fun city(): String? = city
 
@@ -589,38 +523,6 @@ constructor(
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
                 fun toBuilder() = Builder().from(this)
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Address &&
-                        this.city == other.city &&
-                        this.line1 == other.line1 &&
-                        this.line2 == other.line2 &&
-                        this.state == other.state &&
-                        this.zip == other.zip &&
-                        this.additionalProperties == other.additionalProperties
-                }
-
-                override fun hashCode(): Int {
-                    if (hashCode == 0) {
-                        hashCode =
-                            Objects.hash(
-                                city,
-                                line1,
-                                line2,
-                                state,
-                                zip,
-                                additionalProperties,
-                            )
-                    }
-                    return hashCode
-                }
-
-                override fun toString() =
-                    "Address{city=$city, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -691,6 +593,40 @@ constructor(
                             additionalProperties.toUnmodifiable(),
                         )
                 }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Address &&
+                        this.city == other.city &&
+                        this.line1 == other.line1 &&
+                        this.line2 == other.line2 &&
+                        this.state == other.state &&
+                        this.zip == other.zip &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                private var hashCode: Int = 0
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode =
+                            Objects.hash(
+                                city,
+                                line1,
+                                line2,
+                                state,
+                                zip,
+                                additionalProperties,
+                            )
+                    }
+                    return hashCode
+                }
+
+                override fun toString() =
+                    "Address{city=$city, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
             }
 
             /** A means of verifying the person's identity. */
@@ -705,8 +641,6 @@ constructor(
                 private val passport: Passport?,
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
-
-                private var hashCode: Int = 0
 
                 /**
                  * Information about the United States driver's license used for identification.
@@ -741,38 +675,6 @@ constructor(
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
                 fun toBuilder() = Builder().from(this)
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Identification &&
-                        this.driversLicense == other.driversLicense &&
-                        this.method == other.method &&
-                        this.number == other.number &&
-                        this.other == other.other &&
-                        this.passport == other.passport &&
-                        this.additionalProperties == other.additionalProperties
-                }
-
-                override fun hashCode(): Int {
-                    if (hashCode == 0) {
-                        hashCode =
-                            Objects.hash(
-                                driversLicense,
-                                method,
-                                number,
-                                other,
-                                passport,
-                                additionalProperties,
-                            )
-                    }
-                    return hashCode
-                }
-
-                override fun toString() =
-                    "Identification{driversLicense=$driversLicense, method=$method, number=$number, other=$other, passport=$passport, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -953,8 +855,6 @@ constructor(
                     private val additionalProperties: Map<String, JsonValue>,
                 ) {
 
-                    private var hashCode: Int = 0
-
                     /** The identifier of the File containing the back of the driver's license. */
                     @JsonProperty("back_file_id") fun backFileId(): String? = backFileId
 
@@ -973,36 +873,6 @@ constructor(
                     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
                     fun toBuilder() = Builder().from(this)
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is DriversLicense &&
-                            this.backFileId == other.backFileId &&
-                            this.expirationDate == other.expirationDate &&
-                            this.fileId == other.fileId &&
-                            this.state == other.state &&
-                            this.additionalProperties == other.additionalProperties
-                    }
-
-                    override fun hashCode(): Int {
-                        if (hashCode == 0) {
-                            hashCode =
-                                Objects.hash(
-                                    backFileId,
-                                    expirationDate,
-                                    fileId,
-                                    state,
-                                    additionalProperties,
-                                )
-                        }
-                        return hashCode
-                    }
-
-                    override fun toString() =
-                        "DriversLicense{backFileId=$backFileId, expirationDate=$expirationDate, fileId=$fileId, state=$state, additionalProperties=$additionalProperties}"
 
                     companion object {
 
@@ -1075,6 +945,38 @@ constructor(
                                 additionalProperties.toUnmodifiable(),
                             )
                     }
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is DriversLicense &&
+                            this.backFileId == other.backFileId &&
+                            this.expirationDate == other.expirationDate &&
+                            this.fileId == other.fileId &&
+                            this.state == other.state &&
+                            this.additionalProperties == other.additionalProperties
+                    }
+
+                    private var hashCode: Int = 0
+
+                    override fun hashCode(): Int {
+                        if (hashCode == 0) {
+                            hashCode =
+                                Objects.hash(
+                                    backFileId,
+                                    expirationDate,
+                                    fileId,
+                                    state,
+                                    additionalProperties,
+                                )
+                        }
+                        return hashCode
+                    }
+
+                    override fun toString() =
+                        "DriversLicense{backFileId=$backFileId, expirationDate=$expirationDate, fileId=$fileId, state=$state, additionalProperties=$additionalProperties}"
                 }
 
                 /**
@@ -1092,8 +994,6 @@ constructor(
                     private val fileId: String?,
                     private val additionalProperties: Map<String, JsonValue>,
                 ) {
-
-                    private var hashCode: Int = 0
 
                     /**
                      * The identifier of the File containing the back of the document. Not every
@@ -1122,38 +1022,6 @@ constructor(
                     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
                     fun toBuilder() = Builder().from(this)
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is Other &&
-                            this.backFileId == other.backFileId &&
-                            this.country == other.country &&
-                            this.description == other.description &&
-                            this.expirationDate == other.expirationDate &&
-                            this.fileId == other.fileId &&
-                            this.additionalProperties == other.additionalProperties
-                    }
-
-                    override fun hashCode(): Int {
-                        if (hashCode == 0) {
-                            hashCode =
-                                Objects.hash(
-                                    backFileId,
-                                    country,
-                                    description,
-                                    expirationDate,
-                                    fileId,
-                                    additionalProperties,
-                                )
-                        }
-                        return hashCode
-                    }
-
-                    override fun toString() =
-                        "Other{backFileId=$backFileId, country=$country, description=$description, expirationDate=$expirationDate, fileId=$fileId, additionalProperties=$additionalProperties}"
 
                     companion object {
 
@@ -1237,6 +1105,40 @@ constructor(
                                 additionalProperties.toUnmodifiable(),
                             )
                     }
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Other &&
+                            this.backFileId == other.backFileId &&
+                            this.country == other.country &&
+                            this.description == other.description &&
+                            this.expirationDate == other.expirationDate &&
+                            this.fileId == other.fileId &&
+                            this.additionalProperties == other.additionalProperties
+                    }
+
+                    private var hashCode: Int = 0
+
+                    override fun hashCode(): Int {
+                        if (hashCode == 0) {
+                            hashCode =
+                                Objects.hash(
+                                    backFileId,
+                                    country,
+                                    description,
+                                    expirationDate,
+                                    fileId,
+                                    additionalProperties,
+                                )
+                        }
+                        return hashCode
+                    }
+
+                    override fun toString() =
+                        "Other{backFileId=$backFileId, country=$country, description=$description, expirationDate=$expirationDate, fileId=$fileId, additionalProperties=$additionalProperties}"
                 }
 
                 /**
@@ -1253,8 +1155,6 @@ constructor(
                     private val additionalProperties: Map<String, JsonValue>,
                 ) {
 
-                    private var hashCode: Int = 0
-
                     /** The country that issued the passport. */
                     @JsonProperty("country") fun country(): String? = country
 
@@ -1270,34 +1170,6 @@ constructor(
                     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
                     fun toBuilder() = Builder().from(this)
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is Passport &&
-                            this.country == other.country &&
-                            this.expirationDate == other.expirationDate &&
-                            this.fileId == other.fileId &&
-                            this.additionalProperties == other.additionalProperties
-                    }
-
-                    override fun hashCode(): Int {
-                        if (hashCode == 0) {
-                            hashCode =
-                                Objects.hash(
-                                    country,
-                                    expirationDate,
-                                    fileId,
-                                    additionalProperties,
-                                )
-                        }
-                        return hashCode
-                    }
-
-                    override fun toString() =
-                        "Passport{country=$country, expirationDate=$expirationDate, fileId=$fileId, additionalProperties=$additionalProperties}"
 
                     companion object {
 
@@ -1359,8 +1231,106 @@ constructor(
                                 additionalProperties.toUnmodifiable(),
                             )
                     }
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Passport &&
+                            this.country == other.country &&
+                            this.expirationDate == other.expirationDate &&
+                            this.fileId == other.fileId &&
+                            this.additionalProperties == other.additionalProperties
+                    }
+
+                    private var hashCode: Int = 0
+
+                    override fun hashCode(): Int {
+                        if (hashCode == 0) {
+                            hashCode =
+                                Objects.hash(
+                                    country,
+                                    expirationDate,
+                                    fileId,
+                                    additionalProperties,
+                                )
+                        }
+                        return hashCode
+                    }
+
+                    override fun toString() =
+                        "Passport{country=$country, expirationDate=$expirationDate, fileId=$fileId, additionalProperties=$additionalProperties}"
                 }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Identification &&
+                        this.driversLicense == other.driversLicense &&
+                        this.method == other.method &&
+                        this.number == other.number &&
+                        this.other == other.other &&
+                        this.passport == other.passport &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                private var hashCode: Int = 0
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode =
+                            Objects.hash(
+                                driversLicense,
+                                method,
+                                number,
+                                other,
+                                passport,
+                                additionalProperties,
+                            )
+                    }
+                    return hashCode
+                }
+
+                override fun toString() =
+                    "Identification{driversLicense=$driversLicense, method=$method, number=$number, other=$other, passport=$passport, additionalProperties=$additionalProperties}"
             }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Individual &&
+                    this.address == other.address &&
+                    this.confirmedNoUsTaxId == other.confirmedNoUsTaxId &&
+                    this.dateOfBirth == other.dateOfBirth &&
+                    this.identification == other.identification &&
+                    this.name == other.name &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            private var hashCode: Int = 0
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            address,
+                            confirmedNoUsTaxId,
+                            dateOfBirth,
+                            identification,
+                            name,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "Individual{address=$address, confirmedNoUsTaxId=$confirmedNoUsTaxId, dateOfBirth=$dateOfBirth, identification=$identification, name=$name, additionalProperties=$additionalProperties}"
         }
 
         class Prong
@@ -1419,5 +1389,35 @@ constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is BeneficialOwner &&
+                this.companyTitle == other.companyTitle &&
+                this.individual == other.individual &&
+                this.prongs == other.prongs &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        companyTitle,
+                        individual,
+                        prongs,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "BeneficialOwner{companyTitle=$companyTitle, individual=$individual, prongs=$prongs, additionalProperties=$additionalProperties}"
     }
 }

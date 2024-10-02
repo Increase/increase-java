@@ -100,8 +100,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /** The identifier of the Account Number the inbound ACH Transfer is for. */
         @JsonProperty("account_number_id") fun accountNumberId(): String? = accountNumberId
 
@@ -151,50 +149,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is SimulationInboundAchTransferCreateBody &&
-                this.accountNumberId == other.accountNumberId &&
-                this.amount == other.amount &&
-                this.companyDescriptiveDate == other.companyDescriptiveDate &&
-                this.companyDiscretionaryData == other.companyDiscretionaryData &&
-                this.companyEntryDescription == other.companyEntryDescription &&
-                this.companyId == other.companyId &&
-                this.companyName == other.companyName &&
-                this.receiverIdNumber == other.receiverIdNumber &&
-                this.receiverName == other.receiverName &&
-                this.resolveAt == other.resolveAt &&
-                this.standardEntryClassCode == other.standardEntryClassCode &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountNumberId,
-                        amount,
-                        companyDescriptiveDate,
-                        companyDiscretionaryData,
-                        companyEntryDescription,
-                        companyId,
-                        companyName,
-                        receiverIdNumber,
-                        receiverName,
-                        resolveAt,
-                        standardEntryClassCode,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "SimulationInboundAchTransferCreateBody{accountNumberId=$accountNumberId, amount=$amount, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyId=$companyId, companyName=$companyName, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, resolveAt=$resolveAt, standardEntryClassCode=$standardEntryClassCode, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -332,6 +286,52 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is SimulationInboundAchTransferCreateBody &&
+                this.accountNumberId == other.accountNumberId &&
+                this.amount == other.amount &&
+                this.companyDescriptiveDate == other.companyDescriptiveDate &&
+                this.companyDiscretionaryData == other.companyDiscretionaryData &&
+                this.companyEntryDescription == other.companyEntryDescription &&
+                this.companyId == other.companyId &&
+                this.companyName == other.companyName &&
+                this.receiverIdNumber == other.receiverIdNumber &&
+                this.receiverName == other.receiverName &&
+                this.resolveAt == other.resolveAt &&
+                this.standardEntryClassCode == other.standardEntryClassCode &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        accountNumberId,
+                        amount,
+                        companyDescriptiveDate,
+                        companyDiscretionaryData,
+                        companyEntryDescription,
+                        companyId,
+                        companyName,
+                        receiverIdNumber,
+                        receiverName,
+                        resolveAt,
+                        standardEntryClassCode,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "SimulationInboundAchTransferCreateBody{accountNumberId=$accountNumberId, amount=$amount, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyId=$companyId, companyName=$companyName, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, resolveAt=$resolveAt, standardEntryClassCode=$standardEntryClassCode, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
