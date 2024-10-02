@@ -44,8 +44,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /**
      * If the Card Dispute's status is `accepted`, this will contain details of the successful
      * dispute.
@@ -178,52 +176,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is CardDispute &&
-            this.acceptance == other.acceptance &&
-            this.amount == other.amount &&
-            this.createdAt == other.createdAt &&
-            this.disputedTransactionId == other.disputedTransactionId &&
-            this.explanation == other.explanation &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.loss == other.loss &&
-            this.rejection == other.rejection &&
-            this.status == other.status &&
-            this.type == other.type &&
-            this.win == other.win &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    acceptance,
-                    amount,
-                    createdAt,
-                    disputedTransactionId,
-                    explanation,
-                    id,
-                    idempotencyKey,
-                    loss,
-                    rejection,
-                    status,
-                    type,
-                    win,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "CardDispute{acceptance=$acceptance, amount=$amount, createdAt=$createdAt, disputedTransactionId=$disputedTransactionId, explanation=$explanation, id=$id, idempotencyKey=$idempotencyKey, loss=$loss, rejection=$rejection, status=$status, type=$type, win=$win, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -444,8 +396,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
          * Dispute was accepted.
@@ -490,34 +440,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Acceptance &&
-                this.acceptedAt == other.acceptedAt &&
-                this.cardDisputeId == other.cardDisputeId &&
-                this.transactionId == other.transactionId &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        acceptedAt,
-                        cardDisputeId,
-                        transactionId,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Acceptance{acceptedAt=$acceptedAt, cardDisputeId=$cardDisputeId, transactionId=$transactionId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -603,6 +525,36 @@ private constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Acceptance &&
+                this.acceptedAt == other.acceptedAt &&
+                this.cardDisputeId == other.cardDisputeId &&
+                this.transactionId == other.transactionId &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        acceptedAt,
+                        cardDisputeId,
+                        transactionId,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Acceptance{acceptedAt=$acceptedAt, cardDisputeId=$cardDisputeId, transactionId=$transactionId, additionalProperties=$additionalProperties}"
     }
 
     /** If the Card Dispute's status is `lost`, this will contain details of the lost dispute. */
@@ -618,8 +570,6 @@ private constructor(
     ) {
 
         private var validated: Boolean = false
-
-        private var hashCode: Int = 0
 
         /** The identifier of the Card Dispute that was lost. */
         fun cardDisputeId(): String = cardDisputeId.getRequired("card_dispute_id")
@@ -672,36 +622,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Loss &&
-                this.cardDisputeId == other.cardDisputeId &&
-                this.explanation == other.explanation &&
-                this.lostAt == other.lostAt &&
-                this.transactionId == other.transactionId &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        cardDisputeId,
-                        explanation,
-                        lostAt,
-                        transactionId,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Loss{cardDisputeId=$cardDisputeId, explanation=$explanation, lostAt=$lostAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -798,6 +718,38 @@ private constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Loss &&
+                this.cardDisputeId == other.cardDisputeId &&
+                this.explanation == other.explanation &&
+                this.lostAt == other.lostAt &&
+                this.transactionId == other.transactionId &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        cardDisputeId,
+                        explanation,
+                        lostAt,
+                        transactionId,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Loss{cardDisputeId=$cardDisputeId, explanation=$explanation, lostAt=$lostAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -815,8 +767,6 @@ private constructor(
     ) {
 
         private var validated: Boolean = false
-
-        private var hashCode: Int = 0
 
         /** The identifier of the Card Dispute that was rejected. */
         fun cardDisputeId(): String = cardDisputeId.getRequired("card_dispute_id")
@@ -856,34 +806,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Rejection &&
-                this.cardDisputeId == other.cardDisputeId &&
-                this.explanation == other.explanation &&
-                this.rejectedAt == other.rejectedAt &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        cardDisputeId,
-                        explanation,
-                        rejectedAt,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Rejection{cardDisputeId=$cardDisputeId, explanation=$explanation, rejectedAt=$rejectedAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -963,6 +885,36 @@ private constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Rejection &&
+                this.cardDisputeId == other.cardDisputeId &&
+                this.explanation == other.explanation &&
+                this.rejectedAt == other.rejectedAt &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        cardDisputeId,
+                        explanation,
+                        rejectedAt,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Rejection{cardDisputeId=$cardDisputeId, explanation=$explanation, rejectedAt=$rejectedAt, additionalProperties=$additionalProperties}"
     }
 
     class Status
@@ -1103,8 +1055,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         /** The identifier of the Card Dispute that was won. */
         fun cardDisputeId(): String = cardDisputeId.getRequired("card_dispute_id")
 
@@ -1136,32 +1086,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Win &&
-                this.cardDisputeId == other.cardDisputeId &&
-                this.wonAt == other.wonAt &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        cardDisputeId,
-                        wonAt,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Win{cardDisputeId=$cardDisputeId, wonAt=$wonAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1226,5 +1150,81 @@ private constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Win &&
+                this.cardDisputeId == other.cardDisputeId &&
+                this.wonAt == other.wonAt &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        cardDisputeId,
+                        wonAt,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Win{cardDisputeId=$cardDisputeId, wonAt=$wonAt, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is CardDispute &&
+            this.acceptance == other.acceptance &&
+            this.amount == other.amount &&
+            this.createdAt == other.createdAt &&
+            this.disputedTransactionId == other.disputedTransactionId &&
+            this.explanation == other.explanation &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.loss == other.loss &&
+            this.rejection == other.rejection &&
+            this.status == other.status &&
+            this.type == other.type &&
+            this.win == other.win &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    acceptance,
+                    amount,
+                    createdAt,
+                    disputedTransactionId,
+                    explanation,
+                    id,
+                    idempotencyKey,
+                    loss,
+                    rejection,
+                    status,
+                    type,
+                    win,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "CardDispute{acceptance=$acceptance, amount=$amount, createdAt=$createdAt, disputedTransactionId=$disputedTransactionId, explanation=$explanation, id=$id, idempotencyKey=$idempotencyKey, loss=$loss, rejection=$rejection, status=$status, type=$type, win=$win, additionalProperties=$additionalProperties}"
 }

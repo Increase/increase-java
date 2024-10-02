@@ -34,8 +34,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Supplemental
      * Document was created.
@@ -103,38 +101,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is EntitySupplementalDocument &&
-            this.createdAt == other.createdAt &&
-            this.entityId == other.entityId &&
-            this.fileId == other.fileId &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    createdAt,
-                    entityId,
-                    fileId,
-                    idempotencyKey,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "EntitySupplementalDocument{createdAt=$createdAt, entityId=$entityId, fileId=$fileId, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -298,4 +264,38 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is EntitySupplementalDocument &&
+            this.createdAt == other.createdAt &&
+            this.entityId == other.entityId &&
+            this.fileId == other.fileId &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    createdAt,
+                    entityId,
+                    fileId,
+                    idempotencyKey,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "EntitySupplementalDocument{createdAt=$createdAt, entityId=$entityId, fileId=$fileId, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
 }

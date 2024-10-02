@@ -43,8 +43,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** The Bank the Program is with. */
     fun bank(): Bank = bank.getRequired("bank")
 
@@ -141,46 +139,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is Program &&
-            this.bank == other.bank &&
-            this.billingAccountId == other.billingAccountId &&
-            this.createdAt == other.createdAt &&
-            this.defaultDigitalCardProfileId == other.defaultDigitalCardProfileId &&
-            this.id == other.id &&
-            this.interestRate == other.interestRate &&
-            this.name == other.name &&
-            this.type == other.type &&
-            this.updatedAt == other.updatedAt &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    bank,
-                    billingAccountId,
-                    createdAt,
-                    defaultDigitalCardProfileId,
-                    id,
-                    interestRate,
-                    name,
-                    type,
-                    updatedAt,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "Program{bank=$bank, billingAccountId=$billingAccountId, createdAt=$createdAt, defaultDigitalCardProfileId=$defaultDigitalCardProfileId, id=$id, interestRate=$interestRate, name=$name, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -458,4 +416,46 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is Program &&
+            this.bank == other.bank &&
+            this.billingAccountId == other.billingAccountId &&
+            this.createdAt == other.createdAt &&
+            this.defaultDigitalCardProfileId == other.defaultDigitalCardProfileId &&
+            this.id == other.id &&
+            this.interestRate == other.interestRate &&
+            this.name == other.name &&
+            this.type == other.type &&
+            this.updatedAt == other.updatedAt &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    bank,
+                    billingAccountId,
+                    createdAt,
+                    defaultDigitalCardProfileId,
+                    id,
+                    interestRate,
+                    name,
+                    type,
+                    updatedAt,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "Program{bank=$bank, billingAccountId=$billingAccountId, createdAt=$createdAt, defaultDigitalCardProfileId=$defaultDigitalCardProfileId, id=$id, interestRate=$interestRate, name=$name, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

@@ -64,8 +64,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /** The identifier for the account that will send the transfer. */
         @JsonProperty("account_id") fun accountId(): String? = accountId
 
@@ -90,38 +88,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is AccountTransferCreateBody &&
-                this.accountId == other.accountId &&
-                this.amount == other.amount &&
-                this.description == other.description &&
-                this.destinationAccountId == other.destinationAccountId &&
-                this.requireApproval == other.requireApproval &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountId,
-                        amount,
-                        description,
-                        destinationAccountId,
-                        requireApproval,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "AccountTransferCreateBody{accountId=$accountId, amount=$amount, description=$description, destinationAccountId=$destinationAccountId, requireApproval=$requireApproval, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -199,6 +165,40 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is AccountTransferCreateBody &&
+                this.accountId == other.accountId &&
+                this.amount == other.amount &&
+                this.description == other.description &&
+                this.destinationAccountId == other.destinationAccountId &&
+                this.requireApproval == other.requireApproval &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        accountId,
+                        amount,
+                        description,
+                        destinationAccountId,
+                        requireApproval,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "AccountTransferCreateBody{accountId=$accountId, amount=$amount, description=$description, destinationAccountId=$destinationAccountId, requireApproval=$requireApproval, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams

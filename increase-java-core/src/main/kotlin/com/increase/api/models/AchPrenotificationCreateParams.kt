@@ -111,8 +111,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /** The Increase identifier for the account that will send the transfer. */
         @JsonProperty("account_id") fun accountId(): String? = accountId
 
@@ -170,54 +168,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is AchPrenotificationCreateBody &&
-                this.accountId == other.accountId &&
-                this.accountNumber == other.accountNumber &&
-                this.routingNumber == other.routingNumber &&
-                this.addendum == other.addendum &&
-                this.companyDescriptiveDate == other.companyDescriptiveDate &&
-                this.companyDiscretionaryData == other.companyDiscretionaryData &&
-                this.companyEntryDescription == other.companyEntryDescription &&
-                this.companyName == other.companyName &&
-                this.creditDebitIndicator == other.creditDebitIndicator &&
-                this.effectiveDate == other.effectiveDate &&
-                this.individualId == other.individualId &&
-                this.individualName == other.individualName &&
-                this.standardEntryClassCode == other.standardEntryClassCode &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountId,
-                        accountNumber,
-                        routingNumber,
-                        addendum,
-                        companyDescriptiveDate,
-                        companyDiscretionaryData,
-                        companyEntryDescription,
-                        companyName,
-                        creditDebitIndicator,
-                        effectiveDate,
-                        individualId,
-                        individualName,
-                        standardEntryClassCode,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "AchPrenotificationCreateBody{accountId=$accountId, accountNumber=$accountNumber, routingNumber=$routingNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, individualId=$individualId, individualName=$individualName, standardEntryClassCode=$standardEntryClassCode, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -367,6 +317,56 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is AchPrenotificationCreateBody &&
+                this.accountId == other.accountId &&
+                this.accountNumber == other.accountNumber &&
+                this.routingNumber == other.routingNumber &&
+                this.addendum == other.addendum &&
+                this.companyDescriptiveDate == other.companyDescriptiveDate &&
+                this.companyDiscretionaryData == other.companyDiscretionaryData &&
+                this.companyEntryDescription == other.companyEntryDescription &&
+                this.companyName == other.companyName &&
+                this.creditDebitIndicator == other.creditDebitIndicator &&
+                this.effectiveDate == other.effectiveDate &&
+                this.individualId == other.individualId &&
+                this.individualName == other.individualName &&
+                this.standardEntryClassCode == other.standardEntryClassCode &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        accountId,
+                        accountNumber,
+                        routingNumber,
+                        addendum,
+                        companyDescriptiveDate,
+                        companyDiscretionaryData,
+                        companyEntryDescription,
+                        companyName,
+                        creditDebitIndicator,
+                        effectiveDate,
+                        individualId,
+                        individualName,
+                        standardEntryClassCode,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "AchPrenotificationCreateBody{accountId=$accountId, accountNumber=$accountNumber, routingNumber=$routingNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, individualId=$individualId, individualName=$individualName, standardEntryClassCode=$standardEntryClassCode, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams

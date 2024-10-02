@@ -43,8 +43,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** The time the File was created. */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
@@ -149,48 +147,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is File &&
-            this.createdAt == other.createdAt &&
-            this.description == other.description &&
-            this.direction == other.direction &&
-            this.downloadUrl == other.downloadUrl &&
-            this.filename == other.filename &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.mimeType == other.mimeType &&
-            this.purpose == other.purpose &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    createdAt,
-                    description,
-                    direction,
-                    downloadUrl,
-                    filename,
-                    id,
-                    idempotencyKey,
-                    mimeType,
-                    purpose,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "File{createdAt=$createdAt, description=$description, direction=$direction, downloadUrl=$downloadUrl, filename=$filename, id=$id, idempotencyKey=$idempotencyKey, mimeType=$mimeType, purpose=$purpose, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -652,4 +608,48 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is File &&
+            this.createdAt == other.createdAt &&
+            this.description == other.description &&
+            this.direction == other.direction &&
+            this.downloadUrl == other.downloadUrl &&
+            this.filename == other.filename &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.mimeType == other.mimeType &&
+            this.purpose == other.purpose &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    createdAt,
+                    description,
+                    direction,
+                    downloadUrl,
+                    filename,
+                    id,
+                    idempotencyKey,
+                    mimeType,
+                    purpose,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "File{createdAt=$createdAt, description=$description, direction=$direction, downloadUrl=$downloadUrl, filename=$filename, id=$id, idempotencyKey=$idempotencyKey, mimeType=$mimeType, purpose=$purpose, type=$type, additionalProperties=$additionalProperties}"
 }

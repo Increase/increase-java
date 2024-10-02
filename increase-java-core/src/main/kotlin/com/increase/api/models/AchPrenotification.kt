@@ -48,8 +48,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** The destination account number. */
     fun accountNumber(): String = accountNumber.getRequired("account_number")
 
@@ -220,60 +218,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is AchPrenotification &&
-            this.accountNumber == other.accountNumber &&
-            this.addendum == other.addendum &&
-            this.companyDescriptiveDate == other.companyDescriptiveDate &&
-            this.companyDiscretionaryData == other.companyDiscretionaryData &&
-            this.companyEntryDescription == other.companyEntryDescription &&
-            this.companyName == other.companyName &&
-            this.createdAt == other.createdAt &&
-            this.creditDebitIndicator == other.creditDebitIndicator &&
-            this.effectiveDate == other.effectiveDate &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.notificationsOfChange == other.notificationsOfChange &&
-            this.prenotificationReturn == other.prenotificationReturn &&
-            this.routingNumber == other.routingNumber &&
-            this.status == other.status &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    accountNumber,
-                    addendum,
-                    companyDescriptiveDate,
-                    companyDiscretionaryData,
-                    companyEntryDescription,
-                    companyName,
-                    createdAt,
-                    creditDebitIndicator,
-                    effectiveDate,
-                    id,
-                    idempotencyKey,
-                    notificationsOfChange,
-                    prenotificationReturn,
-                    routingNumber,
-                    status,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "AchPrenotification{accountNumber=$accountNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, createdAt=$createdAt, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, id=$id, idempotencyKey=$idempotencyKey, notificationsOfChange=$notificationsOfChange, prenotificationReturn=$prenotificationReturn, routingNumber=$routingNumber, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -606,8 +550,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         /**
          * The required type of change that is being signaled by the receiving financial
          * institution.
@@ -664,34 +606,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is NotificationsOfChange &&
-                this.changeCode == other.changeCode &&
-                this.correctedData == other.correctedData &&
-                this.createdAt == other.createdAt &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        changeCode,
-                        correctedData,
-                        createdAt,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "NotificationsOfChange{changeCode=$changeCode, correctedData=$correctedData, createdAt=$createdAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1026,6 +940,36 @@ private constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is NotificationsOfChange &&
+                this.changeCode == other.changeCode &&
+                this.correctedData == other.correctedData &&
+                this.createdAt == other.createdAt &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        changeCode,
+                        correctedData,
+                        createdAt,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "NotificationsOfChange{changeCode=$changeCode, correctedData=$correctedData, createdAt=$createdAt, additionalProperties=$additionalProperties}"
     }
 
     /** If your prenotification is returned, this will contain details of the return. */
@@ -1039,8 +983,6 @@ private constructor(
     ) {
 
         private var validated: Boolean = false
-
-        private var hashCode: Int = 0
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
@@ -1076,32 +1018,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is PrenotificationReturn &&
-                this.createdAt == other.createdAt &&
-                this.returnReasonCode == other.returnReasonCode &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        createdAt,
-                        returnReasonCode,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "PrenotificationReturn{createdAt=$createdAt, returnReasonCode=$returnReasonCode, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1806,6 +1722,34 @@ private constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is PrenotificationReturn &&
+                this.createdAt == other.createdAt &&
+                this.returnReasonCode == other.returnReasonCode &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        createdAt,
+                        returnReasonCode,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "PrenotificationReturn{createdAt=$createdAt, returnReasonCode=$returnReasonCode, additionalProperties=$additionalProperties}"
     }
 
     class Status
@@ -1927,4 +1871,60 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is AchPrenotification &&
+            this.accountNumber == other.accountNumber &&
+            this.addendum == other.addendum &&
+            this.companyDescriptiveDate == other.companyDescriptiveDate &&
+            this.companyDiscretionaryData == other.companyDiscretionaryData &&
+            this.companyEntryDescription == other.companyEntryDescription &&
+            this.companyName == other.companyName &&
+            this.createdAt == other.createdAt &&
+            this.creditDebitIndicator == other.creditDebitIndicator &&
+            this.effectiveDate == other.effectiveDate &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.notificationsOfChange == other.notificationsOfChange &&
+            this.prenotificationReturn == other.prenotificationReturn &&
+            this.routingNumber == other.routingNumber &&
+            this.status == other.status &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    accountNumber,
+                    addendum,
+                    companyDescriptiveDate,
+                    companyDiscretionaryData,
+                    companyEntryDescription,
+                    companyName,
+                    createdAt,
+                    creditDebitIndicator,
+                    effectiveDate,
+                    id,
+                    idempotencyKey,
+                    notificationsOfChange,
+                    prenotificationReturn,
+                    routingNumber,
+                    status,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "AchPrenotification{accountNumber=$accountNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, createdAt=$createdAt, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, id=$id, idempotencyKey=$idempotencyKey, notificationsOfChange=$notificationsOfChange, prenotificationReturn=$prenotificationReturn, routingNumber=$routingNumber, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

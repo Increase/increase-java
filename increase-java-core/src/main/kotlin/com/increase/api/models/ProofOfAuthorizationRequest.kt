@@ -34,8 +34,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** The ACH Transfers associated with the request. */
     fun achTransfers(): List<AchTransfer> = achTransfers.getRequired("ach_transfers")
 
@@ -95,40 +93,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is ProofOfAuthorizationRequest &&
-            this.achTransfers == other.achTransfers &&
-            this.createdAt == other.createdAt &&
-            this.dueOn == other.dueOn &&
-            this.id == other.id &&
-            this.type == other.type &&
-            this.updatedAt == other.updatedAt &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    achTransfers,
-                    createdAt,
-                    dueOn,
-                    id,
-                    type,
-                    updatedAt,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "ProofOfAuthorizationRequest{achTransfers=$achTransfers, createdAt=$createdAt, dueOn=$dueOn, id=$id, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -246,8 +210,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         /** The ACH Transfer identifier. */
         fun id(): String = id.getRequired("id")
 
@@ -266,25 +228,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is AchTransfer &&
-                this.id == other.id &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(id, additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() = "AchTransfer{id=$id, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -326,6 +269,27 @@ private constructor(
 
             fun build(): AchTransfer = AchTransfer(id, additionalProperties.toUnmodifiable())
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is AchTransfer &&
+                this.id == other.id &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(id, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "AchTransfer{id=$id, additionalProperties=$additionalProperties}"
     }
 
     class Type
@@ -380,4 +344,40 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is ProofOfAuthorizationRequest &&
+            this.achTransfers == other.achTransfers &&
+            this.createdAt == other.createdAt &&
+            this.dueOn == other.dueOn &&
+            this.id == other.id &&
+            this.type == other.type &&
+            this.updatedAt == other.updatedAt &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    achTransfers,
+                    createdAt,
+                    dueOn,
+                    id,
+                    type,
+                    updatedAt,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "ProofOfAuthorizationRequest{achTransfers=$achTransfers, createdAt=$createdAt, dueOn=$dueOn, id=$id, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

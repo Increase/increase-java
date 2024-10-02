@@ -33,8 +33,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** The identifier for the Card for which sensitive details have been returned. */
     fun cardId(): String = cardId.getRequired("card_id")
 
@@ -102,40 +100,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is CardDetails &&
-            this.cardId == other.cardId &&
-            this.expirationMonth == other.expirationMonth &&
-            this.expirationYear == other.expirationYear &&
-            this.primaryAccountNumber == other.primaryAccountNumber &&
-            this.type == other.type &&
-            this.verificationCode == other.verificationCode &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    cardId,
-                    expirationMonth,
-                    expirationYear,
-                    primaryAccountNumber,
-                    type,
-                    verificationCode,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "CardDetails{cardId=$cardId, expirationMonth=$expirationMonth, expirationYear=$expirationYear, primaryAccountNumber=$primaryAccountNumber, type=$type, verificationCode=$verificationCode, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -309,4 +273,40 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is CardDetails &&
+            this.cardId == other.cardId &&
+            this.expirationMonth == other.expirationMonth &&
+            this.expirationYear == other.expirationYear &&
+            this.primaryAccountNumber == other.primaryAccountNumber &&
+            this.type == other.type &&
+            this.verificationCode == other.verificationCode &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    cardId,
+                    expirationMonth,
+                    expirationYear,
+                    primaryAccountNumber,
+                    type,
+                    verificationCode,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "CardDetails{cardId=$cardId, expirationMonth=$expirationMonth, expirationYear=$expirationYear, primaryAccountNumber=$primaryAccountNumber, type=$type, verificationCode=$verificationCode, additionalProperties=$additionalProperties}"
 }

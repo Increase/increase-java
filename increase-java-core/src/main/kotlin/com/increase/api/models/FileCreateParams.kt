@@ -54,8 +54,6 @@ constructor(
         private val description: String?,
     ) {
 
-        private var hashCode: Int = 0
-
         /**
          * The file contents. This should follow the specifications of
          * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
@@ -70,32 +68,6 @@ constructor(
         fun description(): String? = description
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is FileCreateBody &&
-                this.file == other.file &&
-                this.purpose == other.purpose &&
-                this.description == other.description
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        file,
-                        purpose,
-                        description,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "FileCreateBody{file=$file, purpose=$purpose, description=$description}"
 
         companion object {
 
@@ -128,6 +100,34 @@ constructor(
             /** The description you choose to give the File. */
             fun description(description: String) = apply { this.description = description }
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is FileCreateBody &&
+                this.file == other.file &&
+                this.purpose == other.purpose &&
+                this.description == other.description
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        file,
+                        purpose,
+                        description,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "FileCreateBody{file=$file, purpose=$purpose, description=$description}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams

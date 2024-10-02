@@ -94,8 +94,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /** The identifier of the File containing the card's icon image. */
         @JsonProperty("app_icon_file_id") fun appIconFileId(): String? = appIconFileId
 
@@ -129,46 +127,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is DigitalCardProfileCloneBody &&
-                this.appIconFileId == other.appIconFileId &&
-                this.backgroundImageFileId == other.backgroundImageFileId &&
-                this.cardDescription == other.cardDescription &&
-                this.contactEmail == other.contactEmail &&
-                this.contactPhone == other.contactPhone &&
-                this.contactWebsite == other.contactWebsite &&
-                this.description == other.description &&
-                this.issuerName == other.issuerName &&
-                this.textColor == other.textColor &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        appIconFileId,
-                        backgroundImageFileId,
-                        cardDescription,
-                        contactEmail,
-                        contactPhone,
-                        contactWebsite,
-                        description,
-                        issuerName,
-                        textColor,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "DigitalCardProfileCloneBody{appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, contactEmail=$contactEmail, contactPhone=$contactPhone, contactWebsite=$contactWebsite, description=$description, issuerName=$issuerName, textColor=$textColor, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -272,6 +230,48 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is DigitalCardProfileCloneBody &&
+                this.appIconFileId == other.appIconFileId &&
+                this.backgroundImageFileId == other.backgroundImageFileId &&
+                this.cardDescription == other.cardDescription &&
+                this.contactEmail == other.contactEmail &&
+                this.contactPhone == other.contactPhone &&
+                this.contactWebsite == other.contactWebsite &&
+                this.description == other.description &&
+                this.issuerName == other.issuerName &&
+                this.textColor == other.textColor &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        appIconFileId,
+                        backgroundImageFileId,
+                        cardDescription,
+                        contactEmail,
+                        contactPhone,
+                        contactWebsite,
+                        description,
+                        issuerName,
+                        textColor,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "DigitalCardProfileCloneBody{appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, contactEmail=$contactEmail, contactPhone=$contactPhone, contactWebsite=$contactWebsite, description=$description, issuerName=$issuerName, textColor=$textColor, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
@@ -484,8 +484,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /** The value of the blue channel in the RGB color. */
         @JsonProperty("blue") fun blue(): Long? = blue
 
@@ -500,34 +498,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is TextColor &&
-                this.blue == other.blue &&
-                this.green == other.green &&
-                this.red == other.red &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        blue,
-                        green,
-                        red,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "TextColor{blue=$blue, green=$green, red=$red, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -580,5 +550,35 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is TextColor &&
+                this.blue == other.blue &&
+                this.green == other.green &&
+                this.red == other.red &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        blue,
+                        green,
+                        red,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "TextColor{blue=$blue, green=$green, red=$red, additionalProperties=$additionalProperties}"
     }
 }

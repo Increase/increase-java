@@ -74,8 +74,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /** The identifier of the File containing the physical card's carrier image. */
         @JsonProperty("carrier_image_file_id")
         fun carrierImageFileId(): String? = carrierImageFileId
@@ -100,38 +98,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is PhysicalCardProfileCloneBody &&
-                this.carrierImageFileId == other.carrierImageFileId &&
-                this.contactPhone == other.contactPhone &&
-                this.description == other.description &&
-                this.frontImageFileId == other.frontImageFileId &&
-                this.frontText == other.frontText &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        carrierImageFileId,
-                        contactPhone,
-                        description,
-                        frontImageFileId,
-                        frontText,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "PhysicalCardProfileCloneBody{carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, frontText=$frontText, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -208,6 +174,40 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is PhysicalCardProfileCloneBody &&
+                this.carrierImageFileId == other.carrierImageFileId &&
+                this.contactPhone == other.contactPhone &&
+                this.description == other.description &&
+                this.frontImageFileId == other.frontImageFileId &&
+                this.frontText == other.frontText &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        carrierImageFileId,
+                        contactPhone,
+                        description,
+                        frontImageFileId,
+                        frontText,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "PhysicalCardProfileCloneBody{carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, frontText=$frontText, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
@@ -393,8 +393,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /** The first line of text on the front of the card. */
         @JsonProperty("line1") fun line1(): String? = line1
 
@@ -410,32 +408,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is FrontText &&
-                this.line1 == other.line1 &&
-                this.line2 == other.line2 &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        line1,
-                        line2,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "FrontText{line1=$line1, line2=$line2, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -486,5 +458,33 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is FrontText &&
+                this.line1 == other.line1 &&
+                this.line2 == other.line2 &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        line1,
+                        line2,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "FrontText{line1=$line1, line2=$line2, additionalProperties=$additionalProperties}"
     }
 }

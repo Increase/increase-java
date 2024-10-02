@@ -97,8 +97,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /** Terms of authorization. */
         @JsonProperty("authorization_terms") fun authorizationTerms(): String? = authorizationTerms
 
@@ -146,53 +144,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is ProofOfAuthorizationRequestSubmissionCreateBody &&
-                this.authorizationTerms == other.authorizationTerms &&
-                this.authorizedAt == other.authorizedAt &&
-                this.authorizerEmail == other.authorizerEmail &&
-                this.authorizerName == other.authorizerName &&
-                this.customerHasBeenOffboarded == other.customerHasBeenOffboarded &&
-                this.proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId &&
-                this.validatedAccountOwnershipViaCredential ==
-                    other.validatedAccountOwnershipViaCredential &&
-                this.validatedAccountOwnershipWithAccountStatement ==
-                    other.validatedAccountOwnershipWithAccountStatement &&
-                this.validatedAccountOwnershipWithMicrodeposit ==
-                    other.validatedAccountOwnershipWithMicrodeposit &&
-                this.authorizerCompany == other.authorizerCompany &&
-                this.authorizerIpAddress == other.authorizerIpAddress &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        authorizationTerms,
-                        authorizedAt,
-                        authorizerEmail,
-                        authorizerName,
-                        customerHasBeenOffboarded,
-                        proofOfAuthorizationRequestId,
-                        validatedAccountOwnershipViaCredential,
-                        validatedAccountOwnershipWithAccountStatement,
-                        validatedAccountOwnershipWithMicrodeposit,
-                        authorizerCompany,
-                        authorizerIpAddress,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "ProofOfAuthorizationRequestSubmissionCreateBody{authorizationTerms=$authorizationTerms, authorizedAt=$authorizedAt, authorizerEmail=$authorizerEmail, authorizerName=$authorizerName, customerHasBeenOffboarded=$customerHasBeenOffboarded, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, validatedAccountOwnershipViaCredential=$validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement=$validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit=$validatedAccountOwnershipWithMicrodeposit, authorizerCompany=$authorizerCompany, authorizerIpAddress=$authorizerIpAddress, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -365,6 +316,55 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ProofOfAuthorizationRequestSubmissionCreateBody &&
+                this.authorizationTerms == other.authorizationTerms &&
+                this.authorizedAt == other.authorizedAt &&
+                this.authorizerEmail == other.authorizerEmail &&
+                this.authorizerName == other.authorizerName &&
+                this.customerHasBeenOffboarded == other.customerHasBeenOffboarded &&
+                this.proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId &&
+                this.validatedAccountOwnershipViaCredential ==
+                    other.validatedAccountOwnershipViaCredential &&
+                this.validatedAccountOwnershipWithAccountStatement ==
+                    other.validatedAccountOwnershipWithAccountStatement &&
+                this.validatedAccountOwnershipWithMicrodeposit ==
+                    other.validatedAccountOwnershipWithMicrodeposit &&
+                this.authorizerCompany == other.authorizerCompany &&
+                this.authorizerIpAddress == other.authorizerIpAddress &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        authorizationTerms,
+                        authorizedAt,
+                        authorizerEmail,
+                        authorizerName,
+                        customerHasBeenOffboarded,
+                        proofOfAuthorizationRequestId,
+                        validatedAccountOwnershipViaCredential,
+                        validatedAccountOwnershipWithAccountStatement,
+                        validatedAccountOwnershipWithMicrodeposit,
+                        authorizerCompany,
+                        authorizerIpAddress,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "ProofOfAuthorizationRequestSubmissionCreateBody{authorizationTerms=$authorizationTerms, authorizedAt=$authorizedAt, authorizerEmail=$authorizerEmail, authorizerName=$authorizerName, customerHasBeenOffboarded=$customerHasBeenOffboarded, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, validatedAccountOwnershipViaCredential=$validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement=$validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit=$validatedAccountOwnershipWithMicrodeposit, authorizerCompany=$authorizerCompany, authorizerIpAddress=$authorizerIpAddress, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams

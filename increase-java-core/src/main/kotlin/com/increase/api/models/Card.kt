@@ -46,8 +46,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** The identifier for the account this card belongs to. */
     fun accountId(): String = accountId.getRequired("account_id")
 
@@ -173,54 +171,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is Card &&
-            this.accountId == other.accountId &&
-            this.billingAddress == other.billingAddress &&
-            this.createdAt == other.createdAt &&
-            this.description == other.description &&
-            this.digitalWallet == other.digitalWallet &&
-            this.entityId == other.entityId &&
-            this.expirationMonth == other.expirationMonth &&
-            this.expirationYear == other.expirationYear &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.last4 == other.last4 &&
-            this.status == other.status &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    accountId,
-                    billingAddress,
-                    createdAt,
-                    description,
-                    digitalWallet,
-                    entityId,
-                    expirationMonth,
-                    expirationYear,
-                    id,
-                    idempotencyKey,
-                    last4,
-                    status,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "Card{accountId=$accountId, billingAddress=$billingAddress, createdAt=$createdAt, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, expirationMonth=$expirationMonth, expirationYear=$expirationYear, id=$id, idempotencyKey=$idempotencyKey, last4=$last4, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -447,8 +397,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         /** The city of the billing address. */
         fun city(): Optional<String> = Optional.ofNullable(city.getNullable("city"))
 
@@ -496,38 +444,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is BillingAddress &&
-                this.city == other.city &&
-                this.line1 == other.line1 &&
-                this.line2 == other.line2 &&
-                this.postalCode == other.postalCode &&
-                this.state == other.state &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        city,
-                        line1,
-                        line2,
-                        postalCode,
-                        state,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "BillingAddress{city=$city, line1=$line1, line2=$line2, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -617,6 +533,40 @@ private constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is BillingAddress &&
+                this.city == other.city &&
+                this.line1 == other.line1 &&
+                this.line2 == other.line2 &&
+                this.postalCode == other.postalCode &&
+                this.state == other.state &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        city,
+                        line1,
+                        line2,
+                        postalCode,
+                        state,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "BillingAddress{city=$city, line1=$line1, line2=$line2, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -634,8 +584,6 @@ private constructor(
     ) {
 
         private var validated: Boolean = false
-
-        private var hashCode: Int = 0
 
         /**
          * The digital card profile assigned to this digital card. Card profiles may also be
@@ -688,34 +636,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is DigitalWallet &&
-                this.digitalCardProfileId == other.digitalCardProfileId &&
-                this.email == other.email &&
-                this.phone == other.phone &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        digitalCardProfileId,
-                        email,
-                        phone,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "DigitalWallet{digitalCardProfileId=$digitalCardProfileId, email=$email, phone=$phone, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -804,6 +724,36 @@ private constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is DigitalWallet &&
+                this.digitalCardProfileId == other.digitalCardProfileId &&
+                this.email == other.email &&
+                this.phone == other.phone &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        digitalCardProfileId,
+                        email,
+                        phone,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "DigitalWallet{digitalCardProfileId=$digitalCardProfileId, email=$email, phone=$phone, additionalProperties=$additionalProperties}"
     }
 
     class Status
@@ -919,4 +869,54 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is Card &&
+            this.accountId == other.accountId &&
+            this.billingAddress == other.billingAddress &&
+            this.createdAt == other.createdAt &&
+            this.description == other.description &&
+            this.digitalWallet == other.digitalWallet &&
+            this.entityId == other.entityId &&
+            this.expirationMonth == other.expirationMonth &&
+            this.expirationYear == other.expirationYear &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.last4 == other.last4 &&
+            this.status == other.status &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    accountId,
+                    billingAddress,
+                    createdAt,
+                    description,
+                    digitalWallet,
+                    entityId,
+                    expirationMonth,
+                    expirationYear,
+                    id,
+                    idempotencyKey,
+                    last4,
+                    status,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "Card{accountId=$accountId, billingAddress=$billingAddress, createdAt=$createdAt, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, expirationMonth=$expirationMonth, expirationYear=$expirationYear, id=$id, idempotencyKey=$idempotencyKey, last4=$last4, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }
