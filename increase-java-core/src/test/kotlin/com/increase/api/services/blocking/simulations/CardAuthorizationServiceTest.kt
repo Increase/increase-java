@@ -25,6 +25,7 @@ class CardAuthorizationServiceTest {
                     .amount(123L)
                     .cardId("card_id")
                     .digitalWalletTokenId("digital_wallet_token_id")
+                    .direction(SimulationCardAuthorizationCreateParams.Direction.SETTLEMENT)
                     .eventSubscriptionId("event_subscription_id")
                     .merchantAcceptorId("x")
                     .merchantCategoryCode("x")
