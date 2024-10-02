@@ -24,6 +24,9 @@ class CardAuthorizationServiceTest {
                 SimulationCardAuthorizationCreateParams.builder()
                     .amount(123L)
                     .cardId("card_id")
+                    .declineReason(
+                        SimulationCardAuthorizationCreateParams.DeclineReason.CARD_NOT_ACTIVE
+                    )
                     .digitalWalletTokenId("digital_wallet_token_id")
                     .direction(SimulationCardAuthorizationCreateParams.Direction.SETTLEMENT)
                     .eventSubscriptionId("event_subscription_id")

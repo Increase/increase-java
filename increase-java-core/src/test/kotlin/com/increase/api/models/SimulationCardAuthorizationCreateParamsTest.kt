@@ -13,6 +13,7 @@ class SimulationCardAuthorizationCreateParamsTest {
         SimulationCardAuthorizationCreateParams.builder()
             .amount(123L)
             .cardId("card_id")
+            .declineReason(SimulationCardAuthorizationCreateParams.DeclineReason.CARD_NOT_ACTIVE)
             .digitalWalletTokenId("digital_wallet_token_id")
             .direction(SimulationCardAuthorizationCreateParams.Direction.SETTLEMENT)
             .eventSubscriptionId("event_subscription_id")
@@ -31,6 +32,9 @@ class SimulationCardAuthorizationCreateParamsTest {
             SimulationCardAuthorizationCreateParams.builder()
                 .amount(123L)
                 .cardId("card_id")
+                .declineReason(
+                    SimulationCardAuthorizationCreateParams.DeclineReason.CARD_NOT_ACTIVE
+                )
                 .digitalWalletTokenId("digital_wallet_token_id")
                 .direction(SimulationCardAuthorizationCreateParams.Direction.SETTLEMENT)
                 .eventSubscriptionId("event_subscription_id")
@@ -45,6 +49,8 @@ class SimulationCardAuthorizationCreateParamsTest {
         assertThat(body).isNotNull
         assertThat(body.amount()).isEqualTo(123L)
         assertThat(body.cardId()).isEqualTo("card_id")
+        assertThat(body.declineReason())
+            .isEqualTo(SimulationCardAuthorizationCreateParams.DeclineReason.CARD_NOT_ACTIVE)
         assertThat(body.digitalWalletTokenId()).isEqualTo("digital_wallet_token_id")
         assertThat(body.direction())
             .isEqualTo(SimulationCardAuthorizationCreateParams.Direction.SETTLEMENT)
