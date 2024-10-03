@@ -63,6 +63,10 @@ class SimulationCardAuthorizationCreateResponseTest {
                                         )
                                         .declinedTransactionId("declined_transaction_id")
                                         .digitalWalletTokenId("digital_wallet_token_id")
+                                        .direction(
+                                            DeclinedTransaction.Source.CardDecline.Direction
+                                                .SETTLEMENT
+                                        )
                                         .merchantAcceptorId("merchant_acceptor_id")
                                         .merchantCategoryCode("merchant_category_code")
                                         .merchantCity("merchant_city")
@@ -524,6 +528,9 @@ class SimulationCardAuthorizationCreateResponseTest {
                                     .currency(DeclinedTransaction.Source.CardDecline.Currency.CAD)
                                     .declinedTransactionId("declined_transaction_id")
                                     .digitalWalletTokenId("digital_wallet_token_id")
+                                    .direction(
+                                        DeclinedTransaction.Source.CardDecline.Direction.SETTLEMENT
+                                    )
                                     .merchantAcceptorId("merchant_acceptor_id")
                                     .merchantCategoryCode("merchant_category_code")
                                     .merchantCity("merchant_city")
