@@ -3904,6 +3904,7 @@ private constructor(
             private val currency: JsonField<Currency>,
             private val declinedTransactionId: JsonField<String>,
             private val digitalWalletTokenId: JsonField<String>,
+            private val direction: JsonField<Direction>,
             private val id: JsonField<String>,
             private val merchantAcceptorId: JsonField<String>,
             private val merchantCategoryCode: JsonField<String>,
@@ -3958,6 +3959,12 @@ private constructor(
              */
             fun digitalWalletTokenId(): Optional<String> =
                 Optional.ofNullable(digitalWalletTokenId.getNullable("digital_wallet_token_id"))
+
+            /**
+             * The direction describes the direction the funds will move, either from the cardholder
+             * to the merchant or from the merchant to the cardholder.
+             */
+            fun direction(): Direction = direction.getRequired("direction")
 
             /** The Card Decline identifier. */
             fun id(): String = id.getRequired("id")
@@ -4082,6 +4089,12 @@ private constructor(
             @ExcludeMissing
             fun _digitalWalletTokenId() = digitalWalletTokenId
 
+            /**
+             * The direction describes the direction the funds will move, either from the cardholder
+             * to the merchant or from the merchant to the cardholder.
+             */
+            @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
+
             /** The Card Decline identifier. */
             @JsonProperty("id") @ExcludeMissing fun _id() = id
 
@@ -4193,6 +4206,7 @@ private constructor(
                     currency()
                     declinedTransactionId()
                     digitalWalletTokenId()
+                    direction()
                     id()
                     merchantAcceptorId()
                     merchantCategoryCode()
@@ -4230,6 +4244,7 @@ private constructor(
                 private var currency: JsonField<Currency> = JsonMissing.of()
                 private var declinedTransactionId: JsonField<String> = JsonMissing.of()
                 private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
+                private var direction: JsonField<Direction> = JsonMissing.of()
                 private var id: JsonField<String> = JsonMissing.of()
                 private var merchantAcceptorId: JsonField<String> = JsonMissing.of()
                 private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
@@ -4258,6 +4273,7 @@ private constructor(
                     this.currency = cardDecline.currency
                     this.declinedTransactionId = cardDecline.declinedTransactionId
                     this.digitalWalletTokenId = cardDecline.digitalWalletTokenId
+                    this.direction = cardDecline.direction
                     this.id = cardDecline.id
                     this.merchantAcceptorId = cardDecline.merchantAcceptorId
                     this.merchantCategoryCode = cardDecline.merchantCategoryCode
@@ -4358,6 +4374,22 @@ private constructor(
                 @ExcludeMissing
                 fun digitalWalletTokenId(digitalWalletTokenId: JsonField<String>) = apply {
                     this.digitalWalletTokenId = digitalWalletTokenId
+                }
+
+                /**
+                 * The direction describes the direction the funds will move, either from the
+                 * cardholder to the merchant or from the merchant to the cardholder.
+                 */
+                fun direction(direction: Direction) = direction(JsonField.of(direction))
+
+                /**
+                 * The direction describes the direction the funds will move, either from the
+                 * cardholder to the merchant or from the merchant to the cardholder.
+                 */
+                @JsonProperty("direction")
+                @ExcludeMissing
+                fun direction(direction: JsonField<Direction>) = apply {
+                    this.direction = direction
                 }
 
                 /** The Card Decline identifier. */
@@ -4626,6 +4658,7 @@ private constructor(
                         currency,
                         declinedTransactionId,
                         digitalWalletTokenId,
+                        direction,
                         id,
                         merchantAcceptorId,
                         merchantCategoryCode,
@@ -4787,6 +4820,63 @@ private constructor(
                         JPY -> Known.JPY
                         USD -> Known.USD
                         else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+                    }
+
+                fun asString(): String = _value().asStringOrThrow()
+            }
+
+            class Direction
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) : Enum {
+
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Direction && this.value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+
+                companion object {
+
+                    @JvmField val SETTLEMENT = Direction(JsonField.of("settlement"))
+
+                    @JvmField val REFUND = Direction(JsonField.of("refund"))
+
+                    @JvmStatic fun of(value: String) = Direction(JsonField.of(value))
+                }
+
+                enum class Known {
+                    SETTLEMENT,
+                    REFUND,
+                }
+
+                enum class Value {
+                    SETTLEMENT,
+                    REFUND,
+                    _UNKNOWN,
+                }
+
+                fun value(): Value =
+                    when (this) {
+                        SETTLEMENT -> Value.SETTLEMENT
+                        REFUND -> Value.REFUND
+                        else -> Value._UNKNOWN
+                    }
+
+                fun known(): Known =
+                    when (this) {
+                        SETTLEMENT -> Known.SETTLEMENT
+                        REFUND -> Known.REFUND
+                        else -> throw IncreaseInvalidDataException("Unknown Direction: $value")
                     }
 
                 fun asString(): String = _value().asStringOrThrow()
@@ -6490,6 +6580,7 @@ private constructor(
                     this.currency == other.currency &&
                     this.declinedTransactionId == other.declinedTransactionId &&
                     this.digitalWalletTokenId == other.digitalWalletTokenId &&
+                    this.direction == other.direction &&
                     this.id == other.id &&
                     this.merchantAcceptorId == other.merchantAcceptorId &&
                     this.merchantCategoryCode == other.merchantCategoryCode &&
@@ -6523,6 +6614,7 @@ private constructor(
                             currency,
                             declinedTransactionId,
                             digitalWalletTokenId,
+                            direction,
                             id,
                             merchantAcceptorId,
                             merchantCategoryCode,
@@ -6548,7 +6640,7 @@ private constructor(
             }
 
             override fun toString() =
-                "CardDecline{actioner=$actioner, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, declinedTransactionId=$declinedTransactionId, digitalWalletTokenId=$digitalWalletTokenId, id=$id, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, reason=$reason, verification=$verification, additionalProperties=$additionalProperties}"
+                "CardDecline{actioner=$actioner, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, declinedTransactionId=$declinedTransactionId, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, id=$id, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, reason=$reason, verification=$verification, additionalProperties=$additionalProperties}"
         }
 
         /**
