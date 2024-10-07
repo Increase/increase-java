@@ -48,6 +48,14 @@ class RealTimeDecisionServiceTest {
                             )
                             .build()
                     )
+                    .cardAuthenticationChallenge(
+                        RealTimeDecisionActionParams.CardAuthenticationChallenge.builder()
+                            .result(
+                                RealTimeDecisionActionParams.CardAuthenticationChallenge.Result
+                                    .SUCCESS
+                            )
+                            .build()
+                    )
                     .cardAuthorization(
                         RealTimeDecisionActionParams.CardAuthorization.builder()
                             .decision(
