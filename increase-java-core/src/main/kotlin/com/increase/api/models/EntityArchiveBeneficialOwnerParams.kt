@@ -115,16 +115,14 @@ constructor(
                 return true
             }
 
-            return other is EntityArchiveBeneficialOwnerBody &&
-                this.beneficialOwnerId == other.beneficialOwnerId &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is EntityArchiveBeneficialOwnerBody && this.beneficialOwnerId == other.beneficialOwnerId && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(beneficialOwnerId, additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(beneficialOwnerId, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -144,22 +142,11 @@ constructor(
             return true
         }
 
-        return other is EntityArchiveBeneficialOwnerParams &&
-            this.entityId == other.entityId &&
-            this.beneficialOwnerId == other.beneficialOwnerId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is EntityArchiveBeneficialOwnerParams && this.entityId == other.entityId && this.beneficialOwnerId == other.beneficialOwnerId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            entityId,
-            beneficialOwnerId,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(entityId, beneficialOwnerId, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =

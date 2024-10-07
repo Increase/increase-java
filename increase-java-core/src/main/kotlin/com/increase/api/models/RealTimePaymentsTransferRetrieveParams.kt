@@ -36,18 +36,11 @@ constructor(
             return true
         }
 
-        return other is RealTimePaymentsTransferRetrieveParams &&
-            this.realTimePaymentsTransferId == other.realTimePaymentsTransferId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is RealTimePaymentsTransferRetrieveParams && this.realTimePaymentsTransferId == other.realTimePaymentsTransferId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            realTimePaymentsTransferId,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(realTimePaymentsTransferId, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =

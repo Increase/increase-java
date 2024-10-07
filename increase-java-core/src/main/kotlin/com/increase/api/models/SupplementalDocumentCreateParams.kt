@@ -113,22 +113,14 @@ constructor(
                 return true
             }
 
-            return other is SupplementalDocumentCreateBody &&
-                this.entityId == other.entityId &&
-                this.fileId == other.fileId &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is SupplementalDocumentCreateBody && this.entityId == other.entityId && this.fileId == other.fileId && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        entityId,
-                        fileId,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(entityId, fileId, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -148,22 +140,11 @@ constructor(
             return true
         }
 
-        return other is SupplementalDocumentCreateParams &&
-            this.entityId == other.entityId &&
-            this.fileId == other.fileId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is SupplementalDocumentCreateParams && this.entityId == other.entityId && this.fileId == other.fileId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            entityId,
-            fileId,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(entityId, fileId, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =

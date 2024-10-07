@@ -36,18 +36,11 @@ constructor(
             return true
         }
 
-        return other is PhysicalCardRetrieveParams &&
-            this.physicalCardId == other.physicalCardId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is PhysicalCardRetrieveParams && this.physicalCardId == other.physicalCardId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            physicalCardId,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(physicalCardId, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =

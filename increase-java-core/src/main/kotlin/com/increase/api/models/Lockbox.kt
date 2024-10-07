@@ -487,30 +487,14 @@ private constructor(
                 return true
             }
 
-            return other is Address &&
-                this.city == other.city &&
-                this.line1 == other.line1 &&
-                this.line2 == other.line2 &&
-                this.postalCode == other.postalCode &&
-                this.recipient == other.recipient &&
-                this.state == other.state &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Address && this.city == other.city && this.line1 == other.line1 && this.line2 == other.line2 && this.postalCode == other.postalCode && this.recipient == other.recipient && this.state == other.state && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        city,
-                        line1,
-                        line2,
-                        postalCode,
-                        recipient,
-                        state,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(city, line1, line2, postalCode, recipient, state, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -532,7 +516,7 @@ private constructor(
                 return true
             }
 
-            return other is Status && this.value == other.value
+            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -589,7 +573,7 @@ private constructor(
                 return true
             }
 
-            return other is Type && this.value == other.value
+            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -632,36 +616,14 @@ private constructor(
             return true
         }
 
-        return other is Lockbox &&
-            this.accountId == other.accountId &&
-            this.address == other.address &&
-            this.createdAt == other.createdAt &&
-            this.description == other.description &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.recipientName == other.recipientName &&
-            this.status == other.status &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is Lockbox && this.accountId == other.accountId && this.address == other.address && this.createdAt == other.createdAt && this.description == other.description && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.recipientName == other.recipientName && this.status == other.status && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    accountId,
-                    address,
-                    createdAt,
-                    description,
-                    id,
-                    idempotencyKey,
-                    recipientName,
-                    status,
-                    type,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(accountId, address, createdAt, description, id, idempotencyKey, recipientName, status, type, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

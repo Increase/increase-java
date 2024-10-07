@@ -137,22 +137,14 @@ constructor(
                 return true
             }
 
-            return other is InboundAchTransferCreateNotificationOfChangeBody &&
-                this.updatedAccountNumber == other.updatedAccountNumber &&
-                this.updatedRoutingNumber == other.updatedRoutingNumber &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is InboundAchTransferCreateNotificationOfChangeBody && this.updatedAccountNumber == other.updatedAccountNumber && this.updatedRoutingNumber == other.updatedRoutingNumber && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        updatedAccountNumber,
-                        updatedRoutingNumber,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(updatedAccountNumber, updatedRoutingNumber, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -172,24 +164,11 @@ constructor(
             return true
         }
 
-        return other is InboundAchTransferCreateNotificationOfChangeParams &&
-            this.inboundAchTransferId == other.inboundAchTransferId &&
-            this.updatedAccountNumber == other.updatedAccountNumber &&
-            this.updatedRoutingNumber == other.updatedRoutingNumber &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is InboundAchTransferCreateNotificationOfChangeParams && this.inboundAchTransferId == other.inboundAchTransferId && this.updatedAccountNumber == other.updatedAccountNumber && this.updatedRoutingNumber == other.updatedRoutingNumber && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            inboundAchTransferId,
-            updatedAccountNumber,
-            updatedRoutingNumber,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(inboundAchTransferId, updatedAccountNumber, updatedRoutingNumber, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =

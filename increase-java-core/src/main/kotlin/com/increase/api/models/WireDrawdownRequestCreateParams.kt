@@ -353,44 +353,14 @@ constructor(
                 return true
             }
 
-            return other is WireDrawdownRequestCreateBody &&
-                this.accountNumberId == other.accountNumberId &&
-                this.amount == other.amount &&
-                this.messageToRecipient == other.messageToRecipient &&
-                this.recipientAccountNumber == other.recipientAccountNumber &&
-                this.recipientName == other.recipientName &&
-                this.recipientRoutingNumber == other.recipientRoutingNumber &&
-                this.originatorAddressLine1 == other.originatorAddressLine1 &&
-                this.originatorAddressLine2 == other.originatorAddressLine2 &&
-                this.originatorAddressLine3 == other.originatorAddressLine3 &&
-                this.originatorName == other.originatorName &&
-                this.recipientAddressLine1 == other.recipientAddressLine1 &&
-                this.recipientAddressLine2 == other.recipientAddressLine2 &&
-                this.recipientAddressLine3 == other.recipientAddressLine3 &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is WireDrawdownRequestCreateBody && this.accountNumberId == other.accountNumberId && this.amount == other.amount && this.messageToRecipient == other.messageToRecipient && this.recipientAccountNumber == other.recipientAccountNumber && this.recipientName == other.recipientName && this.recipientRoutingNumber == other.recipientRoutingNumber && this.originatorAddressLine1 == other.originatorAddressLine1 && this.originatorAddressLine2 == other.originatorAddressLine2 && this.originatorAddressLine3 == other.originatorAddressLine3 && this.originatorName == other.originatorName && this.recipientAddressLine1 == other.recipientAddressLine1 && this.recipientAddressLine2 == other.recipientAddressLine2 && this.recipientAddressLine3 == other.recipientAddressLine3 && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountNumberId,
-                        amount,
-                        messageToRecipient,
-                        recipientAccountNumber,
-                        recipientName,
-                        recipientRoutingNumber,
-                        originatorAddressLine1,
-                        originatorAddressLine2,
-                        originatorAddressLine3,
-                        originatorName,
-                        recipientAddressLine1,
-                        recipientAddressLine2,
-                        recipientAddressLine3,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(accountNumberId, amount, messageToRecipient, recipientAccountNumber, recipientName, recipientRoutingNumber, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, recipientAddressLine1, recipientAddressLine2, recipientAddressLine3, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -410,44 +380,11 @@ constructor(
             return true
         }
 
-        return other is WireDrawdownRequestCreateParams &&
-            this.accountNumberId == other.accountNumberId &&
-            this.amount == other.amount &&
-            this.messageToRecipient == other.messageToRecipient &&
-            this.recipientAccountNumber == other.recipientAccountNumber &&
-            this.recipientName == other.recipientName &&
-            this.recipientRoutingNumber == other.recipientRoutingNumber &&
-            this.originatorAddressLine1 == other.originatorAddressLine1 &&
-            this.originatorAddressLine2 == other.originatorAddressLine2 &&
-            this.originatorAddressLine3 == other.originatorAddressLine3 &&
-            this.originatorName == other.originatorName &&
-            this.recipientAddressLine1 == other.recipientAddressLine1 &&
-            this.recipientAddressLine2 == other.recipientAddressLine2 &&
-            this.recipientAddressLine3 == other.recipientAddressLine3 &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is WireDrawdownRequestCreateParams && this.accountNumberId == other.accountNumberId && this.amount == other.amount && this.messageToRecipient == other.messageToRecipient && this.recipientAccountNumber == other.recipientAccountNumber && this.recipientName == other.recipientName && this.recipientRoutingNumber == other.recipientRoutingNumber && this.originatorAddressLine1 == other.originatorAddressLine1 && this.originatorAddressLine2 == other.originatorAddressLine2 && this.originatorAddressLine3 == other.originatorAddressLine3 && this.originatorName == other.originatorName && this.recipientAddressLine1 == other.recipientAddressLine1 && this.recipientAddressLine2 == other.recipientAddressLine2 && this.recipientAddressLine3 == other.recipientAddressLine3 && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            accountNumberId,
-            amount,
-            messageToRecipient,
-            recipientAccountNumber,
-            recipientName,
-            recipientRoutingNumber,
-            originatorAddressLine1,
-            originatorAddressLine2,
-            originatorAddressLine3,
-            originatorName,
-            recipientAddressLine1,
-            recipientAddressLine2,
-            recipientAddressLine3,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(accountNumberId, amount, messageToRecipient, recipientAccountNumber, recipientName, recipientRoutingNumber, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, recipientAddressLine1, recipientAddressLine2, recipientAddressLine3, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =

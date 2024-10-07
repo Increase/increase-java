@@ -36,18 +36,11 @@ constructor(
             return true
         }
 
-        return other is EventRetrieveParams &&
-            this.eventId == other.eventId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is EventRetrieveParams && this.eventId == other.eventId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            eventId,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(eventId, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =

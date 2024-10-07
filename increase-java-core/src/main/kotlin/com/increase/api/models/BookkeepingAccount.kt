@@ -259,7 +259,7 @@ private constructor(
                 return true
             }
 
-            return other is ComplianceCategory && this.value == other.value
+            return /* spotless:off */ other is ComplianceCategory && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -316,7 +316,7 @@ private constructor(
                 return true
             }
 
-            return other is Type && this.value == other.value
+            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -359,32 +359,14 @@ private constructor(
             return true
         }
 
-        return other is BookkeepingAccount &&
-            this.accountId == other.accountId &&
-            this.complianceCategory == other.complianceCategory &&
-            this.entityId == other.entityId &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.name == other.name &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is BookkeepingAccount && this.accountId == other.accountId && this.complianceCategory == other.complianceCategory && this.entityId == other.entityId && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.name == other.name && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    accountId,
-                    complianceCategory,
-                    entityId,
-                    id,
-                    idempotencyKey,
-                    name,
-                    type,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(accountId, complianceCategory, entityId, id, idempotencyKey, name, type, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

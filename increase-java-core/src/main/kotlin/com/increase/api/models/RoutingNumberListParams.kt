@@ -44,22 +44,11 @@ constructor(
             return true
         }
 
-        return other is RoutingNumberListParams &&
-            this.routingNumber == other.routingNumber &&
-            this.cursor == other.cursor &&
-            this.limit == other.limit &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is RoutingNumberListParams && this.routingNumber == other.routingNumber && this.cursor == other.cursor && this.limit == other.limit && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            routingNumber,
-            cursor,
-            limit,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(routingNumber, cursor, limit, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =

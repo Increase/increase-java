@@ -95,16 +95,14 @@ constructor(
                 return true
             }
 
-            return other is SimulationDocumentCreateBody &&
-                this.accountId == other.accountId &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is SimulationDocumentCreateBody && this.accountId == other.accountId && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(accountId, additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(accountId, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -124,20 +122,11 @@ constructor(
             return true
         }
 
-        return other is SimulationDocumentCreateParams &&
-            this.accountId == other.accountId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is SimulationDocumentCreateParams && this.accountId == other.accountId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            accountId,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(accountId, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =

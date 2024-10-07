@@ -143,24 +143,14 @@ constructor(
                 return true
             }
 
-            return other is SimulationCardIncrementCreateBody &&
-                this.amount == other.amount &&
-                this.cardPaymentId == other.cardPaymentId &&
-                this.eventSubscriptionId == other.eventSubscriptionId &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is SimulationCardIncrementCreateBody && this.amount == other.amount && this.cardPaymentId == other.cardPaymentId && this.eventSubscriptionId == other.eventSubscriptionId && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        amount,
-                        cardPaymentId,
-                        eventSubscriptionId,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(amount, cardPaymentId, eventSubscriptionId, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -180,24 +170,11 @@ constructor(
             return true
         }
 
-        return other is SimulationCardIncrementCreateParams &&
-            this.amount == other.amount &&
-            this.cardPaymentId == other.cardPaymentId &&
-            this.eventSubscriptionId == other.eventSubscriptionId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is SimulationCardIncrementCreateParams && this.amount == other.amount && this.cardPaymentId == other.cardPaymentId && this.eventSubscriptionId == other.eventSubscriptionId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            amount,
-            cardPaymentId,
-            eventSubscriptionId,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(amount, cardPaymentId, eventSubscriptionId, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =

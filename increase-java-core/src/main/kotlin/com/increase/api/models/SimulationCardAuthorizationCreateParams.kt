@@ -317,42 +317,14 @@ constructor(
                 return true
             }
 
-            return other is SimulationCardAuthorizationCreateBody &&
-                this.amount == other.amount &&
-                this.cardId == other.cardId &&
-                this.declineReason == other.declineReason &&
-                this.digitalWalletTokenId == other.digitalWalletTokenId &&
-                this.direction == other.direction &&
-                this.eventSubscriptionId == other.eventSubscriptionId &&
-                this.merchantAcceptorId == other.merchantAcceptorId &&
-                this.merchantCategoryCode == other.merchantCategoryCode &&
-                this.merchantCity == other.merchantCity &&
-                this.merchantCountry == other.merchantCountry &&
-                this.merchantDescriptor == other.merchantDescriptor &&
-                this.physicalCardId == other.physicalCardId &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is SimulationCardAuthorizationCreateBody && this.amount == other.amount && this.cardId == other.cardId && this.declineReason == other.declineReason && this.digitalWalletTokenId == other.digitalWalletTokenId && this.direction == other.direction && this.eventSubscriptionId == other.eventSubscriptionId && this.merchantAcceptorId == other.merchantAcceptorId && this.merchantCategoryCode == other.merchantCategoryCode && this.merchantCity == other.merchantCity && this.merchantCountry == other.merchantCountry && this.merchantDescriptor == other.merchantDescriptor && this.physicalCardId == other.physicalCardId && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        amount,
-                        cardId,
-                        declineReason,
-                        digitalWalletTokenId,
-                        direction,
-                        eventSubscriptionId,
-                        merchantAcceptorId,
-                        merchantCategoryCode,
-                        merchantCity,
-                        merchantCountry,
-                        merchantDescriptor,
-                        physicalCardId,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(amount, cardId, declineReason, digitalWalletTokenId, direction, eventSubscriptionId, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, physicalCardId, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -372,42 +344,11 @@ constructor(
             return true
         }
 
-        return other is SimulationCardAuthorizationCreateParams &&
-            this.amount == other.amount &&
-            this.cardId == other.cardId &&
-            this.declineReason == other.declineReason &&
-            this.digitalWalletTokenId == other.digitalWalletTokenId &&
-            this.direction == other.direction &&
-            this.eventSubscriptionId == other.eventSubscriptionId &&
-            this.merchantAcceptorId == other.merchantAcceptorId &&
-            this.merchantCategoryCode == other.merchantCategoryCode &&
-            this.merchantCity == other.merchantCity &&
-            this.merchantCountry == other.merchantCountry &&
-            this.merchantDescriptor == other.merchantDescriptor &&
-            this.physicalCardId == other.physicalCardId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is SimulationCardAuthorizationCreateParams && this.amount == other.amount && this.cardId == other.cardId && this.declineReason == other.declineReason && this.digitalWalletTokenId == other.digitalWalletTokenId && this.direction == other.direction && this.eventSubscriptionId == other.eventSubscriptionId && this.merchantAcceptorId == other.merchantAcceptorId && this.merchantCategoryCode == other.merchantCategoryCode && this.merchantCity == other.merchantCity && this.merchantCountry == other.merchantCountry && this.merchantDescriptor == other.merchantDescriptor && this.physicalCardId == other.physicalCardId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            amount,
-            cardId,
-            declineReason,
-            digitalWalletTokenId,
-            direction,
-            eventSubscriptionId,
-            merchantAcceptorId,
-            merchantCategoryCode,
-            merchantCity,
-            merchantCountry,
-            merchantDescriptor,
-            physicalCardId,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(amount, cardId, declineReason, digitalWalletTokenId, direction, eventSubscriptionId, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, physicalCardId, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -613,7 +554,7 @@ constructor(
                 return true
             }
 
-            return other is DeclineReason && this.value == other.value
+            return /* spotless:off */ other is DeclineReason && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -756,7 +697,7 @@ constructor(
                 return true
             }
 
-            return other is Direction && this.value == other.value
+            return /* spotless:off */ other is Direction && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

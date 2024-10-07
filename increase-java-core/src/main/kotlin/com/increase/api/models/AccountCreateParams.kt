@@ -158,26 +158,14 @@ constructor(
                 return true
             }
 
-            return other is AccountCreateBody &&
-                this.name == other.name &&
-                this.entityId == other.entityId &&
-                this.informationalEntityId == other.informationalEntityId &&
-                this.programId == other.programId &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is AccountCreateBody && this.name == other.name && this.entityId == other.entityId && this.informationalEntityId == other.informationalEntityId && this.programId == other.programId && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        name,
-                        entityId,
-                        informationalEntityId,
-                        programId,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(name, entityId, informationalEntityId, programId, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -197,26 +185,11 @@ constructor(
             return true
         }
 
-        return other is AccountCreateParams &&
-            this.name == other.name &&
-            this.entityId == other.entityId &&
-            this.informationalEntityId == other.informationalEntityId &&
-            this.programId == other.programId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is AccountCreateParams && this.name == other.name && this.entityId == other.entityId && this.informationalEntityId == other.informationalEntityId && this.programId == other.programId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            name,
-            entityId,
-            informationalEntityId,
-            programId,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(name, entityId, informationalEntityId, programId, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
